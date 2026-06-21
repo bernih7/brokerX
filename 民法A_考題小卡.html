@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜歷屆考題小卡（A・總則基礎）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:560px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:21px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.06em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+/* filter chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0 6px;}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+.filter-row{display:flex;justify-content:center;margin-bottom:14px;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+/* progress */
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{height:3px;background:var(--rule);border-radius:2px;overflow:hidden;margin:0 auto 18px;max-width:200px;}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+/* card */
+.scene{perspective:1800px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:540px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;display:flex;flex-direction:column;
+  padding:20px;box-shadow:0 4px 18px rgba(42,39,34,0.07);
+  overflow-y:auto;
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.cat-badge{
+  font-size:11px;font-weight:700;color:#fff;padding:4px 12px;border-radius:999px;
+  letter-spacing:.06em;font-family:'Noto Serif TC',serif;
+}
+.year-badge{
+  font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 10px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{font-size:18px;line-height:1;}
+.q-text{font-size:14px;line-height:1.8;margin-bottom:14px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:8px;}
+.opt{
+  display:flex;gap:8px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.hint{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:10px;letter-spacing:.1em;font-family:'Noto Serif TC',serif;}
+
+/* back face */
+.answer-banner{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;
+  padding:10px;border-radius:8px;margin-bottom:12px;
+}
+.answer-banner.correct{background:#EFF4EC;color:var(--green);border:1.5px solid var(--green);}
+.answer-banner.wrong{background:#FBEAE6;color:var(--stamp);border:1.5px solid var(--stamp);}
+.exp-list{display:flex;flex-direction:column;gap:8px;}
+.exp-item{padding:9px 10px;border-radius:8px;font-size:12.5px;line-height:1.75;border:1.5px solid var(--rule);background:#fff;}
+.exp-item.right{border-color:var(--green);background:#EFF4EC;}
+.exp-item .exp-head{font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:3px;}
+.exp-item.right .exp-head{color:var(--green);}
+.exp-item:not(.right) .exp-head{color:var(--stamp);}
+
+/* controls */
+.controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.icon{padding:10px 14px;}
+
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px;
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+footer{margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.12em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 A・歷屆試題精選</div>
+    <h1>民法概要 考題小卡
+      <span class="sub">99-114年不動產經紀人考題・共 18 題</span>
+    </h1>
+  </header>
+
+  <div class="filter-row" id="resetRow"><div class="chip active" id="resetBtn">全部分類</div></div>
+  <div class="chips" id="chips"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">18</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="top-row">
+          <span class="cat-badge" id="badgeFront"></span>
+          <span class="year-badge" id="yearFront"></span>
+          <span class="mastery-badge" id="badgeMasteryFront"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="opt-list" id="optList"></div>
+        <div class="hint">點選一個選項　看詳解 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="top-row">
+          <span class="cat-badge" id="badgeBack"></span>
+          <span class="year-badge" id="yearBack"></span>
+          <span class="mastery-badge" id="badgeMasteryBack"></span>
+        </div>
+        <div class="answer-banner" id="answerBanner"></div>
+        <div class="exp-list" id="expList"></div>
+        <div class="hint">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一題</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一題 ▸</button>
+  </div>
+
+  <div class="quiz-stats" id="quizStatsBar">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="quiz-stats" id="overallStatsBar">
+    <span>累積：已作答 <b id="totalAttempts">0</b> 題次・正確率 <b id="overallAcc">—</b>・已掌握 <b id="masteredCount">0</b>/<b id="totalCards">0</b></span>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要｜每題附A-D逐選項詳解，點選答案後自動判對錯並標記掌握度<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"EA01", cat:"自然人", year:"105年第5題", q:"30歲的甲患有精神疾病，並受監護宣告。某日，甲於精神狀況良好時，單獨到乙電信公司購買手機一支。試問甲乙間之買賣契約，其效力為何？",
+ opts:["有效","無效","得撤銷","效力未定"], correct:1,
+ exps:[
+ "受監護宣告之人，依民法15條為「無行為能力人」；無行為能力人之意思表示，依75條一律「無效」，並不會因為「行為時精神狀況良好」而例外有效。",
+ "民法15條：受監護宣告之人，無行為能力。民法75條：無行為能力人之意思表示，無效。受監護宣告是一種「身分上的法律狀態」，一旦受宣告，其所為之意思表示即一律無效，不論行為當時的實際精神狀態如何——這是為了交易安全與避免事後爭執「行為時是否清醒」的舉證困難。",
+ "得撤銷適用於意思表示有瑕疵但本人仍有行為能力的情形（如錯誤、詐欺），與無行為能力人「意思表示無效」的法律效果不同。",
+ "效力未定是限制行為能力人訂立契約時的效果（民法79條），無行為能力人的意思表示直接「無效」，沒有效力未定的空間。"
+ ]},
+{id:"EA02", cat:"自然人", year:"105年第8題", q:"甲為限制行為能力人，當其為法律行為時，下列何種行為無效？",
+ opts:["甲未得母之允許，於父死後3個月內，具狀向法院為拋棄其繼承權之意思表示","甲以詐術佯稱自己已成年，向乙購買機車一輛","甲未得父母之同意，擅自接收同學拋棄的筆電一台","甲未得父母之同意，擅自至福利社購買鉛筆"], correct:0,
+ exps:[
+ "民法78條：限制行為能力人未得法定代理人之允許，所為之「單獨行為」，無效。拋棄繼承權是單方意思表示（單獨行為），未得允許即為無效——這與「契約」未得允許僅「效力未定」（79條）不同。",
+ "民法83條：限制行為能力人用詐術使人信其已有行為能力，或已得法定代理人之允許者，其法律行為「有效」——法律不讓未成年人靠欺騙來脫免契約效力。",
+ "接收他人拋棄之物（純獲法律上利益的行為），依民法77條但書，不需得法定代理人允許即可為之，為有效行為。",
+ "依民法77條但書，限制行為能力人之意思表示，「依其年齡及身分，日常生活所必需者」，不適用須得允許之規定——買鉛筆屬日常生活所需，有效。"
+ ]},
+{id:"EA03", cat:"自然人", year:"108年第2題", q:"依我國民法之規定，以下關於行為能力之敘述，何者錯誤？",
+ opts:["無行為能力人之意思表示，無效","限制行為能力人未得法定代理人之允許，所為之單獨行為，效力未定","限制行為能力人所訂立之契約，未經承認前，相對人得撤回之","限制行為能力人用詐術使人信其為有行為能力人或已得法定代理人之允許者，其法律行為為有效"], correct:1,
+ exps:[
+ "民法75條：無行為能力人之意思表示，無效，敘述正確。",
+ "（本題答案，敘述錯誤）民法78條：限制行為能力人未得法定代理人之允許，所為之「單獨行為」，「無效」——並非「效力未定」。效力未定是「契約」（雙方行為）未得允許時的效果（79條），單獨行為未得允許則直接無效，兩者效果不同，本選項混淆了。",
+ "民法82條：限制行為能力人所訂立之契約，未經法定代理人承認前，相對人得「撤回」其意思表示，敘述正確。",
+ "民法83條：限制行為能力人用詐術使人信其為有行為能力人或已得法定代理人之允許者，其法律行為為「有效」，敘述正確。"
+ ]},
+{id:"EA04", cat:"自然人", year:"110年第2題", q:"關於胎兒的敘述，下列何者正確？",
+ opts:["人之權利能力，始於出生，終於死亡。胎兒無權利能力","胎兒以將來非死產者為限，關於其個人利益之保護，視為既已出生","胎兒為繼承人時，於胎兒出生前，他繼承人不得分割遺產","胎兒為繼承人時，以其母為繼承人"], correct:1,
+ exps:[
+ "民法6條雖規定「人」之權利能力始於出生終於死亡，但民法7條對「胎兒」設有特別保護規定（如選項B），並非完全「無權利能力」。",
+ "民法7條：胎兒以將來非死產者為限，關於其個人利益之保護，視為既已出生。這是為了讓胎兒在出生前即可享有如繼承等與其利益相關之權利（出生後溯及生效）。",
+ "民法1166條第1項：胎兒為繼承人時，「非保留其應繼分，他繼承人不得分割遺產」——重點是「須保留應繼分」，並非完全「不得分割」，其他繼承人仍可進行分割，只是要先保留胎兒的份額。",
+ "胎兒本身（將來非死產者）即依7條視為既已出生而具有繼承人地位，並非由其「母」代位成為繼承人。"
+ ]},
+{id:"EA05", cat:"法人", year:"99年第1題", q:"法人社員總會決議之內容違反法令或章程者，其決議之效力：",
+ opts:["有效","得撤銷","無效","效力未定"], correct:2,
+ exps:[
+ "違反法令或章程的決議內容，法律明文規定為無效，並非有效。",
+ "「得撤銷」是另一種瑕疵類型的效果：民法56條第1項規定，總會「召集程序」或「決議方法」違反法令或章程時，社員得於決議後三個月內請求法院撤銷其決議——這是「程序瑕疵」的效果，與本題「決議內容」違法的情形不同。",
+ "民法56條第2項：總會決議之「內容」違反法令或章程者，無效。內容違法屬於實質瑕疵，效果直接是無效，不待撤銷。",
+ "效力未定通常用於行為能力欠缺或無權代理等情形，與法人決議內容違法的效果不同。"
+ ]},
+{id:"EA06", cat:"法人", year:"100年第16題", q:"關於財團法人之敘述，下列何者正確？",
+ opts:["其權利能力始於訂立捐助章程，終於清算解散","財團為公益法人，其設立須經地方法院許可","董事有數人者，除章程另有規定外，各董事均得代表法人","財團法人並非自然人，無侵權行為能力"], correct:2,
+ exps:[
+ "法人之權利能力始於「登記完成」（設立登記），終於「清算終結」，並非始於訂立捐助章程、終於清算解散「開始」時——清算解散開始後，法人在清算必要範圍內仍存續，直到清算終結才喪失權利能力。",
+ "財團法人之設立應得「主管機關」之許可（依其設立目的事業由相應的目的事業主管機關許可），法院的角色是辦理法人登記，並非由「地方法院」許可設立。",
+ "民法27條第2項：董事就法人一切事務，對外代表法人；董事有數人者，除章程另有規定外，各董事均得單獨代表法人。",
+ "民法28條：法人對於其董事或其他有代表權之人因執行職務所加於他人之損害，與該行為人連帶負賠償責任——這正是法人具有「侵權行為能力」的明文依據，並非「無」侵權行為能力。"
+ ]},
+{id:"EA07", cat:"法人", year:"107年第15題", q:"民法關於法人之規定，下列敘述，何者錯誤？",
+ opts:["法人可分為財團法人與社團法人","法人於法令限制內，有享受權利負擔義務之能力。但專屬於自然人之權利義務，不在此限","法人應設董事與監察人","法人對於其董事或其他有代表權之人因執行職務所加於他人之損害，與該行為人連帶負賠償責任"], correct:2,
+ exps:[
+ "民法依組織基礎將法人分為「社團法人」（以社員為基礎）與「財團法人」（以捐助財產為基礎），敘述正確。",
+ "民法26條：法人於法令限制內，有享受權利、負擔義務之能力。但專屬於自然人之權利義務，不在此限（如生命權、身體權等），敘述正確。",
+ "（本題答案，敘述錯誤）民法27條：法人「應設」董事；監察人則是「得設」（27條第4項：法人得設監察人，監察法人事務之執行），並非所有法人皆「應設」監察人。本選項把「得設」說成「應設」。",
+ "民法28條：法人對於其董事或其他有代表權之人因執行職務所加於他人之損害，與該行為人連帶負賠償責任，敘述正確。"
+ ]},
+{id:"EA08", cat:"物", year:"106年第2題", q:"下列有關從物之敘述，何者錯誤？",
+ opts:["所有權狀為房地不動產之從物","屋頂平台為主物大樓建築之從物","土地共有人出賣房地全棟時，買賣契約效力及於另一共有人原所同意之同宗建築基地依法留設法定保留空地及退縮地之使用權等從權利在內","主物之處分及於從物，於主物與從權利之關係，亦可適用"], correct:1,
+ exps:[
+ "民法68條第1項：從物須非主物之成分、常助主物之效用、且與主物同屬一人。所有權狀作為證明所有權的文件，常助於不動產（主物）之效用，實務上認為是從物，敘述正確。",
+ "（本題答案，敘述錯誤）區分所有建築物的「屋頂平台」通常屬於「全體區分所有權人共有的共有部分」，性質上不是某一專有部分（主物）的「從物」，而是整棟建築物的公共設施，不符合「常助主物之效用」且「同屬一人」的從物要件。",
+ "民法68條第2項：主物之處分，及於從物。從物概念可延伸適用於「從權利」（如建築基地的保留空地使用權等附隨權利），這類從權利隨主物（房地）一併移轉，敘述正確。",
+ "承上，主物與從權利的關係，可類推適用「主物處分及於從物」的規定（68條第2項類推適用），敘述正確。"
+ ]},
+{id:"EA09", cat:"物", year:"109年第1題", q:"下列關於法律上之物的敘述，何者正確？",
+ opts:["從物在客觀上需常助主物之效用，且與主物為各自獨立之兩個物，動產或不動產均可為從物","物之成分或其天然孳息，分離後原則上屬於該成分或天然孳息之占有人","無權占有他人土地建築房屋，建築完成時，該房屋原則上屬於土地所有人所有","已足避風雨，可達經濟上使用目的，但屋頂尚未完全完工之房屋，屬土地之成分"], correct:0,
+ exps:[
+ "民法68條第1項：從物須非主物之成分、常助主物之效用、與主物同屬一人，且為與主物各自獨立之物——動產、不動產均得作為從物，法條並未限制從物之種類。",
+ "民法70條第1項：物之成分及其天然孳息，於分離後，除法律另有規定外，仍屬於「該物之所有人」——並非歸屬「占有人」，所有人與占有人未必為同一人。",
+ "房屋是獨立的不動產，建築人（出資建造者）因「原始建築」而原始取得房屋所有權，不因「無權占有」他人土地而使房屋所有權歸屬於土地所有人；土地所有人僅得依無權占有之法律關係（如所有物返還請求權）對建築人主張權利。",
+ "建築物只要已達到「足以避風雨、可達經濟上使用目的」之程度，即已成為獨立之不動產，不再是土地的「成分」，即使外觀上尚未完全完工裝修。"
+ ]},
+{id:"EA10", cat:"法律行為效力", year:"111年第11題", q:"關於民法第74條暴利行為之規定，下列敘述何者正確？",
+ opts:["當事人無論於財產給付前或給付後，均得聲請撤銷該暴利行為","撤銷權自該法律行為成立時起一年內不行使，罹於消滅時效而消滅","行使暴利行為之撤銷權時，應以意思表示向相對人為之","暴利行為自始當然無效"], correct:0,
+ exps:[
+ "民法74條並未限制必須在「給付前」或「給付後」才能聲請撤銷，只要在法律行為後一年內向法院提起聲請即可，不論財產給付是否已完成。",
+ "74條第2項所定「法律行為後一年內」提起之期間，學說及實務上認為屬於「除斥期間」之性質，並非消滅時效——兩者在中斷、不完成等規定上有所不同，本選項把它當成消滅時效是錯誤的混淆。",
+ "民法74條規定暴利行為須由「法院」因利害關係人之聲請撤銷其法律行為或減輕其給付——這是「訴請法院裁判」的形成訴權，與民法92條詐欺脅迫僅須「以意思表示」向相對人為之即可撤銷的方式不同。",
+ "暴利行為的效果是「得撤銷」（經法院裁判撤銷後才溯及失效），並非自始「當然無效」——在被撤銷之前，該法律行為仍然有效。"
+ ]},
+{id:"EA11", cat:"法律行為效力", year:"112年第4題", q:"下列情形，那一行為需向法院聲請撤銷，才會發生撤銷之效力？",
+ opts:["通謀虛偽意思表示所為之法律行為","因錯誤或誤傳之意思表示而為法律行為","被詐欺而為意思表示之法律行為","因暴利行為所為之法律行為"], correct:3,
+ exps:[
+ "通謀虛偽意思表示（民法87條）的效果是「當然無效」，不需要、也無從「撤銷」——無效的法律行為自始、當然、確定不生效力。",
+ "因錯誤或誤傳而為意思表示（民法88、89條），表意人得「撤銷」其意思表示，但撤銷方式僅須「以意思表示」向相對人為之（向相對人表示即可），不須聲請法院。",
+ "被詐欺而為意思表示（民法92條），表意人得撤銷其意思表示，同樣僅須以意思表示向相對人為之，不須透過法院。",
+ "民法74條暴利行為：法院得因利害關係人之「聲請」，撤銷其法律行為或減輕其給付——這是少數明文規定須經「法院裁判」才能發生撤銷效力的類型，與88/89/92條僅須當事人意思表示即可撤銷的方式不同。"
+ ]},
+{id:"EA12", cat:"意思表示瑕疵", year:"108年第3題", q:"甲受丙之詐欺，而授權乙向不知情的丁購買A屋，請問依我國民法的規定，下列敘述何者正確？",
+ opts:["甲因受丙之詐欺而為意思表示，故可撤銷其授權乙之行為","甲因受丙之詐欺而為意思表示，故可撤銷A屋之買賣契約","甲若欲行使民法第92條之撤銷權，應於發現詐欺後，一年內為之。但自意思表示後，經過十年，不得撤銷","甲因受丙之詐欺而為授權行為，其撤銷意思表示時，可以對抗善意第三人"], correct:2,
+ exps:[
+ "甲受詐欺而做出意思表示的，是「授予乙代理權」這個行為本身；A屋買賣契約則是乙、丁之間的另一個法律行為，甲並非該買賣契約的當事人。本選項雖然方向正確（甲確實可撤銷授權行為），但漏未說明完整的限制條件（即C選項所述之期間限制），且本題更精確對應的法條重點在於撤銷期間。",
+ "A屋買賣契約是乙以甲之代理人名義與丁訂立的，契約當事人是甲（被代理人）與丁，但「受詐欺而為意思表示」的人是甲，其受詐欺的意思表示是「授權」行為，並非買賣契約本身——甲不能直接以自己受詐欺為理由撤銷乙丁間的買賣契約。",
+ "民法93條：民法92條規定之撤銷，應於發現詐欺或脅迫後，一年內為之。但自意思表示後，經過十年，不得撤銷——這是詐欺、脅迫撤銷權的雙重期間限制（1年＋10年）。",
+ "民法92條第2項：被詐欺而為之意思表示，其撤銷不得對抗善意第三人。本題丁是「不知情」的善意第三人，甲撤銷其授權行為的效果，不得對抗丁——本選項說「可以對抗」恰好與法條相反。"
+ ]},
+{id:"EA13", cat:"意思表示瑕疵", year:"108年第13題", q:"甲並無將其所有價值十萬元之A手錶出售的意思，卻向乙表示欲以五千元出售之，乙明知甲無出售A手錶之意思，仍當場表示願意以五千元購買時，甲出售A手錶之意思表示的效力如何？",
+ opts:["有效","無效","甲得撤銷","效力未定"], correct:1,
+ exps:[
+ "民法86條本文：表意人雖無欲為其意思表示所拘束之意，但「其情形非為相對人所明知者」，意思表示仍「有效」（即心中保留原則上不影響表示效力，以保護交易安全）——但本題乙「明知」甲無此意，落入86條但書，所以不是有效。",
+ "民法86條但書：表意人無欲為其意思表示所拘束之意（心中保留），而為意思表示，「其情形為相對人所明知者」，意思表示「無效」。本題乙明知甲無出售之意，仍故意配合表示購買，符合但書情形，甲的意思表示無效。",
+ "心中保留制度本身規定的效果是「有效」或「無效」（取決於相對人是否明知），並非「得撤銷」——本題不涉及撤銷權的行使。",
+ "效力未定通常用於限制行為能力人訂約或無權代理等情形，與心中保留（86條）的效力判斷無關。"
+ ]},
+{id:"EA14", cat:"意思表示瑕疵", year:"101年第34題", q:"甲與乙通謀虛偽買賣甲所有之A土地一筆，並將A地所有權移轉給乙，下列敘述何者最正確？",
+ opts:["甲與乙所為之通謀虛偽意思表示效力未定","甲與乙所為之通謀虛偽買賣有效，但所有權之移轉無效","乙將A地出賣給丙，締結買賣契約，乙與丙之買賣構成無權處分","乙將A地出賣給丙，締結買賣契約，乙與丙之買賣契約有效"], correct:3,
+ exps:[
+ "民法87條第1項：表意人與相對人通謀而為虛偽意思表示者，其意思表示「無效」——是當然無效，不是「效力未定」。",
+ "甲乙間通謀虛偽意思表示的無效效果，及於「債權行為（買賣契約）」與「物權行為（所有權移轉）」兩者，並非「買賣有效但移轉無效」這種拆分效果。",
+ "「無權處分」是指就「物權行為」而言，乙並非真正所有人卻為所有權移轉之物權處分；本選項問的是乙與丙之間的「買賣契約」（債權契約）的效力，債權契約本身並不因標的物所有權歸屬問題而構成無權處分——無權處分指涉的是物權行為層次，與債權契約（買賣契約）是否有效，是兩個不同層次的問題。",
+ "民法87條第1項但書：通謀虛偽意思表示之無效，不得以其無效對抗善意第三人。丙若不知甲乙間通謀虛偽之情事（善意第三人），則乙與丙之間的買賣契約（債權契約）仍為有效，甲不得以其與乙之間的通謀虛偽無效，對抗善意之丙。"
+ ]},
+{id:"EA15", cat:"代理", year:"108年第14題", q:"甲授與甫滿十八歲之乙代理權，由乙處理出售甲所有之A機車的事宜。乙乃以甲之代理人的名義，以一萬元價金與丙訂立買賣A機車的契約。乙與丙所締結之買賣契約的效力如何？",
+ opts:["對甲發生效力","甲未承認前，效力未定","乙之法定代理人未承認前，效力未定","乙之法定代理人得撤銷之"], correct:0,
+ exps:[
+ "民法103條：代理人於代理權限內，以本人名義所為之意思表示，直接對本人發生效力。民法104條：代理人所為或所受意思表示之效力，不因其為限制行為能力人而受影響——乙雖僅18歲（在本題情境下為限制行為能力人），但其代理行為的效力不受影響，乙在代理權限內所為之買賣契約，直接對本人甲發生效力。",
+ "代理行為的效力是「直接對本人發生效力」（103條），不需要甲事後再為承認的動作——這與「無權代理」（須本人承認才生效，民法170條）不同，本題乙是「有權代理」（甲已授權），不適用效力未定的規範。",
+ "依104條，代理行為效力不因代理人為限制行為能力人而受影響，所以不需要、也不會發生「乙之法定代理人是否承認」的問題——乙的法定代理人與這個代理行為的效力無關。",
+ "同上，乙之法定代理人對乙在代理權限內所為的代理行為，並無撤銷的權利或必要——這個法律行為的效力直接歸屬於本人甲，與乙自己的行為能力欠缺與否無涉。"
+ ]},
+{id:"EA16", cat:"代理", year:"110年第10題", q:"下列何者屬於授與代理權？",
+ opts:["甲創作民法總則一書，授權乙出版社於五年間印製出版該書","甲有一A車，授權乙以甲本人名義買賣A車","甲為知名影星，授權乙週刊使用甲肖像照片","甲有一昆蟲標本，授權乙予以拍攝"], correct:1,
+ exps:[
+ "甲授權出版社印製出版其著作，性質上是「著作財產權的授權使用」（類似授權契約）；出版社是以「自己的名義」對外進行出版銷售等行為，並非「以甲的名義」對外為法律行為，所以不是代理權的授與。",
+ "民法103條：代理人於代理權限內，以「本人名義」所為之意思表示，直接對本人發生效力——代理的核心特徵是「以本人名義」對外為法律行為，並由該法律行為的效果直接歸於本人。乙被授權「以甲本人名義」買賣A車，正是典型的代理權授與。",
+ "授權他人使用自己的肖像照片，是「人格權（肖像權）的授權使用」，週刊是以自己的名義刊登使用，並非以甲的名義對外為法律行為，不屬代理權授與。",
+ "授權拍攝標本同樣是對標本「使用／利用方式」的授權，乙是以自己的名義進行拍攝行為，不涉及「以甲名義對外為法律行為」，不屬代理權授與。"
+ ]},
+{id:"EA17", cat:"消滅時效", year:"106年第7題", q:"關於消滅時效，下列敘述何者正確？",
+ opts:["消滅時效之規定，已登記不動產之回復請求權，亦有適用","一般消滅時效期間，乃20年","請求權因其消滅時效完成而消滅","以租賃動產為營業者之租價請求權，其消滅時效期間為2年"], correct:3,
+ exps:[
+ "依司法院釋字第107號解釋，已登記不動產所有人之回復請求權及除去妨害請求權，並無民法消滅時效規定之適用——這是考試常見的易混淆點，「已登記」不動產的物上請求權不罹於時效。",
+ "民法125條：請求權，因15年間不行使而消滅，但法律所定期間較短者，依其規定——一般消滅時效期間是「15年」，不是20年（20年是地上權等存續期間相關的不同數字，容易與時效混淆）。",
+ "民法144條：時效完成後，債務人得拒絕給付——時效完成的效果是債務人「取得拒絕給付的抗辯權」，原本的請求權（自然債務）本身並不當然「消滅」，債務人若仍自願履行，該履行仍屬有效給付，不能再請求返還。",
+ "民法127條第8款：以租賃動產為營業者之租價，因2年間不行使而消滅——這是「短期消滅時效」的列舉項目之一（127條各款多為2年）。"
+ ]},
+{id:"EA18", cat:"消滅時效", year:"109年第2題", q:"下列何者非消滅時效適用之客體？",
+ opts:["人格權受侵害時之除去妨害請求權","夫妻因離婚所約定之贍養費請求權","繼承權受侵害時之回復請求權","未登記不動產所有權人之返還請求權"], correct:0,
+ exps:[
+ "人格權受侵害時之「除去妨害請求權」，性質上類似物上請求權，具有防禦、排除侵害的功能——只要侵害狀態持續存在，被害人應隨時得請求除去，學說及實務上認為不適用消滅時效規定。",
+ "夫妻因離婚約定之贍養費請求權，性質上為財產上之請求權，適用一般消滅時效規定（民法125條15年），是消滅時效的適用客體。",
+ "繼承權受侵害時之回復請求權（民法1146條），民法1146條第2項另設有特別時效期間（自知悉時起2年、自繼承開始時起10年），仍是消滅時效（特別時效）適用之客體。",
+ "「未登記」不動產的所有權人之返還請求權，因不動產未經登記，沒有司法院釋字107號解釋所保護的「已登記」要件，仍適用一般消滅時效規定（與EA17中「已登記」不動產的情形相對照）。"
+ ]}
+];
+
+const CAT_COLORS = {
+  "自然人":"#5C7A4A",
+  "法人":"#4F7CAC",
+  "物":"#B08D57",
+  "法律行為效力":"#A8402B",
+  "意思表示瑕疵":"#C17A2E",
+  "代理":"#7C6A8E",
+  "消滅時效":"#5B7A99"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let mastery = {};
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let selectedOpt = null;
+let quizStats = {ok:0, ng:0};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const cardEl = document.getElementById('card');
+const qText = document.getElementById('qText');
+const optList = document.getElementById('optList');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const yearFront = document.getElementById('yearFront');
+const yearBack = document.getElementById('yearBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const answerBanner = document.getElementById('answerBanner');
+const expList = document.getElementById('expList');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('exam_mastery_data_a');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{ await window.storage.set('exam_mastery_data_a', JSON.stringify(mastery)); }
+  catch(e){ console.error('storage save failed', e); }
+}
+
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+function getStat(id){
+  const m = mastery[id];
+  if(!m) return {status:null, attempts:0, correct:0};
+  if(typeof m === 'string') return {status:m, attempts:1, correct:(m==='mastered'?1:0)};
+  return m;
+}
+function masteryIcon(stat){
+  if(!stat.status) return '';
+  const icon = stat.status==='mastered' ? '✅' : '🔄';
+  return stat.attempts>0 ? `${icon}×${stat.attempts}` : icon;
+}
+function updateOverallStats(){
+  let attempts=0, correct=0, mastered=0;
+  CARDS.forEach(c=>{
+    const s = getStat(c.id);
+    attempts += s.attempts;
+    correct += s.correct;
+    if(s.status==='mastered') mastered++;
+  });
+  document.getElementById('totalAttempts').textContent = attempts;
+  document.getElementById('overallAcc').textContent = attempts ? Math.round(correct/attempts*100)+'%' : '—';
+  document.getElementById('masteredCount').textContent = mastered;
+  document.getElementById('totalCards').textContent = CARDS.length;
+}
+
+function rebuildDeck(){
+  deck = CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = false;
+  selectedOpt = null;
+  cardEl.classList.remove('flipped');
+  qText.textContent = c.q;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  yearFront.textContent = c.year;
+  yearBack.textContent = c.year;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const stat = getStat(c.id);
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  optList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  c.opts.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerHTML = `<span class="letter">${letters[i]}</span><span>${opt}</span>`;
+    div.addEventListener('click', ()=> selectOption(i));
+    optList.appendChild(div);
+  });
+}
+
+function selectOption(i){
+  if(flipped) return;
+  const c = deck[idx];
+  selectedOpt = i;
+  const correct = (i === c.correct);
+  document.querySelectorAll('.opt')[i].classList.add('selected');
+
+  // build back face
+  answerBanner.className = 'answer-banner ' + (correct ? 'correct' : 'wrong');
+  const letters = ['A','B','C','D'];
+  answerBanner.textContent = correct
+    ? `✅ 答對！正解是 ${letters[c.correct]}`
+    : `❌ 答錯了，你選 ${letters[i]}，正解是 ${letters[c.correct]}`;
+
+  expList.innerHTML = '';
+  c.exps.forEach((exp,j)=>{
+    const div = document.createElement('div');
+    div.className = 'exp-item' + (j===c.correct ? ' right' : '');
+    const mark = j===c.correct ? '✓ 正解' : '✗';
+    div.innerHTML = `<div class="exp-head">${letters[j]}. ${mark}</div><div>${exp}</div>`;
+    expList.appendChild(div);
+  });
+
+  // stats + mastery
+  if(correct) quizStats.ok++; else quizStats.ng++;
+  const stat = getStat(c.id);
+  stat.attempts += 1;
+  if(correct) stat.correct += 1;
+  stat.status = correct ? 'mastered' : 'review';
+  mastery[c.id] = stat;
+  saveMastery();
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+  updateOverallStats();
+
+  setTimeout(()=>{ flipped=true; cardEl.classList.add('flipped'); }, 150);
+
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+}
+
+cardEl.addEventListener('click',()=>{
+  if(flipped){ flipped=false; cardEl.classList.remove('flipped'); }
+});
+
+function goNext(){ idx=(idx+1)%deck.length; render(); }
+function goPrev(){ idx=(idx-1+deck.length)%deck.length; render(); }
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; render();
+});
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+});
+
+document.getElementById('markMastered').addEventListener('click',()=>{
+  const c = deck[idx];
+  const stat = getStat(c.id);
+  stat.status='mastered';
+  mastery[c.id]=stat; saveMastery();
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent=icon; badgeMasteryBack.textContent=icon;
+  updateOverallStats();
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  const c = deck[idx];
+  const stat = getStat(c.id);
+  stat.status='review';
+  mastery[c.id]=stat; saveMastery();
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent=icon; badgeMasteryBack.textContent=icon;
+  updateOverallStats();
+});
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0};
+  quizOk.textContent=0; quizNg.textContent=0;
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有學習記錄（已掌握/待複習/作答次數）嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  render();
+  updateOverallStats();
+});
+
+(async function init(){
+  await loadMastery();
+  rebuildDeck();
+  updateOverallStats();
+})();
+</script>
+</body>
+</html>

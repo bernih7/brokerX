@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜彩色重點速記・總則編基礎</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#F1E8D8;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+  --blue:#3E6B8C;
+  --orange:#C17A2E;
+  --purple:#7B5C8C;
+  --red:#A8402B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 8% 6%, rgba(188,138,46,0.06), transparent 38%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 42%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:60px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px;}
+
+header{padding:32px 0 18px;text-align:center;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.14em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 14px;margin-bottom:12px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:26px;
+  letter-spacing:.05em;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;font-family:'Noto Sans TC',sans-serif;}
+
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:18px 0 8px;
+}
+.legend-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;background:#fff;
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px;
+}
+.legend-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+.nav{
+  position:sticky;top:0;z-index:10;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  padding:10px 0;margin-top:20px;font-family:'Noto Serif TC',serif;
+  font-weight:700;font-size:12.5px;backdrop-filter:blur(4px);
+}
+.nav a{color:var(--ink-soft);text-decoration:none;letter-spacing:.06em;padding:4px 8px;border-radius:6px;}
+.nav a:hover{color:var(--ink);background:var(--paper-deep);}
+
+.section-div{
+  margin:46px 0 18px;display:flex;align-items:baseline;gap:14px;
+}
+.section-div .num{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:38px;
+  color:var(--gold);line-height:1;
+}
+.section-div .titles{flex:1;}
+.section-div h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:20px;letter-spacing:.06em;}
+.section-div .en{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;text-transform:uppercase;}
+.section-div::after{content:"";flex:1;height:1px;background:var(--rule);align-self:center;}
+
+h3{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;
+  margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--ink);
+  display:inline-block;
+}
+
+.note{
+  border-radius:0 8px 8px 8px;border-left:5px solid var(--ink);
+  background:#fff;padding:12px 16px;margin:10px 0;
+  box-shadow:0 1px 6px rgba(42,39,34,0.05);
+  position:relative;
+}
+.note .tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:11px;
+  letter-spacing:.1em;color:#fff;border-radius:0 0 8px 0;
+  padding:2px 10px;margin:-12px 0 8px -16px;
+}
+.note p{font-size:14px;}
+.note p+p{margin-top:6px;}
+.note b{color:var(--ink);border-bottom:2px solid currentColor;}
+.note small{color:var(--ink-soft);}
+
+.note-green{border-color:var(--green);}
+.note-green .tag{background:var(--green);}
+.note-green b{border-color:var(--green);}
+
+.note-blue{border-color:var(--blue);}
+.note-blue .tag{background:var(--blue);}
+.note-blue b{border-color:var(--blue);}
+
+.note-orange{border-color:var(--orange);}
+.note-orange .tag{background:var(--orange);}
+.note-orange b{border-color:var(--orange);}
+
+.note-purple{border-color:var(--purple);}
+.note-purple .tag{background:var(--purple);}
+.note-purple b{border-color:var(--purple);}
+
+.note-red{border-color:var(--red);}
+.note-red .tag{background:var(--red);}
+.note-red b{border-color:var(--red);}
+
+.stamp{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid var(--stamp);border-radius:50%;color:var(--stamp);
+  font-weight:900;font-family:'Noto Serif TC',serif;font-size:11px;
+  width:46px;height:46px;transform:rotate(-9deg);flex-shrink:0;
+  text-align:center;line-height:1.1;letter-spacing:.05em;
+}
+
+.flow{
+  background:var(--paper-deep);border:1px dashed var(--rule);
+  border-radius:10px;padding:18px;margin:14px 0;
+}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.flow.vertical{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.flow-box{
+  background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
+  font-family:'Noto Serif TC',serif;min-width:100px;
+}
+.flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
+  font-family:'Noto Sans TC',sans-serif;margin-top:3px;}
+.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
+.flow-box.result{border-color:var(--green);background:#EFF4EC;}
+.flow-box.danger{border-color:var(--stamp);background:#FBEAE6;color:var(--stamp);}
+.flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;text-align:center;white-space:nowrap;}
+.flow-arrow small{display:block;font-size:10px;font-weight:400;}
+.flow-arrow.down{display:flex;flex-direction:column;align-items:center;}
+
+.grid5{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0;
+}
+@media(min-width:520px){.grid5{grid-template-columns:repeat(3,1fr);}}
+.grid5 .item{
+  background:#fff;border:1.5px solid var(--green);border-radius:8px;
+  padding:12px;text-align:center;
+}
+.grid5 .item .name{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;color:var(--green);}
+.grid5 .item .desc{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+
+.tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:560px;}
+th{
+  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
+  white-space:nowrap;
+}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#FBF8F1;}
+td b{color:var(--orange);}
+
+.mine-wrap{
+  background:#fff;border:2px solid var(--stamp);border-radius:12px;
+  padding:22px;margin:18px 0;
+}
+.mine-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.mine-list li{display:flex;gap:14px;align-items:flex-start;font-size:14px;}
+.mine-list .stamp{margin-top:2px;}
+.mine-list .txt b{color:var(--stamp);}
+
+footer{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.14em;margin-top:50px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 A・權利主體與法律行為基礎</div>
+    <h1>民法概要 彩色重點速記
+      <span class="sub">總則編基礎（不動產經紀人考試對應章節）</span>
+    </h1>
+    <div class="legend">
+      <div class="legend-chip"><span class="dot" style="background:var(--green)"></span>🟢 定義／原則</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--blue)"></span>🔵 法條／構成要件</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--orange)"></span>🟠 易混淆比較</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--purple)"></span>🟣 記憶口訣</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--red)"></span>🔴 高頻易錯點</div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#sec-a1">A1・自然人</a>
+    <a href="#sec-a2">A2・法人</a>
+    <a href="#sec-a3">A3・物</a>
+    <a href="#sec-a4">A4・法律行為效力</a>
+    <a href="#sec-a5">A5・意思表示瑕疵</a>
+    <a href="#sec-a6">A6・代理</a>
+    <a href="#sec-a7">A7・消滅時效</a>
+    <a href="#sec-mine">考前60秒地雷</a>
+  </nav>
+
+  <!-- ================= A1 自然人 ================= -->
+  <div class="section-div" id="sec-a1">
+    <div class="num">A1</div>
+    <div class="titles"><h2>自然人</h2><div class="en">Natural Persons</div></div>
+  </div>
+
+  <h3>權利能力與胎兒</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法6條</b>：人之權利能力，<b>始於出生，終於死亡</b>。</p>
+    <p><b>民法7條</b>：胎兒<b>以將來非死產者為限</b>，關於其<b>個人利益之保護</b>，<b>視為既已出生</b>（例如：可以繼承遺產）。</p>
+  </div>
+
+  <h3>行為能力三分類</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>類型</th><th>對象</th><th>意思表示效力</th></tr>
+      <tr><td><b>無行為能力人</b></td><td>未滿7歲之未成年人（13條Ⅰ）／受監護宣告之人（15條）</td><td>由法定代理人代為及代受意思表示（76條），本人意思表示<b>無效</b>（75條）</td></tr>
+      <tr><td><b>限制行為能力人</b></td><td>滿7歲以上之未成年人（13條Ⅱ）</td><td>原則應得法定代理人允許（77條），詳見A4</td></tr>
+      <tr><td><b>完全行為能力人</b></td><td>滿18歲為成年（12條）</td><td>意思表示原則有效</td></tr>
+    </table>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法15-1、15-2條　受輔助宣告之人</b>：原則上<b>仍有完全行為能力</b>，僅就法定<b>七類重大行為</b>（如：獨資合夥/法人負責人、消費借貸/保證/贈與/信託、訴訟行為、和解調解仲裁、不動產等重要財產處分、遺產分割拋棄繼承、法院指定其他行為）<b>應經輔助人同意</b>，但<b>純獲法律上利益或日常生活所需者不在此限</b>。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>受監護宣告</b>（15條）＝ 無行為能力人，<b>所有</b>意思表示原則無效；<b>受輔助宣告</b>（15-1條）＝ 原則上<b>有</b>行為能力，<b>僅特定七類行為</b>須輔助人同意。兩者程度不同，不可混為一談！</p>
+  </div>
+
+  <h3>死亡宣告與住所</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>失蹤人狀態</th><th>得聲請死亡宣告之時點</th></tr>
+      <tr><td>一般情形</td><td>失蹤滿<b>7年</b>後</td></tr>
+      <tr><td>年滿80歲以上</td><td>失蹤滿<b>3年</b>後</td></tr>
+      <tr><td>遭遇特別災難</td><td>災難終了滿<b>1年</b>後</td></tr>
+    </table>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法9條</b>：受死亡宣告者，以判決內<b>確定死亡之時</b>，<b>推定</b>其為死亡（可舉反證推翻）。</p>
+    <p><b>民法11條　同死推定</b>：二人以上同時遇難，不能證明死亡先後時，<b>推定為同時死亡</b>（互不繼承）。</p>
+    <p><b>民法20條</b>：依久住意思住於一定地域者，即設定住所；<b>一人不得同時有兩住所</b>。<b>民法21條</b>：無行為能力人及限制行為能力人，以<b>法定代理人之住所</b>為住所。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">死亡<br>宣告</span>
+      <span>死亡宣告是<b>私法上制度</b>，只是<b>結束失蹤人原住居所為中心之法律關係</b>（如婚姻、繼承），<b>不剝奪</b>失蹤人之權利能力；本人若生還，其法律行為仍然有效，是「推定死亡」而非「視為死亡」，<b>得提出反證撤銷死亡宣告</b>。</span>
+    </p>
+  </div>
+
+  <!-- ================= A2 法人 ================= -->
+  <div class="section-div" id="sec-a2">
+    <div class="num">A2</div>
+    <div class="titles"><h2>法人</h2><div class="en">Legal Persons</div></div>
+  </div>
+
+  <h3>法人的成立與機關</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法25條</b>：法人<b>非依本法或其他法律之規定，不得成立</b>（法人成立法定原則）。</p>
+    <p><b>民法26條</b>：法人於法令限制內，有享受權利負擔義務之能力，但<b>專屬於自然人之權利義務</b>（如生命權、親屬權）<b>不在此限</b>。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法27條</b>：法人<b>應設董事</b>（必設機關）；<b>得設監察人</b>（非必設）。董事有數人者，除章程另有規定外，<b>各董事均得代表法人</b>。對董事代表權所加之限制，<b>不得對抗善意第三人</b>。</p>
+    <p><b>民法28條　法人侵權責任</b>：法人對於其<b>董事或其他有代表權之人</b>因執行職務所加於他人之損害，<b>與該行為人連帶負賠償責任</b>。</p>
+  </div>
+
+  <h3>社團 vs 財團</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>社團法人</th><th>財團法人</th></tr>
+      <tr><td><b>設立基礎</b></td><td>訂立<b>章程</b></td><td>訂立<b>捐助章程</b>（<b>以遺囑捐助者不須訂立捐助章程</b>，60條）</td></tr>
+      <tr><td><b>性質</b></td><td>人的集合（有社員）</td><td>財產的集合（無社員）</td></tr>
+      <tr><td><b>最高意思機關</b></td><td><b>總會</b>（必設，50條）</td><td><b>無總會</b>，由捐助章程/遺囑定其組織與管理方法（62條）</td></tr>
+      <tr><td><b>變更章程／組織</b></td><td>總會決議變更章程（53條：全體社員過半數出席＋出席社員¾以上同意，或全體社員⅔以上書面同意）</td><td>由<b>法院</b>因利害關係人聲請<b>變更組織</b>（63條）／目的不達時得<b>變更目的或解散</b>（65條）</td></tr>
+      <tr><td><b>解散</b></td><td>全體社員⅔以上可決解散（57條）</td><td>無社員可決，僅得由法院依65條處理</td></tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">44條<br>賸餘財產</span>
+      <span><b>民法44條</b>：法人解散後，賸餘財產之歸屬依章程規定或總會決議；但<b>以公益為目的之法人解散時，賸餘財產不得歸屬於自然人或以營利為目的之團體</b>——若無規定或決議，歸屬於<b>法人住所所在地之地方自治團體</b>。</span>
+    </p>
+  </div>
+
+  <!-- ================= A3 物 ================= -->
+  <div class="section-div" id="sec-a3">
+    <div class="num">A3</div>
+    <div class="titles"><h2>物</h2><div class="en">Things / Property</div></div>
+  </div>
+
+  <h3>動產與不動產／主物與從物</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法66條</b>：不動產＝<b>土地及其定著物</b>；不動產之出產物，<b>尚未分離者</b>，為該不動產之部分。<b>民法67條</b>：動產＝不動產以外之物。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法68條　主物與從物</b>：<b>非主物之成分</b>，常助主物之效用，<b>而同屬於一人者</b>，為從物（交易上有特別習慣者依習慣）。<b>主物之處分，及於從物</b>。</p>
+    <p><b>民法69-70條</b>：<b>天然孳息</b>＝果實、動物之產物及其他依物之用法所收穫之出產物；<b>法定孳息</b>＝利息、租金及其他因法律關係所得之收益。有收取天然孳息權利之人，於<b>權利存續期間內</b>，取得與原物分離之孳息；法定孳息則<b>按權利存續期間之日數</b>取得。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>判斷「從物」的兩要件：①<b>須為獨立之物</b>（非主物之成分）②<b>須與主物同屬一人所有</b>。例如：房屋的<b>所有權狀</b>是從物；但屋頂平台、公共樓梯等<b>區分所有建築物的共有部分</b>，因屬於<b>全體共有人共有</b>、且本身是建築物的「成分」而非獨立之物，<b>不是從物</b>。</p>
+  </div>
+
+  <!-- ================= A4 法律行為效力 ================= -->
+  <div class="section-div" id="sec-a4">
+    <div class="num">A4</div>
+    <div class="titles"><h2>法律行為效力</h2><div class="en">Validity of Juristic Acts</div></div>
+  </div>
+
+  <h3>無效・得撤銷・效力未定</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>類型</th><th>意義</th><th>常見情形</th></tr>
+      <tr><td><b>無效</b></td><td>自始、當然、確定不生效力，任何人均得主張</td><td>違反強行法（71條）、違背公序良俗（72條）、不依法定方式（73條）、無行為能力人之意思表示（75條）、通謀虛偽（87條）、限制行為能力人之單獨行為（78條）</td></tr>
+      <tr><td><b>得撤銷</b></td><td>原本有效，經撤銷後<b>視為自始無效</b>（114條），須由特定人於期限內主張</td><td>錯誤（88條）、被詐欺/脅迫（92條）、暴利行為（74條）</td></tr>
+      <tr><td><b>效力未定</b></td><td>效力懸而未定，須經第三人承認才確定生效，拒絕承認則確定不生效</td><td>限制行為能力人訂立之契約（79條）、無權代理（170條）、無權處分（118條）</td></tr>
+    </table>
+  </div>
+
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法71-73條</b>：法律行為<b>違反強制或禁止規定者，無效</b>（但該規定不以無效為效果者除外）；<b>違背公共秩序或善良風俗者，無效</b>；<b>不依法定方式者，無效</b>（法律另有規定者除外）。</p>
+    <p><b>民法74條　暴利行為</b>：乘他人<b>急迫、輕率或無經驗</b>，使其為財產上之給付或為給付之約定，依當時情形<b>顯失公平</b>者，<b>法院得因利害關係人之聲請</b>，撤銷該法律行為或減輕其給付——<b>應於法律行為後1年內聲請</b>。</p>
+  </div>
+
+  <h3>限制行為能力人之法律行為效力</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>行為類型</th><th>效力</th><th>法條</th></tr>
+      <tr><td>單獨行為（如：拋棄繼承、債務免除）</td><td><b>無效</b></td><td>78條</td></tr>
+      <tr><td>契約行為，未得允許</td><td><b>效力未定</b>（須法定代理人承認）</td><td>79條</td></tr>
+      <tr><td>純獲法律上利益 或 依年齡身分日常生活所必需</td><td><b>有效</b>（不須得允許）</td><td>77條但書</td></tr>
+      <tr><td>用詐術使人信其有行為能力或已得允許</td><td><b>有效</b></td><td>83條</td></tr>
+      <tr><td>法定代理人允許處分之特定財產／允許獨立營業</td><td>該範圍內<b>有行為能力</b></td><td>84、85條</td></tr>
+    </table>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>單獨無效、契約未定、純利日常一律有效、詐術視為有效</b>」——限制行為能力人行為效力速記。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">80-82條<br>催告</span>
+      <span>契約相對人得<b>定1個月以上期限</b>催告法定代理人確答是否承認（80條），<b>逾期未確答視為拒絕</b>；契約<b>未經承認前</b>，相對人得撤回之，<b>但訂約時已知未得允許者不可撤回</b>（82條）。<b>83條詐術</b>使人信其為有行為能力或已得允許者＝<b>有效</b>（不是效力未定，常考陷阱！）。</span>
+    </p>
+  </div>
+
+  <h3>無效、撤銷與無權處分的後續效果</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法111條</b>：法律行為<b>一部分無效者，全部皆為無效</b>；但除去該部分亦可成立者，其他部分仍有效。<b>民法114條</b>：法律行為經撤銷者，<b>視為自始無效</b>。</p>
+    <p><b>民法118條　無權處分</b>：無權利人就權利標的物所為之處分，<b>經有權利人承認始生效力</b>；無權利人事後取得該權利者，<b>處分自始有效</b>，但不影響原權利人或第三人已取得之利益。</p>
+  </div>
+
+  <!-- ================= A5 意思表示瑕疵 ================= -->
+  <div class="section-div" id="sec-a5">
+    <div class="num">A5</div>
+    <div class="titles"><h2>意思表示瑕疵</h2><div class="en">Defects in Declaration of Intent</div></div>
+  </div>
+
+  <h3>心中保留與通謀虛偽</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>民法86條　心中保留（單獨虛偽）</th><th>民法87條　通謀虛偽意思表示</th></tr>
+      <tr><td><b>定義</b></td><td>表意人自己無欲受拘束，但仍為意思表示</td><td>表意人與相對人<b>通謀</b>而為虛偽意思表示</td></tr>
+      <tr><td><b>效力</b></td><td><b>原則有效</b>；但<b>相對人明知</b>者，無效</td><td><b>無效</b>；但<b>不得對抗善意第三人</b></td></tr>
+      <tr><td><b>隱藏行為</b></td><td>—</td><td>隱藏他項法律行為者，<b>適用該項法律行為之規定</b>（87條Ⅱ）</td></tr>
+    </table>
+  </div>
+
+  <h3>錯誤・詐欺・脅迫</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>錯誤（88-90條）</th><th>詐欺（92條）</th><th>脅迫（92條）</th></tr>
+      <tr><td><b>效力</b></td><td>得撤銷（須非表意人自己過失）</td><td>得撤銷</td><td>得撤銷</td></tr>
+      <tr><td><b>撤銷期間</b></td><td>意思表示後<b>1年</b>內（除斥期間，90條）</td><td>發見後1年內，<b>但自意思表示後逾10年不得撤銷</b>（93條）</td><td>脅迫終止後1年內，<b>但自意思表示後逾10年不得撤銷</b>（93條）</td></tr>
+      <tr><td><b>能否對抗善意第三人</b></td><td>可（無特別限制規定）</td><td><b>不可對抗善意第三人</b>（92條Ⅱ）</td><td><b>可以對抗善意第三人</b>（92條Ⅱ僅限詐欺）</td></tr>
+      <tr><td><b>第三人所為時</b></td><td>—</td><td>第三人詐欺：以<b>相對人明知或可得而知</b>為限，始得撤銷</td><td>第三人脅迫：不問相對人是否知情，均得撤銷</td></tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">92-93條<br>雙重期限</span>
+      <span>詐欺/脅迫的撤銷權有<b>「雙重期限」</b>：①發見詐欺或脅迫終止後<b>1年內</b> ②但<b>自意思表示後經過10年，不得撤銷</b>（兩者皆須滿足）。<b>只有「詐欺」不得對抗善意第三人，「脅迫」可以對抗</b>——因為脅迫的可責性更高、應更保護被脅迫人。</span>
+    </p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法91條</b>：因錯誤/傳達錯誤撤銷意思表示時，表意人對信其意思表示為有效而受損害之相對人或第三人，<b>應負賠償責任</b>（但受害人明知或可得而知撤銷原因者不在此限）。</p>
+  </div>
+
+  <h3>意思表示之生效時點</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>類型</th><th>生效時點</th><th>法條</th></tr>
+      <tr><td>對話意思表示</td><td>相對人<b>了解時</b></td><td>94條</td></tr>
+      <tr><td>非對話意思表示</td><td>通知<b>達到相對人時</b>（到達主義）</td><td>95條Ⅰ</td></tr>
+      <tr><td>向無行為能力人/限制行為能力人為意思表示</td><td>通知<b>達到其法定代理人時</b></td><td>96條</td></tr>
+    </table>
+  </div>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法95條Ⅱ</b>：表意人<b>發出通知後死亡、喪失行為能力或行為能力受限制</b>，其意思表示<b>不因之失效</b>——已發出就算數，不受表意人後續狀態變化影響。</p>
+  </div>
+
+  <!-- ================= A6 代理 ================= -->
+  <div class="section-div" id="sec-a6">
+    <div class="num">A6</div>
+    <div class="titles"><h2>代理</h2><div class="en">Agency</div></div>
+  </div>
+
+  <h3>代理之基本效力</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法103條</b>：代理人於代理權限內，<b>以本人名義</b>所為之意思表示，<b>直接對本人發生效力</b>（應向本人為意思表示而向代理人為之者，亦同）。</p>
+    <p><b>民法104條</b>：代理人所為或所受意思表示之效力，<b>不因其為限制行為能力人而受影響</b>——代理人本身行為能力不影響代理效果歸屬於本人。</p>
+  </div>
+
+  <h3>自己代理與雙方代理</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法106條</b>：代理人<b>非經本人之許諾</b>，不得①為本人與自己之法律行為（<b>自己代理</b>），亦不得②既為第三人之代理人而為本人與第三人之法律行為（<b>雙方代理</b>）。<b>但其法律行為係專履行債務者，不在此限</b>（例如：單純的辦理移轉登記）。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>仲介常見情境：仲介同時受買方與賣方委任，並受兩方授與代理權辦理過戶——這是<b>雙方代理</b>，原則上應<b>經本人許諾</b>才有效；若僅是<b>履行已成立契約的登記義務</b>（專履行債務），則例外<b>不須許諾即可有效</b>。</p>
+  </div>
+
+  <h3>代理權之限制、撤回與無權代理</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法107條</b>：代理權之<b>限制及撤回，不得對抗善意第三人</b>；但第三人因<b>過失而不知</b>該事實者，不在此限。</p>
+    <p><b>民法108條</b>：代理權之消滅，依其授與之法律關係定之；代理權得於授與關係存續中<b>撤回</b>（但依該法律關係性質不得撤回者除外）。</p>
+    <p><b>民法110條　無權代理人之責任</b>：無代理權人以他人代理人名義所為之法律行為，<b>對於善意之相對人，負損害賠償之責</b>。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">105條<br>瑕疵歸屬</span>
+      <span><b>民法105條　代理行為之瑕疵</b>：代理人之意思表示因<b>意思欠缺、被詐欺、被脅迫</b>，或<b>明知/可得而知某事情</b>致效力受影響時，原則上<b>就代理人本身</b>判斷有無該事實；但若代理權是<b>依本人指示之意思</b>而為時，<b>就本人</b>判斷。</span>
+    </p>
+  </div>
+
+  <!-- ================= A7 消滅時效 ================= -->
+  <div class="section-div" id="sec-a7">
+    <div class="num">A7</div>
+    <div class="titles"><h2>消滅時效</h2><div class="en">Statute of Limitations</div></div>
+  </div>
+
+  <h3>時效期間</h3>
+  <div class="grid5">
+    <div class="item"><div class="name">15年</div><div class="desc">一般請求權（125條）——法律無特別規定者均適用此一般期間</div></div>
+    <div class="item"><div class="name">5年</div><div class="desc">利息、紅利、租金、贍養費、退職金等<b>一年或不及一年之定期給付</b>債權，各期給付請求權（126條）</div></div>
+    <div class="item"><div class="name">2年</div><div class="desc">8類短期請求權（127條）：旅店飲食費／運送費／<b>租賃動產之租價</b>／醫師律師會計師等之報酬／商人供給商品之代價等</div></div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法128條</b>：消滅時效<b>自請求權可行使時起算</b>；以不行為為目的之請求權，自<b>為行為時</b>起算。</p>
+  </div>
+
+  <h3>時效中斷 vs 不完成</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>中斷（129條）</th><th>不完成（139-143條）</th></tr>
+      <tr><td><b>事由</b></td><td><b>請求、承認、起訴</b>（及督促程序/調解仲裁/申報債權/告知訴訟/強制執行等與起訴同效力之事項）</td><td>因<b>事變</b>（天災不可避）、<b>繼承人/管理人未確定</b>、<b>欠缺法定代理人</b>、<b>夫妻關係存在</b>等特殊狀態</td></tr>
+      <tr><td><b>效果</b></td><td>已進行之時效期間<b>歸零</b>，自中斷事由終止時<b>重行起算</b>（137條）</td><td>時效期間<b>暫停計算</b>，於障礙事由消滅後一定期間（通常1個月或6個月）內<b>補足完成</b></td></tr>
+      <tr><td><b>請求後未起訴</b></td><td>請求後<b>6個月內不起訴，視為不中斷</b>（130條）</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <h3>時效完成之效力</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法144條</b>：時效完成後，<b>債務人得拒絕給付</b>（僅生<b>抗辯權</b>，請求權本身<b>並未消滅</b>）。債務人若仍為履行給付、或以契約承認該債務或提出擔保，<b>不得以不知時效為理由請求返還</b>。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法145條</b>：以<b>抵押權、質權或留置權擔保</b>之請求權，<b>雖經時效消滅</b>，債權人<b>仍得就抵押物/質物/留置物取償</b>（但定期給付各期給付請求權之時效消滅者不適用）。<b>民法146條</b>：<b>主權利</b>因時效消滅者，效力<b>及於從權利</b>（如利息請求權隨主債權時效消滅）。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">147條<br>不得伸縮</span>
+      <span><b>民法147條</b>：時效期間<b>不得以法律行為加長或減短</b>，並<b>不得預先拋棄時效之利益</b>——當事人約定「本契約請求權永不罹於時效」這種條款<b>無效</b>。此外，<b>已登記不動產之回復請求權</b>，依釋字107號等實務見解<b>不適用</b>消滅時效規定。</span>
+    </p>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>15一般・5定期・2服務</b>」——一般請求權15年，一年以內定期給付（租金利息）5年，各種服務業報酬2年。</p>
+  </div>
+
+  <!-- ================= 紅色地雷清單 ================= -->
+  <div class="section-div" id="sec-mine">
+    <div class="num">★</div>
+    <div class="titles"><h2>考前60秒　紅色地雷清單</h2><div class="en">Final Check — High-risk Points</div></div>
+  </div>
+  <div class="mine-wrap">
+    <ul class="mine-list">
+      <li><span class="stamp">01</span><span class="txt"><b>滿18歲為成年</b>（12條，現行法）；無行為能力人＝未滿7歲或受監護宣告；限制行為能力人＝滿7歲以上未成年人。</span></li>
+      <li><span class="stamp">02</span><span class="txt">胎兒：以<b>將來非死產為限</b>，個人利益保護<b>視為既已出生</b>（可繼承），不是「有完全權利能力」。</span></li>
+      <li><span class="stamp">03</span><span class="txt"><b>受輔助宣告≠受監護宣告</b>：受輔助宣告原則上<b>仍有行為能力</b>，只有7類重大行為須輔助人同意。</span></li>
+      <li><span class="stamp">04</span><span class="txt">限制行為能力人：<b>單獨行為無效</b>（78條）、<b>契約效力未定</b>（79條）、<b>用詐術＝有效</b>（83條，常考陷阱）。</span></li>
+      <li><span class="stamp">05</span><span class="txt"><b>44條賸餘財產</b>：公益法人解散後賸餘財產<b>不得歸自然人或營利團體</b>，無規定時歸<b>地方自治團體</b>。</span></li>
+      <li><span class="stamp">06</span><span class="txt"><b>從物</b>須①為獨立之物 ②與主物同屬一人；區分所有建築物的共有部分（如屋頂平台）<b>不是從物</b>。</span></li>
+      <li><span class="stamp">07</span><span class="txt"><b>通謀虛偽（87條）</b>：當事人間<b>無效</b>，但<b>不得對抗善意第三人</b>——第三人可取得有效權利。</span></li>
+      <li><span class="stamp">08</span><span class="txt"><b>詐欺與脅迫</b>：都是發見/終止後1年內＋自表示後10年內雙重期限；<b>詐欺不得對抗善意第三人，脅迫可以對抗</b>。</span></li>
+      <li><span class="stamp">09</span><span class="txt"><b>106條雙方代理</b>：原則須經本人許諾，但<b>專履行債務者</b>（如純辦登記）例外有效。</span></li>
+      <li><span class="stamp">10</span><span class="txt"><b>107條</b>：代理權限制及撤回不得對抗善意第三人，<b>但第三人有過失而不知者不受保護</b>。</span></li>
+      <li><span class="stamp">11</span><span class="txt">消滅時效：一般<b>15年</b>，定期給付（租金利息）<b>5年</b>，租賃動產租價/技師承攬人報酬等<b>2年</b>。</span></li>
+      <li><span class="stamp">12</span><span class="txt"><b>144條時效完成＝僅生抗辯權</b>，請求權本身不消滅；<b>147條不得預先拋棄時效利益</b>；<b>已登記不動產回復請求權無消滅時效</b>適用。</span></li>
+    </ul>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要複習｜A 總則編基礎</footer>
+</div>
+</body>
+</html>

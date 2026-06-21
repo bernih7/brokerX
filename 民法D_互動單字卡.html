@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜總則編基礎・互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:520px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:22px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+/* mode tabs */
+.mode-tabs{
+  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  border:1.5px solid var(--ink);border-radius:12px;padding:4px;
+}
+.mode-tab{
+  flex:1;text-align:center;padding:9px 8px;border-radius:9px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  cursor:pointer;color:var(--ink-soft);transition:all .15s ease;
+  user-select:none;
+}
+.mode-tab.active{background:var(--ink);color:#fff;}
+
+/* filter chips */
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin:10px 0 6px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;
+  white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+
+.filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+.status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.status-row .chip{border-color:var(--gold);color:var(--gold);}
+.status-row .chip.active{background:var(--gold);color:#fff;}
+.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
+.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.mastered{border-color:var(--green);color:var(--green);}
+.status-row .chip.mastered.active{background:var(--green);color:#fff;}
+
+/* progress */
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{
+  height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
+  margin:0 auto 18px;max-width:200px;
+}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+/* card */
+.scene{perspective:1400px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:300px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;
+  display:flex;flex-direction:column;
+  padding:26px 24px;
+  box-shadow:0 4px 18px rgba(42,39,34,0.07);
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.cat-badge{
+  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{
+  position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
+}
+.face-body{flex:1;display:flex;align-items:center;}
+.term{
+  font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:20px;line-height:1.7;color:var(--ink);
+}
+.answer{font-size:15px;line-height:1.9;color:var(--ink);}
+.answer b{color:var(--stamp);}
+.face-foot{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
+}
+.face.back .face-foot{color:var(--gold);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+
+/* controls */
+.controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;flex-wrap:wrap;
+}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--gold);color:#fff;}
+.btn.wide{flex:1;min-width:120px;text-align:center;}
+.btn.icon{padding:10px 14px;}
+
+/* quiz mode */
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+.breakdown{
+  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;padding:14px;font-size:13px;
+}
+.breakdown table{width:100%;border-collapse:collapse;}
+.breakdown td{padding:5px 4px;border-bottom:1px solid var(--rule);}
+.breakdown tr:last-child td{border-bottom:none;}
+.breakdown .bar{
+  display:block;height:6px;border-radius:3px;background:var(--rule);
+  overflow:hidden;margin-top:3px;
+}
+.breakdown .bar-fill{height:100%;background:var(--green);}
+
+footer{
+  margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.12em;line-height:2;
+}
+footer .reset{
+  text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;
+  border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 D・物權編</div>
+    <h1>民法概要 互動單字卡
+      <span class="sub">物權編・共 50 張</span>
+    </h1>
+  </header>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabStudy">📖 學習模式</div>
+    <div class="mode-tab" id="tabQuiz">📝 測驗模式</div>
+  </div>
+
+  <div class="filter-row" id="resetRow">
+    <div class="chip active" id="resetBtn">全部分類</div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">42</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="cat-badge" id="badgeFront"></div>
+        <div class="mastery-badge" id="badgeMasteryFront"></div>
+        <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="cat-badge" id="badgeBack"></div>
+        <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- study mode: mastery buttons -->
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <!-- quiz mode: reveal / answer buttons -->
+  <div class="controls" id="quizControls" style="display:none;">
+    <button class="btn primary wide" id="revealBtn">👀 顯示答案</button>
+    <button class="btn icon" id="quizWrong" style="display:none;border-color:var(--stamp);color:var(--stamp);">❌ 答錯</button>
+    <button class="btn green icon" id="quizRight" style="display:none;">✅ 答對</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一張</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一張 ▸</button>
+  </div>
+
+  <!-- quiz stats -->
+  <div class="quiz-stats" id="quizStatsBar" style="display:none;">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="toggleBreakdown">看分類統計</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
+
+  <footer>不動產經紀人考試・民法概要複習｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"D01", cat:"物權通則與所有權基礎", front:"物權法定主義是什麼？（民法757條）", back:"物權，除依<b>法律</b>或<b>習慣</b>外，不得創設——當事人不能自行創設民法及其他法律未規定的新種物權，但承認「習慣法上的物權」（如習慣形成且具備物權特性的權利類型）。"},
+{id:"D02", cat:"物權通則與所有權基礎", front:"不動產物權的登記，效力有何不同？（758條 vs 759條）", back:"<b>758條設權登記</b>：因法律行為（如買賣）取得、設定、喪失、變更不動產物權，<b>非經登記不生效力</b>（登記是「生效要件」）。<b>759條宣示登記</b>：因繼承、強制執行、徵收、法院判決等非法律行為取得不動產物權者，雖未登記即已取得物權，但<b>非經登記不得處分</b>（登記是「處分要件」）。"},
+{id:"D03", cat:"物權通則與所有權基礎", front:"動產物權的讓與方式有哪幾種？（民法761條）", back:"①<b>現實交付</b>：直接移轉占有。②<b>簡易交付</b>：受讓人已占有動產，讓與合意時即生效力。③<b>占有改定</b>：讓與人仍繼續占有，雙方約定受讓人因此取得間接占有。④<b>指示交付</b>：動產由第三人占有時，讓與人將對第三人的返還請求權讓與受讓人。"},
+{id:"D04", cat:"物權通則與所有權基礎", front:"動產的「善意受讓」是什麼？（民法801/948條）", back:"動產受讓人<b>占有</b>動產，且<b>善意、無重大過失</b>而受關於占有規定之保護者，即使讓與人<b>無權移轉</b>所有權，受讓人仍<b>取得所有權</b>——保護交易安全，是動產「公示原則＝占有」的延伸效果。"},
+{id:"D05", cat:"物權通則與所有權基礎", front:"添附（附合/混合/加工）後，所有權如何歸屬？（811-814條）", back:"<b>動產附合於不動產</b>（811條）：不動產所有人取得動產所有權。<b>動產與動產附合/混合</b>（812/813條）：不能分離或識別者，各所有人按附合時價值<b>共有</b>合成物；有可視為主物者，主物所有人取得全部。<b>加工</b>（814條）：原則歸<b>材料所有人</b>，但加工增加之價值顯逾材料價值時，歸<b>加工人</b>。受損害者得依不當得利請求償還價額（816條）。"},
+{id:"D06", cat:"物權通則與所有權基礎", front:"越界建築，鄰地所有人不即提異議會怎樣？（796/796-1條）", back:"土地所有人<b>非因故意或重大過失</b>逾越地界建築房屋，鄰地所有人<b>知其越界而不即提出異議</b>者，<b>不得請求移去或變更房屋</b>，但土地所有人就鄰地受損害應支付償金，鄰地所有人得請求以相當價額購買越界部分土地。796-1條：即使逾越地界，法院仍得斟酌公益與當事人利益，免為全部或一部移去——但<b>故意逾越地界者不適用</b>此項減免。"},
+{id:"D07", cat:"物權通則與所有權基礎", front:"袋地的「必要通行權」如何行使？（787-789條）", back:"土地因與公路無適宜聯絡、不能為通常使用時，土地所有人得<b>通行周圍地以至公路</b>，並應於必要範圍內選損害最少之處所及方法，<b>支付償金</b>。但因「土地一部讓與或分割」而形成袋地者（789條），僅得通行<b>受讓人/讓與人/他分割人</b>之地，且<b>無須支付償金</b>——這是考試常見對比點。"},
+{id:"D08", cat:"物權通則與所有權基礎", front:"「區分所有建築物」的專有部分與共有部分能分開處分嗎？（799條）", back:"數人區分一建築物，各專有其一部，就<b>專有部分</b>有單獨所有權，並就建築物及附屬物之<b>共有部分</b>共有，合稱區分所有建築物（如公寓大廈）。<b>專有部分與其所屬共有部分及基地之權利，不得分離而為移轉或設定負擔</b>（799條第5項）——買賣公寓必然連同共有部分及基地權利一起移轉。"},
+
+{id:"D09", cat:"共有", front:"分別共有的「應有部分」可以自由處分嗎？（817/819條）", back:"各共有人按其<b>應有部分</b>對於共有物全部有所有權，<b>應有部分不明者推定為均等</b>（817條）。<b>各共有人得自由處分其應有部分</b>（819條第1項），不需其他共有人同意；但<b>共有物本身</b>的處分、變更、設定負擔，<b>應得共有人全體同意</b>（819條第2項）——「應有部分」與「共有物」處分的同意門檻不同。"},
+{id:"D10", cat:"共有", front:"共有物的管理，需要多少人同意？（820條）", back:"共有物之管理，除契約另有約定外，應以<b>共有人過半數＋應有部分合計過半數</b>之同意行之；但應有部分合計逾<b>三分之二</b>者，<b>人數不予計算</b>（即「多數決」雙重門檻，但應有部分超過三分之二時可不問人數）。共有物之簡易修繕及其他保存行為，<b>各共有人得單獨為之</b>。"},
+{id:"D11", cat:"共有", front:"共有物分割的限制：約定不分割的期限上限是多少？（823條）", back:"各共有人原則上<b>得隨時請求分割</b>共有物，但物之使用目的不能分割，或契約訂有不分割期限者除外。約定不分割期限<b>不得逾5年</b>，逾5年縮短為5年；但<b>共有之不動產，若契約訂有管理之約定</b>，不分割期限<b>不得逾30年</b>，逾30年縮短為30年。若有<b>重大事由</b>，共有人仍得隨時請求分割。"},
+{id:"D12", cat:"共有", front:"共有物分割的方法有哪些？（824條）", back:"①依共有人<b>協議</b>之方法行之（優先）。②協議不成，法院得：以<b>原物分配</b>於各共有人（必要時部分分配＋部分維持共有）；原物分配顯有困難時，<b>變賣</b>共有物以價金分配，或部分原物分配＋部分變賣。③以原物分配時未受分配或不能按比例分配者，<b>得以金錢補償</b>。④<b>變賣時，共有人有依相同條件優先承買之權</b>（除買受人本身即為共有人外）。"},
+{id:"D13", cat:"共有", front:"共有物分割後，原有的抵押權怎麼處理？（824-1條）", back:"共有人自分割效力發生時起，<b>取得分得部分之所有權</b>。應有部分上原有的抵押權/質權，<b>不因分割而受影響</b>，但若①權利人同意分割②已參加分割訴訟③經告知訴訟而未參加，則該抵押權<b>移存於該共有人分得之部分</b>——這就是考題中常考的「抵押權隨應有部分比例移轉到分得的土地上」概念。"},
+{id:"D14", cat:"共有", front:"不動產共有人間的分管契約，對後來買受應有部分的人有效嗎？（826-1條）", back:"<b>不動產共有人</b>間關於共有物使用、管理、分割或禁止分割的約定（或法院依820條第1項所為決定），<b>於登記後</b>，對應有部分的受讓人或取得物權之人<b>具有效力</b>。<b>動產共有人</b>間的此類約定，則以受讓人/取得人<b>於受讓或取得時知悉或可得而知</b>為限，才具有效力——不動產看「登記」，動產看「知悉」。"},
+{id:"D15", cat:"共有", front:"公同共有 vs 分別共有，最大差別是什麼？（827-831條）", back:"<b>公同共有</b>：依法律規定、習慣或法律行為成立公同關係之數人（如繼承、合夥），<b>共有一物，無應有部分</b>，各共有人權利及於公同共有物<b>全部</b>；<b>公同關係存續中不得請求分割</b>（829條）；處分及權利行使須得<b>全體同意</b>（828條第3項）。<b>分別共有</b>則有應有部分，得自由處分應有部分、得隨時請求分割。本章規定亦準用於<b>「準共有」</b>（所有權以外財產權的共有，831條）。"},
+
+{id:"D16", cat:"地上權與農育權", front:"普通地上權的定義是什麼？地上權會因建築物滅失而消滅嗎？（832/841條）", back:"普通地上權：謂以在他人土地之<b>上下</b>有<b>建築物或其他工作物</b>為目的而使用其土地之權。<b>841條</b>：地上權<b>不因建築物或工作物滅失而消滅</b>——這是高頻易錯點，常與「農育權因造林滅失」等情形混淆。"},
+{id:"D17", cat:"地上權與農育權", front:"未定期限的地上權，多久後法院可以介入定期限或終止？（833-1條）", back:"地上權<b>未定有期限</b>者，存續期間<b>逾20年</b>，或地上權成立目的<b>已不存在</b>時，法院得因當事人之請求，斟酌地上權成立目的、建築物種類性質及利用狀況等，<b>定其存續期間或終止地上權</b>。（833-2條：以公共建設為目的且未定期限者，以該建設使用目的完畢時視為存續期限）"},
+{id:"D18", cat:"地上權與農育權", front:"地上權人想拋棄權利，有什麼限制？（834/835條）", back:"<b>無支付地租約定</b>者：地上權人<b>得隨時拋棄</b>（834條）。<b>有支付地租約定且定有期限</b>者：得支付<b>未到期之3年分地租</b>後拋棄（835條Ⅰ）。<b>有地租約定但未定期限</b>者：應於<b>1年前通知</b>土地所有人，或支付未到期之<b>1年分地租</b>（835條Ⅱ）。"},
+{id:"D19", cat:"地上權與農育權", front:"地上權人欠地租多久，土地所有人可以終止地上權？（836條）", back:"地上權人<b>積欠地租達2年之總額</b>，除另有習慣外，土地所有人得<b>定相當期限催告</b>地上權人支付，地上權人逾期不付，土地所有人<b>得終止地上權</b>；地上權經設定抵押權者，應同時將催告事實<b>通知抵押權人</b>。終止應<b>向地上權人以意思表示為之</b>。"},
+{id:"D20", cat:"地上權與農育權", front:"地上權人可以把地上權讓與他人或設定抵押權嗎？（838條）", back:"<b>地上權人得將其權利讓與他人或設定抵押權</b>，但契約另有約定或另有習慣者不在此限（此約定須登記才能對抗第三人）。<b>地上權與其建築物/工作物，不得分離而為讓與或設定其他權利</b>——地上權與其上建物是「綁在一起」的。"},
+{id:"D21", cat:"地上權與農育權", front:"農育權與普通地上權最大的不同是什麼？期限上限多少？（850-1~850-9條）", back:"農育權：在他人土地為<b>農作、森林、養殖、畜牧、種植竹木或保育</b>之權，<b>期限不得逾20年</b>（逾20年縮短為20年），但<b>以造林、保育為目的或法令另有規定者不受此限</b>。農育權人<b>不得將土地或農育工作物出租於他人</b>（850-5條，除另有習慣），違反者土地所有人得終止——這點與地上權（838條原則上可讓與/設定抵押權）不同，農育權對「出租」限制較嚴。"},
+
+{id:"D22", cat:"不動產役權", front:"不動產役權的定義是什麼？", back:"以他人不動產供自己不動產<b>通行、汲水、採光、眺望、電信</b>或其他特定便宜之用為目的之權利（851條）。供役地所有人提供方便，需役地因此受益——重點是<b>「不動產對不動產」</b>的便宜關係，而非對人的權利。"},
+{id:"D23", cat:"不動產役權", front:"不動產役權可以單獨讓與，或脫離需役不動產而存在嗎？（853條）", back:"<b>不動產役權不得由需役不動產分離而為讓與，或為其他權利之標的物</b>——具有「<b>從屬性</b>」，役權附隨於需役不動產，二者不可分離（注意不要與「房屋租賃可一部轉租」「土地法104優先承買權僅限租地建屋情形」等其他條文的限定概念混淆）。"},
+{id:"D24", cat:"不動產役權", front:"不動產役權可以因時效而取得嗎？（852條）", back:"不動產役權因時效而取得者，<b>以繼續並表見者為限</b>（例如長期公開使用他人土地通行的小路）。需役不動產為共有時，共有人中一人之行為（或對其中一人之行為），<b>為他共有人之利益亦生效力</b>；向行使取得時效的各共有人中斷時效，<b>對全體共有人發生效力</b>。"},
+{id:"D25", cat:"不動產役權", front:"不動產役權可以就自己的不動產設定嗎？（859-3/859-4條）", back:"可以——<b>不動產役權，亦得就自己之不動產設定之</b>（859-4條），例如同一人有兩塊相鄰土地，將其一設定不動產役權供另一塊地通行使用，常見於建商整體規劃時預先設定。859-3條：基於用益物權或租賃關係而使用需役不動產者，<b>亦得為該不動產設定不動產役權</b>，該役權隨用益權/租賃關係消滅而消滅。"},
+
+{id:"D26", cat:"抵押權", front:"普通抵押權的定義及擔保範圍是什麼？（860/861條）", back:"普通抵押權：債權人對於債務人或第三人<b>不移轉占有</b>而供債權擔保之不動產，得就該不動產<b>賣得價金優先受償</b>之權。<b>擔保範圍</b>（861條）：原債權＋利息＋遲延利息＋違約金＋實行抵押權之費用；其中利息、遲延利息、<b>一年或不及一年定期給付之違約金</b>，以於<b>抵押權人聲請強制執行前5年內</b>發生者為限（5年限制只適用於利息/遲延利息/違約金，不適用原債權本身）。"},
+{id:"D27", cat:"抵押權", front:"抵押權的效力，及於從物、從權利、天然孳息、法定孳息嗎？（862-864條）", back:"<b>及於</b>：①抵押物之<b>從物與從權利</b>（但第三人於抵押權設定前就從物已取得之權利不受影響）；②建築物<b>附加而不具獨立性之部分</b>；③<b>抵押物扣押後</b>分離、抵押人得收取的<b>天然孳息</b>（863條）；④<b>抵押物扣押後</b>抵押人得收取的<b>法定孳息</b>，但抵押權人須<b>通知</b>應清償法定孳息之義務人才能對抗（864條）——「扣押後」是天然/法定孳息能否被抵押權效力涵蓋的關鍵時點。"},
+{id:"D28", cat:"抵押權", front:"同一不動產設定數個抵押權，次序如何決定？可以調整嗎？（865/870-1條）", back:"數抵押權<b>依登記先後</b>定次序（865條）。870-1條抵押權人得在<b>不影響他抵押權人利益</b>的前提下調整優先受償分配額：①為特定抵押權人<b>讓與</b>次序、②為特定後次序抵押權人<b>拋棄</b>次序、③為<b>全體</b>後次序抵押權人拋棄次序——次序之讓與或拋棄<b>非經登記不生效力</b>，且應於登記前<b>通知</b>債務人、抵押人及共同抵押人。"},
+{id:"D29", cat:"抵押權", front:"抵押權有「不可分性」與「從屬性」，分別是什麼意思？（868-870條）", back:"<b>不可分性</b>：抵押之不動產經<b>分割</b>、或讓與其一部，<b>抵押權不受影響</b>（868條）；抵押權擔保之<b>債權經分割或讓與一部</b>，抵押權同樣<b>不受影響</b>（869條）。<b>從屬性</b>：<b>抵押權不得由債權分離而為讓與，或為其他債權之擔保</b>（870條）——抵押權必須跟著它擔保的債權走，不能單獨轉讓給別人作為另一筆債權的擔保。"},
+{id:"D30", cat:"抵押權", front:"「法定地上權」是什麼情況？（876條）", back:"設定抵押權時，<b>土地及其上建築物同屬一人所有</b>，而僅以土地或僅以建築物為抵押，於<b>抵押物拍賣時</b>，<b>視為已有地上權之設定</b>（地租、期間、範圍由當事人協議，不能協議由法院判決）；若同時以土地及建築物為抵押，拍賣後<b>土地與建築物之拍定人各異</b>時，同樣適用——這就是避免「有房無地」或「有地無房」窘境，俗稱「法定地上權」。"},
+{id:"D31", cat:"抵押權", front:"抵押人在抵押的土地上蓋房子，抵押權人可以連同房子一起拍賣嗎？（877條）", back:"土地所有人於設定抵押權<b>後</b>，在抵押土地上<b>營造建築物</b>者，抵押權人於必要時，<b>得聲請法院將建築物與土地併付拍賣</b>，但<b>對建築物的價金，無優先受清償之權</b>（優先受償權僅限於土地部分的價金）。"},
+{id:"D32", cat:"抵押權", front:"抵押權擔保的債權罹於消滅時效後，抵押權還能實行嗎？（880條）", back:"以抵押權擔保之債權，其請求權已因<b>時效而消滅</b>，如抵押權人於<b>消滅時效完成後5年內</b>不實行其抵押權者，<b>抵押權消滅</b>——也就是時效完成後，抵押權人仍有<b>5年的緩衝期</b>可以實行抵押權，超過5年抵押權才消滅（最高限額抵押權準用相同規則，881-15條）。"},
+{id:"D33", cat:"抵押權", front:"最高限額抵押權是什麼？擔保的債權有什麼限制？（881-1條）", back:"最高限額抵押權：債務人或第三人提供不動產為擔保，就債權人對債務人<b>一定範圍內之不特定債權</b>，<b>在最高限額內</b>設定之抵押權。所擔保之債權<b>以由一定法律關係所生之債權，或基於票據所生之權利為限</b>——不是「隨便什麼債權都算」，須有<b>一定法律關係</b>的限定範圍。"},
+{id:"D34", cat:"抵押權", front:"最高限額抵押權「原債權確定」前後，效力有何不同？（881-4~881-14條）", back:"<b>確定前</b>：所擔保債權可以<b>不斷發生、消滅、變動</b>（在最高限額內），抵押權人與抵押人得約定變更債權範圍或債務人；債權讓與時<b>抵押權不隨同移轉</b>（881-6條）。<b>確定後</b>：擔保效力<b>不及於後續繼續發生的債權</b>（881-14條），此時債務人/抵押人得請求<b>結算</b>實際發生的債權額，並可請求變更登記為<b>普通抵押權</b>（881-13條）。確定期日<b>未約定者，得隨時請求確定</b>，自請求日起經<b>15日</b>為確定期日（881-5條）；<b>已約定者，自設定時起不得逾30年</b>（881-4條）。"},
+
+{id:"D35", cat:"質權與留置權", front:"動產質權如何設定？跟抵押權最大的不同是什麼？（884/885條）", back:"動產質權：債權人對於債務人或第三人<b>移轉占有</b>而供債權擔保之動產，得就該動產賣得價金優先受償之權。<b>質權之設定，因供擔保之動產移轉於債權人占有而生效力</b>（885條）——與抵押權「不移轉占有」最大的不同，就是<b>質權必須移轉占有</b>；且<b>質權人不得使出質人或債務人代自己占有質物</b>（不能用占有改定的方式設定質權）。"},
+{id:"D36", cat:"質權與留置權", front:"質物因滅失而獲得的賠償金，質權還在嗎？（899條物上代位）", back:"動產質權<b>因質物滅失而消滅</b>，但<b>出質人因滅失得受賠償或其他利益者，質權人對該賠償／請求權仍有質權</b>，次序與原質權同——這就是「<b>物上代位性</b>」，抵押權（881條）、質權（899條）皆有此規定。"},
+{id:"D37", cat:"質權與留置權", front:"質權人喪失質物的占有，質權會消滅嗎？（897/898條）", back:"<b>897條</b>：質權人將質物<b>返還於出質人或交付債務人</b>，質權消滅（即使約定保留質權繼續存在，該保留<b>無效</b>）。<b>898條</b>：質權人<b>非自願喪失</b>質物占有（如被盜），於<b>2年內未請求返還</b>者，動產質權消滅——「占有」是動產質權的生命線，喪失占有過久即喪失質權。"},
+{id:"D38", cat:"質權與留置權", front:"權利質權可以用什麼當標的物？以債權為標的物的質權如何設定？（900/903/904條）", back:"權利質權：以<b>可讓與之債權或其他權利</b>為標的物的質權。<b>以債權為標的物的質權，其設定應以書面為之</b>（904條第1項）；若該債權有<b>證書</b>，出質人有<b>交付證書</b>之義務。為質權標的物之權利，<b>非經質權人同意，出質人不得使其消滅或變更</b>（903條）。"},
+{id:"D39", cat:"質權與留置權", front:"留置權發生的「牽連關係」是什麼意思？（928/929條）", back:"留置權：債權人<b>占有他人之動產</b>，而其<b>債權之發生與該動產有牽連關係</b>，於債權已屆清償期未受清償時，得<b>留置該動產</b>之權——例如修車廠扣留尚未付款的車輛。<b>商人間因營業關係而占有之動產</b>，與其因營業關係所生之債權，<b>視為有牽連關係</b>（929條，即使表面上看不出關聯，商人間的營業往來也視為有牽連）。"},
+{id:"D40", cat:"質權與留置權", front:"債務人沒有清償能力時，留置權可以提前發生嗎？留置權如何實行？（931/936條）", back:"<b>931條</b>：債務人<b>無支付能力</b>時，債權人即使其債權<b>未屆清償期</b>，<b>仍有留置權</b>（不必等到期）。<b>936條</b>：債權已屆清償期未獲清償，債權人得定<b>1個月以上</b>相當期限通知債務人聲明屆期就留置物取償；逾期未清償，<b>得準用質權實行的規定</b>（拍賣留置物優先受償，或取得其所有權）。"},
+
+{id:"D41", cat:"典權", front:"典權的定義是什麼？期限上限多少？（911/912條）", back:"典權：<b>支付典價</b>在他人不動產<b>使用、收益</b>，<b>於他人不回贖時，取得該不動產所有權</b>之權（911條）。<b>約定期限不得逾30年，逾30年縮短為30年</b>（912條）。"},
+{id:"D42", cat:"典權", front:"典權附「絕賣條款」（到期不贖即作絕賣）有什麼限制？（913條）", back:"典權<b>約定期限不滿15年者，不得附有到期不贖即作絕賣之條款</b>——必須期限達15年以上才能約定絕賣條款。典權附絕賣條款者，<b>出典人於典期屆滿不以原典價回贖時，典權人即取得典物所有權</b>；絕賣條款<b>非經登記，不得對抗第三人</b>。"},
+{id:"D43", cat:"典權", front:"出典人要賣典物時，典權人有什麼權利？（919條留買權）", back:"出典人將典物出賣於他人時，<b>典權人有以相同條件留買之權</b>——出典人應以<b>書面通知</b>典權人，典權人於收受通知後<b>10日內</b>不以書面表示依相同條件留買者，<b>留買權視為拋棄</b>。出典人若違反通知規定而移轉所有權，其<b>移轉不得對抗典權人</b>。"},
+{id:"D44", cat:"典權", front:"定期典權與未定期典權，回贖的期限規定有何不同？（923/924/925條）", back:"<b>定期典權</b>（923條）：期限屆滿後，出典人得以原典價回贖；屆滿後經過<b>2年</b>不回贖者，典權人取得典物所有權。<b>未定期典權</b>（924條）：出典人得<b>隨時</b>以原典價回贖，但自出典後經過<b>30年不回贖</b>者，典權人取得典物所有權。回贖應於<b>6個月前通知</b>典權人（925條）。"},
+{id:"D45", cat:"典權", front:"出典人想把典物的所有權讓給典權人，可以怎麼做？（926條找貼）", back:"出典人於典權存續中，表示讓與典物所有權於典權人者，典權人得按<b>時價找貼</b>（補足差額），取得典物所有權——這項<b>找貼以一次為限</b>。"},
+
+{id:"D46", cat:"占有", front:"什麼是「間接占有人」與「占有輔助人」？（941/942條）", back:"<b>間接占有人</b>（941條）：地上權人、農育權人、典權人、質權人、承租人、受寄人等對物有<b>直接占有</b>，其相對應的本人（如出租人）為<b>間接占有人</b>——例如房東把房子出租，房東是間接占有人，房客是直接占有人。<b>占有輔助人</b>（942條）：受僱人、學徒、家屬等<b>基於指示而管領物</b>者，<b>本人才是占有人</b>，占有輔助人本身不是占有人——例如店員管理店裡的貨物，占有人是店主而非店員。"},
+{id:"D47", cat:"占有", front:"占有人占有已登記不動產並行使物權，可以推定其適法有此權利嗎？（943條）", back:"原則上<b>占有人於占有物上行使之權利，推定其適法有此權利</b>（943條Ⅰ），但下列情形<b>不適用</b>此推定：①<b>占有已登記之不動產而行使物權</b>（已登記不動產看登記，不適用占有推定）；②<b>行使所有權以外之權利者，對使其占有之人</b>（不能對出借/出租給你的人主張自己對該物有其他物權）。"},
+{id:"D48", cat:"占有", front:"動產被偷或遺失後，原占有人可以向善意取得人請求回復嗎？（949-951條）", back:"占有物如係<b>盜贓、遺失物</b>或其他非基於原占有人意思而喪失占有者，原占有人<b>自喪失占有時起2年內</b>，得向<b>善意受讓</b>的現占有人請求回復其物（949條）。但若現占有人是由<b>公開交易場所</b>或<b>同種物商人</b>處善意買得，原占有人須<b>償還其支出之價金</b>才能回復（950條）。若盜贓/遺失物是<b>金錢或未記載權利人之有價證券</b>，<b>不得</b>向善意受讓人請求回復（951條）——金錢、無記名證券的流通性優先保護。"},
+{id:"D49", cat:"占有", front:"善意占有人 vs 惡意占有人，對占有物滅失/毀損的賠償責任有何不同？（953/956/959條）", back:"<b>善意占有人</b>（953條）：占有物滅失/毀損係<b>可歸責於自己之事由</b>所致者，僅以<b>滅失/毀損所受之利益為限</b>負賠償責任（責任較輕）。<b>惡意占有人</b>（956條）：占有物滅失/毀損係可歸責於自己之事由所致者，<b>對回復請求人負（全額）賠償責任</b>，不以「所受利益」為限——惡意占有人責任較重。959條：善意占有人<b>自確知其無占有本權時起</b>，或<b>本權訴訟敗訴、自訴狀送達之日起</b>，視為惡意占有人。"},
+{id:"D50", cat:"占有", front:"占有被侵奪或妨害，占有人的物上請求權多久內要行使？（962/963條）", back:"占有人之占有<b>被侵奪</b>者，得請求<b>返還</b>占有物；被<b>妨害</b>者，得請求<b>除去妨害</b>；有妨害之虞者，得請求<b>防止妨害</b>（962條，與767條所有權的物上請求權類似，但主體是「占有人」不問有無本權）。此請求權<b>自侵奪或妨害發生後，1年間不行使而消滅</b>（963條）——這是物權編裡少見的「1年」短期間。"}
+];
+
+const CAT_COLORS = {
+  "物權通則與所有權基礎":"#5C7A4A",
+  "共有":"#C17A2E",
+  "地上權與農育權":"#6B8E63",
+  "不動產役權":"#5B7A99",
+  "抵押權":"#A8402B",
+  "質權與留置權":"#7C6A8E",
+  "典權":"#B08D57",
+  "占有":"#4F7CAC"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let statusFilter = 'all'; // all | review | mastered
+let mode = 'study'; // study | quiz
+let mastery = {}; // id -> 'mastered' | 'review'
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let revealed = false; // quiz mode: has answer been shown for current card
+let quizStats = {ok:0, ng:0, perCat:{}};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const statusRow = document.getElementById('statusRow');
+const cardEl = document.getElementById('card');
+const termText = document.getElementById('termText');
+const answerText = document.getElementById('answerText');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const footFront = document.getElementById('footFront');
+const footBack = document.getElementById('footBack');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const masteryControls = document.getElementById('masteryControls');
+const quizControls = document.getElementById('quizControls');
+const revealBtn = document.getElementById('revealBtn');
+const quizRight = document.getElementById('quizRight');
+const quizWrong = document.getElementById('quizWrong');
+const quizStatsBar = document.getElementById('quizStatsBar');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+const breakdownPanel = document.getElementById('breakdownPanel');
+
+// ---- persistent storage ----
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('mastery_data_d');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{
+    await window.storage.set('mastery_data_d', JSON.stringify(mastery));
+  }catch(e){ console.error('storage save failed', e); }
+}
+
+// ---- build category chips ----
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+// ---- status filter chips ----
+function renderStatusRow(){
+  const inCat = CARDS.filter(c=>activeCats.has(c.cat));
+  const masteredCount = inCat.filter(c=>mastery[c.id]==='mastered').length;
+  const reviewCount = inCat.length - masteredCount;
+  statusRow.innerHTML = '';
+  const defs = [
+    {key:'all', label:`全部 (${inCat.length})`, cls:''},
+    {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
+    {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
+  ];
+  defs.forEach(d=>{
+    const chip=document.createElement('div');
+    chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
+    chip.textContent=d.label;
+    chip.addEventListener('click',()=>{
+      statusFilter = d.key;
+      rebuildDeck();
+    });
+    statusRow.appendChild(chip);
+  });
+}
+
+function rebuildDeck(){
+  renderStatusRow();
+  let pool = CARDS.filter(c=>activeCats.has(c.cat));
+  if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
+  if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+// ---- mode tabs ----
+document.getElementById('tabStudy').addEventListener('click',()=>switchMode('study'));
+document.getElementById('tabQuiz').addEventListener('click',()=>switchMode('quiz'));
+function switchMode(m){
+  mode = m;
+  document.getElementById('tabStudy').classList.toggle('active', m==='study');
+  document.getElementById('tabQuiz').classList.toggle('active', m==='quiz');
+  masteryControls.style.display = (m==='study') ? 'flex' : 'none';
+  quizControls.style.display = (m==='quiz') ? 'flex' : 'none';
+  quizStatsBar.style.display = (m==='quiz') ? 'flex' : 'none';
+  if(m!=='quiz'){ breakdownPanel.style.display='none'; }
+  revealed = false;
+  flipped = false;
+  render();
+}
+
+// ---- render ----
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = (mode==='quiz') ? revealed : false;
+  cardEl.classList.toggle('flipped', flipped);
+  termText.textContent = c.front;
+  answerText.innerHTML = c.back;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const m = mastery[c.id];
+  const icon = m==='mastered' ? '✅' : '';
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  if(mode==='study'){
+    footFront.textContent = '點擊卡片　看解析 ▸';
+    footBack.textContent = '◂ 點擊卡片　回題目';
+  } else {
+    footFront.textContent = '點擊卡片 或「顯示答案」▸';
+    footBack.textContent = '看完後請點　答對／答錯';
+    revealBtn.style.display = revealed ? 'none' : '';
+    quizRight.style.display = revealed ? '' : 'none';
+    quizWrong.style.display = revealed ? '' : 'none';
+  }
+}
+
+cardEl.addEventListener('click',()=>{
+  if(mode==='study'){
+    flipped=!flipped;
+    cardEl.classList.toggle('flipped',flipped);
+  } else {
+    if(!revealed){ revealed=true; render(); }
+  }
+});
+
+// ---- navigation ----
+function goNext(){
+  idx=(idx+1)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+function goPrev(){
+  idx=(idx-1+deck.length)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key===' '){ e.preventDefault(); cardEl.click(); }
+});
+
+// ---- study mode: mastery buttons ----
+document.getElementById('markMastered').addEventListener('click',()=>{
+  setMastery('mastered');
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  setMastery('review');
+});
+function setMastery(status){
+  const c = deck[idx];
+  mastery[c.id] = status;
+  saveMastery();
+  renderStatusRow();
+  if(statusFilter!=='all'){
+    const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
+                          (statusFilter==='review' && status!=='mastered');
+    if(!stillMatches){
+      let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
+      if(statusFilter==='mastered') pool = pool.filter(cc=>mastery[cc.id]==='mastered');
+      deck = pool.length ? pool : CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(idx>=deck.length) idx=0;
+      render();
+      return;
+    }
+  }
+  render();
+}
+
+// ---- quiz mode: answer buttons ----
+quizRight.addEventListener('click',()=>recordAnswer(true));
+quizWrong.addEventListener('click',()=>recordAnswer(false));
+revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+
+function recordAnswer(correct){
+  const c = deck[idx];
+  if(correct){ quizStats.ok++; mastery[c.id]='mastered'; }
+  else { quizStats.ng++; mastery[c.id]='review'; }
+  if(!quizStats.perCat[c.cat]) quizStats.perCat[c.cat]={ok:0, total:0};
+  quizStats.perCat[c.cat].total++;
+  if(correct) quizStats.perCat[c.cat].ok++;
+  saveMastery();
+  renderStatusRow();
+  updateQuizStatsBar();
+  if(breakdownPanel.style.display!=='none') renderBreakdown();
+  goNext();
+}
+
+function updateQuizStatsBar(){
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+}
+
+document.getElementById('toggleBreakdown').addEventListener('click',()=>{
+  if(breakdownPanel.style.display==='none'){
+    renderBreakdown();
+    breakdownPanel.style.display='block';
+  } else {
+    breakdownPanel.style.display='none';
+  }
+});
+function renderBreakdown(){
+  const cats = Object.keys(quizStats.perCat);
+  if(!cats.length){
+    breakdownPanel.innerHTML = '<p style="text-align:center;color:var(--ink-soft);">尚無作答紀錄</p>';
+    return;
+  }
+  let html = '<table>';
+  cats.forEach(cat=>{
+    const s = quizStats.perCat[cat];
+    const pct = Math.round(s.ok/s.total*100);
+    html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
+  });
+  html += '</table>';
+  breakdownPanel.innerHTML = html;
+}
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0, perCat:{}};
+  updateQuizStatsBar();
+  breakdownPanel.style.display='none';
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  rebuildDeck();
+});
+
+// ---- init ----
+(async function init(){
+  await loadMastery();
+  renderStatusRow();
+  rebuildDeck();
+})();
+</script>
+</body>
+</html>

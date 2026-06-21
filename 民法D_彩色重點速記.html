@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜彩色重點速記・物權編</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#F1E8D8;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+  --blue:#3E6B8C;
+  --orange:#C17A2E;
+  --purple:#7B5C8C;
+  --red:#A8402B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 8% 6%, rgba(188,138,46,0.06), transparent 38%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 42%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:60px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px;}
+
+header{padding:32px 0 18px;text-align:center;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.14em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 14px;margin-bottom:12px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:26px;
+  letter-spacing:.05em;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;font-family:'Noto Sans TC',sans-serif;}
+
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:18px 0 8px;
+}
+.legend-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;background:#fff;
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px;
+}
+.legend-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+.nav{
+  position:sticky;top:0;z-index:10;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  padding:10px 0;margin-top:20px;font-family:'Noto Serif TC',serif;
+  font-weight:700;font-size:12.5px;backdrop-filter:blur(4px);
+}
+.nav a{color:var(--ink-soft);text-decoration:none;letter-spacing:.06em;padding:4px 8px;border-radius:6px;}
+.nav a:hover{color:var(--ink);background:var(--paper-deep);}
+
+.section-div{
+  margin:46px 0 18px;display:flex;align-items:baseline;gap:14px;
+}
+.section-div .num{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:38px;
+  color:var(--gold);line-height:1;
+}
+.section-div .titles{flex:1;}
+.section-div h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:20px;letter-spacing:.06em;}
+.section-div .en{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;text-transform:uppercase;}
+.section-div::after{content:"";flex:1;height:1px;background:var(--rule);align-self:center;}
+
+h3{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;
+  margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--ink);
+  display:inline-block;
+}
+
+.note{
+  border-radius:0 8px 8px 8px;border-left:5px solid var(--ink);
+  background:#fff;padding:12px 16px;margin:10px 0;
+  box-shadow:0 1px 6px rgba(42,39,34,0.05);
+  position:relative;
+}
+.note .tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:11px;
+  letter-spacing:.1em;color:#fff;border-radius:0 0 8px 0;
+  padding:2px 10px;margin:-12px 0 8px -16px;
+}
+.note p{font-size:14px;}
+.note p+p{margin-top:6px;}
+.note b{color:var(--ink);border-bottom:2px solid currentColor;}
+.note small{color:var(--ink-soft);}
+
+.note-green{border-color:var(--green);}
+.note-green .tag{background:var(--green);}
+.note-green b{border-color:var(--green);}
+
+.note-blue{border-color:var(--blue);}
+.note-blue .tag{background:var(--blue);}
+.note-blue b{border-color:var(--blue);}
+
+.note-orange{border-color:var(--orange);}
+.note-orange .tag{background:var(--orange);}
+.note-orange b{border-color:var(--orange);}
+
+.note-purple{border-color:var(--purple);}
+.note-purple .tag{background:var(--purple);}
+.note-purple b{border-color:var(--purple);}
+
+.note-red{border-color:var(--red);}
+.note-red .tag{background:var(--red);}
+.note-red b{border-color:var(--red);}
+
+.stamp{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid var(--stamp);border-radius:50%;color:var(--stamp);
+  font-weight:900;font-family:'Noto Serif TC',serif;font-size:11px;
+  width:46px;height:46px;transform:rotate(-9deg);flex-shrink:0;
+  text-align:center;line-height:1.1;letter-spacing:.05em;
+}
+
+.flow{
+  background:var(--paper-deep);border:1px dashed var(--rule);
+  border-radius:10px;padding:18px;margin:14px 0;
+}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.flow.vertical{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.flow-box{
+  background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
+  font-family:'Noto Serif TC',serif;min-width:100px;
+}
+.flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
+  font-family:'Noto Sans TC',sans-serif;margin-top:3px;}
+.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
+.flow-box.result{border-color:var(--green);background:#EFF4EC;}
+.flow-box.danger{border-color:var(--stamp);background:#FBEAE6;color:var(--stamp);}
+.flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;text-align:center;white-space:nowrap;}
+.flow-arrow small{display:block;font-size:10px;font-weight:400;}
+.flow-arrow.down{display:flex;flex-direction:column;align-items:center;}
+
+.grid5{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0;
+}
+@media(min-width:520px){.grid5{grid-template-columns:repeat(3,1fr);}}
+.grid5 .item{
+  background:#fff;border:1.5px solid var(--green);border-radius:8px;
+  padding:12px;text-align:center;
+}
+.grid5 .item .name{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;color:var(--green);}
+.grid5 .item .desc{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+
+.tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:560px;}
+th{
+  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
+  white-space:nowrap;
+}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#FBF8F1;}
+td b{color:var(--orange);}
+
+.mine-wrap{
+  background:#fff;border:2px solid var(--stamp);border-radius:12px;
+  padding:22px;margin:18px 0;
+}
+.mine-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.mine-list li{display:flex;gap:14px;align-items:flex-start;font-size:14px;}
+.mine-list .stamp{margin-top:2px;}
+.mine-list .txt b{color:var(--stamp);}
+
+footer{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.14em;margin-top:50px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 D・物權編</div>
+    <h1>民法概要 彩色重點速記
+      <span class="sub">物權編（不動產經紀人考試對應章節）</span>
+    </h1>
+    <div class="legend">
+      <div class="legend-chip"><span class="dot" style="background:var(--green)"></span>🟢 定義／原則</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--blue)"></span>🔵 法條／構成要件</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--orange)"></span>🟠 易混淆比較</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--purple)"></span>🟣 記憶口訣</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--red)"></span>🔴 高頻易錯點</div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#sec-d1">D1・通則與所有權</a>
+    <a href="#sec-d2">D2・共有</a>
+    <a href="#sec-d3">D3・地上權農育權</a>
+    <a href="#sec-d4">D4・不動產役權</a>
+    <a href="#sec-d5">D5・抵押權</a>
+    <a href="#sec-d6">D6・質權留置權</a>
+    <a href="#sec-d7">D7・典權</a>
+    <a href="#sec-d8">D8・占有</a>
+    <a href="#sec-mine">考前60秒地雷</a>
+  </nav>
+
+  <!-- ================= D1 物權通則與所有權基礎 ================= -->
+  <div class="section-div" id="sec-d1">
+    <div class="num">D1</div>
+    <div class="titles"><h2>物權通則與所有權基礎</h2><div class="en">General Principles &amp; Ownership</div></div>
+  </div>
+
+  <h3>物權法定主義與登記生效要件</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法757條　物權法定主義</b>：物權除依<b>法律或習慣</b>外，不得創設——當事人不能自行發明新種物權。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法758條　設權登記</b>：不動產物權依<b>法律行為</b>取得、設定、喪失、變更者，<b>非經登記不生效力</b>（登記＝生效要件），且該行為應以<b>書面</b>為之。</p>
+    <p><b>民法759條　宣示登記</b>：因<b>繼承、強制執行、徵收、法院判決</b>等非法律行為，於登記前已取得不動產物權者，<b>應經登記，始得處分其物權</b>（登記＝處分要件，不是生效要件）。</p>
+    <p><b>民法759-1條</b>：不動產物權經登記者，推定登記權利人適法有此權利；<b>善意第三人信賴登記</b>而為物權變動登記者，其效力不因原登記不實而受影響。</p>
+  </div>
+
+  <h3>動產物權的讓與方式</h3>
+  <div class="flow vertical">
+    <div class="flow-row">
+      <div class="flow-box">現實交付<br><small>直接移轉占有</small></div>
+      <div class="flow-box">簡易交付<br><small>受讓人已占有，合意即生效</small></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box highlight">占有改定<br><small>讓與人繼續占有，約定受讓人取得間接占有</small></div>
+      <div class="flow-box highlight">指示交付<br><small>讓與對第三人之返還請求權</small></div>
+    </div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法761條</b>：動產物權之讓與，<b>非將動產交付，不生效力</b>。但受讓人已占有動產者，於讓與合意時即生效力（簡易交付）。</p>
+  </div>
+
+  <h3>善意受讓與添附</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法801/948條　善意受讓</b>：動產受讓人<b>占有</b>動產，且<b>善意、無重大過失</b>，即使讓與人<b>無權移轉</b>所有權，受讓人仍<b>取得所有權</b>——保護交易安全。</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>添附類型</th><th>法條</th><th>所有權歸屬</th></tr>
+      <tr><td>動產附合於<b>不動產</b></td><td>811條</td><td><b>不動產所有人</b>取得動產所有權</td></tr>
+      <tr><td>動產與動產<b>附合/混合</b></td><td>812/813條</td><td>各所有人按附合時<b>價值比例共有</b>；<b>有主物者，主物所有人</b>取得全部</td></tr>
+      <tr><td><b>加工</b></td><td>814條</td><td>原則歸<b>材料所有人</b>；但加工增值<b>顯逾</b>材料價值者，歸<b>加工人</b></td></tr>
+    </table>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>因添附而<b>受損害者</b>，不能請求返還原物（所有權已確定），只能依<b>不當得利</b>規定請求償還價額（816條）。</p>
+  </div>
+
+  <h3>相鄰關係：越界建築與必要通行權</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法796條　越界建築</b>：土地所有人<b>非因故意或重大過失</b>逾越地界建房屋，鄰地所有人<b>知其越界而不即提出異議</b>者，<b>不得請求移去或變更房屋</b>，但土地所有人應就鄰地受損害<b>支付償金</b>，鄰地所有人並得請求以相當價額<b>購買越界部分土地</b>。</p>
+    <p><b>民法796-1條</b>：即使逾越地界，法院仍得斟酌公益及當事人利益<b>免為全部或一部移去</b>——但<b>故意逾越地界者不適用</b>此項減免。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法787-789條　必要通行權</b>：土地因與公路無適宜聯絡、不能為通常使用時，得<b>通行周圍地</b>，於必要範圍內擇損害最少之處所方法，並<b>支付償金</b>。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">789條<br>例外</span>
+      <span>因<b>土地一部讓與或分割</b>而形成袋地者，僅得通行<b>受讓人/讓與人/他分割人</b>之地，且<b>無須支付償金</b>——與787條一般情形「須支付償金」不同，常考對比點！</span>
+    </p>
+  </div>
+
+  <h3>區分所有建築物</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法799條</b>：數人區分一建築物，各專有其一部，就<b>專有部分</b>有單獨所有權，並就建築物及附屬物之<b>共有部分</b>共有。<b>專有部分與其所屬共有部分及基地之權利，不得分離而為移轉或設定負擔</b>（799條第5項）。</p>
+  </div>
+
+  <!-- ================= D2 共有 ================= -->
+  <div class="section-div" id="sec-d2">
+    <div class="num">D2</div>
+    <div class="titles"><h2>共有</h2><div class="en">Co-ownership</div></div>
+  </div>
+
+  <h3>分別共有：應有部分與管理</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法817條</b>：數人按應有部分對一物有所有權者為共有人；應有部分不明者，<b>推定均等</b>。</p>
+    <p><b>民法819條</b>：①<b>應有部分</b>——各共有人<b>得自由處分</b>，不需他人同意。②<b>共有物本身</b>之處分、變更、設定負擔——應得<b>共有人全體同意</b>。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>民法820條　共有物之管理</b>：原則上以<b>共有人過半數＋應有部分合計過半數</b>之同意行之；但應有部分合計逾<b>三分之二</b>者，<b>人數不予計算</b>。<b>簡易修繕及保存行為</b>，各共有人得<b>單獨</b>為之。</p>
+  </div>
+
+  <h3>共有物分割</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>項目</th><th>規定</th><th>法條</th></tr>
+      <tr><td>分割請求權</td><td>原則<b>得隨時請求</b>；使用目的不能分割或約定不分割期限者除外</td><td>823條Ⅰ</td></tr>
+      <tr><td>約定不分割期限上限</td><td>一般<b>5年</b>；<b>不動產且訂有管理約定者，30年</b></td><td>823條Ⅱ</td></tr>
+      <tr><td>分割方法</td><td>①協議優先　②原物分配　③變賣分配　④金錢補償</td><td>824條</td></tr>
+      <tr><td>變賣時優先承買</td><td>共有人有<b>依相同條件優先承買</b>之權（買受人非共有人時）</td><td>824條Ⅶ</td></tr>
+      <tr><td>分割效力</td><td>自<b>分割效力發生時</b>取得分得部分所有權</td><td>824-1條Ⅰ</td></tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">824-1<br>抵押權</span>
+      <span>應有部分上原有<b>抵押權/質權，不因分割而受影響</b>；但若①權利人同意分割②已參加分割訴訟③經告知未參加，該抵押權<b>移存於該共有人分得之部分</b>——常考「抵押權跑到分到的那塊地上」。</span>
+    </p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>826-1條　分管契約對受讓人之效力</b>：<b>不動產</b>共有人間之分管/管理約定，<b>於登記後</b>對應有部分受讓人具效力；<b>動產</b>共有人間之約定，則以受讓人<b>受讓時知悉或可得而知</b>為限才有效力——不動產看登記，動產看知悉。</p>
+  </div>
+
+  <h3>公同共有 vs 分別共有</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>分別共有</th><th>公同共有</th></tr>
+      <tr><td><b>應有部分</b></td><td>有，可自由處分</td><td><b>無</b>應有部分，權利及於全部</td></tr>
+      <tr><td><b>處分共有物</b></td><td>應得共有人全體同意</td><td>應得<b>公同共有人全體同意</b>（828條Ⅲ）</td></tr>
+      <tr><td><b>分割</b></td><td>原則得隨時請求</td><td><b>公同關係存續中不得請求分割</b>（829條）</td></tr>
+      <tr><td><b>成立原因</b></td><td>意思表示或法律規定</td><td>法律規定、習慣或<b>法律行為</b>（827條，以有法律規定或習慣者為限）</td></tr>
+      <tr><td><b>典型例子</b></td><td>共同出資購地</td><td><b>繼承（分割前）、合夥財產、夫妻共同財產制</b></td></tr>
+    </table>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>公同共有無份額、繼承合夥夫妻財</b>」——記住三個典型的公同共有情形。<b>831條準共有</b>：本章規定於所有權以外財產權之共有/公同共有，準用之。</p>
+  </div>
+
+  <!-- ================= D3 地上權與農育權 ================= -->
+  <div class="section-div" id="sec-d3">
+    <div class="num">D3</div>
+    <div class="titles"><h2>地上權與農育權</h2><div class="en">Superficies &amp; Agricultural Right</div></div>
+  </div>
+
+  <h3>普通地上權</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法832條</b>：以在他人土地<b>上下</b>有<b>建築物或其他工作物</b>為目的而使用其土地之權。<b>民法841條</b>：地上權<b>不因建築物或工作物滅失而消滅</b>。</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>情形</th><th>規定</th><th>法條</th></tr>
+      <tr><td>未定期限，逾20年</td><td>法院得因當事人請求<b>定存續期間或終止</b></td><td>833-1條</td></tr>
+      <tr><td>無地租約定</td><td>地上權人<b>得隨時拋棄</b></td><td>834條</td></tr>
+      <tr><td>有地租＋定期限</td><td>支付<b>未到期3年分地租</b>後拋棄</td><td>835條Ⅰ</td></tr>
+      <tr><td>有地租＋未定期限</td><td><b>1年前通知</b>，或支付未到期1年分地租</td><td>835條Ⅱ</td></tr>
+      <tr><td>欠地租達<b>2年</b>總額</td><td>催告後仍不付，得<b>終止地上權</b>（須通知抵押權人）</td><td>836條</td></tr>
+      <tr><td>讓與/設定抵押權</td><td>得為之（契約另有約定者不在此限）；<b>地上權與建物不得分離</b></td><td>838條</td></tr>
+    </table>
+  </div>
+
+  <h3>農育權</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法850-1條</b>：在他人土地為<b>農作、森林、養殖、畜牧、種植竹木或保育</b>之權。<b>期限不得逾20年</b>（逾20年縮短為20年），但<b>以造林、保育為目的或法令另有規定者</b>不受此限。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">850-5<br>禁止出租</span>
+      <span><b>農育權人不得將土地或農育工作物出租於他人</b>（除另有習慣），違反者土地所有人得<b>終止農育權</b>——與地上權（838條原則上可讓與/抵押）的可處分性形成對比，農育權對「出租」限制較嚴。</span>
+    </p>
+  </div>
+
+  <!-- ================= D4 不動產役權 ================= -->
+  <div class="section-div" id="sec-d4">
+    <div class="num">D4</div>
+    <div class="titles"><h2>不動產役權</h2><div class="en">Easement</div></div>
+  </div>
+
+  <h3>定義與從屬性</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法851條</b>：以他人不動產供自己不動產<b>通行、汲水、採光、眺望、電信</b>或其他特定便宜之用為目的之權——「不動產對不動產」的便宜關係。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法853條　從屬性</b>：不動產役權<b>不得由需役不動產分離而為讓與</b>，或為其他權利之標的物。</p>
+    <p><b>民法852條　時效取得</b>：因時效取得不動產役權者，<b>以繼續並表見者為限</b>。</p>
+    <p><b>民法859-3、859-4條</b>：不動產役權亦得<b>就自己之不動產設定</b>；基於用益物權或租賃關係使用需役不動產者，亦得為該不動產設定不動產役權，該役權隨原權利消滅而消滅。</p>
+  </div>
+
+  <!-- ================= D5 抵押權 ================= -->
+  <div class="section-div" id="sec-d5">
+    <div class="num">D5</div>
+    <div class="titles"><h2>抵押權</h2><div class="en">Mortgage</div></div>
+  </div>
+
+  <h3>普通抵押權：定義、擔保範圍與效力範圍</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法860條</b>：債權人對於債務人或第三人<b>不移轉占有</b>而供債權擔保之不動產，得就該不動產<b>賣得價金優先受償</b>之權。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法861條　擔保範圍</b>：原債權＋利息＋遲延利息＋違約金＋實行抵押權之費用。其中<b>利息、遲延利息、一年或不及一年定期給付之違約金</b>，以<b>聲請強制執行前5年內</b>發生者為限。</p>
+    <p><b>民法862-864條　效力範圍</b>：及於抵押物之<b>從物與從權利</b>、建築物<b>附加而不具獨立性之部分</b>；<b>抵押物扣押後</b>抵押人得收取的<b>天然孳息</b>（863條）與<b>法定孳息</b>（864條，但須<b>通知</b>義務人才能對抗）。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">5年<br>限制</span>
+      <span>861條的「<b>5年</b>」只適用於<b>利息／遲延利息／違約金</b>，<b>原債權本身不受5年限制</b>；與880條「<b>消滅時效完成後5年內不實行抵押權則抵押權消滅</b>」是不同的「5年」，別混淆！</span>
+    </p>
+  </div>
+
+  <h3>次序、不可分性與從屬性</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>特性</th><th>內容</th><th>法條</th></tr>
+      <tr><td>次序</td><td>數抵押權<b>依登記先後</b>定次序</td><td>865條</td></tr>
+      <tr><td>次序調整</td><td><b>讓與</b>次序／為特定或全體後次序抵押權人<b>拋棄</b>次序，<b>非經登記不生效力</b>，登記前應通知債務人、抵押人、共同抵押人</td><td>870-1條</td></tr>
+      <tr><td>不可分性</td><td>抵押物分割／讓與一部，或擔保債權分割／讓與一部，<b>抵押權均不受影響</b></td><td>868、869條</td></tr>
+      <tr><td>從屬性</td><td>抵押權<b>不得由債權分離而為讓與</b>，或為其他債權之擔保</td><td>870條</td></tr>
+    </table>
+  </div>
+
+  <h3>法定地上權與併付拍賣</h3>
+  <div class="flow vertical">
+    <div class="flow-box highlight">設定抵押時：土地＋建物同屬一人</div>
+    <div class="flow-arrow down">↓ 僅以土地或僅以建物抵押，拍賣後拍定人各異<br><small>876條</small></div>
+    <div class="flow-box result">視為已有地上權之設定<br><small>地租/期間/範圍由協議或法院判決</small></div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法877條</b>：抵押人於設定抵押權<b>後</b>在土地上營造建築物者，抵押權人於必要時得聲請<b>併付拍賣</b>，但<b>對建築物價金無優先受清償權</b>。</p>
+  </div>
+
+  <h3>時效完成後抵押權與最高限額抵押權</h3>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">880條<br>5年</span>
+      <span>抵押權擔保之債權<b>請求權因時效消滅</b>後，抵押權人於<b>消滅時效完成後5年內</b>不實行抵押權者，<b>抵押權消滅</b>——即時效完成後仍有5年緩衝期（881-15條：最高限額抵押權準用）。</span>
+    </p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>項目</th><th>內容</th><th>法條</th></tr>
+      <tr><td>定義</td><td>就<b>一定範圍內之不特定債權</b>，在最高限額內設定抵押權</td><td>881-1條</td></tr>
+      <tr><td>擔保債權範圍</td><td><b>以由一定法律關係所生之債權，或基於票據所生之權利為限</b></td><td>881-1條Ⅱ</td></tr>
+      <tr><td>確定期日</td><td>有約定者<b>自設定時起不得逾30年</b>；未約定者得隨時請求確定，<b>自請求日起15日</b>為確定期日</td><td>881-4、881-5條</td></tr>
+      <tr><td>確定前讓與債權</td><td>抵押權<b>不隨同移轉</b></td><td>881-6條</td></tr>
+      <tr><td>確定後</td><td>效力<b>不及於後續發生之債權</b>，得結算並變更登記為<b>普通抵押權</b></td><td>881-13、881-14條</td></tr>
+    </table>
+  </div>
+
+  <!-- ================= D6 質權與留置權 ================= -->
+  <div class="section-div" id="sec-d6">
+    <div class="num">D6</div>
+    <div class="titles"><h2>質權與留置權</h2><div class="en">Pledge &amp; Lien</div></div>
+  </div>
+
+  <h3>動產質權</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法884/885條</b>：債權人對於債務人或第三人<b>移轉占有</b>而供債權擔保之動產，得就賣得價金優先受償之權；<b>質權之設定因供擔保動產移轉於債權人占有而生效力</b>，<b>質權人不得使出質人或債務人代自己占有質物</b>（不能用占有改定設定質權）。</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>情形</th><th>效果</th><th>法條</th></tr>
+      <tr><td>質物滅失，出質人受賠償</td><td>質權消滅，但質權人對<b>賠償／請求權仍有質權</b>（物上代位）</td><td>899條</td></tr>
+      <tr><td>質權人返還質物給出質人/交付債務人</td><td><b>質權消滅</b>（保留質權繼續存在之約定無效）</td><td>897條</td></tr>
+      <tr><td>質權人非自願喪失占有，<b>2年內未請求返還</b></td><td><b>動產質權消滅</b></td><td>898條</td></tr>
+    </table>
+  </div>
+
+  <h3>權利質權</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法900條</b>：以<b>可讓與之債權或其他權利</b>為標的物的質權。<b>904條</b>：以債權為標的之質權，<b>設定應以書面為之</b>；債權有證書者，出質人應交付證書。<b>903條</b>：為質權標的物之權利，<b>非經質權人同意，出質人不得使其消滅或變更</b>。</p>
+  </div>
+
+  <h3>留置權</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法928條</b>：債權人<b>占有他人之動產</b>，而<b>債權之發生與該動產有牽連關係</b>，債權已屆清償期未受清償時，得<b>留置該動產</b>。<b>929條</b>：<b>商人間因營業關係而占有之動產</b>，與其營業關係所生之債權，<b>視為有牽連關係</b>。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>931條</b>：債務人<b>無支付能力</b>時，債權<b>未屆清償期</b>，債權人<b>仍有留置權</b>。<b>936條</b>：屆期未獲清償，債權人定<b>1個月以上</b>期限通知債務人，逾期得<b>準用質權實行規定</b>（拍賣優先受償或取得所有權）。</p>
+  </div>
+
+  <!-- ================= D7 典權 ================= -->
+  <div class="section-div" id="sec-d7">
+    <div class="num">D7</div>
+    <div class="titles"><h2>典權</h2><div class="en">Dien (Right of Antichresis)</div></div>
+  </div>
+
+  <h3>定義、期限與絕賣條款</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法911條</b>：支付典價在他人不動產<b>使用、收益</b>，<b>於他人不回贖時取得該不動產所有權</b>之權。<b>912條</b>：約定期限<b>不得逾30年</b>，逾30年縮短為30年。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">913<br>≥15年</span>
+      <span><b>典權約定期限不滿15年者，不得附有到期不贖即作絕賣之條款</b>——須期限達15年以上才能約定絕賣。絕賣條款<b>非經登記，不得對抗第三人</b>。</span>
+    </p>
+  </div>
+
+  <h3>留買權、回贖與找貼</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>項目</th><th>內容</th><th>法條</th></tr>
+      <tr><td>留買權</td><td>出典人賣典物時，典權人有<b>相同條件留買</b>之權；書面通知後<b>10日內</b>不表示即視為拋棄</td><td>919條</td></tr>
+      <tr><td>定期典權回贖</td><td>期限屆滿後得以原典價回贖；屆滿<b>逾2年</b>不回贖者，典權人取得所有權</td><td>923條</td></tr>
+      <tr><td>未定期典權回贖</td><td><b>得隨時</b>回贖；<b>逾30年</b>不回贖者，典權人取得所有權</td><td>924條</td></tr>
+      <tr><td>回贖通知</td><td>應於<b>6個月前</b>通知典權人</td><td>925條</td></tr>
+      <tr><td>找貼</td><td>出典人表示讓與所有權，典權人按時價找貼取得所有權，<b>以一次為限</b></td><td>926條</td></tr>
+    </table>
+  </div>
+
+  <!-- ================= D8 占有 ================= -->
+  <div class="section-div" id="sec-d8">
+    <div class="num">D8</div>
+    <div class="titles"><h2>占有</h2><div class="en">Possession</div></div>
+  </div>
+
+  <h3>占有人的類型與推定</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>941條　間接占有人</b>：地上權人、農育權人、典權人、質權人、承租人、受寄人等對物<b>直接占有</b>，其相對之本人為<b>間接占有人</b>。<b>942條　占有輔助人</b>：受僱人、學徒、家屬基於指示管領物者，<b>本人才是占有人</b>。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>943條　占有推定之例外</b>：占有人行使權利<b>推定適法有此權利</b>，但①<b>占有已登記之不動產而行使物權</b>、②<b>行使所有權以外權利者，對使其占有之人</b>——這兩種情形<b>不適用</b>占有推定。</p>
+  </div>
+
+  <h3>善意受讓的例外：盜贓遺失物</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>情形</th><th>原占有人可否回復</th><th>法條</th></tr>
+      <tr><td>一般盜贓/遺失物，現占有人善意受讓</td><td><b>喪失占有2年內</b>得向善意現占有人請求回復</td><td>949條</td></tr>
+      <tr><td>現占有人由<b>公開交易場所</b>或<b>同種物商人</b>善意買得</td><td>須<b>償還其支出之價金</b>才能回復</td><td>950條</td></tr>
+      <tr><td>標的物為<b>金錢或未記載權利人之有價證券</b></td><td><b>不得請求回復</b></td><td>951條</td></tr>
+    </table>
+  </div>
+
+  <h3>善意 vs 惡意占有人</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>善意占有人</th><th>惡意占有人</th></tr>
+      <tr><td>滅失/毀損賠償責任</td><td>以<b>所受利益為限</b>負責（953條）</td><td><b>全額</b>負賠償責任（956條）</td></tr>
+      <tr><td>必要費用</td><td>得請求償還，但<b>已收孳息者不得請求通常必要費用</b>（954條）</td><td>依<b>無因管理</b>規定請求償還（957條）</td></tr>
+      <tr><td>孳息</td><td>得收取使用收益（952條）</td><td><b>負返還孳息義務</b>（958條）</td></tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">959<br>視為惡意</span>
+      <span>善意占有人<b>自確知其無占有本權時起</b>，或<b>本權訴訟敗訴、自訴狀送達之日起</b>，<b>視為惡意占有人</b>。</span>
+    </p>
+  </div>
+
+  <h3>占有的保護</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>962條</b>：占有<b>被侵奪</b>者得請求<b>返還</b>；被<b>妨害</b>者得請求<b>除去妨害</b>；有妨害之虞者得請求<b>防止</b>。<b>963條</b>：此請求權<b>自侵奪或妨害發生後，1年間不行使而消滅</b>——物權編少見的「1年」短期間。</p>
+  </div>
+
+  <!-- ================= 紅色地雷清單 ================= -->
+  <div class="section-div" id="sec-mine">
+    <div class="num">★</div>
+    <div class="titles"><h2>考前60秒　紅色地雷清單</h2><div class="en">Final Check — High-risk Points</div></div>
+  </div>
+  <div class="mine-wrap">
+    <ul class="mine-list">
+      <li><span class="stamp">01</span><span class="txt"><b>758條設權登記</b>（生效要件）vs <b>759條宣示登記</b>（處分要件）——繼承/強制執行/判決取得不動產，未登記即已取得，但<b>未登記不得處分</b>。</span></li>
+      <li><span class="stamp">02</span><span class="txt">動產讓與四方式：<b>現實交付、簡易交付、占有改定、指示交付</b>（761條）——占有改定常出現在「讓與後仍繼續占有」的情境。</span></li>
+      <li><span class="stamp">03</span><span class="txt"><b>789條例外</b>：因土地一部讓與/分割形成袋地者，僅得通行<b>受讓人/讓與人/他分割人</b>之地，且<b>無須支付償金</b>（一般787條須支付償金）。</span></li>
+      <li><span class="stamp">04</span><span class="txt"><b>應有部分</b>可自由處分（819條Ⅰ）；<b>共有物本身</b>處分需<b>全體同意</b>（819條Ⅱ）；<b>管理</b>則為人數＋應有部分雙重過半（820條）。</span></li>
+      <li><span class="stamp">05</span><span class="txt">約定不分割期限：一般<b>5年</b>，<b>不動產且訂有管理約定者30年</b>（823條Ⅱ）；<b>824-1條</b>分割後抵押權「移存」於分得部分。</span></li>
+      <li><span class="stamp">06</span><span class="txt"><b>公同共有無應有部分</b>，分割前不得請求分割（829條）；繼承、合夥財產、夫妻共同財產制是典型例子。</span></li>
+      <li><span class="stamp">07</span><span class="txt"><b>地上權不因建物滅失而消滅</b>（841條）；<b>農育權人不得出租土地/工作物</b>（850-5條），違反者得終止——兩者對「滅失」與「出租」的處理不同。</span></li>
+      <li><span class="stamp">08</span><span class="txt"><b>861條5年</b>限制只適用<b>利息/遲延利息/違約金</b>，原債權不受限；<b>880條5年</b>是「時效完成後仍可實行抵押權的緩衝期」——兩個5年意義不同。</span></li>
+      <li><span class="stamp">09</span><span class="txt"><b>876條法定地上權</b>：土地與建物同屬一人，僅以其一設定抵押，拍賣後視為已有地上權設定；<b>877條併付拍賣</b>則對建物價金<b>無優先受償權</b>。</span></li>
+      <li><span class="stamp">10</span><span class="txt">最高限額抵押權<b>確定前</b>債權讓與<b>抵押權不隨同移轉</b>（881-6）；<b>確定後</b>效力不及於新發生債權，得結算變更為普通抵押權（881-13、14）。</span></li>
+      <li><span class="stamp">11</span><span class="txt"><b>質權須移轉占有</b>（885條），不能用占有改定設定；<b>非自願喪失占有2年內未請求返還，質權消滅</b>（898條）。</span></li>
+      <li><span class="stamp">12</span><span class="txt"><b>典權絕賣條款須期限≥15年</b>（913條）；<b>找貼以一次為限</b>（926條）；定期典權逾<b>2年</b>不回贖、未定期逾<b>30年</b>不回贖，典權人取得所有權。</span></li>
+      <li><span class="stamp">13</span><span class="txt">盜贓/遺失物善意受讓：<b>2年內</b>得請求回復（949）；由<b>公開市場/同種商人</b>買得須償還價金（950）；標的為<b>金錢/無記名證券不得回復</b>（951）。</span></li>
+      <li><span class="stamp">14</span><span class="txt">占有人之物上請求權（962條）<b>1年間不行使而消滅</b>（963條）——物權編中少見的1年期間，與767條所有權之物上請求權（無時效限制，已登記不動產）不同。</span></li>
+    </ul>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要複習｜D 物權編</footer>
+</div>
+</body>
+</html>

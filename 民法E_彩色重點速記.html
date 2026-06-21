@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜彩色重點速記・親屬繼承編</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#F1E8D8;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+  --blue:#3E6B8C;
+  --orange:#C17A2E;
+  --purple:#7B5C8C;
+  --red:#A8402B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 8% 6%, rgba(188,138,46,0.06), transparent 38%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 42%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:60px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px;}
+
+header{padding:32px 0 18px;text-align:center;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.14em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 14px;margin-bottom:12px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:26px;
+  letter-spacing:.05em;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;font-family:'Noto Sans TC',sans-serif;}
+
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:18px 0 8px;
+}
+.legend-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;background:#fff;
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px;
+}
+.legend-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+.nav{
+  position:sticky;top:0;z-index:10;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  padding:10px 0;margin-top:20px;font-family:'Noto Serif TC',serif;
+  font-weight:700;font-size:12.5px;backdrop-filter:blur(4px);
+}
+.nav a{color:var(--ink-soft);text-decoration:none;letter-spacing:.06em;padding:4px 8px;border-radius:6px;}
+.nav a:hover{color:var(--ink);background:var(--paper-deep);}
+
+.section-div{
+  margin:46px 0 18px;display:flex;align-items:baseline;gap:14px;
+}
+.section-div .num{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:38px;
+  color:var(--gold);line-height:1;
+}
+.section-div .titles{flex:1;}
+.section-div h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:20px;letter-spacing:.06em;}
+.section-div .en{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;text-transform:uppercase;}
+.section-div::after{content:"";flex:1;height:1px;background:var(--rule);align-self:center;}
+
+h3{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;
+  margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--ink);
+  display:inline-block;
+}
+
+.note{
+  border-radius:0 8px 8px 8px;border-left:5px solid var(--ink);
+  background:#fff;padding:12px 16px;margin:10px 0;
+  box-shadow:0 1px 6px rgba(42,39,34,0.05);
+  position:relative;
+}
+.note .tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:11px;
+  letter-spacing:.1em;color:#fff;border-radius:0 0 8px 0;
+  padding:2px 10px;margin:-12px 0 8px -16px;
+}
+.note p{font-size:14px;}
+.note p+p{margin-top:6px;}
+.note b{color:var(--ink);border-bottom:2px solid currentColor;}
+.note small{color:var(--ink-soft);}
+
+.note-green{border-color:var(--green);}
+.note-green .tag{background:var(--green);}
+.note-green b{border-color:var(--green);}
+
+.note-blue{border-color:var(--blue);}
+.note-blue .tag{background:var(--blue);}
+.note-blue b{border-color:var(--blue);}
+
+.note-orange{border-color:var(--orange);}
+.note-orange .tag{background:var(--orange);}
+.note-orange b{border-color:var(--orange);}
+
+.note-purple{border-color:var(--purple);}
+.note-purple .tag{background:var(--purple);}
+.note-purple b{border-color:var(--purple);}
+
+.note-red{border-color:var(--red);}
+.note-red .tag{background:var(--red);}
+.note-red b{border-color:var(--red);}
+
+.stamp{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid var(--stamp);border-radius:50%;color:var(--stamp);
+  font-weight:900;font-family:'Noto Serif TC',serif;font-size:11px;
+  width:46px;height:46px;transform:rotate(-9deg);flex-shrink:0;
+  text-align:center;line-height:1.1;letter-spacing:.05em;
+}
+
+.flow{
+  background:var(--paper-deep);border:1px dashed var(--rule);
+  border-radius:10px;padding:18px;margin:14px 0;
+}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.flow.vertical{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.flow-box{
+  background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
+  font-family:'Noto Serif TC',serif;min-width:100px;
+}
+.flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
+  font-family:'Noto Sans TC',sans-serif;margin-top:3px;}
+.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
+.flow-box.result{border-color:var(--green);background:#EFF4EC;}
+.flow-box.danger{border-color:var(--stamp);background:#FBEAE6;color:var(--stamp);}
+.flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;text-align:center;white-space:nowrap;}
+.flow-arrow small{display:block;font-size:10px;font-weight:400;}
+.flow-arrow.down{display:flex;flex-direction:column;align-items:center;}
+
+.grid5{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0;
+}
+@media(min-width:520px){.grid5{grid-template-columns:repeat(3,1fr);}}
+.grid5 .item{
+  background:#fff;border:1.5px solid var(--green);border-radius:8px;
+  padding:12px;text-align:center;
+}
+.grid5 .item .name{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;color:var(--green);}
+.grid5 .item .desc{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+
+.tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:560px;}
+th{
+  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
+  white-space:nowrap;
+}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#FBF8F1;}
+td b{color:var(--orange);}
+
+.mine-wrap{
+  background:#fff;border:2px solid var(--stamp);border-radius:12px;
+  padding:22px;margin:18px 0;
+}
+.mine-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.mine-list li{display:flex;gap:14px;align-items:flex-start;font-size:14px;}
+.mine-list .stamp{margin-top:2px;}
+.mine-list .txt b{color:var(--stamp);}
+
+footer{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.14em;margin-top:50px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 E・親屬繼承編</div>
+    <h1>民法概要 彩色重點速記
+      <span class="sub">親屬編與繼承編（不動產經紀人考試對應章節）</span>
+    </h1>
+    <div class="legend">
+      <div class="legend-chip"><span class="dot" style="background:var(--green)"></span>🟢 定義／原則</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--blue)"></span>🔵 法條／構成要件</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--orange)"></span>🟠 易混淆比較</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--purple)"></span>🟣 記憶口訣</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--red)"></span>🔴 高頻易錯點</div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#sec-e1">E1・親屬通則</a>
+    <a href="#sec-e2">E2・婚姻</a>
+    <a href="#sec-e3">E3・離婚</a>
+    <a href="#sec-e4">E4・父母子女</a>
+    <a href="#sec-e5">E5・夫妻財產制</a>
+    <a href="#sec-e6">E6・繼承順序與應繼分</a>
+    <a href="#sec-e7">E7・遺囑與特留分</a>
+    <a href="#sec-mine">考前60秒地雷</a>
+  </nav>
+
+  <!-- ================= E1 親屬通則 ================= -->
+  <div class="section-div" id="sec-e1">
+    <div class="num">E1</div>
+    <div class="titles"><h2>親屬通則</h2><div class="en">Kinship Basics</div></div>
+  </div>
+
+  <h3>血親與姻親</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法967條</b>：<b>直系血親</b>＝己身所從出或從己身所出之血親（父母子女、祖孫…）；<b>旁系血親</b>＝非直系血親，而與己身出於同源之血親（兄弟姊妹、叔伯姑舅、堂表兄弟姊妹…）。</p>
+    <p><b>民法969條</b>：<b>姻親</b>＝①<b>血親之配偶</b>（嫂嫂、弟媳、姊夫、妹婿）②<b>配偶之血親</b>（公婆、岳父母、配偶的兄弟姊妹）③<b>配偶之血親之配偶</b>（配偶兄弟的太太）。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>「姻親之血親」與「姻親之配偶之血親」都不算姻親！</b>例如：配偶兄弟的太太（②配偶之血親之配偶＝姻親）的兄弟姊妹，對自己而言<b>不是姻親</b>——姻親關係不能再往外延伸第二層。</p>
+  </div>
+
+  <h3>親等之計算</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法968條</b>：<b>直系血親</b>，從己身上下數，<b>以一世為一親等</b>（父母↔子女＝1親等；祖孫＝2親等）。<b>旁系血親</b>，從己身數至同源之直系血親，再由該直系血親數至對方，<b>以總世數為親等</b>（兄弟姊妹：己→父1代→兄1代＝2親等；叔伯：己→父1代→祖1代→叔2代＝3親等）。</p>
+    <p><b>民法970條</b>：<b>姻親之親系及親等</b>，從其配偶之親系及親等計算（配偶的兄弟對自己＝旁系姻親2親等，與配偶對其兄弟的親等相同）。</p>
+  </div>
+
+  <h3>姻親關係之消滅</h3>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">971條<br>離婚消滅</span>
+      <span><b>民法971條</b>：姻親關係，因<b>離婚</b>而消滅；結婚經<b>撤銷</b>者亦同。但要注意：<b>血親關係</b>不會因離婚而消滅（例如父母離婚，子女與雙方仍是直系血親）——離婚消滅的是「姻親」關係，不是「血親」關係。</span>
+    </p>
+  </div>
+
+  <!-- ================= E2 婚姻 ================= -->
+  <div class="section-div" id="sec-e2">
+    <div class="num">E2</div>
+    <div class="titles"><h2>婚姻</h2><div class="en">Marriage</div></div>
+  </div>
+
+  <h3>結婚之實質要件</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>項目</th><th>規定</th></tr>
+      <tr><td><b>結婚年齡</b>（980條）</td><td>男女<b>未滿18歲</b>者，不得結婚（現行法已無男女不同齡之區分）</td></tr>
+      <tr><td><b>訂婚約年齡</b>（973條）</td><td>男女<b>未滿17歲</b>者，不得訂定婚約</td></tr>
+      <tr><td><b>監護關係中結婚</b>（984條）</td><td>監護人與受監護人，於監護關係存續中結婚，應得受監護人父母之同意</td></tr>
+      <tr><td><b>重婚禁止</b>（985條）</td><td>有配偶者，不得重婚；一人不得同時與二人以上結婚</td></tr>
+    </table>
+  </div>
+
+  <h3>禁婚親（983條）</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法983條</b>不得結婚之親屬：①<b>直系血親及直系姻親</b>（一律禁止，無例外）②<b>旁系血親在六親等以內者</b>。但因<b>收養而成立之四親等及六親等旁系血親，輩分相同者</b>，不在此限 ③<b>旁系姻親在五親等以內，且輩分不同者</b>。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>旁系血親禁婚範圍是「<b>6親等以內</b>」，旁系姻親禁婚範圍是「<b>5親等以內且輩分不同</b>」——數字不同（6 vs 5），且姻親多了「<b>輩分不同</b>」的限制（輩分相同的旁系姻親，如：自己的弟弟與配偶的妹妹結婚，不在禁止之列）。</p>
+  </div>
+
+  <h3>結婚之方式</h3>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-box highlight">書面</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box highlight">2人以上證人簽名</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box result">向戶政機關辦理結婚登記</div>
+    </div>
+  </div>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p><b>民法982條</b>：結婚應以<b>書面</b>為之，有<b>2人以上證人</b>之簽名，並由雙方當事人<b>向戶政機關為結婚之登記</b>——現行法是「<b>登記婚</b>」，登記是結婚的<b>形式要件</b>（缺乏即屬無效），不是單純對抗第三人的問題。</p>
+  </div>
+
+  <h3>結婚無效 vs 得撤銷</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>類型</th><th>原因（舉例）</th><th>效果</th></tr>
+      <tr><td><b>無效</b>（988條）</td><td>不具982條方式（未登記）／違反983條近親禁婚／違反985條重婚（但善意且無過失信賴前婚姻消滅之兩願離婚而再婚者，不適用無效）</td><td><b>自始、當然、確定不生效力</b>，任何人均得主張</td></tr>
+      <tr><td><b>得撤銷</b>（989-997條）</td><td>未達結婚年齡（989）／監護關係未經同意（990）／不能人道（995）／精神不健全（996）／被詐欺脅迫（997）</td><td><b>撤銷前有效</b>，須向法院請求；撤銷<b>不影響</b>因婚姻所生之<b>子女權義</b>（999-1條）及<b>善意第三人</b>權利（999條）</td></tr>
+    </table>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>形式近親重婚無效，年齡同意身心被脅得撤銷</b>」——記住988條三大無效事由（形式要件、近親、重婚），其餘多為「得撤銷」類型。</p>
+  </div>
+
+  <!-- ================= E3 離婚 ================= -->
+  <div class="section-div" id="sec-e3">
+    <div class="num">E3</div>
+    <div class="titles"><h2>離婚</h2><div class="en">Divorce</div></div>
+  </div>
+
+  <h3>兩願離婚（1049-1050條）</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p>夫妻<b>兩願離婚</b>者，得自行離婚。但須以<b>書面</b>為之，有<b>2人以上證人之簽名</b>，並向<b>戶政機關</b>為離婚之登記——與結婚的形式要件（982條）完全對應，<b>登記是生效要件</b>。</p>
+  </div>
+
+  <h3>判決離婚事由（1052條）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>第1項　十款具體事由</th><th>第2項　概括條款</th></tr>
+      <tr><td>①重婚 ②與配偶以外之人合意性交 ③對他方不堪同居之虐待 ④對他方直系親屬虐待（或被虐待致不堪共同生活）⑤惡意遺棄在繼續狀態中 ⑥意圖殺害他方 ⑦不治之惡疾 ⑧重大不治之精神病 ⑨生死不明逾3年 ⑩故意犯罪受6個月以上有期徒刑確定</td><td><b>有前項以外之重大事由，難以維持婚姻者</b>，得請求離婚。<b>但其事由應由夫妻一方負責者，僅他方得請求離婚</b>（有過失之一方不得自己請求）</td></tr>
+    </table>
+  </div>
+
+  <h3>離婚之效果</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1055條　未成年子女權義</b>：由<b>夫妻協議</b>由一方或雙方共同任之；未協議或協議不成者，<b>法院</b>得依請求或<b>依職權</b>酌定。協議不利於子女者，法院得改定。</p>
+    <p><b>1056條　損害賠償</b>：因判決離婚受有損害者，得向<b>有過失之他方</b>請求賠償，<b>包含非財產上損害（慰撫金）</b>，但<b>以受害人無過失為限</b>。此請求權<b>不得讓與或繼承</b>，但<b>已依契約承諾或已起訴者</b>不在此限。</p>
+    <p><b>1057條　贍養費</b>：<b>無過失之一方</b>因判決離婚<b>陷於生活困難</b>者，<b>他方縱無過失</b>，亦應給與相當之贍養費——重點是請求人須<b>無過失</b>，被請求人<b>則不限有過失</b>。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">兩願<br>vs判決</span>
+      <span><b>兩願離婚</b>：原則上<b>不得請求</b>贍養費或損害賠償（因為是雙方合意，無「有過失之他方」的前提）。<b>贍養費（1057條）與損害賠償（1056條）僅在「判決離婚」時才有適用空間</b>——這是常見的混淆陷阱。</span>
+    </p>
+  </div>
+
+  <!-- ================= E4 父母子女 ================= -->
+  <div class="section-div" id="sec-e4">
+    <div class="num">E4</div>
+    <div class="titles"><h2>父母子女</h2><div class="en">Parent-Child Relations</div></div>
+  </div>
+
+  <h3>婚生子女與否認之訴</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>1061條</b>：<b>婚生子女</b>＝由婚姻關係受胎而生之子女。<b>1063條第1項</b>：妻之受胎係在<b>婚姻關係存續中</b>者，<b>推定</b>其所生子女為婚生子女。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1063條第2、3項</b>：上述推定，<b>夫妻一方或子女</b>能證明子女<b>非為婚生子女</b>者，得提起<b>否認之訴</b>。提起期間：自<b>知悉</b>該子女非婚生時起<b>2年內</b>；但<b>子女於未成年時知悉者，仍得於成年後2年內</b>為之（保護未成年子女）。</p>
+  </div>
+
+  <h3>非婚生子女：認領</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>情形</th><th>效果</th></tr>
+      <tr><td>生父<b>認領</b>非婚生子女（1065條Ⅰ）</td><td><b>視為婚生子女</b>；生父<b>撫育者，視為認領</b>（不須另外的認領動作）</td></tr>
+      <tr><td>非婚生子女與<b>生母</b>之關係（1065條Ⅱ）</td><td><b>視為婚生子女，無須認領</b>（母子關係因分娩事實當然確定）</td></tr>
+      <tr><td><b>認領之訴</b>（1067條）</td><td>有事實足認生父者，非婚生子女、生母或法定代理人得向生父提起；<b>生父死亡後，得向其繼承人提起；無繼承人者，向社會福利主管機關</b>為之</td></tr>
+    </table>
+  </div>
+
+  <h3>收養</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1073條　年齡差</b>：收養者應<b>長於</b>被收養者<b>20歲以上</b>。但<b>夫妻共同收養</b>時，一方長20歲以上、<b>他方僅須長16歲以上</b>即可；<b>夫妻之一方收養他方之子女</b>時，應<b>長於被收養者16歲以上</b>。</p>
+    <p><b>1079條</b>：收養應以<b>書面</b>為之，並<b>向法院聲請認可</b>——法院認可是收養生效的要件（非僅登記對抗）。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>1077條</b>：養子女與養父母及其親屬間關係，<b>與婚生子女同</b>；與本生父母及其親屬間之權利義務，於收養關係存續中<b>停止</b>（不是「消滅」，終止收養後可<b>回復</b>）。但<b>夫妻一方收養他方之子女時</b>，他方與其子女之權利義務<b>不受收養影響</b>（不會停止）。</p>
+  </div>
+
+  <!-- ================= E5 夫妻財產制 ================= -->
+  <div class="section-div" id="sec-e5">
+    <div class="num">E5</div>
+    <div class="titles"><h2>夫妻財產制</h2><div class="en">Marital Property Regimes</div></div>
+  </div>
+
+  <div class="grid5">
+    <div class="item"><div class="name">法定財產制</div><div class="desc">未約定時適用（1005條）；婚前/婚後財產各自所有</div></div>
+    <div class="item"><div class="name">共同財產制</div><div class="desc">約定財產制；夫妻財產及所得合併為公同共有</div></div>
+    <div class="item"><div class="name">分別財產制</div><div class="desc">約定財產制；各自所有、管理、使用、收益、處分</div></div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1007條</b>：夫妻財產制契約之訂立、變更或廢止，應以<b>書面</b>為之。<b>1008條</b>：<b>非經登記，不得以之對抗第三人</b>（登記＝對抗要件，非生效要件，與結婚登記不同）。</p>
+  </div>
+
+  <h3>法定財產制</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p><b>1017條</b>：夫或妻之<b>婚前財產與婚後財產，各自所有</b>；婚前財產於<b>婚姻關係存續中所生之孳息</b>，<b>視為婚後財產</b>。<b>1018條</b>：夫妻各自<b>管理、使用、收益及處分</b>其財產。<b>1023條</b>：夫妻各自對其債務負清償之責；<b>以自己財產清償他方債務時，得請求償還</b>。</p>
+  </div>
+
+  <h3>剩餘財產分配請求權（1030-1條）</h3>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-box highlight">夫現存婚後財產</div>
+      <div class="flow-arrow">−</div>
+      <div class="flow-box highlight">夫婚後債務</div>
+      <div class="flow-arrow">＝</div>
+      <div class="flow-box">夫淨值</div>
+    </div>
+    <div class="flow-arrow down">↕<br><small>差額平均分配</small></div>
+    <div class="flow-row">
+      <div class="flow-box highlight">妻現存婚後財產</div>
+      <div class="flow-arrow">−</div>
+      <div class="flow-box highlight">妻婚後債務</div>
+      <div class="flow-arrow">＝</div>
+      <div class="flow-box">妻淨值</div>
+    </div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1030-1條第1項</b>：法定財產制關係消滅時，<b>現存婚後財產</b>扣除婚姻關係存續所負債務，<b>差額平均分配</b>。但下列<b>排除</b>計算：①<b>因繼承或其他無償取得之財產</b>（如受贈與、繼承） ②<b>慰撫金</b>。</p>
+    <p><b>1030-3條</b>：夫或妻為<b>減少他方剩餘財產分配</b>，於關係消滅前<b>5年內處分婚後財產</b>者，應<b>追加計算</b>視為現存婚後財產（但履行道德義務之相當贈與不在此限）。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">2年<br>5年</span>
+      <span><b>1030-1條第5項</b>：剩餘財產差額分配請求權，自請求權人<b>知有剩餘財產差額時起2年</b>間不行使而消滅；自<b>法定財產制關係消滅時起逾5年</b>者，亦同。——<b>注意是「5年」，不是繼承回復請求權（1146條）的「10年」！</b>兩者常被混淆。</span>
+    </p>
+  </div>
+
+  <!-- ================= E6 繼承順序與應繼分 ================= -->
+  <div class="section-div" id="sec-e6">
+    <div class="num">E6</div>
+    <div class="titles"><h2>繼承順序與應繼分</h2><div class="en">Order of Succession</div></div>
+  </div>
+
+  <h3>法定繼承順序（1138條）</h3>
+  <div class="flow vertical">
+    <div class="flow-box highlight">配偶（與各順序同列，1144條另計）</div>
+    <div class="flow-arrow down">↓</div>
+    <div class="flow-box">① 直系血親卑親屬</div>
+    <div class="flow-arrow down">↓（無①或①均拋棄/喪失繼承權）</div>
+    <div class="flow-box">② 父母</div>
+    <div class="flow-arrow down">↓</div>
+    <div class="flow-box">③ 兄弟姊妹</div>
+    <div class="flow-arrow down">↓</div>
+    <div class="flow-box">④ 祖父母</div>
+  </div>
+
+  <h3>配偶之應繼分（1144條）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>與何人同為繼承</th><th>配偶應繼分</th></tr>
+      <tr><td>與第①順序（直系血親卑親屬）</td><td><b>平均分配</b>（與其他繼承人人數均分）</td></tr>
+      <tr><td>與第②順序（父母）或第③順序（兄弟姊妹）</td><td>遺產<b>二分之一</b></td></tr>
+      <tr><td>與第④順序（祖父母）</td><td>遺產<b>三分之二</b></td></tr>
+      <tr><td>無其他繼承人</td><td>遺產<b>全部</b></td></tr>
+    </table>
+  </div>
+
+  <h3>代位繼承（1140條）</h3>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">限第①<br>順序</span>
+      <span><b>民法1140條</b>：第1138條所定<b>第一順序</b>之繼承人，有於<b>繼承開始前死亡或喪失繼承權</b>者，由其<b>直系血親卑親屬代位繼承</b>其應繼分。——<b>代位繼承僅限於第一順序（直系血親卑親屬）</b>！第二、三、四順序的繼承人若先死亡，<b>不發生代位繼承</b>，其應繼分由同順序其他人均分或歸屬下一順序。另外，<b>「拋棄繼承」不適用代位繼承</b>（1176條另有規定其應繼分歸屬，詳見下方）。</span>
+    </p>
+  </div>
+
+  <h3>限定責任與遺產清冊（1148、1156條）</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p><b>1148條第2項</b>：繼承人對於被繼承人之債務，<b>以因繼承所得遺產為限</b>，負清償責任（<b>現行法為全面限定繼承</b>，不須特別聲明）。<b>1156條</b>：繼承人於<b>知悉其得繼承之時起3個月內</b>，開具<b>遺產清冊陳報法院</b>（法院得依聲請延展）；<b>1153條</b>：繼承人對被繼承人之債務負<b>連帶責任</b>，相互間按<b>應繼分比例</b>分擔。</p>
+  </div>
+
+  <h3>拋棄繼承（1174、1176條）</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1174條</b>：繼承人得拋棄其繼承權，應於<b>知悉其得繼承之時起3個月內，以書面向法院</b>為之；拋棄後應<b>書面通知</b>因其拋棄而應為繼承之人（不能通知者不在此限）。</p>
+    <p><b>1176條　拋棄後應繼分歸屬</b>：第一順序繼承人中有拋棄者，其應繼分歸屬<b>其他同為繼承之人</b>（含同順序其他人，<b>不適用代位繼承</b>）；第二至四順序者，歸屬<b>同一順序其他繼承人</b>；<b>與配偶同為繼承之同一順序繼承人均拋棄，且無後順序繼承人時，歸屬配偶</b>。</p>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>3個月・書面・向法院</b>」——拋棄繼承、開具遺產清冊都是「知悉得繼承時起3個月內、書面、向法院」，兩者期間相同但功能不同（拋棄＝退出繼承；遺產清冊＝盤點以限定責任）。</p>
+  </div>
+
+  <!-- ================= E7 遺囑與特留分 ================= -->
+  <div class="section-div" id="sec-e7">
+    <div class="num">E7</div>
+    <div class="titles"><h2>遺囑與特留分</h2><div class="en">Wills &amp; Reserved Portion</div></div>
+  </div>
+
+  <h3>遺囑能力與方式</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>1186條</b>：<b>無行為能力人，不得為遺囑</b>。<b>限制行為能力人，無須經法定代理人允許</b>，得為遺囑，但<b>未滿16歲者，不得為遺囑</b>。</p>
+    <p><b>1189條</b>遺囑五種方式：①<b>自書遺囑</b> ②<b>公證遺囑</b> ③<b>密封遺囑</b> ④<b>代筆遺囑</b> ⑤<b>口授遺囑</b>（限於生命危急等特殊情形）。</p>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p><b>1196條</b>：<b>口授遺囑</b>，自遺囑人<b>能依其他方式為遺囑之時起，經過3個月而失其效力</b>——口授遺囑是「應急」方式，危急狀況解除後即應改用其他正式方式。<b>1198條　遺囑見證人資格限制</b>：①未成年人 ②受監護或輔助宣告之人 ③<b>繼承人及其配偶或其直系血親</b>（避免利益衝突）等，均<b>不得</b>為遺囑見證人。</p>
+  </div>
+
+  <h3>遺囑之生效與處分自由</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p><b>1199條</b>：遺囑<b>自遺囑人死亡時</b>發生效力。<b>1187條</b>：遺囑人於<b>不違反特留分規定之範圍內</b>，得以遺囑<b>自由處分遺產</b>——特留分是對遺囑自由的<b>法定下限保障</b>。</p>
+  </div>
+
+  <h3>特留分比例（1223條）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>繼承人</th><th>特留分</th></tr>
+      <tr><td><b>直系血親卑親屬</b></td><td>應繼分之<b>二分之一</b></td></tr>
+      <tr><td><b>父母</b></td><td>應繼分之<b>二分之一</b></td></tr>
+      <tr><td><b>配偶</b></td><td>應繼分之<b>二分之一</b></td></tr>
+      <tr><td><b>兄弟姊妹</b></td><td>應繼分之<b>三分之一</b></td></tr>
+      <tr><td><b>祖父母</b></td><td>應繼分之<b>三分之一</b></td></tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">1/2<br>vs 1/3</span>
+      <span>記憶口訣：「<b>卑親父母配偶都是二分之一，兄姊祖父母才是三分之一</b>」。<b>1225條</b>：特留分被遺贈侵害時，得按<b>遺贈財產比例</b>（受遺贈人有數人時，按其所得遺贈價額比例）<b>扣減</b>，扣減後遺贈仍部分有效，<b>不是使遺贈全部無效</b>。</span>
+    </p>
+  </div>
+
+  <!-- ================= 紅色地雷清單 ================= -->
+  <div class="section-div" id="sec-mine">
+    <div class="num">★</div>
+    <div class="titles"><h2>考前60秒　紅色地雷清單</h2><div class="en">Final Check — High-risk Points</div></div>
+  </div>
+  <div class="mine-wrap">
+    <ul class="mine-list">
+      <li><span class="stamp">01</span><span class="txt"><b>姻親三類型</b>：血親之配偶／配偶之血親／配偶之血親之配偶——「姻親之血親」<b>不是</b>姻親，姻親關係<b>不能再往外延伸</b>。</span></li>
+      <li><span class="stamp">02</span><span class="txt">親等計算：旁系血親「<b>6親等以內</b>」禁婚，旁系姻親「<b>5親等以內且輩分不同</b>」禁婚——數字與條件都不同。</span></li>
+      <li><span class="stamp">03</span><span class="txt"><b>結婚與離婚都是「登記婚／登記離婚」</b>：書面＋2人以上證人＋向戶政機關登記，登記是<b>生效要件</b>。</span></li>
+      <li><span class="stamp">04</span><span class="txt"><b>結婚無效</b>＝自始當然不生效力（形式欠缺/近親/重婚）；<b>得撤銷</b>＝撤銷前有效，且<b>不影響子女權義及善意第三人</b>。</span></li>
+      <li><span class="stamp">05</span><span class="txt"><b>贍養費（1057）／損害賠償（1056）僅適用「判決離婚」</b>，兩願離婚原則上沒有這兩項請求權。</span></li>
+      <li><span class="stamp">06</span><span class="txt">非婚生子女與<b>生母</b>關係<b>視為婚生，無須認領</b>；與<b>生父</b>須經<b>認領</b>（或生父撫育視為認領）才視為婚生。</span></li>
+      <li><span class="stamp">07</span><span class="txt">收養年齡差「<b>20歲</b>」是原則，<b>夫妻共同收養</b>時他方降為「<b>16歲</b>」、<b>收養他方子女</b>時也是「<b>16歲</b>」——別只記20歲。</span></li>
+      <li><span class="stamp">08</span><span class="txt"><b>剩餘財產分配請求權</b>：自知悉差額起<b>2年</b>，自關係消滅起<b>5年</b>——不是繼承回復請求權（1146條）的「2年/<b>10年</b>」！</span></li>
+      <li><span class="stamp">09</span><span class="txt"><b>代位繼承僅限第一順序</b>（直系血親卑親屬）；<b>拋棄繼承不適用代位</b>，其應繼分依1176條歸屬其他繼承人或配偶。</span></li>
+      <li><span class="stamp">10</span><span class="txt">配偶應繼分：與第①順序<b>平均</b>、與第②③順序各<b>1/2</b>、與第④順序<b>2/3</b>、無人時<b>全部</b>。</span></li>
+      <li><span class="stamp">11</span><span class="txt"><b>拋棄繼承與遺產清冊都是「3個月內、書面、向法院」</b>，但功能不同：拋棄＝退出繼承；清冊＝盤點限定責任範圍。</span></li>
+      <li><span class="stamp">12</span><span class="txt">特留分比例：<b>直系血親卑親屬／父母／配偶＝1/2</b>；<b>兄弟姊妹／祖父母＝1/3</b>；遺贈侵害特留分時是<b>按比例扣減</b>，不是使遺贈全部無效。</span></li>
+    </ul>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要複習｜E 親屬繼承編</footer>
+</div>
+</body>
+</html>

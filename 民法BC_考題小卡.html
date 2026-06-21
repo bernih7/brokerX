@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜歷屆考題小卡（B+C＋常考其他之債）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:560px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:21px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.06em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+/* filter chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0 6px;}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+.filter-row{display:flex;justify-content:center;margin-bottom:14px;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+/* progress */
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{height:3px;background:var(--rule);border-radius:2px;overflow:hidden;margin:0 auto 18px;max-width:200px;}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+/* card */
+.scene{perspective:1800px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:520px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;display:flex;flex-direction:column;
+  padding:20px;box-shadow:0 4px 18px rgba(42,39,34,0.07);
+  overflow-y:auto;
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.cat-badge{
+  font-size:11px;font-weight:700;color:#fff;padding:4px 12px;border-radius:999px;
+  letter-spacing:.06em;font-family:'Noto Serif TC',serif;
+}
+.year-badge{
+  font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);
+  border-radius:999px;padding:3px 10px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{font-size:18px;line-height:1;}
+.q-text{font-size:14px;line-height:1.8;margin-bottom:14px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:8px;}
+.opt{
+  display:flex;gap:8px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.hint{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:10px;letter-spacing:.1em;font-family:'Noto Serif TC',serif;}
+
+/* back face */
+.answer-banner{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;
+  padding:10px;border-radius:8px;margin-bottom:12px;
+}
+.answer-banner.correct{background:#EFF4EC;color:var(--green);border:1.5px solid var(--green);}
+.answer-banner.wrong{background:#FBEAE6;color:var(--stamp);border:1.5px solid var(--stamp);}
+.exp-list{display:flex;flex-direction:column;gap:8px;}
+.exp-item{padding:9px 10px;border-radius:8px;font-size:12.5px;line-height:1.75;border:1.5px solid var(--rule);background:#fff;}
+.exp-item.right{border-color:var(--green);background:#EFF4EC;}
+.exp-item .exp-head{font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:3px;}
+.exp-item.right .exp-head{color:var(--green);}
+.exp-item:not(.right) .exp-head{color:var(--stamp);}
+
+/* controls */
+.controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.icon{padding:10px 14px;}
+
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px;
+  display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+footer{margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.12em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 B＋C・歷屆試題精選</div>
+    <h1>民法概要 考題小卡
+      <span class="sub">99-114年不動產經紀人考題・共 20 題</span>
+    </h1>
+  </header>
+
+  <div class="filter-row" id="resetRow"><div class="chip active" id="resetBtn">全部分類</div></div>
+  <div class="chips" id="chips"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">20</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="top-row">
+          <span class="cat-badge" id="badgeFront"></span>
+          <span class="year-badge" id="yearFront"></span>
+          <span class="mastery-badge" id="badgeMasteryFront"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="opt-list" id="optList"></div>
+        <div class="hint">點選一個選項　看詳解 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="top-row">
+          <span class="cat-badge" id="badgeBack"></span>
+          <span class="year-badge" id="yearBack"></span>
+          <span class="mastery-badge" id="badgeMasteryBack"></span>
+        </div>
+        <div class="answer-banner" id="answerBanner"></div>
+        <div class="exp-list" id="expList"></div>
+        <div class="hint">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一題</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一題 ▸</button>
+  </div>
+
+  <div class="quiz-stats" id="quizStatsBar">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="quiz-stats" id="overallStatsBar">
+    <span>累積：已作答 <b id="totalAttempts">0</b> 題次・正確率 <b id="overallAcc">—</b>・已掌握 <b id="masteredCount">0</b>/<b id="totalCards">0</b></span>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要｜每題附A-D逐選項詳解，點選答案後自動判對錯並標記掌握度<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"E01", cat:"契約成立", year:"112年第5題", q:"甲向乙推銷一只古董錶，甲出價新臺幣（下同）10萬元問乙要不要買，乙答覆說：「如果8萬元我就買」，請問乙的答覆性質上為何？",
+ opts:["要約之引誘","承諾","要約","意思實現"], correct:2,
+ exps:[
+ "要約之引誘是「邀請對方發出要約」，乙的回覆是針對甲已發出的要約做出回應，性質不同。",
+ "承諾須對要約內容完全同意；乙改變了價格條件（10萬→8萬），不是單純同意。",
+ "民法160條第2項：將要約擴張、限制或為其他變更而承諾者，視為拒絕原要約而為新要約。乙改變價格＝拒絕甲的要約，並向甲提出新的要約（8萬元）。",
+ "意思實現（民法161條）是指依習慣或事件性質，要約無須通知即可因有可認為承諾之事實發生而成立；本題乙有明確回覆，非此情形。"
+ ]},
+{id:"E02", cat:"契約成立", year:"101年第3題", q:"甲當面向乙表示願以一千萬元出售甲所有之A房屋予乙，乙當場未置可否，經三日後乙回覆甲願以一千萬元購買A屋。就甲、乙各自之意思表示，下列敘述何者最正確？",
+ opts:["甲之意思表示為要約，乙之意思表示為承諾","甲之意思表示為要約引誘，乙之意思表示為要約","甲之意思表示為要約，乙之意思表示為要約引誘","甲之意思表示為要約，乙之意思表示為新要約"], correct:3,
+ exps:[
+ "表面上乙的回覆內容與甲一致，容易誤以為是承諾，但關鍵在「對話要約」具時效性，原要約已失效。",
+ "甲當面表示願以1000萬出售，已具備明確的拘束意思，是「要約」，並非要約引誘。",
+ "乙的回覆是針對甲的要約做出回應，不是邀請甲發要約，並非要約引誘。",
+ "民法156條：對話為要約者，非立時承諾，即失其拘束力。甲是當面（對話）要約，乙當場未置可否＝未立時承諾，甲的要約已失拘束力；3天後乙才回覆，性質上是乙向甲提出的「新要約」，而非對原要約之承諾。"
+ ]},
+{id:"E03", cat:"契約成立", year:"99年第11題", q:"甲欲購買乙所有房屋1棟，經數次與乙磋商之後，雙方同意該屋以500萬元成交，並詳細約定付款及交屋、移轉所有權方式，為求慎重並由丙丁2人擔任見證人，且言明為免日後爭議，應將約定內容寫成契約書。嗣後因乙反悔，結果連契約書都無法完成。則下列敘述何者正確？",
+ opts:["因為無法完成契約書，因此甲乙之契約不成立","甲如果已經給付部分價金，應以不當得利請求返還","甲如能證明與乙已有訂立契約之合意，仍得請求乙履行","甲為了使乙履行契約，應先請求乙完成契約書"], correct:2,
+ exps:[
+ "買賣契約為不要式契約，雙方就標的物與價金互相同意，契約即已成立（民法153條）；書面化只是雙方求慎重所做的「證明方法」，不是成立要件。",
+ "契約已成立且有效，甲給付的價金是基於有效契約而為，並非無法律上原因，不能主張不當得利。",
+ "只要甲能證明雙方就必要之點意思表示已合致，契約即已成立生效，甲得請求乙履行交付房屋及移轉登記等義務。",
+ "書面契約並非履行的前提要件，甲無須先取得書面契約書才能請求履行。"
+ ]},
+{id:"E04", cat:"買賣", year:"102年第4題", q:"甲以新臺幣1000萬元向乙購買某特定房屋，買賣契約何時成立？",
+ opts:["甲交付新臺幣1000萬元於乙時","乙將該特定房屋交付於甲時","甲、乙完成交屋及付清價金時","甲、乙就房屋及價金互相同意時"], correct:3,
+ exps:[
+ "交付價金是「履行」契約的行為，不是契約「成立」的要件。",
+ "交付房屋同樣是履行行為，發生在契約成立之後。",
+ "完成交屋與付清價金是雙方履行義務完畢，發生在契約成立之後，不是成立的時點。",
+ "民法345條：買賣為諾成、不要式契約，當事人就標的物及其價金互相同意時，契約即為成立，不須交付標的物或支付價金。"
+ ]},
+{id:"E05", cat:"買賣", year:"109年第3題", q:"甲與乙訂立買賣契約，將其二手汽車出賣予乙，若當事人間無特別約定者，關於該汽車之利益及危險，下列何者正確？",
+ opts:["於甲與乙簽訂汽車買賣契約時起，由乙承受","自該車辦理過戶登記於乙時，由乙承受","自該車交付於乙時起，由乙承受","於乙支付價金完畢時，由乙承受"], correct:2,
+ exps:[
+ "契約成立≠危險移轉，簽約時危險仍由出賣人甲負擔。",
+ "動產（汽車）並無「過戶登記」作為所有權移轉要件（動產以交付為要件，民法761條），登記時點與危險移轉時點並不掛勾。",
+ "民法373條：買賣標的物之利益及危險，自交付時起，均由買受人承受負擔，但契約另有訂定者，不在此限。",
+ "支付價金與危險負擔無直接關聯，是給付對待義務的問題，與危險負擔（風險分配）是兩個不同概念。"
+ ]},
+{id:"E06", cat:"買賣", year:"109年第6題", q:"下列關於定金之敘述何者正確？",
+ opts:["訂約當事人之一方，由他方受有定金時，其契約視為成立","定金為諾成契約，於當事人約定時即成立","契約因可歸責於付定金當事人之事由，致不能履行時，定金不得請求返還","契約因不可歸責於雙方當事人之事由，致不能履行時，定金視為債務不履行損害賠償之總額"], correct:2,
+ exps:[
+ "民法248條：契約當事人之一方，由他方受有定金時，「推定」其契約成立——是「推定」而非「視為」，推定可由相反證據推翻，視為則不可。",
+ "定金契約是依附於主契約（如買賣契約）的「從契約」，且性質上為「要物契約」，須現實交付金錢才成立，並非諾成契約。",
+ "民法249條第2款：契約因可歸責於付定金當事人之事由，致不能履行時，定金不得請求返還。",
+ "民法249條第1款：契約因不可歸責於雙方當事人之事由，致不能履行時，定金應「返還」之，並非視為損害賠償總額。"
+ ]},
+{id:"E07", cat:"租賃", year:"109年第8題", q:"依我國民法之規定，下列關於租賃契約之敘述何者正確？",
+ opts:["出租人將租賃之房屋交付承租人後，非經承租人同意，不得將其所有權讓與第三人","出租人出賣租賃之房屋時，承租人有依同樣條件優先承買之權利","除有反對之約定外，承租人依法得將其一部分轉租於他人","房屋租賃之租金，當事人得因其價值之昇降，聲請法院增減之，但以定期租賃為限"], correct:2,
+ exps:[
+ "民法425條買賣不破租賃——出租人交付後仍可自由將所有權讓與他人，租約對受讓人繼續存在，並非限制出租人不得讓與。",
+ "一般房屋出租人出售房屋時，承租人並無當然的法定優先承買權；土地法104條的優先承買權，是針對「基地」與其上「房屋」分屬不同人時的特殊情形（如租地建屋），不能套用到一般房屋租賃。",
+ "民法443條第1項：承租人非經出租人承諾，不得將租賃物轉租於他人；但租賃物為房屋者，除有反對之約定外，承租人得將其「一部分」轉租於他人。",
+ "民法442條：不動產租金因其價值昇降，得聲請法院增減其租金，不論定期或不定期租賃皆可，並非僅限定期租賃。"
+ ]},
+{id:"E08", cat:"租賃", year:"99年第17題", q:"以下有關租賃關係之敘述何者正確？",
+ opts:["租賃物如有修繕之必要，基於使用者付費之原則，應由承租人負擔修繕之費用","承租人有使用收益租賃物之權利，所以可以自行將房間分租，當二房東","甲將其房屋出租與乙，言明租期3年，有訂立契約書但未公證。至第2年時甲將房屋所有權讓與丙，乙得向丙主張該租賃契約仍存在","租賃之房屋因電線走火發生火災，房屋因而受損時，因承租人未盡善良管理人之責，應負損害賠償責任"], correct:2,
+ exps:[
+ "民法429條：租賃物之修繕，除契約另有訂定或另有習慣外，由「出租人」負擔，並非使用者付費。",
+ "民法443條原則上承租人非經出租人同意不得轉租；即使租賃物為房屋，除有反對約定外也僅得轉租「一部分」，不能整套轉租自己當二房東。",
+ "民法425條買賣不破租賃：租賃物交付後、承租人占有中，出租人縱將所有權讓與第三人，租約對受讓人仍繼續存在。本題雖未公證，但425條第2項的排除規定僅適用於「期限逾5年或未定期限」之未公證租約；本題租期3年（未滿5年），即使未公證仍適用買賣不破租賃。",
+ "民法434條：承租人就「失火」造成之損害，僅就「重大過失」負賠償責任；本題未說明承租人有重大過失，不能直接認定其應負責。"
+ ]},
+{id:"E09", cat:"契約效力與消滅", year:"102年第1題", q:"甲向乙建設公司購買預售屋一戶，約定甲應依已完成之工程進度所定付款明細表之規定於工程完工後繳款，半年後乙建設公司資金週轉不靈，財產遭法院查封，甲是否應繼續繳納約定的工程款？",
+ opts:["資金週轉不靈，屬可歸責於乙建設公司之事由，甲可拒絕繳納已完工的工程款","因甲無過失，可免給付之義務，甲可拒絕繳納已完工的工程款","基於買賣契約，甲得向乙建設公司主張同時履行抗辯，拒絕繳納已完工的工程款","甲可主張在乙建設公司未繼續進行工程或提出擔保前，得拒絕繳納已完工的工程款"], correct:3,
+ exps:[
+ "「資金週轉不靈」是否可歸責並非本題重點，更重要的是甲的給付義務並未因此「免除」，只是可暫緩。",
+ "甲的給付義務並非「免除」，本題的法律工具是「拒絕」而非「免除」。",
+ "甲的付款義務是依工程進度分階段給付，已完工部分甲本應給付對待給付，雙方不是單純「同時」互為給付的關係，同時履行抗辯並非最貼切的依據。",
+ "民法265條不安抗辯權：應向他方先為給付之一方，如他方之財產於訂約後顯形減少，有難為對待給付（完成建案、交屋）之虞時，得拒絕自己之給付，至他方履行或提出擔保為止。"
+ ]},
+{id:"E10", cat:"契約效力與消滅", year:"100年第6題", q:"甲向乙買一台液晶電視，約定一手交錢一手交貨，於乙未交付液晶電視前，當乙向甲請求價金之支付時，甲得主張：",
+ opts:["撤銷權","解除權","不安抗辯權","同時履行抗辯權"], correct:3,
+ exps:[
+ "撤銷權適用於意思表示有瑕疵（如錯誤、詐欺、脅迫）的情形，本題雙方意思表示並無瑕疵。",
+ "解除權通常於對方有債務不履行（如給付遲延）時才能行使，本題乙尚未陷於遲延，僅是「尚未交付」。",
+ "不安抗辯權（265條）適用於應「先為給付」之一方因他方財產顯形減少而有不獲對待給付之虞的情形；本題是「同時」應為給付的雙務契約，並非何方應先給付。",
+ "民法264條：因契約互負債務者，於他方當事人未為對待給付前，得拒絕自己之給付。本題是典型「一手交錢一手交貨」的雙務契約，乙未交貨卻先請求付款，甲得主張同時履行抗辯權，拒絕付款。"
+ ]},
+{id:"E11", cat:"契約效力與消滅", year:"109年第7題", q:"甲借給乙100萬元，借期屆至，甲請求乙返還100萬元借款，乙因此開立100萬元之本票交由甲受領。下列敘述，何者正確？",
+ opts:["甲所受領乙開立的100萬元本票，是債之內容更改","甲所受領乙開立的100萬元本票，是抵銷","甲所受領乙開立的100萬元本票，是代物清償","甲所受領乙開立的100萬元本票，是新債清償"], correct:3,
+ exps:[
+ "「債之更改」是變更債之內容、消滅舊債而成立新債（舊債當然消滅）；本題舊的借款返還債務並未立即消滅，與更改不同。",
+ "抵銷（334條）須雙方互負同種類債務；本題只有乙對甲負債務，甲對乙並無對等之債務可供抵銷。",
+ "代物清償（319條）是以「他種給付」替代原定給付，並使原債務立即消滅；本題甲受領本票後，原借款債務並未當然消滅（本票若不獲兌現，借款債權仍存在），故非代物清償。",
+ "民法320條新債清償：因清償債務而對債權人負擔新債務者（乙開立本票＝負擔票據債務的新債），除當事人另有意思表示外，若新債務不履行，原債務（借款債務）仍不消滅——本票若到期未兌現，甲仍可主張原借款債權。"
+ ]},
+{id:"E12", cat:"委任與居間", year:"109年第11題", q:"關於委任契約受任人之報酬，下列敘述，何者錯誤？",
+ opts:["委任關係因可歸責於受任人之事由，而於委任事務處理完畢前經終止者，受任人仍得就已經處理之部分比例請求報酬","受任人受有報酬之注意義務，高於受任人未受報酬之注意義務","當事人縱未約定報酬，但依交易習慣或委任事務之性質應給與報酬者，受任人得請求報酬","除契約另有規定外，原則上於委任關係終止時，受任人須明確報告始末後才能請求報酬"], correct:0,
+ exps:[
+ "（本題答案，敘述錯誤）民法548條第2項：委任關係因「非」可歸責於受任人之事由，於事務處理未完畢前終止者，受任人才得就已處理部分請求報酬。本選項反過來說「因可歸責於受任人之事由」終止仍得按比例請求報酬，與法條規定相反。",
+ "受有報酬之受任人應以善良管理人之注意處理委任事務，注意義務高於無償委任（僅須與處理自己事務同一注意，民法535條）。",
+ "民法547條：報酬縱未約定，如依習慣或依委任事務之性質，應給與報酬者，受任人得請求報酬。",
+ "民法548條第1項：受任人應於委任關係終止後，明確報告委任事務之顛末，原則上始得請求報酬（除契約另有訂定外）。"
+ ]},
+{id:"E13", cat:"委任與居間", year:"108年第11題", q:"依我國民法之規定，下列關於居間契約之敘述何者錯誤？",
+ opts:["稱居間者，謂當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約","約定之報酬，較居間人所任勞務之價值，為數過鉅失其公平者，法院得因報酬給付義務人之請求酌減之。報酬已給付者，得請求返還","因婚姻居間而約定報酬者，就其報酬無請求權","居間人就其媒介所成立之契約，無為當事人給付或受領給付之權"], correct:1,
+ exps:[
+ "民法565條居間之定義，敘述正確。",
+ "（本題答案，敘述錯誤）民法572條：約定之報酬過鉅失其公平者，法院得因報酬給付義務人之請求酌減之，「但報酬已給付者，不得請求返還」。本選項把「不得」說成「得」，與法條規定相反。",
+ "民法573條：因婚姻居間而約定報酬者，就其報酬無請求權——婚姻媒合的報酬不受法律保護。",
+ "民法574條：居間人除契約另有訂定或另有習慣外，就其媒介所成立之契約，無為當事人給付或受領給付之權，這也是仲介實務上「不得代收價金」的法源。"
+ ]},
+{id:"E14", cat:"承攬與保證", year:"100年第10題", q:"甲為定作人，與乙訂立承攬契約，由乙為甲建一房屋。關於此案例，下列敘述何者正確？",
+ opts:["乙得就承攬之報酬額，對於將來完成之甲之房屋，請求預為抵押權之登記","工作未完成前，定作人甲不得隨時終止契約","定作人甲所供給之材料，因不可抗力而毀損者，承攬人須負其責","如乙所蓋房屋有瑕疵，甲於房屋交付後二年始發見者，不得請求乙修補"], correct:0,
+ exps:[
+ "民法513條第1、2項：承攬人就承攬關係報酬額，對於工作所附之定作人不動產，得請求為抵押權之登記；此項請求，承攬人於開始工作前亦得為之，即可對「將來完成之」不動產預為登記。",
+ "民法511條：工作未完成前，定作人得隨時終止契約（但應賠償承攬人因此所生之損害），並非「不得」終止。",
+ "材料因不可抗力毀損屬於不可歸責事由，依一般原則應由材料所有人（定作人甲）自行承擔風險，承攬人乙無須負責。",
+ "瑕疵發現與通知期間另有規定（民法514條等），本選項所述過於絕對；本題A選項才是513條明文直接對應的正確答案。"
+ ]},
+{id:"E15", cat:"承攬與保證", year:"110年第11題", q:"民法於保證契約一節中規定，保證人於債權人未就主債務人之財產強制執行而無效果前，對於債權人得拒絕清償，概念上一般稱為？",
+ opts:["同時履行抗辯","撤銷訴權","追索權抗辯","先訴抗辯"], correct:3,
+ exps:[
+ "同時履行抗辯（264條）適用於雙務契約雙方互負對待給付的情形，與保證人和主債務人之間的清償順序無關。",
+ "「撤銷訴權」並非我國民法保證章節之用語，屬混淆用法。",
+ "「追索權抗辯」並非民法明文用語，常見於票據法領域，非本題情境之對應概念。",
+ "民法745條：此即「先訴抗辯權」之定義——保證人有權要求債權人先對主債務人的財產強制執行而無效果後，才能向自己請求清償。"
+ ]},
+{id:"E16", cat:"承攬與保證", year:"102年第13題", q:"甲於民國102年1月1日向乙借新臺幣10萬元，約定同年6月30日清償，並由丙於其期限內擔任保證人。下列敘述何者正確？",
+ opts:["清償期屆滿，乙允許甲延期清償時，應得丙之同意，否則丙不負保證責任","丙得隨時通知乙終止保證契約，並於通知到達乙後，不負保證責任","清償期屆滿後，丙應定一個月以上之期限催告乙向甲請求，丙始能免責","丙得隨時通知甲終止保證契約，並於通知到達甲後，不負保證責任"], correct:0,
+ exps:[
+ "民法755條：債權人允許債務人延期清償者，保證人除對於其延期已為同意外，不負保證責任。",
+ "保證契約一旦成立，保證人並無「隨時通知終止」的權利；保證責任是依約定範圍存在的，不能單方任意終止。",
+ "「定一個月以上期限催告債權人向主債務人請求」並非民法保證章節要求保證人主動採取的免責程序，這是混淆了其他制度的用語。",
+ "保證契約的當事人是保證人與債權人，保證人若要終止，對象應是「債權人」乙，而非「債務人」甲；且保證人原則上不得單方任意終止保證契約。"
+ ]},
+{id:"E17", cat:"贈與", year:"100年第1題", q:"下列關於贈與契約之敘述何者正確？",
+ opts:["贈與契約之贈與人對其贈與之物，有瑕疵時，原則上贈與人應負物之瑕疵擔保責任","贈與契約為無償契約，所以贈與人均可撤銷其贈與","定期給付之贈與，不因贈與人死亡而失其效力","贈與人僅就其故意或重大過失，對於受贈人負給付不能之責任"], correct:3,
+ exps:[
+ "民法411條：贈與之物或權利如有瑕疵，贈與人原則上「不負」瑕疵擔保責任。但贈與人故意不告知其瑕疵，或保證其無瑕疵者，對於受贈人因此所受之損害，負賠償責任——與選項所述「應負」相反。",
+ "贈與一旦完成移轉（物權已交付/移轉登記），原則上不得撤銷；得撤銷的情形限於法律規定的特定事由（如未經公證且物權未移轉前等），並非「均可」任意撤銷。",
+ "民法415條：定期給付之贈與，因贈與人或受贈人死亡，「失其效力」，並非「不因死亡而失其效力」。",
+ "民法409條第2項：贈與人因可歸責之事由致給付不能時，僅就「故意或重大過失」對受贈人負賠償責任——無償行為的責任本就比有償契約寬鬆。"
+ ]},
+{id:"E18", cat:"贈與", year:"107年第14題", q:"下列有關贈與之敘述，何者正確？",
+ opts:["贈與係單獨行為","贈與以物之交付為要件，於物之交付後，贈與行為才為生效","經公證之贈與，於贈與物之權利未移轉前，贈與人得隨時撤銷其贈與","贈與得附有負擔"], correct:3,
+ exps:[
+ "民法406條：贈與是「當事人約定」一方無償給予財產、他方允受的契約——須雙方意思表示合致才成立，是契約（雙方行為），不是單獨行為。",
+ "贈與為諾成契約，雙方意思表示合致時契約即成立；交付只是履行行為，並非契約生效要件。",
+ "民法408條：贈與物之權利未移轉前，贈與人「得撤銷」其贈與；但「經公證」或為「履行道德上義務」之贈與，不適用得撤銷之規定——本選項恰好說反了。",
+ "民法412條：贈與附有負擔者，如贈與人已為給付，而受贈人不履行其負擔時，贈與人得請求受贈人履行其負擔，或撤銷贈與。"
+ ]},
+{id:"E19", cat:"使用借貸與合夥", year:"106年第3題", q:"甲乙是大四同班同學，甲平常騎乘其父丙所贈與之電動機車作為交通工具。某日乙向甲借用該部電動機車，以接送其高中同學到學校所在地之風景名勝地區遊玩。下列有關甲乙間之契約關係的敘述何者錯誤？",
+ opts:["甲乙間所訂立之契約為單務契約，乙之返還義務與甲之容忍使用義務間，無同時履行抗辯權之適用","甲乙間所訂立之契約為要物契約，以物之交付為契約成立之特別要件，必待借用物之交付，契約始得成立","甲乙間所訂立之契約為使用借貸契約，乙非經甲之同意，不得允許第三人使用該借用物，否則甲得終止契約","甲乙間所訂立之契約為使用借貸契約，甲對乙不以故意不告知借用物之瑕疵為限，承擔瑕疵擔保的責任，乙因此瑕疵所受之損害，得向甲請求賠償"], correct:3,
+ exps:[
+ "使用借貸是單務契約（只有借用人負返還義務），雙方義務不具對待性，無同時履行抗辯權適用之餘地。",
+ "民法464條：使用借貸因「借用物之交付」而生效——是要物契約，須現實交付借用物，契約才成立生效。",
+ "民法467條：借用人非經貸與人同意，不得允許第三人使用借用物；違反者，貸與人得終止契約。",
+ "（本題答案，敘述錯誤）民法466條：貸與人對於借用物之瑕疵「原則不負擔保責任」，但因故意或重大過失不告知，致借用人受損害者，才負賠償責任——本選項說成「不以故意不告知為限即承擔擔保責任」，與法條「原則不負責、例外才負責」的規定相反。"
+ ]},
+{id:"E20", cat:"使用借貸與合夥", year:"109年第14題", q:"下列何者非屬公同共有之性質？",
+ opts:["繼承人有數人時，其繼承取得之遺產","合夥人之合夥財產","屬於社團法人名下之財產","屬於夫妻共同財產制下之財產"], correct:2,
+ exps:[
+ "民法1151條：繼承人有數人時，在分割遺產前，各繼承人對於遺產全部為「公同共有」——是公同共有的典型範例。",
+ "民法668條：各合夥人之出資及其他合夥財產，為合夥人全體之「公同共有」。",
+ "（本題答案）社團法人是獨立的權利主體，名下財產屬於「法人單獨所有」，與社員之間不存在共有關係，並非公同共有。",
+ "民法1031條：夫妻得約定為共同財產制，夫妻之財產及所得，除特有財產外，合併為共同財產，屬於夫妻「公同共有」。"
+ ]}
+];
+
+const CAT_COLORS = {
+  "契約成立":"#6B8E63",
+  "契約效力與消滅":"#4F7CAC",
+  "買賣":"#A8402B",
+  "租賃":"#5E8C61",
+  "委任與居間":"#BC8A2E",
+  "承攬與保證":"#7C6A8E",
+  "贈與":"#C17A2E",
+  "使用借貸與合夥":"#5B7A99"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let mastery = {};
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let selectedOpt = null;
+let quizStats = {ok:0, ng:0};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const cardEl = document.getElementById('card');
+const qText = document.getElementById('qText');
+const optList = document.getElementById('optList');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const yearFront = document.getElementById('yearFront');
+const yearBack = document.getElementById('yearBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const answerBanner = document.getElementById('answerBanner');
+const expList = document.getElementById('expList');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('exam_mastery_data');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{ await window.storage.set('exam_mastery_data', JSON.stringify(mastery)); }
+  catch(e){ console.error('storage save failed', e); }
+}
+
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+function getStat(id){
+  const m = mastery[id];
+  if(!m) return {status:null, attempts:0, correct:0};
+  if(typeof m === 'string') return {status:m, attempts:1, correct:(m==='mastered'?1:0)};
+  return m;
+}
+function masteryIcon(stat){
+  if(!stat.status) return '';
+  const icon = stat.status==='mastered' ? '✅' : '🔄';
+  return stat.attempts>0 ? `${icon}×${stat.attempts}` : icon;
+}
+function updateOverallStats(){
+  let attempts=0, correct=0, mastered=0;
+  CARDS.forEach(c=>{
+    const s = getStat(c.id);
+    attempts += s.attempts;
+    correct += s.correct;
+    if(s.status==='mastered') mastered++;
+  });
+  document.getElementById('totalAttempts').textContent = attempts;
+  document.getElementById('overallAcc').textContent = attempts ? Math.round(correct/attempts*100)+'%' : '—';
+  document.getElementById('masteredCount').textContent = mastered;
+  document.getElementById('totalCards').textContent = CARDS.length;
+}
+
+function rebuildDeck(){
+  deck = CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = false;
+  selectedOpt = null;
+  cardEl.classList.remove('flipped');
+  qText.textContent = c.q;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  yearFront.textContent = c.year;
+  yearBack.textContent = c.year;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const stat = getStat(c.id);
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  optList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  c.opts.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerHTML = `<span class="letter">${letters[i]}</span><span>${opt}</span>`;
+    div.addEventListener('click', ()=> selectOption(i));
+    optList.appendChild(div);
+  });
+}
+
+function selectOption(i){
+  if(flipped) return;
+  const c = deck[idx];
+  selectedOpt = i;
+  const correct = (i === c.correct);
+  document.querySelectorAll('.opt')[i].classList.add('selected');
+
+  // build back face
+  answerBanner.className = 'answer-banner ' + (correct ? 'correct' : 'wrong');
+  const letters = ['A','B','C','D'];
+  answerBanner.textContent = correct
+    ? `✅ 答對！正解是 ${letters[c.correct]}`
+    : `❌ 答錯了，你選 ${letters[i]}，正解是 ${letters[c.correct]}`;
+
+  expList.innerHTML = '';
+  c.exps.forEach((exp,j)=>{
+    const div = document.createElement('div');
+    div.className = 'exp-item' + (j===c.correct ? ' right' : '');
+    const mark = j===c.correct ? '✓ 正解' : '✗';
+    div.innerHTML = `<div class="exp-head">${letters[j]}. ${mark}</div><div>${exp}</div>`;
+    expList.appendChild(div);
+  });
+
+  // stats + mastery
+  if(correct) quizStats.ok++; else quizStats.ng++;
+  const stat = getStat(c.id);
+  stat.attempts += 1;
+  if(correct) stat.correct += 1;
+  stat.status = correct ? 'mastered' : 'review';
+  mastery[c.id] = stat;
+  saveMastery();
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+  updateOverallStats();
+
+  setTimeout(()=>{ flipped=true; cardEl.classList.add('flipped'); }, 150);
+
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+}
+
+cardEl.addEventListener('click',()=>{
+  if(flipped){ flipped=false; cardEl.classList.remove('flipped'); }
+});
+
+function goNext(){ idx=(idx+1)%deck.length; render(); }
+function goPrev(){ idx=(idx-1+deck.length)%deck.length; render(); }
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; render();
+});
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+});
+
+document.getElementById('markMastered').addEventListener('click',()=>{
+  const c = deck[idx];
+  const stat = getStat(c.id);
+  stat.status='mastered';
+  mastery[c.id]=stat; saveMastery();
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent=icon; badgeMasteryBack.textContent=icon;
+  updateOverallStats();
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  const c = deck[idx];
+  const stat = getStat(c.id);
+  stat.status='review';
+  mastery[c.id]=stat; saveMastery();
+  const icon = masteryIcon(stat);
+  badgeMasteryFront.textContent=icon; badgeMasteryBack.textContent=icon;
+  updateOverallStats();
+});
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0};
+  quizOk.textContent=0; quizNg.textContent=0;
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有學習記錄（已掌握/待複習/作答次數）嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  render();
+  updateOverallStats();
+});
+
+(async function init(){
+  await loadMastery();
+  rebuildDeck();
+  updateOverallStats();
+})();
+</script>
+</body>
+</html>

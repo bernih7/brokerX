@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜彩色重點速記・債編總則＋各種之債</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#F1E8D8;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+  --blue:#3E6B8C;
+  --orange:#C17A2E;
+  --purple:#7B5C8C;
+  --red:#A8402B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 8% 6%, rgba(188,138,46,0.06), transparent 38%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 42%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  padding-bottom:60px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px;}
+
+/* header */
+header{padding:32px 0 18px;text-align:center;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.14em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 14px;margin-bottom:12px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:26px;
+  letter-spacing:.05em;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;font-family:'Noto Sans TC',sans-serif;}
+
+/* legend */
+.legend{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:18px 0 8px;
+}
+.legend-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;background:#fff;
+  border:1px solid var(--rule);border-radius:999px;padding:5px 12px;
+}
+.legend-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* sticky nav */
+.nav{
+  position:sticky;top:0;z-index:10;background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex;justify-content:center;gap:18px;
+  padding:10px 0;margin-top:20px;font-family:'Noto Serif TC',serif;
+  font-weight:700;font-size:13px;backdrop-filter:blur(4px);
+}
+.nav a{color:var(--ink-soft);text-decoration:none;letter-spacing:.1em;padding:4px 10px;border-radius:6px;}
+.nav a:hover{color:var(--ink);background:var(--paper-deep);}
+
+/* section divider */
+.section-div{
+  margin:46px 0 18px;display:flex;align-items:baseline;gap:14px;
+}
+.section-div .num{
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:38px;
+  color:var(--gold);line-height:1;
+}
+.section-div .titles{flex:1;}
+.section-div h2{font-family:'Noto Serif TC',serif;font-weight:900;font-size:20px;letter-spacing:.06em;}
+.section-div .en{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;text-transform:uppercase;}
+.section-div::after{content:"";flex:1;height:1px;background:var(--rule);align-self:center;}
+
+/* subsection */
+h3{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px;
+  margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--ink);
+  display:inline-block;
+}
+
+/* note blocks */
+.note{
+  border-radius:0 8px 8px 8px;border-left:5px solid var(--ink);
+  background:#fff;padding:12px 16px;margin:10px 0;
+  box-shadow:0 1px 6px rgba(42,39,34,0.05);
+  position:relative;
+}
+.note .tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:11px;
+  letter-spacing:.1em;color:#fff;border-radius:0 0 8px 0;
+  padding:2px 10px;margin:-12px 0 8px -16px;
+}
+.note p{font-size:14px;}
+.note p+p{margin-top:6px;}
+.note b{color:var(--ink);border-bottom:2px solid currentColor;}
+.note small{color:var(--ink-soft);}
+
+.note-green{border-color:var(--green);}
+.note-green .tag{background:var(--green);}
+.note-green b{border-color:var(--green);}
+
+.note-blue{border-color:var(--blue);}
+.note-blue .tag{background:var(--blue);}
+.note-blue b{border-color:var(--blue);}
+
+.note-orange{border-color:var(--orange);}
+.note-orange .tag{background:var(--orange);}
+.note-orange b{border-color:var(--orange);}
+
+.note-purple{border-color:var(--purple);}
+.note-purple .tag{background:var(--purple);}
+.note-purple b{border-color:var(--purple);}
+
+.note-red{border-color:var(--red);}
+.note-red .tag{background:var(--red);}
+.note-red b{border-color:var(--red);}
+
+/* stamp */
+.stamp{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid var(--stamp);border-radius:50%;color:var(--stamp);
+  font-weight:900;font-family:'Noto Serif TC',serif;font-size:11px;
+  width:46px;height:46px;transform:rotate(-9deg);flex-shrink:0;
+  text-align:center;line-height:1.1;letter-spacing:.05em;
+}
+
+/* flow diagrams */
+.flow{
+  background:var(--paper-deep);border:1px dashed var(--rule);
+  border-radius:10px;padding:18px;margin:14px 0;
+}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.flow.vertical{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.flow-box{
+  background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
+  font-family:'Noto Serif TC',serif;min-width:100px;
+}
+.flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
+  font-family:'Noto Sans TC',sans-serif;margin-top:3px;}
+.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
+.flow-box.result{border-color:var(--green);background:#EFF4EC;}
+.flow-box.danger{border-color:var(--stamp);background:#FBEAE6;color:var(--stamp);}
+.flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;text-align:center;white-space:nowrap;}
+.flow-arrow small{display:block;font-size:10px;font-weight:400;}
+.flow-arrow.down{display:flex;flex-direction:column;align-items:center;}
+
+/* grid5 / 五宮格 */
+.grid5{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0;
+}
+@media(min-width:520px){.grid5{grid-template-columns:repeat(3,1fr);}}
+.grid5 .item{
+  background:#fff;border:1.5px solid var(--green);border-radius:8px;
+  padding:12px;text-align:center;
+}
+.grid5 .item .name{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;color:var(--green);}
+.grid5 .item .desc{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+
+/* compare table */
+.tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:560px;}
+th{
+  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
+  white-space:nowrap;
+}
+td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#FBF8F1;}
+td b{color:var(--orange);}
+
+/* minefield final section */
+.mine-wrap{
+  background:#fff;border:2px solid var(--stamp);border-radius:12px;
+  padding:22px;margin:18px 0;
+}
+.mine-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.mine-list li{display:flex;gap:14px;align-items:flex-start;font-size:14px;}
+.mine-list .stamp{margin-top:2px;}
+.mine-list .txt b{color:var(--stamp);}
+
+footer{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.14em;margin-top:50px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 B＋C・債之效力與各種契約</div>
+    <h1>民法概要 彩色重點速記
+      <span class="sub">債編總則 ＋ 各種之債（不動產經紀人考試對應章節）</span>
+    </h1>
+    <div class="legend">
+      <div class="legend-chip"><span class="dot" style="background:var(--green)"></span>🟢 定義／原則</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--blue)"></span>🔵 法條／構成要件</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--orange)"></span>🟠 易混淆比較</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--purple)"></span>🟣 記憶口訣</div>
+      <div class="legend-chip"><span class="dot" style="background:var(--red)"></span>🔴 高頻易錯點</div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="#sec-b">B・債編總則</a>
+    <a href="#sec-c">C・各種之債</a>
+    <a href="#sec-mine">考前60秒地雷</a>
+  </nav>
+
+  <!-- ================= SECTION B ================= -->
+  <div class="section-div" id="sec-b">
+    <div class="num">B</div>
+    <div class="titles"><h2>債編總則</h2><div class="en">General Provisions of Obligations</div></div>
+  </div>
+
+  <h3>B-1　契約之成立</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>要約</b>：表明願受該約束之意思表示，他方一旦承諾，契約即成立。</p>
+    <p><b>要約引誘</b>：僅邀請他方向自己發要約，本身不生拘束力。</p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-box">要約<br><small>表明願受拘束</small></div>
+      <div class="flow-arrow">期限內承諾 →</div>
+      <div class="flow-box result">契約成立</div>
+    </div>
+    <div class="flow-row" style="margin-top:10px;">
+      <div class="flow-arrow down">↓ 逾期到達</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box danger">視為新要約<br><small>原要約人不受拘束（民法159、160條）</small></div>
+    </div>
+  </div>
+
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法154條</b>：要約人原則受要約拘束；但①要約當時已聲明不受拘束，②依情形或事件性質可認當事人無受拘束之意思者，不在此限。</p>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>價目寄送 ≠ 要約</b>」——價目表的寄送，不視為要約，只是要約引誘。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">逾期<br>承諾</span>
+      <span>逾期到達的承諾，<b>原則上視為新要約</b>，不會自動使契約成立——除非原要約人主動通知對方契約已成立。</span>
+    </p>
+  </div>
+
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法164條　懸賞廣告</b>：廣告人對完成一定行為之人負給付報酬義務；即使行為人不知有廣告而完成該行為，仍得請求報酬。</p>
+  </div>
+
+  <h3>B-2　契約之效力</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>抗辯權</th><th>條文</th><th>適用情境</th><th>效果</th></tr>
+      <tr>
+        <td><b>同時履行抗辯權</b></td><td>民法264條</td>
+        <td>雙務契約，雙方互負對待給付義務</td>
+        <td>他方未為對待給付前，得拒絕自己之給付</td>
+      </tr>
+      <tr>
+        <td><b>不安抗辯權</b></td><td>民法265條</td>
+        <td>應「先為給付」之一方，他方財產於訂約後顯形減少</td>
+        <td>得拒絕自己之給付，至他方履行或提出擔保為止</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>同時履行抗辯＝<b>雙方同時該付款／交貨</b>；不安抗辯＝<b>輪到自己先付，但對方財力出問題</b>，可暫緩。記憶順序：先看「誰該先給付」，再看「對方有無履約風險」。</p>
+  </div>
+
+  <h3>B-3　債務不履行三型態</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>型態</th><th>條文</th><th>可歸責於債務人</th><th>不可歸責於債務人</th></tr>
+      <tr>
+        <td><b>給付不能</b></td><td>民法225、226條</td>
+        <td>債權人得請求損害賠償；雙務契約得請求返還已為之對待給付</td>
+        <td>債務人免給付義務</td>
+      </tr>
+      <tr>
+        <td><b>給付遲延</b></td><td>民法229-231條</td>
+        <td>有確定期限：期限屆滿即遲延；無確定期限：經催告未給付即遲延</td>
+        <td style="color:var(--ink-soft);">—（不負遲延責任）</td>
+      </tr>
+      <tr>
+        <td><b>不完全給付</b></td><td>民法227條</td>
+        <td>得請求修補或損害賠償；造成其他損害（加害給付）並得請求賠償</td>
+        <td style="color:var(--ink-soft);">—</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">受領<br>遲延</span>
+      <span><b>受領遲延（民法234-236條）</b>是「債權人」拒絕或不能受領給付，與前三種「債務人」的不履行型態主體不同——債務人於受領遲延期間，僅就<b>故意或重大過失</b>負保管責任。</span>
+    </p>
+  </div>
+
+  <h3>B-4　損害賠償與債之消滅</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 公式</span>
+    <p><b>民法216條　損害賠償範圍</b> ＝ 所受損害 ＋ 所失利益（所失利益包含依通常情形或依已定計劃、設備等可得預期之利益）。</p>
+  </div>
+  <div class="note note-green">
+    <span class="tag">🟢 原則</span>
+    <p><b>民法250條　違約金</b>：除當事人另有訂定外，視為因不履行債務所生損害之賠償總額；約定過高，法院得減至相當之數額。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法334條　抵銷要件</b>：①二人互負債務，②給付種類相同，③雙方債務均已屆清償期（依債之性質不能抵銷或法律禁止者除外）。</p>
+  </div>
+
+  <p style="margin-top:18px;font-weight:700;font-family:'Noto Serif TC',serif;">債之消滅 — 五種方式</p>
+  <div class="grid5">
+    <div class="item"><div class="name">清償</div><div class="desc">依債之內容，實現給付</div></div>
+    <div class="item"><div class="name">抵銷</div><div class="desc">互負同種類債務，互為抵銷</div></div>
+    <div class="item"><div class="name">免除</div><div class="desc">債權人向債務人表示免除債務</div></div>
+    <div class="item"><div class="name">混同</div><div class="desc">債權債務同歸一人</div></div>
+    <div class="item"><div class="name">提存</div><div class="desc">受領遲延或不能確知債權人時，將給付物提存即可免責</div></div>
+  </div>
+
+  <!-- ================= SECTION C ================= -->
+  <div class="section-div" id="sec-c">
+    <div class="num">C</div>
+    <div class="titles"><h2>各種之債</h2><div class="en">Specific Contracts</div></div>
+  </div>
+
+  <h3>C-0　七種契約總覽</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>契約</th><th>一句話定位</th><th>報酬／對價</th><th>關鍵法條</th></tr>
+      <tr><td><b>買賣</b></td><td>移轉財產權換取價金</td><td>有償</td><td>345、358、373、758、761條</td></tr>
+      <tr><td><b>互易</b></td><td>互相移轉金錢以外之財產權</td><td>有償（準用買賣）</td><td>398條</td></tr>
+      <tr><td><b>租賃</b></td><td>使用收益租賃物換取租金</td><td>有償</td><td>421、425、443、449條</td></tr>
+      <tr><td><b>委任</b></td><td>委託他方處理事務（重過程）</td><td>原則無償</td><td>528、537、547、549條</td></tr>
+      <tr><td><b>居間</b></td><td>報告或媒介訂約機會</td><td>成約才有報酬</td><td>565、568、569、571條</td></tr>
+      <tr><td><b>承攬</b></td><td>完成一定工作（重結果）</td><td>有償</td><td>490、505、513條</td></tr>
+      <tr><td><b>保證</b></td><td>主債務人不履行時代負責任</td><td>無償（對債權人而言）</td><td>739、745條</td></tr>
+    </table>
+  </div>
+
+  <h3>C-1　買賣</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 性質</span>
+    <p><b>諾成、不要式契約</b>——當事人就標的物及價金互相同意，契約即成立，不以交付或登記為成立要件（不動產移轉所有權須另完成登記）。</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>標的物</th><th>所有權移轉時點</th><th>條文</th></tr>
+      <tr><td>動產</td><td>交付時</td><td>民法761條</td></tr>
+      <tr><td>不動產</td><td>完成所有權移轉登記時</td><td>民法758條</td></tr>
+    </table>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法373條　危險負擔</b>：標的物之利益及危險，除契約另有訂定外，自<b>交付時</b>起由買受人承受負擔。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">風險≠<br>所有權</span>
+      <span>不動產買賣中，<b>「風險移轉」與「所有權移轉」時點可能不同</b>——標的物已交付但尚未完成登記過戶時，風險已由買受人承擔，所有權卻仍在出賣人名下。</span>
+    </p>
+  </div>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法354條　物之瑕疵擔保</b>：出賣人應擔保標的物①無滅失或減少價值之瑕疵、②無滅失或減少通常效用或契約預定效用之瑕疵（買受人於契約成立時已知瑕疵者不在此限）。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法379、380條　買回</b>：出賣人於買賣契約保留買回之權利，得返還已收受價金而買回標的物（379條）；買回期限<b>不得超過5年</b>，約定較長者縮短為5年（380條）。</p>
+  </div>
+
+  <h3>C-2　互易</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>民法398條</b>：當事人約定互相移轉金錢以外之財產權者為互易（如以房屋互換土地），<b>準用買賣之規定</b>。</p>
+  </div>
+
+  <h3>C-3　租賃</h3>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法449條</b>：租賃期限<b>不得逾20年</b>，逾20年者縮短為20年（租用基地建築房屋者不受此限）；<b>未定期限者，視為不定期租約</b>。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法443條　轉租</b>：原則非經出租人承諾不得轉租；但租賃物為<b>房屋</b>者，除有反對之約定外，承租人得將其<b>一部分</b>轉租於他人（僅限一部分，不是全部）。</p>
+  </div>
+
+  <p style="margin-top:18px;font-weight:700;font-family:'Noto Serif TC',serif;">買賣不破租賃（民法425條）</p>
+  <div class="flow vertical">
+    <div class="flow-box highlight">承租人（占有中）</div>
+    <div class="flow-arrow down">↕ 租約效力延續<br><small>民法425條</small></div>
+    <div class="flow-row">
+      <div class="flow-box">原出租人<br><small>（原所有權人）</small></div>
+      <div class="flow-arrow">→ 出售房屋 →</div>
+      <div class="flow-box result">受讓人<br><small>（新所有權人＝新出租人）</small></div>
+    </div>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">425條<br>但書</span>
+      <span><b>民法425條第2項</b>：<b>未經公證</b>之不動產租賃，期限<b>逾5年或未定期限</b>者，<b>不適用</b>買賣不破租賃——也就是租期5年以下且已交付占有，即使未公證，租約仍對受讓人有效。</span>
+    </p>
+  </div>
+
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>土地法104條　優先承買權</b>：基地或房屋出賣時，承租人有依同樣條件優先承買之權；出賣人未通知優先購買權人即與第三人訂約者，不得對抗優先購買權人。</p>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p>「<b>20年・占有後・先問租客</b>」——不動產租賃三大數字／概念：期限上限20年、買賣不破租賃看是否已占有交付、出售前先給承租人優先承買機會。</p>
+  </div>
+
+  <h3>C-4　委任・居間・承攬 三方比較（高頻易混淆）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>委任</th><th>居間</th><th>承攬</th></tr>
+      <tr>
+        <td><b>核心定位</b></td>
+        <td>處理事務（重過程）</td>
+        <td>報告／媒介訂約機會</td>
+        <td>完成一定工作（重結果）</td>
+      </tr>
+      <tr>
+        <td><b>報酬</b></td>
+        <td>原則推定無償（547條）</td>
+        <td>契約成立才能請求（568條）</td>
+        <td>工作交付／完成時給付（505條）</td>
+      </tr>
+      <tr>
+        <td><b>義務重點</b></td>
+        <td>原則應自己處理（537條）</td>
+        <td>據實報告及妥為媒介義務（567條）</td>
+        <td>承攬人對成果負瑕疵擔保</td>
+      </tr>
+      <tr>
+        <td><b>特殊權利／責任</b></td>
+        <td>當事人得隨時終止（549條）</td>
+        <td>違反忠實義務、圖利相對人者，喪失報酬及費用償還請求權（571條）</td>
+        <td>對定作人不動產有法定抵押權（513條）</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>三者都是「為他人做事」，分辨關鍵在於<b>看報酬何時發生、看是否要求達成特定結果</b>：委任做事就有(或約定有)報酬與成果無關；居間「促成」才有報酬；承攬「完成」才算數。</p>
+  </div>
+
+  <h3>C-5　居間（仲介業務核心章節）</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p><b>報告居間</b>：僅向他方報告訂約機會。<b>媒介居間</b>：為雙方媒介訂約並可代為磋商——仲介業務多屬媒介居間。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法567條　據實報告及妥為媒介義務</b>：居間人關於訂約事項，應就所知據實報告於各當事人；對顯無履行能力之人，不得為其媒介。<b>以居間為營業者</b>，對當事人之履行能力負有調查義務。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法568條</b>：契約須因居間人之報告或媒介而成立，居間人才得請求報酬；契約附停止條件者，<b>條件成就前不得請求報酬</b>。</p>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法569條　費用償還之限制</b>：居間人支出之費用，<b>非經約定不得請求償還</b>；此規定於居間人已為報告或媒介、但<b>契約最終不成立</b>時，亦適用——「白忙一場」原則上拿不到費用。</p>
+  </div>
+  <div class="note note-red">
+    <span class="tag">🔴 易錯</span>
+    <p style="display:flex;gap:12px;align-items:center;">
+      <span class="stamp">圖利<br>對方<br>重罰</span>
+      <span><b>民法571條</b>：居間人若違反對委託人之義務，<b>為利於相對人之行為</b>，或<b>違反誠信、由相對人收受利益</b>者，<b>不得向委託人請求報酬及償還費用</b>——是對居間人忠實義務違反的重罰，喪失全部報酬與費用請求權。</span>
+    </p>
+  </div>
+
+  <h3>C-6　承攬</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p>當事人約定一方<b>完成一定工作</b>，他方俟工作完成<b>給付報酬</b>之契約——與委任不同，重點在「結果」而非「過程」。</p>
+  </div>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-box">承攬人<br><small>完成建築物／重大修繕</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box highlight">對定作人之不動產<br><small>享有法定抵押權</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box result">擔保承攬報酬<br><small>民法513條</small></div>
+    </div>
+  </div>
+  <div class="note note-blue">
+    <span class="tag">🔵 法條</span>
+    <p><b>民法505條</b>：報酬原則應於工作<b>交付時</b>給付；不須交付者，應於工作<b>完成時</b>給付。</p>
+  </div>
+
+  <h3>C-7　保證</h3>
+  <div class="note note-green">
+    <span class="tag">🟢 定義</span>
+    <p>當事人約定，一方（保證人）於他方（債權人）之債務人不履行債務時，<b>代負履行責任</b>之契約。</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>一般保證</th><th>連帶保證</th></tr>
+      <tr>
+        <td><b>先訴抗辯權（民法745條）</b></td>
+        <td>有——債權人須先就主債務人財產強制執行而無效果，才能向保證人求償</td>
+        <td>無——債權人得直接請求連帶保證人清償</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note note-orange">
+    <span class="tag">🟠 易混淆</span>
+    <p>判斷關鍵：契約中是否約定「<b>連帶</b>」二字／拋棄先訴抗辯權。沒特別約定 ＝ 一般保證 ＝ 保證人有先訴抗辯權，可以「先等債權人去找主債務人」。</p>
+  </div>
+
+  <!-- ================= 紅色地雷清單 ================= -->
+  <div class="section-div" id="sec-mine">
+    <div class="num">★</div>
+    <div class="titles"><h2>考前60秒　紅色地雷清單</h2><div class="en">Final Check — High-risk Points</div></div>
+  </div>
+  <div class="mine-wrap">
+    <ul class="mine-list">
+      <li><span class="stamp">01</span><span class="txt">價目表寄送 ＝ <b>要約引誘</b>，不是要約。</span></li>
+      <li><span class="stamp">02</span><span class="txt">逾期到達的承諾 ＝ <b>視為新要約</b>，原要約人不受拘束。</span></li>
+      <li><span class="stamp">03</span><span class="txt">給付不能：<b>不可歸責</b>→債務人免責；<b>可歸責</b>→債權人得請求損害賠償。</span></li>
+      <li><span class="stamp">04</span><span class="txt">不動產買賣：<b>風險於交付時轉移</b>，<b>所有權於登記時轉移</b>——兩者時點可不同！</span></li>
+      <li><span class="stamp">05</span><span class="txt">買回期限<b>最長5年</b>。</span></li>
+      <li><span class="stamp">06</span><span class="txt">不動產租賃期限<b>上限20年</b>，逾期縮短為20年；<b>未約定期限 ＝ 不定期租約</b>。</span></li>
+      <li><span class="stamp">07</span><span class="txt"><b>民法443條轉租</b>：租賃物為<b>房屋</b>者，除有反對約定外，承租人得轉租「<b>一部分</b>」（不是全部，一般動產租賃原則上仍不可轉租）。</span></li>
+      <li><span class="stamp">08</span><span class="txt"><b>買賣不破租賃（425條）</b>：租賃物交付後，承租人占有中，所有權移轉不影響原租約效力。</span></li>
+      <li><span class="stamp">09</span><span class="txt"><b>委任原則無償</b>（推定）；居間需契約成立才有報酬；承攬需完成工作才給付報酬。</span></li>
+      <li><span class="stamp">10</span><span class="txt">居間報酬請求權：須因<b>報告或媒介而成立契約</b>；附條件契約，<b>條件成就前不得請求</b>。</span></li>
+      <li><span class="stamp">11</span><span class="txt"><b>居間人費用償還（569條）</b>非經約定不可、契約不成立也不可請求；<b>若圖利相對人（571條）</b>，連報酬都會喪失。</span></li>
+      <li><span class="stamp">12</span><span class="txt"><b>一般保證</b>有先訴抗辯權；<b>連帶保證</b>沒有，債權人可直接找連帶保證人。</span></li>
+    </ul>
+  </div>
+
+  <footer>不動產經紀人考試・民法概要複習｜B 債編總則 ＋ C 各種之債</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜親屬繼承編・互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:520px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:22px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+/* mode tabs */
+.mode-tabs{
+  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  border:1.5px solid var(--ink);border-radius:12px;padding:4px;
+}
+.mode-tab{
+  flex:1;text-align:center;padding:9px 8px;border-radius:9px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  cursor:pointer;color:var(--ink-soft);transition:all .15s ease;
+  user-select:none;
+}
+.mode-tab.active{background:var(--ink);color:#fff;}
+
+/* filter chips */
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin:10px 0 6px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;
+  white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+
+.filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+.status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.status-row .chip{border-color:var(--gold);color:var(--gold);}
+.status-row .chip.active{background:var(--gold);color:#fff;}
+.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
+.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.mastered{border-color:var(--green);color:var(--green);}
+.status-row .chip.mastered.active{background:var(--green);color:#fff;}
+
+/* progress */
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{
+  height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
+  margin:0 auto 18px;max-width:200px;
+}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+/* card */
+.scene{perspective:1400px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:300px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;
+  display:flex;flex-direction:column;
+  padding:26px 24px;
+  box-shadow:0 4px 18px rgba(42,39,34,0.07);
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.cat-badge{
+  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{
+  position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
+}
+.face-body{flex:1;display:flex;align-items:center;}
+.term{
+  font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:20px;line-height:1.7;color:var(--ink);
+}
+.answer{font-size:15px;line-height:1.9;color:var(--ink);}
+.answer b{color:var(--stamp);}
+.face-foot{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
+}
+.face.back .face-foot{color:var(--gold);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+
+/* controls */
+.controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;flex-wrap:wrap;
+}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--gold);color:#fff;}
+.btn.wide{flex:1;min-width:120px;text-align:center;}
+.btn.icon{padding:10px 14px;}
+
+/* quiz mode */
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+.breakdown{
+  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;padding:14px;font-size:13px;
+}
+.breakdown table{width:100%;border-collapse:collapse;}
+.breakdown td{padding:5px 4px;border-bottom:1px solid var(--rule);}
+.breakdown tr:last-child td{border-bottom:none;}
+.breakdown .bar{
+  display:block;height:6px;border-radius:3px;background:var(--rule);
+  overflow:hidden;margin-top:3px;
+}
+.breakdown .bar-fill{height:100%;background:var(--green);}
+
+footer{
+  margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.12em;line-height:2;
+}
+footer .reset{
+  text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;
+  border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 E・親屬與繼承</div>
+    <h1>民法概要 互動單字卡
+      <span class="sub">親屬繼承編・共 42 張</span>
+    </h1>
+  </header>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabStudy">📖 學習模式</div>
+    <div class="mode-tab" id="tabQuiz">📝 測驗模式</div>
+  </div>
+
+  <div class="filter-row" id="resetRow">
+    <div class="chip active" id="resetBtn">全部分類</div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">42</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="cat-badge" id="badgeFront"></div>
+        <div class="mastery-badge" id="badgeMasteryFront"></div>
+        <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="cat-badge" id="badgeBack"></div>
+        <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- study mode: mastery buttons -->
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <!-- quiz mode: reveal / answer buttons -->
+  <div class="controls" id="quizControls" style="display:none;">
+    <button class="btn primary wide" id="revealBtn">👀 顯示答案</button>
+    <button class="btn icon" id="quizWrong" style="display:none;border-color:var(--stamp);color:var(--stamp);">❌ 答錯</button>
+    <button class="btn green icon" id="quizRight" style="display:none;">✅ 答對</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一張</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一張 ▸</button>
+  </div>
+
+  <!-- quiz stats -->
+  <div class="quiz-stats" id="quizStatsBar" style="display:none;">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="toggleBreakdown">看分類統計</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
+
+  <footer>不動產經紀人考試・民法概要複習｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"E01", cat:"親屬通則", front:"直系血親與旁系血親怎麼區分？（民法967條）", back:"<b>直系血親</b>＝己身所從出或從己身所出之血親（父母、子女、祖孫…，垂直一脈相承）。<b>旁系血親</b>＝非直系血親，而與己身出於同源之血親（兄弟姊妹、叔伯姑舅、堂表兄弟姊妹…，與自己有共同祖先但非垂直關係）。"},
+{id:"E02", cat:"親屬通則", front:"姻親有哪三種類型？（民法969條）", back:"①<b>血親之配偶</b>（如嫂嫂、姊夫）②<b>配偶之血親</b>（如公婆、岳父母）③<b>配偶之血親之配偶</b>（如配偶兄弟的太太）。<b>注意</b>：「姻親之血親」或「姻親之配偶之血親」都<b>不算姻親</b>——姻親關係不能再往外延伸第二層。"},
+{id:"E03", cat:"親屬通則", front:"親等怎麼算？直系血親與旁系血親有何不同？（民法968條）", back:"<b>直系血親</b>：從己身上下數，<b>以一世為一親等</b>（父母子女＝1親等，祖孫＝2親等）。<b>旁系血親</b>：從己身數至同源之直系血親，再由該直系血親數至對方，<b>以總世數為親等</b>（兄弟姊妹：己→父1代＋父→兄1代＝2親等；叔伯：己→父→祖2代＋祖→叔1代＝3親等）。"},
+{id:"E04", cat:"親屬通則", front:"姻親的親系及親等怎麼計算？（民法970條）", back:"姻親之親系及親等，<b>從其配偶之親系及親等計算</b>。例如：配偶的兄弟，對配偶而言是2親等旁系血親，對自己而言就是「2親等旁系姻親」——直接套用配偶與該人的親系親等。"},
+{id:"E05", cat:"親屬通則", front:"姻親關係什麼時候會消滅？（民法971條）", back:"姻親關係，因<b>離婚</b>而消滅；結婚經<b>撤銷</b>者亦同。<b>但血親關係不會因離婚而消滅</b>——例如父母離婚後，子女與父母雙方仍是直系血親，這點容易被誤認為「全部親屬關係都消滅」。"},
+{id:"E06", cat:"親屬通則", front:"配偶兄弟的太太的兄弟，對自己而言是親屬嗎？", back:"<b>不是</b>。配偶兄弟的太太屬於「配偶之血親之配偶」（969條第三類姻親），但她自己的兄弟對「我」而言，已經是「姻親之血親」，<b>超出姻親的定義範圍，不構成親屬關係</b>——這是969條常見的延伸陷阱題。"},
+{id:"E07", cat:"婚姻", front:"結婚與訂婚約的年齡限制各是幾歲？（民法980、973條）", back:"<b>結婚（980條）</b>：男女<b>未滿18歲</b>者，不得結婚（現行法男女年齡一致）。<b>訂婚約（973條）</b>：男女<b>未滿17歲</b>者，不得訂定婚約——訂婚約的年齡門檻比結婚<b>低1歲</b>。"},
+{id:"E08", cat:"婚姻", front:"禁婚親的範圍：旁系血親與旁系姻親各到第幾親等？（民法983條）", back:"<b>旁系血親</b>：<b>6親等以內</b>不得結婚（但因收養而成立之4親等及6親等旁系血親，<b>輩分相同者不在此限</b>）。<b>旁系姻親</b>：<b>5親等以內，且輩分不同者</b>不得結婚（輩分相同的5親等以內旁系姻親，不在禁止之列）。<b>直系血親及直系姻親</b>則一律禁婚，無例外。"},
+{id:"E09", cat:"婚姻", front:"結婚的法定方式是什麼？（民法982條）", back:"結婚應以<b>書面</b>為之，有<b>2人以上證人之簽名</b>，並由雙方當事人<b>向戶政機關為結婚之登記</b>。現行法是「<b>登記婚</b>」——<b>登記是結婚的生效要件</b>，未登記者結婚不生效力（屬988條無效事由之一）。"},
+{id:"E10", cat:"婚姻", front:"結婚「無效」的三種情形是什麼？（民法988條）", back:"①<b>不具982條方式</b>（如未辦理結婚登記）②<b>違反983條禁婚親規定</b>（近親結婚）③<b>違反985條重婚規定</b>。但<b>重婚之雙方當事人因善意且無過失，信賴一方前婚姻消滅之兩願離婚而結婚者，不適用無效</b>（保護善意當事人）。"},
+{id:"E11", cat:"婚姻", front:"結婚「得撤銷」與「無效」的效果有何不同？（989-999條）", back:"<b>得撤銷</b>（如未達結婚年齡989、監護關係未經同意990、不能人道995、精神不健全996、被詐欺脅迫997）：<b>撤銷前婚姻仍有效</b>，須向法院請求撤銷；<b>撤銷的效力不影響因婚姻所生之子女權義（999-1條）及善意第三人之權利（999條）</b>——與「無效」（自始當然不生效力）性質完全不同。"},
+{id:"E12", cat:"婚姻", front:"重婚一律無效嗎？有沒有例外？（民法985、988條）", back:"原則上重婚<b>無效</b>（988條第3款）。<b>例外</b>：重婚之<b>雙方當事人</b>因<b>善意且無過失</b>，<b>信賴一方前婚姻消滅之兩願離婚</b>而結婚者，<b>不適用無效之規定</b>（即該重婚仍有效）——這是為了保護不知前婚姻仍存在（如離婚登記有瑕疵）而善意再婚的當事人。"},
+{id:"E13", cat:"離婚", front:"兩願離婚的法定方式是什麼？（民法1049、1050條）", back:"夫妻<b>兩願離婚</b>，得自行離婚，但須以<b>書面</b>為之，有<b>2人以上證人之簽名</b>，並向<b>戶政機關</b>為離婚之登記——形式要件與結婚（982條）完全對應，<b>登記是離婚的生效要件</b>。"},
+{id:"E14", cat:"離婚", front:"判決離婚的十款具體事由有哪些？（民法1052條第1項）", back:"①重婚 ②與配偶以外之人合意性交 ③對他方不堪同居之虐待 ④對他方直系親屬虐待（或被虐待致不堪共同生活）⑤惡意遺棄在繼續狀態中 ⑥意圖殺害他方 ⑦不治之惡疾 ⑧重大不治之精神病 ⑨生死不明逾3年 ⑩故意犯罪受6個月以上有期徒刑確定。"},
+{id:"E15", cat:"離婚", front:"判決離婚的「概括條款」是什麼？有何限制？（民法1052條第2項）", back:"除1052條第1項十款具體事由外，<b>有重大事由，難以維持婚姻者</b>，夫妻一方得請求離婚。<b>但其事由應由夫妻一方負責者，僅他方得請求離婚</b>——也就是<b>有責的一方不得單獨以概括條款請求離婚</b>，只有「無責或責任較輕」的一方才能請求。"},
+{id:"E16", cat:"離婚", front:"離婚後，未成年子女權利義務的行使，原則上怎麼決定？（民法1055條）", back:"由<b>夫妻協議</b>由一方或雙方共同任之；<b>未為協議或協議不成者</b>，法院得依夫妻一方、主管機關、社會福利機構或其他利害關係人之請求<b>或依職權</b>酌定。協議<b>不利於子女</b>者，法院得依請求或職權<b>改定</b>。"},
+{id:"E17", cat:"離婚", front:"判決離婚的損害賠償有什麼限制？（民法1056條）", back:"因判決離婚受有損害者，得向<b>有過失之他方</b>請求賠償（包含<b>非財產上損害＝慰撫金</b>，但<b>以受害人無過失為限</b>）。此請求權<b>不得讓與或繼承</b>，<b>但已依契約承諾或已起訴者，不在此限</b>。"},
+{id:"E18", cat:"離婚", front:"贍養費的請求要件是什麼？（民法1057條）", back:"<b>無過失之一方</b>，因判決離婚<b>陷於生活困難</b>者，<b>他方縱無過失</b>，亦應給與相當之贍養費。重點：<b>請求人須無過失</b>，但<b>被請求人不需要有過失</b>——與1056條損害賠償（須他方有過失）的要件不同。<b>兩願離婚原則上沒有贍養費與損害賠償的問題</b>。"},
+{id:"E19", cat:"父母子女", front:"什麼是婚生子女？「推定」婚生子女的依據是什麼？（民法1061、1063條Ⅰ）", back:"<b>婚生子女</b>＝由婚姻關係受胎而生之子女（1061條）。<b>1063條第1項</b>：妻之受胎，係在<b>婚姻關係存續中</b>者，<b>推定</b>其所生子女為婚生子女——這是「推定」，可被相反證據推翻。"},
+{id:"E20", cat:"父母子女", front:"婚生子女的「否認之訴」，提起期間如何規定？（民法1063條Ⅱ、Ⅲ）", back:"<b>夫妻一方或子女</b>能證明子女非婚生者，得提起否認之訴。期間：自<b>知悉</b>該子女<b>非為婚生子女時起2年內</b>為之；<b>但子女於未成年時知悉者，仍得於成年後2年內</b>提起——這是對未成年子女的特別保護，避免2年期限在其未成年時就罹於消滅。"},
+{id:"E21", cat:"父母子女", front:"非婚生子女與「生父」、「生母」的關係，分別如何取得「視為婚生」的效果？（民法1065條）", back:"與<b>生母</b>之關係：<b>視為婚生子女，無須認領</b>（分娩事實當然確定母子關係）。與<b>生父</b>之關係：須經生父<b>認領</b>，才<b>視為婚生子女</b>；<b>生父撫育者，視為認領</b>（不須另外做出認領的意思表示）。"},
+{id:"E22", cat:"父母子女", front:"認領之訴可以對誰提起？生父死亡後怎麼辦？（民法1067條）", back:"有事實足認其為非婚生子女之生父者，<b>非婚生子女、生母或其他法定代理人</b>，得向<b>生父</b>提起認領之訴。<b>生父死亡後</b>，得向<b>生父之繼承人</b>提起；<b>生父無繼承人者</b>，得向<b>社會福利主管機關</b>為之——確保認領之訴不會因生父死亡而無法進行。"},
+{id:"E23", cat:"父母子女", front:"收養的年齡差要求是什麼？有哪些例外？（民法1073條）", back:"原則：收養者應<b>長於</b>被收養者<b>20歲以上</b>。例外：①<b>夫妻共同收養</b>時，一方長20歲以上即可，<b>他方僅須長16歲以上</b>；②<b>夫妻一方收養他方之子女</b>時，應<b>長於被收養者16歲以上</b>即可——兩種情形都把門檻降到16歲。"},
+{id:"E24", cat:"父母子女", front:"收養的法定方式是什麼？收養對「與本生父母的關係」有什麼影響？（民法1079、1077條）", back:"收養應以<b>書面</b>為之，並<b>向法院聲請認可</b>（法院認可＝生效要件）。效力：養子女與養父母及其親屬間關係<b>與婚生子女同</b>；與<b>本生父母</b>及其親屬間之權利義務，於收養關係存續中<b>停止</b>（非消滅，終止收養可回復）。<b>但夫妻一方收養他方之子女時，他方與其子女之權利義務不受影響</b>。"},
+{id:"E25", cat:"夫妻財產制", front:"夫妻財產制有哪三種？沒有約定時適用哪一種？（民法1004、1005條）", back:"三種約定財產制：<b>共同財產制</b>、<b>分別財產制</b>（民法所定的約定財產制僅這兩種）。<b>未以契約訂立夫妻財產制者</b>，依1005條，以<b>法定財產制</b>為其夫妻財產制——法定財產制是「未約定時的預設值」。"},
+{id:"E26", cat:"夫妻財產制", front:"夫妻財產制契約的形式要件與登記效力是什麼？（民法1007、1008條）", back:"<b>1007條</b>：夫妻財產制契約之訂立、變更或廢止，應以<b>書面</b>為之。<b>1008條</b>：<b>非經登記，不得以之對抗第三人</b>——登記在此是<b>對抗要件</b>，不是生效要件（與結婚、離婚登記是「生效要件」不同，要區分清楚）。"},
+{id:"E27", cat:"夫妻財產制", front:"法定財產制下，婚前財產與婚後財產的歸屬與管理原則是什麼？（民法1017、1018條）", back:"<b>1017條</b>：婚前財產與婚後財產，<b>各自所有</b>；<b>婚前財產於婚姻關係存續中所生之孳息，視為婚後財產</b>（注意是「視為」，計入婚後財產範圍）。<b>1018條</b>：夫妻<b>各自管理、使用、收益及處分</b>其財產——法定財產制下沒有互相干涉對方財產的權利。"},
+{id:"E28", cat:"夫妻財產制", front:"夫妻之一方用自己的財產清償了另一方的債務，可以請求返還嗎？（民法1023條）", back:"可以。<b>1023條</b>：夫妻各自對其債務負清償之責；<b>夫妻之一方以自己財產清償他方之債務時，得請求償還</b>——即使是法定財產制下「各自獨立」的財產關係，代償的一方仍享有對他方的求償權，不會因為是夫妻就被視為無償贈與。"},
+{id:"E29", cat:"夫妻財產制", front:"剩餘財產分配請求權的計算範圍，哪些財產要「排除」不列入計算？（民法1030-1條Ⅰ）", back:"法定財產制關係消滅時，<b>現存婚後財產</b>扣除婚姻關係存續所負債務，<b>差額平均分配</b>。但下列財產<b>不列入</b>計算：①<b>因繼承或其他無償取得之財產</b>（如受贈與、繼承所得）②<b>慰撫金</b>——這兩類財產屬於「個人專屬性」取得，不應與配偶分享。"},
+{id:"E30", cat:"夫妻財產制", front:"剩餘財產分配請求權的行使期限是多久？如果一方惡意處分財產怎麼辦？（民法1030-1條Ⅴ、1030-3條）", back:"<b>1030-1條第5項</b>：請求權人自<b>知有剩餘財產差額時起2年</b>內、且自<b>法定財產制關係消滅時起5年</b>內，須行使，逾期消滅（<b>「2年/5年」，不是繼承回復請求權的「2年/10年」</b>，常被混淆）。<b>1030-3條</b>：為<b>減少他方分配</b>，於關係消滅前<b>5年內處分婚後財產</b>者，應<b>追加計算</b>視為現存婚後財產（履行道德義務之相當贈與除外）。"},
+{id:"E31", cat:"繼承順序與應繼分", front:"法定繼承人的順序是什麼？配偶的地位如何？（民法1138條）", back:"除配偶外，依下列順序：①<b>直系血親卑親屬</b> ②<b>父母</b> ③<b>兄弟姊妹</b> ④<b>祖父母</b>——有前順序之人時，後順序者不能繼承。<b>配偶</b>則與各順序的繼承人<b>「同列」共同繼承</b>（地位不是某一個固定順序，而是與每一順序的人一起繼承，應繼分比例見1144條）。"},
+{id:"E32", cat:"繼承順序與應繼分", front:"配偶的應繼分，依不同情況各是多少？（民法1144條）", back:"與第①順序（直系血親卑親屬）同為繼承時：<b>平均分配</b>（人數均分）。與第②順序（父母）或第③順序（兄弟姊妹）同為繼承時：<b>遺產二分之一</b>。與第④順序（祖父母）同為繼承時：<b>遺產三分之二</b>。<b>無其他繼承人</b>時：<b>遺產全部</b>。"},
+{id:"E33", cat:"繼承順序與應繼分", front:"什麼是「代位繼承」？適用範圍有什麼限制？（民法1140條）", back:"第1138條所定<b>第一順序</b>之繼承人，有於<b>繼承開始前死亡或喪失繼承權</b>者，由其<b>直系血親卑親屬代位繼承</b>其應繼分。<b>限制</b>：①<b>僅限第一順序繼承人</b>，第二、三、四順序者死亡<b>不發生代位繼承</b>；②<b>「拋棄繼承」不適用代位繼承</b>（其應繼分依1176條另行歸屬，不是由其子女代位）。"},
+{id:"E34", cat:"繼承順序與應繼分", front:"繼承人對被繼承人的債務，要負到什麼程度？遺產清冊的陳報期限是多久？（民法1148、1156條）", back:"<b>1148條第2項</b>：繼承人對於被繼承人之債務，<b>以因繼承所得遺產為限</b>，負清償責任（現行法為<b>全面限定繼承</b>，不須特別聲明）。<b>1156條</b>：繼承人於<b>知悉其得繼承之時起3個月內</b>，開具<b>遺產清冊陳報法院</b>（法院得因聲請延展）。<b>1153條</b>：繼承人對債務負<b>連帶責任</b>，相互間按<b>應繼分比例</b>分擔。"},
+{id:"E35", cat:"繼承順序與應繼分", front:"拋棄繼承的方式與期限是什麼？（民法1174條）", back:"繼承人<b>得拋棄</b>其繼承權，應於<b>知悉其得繼承之時起3個月內</b>，以<b>書面向法院</b>為之。拋棄後，應<b>以書面通知</b>因其拋棄而應為繼承之人（<b>不能通知者，不在此限</b>）——與遺產清冊陳報（1156條）的「3個月、書面、向法院」期限相同，但用途不同。"},
+{id:"E36", cat:"繼承順序與應繼分", front:"繼承人拋棄繼承後，他的應繼分歸屬給誰？（民法1176條）", back:"①<b>第一順序</b>繼承人中有拋棄者：應繼分歸屬<b>其他同為繼承之人</b>（同順序其他人，<b>不適用代位繼承</b>）。②<b>第二至四順序</b>中有拋棄者：歸屬<b>同一順序其他繼承人</b>。③<b>與配偶同為繼承之同一順序繼承人均拋棄</b>，且<b>無後順序繼承人</b>時：歸屬<b>配偶</b>。"},
+{id:"E37", cat:"遺囑與特留分", front:"什麼人可以立遺囑？年齡上有什麼限制？（民法1186條）", back:"<b>無行為能力人，不得為遺囑</b>。<b>限制行為能力人，無須經法定代理人之允許</b>，得為遺囑——但<b>未滿16歲者，不得為遺囑</b>（即使是限制行為能力人也不行）。重點：遺囑能力與一般法律行為的行為能力規定<b>不同</b>，是特別規定。"},
+{id:"E38", cat:"遺囑與特留分", front:"遺囑有哪五種法定方式？（民法1189條）", back:"①<b>自書遺囑</b>（親筆書寫並簽名、註明年月日）②<b>公證遺囑</b>（經公證人公證）③<b>密封遺囑</b>（密封後經公證人及見證人證明）④<b>代筆遺囑</b>（由見證人代筆，遺囑人及見證人簽名）⑤<b>口授遺囑</b>（限於生命危急等特殊情形下的口頭方式）。"},
+{id:"E39", cat:"遺囑與特留分", front:"口授遺囑什麼時候會失效？誰不能當遺囑見證人？（民法1196、1198條）", back:"<b>1196條</b>：口授遺囑，自遺囑人<b>能依其他方式為遺囑之時起，經過3個月而失其效力</b>——危急狀況解除後應改用正式方式。<b>1198條</b>：下列之人<b>不得</b>為遺囑見證人：①未成年人 ②受監護或輔助宣告之人 ③<b>繼承人及其配偶或其直系血親</b>等——避免利益衝突，確保遺囑見證的公正性。"},
+{id:"E40", cat:"遺囑與特留分", front:"遺囑什麼時候開始生效？遺囑人的處分自由有什麼限制？（民法1199、1187條）", back:"<b>1199條</b>：遺囑<b>自遺囑人死亡時</b>發生效力（不是立遺囑時）。<b>1187條</b>：遺囑人於<b>不違反關於特留分規定之範圍內</b>，得以遺囑<b>自由處分遺產</b>——特留分是遺囑自由處分權的<b>法定下限</b>，超過部分的遺贈會被扣減（1225條）。"},
+{id:"E41", cat:"遺囑與特留分", front:"各類繼承人的特留分比例分別是多少？（民法1223條）", back:"<b>直系血親卑親屬、父母、配偶</b>：特留分為其應繼分之<b>二分之一</b>。<b>兄弟姊妹、祖父母</b>：特留分為其應繼分之<b>三分之一</b>。口訣：「<b>卑親父母配偶皆二分之一，兄姊祖父母才三分之一</b>」。"},
+{id:"E42", cat:"遺囑與特留分", front:"遺贈侵害特留分時，怎麼處理？是讓遺贈整個無效嗎？（民法1225條）", back:"<b>不是</b>整個無效。應得特留分之人，因遺贈致其應得之數不足者，得<b>按遺贈財產比例扣減</b>（受遺贈人有數人時，按其所得遺贈價額比例扣減）——也就是<b>從遺贈中按比例扣回</b>不足的部分，補足特留分，<b>遺贈本身不會因此全部失效</b>。"}
+];
+
+const CAT_COLORS = {
+  "親屬通則":"#5C7A4A",
+  "婚姻":"#C17A2E",
+  "離婚":"#A8402B",
+  "父母子女":"#4F7CAC",
+  "夫妻財產制":"#7C6A8E",
+  "繼承順序與應繼分":"#5B7A99",
+  "遺囑與特留分":"#B08D57"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let statusFilter = 'all'; // all | review | mastered
+let mode = 'study'; // study | quiz
+let mastery = {}; // id -> 'mastered' | 'review'
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let revealed = false; // quiz mode: has answer been shown for current card
+let quizStats = {ok:0, ng:0, perCat:{}};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const statusRow = document.getElementById('statusRow');
+const cardEl = document.getElementById('card');
+const termText = document.getElementById('termText');
+const answerText = document.getElementById('answerText');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const footFront = document.getElementById('footFront');
+const footBack = document.getElementById('footBack');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const masteryControls = document.getElementById('masteryControls');
+const quizControls = document.getElementById('quizControls');
+const revealBtn = document.getElementById('revealBtn');
+const quizRight = document.getElementById('quizRight');
+const quizWrong = document.getElementById('quizWrong');
+const quizStatsBar = document.getElementById('quizStatsBar');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+const breakdownPanel = document.getElementById('breakdownPanel');
+
+// ---- persistent storage ----
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('mastery_data_e');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{
+    await window.storage.set('mastery_data_e', JSON.stringify(mastery));
+  }catch(e){ console.error('storage save failed', e); }
+}
+
+// ---- build category chips ----
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+// ---- status filter chips ----
+function renderStatusRow(){
+  const inCat = CARDS.filter(c=>activeCats.has(c.cat));
+  const masteredCount = inCat.filter(c=>mastery[c.id]==='mastered').length;
+  const reviewCount = inCat.length - masteredCount;
+  statusRow.innerHTML = '';
+  const defs = [
+    {key:'all', label:`全部 (${inCat.length})`, cls:''},
+    {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
+    {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
+  ];
+  defs.forEach(d=>{
+    const chip=document.createElement('div');
+    chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
+    chip.textContent=d.label;
+    chip.addEventListener('click',()=>{
+      statusFilter = d.key;
+      rebuildDeck();
+    });
+    statusRow.appendChild(chip);
+  });
+}
+
+function rebuildDeck(){
+  renderStatusRow();
+  let pool = CARDS.filter(c=>activeCats.has(c.cat));
+  if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
+  if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+// ---- mode tabs ----
+document.getElementById('tabStudy').addEventListener('click',()=>switchMode('study'));
+document.getElementById('tabQuiz').addEventListener('click',()=>switchMode('quiz'));
+function switchMode(m){
+  mode = m;
+  document.getElementById('tabStudy').classList.toggle('active', m==='study');
+  document.getElementById('tabQuiz').classList.toggle('active', m==='quiz');
+  masteryControls.style.display = (m==='study') ? 'flex' : 'none';
+  quizControls.style.display = (m==='quiz') ? 'flex' : 'none';
+  quizStatsBar.style.display = (m==='quiz') ? 'flex' : 'none';
+  if(m!=='quiz'){ breakdownPanel.style.display='none'; }
+  revealed = false;
+  flipped = false;
+  render();
+}
+
+// ---- render ----
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = (mode==='quiz') ? revealed : false;
+  cardEl.classList.toggle('flipped', flipped);
+  termText.textContent = c.front;
+  answerText.innerHTML = c.back;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const m = mastery[c.id];
+  const icon = m==='mastered' ? '✅' : '';
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  if(mode==='study'){
+    footFront.textContent = '點擊卡片　看解析 ▸';
+    footBack.textContent = '◂ 點擊卡片　回題目';
+  } else {
+    footFront.textContent = '點擊卡片 或「顯示答案」▸';
+    footBack.textContent = '看完後請點　答對／答錯';
+    revealBtn.style.display = revealed ? 'none' : '';
+    quizRight.style.display = revealed ? '' : 'none';
+    quizWrong.style.display = revealed ? '' : 'none';
+  }
+}
+
+cardEl.addEventListener('click',()=>{
+  if(mode==='study'){
+    flipped=!flipped;
+    cardEl.classList.toggle('flipped',flipped);
+  } else {
+    if(!revealed){ revealed=true; render(); }
+  }
+});
+
+// ---- navigation ----
+function goNext(){
+  idx=(idx+1)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+function goPrev(){
+  idx=(idx-1+deck.length)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key===' '){ e.preventDefault(); cardEl.click(); }
+});
+
+// ---- study mode: mastery buttons ----
+document.getElementById('markMastered').addEventListener('click',()=>{
+  setMastery('mastered');
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  setMastery('review');
+});
+function setMastery(status){
+  const c = deck[idx];
+  mastery[c.id] = status;
+  saveMastery();
+  renderStatusRow();
+  if(statusFilter!=='all'){
+    const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
+                          (statusFilter==='review' && status!=='mastered');
+    if(!stillMatches){
+      let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
+      if(statusFilter==='mastered') pool = pool.filter(cc=>mastery[cc.id]==='mastered');
+      deck = pool.length ? pool : CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(idx>=deck.length) idx=0;
+      render();
+      return;
+    }
+  }
+  render();
+}
+
+// ---- quiz mode: answer buttons ----
+quizRight.addEventListener('click',()=>recordAnswer(true));
+quizWrong.addEventListener('click',()=>recordAnswer(false));
+revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+
+function recordAnswer(correct){
+  const c = deck[idx];
+  if(correct){ quizStats.ok++; mastery[c.id]='mastered'; }
+  else { quizStats.ng++; mastery[c.id]='review'; }
+  if(!quizStats.perCat[c.cat]) quizStats.perCat[c.cat]={ok:0, total:0};
+  quizStats.perCat[c.cat].total++;
+  if(correct) quizStats.perCat[c.cat].ok++;
+  saveMastery();
+  renderStatusRow();
+  updateQuizStatsBar();
+  if(breakdownPanel.style.display!=='none') renderBreakdown();
+  goNext();
+}
+
+function updateQuizStatsBar(){
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+}
+
+document.getElementById('toggleBreakdown').addEventListener('click',()=>{
+  if(breakdownPanel.style.display==='none'){
+    renderBreakdown();
+    breakdownPanel.style.display='block';
+  } else {
+    breakdownPanel.style.display='none';
+  }
+});
+function renderBreakdown(){
+  const cats = Object.keys(quizStats.perCat);
+  if(!cats.length){
+    breakdownPanel.innerHTML = '<p style="text-align:center;color:var(--ink-soft);">尚無作答紀錄</p>';
+    return;
+  }
+  let html = '<table>';
+  cats.forEach(cat=>{
+    const s = quizStats.perCat[cat];
+    const pct = Math.round(s.ok/s.total*100);
+    html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
+  });
+  html += '</table>';
+  breakdownPanel.innerHTML = html;
+}
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0, perCat:{}};
+  updateQuizStatsBar();
+  breakdownPanel.style.display='none';
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  rebuildDeck();
+});
+
+// ---- init ----
+(async function init(){
+  await loadMastery();
+  renderStatusRow();
+  rebuildDeck();
+})();
+</script>
+</body>
+</html>

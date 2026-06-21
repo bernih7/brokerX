@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜總則編基礎・互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:520px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:22px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+/* mode tabs */
+.mode-tabs{
+  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  border:1.5px solid var(--ink);border-radius:12px;padding:4px;
+}
+.mode-tab{
+  flex:1;text-align:center;padding:9px 8px;border-radius:9px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  cursor:pointer;color:var(--ink-soft);transition:all .15s ease;
+  user-select:none;
+}
+.mode-tab.active{background:var(--ink);color:#fff;}
+
+/* filter chips */
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin:10px 0 6px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;
+  white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+
+.filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+.status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.status-row .chip{border-color:var(--gold);color:var(--gold);}
+.status-row .chip.active{background:var(--gold);color:#fff;}
+.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
+.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.mastered{border-color:var(--green);color:var(--green);}
+.status-row .chip.mastered.active{background:var(--green);color:#fff;}
+
+/* progress */
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{
+  height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
+  margin:0 auto 18px;max-width:200px;
+}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+/* card */
+.scene{perspective:1400px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:300px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;
+  display:flex;flex-direction:column;
+  padding:26px 24px;
+  box-shadow:0 4px 18px rgba(42,39,34,0.07);
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.cat-badge{
+  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{
+  position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
+}
+.face-body{flex:1;display:flex;align-items:center;}
+.term{
+  font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:20px;line-height:1.7;color:var(--ink);
+}
+.answer{font-size:15px;line-height:1.9;color:var(--ink);}
+.answer b{color:var(--stamp);}
+.face-foot{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
+}
+.face.back .face-foot{color:var(--gold);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+
+/* controls */
+.controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;flex-wrap:wrap;
+}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--gold);color:#fff;}
+.btn.wide{flex:1;min-width:120px;text-align:center;}
+.btn.icon{padding:10px 14px;}
+
+/* quiz mode */
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+.breakdown{
+  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;padding:14px;font-size:13px;
+}
+.breakdown table{width:100%;border-collapse:collapse;}
+.breakdown td{padding:5px 4px;border-bottom:1px solid var(--rule);}
+.breakdown tr:last-child td{border-bottom:none;}
+.breakdown .bar{
+  display:block;height:6px;border-radius:3px;background:var(--rule);
+  overflow:hidden;margin-top:3px;
+}
+.breakdown .bar-fill{height:100%;background:var(--green);}
+
+footer{
+  margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.12em;line-height:2;
+}
+footer .reset{
+  text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;
+  border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">案號 A・權利主體與法律行為基礎</div>
+    <h1>民法概要 互動單字卡
+      <span class="sub">總則編基礎・共 42 張</span>
+    </h1>
+  </header>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabStudy">📖 學習模式</div>
+    <div class="mode-tab" id="tabQuiz">📝 測驗模式</div>
+  </div>
+
+  <div class="filter-row" id="resetRow">
+    <div class="chip active" id="resetBtn">全部分類</div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">42</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="cat-badge" id="badgeFront"></div>
+        <div class="mastery-badge" id="badgeMasteryFront"></div>
+        <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="cat-badge" id="badgeBack"></div>
+        <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- study mode: mastery buttons -->
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <!-- quiz mode: reveal / answer buttons -->
+  <div class="controls" id="quizControls" style="display:none;">
+    <button class="btn primary wide" id="revealBtn">👀 顯示答案</button>
+    <button class="btn icon" id="quizWrong" style="display:none;border-color:var(--stamp);color:var(--stamp);">❌ 答錯</button>
+    <button class="btn green icon" id="quizRight" style="display:none;">✅ 答對</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一張</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一張 ▸</button>
+  </div>
+
+  <!-- quiz stats -->
+  <div class="quiz-stats" id="quizStatsBar" style="display:none;">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="toggleBreakdown">看分類統計</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
+
+  <footer>不動產經紀人考試・民法概要複習｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"A01", cat:"自然人", front:"自然人的權利能力與胎兒的特殊保護？（民法6、7條）", back:"人之權利能力<b>始於出生，終於死亡</b>（6條）。<b>胎兒</b>以將來<b>非死產者為限</b>，關於其<b>個人利益之保護</b>，<b>視為既已出生</b>（7條）——例如可以繼承遺產。"},
+{id:"A02", cat:"自然人", front:"行為能力如何三分？（民法12、13、15條）", back:"<b>無行為能力人</b>：未滿7歲之未成年人，或受監護宣告之人。<br><b>限制行為能力人</b>：滿7歲以上之未成年人。<br><b>完全行為能力人</b>：滿18歲之成年人（12條）。"},
+{id:"A03", cat:"自然人", front:"受輔助宣告之人，行為能力如何？（民法15-1、15-2條）", back:"原則上<b>仍有完全行為能力</b>；僅就法定<b>七類重大行為</b>（如不動產等重要財產處分、消費借貸、保證、贈與、訴訟、和解、遺產分割拋棄繼承等）<b>應經輔助人同意</b>，但<b>純獲法律上利益或日常生活所需者不在此限</b>。"},
+{id:"A04", cat:"自然人", front:"受監護宣告 vs 受輔助宣告，差異在哪？", back:"<b>受監護宣告</b>＝<b>無行為能力人</b>，意思表示原則無效，須由法定代理人代為。<br><b>受輔助宣告</b>＝<b>原則上仍有行為能力</b>，僅特定七類行為須經輔助人同意——程度遠輕於監護宣告。"},
+{id:"A05", cat:"自然人", front:"死亡宣告的聲請期間？（民法8條）", back:"一般情形：失蹤滿<b>7年</b>後。<br>失蹤人為<b>80歲以上</b>：失蹤滿<b>3年</b>後。<br>遭遇<b>特別災難</b>：災難終了滿<b>1年</b>後。皆得由利害關係人或檢察官聲請法院為死亡宣告。"},
+{id:"A06", cat:"自然人", front:"二人以上同時遇難，無法證明死亡先後時怎麼處理？（民法11條）", back:"<b>推定為同時死亡</b>（同死推定）——彼此互不繼承，各自的遺產分別由各自的法定繼承人繼承。"},
+{id:"A07", cat:"自然人", front:"無行為能力人及限制行為能力人的住所如何認定？（民法20、21條）", back:"民法20條：依久住意思住於一定地域者即設定住所，<b>一人不得同時有兩住所</b>。<br>民法21條：無行為能力人及限制行為能力人，<b>以法定代理人之住所為住所</b>。"},
+{id:"A08", cat:"法人", front:"法人的成立與權利能力受何限制？（民法25、26條）", back:"<b>民法25條</b>：法人非依本法或其他法律規定，<b>不得成立</b>（法人成立法定原則）。<br><b>民法26條</b>：法人於法令限制內有享受權利負擔義務之能力，但<b>專屬於自然人之權利義務不在此限</b>（如生命權）。"},
+{id:"A09", cat:"法人", front:"法人應設哪些機關？（民法27條）", back:"<b>董事＝必設機關</b>；<b>監察人＝得設（非必設）</b>。董事有數人者，除章程另有規定外，<b>各董事均得代表法人</b>；對董事代表權之限制<b>不得對抗善意第三人</b>。"},
+{id:"A10", cat:"法人", front:"法人對董事的侵權行為，要負什麼責任？（民法28條）", back:"法人對於其<b>董事或其他有代表權之人</b>因執行職務所加於他人之損害，<b>與該行為人連帶負賠償責任</b>。"},
+{id:"A11", cat:"法人", front:"社團法人與財團法人，設立基礎與最高機關有何不同？", back:"<b>社團</b>：訂立<b>章程</b>，以<b>總會</b>為最高意思機關（必設，50條）。<br><b>財團</b>：訂立<b>捐助章程</b>（<b>以遺囑捐助者不須訂立捐助章程</b>，60條），<b>無總會</b>，組織與管理方法由捐助章程／遺囑定之（62條）。"},
+{id:"A12", cat:"法人", front:"公益法人解散後，賸餘財產歸誰？（民法44條）", back:"依章程規定或總會決議；但<b>以公益為目的之法人解散時，賸餘財產不得歸屬於自然人或以營利為目的之團體</b>。若無規定或決議，<b>歸屬於法人住所所在地之地方自治團體</b>。"},
+{id:"A13", cat:"物", front:"動產與不動產如何定義？（民法66、67條）", back:"<b>不動產</b>＝<b>土地及其定著物</b>，其上尚未分離之出產物為不動產之部分（66條）。<b>動產</b>＝不動產以外之物（67條）。"},
+{id:"A14", cat:"物", front:"什麼是「從物」？效果如何？（民法68條）", back:"<b>非主物之成分</b>，常助主物之效用，<b>而與主物同屬一人</b>者，為從物（交易上有特別習慣者依習慣）。<b>主物之處分，及於從物</b>。"},
+{id:"A15", cat:"物", front:"天然孳息 vs 法定孳息？歸屬規則？（民法69、70條）", back:"<b>天然孳息</b>＝果實、動物產物及其他依物之用法所收穫之出產物；<b>法定孳息</b>＝利息、租金等因法律關係所得之收益。有收取權利人，天然孳息於<b>權利存續期間內</b>取得分離後之孳息，法定孳息則<b>按權利存續期間之日數</b>取得。"},
+{id:"A16", cat:"物", front:"區分所有建築物的屋頂平台是「從物」嗎？", back:"<b>不是</b>。從物須①為<b>獨立之物</b>②<b>與主物同屬一人所有</b>；屋頂平台等<b>共有部分</b>屬於<b>全體區分所有權人共有</b>、且是建築物的「成分」而非獨立之物，所以不是從物，也不會隨某一專有部分的處分而當然移轉。"},
+{id:"A17", cat:"法律行為效力", front:"法律行為效力分哪三種？", back:"<b>無效</b>：自始當然確定不生效力，任何人皆可主張。<br><b>得撤銷</b>：原本有效，經撤銷視為自始無效（114條），須特定人於期限內主張。<br><b>效力未定</b>：須經第三人承認才確定生效（如限制行為能力人訂立的契約、無權代理、無權處分）。"},
+{id:"A18", cat:"法律行為效力", front:"法律行為違反強行法、公序良俗或法定方式，效力如何？（民法71-73條）", back:"<b>71條</b>：違反強制或禁止規定者，<b>無效</b>（該規定不以無效為效果者除外）。<b>72條</b>：違背公共秩序或善良風俗者，<b>無效</b>。<b>73條</b>：不依法定方式者，<b>無效</b>（法律另有規定者除外）。"},
+{id:"A19", cat:"法律行為效力", front:"暴利行為的構成與救濟？（民法74條）", back:"乘他人<b>急迫、輕率或無經驗</b>，使其為財產上給付或為給付之約定，依當時情形<b>顯失公平</b>者，<b>法院得因利害關係人之聲請</b>，撤銷該法律行為或減輕其給付；<b>應於法律行為後1年內聲請</b>。"},
+{id:"A20", cat:"法律行為效力", front:"限制行為能力人的單獨行為 vs 契約行為，效力分別是？（民法78、79條）", back:"<b>單獨行為</b>（如拋棄繼承、債務免除）：未得法定代理人允許者，<b>無效</b>（78條）。<br><b>契約行為</b>：未得允許者，<b>效力未定</b>，須經法定代理人承認才生效（79條）。"},
+{id:"A21", cat:"法律行為效力", front:"限制行為能力人不須得法定代理人允許的行為有哪些？（民法77條但書）", back:"①<b>純獲法律上利益</b>之行為（如單純受贈與）；②<b>依其年齡及身分、日常生活所必需</b>之行為（如購買文具、搭公車）。"},
+{id:"A22", cat:"法律行為效力", front:"限制行為能力人「用詐術」使人信其有行為能力，效力如何？（民法83條）", back:"<b>有效</b>！——這是常考陷阱，許多人誤以為是「效力未定」，但83條明文規定此情形<b>法律行為為有效</b>，作為對使用詐術者的制裁。"},
+{id:"A23", cat:"法律行為效力", front:"法律行為一部無效、無權處分的效力？（民法111、118條）", back:"<b>111條</b>：法律行為<b>一部分無效者，全部皆為無效</b>；但除去該部分亦可成立者，其他部分仍有效。<br><b>118條</b>：無權利人處分權利標的物，<b>經有權利人承認始生效力</b>；事後取得權利者，<b>處分自始有效</b>（但不影響原權利人或第三人已取得之利益）。"},
+{id:"A24", cat:"意思表示瑕疵", front:"心中保留（單獨虛偽意思表示）的效力？（民法86條）", back:"表意人自己無欲受其意思表示拘束，但仍為意思表示者，<b>原則上仍然有效</b>；<b>但相對人若明知</b>表意人的真意，則該意思表示<b>無效</b>。"},
+{id:"A25", cat:"意思表示瑕疵", front:"通謀虛偽意思表示的效力？（民法87條）", back:"表意人與相對人<b>通謀</b>而為虛偽意思表示者，<b>無效</b>；但<b>不得以其無效對抗善意第三人</b>。若<b>隱藏他項法律行為</b>，則<b>適用該項法律行為之規定</b>（例如：表面贈與實為買賣，適用買賣規定）。"},
+{id:"A26", cat:"意思表示瑕疵", front:"意思表示錯誤的撤銷要件與期限？（民法88-90條）", back:"意思表示<b>內容有錯誤</b>，或<b>知情即不為該表示者</b>，得撤銷，但<b>須非因表意人自己過失</b>；<b>當事人資格或物之性質</b>，交易上認為重要者，視為內容錯誤。撤銷權<b>自意思表示後經過1年消滅</b>（除斥期間）。"},
+{id:"A27", cat:"意思表示瑕疵", front:"被詐欺或被脅迫而為意思表示，效力如何？（民法92條）", back:"表意人<b>得撤銷</b>其意思表示。詐欺由<b>第三人</b>所為者，須<b>相對人明知或可得而知</b>始得撤銷。<b>被詐欺之撤銷不得對抗善意第三人</b>；<b>被脅迫之撤銷則可以對抗善意第三人</b>。"},
+{id:"A28", cat:"意思表示瑕疵", front:"詐欺、脅迫的撤銷權，有什麼期限限制？（民法93條）", back:"<b>雙重期限</b>：①自<b>發見詐欺或脅迫終止後1年內</b>為之；②但<b>自意思表示後經過10年</b>，不問是否已發見，<b>一律不得撤銷</b>。兩個條件須同時滿足。"},
+{id:"A29", cat:"意思表示瑕疵", front:"意思表示何時生效？對話／非對話／向限制行為能力人三種情形？（民法94-96條）", back:"<b>對話</b>：相對人<b>了解時</b>生效（94條）。<br><b>非對話</b>：通知<b>達到相對人時</b>生效（到達主義，95條），表意人發出後死亡或喪失行為能力<b>不影響效力</b>。<br><b>向無/限制行為能力人</b>：通知<b>達到其法定代理人時</b>生效（96條）。"},
+{id:"A30", cat:"意思表示瑕疵", front:"因錯誤撤銷意思表示，要負什麼賠償責任？（民法91條）", back:"撤銷意思表示之表意人，對<b>信其意思表示為有效而受損害</b>之相對人或第三人，<b>應負賠償責任</b>；但<b>受害人明知或可得而知</b>撤銷原因者，不在此限。"},
+{id:"A31", cat:"代理", front:"代理行為的基本效力？（民法103條）", back:"代理人於<b>代理權限內</b>，以<b>本人名義</b>所為之意思表示，<b>直接對本人發生效力</b>；應向本人為意思表示而向代理人為之者，亦同。"},
+{id:"A32", cat:"代理", front:"代理人本身是限制行為能力人，會影響代理效力嗎？（民法104條）", back:"<b>不會</b>。代理人所為或所受意思表示之效力，<b>不因其為限制行為能力人而受影響</b>——代理效果歸屬於本人，與代理人自身行為能力無關。"},
+{id:"A33", cat:"代理", front:"什麼是自己代理、雙方代理？原則上禁止嗎？（民法106條）", back:"<b>自己代理</b>：代理人為本人與自己之法律行為。<b>雙方代理</b>：同時為本人與第三人之代理人而為法律行為。原則上<b>非經本人許諾不得為之</b>；<b>但專履行債務者（如純辦理移轉登記），例外有效</b>。"},
+{id:"A34", cat:"代理", front:"代理權的限制及撤回，可以對抗第三人嗎？（民法107條）", back:"代理權之限制及撤回，<b>不得對抗善意第三人</b>；<b>但第三人因過失而不知該事實者，不在此限</b>（即此時可以對抗有過失的第三人）。"},
+{id:"A35", cat:"代理", front:"代理權何時消滅？可以撤回嗎？（民法108條）", back:"代理權之消滅，<b>依其授與之法律關係定之</b>；代理權<b>得於授與關係存續中撤回</b>，但<b>依該法律關係性質不得撤回者不在此限</b>。"},
+{id:"A36", cat:"代理", front:"無權代理人對相對人要負什麼責任？（民法110條）", back:"無代理權人以他人代理人名義所為之法律行為，<b>對於善意之相對人，負損害賠償之責</b>——這是無權代理人對相對人的法定責任，與本人是否承認無關。"},
+{id:"A37", cat:"代理", front:"代理行為有意思表示瑕疵（如被詐欺），要看誰的狀態？（民法105條）", back:"原則上<b>就代理人本身</b>判斷有無意思欠缺、被詐欺脅迫或明知/可得而知之事實；<b>但若代理權係依本人指示之意思而為</b>，則<b>就本人</b>判斷。"},
+{id:"A38", cat:"消滅時效", front:"消滅時效的三種期間長度？（民法125-127條）", back:"<b>一般請求權：15年</b>（125條）。<br><b>一年或不及一年之定期給付</b>（利息、租金、贍養費、退職金等）各期請求權：<b>5年</b>（126條）。<br><b>8類短期請求權</b>（旅店飲食費、運送費、租賃動產租價、醫師律師等報酬、商人供給商品代價等）：<b>2年</b>（127條）。"},
+{id:"A39", cat:"消滅時效", front:"消滅時效從什麼時候開始算？（民法128條）", back:"<b>自請求權可行使時起算</b>；以<b>不行為</b>為目的之請求權，<b>自為行為時起算</b>。"},
+{id:"A40", cat:"消滅時效", front:"消滅時效的中斷事由有哪些？（民法129條）", back:"<b>請求、承認、起訴</b>，以及與起訴有同一效力之事項（聲請發支付命令、聲請調解或提付仲裁、申報和解或破產債權、告知訴訟、開始執行或聲請強制執行）。中斷後，時效期間<b>歸零重新起算</b>。"},
+{id:"A41", cat:"消滅時效", front:"消滅時效完成後，債權本身消滅了嗎？（民法144條）", back:"<b>不會消滅</b>！時效完成<b>僅使債務人取得拒絕給付的抗辯權</b>，請求權本身仍存在。債務人若仍為履行給付、或以契約承認債務或提出擔保，<b>不得以不知時效為理由請求返還</b>。"},
+{id:"A42", cat:"消滅時效", front:"時效消滅後，有擔保物權的債權還能主張嗎？主從權利的關係？（民法145-147條）", back:"<b>145條</b>：以<b>抵押權、質權或留置權擔保</b>之請求權，雖經時效消滅，債權人<b>仍得就該擔保物取償</b>（但定期給付各期給付請求權之時效消滅者不適用）。<b>146條</b>：<b>主權利</b>因時效消滅，效力<b>及於從權利</b>。<b>147條</b>：時效期間<b>不得加長或減短，亦不得預先拋棄時效利益</b>。"}
+];
+
+const CAT_COLORS = {
+  "自然人":"#5C7A4A",
+  "法人":"#4F7CAC",
+  "物":"#B08D57",
+  "法律行為效力":"#A8402B",
+  "意思表示瑕疵":"#C17A2E",
+  "代理":"#7C6A8E",
+  "消滅時效":"#5B7A99"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let statusFilter = 'all'; // all | review | mastered
+let mode = 'study'; // study | quiz
+let mastery = {}; // id -> 'mastered' | 'review'
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let revealed = false; // quiz mode: has answer been shown for current card
+let quizStats = {ok:0, ng:0, perCat:{}};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const statusRow = document.getElementById('statusRow');
+const cardEl = document.getElementById('card');
+const termText = document.getElementById('termText');
+const answerText = document.getElementById('answerText');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const footFront = document.getElementById('footFront');
+const footBack = document.getElementById('footBack');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const masteryControls = document.getElementById('masteryControls');
+const quizControls = document.getElementById('quizControls');
+const revealBtn = document.getElementById('revealBtn');
+const quizRight = document.getElementById('quizRight');
+const quizWrong = document.getElementById('quizWrong');
+const quizStatsBar = document.getElementById('quizStatsBar');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+const breakdownPanel = document.getElementById('breakdownPanel');
+
+// ---- persistent storage ----
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('mastery_data_a');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{
+    await window.storage.set('mastery_data_a', JSON.stringify(mastery));
+  }catch(e){ console.error('storage save failed', e); }
+}
+
+// ---- build category chips ----
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+// ---- status filter chips ----
+function renderStatusRow(){
+  const inCat = CARDS.filter(c=>activeCats.has(c.cat));
+  const masteredCount = inCat.filter(c=>mastery[c.id]==='mastered').length;
+  const reviewCount = inCat.length - masteredCount;
+  statusRow.innerHTML = '';
+  const defs = [
+    {key:'all', label:`全部 (${inCat.length})`, cls:''},
+    {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
+    {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
+  ];
+  defs.forEach(d=>{
+    const chip=document.createElement('div');
+    chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
+    chip.textContent=d.label;
+    chip.addEventListener('click',()=>{
+      statusFilter = d.key;
+      rebuildDeck();
+    });
+    statusRow.appendChild(chip);
+  });
+}
+
+function rebuildDeck(){
+  renderStatusRow();
+  let pool = CARDS.filter(c=>activeCats.has(c.cat));
+  if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
+  if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+// ---- mode tabs ----
+document.getElementById('tabStudy').addEventListener('click',()=>switchMode('study'));
+document.getElementById('tabQuiz').addEventListener('click',()=>switchMode('quiz'));
+function switchMode(m){
+  mode = m;
+  document.getElementById('tabStudy').classList.toggle('active', m==='study');
+  document.getElementById('tabQuiz').classList.toggle('active', m==='quiz');
+  masteryControls.style.display = (m==='study') ? 'flex' : 'none';
+  quizControls.style.display = (m==='quiz') ? 'flex' : 'none';
+  quizStatsBar.style.display = (m==='quiz') ? 'flex' : 'none';
+  if(m!=='quiz'){ breakdownPanel.style.display='none'; }
+  revealed = false;
+  flipped = false;
+  render();
+}
+
+// ---- render ----
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = (mode==='quiz') ? revealed : false;
+  cardEl.classList.toggle('flipped', flipped);
+  termText.textContent = c.front;
+  answerText.innerHTML = c.back;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const m = mastery[c.id];
+  const icon = m==='mastered' ? '✅' : '';
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  if(mode==='study'){
+    footFront.textContent = '點擊卡片　看解析 ▸';
+    footBack.textContent = '◂ 點擊卡片　回題目';
+  } else {
+    footFront.textContent = '點擊卡片 或「顯示答案」▸';
+    footBack.textContent = '看完後請點　答對／答錯';
+    revealBtn.style.display = revealed ? 'none' : '';
+    quizRight.style.display = revealed ? '' : 'none';
+    quizWrong.style.display = revealed ? '' : 'none';
+  }
+}
+
+cardEl.addEventListener('click',()=>{
+  if(mode==='study'){
+    flipped=!flipped;
+    cardEl.classList.toggle('flipped',flipped);
+  } else {
+    if(!revealed){ revealed=true; render(); }
+  }
+});
+
+// ---- navigation ----
+function goNext(){
+  idx=(idx+1)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+function goPrev(){
+  idx=(idx-1+deck.length)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key===' '){ e.preventDefault(); cardEl.click(); }
+});
+
+// ---- study mode: mastery buttons ----
+document.getElementById('markMastered').addEventListener('click',()=>{
+  setMastery('mastered');
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  setMastery('review');
+});
+function setMastery(status){
+  const c = deck[idx];
+  mastery[c.id] = status;
+  saveMastery();
+  renderStatusRow();
+  if(statusFilter!=='all'){
+    const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
+                          (statusFilter==='review' && status!=='mastered');
+    if(!stillMatches){
+      let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
+      if(statusFilter==='mastered') pool = pool.filter(cc=>mastery[cc.id]==='mastered');
+      deck = pool.length ? pool : CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(idx>=deck.length) idx=0;
+      render();
+      return;
+    }
+  }
+  render();
+}
+
+// ---- quiz mode: answer buttons ----
+quizRight.addEventListener('click',()=>recordAnswer(true));
+quizWrong.addEventListener('click',()=>recordAnswer(false));
+revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+
+function recordAnswer(correct){
+  const c = deck[idx];
+  if(correct){ quizStats.ok++; mastery[c.id]='mastered'; }
+  else { quizStats.ng++; mastery[c.id]='review'; }
+  if(!quizStats.perCat[c.cat]) quizStats.perCat[c.cat]={ok:0, total:0};
+  quizStats.perCat[c.cat].total++;
+  if(correct) quizStats.perCat[c.cat].ok++;
+  saveMastery();
+  renderStatusRow();
+  updateQuizStatsBar();
+  if(breakdownPanel.style.display!=='none') renderBreakdown();
+  goNext();
+}
+
+function updateQuizStatsBar(){
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+}
+
+document.getElementById('toggleBreakdown').addEventListener('click',()=>{
+  if(breakdownPanel.style.display==='none'){
+    renderBreakdown();
+    breakdownPanel.style.display='block';
+  } else {
+    breakdownPanel.style.display='none';
+  }
+});
+function renderBreakdown(){
+  const cats = Object.keys(quizStats.perCat);
+  if(!cats.length){
+    breakdownPanel.innerHTML = '<p style="text-align:center;color:var(--ink-soft);">尚無作答紀錄</p>';
+    return;
+  }
+  let html = '<table>';
+  cats.forEach(cat=>{
+    const s = quizStats.perCat[cat];
+    const pct = Math.round(s.ok/s.total*100);
+    html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
+  });
+  html += '</table>';
+  breakdownPanel.innerHTML = html;
+}
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0, perCat:{}};
+  updateQuizStatsBar();
+  breakdownPanel.style.display='none';
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  rebuildDeck();
+});
+
+// ---- init ----
+(async function init(){
+  await loadMastery();
+  renderStatusRow();
+  rebuildDeck();
+})();
+</script>
+</body>
+</html>
