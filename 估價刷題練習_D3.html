@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・D3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・D3
+      <span class="sub">D收益法-折現現金流量分析法(D3)含逐選項解析・共 13 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/13</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VD3_101_16", cat:"D3", year:"101年第16題", q:"不動產估價技術規則第31條規定，何種估價方法得適用於以投資為目的之不動產投資評估？", opts:["直接資本化法", "折現現金流量分析", "剩餘法", "分配法"], explains:["直接資本化法是以未來平均一年期間之客觀淨收益除以資本化率，適用於一般收益性不動產估價，並非規則明定專門適用於「以投資為目的」之不動產投資評估方法。", "技術規則第31條明定折現現金流量分析法得適用於以投資為目的之不動產投資評估，因其能反映多期現金流量及期末處分價值，更貼近投資決策之考量，與題目敘述相符。", "「剩餘法」是成本法或收益法延伸應用之計算技巧（如殘餘法概念），並非規則明定專門適用於投資評估之獨立方法。", "「分配法」並非技術規則明定之正式估價方法名稱。"], correct:1, note:null},
+{id:"VD3_101_18", cat:"D3", year:"101年第18題", q:"請問折現現金流量分析之計算公式P＝Σ[CFk/(1＋Y)^k]＋Pn'/(1＋Y)^n'中，Pn'為下列何者？", opts:["收益價格", "淨收益", "折現率", "期末價值"], explains:["「收益價格」是估價結果之名稱，並非公式中Pn'這個特定變數所代表之意義。", "「淨收益」在公式中是以CFk表示（各期現金流量），並非Pn'所代表之意義。", "「折現率」在公式中是以Y表示，並非Pn'所代表之意義。", "技術規則明定DCF公式P＝Σ[CFk/(1+Y)^k]＋Pn'/(1+Y)^n'中，Pn'代表「期末價值」（即分析期間結束時，勘估標的之處分價值），與題目敘述相符。"], correct:3, note:null},
+{id:"VD3_102_8", cat:"D3", year:"102年第8題", q:"依不動產估價技術規則規定，以不動產證券化為估價目的，採折現現金流量分析估價時，下列敘述何者錯誤？", opts:["各期淨收益應以勘估標的之契約租金計算為原則", "因情況特殊不宜採契約租金估價者得敘明", "契約租金未知者，應以限定租金推估淨收益", "總費用應依信託計畫資料加以推算"], explains:["各期淨收益應以勘估標的之契約租金計算為原則，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "因情況特殊不宜採契約租金估價者得敘明，此為正確敘述（規則允許例外情形之敘明）。", "技術規則明定契約租金未知者，應以「經濟租金」（而非限定租金）推估淨收益，本選項將經濟租金誤植為限定租金，敘述錯誤，即本題正解。", "總費用應依信託計畫資料加以推算，此為正確敘述。"], correct:2, note:"契約租金未知者，應以「經濟租金」（非限定租金）推估淨收益，此為敘述錯誤之處。"},
+{id:"VD3_102_27", cat:"D3", year:"102年第27題", q:"對具永續性固定收益之土地，以直接資本化法評估其價值，如於折現現金流量分析之公式P＝Σ[CFk/(1+Y)^k]+Pn'/(1+Y)^n'，n'為下列何者？", opts:["物理耐用年數", "經濟耐用年數", "殘餘耐用年數", "折現現金流量分析期間"], explains:["「物理耐用年數」是建物因自然耗損或外力破壞至不堪使用所經歷之年數，與DCF公式中n'（分析期間）之定義不同。", "「經濟耐用年數」是建物因功能或效益衰退至不值得使用所經歷之年數，與DCF公式中n'之定義不同。", "「殘餘耐用年數」並非技術規則明定DCF公式中n'所代表之正式用語。", "技術規則明定DCF公式P＝Σ[CFk/(1+Y)^k]＋Pn'/(1+Y)^n'中，n'代表「折現現金流量分析期間」，即估價人員所設定預估未來現金流量之分析年限，與題目敘述相符。"], correct:3, note:null},
+{id:"VD3_103_37", cat:"D3", year:"103年第37題", q:"某甲擬投資購買一不動產，預計每年可以獲得10萬元淨收益，第三年年底預計可以200萬元出售，假設折現率為5%，請問合理的價格約為多少？", opts:["173萬元", "200萬元", "227萬元", "232萬元"], explains:["173萬元僅為各期淨收益現金流量折現後之總和（10萬元連續3年折現約27.23萬元），漏未加計第3年底出售之200萬元折現值，計算不完整。", "依DCF公式：各期淨收益現值總和＝Σ[10萬÷(1.05)^k]（k=1至3）≈27.23萬元；期末出售價值現值＝200萬÷(1.05)^3≈172.77萬元；合理價格＝27.23＋172.77＝200萬元，與本選項相符（此題數字設計恰為整數巧合）。", "227萬元的計算結果與正確DCF公式計算不符，可能誤算折現率方向或期數。", "232萬元的計算結果與正確公式計算不符，偏差過大。"], correct:1, note:"P＝10/(1.05)+10/(1.05)^2+10/(1.05)^2+(10+200)/(1.05)^3，逐項折現加總後約等於200萬元（依官方答案核算）。"},
+{id:"VD3_104_13", cat:"D3", year:"104年第13題", q:"依不動產估價技術規則之規定，以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益應以下列何者為計算原則？", opts:["勘估標的之契約租金", "勘估標的之經濟租金", "比較標的之契約租金", "比較標的之經濟租金"], explains:["技術規則明定以不動產證券化為估價目的，採DCF估價時，各期淨收益應以「勘估標的」之契約租金計算為原則，與題目敘述完全相符。", "規則明定的原則是「契約租金」（而非經濟租金），經濟租金是契約租金未知時之替代推估方式。", "規則明定計算基準是「勘估標的」（而非比較標的）之租金，本選項主體誤植。", "同C選項，主體與租金種類皆與規則規定不符。"], correct:0, note:null},
+{id:"VD3_105_17", cat:"D3", year:"105年第17題", q:"依不動產估價技術規則之規定，以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益應以勘估標的之何種租金為計算原則？", opts:["實質租金", "經濟租金", "支付租金", "契約租金"], explains:["「實質租金」是支付租金加計押金等運用收益之總數概念，並非規則明定不動產證券化DCF估價各期淨收益計算之原則租金種類。", "「經濟租金」是契約租金「未知」時之替代推估方式，並非規則明定之原則性計算基準。", "「支付租金」是承租人實際支付之租金本身，並非規則明定之原則性計算基準。", "技術規則明定以不動產證券化為估價目的，採DCF估價時，各期淨收益應以勘估標的之「契約租金」計算為原則，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VD3_108_6", cat:"D3", year:"108年第6題", q:"不動產估價師應兼採二種以上估價方法推算勘估標的價格。以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，何種方法之價格應賦予相對較大之權重？", opts:["成本法", "土地開發分析法", "折現現金流量分析法", "比較法"], explains:["成本法是以重建/重置成本扣除折舊推算價格，並非規則明定於此特定情境下應賦予較大權重之方法。", "土地開發分析法是以進行開發為前提之估價方法，並非規則明定於此特定情境下應賦予較大權重之方法。", "技術規則明定以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，折現現金流量分析法之收益價格應賦予相對較大之權重（因DCF能完整反映契約租金所產生之多期現金流量，與信託利益分配機制最為契合），與題目敘述相符。", "比較法是以交易實例為基礎，並非規則明定於此特定情境下應賦予較大權重之方法。"], correct:2, note:null},
+{id:"VD3_109_22", cat:"D3", year:"109年第22題", q:"國內已有不動產證券化的個案，依據不動產估價技術規則規定，以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，何種價格應視不同價格所蒐集資料可信度及估價種類目的條件差異，考量價格形成因素之相近程度情形賦予相對較大之權重？", opts:["比較法之實例價格", "土地開發分析價格", "直接資本化法之收益價格", "折現現金流量分析法之收益價格"], explains:["比較法之實例價格並非規則明定於此特定情境下應賦予較大權重之價格。", "土地開發分析價格並非規則明定於此特定情境下應賦予較大權重之價格。", "直接資本化法之收益價格僅反映未來平均一年期間之單一年度收益，並非規則明定於此特定情境下應賦予較大權重之價格。", "技術規則明定以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，折現現金流量分析法之收益價格應賦予相對較大之權重，因其能完整反映多期現金流量與信託利益分配機制最為契合，與題目敘述相符。"], correct:3, note:null},
+{id:"VD3_110_11", cat:"D3", year:"110年第11題", q:"依不動產估價技術規則規定，以不動產證券化為估價目的者，其折現現金流量分析法之總費用應依何種資料加以推算？", opts:["市場相關資料", "信託計畫資料", "類似產品資料", "歷史費用資料"], explains:["「市場相關資料」並非技術規則明定不動產證券化估價目的下總費用推算所應依據之特定資料來源。", "技術規則明定以不動產證券化為估價目的者，其DCF之總費用應依「信託計畫資料」加以推算（因信託計畫詳細記載該證券化案件之收支安排），與題目敘述完全相符。", "「類似產品資料」並非規則明定之特定依據資料來源。", "「歷史費用資料」並非規則明定不動產證券化估價總費用推算之特定依據來源。"], correct:1, note:null},
+{id:"VD3_111_10", cat:"D3", year:"111年第10題", q:"不動產估價由三大方法所推估之價值，於綜合決定勘估標的價格時，若以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，何種方法應視前項情形賦予相對較大之權重？", opts:["比較法", "直接資本化法之收益價格", "折現現金流量分析法之收益價格", "成本法"], explains:["比較法並非規則明定於「以契約約定租金作為信託利益分配基礎」情境下應賦予較大權重之方法。", "直接資本化法之收益價格僅反映單一年度收益，並非規則明定於此特定情境下應賦予較大權重之方法。", "技術規則明定以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，折現現金流量分析法之收益價格應賦予相對較大之權重，與題目敘述完全相符。", "成本法並非規則明定於此特定情境下應賦予較大權重之方法。"], correct:2, note:null},
+{id:"VD3_114_7", cat:"D3", year:"114年第7題", q:"以投資為目的之不動產投資評估，最適合的估價方法為：", opts:["比較法", "折現現金流量分析法", "成本法", "土地開發分析法"], explains:["比較法是以交易實例為基礎推算價格，並非規則明定專門適用於投資評估之方法。", "技術規則明定折現現金流量分析法得適用於以投資為目的之不動產投資評估，因其能完整反映多期現金流量及期末處分價值，最貼近投資決策考量，與題目敘述相符。", "成本法是以重建/重置成本扣除折舊推算價格，並非規則明定專門適用於投資評估之方法。", "土地開發分析法是以進行開發為前提之估價方法，並非規則明定專門適用於一般投資評估之方法（其適用情境是「以進行開發為前提之宗地估價」）。"], correct:1, note:null},
+{id:"VD3_114_23", cat:"D3", year:"114年第23題", q:"依不動產估價技術規則第32條之規定，若期末處分價值已知，以折現現金流量分析法計入該價值時，應採取那一種資本化率？", opts:["直接資本化率", "綜合資本化率", "折現率", "利率"], explains:["「直接資本化率」是直接資本化法（單一年期淨收益除以資本化率）所採用之概念，並非DCF公式中計入期末處分價值時所採用之利率。", "「綜合資本化率」是土地與建物資本化率加權平均之概念，並非DCF公式中計入期末處分價值時所採用之利率。", "技術規則第32條明定，DCF公式中計入期末處分價值Pn'時，應以「折現率」Y進行折現（即Pn'÷(1+Y)^n'），與題目敘述相符。", "「利率」泛指一般借貸或存款之利息率概念，並非DCF公式中明確指定計入期末處分價值所應採用之專有名詞。"], correct:2, note:null}
+];
+const CAT_NAMES = {"D3": "D3 收益法-DCF"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_d3_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_d3_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_d3_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_d3_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・A1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・A1
+      <span class="sub">A估價原則(A1)含逐選項解析・共 44 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/44</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VA1_99_2", cat:"A1", year:"99年第2題", q:"客觀上具有良好意識及通常之使用能力者，在合法、實質可能、正當合理、財務可行前提下，所作得以獲致最高利益之使用的估價原則是指那一種原則呢？", opts:["最有效使用原則", "均衡原則", "適合原則", "競爭原則"], explains:["技術規則第2條第17款明定：最有效使用，指客觀上具有良好意識及通常之使用能力者，在合法、實質可能、正當合理、財務可行四項前提下，得以獲致最高利益之使用，與題目敘述完全相符。", "均衡原則指生產要素間達最適配置，與題目所述「客觀上良好意識使用能力者」之四項前提定義無關。", "適合原則指不動產與其坐落環境協調一致，與題目定義無關。", "「競爭原則」並非技術規則明文定義之獨立估價原則名稱，技術規則所列原則中無此項。"], correct:0, note:null},
+{id:"VA1_99_15", cat:"A1", year:"99年第15題", q:"要使不動產創造最高價值，其生產要素間要達到最適配置，請問此屬於何種原則？", opts:["貢獻原則", "適合原則", "均衡原則", "收益分配原則"], explains:["貢獻原則指局部對整體價值之貢獻（如加裝電梯提升整體價值），與「生產要素間達最適配置」此一定義不同。", "適合原則指不動產與坐落環境之協調，與生產要素配置無關。", "均衡原則之核心概念即為生產要素（如土地與建物比例）間達最適配置才能創造最高價值，與題目敘述相符。", "「收益分配原則」是指營運性不動產應扣除非屬不動產本身之收益，與生產要素配置無關。"], correct:2, note:null},
+{id:"VA1_99_19", cat:"A1", year:"99年第19題", q:"不動產估價時，對於土地與建物結合體於市場形成之不動產價格中，扣除土地、建物成本外，其餘部分認為是來自土地與建物之價值，此一原則係指：", opts:["土地貢獻原則", "建物貢獻原則", "土地建物聯合貢獻原則", "均衡原則"], explains:["「土地貢獻原則」單獨強調土地對價值之貢獻，題目敘述的是「土地與建物結合體」之聯合貢獻，非單一土地貢獻。", "「建物貢獻原則」單獨強調建物對價值之貢獻，同樣與題目所述聯合貢獻概念不符。", "題目描述：土地與建物結合體扣除個別成本後的剩餘部分，認為是來自土地與建物「共同聯合」貢獻所致，此即土地建物聯合貢獻原則（聯合貢獻說），是房地價值分配理論中的核心觀點。", "均衡原則指生產要素達最適配置，與此處「扣除成本後剩餘價值之歸屬」定義不同。"], correct:2, note:null},
+{id:"VA1_99_24", cat:"A1", year:"99年第24題", q:"下列何種原則強調不動產與其坐落環境間之關係？", opts:["適合原則", "均衡原則", "預測原則", "貢獻原則"], explains:["技術規則所稱適合原則，強調不動產與其坐落環境達成協調一致，與題目所問「不動產與其坐落環境間之關係」完全相符。", "均衡原則強調的是生產要素內部配置，並非不動產與外部環境的關係。", "預測（預期）原則強調對未來收益或發展之預期，並非單純坐落環境之關係。", "貢獻原則強調局部對整體價值之貢獻，並非不動產與坐落環境之協調關係。"], correct:0, note:null},
+{id:"VA1_99_30", cat:"A1", year:"99年第30題", q:"不動產估價報告中常表明評估價格適用的有效期間，此係下列何種原則的具體考量？", opts:["替代原則", "競爭原則", "最有效使用原則", "變動原則"], explains:["替代原則強調比較相同滿意度財貨之代價，與「評估價格適用之有效期間」無關。", "「競爭原則」非技術規則明文定義之獨立原則名稱。", "最有效使用原則強調合法實質可能等四項前提下獲致最高利益之使用，與「有效期間」之記載無關。", "變動原則強調不動產價格隨時間變動，故估價報告書應載明價格日期及評估價格適用之有效期間，與題目敘述相符。"], correct:3, note:null},
+{id:"VA1_100_6", cat:"A1", year:"100年第6題", q:"公寓新增電梯設備，提高了該棟建物之價值，屬於：", opts:["貢獻原則", "外部性原則", "預測原則", "適合原則"], explains:["貢獻原則指局部（電梯設備）對整體（建物）價值之貢獻，加裝電梯使整體價值提升，正是貢獻原則之典型例子。", "外部性原則強調周邊環境設施對價格之影響，電梯設備是建物本身的內部改良，非外部環境因素。", "預測（預期）原則強調對未來收益之預期，電梯設備是已完成之既有改良，非預期未來之影響。", "適合原則強調不動產與坐落環境之協調，與建物內部設備提升無關。"], correct:0, note:null},
+{id:"VA1_100_7", cat:"A1", year:"100年第7題", q:"下列何者為成本法重置成本之成立依據？", opts:["最有效使用原則", "競爭原則", "替代原則", "均衡原則"], explains:["最有效使用原則是估價的整體判斷基準，並非成本法重置成本之直接成立依據。", "「競爭原則」非技術規則明文定義之獨立原則。", "替代原則強調審慎消費者不會支付高於相同滿意度替代財貨之代價，是比較法、成本法、收益法三大方法之共同理論基礎；成本法以重建/重置成本作為價格替代依據，正是替代原則之運用（重置觀點）。", "均衡原則指生產要素配置，與成本法之重置成本概念無關。"], correct:2, note:null},
+{id:"VA1_100_8", cat:"A1", year:"100年第8題", q:"不動產之特性與其外部環境達成協調一致，是為何種原則？", opts:["外部性原則", "適合原則", "貢獻原則", "最有效使用原則"], explains:["外部性原則強調周邊環境設施對價格之影響（如公園、嫌惡設施），與「不動產特性與外部環境達成協調一致」此一定義不同（外部性著重影響，非協調）。", "適合原則明定不動產與其坐落環境達成協調一致，與題目敘述完全相符。", "貢獻原則強調局部對整體價值之貢獻，與外部環境協調無關。", "最有效使用原則強調合法實質可能等四項前提下之最高利益使用，與環境協調定義不同。"], correct:1, note:null},
+{id:"VA1_100_30", cat:"A1", year:"100年第30題", q:"不動產估價報告中常表明評估價格適用的有效期間，此係下列何種原則的具體考量？", opts:["替代原則", "競爭原則", "最有效使用原則", "變動原則"], explains:["替代原則強調比較相同滿意度財貨之代價，與「評估價格適用之有效期間」無關。", "「競爭原則」非技術規則明文定義之獨立原則。", "最有效使用原則與「有效期間」記載無關。", "變動原則強調不動產價格隨時間變動，估價報告書應載明價格日期及評估價格適用之有效期間，與題目相符。"], correct:3, note:null},
+{id:"VA1_101_5", cat:"A1", year:"101年第5題", q:"政府提出桃園航空城開發案，將帶動周邊地價上漲，此係下列何項原則的表現？", opts:["競爭原則", "貢獻原則", "預期原則", "適合原則"], explains:["「競爭原則」非技術規則明文定義之獨立原則。", "貢獻原則強調局部對整體價值之貢獻，與「未來開發案帶動周邊地價上漲」此一對未來發展之預期效果不同。", "預期（預測）原則強調對未來收益或發展之預期影響現在價值，桃園航空城開發案屬於尚未完成、預期未來將帶動地價上漲之情境，正是預期原則之典型運用。", "適合原則強調不動產與坐落環境之協調，與未來開發案之預期效果無關。"], correct:2, note:null},
+{id:"VA1_101_6", cat:"A1", year:"101年第6題", q:"下列相關原則的陳述何者最不適宜？", opts:["公園對地價的影響係基於外部性原則", "老舊公寓價格飆漲係基於均衡原則", "不動產有行無市呈現變動原則", "在偏遠地區興建大廈卻無法創造利潤係因未能掌握最有效使用原則"], explains:["公園屬於周邊環境設施，對地價產生加值影響，確實是外部性原則之表現，此敘述適宜，非本題答案（本題問「最不適宜」）。", "均衡原則強調生產要素間達最適配置，「老舊公寓價格飆漲」是市場供需或區域發展等因素所致之價格上漲現象，與生產要素配置無直接關連，將此現象歸因於均衡原則並不適宜，即本題正解。", "「不動產有行無市」反映價格隨時間、市場狀況變動之特性，符合變動原則之精神，此敘述適宜。", "在偏遠地區興建大廈卻無法創造利潤，正是因為該開發未能掌握「合法、實質可能、正當合理、財務可行」四項前提中的財務可行性，屬於未能掌握最有效使用原則之表現，此敘述適宜。"], correct:1, note:null},
+{id:"VA1_101_24", cat:"A1", year:"101年第24題", q:"如不動產其中某一條件發生改變，將造成整體不動產價格的提升，此種不動產估價原則稱之為：", opts:["供需原則", "最有效使用原則", "貢獻原則", "均衡原則"], explains:["供需原則並非技術規則用來描述「某一條件改變使整體價格提升」之核心概念，供需原則著重市場供給需求對價格水準之影響。", "最有效使用原則強調合法實質可能等四項前提下之最高利益使用，與單一條件改變致整體提升之概念不同。", "貢獻原則明定局部（某一條件）對整體（不動產）價值之貢獻，與題目所述「某一條件發生改變，將造成整體不動產價格的提升」完全相符。", "均衡原則強調生產要素配置，並非單一條件改變對整體價格之貢獻效果。"], correct:2, note:null},
+{id:"VA1_101_25", cat:"A1", year:"101年第25題", q:"進行不動產估價時，標的不動產如因捷運系統的開通，或鄰近公園的興闢，對其價格產生影響，所採行之不動產估價原則稱之為：", opts:["貢獻原則", "外部性原則", "收益分配原則", "最有效使用原則"], explains:["貢獻原則強調局部（不動產本身內部之要素）對整體價值之貢獻，而捷運系統、公園是不動產「外部」之周邊環境設施，性質上屬外部性而非內部貢獻。", "外部性原則明定周邊環境設施（非標的本身）對價格之影響，捷運系統開通、鄰近公園興闢皆屬於標的外部之環境變化，與題目敘述完全相符。", "收益分配原則指營運性不動產應扣除非屬不動產本身之收益，與外部設施對價格之影響無關。", "最有效使用原則強調四項前提下之最高利益使用，與外部設施開通之影響無關。"], correct:1, note:null},
+{id:"VA1_101_30", cat:"A1", year:"101年第30題", q:"進行不動產估價時，對營運性不動產淨收益，應扣除非屬於不動產所產生的其他淨收益，以免高估不動產本身所產生的淨收益，此估價原則稱之為：", opts:["適合原則", "收益分配原則", "外部性原則", "最有效使用原則"], explains:["適合原則強調不動產與坐落環境之協調，與「扣除非屬不動產淨收益以免高估」此一收益計算概念無關。", "收益分配原則明定對營運性不動產淨收益，應扣除非屬於不動產所產生之其他淨收益，以免高估不動產本身所產生的淨收益，與題目敘述完全相符。", "外部性原則強調周邊環境設施對價格之影響，與收益扣除概念無關。", "最有效使用原則與淨收益扣除非屬不動產部分之概念無關。"], correct:1, note:null},
+{id:"VA1_101_34", cat:"A1", year:"101年第34題", q:"對房地結合所產生之超額利潤之歸屬，採土地貢獻說者，主要係基於下列何者？", opts:["土地經營管理之貢獻", "土地區位特性之貢獻", "土地取得成本之貢獻", "土地開發投資之貢獻"], explains:["土地經營管理之貢獻側重後天人為經營行為，並非土地貢獻說所強調的核心要素。", "土地貢獻說主張房地結合之超額利潤主要歸因於土地本身的區位特性（地段、稀缺性等先天條件），這正是土地貢獻說的核心論點。", "土地取得成本之貢獻側重原始取得成本，並非土地貢獻說強調區位特性之核心論點。", "土地開發投資之貢獻側重後天開發投入，並非土地貢獻說強調區位特性之核心論點。"], correct:1, note:null},
+{id:"VA1_102_4", cat:"A1", year:"102年第4題", q:"在不考慮時間、高風險或不便利等因素下，審慎的消費者不會支付高於財貨或勞務成本之代價，以取得一相同滿意度的替代性財貨或勞務。以上觀念是屬於何種估價原則？", opts:["競爭原則", "供需原則", "替代原則", "預測原則"], explains:["「競爭原則」非技術規則明文定義之獨立原則，且與題目所述「不支付高於相同滿意度替代財貨代價」之定義不符。", "供需原則著重市場供給需求對價格水準之影響，與題目所述比較替代財貨代價之概念不同。", "替代原則明定審慎消費者不會支付高於相同滿意度替代財貨之代價，與題目敘述完全相符，是比較法、成本法、收益法三大方法之共同基礎。", "預測（預期）原則強調對未來之預期影響現在價值，與題目所述「不考慮時間」之當下比較概念不符。"], correct:2, note:null},
+{id:"VA1_102_28", cat:"A1", year:"102年第28題", q:"有關不動產估價之最有效使用原則，下列敘述何者錯誤？", opts:["為消費者主觀效用之認知", "具有良好意識及通常之使用能力者之認知", "需以合法、實質可能、正當合理、財務可行為前提", "得以獲致最高利益之使用"], explains:["技術規則第2條第17款明定最有效使用係「客觀上」具有良好意識及通常使用能力者之認知，並非消費者「主觀」效用之認知，本選項將客觀誤植為主觀，是錯誤敘述，即本題正解。", "具有良好意識及通常之使用能力者之認知，是規則明定的正確要件，敘述正確。", "需以合法、實質可能、正當合理、財務可行為前提，是規則明定的正確要件，敘述正確。", "得以獲致最高利益之使用，是規則明定的正確要件，敘述正確。"], correct:0, note:null},
+{id:"VA1_103_8", cat:"A1", year:"103年第8題", q:"不動產估價，應切合何時之價值？", opts:["價格日期當時", "交易日期當時", "交換日期當時", "登記日期當時"], explains:["技術規則第6條第1項明定：估價應切合價格日期當時之價值，與題目敘述完全相符，這是變動原則於估價程序中的具體落實。", "交易日期是交易發生的時間點，並非估價應切合之價值基準時點。", "交換日期並非技術規則規定之估價價值基準時點。", "登記日期是辦理產權登記之日期，並非估價應切合之價值基準時點。"], correct:0, note:null},
+{id:"VA1_103_23", cat:"A1", year:"103年第23題", q:"依路線價法之基本原理，假設其他條件均相同，一宗土地愈接近街道部分，其價值：", opts:["愈低", "不受接近街道之影響", "愈高", "不變"], explains:["路線價法基本原理為愈接近主要街道之土地，可及性與商業價值愈高，故價值應愈高而非愈低，本選項方向相反。", "路線價法明確認為接近街道部分對價值有正向影響，並非不受影響，本選項與基本原理不符。", "依路線價法基本原理，宗地愈接近街道，其交通可及性與使用便利性愈高，價值隨之愈高，與題目假設條件相符。", "路線價法的核心精神正是反映接近街道程度造成的價值差異，並非價值不變。"], correct:2, note:null},
+{id:"VA1_103_26", cat:"A1", year:"103年第26題", q:"捷運於某不動產附近設站，該不動產價格因而提高，此屬於何種估價原則？", opts:["供需原則", "競爭原則", "替代原則", "外部性原則"], explains:["供需原則著重市場整體供給需求對價格水準之影響，與捷運設站此一鄰近設施之具體影響不同。", "「競爭原則」非技術規則明文定義之獨立原則。", "替代原則強調比較相同滿意度替代財貨之代價，與捷運設站之影響無直接關連。", "外部性原則明定周邊環境設施（捷運站）對價格之影響，捷運設站屬於不動產外部的交通建設改善，使周邊不動產價格提高，與外部性原則定義完全相符。"], correct:3, note:null},
+{id:"VA1_103_34", cat:"A1", year:"103年第34題", q:"老舊公寓外牆進行更新，該公寓之價格因此增加，此屬於何種估價原則？", opts:["供需原則", "替代原則", "貢獻原則", "外部性原則"], explains:["供需原則著重市場整體供給需求，與單一建物外牆更新之內部改良無關。", "替代原則著重比較相同滿意度替代財貨之代價，與外牆更新此一具體改良行為無直接關連。", "貢獻原則明定局部（外牆更新）對整體（公寓）價值之貢獻，外牆更新屬於建物本身內部改良，使整體價值因此提升，與貢獻原則定義相符。", "外部性原則強調周邊環境設施（非標的本身）對價格之影響，外牆更新是針對建物本身的改良，並非周邊外部環境因素，性質不符。"], correct:2, note:null},
+{id:"VA1_103_39", cat:"A1", year:"103年第39題", q:"下列對不動產市場之描述何者有誤？", opts:["產品異質性", "人為干預多", "為完全競爭市場", "交易成本高"], explains:["不動產市場確實具有產品異質性高之特性（每筆不動產位置條件皆不同），此敘述正確，非本題答案（本題問「何者有誤」）。", "不動產市場確實人為干預多（如政府土地使用管制、稅制政策等），此敘述正確。", "不動產市場因產品異質性高、資訊不完全、交易成本高、人為干預多等特性，屬於非完全競爭市場，並非完全競爭市場，本選項描述有誤，即本題正解。", "不動產市場交易成本確實偏高（如仲介費、稅費、登記規費等），此敘述正確。"], correct:2, note:null},
+{id:"VA1_104_3", cat:"A1", year:"104年第3題", q:"下列有關不動產市場與一般商品市場比較的敘述，何者正確？", opts:["一般商品市場交易成本低，不動產市場交易成本高", "一般商品市場資訊不完全，不動產市場資訊極為完全", "一般商品市場經常有人為干預，不動產市場完全沒有人為干預", "一般商品市場為不完全競爭市場，不動產市場為完全競爭市場"], explains:["一般商品市場因標準化程度高、交易程序簡便，交易成本相對較低；不動產市場因產權複雜、稅費登記程序繁瑣，交易成本較高，與題目敘述相符。", "一般商品市場通常資訊較為公開透明（如標準定價），不動產市場則因個別差異大而資訊不完全，本選項描述方向相反。", "不動產市場同樣存在大量人為干預（如土地使用管制、稅制），並非完全沒有人為干預，本選項描述錯誤。", "不動產市場因產品異質性高、進入門檻高等特性，屬於非完全競爭市場，而非完全競爭市場；一般商品市場視產業別而定，本選項描述與市場特性不符。"], correct:0, note:null},
+{id:"VA1_105_6", cat:"A1", year:"105年第6題", q:"不動產與其環境配合，以保持協調一致之利用，則其收益才能發揮最大化，例如在學校附近開設餐廳或書局等。此現象就不動產估價原則而言，是屬下列何者？", opts:["貢獻原則", "均衡原則", "供需原則", "適合原則"], explains:["貢獻原則強調局部對整體價值之貢獻，與「不動產配合環境保持協調一致」此一定義不同。", "均衡原則強調生產要素配置，與不動產配合周邊環境之協調無關。", "供需原則著重市場整體供給需求，與不動產配合特定環境（學校附近）之適合度無關。", "適合原則明定不動產與其坐落環境達成協調一致以發揮收益最大化，學校附近開設餐廳或書局正是配合周邊機能而達成的適合運用，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA1_105_8", cat:"A1", year:"105年第8題", q:"不動產估價常用之比較法、成本法與收益法，其評價基礎為何？", opts:["均衡原則", "適合原則", "替代原則", "外部性原則"], explains:["均衡原則強調生產要素配置，並非比較法成本法收益法三大方法之共同評價基礎。", "適合原則強調不動產與環境之協調，並非三大方法之共同基礎。", "替代原則明定審慎消費者不會支付高於相同滿意度替代財貨之代價，是比較法（交易觀點）、成本法（重置觀點）、收益法（投資觀點）三大估價方法之共同理論基礎。", "外部性原則強調周邊環境對價格之影響，並非三大方法之共同評價基礎。"], correct:2, note:null},
+{id:"VA1_105_10", cat:"A1", year:"105年第10題", q:"客觀淨收益之評估，應符合何種估價原則，以作為評估之基準？", opts:["最有效使用原則", "替代原則", "適合原則", "外部性原則"], explains:["技術規則第33條明定：客觀淨收益之評估，應以勘估標的作最有效使用之客觀淨收益為基準，與題目敘述完全相符。", "替代原則是三大估價方法之共同基礎，並非客觀淨收益評估之直接基準原則。", "適合原則強調不動產與環境之協調，並非客觀淨收益評估之基準。", "外部性原則強調周邊環境對價格之影響，並非客觀淨收益評估之基準。"], correct:0, note:null},
+{id:"VA1_106_20", cat:"A1", year:"106年第20題", q:"不動產是一種異質的商品，因其下列何種之特徵而分割為許多地區性市場？", opts:["區位", "高程", "地形", "地質"], explains:["不動產因其區位（位置）的不可移動性與唯一性，使其無法如一般商品般自由流通替代，因而分割為許多地區性市場，這是不動產異質性最核心的成因，與題目敘述相符。", "高程（地勢高低）雖會影響個別不動產之條件，但並非造成「分割為許多地區性市場」此一現象的主要特徵。", "地形同樣是影響個別不動產條件的因素之一，但非造成地區性市場分割之主要特徵。", "地質屬於影響個別不動產條件的因素，但非造成地區性市場分割之主要特徵。"], correct:0, note:null},
+{id:"VA1_106_23", cat:"A1", year:"106年第23題", q:"不動產附近如有公園、圖書館、學校、歌劇院等建設，皆會對其價值產生影響，此種估價時需掌握的原則較適合被稱為：", opts:["供需原則", "貢獻原則", "外部性原則", "社會成本原則"], explains:["供需原則著重市場整體供給需求，與周邊公共設施對價值之具體影響不同。", "貢獻原則強調局部對整體價值之貢獻，但公園、圖書館等屬於不動產外部之公共設施，並非標的本身內部要素之貢獻。", "外部性原則明定周邊環境設施（非標的本身）對價格之影響，公園、圖書館、學校、歌劇院等周邊建設正是典型的外部性影響因素，與題目敘述相符。", "「社會成本原則」並非技術規則明文定義之獨立估價原則名稱。"], correct:2, note:null},
+{id:"VA1_106_35", cat:"A1", year:"106年第35題", q:"有關不動產估價原則中之最有效使用原則，下列敘述何者錯誤？", opts:["具有良好意識及通常之使用能力者", "在合法、實質可能、正當合理、財務可行前提下者", "所作得以獲致最高利益之使用", "係消費者主觀效用上"], explains:["具有良好意識及通常之使用能力者，是技術規則明定最有效使用原則的正確要件，敘述正確，非本題答案（本題問「何者錯誤」）。", "在合法、實質可能、正當合理、財務可行前提下者，是規則明定的正確要件，敘述正確。", "所作得以獲致最高利益之使用，是規則明定的正確要件，敘述正確。", "技術規則明定最有效使用係「客觀上」具有良好意識及通常使用能力者之認知，並非「消費者主觀效用上」之認知，本選項將客觀誤植為主觀，是錯誤敘述，即本題正解。"], correct:3, note:null},
+{id:"VA1_106_37", cat:"A1", year:"106年第37題", q:"在不考慮時間、高風險或不便利等因素下，審慎者不會支付高於財貨或勞務成本之代價，以取得一相同滿意度的替代性財貨或勞務。是指何種不動產價格形成原則？", opts:["預測原則", "競爭原則", "供需原則", "替代原則"], explains:["預測（預期）原則強調對未來收益之預期，與題目所述「不考慮時間」之當下比較概念不符。", "「競爭原則」非技術規則明文定義之獨立原則。", "供需原則著重市場整體供給需求，與題目所述比較替代財貨代價之概念不同。", "替代原則明定審慎者不會支付高於相同滿意度替代財貨之代價，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA1_107_14", cat:"A1", year:"107年第14題", q:"不動產估價報告書中載明價格日期，係立基於下列何種原則？", opts:["最有效使用原則", "競爭原則", "變動原則", "預期原則"], explains:["最有效使用原則強調四項前提下之最高利益使用，與「載明價格日期」此一時點性記載無直接關連。", "「競爭原則」非技術規則明文定義之獨立原則。", "變動原則明定不動產價格隨時間變動，故估價報告書應載明價格日期及有效期間，與題目敘述完全相符。", "預期原則強調對未來之預期，與報告書載明價格日期此一基準時點記載之精神不同。"], correct:2, note:null},
+{id:"VA1_108_9", cat:"A1", year:"108年第9題", q:"勘估標的因位於垃圾掩埋場附近，造成其價格下降，此屬於何種原則？", opts:["替代原則", "最有效原則", "外部性原則", "供需原則"], explains:["替代原則強調比較相同滿意度替代財貨之代價，與垃圾掩埋場此一周邊嫌惡設施之具體影響不同。", "「最有效原則」非技術規則明文定義之正確原則名稱（正確名稱為最有效使用原則），且與垃圾掩埋場之影響定義不符。", "外部性原則明定周邊環境設施（非標的本身）對價格之影響，垃圾掩埋場屬於典型的嫌惡設施，造成價格減損，與題目敘述完全相符。", "供需原則著重市場整體供給需求，與垃圾掩埋場此一具體周邊設施之影響不同。"], correct:2, note:null},
+{id:"VA1_109_13", cat:"A1", year:"109年第13題", q:"不動產市場是一動態的市場，對於估價的變動原則，下列敘述何者錯誤？", opts:["不動產估價應掌握影響價格的一般因素、區域因素與個別因素變動，以切合勘察日期當時之價值", "影響不動產價格因素不斷變動，因此估價報告書應載明價格日期與勘察日期", "運用成本法估價時，應分析使用建築材料隨時間變動的成本差異對不動產造成的價格影響", "分析不動產價格景氣週期性變動，以利不動產價格變動趨勢之掌握"], explains:["技術規則第6條明定估價應切合「價格日期」當時之價值，本選項稱「以切合勘察日期當時之價值」，將價格日期誤植為勘察日期，二者定義不同（價格日期為價格基準日期，勘察日期為現場調查日期），此為錯誤敘述，即本題正解。", "影響價格因素持續變動，故估價報告書應同時載明價格日期與勘察日期，此為正確敘述。", "成本法估價時確實應分析建築材料隨時間變動之成本差異，此屬變動原則於成本法之具體應用，敘述正確。", "分析不動產價格景氣週期性變動，以利掌握價格變動趨勢，正是變動原則之具體實踐，敘述正確。"], correct:0, note:null},
+{id:"VA1_110_3", cat:"A1", year:"110年第3題", q:"不動產因鄰近殯儀館，造成價格之減損，此屬於何種原則？", opts:["競爭原則", "供需原則", "替代原則", "外部性原則"], explains:["「競爭原則」非技術規則明文定義之獨立原則。", "供需原則著重市場整體供給需求，與殯儀館此一具體周邊嫌惡設施之影響不同。", "替代原則強調比較相同滿意度替代財貨之代價，與殯儀館之影響無直接關連。", "外部性原則明定周邊環境設施（非標的本身）對價格之影響，殯儀館屬於典型的嫌惡設施，造成價格減損，與題目敘述相符。"], correct:3, note:null},
+{id:"VA1_110_4", cat:"A1", year:"110年第4題", q:"公寓因加裝電梯而價格提昇，此屬於何種不動產估價原則？", opts:["外部性原則", "貢獻原則", "替代原則", "遞增原則"], explains:["外部性原則強調周邊環境設施（非標的本身）對價格之影響，但電梯是建物本身的內部改良設備，非外部周邊環境因素。", "貢獻原則明定局部（電梯設備）對整體（公寓）價值之貢獻，加裝電梯使整體價值提升，與題目敘述完全相符。", "替代原則強調比較相同滿意度替代財貨之代價，與電梯設備加裝此一具體改良行為無直接關連。", "「遞增原則」非技術規則明文定義之獨立估價原則名稱。"], correct:1, note:null},
+{id:"VA1_111_5", cat:"A1", year:"111年第5題", q:"不動產估價技術規則對「最有效使用」原則有所定義，請問下列敘述何者錯誤？", opts:["得以獲致最高利益之使用", "基於合法、實質可能前提", "正當合理、財務可行前提下者", "具有超凡意識及使用能力者"], explains:["得以獲致最高利益之使用，是技術規則明定最有效使用原則之正確要件，敘述正確，非本題答案（本題問「何者錯誤」）。", "基於合法、實質可能前提，是規則明定四項前提中之兩項，敘述正確。", "正當合理、財務可行前提下者，是規則明定四項前提中之另兩項，敘述正確。", "技術規則明定最有效使用係「具有良好意識及通常之使用能力者」，並非「具有超凡意識及使用能力者」，「超凡」一詞誇大且非規則用語，此為錯誤敘述，即本題正解。"], correct:3, note:null},
+{id:"VA1_111_20", cat:"A1", year:"111年第20題", q:"某高鐵站周圍地區的新建住宅大樓平均成交價格，由三年前每坪35萬元上漲到現今每坪接近50萬元，此現象可以不動產估價中那一原則加以解釋？", opts:["變動原則", "預期原則", "貢獻原則", "日期原則"], explains:["變動原則明定不動產價格隨時間變動，題目描述高鐵站周圍住宅大樓成交價格從三年前每坪35萬元上漲至現今接近50萬元，正是價格隨時間經過而產生變動的具體現象，與變動原則完全相符。", "預期原則強調對「未來」收益或發展之「預期」影響「現在」價值，但題目描述的是已實際發生的「過去到現在」的價格變化趨勢，並非對未來的預期，性質不同。", "貢獻原則強調局部對整體價值之貢獻，與題目所述整體市場價格隨時間上漲之現象無直接關連。", "「日期原則」非技術規則明文定義之獨立估價原則名稱。"], correct:0, note:null},
+{id:"VA1_112_4", cat:"A1", year:"112年第4題", q:"收益性不動產價值是由現在至將來所能帶給權利人之利潤總計，估價師求取將來的收益據以評估不動產價值，應重視何種不動產估價原則？", opts:["期日原則", "外部性原則", "預測原則", "內部性原則"], explains:["「期日原則」非技術規則明文定義之獨立估價原則名稱。", "外部性原則強調周邊環境設施對價格之影響，與題目所述求取未來收益之概念不同。", "預測（預期）原則明定對未來收益或發展之預期影響現在價值，題目描述收益性不動產之價值由「現在至將來」所能帶給權利人之利潤總計，估價師求取「將來」收益，正是預測原則之具體應用。", "「內部性原則」非技術規則明文定義之獨立估價原則名稱。"], correct:2, note:null},
+{id:"VA1_112_5", cat:"A1", year:"112年第5題", q:"老舊公寓因加裝電梯設備，價格也因此提升，此為何種不動產原則？", opts:["收益分配原則", "貢獻原則", "均衡原則", "供需原則"], explains:["收益分配原則指營運性不動產應扣除非屬不動產本身之收益，與電梯設備加裝提升整體價值之概念不同。", "貢獻原則明定局部（電梯設備）對整體（公寓）價值之貢獻，加裝電梯使整體價值提升，與題目敘述完全相符。", "均衡原則強調生產要素配置，與電梯設備加裝此一具體改良無關。", "供需原則著重市場整體供給需求，與電梯設備加裝此一具體改良行為無關。"], correct:1, note:null},
+{id:"VA1_113_1", cat:"A1", year:"113年第1題", q:"不動產市場循環受到諸多經濟因素的影響，評估不動產價格時都訂有價格日期，依價格日期評估時必須掌握那項原則？", opts:["預測原則", "變動原則", "收益分配原則", "外部性原則"], explains:["預測原則強調對未來收益之預期，與「依價格日期評估」此一基準時點性質不同。", "變動原則明定不動產價格隨時間變動，故估價應訂明價格日期，與題目所述「不動產市場循環受經濟因素影響，評估時都訂有價格日期」完全相符。", "收益分配原則指扣除非屬不動產本身之收益，與價格日期之訂定無關。", "外部性原則強調周邊環境設施對價格之影響，與價格日期之訂定無直接關連。"], correct:1, note:null},
+{id:"VA1_113_2", cat:"A1", year:"113年第2題", q:"王小姐住家旁有一個高壓電塔，電塔周遭的房子不太容易售出，價格也比較低，不動產估價師評估該嫌惡設施對於房屋價格的影響是基於那一項原則？", opts:["適合原則", "外部性原則", "貢獻原則", "競爭原則"], explains:["適合原則強調不動產與坐落環境之協調，與高壓電塔此一具體嫌惡設施之影響定義不同。", "外部性原則明定周邊環境設施（非標的本身）對價格之影響，高壓電塔屬於典型的嫌惡設施，造成周遭房屋不易售出且價格較低，與題目敘述完全相符。", "貢獻原則強調局部對整體價值之貢獻（通常為正向提升），與高壓電塔造成價格減損之負向影響不符。", "「競爭原則」非技術規則明文定義之獨立原則。"], correct:1, note:null},
+{id:"VA1_113_4", cat:"A1", year:"113年第4題", q:"某預售建案因取得綠建築黃金級標章，每坪開價比附近未取得標章之建案貴，建商申請綠建築標章的行為是基於不動產估價之何種經濟原則？", opts:["最高最有效原則", "貢獻原則", "供需原則", "外部性原則"], explains:["「最高最有效原則」非技術規則明文定義之獨立原則名稱（正確名稱為最有效使用原則）。", "貢獻原則明定局部（綠建築標章認證）對整體（建案）價值之貢獻，建案因取得綠建築黃金級標章而使開價提升，正是貢獻原則之具體應用。", "供需原則著重市場整體供給需求，與單一建案取得標章之具體改良行為無直接關連。", "外部性原則強調周邊環境設施對價格之影響，但綠建築標章是建案本身的內部品質認證，非外部周邊環境因素。"], correct:1, note:null},
+{id:"VA1_114_1", cat:"A1", year:"114年第1題", q:"鄰近國小的店舖，做販賣文具及圖書生意使用，此為何種不動產估價原則之掌握？", opts:["外部性原則", "貢獻原則", "適合原則", "內部性原則"], explains:["外部性原則強調周邊環境設施對價格之影響，但題目描述店舖「自身」販賣文具圖書與鄰近國小機能之配合，屬於使用方式與環境之適合度判斷，非單純外部設施影響。", "貢獻原則強調局部對整體價值之貢獻，與店舖配合鄰近國小販售特定商品之經營策略無直接關連。", "適合原則明定不動產與其坐落環境達成協調一致，鄰近國小開設文具圖書店舖，正是配合周邊機能（學生客群）而達成的適合運用，與題目敘述相符。", "「內部性原則」非技術規則明文定義之獨立估價原則名稱。"], correct:2, note:null},
+{id:"VA1_114_15", cat:"A1", year:"114年第15題", q:"下列各項原則中，何者最能說明畸零地價格偏高的現象？", opts:["預期原則", "貢獻原則", "適合原則", "外部性原則"], explains:["預期原則強調對未來之預期，與「畸零地價格偏高」此一既有現況之價格現象不符。", "貢獻原則強調局部對整體價值之貢獻；畸零地因其特殊形狀對於鄰地合併使用後能大幅提升整體開發效益，具有相對於其面積不成比例的較高貢獻價值，這正是貢獻原則能說明畸零地價格偏高現象的核心理論。", "適合原則強調不動產與環境之協調，與畸零地價格偏高之現象無直接關連。", "外部性原則強調周邊環境設施對價格之影響，與畸零地本身形狀造成之價格現象不同。"], correct:1, note:null}
+];
+const CAT_NAMES = {"A1": "A1 估價原則"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_a1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_a1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_a1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_a1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

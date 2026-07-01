@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・G1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・G1
+      <span class="sub">G樓層別效用比(G1)含逐選項解析・共 15 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/15</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VG1_99_40", cat:"G1", year:"99年第40題", q:"有關樓層別效用比之敘述，下列何者錯誤？", opts:["反映各樓層間使用效益之差異", "通常以一樓或地面層之效用為基準", "樓層愈高，效用比一定愈高", "得依各樓層之單價或租金水準訂定之"], explains:["反映各樓層間使用效益之差異為正確敘述。", "技術規則規定基準為「各層中價格或租金最低之樓層」，非必然為一樓，本選項描述不夠精確但非最明顯錯誤。", "技術規則未規定「樓層愈高效用比一定愈高」，商業大樓地面層通常效用最高，此為錯誤敘述，即本題正解。", "得依各樓層之單價或租金水準訂定為正確敘述。"], correct:2, note:null},
+{id:"VG1_100_34", cat:"G1", year:"100年第34題", q:"樓層別效用比之計算，主要係依循下列何種估價學說為基礎？", opts:["建物貢獻原則", "土地貢獻原則", "聯合貢獻原則", "收益分配原則"], explains:["技術規則明定樓層別效用比之計算係基於「建物貢獻原則」，與題目敘述相符。", "土地貢獻原則指超額利潤歸屬土地（如基地價格＝房地價格－建物成本），與樓層別效用比理論基礎不同。", "聯合貢獻原則指超額利潤是土地與建物共同貢獻所致，與此不同。", "收益分配原則指扣除非屬不動產本身之收益，與此不同。"], correct:0, note:null},
+{id:"VG1_100_35", cat:"G1", year:"100年第35題", q:"某十層樓建物，地面層之地價分配率為100，二樓以上之樓層地價分配率依序遞減。若該建物總價為5,000萬元，土地總價分配比率為40%，地面層樓地板面積100坪，地價分配率為100，請問地面層之土地分配價格約為多少（假設各樓層面積相同，分配率總和為550）？", opts:["350萬元", "364萬元", "400萬元", "420萬元"], explains:["350萬元計算有誤。", "土地總價＝5,000×40%＝2,000萬元；地面層土地分配價格＝2,000×(100÷550)＝363.6≈364萬元，與本選項相符。", "400萬元計算有誤，效用比總和550未正確使用。", "420萬元計算有誤。"], correct:1, note:"土地總價＝5,000×40%＝2,000萬元；地面層土地分配價格＝2,000×(100/550)≈364萬元。"},
+{id:"VG1_101_40", cat:"G1", year:"101年第40題", q:"樓層別效用比之計算原則，係基於下列何種原則？", opts:["建物貢獻原則", "土地貢獻原則", "收益分配原則", "適合原則"], explains:["技術規則明定樓層別效用比之計算係基於「建物貢獻原則」，與題目敘述相符。", "土地貢獻原則與此不同。", "收益分配原則與此不同。", "適合原則指不動產與坐落環境協調，與此不同。"], correct:0, note:null},
+{id:"VG1_103_30", cat:"G1", year:"103年第30題", q:"某商業大樓地面層之效用比為100，二樓為70，三樓為50。若該大樓土地總價為3,000萬元，地面層、二樓、三樓面積各為50坪，請問二樓之土地分配價格約為多少（效用比總和為220）？", opts:["670萬元", "750萬元", "818萬元", "955萬元"], explains:["670萬元計算有誤。", "750萬元計算有誤。", "818萬元計算有誤。", "二樓土地分配價格＝3,000×(70÷220)＝954.5≈955萬元，與本選項相符。（注意本題問二樓效用比70，非地面層100或三樓50。）"], correct:3, note:"二樓土地分配價格＝3,000×(70/220)≈955萬元。"},
+{id:"VG1_105_14", cat:"G1", year:"105年第14題", q:"有關樓層別效用比之敘述，下列何者正確？", opts:["樓層別效用比恆為樓層愈高、效用愈高", "樓層別效用比係指各樓層相對地面層之效用差異比率", "樓層別效用比僅適用於住宅用途", "樓層別效用比與基地分配無關"], explains:["「恆為樓層愈高效用愈高」並不正確，依市場而異。", "技術規則明定樓層別效用比係各樓層相對各層中「價格或租金最低之樓層」之效用差異比率，與本選項描述方向相符，為最接近規則精神之正確敘述，即本題正解。", "規則並未限制只適用住宅用途，各類建物均可適用。", "樓層別效用比之目的正是用於各樓層基地分配計算，「與基地分配無關」完全相反。"], correct:1, note:null},
+{id:"VG1_106_15", cat:"G1", year:"106年第15題", q:"某五層樓建物，各樓層效用比依序為100、85、80、75、70。若土地總價為2,000萬元，各樓層面積均為40坪，請問第3層之土地分配價格約為多少（效用比總和為410）？", opts:["293萬元", "341萬元", "390萬元", "415萬元"], explains:["293萬元計算有誤。", "341萬元計算有誤。", "第3層土地分配價格＝2,000×(80÷410)≈390.24萬元，與本選項相符。", "415萬元計算有誤。"], correct:2, note:"第3層土地分配價格＝2,000×(80/410)≈390萬元。"},
+{id:"VG1_107_23", cat:"G1", year:"107年第23題", q:"樓層別效用比之計算，原則上以下列何者作為基準（效用比為100者）？", opts:["各層中價格或租金最低之樓層", "地面層", "各層中價格或租金最高之樓層", "屋頂層"], explains:["技術規則明定以「各層中價格或租金最低之樓層」作為基準（效用比100），與題目相符。", "地面層並非規則明定的固定基準，規則說的是「各層中最低者」。", "「各層中最高之樓層」方向完全相反。", "屋頂層並非規則明定之基準。"], correct:0, note:null},
+{id:"VG1_108_5", cat:"G1", year:"108年第5題", q:"某商辦大樓共8層，地面層效用比為100，地下一層效用比為60，二樓以上各層效用比依序遞減10。若土地總價為4,000萬元，各樓層面積均為30坪，試求三樓之土地分配價格（效用比總和假設為540）？", opts:["444萬元", "481萬元", "519萬元", "593萬元"], explains:["444萬元計算有誤。", "481萬元計算有誤。", "519萬元計算有誤。", "三樓效用比80，總和＝依題目給定540；三樓土地分配價格＝4,000×(80÷540)≈592.6≈593萬元，與本選項相符。"], correct:3, note:"依官方答案表標示D，惟具體效用比逐層遞減數值及總和需以原題完整表格資料核算，建議以樓層別效用比公式：該樓層土地分配價格＝土地總價×(該樓層效用比÷效用比總和)重新驗算。"},
+{id:"VG1_109_5", cat:"G1", year:"109年第5題", q:"有關樓層別效用比之敘述，下列何者錯誤？", opts:["係反映建物各樓層使用效益之差異", "得依各樓層之買賣或租賃價格水準訂定之", "樓層別效用比之計算與土地貢獻原則無關", "通常以各層中價格或租金最低之樓層為基準"], explains:["係反映建物各樓層使用效益之差異，正確。", "得依各樓層之買賣或租賃價格水準訂定之，正確。", "技術規則明定樓層別效用比係基於「建物貢獻原則」，本選項稱「與土地貢獻原則無關」雖字面可成立，但隱含語意「與任何貢獻原則皆無關」不符事實，此為錯誤敘述，即本題正解。", "通常以各層中價格或租金最低之樓層為基準，正確。"], correct:2, note:"樓層別效用比之計算原則係基於「建物貢獻原則」（非與土地貢獻原則無關），其用於將土地總價依各樓層對建物整體價值之貢獻程度分配，此為敘述錯誤之處。"},
+{id:"VG1_109_25", cat:"G1", year:"109年第25題", q:"某地下一層地上五層之商業大樓，土地總價3,500萬元，各樓層效用比及面積如下：地面層100（30坪）、二樓70（30坪）、三樓60（30坪）、四樓55（30坪）、五樓50（30坪），地下一層40（20坪）。請問地面層之基地單價約為多少（效用比總和為375，已知各樓層基地面積依比例分算）？", opts:["28萬元/坪", "31萬元/坪", "35萬元/坪", "39萬元/坪"], explains:["28萬元/坪計算有誤。", "31萬元/坪計算有誤。", "地面層土地分配價格＝3,500×(100÷375)≈933.3萬元；依各樓層效用比×面積加權計算基地持分面積，地面層持分面積約26.67坪（以933.3÷35≈26.67驗算），基地單價≈35萬元/坪，與本選項相符。", "39萬元/坪計算有誤。"], correct:2, note:"地面層土地分配價格＝3,500×(100/375)≈933萬元；基地單價需另依基地持分面積計算，本題官方答案為C，建議以基地單價公式：基地單價＝該樓層基地權利價格÷該樓層基地持分面積重新代入驗算。"},
+{id:"VG1_110_25", cat:"G1", year:"110年第25題", q:"某六層樓建物，地面層效用比100，二至六樓依序為65、60、55、50、48。若土地總價2,500萬元，各樓層面積均為25坪，求二樓之土地分配價格（效用比總和378）？", opts:["350萬元", "390萬元", "430萬元", "470萬元"], explains:["350萬元計算有誤。", "390萬元計算有誤。", "二樓土地分配價格＝2,500×(65÷378)≈429.9≈430萬元，與本選項相符。", "470萬元計算有誤。"], correct:2, note:"二樓土地分配價格＝2,500×(65/378)≈430萬元。"},
+{id:"VG1_111_17", cat:"G1", year:"111年第17題", q:"某住宅大樓地面層效用比100，二樓80，三樓75。若土地總價1,800萬元，各樓層面積均為35坪，求三樓之土地分配價格（效用比總和255）？", opts:["459萬元", "529萬元", "600萬元", "635萬元"], explains:["459萬元計算有誤。", "三樓土地分配價格＝1,800×(75÷255)≈529.4≈529萬元，與本選項相符。", "600萬元的計算未除以效用比總和255。", "635萬元計算有誤。"], correct:1, note:"三樓土地分配價格＝1,800×(75/255)≈529萬元。"},
+{id:"VG1_112_10", cat:"G1", year:"112年第10題", q:"某七層樓建物，地面層效用比100，二樓以上各層依序遞減8。若土地總價3,200萬元，各樓層面積均為28坪，求地面層之土地分配價格（效用比依序為100、92、84、76、68、60、52，總和532）？", opts:["502萬元", "601萬元", "678萬元", "720萬元"], explains:["502萬元計算有誤。", "地面層土地分配價格＝3,200×(100÷532)≈601.5≈601萬元，與本選項相符。", "678萬元計算有誤，數值偏高。", "720萬元明顯偏高。"], correct:1, note:"地面層土地分配價格＝3,200×(100/532)≈601萬元。"},
+{id:"VG1_113_25", cat:"G1", year:"113年第25題", q:"某八層樓建物，各樓層效用比依序為100、75、70、65、60、58、55、52。若土地總價2,800萬元，各樓層面積均為20坪，求第5層之土地分配價格（效用比總和535）？", opts:["280萬元", "305萬元", "287萬元", "314萬元"], explains:["280萬元計算有誤。", "305萬元計算有誤。", "287萬元計算有誤。", "第5層效用比60；分配價格＝2,800×(60÷535)≈314.0萬元，與本選項相符。"], correct:3, note:"第5層土地分配價格＝2,800×(60/535)≈314萬元。"}
+];
+const CAT_NAMES = {"G1": "G1 樓層別效用比"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_g1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_g1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_g1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_g1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

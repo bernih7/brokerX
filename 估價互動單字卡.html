@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:520px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:22px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+.mode-tabs{
+  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  border:1.5px solid var(--ink);border-radius:12px;padding:4px;
+}
+.mode-tab{
+  flex:1;text-align:center;padding:9px 8px;border-radius:9px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  cursor:pointer;color:var(--ink-soft);transition:all .15s ease;
+  user-select:none;
+}
+.mode-tab.active{background:var(--ink);color:#fff;}
+
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin:10px 0 6px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;
+  white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+
+.filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+.status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.status-row .chip{border-color:var(--gold);color:var(--gold);}
+.status-row .chip.active{background:var(--gold);color:#fff;}
+.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
+.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.mastered{border-color:var(--green);color:var(--green);}
+.status-row .chip.mastered.active{background:var(--green);color:#fff;}
+
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{
+  height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
+  margin:0 auto 18px;max-width:200px;
+}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+.scene{perspective:1400px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:320px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;
+  display:flex;flex-direction:column;
+  padding:26px 24px;
+  box-shadow:0 4px 18px rgba(42,39,34,0.07);
+  overflow-y:auto;
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.cat-badge{
+  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{
+  position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
+}
+.face-body{flex:1;display:flex;align-items:center;}
+.term{
+  font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:18px;line-height:1.7;color:var(--ink);
+}
+.answer{font-size:14px;line-height:1.9;color:var(--ink);}
+.answer b{color:var(--stamp);}
+.face-foot{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
+}
+.face.back .face-foot{color:var(--gold);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+
+.controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;flex-wrap:wrap;
+}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--gold);color:#fff;}
+.btn.wide{flex:1;min-width:120px;text-align:center;}
+.btn.icon{padding:10px 14px;}
+
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+.breakdown{
+  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;padding:14px;font-size:13px;
+}
+.breakdown table{width:100%;border-collapse:collapse;}
+.breakdown td{padding:5px 4px;border-bottom:1px solid var(--rule);}
+.breakdown tr:last-child td{border-bottom:none;}
+.breakdown .bar{
+  display:block;height:6px;border-radius:3px;background:var(--rule);
+  overflow:hidden;margin-top:3px;
+}
+.breakdown .bar-fill{height:100%;background:var(--green);}
+
+footer{
+  margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.12em;line-height:2;
+}
+footer .reset{
+  text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;
+  border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・核心概念精選</div>
+    <h1>不動產估價概要 互動單字卡
+      <span class="sub">核心定義・公式・陷阱辨析・共 65 張</span>
+    </h1>
+    <div style="font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;">📅 最新編輯時間：2026-06-30　｜　版本 v1.0</div>
+  </header>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabStudy">📖 學習模式</div>
+    <div class="mode-tab" id="tabQuiz">📝 測驗模式</div>
+  </div>
+
+  <div class="filter-row" id="resetRow">
+    <div class="chip active" id="resetBtn">全部分類</div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">65</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="cat-badge" id="badgeFront"></div>
+        <div class="mastery-badge" id="badgeMasteryFront"></div>
+        <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="cat-badge" id="badgeBack"></div>
+        <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <div class="controls" id="quizControls" style="display:none;">
+    <button class="btn primary wide" id="revealBtn">👀 顯示答案</button>
+    <button class="btn icon" id="quizWrong" style="display:none;border-color:var(--stamp);color:var(--stamp);">❌ 答錯</button>
+    <button class="btn green icon" id="quizRight" style="display:none;">✅ 答對</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一張</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一張 ▸</button>
+  </div>
+
+  <div class="quiz-stats" id="quizStatsBar" style="display:none;">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="toggleBreakdown">看分類統計</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [
+{id:"V01", cat:"估價原則", front:"最有效使用原則的完整定義？", back:"客觀上具有<b>良好意識及通常使用能力者</b>，在<b>合法、實質可能、正當合理、財務可行</b>前提下，得以獲致<b>最高利益</b>之使用。注意：是「客觀上」，不是消費者主觀效用認知。"},
+{id:"V02", cat:"估價原則", front:"替代原則在估價上的意義？", back:"審慎消費者不會支付高於相同滿意度替代財貨之代價。<b>比較法、成本法、收益法三大方法之共同基礎</b>（交易觀點/重置觀點/投資觀點）。"},
+{id:"V03", cat:"估價原則", front:"貢獻原則 vs 均衡原則，如何區分？", back:"<b>貢獻原則</b>：局部對整體價值之貢獻（如加裝電梯使整體價值提升）。<b>均衡原則</b>：生產要素間達最適配置才能創造最高價值（與單純價格上漲無關，常考陷阱：「老舊公寓飆漲」≠均衡原則）。"},
+{id:"V04", cat:"估價原則", front:"外部性原則的關鍵字？", back:"<b>周邊環境設施</b>（非標的本身）對價格之影響。例：鄰近公園/捷運（加值）、殯儀館/高壓電塔/垃圾掩埋場（減損）。"},
+{id:"V05", cat:"估價原則", front:"變動原則為何重要？", back:"不動產價格<b>隨時間變動</b>，故估價報告書須訂明<b>價格日期</b>及<b>有效期間</b>。"},
+{id:"V06", cat:"估價原則", front:"不動產市場的四大特性？", back:"產品<b>異質性</b>高、<b>人為干預多</b>、<b>交易成本高</b>、<b>資訊不完全</b>——是<b>非完全競爭市場</b>（常考陷阱：誤選完全競爭市場）。"},
+{id:"V07", cat:"價格種類", front:"四種價格種類的市場性分類？", back:"<b>正常價格</b>：具市場性，正常交易。<b>限定價格</b>：具市場性，但因合併/分割形成。<b>特定價格</b>：具市場性，但因特定條件（如變更）形成。<b>特殊價格</b>：<b>不具市場性</b>之不動產所估計之價值。"},
+{id:"V08", cat:"價格種類", front:"限定價格的三種形成條件？", back:"① 不動產所有權以外其他<b>權利與所有權合併</b>為目的（如地上權人購買設定地上權之土地）　② <b>不動產合併</b>為目的（相鄰土地合併開發）　③ 違反經濟合理性之不動產<b>分割</b>為前提。"},
+{id:"V09", cat:"價格種類", front:"評估限定價格時，還須做什麼？", back:"應<b>同時估計其正常價格</b>——這是規則明文規定，常見考點。"},
+{id:"V10", cat:"價格種類", front:"特殊價格的常見例子？", back:"總統府、孔廟、媽祖廟、龜山島、太平島、東沙島、釣魚台——這些<b>不具市場性</b>，但估價時<b>仍須以貨幣金額表示</b>（並非無法表示）。"},
+{id:"V11", cat:"價格種類", front:"特定價格的典型情境？", back:"具市場性，但基於<b>特定條件</b>（如預期容積變更、都市計畫變更）形成之價值。例：都市邊緣農地以未來變更為建地之前提估價。"},
+{id:"V12", cat:"影響因素", front:"一般因素、區域因素、個別因素的判斷關鍵？", back:"判斷關鍵在於<b>影響範圍</b>：<b>一般因素</b>＝全國性（利率、房地合一稅、國土計畫）；<b>區域因素</b>＝影響近鄰地區（捷運站、道路寬度）；<b>個別因素</b>＝影響標的本身（臨街寬度、路沖、坐向）。"},
+{id:"V13", cat:"影響因素", front:"同一供需圈的正確定義？", back:"比較標的與勘估標的間能成立<b>替代關係</b>（非貢獻關係），且其價格<b>互為影響</b>之最適範圍＝近鄰地區＋類似地區。"},
+{id:"V14", cat:"影響因素", front:"近鄰地區 vs 類似地區？", back:"<b>近鄰地區</b>：標的<b>周圍</b>，供相同或類似用途之不動產，形成<b>同質性較高</b>之地區。<b>類似地區</b>：同一供需圈內，<b>近鄰地區外</b>，與標的使用性質相近之地區。"},
+{id:"V15", cat:"估價程序", front:"估價作業8步驟的正確順序？", back:"①確定估價基本事項 → ②擬定估價計畫 → ③<b>蒐集資料</b> → ④<b>確認勘估標的狀態</b> → ⑤整理比較分析資料 → ⑥運用估價方法推算價格 → ⑦決定勘估標的價格 → ⑧製作估價報告書。注意③④順序勿顛倒！"},
+{id:"V16", cat:"估價程序", front:"確定估價基本事項應包含哪些？不含什麼？", back:"應含：委託人、估價目的、<b>價格日期</b>、價格種類及條件、勘估標的內容。<b>不含</b>估價方法、不含勘察日期。"},
+{id:"V17", cat:"估價程序", front:"價格日期 vs 勘察日期？", back:"<b>價格日期</b>：勘估標的<b>價格之基準日期</b>。<b>勘察日期</b>：至勘估標的<b>現場調查</b>之日期。兩者先後關係<b>不一定</b>。"},
+{id:"V18", cat:"估價程序", front:"獨立估價 vs 部分估價？", back:"<b>獨立估價</b>：土地上有建物，估價時將土地<b>視為素地</b>（不考慮建物影響）。<b>部分估價</b>：附有建物之宗地估價，<b>考慮</b>建物對宗地價格之影響。"},
+{id:"V19", cat:"估價程序", front:"違章建築如何處理？", back:"違建部分<b>不予評估</b>；委託人要求評估者，應就合法建物及違建部分<b>分別標示</b>價格（非合併計算）。"},
+{id:"V20", cat:"比較法", front:"比較法調整流程的正確順序？", back:"<b>情況調整 → 價格日期調整 → 區域因素調整 → 個別因素調整</b>。調整對象是<b>比較標的</b>價格（非勘估標的）。"},
+{id:"V21", cat:"比較法", front:"比較法三道排除規則的數字？", back:"<b>單項調整率15%</b>（任一單獨項目）、<b>總調整率30%</b>（情況+價格日期+區域+個別總和）、<b>試算價格差距20%</b>（檢討後仍差20%以上要排除）。"},
+{id:"V22", cat:"比較法", front:"試算價格差距率怎麼算？", back:"差距率 ＝ (較高試算價格－較低試算價格) ÷ <b>試算價格平均值</b>。達20%以上者排除該試算價格。"},
+{id:"V23", cat:"比較法", front:"比較標的原則上應採用幾件以上？", back:"<b>三件以上</b>（常考陷阱：誤植為五件以上）。"},
+{id:"V24", cat:"比較法", front:"比較標的、試算價格、比較價格的差異？", back:"<b>比較標的</b>：原始選定之交易實例。<b>試算價格</b>：比較標的價格經各項調整後初步得出之價格。<b>比較價格</b>：試算價格經重新檢討確認適當合理後的最終價格。"},
+{id:"V25", cat:"比較法", front:"價格日期調整的計算公式？", back:"調整後價格 ＝ 比較標的成交價 × (<b>勘估標的</b>價格日期之價格指數 ÷ <b>比較標的</b>交易日期之價格指數)。"},
+{id:"V26", cat:"比較法", front:"合併開發分配計算公式？", back:"某筆土地合併後分配價格 ＝ 合併後總價格 × (<b>該筆土地合併前價值</b> ÷ <b>各筆土地合併前價值總和</b>)。先求比例，再乘總價格。"},
+{id:"V27", cat:"比較法", front:"畸零地合併使用之交易，屬於哪種調整？", back:"屬於<b>情況調整</b>範疇（非個別因素調整）。"},
+{id:"V28", cat:"比較法", front:"蒐集比較實例應依循的4項原則？", back:"① 使用性質或管制相同或相近　② 同一供需圈之近鄰或類似地區　③ 價格形成日期與價格日期接近　④ 價格種類相同或可調整為相同。"},
+{id:"V29", cat:"成本法", front:"重建成本 vs 重置成本？", back:"<b>重建成本</b>（原則）：相同或極類似建材標準重新複製之成本。<b>重置成本</b>（例外）：建材已無生產或施工方法改變時，以現代建材標準替代之成本。"},
+{id:"V30", cat:"成本法", front:"營造施工費的直接法兩種？", back:"<b>淨計法</b>：逐一材料人工數量×單價及工資（最精細，較少用）。<b>單位工程法</b>：建築細部工程各項目單價×施工數量（實務上最常用）。"},
+{id:"V31", cat:"成本法", front:"營造施工費的間接法兩種？", back:"<b>工程造價比較法</b>：按工程概算項目逐項比較調整。<b>單位面積（體積）比較法</b>：以比較標的單位面積營造費為基礎調整。"},
+{id:"V32", cat:"成本法", front:"規劃設計費的計算基礎是什麼？", back:"按<b>營造施工費</b>之2%至3%推估（注意：不是按總成本，這與廣告費/管理費/稅捐不同）。"},
+{id:"V33", cat:"成本法", front:"全聯會公告項目有哪些？不含什麼？", back:"含：建物經濟耐用年數表、營造施工費標準表、廣告費銷售費管理費及稅捐相關費率、開發或建築利潤率。<b>不含</b>「建築改良物標準單價表」「建造執照工程造價表」。"},
+{id:"V34", cat:"成本法", front:"房地成本價格怎麼算？", back:"房地成本價格 ＝ 土地總成本 ＋ <b>建物成本價格</b>（已扣除折舊的建物現值）。不是土地+建物未扣折舊的總成本。"},
+{id:"V35", cat:"成本法", front:"三種折舊路徑及對應方法？", back:"<b>等速折舊</b>→定額法（直線）。<b>初期加速折舊</b>→定率法（凹型）。<b>初期減速折舊</b>→償債基金法（凸型）。<b>無「後期減速折舊」</b>此選項！"},
+{id:"V36", cat:"成本法", front:"定額法折舊計算公式？", back:"年折舊額 ＝ C×(1－s)÷N；累積折舊額Dn ＝ 年折舊額×n；建物現值 ＝ C－Dn。（C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數）"},
+{id:"V37", cat:"成本法", front:"經濟耐用年數 vs 物理耐用年數？", back:"<b>經濟耐用年數</b>：因功能或效益衰退至不值得使用——<b>折舊計算以此為主</b>。<b>物理耐用年數</b>：因自然耗損或外力破壞至結構脆弱。口訣：物理看結構壞掉，經濟看效益衰退。"},
+{id:"V38", cat:"成本法", front:"建物殘餘價格率上限是多少？", back:"<b>不超過10%</b>（原則），由全聯會公告。無殘餘價格者，計算折舊時<b>不予提列</b>（非以最低殘餘價格率提列）。"},
+{id:"V39", cat:"成本法", front:"物理性折舊、功能性折舊、經濟性折舊的差異？", back:"<b>物理性</b>：自然耗損、外力破壞（牆壁龜裂）。<b>功能性</b>：技術革新、設計過時（建物落伍）。<b>經濟性</b>：外部環境變化（周邊嫌惡設施）。注意：隔壁施工造成龜裂＝物理性，非經濟性。"},
+{id:"V40", cat:"收益法", front:"直接資本化法的公式？", back:"收益價格 ＝ 勘估標的<b>未來</b>平均1年期間之<b>客觀淨收益</b> ÷ <b>收益資本化率</b>。三個關鍵字：未來、淨收益、價格日期當時。"},
+{id:"V41", cat:"收益法", front:"有效總收入怎麼算？", back:"總收入 ＝ 月租金×12；押金運用收益 ＝ 押金×利率；<b>有效總收入</b> ＝ 總收入×(1－空置率)。"},
+{id:"V42", cat:"收益法", front:"總費用不應計入的四大陷阱項目？", back:"<b>所得稅、貸款利息（債務利息）、土地增值稅、改良性資本支出</b>——這四項絕對不可計入總費用計算。"},
+{id:"V43", cat:"收益法", front:"收益法估價程序的順序？", back:"①蒐集總收入總費用資本化率等資料 → ②推算有效總收入 → ③推算總費用 → ④計算淨收益 → ⑤決定收益資本化率 → ⑥計算收益價格。應蒐集最近<b>3年</b>資料。"},
+{id:"V44", cat:"收益法", front:"折舊前 vs 折舊後淨收益，如何還原價格？", back:"折舊<b>前</b>淨收益：以「資本化率＋<b>折舊提存率</b>」（房地綜合收益資本化率）還原。折舊<b>後</b>淨收益：僅以資本化率還原即可。"},
+{id:"V45", cat:"收益法", front:"五種收益資本化率決定方法？", back:"① <b>風險溢酬法</b>（一般性財貨基準＋風險加計）② <b>市場萃取法</b>（淨收益÷價格）③ <b>WACC加權平均資金成本法</b> ④ <b>有效總收入乘數法</b> ⑤ <b>債務保障比率法</b>。"},
+{id:"V46", cat:"收益法", front:"資本化率與不動產特性的關係？", back:"流通性高→較<b>低</b>；風險性高→較<b>高</b>；增值性高→較<b>低</b>（與風險性方向相反，常考陷阱）；管理難度高→較<b>高</b>。"},
+{id:"V47", cat:"收益法", front:"綜合資本化率怎麼算？", back:"綜合資本化率 ＝ 土地資本化率×(土地價值÷總價值) ＋ 建物資本化率×(建物價值÷總價值)。一般而言<b>建物資本化率高於土地</b>（建物有折舊耗損風險）。"},
+{id:"V48", cat:"收益法", front:"DCF折現現金流量分析法 vs 直接資本化法？", back:"DCF：<b>多期</b>現金流量、<b>須加計期末處分價值</b>並折現、適用<b>以投資為目的</b>之評估。直接資本化法：未來平均<b>1年</b>淨收益、不考慮期末處分價值。"},
+{id:"V49", cat:"收益法", front:"不動產證券化DCF評估的特殊規則？", back:"各期淨收益以<b>契約租金</b>計算為原則（契約租金未知者以<b>經濟租金</b>推估）；以契約約定租金作信託利益分配基礎者，DCF收益價格應賦予<b>較大權重</b>。"},
+{id:"V50", cat:"土地開發分析法", front:"土地開發分析法核心公式？", back:"V ＝ [S÷(1+r)÷(1+i)] － (C+M)　（V：開發分析價格、S：總銷售金額、r：利潤率、i：資本利息綜合利率、C：直接成本、M：間接成本）"},
+{id:"V51", cat:"土地開發分析法", front:"資本利息綜合利率公式？建物比率為何要×1/2？", back:"資本利息綜合利率 ＝ 資本利息年利率×(土地價值比率＋建物價值比率×<b>1/2</b>)×開發年數。建物資金通常於開發中後段才投入，平均占用時間僅半期；土地資金自始即占用全期，不打折。"},
+{id:"V52", cat:"土地開發分析法", front:"土地開發分析法應蒐集的資料？不含什麼？", back:"含：開發計畫內容、可銷售面積、總銷售金額市場行情、直接成本、間接成本、利潤率、資本利息綜合利率。<b>不含「資本化率」</b>（這是收益法概念）。"},
+{id:"V53", cat:"土地開發分析法", front:"土地開發分析法本質上屬於哪種方法的延伸？", back:"屬於<b>成本法</b>之延伸應用（非比較法、非收益法），但適用時應參酌<b>比較法</b>及<b>成本法</b>之評估結果決定估價額（非參酌收益法）。"},
+{id:"V54", cat:"租金估計", front:"租金估計以何種租金為原則？", back:"以估計勘估標的之「<b>實質租金</b>」為原則。"},
+{id:"V55", cat:"租金估計", front:"實質租金 vs 經濟租金的差異？", back:"<b>實質租金</b>：支付租金<b>加計</b>押金、權利金等運用收益之總數。<b>經濟租金</b>：不動產以<b>最有效利用</b>方式所能產生的市場收益。兩者性質不同，大小關係<b>不一定</b>。"},
+{id:"V56", cat:"租金估計", front:"實質租金計算公式？", back:"實質租金 ＝ 支付租金（月租×12）＋ 押金運用收益 ＋ 權利金運用收益 ＋ 其他相關運用收益。押金運用收益＝押金×利率。"},
+{id:"V57", cat:"租金估計", front:"續訂租約差額分配法公式？", back:"差額 ＝ <b>市場經濟租金</b> － <b>原契約租金</b>；出租人應分得差額 ＝ 差額×(1－承租人應有貢獻比例)；續租合理租金 ＝ 原契約租金＋出租人應分得之差額。"},
+{id:"V58", cat:"租金估計", front:"新訂租約 vs 續訂租約的估計方式差異？", back:"<b>新訂租約</b>：可分析企業經營總收入、或價格×租金收益率。<b>續訂租約</b>：以原契約租金之淨收益依變動趨勢調整（差額分配法），不適用前述新訂租約方式。"},
+{id:"V59", cat:"特殊估價綜合", front:"樓層別效用比的理論基礎與基準樓層？", back:"理論基礎：<b>建物貢獻原則</b>（非土地貢獻原則）。基準樓層：通常以各層中<b>價格或租金最低之樓層</b>為基準（非地面層恆定，也非樓層愈高效用比愈高）。"},
+{id:"V60", cat:"特殊估價綜合", front:"樓層別效用比計算公式？", back:"某樓層之土地分配價格 ＝ 土地總價 × (該樓層效用比 ÷ 各樓層效用比總和)。"},
+{id:"V61", cat:"特殊估價綜合", front:"權利估價範圍包含哪些？不包含什麼？", back:"包含：<b>地上權、抵押權、永佃權</b>。<b>不包含質權</b>（高頻陷阱），不包含市地重劃（屬土地處分程序）。"},
+{id:"V62", cat:"特殊估價綜合", front:"特殊宗地估價：哪些用比較法？哪些用成本法？", back:"<b>比較法</b>為原則：公共設施保留地、林地、農場牧場、鹽田、高爾夫球場。<b>成本法</b>：受污染土地、受地層下陷/土壤液化影響土地（因不具市場性或需估算特殊成本）。"},
+{id:"V63", cat:"特殊估價綜合", front:"都市更新基地價值比率計算公式？", back:"基地價值比率 ＝ 該所有權人<b>更新前</b>權利價值 ÷ <b>權利變換前</b>各所有權人權利價值之總和。應分配權利價值 ＝ 基地價值比率 × <b>更新後實施者實際分配</b>之權利價值總和。"},
+{id:"V64", cat:"特殊估價綜合", front:"計量模型分析法（CAMA）的三大適用門檻？", back:"樣本數應為<b>自變數個數之5倍以上</b>；判定係數應達<b>0.7以上</b>；顯著機率應<b>小於5%</b>。屬於<b>比較法</b>之延伸應用。"},
+{id:"V65", cat:"特殊估價綜合", front:"CAMA常見的兩個錯誤敘述陷阱？", back:"①「判定係數越低代表解釋能力越好」——<b>錯</b>，應越高越好。②「自變數間應具高度共線性」——<b>錯</b>，應<b>避免</b>高度共線性。"}
+];
+
+const CAT_COLORS = {
+  "估價原則": "#A8402B",
+  "價格種類": "#BC8A2E",
+  "影響因素": "#5C7A4A",
+  "估價程序": "#3E6B8C",
+  "比較法": "#C17A2E",
+  "成本法": "#7B5C8C",
+  "收益法": "#A8402B",
+  "土地開發分析法": "#BC8A2E",
+  "租金估計": "#5C7A4A",
+  "特殊估價綜合": "#3E6B8C"
+};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let statusFilter = 'all';
+let mode = 'study';
+let mastery = {};
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let revealed = false;
+let quizStats = {ok:0, ng:0, perCat:{}};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const statusRow = document.getElementById('statusRow');
+const cardEl = document.getElementById('card');
+const termText = document.getElementById('termText');
+const answerText = document.getElementById('answerText');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const footFront = document.getElementById('footFront');
+const footBack = document.getElementById('footBack');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const masteryControls = document.getElementById('masteryControls');
+const quizControls = document.getElementById('quizControls');
+const revealBtn = document.getElementById('revealBtn');
+const quizRight = document.getElementById('quizRight');
+const quizWrong = document.getElementById('quizWrong');
+const quizStatsBar = document.getElementById('quizStatsBar');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+const breakdownPanel = document.getElementById('breakdownPanel');
+
+async function loadMastery(){
+  try{
+    const res = await window.storage.get('valuation_flashcard_mastery');
+    if(res && res.value) mastery = JSON.parse(res.value);
+  }catch(e){ mastery = {}; }
+}
+async function saveMastery(){
+  try{
+    await window.storage.set('valuation_flashcard_mastery', JSON.stringify(mastery));
+  }catch(e){ console.error('storage save failed', e); }
+}
+
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+function renderStatusRow(){
+  const inCat = CARDS.filter(c=>activeCats.has(c.cat));
+  const masteredCount = inCat.filter(c=>mastery[c.id]==='mastered').length;
+  const reviewCount = inCat.length - masteredCount;
+  statusRow.innerHTML = '';
+  const defs = [
+    {key:'all', label:`全部 (${inCat.length})`, cls:''},
+    {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
+    {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
+  ];
+  defs.forEach(d=>{
+    const chip=document.createElement('div');
+    chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
+    chip.textContent=d.label;
+    chip.addEventListener('click',()=>{
+      statusFilter = d.key;
+      rebuildDeck();
+    });
+    statusRow.appendChild(chip);
+  });
+}
+
+function rebuildDeck(){
+  renderStatusRow();
+  let pool = CARDS.filter(c=>activeCats.has(c.cat));
+  if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
+  if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+document.getElementById('tabStudy').addEventListener('click',()=>switchMode('study'));
+document.getElementById('tabQuiz').addEventListener('click',()=>switchMode('quiz'));
+function switchMode(m){
+  mode = m;
+  document.getElementById('tabStudy').classList.toggle('active', m==='study');
+  document.getElementById('tabQuiz').classList.toggle('active', m==='quiz');
+  masteryControls.style.display = (m==='study') ? 'flex' : 'none';
+  quizControls.style.display = (m==='quiz') ? 'flex' : 'none';
+  quizStatsBar.style.display = (m==='quiz') ? 'flex' : 'none';
+  if(m!=='quiz'){ breakdownPanel.style.display='none'; }
+  revealed = false;
+  flipped = false;
+  render();
+}
+
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = (mode==='quiz') ? revealed : false;
+  cardEl.classList.toggle('flipped', flipped);
+  termText.textContent = c.front;
+  answerText.innerHTML = c.back;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const m = mastery[c.id];
+  const icon = m==='mastered' ? '✅' : '';
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  if(mode==='study'){
+    footFront.textContent = '點擊卡片　看解析 ▸';
+    footBack.textContent = '◂ 點擊卡片　回題目';
+  } else {
+    footFront.textContent = '點擊卡片 或「顯示答案」▸';
+    footBack.textContent = '看完後請點　答對／答錯';
+    revealBtn.style.display = revealed ? 'none' : '';
+    quizRight.style.display = revealed ? '' : 'none';
+    quizWrong.style.display = revealed ? '' : 'none';
+  }
+}
+
+cardEl.addEventListener('click',()=>{
+  if(mode==='study'){
+    flipped=!flipped;
+    cardEl.classList.toggle('flipped',flipped);
+  } else {
+    if(!revealed){ revealed=true; render(); }
+  }
+});
+
+function goNext(){
+  idx=(idx+1)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+function goPrev(){
+  idx=(idx-1+deck.length)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key===' '){ e.preventDefault(); cardEl.click(); }
+});
+
+document.getElementById('markMastered').addEventListener('click',()=>{
+  setMastery('mastered');
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  setMastery('review');
+});
+function setMastery(status){
+  const c = deck[idx];
+  mastery[c.id] = status;
+  saveMastery();
+  renderStatusRow();
+  if(statusFilter!=='all'){
+    const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
+                          (statusFilter==='review' && status!=='mastered');
+    if(!stillMatches){
+      let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
+      if(statusFilter==='mastered') pool = pool.filter(cc=>mastery[cc.id]==='mastered');
+      deck = pool.length ? pool : CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(idx>=deck.length) idx=0;
+      render();
+      return;
+    }
+  }
+  render();
+}
+
+quizRight.addEventListener('click',()=>recordAnswer(true));
+quizWrong.addEventListener('click',()=>recordAnswer(false));
+revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+
+function recordAnswer(correct){
+  const c = deck[idx];
+  if(correct){ quizStats.ok++; mastery[c.id]='mastered'; }
+  else { quizStats.ng++; mastery[c.id]='review'; }
+  if(!quizStats.perCat[c.cat]) quizStats.perCat[c.cat]={ok:0, total:0};
+  quizStats.perCat[c.cat].total++;
+  if(correct) quizStats.perCat[c.cat].ok++;
+  saveMastery();
+  renderStatusRow();
+  updateQuizStatsBar();
+  if(breakdownPanel.style.display!=='none') renderBreakdown();
+  goNext();
+}
+
+function updateQuizStatsBar(){
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+}
+
+document.getElementById('toggleBreakdown').addEventListener('click',()=>{
+  if(breakdownPanel.style.display==='none'){
+    renderBreakdown();
+    breakdownPanel.style.display='block';
+  } else {
+    breakdownPanel.style.display='none';
+  }
+});
+function renderBreakdown(){
+  const cats = Object.keys(quizStats.perCat);
+  if(!cats.length){
+    breakdownPanel.innerHTML = '<p style="text-align:center;color:var(--ink-soft);">尚無作答紀錄</p>';
+    return;
+  }
+  let html = '<table>';
+  cats.forEach(cat=>{
+    const s = quizStats.perCat[cat];
+    const pct = Math.round(s.ok/s.total*100);
+    html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
+  });
+  html += '</table>';
+  breakdownPanel.innerHTML = html;
+}
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0, perCat:{}};
+  updateQuizStatsBar();
+  breakdownPanel.style.display='none';
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  rebuildDeck();
+});
+
+(async function init(){
+  await loadMastery();
+  renderStatusRow();
+  rebuildDeck();
+})();
+</script>
+</body>
+</html>

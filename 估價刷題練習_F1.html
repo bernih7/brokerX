@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・F1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・F1
+      <span class="sub">F租金估計含逐選項解析・共 33 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/33</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VF1_99_5", cat:"F1", year:"99年第5題", q:"下列有關不動產租金估算之敘述，何者有誤？", opts:["以勘估標的之實質租金為原則", "應視新訂租約與續訂租約分別為之", "不可將權利金之收益列入計算", "應將押金或保證金之收益列入計算"], explains:["技術規則明定不動產租金估計以勘估標的之實質租金為原則，此為正確敘述，非本題答案（本題問「何者有誤」）。", "技術規則明定應視新訂租約與續訂租約分別為之，此為正確敘述。", "技術規則明定實質租金應加計權利金及其他相關運用收益，本選項稱「不可將權利金收益列入計算」，與規則規定相反，敘述錯誤，即本題正解。", "技術規則明定實質租金應將押金或保證金之收益列入計算，此為正確敘述。"], correct:2, note:null},
+{id:"VF1_99_20", cat:"F1", year:"99年第20題", q:"根據不動產估價技術規則之規定，基於續定租約或不動產合併為目的形成之租賃價值，並以貨幣金額表示者，稱為：", opts:["正常租金", "特定租金", "限定租金", "特殊價格"], explains:["正常租金是對應正常價格之概念，反映一般市場正常交易情況下之租賃價值，與題目所述「基於續訂租約或合併目的」之特定情境不符。", "「特定租金」並非技術規則明定之正式租金種類名稱。", "技術規則明定限定租金係基於續訂租約或不動產合併為目的形成之租賃價值，並以貨幣金額表示者，與題目敘述完全相符。", "特殊價格是「價格」種類（非租金種類），指不具市場性之不動產所估計之價值，與題目所述租賃情境不符。"], correct:2, note:null},
+{id:"VF1_100_33", cat:"F1", year:"100年第33題", q:"不動產於市場上以最有效利用方式利用所能產生的收益，稱為：", opts:["支付租金", "實質租金", "差額租金", "經濟租金"], explains:["支付租金是承租人實際支付予出租人之租金本身，並非「最有效利用方式所能產生之收益」此一市場概念。", "實質租金是支付租金加計押金等運用收益之總數，並非市場最有效利用所能產生之收益概念。", "「差額租金」並非技術規則明定之正式租金種類名稱（差額分配法是續訂租約估計方法之一，非租金種類本身）。", "技術規則明定經濟租金係指不動產於市場上以最有效利用方式利用所能產生的收益，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VF1_100_37", cat:"F1", year:"100年第37題", q:"以差額租金還原法所得出之價格為：", opts:["所有權價格", "經濟租金", "實質租金", "租賃權價格"], explains:["「所有權價格」是不動產所有權本身之價值概念，與差額租金還原法（用於估算租賃權相關價值之方法）所得出之價格性質不同。", "經濟租金是差額分配法計算過程中之輸入變數之一，並非還原法所得出之最終結果。", "實質租金同樣是計算過程中之概念，並非還原法之最終結果。", "差額租金還原法是將市場經濟租金與原契約租金之差額（承租人因租賃關係所獲得之超額利益）資本化還原所得出之價值，性質上即為承租人享有之「租賃權價格」，與題目敘述相符。"], correct:3, note:null},
+{id:"VF1_100_39", cat:"F1", year:"100年第39題", q:"林乙向王甲承租房屋，每月支付的實質租金為10,000元，這棟房屋如於市場上重新出租，合理租金為16,000元。假設王甲、林乙對該租金增加的貢獻各半，請問於王甲考慮續約的情況下，其合理的租金應該調整為多少？", opts:["10,000元", "13,000元", "16,000元", "19,000元"], explains:["10,000元僅為原契約租金本身，未反映續約時租金應有之合理調整。", "差額分配法計算：市場租金與原租金之差額＝16,000－10,000＝6,000元；雙方貢獻各半，出租人應分得差額之一半＝6,000×50%＝3,000元；續約合理租金＝原租金10,000＋出租人應分得差額3,000＝13,000元，與本選項相符。", "16,000元是完全採用市場新訂租金，未考量承租人對租金上漲之貢獻，與差額分配法精神不符。", "19,000元的計算結果超出合理範圍，與正確差額分配法計算不符。"], correct:1, note:"租金差額＝16,000－10,000＝6,000元；雙方各半分配＝3,000元；調整後租金＝10,000+3,000＝13,000元。"},
+{id:"VF1_100_40", cat:"F1", year:"100年第40題", q:"依不動產估價技術規則規定，承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數，稱為？", opts:["純租金", "支付租金", "實質租金", "經濟租金"], explains:["「純租金」並非技術規則明定之正式租金種類名稱。", "支付租金是承租人每期實際支付之租金本身，並未加計押金保證金等其他運用收益，與題目所述「加計」之完整定義不符。", "技術規則明定實質租金係承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數，與題目敘述完全相符。", "經濟租金是以最有效利用方式所能產生之市場收益概念，與題目所述「支付租金加計押金等運用收益」之加總定義不同。"], correct:2, note:null},
+{id:"VF1_101_20", cat:"F1", year:"101年第20題", q:"新訂租約租金之估計，得分析企業經營之總收入，據以估計勘估標的在一定期間內之何種收益，再加計必要費用？", opts:["總收益", "毛收益", "有效總收益", "淨收益"], explains:["「總收益」是未扣除費用之毛收入概念，與技術規則明定新訂租約估計應求取「淨收益」之概念不同。", "「毛收益」同樣是未扣除費用之概念，與淨收益定義不同。", "「有效總收益」是扣除空置損失後之收入概念，但仍非完全等同於扣除總費用後之「淨收益」。", "技術規則明定新訂租約租金之估計，得分析企業經營之總收入，據以估計勘估標的在一定期間內之淨收益，再加計必要費用，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VF1_101_32", cat:"F1", year:"101年第32題", q:"下列何者能反映租賃不動產經濟價值的租金？", opts:["實質租金", "經濟租金", "支付租金", "差額租金"], explains:["實質租金是支付租金加計押金等運用收益之總數，反映的是「租賃契約安排下」的租金總額，非直接反映市場經濟價值。", "技術規則明定經濟租金係指不動產於市場上以最有效利用方式利用所能產生的收益，直接反映租賃不動產之經濟價值，與題目敘述相符。", "支付租金是承租人實際支付之租金本身，反映的是契約安排下之金額，非市場經濟價值。", "「差額租金」並非技術規則明定之正式租金種類名稱。"], correct:1, note:null},
+{id:"VF1_102_21", cat:"F1", year:"102年第21題", q:"T市東區某店面於5年前出租經營，現到期擬續租，當年簽約契約租金每年新臺幣250萬元，目前市場經濟租金每年可達新臺幣350萬元，若分析此租金上漲應有60%歸功於承租經營者，在相關必要費用不增加情況下，最合理之續租租約年租金為何？", opts:["新臺幣250萬元", "新臺幣290萬元", "新臺幣310萬元", "新臺幣350萬元"], explains:["新臺幣250萬元僅為原契約租金本身，未反映續約時租金應有之合理調整。", "差額分配法計算：市場經濟租金與原契約租金之差額＝350－250＝100萬元；承租經營者應有貢獻60%，故出租人應分得差額之40%＝100×40%＝40萬元；續租合理租金＝原契約租金250＋出租人應分得差額40＝290萬元，與本選項相符。", "新臺幣310萬元的計算未正確套用60%貢獻比例之分配邏輯。", "新臺幣350萬元是完全採用市場經濟租金，未考量承租經營者之貢獻，與差額分配法精神不符。"], correct:1, note:"租金差額＝350－250＝100萬元；歸屬出租人之部分＝100×(1－60%)＝40萬元；續租租金＝250+40＝290萬元。"},
+{id:"VF1_103_2", cat:"F1", year:"103年第2題", q:"不動產租金估計，以估計勘估標的之何種租金為原則？", opts:["支付租金", "契約租金", "實質租金", "押租金"], explains:["支付租金是承租人實際支付之租金本身，並非規則明定租金估計之原則性基準（實質租金才是包含支付租金及其他運用收益之完整概念）。", "契約租金是依租賃契約約定之租金，並非規則明定租金估計之原則性基準。", "技術規則明定不動產租金估計，以估計勘估標的之實質租金為原則，與題目敘述完全相符。", "「押租金」並非技術規則明定租金估計之原則性基準用語。"], correct:2, note:null},
+{id:"VF1_103_38", cat:"F1", year:"103年第38題", q:"甲向其好友乙承租房屋乙棟，約定每月租金為25,000元，此租金低於合理租金5,000元，押金為2個月租金，押金運用收益率2%。請問該房屋每年之支付租金為何？", opts:["361,000元", "360,000元", "301,000元", "300,000元"], explains:["361,000元的計算誤將押金運用收益等因素納入「支付租金」之計算範疇，但本題問的是「支付租金」本身（非實質租金），不應加計押金運用收益。", "360,000元同樣誤將其他因素納入支付租金之計算，支付租金應僅為月租金乘以12個月之單純結果。", "301,000元的計算同樣有誤，將不應計入之因素納入支付租金計算。", "支付租金係承租人每期實際支付予出租人之租金本身，即月租金25,000元×12個月＝300,000元，與本選項相符。注意：題目所述「低於合理租金5,000元」「押金2個月」「押金運用收益率2%」等資訊是計算「實質租金」或「合理租金」時才需要的條件，本題問的是「支付租金」，僅需單純的月租×12即可，不應將其他因素納入。"], correct:3, note:"支付租金係承租人每期實際支付予出租人之租金，不含押金運用收益及與合理租金之差額，故年支付租金＝25,000×12＝300,000元。"},
+{id:"VF1_104_24", cat:"F1", year:"104年第24題", q:"某甲將透天厝出租於某乙使用，雙方約定每月租金為35,000元，押金兩個月，定存年利率設為1.5%，則下列何者為其一年之實質租金？", opts:["71,050元", "421,050元", "420,000元", "701,050元"], explains:["71,050元僅為押金運用收益部分（420,000×1.5%×2個月相關計算的誤算結果），並非完整之實質租金。", "年租金收入＝35,000×12＝420,000元；押金運用收益＝(35,000×2)×1.5%＝1,050元；實質租金＝420,000＋1,050＝421,050元，與本選項相符。", "420,000元僅為單純年租金收入，未加計押金運用收益。", "701,050元的計算基礎有誤，與題目所給數據不符。"], correct:1, note:"支付租金＝35,000×12＝420,000元；押金運用收益＝(35,000×2)×1.5%＝1,050元；實質租金＝420,000+1,050＝421,050元。"},
+{id:"VF1_104_25", cat:"F1", year:"104年第25題", q:"下列何者不是不動產租金估計時應考慮的因素？", opts:["出租人數", "使用目的", "租期長短", "稅費負擔"], explains:["技術規則明定租金估計應考慮之因素為用途、租期長短、租金支付方式、使用目的、使用情形、稅費負擔等，「出租人數」並非規則明定應考慮之因素，即本題正解。", "使用目的是技術規則明定應考慮之因素之一，非本題答案（本題問「不是」應考慮之因素）。", "租期長短是技術規則明定應考慮之因素之一。", "稅費負擔是技術規則明定應考慮之因素之一。"], correct:0, note:null},
+{id:"VF1_104_33", cat:"F1", year:"104年第33題", q:"續訂租約之租金估計，得採下列那些方式為之？①以續訂租約之租賃實例為標的，運用收益法估計之　②勘估標的價格乘以租金收益率，以估計淨收益，再加計必要費用　③以勘估標的原契約租金之淨收益，就其租金變動趨勢調整後，再加計必要費用　④分析企業經營之總收入，據以估計勘估標的在一定期間內之淨收益，再加計必要費用。", opts:["①②④", "①③", "僅③", "③④"], explains:["①②④組合包含②④兩項屬於「新訂租約」之估計方式（勘估標的價格乘租金收益率、分析企業經營總收入），混入續訂租約估計方式中，組合錯誤。", "技術規則明定續訂租約租金之估計，得採①以續訂租約之租賃實例為標的運用收益法估計、③以原契約租金之淨收益依變動趨勢調整後加計必要費用兩種方式，與本選項①③完全相符。", "僅③遺漏①，①以續訂租約租賃實例為標的運用收益法估計同樣是規則明定之續訂租約估計方式，不應遺漏。", "③④組合中④屬於「新訂租約」之估計方式（分析企業經營總收入），混入續訂租約估計方式中，組合錯誤。"], correct:1, note:null},
+{id:"VF1_104_34", cat:"F1", year:"104年第34題", q:"不動產租金估計，以估計勘估標的之實質租金為原則。此處實質租金指包括下列那些收益？①承租人每期支付予出租人之租金　②押金運用收益　③保證金運用收益　④權利金運用收益", opts:["僅②④", "①②③④", "僅①③", "僅①②"], explains:["僅②④遺漏①③，①承租人支付租金本身與③保證金運用收益皆是實質租金應包含之內容，不應遺漏。", "技術規則明定實質租金包含①承租人每期支付予出租人之租金、②押金運用收益、③保證金運用收益、④權利金運用收益，與本選項①②③④全選完全相符。", "僅①③遺漏②④，押金運用收益與權利金運用收益皆是實質租金應包含之內容，不應遺漏。", "僅①②遺漏③④，保證金運用收益與權利金運用收益皆是實質租金應包含之內容，不應遺漏。"], correct:1, note:null},
+{id:"VF1_104_40", cat:"F1", year:"104年第40題", q:"下列何者最適合用來推估不動產租金？", opts:["殘餘法", "資本化率法", "還原利率法", "差額分配法"], explains:["殘餘法是成本法或收益法延伸應用之計算技巧（如土地建物價值分離計算），並非規則明定用以推估不動產租金之專屬方法。", "「資本化率法」並非技術規則明定推估不動產租金之正式方法名稱。", "「還原利率法」並非技術規則明定推估不動產租金之正式方法名稱。", "差額分配法是技術規則明定續訂租約租金估計之核心方法之一，係以市場經濟租金與原契約租金之差額依貢獻比例分配，是租金估計（尤其是續約情境）最具代表性之專屬方法，與題目敘述相符。"], correct:3, note:null},
+{id:"VF1_105_20", cat:"F1", year:"105年第20題", q:"有關租金估價的敘述，下列何者正確？", opts:["續訂租約之租金屬正常租金", "不動產租金估計，應視新訂租約與續訂租約分別為之", "淨租金指承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數", "不動產租金估計，以估計勘估標的之支付租金為原則"], explains:["續訂租約之租金屬於「限定租金」（基於續訂租約之特定情境形成），而非正常租金，本選項與規則規定不符。", "技術規則明定不動產租金估計，應視新訂租約與續訂租約分別為之（因兩者估計方式不同），與題目敘述完全相符。", "技術規則明定的是「實質租金」（而非淨租金）之定義為承租人每期支付租金加計押金保證金權利金等運用收益之總數，本選項用詞誤植。", "技術規則明定不動產租金估計以估計勘估標的之「實質租金」（而非支付租金）為原則，本選項與規則規定不符。"], correct:1, note:null},
+{id:"VF1_105_26", cat:"F1", year:"105年第26題", q:"有一不動產每月租金5000元，押金2個月，押金存款年利率5%，請計算其一年實質租金。", opts:["60000元", "5500元", "60500元", "70000元"], explains:["60,000元僅為單純年租金收入（5,000×12），未加計押金運用收益。", "5,500元僅為押金運用收益部分本身，並非完整之實質租金。", "年租金收入＝5,000×12＝60,000元；押金運用收益＝(5,000×2)×5%＝500元；實質租金＝60,000＋500＝60,500元，與本選項相符。", "70,000元的計算基礎有誤，與題目所給數據不符。"], correct:2, note:"支付租金＝5,000×12＝60,000元；押金運用收益＝(5,000×2)×5%＝500元；實質租金＝60,000+500＝60,500元。"},
+{id:"VF1_105_27", cat:"F1", year:"105年第27題", q:"有關不動產租金之估計，以估計勘估標的之何種租金為原則？", opts:["契約租金", "實質租金", "支付租金", "押租金"], explains:["契約租金是依租賃契約約定之租金，並非規則明定租金估計之原則性基準。", "技術規則明定不動產租金之估計，以估計勘估標的之實質租金為原則，與題目敘述完全相符。", "支付租金是承租人實際支付之租金本身，並非規則明定租金估計之原則性基準。", "「押租金」並非技術規則明定租金估計之原則性基準用語。"], correct:1, note:null},
+{id:"VF1_106_4", cat:"F1", year:"106年第4題", q:"如您於捷運地下街承租營運中，隔壁店家因故不與捷運局續租，此時您打算一併承租擴大經營，所承租之租金屬性應屬下列何者？", opts:["市場租金", "正常租金", "經濟租金", "限定租金"], explains:["「市場租金」並非技術規則明定之正式租金種類名稱。", "正常租金反映一般市場正常交易情況下之租賃價值，本題承租人因隔壁店家不續租而擴大承租，屬於「不動產合併」之特定情境，非一般正常交易。", "經濟租金是以最有效利用方式所能產生之市場收益概念，與題目所述「合併承租」之特定情境定義不同。", "技術規則明定限定租金係基於續訂租約或「不動產合併」為目的形成之租賃價值，原承租店面與隔壁店家合併擴大經營，正是不動產合併目的之典型情境，與題目敘述相符。"], correct:3, note:null},
+{id:"VF1_106_18", cat:"F1", year:"106年第18題", q:"西門町某店面於3年前出租經營，到期擬續租，當年契約租金每年200萬元，目前市場經濟租金每年可達250萬元，若分析此租金上漲應有60%歸功於承租經營者，在必要費用不增加情況下，合理續租年租金多少？", opts:["220萬元", "230萬元", "240萬元", "250萬元"], explains:["差額分配法計算：市場經濟租金與原契約租金之差額＝250－200＝50萬元；承租經營者應有貢獻60%，故出租人應分得差額之40%＝50×40%＝20萬元；合理續租年租金＝原契約租金200＋出租人應分得差額20＝220萬元，與本選項相符。", "230萬元的計算未正確套用60%貢獻比例之分配邏輯。", "240萬元的計算結果與正確公式計算不符。", "250萬元是完全採用市場經濟租金，未考量承租經營者之貢獻，與差額分配法精神不符。"], correct:0, note:"租金差額＝250－200＝50萬元；歸屬出租人＝50×(1－60%)＝20萬元；續租租金＝200+20＝220萬元。"},
+{id:"VF1_106_24", cat:"F1", year:"106年第24題", q:"某私立學校為達校產活化目的，二年前將校舍之一部分出租予另一間外語學校，今年屆期想再續約，教育主管機構要求須附估價報告書供審查，此時所估之租金在目前的估價法規被歸類為下列何者﹖", opts:["正常租金", "限定租金", "特定租金", "特殊租金"], explains:["正常租金反映一般市場正常交易情況下之租賃價值，本題校產出租再續約之估價，屬於續訂租約之特定情境，非一般正常交易。", "技術規則明定限定租金係基於「續訂租約」或不動產合併為目的形成之租賃價值，私立學校校產出租到期擬續約之估價情境，正是續訂租約之典型應用，與題目敘述相符。", "「特定租金」並非技術規則明定之正式租金種類名稱。", "「特殊租金」並非技術規則明定之正式租金種類名稱。"], correct:1, note:null},
+{id:"VF1_107_1", cat:"F1", year:"107年第1題", q:"某便利商店需承租兩間相鄰之店面，兩間店面打通後合併使用之總面積方符合公司之需求。請問此二間店面合併為目的形成之租賃價值，以貨幣金額表示者稱為：", opts:["正常租金", "特殊租金", "限定租金", "合併租金"], explains:["正常租金反映一般市場正常交易情況下之租賃價值，本題兩間店面為合併使用而承租，已附加特定合併條件，非一般正常交易。", "「特殊租金」並非技術規則明定之正式租金種類名稱。", "技術規則明定限定租金係基於續訂租約或「不動產合併」為目的形成之租賃價值，並以貨幣金額表示者，兩間相鄰店面合併承租正是不動產合併目的之典型情境，與題目敘述相符。", "「合併租金」並非技術規則明定之正式租金種類名稱（雖描述了合併情境，但規則正式用語為限定租金）。"], correct:2, note:null},
+{id:"VF1_107_25", cat:"F1", year:"107年第25題", q:"依不動產估價技術規則規定，承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數，稱為：", opts:["純租金", "支付租金", "實質租金", "經濟租金"], explains:["「純租金」並非技術規則明定之正式租金種類名稱。", "支付租金是承租人每期實際支付之租金本身，並未加計押金保證金等其他運用收益，與題目所述「加計」之完整定義不符。", "技術規則明定實質租金係承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數，與題目敘述完全相符。", "經濟租金是以最有效利用方式所能產生之市場收益概念，與題目所述「支付租金加計押金等運用收益」之加總定義不同。"], correct:2, note:null},
+{id:"VF1_110_13", cat:"F1", year:"110年第13題", q:"依不動產估價技術規則規定，下列有關租金之兩種敘述，何者正確？", opts:["不動產租金估計，以估計勘估標的之實質租金為原則；以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益應以勘估標的之經濟租金計算為原則", "不動產租金估計，以估計勘估標的之契約租金為原則；以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益應以勘估標的之經濟租金計算為原則", "不動產租金估計，以估計勘估標的之實質租金為原則；以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益應以勘估標的之契約租金計算為原則", "不動產租金估計，以估計勘估標的之契約租金為原則；以不動產證券化為估價目的，採折現現金流量分析法估價時，各期淨收益亦以勘估標的之契約租金計算為原則"], explains:["技術規則明定不動產證券化DCF估價各期淨收益應以「契約租金」（而非經濟租金）計算為原則，本選項後半段租金種類誤植。", "技術規則明定不動產租金估計以「實質租金」（而非契約租金）為原則，本選項前半段租金種類誤植。", "技術規則明定不動產租金估計以勘估標的之實質租金為原則；以不動產證券化為估價目的，採DCF估價時，各期淨收益應以勘估標的之契約租金計算為原則，與本選項完全相符。", "前半段「以契約租金為原則」與規則明定之「實質租金」不符，本選項雙重錯誤。"], correct:2, note:null},
+{id:"VF1_110_22", cat:"F1", year:"110年第22題", q:"勘估標的丙之市場價格1,000萬元，經分析當地同類型不動產之租金收益率5%，必要費用20萬元/年，租賃所得稅約2萬元。若丙為新訂租約，根據上開資料估計之年租金為？", opts:["50萬元", "52萬元", "70萬元", "72萬元"], explains:["50萬元僅為市場價格×租金收益率之結果（1,000×5%），未加計必要費用，計算不完整。", "52萬元的計算結果與正確公式計算不符。", "新訂租約租金估計可採「勘估標的價格×租金收益率」方式，估計淨收益後加計必要費用：年租金＝1,000萬×5%＋必要費用20萬＝50＋20＝70萬元（租賃所得稅2萬元依規則不應計入總費用，不予加計），與本選項相符。", "72萬元的計算誤將租賃所得稅2萬元一併計入，與規則規定所得稅不應計入總費用之原則不符。"], correct:2, note:"淨收益＝1,000×5%＝50萬元；租金＝淨收益＋必要費用＝50+20＝70萬元（租賃所得稅非估計租金時應加計之必要費用項目）。"},
+{id:"VF1_110_23", cat:"F1", year:"110年第23題", q:"續訂租約之租金估計方法中，差額分配法係指下列何種差額？", opts:["市場經濟租金與原契約租金之差額", "原實質租金與市場經濟租金之差額", "市場正常租金與原實質租金之差額", "原契約租金與市場正常租金之差額"], explains:["技術規則明定差額分配法係指「市場經濟租金」與「原契約租金」之差額，依雙方貢獻比例分配，與題目敘述完全相符。", "「原實質租金與市場經濟租金之差額」並非技術規則明定差額分配法之正確定義，規則明定的比較對象是原契約租金而非原實質租金。", "「市場正常租金與原實質租金之差額」同樣與規則明定之差額分配法定義不符。", "「原契約租金與市場正常租金之差額」順序描述雖接近，但規則明定的對比對象是「市場經濟租金」（而非市場正常租金），用詞誤植。"], correct:0, note:null},
+{id:"VF1_112_13", cat:"F1", year:"112年第13題", q:"不動產租金估計，以估計勘估標的之何種租金為原則？", opts:["市場租金", "差額租金", "實質租金", "經濟租金"], explains:["「市場租金」並非技術規則明定租金估計之原則性基準用語。", "「差額租金」並非技術規則明定之正式租金種類名稱。", "技術規則明定不動產租金估計，以估計勘估標的之實質租金為原則，與題目敘述完全相符。", "經濟租金是契約租金未知時之替代推估方式，並非規則明定租金估計之原則性基準。"], correct:2, note:null},
+{id:"VF1_112_17", cat:"F1", year:"112年第17題", q:"有關不動產租金估計之敘述，下列何者正確？", opts:["不動產租金估計，以估計勘估標的之承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數為原則", "新訂租約之租金估計得以勘估標的預估契約租金之淨收益，估計租金未來變動趨勢調整後，再加計必要費用", "續訂租約之租金估計得以勘估標的價格乘以租金收益率，以估計淨收益，再加計必要費用", "不動產之租金估計不應考慮使用目的"], explains:["技術規則明定不動產租金估計，以估計勘估標的之承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數（即實質租金）為原則，與題目敘述完全相符。", "本選項描述的「以勘估標的預估契約租金之淨收益，估計租金未來變動趨勢調整後加計必要費用」較接近續訂租約之估計方式（依原契約租金調整趨勢），而非新訂租約之估計方式，本選項適用情境誤植。", "本選項描述的「以勘估標的價格乘以租金收益率估計淨收益」是新訂租約之估計方式之一，並非續訂租約之估計方式，本選項適用情境誤植。", "技術規則明定租金估計應考慮使用目的等因素，本選項稱「不應考慮使用目的」，與規則規定相反。"], correct:0, note:null},
+{id:"VF1_113_5", cat:"F1", year:"113年第5題", q:"下列有關租金估計的敘述何者錯誤？", opts:["租金估價的價格種類包括正常租金與限定租金兩種", "名目租金，指承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數", "續訂租金與正常市場租金不同，故續訂租金屬於限定租金", "積算法用於評估正常租金"], explains:["技術規則明定租金估價之價格種類包括正常租金與限定租金兩種，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "技術規則明定的是「實質租金」（而非名目租金）之定義為承租人每期支付租金加計押金保證金權利金等運用收益之總數，本選項將實質租金誤植為名目租金，敘述錯誤，即本題正解。", "續訂租金與正常市場租金不同（因受原契約租金及承租人貢獻等因素影響），故續訂租金屬於限定租金，此為正確敘述。", "積算法（即成本法之運用，以重建成本扣除折舊概念）用於評估正常租金，此為正確敘述。"], correct:1, note:"依規則用語，此定義應稱為「實質租金」，非「名目租金」，此為敘述錯誤之處。"},
+{id:"VF1_113_19", cat:"F1", year:"113年第19題", q:"A把忠孝東路五段鄰近市政府的店面出租給一間連鎖咖啡店，每月租金100,000元，押金2個月，假設年利率2.5%，約定每年管理費120,000元由咖啡店支付，請問其一年支付之實質租金為多少元？", opts:["1,200,000", "1,205,000", "1,085,000", "1,080,000"], explains:["1,200,000元僅為單純年租金收入（100,000×12），未加計押金運用收益。", "年租金收入＝100,000×12＝1,200,000元；押金運用收益＝(100,000×2)×2.5%＝5,000元；實質租金＝1,200,000＋5,000＝1,205,000元，與本選項相符。注意：管理費120,000元由咖啡店另行支付，屬於租金以外之費用負擔約定，不影響出租人收取之實質租金計算。", "1,085,000元的計算誤將管理費120,000元自租金中扣除，但管理費並非租金之減項，計算邏輯有誤。", "1,080,000元同樣誤將管理費納入扣除計算，且未加計押金運用收益，計算邏輯有誤。"], correct:1, note:"支付租金＝100,000×12＝1,200,000元；押金運用收益＝(100,000×2)×2.5%＝5,000元；實質租金＝1,200,000+5,000＝1,205,000元（管理費由承租人額外支付，非出租人收益範疇，不計入實質租金）。"},
+{id:"VF1_114_22", cat:"F1", year:"114年第22題", q:"依不動產估價技術規則第130條之規定，不動產租金估計以估計勘估標的之何種租金為原則？", opts:["經濟租金", "支付租金", "合理租金", "實質租金"], explains:["經濟租金是契約租金未知時之替代推估方式，並非規則明定租金估計之原則性基準。", "支付租金是承租人實際支付之租金本身，並非規則明定租金估計之原則性基準。", "「合理租金」並非技術規則明定租金估計之原則性正式用語。", "技術規則第130條明定不動產租金估計以估計勘估標的之實質租金為原則，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VF1_114_24", cat:"F1", year:"114年第24題", q:"於不動產租金估計中有所謂的經濟租金與支付租金，兩者的大小關係為何？", opts:["經濟租金高於支付租金", "經濟租金低於支付租金", "經濟租金等於支付租金", "不一定"], explains:["經濟租金與支付租金之大小關係並非恆定「經濟租金高於支付租金」，需視市場行情與契約約定租金孰高孰低而定，本選項過於絕對。", "同樣地，並非恆定「經濟租金低於支付租金」，本選項過於絕對。", "兩者並非恆定相等，需視個案實際租賃條件而定，本選項過於絕對。", "經濟租金（市場最有效利用所能產生之收益）與支付租金（承租人實際支付之租金）之大小關係，視市場行情與契約約定租金水準而定，並無固定之高低關係，「不一定」是最精確的描述，與題目敘述相符。"], correct:3, note:null}
+];
+const CAT_NAMES = {"F1": "F1 租金估計"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_f1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_f1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_f1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_f1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・H1H2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・H1H2
+      <span class="sub">H特殊宗地-權利估價+特殊宗地(H1+H2)含逐選項解析・共 21 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/21</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VH1_99_6", cat:"H1", year:"99年第6題", q:"以擔保債務為目的，於債務人或第三人之不動產上所設定之他項權利，並於不履行債務時得就該不動產賣得價金優先受償者，稱為：", opts:["抵押權", "地上權", "永佃權", "不動產役權"], explains:["技術規則明定抵押權係以擔保債務為目的，於債務人或第三人不動產上設定之他項權利，不履行債務時得就該不動產賣得價金優先受償，與題目相符。", "地上權是以在他人土地上設定建物或工作物為目的，非擔保債務。", "永佃權是以在他人土地上為耕作或牧畜為目的，非擔保債務。", "不動產役權是以他人不動產供自己不動產便宜之用，非擔保債務。"], correct:0, note:null},
+{id:"VH1_99_17", cat:"H1", year:"99年第17題", q:"下列何者非屬不動產估價技術規則所稱權利估價之範圍？", opts:["地上權", "抵押權", "質權", "永佃權"], explains:["地上權是技術規則明定權利估價範圍之一。", "抵押權是技術規則明定權利估價範圍之一。", "技術規則明定權利估價範圍為地上權、抵押權及永佃權，「質權」通常以動產或有價證券為標的，並非不動產他項權利，不在規定範圍內，即本題正解。", "永佃權是技術規則明定權利估價範圍之一。"], correct:2, note:null},
+{id:"VH1_102_19", cat:"H1", year:"102年第19題", q:"下列有關抵押權估價之敘述，何者錯誤？", opts:["抵押權估價之價值上限為抵押權所擔保之債權額", "抵押權估價應同時考量抵押物之價值及擔保債權之優先順位", "抵押權估價得不考量抵押物現況使用情形", "抵押權估價應考量抵押物之市場價值"], explains:["抵押權估價之價值上限為抵押權所擔保之債權額，正確。", "應同時考量抵押物之價值及擔保債權之優先順位，正確。", "技術規則明定抵押權估價應「考量」抵押物現況使用情形，本選項稱「得不考量」，與規則相反，即本題正解。", "應考量抵押物之市場價值，正確。"], correct:2, note:null},
+{id:"VH1_103_5", cat:"H1", year:"103年第5題", q:"下列何者非屬不動產估價技術規則所稱權利估價之範圍？", opts:["地上權", "抵押權", "市地重劃", "永佃權"], explains:["地上權是技術規則明定權利估價範圍之一。", "抵押權是技術規則明定權利估價範圍之一。", "技術規則明定權利估價範圍為地上權、抵押權及永佃權，「市地重劃」是政府土地整理重新分配程序，並非他項權利設定，不屬於技術規則所稱權利估價之範圍，即本題正解。", "永佃權是技術規則明定權利估價範圍之一。"], correct:2, note:null},
+{id:"VH1_106_34", cat:"H1", year:"106年第34題", q:"以在他人土地上為耕作或牧畜為目的，而設定之他項權利，稱為：", opts:["地上權", "永佃權", "耕作權", "農育權"], explains:["地上權是以在他人土地上設定建物或工作物為目的，非耕作或牧畜。", "技術規則明定永佃權係以在他人土地上為耕作或牧畜為目的設定之他項權利，與題目相符。", "「耕作權」並非現行民法或技術規則明定之正式他項權利名稱。", "農育權是民法修正後新增之他項權利，範圍較永佃權廣，包含農作、森林、養殖等農育目的。"], correct:1, note:null},
+{id:"VH1_113_16", cat:"H1", year:"113年第16題", q:"進行地上權估價時，下列何者非屬應考量之要素？", opts:["設定地上權之目的及使用方式", "地上權存續期間", "抵押權人之徵信資料", "地租之有無及高低"], explains:["設定地上權之目的及使用方式是技術規則明定地上權估價應考量之要素之一。", "地上權存續期間是技術規則明定應考量之要素之一。", "「抵押權人之徵信資料」是抵押信用評估概念，並非技術規則明定地上權估價應考量之要素，即本題正解。", "地租之有無及高低是技術規則明定應考量之要素之一。"], correct:2, note:null},
+{id:"VH2_99_12", cat:"H2", year:"99年第12題", q:"農地上種植之農作改良物，於不動產估價時應如何處理？", opts:["不予估價", "應單獨估價，並於估價報告書中區分土地與農作改良物之價格", "併入土地價格估計，不另區分", "僅估計收穫後之市場價格"], explains:["農作改良物並非不予估價，技術規則有明文規定。", "技術規則明定農地上種植之農作改良物，應單獨估價，並於估價報告書中區分土地與農作改良物之價格，與題目相符。", "不應併入土地價格不另區分，技術規則要求分別標示。", "「僅估計收穫後之市場價格」並非規則規定之估價方式。"], correct:1, note:null},
+{id:"VH2_100_26", cat:"H2", year:"100年第26題", q:"墳場用地之估價，下列何者較不適宜？", opts:["成本法", "收益法", "比較法", "依其特殊性質個別判斷"], explains:["成本法可用於特殊宗地估算改良成本，並非較不適宜。", "收益法可依墳場使用收益推算，並非較不適宜。", "技術規則明定墳場用地因不具一般市場性，較難以比較法估價（缺乏足夠之市場交易比較標的），即本題正解。", "依特殊性質個別判斷是合理方向，並非較不適宜。"], correct:2, note:"墳場用地屬不具市場性之特殊不動產，難以蒐集比較標的，故比較法較不適用，多以成本法或其他特殊方法估價。"},
+{id:"VH2_103_15", cat:"H2", year:"103年第15題", q:"農場、牧場等特殊用途土地之估價，原則上以下列何種方法為主？", opts:["收益法", "成本法", "土地開發分析法", "比較法"], explains:["收益法可用，但非技術規則明定農場牧場之原則方法。", "成本法可用，但非技術規則明定之原則方法。", "土地開發分析法適用於以開發為前提之宗地估價，非農場牧場之原則方法。", "技術規則明定農場、牧場等特殊用途土地之估價，原則上以比較法為主，與題目相符。"], correct:3, note:null},
+{id:"VH2_105_1", cat:"H2", year:"105年第1題", q:"公共設施保留地之估價，依不動產估價技術規則規定，原則上以下列何種方法估價？", opts:["收益法", "成本法", "比較法", "土地開發分析法"], explains:["收益法可用，但非技術規則明定公共設施保留地之原則方法。", "成本法可用，但非技術規則明定之原則方法。", "技術規則明定公共設施保留地之估價，原則上以比較法為主，與題目相符。", "土地開發分析法適用於以開發為前提之宗地估價，非此之原則方法。"], correct:2, note:null},
+{id:"VH2_105_28", cat:"H2", year:"105年第28題", q:"林地之估價，其總費用之計算應加計下列何種特殊費用項目？", opts:["管理費", "保險費", "維修費", "造林費及管理費等林業經營相關費用"], explains:["管理費是一般不動產估價之常規費用，非林地估價之特殊費用項目。", "保險費是一般不動產估價之常規費用，非特殊費用項目。", "維修費是一般不動產估價之常規費用，非特殊費用項目。", "技術規則明定林地之估價，其總費用之計算應加計造林費及管理費等林業經營相關費用，與題目相符。"], correct:3, note:null},
+{id:"VH2_105_39", cat:"H2", year:"105年第39題", q:"受地層下陷、土壤液化等地質不良情況影響之土地估價，得採何種估價方法評估其工事水利或土壤改良所需成本？", opts:["比較法", "收益法", "成本法", "土地開發分析法"], explains:["比較法是以交易實例為基礎，非評估改良成本之主要方法。", "收益法是以淨收益折現或資本化求取價值，非評估改良成本之方法。", "技術規則明定受地層下陷、土壤液化等地質不良情況影響之土地，得採成本法評估其工事水利或土壤改良所需成本，與題目相符。", "土地開發分析法適用於以開發為前提之宗地估價，非評估改良成本之方法。"], correct:2, note:null},
+{id:"VH2_106_13", cat:"H2", year:"106年第13題", q:"公共設施保留地估價，依不動產估價技術規則規定，得以下列何者為比較標的？", opts:["一般建築用地", "鄰近之公共設施保留地或毗鄰非公共設施保留地", "農業用地", "都市計畫保護區土地"], explains:["一般建築用地使用性質與公共設施保留地差異較大，非首選。", "技術規則第90條明定公共設施保留地比較標的應選取「鄰近之公共設施保留地或毗鄰非公共設施保留地」，本選項符合規則明文。惟本題官方答案標示為D，與規則明文及112年第19題（正解為A，內容同B）相互矛盾，本題疑有標記誤差，建議對照官方詳解確認。", "農業用地非規則明定之比較標的選項。", "依官方標示為本題正解，但與技術規則第90條明文及112年同主題題目正解相矛盾，建議考生留意此題存在潛在標記誤差，以官方詳解為準。"], correct:3, note:"本題依官方答案表標示D，惟一般而言公共設施保留地之比較標的應優先選取「鄰近之公共設施保留地或毗鄰非公共設施保留地」，建議考生對照規則原文確認本題鑑別細節。"},
+{id:"VH2_106_16", cat:"H2", year:"106年第16題", q:"受污染土地之估價，於成本法估價時，應加計下列何種成本？", opts:["改良成本", "污染整治及檢測等相關必要成本", "訴訟成本", "拆除成本"], explains:["「改良成本」是廣義描述，非技術規則明定之特定成本名稱。", "技術規則明定受污染土地估價，於成本法估價時，應加計污染整治及檢測等相關必要成本，與題目相符。", "訴訟成本並非技術規則明定應加計之成本項目。", "拆除成本是建物不具使用價值時才需加計，非受污染土地之特定加計項目。"], correct:1, note:null},
+{id:"VH2_106_33", cat:"H2", year:"106年第33題", q:"鹽田之估價，原則上採下列何種估價方法？", opts:["收益法", "成本法", "土地開發分析法", "比較法"], explains:["收益法可用，但非技術規則明定鹽田之原則方法。", "成本法可用，但非技術規則明定之原則方法。", "土地開發分析法適用於以開發為前提之宗地估價，非鹽田之原則方法。", "技術規則明定鹽田之估價，原則上以比較法為主，與題目相符。"], correct:3, note:null},
+{id:"VH2_107_22", cat:"H2", year:"107年第22題", q:"受水患或土壤液化影響之土地進行工事水利或土壤改良所需成本估算時，宜採何種估價方法？", opts:["比較法", "成本法", "收益法", "土地開發分析法"], explains:["比較法是以交易實例為基礎，非評估改良成本之主要方法。", "技術規則明定受水患或土壤液化影響之土地進行工事水利或土壤改良所需成本估算時，宜採成本法，與題目相符。", "收益法是以淨收益折現或資本化求取價值，非評估改良成本之方法。", "土地開發分析法適用於以開發為前提之宗地估價，非評估改良成本之方法。"], correct:1, note:null},
+{id:"VH2_110_15", cat:"H2", year:"110年第15題", q:"墳墓用地之估價，下列敘述何者正確？", opts:["適合採用比較法估價", "因不具一般市場性，較難以比較法估價", "應優先採用收益法估價", "應優先採用土地開發分析法估價"], explains:["技術規則明定墳墓用地因不具一般市場性，較難以比較法估價，本選項稱「適合採用比較法」，與規則相反。", "技術規則明定墳墓用地因不具一般市場性，較難以比較法估價，與題目相符。", "「應優先採用收益法」並非技術規則對墳墓用地之明確規定。", "「應優先採用土地開發分析法」並非技術規則對墳墓用地之明確規定。"], correct:1, note:null},
+{id:"VH2_112_15", cat:"H2", year:"112年第15題", q:"高爾夫球場用地之估價，原則上較適合採用下列何種估價方法？", opts:["收益法", "成本法", "比較法", "土地開發分析法"], explains:["收益法可用，但非技術規則明定高爾夫球場用地之原則方法。", "成本法可用，但非技術規則明定之原則方法。", "技術規則明定高爾夫球場用地之估價，原則上較適合以比較法為主，與題目相符。", "土地開發分析法適用於以開發為前提之宗地估價，非高爾夫球場之原則方法。"], correct:2, note:null},
+{id:"VH2_112_19", cat:"H2", year:"112年第19題", q:"公共設施保留地原則上採比較法估價，其比較標的應如何選取？", opts:["選取鄰近之公共設施保留地或毗鄰非公共設施保留地", "選取一般建築用地", "選取農業用地", "選取都市計畫保護區土地"], explains:["技術規則第90條明定公共設施保留地比較標的應選取「鄰近之公共設施保留地或毗鄰非公共設施保留地」，與本選項完全相符，即本題正解。", "一般建築用地使用性質差異較大，非規則明定之比較標的。", "農業用地非規則明定之比較標的選項。", "都市計畫保護區土地非規則明定之比較標的選項。"], correct:0, note:null},
+{id:"VH2_113_15", cat:"H2", year:"113年第15題", q:"高爾夫球場、農場、牧場等特殊用途之土地估價，原則上採何種估價方法？", opts:["收益法", "比較法", "成本法", "土地開發分析法"], explains:["收益法可用，但非技術規則明定高爾夫球場農場牧場之原則方法。", "技術規則明定高爾夫球場、農場、牧場等特殊用途土地之估價，原則上以比較法為主，與題目相符。", "成本法可用，但非此類土地之原則方法。", "土地開發分析法適用於以開發為前提之宗地估價，非此類土地之原則方法。"], correct:1, note:null},
+{id:"VH2_114_9", cat:"H2", year:"114年第9題", q:"受地層下陷影響之土地，若需估算其工事水利或土壤改良所需成本，宜採何種估價方法？", opts:["比較法", "收益法", "成本法", "土地開發分析法"], explains:["比較法是以交易實例為基礎，非評估改良成本之主要方法。", "收益法是以淨收益折現或資本化求取價值，非評估改良成本之方法。", "技術規則明定受地層下陷影響之土地，若需估算工事水利或土壤改良所需成本，宜採成本法，與題目相符。", "土地開發分析法適用於以開發為前提之宗地估價，非評估改良成本之方法。"], correct:2, note:null}
+];
+const CAT_NAMES = {"H1": "H1 權利估價", "H2": "H2 特殊宗地估價"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_h1h2_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_h1h2_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_h1h2_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_h1h2_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

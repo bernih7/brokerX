@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・E1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・E1
+      <span class="sub">E土地開發分析法含逐選項解析・共 24 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/24</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VE1_99_10", cat:"E1", year:"99年第10題", q:"根據土地法定用途、使用強度進行開發與改良所導致土地效益之變化，估算開發或建築後總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得之土地價格，此估價方法是依據那一種方式呢？", opts:["比較法", "直接資本化法", "土地開發分析法", "現金流量分析法"], explains:["比較法是以比較標的之交易價格為基礎，與題目所述「依開發內容估算總銷售金額並扣除成本利潤」之操作邏輯不同。", "直接資本化法是以淨收益除以資本化率求取價格，與題目所述土地開發成本利潤計算邏輯不同。", "技術規則明定土地開發分析法係依土地法定用途、使用強度進行開發及改良所導致土地效益之變化，預計開發或建築後總銷售金額，扣除開發或建築所需之直接成本、間接成本、資本利息及利潤後，求得勘估標的之土地價格，與題目敘述完全相符。", "現金流量分析法（DCF）是收益法之延伸應用，著重於多期現金流量折現，與題目所述土地開發成本利潤計算邏輯不同。"], correct:2, note:null},
+{id:"VE1_99_33", cat:"E1", year:"99年第33題", q:"土地開發分析法屬於何種不動產估價方法？", opts:["比較法", "收益法", "成本法", "計量模型分析法"], explains:["比較法是以交易實例為基礎，土地開發分析法之核心邏輯（扣除成本與利潤反推土地價值）並非比較法之延伸。", "收益法是以淨收益折現或資本化求取價格，土地開發分析法雖也涉及銷售金額估算，但核心邏輯仍著重於成本之扣除推算，非收益法之延伸。", "土地開發分析法本質上是以「開發後總銷售金額扣除成本及利潤」反推土地價值，其計算邏輯與成本法（以重建成本扣除折舊推算價值之邏輯架構）相近，屬於成本法之延伸應用，與題目敘述相符。", "計量模型分析法（CAMA）是運用統計迴歸模型輔助比較法估價之方法，與土地開發分析法之成本扣除邏輯不同。"], correct:2, note:null},
+{id:"VE1_99_37", cat:"E1", year:"99年第37題", q:"下列有關土地開發分析法之敘述，何者正確？", opts:["主要估計開發或建築前之土地開發分析價格", "不應將開發期間的資本利息列入成本考量", "不應將開發利潤列入考量", "預期總銷售金額應按法定容積面積乘上推定之銷售單價計算"], explains:["技術規則明定土地開發分析法主要估計開發或建築「前」（而非後）之土地開發分析價格，即以開發完成後之預期銷售金額反推「現在」（開發前）之土地價值，與題目敘述相符。", "技術規則明定應將開發期間之資本利息列入成本考量（V公式中之i即為資本利息綜合利率），本選項與規則規定相反。", "技術規則明定應將開發利潤列入考量（V公式中之r即為適當之利潤率），本選項與規則規定相反。", "預期總銷售金額應按「可銷售之土地及建物面積」（而非單純法定容積面積）乘上推定之銷售單價計算，因法定容積與實際可銷售面積（扣除公設等）未必相同，本選項描述不夠精確。"], correct:0, note:null},
+{id:"VE1_101_28", cat:"E1", year:"101年第28題", q:"採土地開發分析法進行不動產估價時，其基本之假設前提為：", opts:["必須符合法定容積之規定為上限進行開發", "必須以預售方式為前提", "必須以個別投資廠商之利潤率為依據", "必須於開發完成時取得全部房地銷售金額"], explains:["技術規則並未規定必須「符合法定容積之規定為上限」進行開發，土地開發分析法之開發內容應依最有效使用評估，非必然以法定容積為唯一上限假設。", "技術規則明定基本假設前提並非「必須以預售方式為前提」，而是相反——必須於開發完成時取得「全部」房地銷售金額。", "技術規則並未規定須以「個別投資廠商」之利潤率為依據，而是應以「適當」之利潤率（具一般市場代表性）為依據。", "技術規則明定土地開發分析法之基本假設前提為必須於開發完成時取得全部房地銷售金額（即假設整批完銷，非分期或預售情境），與題目敘述完全相符。"], correct:3, note:null},
+{id:"VE1_102_24", cat:"E1", year:"102年第24題", q:"某建商欲以土地開發分析法評估某土地作為住宅銷售個案之土地價值，請問下列何者非建商運用該方法應蒐集的資料？", opts:["資本利率", "廣告費", "利潤率", "資本化率"], explains:["資本利率（資本利息綜合利率）是技術規則明定土地開發分析法應蒐集之資料項目之一，非本題答案（本題問「非」應蒐集之資料）。", "廣告費屬於間接成本之一項，是技術規則明定應蒐集之資料項目之一。", "利潤率是技術規則明定應蒐集之資料項目之一（V公式中之r）。", "「資本化率」是收益法（直接資本化法）之核心概念，並非技術規則明定土地開發分析法應蒐集之資料項目，即本題正解。"], correct:3, note:null},
+{id:"VE1_102_36", cat:"E1", year:"102年第36題", q:"土地開發分析法公式V＝[S÷(1+R)÷(1+i) - (C+M)]，其中i為開發或建築所需總成本之資本利息綜合利率，則R為：", opts:["資本化率", "土地價值率", "營業稅率", "適當之利潤率"], explains:["「資本化率」是收益法之概念，並非V公式中R所代表之意義。", "「土地價值率」並非技術規則明定V公式中R所代表之正式用語。", "「營業稅率」並非V公式中R所代表之意義，技術規則之開發成本利潤計算並非聚焦於營業稅率。", "技術規則明定土地開發分析法公式V＝[S÷(1+R)÷(1+i)]－(C+M)中，R代表「適當之利潤率」，與題目敘述相符。"], correct:3, note:null},
+{id:"VE1_104_22", cat:"E1", year:"104年第22題", q:"下列有關土地開發分析估價程序的排列，何者正確？①計算土地開發分析價格　②估算各項成本及相關費用　③估算開發後總銷售金額　④確定土地開發內容及預期開發時間　⑤選擇適當之利潤率及資本利息綜合利率　⑥估算開發後可銷售之土地或建物面積　⑦現況勘察並進行環境發展程度之調查及分析　⑧調查各項成本及相關費用並蒐集市場行情等資料", opts:["⑧⑦⑥⑤④③②①", "⑦⑧④②③⑥⑤①", "⑥③②⑤⑧⑦④①", "④⑧⑦⑥③②⑤①"], explains:["⑧⑦⑥⑤④③②①此排列順序將⑧調查成本費用置於④確定開發內容之前，順序錯誤（應先確定開發內容才能調查相關成本）。", "⑦⑧④②③⑥⑤①此排列順序將⑦現況勘察置於④確定開發內容之前，且⑥估算可銷售面積置於③估算總銷售金額之後，順序皆與技術規則規定不符。", "⑥③②⑤⑧⑦④①此排列順序將⑥估算可銷售面積置於最前面，且④確定開發內容置於極後段，順序嚴重錯誤。", "技術規則明定土地開發分析法估價程序為：④確定土地開發內容及預期開發時間→⑧調查各項成本費用並蒐集市場行情等資料→⑦現況勘察並進行環境發展程度之調查分析→⑥估算開發後可銷售之土地或建物面積→③估算開發後總銷售金額→②估算各項成本及相關費用→⑤選擇適當之利潤率及資本利息綜合利率→①計算土地開發分析價格，與本選項④⑧⑦⑥③②⑤①完全相符。"], correct:3, note:null},
+{id:"VE1_104_23", cat:"E1", year:"104年第23題", q:"土地開發分析法之資本利息綜合利率，應依不動產估價技術規則第58條及第59條規定計算資本利息年利率，並參考下列那一項公式計算之？", opts:["資本利息年利率×（土地價值比率+建物價值比率）×1/2×開發年數", "資本利息年利率×（土地價值比率+建物價值比率×1/2）×開發年數", "資本利息年利率×（土地價值比率×1/2+建物價值比率）×開發年數", "資本利息年利率×（土地價值比率+建物價值比率）×1/4×開發年數"], explains:["公式中建物價值比率應乘以「1/2」（而非與土地價值比率合計後再乘1/2），本選項括號內結構與規則公式不符。", "技術規則第59條規定之資本利息綜合利率標準公式為：資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數，此為一般通用之正確公式表述，但本題官方答案標示為D選項（係數1/4），可能該年度考選部公告之公式版本或計算基礎有特殊調整，建議考生對照當年度技術規則條文及官方詳解確認本題完整計算邏輯與官方公告答案之依據。", "本選項將比例係數1/2誤植於土地價值比率而非建物價值比率，與規則規定建物資金應打折（因投入時點較晚）之邏輯方向相反。", "依官方公告，本題正解為「資本利息年利率×(土地價值比率＋建物價值比率)×1/4×開發年數」，與一般教材常見之標準公式「資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數」在係數設定上有所不同，建議考生留意不同年度考選部公告之公式表述可能存在差異，並以官方公告本題答案為準。"], correct:3, note:"本題依官方答案表為D。惟一般教材常用公式為「資本利息年利率×（土地價值比率+建物價值比率×1/2）×開發年數」（即選項B），考生作答時建議同時掌握兩種版本，並以本題官方公告答案為準，留意命題單位於不同年度可能採用之公式版本差異。"},
+{id:"VE1_104_31", cat:"E1", year:"104年第31題", q:"下列對以進行開發為前提之宗地估價，何者正確？①得採土地開發分析法進行估價　②得採收益法進行估價　③並參酌比較法之評估結果決定其估價額　④並參酌成本法之評估結果決定其估價額", opts:["①③", "②④", "③④", "①②"], explains:["技術規則明定以進行開發為前提之宗地估價，①得採土地開發分析法進行估價，並③參酌比較法之評估結果決定其估價額，與本選項①③完全相符。", "②得採收益法進行估價並非規則明定之正確敘述（規則明定參酌的是比較法及成本法，非收益法），④參酌成本法雖正確但本選項缺少①③核心內容。", "③④組合缺少①土地開發分析法本身之適用，不完整。", "①②組合中②得採收益法進行估價，並非規則明定之正確敘述，組合錯誤。"], correct:0, note:null},
+{id:"VE1_104_35", cat:"E1", year:"104年第35題", q:"依土地開發分析法評估不動產價格時，如果開發後預期總銷售金額為1億元，適當之利潤率為10%，開發所需之直接成本為5,000萬元，開發所需之間接成本為3,000萬元，開發所需總成本之資本利息綜合利率為4%，請問土地開發分析價格為何？（萬元以後四捨五入）", opts:["741萬元", "772萬元", "1,091萬元", "1,615萬元"], explains:["依公式V＝[S÷(1+r)÷(1+i)]－(C+M)＝[10,000÷(1+10%)÷(1+4%)]－(5,000+3,000)≈8,741.26－8,000＝741.26萬元，四捨五入約741萬元，與本選項相符。", "772萬元的計算結果與正確公式計算不符。", "1,091萬元的計算未正確扣除直接成本及間接成本之加總。", "1,615萬元的計算結果明顯偏高，與正確公式計算不符。"], correct:0, note:"V＝[10,000÷(1+10%)÷(1+4%)]－(5,000+3,000)＝[10,000÷1.1÷1.04]－8,000≈8,741－8,000＝741萬元。"},
+{id:"VE1_105_29", cat:"E1", year:"105年第29題", q:"資本利息年利率為2%，土地價值：建物價值＝6：4，開發年數3年，資本利息綜合利率為：", opts:["2.4%", "3.6%", "4.8%", "6%"], explains:["2.4%的計算未正確套用建物價值比率打折1/2之規定。", "3.6%的計算結果與正確公式計算不符。", "依資本利息綜合利率公式：資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數＝2%×(0.6+0.4×0.5)×3＝2%×0.8×3＝4.8%，與本選項相符。", "6%的計算未正確套用建物價值比率之折半係數。"], correct:2, note:"資本利息綜合利率＝2%×(60%+40%×1/2)×3＝2%×80%×3＝4.8%（依「建物比率×1/2」公式版本計算）。"},
+{id:"VE1_105_40", cat:"E1", year:"105年第40題", q:"某一住宅用地，面積1000坪，建蔽率50%，容積率225%，擬規劃地上7層地下2層之集合住宅。假設本案完工後總銷售金額為80000萬元，資本利息綜合利率為12%、利潤率為20%、開發或建築所需之直接成本為20000萬元、開發或建築所需之間接成本為8400萬元，以土地開發分析法估計本住宅用地的價格，請問下列何者最接近？", opts:["46267萬元", "42859萬元", "38393萬元", "31124萬元"], explains:["46267萬元的計算結果與正確公式計算不符。", "42859萬元的計算結果與正確公式計算不符。", "38393萬元的計算結果與正確公式計算不符。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)＝[80,000÷(1+20%)÷(1+12%)]－(20,000+8,400)≈59,523.8－28,400＝31,123.8萬元，約31124萬元，與本選項最接近。"], correct:3, note:"V＝[80,000÷(1+20%)÷(1+12%)]－(20,000+8,400)＝[80,000÷1.2÷1.12]－28,400≈59,524－28,400＝31,124萬元。"},
+{id:"VE1_106_19", cat:"E1", year:"106年第19題", q:"某建商擬開發建地，預計興建樓板面積1,000坪，若推定銷售單價平均80萬元/坪，利潤率20%、資本利息綜合利率5%、直接成本3億元、間接成本6千萬元，則土地開發分析價格為何？", opts:["13,582萬元", "13,215萬元", "12,492萬元", "12,200萬元"], explains:["13,582萬元與標準公式計算結果有出入。", "13,215萬元同樣與標準公式計算結果有出入。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)，S＝1,000坪×80萬元/坪＝80,000萬元，r＝20%，i＝5%，C＝30,000萬元，M＝6,000萬元，代入計算：[80,000÷1.2÷1.05]－36,000≈63,492.06－36,000＝27,492.06萬元，與標準公式計算結果（約27,492萬元）有顯著落差，與官方公告答案12,492萬元相差約15,000萬元。本題計算落差原因不明，可能涉及題目資料設定之特殊前提或官方計算基礎差異，建議考生對照官方詳解或原始試題完整內容確認本題正確計算邏輯，不宜直接以標準公式結果作為唯一判斷依據。", "12,200萬元亦與標準公式計算結果有出入，惟最接近官方公告答案12,492萬元，可作參考。"], correct:2, note:"總銷售金額S＝1,000×80＝80,000萬元；V＝[80,000÷(1+20%)÷(1+5%)]－(30,000+6,000)＝[80,000÷1.2÷1.05]－36,000≈63,492－36,000＝27,492萬元（依官方選項數值範圍，建議重新核對單位換算後對照最接近選項C）。"},
+{id:"VE1_106_36", cat:"E1", year:"106年第36題", q:"有關土地開發分析法之估價程序中，最後四個步驟順序如何？", opts:["估算開發或建築後總銷售金額。選擇適當之利潤率及資本利息綜合利率。估算各項成本及相關費用。計算土地開發分析價格", "估算各項成本及相關費用。估算開發或建築後總銷售金額。選擇適當之利潤率及資本利息綜合利率。計算土地開發分析價格", "選擇適當之利潤率及資本利息綜合利率。估算開發或建築後總銷售金額。估算各項成本及相關費用。計算土地開發分析價格", "估算開發或建築後總銷售金額。估算各項成本及相關費用。選擇適當之利潤率及資本利息綜合利率。計算土地開發分析價格"], explains:["「估算總銷售金額→選擇利潤率及資本利息綜合利率→估算成本費用→計算價格」此順序將選擇利潤率資本化率置於估算成本費用之前，與規則規定順序不符。", "「估算成本費用→估算總銷售金額→選擇利潤率資本化率→計算價格」此順序將估算成本費用置於估算總銷售金額之前，順序顛倒。", "「選擇利潤率資本化率→估算總銷售金額→估算成本費用→計算價格」此順序將選擇利潤率置於最前面，與規則規定應最後決定利潤率及資本化率之順序不符。", "技術規則明定土地開發分析法估價程序最後四個步驟為：估算開發或建築後總銷售金額→估算各項成本及相關費用→選擇適當之利潤率及資本利息綜合利率→計算土地開發分析價格，與本選項完全相符。"], correct:3, note:null},
+{id:"VE1_107_10", cat:"E1", year:"107年第10題", q:"於採土地開發分析法之資本利息綜合利率之計算中，如果資本利息年利率為3%，土地價值比率為40%，建物價值比率為60%，開發年數為3年，請問資本利息綜合利率為何？", opts:["9%", "6.3%", "4.5%", "3%"], explains:["9%的計算誤將土地與建物價值比率直接相加未打折（40%+60%=100%×3%×3年=9%），未正確套用建物比率折半之規定。", "依資本利息綜合利率公式：資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數＝3%×(40%+60%×0.5)×3＝3%×0.7×3＝6.3%，與本選項相符。", "4.5%的計算基礎有誤，與正確公式計算結果不符。", "3%僅為資本利息年利率本身，未經過完整公式計算。"], correct:1, note:"資本利息綜合利率＝3%×(40%+60%×1/2)×3＝3%×70%×3＝6.3%。"},
+{id:"VE1_107_12", cat:"E1", year:"107年第12題", q:"當某土地開發後預期總銷售金額為1000萬元，適當之利潤率為12%，開發所需之直接成本為300萬元，開發所需之間接成本為250萬元，開發所需總成本之資本利息綜合利率為4%時，請問土地開發分析法價格大約為何？", opts:["433萬元", "402萬元", "386萬元", "309萬元"], explains:["433萬元的計算結果與正確公式計算不符。", "402萬元的計算結果與正確公式計算不符。", "386萬元的計算結果與正確公式計算不符。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)＝[1,000÷(1+12%)÷(1+4%)]－(300+250)≈858.5－550＝308.5萬元，約309萬元，與本選項最接近。"], correct:3, note:"V＝[1,000÷(1+12%)÷(1+4%)]－(300+250)＝[1,000÷1.12÷1.04]－550≈859－550＝309萬元。"},
+{id:"VE1_108_2", cat:"E1", year:"108年第2題", q:"有一筆建地面積1,000坪，預期興建為住宅大樓後的總銷售金額為3.8億元，若營建施工費為1億元，管理銷售及規劃設計等費用為1,100萬元，合理利潤率為16%，資本利息綜合利率為2%，請問該筆建地每坪單價約為：", opts:["210萬元", "420萬元", "21萬元", "42萬元"], explains:["210萬元的計算結果明顯與正確公式計算不符，數值過高。", "420萬元的計算結果明顯偏高，與正確公式計算不符。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)，S＝38,000萬元，r＝16%，i＝2%，C＝10,000萬元（營建施工費即直接成本），M＝1,100萬元（管理銷售規劃設計費即間接成本），代入計算：[38,000÷1.16÷1.02]－11,100≈32,116.3－11,100＝21,016.3萬元；每坪單價＝21,016.3÷1,000≈21萬元，與本選項相符。", "42萬元的計算結果是正確答案的兩倍，可能誤算面積基準。"], correct:2, note:"V＝[38,000÷(1+16%)÷(1+2%)]－(10,000+1,100)≈[38,000÷1.16÷1.02]－11,100≈32,121－11,100＝21,021萬元；每坪單價≈21,021÷1,000≈21萬元。"},
+{id:"VE1_109_10", cat:"E1", year:"109年第10題", q:"某一筆建築用地將以土地開發分析法推估價格，其資本利息綜合利率為4.8%，該土地開發之土地價值比率占60%，建物價值比率占40%，預計開發年數為2年，請問資本利息年利率應為多少？", opts:["1.5%", "3%", "4%", "4.8%"], explains:["1.5%的計算未正確套用資本利息綜合利率反推公式。", "依公式反推：資本利息綜合利率＝資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數，4.8%＝資本利息年利率×(0.6+0.4×0.5)×2＝資本利息年利率×0.8×2＝資本利息年利率×1.6，故資本利息年利率＝4.8%÷1.6＝3%，與本選項相符。", "4%的計算結果與正確反推公式計算不符。", "4.8%恰好等於題目所給之資本利息綜合利率本身，並非反推求得之資本利息年利率。"], correct:1, note:"4.8%＝資本利息年利率×(60%+40%×1/2)×2＝資本利息年利率×80%×2；資本利息年利率＝4.8%÷1.6＝3%。"},
+{id:"VE1_109_16", cat:"E1", year:"109年第16題", q:"某建築開發公司擬開發建地，開發或建築後預期總銷售金額估計8.8億元，開發直接成本3億元、間接成本8千萬元，開發商要求利潤率20%、資本利息綜合利率4%，試問土地開發分析價格多少？", opts:["32513萬元", "31083萬元", "30886萬元", "30562萬元"], explains:["依公式V＝[S÷(1+r)÷(1+i)]－(C+M)＝[88,000÷(1+20%)÷(1+4%)]－(30,000+8,000)≈70,512.8－38,000＝32,512.8萬元，約32513萬元，與本選項相符。", "31083萬元的計算結果與正確公式計算不符。", "30886萬元的計算結果與正確公式計算不符。", "30562萬元的計算結果與正確公式計算不符。"], correct:0, note:"V＝[88,000÷(1+20%)÷(1+4%)]－(30,000+8,000)＝[88,000÷1.2÷1.04]－38,000≈70,513－38,000＝32,513萬元。"},
+{id:"VE1_110_6", cat:"E1", year:"110年第6題", q:"有一500坪建地可興建大樓出售，預期新大樓之總銷售金額為10億元，若營建施工費為3億元、管理銷售費用等間接成本為9千萬元、要求的利潤率為18%、資本綜合利率為5%。請問該建地每坪價格約為多少？", opts:["100.5萬元", "83.4萬元", "65.8萬元", "41.7萬元"], explains:["100.5萬元的計算結果與正確公式計算不符。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)，S＝100,000萬元，r＝18%，i＝5%，C＝30,000萬元（營建施工費即直接成本），M＝9,000萬元（管理銷售費用即間接成本），代入計算：[100,000÷1.18÷1.05]－39,000≈80,710.25－39,000＝41,710.25萬元；每坪價格＝41,710.25÷500≈83.42萬元，與本選項相符。", "65.8萬元的計算結果與正確公式計算不符，數值偏低。", "41.7萬元僅為總價格（41,710萬元）之數值近似誤用，並非每坪正確單價。"], correct:1, note:"V＝[100,000÷(1+18%)÷(1+5%)]－(30,000+9,000)≈[100,000÷1.18÷1.05]－39,000≈80,706－39,000＝41,706萬元；每坪價格≈41,706÷500≈83.4萬元。"},
+{id:"VE1_111_16", cat:"E1", year:"111年第16題", q:"某開發商擬於新開發區開發建築，預計興建樓板面積2,000坪。若推定銷售單價平均60萬元/坪，利潤率20%、資本利息綜合利率5%、直接成本2億元、間接成本4千萬元，請問土地開發分析價格多少萬元？", opts:["71,238", "69,526", "64,878", "62,106"], explains:["依公式V＝[S÷(1+r)÷(1+i)]－(C+M)，S＝2,000坪×60萬元/坪＝120,000萬元，r＝20%，i＝5%，C＝20,000萬元，M＝4,000萬元，代入計算：[120,000÷1.2÷1.05]－24,000≈95,238.1－24,000＝71,238.1萬元，與本選項相符。", "69,526萬元的計算結果與正確公式計算不符。", "64,878萬元的計算結果與正確公式計算不符。", "62,106萬元的計算結果與正確公式計算不符，數值偏低。"], correct:0, note:"總銷售金額S＝2,000×60＝120,000萬元；V＝[120,000÷(1+20%)÷(1+5%)]－(20,000+4,000)＝[120,000÷1.2÷1.05]－24,000≈95,238－24,000＝71,238萬元。"},
+{id:"VE1_111_25", cat:"E1", year:"111年第25題", q:"在土地開發分析法之估價程序中，應進行現況勘查與環境發展程度調查與分析，下列何者不屬於要勘查與調查分析的事項：", opts:["影響總銷售金額、成本及費用等因素", "勘估標的之工程進度、施工及環境狀況", "比較標的之工程進度、施工及環境狀況", "週遭環境土地建物及公共設施開發程度"], explains:["影響總銷售金額、成本及費用等因素，是技術規則明定現況勘查應調查分析之事項之一，非本題答案（本題問「不屬於」應調查分析之事項）。", "勘估標的之工程進度、施工及環境狀況，是技術規則明定應調查分析之事項之一。", "技術規則明定現況勘查應調查分析之事項是「勘估標的」（而非比較標的）之工程進度施工及環境狀況，土地開發分析法並無蒐集「比較標的」工程進度之規定，即本題正解。", "週遭環境土地建物及公共設施開發程度，是技術規則明定應調查分析之事項之一。"], correct:2, note:null},
+{id:"VE1_112_24", cat:"E1", year:"112年第24題", q:"如果一開發案開發後預期總銷售金額為新臺幣10億元，適當之利潤率為10%，開發所需之直接成本為新臺幣6億元，開發所需之間接成本為新臺幣2億元，開發所需總成本之資本利息綜合利率為5%。請問下列何者最接近此一開發案之土地開發分析價格？", opts:["新臺幣2億元", "新臺幣1.5億元", "新臺幣1.091億元", "新臺幣0.658億元"], explains:["新臺幣2億元的計算結果與正確公式計算不符，數值偏高。", "新臺幣1.5億元的計算結果與正確公式計算不符。", "新臺幣1.091億元的計算結果與正確公式計算不符。", "依公式V＝[S÷(1+r)÷(1+i)]－(C+M)＝[10÷(1+10%)÷(1+5%)]－(6+2)（單位：億元）≈8.658－8＝0.658億元，與本選項最接近。"], correct:3, note:"V＝[10÷(1+10%)÷(1+5%)]－(6+2)＝[10÷1.1÷1.05]－8≈8.658－8＝0.658億元。"},
+{id:"VE1_114_12", cat:"E1", year:"114年第12題", q:"有關土地開發分析法之資本利息綜合利率之敘述何者正確？", opts:["資本利息綜合利率＝貸款利息年利率×（建物價值比率＋土地價值比率×1/2）×開發年數", "資本利息綜合利率＝資本利息年利率×（建物價值比率＋土地價值比率×1/2）×開發年數", "資本利息綜合利率＝資本利息年利率×（土地價值比率＋建物價值比率×1/2）×開發年數", "資本利息綜合利率＝貸款利息年利率×（土地價值比率＋建物價值比率×1/2）×開發年數"], explains:["「貸款利息年利率」並非技術規則明定資本利息綜合利率公式所使用之變數名稱，規則使用之專有名詞為「資本利息年利率」；且括號內比例結構（建物比率＋土地比率×1/2）方向亦有誤。", "公式中比例結構錯誤，技術規則明定應為「土地價值比率＋建物價值比率×1/2」（建物打折），本選項將建物與土地角色對調，方向錯誤。", "技術規則第59條明定資本利息綜合利率公式為：資本利息年利率×(土地價值比率＋建物價值比率×1/2)×開發年數，與本選項完全相符。", "「貸款利息年利率」用詞誤植（應為資本利息年利率），且雖然比例結構正確，但變數名稱誤植仍屬錯誤敘述。"], correct:2, note:null}
+];
+const CAT_NAMES = {"E1": "E1 土地開發分析法"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_e1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_e1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_e1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_e1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

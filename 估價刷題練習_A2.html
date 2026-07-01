@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・A2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・A2
+      <span class="sub">A價格種類(A2)含逐選項解析・共 31 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/31</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VA2_99_25", cat:"A2", year:"99年第25題", q:"對都市邊緣未來有可能變更為建地之農地進行估價，其價格種類為何？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須具備不受特定條件影響、經適當市場行銷形成之一般市場價值，農地以「未來可能變更為建地」此特定前提估價，已附加特定條件，不符正常價格定義。", "限定價格係基於①權利與所有權合併②不動產合併③違反經濟合理性之分割三種限定條件之一形成，與「以未來可能變更用途之特定條件估價」之情境不符。", "技術規則第2條第3款明定：特定價格係具市場性之不動產，基於特定條件下形成之價值。農地以「未來有可能變更為建地」此一特定條件進行估價，正是特定價格之典型情境。", "特殊價格指對不具市場性之不動產所估計之價值，農地本身具有市場性，不適用特殊價格。"], correct:2, note:null},
+{id:"VA2_100_9", cat:"A2", year:"100年第9題", q:"不動產估價之價格種類，包括下列那些？①一般價格　②正常價格　③限定價格　④特定價格　⑤特別價格", opts:["②③④⑤", "①②③④", "①③④⑤", "②③④⑤"], explains:["①②③④缺少⑤特別價格，且①一般價格並非技術規則明定之四種價格種類之一。", "技術規則第2條第1-4款明定之價格種類為正常價格②、限定價格③、特定價格④、特殊價格（題目選項用「特別價格」⑤表示，惟此處依官方答案組合②③④⑤判斷，「特別價格」應理解為「特殊價格」之題目用語），①一般價格非規則定義範圍，不應列入。", "①③④⑤包含①一般價格，但一般價格非技術規則第2條明定之四種價格種類，且缺少②正常價格此一核心類別，組合錯誤。", "②③④⑤皆屬技術規則第2條明定之價格種類範疇（正常、限定、特定、特殊），不含①一般價格，與官方答案組合相符。"], correct:0, note:null},
+{id:"VA2_100_10", cat:"A2", year:"100年第10題", q:"下列何者屬於限定價格？①租賃權與租賃地合併之買賣　②企業資產重估　③違反經濟合理性之不動產分割買賣　④學校或公益使用之不動產估價", opts:["①③", "①②③", "①③④", "①②③④"], explains:["①租賃權與租賃地合併之買賣（屬不動產合併情形）、③違反經濟合理性之不動產分割買賣，皆屬技術規則第2條第2款明定之限定價格形成條件，組合正確。", "②企業資產重估屬於會計處理目的之價值評估，並非技術規則所定義限定價格之形成條件（限定價格須基於合併或違反經濟合理性分割等特定情境）。", "④學校或公益使用之不動產估價屬於使用目的之分類，並非限定價格之形成條件，限定價格強調「合併」或「分割」之交易情境而非使用目的。", "②④皆非限定價格之形成條件，不應列入。"], correct:0, note:null},
+{id:"VA2_100_13", cat:"A2", year:"100年第13題", q:"雙併公寓同層打通之住宅，其市場出售價格應以何種價格評估？", opts:["正常價格", "特定價格", "限定價格", "特殊價格"], explains:["雙併公寓同層打通後作為一般市場出售之住宅，其交易係在正常市場條件下進行，買賣雙方依專業知識謹慎行動，不受特定合併或分割前提之限制，屬於正常價格。", "特定價格須基於特定條件（如預期變更）形成，本題並無此類特定前提，僅是物理空間打通後的一般市場出售。", "限定價格須基於合併、分割等限定條件形成，本題打通後是作為一般住宅整體出售，並非以「合併」為目的之估價情境（合併已完成，現在是對打通後整體進行一般市場估價）。", "特殊價格指不具市場性之不動產，本題仍具一般住宅市場性，不適用。"], correct:0, note:null},
+{id:"VA2_101_11", cat:"A2", year:"101年第11題", q:"下例何者屬於具有市場性之價格？①正常價格　②限定價格　③特殊價格　④特定價格", opts:["①②", "①②③", "①②④", "①②③④"], explains:["①②僅列正常與限定價格，遺漏④特定價格，特定價格同樣具有市場性。", "①②③包含③特殊價格，但特殊價格定義為「不具市場性」之不動產所估計之價值，與「具有市場性」之題目要求矛盾，不應列入。", "正常價格①、限定價格②、特定價格④三者依技術規則定義皆為「具市場性」之不動產所形成之價值，僅特殊價格③為不具市場性，故①②④為正確組合。", "①②③④全選，但③特殊價格不具市場性，不應列入，組合錯誤。"], correct:2, note:null},
+{id:"VA2_101_21", cat:"A2", year:"101年第21題", q:"以不動產所有權以外其他權利與所有權合併為目的，如地上權人向地主購買設定地上權之土地，評估該土地之價格稱之為：", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須為一般市場交易形成之價值，本題是地上權人向地主購買設定地上權之土地，屬於權利與所有權合併之特殊交易情境，非一般市場正常交易。", "技術規則第2條第2款明定限定價格之第一種形成條件為「以不動產所有權以外其他權利與所有權合併為目的」，地上權人購買設定地上權之土地，正是地上權與土地所有權合併之典型情境，與題目敘述完全相符。", "特定價格須基於特定條件（如預期變更）形成，本題是權利合併情境，非特定條件估價。", "特殊價格指不具市場性之不動產，本題土地仍具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_101_23", cat:"A2", year:"101年第23題", q:"甲公司於A市擁有商業區土地一宗，擬將其分割為兩筆土地，一筆做為辦公大樓使用，另一筆做為百貨公司使用，以符合商業區土地的經濟效益。今如就前述兩筆土地進行估價，則價格種類為下列何者？", opts:["正常價格", "特殊價格", "限定價格", "特定價格"], explains:["甲公司將商業區土地分割為兩筆分別作辦公大樓與百貨公司使用，此分割係「為符合商業區土地之經濟效益」，並非違反經濟合理性之分割，反而是基於提升使用效益之合理分割，故仍應以正常價格估價（限定價格須以「違反經濟合理性之分割」為前提，本題分割合乎經濟效益，不符限定價格要件）。", "特殊價格指不具市場性之不動產，本題土地具市場性，不適用。", "限定價格須以「違反經濟合理性之分割」為前提形成，本題分割係為提升土地經濟效益而為，屬合理分割而非違反經濟合理性之分割，不符限定價格要件。", "特定價格須基於特定條件（如預期用途變更）形成，本題並無此類特定前提，僅是依法定用途分割兩塊土地分別估價。"], correct:0, note:null},
+{id:"VA2_102_2", cat:"A2", year:"102年第2題", q:"下列何者較接近不動產估價價格種類中之正常價格？", opts:["臺北市精華區標售國有土地價格", "實價登錄之價格", "奢侈稅經主管機關認定低報之銷售價格", "土地徵收補償所查估之市價"], explains:["標售國有土地之價格可能受標售程序、底價設定等特殊因素影響，未必完全反映正常市場供需下之合理價值，較難視為典型正常價格代表。", "實價登錄價格未經主管機關篩選排除特殊交易（親友間買賣、急售等），可能包含非正常交易情況，不宜直接視為正常價格代表。", "奢侈稅低報之銷售價格屬刻意規避稅負之不實申報價格，明顯非正常市場交易價值。", "土地徵收補償所查估之市價，依規定須切實反映一般正常交易情況下之市場價值，是技術規則所稱「正常價格」概念中最具代表性、最貼近一般市場合理交易條件的查估價格。"], correct:3, note:null},
+{id:"VA2_102_3", cat:"A2", year:"102年第3題", q:"不動產估價應先確定價格種類，如估價師受託辦理釣魚台估價，你認為應屬於何種價格？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["釣魚台主權具有爭議性質，且不具一般市場交易性，無法以一般市場條件估算正常價格。", "限定價格須基於合併或分割等特定交易情境形成，釣魚台估價並非此類交易情境。", "特定價格須基於特定條件（如未來用途變更）形成，與釣魚台不具市場性之本質不符。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，釣魚台屬不具一般市場交易性質之特殊不動產，與總統府、孔廟、龜山島等同屬特殊價格之典型例子。"], correct:3, note:null},
+{id:"VA2_103_27", cat:"A2", year:"103年第27題", q:"有一畸零地之地主擬購買鄰地合併開發，委託不動產估價師評估購買價格，此價格種類為何？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["畸零地地主擬購買鄰地合併開發，此交易係基於「不動產合併」之特定目的，並非一般市場正常交易，不適用正常價格。", "技術規則第2條第2款明定限定價格之第二種形成條件為「以不動產合併為目的」，畸零地地主購買鄰地以合併開發，正是不動產合併目的之典型情境，與題目相符。", "特定價格須基於特定條件（如預期用途變更）形成，本題是不動產合併情境，非特定條件估價。", "特殊價格指不具市場性之不動產，畸零地與鄰地皆具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_105_2", cat:"A2", year:"105年第2題", q:"請問國內某大專院校擬購買鄰接學校之土地作為擴校之用，此以合併使用為目的之不動產買賣，係屬下列何種價格？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["大專院校以擴校為目的購買鄰接學校之土地，此交易係基於合併使用之特定目的，並非一般市場正常交易，不適用正常價格。", "技術規則第2條第2款明定限定價格之第二種形成條件為「以不動產合併為目的」，大專院校購買鄰地以合併使用作擴校之用，正是不動產合併目的之典型情境，與題目相符。", "特定價格須基於特定條件（如預期用途變更）形成，本題是合併使用情境，非特定條件估價。", "特殊價格指不具市場性之不動產，學校與鄰接土地皆具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_105_3", cat:"A2", year:"105年第3題", q:"有關特殊價格的敘述，下列何者錯誤？", opts:["總統府的估價是屬特殊價格", "無法以貨幣金額表示", "指對不具市場性之不動產所估計之價值", "宗教建築物的估價是屬特殊價格"], explains:["總統府屬於不具一般市場交易性之指標性建築，其估價確實屬於特殊價格之範疇，此敘述正確，非本題答案（本題問「何者錯誤」）。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產「所估計之價值，並以貨幣金額表示者」，特殊價格仍須以貨幣金額表示，並非無法以貨幣金額表示，此為錯誤敘述，即本題正解。", "「指對不具市場性之不動產所估計之價值」是技術規則明定之正確定義，敘述正確。", "宗教建築物（如寺廟）通常不具一般市場交易性，其估價確實屬於特殊價格，此敘述正確。"], correct:1, note:null},
+{id:"VA2_105_7", cat:"A2", year:"105年第7題", q:"依不動產估價技術規則之規定，評估何種價格種類時，應同時估計其正常價格？", opts:["限定價格", "正常租金", "限定租金", "特定價格"], explains:["技術規則第2條第3款明定：特定價格須敘明估價條件，並同時估計其正常價格。惟本題標準答案為A限定價格，依規則第2條第2款及相關規定，限定價格同樣須同時估計其正常價格，作答時請以官方公告答案A為準（限定價格基於合併分割等特殊條件，須有正常價格作為比較基準，方能評估限定價格相對於正常市場之差異）。", "正常租金是對應正常價格之租賃合理價值概念，並非「應同時估計正常價格」之價格種類本身。", "限定租金基於續訂租約或不動產合併形成，並非本題所問「同時估計正常價格」之價格種類。", "特定價格依規則規定亦須敘明估價條件並同時估計正常價格，但本題官方答案鎖定為限定價格（A），特定價格與限定價格在「須同時估計正常價格」此一要求上具有相似性，作答時請以官方公告為準。"], correct:0, note:null},
+{id:"VA2_105_12", cat:"A2", year:"105年第12題", q:"某塊素地為都市計畫工業區土地，若以其變更為住宅區的前提來估價，請問評估之價格種類為：", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格反映一般市場正常交易情況下之價值，本題是以「變更為住宅區的前提」進行估價，已附加特定條件，不符正常價格定義。", "限定價格須基於合併或分割等特定交易情境形成，本題是用途變更前提估價，非合併或分割情境。", "技術規則第2條第3款明定特定價格係基於特定條件下形成之價值，工業區土地以「變更為住宅區」此一特定前提進行估價，正是特定價格之典型情境（與都市計畫變更相關的預期估價）。", "特殊價格指不具市場性之不動產，工業區土地具市場性，不適用。"], correct:2, note:null},
+{id:"VA2_106_1", cat:"A2", year:"106年第1題", q:"不動產估價應敘明價格種類，如估價師受託辦理太平島估價，您認為應屬於何種價格？", opts:["限定價格", "正常價格", "特定價格", "特殊價格"], explains:["限定價格須基於合併或分割等特定交易情境形成，太平島估價並非此類交易情境。", "正常價格須反映一般市場正常交易情況，太平島具有特殊地理及主權性質，不具一般市場交易性，不適用正常價格。", "特定價格須基於特定條件（如未來用途變更）形成，與太平島不具市場性之本質不符。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，太平島與釣魚台、龜山島、東沙島等同屬不具一般市場交易性質之特殊不動產，屬特殊價格。"], correct:3, note:null},
+{id:"VA2_106_2", cat:"A2", year:"106年第2題", q:"下列何種情況，可歸類於不動產估價價格種類中之正常價格？", opts:["實價登錄經主管機關篩選之價格", "臺北市精華區標售國有土地價格", "土地徵收補償所查估之市價", "實價課稅經主管機關認定低報之價格"], explains:["實價登錄價格若僅是「經主管機關篩選」，未必完全排除特殊交易因素，未必能直接視為正常價格的典型代表。", "標售國有土地之價格可能受標售程序、底價設定等特殊機制影響，未必完全反映正常市場供需下之合理價值。", "土地徵收補償所查估之市價，依規定須切實反映一般正常交易情況下之市場價值，是技術規則所稱正常價格概念中最具代表性的查估價格。", "實價課稅經主管機關認定低報之價格，屬刻意規避稅負之不實申報價格，明顯非正常市場交易價值。"], correct:2, note:null},
+{id:"VA2_107_16", cat:"A2", year:"107年第16題", q:"勘估標的是一都市邊緣之農地，未來極有可能變更為建地，今依委託人要求針對勘估標的未來可能變更為建地情況進行估價，其價格種類為何？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格反映一般市場正常交易情況下之價值，本題依委託人要求以「未來可能變更為建地情況」進行估價，已附加特定條件，不符正常價格定義。", "限定價格須基於合併或分割等特定交易情境形成，本題是用途變更前提估價，非合併或分割情境。", "技術規則第2條第3款明定特定價格係基於特定條件下形成之價值，都市邊緣農地以「未來極有可能變更為建地」此一特定前提進行估價，正是特定價格之典型情境。", "特殊價格指不具市場性之不動產，農地具市場性，不適用。"], correct:2, note:null},
+{id:"VA2_108_1", cat:"A2", year:"108年第1題", q:"甲君擬購買相鄰兩塊土地合併建築，請問在此目的下所評估出的價值，以貨幣金額表示者，稱為：", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格反映一般市場正常交易情況下之價值，本題是以「合併建築」為目的之估價，已附加特定合併條件，不符正常價格定義。", "技術規則第2條第2款明定限定價格之第二種形成條件為「以不動產合併為目的」，甲君擬購買相鄰兩塊土地合併建築，正是不動產合併目的之典型情境，與題目相符。", "特定價格須基於特定條件（如預期用途變更）形成，本題是合併目的情境，非特定條件估價。", "特殊價格指不具市場性之不動產，本題土地具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_108_24", cat:"A2", year:"108年第24題", q:"對具有市場性之不動產，以違反經濟合理性之不動產分割為前提，查估其所形成之價值，並以貨幣金額表示者，屬下列那一種價格？", opts:["特殊價格", "特定價格", "正常價格", "限定價格"], explains:["特殊價格指對「不具市場性」之不動產所估計之價值，本題標的具有市場性，不適用特殊價格。", "特定價格須基於特定條件（如未來用途變更）形成，本題是分割情境，非特定條件估價。", "正常價格反映一般市場正常交易情況下之價值，本題以「違反經濟合理性之分割」為前提估價，已偏離正常交易情況，不符正常價格定義。", "技術規則第2條第2款明定限定價格之第三種形成條件為「以違反經濟合理性之不動產分割為前提」，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA2_108_25", cat:"A2", year:"108年第25題", q:"下列敘述何者為正確？", opts:["具有市場性之不動產，以不動產所有權以外其他權利與所有權合併為目的，查估其所形成之價值，並以貨幣金額表示者，屬「限定價格」", "具有市場性之不動產，基於特定條件下形成之價值，並以貨幣金額表示者，為「特殊價格」", "對不具市場性之不動產所估計之價值，並以貨幣金額表示者，為「特定價格」", "對不具市場性之不動產，以不動產合併為目的，查估其所形成之價值，並以貨幣金額表示者，屬「限定價格」"], explains:["技術規則第2條第2款明定限定價格之第一種形成條件為「以不動產所有權以外其他權利與所有權合併為目的」，與本選項描述完全相符，為正確敘述。", "特定價格（而非特殊價格）才是「基於特定條件下形成之價值」，本選項將特定價格之定義誤植為特殊價格，敘述錯誤。", "特殊價格才是「對不具市場性之不動產所估計之價值」，本選項將特殊價格之定義誤植為特定價格，敘述錯誤。", "限定價格須是「具有市場性」之不動產，本選項描述「對不具市場性之不動產，以不動產合併為目的」，將具市場性與不具市場性的前提混淆，且不具市場性之不動產合併估價應屬特殊價格範疇，敘述錯誤。"], correct:0, note:null},
+{id:"VA2_109_12", cat:"A2", year:"109年第12題", q:"正常價格的定義中，不包含下列那一要件？", opts:["形成正常價格的不動產具備市場性", "係為有意願的買賣雙方，依專業知識分析與謹慎行動的交易", "有意願之買賣雙方不受債權債務關係或親友關係人等等壓力或脅迫", "經適當市場行銷及交易雙方條件形成之價值"], explains:["正常價格定義要件之一為「形成正常價格的不動產具備市場性」，這是正確要件，非本題答案（本題問「不包含」哪一要件）。", "「係為有意願的買賣雙方，依專業知識分析與謹慎行動的交易」是技術規則第2條第1款正常價格定義的正確要件之一。", "「有意願之買賣雙方不受債權債務關係或親友關係人等等壓力或脅迫」同樣是正常價格定義的正確要件之一。", "正常價格定義要求「經適當市場行銷及『正常交易條件』形成之價值」，本選項稱「交易雙方條件形成之價值」，未精確對應規則用語「正常交易條件」，此為定義中不包含或表述不精確之要件，即本題正解。"], correct:3, note:null},
+{id:"VA2_109_24", cat:"A2", year:"109年第24題", q:"依據不動產估價技術規則規定，不動產估價應敘明價格種類，請問辦理東沙島估價，此屬於何種價格？", opts:["正常價格", "特殊價格", "限定價格", "特定價格"], explains:["正常價格須反映一般市場正常交易情況，東沙島具特殊地理及主權性質，不具一般市場交易性，不適用正常價格。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，東沙島與釣魚台、太平島、龜山島等同屬不具一般市場交易性質之特殊不動產，屬特殊價格。", "限定價格須基於合併或分割等特定交易情境形成，東沙島估價並非此類交易情境。", "特定價格須基於特定條件（如未來用途變更）形成，與東沙島不具市場性之本質不符。"], correct:1, note:null},
+{id:"VA2_110_7", cat:"A2", year:"110年第7題", q:"對不具市場性之不動產所估計之價值，並以貨幣金額表示者，為何種價格？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須具備市場性並反映一般市場正常交易情況，與「不具市場性」之前提矛盾。", "限定價格須是「具有市場性」之不動產基於合併分割等條件形成，與「不具市場性」之前提矛盾。", "特定價格須是「具有市場性」之不動產基於特定條件形成，與「不具市場性」之前提矛盾。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，並以貨幣金額表示者，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA2_110_16", cat:"A2", year:"110年第16題", q:"土地承租人欲購買所承租土地供未來繼續使用，委託不動產估價師進行估價，其價格種類為何？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格反映一般市場正常交易情況下之價值，本題承租人購買所承租土地供繼續使用，屬於權利與所有權合併之特殊情境，非一般市場正常交易。", "技術規則第2條第2款明定限定價格之第一種形成條件為「以不動產所有權以外其他權利與所有權合併為目的」，土地承租人（具租賃權）欲購買所承租土地（取得所有權），正是租賃權與所有權合併之典型情境，與題目敘述相符。", "特定價格須基於特定條件（如預期用途變更）形成，本題是權利合併情境，非特定條件估價。", "特殊價格指不具市場性之不動產，本題土地具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_111_2", cat:"A2", year:"111年第2題", q:"不動產估價應敘明價格種類，當不動產估價師受託辦理龜山島估價，您認為應屬於何種價格種類？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須反映一般市場正常交易情況，龜山島具特殊地理性質，不具一般市場交易性，不適用正常價格。", "限定價格須基於合併或分割等特定交易情境形成，龜山島估價並非此類交易情境。", "特定價格須基於特定條件（如未來用途變更）形成，與龜山島不具市場性之本質不符。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，龜山島與釣魚台、太平島、東沙島等同屬不具一般市場交易性質之特殊不動產，屬特殊價格。"], correct:3, note:null},
+{id:"VA2_111_12", cat:"A2", year:"111年第12題", q:"不動產估價之限定價格指具有市場性之不動產，在下列限定條件之一所形成之價值，並以貨幣金額表示者。請問下列何者非屬限定條件？", opts:["以不動產所有權以外其他權利與所有權合併為目的", "以不動產合併為目的", "以違反經濟合理性之不動產分割為前提", "經適當市場行銷及正常交易條件形成"], explains:["「以不動產所有權以外其他權利與所有權合併為目的」是技術規則第2條第2款明定的限定條件之一，非本題答案（本題問「非屬」哪一限定條件）。", "「以不動產合併為目的」同樣是規則明定的限定條件之一。", "「以違反經濟合理性之不動產分割為前提」同樣是規則明定的限定條件之一。", "「經適當市場行銷及正常交易條件形成」是正常價格的定義要件，並非限定價格的限定條件；限定價格恰好是「在限定條件下」形成，與正常市場行銷交易條件形成之概念相反，本選項非屬限定條件，即本題正解。"], correct:3, note:null},
+{id:"VA2_111_13", cat:"A2", year:"111年第13題", q:"不動產估價，應註明其價格種類；以何種價格估價時應敘明其估價條件，並同時估計其正常價格？", opts:["限定價格", "特殊價格", "特定價格", "特別價格"], explains:["限定價格須敘明估價條件，但依技術規則規定特定價格之規範更直接對應「敘明估價條件並同時估計正常價格」之描述。", "特殊價格指不具市場性不動產之估價，不涉及「敘明估價條件並同時估計正常價格」之要求。", "技術規則第6條第2項及第2條第3款明定：以特定價格估價者，應敘明其估價條件，並同時估計其正常價格，與題目敘述完全相符。", "「特別價格」並非技術規則明定之正式價格種類名稱，技術規則僅定義正常、限定、特定、特殊四種價格。"], correct:2, note:null},
+{id:"VA2_111_22", cat:"A2", year:"111年第22題", q:"科學園區附近的農業用地，未來可能變更為建地，土地所有權人要求估價人員針對其農地未來可能變更為建地情況進行估價，請問該筆土地的價格屬於何種類？", opts:["正常價格", "特定價格", "限定價格", "特殊價格"], explains:["正常價格反映一般市場正常交易情況下之價值，本題是依土地所有權人要求以「未來可能變更為建地情況」進行估價，已附加特定條件，不符正常價格定義。", "技術規則第2條第3款明定特定價格係基於特定條件下形成之價值，科學園區附近農地以「未來可能變更為建地」此一特定前提進行估價，正是特定價格之典型情境。", "限定價格須基於合併或分割等特定交易情境形成，本題是用途變更前提估價，非合併或分割情境。", "特殊價格指不具市場性之不動產，農地具市場性，不適用。"], correct:1, note:null},
+{id:"VA2_112_2", cat:"A2", year:"112年第2題", q:"不動產估價師受託評估總統府價值，此屬於何種價格種類？", opts:["申報價格", "特殊價格", "特定價格", "限定價格"], explains:["「申報價格」並非技術規則明定之正式價格種類，屬於混淆選項。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，總統府屬於指標性公有建築，不具一般市場交易性，與孔廟、媽祖廟等同屬特殊價格之典型例子。", "特定價格須基於特定條件（如未來用途變更）形成，與總統府不具市場性之本質不符。", "限定價格須基於合併或分割等特定交易情境形成，總統府估價並非此類交易情境。"], correct:1, note:null},
+{id:"VA2_113_17", cat:"A2", year:"113年第17題", q:"下列那種情況評估的是特殊價格？", opts:["估價師受託辦理評估因都市計畫將公園變更為住宅用地之土地價格", "估價師受託辦理評估以土地租賃權與租賃地合併為目的之價格", "估價師受託辦理評估大甲鎮瀾宮的價格", "估價師受託辦理評估都市邊緣未來可能變更為建地的農地價格"], explains:["都市計畫將公園變更為住宅用地之土地價格，是基於「特定條件」（都市計畫變更）形成之價值，屬於特定價格而非特殊價格。", "土地租賃權與租賃地合併為目的之價格，是「權利與所有權合併」之情境，屬於限定價格而非特殊價格。", "大甲鎮瀾宮是著名宗教建築物，與孔廟、媽祖廟同屬不具一般市場交易性之指標性建築，依技術規則第2條第4款屬於特殊價格，與題目敘述相符。", "都市邊緣未來可能變更為建地的農地價格，是基於「特定條件」（未來變更）形成之價值，屬於特定價格而非特殊價格。"], correct:2, note:null},
+{id:"VA2_114_16", cat:"A2", year:"114年第16題", q:"評估臺南孔廟的現值，依不動產估價技術規則之規定，其價格種類為下列何者？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須反映一般市場正常交易情況，孔廟具特殊宗教文化性質，不具一般市場交易性，不適用正常價格。", "限定價格須基於合併或分割等特定交易情境形成，孔廟估價並非此類交易情境。", "特定價格須基於特定條件（如未來用途變更）形成，與孔廟不具市場性之本質不符。", "技術規則第2條第4款明定特殊價格係對不具市場性之不動產所估計之價值，臺南孔廟屬於著名宗教文化古蹟，不具一般市場交易性，與總統府、媽祖廟等同屬特殊價格之典型例子。"], correct:3, note:null}
+];
+const CAT_NAMES = {"A2": "A2 價格種類"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_a2_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_a2_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_a2_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_a2_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

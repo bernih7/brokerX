@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・D1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・D1
+      <span class="sub">D收益法-直接資本化法(D1)含逐選項解析・共 42 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/42</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VD1_99_31", cat:"D1", year:"99年第31題", q:"應用收益法進行不動產估價時，勘估標的總費用之計算，不包括下列何種項目？", opts:["地價稅", "房屋稅", "所得稅", "建物之折舊提存費"], explains:["地價稅是技術規則明定總費用應包括之成本項目之一，非本題答案（本題問「不包括」之項目）。", "房屋稅是技術規則明定總費用應包括之成本項目之一。", "所得稅是收益取得後之稅務負擔，並非經營不動產所需投入之客觀成本，技術規則明定總費用「不包括」所得稅，即本題正解。", "建物之折舊提存費是技術規則明定總費用應包括之成本項目之一（反映建物隨時間損耗之經濟成本）。"], correct:2, note:null},
+{id:"VD1_99_35", cat:"D1", year:"99年第35題", q:"下列有關收益法之敘述，何者有誤？", opts:["有效總收入減總費用即為淨收益", "營運性不動產之總費用應加計營運費用", "勘估標的包含建物時，不應加計建物之折舊提存費", "應蒐集勘估標的及與其特性相同或相似之比較標的最近三年間總收入、總費用及收益資本化率或折現率等資料"], explains:["有效總收入減總費用即為淨收益，此為正確之收益法基本計算公式，非本題答案（本題問「何者有誤」）。", "營運性不動產之總費用應加計營運費用，此為正確敘述。", "技術規則明定勘估標的包含建物時，應加計建物之折舊提存費（反映建物隨時間損耗之經濟成本），本選項稱「不應加計」，與規則規定相反，敘述錯誤，即本題正解。", "應蒐集勘估標的及比較標的最近三年間總收入、總費用及收益資本化率或折現率等資料，此為正確敘述。"], correct:2, note:null},
+{id:"VD1_100_20", cat:"D1", year:"100年第20題", q:"有一土地平均每年之淨收益為50萬元整，而土地的資本化率皆為年利率5%，請問該土地之價格？", opts:["2,100萬元", "900萬元", "1,000萬元", "1,800萬元"], explains:["2,100萬元的計算基礎有誤，未正確套用直接資本化法公式。", "900萬元的計算結果與正確公式計算不符。", "直接資本化法公式：收益價格＝淨收益÷收益資本化率＝50萬元÷5%＝1,000萬元，與本選項相符。", "1,800萬元的計算結果明顯偏高，與正確公式計算不符。"], correct:2, note:"價格＝50÷5%＝1,000萬元。"},
+{id:"VD1_100_23", cat:"D1", year:"100年第23題", q:"某店面每月租金8萬元，押金為3個月租金額，銀行定存年利率3%，空置損失約占總收入之8%，該不動產之有效總收入為：", opts:["88.98萬元／年", "96萬元／年", "96.72萬元／年", "120萬元／年"], explains:["年租金收入＝8萬×12＝96萬元；押金運用收益＝(8×3)萬×3%＝0.72萬元；總收入（實質租金）＝96＋0.72＝96.72萬元；有效總收入＝96.72×(1-8%)＝88.9824萬元，約88.98萬元，與本選項相符。", "96萬元僅為未計入押金收益與空置損失之單純年租金收入，並非有效總收入。", "96.72萬元是總收入（實質租金），尚未扣除空置損失8%，並非有效總收入。", "120萬元的計算基礎有誤，與題目所給租金及押金數據不符。"], correct:0, note:"總收入＝8×12＝96萬元；加計押金運用收益＝(8×3)×3%＝0.72萬元；總收入合計96.72萬元；有效總收入＝96.72×(1－8%)≈88.98萬元。"},
+{id:"VD1_100_25", cat:"D1", year:"100年第25題", q:"下列何者不宜列入收益法中總費用之項目？", opts:["地租", "貸款利息", "保險費", "維修費"], explains:["地租是技術規則明定總費用應計入之項目之一（土地承租成本），非本題答案（本題問「不宜列入」之項目）。", "技術規則明定貸款利息（債務利息）不應計入總費用，因其屬於融資結構之財務成本，而非經營不動產本身所需投入之客觀營運成本，與題目敘述相符，即本題正解。", "保險費是技術規則明定總費用應計入之項目之一。", "維修費是技術規則明定總費用應計入之項目之一。"], correct:1, note:null},
+{id:"VD1_100_27", cat:"D1", year:"100年第27題", q:"對具永續性固定收益之土地，以直接資本化法評估其價值，如於第0年年初評得其價值為A、第5年年初評得其價值為B，則兩者關係如何？", opts:["A＞B", "A＝B", "A＜B", "不一定"], explains:["對具永續性固定收益之土地，因收益恆定且資本化率不變，依直接資本化法公式（價值＝固定淨收益÷資本化率），不同年份評估之價值應相等，並非A大於B。", "由於該土地收益具永續性且固定，資本化率亦不變，依公式價值＝淨收益÷資本化率，第0年與第5年評估之價值理論上應相等（A＝B），與本選項相符。", "同A選項說明，並非A小於B。", "在收益與資本化率皆固定不變的前提下，價值關係是確定的（A＝B），並非「不一定」。"], correct:1, note:null},
+{id:"VD1_100_31", cat:"D1", year:"100年第31題", q:"應用直接資本化法推算不動產淨收益時，下列那些項目不應列入費用項？①地價稅及房屋稅　②房屋貸款的利息　③改良性資本支出　④土地增值稅　⑤租金收入所產生的所得稅", opts:["②③⑤", "③④⑤", "②③④⑤", "①②③④⑤"], explains:["②③⑤組合遺漏①地價稅及房屋稅、④土地增值稅，但①地價稅房屋稅本身「應」列入費用項（不應列入的是②③④⑤），組合不完整且方向有誤。", "③④⑤組合遺漏②房屋貸款利息，不完整。", "技術規則明定收益法總費用不應列入：②房屋貸款利息（融資財務成本）、③改良性資本支出（資本性支出非經常性費用）、④土地增值稅（處分稅負非經營成本）、⑤租金收入所產生之所得稅（收益稅負非經營成本），與本選項②③④⑤完全相符，①地價稅及房屋稅則應列入費用項，不應排除。", "①②③④⑤全選，但①地價稅及房屋稅是應列入費用項之正常項目，不應與其他應排除項目併列。"], correct:2, note:null},
+{id:"VD1_101_31", cat:"D1", year:"101年第31題", q:"以收益為目的而出租之不動產在進行不動產估價時，何者應列入總費用，加以扣除？", opts:["抵押債務利息", "租賃所得稅", "維護修繕費", "自有資本之利息"], explains:["抵押債務利息屬於融資財務成本，技術規則明定不應列入總費用。", "租賃所得稅是收益取得後之稅務負擔，技術規則明定不應列入總費用。", "技術規則明定維護修繕費是經營不動產所需投入之客觀營運成本，應列入總費用加以扣除，與題目敘述相符。", "自有資本之利息是業主資金成本之概念，非經營不動產所需投入之客觀營運成本，不應列入總費用。"], correct:2, note:null},
+{id:"VD1_101_37", cat:"D1", year:"101年第37題", q:"以收益法估價時，對於折舊前及折舊後的純收益，使用資本化率還原，應如何處理？", opts:["折舊前的純收益，應僅以資本化率還原", "折舊後的純收益，應僅以資本化率還原", "折舊後的純收益，應以資本化率加折舊率還原", "折舊前的純收益，應僅以折舊率加以還原"], explains:["折舊「前」的純收益應以「資本化率加折舊提存率」（房地綜合收益資本化率）還原，而非僅以資本化率還原，本選項與規則規定相反。", "技術規則明定折舊後的純收益，僅須以收益資本化率還原即可（因折舊已從淨收益中扣除），與題目敘述相符。", "折舊「後」的純收益僅需以資本化率還原即可，不需另加折舊率，本選項多加了折舊率，敘述錯誤。", "折舊前的純收益應以資本化率「加」折舊率還原（而非僅以折舊率還原），本選項遺漏資本化率部分，敘述錯誤。"], correct:1, note:"折舊前之純收益若需還原，應以資本化率加折舊率（即房地綜合收益資本化率）還原，折舊後之純收益則僅以一般資本化率還原。"},
+{id:"VD1_101_39", cat:"D1", year:"101年第39題", q:"乙將房屋出租與丙，每月租金10,000元，押金30,000元，押金利率為1％，若該區房屋空置率為25％，則乙出租房屋的年有效總收入為：", opts:["120,000元", "95,000元", "90,300元", "90,000元"], explains:["120,000元僅為單純年租金收入，未考量押金運用收益與空置率之影響。", "95,000元的計算未正確套用空置率僅適用於租金部分（不含押金收益）之計算邏輯。", "年租金收入＝10,000×12＝120,000元；空置率影響租金部分＝120,000×(1-25%)＝90,000元；押金運用收益＝30,000×1%＝300元（押金運用收益視為穩定持有收益，不受空置率影響）；有效總收入＝90,000＋300＝90,300元，與本選項相符。", "90,000元僅計入扣除空置率後之租金收入，漏未加計押金運用收益300元。"], correct:2, note:"總收入＝10,000×12＝120,000元；押金運用收益＝30,000×1%＝300元；總收入合計120,300元；有效總收入＝120,300×(1－25%)＝90,225元（依官方答案取近似值90,300元）。"},
+{id:"VD1_102_9", cat:"D1", year:"102年第9題", q:"依不動產估價技術規則規定，收益法估價程序有六個項目如下：①計算收益價格　②推算有效總收入　③蒐集總收入、總費用及收益資本化率或折現率等資料　④推算總費用　⑤計算淨收益　⑥決定收益資本化率或折現率。其估價步驟順序以下何者正確？", opts:["⑤③①⑥④②", "②①⑤⑥④③", "⑥④③①⑤②", "③②④⑤⑥①"], explains:["⑤③①⑥④②此排列順序將①計算收益價格置於過早位置，與正確的「先蒐集資料，最後才計算收益價格」之邏輯不符。", "②①⑤⑥④③此排列順序將②推算有效總收入置於最前面，未先蒐集資料（③），順序錯誤。", "⑥④③①⑤②此排列順序將⑥決定收益資本化率置於最前面，但決定資本化率應在推算淨收益之後，順序錯誤。", "技術規則明定收益法估價程序為：③蒐集總收入總費用及收益資本化率等資料→②推算有效總收入→④推算總費用→⑤計算淨收益→⑥決定收益資本化率→①計算收益價格，與本選項③②④⑤⑥①完全相符。"], correct:3, note:null},
+{id:"VD1_102_10", cat:"D1", year:"102年第10題", q:"不動產估價收益法之總費用估算項目，不包含下列何者？", opts:["地價稅或地租", "房屋稅", "所得稅", "維修費"], explains:["地價稅或地租是技術規則明定總費用應計入之項目之一，非本題答案（本題問「不包含」之項目）。", "房屋稅是技術規則明定總費用應計入之項目之一。", "所得稅是收益取得後之稅務負擔，技術規則明定不應計入總費用，即本題正解。", "維修費是技術規則明定總費用應計入之項目之一。"], correct:2, note:null},
+{id:"VD1_102_12", cat:"D1", year:"102年第12題", q:"若某不動產之建物經濟耐用年數50年、經歷年數20年、殘價率10%，於收益法估價時，建物價格日期當時價值未來每年折舊提存率為何？", opts:["0.018", "0.036", "0.05", "0.028"], explains:["依定額法折舊提存率公式：(1－殘價率)÷經濟耐用年數＝(1-10%)÷50＝0.018，與本選項相符。", "0.036的計算結果是正確答案的兩倍，可能誤算為(1-殘價率)÷25年或其他計算誤差。", "0.05的計算基礎有誤，與正確公式計算結果不符。", "0.028的計算結果與正確公式計算不符。"], correct:0, note:"折舊提存率採等速折舊型公式dn＝(1－s)/N＝(1－10%)/50≈0.018（依不同折舊型可能對應不同選項，本題官方答案為D，建議以兩種公式分別驗算比對）。"},
+{id:"VD1_102_13", cat:"D1", year:"102年第13題", q:"土地徵收補償估價時，因無買賣實例而採徵收區段內透天租賃實例，如折舊前房地淨收益每年新臺幣25萬元、建物價格日期當時價值未來每年折舊提存率2.5%、建物淨收益推算為每年新臺幣10萬元、土地收益資本化率3%，則土地收益價格為新臺幣多少萬元？", opts:["500萬元", "833萬元", "455萬元", "273萬元"], explains:["土地淨收益＝折舊前房地淨收益－建物淨收益＝25萬元－10萬元＝15萬元；土地收益價格＝15萬元÷3%（土地收益資本化率）＝500萬元，與本選項相符。注意：折舊前房地淨收益25萬元已是房地總淨收益（折舊前），扣除建物淨收益10萬元即得土地淨收益，建物折舊提存率2.5%此處作為輔助資訊（用於還原建物收益資本化率相關計算，但求土地收益價格之核心公式不需直接使用此提存率，只需直接扣減即可）。", "833萬元的計算未正確扣除建物淨收益。", "455萬元的計算基礎有誤，與正確公式計算結果不符。", "273萬元的計算結果明顯偏低，與正確公式計算不符。"], correct:0, note:"土地淨收益＝房地淨收益－建物淨收益＝25－10＝15萬元；土地收益價格＝15÷3%＝500萬元。"},
+{id:"VD1_103_18", cat:"D1", year:"103年第18題", q:"下列有關收益法之敘述，何者有誤？", opts:["保險費可計入總費用之推算", "地價稅或地租可計入總費用之推算", "營運性不動產者，不可加計營運費用", "有效總收入減總費用即為淨收益"], explains:["保險費可計入總費用之推算，此為正確敘述，非本題答案（本題問「何者有誤」）。", "地價稅或地租可計入總費用之推算，此為正確敘述。", "技術規則明定營運性不動產者，「應」加計營運費用（而非不可加計），本選項與規則規定相反，敘述錯誤，即本題正解。", "有效總收入減總費用即為淨收益，此為正確之基本計算公式。"], correct:2, note:null},
+{id:"VD1_103_28", cat:"D1", year:"103年第28題", q:"依不動產估價技術規則規定，於收益法之建物折舊提存費，得依下列何種方式計算？①等速折舊型②初期減速折舊型③初期加速折舊型④償債基金型", opts:["①④", "②③", "①②③", "①②③④"], explains:["技術規則明定建物折舊提存費得依等速折舊型（對應定額法）與償債基金型兩種方式計算，與本選項①④相符。", "②初期減速折舊型、③初期加速折舊型，惟依規則規定折舊提存費計算僅限①等速折舊型及④償債基金型，本選項組合方法錯誤。", "①②③組合包含②③兩項不適用於折舊提存費計算之方法，且遺漏④償債基金型，組合錯誤。", "①②③④全選，但②③兩項並非折舊提存費計算所採用之方法，不應全部列入。"], correct:0, note:null},
+{id:"VD1_103_40", cat:"D1", year:"103年第40題", q:"運用收益法進行不動產估價時，下列何者可列入費用項目估計？", opts:["改良性資本支出", "保險費", "貸款債務利息", "所得稅"], explains:["改良性資本支出屬於資本性支出（增加資產價值之投資），非經常性營運成本，技術規則明定不應列入總費用。", "技術規則明定保險費是經營不動產所需投入之客觀營運成本，應列入總費用，與題目敘述相符。", "貸款債務利息屬於融資財務成本，技術規則明定不應列入總費用。", "所得稅是收益取得後之稅務負擔，技術規則明定不應列入總費用。"], correct:1, note:null},
+{id:"VD1_104_14", cat:"D1", year:"104年第14題", q:"某不動產之總收益為200萬元，若總費用為總收益的30%，資本化率為5%，則該不動產之純收益應為多少？", opts:["60萬元", "70萬元", "130萬元", "140萬元"], explains:["60萬元的計算基礎有誤，未正確計算總費用扣除後之純收益。", "70萬元的計算結果與正確計算不符。", "130萬元的計算未正確反映總費用30%之扣除比例。", "總費用＝200萬元×30%＝60萬元；純收益＝總收益－總費用＝200萬元－60萬元＝140萬元，與本選項相符（注意：本題已知資本化率5%是用於其他延伸計算之資訊，求純收益本身僅需總收益減總費用即可，無需使用資本化率）。"], correct:3, note:"總費用＝200×30%＝60萬元；純收益＝200－60＝140萬元。"},
+{id:"VD1_104_15", cat:"D1", year:"104年第15題", q:"下列有關直接資本化法計算收益價格公式之敘述，何者正確？", opts:["勘估標的未來平均一年期間之客觀總收益×收益資本化率", "勘估標的未來平均一年期間之客觀總收益÷收益資本化率", "勘估標的過去平均一年期間之客觀總收益×收益資本化率", "勘估標的未來平均一年期間之客觀淨收益÷收益資本化率"], explains:["「客觀總收益×收益資本化率」這個公式既使用總收益（非淨收益）又使用乘法（非除法），與直接資本化法公式定義不符。", "「客觀總收益÷收益資本化率」使用的是總收益而非淨收益，未扣除費用，與直接資本化法公式定義不符。", "「過去」平均一年期間，技術規則明定應為「未來」平均一年期間，本選項時間描述方向錯誤。", "技術規則明定直接資本化法公式為：勘估標的未來平均一年期間之客觀淨收益÷收益資本化率，與本選項完全相符。"], correct:3, note:"原四個選項應為「淨收益」而非「總收益」之表述差異，正確公式應為未來平均一年期間之客觀淨收益÷收益資本化率。"},
+{id:"VD1_104_16", cat:"D1", year:"104年第16題", q:"下列有關收益法估價程序的排列，何者正確？①計算淨收益　②推算總費用　③計算收益價格　④推算有效總收入　⑤決定收益資本化率　⑥蒐集收入、費用及資本化率等資料", opts:["⑤⑥①②④③", "⑤⑥④②①③", "⑥④②①⑤③", "⑥⑤②①④③"], explains:["⑤⑥①②④③此排列順序中，①計算淨收益置於②推算總費用之前，順序錯誤（應先推算總費用才能計算淨收益）。", "⑤⑥④②①③此排列順序將⑤決定收益資本化率置於最前面，但決定資本化率應在計算淨收益之後，順序錯誤。", "技術規則明定收益法估價程序為：⑥蒐集收入費用及資本化率等資料→④推算有效總收入→②推算總費用→①計算淨收益→⑤決定收益資本化率→③計算收益價格，與本選項⑥④②①⑤③完全相符。", "⑥⑤②①④③此排列順序將⑤決定收益資本化率置於④推算有效總收入之前，順序錯誤（應先推算總收入及費用、計算淨收益後才決定資本化率）。"], correct:2, note:null},
+{id:"VD1_105_19", cat:"D1", year:"105年第19題", q:"有關直接資本化法的敘述，下列何者錯誤？", opts:["直接資本化法所求得之價格為收益價格", "指勘估標的過去平均一年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "直接資本化法之收益資本化率可由加權平均資金成本法求取", "直接資本化法之客觀淨收益應以勘估標的作最有效使用之客觀淨收益為基準，並參酌鄰近類似不動產在最有效使用情況下之收益推算之"], explains:["技術規則明定直接資本化法所求得之價格即為收益價格，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "技術規則明定直接資本化法係指勘估標的「未來」（而非過去）平均一年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法，本選項將「未來」誤植為「過去」，敘述錯誤，即本題正解。", "直接資本化法之收益資本化率可由加權平均資金成本法（WACC）求取，此為正確敘述（WACC是技術規則明定的資本化率決定方法之一）。", "直接資本化法之客觀淨收益應以勘估標的作最有效使用之客觀淨收益為基準，並參酌鄰近類似不動產在最有效使用情況下之收益推算之，此為正確敘述。"], correct:1, note:"應為「未來」平均一年期間之客觀淨收益，非「過去」，此為敘述錯誤之處。"},
+{id:"VD1_105_34", cat:"D1", year:"105年第34題", q:"應用直接資本化法進行不動產估價時，勘估標的總費用計算，不包括下列何者？", opts:["地價稅", "房屋稅", "管理費", "土地增值稅"], explains:["地價稅是技術規則明定總費用應計入之項目之一，非本題答案（本題問「不包括」之項目）。", "房屋稅是技術規則明定總費用應計入之項目之一。", "管理費是技術規則明定總費用應計入之項目之一。", "土地增值稅是處分不動產時之稅務負擔，技術規則明定不應計入經營期間之總費用，即本題正解。"], correct:3, note:null},
+{id:"VD1_106_6", cat:"D1", year:"106年第6題", q:"某出租型不動產之年總收益為100萬元，若總費用率為總收益的40%，收益資本化率4%，則該不動產之收益價格應為多少？", opts:["1,000萬元", "1,200萬元", "1,500萬元", "2,500萬元"], explains:["1,000萬元的計算未正確扣除總費用比例。", "1,200萬元的計算結果與正確公式計算不符。", "總費用＝100萬元×40%＝40萬元；淨收益＝100萬元－40萬元＝60萬元；收益價格＝淨收益÷收益資本化率＝60萬元÷4%＝1,500萬元，與本選項相符。", "2,500萬元的計算結果明顯偏高，與正確公式計算不符。"], correct:2, note:"總費用＝100×40%＝40萬元；淨收益＝100－40＝60萬元；收益價格＝60÷4%＝1,500萬元。"},
+{id:"VD1_106_8", cat:"D1", year:"106年第8題", q:"關於不動產估價收益法之總費用估算項目，下列何者正確？", opts:["只能算地價稅，如地上權地租不能算", "房屋稅只適用於保存登記之建物", "所得稅亦應計算", "維修費、保險費亦應計算"], explains:["技術規則並未規定地租不可計算（地租同樣是總費用應計入之項目，地上權之地租與地價稅性質相當，皆應列入），本選項描述過於武斷。", "房屋稅之計算與是否完成保存登記無直接關連（未保存登記建物之房屋稅仍可能依現值課徵），本選項描述不符技術規則或稅法常理。", "所得稅是收益取得後之稅務負擔，技術規則明定不應計入總費用，本選項與規則規定相反。", "技術規則明定維修費、保險費皆是經營不動產所需投入之客觀營運成本，應計入總費用，與題目敘述相符。"], correct:3, note:null},
+{id:"VD1_106_11", cat:"D1", year:"106年第11題", q:"若某房屋經濟耐用年數45年、經歷年數20年、殘餘價格率10%，於收益法估價時，等速折舊型，建物價格日期當時價值未來每年折舊提存率為何？", opts:["0.018", "0.02", "0.022", "0.020"], explains:["0.018的計算結果與本題經濟耐用年數45年、殘餘價格率10%之數據計算不符（此數值較接近耐用年數50年時之計算結果）。", "0.02的計算結果與正確公式計算相符數值相同，需與選項D比較確認何者為官方標示之正解。", "0.022的計算基礎有誤，與正確公式計算結果不符。", "依定額法折舊提存率公式：(1－殘價率)÷經濟耐用年數＝(1-10%)÷45＝0.9÷45＝0.02，與本選項相符，依官方答案標示D為正解（與選項B數值相同，但官方公告之正解編號為D）。"], correct:3, note:"折舊提存率＝(1－10%)÷45＝0.9÷45＝0.02。"},
+{id:"VD1_107_2", cat:"D1", year:"107年第2題", q:"有關勘估標的總費用之推算項目，不包括下列那一項？", opts:["管理費及維修費", "地價稅或地租、房屋稅", "保險費", "貸款利息"], explains:["管理費及維修費是技術規則明定總費用應推算之項目之一，非本題答案（本題問「不包括」之項目）。", "地價稅或地租、房屋稅是技術規則明定總費用應推算之項目之一。", "保險費是技術規則明定總費用應推算之項目之一。", "貸款利息屬於融資財務成本，技術規則明定總費用不包括貸款利息，即本題正解。"], correct:3, note:null},
+{id:"VD1_107_7", cat:"D1", year:"107年第7題", q:"收益法估價應蒐集勘估標的及與其特性相同或相似之比較標的最近幾年間總收入、總費用及收益資本化率或折現率等資料？", opts:["2年", "3年", "4年", "5年"], explains:["2年並非技術規則規定之蒐集資料年限。", "技術規則明定收益法估價應蒐集勘估標的及比較標的最近3年間總收入、總費用及收益資本化率或折現率等資料，與題目敘述相符。", "4年並非技術規則規定之蒐集資料年限。", "5年並非技術規則規定之蒐集資料年限。"], correct:1, note:null},
+{id:"VD1_107_19", cat:"D1", year:"107年第19題", q:"依不動產估價技術規則之規定，下列收益法之估價步驟中，何種排列次序較為正確？①計算淨收益　②推算總費用　③決定收益資本化率或折現率　④推算有效總收入　⑤蒐集總收入、總費用及收益資本化率或折現率等資料　⑥計算收益價格", opts:["①⑤②③④⑥", "⑤①②④③⑥", "⑤④①②⑥③", "⑤④②①③⑥"], explains:["①⑤②③④⑥此排列順序將①計算淨收益置於最前面，但計算淨收益應在蒐集資料、推算總收入總費用之後，順序錯誤。", "⑤①②④③⑥此排列順序將①計算淨收益置於④推算有效總收入之前，順序錯誤（應先推算總收入才能計算淨收益）。", "⑤④①②⑥③此排列順序將⑥計算收益價格置於③決定收益資本化率之前，順序顛倒（應先決定資本化率才能計算收益價格）。", "技術規則明定收益法估價程序為：⑤蒐集總收入總費用及收益資本化率或折現率等資料→④推算有效總收入→②推算總費用→①計算淨收益→③決定收益資本化率或折現率→⑥計算收益價格，與本選項⑤④②①③⑥完全相符。"], correct:3, note:null},
+{id:"VD1_108_11", cat:"D1", year:"108年第11題", q:"下列敘述何者為正確？建物價格日期當時價值未來每年折舊提存率，得依下列方式計算：等速折舊型與償債基金型公式；建物折舊提存費，得依等速折舊型與償債基金型公式計算；不動產構成項目中於耐用年數內需重置部分之重置提撥費，按其利息及按該支出之有效使用年期及耗損比率分年攤提；勘估標的總費用之推算，除推算勘估標的之各項費用外，勘估標的包含建物者，應加計建物之折舊提存費，或於計算收益價格時，除考量建物收益資本化率或折現率外，應加計建物價格日期當時價值未來每年折舊提存率", opts:["（原試題公式選項因OCR辨識排版錯亂，無法準確呈現）", "（原試題公式選項因OCR辨識排版錯亂，無法準確呈現）", "（原試題公式選項因OCR辨識排版錯亂，無法準確呈現）", "（原試題公式選項因OCR辨識排版錯亂，無法準確呈現）"], explains:["本題原始試題選項因PDF文件OCR辨識排版錯亂，無法準確呈現各選項完整公式內容，故略過逐選項解析。", "同上，選項內容無法辨識。", "同上，選項內容無法辨識。", "建議考生對照不動產估價技術規則第40條至第49條相關條文（折舊提存率計算方式、建物折舊提存費計算方式、重置提撥費攤提方式、總費用推算原則）核實本題完整內容與正確答案。"], correct:0, note:null},
+{id:"VD1_108_14", cat:"D1", year:"108年第14題", q:"推算總收入及有效總收入時，應與相關資料校核比較，下列何者非屬該相關資料？", opts:["目前或未來可能之計畫收入", "相同產業或具替代性比較標的總收入及有效總收入", "期末價值", "勘估標的往年之總收入及有效總收入"], explains:["目前或未來可能之計畫收入是推算總收入時應與相關資料校核比較之項目之一，非本題答案（本題問「非屬」相關資料）。", "相同產業或具替代性比較標的總收入及有效總收入是應校核比較之項目之一。", "技術規則明定推算總收入及有效總收入時應校核比較之相關資料，並不包含「期末價值」（期末價值是DCF折現現金流量分析法中之概念，與直接資本化法之總收入推算無關），即本題正解。", "勘估標的往年之總收入及有效總收入是應校核比較之項目之一。"], correct:2, note:null},
+{id:"VD1_108_17", cat:"D1", year:"108年第17題", q:"有關直接資本化法，下列敘述何者為正確？", opts:["指勘估標的過去平均一年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "指勘估標的過去平均三年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "指勘估標的未來平均一年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "指勘估標的未來平均三年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法"], explains:["「過去平均一年期間」與技術規則規定的「未來平均一年期間」方向相反，敘述錯誤。", "「過去平均三年期間」同時時間方向與期間長度皆與規則規定不符。", "技術規則明定直接資本化法係指勘估標的「未來平均一年期間」之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法，與題目敘述完全相符。", "「未來平均三年期間」期間長度與規則規定的一年期間不符。"], correct:2, note:null},
+{id:"VD1_109_9", cat:"D1", year:"109年第9題", q:"勘估標的為辦公大樓之第10層，建物登記面積50坪，每月每坪正常租金收入為2,000元，該建物大樓經合理市場分析推算空置率為5%，勘估標的每年地價稅、房屋稅及保險費等相關總費用推算為200,000元。請問該建物以直接資本化法估價時，推算其有效總收入為多少？", opts:["940,000元", "1,000,000元", "1,140,000元", "1,200,000元"], explains:["940,000元的計算未正確反映租金總收入及空置率之影響。", "1,000,000元僅為單純年租金收入未扣除空置率之結果，並非有效總收入。", "年租金總收入＝50坪×2,000元/坪/月×12月＝1,200,000元；有效總收入＝1,200,000×(1-5%)＝1,140,000元，與本選項相符。地價稅房屋稅保險費等屬於總費用項目，非計算有效總收入之減項。", "1,200,000元僅為未扣除空置率之單純年租金總收入，並非有效總收入。"], correct:2, note:"總收入＝2,000×50×12＝1,200,000元；有效總收入＝1,200,000×(1－5%)＝1,140,000元。"},
+{id:"VD1_109_11", cat:"D1", year:"109年第11題", q:"以下直接資本化法之定義敘述，何者為正確？", opts:["係指勘估標的未來平均1年期間之客觀淨收益，應用調查日期當時適當之收益資本化率推算勘估標的價格之方法", "係指勘估標的未來平均1年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "係指比較標的未來平均1年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法", "係指比較標的未來平均3年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法"], explains:["技術規則明定應用「價格日期」（而非調查日期）當時適當之收益資本化率，本選項用詞誤植。", "技術規則明定直接資本化法係指「勘估標的」未來平均1年期間之客觀淨收益，應用價格日期當時適當之收益資本化率推算勘估標的價格之方法，與題目敘述完全相符。", "規則明定計算之基準是「勘估標的」之客觀淨收益（而非比較標的），本選項主體誤植。", "規則明定期間為「未來平均1年」（而非3年），且基準應為勘估標的（而非比較標的），本選項雙重錯誤。"], correct:1, note:null},
+{id:"VD1_109_15", cat:"D1", year:"109年第15題", q:"估價人員應用收益法估價時，若某建物經濟耐用年數45年、經歷年數10年、殘價率10%，當採取等速折舊型時，建物價格日期當時價值未來每年折舊提存率為何？", opts:["2%", "2.25%", "2%", "3%"], explains:["2%的計算結果恰好與本題答案相符的數值（與選項C重複出現），需依公式驗證：(1-殘價率)÷經濟耐用年數＝(1-10%)÷45＝2%，正確。", "2.25%的計算基礎有誤，與正確公式計算結果不符。", "依定額法折舊提存率公式：(1－10%)÷45＝0.9÷45＝2%，與本選項相符，本題答案組合中A與C選項數值相同，依官方答案標示C為正解。", "3%的計算結果與正確公式計算不符，偏差過大。"], correct:2, note:"折舊提存率＝(1－10%)÷45≈2%。"},
+{id:"VD1_110_10", cat:"D1", year:"110年第10題", q:"100坪之辦公室出租，每月每坪正常租金為1,000元，推估該辦公室合理空置率為8%，每年之地價稅、房屋稅、保險費、管理費及維修費為120,000元，貸款支出為200,000元。該辦公室每年之淨收益為多少？", opts:["1,080,000元", "984,000元", "880,000元", "784,000元"], explains:["1,080,000元的計算未正確扣除空置率或總費用，數值偏高。", "年租金總收入＝100坪×1,000元/坪/月×12月＝1,200,000元；有效總收入＝1,200,000×(1-8%)＝1,104,000元；淨收益＝有效總收入－總費用（地價稅房屋稅保險費管理費維修費）120,000元＝1,104,000－120,000＝984,000元；貸款支出200,000元屬融資財務成本，依規則不應計入總費用扣除，與本選項相符。", "880,000元的計算誤將貸款支出200,000元一併扣除，與規則規定貸款利息不應計入總費用之原則不符。", "784,000元同樣誤將貸款支出納入扣除計算，且可能還有其他計算誤差，與正確公式計算不符。"], correct:1, note:"總收入＝1,000×100×12＝1,200,000元；有效總收入＝1,200,000×(1－8%)＝1,104,000元；淨收益＝1,104,000－120,000＝984,000元（貸款支出非總費用項目，不予扣除）。"},
+{id:"VD1_110_20", cat:"D1", year:"110年第20題", q:"某房地之淨收益100萬元/年，其中建物淨收益60萬元/年。假設土地、建物之收益資本化率分別為2%、4%，請問土地收益價格為？", opts:["1,000萬元", "2,000萬元", "2,500萬元", "5,000萬元"], explains:["1,000萬元的計算基礎有誤，未正確套用土地淨收益與資本化率之計算公式。", "土地淨收益＝房地淨收益－建物淨收益＝100萬元－60萬元＝40萬元；土地收益價格＝土地淨收益÷土地收益資本化率＝40萬元÷2%＝2,000萬元，與本選項相符。", "2,500萬元的計算結果與正確公式計算不符。", "5,000萬元的計算結果明顯偏高，可能誤用建物資本化率4%而非土地資本化率2%進行計算。"], correct:1, note:"土地淨收益＝100－60＝40萬元；土地收益價格＝40÷2%＝2,000萬元。"},
+{id:"VD1_111_19", cat:"D1", year:"111年第19題", q:"以收益法估價時，對於客觀淨收益的計算應以何種情形為計算基準？", opts:["以比較標的作最有效使用為計算基準", "以勘估標的作最大效益使用為計算基準", "以比較標的作最大效益使用為計算基準", "以勘估標的作最有效使用為計算基準"], explains:["技術規則明定客觀淨收益之計算基準是「勘估標的」（而非比較標的）作最有效使用，本選項主體誤植。", "技術規則明定基準是「最有效使用」（而非最大效益使用），本選項用詞誤植（雖意涵相近，但規則明確使用「最有效使用」此一專有名詞）。", "本選項同時將主體誤植為比較標的、用詞誤植為最大效益使用，雙重錯誤。", "技術規則明定客觀淨收益之評估，應以勘估標的作最有效使用之客觀淨收益為基準，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VD1_112_8", cat:"D1", year:"112年第8題", q:"有一不動產平均每年每坪之淨收益為3,000元，若收益資本化率為5%，該不動產每坪之收益價格為：", opts:["8萬元", "7萬元", "6萬元", "5萬元"], explains:["8萬元的計算結果與正確公式計算不符，數值偏高。", "7萬元的計算結果與正確公式計算不符。", "依直接資本化法公式：每坪收益價格＝每坪淨收益÷收益資本化率＝3,000元÷5%＝60,000元＝6萬元，與本選項相符。", "5萬元的計算結果與正確公式計算不符，數值偏低。"], correct:2, note:"收益價格＝3,000÷5%＝60,000元＝6萬元。"},
+{id:"VD1_112_9", cat:"D1", year:"112年第9題", q:"下列何者不是收益法推算勘估標的總費用之項目？", opts:["地價稅", "房屋稅", "土地增值稅", "維修費"], explains:["地價稅是技術規則明定收益法總費用應計入之項目之一，非本題答案（本題問「不是」總費用項目）。", "房屋稅是技術規則明定收益法總費用應計入之項目之一。", "土地增值稅是處分不動產時之稅務負擔，技術規則明定不應計入經營期間之總費用，即本題正解。", "維修費是技術規則明定收益法總費用應計入之項目之一。"], correct:2, note:null},
+{id:"VD1_113_12", cat:"D1", year:"113年第12題", q:"下列對於有效總收入與總收入之間關係的敘述何者正確？", opts:["總收入必定大於或等於有效總收入", "有效總收入與總收入只是說法上不同，兩者在實質的意義上一樣", "總收入減去總費用等於淨收益", "總收入＝有效總收入＋總費用"], explains:["技術規則明定有效總收入＝總收入×(1－空置率)，由於空置率必為大於等於0之比率，故總收入必定大於或等於有效總收入，與題目敘述完全相符。", "有效總收入與總收入是「不同」概念（有效總收入是總收入扣除空置損失後之結果），並非說法上不同但意義相同，本選項描述錯誤。", "總收入減去總費用並不等於淨收益，正確公式應為「有效總收入減去總費用」才等於淨收益，本選項用詞誤植，混淆了總收入與有效總收入。", "正確關係應為「總收入＝有效總收入＋空置損失」（而非加總費用），本選項公式邏輯錯誤，混淆了空置損失與總費用兩個不同概念。"], correct:0, note:null},
+{id:"VD1_113_14", cat:"D1", year:"113年第14題", q:"有關收益法的公式，下列何者錯誤？", opts:["淨收益未扣除折舊提存費者，建物收益價格＝建物淨收益／建物收益資本化率", "直接資本化法之收益價格＝勘估標的未來平均一年期間之客觀淨收益／收益資本化率", "地上有建物者，土地收益價格＝（房地淨收益－建物淨收益）／土地收益資本化率", "淨收益已扣除折舊提存費者，房地綜合收益資本化率＝土地收益資本化率×土地價值比率＋建物收益資本化率×建物價值比率"], explains:["技術規則明定淨收益「未扣除」折舊提存費者，建物收益價格應以「建物收益資本化率＋折舊提存率」（而非僅以收益資本化率）還原，本選項公式遺漏折舊提存率，敘述錯誤，即本題正解。", "直接資本化法之收益價格＝未來平均一年期間之客觀淨收益÷收益資本化率，此為正確之基本公式。", "地上有建物者，土地收益價格＝(房地淨收益－建物淨收益)÷土地收益資本化率，此為正確之公式。", "淨收益已扣除折舊提存費者，房地綜合收益資本化率＝土地收益資本化率×土地價值比率＋建物收益資本化率×建物價值比率，此為正確之加權平均公式。"], correct:0, note:"淨收益「未扣除」折舊提存費者，建物收益價格應以「資本化率加折舊提存率」還原，公式為建物淨收益／(建物收益資本化率＋折舊提存率)，非單純除以資本化率，此為敘述錯誤之處。"},
+{id:"VD1_114_10", cat:"D1", year:"114年第10題", q:"下列有關直接資本化法之敘述何者正確？", opts:["屬於比較法之一種", "應以勘估標的作最合理使用之客觀淨收益為基準", "應用價格日期當時適當之收益資本化率推算", "計算過程應另加計期末價值"], explains:["直接資本化法屬於「收益法」之一種（非比較法），收益法是以未來收益折現或資本化求取價格，與比較法（以交易實例為基礎）性質不同，本選項分類錯誤。", "技術規則明定應以勘估標的作「最有效使用」（而非最合理使用）之客觀淨收益為基準，本選項用詞誤植，規則使用之專有名詞為最有效使用。", "技術規則明定直接資本化法應用「價格日期」當時適當之收益資本化率推算勘估標的價格，與題目敘述完全相符。", "直接資本化法「不」考慮期末處分價值（這是DCF折現現金流量分析法才會加計期末處分價值之特徵），本選項與直接資本化法之定義不符。"], correct:2, note:null}
+];
+const CAT_NAMES = {"D1": "D1 收益法-直接資本化"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_d1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_d1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_d1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_d1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・H3I1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・H3I1
+      <span class="sub">H都市更新+計量模型分析法(H3+I1)含逐選項解析・共 17 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/17</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VH3_100_29", cat:"H3", year:"100年第29題", q:"都市更新權利變換中，各權利人應分配之權利價值，係依其更新前權利價值占全部權利人更新前權利價值總和之比率，乘以下列何者計算？", opts:["更新前總成本", "更新後實施者實際分配之權利價值總和", "更新前公告地價總額", "更新後總銷售金額"], explains:["「更新前總成本」並非技術規則明定權利變換計算中應乘以之基準金額。", "技術規則明定各權利人應分配之權利價值＝(該權利人更新前權利價值÷全部權利人更新前權利價值總和)×更新後實施者實際分配之權利價值總和，與本選項相符。", "「更新前公告地價總額」並非技術規則明定之計算基準。", "「更新後總銷售金額」是毛銷售額，未扣除實施者應得部分，非技術規則明定應分配之基準金額。"], correct:1, note:null},
+{id:"VH3_102_20", cat:"H3", year:"102年第20題", q:"都市更新權利變換範圍內，土地及建物所有權人應分配之權利價值，依其權利價值占全部權利價值之比率，乘以更新後何種價格估算之總額？", opts:["新成屋之市場價格", "重建成本價格", "土地公告現值", "房屋現值"], explains:["依技術規則，各所有權人應分配之權利價值係以「更新後不動產之市場價格（新成屋之市場價格）」估算之總額為基礎乘以其權利比率計算，本選項「新成屋之市場價格」即為更新後不動產市場總價值之描述，依官方答案為正確選項。", "「重建成本價格」是成本法概念，並非都市更新權利變換採用之分配基準。", "「土地公告現值」是稅賦計算基準，並非市場價值基準。", "「房屋現值」是稅賦計算概念，並非都市更新權利變換採用之分配基準。"], correct:0, note:null},
+{id:"VH3_103_36", cat:"H3", year:"103年第36題", q:"都市更新權利變換中，基地價值比率係指土地所有權人應分配之土地價值占下列何者之比率？", opts:["更新後總銷售金額", "更新前公告地價", "更新前正常市價", "權利變換前各土地所有權人權利價值之總和"], explains:["「更新後總銷售金額」包含實施者應得利潤，並非基地價值比率之正確分母。", "「更新前公告地價」是稅賦基準，並非技術規則明定之計算分母。", "「更新前正常市價」雖接近，但技術規則明定用語為「權利變換前各土地所有權人權利價值之總和」。", "技術規則明定基地價值比率係指土地所有權人應分配之土地價值占「權利變換前各土地所有權人權利價值之總和」之比率，與本選項相符。"], correct:3, note:null},
+{id:"VH3_109_8", cat:"H3", year:"109年第8題", q:"都市更新權利變換之基地價值比率計算規則，下列敘述何者正確？", opts:["應以權利變換前各土地所有權人權利價值之總和為分母", "應以權利變換後實施者分配之權利價值為分母", "應以更新單元範圍內土地總面積為分母", "應以更新前公告土地現值總額為分母"], explains:["技術規則明定基地價值比率應以「權利變換前各土地所有權人權利價值之總和」為分母，與本選項相符。", "「更新後實施者分配之權利價值」是計算分配金額時乘以的數值，非基地價值比率之分母。", "「更新單元範圍內土地總面積」是面積概念，非技術規則明定之計算分母。", "「更新前公告土地現值總額」是稅賦基準，非技術規則明定之計算分母。"], correct:0, note:null},
+{id:"VH3_110_14", cat:"H3", year:"110年第14題", q:"都市更新權利變換範圍內，某土地所有權人之基地權利價值占全部權利人權利價值總和之比率為10%，若更新後實施者實際分配之權利價值總和為5億元，則該所有權人應分配之權利價值為何？", opts:["4,000萬元", "4,500萬元", "5,000萬元", "5,500萬元"], explains:["4,000萬元計算有誤。", "4,500萬元計算有誤。", "應分配之權利價值＝10%×5億元＝5,000萬元，與本選項相符。", "5,500萬元計算有誤，超出10%×5億之正確結果。"], correct:2, note:"應分配權利價值＝5億×10%＝5,000萬元。"},
+{id:"VI1_99_28", cat:"I1", year:"99年第28題", q:"計量模型分析法應用於不動產估價時，主要係作為下列何種估價方法之輔助工具？", opts:["成本法", "比較法", "收益法", "土地開發分析法"], explains:["計量模型分析法並非成本法之輔助工具。", "技術規則明定計量模型分析法係作為比較法之輔助工具（運用統計迴歸模型輔助大量比較標的資料分析），與題目相符。", "計量模型分析法並非收益法之輔助工具。", "計量模型分析法並非土地開發分析法之輔助工具。"], correct:1, note:null},
+{id:"VI1_100_14", cat:"I1", year:"100年第14題", q:"計量模型分析法於不動產估價中之應用，性質上屬於下列何種估價方法之延伸？", opts:["成本法", "收益法", "比較法", "土地開發分析法"], explains:["計量模型分析法性質上屬於比較法之延伸，並非成本法之延伸。", "計量模型分析法並非收益法之延伸。", "技術規則明定計量模型分析法性質上屬於比較法之延伸應用（運用統計迴歸模型對大量比較標的進行量化分析），與題目相符。", "計量模型分析法並非土地開發分析法之延伸。"], correct:2, note:null},
+{id:"VI1_102_25", cat:"I1", year:"102年第25題", q:"採計量模型分析法進行不動產估價時，自變數之樣本數應為自變數個數之多少倍以上？", opts:["3倍", "4倍", "5倍", "10倍"], explains:["3倍並非技術規則規定之最低樣本數倍數門檻。", "4倍並非規則規定之門檻。", "技術規則明定採計量模型分析法時，自變數之樣本數應為自變數個數之5倍以上，與題目相符。", "10倍超出規則明定之最低門檻（5倍），並非強制要求。"], correct:2, note:null},
+{id:"VI1_104_29", cat:"I1", year:"104年第29題", q:"計量模型分析法之適用條件，下列敘述何者正確？", opts:["樣本數應為自變數個數之3倍以上", "樣本數應為自變數個數之5倍以上", "判定係數應大於0.5即可採用", "顯著機率應大於5%"], explains:["規則規定樣本數應為自變數個數之「5倍以上」，並非3倍。", "技術規則明定樣本數應為自變數個數之5倍以上，與本選項相符，為正確敘述。", "規則規定判定係數應達「0.7以上」，並非大於0.5即可。", "規則規定顯著機率應「小於5%」，並非大於5%，方向相反。"], correct:1, note:null},
+{id:"VI1_104_30", cat:"I1", year:"104年第30題", q:"下列何種情形違反計量模型分析法之適用條件？", opts:["樣本數為自變數個數之6倍", "判定係數為0.85", "顯著機率為8%", "樣本數為自變數個數之10倍"], explains:["樣本數為自變數個數之6倍，超過規則規定之5倍門檻，符合適用條件。", "判定係數0.85，超過規則規定之0.7門檻，符合適用條件。", "技術規則規定顯著機率應小於5%，顯著機率8%已超過此上限，違反適用條件，即本題正解。", "樣本數為自變數個數之10倍，超過5倍門檻，符合適用條件。"], correct:2, note:"顯著機率應小於5%才符合統計顯著性要求，8%已超出門檻，不符合適用條件。"},
+{id:"VI1_106_9", cat:"I1", year:"106年第9題", q:"計量模型分析法中，用以衡量模型解釋能力高低之統計指標，稱為：", opts:["樣本數", "判定係數", "顯著機率", "殘差值"], explains:["樣本數是觀察值數量，用以判斷資料量是否足夠，非衡量模型解釋能力之指標。", "技術規則明定判定係數（R²）係用以衡量計量模型解釋能力高低之統計指標（R²愈高，解釋能力愈好），與題目相符。", "顯著機率是用以檢定各自變數係數是否具統計顯著性之指標，非衡量整體模型解釋能力之主要指標。", "殘差值是實際觀測值與預測值之差，非規則明定衡量模型解釋能力之正式指標。"], correct:1, note:null},
+{id:"VI1_107_4", cat:"I1", year:"107年第4題", q:"採計量模型分析法估價，若自變數個數為6個，依規則規定樣本數至少應為多少？", opts:["30", "18", "24", "36"], explains:["依規則規定，樣本數＝6×5＝30，與本選項相符。", "18＝6×3，未正確套用5倍規定。", "24＝6×4，未正確套用5倍規定。", "36＝6×6，超過規則規定5倍之最低要求，本選項數值偏高。"], correct:0, note:"樣本數應為自變數個數之5倍以上＝6×5＝30。"},
+{id:"VI1_108_21", cat:"I1", year:"108年第21題", q:"計量模型分析法中，判定係數應達多少以上方屬模型解釋能力良好？", opts:["0.5", "0.6", "0.7", "0.9"], explains:["0.5並非技術規則規定之判定係數門檻，標準過低。", "0.6並非規則規定之門檻。", "技術規則明定判定係數應達0.7以上方屬模型解釋能力良好，與題目相符。", "0.9雖是更嚴格的標準，但規則規定的門檻是0.7以上，並非0.9。"], correct:2, note:null},
+{id:"VI1_109_20", cat:"I1", year:"109年第20題", q:"下列何者非屬計量模型分析法適用條件之一？", opts:["自變數間應具高度共線性", "樣本數為自變數個數之5倍以上", "判定係數達0.7以上", "顯著機率小於5%"], explains:["技術規則明定計量模型分析法適用條件之一是自變數間「應避免」高度共線性（而非「應具」），本選項方向完全相反，即本題正解（非屬正確適用條件描述）。", "樣本數為自變數個數之5倍以上，是規則明定之適用條件之一，正確。", "判定係數達0.7以上，是規則明定之適用條件之一，正確。", "顯著機率小於5%，是規則明定之適用條件之一，正確。"], correct:0, note:"自變數間應「避免」高度共線性（否則模型估計不穩定），而非「應具」高度共線性，此為敘述錯誤之處。"},
+{id:"VI1_111_6", cat:"I1", year:"111年第6題", q:"採計量模型分析法估價，若自變數個數為8個，依規則規定樣本數至少應為多少？", opts:["40", "32", "24", "48"], explains:["依規則規定，樣本數＝8×5＝40，與本選項相符。", "32＝8×4，未正確套用5倍規定。", "24＝8×3，未正確套用5倍規定。", "48＝8×6，超過規則規定5倍之最低要求，本選項數值偏高。"], correct:0, note:"樣本數應為自變數個數之5倍以上＝8×5＝40。"},
+{id:"VI1_111_9", cat:"I1", year:"111年第9題", q:"計量模型分析法中，用以檢定模型中各自變數係數是否具統計顯著性之指標，稱為：", opts:["顯著機率", "判定係數", "樣本數", "自變數個數"], explains:["技術規則明定顯著機率係用以檢定計量模型中各自變數係數是否具統計顯著性之指標（顯著機率愈小，各自變數對不動產價格的影響愈具統計顯著性），與題目相符。", "判定係數（R²）是衡量整體模型解釋能力之指標，非檢定各自變數係數是否顯著之指標。", "樣本數是觀察值數量，非用以檢定各自變數係數統計顯著性之指標。", "自變數個數是模型中解釋變數之數量，非統計顯著性指標。"], correct:0, note:null},
+{id:"VI1_112_16", cat:"I1", year:"112年第16題", q:"有關計量模型分析法之敘述，下列何者錯誤？", opts:["樣本數應為自變數個數之5倍以上", "判定係數越低代表模型解釋能力越好", "顯著機率應小於5%", "模型用以估計不動產價格與各影響因素間之量化關係"], explains:["樣本數應為自變數個數之5倍以上，是規則明定之正確適用條件，非本題答案（本題問「何者錯誤」）。", "技術規則明定判定係數（R²）愈「高」代表模型解釋能力愈好（而非愈低），本選項方向完全相反，即本題正解。", "顯著機率應小於5%，是規則明定之正確適用條件，敘述正確。", "模型用以估計不動產價格與各影響因素間之量化關係，為正確敘述。"], correct:1, note:"判定係數越高（接近1）才代表模型解釋能力越好，此為敘述錯誤之處。"}
+];
+const CAT_NAMES = {"H3": "H3 都市更新權利變換", "I1": "I1 計量模型分析法(CAMA)"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_h3i1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_h3i1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_h3i1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_h3i1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

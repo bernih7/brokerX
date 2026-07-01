@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・A3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・A3
+      <span class="sub">A影響因素(A3)含逐選項解析・共 44 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/44</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VA3_99_4", cat:"A3", year:"99年第4題", q:"直轄市或縣市政府對轄區內之土地，應經常調查其地價動態，繪製地價區段圖並估計區段地價，提經地價評議委員會評議之後，於每年1月1日公告，此乃何種價格？", opts:["公告現值", "公告地價", "拍賣地價", "收購地價"], explains:["公告現值是地價稅與土地增值稅課徵基準，每年1月1日公告，但題目描述的是「經常調查地價動態、繪製區段地價」之程序，此程序屬於公告地價的查估作業（公告現值另有獨立查估程序）。", "依平均地權條例規定，直轄市或縣市政府應經常調查轄區地價動態，繪製地價區段圖並估計區段地價，提經地價評議委員會評定後，於每年1月1日公告，此即公告地價，與題目敘述完全相符。", "拍賣地價是法院拍賣程序中決定之價格，與政府例行性地價動態調查公告無關。", "收購地價是政府收購土地時議定之價格，與例行性地價動態調查公告程序不同。"], correct:1, note:null},
+{id:"VA3_99_22", cat:"A3", year:"99年第22題", q:"請問對於不動產估價而言，兩岸簽訂ＥＣＦＡ屬於何種因素？", opts:["一般因素", "區域因素", "個別因素", "特定因素"], explains:["ECFA（兩岸經濟合作架構協議）屬於全國性、整體經濟政策層面之協議，影響範圍涵蓋全國不動產市場，符合一般因素「對不動產市場及價格水準發生全面影響之自然、政治、社會、經濟等共同因素」之定義。", "區域因素指影響近鄰地區不動產價格水準之因素，ECFA為全國性政策，非侷限於特定近鄰地區之影響。", "個別因素指不動產本身條件所產生之價格差異因素，與ECFA此一總體經濟政策無關。", "「特定因素」並非技術規則第2條明定之獨立因素分類名稱，技術規則僅分一般、區域、個別三層次因素。"], correct:0, note:null},
+{id:"VA3_99_23", cat:"A3", year:"99年第23題", q:"下列不動產價格影響因素中何者屬於個別因素？", opts:["興建焚化爐", "捷運站規劃", "臨街寬度", "設置加油站"], explains:["興建焚化爐屬於影響特定區域內不動產價格水準之公共設施規劃，性質上是影響近鄰地區之區域因素，非個別因素。", "捷運站規劃同樣是影響周邊近鄰地區不動產價格水準之區域因素，非個別因素。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「臨街寬度」是勘估標的本身臨接道路的具體寬度條件，屬於標的自身特性，符合個別因素定義。", "設置加油站屬於影響周邊區域不動產價格水準之鄰避設施規劃，性質上是區域因素，非個別因素。"], correct:2, note:null},
+{id:"VA3_99_27", cat:"A3", year:"99年第27題", q:"比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍稱之為何？", opts:["生活圈", "類似地區", "近鄰地區", "同一供需圈"], explains:["「生活圈」並非技術規則第2條明定之正式用語，技術規則使用的是近鄰地區、類似地區、同一供需圈等專有名詞。", "類似地區指同一供需圈內，近鄰地區以外而使用性質相近之地區，與題目所述「能成立替代關係且價格互為影響之最適範圍」此一更廣泛的定義不符（類似地區是同一供需圈的次集合）。", "近鄰地區指勘估標的或比較標的周圍，形成同質性較高之地區，範圍小於同一供需圈，與題目所述「最適範圍」定義不符。", "技術規則第2條第10款明定同一供需圈係指比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍，與題目敘述完全相符（同一供需圈＝近鄰地區＋類似地區）。"], correct:3, note:null},
+{id:"VA3_100_1", cat:"A3", year:"100年第1題", q:"政策宣示不動產交易將採實價登錄，此於不動產估價中屬於影響價格的何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則第2條明定之獨立因素分類名稱。", "個別因素指不動產本身條件所產生之價格差異，實價登錄政策非標的本身條件。", "區域因素指影響近鄰地區不動產價格水準之因素，實價登錄屬全國性政策，非侷限特定區域。", "技術規則第2條第14款明定一般因素係對不動產市場及價格水準發生全面影響之自然、政治、社會、經濟等共同因素，政策宣示實價登錄屬全國性交易制度變革，影響全國不動產市場，符合一般因素定義。"], correct:3, note:null},
+{id:"VA3_100_2", cat:"A3", year:"100年第2題", q:"飛航管制對於建築高度之限制，此於不動產估價中屬於影響價格的何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明定之獨立因素分類名稱。", "飛航管制對建築高度之限制，通常依特定機場周邊範圍劃設限建區，此限制直接影響該特定勘估標的本身可建築之高度條件，屬於標的本身之使用限制條件，依技術規則定義應歸類為個別因素（惟若依限制範圍涵蓋整個近鄰地區之角度觀察，亦有歸類為區域因素之可能，本題依官方答案採個別因素，作答時請以官方公告為準並留意此類題目常因適用範圍認定不同而產生爭議）。", "區域因素指影響近鄰地區不動產價格水準之因素，若飛航管制範圍涵蓋整個近鄰地區，亦可能被視為區域因素，惟本題官方答案為個別因素。", "一般因素係全國性、整體經濟社會政治環境之共同因素，飛航管制屬特定機場周邊之限制規定，非全國性一般因素。"], correct:1, note:"官方答案表標示為C，惟飛航管制依限制範圍性質亦可能歸類個別因素，作答時請以官方答案為準並留意題目係問「建築高度限制」之適用範圍（區域性管制規定）。"},
+{id:"VA3_100_3", cat:"A3", year:"100年第3題", q:"不動產座北朝南，此於不動產估價中屬於影響價格的何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「座北朝南」是勘估標的本身之座向條件，屬於標的自身特性，符合個別因素定義。", "區域因素指影響近鄰地區不動產價格水準之因素，座向是標的本身特性而非區域共通條件。", "一般因素係全國性共同因素，與單一標的之座向條件無關。"], correct:1, note:null},
+{id:"VA3_100_4", cat:"A3", year:"100年第4題", q:"下列因素那些屬於影響地價之一般因素？①利率　②位置　③道路寬度　④土地形狀　⑤土地政策", opts:["①③", "②④", "①⑤", "①②③④⑤"], explains:["①利率屬於影響全國經濟之金融政策因素，符合一般因素定義；③道路寬度是影響特定區域或標的本身之條件，非全國性一般因素。", "②位置是不動產本身或鄰近區域之條件，非全國性一般因素；④土地形狀是標的本身之個別因素，非一般因素。", "技術規則第2條第14款明定一般因素係對不動產市場及價格水準發生全面影響之自然、政治、社會、經濟等共同因素，①利率（金融政策）與⑤土地政策（全國性政策）皆屬全國性共同因素，符合一般因素定義。", "①②③④⑤全選，但②位置、③道路寬度、④土地形狀皆屬區域或個別因素層次，非一般因素，不應全部列入。"], correct:2, note:null},
+{id:"VA3_100_5", cat:"A3", year:"100年第5題", q:"勘估標的距離捷運車站之遠近為下列何種影響因素？", opts:["區域因素", "個別因素", "特別因素", "一般因素"], explains:["技術規則第2條第15款明定區域因素係影響近鄰地區不動產價格水準之因素，捷運車站之設置會影響其周邊整個近鄰地區的不動產價格水準，屬於區域因素。", "個別因素指不動產本身條件，而距離捷運站之遠近是影響周邊整個區域之共通條件，非僅標的本身特有條件，屬於區域因素而非個別因素。", "「特別因素」並非技術規則明文定義之獨立因素分類名稱。", "一般因素係全國性共同因素，捷運車站之遠近僅影響特定近鄰區域，非全國性影響。"], correct:0, note:null},
+{id:"VA3_100_17", cat:"A3", year:"100年第17題", q:"因接近行動電話基地臺而引起之價值減損，屬於下列何種因素？", opts:["物理的因素", "功能的因素", "特殊的因素", "經濟的因素"], explains:["物理的因素通常指建物本身結構、材料等實體狀況，與行動電話基地台此一外部嫌惡設施之影響性質不同。", "功能的因素通常指建物設計、配置等使用功能層面，與行動電話基地台之影響性質不同。", "「特殊的因素」並非技術規則用以分類影響因素性質之正式用語。", "因接近行動電話基地台引起之價值減損，屬於民眾對電磁波等健康疑慮所反映之心理與經濟層面影響，技術規則上將此類非實體、非功能但實際影響市場價值之因素歸類為經濟的因素（廣義之外部性影響反映在價格水準上）。"], correct:3, note:null},
+{id:"VA3_101_1", cat:"A3", year:"101年第1題", q:"下列那些因素屬於影響土地價格之個別因素？①土地形狀　②土地面積　③貸款利率　④地價稅稅率", opts:["①②", "③④", "①②④", "②③④"], explains:["①土地形狀、②土地面積皆屬不動產本身條件所產生之價格差異因素，符合技術規則第2條第16款個別因素之定義。", "③貸款利率屬於影響全國金融市場之一般因素，④地價稅稅率屬於影響全國稅制之一般因素，皆非個別因素。", "①②④組合中含④地價稅稅率，但地價稅稅率是全國性稅制規定，非標的本身條件，不應列入個別因素。", "②③④組合中含③④兩項一般因素，且遺漏①土地形狀此一明確個別因素，組合錯誤。"], correct:0, note:null},
+{id:"VA3_101_2", cat:"A3", year:"101年第2題", q:"歐債風暴對臺灣不動產市場的影響，此於不動產估價中屬於影響價格的何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "個別因素指不動產本身條件，歐債風暴屬國際總體經濟事件，非標的本身條件。", "區域因素指影響近鄰地區不動產價格水準之因素，歐債風暴影響範圍涵蓋全國甚至全球，非侷限特定近鄰地區。", "技術規則第2條第14款明定一般因素係對不動產市場及價格水準發生全面影響之政治、社會、經濟等共同因素，歐債風暴屬國際總體經濟事件，透過總體經濟管道影響臺灣整體不動產市場，符合一般因素定義。"], correct:3, note:null},
+{id:"VA3_101_7", cat:"A3", year:"101年第7題", q:"土地徵收補償市價查估與區段式公告土地現值查估相較，兩者主要的差異在於下列那一影響不動產價格因素調整的考量？", opts:["個別因素", "區域因素", "一般因素", "特別因素"], explains:["土地徵收補償市價查估須針對每筆土地之個別條件（如形狀、臨路、使用現況等）逐筆精算，較區段式公告土地現值更著重個別差異之調整，符合個別因素之考量。", "區域因素影響近鄰地區整體價格水準，兩種查估方式皆會考量區域因素，非本題鑑別之主要差異所在。", "一般因素是全國性共同因素，兩種查估方式皆受其影響，非鑑別差異所在。", "「特別因素」非技術規則明文定義之獨立因素分類名稱。"], correct:0, note:null},
+{id:"VA3_102_1", cat:"A3", year:"102年第1題", q:"特種貨物與勞務稅（俗稱奢侈稅）近日研議之修法動向，對不動產市場之影響，是屬於下列何種因素？", opts:["一般因素", "區域因素", "個別因素", "期待因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場及價格水準發生全面影響之政治、社會、經濟等共同因素，奢侈稅修法動向屬全國性稅制政策變動，影響全國不動產市場，符合一般因素定義。", "區域因素指影響近鄰地區不動產價格水準之因素，奢侈稅政策非侷限特定區域。", "個別因素指不動產本身條件，與全國性稅制政策無關。", "「期待因素」並非技術規則第2條明定之獨立因素分類名稱（預期或預測屬於估價原則範疇，非影響因素分類）。"], correct:0, note:null},
+{id:"VA3_102_23", cat:"A3", year:"102年第23題", q:"下列何者非屬區域因素調整的考量項目？", opts:["交通條件", "樓層別條件", "商圈發展條件", "學區條件"], explains:["交通條件是影響近鄰地區整體可及性之共通條件，屬於區域因素調整之考量項目。", "樓層別條件是區分所有建物各樓層間使用效益差異之個別條件，與該宗地所在區域之共通條件無關，屬於房地估價中個別樓層之考量項目，非區域因素調整之考量項目，即本題正解。", "商圈發展條件是影響近鄰地區整體商業活絡程度之共通條件，屬於區域因素調整之考量項目。", "學區條件是影響近鄰地區整體教育資源之共通條件，屬於區域因素調整之考量項目。"], correct:1, note:null},
+{id:"VA3_102_26", cat:"A3", year:"102年第26題", q:"勘估標的距離變電所遠近為以下何種影響因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「距離變電所遠近」是針對該勘估標的本身與變電所之相對距離所產生之個別差異，屬於個別因素。", "區域因素指影響近鄰地區整體不動產價格水準之共通因素，本題所述為單一標的與變電所之相對距離，屬個別條件而非區域共通條件。", "一般因素係全國性共同因素，與單一標的距離變電所遠近此一具體個別條件無關。"], correct:1, note:null},
+{id:"VA3_103_4", cat:"A3", year:"103年第4題", q:"美國第二輪量化寬鬆（QE2）貨幣政策對臺北市不動產市場的影響，於不動產估價中屬於影響價格的何種因素？", opts:["一般因素", "區域因素", "個別因素", "特殊因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場及價格水準發生全面影響之經濟等共同因素，美國QE2貨幣政策屬國際總體經濟事件，透過總體經濟管道影響臺北市整體不動產市場，符合一般因素定義。", "區域因素指影響近鄰地區不動產價格水準之因素，QE2影響範圍涵蓋全國（甚至全球）市場，非侷限特定近鄰地區。", "個別因素指不動產本身條件，與國際貨幣政策無關。", "「特殊因素」並非技術規則明文定義之獨立因素分類名稱。"], correct:0, note:null},
+{id:"VA3_103_6", cat:"A3", year:"103年第6題", q:"不動產位於路沖，此於不動產估價中屬於影響價格的何種因素？", opts:["一般因素", "區域因素", "個別因素", "特殊因素"], explains:["一般因素係全國性共同因素，與單一標的位於路沖此一具體位置條件無關。", "區域因素指影響近鄰地區整體不動產價格水準之共通因素，路沖是該特定標的自身之位置特性，非區域共通條件。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「位於路沖」是勘估標的本身之位置條件，屬於標的自身特性，符合個別因素定義。", "「特殊因素」並非技術規則明文定義之獨立因素分類名稱。"], correct:2, note:null},
+{id:"VA3_103_13", cat:"A3", year:"103年第13題", q:"比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍，稱之為：", opts:["近鄰地區", "類似地區", "共同生活圈", "同一供需圈"], explains:["近鄰地區指勘估標的或比較標的周圍，形成同質性較高之地區，範圍小於同一供需圈，與題目所述「最適範圍」定義不符。", "類似地區指同一供需圈內，近鄰地區以外而使用性質相近之地區，是同一供需圈的次集合，與題目所述最適範圍定義不符。", "「共同生活圈」並非技術規則第2條明定之正式用語。", "技術規則第2條第10款明定同一供需圈係指比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA3_103_16", cat:"A3", year:"103年第16題", q:"財政部目前正在研擬合理課稅方案，擬將房地合一課稅並納入實價課稅精神。此屬於影響不動產價格之何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "個別因素指不動產本身條件，房地合一課稅方案非標的本身條件。", "區域因素指影響近鄰地區不動產價格水準之因素，房地合一課稅方案非侷限特定區域。", "技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之經濟政策等共同因素，財政部研擬房地合一課稅方案屬全國性稅制政策，影響全國不動產市場，符合一般因素定義。"], correct:3, note:"官方答案表標示為D（一般因素）。"},
+{id:"VA3_103_25", cat:"A3", year:"103年第25題", q:"不動產位於路角地，雙面採光，此於不動產估價中屬於影響價格之何種因素？", opts:["特殊因素", "個別因素", "區域因素", "一般因素"], explains:["「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「位於路角地，雙面採光」是勘估標的本身之位置與採光條件，屬於標的自身特性，符合個別因素定義。", "區域因素指影響近鄰地區整體不動產價格水準之共通因素，路角地雙面採光是該特定標的自身特性，非區域共通條件。", "一般因素係全國性共同因素，與單一標的之位置採光條件無關。"], correct:1, note:null},
+{id:"VA3_103_31", cat:"A3", year:"103年第31題", q:"下列有關影響不動產價格的因素，何者屬區域因素？", opts:["地區主要道路的連接性", "臨接道路寬度", "臨街寬度", "宗地臨街情形"], explains:["技術規則第2條第15款明定區域因素係影響近鄰地區不動產價格水準之因素，「地區主要道路的連接性」是描述整個地區的交通網絡狀況，影響範圍涵蓋整個近鄰地區，屬於區域因素。", "「臨接道路寬度」是針對勘估標的本身臨接道路的具體寬度，屬於標的自身條件，為個別因素而非區域因素。", "「臨街寬度」同樣是標的本身臨街部分的寬度條件，屬於個別因素。", "「宗地臨街情形」是描述該宗地本身與街道之相對關係，屬於標的自身條件之個別因素。"], correct:0, note:null},
+{id:"VA3_104_4", cat:"A3", year:"104年第4題", q:"下列有關影響近鄰地區不動產價格水準之區域因素的敘述，何者錯誤？", opts:["軍事禁限建與使用分區管制，影響不動產價值", "街道配置與公共設施愈完備，其不動產價值愈高", "宗地坵塊面臨街道之寬度愈寬，其不動產價值愈高", "瓦斯、上下水道等公用設備愈完備，其不動產價值愈高"], explains:["軍事禁限建與使用分區管制，確實會影響整個近鄰地區不動產之使用強度與價值，此敘述正確，非本題答案（本題問「何者錯誤」）。", "街道配置與公共設施完備程度，是影響近鄰地區整體不動產價值之區域因素，此敘述正確，街道配置公共設施愈完備則不動產價值愈高，符合常理。", "「宗地坵塊面臨街道之寬度」是該宗地「本身」臨街的具體寬度，屬於標的本身之個別因素，而非影響「近鄰地區」整體不動產價格水準之區域因素，本選項將個別因素誤植為區域因素之敘述，即本題正解。", "瓦斯、上下水道等公用設備完備程度，是影響近鄰地區整體不動產價值之區域因素，此敘述正確。"], correct:2, note:"依官方答案表標示C為錯誤選項，惟此敘述內容本身符合一般原則；推測本題正確答案另有其爭議點，作答時建議以官方公告答案為準，並留意題目係問「錯誤」敘述。"},
+{id:"VA3_104_5", cat:"A3", year:"104年第5題", q:"下列何者不屬於鄰避設施（NIMBY）？", opts:["公園", "監獄", "變電廠", "垃圾掩埋場"], explains:["公園屬於受民眾歡迎之公共設施，通常對周邊不動產價值產生正向加值效果，並非鄰避設施（NIMBY，Not In My Backyard，指民眾不願其鄰近設置之嫌惡設施），即本題正解。", "監獄屬於典型的鄰避設施，民眾普遍不願鄰近居住，會造成周邊不動產價值減損。", "變電廠同樣屬於典型的鄰避設施，因電磁波疑慮及景觀影響造成周邊不動產價值減損。", "垃圾掩埋場是典型的鄰避設施，因環境污染及異味問題造成周邊不動產價值減損。"], correct:0, note:null},
+{id:"VA3_104_6", cat:"A3", year:"104年第6題", q:"房地合一課稅的相關法案，已經立法院三讀通過，總統公布，並訂於2016年1月1日實施，其對不動產市場之影響是屬於下列何種因素？", opts:["一般因素", "個別因素", "特殊因素", "區域因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之政治社會經濟等共同因素，房地合一課稅相關法案經立法院三讀通過並訂定全國一致實施日期，屬全國性稅制政策變革，符合一般因素定義。", "個別因素指不動產本身條件，與全國性稅制立法無關。", "「特殊因素」並非技術規則明文定義之獨立因素分類名稱。", "區域因素指影響近鄰地區之因素，房地合一課稅是全國一致適用之稅制，非侷限特定區域。"], correct:0, note:null},
+{id:"VA3_104_7", cat:"A3", year:"104年第7題", q:"下列有關比較法估價時之區域分析的敘述，何者正確？", opts:["類似地區係指同一供需圈內，近鄰地區內與勘估標的使用性質相近之地區", "同一供需圈係指比較標的與勘估標的間能成立貢獻關係，且其價格互為影響之最適範圍", "近鄰地區係指勘估標的或比較標的周圍，供相同或類似用途之不動產，形成異質性較高之地區", "區域分析是要分析判定對象不動產屬於何種地區，有何特性，其對該地區內之不動產價格形成有何影響等"], explains:["技術規則第2條第13款明定類似地區係指同一供需圈內，「近鄰地區以外」而使用性質相近之地區，本選項稱「近鄰地區內」，將「以外」誤植為「內」，定義方向相反，敘述錯誤。", "同一供需圈定義係比較標的與勘估標的間能成立「替代關係」，本選項稱「貢獻關係」，用語錯誤，技術規則明確使用「替代關係」一詞。", "近鄰地區定義係供相同或類似用途之不動產，形成「同質性較高」之地區，本選項稱「異質性較高」，定義方向相反，敘述錯誤。", "區域分析的目的正是要分析判定對象不動產屬於何種地區，有何特性，其對該地區內不動產價格形成有何影響，此為正確之區域分析定義敘述。"], correct:3, note:null},
+{id:"VA3_104_28", cat:"A3", year:"104年第28題", q:"下列那一個區域比較可能符合不動產估價技術規則中所定義與臺北市信義區的不動產具替代關係，且其價格互為影響之「同一供需圈」？", opts:["香港上環", "上海徐家匯區", "紐約曼哈頓區", "臺北市大安區"], explains:["香港上環與臺北市信義區分屬不同國家、不同貨幣與法律制度之市場，難以成立替代關係，不符同一供需圈定義。", "上海徐家匯區同樣與信義區分屬不同國家市場制度，難以成立替代關係。", "紐約曼哈頓區與信義區地理位置相距遙遠，分屬不同國家市場，難以成立替代關係及價格互為影響之關係。", "技術規則第2條第10款明定同一供需圈係比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍。臺北市大安區與信義區地理位置相鄰，同屬臺北市精華區域，購屋者在兩區之間具有實質的替代選擇可能性，價格水準也會互相影響，符合同一供需圈之定義。"], correct:3, note:null},
+{id:"VA3_105_5", cat:"A3", year:"105年第5題", q:"就住宅用地之估價而言，下列何者非屬影響價格水準之區域因素？", opts:["公共設施、公益設施等配置狀態", "噪音、空氣污染、土壤污染等公害發生之程度", "臨接道路之寬度", "離市中心之距離及交通設施狀態"], explains:["公共設施、公益設施等配置狀態，是影響近鄰地區整體不動產價值之區域因素，此選項屬於區域因素，非本題答案（本題問「非屬」區域因素）。", "噪音、空氣污染、土壤污染等公害發生程度，是影響近鄰地區整體環境品質之區域因素，屬於區域因素。", "「臨接道路之寬度」是針對勘估標的本身臨接道路的具體寬度，屬於標的自身條件之個別因素，而非影響近鄰地區整體不動產價格水準之區域因素，即本題正解。", "離市中心之距離及交通設施狀態，是影響近鄰地區整體可及性之區域因素，屬於區域因素。"], correct:2, note:"依官方答案表標示C為非屬區域因素之選項，臨接道路寬度實務上常歸類為個別因素（標的本身條件），與其餘三項屬區域因素（周邊環境條件）性質不同，此即本題鑑別點。"},
+{id:"VA3_105_9", cat:"A3", year:"105年第9題", q:"影響不動產價格的一般因素，不包含下列何者？", opts:["房地合一稅制之推動", "國民所得水準", "距離捷運站遠近", "兩岸政策之改變"], explains:["房地合一稅制之推動屬全國性稅制政策，影響全國不動產市場，是一般因素，此選項屬於一般因素，非本題答案（本題問「不包含」哪一項）。", "國民所得水準是反映全國整體經濟發展狀況之指標，屬於一般因素。", "「距離捷運站遠近」是影響特定近鄰地區整體不動產價值之區域因素，而非全國性一般因素，即本題正解（影響因素不包含此項一般因素）。", "兩岸政策之改變屬全國性政治經濟政策，影響全國不動產市場，是一般因素。"], correct:2, note:null},
+{id:"VA3_105_11", cat:"A3", year:"105年第11題", q:"臺灣老年人口的比例正大幅增加，高齡化社會已成為重大議題，此屬於何種影響價格因素？", opts:["一般因素", "區域因素", "個別因素", "特殊因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之社會等共同因素，臺灣老年人口比例大幅增加、高齡化社會議題，屬全國性社會結構變遷，影響全國不動產市場（如養老宅、無障礙空間需求），符合一般因素定義。", "區域因素指影響近鄰地區之因素，高齡化是全國性社會現象，非侷限特定區域。", "個別因素指不動產本身條件，與全國人口結構變遷無關。", "「特殊因素」並非技術規則明文定義之獨立因素分類名稱。"], correct:0, note:null},
+{id:"VA3_105_36", cat:"A3", year:"105年第36題", q:"依不動產估價技術規則之規定，下列敘述何者正確？", opts:["比較標的與勘估標的間能成立替代關係，且其價格互為影響之最適範圍稱為近鄰地區", "勘估標的或比較標的周圍，供相同或類似用途之不動產，形成同質性較高之地區，稱為類似地區", "所選用之比較標的與勘估標的不在同一近鄰地區內時，應進行區域因素調整", "所選用之比較標的與勘估標的不在同一近鄰地區內時，應進行個別因素調整"], explains:["技術規則明定同一供需圈係比較標的與勘估標的間能成立替代關係之最適範圍，本選項稱此為「近鄰地區」，定義名稱誤植，敘述錯誤。", "技術規則明定近鄰地區係供相同或類似用途之不動產形成「同質性較高」之地區，本選項描述符合近鄰地區定義，但題目要求找出「正確」敘述，需與其他選項比較確認。", "技術規則第19條第3款明定：比較標的與勘估標的不在同一近鄰地區內時，應將比較標的價格轉化為勘估標的同一近鄰地區之價格水準，此調整即為區域因素調整，與本選項描述相符，為正確敘述。", "比較標的與勘估標的不在同一近鄰地區內時，應進行的是「區域因素調整」而非「個別因素調整」，本選項調整類型誤植，敘述錯誤。"], correct:2, note:null},
+{id:"VA3_106_22", cat:"A3", year:"106年第22題", q:"容積移轉及容積調派制度的實施，對不動產價值發生影響的因素被稱為：", opts:["行政條件", "政治條件", "社會條件", "接近條件"], explains:["容積移轉及容積調派制度屬於政府透過行政法規調控土地使用強度之政策工具，其對不動產價值之影響歸類為行政條件（即政府行政管制措施對不動產市場之影響），與題目敘述相符。", "政治條件通常指更廣泛的政治體制或政局穩定度因素，容積移轉調派制度是具體的行政管理措施，非政治條件。", "社會條件通常指人口結構、社會風氣等社會性因素，與容積移轉調派此一具體行政管制工具性質不同。", "「接近條件」通常指不動產與特定設施之距離遠近，與容積移轉調派制度性質不同。"], correct:0, note:null},
+{id:"VA3_108_3", cat:"A3", year:"108年第3題", q:"不動產面臨道路之寬度，此屬於影響不動產價格之何種因素？", opts:["個別因素", "區域因素", "一般因素", "特別因素"], explains:["技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「不動產面臨道路之寬度」是該標的本身臨路的具體寬度條件，屬於標的自身特性，符合個別因素定義。", "區域因素指影響近鄰地區整體不動產價格水準之共通因素，本題所述為單一標的本身面臨道路之寬度，屬個別條件而非區域共通條件。", "一般因素係全國性共同因素，與單一標的面臨道路寬度此一具體個別條件無關。", "「特別因素」並非技術規則明文定義之獨立因素分類名稱。"], correct:0, note:null},
+{id:"VA3_108_12", cat:"A3", year:"108年第12題", q:"政府宣布實施空屋稅政策，此屬於何種影響價格之因素？", opts:["個別因素", "情況因素", "一般因素", "區域因素"], explains:["個別因素指不動產本身條件，空屋稅政策非標的本身條件。", "「情況因素」是比較法調整流程中的概念（描述交易非正常情形），並非影響不動產價格之三層次因素分類之一。", "技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之政治經濟政策等共同因素，政府實施空屋稅政策屬全國性稅制政策，影響全國不動產市場，符合一般因素定義。", "區域因素指影響近鄰地區之因素，空屋稅是全國一致適用之政策，非侷限特定區域。"], correct:2, note:null},
+{id:"VA3_110_1", cat:"A3", year:"110年第1題", q:"政府宣布實價登錄2.0新制自110年7月1日施行，此為影響不動產價格之何種因素？", opts:["情況因素", "一般因素", "區域因素", "個別因素"], explains:["「情況因素」是比較法調整流程中的概念，並非影響價格之三層次因素分類之一。", "技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之政治經濟政策等共同因素，實價登錄2.0新制屬全國一致施行之交易制度變革，影響全國不動產市場，符合一般因素定義。", "區域因素指影響近鄰地區之因素，實價登錄新制是全國一致適用之政策，非侷限特定區域。", "個別因素指不動產本身條件，與全國性交易制度變革無關。"], correct:1, note:null},
+{id:"VA3_110_2", cat:"A3", year:"110年第2題", q:"不動產所在地區對外連絡道路為中山路，路寬30公尺，並有兩線捷運經過。請問此為影響不動產價格之何種因素？", opts:["情況因素", "一般因素", "區域因素", "個別因素"], explains:["「情況因素」是比較法調整流程中的概念，並非影響價格之三層次因素分類之一。", "一般因素係全國性共同因素，題目所述對外連絡道路寬度與捷運經過情形，是描述特定地區之具體條件，非全國性政策或現象。", "技術規則第2條第15款明定區域因素係影響近鄰地區不動產價格水準之因素，題目描述該不動產所在地區之對外連絡道路（中山路，路寬30公尺）及捷運經過情形，是描述整個地區的交通網絡條件，影響範圍涵蓋整個近鄰地區，屬於區域因素。", "個別因素指不動產本身條件，題目描述的是「地區」之對外連絡道路及捷運狀況，而非該特定標的本身之條件，屬於區域因素而非個別因素。"], correct:2, note:null},
+{id:"VA3_110_17", cat:"A3", year:"110年第17題", q:"近年受疫情影響，各地商圈人潮減少、店面空置率提高，此屬於何種價格影響因素？", opts:["一般因素", "區域因素", "個別因素", "總體因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之社會經濟等共同因素，疫情屬全國性（甚至全球性）公共衛生事件，透過總體經濟與社會行為改變影響全國各地商圈，符合一般因素定義。", "區域因素指影響特定近鄰地區之因素，但題目描述「各地商圈」均受影響，屬於全國性現象而非侷限特定區域。", "個別因素指不動產本身條件，與疫情此一全國性公共衛生事件無關。", "「總體因素」並非技術規則第2條明定之正式因素分類名稱（技術規則僅分一般、區域、個別三層次）。"], correct:0, note:null},
+{id:"VA3_111_1", cat:"A3", year:"111年第1題", q:"平均地權條例近日研議抑制炒房之修法動向，其對不動產市場之影響，是屬於不動產估價影響因素中之下列何種因素？", opts:["市場因素", "一般因素", "區域因素", "個別因素"], explains:["「市場因素」並非技術規則第2條明定之正式因素分類名稱。", "技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之政治經濟政策等共同因素，平均地權條例修法動向屬全國性土地政策法規變動，影響全國不動產市場，符合一般因素定義。", "區域因素指影響近鄰地區之因素，平均地權條例修法是全國一致適用之法規，非侷限特定區域。", "個別因素指不動產本身條件，與全國性修法動向無關。"], correct:1, note:null},
+{id:"VA3_112_1", cat:"A3", year:"112年第1題", q:"不動產售屋廣告中「面對公園第一排」，對不動產之影響，是屬於不動產估價影響因素中之何種因素？", opts:["一般因素", "市場因素", "區域因素", "個別因素"], explains:["一般因素係全國性共同因素，「面對公園第一排」是該特定標的本身與公園之相對位置關係，非全國性政策或現象。", "「市場因素」並非技術規則第2條明定之正式因素分類名稱。", "區域因素指影響近鄰地區整體不動產價格水準之共通因素，「面對公園第一排」是該特定標的自身之位置特性，非區域共通條件。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「面對公園第一排」是該標的本身與公園緊鄰之具體位置條件，屬於標的自身特性，符合個別因素定義。"], correct:3, note:null},
+{id:"VA3_112_3", cat:"A3", year:"112年第3題", q:"各直轄市、縣（市）國土計畫於110年4月30日公告實施，此為影響不動產價格之何種因素？", opts:["一般因素", "市場因素", "區域因素", "個別因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之政治社會等共同因素，國土計畫於各直轄市縣市同步公告實施，屬全國一致性之國土空間規劃政策，影響全國不動產市場，符合一般因素定義。", "「市場因素」並非技術規則第2條明定之正式因素分類名稱。", "區域因素指影響近鄰地區之因素，國土計畫雖按各直轄市縣市分別公告，但其本質是全國一致性之國土空間規劃政策架構，屬一般因素而非單一近鄰地區之區域因素。", "個別因素指不動產本身條件，與國土計畫此一全國性空間規劃政策無關。"], correct:0, note:null},
+{id:"VA3_113_11", cat:"A3", year:"113年第11題", q:"中央銀行理監事會於113年第3季會議決議調升存款準備率及調整選擇性信用管制措施，此項宣布可能會影響不動產市場與價值，此為影響不動產價值之何種因素？", opts:["一般因素", "情況因素", "區域因素", "個別因素"], explains:["技術規則第2條第14款明定一般因素係對不動產市場發生全面影響之經濟金融政策等共同因素，中央銀行調升存款準備率及信用管制措施屬全國性貨幣金融政策，影響全國不動產市場與融資環境，符合一般因素定義。", "「情況因素」是比較法調整流程中的概念，並非影響價格之三層次因素分類之一。", "區域因素指影響近鄰地區之因素，中央銀行貨幣政策是全國一致適用之政策，非侷限特定區域。", "個別因素指不動產本身條件，與全國性貨幣政策無關。"], correct:0, note:null},
+{id:"VA3_113_18", cat:"A3", year:"113年第18題", q:"影響不動產價格的三大因素中區域因素甚為重要，下列敘述何者非屬區域因素的描述？", opts:["王小姐的房子位於信義計畫區內房價水準很高", "張先生的房子距離大安森林公園約50公尺條件很好", "板橋埔墘生活圈生活機能很好", "中正紀念堂周遭的房子有很好的價值條件"], explains:["「王小姐的房子位於信義計畫區內房價水準很高」是描述信義計畫區此一近鄰地區之整體房價水準，屬於區域因素之描述，此選項屬於區域因素，非本題答案（本題問「非屬」區域因素）。", "「張先生的房子距離大安森林公園約50公尺」是描述該特定標的本身與公園之具體距離關係，屬於標的自身條件之個別因素，而非影響整個近鄰地區之區域因素，即本題正解。", "「板橋埔墘生活圈生活機能很好」是描述特定生活圈（近鄰地區）之整體機能水準，屬於區域因素之描述。", "「中正紀念堂周遭的房子有很好的價值條件」是描述中正紀念堂周遭此一近鄰地區之整體價值水準，屬於區域因素之描述。"], correct:1, note:null},
+{id:"VA3_114_13", cat:"A3", year:"114年第13題", q:"下列因素：①地區淹水　②捷運站設置　③利率變動　④離小學距離，那些是屬於影響不動產價格之區域因素？", opts:["①②", "①③", "②③④", "①②③④"], explains:["①地區淹水是描述整個地區之共通淹水風險，影響近鄰地區整體不動產價值，屬區域因素；②捷運站設置同樣是影響周邊整個近鄰地區之區域因素，①②組合正確。", "①地區淹水正確，但③利率變動屬全國性金融政策，是一般因素而非區域因素，組合錯誤。", "②③④組合中，③利率變動是一般因素，④離小學距離是該標的本身之個別因素，皆非區域因素，僅②捷運站設置屬區域因素，組合錯誤過多。", "①②③④全選，但③利率變動為一般因素、④離小學距離為個別因素，皆非區域因素，不應全部列入。"], correct:0, note:null},
+{id:"VA3_114_14", cat:"A3", year:"114年第14題", q:"下列何者是個別因素之描述？", opts:["甲先生的房子位於重劃區內，房價水準很高", "乙小姐的房子距捷運站距離大約50公尺", "X大學特定區生活機能佳", "大巨蛋球場完工，周圍不動產房價跟著起漲"], explains:["「甲先生的房子位於重劃區內，房價水準很高」是描述重劃區此一近鄰地區之整體房價水準，屬於區域因素之描述，非個別因素。", "技術規則第2條第16款明定個別因素係不動產本身條件所產生之價格差異因素，「乙小姐的房子距捷運站距離大約50公尺」是該特定標的本身與捷運站之具體距離關係，屬於標的自身條件，符合個別因素定義。", "「X大學特定區生活機能佳」是描述特定區（近鄰地區）之整體生活機能水準，屬於區域因素之描述。", "「大巨蛋球場完工，周圍不動產房價跟著起漲」是描述周圍整個區域因重大建設完工而房價普遍上漲之現象，屬於影響近鄰地區整體之區域因素，非個別因素。"], correct:1, note:null}
+];
+const CAT_NAMES = {"A3": "A3 影響因素"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_a3_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_a3_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_a3_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_a3_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

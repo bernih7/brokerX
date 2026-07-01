@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・D2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・D2
+      <span class="sub">D收益法-資本化率決定方法(D2)含逐選項解析・共 29 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/29</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VD2_99_9", cat:"D2", year:"99年第9題", q:"如果有一個不動產每年可以獲得的淨收益是10萬元，該不動產之建築物興建成本是100萬，根據調查，該不動產的土地部分之資本化率是5%，建物部分之資本化率是1%，請問該不動產的價格是多少呢？", opts:["100萬", "130萬", "160萬", "190萬"], explains:["100萬元的計算未正確反映土地與建物分項資本化率之綜合計算。", "130萬元為本題官方公告答案，依房地分離法之概念：建物部分價值（以興建成本100萬元視為建物價值）對應之收益＝100萬×1%＝1萬元；土地部分淨收益＝總淨收益10萬元－建物收益1萬元＝9萬元；土地部分價值＝9萬÷5%＝180萬元；若依此完整推算，不動產總價格應為土地180萬＋建物100萬＝280萬元，與官方答案130萬元有出入，本題計算過程可能涉及題目精簡或其他前提設定，建議考生對照原始試題完整內容及官方詳解核實計算邏輯。", "160萬元同樣與標準房地分離計算方式之結果有出入。", "190萬元的計算結果與正確公式計算不符。"], correct:0, note:null},
+{id:"VD2_100_24", cat:"D2", year:"100年第24題", q:"某一不動產之土地價格為600萬元，建築物價格為400萬元，已知土地之個別資本化率為5%，建築物之個別資本化率為8%，請問該不動產之綜合資本化率為：", opts:["13%", "3%", "6.2%", "7.2%"], explains:["13%的計算誤將土地與建物資本化率直接相加（5%+8%），未依價值比例加權平均，計算方式錯誤。", "3%的計算結果明顯偏低，與正確加權平均公式計算不符。", "綜合資本化率＝土地資本化率×(土地價值÷總價值)＋建物資本化率×(建物價值÷總價值)＝5%×(600/1000)＋8%×(400/1000)＝3%＋3.2%＝6.2%，與本選項相符。", "7.2%的計算結果與正確加權平均公式計算不符。"], correct:2, note:"綜合資本化率＝5%×(600/1000)+8%×(400/1000)＝3%+3.2%＝6.2%。"},
+{id:"VD2_100_28", cat:"D2", year:"100年第28題", q:"直接資本化法之資本化率為下列何者間關係？", opts:["自有資金與貸款額", "有效收益與價值", "毛收益與價值", "淨收益與價值"], explains:["「自有資金與貸款額」之關係是融資結構之概念，並非直接資本化法資本化率之定義。", "「有效收益與價值」之關係並非資本化率之精確定義，資本化率應為「淨收益」而非「有效收益」與價值之關係。", "「毛收益與價值」之關係同樣並非資本化率之精確定義，毛收益尚未扣除費用，與淨收益不同。", "技術規則明定直接資本化法之收益價格＝淨收益÷收益資本化率，故資本化率即為「淨收益與價值」之關係（淨收益除以價值），與題目敘述相符。"], correct:3, note:null},
+{id:"VD2_100_36", cat:"D2", year:"100年第36題", q:"應用直接資本化法估價時，已知獲利率為5%、收益年增率為2%，則直接資本化率應採下列何者較佳？", opts:["7%", "5%", "3%", "2%"], explains:["7%的計算誤將獲利率與收益年增率相加，與正確之資本化率調整邏輯相反。", "5%僅為原始獲利率本身，未考量收益年增率之調整。", "依資本化率與成長率關係之概念，直接資本化率應為獲利率扣除收益年增率（因未來收益持續成長，當期資本化率應相對較低以反映未來成長潛力）＝5%－2%＝3%，與本選項相符。", "2%僅為收益年增率本身，並非正確之資本化率調整結果。"], correct:2, note:"資本化率＝獲利率－收益年增率＝5%－2%＝3%。"},
+{id:"VD2_102_11", cat:"D2", year:"102年第11題", q:"收益資本化率之擇定如採風險溢酬法，下列敘述何者錯誤？", opts:["應考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素", "選擇最具特殊性財貨之投資報酬率為基準", "比較觀察該投資財貨與勘估標的個別特性之差異", "需就流通性、風險性、增值性及管理上之難易程度等因素加以比較決定之"], explains:["風險溢酬法應考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "技術規則明定風險溢酬法應選擇最具「一般性」財貨（而非特殊性財貨）之投資報酬率為基準，本選項將一般性誤植為特殊性，敘述錯誤，即本題正解。", "比較觀察該投資財貨與勘估標的個別特性之差異，是風險溢酬法正確之操作程序，敘述正確。", "需就流通性、風險性、增值性及管理上之難易程度等因素加以比較決定之，此為正確敘述。"], correct:1, note:"應選擇最具「一般性」（非特殊性）財貨之投資報酬率為比較基準，此為敘述錯誤之處。"},
+{id:"VD2_104_17", cat:"D2", year:"104年第17題", q:"下列有關收益資本化率決定之敘述，何者正確？", opts:["依加權平均資金成本方式決定之方法謂之市場萃取法", "有效總收入乘數法之公式為：淨收益率÷有效總收入乘數", "債務保障比率法之公式為：債務保障比率×貸款常數÷貸款資金占不動產價格比率", "選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法謂之風險溢酬法"], explains:["依加權平均資金成本方式決定之方法稱為「加權平均資金成本法（WACC）」，並非市場萃取法，本選項方法名稱誤植。", "技術規則明定有效總收入乘數法之公式為：收益資本化率＝淨收益率÷有效總收入乘數，與本選項完全相符。", "技術規則明定債務保障比率法之公式為：收益資本化率＝債務保障比率×貸款常數×貸款資金占不動產價格比率（為「乘以」而非「除以」貸款資金占比），本選項運算符號誤植，敘述錯誤。", "選擇數個比較標的以淨收益除以價格之商數比較決定資本化率之方法，稱為「市場萃取法」，並非風險溢酬法，本選項方法名稱誤植。"], correct:1, note:null},
+{id:"VD2_104_37", cat:"D2", year:"104年第37題", q:"當比較標的收益價格為500萬元，勘估標的收益價格為800萬元，比較標的未來平均一年期間之客觀淨收益為48萬元，勘估標的未來平均一年期間之客觀淨收益為40萬元，此時其收益資本化率為何？", opts:["5%", "6%", "8%", "9.6%"], explains:["5%的計算未正確採用比較標的之淨收益與收益價格進行市場萃取。", "6%的計算基礎有誤，與正確公式計算結果不符。", "8%並非依市場萃取法計算所得之正確資本化率。", "依市場萃取法，以比較標的之淨收益除以其收益價格求取資本化率：48萬元÷500萬元＝9.6%，再以此資本化率作為勘估標的之收益資本化率（市場萃取法假設同一供需圈內具相似性之標的資本化率水準相近），與本選項相符。"], correct:3, note:"市場萃取法以比較標的淨收益除以價格求取資本化率：48÷500＝9.6%。"},
+{id:"VD2_104_39", cat:"D2", year:"104年第39題", q:"當債務保障比率為1.3，貸款常數為0.1，貸款以外的資金占不動產價格比率為40%時，請問此時收益資本化率為何？", opts:["3.1%", "5.2%", "6.5%", "7.8%"], explains:["3.1%的計算未正確套用債務保障比率法公式。", "5.2%的計算結果與正確公式計算不符。", "6.5%的計算基礎有誤。", "貸款資金占不動產價格比率＝1－貸款以外資金占比＝1－40%＝60%；依債務保障比率法公式：收益資本化率＝債務保障比率×貸款常數×貸款資金占比＝1.3×0.1×60%＝7.8%，與本選項相符。"], correct:3, note:"貸款資金占比＝1－40%＝60%；資本化率＝債務保障比率×貸款常數×貸款資金占比＝1.3×0.1×60%＝0.078＝7.8%。"},
+{id:"VD2_105_15", cat:"D2", year:"105年第15題", q:"收益資本化率或折現率之計算中，選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法，為下列何者？", opts:["風險溢酬法", "市場萃取法", "加權平均資金成本法", "有效總收入乘數法"], explains:["風險溢酬法是以一般性財貨投資報酬率為基準並考量風險溢酬調整之方法，與題目所述「以淨收益除以價格之商數比較決定」之操作方式不同。", "技術規則明定市場萃取法係選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法，與題目敘述完全相符。", "加權平均資金成本法是以自有資金與借貸資金之比重及各自報酬率加權計算，與題目所述淨收益除以價格之操作方式不同。", "有效總收入乘數法是以淨收益率除以有效總收入乘數計算，與題目所述直接以淨收益除以價格之操作方式不同。"], correct:1, note:null},
+{id:"VD2_106_10", cat:"D2", year:"106年第10題", q:"「考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，選擇最具一般性財貨之投資報酬率為基準，比較觀察該投資財貨與勘估標的個別特性之差異，並就流通性、風險性、增值性及管理上之難易程度等因素加以比較決定之。」係指收益資本化率何種方式？", opts:["債務保障比率法", "風險溢酬法", "市場萃取法", "有效總收入乘數法"], explains:["債務保障比率法是以債務保障比率乘以貸款常數及貸款資金占比計算，與題目所述「考慮銀行定存利率公債利率等因素並比較流通性風險性等」之操作方式不同。", "技術規則明定風險溢酬法係考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，選擇最具一般性財貨之投資報酬率為基準，比較觀察該投資財貨與勘估標的個別特性之差異，並就流通性、風險性、增值性及管理上之難易程度等因素加以比較決定之，與題目敘述完全相符。", "市場萃取法是直接以比較標的淨收益除以價格之商數決定，與題目所述風險溢酬調整之操作方式不同。", "有效總收入乘數法是以淨收益率除以有效總收入乘數計算，與題目所述操作方式不同。"], correct:1, note:null},
+{id:"VD2_106_29", cat:"D2", year:"106年第29題", q:"某一不動產每年營業淨收益60萬元，貸款成數80%，貸款利率5%，貸款年數20年，債權保障比率1.5，若以這些條件計算下之不動產價格應為：", opts:["940萬元", "1,256萬元", "1,450萬元", "1,420萬元"], explains:["940萬元的計算未正確套用債務保障比率法之完整計算流程。", "依債務保障比率法之概念，先求年還款額＝淨收益÷債權保障比率＝60萬÷1.5＝40萬元；再以貸款常數（依貸款利率5%、貸款年數20年計算之抵押貸款常數約0.0802）反推貸款總額＝40萬÷0.0802≈499萬元；不動產價格＝貸款總額÷貸款成數＝499萬÷80%≈623萬元。惟本題官方公告答案為1,256萬元，與上述標準公式計算結果存在顯著差異，可能源於題目另有特殊前提或採用不同之貸款常數計算基礎，建議考生對照不動產估價技術規則第46條原文及官方詳解確認本題完整計算邏輯。", "1,450萬元同樣與標準公式計算結果有出入。", "1,420萬元同樣與標準公式計算結果有出入，本題計算結果建議以官方公布之詳解為準。"], correct:1, note:"先求貸款常數（年利率5%、20年期）約0.0802；資本化率＝1.5×0.0802×80%≈0.0962（9.62%）；不動產價格＝60÷9.62%≈623.7萬元，惟此計算路徑因貸款常數查表差異可能影響結果，建議對照債務保障比率法公式：資本化率＝債務保障比率×貸款常數×貸款資金占比，並以官方答案1,256萬元反推驗證貸款常數取值。"},
+{id:"VD2_106_32", cat:"D2", year:"106年第32題", q:"蒐集市場上僅有的5個交易案例之資本化率分別為10%、1%、5%、4.5%、4.9%，經估價師判斷應去掉差距過大之異常值，試問若依市場萃取法，勘估標的之資本化率應為：", opts:["4.5%", "4.8%", "5%", "6.1%"], explains:["4.5%僅為單一案例之資本化率數值，並非去除異常值後之平均結果。", "5個案例中10%與1%明顯為差距過大之異常值（與其餘三案例5%、4.5%、4.9%差距懸殊），經估價師判斷去除後，剩餘三案例平均值＝(5%+4.5%+4.9%)÷3＝4.8%，與本選項相符。", "5%僅為單一案例之資本化率數值，並非平均結果。", "6.1%並非去除異常值後之正確平均計算結果。"], correct:1, note:"去除明顯異常值10%與1%後，剩餘5%、4.5%、4.9%取平均＝(5+4.5+4.9)/3≈4.8%。"},
+{id:"VD2_107_8", cat:"D2", year:"107年第8題", q:"當建物價格日期當時價值未來每年折舊提存率大於零時，下列對淨收益已扣除折舊提存費之房地綜合收益資本化率與淨收益未扣除折舊提存費之房地綜合收益資本化率兩者間之敘述，何者正確？", opts:["淨收益已扣除折舊提存費之房地綜合收益資本化率高於淨收益未扣除折舊提存費之房地綜合收益資本化率", "淨收益已扣除折舊提存費之房地綜合收益資本化率等於淨收益未扣除折舊提存費之房地綜合收益資本化率", "淨收益已扣除折舊提存費之房地綜合收益資本化率小於淨收益未扣除折舊提存費之房地綜合收益資本化率", "無法判斷"], explains:["淨收益已扣除折舊提存費之資本化率「高於」未扣除者，方向與正確答案相反。", "兩者資本化率「相等」之敘述忽略了折舊提存率大於零時對房地綜合收益資本化率產生之影響差異。", "當折舊提存率大於零時，淨收益已扣除折舊提存費之房地綜合收益資本化率，小於淨收益未扣除折舊提存費之房地綜合收益資本化率（因為未扣除折舊提存費之淨收益較大，但對應之不動產價值不變，根據淨收益除以價值之關係，分子較大時對應的資本化率亦較大；已扣除折舊提存費後淨收益較小，對應資本化率較小），與本選項相符。", "兩者間之大小關係依折舊提存率影響邏輯是可判斷的，並非無法判斷。"], correct:2, note:null},
+{id:"VD2_107_20", cat:"D2", year:"107年第20題", q:"下列關於收益資本化率之敘述，何者錯誤？", opts:["增值性較高的不動產，其收益資本化率較高", "流通性高的不動產，其收益資本化率較低", "風險性較高的不動產，其收益資本化率較高", "管理度較難的不動產，其收益資本化率較高"], explains:["依風險溢酬法之邏輯，增值性較高的不動產，因未來增值潛力高，投資人願意接受較低之當期收益報酬，其收益資本化率應「較低」（而非較高），本選項與正確關係相反，即本題正解。", "流通性高的不動產，交易變現容易、風險較低，其收益資本化率較低，此為正確敘述。", "風險性較高的不動產，投資人要求較高報酬以補償風險，其收益資本化率較高，此為正確敘述。", "管理較難的不動產，管理成本及複雜度增加投資風險，其收益資本化率較高，此為正確敘述。"], correct:0, note:"增值性較高之不動產，其收益資本化率應「較低」（因未來增值預期高，要求即期收益報酬可降低），此為敘述錯誤之處。"},
+{id:"VD2_107_21", cat:"D2", year:"107年第21題", q:"選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定收益資本化率之方法為：", opts:["加權平均資金成本法", "有效總收入乘數法", "債務保障比率法", "市場萃取法"], explains:["加權平均資金成本法是以自有資金與借貸資金之比重及各自報酬率加權計算，與題目所述以淨收益除以價格之商數比較決定之操作方式不同。", "有效總收入乘數法是以淨收益率除以有效總收入乘數計算，與題目所述操作方式不同。", "債務保障比率法是以債務保障比率乘以貸款常數及貸款資金占比計算，與題目所述操作方式不同。", "技術規則明定市場萃取法係選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VD2_109_4", cat:"D2", year:"109年第4題", q:"經分析考量市場上類似不動產之正常租金為每年每坪12,000元，合理空置率為5%，淨收益率為75%，貸款資金占不動產價格比率80%，有效總收入乘數為15，請以有效總收入乘數法計算出收益資本化率為多少？", opts:["4.27%", "4.67%", "5.0%", "5.33%"], explains:["4.27%的計算基礎有誤，未正確套用有效總收入乘數法公式。", "4.67%的計算結果與正確公式計算不符。", "依有效總收入乘數法公式：收益資本化率＝淨收益率÷有效總收入乘數＝75%÷15＝5.0%，與本選項相符。注意：題目所給「正常租金」「合理空置率」「貸款資金占比」等資料是此情境之背景資訊，核心計算僅需淨收益率與有效總收入乘數兩項數值即可。", "5.33%的計算結果與正確公式計算不符。"], correct:2, note:"有效總收入乘數法公式：收益資本化率＝淨收益率÷有效總收入乘數＝75%÷15＝5.0%。"},
+{id:"VD2_109_14", cat:"D2", year:"109年第14題", q:"某商用不動產之自有資金要求報酬率8%、向銀行融資之利率4%，當自有資金的比重為50%，以加權平均資金成本法估算之收益法折現率為何？", opts:["4%", "6%", "8%", "10%"], explains:["4%僅為融資利率本身，未考量自有資金與借貸資金之加權。", "依加權平均資金成本法（WACC）公式：折現率＝自有資金比重×自有資金報酬率＋借貸資金比重×融資利率＝50%×8%＋50%×4%＝4%＋2%＝6%，與本選項相符。", "8%僅為自有資金要求報酬率本身，未考量借貸資金之加權。", "10%的計算結果與正確加權平均公式計算不符，明顯偏高。"], correct:1, note:"WACC＝0.5×8%+0.5×4%＝4%+2%＝6%。"},
+{id:"VD2_110_21", cat:"D2", year:"110年第21題", q:"依不動產估價技術規則第43條規定，收益資本化率應考慮之因素不包括下列何者？", opts:["貨幣變動之狀況", "銀行定期存款利率", "不動產投資之損益", "不動產價格變動趨勢"], explains:["貨幣變動之狀況是技術規則第43條明定收益資本化率應考慮之因素之一，非本題答案（本題問「不包括」之因素）。", "銀行定期存款利率是技術規則明定應考慮之因素之一。", "「不動產投資之損益」並非技術規則第43條明定應考慮之因素（規則明定的是「不動產投資之風險性」，而非投資損益本身），即本題正解。", "不動產價格變動趨勢是技術規則明定應考慮之因素之一。"], correct:2, note:"規則所列考慮因素為不動產投資之「風險性」，非「損益」，此為本題鑑別點。"},
+{id:"VD2_111_3", cat:"D2", year:"111年第3題", q:"收益資本化率或折現率應綜合評估最適宜之方法決定，如採用債務保障比率方式決定，其計算式債務保障比率除了乘以貸款資金占不動產價格比率外，應再乘以下列何者？", opts:["債務保障常數", "市場常數", "存款常數", "貸款常數"], explains:["「債務保障常數」並非技術規則明定債務保障比率法計算式中所使用之正式用語。", "「市場常數」並非技術規則明定債務保障比率法計算式中所使用之正式用語。", "「存款常數」並非技術規則明定債務保障比率法計算式中所使用之正式用語。", "技術規則明定債務保障比率法公式為：收益資本化率＝債務保障比率×貸款常數×貸款資金占不動產價格比率，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VD2_112_14", cat:"D2", year:"112年第14題", q:"決定收益資本化率之方法中，選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法為何？", opts:["風險溢酬法", "市場萃取法", "債務保障比率法", "折現現金流量分析法"], explains:["風險溢酬法是以一般性財貨投資報酬率為基準並考量風險溢酬調整之方法，與題目所述以淨收益除以價格之操作方式不同。", "技術規則明定市場萃取法係選擇數個與勘估標的相同或相似之比較標的，以其淨收益除以價格後，以所得之商數加以比較決定之方法，與題目敘述完全相符。", "債務保障比率法是以債務保障比率乘以貸款常數及貸款資金占比計算，與題目所述操作方式不同。", "折現現金流量分析法（DCF）是估算多期現金流量並折現之方法，並非收益資本化率之決定方法本身，且操作方式與題目所述不同。"], correct:1, note:null},
+{id:"VD2_112_18", cat:"D2", year:"112年第18題", q:"當債務保障比率要求為1.5倍，貸款常數為0.1，不動產價格為新臺幣60億元，自有資金為新臺幣15億元，不足資金則跟銀行貸款。請問在前述情況下收益資本化率（折現率）為何？", opts:["15%", "11.25%", "5%", "3.75%"], explains:["15%的計算未正確套用債務保障比率法公式。", "貸款資金占不動產價格比率＝(不動產價格60億－自有資金15億)÷不動產價格60億＝45億÷60億＝75%；依債務保障比率法公式：收益資本化率＝債務保障比率×貸款常數×貸款資金占比＝1.5×0.1×75%＝11.25%，與本選項相符。", "5%的計算結果與正確公式計算不符。", "3.75%的計算基礎有誤，與正確公式計算結果不符。"], correct:1, note:"貸款資金占比＝(60－15)÷60＝75%；資本化率＝1.5×0.1×75%＝0.1125＝11.25%。"},
+{id:"VD2_112_22", cat:"D2", year:"112年第22題", q:"下列那一種方法不屬於計算收益資本化率或折現率之方法？", opts:["加權平均資金成本法", "有效總收入乘數法", "折現現金流量分析法", "風險溢酬法"], explains:["加權平均資金成本法（WACC）是技術規則明定計算收益資本化率之方法之一，非本題答案（本題問「不屬於」計算資本化率之方法）。", "有效總收入乘數法是技術規則明定計算收益資本化率之方法之一。", "折現現金流量分析法（DCF）是「估算不動產未來多期現金流量並折現」之獨立估價方法，並非用以「決定收益資本化率」之計算方法（DCF本身使用的是折現率而非資本化率之決定機制），即本題正解。", "風險溢酬法是技術規則明定計算收益資本化率之方法之一。"], correct:2, note:"折現現金流量分析法（DCF）本身屬於收益法之一種獨立估價方法，並非用來「決定資本化率」之子方法。"},
+{id:"VD2_113_13", cat:"D2", year:"113年第13題", q:"收益資本化率決定的方法中與銀行貸款成數相關的是那一個方法？", opts:["市場萃取法", "有效總收入乘數法", "債務保障比率法", "風險溢酬法"], explains:["市場萃取法是以淨收益除以價格之商數決定，與銀行貸款成數無直接關連。", "有效總收入乘數法是以淨收益率除以有效總收入乘數計算，與銀行貸款成數無直接關連。", "技術規則明定債務保障比率法之公式為：收益資本化率＝債務保障比率×貸款常數×「貸款資金占不動產價格比率」，此公式直接涉及銀行貸款成數（貸款資金占比），與題目敘述完全相符。", "風險溢酬法是考量流通性風險性等因素調整，與銀行貸款成數無直接關連。"], correct:2, note:null},
+{id:"VD2_113_24", cat:"D2", year:"113年第24題", q:"某一開發案自有資金比例是30%，其餘資金向銀行貸款，貸款利率為3%，自有資金報酬率為2%，其資本化率為何？", opts:["2.3%", "2.7%", "2.5%", "2.6%"], explains:["2.3%的計算未正確套用加權平均資金成本法公式。", "依加權平均資金成本法（WACC）公式：資本化率＝自有資金比重×自有資金報酬率＋借貸資金比重×貸款利率＝30%×2%＋70%×3%＝0.6%＋2.1%＝2.7%，與本選項相符。", "2.5%的計算結果與正確加權平均公式計算不符。", "2.6%的計算結果與正確加權平均公式計算不符。"], correct:1, note:"WACC＝0.3×2%+0.7×3%＝0.6%+2.1%＝2.7%。"},
+{id:"VD2_114_6", cat:"D2", year:"114年第6題", q:"勘估標的未來平均1年期間之客觀淨收益為100萬元，收益價格為2,000萬元，收益資本化率為：", opts:["3%", "5%", "8%", "10%"], explains:["3%的計算結果與正確公式計算不符。", "依直接資本化法公式：收益資本化率＝淨收益÷收益價格＝100萬元÷2,000萬元＝5%，與本選項相符。", "8%的計算結果與正確公式計算不符。", "10%的計算結果與正確公式計算不符，明顯偏高。"], correct:1, note:"資本化率＝淨收益÷價格＝100÷2,000＝5%。"},
+{id:"VD2_114_8", cat:"D2", year:"114年第8題", q:"債務保障比率為1.3、貸款常數為0.055、貸款資金占不動產價格比率為70%，收益資本化率約為：", opts:["3%", "4%", "5%", "6%"], explains:["3%的計算未正確套用債務保障比率法公式。", "4%的計算結果與正確公式計算不符。", "依債務保障比率法公式：收益資本化率＝債務保障比率×貸款常數×貸款資金占比＝1.3×0.055×70%≈5.0%，與本選項相符。", "6%的計算結果與正確公式計算不符，數值偏高。"], correct:2, note:"資本化率＝1.3×0.055×70%≈0.05＝5%。"},
+{id:"VD2_114_19", cat:"D2", year:"114年第19題", q:"收益法中對於收益的資本化可採收益資本化率或折現率，下列對於兩者數值高低關係之敘述何者正確？", opts:["收益資本化率高於折現率", "收益資本化率低於折現率", "收益資本化率等於折現率", "不一定"], explains:["收益資本化率與折現率之數值高低關係並非恆定「收益資本化率高於折現率」，需視市場條件而定，本選項過於絕對。", "同樣地，並非恆定「收益資本化率低於折現率」，本選項過於絕對。", "兩者並非恆定相等，需視個案計算條件而定，本選項過於絕對。", "收益資本化率與折現率之數值高低關係，依不同評估方法、市場條件及收益成長預期等因素而異，並無固定之高低關係，「不一定」是最精確的描述，與題目敘述相符。"], correct:3, note:null},
+{id:"VD2_114_20", cat:"D2", year:"114年第20題", q:"不動產相對一般性財貨具低流通、高風險、高增值及管理較難等特性；於採風險溢酬法決定收益資本化率時，上述特性中何者與收益資本化率高低呈反向變動？", opts:["流通性", "風險性", "增值性", "管理難度"], explains:["依風險溢酬法之邏輯，流通性與資本化率呈「同向」關係（流通性低，資本化率較高，以補償變現困難之風險），並非反向變動。", "風險性與資本化率呈「同向」關係（風險性高，資本化率較高，以補償投資風險），並非反向變動。", "增值性與收益資本化率呈「反向」變動關係：增值性愈高，投資人願意接受較低之當期收益報酬（因預期未來增值可彌補），故收益資本化率愈低，與題目敘述相符，即本題正解。", "管理難度與資本化率呈「同向」關係（管理愈難，資本化率較高，以補償管理成本及複雜度），並非反向變動。"], correct:2, note:null},
+{id:"VD2_114_21", cat:"D2", year:"114年第21題", q:"以直接資本化法對同一不動產之土地、建物及不動產分別評估其價值，則三者之收益資本化率數值何者最高？", opts:["土地", "建物", "不動產", "不一定"], explains:["土地通常無實體折舊耗損風險（土地不會像建物一樣隨時間損耗），相對風險較低，其收益資本化率通常最低，並非最高。", "建物因有折舊耗損、維護成本及使用年限限制等風險因素，其收益資本化率通常高於土地，三者中以建物之收益資本化率最高，與本選項相符。", "不動產（房地綜合）之收益資本化率是土地與建物資本化率之加權平均值，數值會介於土地與建物資本化率之間，並非三者中最高者。", "依一般估價理論及實務經驗法則，建物資本化率高於土地及房地綜合之資本化率，此關係具有相對穩定之邏輯依據（建物折舊風險），並非「不一定」。"], correct:1, note:"建物因有折舊耗損之風險，其收益資本化率通常高於土地（土地不發生實體折舊），故建物資本化率最高。"}
+];
+const CAT_NAMES = {"D2": "D2 收益法-資本化率"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_d2_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_d2_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_d2_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_d2_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

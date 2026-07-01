@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・A4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・A4
+      <span class="sub">A估價程序(A4)含逐選項解析・共 44 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/44</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VA4_99_29", cat:"A4", year:"99年第29題", q:"不動產估價作業程序中應確定之基本事項為：", opts:["委託人", "勘察日期", "估價條件", "估價費用"], explains:["委託人是估價委託關係之當事人，並非技術規則第9條明定之估價基本事項項目（基本事項著重於估價本身的條件設定，委託人身分屬於委託關係範疇而非此處所列四項基本事項之一，但實務上仍會記載）。", "勘察日期是赴現場調查之日期，技術規則明定基本事項中為「價格日期」而非「勘察日期」，二者不同。", "技術規則第9條明定估價基本事項包含：勘估標的內容、價格日期、價格種類及條件（估價條件）、估價目的，「估價條件」是其中明定項目之一，與本選項相符。", "估價費用是估價服務之對價，非技術規則明定應確定之估價基本事項項目。"], correct:2, note:null},
+{id:"VA4_101_8", cat:"A4", year:"101年第8題", q:"下列何者不屬於從事不動產估價前需確定之基本事項？", opts:["價格種類", "勘察日期", "勘估標的權利狀態", "估價條件"], explains:["價格種類是技術規則第9條明定應確定之估價基本事項之一，非本題答案（本題問「不屬於」基本事項）。", "技術規則第9條明定之基本事項為價格日期，而非勘察日期；勘察日期是赴現場調查之日期，屬於估價程序中「確認勘估標的狀態」階段的工作，非屬「確定基本事項」階段之項目，即本題正解。", "勘估標的權利狀態屬於確定勘估標的內容之一環，是基本事項範疇。", "估價條件是技術規則第9條明定之基本事項之一。"], correct:1, note:null},
+{id:"VA4_101_9", cat:"A4", year:"101年第9題", q:"下列那些項目屬於不動產估價技術規則所指之勘估標的？①果樹　②房屋　③智慧財產權　④地上權　⑤租賃權", opts:["③④⑤", "②③④⑤", "①②④⑤", "①②③④⑤"], explains:["③④⑤遺漏①果樹與②房屋，但①②皆屬於不動產估價技術規則所稱之勘估標的（房屋為土地改良物，果樹為農作改良物之一種具體個案需視成熟程度判斷，惟一般成長中之果樹本身可列入勘估標的範圍探討）。", "②③④⑤包含③智慧財產權，但智慧財產權非屬不動產估價技術規則所稱之勘估標的範圍（不動產估價著重於土地、建物及其權利，不含智慧財產權此類無形資產）。", "技術規則所稱勘估標的包含土地、建物（房屋）及其權利（地上權、租賃權等），①果樹（生長中之農作改良物）、②房屋（建物）、④地上權（權利）、⑤租賃權（權利）皆屬於勘估標的範圍，③智慧財產權則不屬之，故①②④⑤為正確組合。", "①②③④⑤全選，但③智慧財產權不屬於不動產估價技術規則所稱之勘估標的，不應列入。"], correct:2, note:null},
+{id:"VA4_101_10", cat:"A4", year:"101年第10題", q:"不動產估價所稱之價格日期係指：", opts:["接受委託估價之日期", "赴勘估標的現場調查之日期", "估價報告書提出之日期", "估價報告書上勘估標的價格之日期"], explains:["接受委託估價之日期是估價委託關係成立之日期，並非技術規則所稱之價格日期。", "赴勘估標的現場調查之日期是「勘察日期」，與價格日期定義不同。", "估價報告書提出之日期是完成估價作業並提交報告之日期，並非價格基準日期本身。", "技術規則第2條第7款明定價格日期係指表示估價報告書上所載勘估標的價格之基準日期，與題目敘述相符。"], correct:3, note:null},
+{id:"VA4_101_19", cat:"A4", year:"101年第19題", q:"都市計畫住宅區現供耕作使用之土地，其地價之查估應依下列何種使用價格查估？", opts:["農業用地", "住宅用地", "耕作用地", "鄉村區用地"], explains:["技術規則規定地價查估應依「法定用途」估價，都市計畫住宅區之土地縱使現供耕作使用，其法定使用分區仍為住宅區，應依住宅用地之使用價值查估，而非依現況之農業用地查估，本選項與法定用途查估原則不符。", "都市計畫住宅區現雖供耕作使用，但其都市計畫法定用途為住宅區，依規定應依「法定用途」查估地價，即依住宅用地之價值查估，與題目敘述相符。", "「耕作用地」並非都市計畫法定使用分區之正式名稱，且與依法定用途查估之原則不符。", "「鄉村區用地」是非都市土地之使用分區類別，與本題都市計畫住宅區之情境不符。"], correct:1, note:null},
+{id:"VA4_101_38", cat:"A4", year:"101年第38題", q:"不動產估價為能確切掌握土地所有權、面積、土地界線及鄰地地號，應取得之資料為下列何者？", opts:["土地登記簿謄本及地籍圖", "地籍圖及都市計畫圖", "土地登記簿謄本及建物登記簿謄本", "土地登記簿謄本及地形圖"], explains:["技術規則第13條明定確認勘估標的狀態時應確認基本資料及權利狀態，土地登記簿謄本記載所有權及他項權利狀態，地籍圖記載土地界線、面積及鄰地地號，兩者合併可確切掌握所有權、面積、土地界線及鄰地地號等資訊，與題目敘述相符。", "都市計畫圖主要顯示土地使用分區管制，無法提供土地所有權及鄰地地號等具體產權資訊。", "建物登記簿謄本記載建物產權狀態，與本題所問「土地」所有權、面積、界線及鄰地地號無直接關連。", "地形圖主要呈現地表高低起伏狀況，無法提供土地所有權及鄰地地號等產權資訊。"], correct:0, note:null},
+{id:"VA4_102_22", cat:"A4", year:"102年第22題", q:"請問下列對價格日期的敘述，何者正確？", opts:["不動產價格的委託日期", "不動產價格的基準日期", "不動產價格的查估日期", "不動產價格的交易日期"], explains:["委託日期是委託估價關係成立之日期，並非價格日期之定義。", "技術規則第2條第7款明定價格日期係表示價格之基準日期，與本選項描述相符。", "查估日期並非技術規則明定之正式用語，與價格日期定義不符。", "交易日期是不動產實際成交之日期，與估價報告書所載價格之基準日期（價格日期）不同，兩者可能不一致。"], correct:1, note:null},
+{id:"VA4_102_29", cat:"A4", year:"102年第29題", q:"不動產估價由三大方法所推估之價值，於綜合決定勘估標的價格時，下列敘述何者錯誤？", opts:["屬於不動產估價程序之後段步驟", "過程中應就其中金額顯著差異者重新檢討", "應視不同價格所蒐集資料可信度及估價種類目的條件差異，考量價格形成因素之相近程度判斷", "以經濟租金作為不動產證券化受益證券信託利益分配基礎者，折現現金流量分析之收益價格應視前項情形賦予相對較大之權重"], explains:["綜合決定勘估標的價格確實屬於不動產估價程序中較後段之步驟（蒐集資料、運用方法推算後才綜合決定），此敘述正確，非本題答案（本題問「何者錯誤」）。", "技術規則第15條規定，對不同方法所得金額顯著差異者應重新檢討，此敘述正確。", "技術規則第15條規定，應視資料可信度及估價種類目的條件差異，考量價格形成因素之相近程度決定價格，此敘述正確。", "依技術規則第15條規定，係以「契約租金」（非經濟租金）作為不動產證券化受益證券信託利益分配基礎者，折現現金流量分析之收益價格才應賦予相對較大之權重，本選項誤植為「經濟租金」，與規則規定不符，即本題正解。"], correct:3, note:"依不動產估價技術規則規定，係以「契約約定租金」（非經濟租金）作為信託利益分配基礎者，DCF收益價格才賦予較大權重，故本選項敘述有誤。"},
+{id:"VA4_102_32", cat:"A4", year:"102年第32題", q:"依不動產估價技術規則第7條規定：「依本規則辦理估價所稱之面積，已辦理登記者，以登記之面積為準；其未辦理登記或以部分面積為估價者，應調查註明之。」因此房地產買賣實價登錄時，如屬未登記建物，辦理申報登錄時，應如何辦理？", opts:["仍選擇房地合併申報", "如有車位，則選擇房地加車位申報", "單純以土地申報即可", "以土地申報並應於備註欄註明之"], explains:["未登記建物無法併入房地合併申報，因建物本身尚未完成產權登記，無法以建物名義申報。", "未登記建物之車位同樣面臨無產權登記問題，無法以房地加車位形式申報。", "單純以土地申報雖可行，但技術規則第7條要求未登記或部分面積估價者應「調查註明」，僅以土地申報而未註明建物存在之事實，不完整。", "技術規則第7條明定未辦理登記或以部分面積為估價者，應調查註明之，故未登記建物應以土地申報，並於備註欄註明建物存在之事實，與題目敘述及規則精神相符。"], correct:3, note:null},
+{id:"VA4_102_35", cat:"A4", year:"102年第35題", q:"以下何者為不動產估價技術規則所稱之勘估標的？①地上權　②專利權　③蘋果樹上的蘋果　④堆置田中已採收之稻穀　⑤未登記建物", opts:["②③④", "①②④", "①②⑤", "①③⑤"], explains:["②③④組合中含②專利權，非屬不動產估價技術規則所稱之勘估標的範圍。", "①②④組合中含②專利權，同樣非屬勘估標的範圍。", "①②⑤組合中含②專利權，非屬勘估標的範圍。", "①地上權（權利）、③蘋果樹上的蘋果（生長中尚未採收之天然孳息，依民法歸屬於土地之部分，可視為勘估標的相關範圍）、⑤未登記建物（建物改良物，雖未登記但仍屬技術規則第7條所稱可調查註明估價之標的），三者依官方答案組合判斷屬於勘估標的範圍；②專利權與④堆置田中已採收之稻穀（已分離之動產，非土地之部分）則不屬之。"], correct:3, note:null},
+{id:"VA4_102_38", cat:"A4", year:"102年第38題", q:"某房屋受地震損害經鑑定無法居住使用，下列估價原則何者較能掌握其房地價格？", opts:["先估計重建價格，再以重建後房地價格扣掉重建所花費金額", "以素地價格估價，並扣除拆除建物費用", "以比較法估計一般正常未受損價格，再以特殊情況調整", "無法估價"], explains:["「先估計重建價格，再以重建後房地價格扣掉重建所花費金額」此一邏輯混亂且非技術規則規定之標準作法，無法妥適反映已嚴重毀損無法居住之房屋現況價值。", "房屋因地震損害已無法居住使用，建物本身已喪失正常使用價值，技術規則規定此種情形得將基地視為素地估價（即不考慮已無實質效用之建物價值），但應考量拆除成本予以扣除，與題目所述「以素地價格估價，並扣除拆除建物費用」相符，此為處理建物已不具使用價值情形之正確估價邏輯。", "以比較法估計一般正常未受損價格，再以特殊情況調整，此方法未能精確反映建物已無法居住使用、實質上已無建物價值之現況，估價邏輯不夠精確。", "受損房屋仍可依素地估價搭配拆除成本調整之方式進行估價，並非無法估價。"], correct:1, note:null},
+{id:"VA4_103_1", cat:"A4", year:"103年第1題", q:"何者是地價區段內具代表性，以作為查估公共設施保留地毗鄰非公共設施保留地區段地價之宗地？", opts:["基準地", "比準地", "標準地", "比較標的"], explains:["「基準地」是地價區段內具代表性之宗地，但與本題所問「公共設施保留地毗鄰非公共設施保留地區段地價」之查估宗地名稱不符。", "「比準地」是地價區段內具代表性，作為查估公共設施保留地毗鄰非公共設施保留地區段地價之宗地，與題目敘述完全相符。", "「標準地」並非本題所問特定查估程序中使用之正式宗地名稱。", "比較標的是比較法估價中蒐集之交易實例，與本題所問地價區段內具代表性之宗地概念不同。"], correct:1, note:null},
+{id:"VA4_103_12", cat:"A4", year:"103年第12題", q:"確認勘估標的狀態時，應至現場勘察之事項，何者有誤？", opts:["確定勘估標的內容", "確認勘估標的之基本資料及權利狀態", "調查勘估標的及比較標的之使用現況", "確認影響價格之各項資料"], explains:["「確定勘估標的內容」是屬於技術規則第9條「確定估價基本事項」階段之工作項目，並非「確認勘估標的狀態」階段應至現場勘察之事項，本選項階段歸屬有誤，即本題正解（本題問「何者有誤」）。", "確認勘估標的之基本資料及權利狀態，是技術規則第13條明定確認勘估標的狀態時應至現場勘察之正確事項。", "調查勘估標的及比較標的之使用現況，是現場勘察應辦理之正確事項。", "確認影響價格之各項資料，是現場勘察應辦理之正確事項。"], correct:0, note:null},
+{id:"VA4_103_14", cat:"A4", year:"103年第14題", q:"依不動產估價技術規則之規定，不動產估價師應經常蒐集何者之相關交易、收益及成本等案例及資料，並詳予求證其可靠性？", opts:["勘估標的", "比較標的", "買賣標的", "估價標的"], explains:["「勘估標的」是待估價的標的本身，並非蒐集相關交易收益成本案例資料的對象，蒐集資料的對象應是可供比較參考之標的。", "技術規則第4條規定應蒐集「比較標的」相關交易、收益及成本等案例及資料，並詳予求證其可靠性，「比較標的」才是規則明定應蒐集資料之對象，惟本題官方答案標示為C（買賣標的），可能命題單位採用更廣義之「買賣標的」用語涵蓋比較標的之交易資料，建議考生對照規則原文「比較標的」用語確認本題鑑別細節，並以官方公告答案為準。", "依官方答案，本題正解為買賣標的，惟技術規則原文用語係指「比較標的」相關資料之蒐集，建議對照法條原文確認用語差異。", "「估價標的」並非技術規則第4條明定之正式用語。"], correct:2, note:"本題依官方答案表標示C，惟依不動產估價技術規則原文用語係指「比較標的」相關資料之蒐集，建議對照法條原文確認用語。"},
+{id:"VA4_103_29", cat:"A4", year:"103年第29題", q:"不動產估價作業程序中應確定之基本事項為：", opts:["委託人", "勘察日期", "估價費用", "估價條件"], explains:["委託人雖為委託關係之當事人，但技術規則第9條明定之四項基本事項並未單獨列出「委託人」一項作為核心基本事項內容（委託人身分屬於委託契約範疇）。", "勘察日期是赴現場調查之日期，技術規則第9條明定的是「價格日期」而非勘察日期。", "估價費用是估價服務之對價，非技術規則明定應確定之估價基本事項項目。", "技術規則第9條明定估價基本事項包含勘估標的內容、價格日期、價格種類及條件（估價條件）、估價目的，「估價條件」是其中明定項目之一，與題目敘述相符。"], correct:3, note:null},
+{id:"VA4_104_8", cat:"A4", year:"104年第8題", q:"下列有關不動產估價三大基本方法之敘述，何者正確？", opts:["比較法運用重置觀點得出比較價格", "收益法運用投資觀點得出收益價格", "成本法運用未來成本得出成本價格", "比較法運用交易觀點得出成交價格"], explains:["比較法運用「交易觀點」（非重置觀點）得出比較價格，本選項將觀點誤植，敘述錯誤。", "收益法運用投資觀點，求取未來收益折現或資本化後得出收益價格，與題目敘述完全相符。", "成本法運用「重置觀點」（求取重建或重置成本扣除折舊），而非「未來成本」概念，本選項用詞錯誤。", "比較法運用交易觀點得出的是「比較價格」，而非「成交價格」，成交價格是實際交易發生之價格，與估價方法所得之比較價格性質不同，本選項用詞錯誤。"], correct:1, note:null},
+{id:"VA4_104_27", cat:"A4", year:"104年第27題", q:"不動產估價作業程序包含下列8項，請問其正確程序為何？①確定估價基本事項　②擬定估價計畫　③確認勘估標的狀態　④蒐集資料　⑤整理、比較、分析資料　⑥決定勘估標的價格　⑦運用估價方法推算勘估標的價格　⑧製作估價報告書", opts:["①②③④⑤⑥⑦⑧", "①②④③⑤⑥⑦⑧", "①②③④⑤⑦⑥⑧", "①②④③⑤⑦⑥⑧"], explains:["①②③④⑤⑥⑦⑧此順序將③確認勘估標的狀態置於④蒐集資料之前，且⑥決定價格置於⑦運用估價方法之前，皆與正確的8步驟順序不符。", "①②④③⑤⑥⑦⑧此順序中，⑥決定勘估標的價格置於⑦運用估價方法推算價格之前，順序顛倒，應先運用方法推算（⑦）才能決定價格（⑥），不符正確邏輯。", "①②③④⑤⑦⑥⑧此順序將③確認勘估標的狀態置於④蒐集資料之前，順序錯誤（應先蒐集資料才能確認標的狀態）。", "技術規則第8條明定8大程序為：①確定估價基本事項→②擬定估價計畫→④蒐集資料→③確認勘估標的狀態→⑤整理比較分析資料→⑦運用估價方法推算價格→⑥決定勘估標的價格→⑧製作估價報告書，與本選項①②④③⑤⑦⑥⑧之順序完全相符。"], correct:3, note:null},
+{id:"VA4_104_38", cat:"A4", year:"104年第38題", q:"下列有關土地建築開發之直接成本及間接成本之敘述，何者正確？①直接成本係指營造或施工費　②規劃設計費、廣告費、銷售費皆為間接成本　③直接成本包含規劃設計費　④間接成本不包含銷售費", opts:["②③", "①②", "①④", "①②"], explains:["②③組合中，③稱直接成本包含規劃設計費，但規劃設計費依規則屬於間接成本而非直接成本，敘述錯誤。", "①②組合中，①直接成本係指營造或施工費，正確；②規劃設計費、廣告費、銷售費皆為間接成本，正確，兩者組合皆為正確敘述。", "①④組合中，④稱間接成本不包含銷售費，但銷售費依規則明確屬於間接成本之一項，敘述錯誤。", "技術規則第76條明定：直接成本＝營造施工費；間接成本＝規劃設計費＋廣告銷售費＋管理費＋稅捐及其他負擔，①②兩項描述完全符合此規定，為正確組合。"], correct:3, note:"原始選項排列依官方答案表為D，對應①②（直接成本係營造施工費，規劃設計費/廣告費/銷售費均屬間接成本）。"},
+{id:"VA4_105_4", cat:"A4", year:"105年第4題", q:"於不動產估價作業程序中，下列何者不屬於「確定估價基本事項」的內容？", opts:["估價方法", "價格日期", "價格種類及條件", "估價目的"], explains:["技術規則第9條明定之估價基本事項為勘估標的內容、價格日期、價格種類及條件、估價目的，並不包含「估價方法」此一項目（估價方法屬於後續運用估價程序中決定的事項，非事前確定之基本事項），即本題正解。", "價格日期是技術規則第9條明定之基本事項之一，非本題答案（本題問「不屬於」基本事項）。", "價格種類及條件是規則明定之基本事項之一。", "估價目的是規則明定之基本事項之一。"], correct:0, note:null},
+{id:"VA4_105_13", cat:"A4", year:"105年第13題", q:"地政機關辦理公告土地現值之估價方法，其主要之法令依據為：", opts:["地價調查估計規則", "不動產估價技術規則", "土地徵收補償市價查估辦法", "土地建築改良物估價規則"], explains:["地政機關辦理公告土地現值之估價方法，主要法令依據為地價調查估計規則，與不動產經紀人估價技術規則（適用於估價師受託估價）係不同法令體系，題目敘述相符。", "不動產估價技術規則是適用於不動產估價師受託辦理民間估價業務之規範，並非地政機關辦理公告土地現值之主要法令依據。", "土地徵收補償市價查估辦法是適用於土地徵收補償市價查估之專門法令，非公告土地現值估價之主要依據。", "「土地建築改良物估價規則」並非地政機關辦理公告土地現值之主要法令依據。"], correct:0, note:null},
+{id:"VA4_105_22", cat:"A4", year:"105年第22題", q:"依不動產估價技術規則之規定，下列何者並非由不動產估價師公會全國聯合會公告？", opts:["建物經濟耐用年數表", "建築改良物標準單價表", "營造或施工費標準表", "廣告費、銷售費、管理費及稅捐之相關費率"], explains:["建物經濟耐用年數表是技術規則明定由不動產估價師公會全國聯合會公告之項目，非本題答案（本題問「並非」由全聯會公告）。", "「建築改良物標準單價表」並非技術規則明定由全聯會公告之項目，這是常見混淆陷阱，技術規則明定全聯會公告之項目為建物經濟耐用年數表、營造施工費標準表、廣告銷售管理費及稅捐相關費率等，不含此表，即本題正解。", "營造或施工費標準表是技術規則明定由全聯會公告之項目。", "廣告費、銷售費、管理費及稅捐之相關費率，是技術規則第61-62條明定由全聯會公告之費率項目。"], correct:1, note:null},
+{id:"VA4_105_25", cat:"A4", year:"105年第25題", q:"有關市地重劃估價的敘述，下列何者錯誤？", opts:["相關法令未明定重劃前後地價查估之價格日期", "重劃前之地價應分別估計各宗土地地價及區段價", "重劃後之地價應估計重劃後各路街之路線價或區段價", "估計重劃前後地價應提地價評議委員會評定"], explains:["市地重劃相關法令確實未明定重劃前後地價查估之特定價格日期規範，此敘述符合實務現況，非本題答案（本題問「何者錯誤」）。", "重劃前之地價依市地重劃相關規定，應估計重劃前各路街之路線價或區段價（與重劃後對應），而非「分別估計各宗土地地價」，本選項描述與市地重劃地價查估之一般原則（查估路線價或區段價而非逐宗估價）不符，即本題正解。", "重劃後之地價應估計重劃後各路街之路線價或區段價，此為正確敘述。", "估計重劃前後地價應提地價評議委員會評定，此為正確程序敘述。"], correct:1, note:"依官方答案表標示B為錯誤選項，惟此敘述內容大致符合一般市地重劃地價查估原則，建議考生對照地價調查估計規則相關條文確認細節爭議點。"},
+{id:"VA4_105_35", cat:"A4", year:"105年第35題", q:"下列何種估價方法，係以未來期望利益計算不動產價值？", opts:["成本法", "收益法", "比較法", "土地開發分析法"], explains:["成本法是以重建或重置成本扣除折舊推算價格，著重於「過去投入成本」而非未來期望利益，與題目敘述不符。", "技術規則明定收益法係以勘估標的未來平均一年期間之客觀淨收益除以收益資本化率，或以折現現金流量分析法估算未來各期收益，本質上是以未來期望利益計算不動產價值，與題目敘述完全相符。", "比較法是以比較標的之交易價格為基礎，著重於「市場已實現之交易價格」而非未來期望利益。", "土地開發分析法雖也涉及未來銷售金額之估算，但其本質屬於成本法之延伸應用，核心仍是扣除開發成本及利潤後求得當前土地價值，非單純「未來期望利益」之資本化計算。"], correct:1, note:null},
+{id:"VA4_106_3", cat:"A4", year:"106年第3題", q:"依不動產估價技術規則第7條規定：「依本規則辦理估價所稱之面積，已辦理登記者，以登記之面積為準」但未辦理登記或以部分面積為估價者，應如何處理？", opts:["省略不處理", "先探求未登記之原因", "當作無價值", "調查註明"], explains:["技術規則第7條明定未登記或部分面積估價者應「調查註明」，並非省略不處理。", "技術規則第7條僅規定應調查註明，並未要求先探求未登記之原因，本選項超出規則規定範圍。", "技術規則並未規定未登記面積應當作無價值處理，此與規則精神不符。", "技術規則第7條明定：未辦理登記或以部分面積為估價者，應調查註明之，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA4_106_21", cat:"A4", year:"106年第21題", q:"已開闢道路及其二側或一側帶狀土地，可就具有顯著商業活動之繁榮地區，依當地發展及地價高低情形而劃設為下列那二種地價區段？", opts:["住宅價區段與商業價區段", "商業價區段與非商業價區段", "基準地價區段與標準地價區段", "繁榮街道路線價區段與一般路線價區段"], explains:["「住宅價區段與商業價區段」並非技術規則或地價調查估計規則明定之地價區段劃分正式名稱。", "「商業價區段與非商業價區段」並非正式之地價區段劃分名稱。", "「基準地價區段與標準地價區段」並非本題所問已開闢道路依繁榮程度劃設之地價區段正式名稱。", "已開闢道路及其二側或一側帶狀土地，依當地發展及地價高低情形，可就具有顯著商業活動之繁榮地區劃設為「繁榮街道路線價區段」，其餘則劃設為「一般路線價區段」，此為地價區段劃分之正式名稱，與題目敘述相符。"], correct:3, note:null},
+{id:"VA4_106_25", cat:"A4", year:"106年第25題", q:"初入社會的陳君預計在往後10年，每年有10萬元的償債能力，假設此時銀行利率為3%，請問其可貸得金額為何？", opts:["853,390元", "967,970元", "853,020元", "1,146,390元"], explains:["853,390元的計算結果與年金現值公式精確計算結果存在誤差，非正確答案。", "967,970元的計算基礎有誤，未正確套用年金現值公式。", "依年金現值公式 PV＝A×[1－(1+i)^(-n)]/i，代入A=10萬元、i=3%、n=10年，計算得PV≈853,020元，與本選項相符（此為每年10萬元償債能力，按3%利率折算10年期間可貸得之金額）。", "1,146,390元明顯超出合理計算範圍，計算方式有誤。"], correct:2, note:"本題依官方答案表標示為C，數值已比照原PDF格式呈現（OCR辨識位數可能有誤差，作答時請以年金現值公式 PV ＝ A×[1－(1+i)^(-n)]/i 重新代入10萬元、3%、10年驗算）。"},
+{id:"VA4_106_39", cat:"A4", year:"106年第39題", q:"有關不動產價值的定義，下列何者正確？", opts:["保險價值是不動產用於某種特定壽險用途所產生之價值", "營運價值係指特定投資人評估該不動產投資所能產生的主觀價值", "市場價值是不動產在營運過程中的既有價值，它是整個企業的一部分", "公允價值係指能瞭解實情、有意願之當事人間公平交易所議定之資產交換或還清債務之數額"], explains:["保險價值通常指用於保險理賠目的所評估之重置成本相關價值，並非「用於某種特定壽險用途所產生之價值」，本選項定義與保險價值之一般概念不符。", "營運價值（或稱企業價值之不動產部分）通常指不動產作為企業整體營運資產之一部分所產生的價值，並非「特定投資人評估之主觀價值」，本選項定義有誤。", "市場價值是反映公開市場上買賣雙方合理交易所形成之價值，並非「不動產在營運過程中的既有價值，是整個企業的一部分」，本選項描述的其實更接近營運價值之概念，與市場價值定義不符。", "公允價值係指能瞭解實情、有意願之當事人間，公平交易所議定之資產交換或清償債務之數額，此為國際會計準則對公允價值之標準定義，與本選項描述完全相符。"], correct:3, note:null},
+{id:"VA4_107_11", cat:"A4", year:"107年第11題", q:"下列那一項不屬於土地建築開發之間接成本？", opts:["施工費", "規劃設計費", "銷售費", "管理費"], explains:["技術規則第76條明定直接成本＝營造施工費（施工費），施工費是直接投入工程本身之成本，屬於直接成本而非間接成本，即本題正解（本題問「不屬於」間接成本）。", "規劃設計費依規則明定屬於間接成本之一項。", "銷售費依規則明定屬於間接成本之一項（廣告銷售費）。", "管理費依規則明定屬於間接成本之一項。"], correct:0, note:null},
+{id:"VA4_108_8", cat:"A4", year:"108年第8題", q:"對於估價目的為不動產買賣交易之參考所為之不動產估價，應評估的價格為：", opts:["買方希望之價格", "賣方希望之價格", "市場中最可能之成交價格", "買賣雙方希望價格之平均數"], explains:["買方希望之價格僅反映單方主觀期望，並非市場客觀交易價格，不適合作為買賣交易參考之估價結論。", "賣方希望之價格同樣僅反映單方主觀期望，不適合作為客觀估價結論。", "估價目的為不動產買賣交易之參考時，應評估市場中最可能之成交價格（即正常價格概念之具體應用），反映買賣雙方在公開市場上依專業知識謹慎行動可能達成之合理交易價格，與題目敘述相符。", "買賣雙方希望價格之簡單平均數，未必反映市場實際供需與合理交易條件，並非正確之估價方法論。"], correct:2, note:null},
+{id:"VA4_108_22", cat:"A4", year:"108年第22題", q:"下列何者非屬不動產估價師受理委託估價之勘估標的？", opts:["土地及其權利估價", "建築改良物及其權利估價", "不動產租金估計", "不動產稅負之估算"], explains:["土地及其權利估價，是不動產估價師依估價師法明定之核心業務範圍，非本題答案（本題問「非屬」受理委託估價之勘估標的）。", "建築改良物及其權利估價，同樣是估價師明定業務範圍之一。", "不動產租金估計，依技術規則第八章規定，亦屬估價師受理委託估價之業務範圍之一。", "不動產稅負之估算（如試算應納地價稅、土地增值稅等稅額）屬於稅務計算範疇，非不動產估價師依估價師法及技術規則明定之估價業務範圍（稅負試算通常屬地政士或會計師之專業範疇），即本題正解。"], correct:3, note:null},
+{id:"VA4_108_23", cat:"A4", year:"108年第23題", q:"不動產估價師在收集比較標的相關交易等案例及資料時，得向當事人、四鄰、其他不動產估價師、不動產經紀人員、地政士、地政機關、金融機構、公地管理機關、司法機關、媒體或有關單位收集之。請問：到實價登錄系統查詢交易案例相關資訊，屬向何者收集資料？", opts:["不動產經紀人", "地政士", "地政機關", "媒體"], explains:["不動產經紀人是提供仲介或代銷服務之專業人員，並非實價登錄系統之管轄或建置單位。", "地政士是辦理土地登記代理業務之專業人員，並非實價登錄系統之管轄單位。", "實價登錄系統是由地政機關（內政部及地方地政機關）建置管理之官方交易資訊申報登錄系統，到此系統查詢交易案例資訊，性質上屬於向「地政機關」收集資料，與技術規則第4條明定得向地政機關蒐集資料之規定相符。", "媒體通常指新聞報導等公開資訊來源，實價登錄系統屬官方申報登錄資料庫，非媒體性質之資訊來源。"], correct:2, note:null},
+{id:"VA4_109_3", cat:"A4", year:"109年第3題", q:"進行宗地估價時，下列敘述何者錯誤？", opts:["以分割為前提之宗地估價，應考慮分割前與分割後之價格變動情形，而予酌量增減", "數筆土地合併為一宗進行土地利用之估價，應以合併後土地估價，並以合併前各筆土地價值比例分算其土地價格", "一宗土地內有數種不同法定用途時，應考量其最有效使用及各種用途之相關性及分割之難易度後，決定分別估價或依主要用途估價", "土地之上下有其他設施通過，致使用受限制之宗地，應先估算其特定價格，再考量該設施通過造成土地利用之影響，並計算其地價減損額後，從特定價格中扣除之，以其餘額為該宗地之價格"], explains:["技術規則第83條明定，以分割為前提之宗地估價，應考慮分割前後之價格變動情形酌量增減，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "技術規則第84條明定，數筆土地合併為一宗估價，應以合併後土地估價，並以合併前各筆土地價值比例分算其土地價格，此為正確敘述。", "技術規則第85條明定，一宗土地內有數種不同法定用途時，應考量最有效使用及各用途相關性與分割難易度，決定分別估價或依主要用途估價，此為正確敘述。", "技術規則第88條規定土地上下有其他設施通過致使用受限制之宗地，應「先估算其『正常價格』」（而非特定價格），再扣除地價減損額；本選項將正常價格誤植為特定價格，此為錯誤敘述，即本題正解。"], correct:3, note:"應先估算其「正常價格」而非「特定價格」，再扣除地價減損額，此為本題錯誤敘述之鑑別點。"},
+{id:"VA4_109_7", cat:"A4", year:"109年第7題", q:"某大樓座落於原為住宅區變更為商業區之土地，依據目前土地使用管制相關法令規定，該大樓應以商業與一般事務所為其法定用途，今勘估標的某層建物未變更為商業區前之原核定用途為住宅使用，請問勘估標的之估價處理方式，下列何者較為適當？", opts:["以現行商業區允許之商業與一般事務所估價，並於估價報告書中敘明", "以現行商業區允許之商業與一般事務所估價，並就住宅用途與建物法定用途估價之差額於估價報告書中敘明", "以原核定住宅用途估價，並於估價報告書中敘明", "以現行商業區允許之商業與一般事務所估價，同時以原核定住宅用途估價，再以兩者平均數為估價結論，並於估價報告書中敘明"], explains:["僅以現行商業區允許之用途估價，未敘明原核定住宅用途與現行用途間之差額影響，未完整反映技術規則第102條規定的處理原則。", "技術規則第102條明定，原核定用途與現行管制不符之合法建物，應以現行管制允許用途估價，並敘明該用途與原核定用途間之差額，此選項完整描述了「以現行用途估價」並「敘明差額」兩個要件，與規則規定完全相符。", "僅以原核定住宅用途估價，未依現行（商業區）管制之允許用途估價，與技術規則明定「應以現行管制允許用途估價」之原則不符。", "將兩種用途估價結果平均作為結論，並非技術規則規定之正確估價方法，規則明定應以現行用途估價並敘明差額，而非簡單平均。"], correct:1, note:null},
+{id:"VA4_110_19", cat:"A4", year:"110年第19題", q:"勘估標的若為未完工之建物，應依何種方式估價？", opts:["未完工之建物應依比準建物進行估價", "未完工之建物應依實際完成部分估價", "未完工之建物應待完工後再進行估價", "未完工之建物無法產生正常報酬，不予估計"], explains:["「比準建物」並非技術規則明定處理未完工建物之估價方法，此為混淆選項。", "技術規則第63條明定未完工建物估價，應依實際完成部分估價，或以營造施工費標準表參考工程進度比例估算，與題目敘述相符。", "未完工建物可依實際完成部分進行估價，並非須待完工後才能進行估價。", "未完工建物雖未完工，但已投入之部分仍具經濟價值，並非無法估計，規則明定應依實際完成部分估價。"], correct:1, note:null},
+{id:"VA4_111_4", cat:"A4", year:"111年第4題", q:"依據不動產估價技術規則之規定，在一宗土地內有不同法定用途時，應如何估價？", opts:["應考量不同用途之合併或分割前後之價格變動情形，予酌量增減", "應以合併用途後估價，並以合併用途前各筆土地價值比例分算其土地價格", "應考慮不同用途之建築物對宗地價格造成之影響，予以酌量增減", "應考量其最有效使用及各種用途之相關性及分割之難易度後，決定分別估價或依主要用途估價"], explains:["「合併或分割前後之價格變動情形」是技術規則第83條規範分割或合併前提宗地估價之原則，而非本題所問「一宗土地內有不同法定用途」之處理方式，本選項答非所問。", "「應以合併用途後估價，並以合併用途前各筆土地價值比例分算」是技術規則第84條規範「數筆土地合併」之原則，而非「一宗土地內有不同法定用途」此一情境之處理方式。", "「考慮不同用途建築物對宗地價格造成之影響」並非技術規則第85條規範一宗多種法定用途土地估價之正確處理原則。", "技術規則第85條明定，一宗土地內有數種不同法定用途時，應考量最有效使用及各種用途之相關性及分割難易度後，決定分別估價或依主要用途估價，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VA4_111_8", cat:"A4", year:"111年第8題", q:"不動產估價作業程序依不動產估價技術規則規定，總共有八項作業程序，其中第七個步驟為何？", opts:["製作估價報告書", "整理、比較、分析資料", "運用估價方法推算勘估標的價格", "決定勘估標的價格"], explains:["製作估價報告書是8步驟中的第⑧（最後）步驟，非第七步驟。", "整理、比較、分析資料是8步驟中的第⑤步驟，非第七步驟。", "運用估價方法推算勘估標的價格是8步驟中的第⑦步驟（依技術規則第8條順序：①確定基本事項②擬定計畫④蒐集資料③確認標的狀態⑤整理分析⑦運用方法⑥決定價格⑧製作報告書，惟此處依較常見之教材排列順序⑦為運用估價方法），與本題官方答案相符。", "決定勘估標的價格是8步驟中的第⑥步驟（在運用估價方法之後），非第七步驟。"], correct:3, note:"依8步驟順序：①確定估價基本事項②擬定估價計畫③蒐集資料④確認勘估標的狀態⑤整理比較分析資料⑥運用估價方法推算價格⑦決定勘估標的價格⑧製作估價報告書，故第七步驟為「決定勘估標的價格」。"},
+{id:"VA4_111_18", cat:"A4", year:"111年第18題", q:"不動產估價人員應針對不動產勘估標的之價格日期當時的價值進行估價，而所謂價格日期是指：", opts:["估價人員撰寫估價報告書之日期", "勘估標的價格之基準日期", "至勘估標的現場從事調查的日期", "勘估標的交易之日期"], explains:["估價人員撰寫估價報告書之日期，是估價報告書的製作完成日期，並非技術規則所稱之價格日期定義。", "技術規則第2條第7款明定價格日期係指勘估標的價格之基準日期，與題目敘述完全相符。", "至勘估標的現場從事調查的日期是「勘察日期」，與價格日期定義不同（二者不必相同）。", "勘估標的交易之日期是實際成交之日期，與估價報告書所載價格之基準日期（價格日期）可能不一致。"], correct:1, note:null},
+{id:"VA4_111_21", cat:"A4", year:"111年第21題", q:"依據不動產估價技術規則，在進行不動產估價作業程序時，下列何者屬於估價要確定的基本事項？", opts:["作業所需時間", "估價目的", "勘估標的之狀態", "勘估標的相關交易、收益及成本資料"], explains:["作業所需時間是技術規則第10條「擬定估價計畫」階段之要素，非「確定估價基本事項」階段之內容。", "技術規則第9條明定估價基本事項包含勘估標的內容、價格日期、價格種類及條件、估價目的，「估價目的」是其中明定項目之一，與題目敘述相符。", "勘估標的之狀態是技術規則第13條「確認勘估標的狀態」階段（現場勘察）之工作內容，非「確定基本事項」階段。", "勘估標的相關交易、收益及成本資料是技術規則第11條「蒐集資料」階段之內容，非「確定基本事項」階段。"], correct:1, note:null},
+{id:"VA4_112_20", cat:"A4", year:"112年第20題", q:"下列何者不屬於土地建築開發之間接成本項目？", opts:["建築開發之施工人員施工費用", "建築開發之規劃設計費", "建築開發之管理費", "建築開發之銷售費"], explains:["技術規則第76條明定直接成本＝營造施工費，「建築開發之施工人員施工費用」屬於營造施工費的直接投入，是直接成本而非間接成本，即本題正解（本題問「不屬於」間接成本項目）。", "建築開發之規劃設計費依規則明定屬於間接成本之一項。", "建築開發之管理費依規則明定屬於間接成本之一項。", "建築開發之銷售費依規則明定屬於間接成本之一項（廣告銷售費）。"], correct:0, note:null},
+{id:"VA4_112_25", cat:"A4", year:"112年第25題", q:"有關一宗土地內有數種不同法定用途時之估價敘述，下列何者錯誤？", opts:["估價前應先考量其最有效使用再決定估價方式", "在考量宗地狀況後可以視不同法定用途採分別估價", "估價前應先考量各種用途之相關性及分割之難易度再決定估價方式", "估價時無須考量是否有數種不同法定用途，只需依其主要用途估價"], explains:["估價前應先考量其最有效使用再決定估價方式，是技術規則第85條規定的正確處理原則，此敘述正確，非本題答案（本題問「何者錯誤」）。", "在考量宗地狀況後可以視不同法定用途採分別估價，是規則明定的正確選項之一，敘述正確。", "估價前應先考量各種用途之相關性及分割之難易度再決定估價方式，是規則明定的正確考量因素，敘述正確。", "技術規則第85條明定，一宗土地內有數種不同法定用途時，應「考量最有效使用及各種用途之相關性及分割之難易度後，決定分別估價或依主要用途估價」，並非「無須考量，只需依主要用途估價」，本選項與規則規定（須經審慎考量後決定）完全相反，即本題正解。"], correct:3, note:null},
+{id:"VA4_113_3", cat:"A4", year:"113年第3題", q:"下列何者非屬於不動產估價範疇？", opts:["大鵬灣濕地", "地上權房屋，如101大樓", "種植在山上的果樹", "從果樹上摘下來的果實"], explains:["大鵬灣濕地屬於具特殊生態與經濟價值之土地，仍屬不動產估價技術規則所稱之土地範疇，可進行估價，此選項屬於估價範疇，非本題答案（本題問「非屬」估價範疇）。", "地上權房屋（如101大樓設定於公有土地上之地上權建物），其地上權及建物本身皆屬於技術規則第114條明定之權利估價及建物估價範圍，屬於估價範疇。", "種植在山上的果樹（生長中尚未採收之天然孳息，依民法附屬於土地之部分），可作為農作改良物估價之標的，屬於估價範疇。", "從果樹上摘下來的果實，已經與土地分離成為獨立動產，不再具有不動產（或其孳息附著於不動產）之性質，已脫離不動產估價技術規則所稱勘估標的之範疇，即本題正解。"], correct:3, note:null},
+{id:"VA4_113_6", cat:"A4", year:"113年第6題", q:"不動產估價技術規則對不動產估價方法運用的規定，下列何者錯誤？", opts:["不動產估價師應兼採二種以上估價方法推算勘估標的價格", "不動產估價師應就不同估價方法估價所獲得之價格進行綜合比較，就其中金額顯著差異者重新檢討", "評估證券化不動產清算價格時，對於折現現金流量分析法之收益價格應賦予相對較大之權重", "對於各方法試算價格應視不同價格所蒐集資料可信度及估價種類目的條件差異，考量價格形成因素之相近程度，決定勘估標的價格，並將決定理由詳予敘明"], explains:["技術規則第14條明定原則上應兼採二種以上估價方法推算價格，此敘述正確，非本題答案（本題問「何者錯誤」）。", "技術規則第15條規定應就不同方法所得金額顯著差異者重新檢討，此敘述正確。", "技術規則第15條明定，係以「契約租金」（而非經濟租金）作為不動產證券化受益證券「信託利益分配」基礎者，DCF收益價格才應賦予較大權重；本題敘述「評估證券化不動產清算價格時」應賦予較大權重，混淆了適用情境（清算價格非信託利益分配之適用前提），此為錯誤敘述，即本題正解。", "技術規則第15條規定，應視資料可信度及估價種類目的條件差異，考量價格形成因素之相近程度決定價格並詳予敘明理由，此敘述正確。"], correct:2, note:"賦予DCF較大權重之前提係以「契約約定租金作為信託利益分配基礎」之情形，並非泛指「評估證券化不動產清算價格」，此為敘述錯誤之處。"},
+{id:"VA4_114_17", cat:"A4", year:"114年第17題", q:"不動產估價報告書中應註明價格日期與勘查日期，就時間發生的先後下列敘述何者正確？", opts:["價格日期先於勘查日期", "勘查日期先於價格日期", "勘查日期等於價格日期", "不一定"], explains:["技術規則並未規定價格日期必然先於勘查日期，兩者先後關係視個案情況而定，本選項過於絕對化。", "技術規則並未規定勘查日期必然先於價格日期，兩者先後關係視個案情況而定，本選項同樣過於絕對化。", "技術規則明定價格日期與勘查日期是兩個不同定義的日期（價格日期為價格基準日期，勘查日期為現場調查日期），二者「不必相同」，本選項稱兩者相等，與規則精神不符。", "技術規則第2條第7-8款明定價格日期與勘察日期係不同定義之兩個日期，二者先後關係視個案實際情況而定，並無固定先後順序，「不一定」是最精確的描述，與規則精神相符。"], correct:3, note:null},
+{id:"VA4_114_25", cat:"A4", year:"114年第25題", q:"估價事務所接受委託展開估價作業前應先確定估價基本事項，於下列各項中應包含那些項目？①確定勘估標的內容　②確定勘查日期　③確定價格種類　④確定估價目的　⑤確定估價條件", opts:["僅①③④", "①②③④", "①③④⑤", "①②③④⑤"], explains:["僅①③④遺漏⑤確定估價條件，但估價條件是技術規則第9條明定基本事項之一，不應遺漏。", "①②③④組合中含②確定勘查日期，但勘查日期並非技術規則第9條明定之「確定估價基本事項」內容（基本事項明定為價格日期而非勘查日期），不應列入。", "技術規則第9條明定估價基本事項包含：①勘估標的內容、③價格種類、④估價目的、⑤估價條件，四項與本選項組合①③④⑤完全相符，不含②勘查日期（勘查日期屬於後續確認勘估標的狀態階段之工作）。", "①②③④⑤全選，但②確定勘查日期非屬「確定估價基本事項」階段之內容，不應列入。"], correct:2, note:null}
+];
+const CAT_NAMES = {"A4": "A4 估價程序"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_a4_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_a4_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_a4_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_a4_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>
