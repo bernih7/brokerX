@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・C2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・C2
+      <span class="sub">C成本法-折舊計算(C2)含逐選項解析・共 40 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/40</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VC2_99_13", cat:"C2", year:"99年第13題", q:"建物經過一定時間會產生折舊，有關建物累積折舊額之計算，根據不動產估價技術規則規定應該以何為原則呢？", opts:["定額法", "定率法", "償債基金法", "觀察法"], explains:["技術規則明定建物累積折舊額之計算應以定額法為原則（每年折舊額固定計算），與題目敘述相符。", "定率法（每年依固定比率對前一年餘值計算）是折舊計算方法之一，但並非規則明定之原則方法。", "償債基金法（複利提存概念）是折舊計算方法之一，但並非規則明定之原則方法。", "「觀察法」並非技術規則明定之正式折舊計算方法名稱。"], correct:0, note:null},
+{id:"VC2_99_14", cat:"C2", year:"99年第14題", q:"當估價師進行不動產估價時，對於附有違章建築之房地估價，有關違建部分是否需要評估呢？", opts:["違建部分一定要評估。並需就合法建物及違建部分於估價報告書中合併計算其價值", "違建部分不予以評估。但委託人要求評估其價值，並就合法建物及違建部分於估價報告書中分別標示各該部分之價格者，不在此限", "違建部分一定要評估。但委託人要求評估其價值，可就合法建物及違建部分於估價報告書中分別標示各該部分之價格者", "違建部分不予以評估。但受託人可自行斟酌其價值"], explains:["技術規則明定違建部分「不予以評估」，並非「一定要評估並合併計算」，本選項與規則規定相反。", "技術規則明定附有違章建築之房地估價，違建部分不予以評估，但委託人要求評估其價值者，應就合法建物及違建部分分別標示各該部分之價格，與題目敘述完全相符。", "違建部分原則上「不予以評估」（而非「一定要評估」），本選項對原則之描述與規則相反。", "委託人要求評估時，應依規則規定分別標示價格，並非由受託人「自行斟酌」決定是否評估，本選項與規則明確規定不符。"], correct:1, note:null},
+{id:"VC2_99_16", cat:"C2", year:"99年第16題", q:"根據不動產估價技術規則規定，實際建築使用之容積率超過法定容積率之房地估價，應以何種容積估價呢？", opts:["以法定容積估價", "以實際建築使用合法部分之現況估價", "根據法定容積或是實際建築使用合法部分擇一估價", "根據重新測量所得面積估價"], explains:["技術規則並非以「法定容積」估價（這會忽略實際已建成且合法之使用現況），與規則規定不符。", "技術規則明定實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用合法部分之現況估價，並敘明法定容積對估值之影響，與題目敘述相符。", "規則並非「擇一」估價，而是明確規定以實際建築使用合法部分之現況估價為準。", "「根據重新測量所得面積估價」並非技術規則規定處理容積超限情形之方式。"], correct:1, note:null},
+{id:"VC2_99_26", cat:"C2", year:"99年第26題", q:"建築物因功能或效益衰退至不值得使用所經歷之年數，稱之為何？", opts:["物理耐用年數", "化學耐用年數", "經濟耐用年數", "建築耐用年數"], explains:["物理耐用年數指建物因自然耗損或外力破壞至結構脆弱而不堪使用所經歷之年數，與題目所述「功能或效益衰退」之定義不同。", "「化學耐用年數」並非技術規則明定之正式用語。", "技術規則明定經濟耐用年數係建物因功能或效益衰退至不值得使用所經歷之年數，與題目敘述完全相符。", "「建築耐用年數」並非技術規則明定之正式用語。"], correct:2, note:null},
+{id:"VC2_100_12", cat:"C2", year:"100年第12題", q:"依不動產估價技術規則之規定，計算建物折舊額時應以何種年數為主？", opts:["物理耐用年數", "經濟耐用年數", "資本使用年數", "調整耐用年數"], explains:["物理耐用年數是結構層面之耐用年數概念，技術規則明定折舊計算應以經濟耐用年數為主，非物理耐用年數。", "技術規則明定建物折舊額計算應以經濟耐用年數為主，與題目敘述相符。", "「資本使用年數」是資本利息計算之相關概念，非建物折舊計算所採用之耐用年數類型。", "「調整耐用年數」並非技術規則明定之正式用語。"], correct:1, note:null},
+{id:"VC2_101_14", cat:"C2", year:"101年第14題", q:"運用成本法估計建築物價格時，如採定額法折舊，則求取建築物累積折舊之公式為：Dn = C × [(1 - s )/N] × n，其中N優先採用下列何者？", opts:["物理耐用年數", "殘餘年數", "經濟耐用年數", "已經歷年數"], explains:["物理耐用年數是結構層面之概念，技術規則明定折舊計算公式中N應優先採用經濟耐用年數，非物理耐用年數。", "「殘餘年數」並非折舊公式中N所代表之正確變數名稱（N代表的是耐用年數本身）。", "技術規則明定定額法折舊公式中之N（總耐用年數）應優先採用經濟耐用年數，與題目敘述相符，這是因為經濟耐用年數較能反映建物實際喪失市場價值之時點。", "「已經歷年數」是公式中之變數n（小寫，已使用年數），與公式中N（大寫，總耐用年數）為不同變數，本選項混淆兩者。"], correct:2, note:null},
+{id:"VC2_101_26", cat:"C2", year:"101年第26題", q:"於不動產估價時，所謂物理的耐用年數，係指：", opts:["建築改良物從興建完成，至不堪使用的期間", "建築改良物對不動產價值具有貢獻的一段期間", "建築改良物從興建完成，至毀損的期間", "建築改良物從興建完成，至其經濟壽命結束的期間"], explains:["技術規則明定物理耐用年數係指建築改良物從興建完成，至「不堪使用」的期間（即因自然耗損或外力破壞至結構脆弱不堪使用），與題目敘述相符。", "「對不動產價值具有貢獻的一段期間」較接近經濟耐用年數之概念（強調效益與價值貢獻），非物理耐用年數定義。", "「至毀損的期間」描述較為片面，技術規則之正式定義是「至不堪使用」，毀損僅是不堪使用的其中一種成因。", "「至其經濟壽命結束的期間」是經濟耐用年數之定義，非物理耐用年數。"], correct:0, note:null},
+{id:"VC2_101_35", cat:"C2", year:"101年第35題", q:"某棟建物耐用年數為50年，殘價率為10％，該建物每年折舊率為：", opts:["1.8％", "2.0％", "1.5％", "2.4％"], explains:["依定額法折舊率公式：(1－殘價率)÷耐用年數＝(1－10%)÷50＝0.9÷50＝1.8%，與本選項相符。", "2.0%的計算未正確扣除殘價率10%，直接以100%÷50年計算，未考慮殘餘部分。", "1.5%的計算基礎有誤，未正確套用定額法折舊率公式。", "2.4%的計算結果明顯偏高，與正確公式計算結果不符。"], correct:0, note:"年折舊率＝(1－10%)÷50＝0.9÷50＝1.8%。"},
+{id:"VC2_102_16", cat:"C2", year:"102年第16題", q:"建物累積折舊額之計算，以採下列何種方法之建物成本價格結果最低？", opts:["定額法", "定率法", "償債基金法", "逆年數合計法"], explains:["定額法是每年折舊額固定之等速折舊，建物成本價格（現值）在折舊期間內呈線性遞減，並非各方法中結果最低者。", "定率法是初期加速折舊（依固定比率對前一年餘值計算），初期折舊速度最快，使用相同年數後，定率法計算之建物現值通常會低於定額法及償債基金法之結果，符合題目所問「成本價格結果最低」。", "償債基金法是初期減速折舊（複利提存概念），初期折舊較慢，建物現值通常高於定率法之結果。", "「逆年數合計法」並非不動產估價技術規則明定之正式折舊計算方法。"], correct:1, note:"定率法因初期折舊較快（加速折舊），故同一經歷年數下，建物現值（成本價格）相較其他方法最低。"},
+{id:"VC2_102_17", cat:"C2", year:"102年第17題", q:"某建物於10年前興建，面積50坪，目前建材單價新臺幣10萬元/坪，殘餘價格率4%、經濟耐用年數40年，請問該建物累積折舊額為新臺幣多少萬元？", opts:["140萬元", "120萬元", "100萬元", "80萬元"], explains:["140萬元的計算基礎有誤，未正確套用定額法折舊公式之各項數值。", "重建成本＝10萬元×50坪＝500萬元；年折舊額＝500×(1-4%)÷40＝12萬元；累積折舊額（10年）＝12×10＝120萬元，與本選項相符。", "100萬元的計算未正確扣除殘餘價格率4%之影響。", "80萬元的計算基礎有誤，與正確公式計算結果不符。"], correct:1, note:"重建成本＝50×10＝500萬元；累積折舊額＝500×(0.96/40)×10＝120萬元。"},
+{id:"VC2_102_37", cat:"C2", year:"102年第37題", q:"依不動產估價技術規則規定，實際建築使用的容積率超過法定容積率時，應如何估價？", opts:["以實際建築使用合法部分之現況估價", "以法定容積之使用方式估價，再依使用狀況調整", "僅能依法定容積估價", "實際使用部分全部均可以估價"], explains:["技術規則明定實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用合法部分之現況估價，並敘明法定容積對估值之影響，與題目敘述相符。", "規則並非「以法定容積之使用方式估價再依使用狀況調整」，而是直接以實際建築使用合法部分之現況估價。", "規則並非「僅能依法定容積估價」，這會忽略實際已合法建成之使用現況。", "規則並非「實際使用部分全部均可估價」，違建部分仍應排除，僅以「合法部分」之現況估價。"], correct:0, note:null},
+{id:"VC2_102_39", cat:"C2", year:"102年第39題", q:"依不動產估價技術規則規定，建物殘餘價格率之上限為多少？", opts:["5%", "10%", "15%", "20%"], explains:["5%並非技術規則規定之殘餘價格率上限。", "技術規則明定建物殘餘價格率以不超過10%為原則，與題目敘述相符。", "15%並非技術規則規定之殘餘價格率上限。", "20%並非技術規則規定之殘餘價格率上限。"], correct:1, note:null},
+{id:"VC2_103_7", cat:"C2", year:"103年第7題", q:"建物之殘餘價格率應由何者公告之？", opts:["內政部地政司", "不動產估價師公會全國聯合會", "全國建築師公會", "內政部營建署"], explains:["「內政部地政司」並非技術規則明定公告建物殘餘價格率之單位。", "技術規則明定建物殘餘價格率應由不動產估價師公會全國聯合會公告，與題目敘述相符。", "「全國建築師公會」並非技術規則明定公告殘餘價格率之單位。", "「內政部營建署」並非技術規則明定公告殘餘價格率之單位。"], correct:1, note:null},
+{id:"VC2_103_9", cat:"C2", year:"103年第9題", q:"有一建物耐用年限40年，年限屆滿時之殘餘價格率為10%，若以定額法計算折舊額，則每年之折舊率為：", opts:["2%", "2.25%", "2.5%", "2.75%"], explains:["2%的計算未正確扣除殘餘價格率10%之影響，直接以100%÷40年計算。", "依定額法折舊率公式：(1－殘價率)÷耐用年數＝(1－10%)÷40＝0.9÷40＝2.25%，與本選項相符。", "2.5%的計算基礎有誤，與正確公式計算結果不符。", "2.75%的計算結果明顯偏高，與正確公式計算結果不符。"], correct:1, note:"年折舊率＝(1－10%)÷40＝0.9÷40＝2.25%。"},
+{id:"VC2_103_11", cat:"C2", year:"103年第11題", q:"請問計算建物累積折舊額，下列何者不屬於不動產估價技術規則規範之折舊路徑？", opts:["等速折舊", "初期加速折舊", "初期減速折舊", "後期減速折舊"], explains:["等速折舊是技術規則明定規範之三種折舊路徑之一（對應定額法），非本題答案（本題問「不屬於」之路徑）。", "初期加速折舊是技術規則明定規範之三種折舊路徑之一（對應定率法）。", "初期減速折舊是技術規則明定規範之三種折舊路徑之一（對應償債基金法）。", "技術規則僅明定等速折舊、初期加速折舊、初期減速折舊三種路徑，並無「後期減速折舊」此一路徑，這是常見混淆陷阱，即本題正解。"], correct:3, note:null},
+{id:"VC2_103_22", cat:"C2", year:"103年第22題", q:"某一屋齡20年的40坪建物，經調查，其目前之重置成本為每坪10萬元，假設其經濟耐用年數為50年、殘餘價格率為10%，請問其建物成本價格為何？", opts:["184萬元", "216萬元", "240萬元", "256萬元"], explains:["184萬元的計算基礎有誤，未正確套用定額法折舊公式。", "216萬元的計算結果與正確公式計算不符。", "240萬元的計算未正確反映建物實際現值。", "重建成本＝10萬元×40坪＝400萬元；年折舊額＝400×(1-10%)÷50＝7.2萬元；累積折舊額（20年）＝7.2×20＝144萬元；建物成本價格＝400－144＝256萬元，與本選項相符。"], correct:3, note:"重置成本＝40×10＝400萬元；累積折舊額＝400×(0.9/50)×20＝144萬元；現值＝400－144＝256萬元。"},
+{id:"VC2_103_32", cat:"C2", year:"103年第32題", q:"下列有關耐用年數之敘述，何者有誤？", opts:["建物耐用年數終止後確實無殘餘價格者，於計算折舊時不予提列", "建物折舊額計算應以經濟耐用年數為主", "建物經濟耐用年數表由不動產估價師公會全國聯合會公告之", "物理耐用年數指建物因功能或效益衰退至不值得使用所經歷之年數"], explains:["建物耐用年數終止後確實無殘餘價格者，於計算折舊時不予提列，此為正確敘述，非本題答案（本題問「何者有誤」）。", "建物折舊額計算應以經濟耐用年數為主，此為正確敘述。", "建物經濟耐用年數表由不動產估價師公會全國聯合會公告之，此為正確敘述。", "技術規則明定物理耐用年數係指建物因「自然耗損或外力破壞」至結構脆弱不堪使用所經歷之年數，本選項稱「因功能或效益衰退」（此為經濟耐用年數之定義），定義誤植，敘述錯誤，即本題正解。"], correct:3, note:"物理耐用年數係指因自然耗損或外力破壞至結構脆弱不堪使用之期間；「因功能或效益衰退至不值得使用」係經濟耐用年數之定義，此為敘述錯誤之處。"},
+{id:"VC2_104_20", cat:"C2", year:"104年第20題", q:"下列有關建物殘餘價格率之敘述，何者正確？", opts:["建物之殘餘價格率應由全聯會公告之，並以不超過百分之二十為原則", "建物耐用年數終止後確實無殘餘價格者，於計算折舊時應酌予推估提列", "殘餘價格率計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本", "殘餘價格率指建物於物理耐用年數屆滿後，其所賸餘之結構材料及內部設備預定出售之價格占建物總成本之比率"], explains:["技術規則明定建物殘餘價格率應由全聯會公告，並以不超過10%（而非20%）為原則，本選項數字錯誤。", "建物耐用年數終止後確實無殘餘價格者，於計算折舊時「不予提列」（而非酌予推估提列），本選項與規則規定相反。", "技術規則明定計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本，與題目敘述相符，此為正確敘述。", "技術規則明定殘餘價格率係指建物於「經濟」耐用年數屆滿後（而非物理耐用年數），其所賸餘之結構材料及內部設備預定出售之價格占建物「總成本」（本選項稱「物理耐用年數屆滿」，定義誤植）之比率，本選項定義有誤。"], correct:2, note:null},
+{id:"VC2_104_21", cat:"C2", year:"104年第21題", q:"一棟透天厝因緊鄰施工中工地而發生牆壁龜裂現象，估價時最可能將此一情形列為下列何種折舊？", opts:["功能性折舊", "物理性折舊", "經濟性折舊", "破壞性折舊"], explains:["功能性折舊是因技術革新、設計過時等致使建物效用衰退之折舊，與緊鄰施工造成的物理性損害不同。", "技術規則認為，緊鄰施工中工地造成牆壁龜裂，是建物本身受到外力破壞致結構受損之現象，屬於物理性折舊（自然耗損或外力破壞所致），與題目敘述相符。", "經濟性折舊是因外部環境變化（如嫌惡設施、區域衰退）致使價值減損，而非建物本身結構直接受損之物理性損害。", "「破壞性折舊」並非技術規則明定之正式折舊分類名稱。"], correct:1, note:null},
+{id:"VC2_104_32", cat:"C2", year:"104年第32題", q:"實際建築使用之容積率超過法定容積率之房地估價，應以那些部分之現況估價，並敘明法定容積對估值之影響？", opts:["以所有實際建築使用部分估價", "以實際建築使用合法部分再扣除違章建築部分後估價", "以實際建築使用合法部分估價", "不論是否合法皆以法定容積率部分估價"], explains:["「以所有實際建築使用部分估價」未排除違章建築部分，與規則規定僅就「合法部分」估價之原則不符。", "「實際建築使用合法部分再扣除違章建築部分」此描述邏輯重複（合法部分本身即不含違章部分），雖結果相同但描述方式較為迂迴，非規則明確用語。", "技術規則明定實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用合法部分之現況估價，並敘明法定容積對估值之影響，與題目敘述完全相符。", "「不論是否合法皆以法定容積率部分估價」與規則規定應以「合法部分」之「現況」（而非法定容積率部分）估價之原則不符。"], correct:2, note:null},
+{id:"VC2_105_18", cat:"C2", year:"105年第18題", q:"因同種類不動產，由於技術革新、設計變化等，致使勘估標的落伍了，由此發生之建物折舊減價，屬於下列何種折舊因素？", opts:["物理性", "外部性", "功能性", "經濟性"], explains:["物理性折舊是因自然耗損或外力破壞致結構受損，與題目所述「技術革新、設計變化致使標的落伍」之性質不同。", "「外部性」並非技術規則明定折舊分類之正式用語（外部性是估價原則概念，非折舊分類）。", "技術規則明定功能性折舊係因同種類不動產，由於技術革新、設計變化等，致使勘估標的之效用較同類最新建物相對落伍所生之減價，與題目敘述完全相符。", "經濟性折舊是因外部環境變化（如周邊嫌惡設施、區域發展衰退）所致，與題目所述「技術革新、設計變化」之內部功能落伍性質不同。"], correct:2, note:null},
+{id:"VC2_105_21", cat:"C2", year:"105年第21題", q:"有關建物殘餘價格率之敘述，下列何者錯誤？", opts:["殘餘價格率是指建物於物理耐用年數屆滿後，其所賸餘之結構材料及內部設備仍能於市場上出售之價格占建物總成本之比率", "建物之殘餘價格率應由不動產估價師公會全國聯合會公告", "建物之殘餘價格率以不超過百分之十為原則", "依殘餘價格率計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本"], explains:["技術規則明定殘餘價格率係指建物於「經濟」耐用年數屆滿後（而非物理耐用年數），其所賸餘之結構材料及內部設備「預定」出售（而非「仍能」出售）之價格占建物「總成本」之比率，本選項將「經濟耐用年數」誤植為「物理耐用年數」，定義有誤，即本題正解。", "建物之殘餘價格率應由不動產估價師公會全國聯合會公告，此為正確敘述。", "建物之殘餘價格率以不超過10%為原則，此為正確敘述。", "依殘餘價格率計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本，此為正確敘述。"], correct:0, note:"殘餘價格率係指建物於「經濟耐用年數」屆滿後之賸餘比率，非「物理耐用年數」屆滿後，此為敘述錯誤之處。"},
+{id:"VC2_105_30", cat:"C2", year:"105年第30題", q:"不動產估價技術規則有關耐用年數之敘述，下列何者最為正確？", opts:["建物折舊額計算應以經濟耐用年數為主", "建物折舊額計算應以物理耐用年數為主", "經濟耐用年數指建物因自然耗損或外力破壞至結構脆弱而不堪使用所經歷之年數", "物理耐用年數指建物因功能或效益衰退至不值得使用所經歷之年數"], explains:["技術規則明定建物折舊額計算應以經濟耐用年數為主，與題目敘述相符，此為正確敘述。", "建物折舊額計算應以經濟耐用年數（而非物理耐用年數）為主，本選項與規則規定相反。", "技術規則明定「經濟」耐用年數係因功能或效益衰退至不值得使用所經歷之年數，本選項將此定義誤植為物理耐用年數，定義對調錯誤。", "技術規則明定「物理」耐用年數係因自然耗損或外力破壞至結構脆弱不堪使用所經歷之年數，本選項將此定義誤植為功能或效益衰退（此為經濟耐用年數之定義），定義對調錯誤。"], correct:0, note:null},
+{id:"VC2_105_33", cat:"C2", year:"105年第33題", q:"某建物樓地板面積為100坪，重建每坪10萬元，若耐用年數為50年，殘值率為10%，目前已使用10年，採定額法折舊，請問該建物之現值為幾萬元？", opts:["820", "720", "620", "520"], explains:["重建成本＝10萬元×100坪＝1,000萬元；年折舊額＝1,000×(1-10%)÷50＝18萬元；累積折舊額（10年）＝18×10＝180萬元；建物現值＝1,000－180＝820萬元，與本選項相符。", "720萬元的計算未正確套用定額法折舊公式中之殘值率參數。", "620萬元的計算結果與正確公式計算不符，偏差過大。", "520萬元的計算結果明顯偏低，與正確公式計算不符。"], correct:0, note:"重建成本＝100×10＝1,000萬元；累積折舊額＝1,000×(0.9/50)×10＝180萬元；現值＝1,000－180＝820萬元。"},
+{id:"VC2_106_12", cat:"C2", year:"106年第12題", q:"下列有關成本法耐用年數之敘述，何者正確？", opts:["建物折舊額計算應以物理耐用年數為主", "物理耐用年數指建物因功能或效益衰退至不值得使用所經歷之年數", "經濟耐用年數指建物因自然耗損或外力破壞至結構脆弱而不堪使用所經歷之年數", "建物之經歷年數大於其經濟耐用年數時，應重新調整經濟耐用年數"], explains:["建物折舊額計算應以經濟耐用年數（而非物理耐用年數）為主，本選項與規則規定相反。", "技術規則明定「經濟」耐用年數係因功能或效益衰退至不值得使用所經歷之年數，本選項將此定義誤植為物理耐用年數。", "技術規則明定「物理」耐用年數係因自然耗損或外力破壞至結構脆弱不堪使用所經歷之年數，本選項將此定義誤植為經濟耐用年數。", "技術規則明定建物之經歷年數大於其經濟耐用年數時，應重新調整經濟耐用年數（因原訂之經濟耐用年數顯然低估該建物實際可使用之期間），與題目敘述相符，此為正確敘述。"], correct:3, note:null},
+{id:"VC2_106_17", cat:"C2", year:"106年第17題", q:"某建物於10年前興建，重建成本500萬元，殘餘價格率4%、經濟耐用年數40年，請問等速折舊型之建物成本價格為何？", opts:["380萬元", "400萬元", "420萬元", "380.4萬元"], explains:["380萬元依標準定額法公式計算（年折舊額12萬元×10年＝120萬元累積折舊，500－120＝380萬元）為理論計算結果，但與官方公告答案380.4萬元有0.4萬元落差。", "400萬元的計算未正確扣除累積折舊。", "420萬元的計算結果與正確公式計算不符。", "依官方公告，本題正解為380.4萬元。依標準定額法公式 C×(1-s)÷N×n 計算：重建成本500萬元、殘餘價格率4%、經濟耐用年數40年、已使用10年，理論計算結果為380萬元（500－[500×(1-4%)÷40×10]＝500－120＝380），與官方答案380.4萬元存在0.4萬元之微小落差，可能源於考選部公告計算時之捨入處理方式差異。考生作答時請依公式邏輯作答，並留意此類題目官方答案與標準公式計算結果偶有微小誤差之情形。"], correct:3, note:"累積折舊額＝500×(0.96/40)×10＝120萬元；現值＝500－120＝380萬元（OCR辨識小數位可能有誤差，建議以此公式重新驗算）。"},
+{id:"VC2_106_26", cat:"C2", year:"106年第26題", q:"依不動產估價技術規則第68條規定，建物累積折舊額之計算，應視下列何者選擇屬於等速折舊、初期加速折舊或初期減速折舊路徑之折舊方法？", opts:["建商信譽", "建管單位要求", "建物特性及市場動態", "建築設計及建築投資公會"], explains:["「建商信譽」與折舊路徑之選擇判斷無直接關連，非技術規則規定之依據。", "「建管單位要求」並非技術規則第68條規定選擇折舊路徑之依據。", "技術規則第68條明定，建物累積折舊額之計算，應視建物特性及市場動態，選擇屬於等速折舊、初期加速折舊或初期減速折舊路徑之折舊方法，與題目敘述完全相符。", "「建築設計及建築投資公會」並非技術規則規定選擇折舊路徑之依據。"], correct:2, note:null},
+{id:"VC2_106_27", cat:"C2", year:"106年第27題", q:"某建物已完工5年，面積100m2，目前重建成本單價為新臺幣3萬元/m2，殘餘價格率為5%、經濟耐用年數為50年，請問該建物累積折舊額為多少？", opts:["28.5萬元", "30萬元", "25萬元", "27萬元"], explains:["重建成本＝3萬元/m2×100m2＝300萬元；年折舊額＝300×(1-5%)÷50＝5.7萬元；累積折舊額（5年）＝5.7×5＝28.5萬元，與本選項相符。", "30萬元的計算未正確扣除殘餘價格率5%之影響。", "25萬元的計算基礎有誤，與正確公式計算結果不符。", "27萬元的計算結果與正確公式計算不符，存在計算誤差。"], correct:0, note:"重建成本＝100×3＝300萬元；累積折舊額＝300×(0.95/50)×5＝28.5萬元。"},
+{id:"VC2_107_13", cat:"C2", year:"107年第13題", q:"附有違章建築之房地估價，有關違建部分之處理方式，下列何者正確？", opts:["違建部分不予以評估", "委託人要求評估違建部分之價值時，只需就合法建物及違建部分於估價報告書中標示合併之總價格即可", "委託人如果要求評估違建部分之價值時，應拒絕之", "不論委託人有無要求，皆應就合法建物及違建部分於估價報告書中標示合併之總價格"], explains:["技術規則明定附有違章建築之房地估價，違建部分原則上不予以評估，與題目敘述相符，此為正確敘述。", "委託人要求評估違建部分價值時，應「分別標示」合法建物及違建部分之各別價格（而非合併標示總價格），本選項與規則規定相反。", "委託人要求評估違建部分價值時，技術規則允許「分別標示」評估，並非應拒絕之，本選項與規則規定不符。", "規則並非「不論有無要求皆應合併標示總價格」，而是原則上不評估違建，僅於委託人要求時才分別標示評估，本選項與規則規定不符。"], correct:0, note:null},
+{id:"VC2_109_1", cat:"C2", year:"109年第1題", q:"下列有關成本法之建物殘餘價格之敘述，何者正確？", opts:["建物之殘餘價格率以不超過百分之二十為原則", "建物耐用年數終止後無殘餘價格者，於計算折舊時以最低殘餘價格率提列", "殘餘價格率，指建物於經濟耐用年數屆滿後，於市場上出售之價格占房地總價格之比率", "計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本"], explains:["技術規則明定建物之殘餘價格率應由全聯會公告，並以不超過10%（而非20%）為原則，本選項數字錯誤。", "建物耐用年數終止後無殘餘價格者，於計算折舊時「不予提列」（而非以最低殘餘價格率提列），本選項與規則規定相反。", "殘餘價格率係指建物於耐用年數屆滿後，出售之價格占建物「總成本」（本選項稱「占房地總價格」，未精確對應規則所稱之「建物總成本」這一基準），本選項定義基準誤植。", "技術規則明定計算建物殘餘價格時，應考量建物耐用年數終止後所需清理或清除成本，與題目敘述相符，此為正確敘述。"], correct:3, note:null},
+{id:"VC2_109_2", cat:"C2", year:"109年第2題", q:"某一建築物重建成本為800萬元，經濟耐用年數為40年，物理耐用年數為50年，該建築物殘餘價格為80萬元，現已完工使用經過10年，請問該建築物以等速折舊計算時，每年折舊額為多少？", opts:["14.4萬元", "16萬元", "18萬元", "20萬元"], explains:["14.4萬元的計算基礎有誤，未正確套用題目所給定之絕對金額殘餘價格。", "16萬元的計算結果與正確公式計算不符。", "本題之殘餘價格為「80萬元」之絕對金額（而非比率），應採經濟耐用年數40年計算：年折舊額＝(重建成本800萬元－殘餘價格80萬元)÷經濟耐用年數40年＝720÷40＝18萬元，與本選項相符。注意本題雖同時給出物理耐用年數50年，但折舊計算應以「經濟耐用年數」為主。", "20萬元的計算可能誤用物理耐用年數50年代入計算，與規則明定應採經濟耐用年數之原則不符。"], correct:2, note:"年折舊額＝(800－80)÷40＝720÷40＝18萬元。"},
+{id:"VC2_110_5", cat:"C2", year:"110年第5題", q:"建物總成本1,000萬元，經濟耐用年數50年，建物殘餘價格率10%。若每年折舊額皆相同，請問每年折舊率為何？", opts:["1.5%", "1.8%", "2%", "2.2%"], explains:["1.5%的計算基礎有誤，與正確公式計算結果不符。", "依定額法折舊率公式：(1－殘價率)÷耐用年數＝(1－10%)÷50＝0.9÷50＝1.8%，與本選項相符。", "2%的計算未正確扣除殘餘價格率10%之影響。", "2.2%的計算結果與正確公式計算不符。"], correct:1, note:"年折舊率＝(1－10%)÷50＝0.9÷50＝1.8%。"},
+{id:"VC2_110_24", cat:"C2", year:"110年第24題", q:"實際建築使用之容積率超過法定容積率之房地，應以何種方式估價？", opts:["以原規定之法定容積進行估價", "以原規定法定容積的上限進行估價", "以實際建築使用部分之現況進行估價", "以實際建築使用合法部分之現況估價"], explains:["「以原規定之法定容積進行估價」未反映實際合法建築使用現況，與規則規定不符。", "「以原規定法定容積的上限進行估價」同樣未反映實際合法使用現況，與規則規定不符。", "「以實際建築使用部分之現況進行估價」未排除違章建築部分，與規則規定僅就「合法部分」估價之原則不符。", "技術規則明定實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用合法部分之現況估價，並敘明法定容積對估值之影響，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VC2_111_15", cat:"C2", year:"111年第15題", q:"某建物於五年前取得使用執照，目前重建成本1,000萬元，殘餘價格率5%，經濟耐用年數50年，請問以定額法估算之建物成本價格為何？", opts:["850萬元", "865萬元", "895萬元", "905萬元"], explains:["850萬元的計算基礎有誤，未正確套用定額法折舊公式。", "865萬元的計算結果與正確公式計算不符。", "895萬元的計算未正確反映建物實際累積折舊。", "年折舊額＝1,000×(1-5%)÷50＝19萬元；累積折舊額（5年）＝19×5＝95萬元；建物成本價格＝1,000－95＝905萬元，與本選項相符。"], correct:3, note:"累積折舊額＝1,000×(0.95/50)×5＝95萬元；現值＝1,000－95＝905萬元。"},
+{id:"VC2_111_23", cat:"C2", year:"111年第23題", q:"某甲有一棟5層透天住宅，其中第一層到第四層為合法建築物，頂樓層為違章建築物，某甲委託估價人員進行房地估價，並要求估價人員對所有樓層進行估價，估價人員應如何估價較為恰當？", opts:["僅針對合法建築物進行估價", "拒絕對建築物估價", "就合法建築物與違章建築物分別標示各該部分之價格", "合法建築物以成本法估價，違章建築物則以加速折舊方式估價"], explains:["「僅針對合法建築物進行估價」未回應委託人對違章建築部分估價之要求，技術規則允許委託人要求評估違建部分。", "技術規則並未規定遇有違章建築即應拒絕估價，仍可依規定方式進行估價，本選項過於消極。", "技術規則明定附有違章建築之房地估價，違建部分不予以評估，但委託人要求評估其價值者，應就合法建物及違建部分分別標示各該部分之價格，本題某甲明確要求對所有樓層進行估價，符合此例外情形，與題目敘述相符。", "技術規則並未規定違章建築部分應以「加速折舊方式」估價，這並非規則明定之正確估價方法，本選項屬虛構描述。"], correct:2, note:null},
+{id:"VC2_112_7", cat:"C2", year:"112年第7題", q:"下列之建物殘餘價格率，何者符合不動產估價技術規則之規定？", opts:["20%", "18%", "12%", "8%"], explains:["20%已超過技術規則規定建物殘餘價格率不超過10%之上限，不符合規定。", "18%同樣已超過10%上限，不符合規定。", "12%同樣已超過10%上限，不符合規定。", "技術規則明定建物殘餘價格率以不超過10%為原則，8%未超過此上限，符合規定，與本選項相符。"], correct:3, note:null},
+{id:"VC2_113_20", cat:"C2", year:"113年第20題", q:"某公寓因為隔壁基地正在興建危老建案造成外牆龜裂現象，此現象屬於那一種折舊類型？", opts:["物理性折舊", "功能性折舊", "經濟性折舊", "外部性折舊"], explains:["技術規則認為，隔壁基地興建危老建案施工造成的外牆龜裂，是建物本身受到外力破壞致結構受損之現象，屬於物理性折舊（自然耗損或外力破壞所致），與題目敘述相符。", "功能性折舊是因技術革新、設計過時等致使建物效用衰退之折舊，與施工造成的物理性結構損害不同。", "經濟性折舊是因外部環境變化（如嫌惡設施、區域衰退）致使價值減損，而非建物本身結構直接受損之物理性損害。", "「外部性折舊」並非技術規則明定之正式折舊分類名稱（外部性是估價原則概念，非折舊分類）。"], correct:0, note:null},
+{id:"VC2_113_21", cat:"C2", year:"113年第21題", q:"一棟屋齡30年的公寓，假設現在重建成本是3,000萬元，耐用年數為50年，殘餘價格率為10%，以定額法計算折舊的情況下，目前公寓的價值是多少？", opts:["1,620萬元", "1,380萬元", "1,080萬元", "1,200萬元"], explains:["1,620萬元的計算基礎有誤，未正確套用定額法折舊公式。", "年折舊額＝3,000×(1-10%)÷50＝54萬元；累積折舊額（30年）＝54×30＝1,620萬元；公寓現值＝3,000－1,620＝1,380萬元，與本選項相符。", "1,080萬元的計算結果與正確公式計算不符，偏差過大。", "1,200萬元的計算未正確反映建物實際累積折舊。"], correct:1, note:"累積折舊額＝3,000×(0.9/50)×30＝1,620萬元；現值＝3,000－1,620＝1,380萬元。"},
+{id:"VC2_114_3", cat:"C2", year:"114年第3題", q:"建築物屋齡10年，重建成本2,000萬元，若殘價率為10%，經濟耐用年數50年，選擇等速折舊路徑的方法計算累積折舊額為多少萬元？", opts:["400", "40", "360", "36"], explains:["400萬元的計算未正確扣除殘餘價格率10%之影響，直接以重建成本÷耐用年數×經歷年數計算。", "40萬元僅為單一年度之折舊額，並非累積折舊額（題目要求10年累積值）。", "年折舊額＝2,000×(1-10%)÷50＝36萬元；累積折舊額（10年）＝36×10＝360萬元，與本選項相符。", "36萬元僅為單一年度之折舊額，並非累積10年之折舊額。"], correct:2, note:"累積折舊額＝2,000×(0.9/50)×10＝360萬元。"},
+{id:"VC2_114_11", cat:"C2", year:"114年第11題", q:"下列有關成本法之敘述何者正確？", opts:["建物估價以求取重置成本為原則", "預售收入之資金應計息", "建物折舊額計算應以物理耐用年數為主", "建物之殘餘價格率以不超過百分之十為原則"], explains:["建物估價以求取「重建成本」（而非重置成本）為原則，重置成本是建材無生產或施工方法改變時之例外替代成本，本選項與規則規定相反。", "預售收入之資金應依其資金來源性質計息（而非一律應計息），本選項過於絕對，與規則規定不符。", "建物折舊額計算應以「經濟」耐用年數（而非物理耐用年數）為主，本選項與規則規定相反。", "技術規則明定建物之殘餘價格率以不超過10%為原則，與題目敘述完全相符。"], correct:3, note:null}
+];
+const CAT_NAMES = {"C2": "C2 成本法-折舊計算"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_c2_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_c2_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_c2_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_c2_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>

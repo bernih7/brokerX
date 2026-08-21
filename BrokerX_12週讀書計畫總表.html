@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrokerX 讀書計畫總表｜115年不動產經紀人考試</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F8F3E9;
+    --cream-deep:#EFE6D3;
+    --ink:#2C2620;
+    --vermillion:#A8402B;
+    --gold:#BC8A2E;
+    --green:#3F6B4C;
+    --green-soft:#5C7A4A;
+    --line:#DCD0B4;
+    --paper-shadow: 0 1px 0 rgba(44,38,32,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(168,64,43,0.05), transparent 40%),
+      radial-gradient(circle at 90% 92%, rgba(63,107,76,0.06), transparent 45%);
+    font-family:'Noto Sans TC', sans-serif;
+    color:var(--ink);
+    padding:32px 18px 80px;
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+
+  header{
+    text-align:center;
+    margin-bottom:8px;
+    padding-bottom:22px;
+    border-bottom:2px solid var(--ink);
+  }
+  .eyebrow{
+    font-size:.72rem;
+    letter-spacing:.22em;
+    color:var(--vermillion);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Noto Serif TC', serif;
+    font-weight:900;
+    font-size:1.9rem;
+    margin:0 0 8px;
+    letter-spacing:.02em;
+  }
+  .sub{font-size:.85rem;color:#6b6152;}
+  .countdown{
+    margin-top:14px;
+    display:inline-flex;
+    gap:22px;
+    font-family:'Noto Serif TC',serif;
+  }
+  .countdown div{text-align:center;}
+  .countdown .num{font-size:1.5rem;font-weight:900;color:var(--vermillion);}
+  .countdown .lbl{font-size:.66rem;color:#8a806e;letter-spacing:.08em;}
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:center;
+    margin:22px 0 30px;
+    font-size:.74rem;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+  .progress-shell{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:14px 16px;
+    margin-bottom:34px;
+    box-shadow:var(--paper-shadow);
+  }
+  .progress-shell .ptitle{
+    font-size:.78rem;font-weight:700;margin-bottom:8px;color:#6b6152;
+    display:flex;justify-content:space-between;
+  }
+  .bar{height:10px;background:var(--cream-deep);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--vermillion),var(--gold));width:0%;transition:width .4s;}
+
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{
+    content:"";
+    position:absolute;left:8px;top:6px;bottom:6px;
+    width:2px;background:var(--line);
+  }
+
+  .phase-label{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:.98rem;
+    margin:34px 0 14px;
+    padding-left:26px;
+    position:relative;
+    color:var(--ink);
+  }
+  .phase-label:first-of-type{margin-top:0;}
+  .phase-label .tag{
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:.65rem;
+    font-weight:700;
+    color:#fff;
+    background:var(--green);
+    padding:2px 8px;
+    border-radius:10px;
+    margin-right:8px;
+    letter-spacing:.05em;
+  }
+
+  .week{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--vermillion);
+    border-radius:3px;
+    padding:14px 16px 14px 18px;
+    margin-bottom:12px;
+    box-shadow:var(--paper-shadow);
+  }
+  .week.buffer{border-left-color:var(--gold); background:repeating-linear-gradient(135deg, #fff, #fff 10px, #FBF3E2 10px, #FBF3E2 20px);}
+  .week.trip{border-left-color:var(--green); background:#F2F6EE;}
+  .week.milestone{border-left-color:var(--ink);}
+
+  .week::before{
+    content:"";
+    position:absolute;
+    left:-22px; top:18px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--vermillion);
+    border:2px solid var(--cream);
+  }
+  .week.buffer::before{background:var(--gold);}
+  .week.trip::before{background:var(--green);}
+  .week.milestone::before{background:var(--ink);}
+
+  .week-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .week-name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.02rem;}
+  .week-date{font-size:.72rem;color:#8a806e;font-weight:500;}
+  .week-focus{font-size:.86rem;margin-top:6px;line-height:1.55;}
+  .week-focus b{color:var(--vermillion);}
+  .week-tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{
+    font-size:.66rem;
+    padding:2px 8px;
+    border-radius:10px;
+    background:var(--cream-deep);
+    color:#6b6152;
+    font-weight:700;
+  }
+  .chip.red{background:#F4DED8;color:var(--vermillion);}
+  .chip.yellow{background:#F2E4C4;color:#8a6512;}
+
+  .check-row{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:.76rem;
+    color:#8a806e;
+    cursor:pointer;
+    user-select:none;
+  }
+  .check-row input{width:15px;height:15px;accent-color:var(--green);cursor:pointer;}
+  .week.done{opacity:.55;}
+  .week.done .week-name{text-decoration:line-through;}
+
+  .flex-note{
+    margin-top:8px;
+    font-size:.72rem;
+    color:var(--green-soft);
+    font-style:italic;
+    border-top:1px dashed var(--line);
+    padding-top:8px;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:50px;
+    font-size:.72rem;
+    color:#9a917a;
+  }
+
+  @media (max-width:520px){
+    h1{font-size:1.5rem;}
+    .countdown{gap:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">BROKERX 備考計畫　·　第三次應考</div>
+    <h1>115年不動產經紀人考試 讀書計畫總表</h1>
+    <div class="sub">8/21 起跑　→　11/14–15 應考　｜　弱點順序：民法 → 估價 → 土地法 → 經紀法規</div>
+    <div class="countdown" id="countdownBox"></div>
+  </header>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--vermillion)"></span>正式進度週</span>
+    <span><span class="dot" style="background:var(--gold)"></span>彈性／緩衝時間</span>
+    <span><span class="dot" style="background:var(--green)"></span>峇里島出遊（暫停）</span>
+    <span><span class="dot" style="background:var(--ink)"></span>里程碑</span>
+  </div>
+
+  <div class="progress-shell">
+    <div class="ptitle"><span>已勾選完成週數</span><span id="progressText">0 / 13</span></div>
+    <div class="bar"><div class="bar-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <footer>
+    點選每週左側打勾即可標記完成，進度會保存在本機瀏覽器中。<br>
+    每週日晚上 8:00 記得回到 BrokerX 總控對話回報進度（已加入 Google 日曆提醒）。
+  </footer>
+</div>
+
+<script>
+const weeks = [
+  {phase:"起跑", type:"normal", name:"暖身｜民法起跑", date:"8/21（五）－8/23（日）",
+    focus:"不用對照完整進度表，重點是啟動節奏：打開民法HTML工具刷第一批題目，找回手感。",
+    tags:[{t:"暖身",c:"yellow"}]},
+
+  {phase:"一、第一輪刷題（3科，出遊前完成）", type:"normal", name:"W1　民法（收尾）", date:"8/24（一）－8/30（日）",
+    focus:"平日主攻民法選擇題（HTML考題小卡＋完整版）；週末混合估價暖身。<b>最弱科優先，求穩不求快。</b>",
+    tags:[{t:"最弱科",c:"red"}]},
+
+  {phase:null, type:"normal", name:"W2　不動產估價", date:"8/31（一）－9/6（日）",
+    focus:"15個章節HTML刷題工具依序過一輪；留意5題已知計算落差題目。週末混合土地法暖身。",
+    tags:[{t:"計算題多",c:"yellow"}]},
+
+  {phase:null, type:"normal", name:"W3　土地法（壓縮週）", date:"9/7（一）－9/11（五）",
+    focus:"5個工作天內把7個HTML互動測驗依章節刷完，<b>週五前收尾</b>，週末留給出遊準備，不佔用讀書時間。",
+    tags:[{t:"壓縮5天",c:"yellow"}]},
+
+  {phase:null, type:"trip", name:"🏝️ 峇里島出遊", date:"9/12（六）－9/20（日）",
+    focus:"備考全面暫停，好好休息。若有空檔想維持手感，可選擇性滑手機看單字卡，不強制、不列入進度。",
+    tags:[]},
+
+  {phase:"二、第一輪收尾＋申論實戰起步", type:"normal", name:"W4　經紀法規＋銜接複習", date:"9/21（一）－9/27（日）",
+    focus:"回國銜接週：先花1天快速回顧前三科重點速記找回手感，再主攻經紀法規（你最熟的科目，找陷阱優先於找新知識）。",
+    tags:[{t:"最熟科",c:"yellow"}]},
+
+  {phase:null, type:"normal", name:"W5　申論實戰① 民法＋估價", date:"9/28（一）－10/4（日）",
+    focus:"開始計時20分鐘申論寫作，民法／估價各至少2題（優先🔴高機率主題）。四科整合考點地圖開始草擬。",
+    tags:[{t:"申論寫作",c:"red"}]},
+
+  {phase:null, type:"normal", name:"W6　申論實戰② 土地法＋經紀法規", date:"10/5（一）－10/11（日）",
+    focus:"土地法／經紀法規各至少2題計時申論；四科整合考點地圖定稿並上傳知識庫。",
+    tags:[{t:"申論寫作",c:"red"}]},
+
+  {phase:"三、模考衝刺（提早開始，共4輪）", type:"normal", name:"模考①＋彈性緩衝", date:"10/12（一）－10/18（日）",
+    focus:"週六上午進行<b>第一次</b>四科全套計時模考（選擇題＋1-2題申論）。平日仍保留彈性：若前面有任何進度落後，優先在這週補齊，模考當作檢查點而非壓力來源。",
+    tags:[{t:"模考①",c:"red"},{t:"彈性",c:"yellow"}], flex:"這是安全網＋起跑模考的混合週，補課優先於刷新進度。"},
+
+  {phase:null, type:"normal", name:"模考②　全科計時模考", date:"10/19（一）－10/25（日）",
+    focus:"週六上午模考。當週依上次分數調整，哪科最低分下週平日優先補。",
+    tags:[{t:"模考②",c:"red"}]},
+
+  {phase:null, type:"normal", name:"模考③　全科計時模考", date:"10/26（一）－11/1（日）",
+    focus:"持續模考＋弱點回補，C型（真的不熟）錯題本開始清空。",
+    tags:[{t:"模考③",c:"red"}]},
+
+  {phase:null, type:"buffer", name:"模考④＋彈性", date:"11/2（一）－11/8（日）",
+    focus:"最後一次全科模考，週間保留彈性補課空間，確保C型錯題本清空進度不落後。",
+    tags:[{t:"模考④",c:"red"},{t:"彈性",c:"yellow"}]},
+
+  {phase:"四、考前收尾", type:"milestone", name:"總複習週", date:"11/9（一）－11/13（五）",
+    focus:"11/9-11：只看重點速記＋陷阱表，不刷新題。11/12-13：只看錯題本與🔴申論開頭句／結論句，降低強度避免疲勞。",
+    tags:[{t:"降強度",c:"yellow"}]},
+
+  {phase:null, type:"milestone", name:"🎯 應考", date:"11/14（六）－11/15（日）",
+    focus:"三度應戰，這次帶著完整的錯題本紀錄與扎實的申論架構上場。",
+    tags:[]},
+];
+
+const timeline = document.getElementById('timeline');
+let checkableCount = 0;
+
+weeks.forEach((w, i) => {
+  if (w.phase) {
+    const p = document.createElement('div');
+    p.className = 'phase-label';
+    p.textContent = w.phase;
+    timeline.appendChild(p);
+  }
+  const el = document.createElement('div');
+  el.className = 'week ' + w.type;
+  el.dataset.idx = i;
+
+  let tagsHtml = '';
+  if (w.tags && w.tags.length) {
+    tagsHtml = '<div class="week-tags">' + w.tags.map(t => `<span class="chip ${t.c}">${t.t}</span>`).join('') + '</div>';
+  }
+  let flexHtml = w.flex ? `<div class="flex-note">💡 ${w.flex}</div>` : '';
+
+  const skipCheckbox = (w.type === 'milestone' || w.type === 'trip');
+  const checkHtml = skipCheckbox ? '' : `
+    <label class="check-row">
+      <input type="checkbox" data-idx="${i}"> 標記本週完成
+    </label>`;
+  if (!skipCheckbox) checkableCount++;
+
+  el.innerHTML = `
+    <div class="week-top">
+      <div class="week-name">${w.name}</div>
+      <div class="week-date">${w.date}</div>
+    </div>
+    <div class="week-focus">${w.focus}</div>
+    ${tagsHtml}
+    ${flexHtml}
+    ${checkHtml}
+  `;
+  timeline.appendChild(el);
+});
+
+document.getElementById('progressText').textContent = `0 / ${checkableCount}`;
+
+// --- persistence via window.storage, fallback to in-memory ---
+const STORE_KEY = 'brokerx_studyplan_progress_v1';
+let state = {};
+
+async function loadState(){
+  try {
+    const res = await window.storage.get(STORE_KEY);
+    if (res && res.value) state = JSON.parse(res.value);
+  } catch(e) { state = {}; }
+  applyState();
+}
+
+function applyState(){
+  document.querySelectorAll('.check-row input').forEach(cb => {
+    const idx = cb.dataset.idx;
+    cb.checked = !!state[idx];
+    cb.closest('.week').classList.toggle('done', !!state[idx]);
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = checkableCount;
+  const done = Object.values(state).filter(Boolean).length;
+  document.getElementById('progressText').textContent = `${done} / ${total}`;
+  document.getElementById('progressFill').style.width = (total ? (done/total*100) : 0) + '%';
+}
+
+async function saveState(){
+  try { await window.storage.set(STORE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+document.getElementById('timeline').addEventListener('change', (e) => {
+  if (e.target.matches('.check-row input')) {
+    const idx = e.target.dataset.idx;
+    state[idx] = e.target.checked;
+    e.target.closest('.week').classList.toggle('done', e.target.checked);
+    updateProgress();
+    saveState();
+  }
+});
+
+loadState();
+
+// --- countdown ---
+function renderCountdown(){
+  const examDate = new Date('2026-11-14T00:00:00+08:00');
+  const now = new Date();
+  const diffDays = Math.max(0, Math.ceil((examDate - now) / 86400000));
+  const weeksLeft = Math.floor(diffDays / 7);
+  document.getElementById('countdownBox').innerHTML = `
+    <div><div class="num">${diffDays}</div><div class="lbl">距考試天數</div></div>
+    <div><div class="num">${weeksLeft}</div><div class="lbl">完整週數</div></div>
+  `;
+}
+renderCountdown();
+</script>
+</body>
+</html>

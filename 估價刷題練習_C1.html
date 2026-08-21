@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・C1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --paper-deep:#EFE6D5; --ink:#2A2722; --ink-soft:#7A7165;
+  --rule:#DED1B9; --stamp:#A8402B; --gold:#BC8A2E; --green:#5C7A4A; --blue:#3E6B8C;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 92% 96%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink); min-height:100vh; padding:24px 14px 60px;
+}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:21px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+.version-tag{font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--ink-soft);
+}
+.statbar b{color:var(--ink);font-size:16px;}
+.statbar .ok{color:var(--green);}
+.statbar .ng{color:var(--stamp);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--rule);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(42,39,34,0.04);
+}
+.qcard.answered.correct{border-left:5px solid var(--green);}
+.qcard.answered.wrong{border-left:5px solid var(--stamp);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:999px;font-family:'Noto Serif TC',serif;}
+.qyear{font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:2px 9px;font-family:'Noto Serif TC',serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--rule);
+  background:#fff;font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;
+}
+.opt:hover{border-color:var(--gold);}
+.opt.selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt.correct-answer{border-color:var(--green);background:#EFF4EC;}
+.opt.wrong-selected{border-color:var(--stamp);background:#FBEAE6;}
+.opt .letter{
+  font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--gold);background:#FBF6E9;color:var(--ink-soft);}
+.note-box b{color:var(--gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper-deep);border:1px solid var(--rule);}
+.explain-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;color:var(--blue);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:#fff;border:1.5px solid var(--rule);margin-bottom:6px;}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--green);background:#EFF4EC;}
+.explain-letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;color:var(--stamp);}
+.explain-item.right .explain-letter{color:var(--green);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);cursor:pointer;
+}
+.error-tag.active-a{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.error-tag.active-b{background:var(--gold);border-color:var(--gold);color:#fff;}
+.error-tag.active-c{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・C1
+      <span class="sub">C成本法-重建成本與資本利息(C1)含逐選項解析・共 57 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-06-30　｜　版本 v2.0（含逐選項解析）</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/57</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜點選選項即時判對錯，可依章節篩選與標記錯題類型<br>
+    📅 2026-06-30　版本 v2.0（含逐選項解析）<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<script>
+const ITEMS = [
+{id:"VC1_99_7", cat:"C1", year:"99年第7題", q:"按工程概算項目逐項比較勘估標的與比較標的或標準建物之差異，並依工程價格及工程數量比率進行調整，以求取勘估標的營造或施工費方法，稱之為：", opts:["淨計法", "工程造價比較法", "單位工程法", "單位面積比較法"], explains:["淨計法是逐一材料人工數量乘以單價工資之直接法，與題目所述「按工程概算項目逐項比較調整」之間接法性質不同。", "技術規則明定工程造價比較法：按工程概算項目逐項比較勘估標的與比較標的或標準建物之差異，並依工程價格及工程數量比率進行調整，與題目敘述完全相符。", "單位工程法是建築細部工程各項目單價乘以施工數量之直接法，與題目所述間接法性質不同。", "單位面積比較法是以單位面積營造費為基礎乘以勘估標的面積，與題目所述「逐項比較工程概算項目」之具體操作方式不同。"], correct:1, note:null},
+{id:"VC1_99_8", cat:"C1", year:"99年第8題", q:"根據不動產估價技術規則規定，成本法中估算勘估標的資本利息之敘述，何者正確？", opts:["應依分期投入資本數額及資本使用年數", "預售收入之資金應計息", "若勘估標的包含土地時，不應另加計土地價格", "自有資金之計息利率可高於1年以上活存利率"], explains:["技術規則明定資本利息應依分期投入資本數額及資本使用年數計息，與題目敘述相符，為正確敘述。", "預售收入之資金應依其資金來源性質計息，而非一律應計息或不應計息，本選項過於絕對。", "若勘估標的包含土地，土地價格亦應計息，本選項「不應另加計土地價格」與規則規定相反，敘述錯誤。", "自有資金之計息利率應不高於1年期定存利率、不低於活存利率，並非「可高於1年以上活存利率」之模糊描述，本選項表述不精確。"], correct:0, note:null},
+{id:"VC1_99_21", cat:"C1", year:"99年第21題", q:"若勘估標的同時包含土地與建物，但視為無建物存在之素地進行估價，稱之為何？", opts:["部分估價", "獨立估價", "限制估價", "特殊估價"], explains:["部分估價是附有建物之宗地估價，考慮建物對宗地價格造成之影響，與題目所述「視為無建物存在」之定義相反。", "技術規則明定獨立估價係土地上有建物，但估價時將土地視為素地估價（不考慮建物影響），與題目敘述完全相符。", "「限制估價」並非技術規則明定之正式估價類型名稱。", "「特殊估價」並非技術規則明定之正式估價類型名稱（特殊價格是價格種類而非估價方法類型）。"], correct:1, note:null},
+{id:"VC1_99_32", cat:"C1", year:"99年第32題", q:"勘估標的如果是區分所有建物時，以其房地價格推估該區分所有建物基地單價時，下列估計方式的敘述何種有誤？", opts:["該區分所有建物基地權利價格＝該區分所有建物房地價格－該區分所有建物之建物成本價格", "該區分所有建物之基地權利單價＝該區分所有建物基地權利價格／該區分所有建物之基地持分面積", "基地單價＝該區分所有建物之基地權利單價×平均地價分配率／該區分所有建物之地價分配率", "基地單價＝該區分所有建物基地持分價格×該區分所有建物之基地持分面積"], explains:["技術規則第99條明定：基地權利價格＝房地價格－建物成本價格，此為正確之計算公式，非本題答案（本題問「何種有誤」）。", "基地權利單價＝基地權利價格÷基地持分面積，此為正確之計算公式。", "基地單價＝基地權利單價×平均地價分配率÷該區分所有建物之地價分配率，此為正確之樓層別效用比相關公式。", "「基地單價＝基地持分價格×基地持分面積」此公式邏輯有誤，基地單價應是「單位面積價格」，以總價格乘以面積會得出更大的數值而非單價，正確應為基地持分價格除以面積，本選項運算方式錯誤，即本題正解。"], correct:3, note:null},
+{id:"VC1_99_34", cat:"C1", year:"99年第34題", q:"下列何者非估計勘估標的之營造或施工費時應包括之成本？", opts:["稅捐", "間接人工費", "資本利息", "廣告費"], explains:["稅捐是技術規則明定營造施工費應包括之成本項目之一，非本題答案（本題問「非」應包括之成本）。", "間接人工費是營造施工費之構成項目，應包括在內。", "資本利息是技術規則明定營造施工費應包括之成本項目之一。", "廣告費屬於總成本中「間接成本」之廣告銷售費範疇，並非「營造或施工費」本身應包括之項目（營造施工費是直接成本，廣告費是間接成本之另一獨立項目），即本題正解。"], correct:3, note:"廣告費屬視性質「得」計入成本估價之項目，並非營造或施工費本身應包括之直接成本項目。"},
+{id:"VC1_99_36", cat:"C1", year:"99年第36題", q:"依建築細部工程之各項目單價，乘以該工程施工數量，並合計之，此方法為何？", opts:["工程造價比較法", "單位工程法", "淨計法", "單位面積比較法"], explains:["工程造價比較法是按工程概算項目逐項比較調整之間接法，與題目所述「依細部工程項目單價乘以施工數量」之具體計算方式不同。", "技術規則明定單位工程法係依建築細部工程之各項目單價，乘以該工程施工數量，並合計之，與題目敘述完全相符。", "淨計法是逐一材料人工數量乘以單價工資，計算單位是材料人工而非建築細部工程項目，與題目敘述不同。", "單位面積比較法是以單位面積營造費為基礎乘以面積，計算單位是整體面積而非細部工程項目，與題目敘述不同。"], correct:1, note:null},
+{id:"VC1_99_38", cat:"C1", year:"99年第38題", q:"下列有關成本法中估算勘估標的資本利息之敘述何者錯誤？", opts:["應依分期投入資本數額及資本使用年數計息", "自有資金不應計息", "若勘估標的包含土地時，土地價格亦應計息", "資本利息之計算應按各項費用之合計額乘上利率計算"], explains:["資本利息應依分期投入資本數額及資本使用年數計息，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "技術規則明定自有資金「應」計息（計息利率不高於1年期定存、不低於活存），並非不應計息，本選項與規則規定相反，即本題正解。", "若勘估標的包含土地，土地價格亦應計息，此為正確敘述。", "資本利息之計算應按各項費用之合計額乘上利率計算，此為正確之計算方式敘述。"], correct:1, note:null},
+{id:"VC1_100_11", cat:"C1", year:"100年第11題", q:"運用成本法進行不動產估價，下列何者不需納入計算？", opts:["土地總成本", "建物總成本", "建物累積折舊額", "土地增值"], explains:["土地總成本是成本法房地成本價格計算之必要組成部分，需納入計算，非本題答案（本題問「不需」納入計算）。", "建物總成本（扣除折舊後為建物成本價格）是成本法計算之必要組成部分，需納入計算。", "建物累積折舊額是計算建物成本價格（重建成本扣除折舊）之必要項目，需納入計算。", "土地增值是指土地價格隨時間上漲之金額變化，並非成本法計算房地成本價格時應納入之獨立計算項目（成本法著重於成本之加總，非市場增值幅度之計算），即本題正解。"], correct:3, note:null},
+{id:"VC1_100_16", cat:"C1", year:"100年第16題", q:"依不動產估價技術規則規定，以成本法推估建物折舊前之價格時，以求取何種成本為原則？", opts:["重製成本", "重置成本", "重建成本", "營造成本"], explains:["「重製成本」並非技術規則明定之正式用語（正確用語為重建成本或重置成本）。", "重置成本是建材無生產或施工方法改變時之例外替代成本，並非折舊前價格推估之原則性成本。", "技術規則明定建物折舊前之價格，以求取重建成本為原則，與題目敘述完全相符。", "「營造成本」並非技術規則明定折舊前價格推估之正式專有名詞（營造或施工費是總成本之構成項目之一，非折舊前價格之原則用語）。"], correct:2, note:null},
+{id:"VC1_100_18", cat:"C1", year:"100年第18題", q:"下列何者不屬於營造或施工費應考量之項目？", opts:["銷售費", "稅捐", "資本利息", "利潤"], explains:["銷售費屬於總成本中「間接成本」之廣告銷售費項目，並非「營造或施工費」本身應考量之項目，即本題正解（本題問「不屬於」營造施工費應考量之項目）。", "稅捐是技術規則明定營造施工費應考量之項目之一。", "資本利息是技術規則明定營造施工費應考量之項目之一。", "利潤是技術規則明定營造施工費應考量之項目之一。"], correct:0, note:null},
+{id:"VC1_100_32", cat:"C1", year:"100年第32題", q:"不動產估價技術規則規定：「建物已不具備使用價值，將其基地視為素地估價」，此為：", opts:["部分估價", "獨立估價", "限制估價", "特殊估價"], explains:["部分估價是考慮建物對宗地價格之影響，與題目所述「建物已不具使用價值，視為素地估價」之定義相反。", "技術規則明定建物已不具備使用價值，將其基地視為素地估價，此即獨立估價之具體應用情境（不考慮已無實質效用之建物），與題目敘述相符。", "「限制估價」並非技術規則明定之正式估價類型名稱。", "「特殊估價」並非技術規則明定之正式估價類型名稱。"], correct:1, note:null},
+{id:"VC1_101_3", cat:"C1", year:"101年第3題", q:"於民國100年評估一棟20年前建造、樓地板面積200坪之建物，該建物之建築成本於民國80年每坪5萬元、100年每坪10萬元，如經濟耐用年數為50年、殘餘價格率為10％。若採定額法折舊，請問該建物之成本價格為何？", opts:["720萬元", "1,000萬元", "1,280萬元", "2,000萬元"], explains:["720萬元僅為累積折舊額本身之數值，並非扣除折舊後之成本價格（成本價格須以重建成本減去累積折舊額），混淆了折舊額與最終成本價格。", "1,000萬元的計算基礎有誤，未正確採用價格日期（100年）當時每坪10萬元之重建成本標準。", "重建成本應採價格日期（民國100年）當時造價標準，即每坪10萬元×200坪＝2,000萬元；年折舊額＝2,000×(1-10%)÷50＝36萬元；累積折舊（20年）＝36×20＝720萬元；成本價格＝2,000－720＝1,280萬元，與本選項相符。", "2,000萬元僅為未扣除折舊之重建成本總額，並非扣除累積折舊後之最終成本價格。"], correct:2, note:"重建成本應以「現在（100年）」之造價為準，C＝200坪×10萬＝2,000萬元；累積折舊額＝2,000×(0.9/50)×20＝720萬元；現值＝2,000－720＝1,280萬元。"},
+{id:"VC1_101_4", cat:"C1", year:"101年第4題", q:"依不動產估價技術規則規定，勘估標的營造費求取方式中稱直接法者分為那兩種？①淨計法　②單位工程法　③工程造價比較法　④單位面積比較法　⑤粗算法", opts:["①②", "②③", "③④", "④⑤"], explains:["技術規則明定直接法分為淨計法與單位工程法兩種，與本選項①②組合完全相符。", "②單位工程法屬直接法，但③工程造價比較法屬間接法，混合兩類方法，組合錯誤。", "③④兩項皆屬間接法（工程造價比較法、單位面積比較法），非直接法之子方法。", "④單位面積比較法屬間接法，⑤「粗算法」並非技術規則明定之正式方法名稱，組合錯誤。"], correct:0, note:null},
+{id:"VC1_101_12", cat:"C1", year:"101年第12題", q:"營造費＝［Σ（標準建物工程概算項目每坪單價×單價調整率）］×總面積，此可為下列何種方法之計算公式？", opts:["淨計法", "單位工程法", "工程造價比較法", "單位面積比較法"], explains:["淨計法是逐一材料人工數量乘以單價工資，計算單位是材料人工，與題目所述「標準建物工程概算項目每坪單價」之公式結構不同。", "單位工程法是建築細部工程各項目單價乘以施工數量，計算單位是工程項目，與題目所述以「標準建物」概算項目單價為基礎之公式不同。", "題目公式為：營造費＝［Σ（標準建物工程概算項目每坪單價×單價調整率）］×總面積，此正是工程造價比較法依工程概算項目逐項比較調整之具體計算公式呈現方式。", "單位面積比較法是以比較標的單位面積營造費為基礎調整，與題目公式中逐項加總「各工程概算項目」之結構不同（工程造價比較法是逐項計算後加總，單位面積比較法是整體單價調整）。"], correct:2, note:null},
+{id:"VC1_101_17", cat:"C1", year:"101年第17題", q:"採成本法估價時，必須先求取某一基準日期重新建造對象不動產的原價，該基準日期稱為：", opts:["估價日期", "勘察日期", "出件日期", "試算日期"], explains:["技術規則第6條明定估價應切合「價格日期」當時之價值，成本法求取重新建造對象不動產原價之基準日期，即為價格日期，與題目敘述相符。", "勘察日期是赴現場調查之日期，與「重新建造原價」之價格基準日期定義不同。", "「出件日期」並非技術規則明定之正式用語。", "「試算日期」並非技術規則明定之正式用語（試算價格是比較法之概念，非此處之基準日期名稱）。"], correct:0, note:"此基準日期依規則用語應為「價格日期」，惟四個選項均未列出此用語，故本題判定一律給分。"},
+{id:"VC1_101_27", cat:"C1", year:"101年第27題", q:"以定額法計算建築物折舊額時，係假定在不動產耐用期間：", opts:["每年乘以一定比率計算折舊額", "期初先確定減價額，累計時呈現減價額遞減", "每年之減價額劃一計算，與經過年數逐年累計", "每年折舊提存一定金額，以複利計算其總減價額"], explains:["「每年乘以一定比率計算折舊額」是定率法之計算邏輯（依固定比率對前一年餘值計算），非定額法。", "「期初先確定減價額，累計時呈現減價額遞減」並非定額法之描述，定額法每年折舊額固定不遞減。", "定額法假定每年之減價額（折舊額）劃一固定計算，隨經過年數逐年累計，與題目敘述完全相符（這是等速折舊路徑之計算方式）。", "「每年折舊提存一定金額，以複利計算總減價額」是償債基金法之計算邏輯（複利提存概念），非定額法。"], correct:2, note:null},
+{id:"VC1_101_33", cat:"C1", year:"101年第33題", q:"從已知投資成分的價值，乘以資本化率，求得其收益後，由總收益中扣除，進而求得未知投資成分之價格的方法，上述方法稱為：", opts:["分配法", "積算法", "殘餘法", "收益倍數法"], explains:["「分配法」並非技術規則明定描述此種計算邏輯之正式專有名詞。", "積算法通常指依直接成本加總計算之估價方法，與題目所述「由總收益扣除已知投資成分收益以求未知投資成分價格」之邏輯不同。", "殘餘法之核心邏輯即為從已知投資成分（如土地或建物）價值乘以資本化率求得其應有收益，再從總收益中扣除，剩餘部分即為未知投資成分之收益，據以反推其價格，與題目敘述完全相符（此為土地貢獻說/建物貢獻說背後常用之計算邏輯）。", "「收益倍數法」通常指以收益乘數估算價格之簡化方法，與題目所述扣除已知成分收益以求未知成分價格之邏輯不同。"], correct:2, note:null},
+{id:"VC1_101_36", cat:"C1", year:"101年第36題", q:"進行不動產估價時，所謂獨立估價，係指：", opts:["土地上有建築物，但估價時將土地與建物併同估價", "土地上無建築物，但估價時假設土地與建物併同估價", "土地上有建築物，但估價時將土地視為素地加以估價", "土地上無建築物，但估價時視為存有地上權加以估價"], explains:["土地上有建築物時，獨立估價是將土地「視為素地」估價（不考慮建物），而非「土地與建物併同估價」，本選項描述與獨立估價定義相反。", "獨立估價的前提是「土地上有建築物」存在，本選項描述「土地上無建築物」之情境不符獨立估價之適用前提。", "技術規則明定獨立估價係土地上有建築物，但估價時將土地視為素地加以估價（不考慮建物影響），與本選項描述完全相符。", "獨立估價是不考慮既有建物之影響，而非「視為存有地上權」這種額外假設權利存在之情境，本選項描述與獨立估價定義不符。"], correct:2, note:null},
+{id:"VC1_102_14", cat:"C1", year:"102年第14題", q:"成本法操作中，使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，係指下列何者？", opts:["重造成本", "重建成本", "重置成本", "提撥成本"], explains:["「重造成本」並非技術規則明定之正式用語。", "技術規則明定重建成本係使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，與題目敘述完全相符。", "重置成本是以「現代建材標準」（而非相同或極類似建材）建築所需之成本，與題目所述「相同或極類似建材標準」之定義不符。", "「提撥成本」並非技術規則明定之正式用語。"], correct:1, note:null},
+{id:"VC1_102_15", cat:"C1", year:"102年第15題", q:"不動產估價成本法總成本各項推估中，下列敘述何者錯誤？", opts:["規劃設計費按總成本之百分之二至百分之三推估", "廣告費、銷售費按總成本之百分之四至百分之五推估", "管理費按總成本之百分之三至百分之四推估", "稅捐按總成本之百分之零點五至百分之一點二推估"], explains:["技術規則明定規劃設計費按「營造或施工費」（而非總成本）之2%至3%推估，本選項將推估基礎誤植為總成本，敘述錯誤，即本題正解。", "廣告費、銷售費按總成本之4%至5%推估，此為正確敘述。", "管理費按總成本之3%至4%推估，此為正確敘述。", "稅捐按總成本之0.5%至1.2%推估，此為正確敘述。"], correct:0, note:"規劃設計費依規則應按「營造或施工費」之2%至3%推估，非按「總成本」推估，此為敘述錯誤之處。"},
+{id:"VC1_102_30", cat:"C1", year:"102年第30題", q:"依不動產估價技術規則規定，某建商蓋到一半的建案，其建物應如何估價？", opts:["依實際完成部分估價", "以總銷售金額扣除土地管銷成本及利潤率，再扣除剩餘建築費用", "以總銷售金額扣除土地管銷成本及利潤率，再扣除延遲損失及剩餘建築費用", "無法估價"], explains:["技術規則第63條明定未完工建物應依實際完成部分估價，與題目敘述相符，這是處理興建中建案最直接的估價方式。", "「以總銷售金額扣除土地管銷成本及利潤率，再扣除剩餘建築費用」此計算邏輯較接近土地開發分析法之公式架構，並非技術規則規定處理未完工建物估價之方式。", "「扣除延遲損失」並非技術規則規定處理未完工建物估價時應計算之項目。", "未完工建物雖未完工，但已投入部分仍具經濟價值，技術規則明定得依實際完成部分估價，並非無法估價。"], correct:0, note:null},
+{id:"VC1_102_33", cat:"C1", year:"102年第33題", q:"成本法總成本中營造施工費之求取，估價實務上最常用的方法為何？", opts:["淨計法", "單位工程法", "工程造價比較法", "單位面（體）積比較法"], explains:["淨計法是逐一材料人工計算之最精細方法，因作業繁瑣，實務上較少採用。", "技術規則及估價實務上，單位工程法（建築細部工程各項目單價乘以施工數量）兼顧精確度與作業效率，是估價實務上最常用的營造施工費求取方法。", "工程造價比較法屬間接法，精確度不及直接法，較非實務最常用方法。", "單位面積（體積）比較法是較粗略的間接法估算方式，精確度較低，非實務最常用方法。"], correct:1, note:null},
+{id:"VC1_102_40", cat:"C1", year:"102年第40題", q:"依中華民國不動產估價師公會全國聯合會第四號公報規定，目前住宅用鋼筋混凝土造房屋之經濟耐用年限為多少年？", opts:["35年", "40年", "50年", "60年"], explains:["35年並非全聯會公報所定鋼筋混凝土造住宅用房屋之經濟耐用年限。", "40年並非全聯會公報所定鋼筋混凝土造住宅用房屋之經濟耐用年限。", "依不動產估價師公會全國聯合會第四號公報規定，住宅用鋼筋混凝土造房屋之經濟耐用年限為50年，與題目敘述相符。", "60年並非全聯會公報所定鋼筋混凝土造住宅用房屋之經濟耐用年限（60年通常用於更耐久之構造類型）。"], correct:2, note:null},
+{id:"VC1_103_3", cat:"C1", year:"103年第3題", q:"建物估價，以何種方法估價為原則？", opts:["收益法", "成本法", "比較法", "殘餘法"], explains:["收益法以淨收益折現或資本化估算價格，並非建物估價之原則方法（收益法較適用於收益性不動產，而非單純建物本身之估價原則）。", "技術規則明定建物估價以成本法為原則（因建物可明確計算重建/重置成本並扣除折舊），與題目敘述相符。", "比較法是估價的三大方法之一，但並非技術規則明定建物估價之原則方法。", "殘餘法是成本法或收益法延伸應用之計算技巧，並非獨立的建物估價原則方法。"], correct:1, note:null},
+{id:"VC1_103_17", cat:"C1", year:"103年第17題", q:"依不動產估價技術規則規定，下列有關總成本中廣告費之敘述，何者正確？", opts:["計算營造或施工費應考量廣告費", "廣告費按營造或施工費乘以相關費率計算", "廣告費之相關費率應由不動產估價師公會全國聯合會定期公告之", "廣告費視勘估標的之性質，於成本估價時應予計入"], explains:["計算營造或施工費並不需考量廣告費，廣告費屬於總成本中獨立的間接成本項目，與營造施工費（直接成本）計算無關。", "廣告費是按「總成本」（而非營造或施工費）乘以相關費率計算，本選項計算基礎誤植。", "技術規則明定廣告費、銷售費等相關費率，應由不動產估價師公會全國聯合會定期公告之，與題目敘述相符。", "廣告費「視勘估標的之性質」於成本估價時得不予計入（並非應予計入），本選項與規則規定相反。"], correct:2, note:null},
+{id:"VC1_103_33", cat:"C1", year:"103年第33題", q:"依不動產估價技術規則規定，下列有關總成本中規劃設計費之敘述，何者正確？", opts:["規劃設計費按縣（市）政府發布之建築師酬金標準表計算之", "規劃設計費按實際營造施工費之百分之二至百分之五推估之", "規劃設計費按縣（市）政府發布之建造執照工程造價表計算之", "規劃設計費率由不動產估價師公會全國聯合會定期公告之"], explains:["規劃設計費並非按縣市政府發布之建築師酬金標準表計算，技術規則自有其推估標準。", "技術規則明定規劃設計費按「實際營造施工費」之2%至3%推估（本選項稱2%至5%，雖上限數字略有出入，但推估基礎「營造施工費」正確，依官方答案為此選項正確，建議以官方公告為準確認上限數字）。", "規劃設計費並非按縣市政府發布之建造執照工程造價表計算，此非技術規則規定之推估依據。", "規劃設計費「率」是技術規則明定之計算比率（2-3%），並非「由全聯會定期公告」此一動態公告機制（全聯會公告的是經濟耐用年數表、營造施工費標準表等項目，規劃設計費率是技術規則本身明定的固定比率範圍）。"], correct:1, note:null},
+{id:"VC1_103_35", cat:"C1", year:"103年第35題", q:"請問「附有建物之宗地估價，應考慮該建物對該宗地價格造成之影響。但以素地估價為前提並於估價報告書敘明者，不在此限。」中，但書之規定屬於何種類型之估價？", opts:["獨立估價", "部分估價", "正常估價", "限定估價"], explains:["技術規則明定「附有建物之宗地估價，應考慮該建物對該宗地價格造成之影響。但以素地估價為前提並於估價報告書敘明者，不在此限」，此但書規定（以素地估價為前提）正是獨立估價（將土地視為素地，不考慮建物影響）之定義，與題目敘述相符。", "部分估價正是該條文「本文」所規定之內容（考慮建物對宗地價格之影響），而非「但書」規定，題目問的是但書類型，非本文。", "「正常估價」並非技術規則明定之正式估價類型名稱。", "「限定估價」並非技術規則明定之正式估價類型名稱（限定價格是價格種類，非估價方法類型）。"], correct:0, note:null},
+{id:"VC1_104_2", cat:"C1", year:"104年第2題", q:"下列何者最適合說明建築物預期的耐用年數期滿時，欲廢棄之資產價值？", opts:["回收價值（salvage value）", "清算價值（liquidation value）", "剩餘價值（residual value）", "殘餘價值（scrap value）"], explains:["回收價值（salvage value）通常指資產報廢時可回收再利用部分之價值，與題目所述「廢棄」資產之概念較不直接對應。", "清算價值（liquidation value）通常指企業清算情境下急速處分資產之價值，與單純建物耐用年數期滿後之廢棄資產價值概念不同。", "剩餘價值（residual value）通常用於描述扣除已知成分後的剩餘部分（如殘餘法概念），與「耐用年數期滿欲廢棄之資產價值」此一特定情境用語不完全對應。", "殘餘價值（scrap value）正是技術規則所稱「殘餘價格」之英文對應概念，指建物耐用年數終止後欲廢棄時所餘存之價值，與題目敘述最為相符。"], correct:3, note:null},
+{id:"VC1_104_18", cat:"C1", year:"104年第18題", q:"建物估價以求取重建成本為原則，但建物使用之材料目前已無生產或施工方法已改變者，得採取下列何種成本替代之？", opts:["毛胚成本", "比較成本", "重置成本", "總體成本"], explains:["「毛胚成本」並非技術規則明定之正式用語。", "「比較成本」並非技術規則明定之正式用語。", "技術規則明定建物估價以求取重建成本為原則，但建物使用之材料目前已無生產或施工方法已改變者，得採重置成本替代之，與題目敘述完全相符。", "「總體成本」並非技術規則明定之正式用語。"], correct:2, note:null},
+{id:"VC1_104_19", cat:"C1", year:"104年第19題", q:"營造或施工費，得就同一供需圈內近鄰地區或類似地區中選擇與勘估標的類似之比較標的或標準建物，經比較與勘估標的營造或施工費之條件差異並作價格調整以求取之，下列何者不是其子方法？", opts:["單位工程法", "工程造價比較法", "單位面積比較法", "單位體積比較法"], explains:["技術規則明定間接法之子方法為工程造價比較法及單位面積（或體積）比較法，「單位工程法」屬於直接法而非間接法之子方法，即本題正解（本題問「不是」間接法子方法者）。", "工程造價比較法是技術規則明定間接法之子方法之一。", "單位面積比較法是技術規則明定間接法之子方法之一。", "單位體積比較法（與單位面積比較法併列，適用於不同建物型態）是間接法之子方法之一。"], correct:0, note:"單位工程法屬「直接法」，非屬此題所述「就近鄰地區或類似地區選擇比較標的」之間接法子方法，間接法包含工程造價比較法、單位面積比較法、單位體積比較法。"},
+{id:"VC1_105_16", cat:"C1", year:"105年第16題", q:"在成本法中，使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，稱為下列何者？", opts:["新建成本", "建造成本", "重置成本", "重建成本"], explains:["「新建成本」並非技術規則明定之正式用語。", "「建造成本」並非技術規則明定之正式用語。", "重置成本是以「現代建材標準」（而非相同或極類似建材）建築所需之成本，與題目所述「相同或極類似建材標準」之定義不符。", "技術規則明定重建成本係使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VC1_105_23", cat:"C1", year:"105年第23題", q:"有關房地估價之敘述，下列何者錯誤？", opts:["實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用之現況估價，並敘明法定容積對估值之影響", "附有違章建築之房地估價，其違建部分不予以評估", "未達最有效使用狀態之房地估價，應先求取其最有效使用狀態之正常價格，再視其低度使用情況進行調整", "經調整。建物已不具備使用價值，得將其基地視為素地估價。但應考量建物拆除成本予以調整之"], explains:["技術規則明定實際建築使用之容積率超過法定容積率之房地估價，應以實際建築使用之「合法部分」現況估價，並敘明法定容積對估值之影響，本選項未提及「合法部分」之限定，與規則完整規定有所出入，此為錯誤敘述，即本題正解。", "附有違章建築之房地估價，違建部分不予以評估，此為正確敘述，符合技術規則規定。", "未達最有效使用狀態之房地估價，應先求取最有效使用狀態之正常價格，再視低度使用情況進行調整，此為正確敘述。", "建物已不具備使用價值，得將其基地視為素地估價，但應考量建物拆除成本予以調整之，此為正確敘述。"], correct:0, note:"應以「實際建築使用合法部分」之現況估價，並非以「實際建築使用」全部現況估價，此為敘述錯誤之處。"},
+{id:"VC1_105_31", cat:"C1", year:"105年第31題", q:"依不動產估價技術規則之規定，下列何者非屬不動產估價師公會全國聯合會公告之項目？", opts:["建物工程進度營造費用比例表", "開發或建築利潤率", "建造執照工程造價表", "營造或施工費標準表"], explains:["建物工程進度營造費用比例表是技術規則明定由全聯會公告之項目，非本題答案（本題問「非屬」全聯會公告項目）。", "開發或建築利潤率是技術規則明定由全聯會公告之項目。", "「建造執照工程造價表」並非技術規則明定由全聯會公告之項目，這是常見混淆陷阱，建造執照工程造價表通常是地方政府工務機關發布之行政參考資料，非全聯會公告項目，即本題正解。", "營造或施工費標準表是技術規則明定由全聯會公告之項目。"], correct:2, note:null},
+{id:"VC1_105_32", cat:"C1", year:"105年第32題", q:"不動產估價技術規則有關廣告費、銷售費、管理費、稅捐及開發或建築利潤之規定，下列述敘何者正確？", opts:["廣告費、銷售費等，於成本估價時必須計入", "開發或建築利潤，可視勘估標的之性質，於成本估價時得不予計入", "稅捐於成本估價時必須計入", "管理費於成本估價時一律計入"], explains:["廣告費、銷售費「視勘估標的之性質」於成本估價時得不予計入（並非必須計入），本選項與規則規定相反。", "技術規則明定開發或建築利潤，可視勘估標的之性質，於成本估價時得不予計入，與題目敘述相符。", "稅捐同樣是「視勘估標的之性質」決定是否計入，並非必須計入，本選項過於絕對。", "管理費同樣非一律計入，應視勘估標的之性質而定，本選項過於絕對。"], correct:1, note:null},
+{id:"VC1_106_14", cat:"C1", year:"106年第14題", q:"勘估標的之營造或施工費之求取方法中，「以建築細部工程之各項目單價乘以該工程施工數量，並合計之」之方法，係指何方法？", opts:["淨計法", "單位工程法", "工程造價比較法", "單位面積（或體積）比較法"], explains:["淨計法是逐一材料人工數量乘以單價工資，與題目所述「建築細部工程各項目單價乘以施工數量」之計算單位不同。", "技術規則明定單位工程法係以建築細部工程之各項目單價乘以該工程施工數量，並合計之，與題目敘述完全相符。", "工程造價比較法是按工程概算項目逐項比較調整之間接法，與題目所述直接計算施工數量乘單價之方式不同。", "單位面積（或體積）比較法是以單位面積營造費為基礎調整，與題目所述細部工程項目逐項計算之方式不同。"], correct:1, note:null},
+{id:"VC1_106_30", cat:"C1", year:"106年第30題", q:"附有建物之宗地，考慮建物對宗地價格影響下所為之土地估價，稱之為：", opts:["分割估價", "合併估價", "部分估價", "獨立估價"], explains:["「分割估價」並非技術規則明定之正式估價類型名稱。", "「合併估價」並非技術規則明定之正式估價類型名稱（合併開發估價屬比較法相關概念，與此處土地估價類型不同）。", "技術規則明定部分估價係附有建物之宗地，考慮建物對宗地價格影響下所為之土地估價，與題目敘述完全相符。", "獨立估價是不考慮建物影響、將土地視為素地估價，與題目所述「考慮建物影響」之定義相反。"], correct:2, note:null},
+{id:"VC1_106_38", cat:"C1", year:"106年第38題", q:"成本法中，指與勘估標的相同效用之建物，以現代建材標準、設計及配置，於價格日期建築所需之成本，是指何種成本？", opts:["重置成本", "重建成本", "重蓋成本", "替換成本"], explains:["技術規則明定重置成本係指與勘估標的相同效用之建物，以現代建材標準、設計及配置，於價格日期建築所需之成本，與題目敘述完全相符。", "重建成本是使用「相同或極類似」建材標準（而非現代建材標準）複製之成本，與題目所述「現代建材標準」之定義不符。", "「重蓋成本」並非技術規則明定之正式用語。", "「替換成本」並非技術規則明定之正式用語。"], correct:0, note:null},
+{id:"VC1_106_40", cat:"C1", year:"106年第40題", q:"依不動產估價技術規則第55條第1款之規定，就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時該建築之單價及人工工資，並加計管理費、稅捐、資本利息及利潤之估價方法稱為：", opts:["淨計法", "單位法", "工程造價比較法", "單位面積比較法"], explains:["技術規則第55條第1款明定淨計法係就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時該建築之單價及人工工資，並加計管理費、稅捐、資本利息及利潤之方法，與題目敘述完全相符。", "「單位法」並非技術規則明定之正式方法名稱（正確名稱應為單位工程法）。", "工程造價比較法是按工程概算項目逐項比較調整之間接法，與題目所述直接逐一計算材料人工數量之方式不同。", "單位面積比較法是以單位面積營造費為基礎調整，與題目所述逐一計算材料人工之方式不同。"], correct:0, note:null},
+{id:"VC1_107_9", cat:"C1", year:"107年第9題", q:"在使用成本法估價時，建物估價以求取(甲)為原則。但建物使用之材料目前已無生產或施工方法已改變者，得採(乙)替代之。請問甲、乙分別為何種成本？", opts:["甲為重建成本、乙為重置成本", "甲為重置成本、乙為重建成本", "甲為直接成本、乙為間接成本", "甲為間接成本、乙為直接成本"], explains:["技術規則明定建物估價以求取重建成本為原則（甲），但建物使用之材料已無生產或施工方法已改變者，得採重置成本替代之（乙），與題目敘述（甲為原則、乙為替代）完全相符。", "本選項將甲乙順序對調（甲為重置成本、乙為重建成本），與規則規定「重建成本為原則」之順序相反，敘述錯誤。", "「直接成本、間接成本」是成本構成之分類（營造施工費vs規劃設計費等），與本題甲乙所問「建物估價基準成本」之原則與替代關係無關。", "同C選項，直接成本與間接成本分類與本題所問成本替代關係無關。"], correct:0, note:null},
+{id:"VC1_107_15", cat:"C1", year:"107年第15題", q:"不動產估價有所謂的獨立估價，請問獨立估價是指：", opts:["土地上原有地上建物，但於估價之價格日期時已頽壞傾倒，估價時仍視為有地上建物，併同土地一併估價", "土地上無地上建物，純素地估價", "土地上有地上建物，估價時將土地與地上建物併同估價", "土地上有地上建物或他項權利存在，但估價時將土地視為素地予以估價，不考慮地上建物或他項權利對該土地的影響"], explains:["若地上建物已頽壞傾倒，已不具實質使用價值，技術規則規定此情形應視為素地估價（即建物已不具備使用價值之獨立估價情境），而非「仍視為有地上建物」併同估價，本選項與獨立估價定義不符。", "獨立估價的適用前提是「土地上有建築物」存在，本選項描述「純素地估價」（即土地上原本就無建物）不符獨立估價之定義情境（純素地本身就無須做「視為素地」之假設處理）。", "獨立估價是「將土地視為素地」估價，而非「土地與建物併同估價」，本選項描述與獨立估價定義相反。", "技術規則明定獨立估價係土地上有地上建物或他項權利存在，但估價時將土地視為素地予以估價，不考慮地上建物或他項權利對該土地之影響，與本選項描述完全相符。"], correct:3, note:null},
+{id:"VC1_108_10", cat:"C1", year:"108年第10題", q:"使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，稱為：", opts:["重建成本", "重置成本", "直接成本", "間接成本"], explains:["技術規則明定重建成本係使用與勘估標的相同或極類似之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，與題目敘述完全相符。", "重置成本是以「現代建材標準」（而非相同或極類似建材）建築所需之成本，與題目所述「相同或極類似建材標準」之定義不符。", "直接成本是指營造或施工費，與題目所述「重新複製建築所需成本」之完整定義層次不同（直接成本是構成重建成本的其中一部分）。", "間接成本是指規劃設計費、廣告銷售費等，與題目所述「重新複製建築」之核心成本定義不同。"], correct:0, note:null},
+{id:"VC1_108_13", cat:"C1", year:"108年第13題", q:"就勘估標的之構成部分或全體，調查其使用材料之種別、品級、數量及所需勞力種別、時間等，並以勘估標的所在地區於價格日期之各種單價為基礎，計算其營造或施工費的方法為：", opts:["直接法", "間接法", "工程造價比較法", "單位面積比較法"], explains:["技術規則明定直接法係就勘估標的之構成部分或全體，調查其使用材料之種別、品級、數量及所需勞力種別、時間等，並以勘估標的所在地區於價格日期之各種單價為基礎，計算其營造或施工費，與題目敘述完全相符。", "間接法是選擇比較標的或標準建物進行比較調整，與題目所述「就勘估標的本身逐一調查材料人工」之直接計算方式不同。", "工程造價比較法屬間接法之子方法，與題目所述直接調查計算之方式不同。", "單位面積比較法屬間接法之子方法，與題目所述直接調查計算之方式不同。"], correct:0, note:null},
+{id:"VC1_108_16", cat:"C1", year:"108年第16題", q:"不動產估價技術規則第99條之計算公式，勘估標的之基地價格＝勘估標的之房地價格－勘估標的之建物成本價格。請問此為何種學說之主張？", opts:["土地貢獻說", "建物貢獻說", "聯合貢獻說", "合併貢獻說"], explains:["技術規則第99條明定基地價格＝房地價格－建物成本價格之公式，正是土地貢獻說的核心主張（房地結合之超額利潤歸屬於土地，扣除建物成本後之剩餘部分視為土地之貢獻價值），與題目敘述相符。", "建物貢獻說主張超額利潤應歸屬於建物，與本公式「扣除建物成本求基地價格」（即超額利潤歸於土地）之邏輯相反。", "聯合貢獻說主張房地結合之超額利潤是土地與建物共同聯合貢獻所致，與本公式單純將剩餘部分全歸於土地（基地價格）之邏輯不同。", "「合併貢獻說」並非技術規則或估價理論明定之正式學說名稱。"], correct:0, note:null},
+{id:"VC1_109_17", cat:"C1", year:"109年第17題", q:"依據不動產估價技術規則，有關成本法資本利息的敘述，下列敘述何者錯誤？", opts:["資金中自有資金之計息利率應不高於1年期定存利率", "資金中自有資金之計息利率應不低於活存利率", "借款則以銀行短期放款利率計息", "預售收入之資金以定存利率計息"], explains:["自有資金之計息利率應不高於1年期定存利率，此為正確敘述，非本題答案（本題問「何者錯誤」）。", "自有資金之計息利率應不低於活存利率，此為正確敘述。", "借款則以銀行短期放款利率計息，此為正確敘述。", "技術規則明定預售收入之資金應依其資金來源性質計息（而非一律以定存利率計息），本選項過於絕對地規定以定存利率計息，與規則規定不符，即本題正解。"], correct:3, note:"預售收入之資金應依「其資金來源性質」計息（如自有資金或借款利率），並非一律以定存利率計息，此為敘述錯誤之處。"},
+{id:"VC1_109_18", cat:"C1", year:"109年第18題", q:"成本法營造施工費求取方式，有分為直接法及間接法兩大類，其中以建築細部工程之各項目單價乘以該工程施工數量合計之方法係指下列何者？", opts:["淨計法", "單位工程法", "工程造價比較法", "單位面積（或體積）比較法"], explains:["淨計法是逐一材料人工數量乘以單價工資，與題目所述「建築細部工程各項目單價乘以施工數量」之計算單位不同。", "技術規則明定單位工程法係以建築細部工程之各項目單價乘以該工程施工數量合計之，與題目敘述完全相符。", "工程造價比較法屬間接法，與題目所述直接逐項計算施工數量乘單價之方式不同。", "單位面積（或體積）比較法屬間接法，與題目所述細部工程項目逐項計算之方式不同。"], correct:1, note:null},
+{id:"VC1_109_21", cat:"C1", year:"109年第21題", q:"估價人員就某建物使用與勘估標的相同之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，是指下列何者？", opts:["重置成本", "重製成本", "重建成本", "複舊成本"], explains:["重置成本是以「現代建材標準」（而非相同建材標準）建築所需之成本，與題目所述「相同之建材標準」之定義不符。", "「重製成本」並非技術規則明定之正式用語。", "技術規則明定重建成本係使用與勘估標的相同之建材標準、設計、配置及施工品質，於價格日期重新複製建築所需之成本，與題目敘述完全相符。", "「複舊成本」並非技術規則明定之正式用語。"], correct:2, note:null},
+{id:"VC1_109_23", cat:"C1", year:"109年第23題", q:"依據不動產估價技術規則，有關成本法建築工期係指自申請建造執照開始至那個時間點為止無間斷所需之時間？", opts:["變更建照執照", "擬定權利變換計畫", "銷售完竣", "建築完成達到可交屋使用"], explains:["「變更建照執照」並非建築工期計算之終止時間點，這是建照變更程序而非完工概念。", "「擬定權利變換計畫」是都市更新程序之專有概念，與一般建築工期之終止時間點無關。", "「銷售完竣」是預售屋銷售完成之時間點，並非建築完成之時間點，建築工期關注的是「建造」過程而非銷售過程。", "技術規則明定建築工期係指自申請建造執照開始至建築完成達到可交屋使用為止無間斷所需之時間，與題目敘述完全相符。"], correct:3, note:null},
+{id:"VC1_110_8", cat:"C1", year:"110年第8題", q:"勘估標的之營造或施工費，依不動產估價技術規則之規定，不包含下列那一項目？", opts:["間接材料費", "稅捐", "資本利息", "廣告費"], explains:["間接材料費是技術規則明定營造施工費應包括之成本項目之一，非本題答案（本題問「不包含」之項目）。", "稅捐是技術規則明定營造施工費應包括之成本項目之一。", "資本利息是技術規則明定營造施工費應包括之成本項目之一。", "廣告費屬於總成本中「間接成本」之廣告銷售費項目，並非「營造或施工費」本身應包括之項目，即本題正解。"], correct:3, note:null},
+{id:"VC1_110_9", cat:"C1", year:"110年第9題", q:"就同一供需圈內近鄰地區或類似地區中，選擇與勘估標的類似之比較標的或標準建物，經比較與勘估標的營造或施工費之條件差異並作價格調整，以求取勘估標的營造或施工費的方法為何？", opts:["直接法", "間接法", "淨計法", "單位工程法"], explains:["直接法是就勘估標的本身逐一調查材料人工計算（淨計法、單位工程法），與題目所述「選擇比較標的或標準建物進行比較調整」之間接計算方式不同。", "技術規則明定間接法係就同一供需圈內近鄰地區或類似地區中，選擇與勘估標的類似之比較標的或標準建物，經比較與勘估標的營造或施工費之條件差異並作價格調整，以求取勘估標的營造或施工費，與題目敘述完全相符。", "淨計法屬直接法之子方法，與題目所述間接比較調整之方式不同。", "單位工程法屬直接法之子方法，與題目所述間接比較調整之方式不同。"], correct:1, note:null},
+{id:"VC1_111_7", cat:"C1", year:"111年第7題", q:"不動產估價成本法對勘估標的之營造或施工費，其中「指以類似勘估標的之比較標的或標準建物之單位面積（或體積）營造或施工費單價為基礎，經比較並調整價格後，乘以勘估標的之面積（或體積）總數，以求取勘估標的營造或施工費。」方法，係指何方法？", opts:["單位工程法", "淨計法", "單位面積（或體積）比較法", "工程造價比較法"], explains:["單位工程法是以建築細部工程各項目單價乘以施工數量，屬直接法，與題目所述「以比較標的單位面積營造費為基礎調整」之間接法定義不同。", "淨計法是逐一材料人工數量乘以單價工資，屬直接法，與題目所述間接比較調整方式不同。", "技術規則明定單位面積（或體積）比較法係以類似勘估標的之比較標的或標準建物之單位面積（或體積）營造或施工費單價為基礎，經比較並調整價格後，乘以勘估標的之面積（或體積）總數，以求取勘估標的營造或施工費，與題目敘述完全相符。", "工程造價比較法是按工程概算項目逐項比較調整，與題目所述「以單位面積（或體積）營造費單價為基礎」之整體單價調整方式不同。"], correct:2, note:null},
+{id:"VC1_112_11", cat:"C1", year:"112年第11題", q:"目前銀行之一年期定存利率為1.57%，活存利率為0.58%，短期放款利率為7.11%，下列之敘述何者正確？", opts:["資金中自有資金之計息利率為7.11%", "資金中預售收入之計息利率為0.58%", "資金中自有資金之計息利率為1.52%", "資金中借款之計息利率為1.57%"], explains:["自有資金之計息利率應不高於1年期定存利率1.57%，7.11%（短期放款利率）已超過此上限，不符規定。", "預售收入之資金應依其資金來源性質計息，並非一律以活存利率0.58%計息，本選項描述過於絕對且未必符合規則精神。", "技術規則規定自有資金之計息利率應介於活存利率（0.58%）與1年期定存利率（1.57%）之間，1.52%恰好落在此區間內，符合規定，與本選項相符。", "技術規則規定借款應以「短期放款利率」（7.11%）計息，而非1年期定存利率1.57%，本選項計息基礎誤植。"], correct:2, note:"自有資金計息利率應不高於1年期定存利率（1.57%）、不低於活存利率（0.58%），1.52%落於此區間內，符合規定；借款應以短期放款利率（7.11%）計息，非1.57%。"},
+{id:"VC1_112_12", cat:"C1", year:"112年第12題", q:"就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時該建築材料之單價及人工工資，並加計管理費、稅捐、資本利息及利潤，以求取勘估標的營造施工費之方法為何？", opts:["間接法", "淨計法", "工程造價比較法", "單位面積比較法"], explains:["間接法是選擇比較標的或標準建物進行比較調整，與題目所述「逐一計算材料人工數量並加計管理費等」之直接計算方式不同。", "技術規則明定淨計法係就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時該建築材料之單價及人工工資，並加計管理費、稅捐、資本利息及利潤，以求取勘估標的營造施工費，與題目敘述完全相符。", "工程造價比較法屬間接法，與題目所述逐一計算材料人工之直接方式不同。", "單位面積比較法屬間接法，與題目所述逐一計算材料人工之直接方式不同。"], correct:1, note:null},
+{id:"VC1_112_21", cat:"C1", year:"112年第21題", q:"有關房地成本價格之計算公式，下列何者正確？", opts:["房地成本價格＝土地總成本＋建物成本價格", "房地成本價格＝土地總成本＋建物總成本", "房地成本價格＝土地價格＋建物成本價格－建物累積折舊額", "房地成本價格＝土地價格＋建物成本價格＋建物累積折舊額"], explains:["技術規則明定房地成本價格＝土地總成本＋建物成本價格（建物成本價格係已扣除折舊之建物現值），與題目敘述完全相符。", "「房地成本價格＝土地總成本＋建物總成本」中之建物總成本若未扣除折舊，將高估建物實際價值，與正確公式「建物成本價格（已扣除折舊）」不符。", "土地價格與建物成本價格加總後再「減去建物累積折舊額」會造成折舊重複扣除（因建物成本價格本身已扣除折舊），公式邏輯錯誤。", "土地價格與建物成本價格相加後再「加上建物累積折舊額」，會使已扣除折舊的建物現值再加回折舊額，等同於恢復未折舊狀態，公式邏輯錯誤。"], correct:0, note:null},
+{id:"VC1_113_9", cat:"C1", year:"113年第9題", q:"下列何者非屬營造或施工費的內含項目？", opts:["直接人工費", "間接材料費", "開發商的合理利潤", "資本利息"], explains:["直接人工費是技術規則明定營造施工費之內含項目之一，非本題答案（本題問「非屬」內含項目）。", "間接材料費是技術規則明定營造施工費之內含項目之一。", "「開發商的合理利潤」雖然「利潤」是營造施工費內含項目之一，但此處特別強調「開發商的」利潤，與營造施工費所稱之承包商或營造商利潤概念不同；惟此題鑑別重點在於利潤本身雖屬內含項目，但開發或建築利潤依規則規定屬於可視性質決定是否計入之另一獨立項目（與直接的材料人工費等必要成本性質不同），故即本題正解。", "資本利息是技術規則明定營造施工費之內含項目之一。"], correct:2, note:"開發商之開發利潤屬成本法總成本中之獨立項目，非屬「營造或施工費」本身之內含項目。"},
+{id:"VC1_113_10", cat:"C1", year:"113年第10題", q:"有關營造或施工費的敘述何者錯誤？", opts:["營造或施工費屬於建物總成本的一部分，房屋愈舊，營造或施工費就愈低", "勘估標的之營造或施工費，得按直接法或間接法擇一求取之。功能性退化造成的折舊屬於房屋折舊的一部分", "淨計法屬於直接法的一種，是指就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時該建築材料之單價及人工工資，並加計管理費、稅捐、資本利息及利潤", "單位工程法也屬於直接法，係以建築細部工程之各項目單價乘以該工程施工數量，並合計之"], explains:["技術規則規定的是「重建成本」隨價格日期之物價水準變動，並非「房屋愈舊，營造或施工費就愈低」這種直接關聯；營造施工費是重新複製建築當下的成本估算，與房屋實際屋齡無直接反向關係（房屋愈舊產生的是折舊額增加，而非營造施工費本身降低），此為錯誤敘述，即本題正解。", "勘估標的之營造或施工費，得按直接法或間接法擇一求取之，此為正確敘述；功能性退化造成的折舊屬於房屋折舊的一部分，此亦為正確敘述。", "淨計法屬於直接法的一種，其定義（逐一材料人工數量乘以單價工資，並加計管理費稅捐資本利息利潤）與技術規則規定相符，敘述正確。", "單位工程法也屬於直接法，其定義（建築細部工程各項目單價乘以施工數量並合計）與技術規則規定相符，敘述正確。"], correct:0, note:"營造或施工費係指「重建（重置）成本」概念，反映的是現在重新建造所需之費用，並非隨屋齡增加而降低；建物因屋齡增加而減損的是「折舊額」，而非營造施工費本身，此為敘述錯誤之處。"},
+{id:"VC1_114_2", cat:"C1", year:"114年第2題", q:"以成本法進行不動產估價，下列何者非為總成本應包括之項目？", opts:["營造或施工費", "出售不動產之所得稅", "資本利息", "建築利潤"], explains:["營造或施工費是技術規則明定總成本應包括之項目之一，非本題答案（本題問「非」總成本應包括之項目）。", "出售不動產之所得稅是處分不動產後的稅務負擔，與成本法估算「建造」當下所需投入之總成本性質不同，並非技術規則明定總成本應包括之項目（這與收益法估算淨收益時排除所得稅之邏輯一致），即本題正解。", "資本利息是技術規則明定總成本應包括之項目之一。", "建築利潤是技術規則明定總成本應包括之項目之一（視性質得不予計入，但屬性上仍是總成本構成項目之一）。"], correct:1, note:null},
+{id:"VC1_114_18", cat:"C1", year:"114年第18題", q:"勘估標的營造或施工費之求取得採直接法或間接法，下列各方法中何者相對精細？", opts:["工程造價比較法", "淨計法", "單位工程法", "單位面積比較法"], explains:["工程造價比較法屬間接法，精確度不及直接法，非本題答案（本題問「相對精細」之方法）。", "淨計法是逐一材料人工數量乘以單價工資的最精細計算方式（逐項計算每一種材料與人工），屬直接法中最精細之方法，與題目敘述相符。", "單位工程法雖屬直接法，但其計算單位是「工程項目」而非逐一材料人工，精細度不及淨計法。", "單位面積比較法屬間接法，是較粗略的整體估算方式，精確度最低。"], correct:1, note:null}
+];
+const CAT_NAMES = {"C1": "C1 成本法-重建成本"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};   // id -> {selected, correct}
+let errorTags = {}; // id -> 'A'|'B'|'C'
+let viewFilter = 'all'; // all | unanswered | wrong
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+async function loadData(){
+  try{
+    const res = await window.storage.get('valuation_practice_c1_v2_answers');
+    if(res && res.value) answers = JSON.parse(res.value);
+  }catch(e){ answers = {}; }
+  try{
+    const res2 = await window.storage.get('valuation_practice_c1_v2_errortags');
+    if(res2 && res2.value) errorTags = JSON.parse(res2.value);
+  }catch(e){ errorTags = {}; }
+}
+async function saveAnswers(){
+  try{ await window.storage.set('valuation_practice_c1_v2_answers', JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set('valuation_practice_c1_v2_errortags', JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answeredCount=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{
+    answeredCount++;
+    if(a.correct) ok++; else ng++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
+}
+
+function renderList(){
+  qlistEl.innerHTML = '';
+  let pool = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+
+  pool.forEach(it=>{
+    const a = answers[it.id];
+    const div = document.createElement('div');
+    div.className = 'qcard' + (a ? ' answered ' + (a.correct?'correct':'wrong') : '');
+
+    const letters = ['A','B','C','D'];
+    let optsHtml = '';
+    it.opts.forEach((opt,i)=>{
+      let cls = 'opt';
+      if(a){
+        if(i===it.correct) cls += ' correct-answer';
+        else if(i===a.selected) cls += ' wrong-selected';
+      }
+      optsHtml += `<div class="${cls}" data-idx="${i}"><span class="letter">${letters[i]}</span><span>${opt}</span></div>`;
+    });
+
+    let explainHtml = '';
+    if(a && it.explains && it.explains.some(e=>e)){
+      explainHtml = '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      it.opts.forEach((opt,i)=>{
+        const isCorrect = i===it.correct;
+        const mark = isCorrect ? '✓' : '✗';
+        const cls = isCorrect ? 'explain-item right' : 'explain-item';
+        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${expText}</span></div>`;
+      });
+      explainHtml += '</div>';
+    }
+
+    let noteHtml = '';
+    if(a && it.note){
+      noteHtml = `<div class="note-box"><b>📌 補充說明：</b>${it.note}</div>`;
+    }
+
+    let errorTagHtml = '';
+    if(a && !a.correct){
+      const tag = errorTags[it.id] || '';
+      errorTagHtml = `<div class="error-tag-row">
+        <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
+        <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
+        <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+      </div>`;
+    }
+
+    div.innerHTML = `
+      <div class="qhead">
+        <span class="qbadge">${CAT_NAMES[it.cat]}</span>
+        <span class="qyear">${it.year}</span>
+      </div>
+      <div class="qtext">${it.q}</div>
+      <div class="opt-list">${optsHtml}</div>
+      ${explainHtml}
+      ${noteHtml}
+      ${errorTagHtml}
+    `;
+
+    if(!a){
+      div.querySelectorAll('.opt').forEach(optEl=>{
+        optEl.addEventListener('click', ()=>{
+          const idx = parseInt(optEl.dataset.idx);
+          const correct = (idx === it.correct);
+          answers[it.id] = {selected: idx, correct: correct};
+          saveAnswers();
+          updateStatbar();
+          renderList();
+        });
+      });
+    } else {
+      div.querySelectorAll('.error-tag').forEach(tagEl=>{
+        tagEl.addEventListener('click', ()=>{
+          const tag = tagEl.dataset.tag;
+          errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
+          saveErrorTags();
+          renderList();
+        });
+      });
+    }
+
+    qlistEl.appendChild(div);
+  });
+
+  if(!pool.length){
+    qlistEl.innerHTML = '<p style="text-align:center;color:var(--ink-soft);padding:30px 0;">沒有符合篩選條件的題目</p>';
+  }
+}
+
+document.getElementById('filterAll').addEventListener('click', ()=>{ viewFilter='all'; setActiveFilterBtn('filterAll'); renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click', ()=>{ viewFilter='unanswered'; setActiveFilterBtn('filterUnanswered'); renderList(); });
+document.getElementById('filterWrong').addEventListener('click', ()=>{ viewFilter='wrong'; setActiveFilterBtn('filterWrong'); renderList(); });
+function setActiveFilterBtn(id){
+  ['filterAll','filterUnanswered','filterWrong'].forEach(bid=>{
+    document.getElementById(bid).classList.toggle('primary', bid===id);
+  });
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('resetMastery').addEventListener('click', resetAll);
+async function resetAll(){
+  if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
+  answers = {};
+  errorTags = {};
+  await saveAnswers();
+  await saveErrorTags();
+  updateStatbar();
+  renderList();
+}
+
+(async function init(){
+  await loadData();
+  updateStatbar();
+  renderList();
+})();
+</script>
+</body>
+</html>
