@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規概要｜互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F8F3E9;
+  --paper-dark: #EFE7D6;
+  --ink: #2A2722;
+  --vermillion: #A8402B;
+  --gold: #BC8A2E;
+  --green: #4C6B43;
+  --blue: #3A5A78;
+  --orange: #C07830;
+  --purple: #6B4C8A;
+  --line: #D9CFB8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.7;
+}
+.app { max-width: 720px; margin: 0 auto; padding: 16px 16px 60px; }
+h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 10px 0 2px;
+}
+.subtitle { text-align: center; font-size: .78rem; color: #6b6354; margin-bottom: 16px; }
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(42,39,34,.05);
+}
+.stats-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+.stat-chip {
+  background: var(--paper-dark);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: .74rem;
+  font-weight: 600;
+}
+.stat-chip b { color: var(--vermillion); }
+
+.section-label {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: .92rem;
+  margin-bottom: 8px;
+  border-left: 4px solid var(--vermillion);
+  padding-left: 8px;
+}
+.chip-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.group-chip {
+  border: 1px solid var(--line);
+  background: var(--paper-dark);
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: .78rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+.group-chip.active { background: var(--vermillion); color: #fff; border-color: var(--vermillion); }
+.btn-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+button {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: .86rem;
+  cursor: pointer;
+}
+button:active { transform: scale(.97); }
+.btn-primary { background: var(--vermillion); color: #fff; flex: 1; min-width: 130px; }
+.btn-secondary { background: var(--paper-dark); color: var(--ink); border: 1px solid var(--line); }
+.btn-mini { background: var(--paper-dark); color: var(--ink); border: 1px solid var(--line); padding: 6px 12px; font-size: .74rem; }
+.mode-chip { border: 1px solid var(--line); background: var(--paper-dark); border-radius: 16px; padding: 6px 14px; font-size: .8rem; cursor: pointer; font-weight: 700; }
+.mode-chip.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+#studyArea { display: none; }
+.progress-bar-wrap { background: var(--paper-dark); border-radius: 6px; height: 8px; overflow: hidden; margin-bottom: 10px; }
+.progress-bar-fill { background: var(--gold); height: 100%; transition: width .25s; }
+.card-meta { display: flex; justify-content: space-between; font-size: .74rem; color: #807660; margin-bottom: 8px; font-weight: 600; }
+
+.flashcard-wrap { perspective: 1200px; margin-bottom: 16px; }
+.flashcard {
+  position: relative;
+  min-height: 220px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform .5s;
+  transform-style: preserve-3d;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 22px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(42,39,34,.08);
+}
+.card-front {
+  background: #fff;
+  border: 2px solid var(--line);
+}
+.card-back {
+  transform: rotateY(180deg);
+  color: #fff;
+}
+.cat-def .card-back { background: linear-gradient(135deg, var(--green), #3a5234); }
+.cat-law .card-back { background: linear-gradient(135deg, var(--blue), #2a4258); }
+.cat-confuse .card-back { background: linear-gradient(135deg, var(--orange), #9a5f1f); }
+.cat-mnem .card-back { background: linear-gradient(135deg, var(--purple), #4f3868); }
+.cat-trap .card-back { background: linear-gradient(135deg, var(--vermillion), #7a2c1c); }
+
+.cat-tag {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: var(--paper-dark);
+  color: var(--ink);
+}
+.card-back .cat-tag { background: rgba(255,255,255,.22); color: #fff; }
+.card-front-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 10px;
+  white-space: pre-wrap;
+}
+.card-back-text {
+  font-size: .95rem;
+  white-space: pre-wrap;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.flip-hint {
+  text-align: center;
+  font-size: .7rem;
+  color: #9a917a;
+  margin-top: 6px;
+}
+.card-back .flip-hint { color: rgba(255,255,255,.6); }
+
+.mastery-row { display: flex; gap: 8px; margin-top: 4px; }
+.mastery-btn {
+  flex: 1;
+  padding: 11px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.mastery-no { background: #FBEAE6; color: var(--vermillion); }
+.mastery-soso { background: #FCF1DB; color: var(--orange); }
+.mastery-yes { background: #EAF1E6; color: var(--green); }
+
+.nav-row { display: flex; gap: 8px; margin-top: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; font-size: .68rem; margin-top: 10px; }
+.legend span { display: flex; align-items: center; gap: 4px; }
+.legend .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.footer-note { text-align: center; font-size: .68rem; color: #9a917a; margin-top: 22px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>經紀法規概要｜互動單字卡</h1>
+  <div class="subtitle">89張卡・A-H八篇完整涵蓋・翻牌學習＋掌握度追蹤</div>
+
+  <div id="setupArea">
+    <div class="panel">
+      <div class="stats-row" id="overallStats"></div>
+      <div class="section-label">選擇篇章（可複選，預設全選）</div>
+      <div class="chip-grid" id="groupChips"></div>
+      <div class="btn-row">
+        <button class="btn-mini" id="selectAllBtn">全選</button>
+        <button class="btn-mini" id="selectNoneBtn">全不選</button>
+        <button class="btn-mini" id="selectWeakBtn">只練不熟的卡</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="section-label">卡片順序</div>
+      <div class="chip-grid">
+        <div class="mode-chip active" data-mode="order">依篇章順序</div>
+        <div class="mode-chip" data-mode="random">隨機亂序</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="startBtn">開始學習</button>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:#4C6B43"></i>定義原則</span>
+        <span><i class="dot" style="background:#3A5A78"></i>法條要件</span>
+        <span><i class="dot" style="background:#C07830"></i>易混淆比較</span>
+        <span><i class="dot" style="background:#6B4C8A"></i>口訣速記</span>
+        <span><i class="dot" style="background:#A8402B"></i>高頻陷阱</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="studyArea">
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="card-meta">
+      <span id="cardPosition"></span>
+      <span id="cardChapterLabel"></span>
+    </div>
+    <div class="flashcard-wrap">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front" id="cardFrontFace">
+          <div class="cat-tag" id="frontCatTag"></div>
+          <div class="card-front-text" id="cardFrontText"></div>
+          <div class="flip-hint">點擊卡片查看解析</div>
+        </div>
+        <div class="card-face card-back" id="cardBackFace">
+          <div class="cat-tag" id="backCatTag"></div>
+          <div class="card-back-text" id="cardBackText"></div>
+          <div class="flip-hint">點擊卡片返回正面</div>
+        </div>
+      </div>
+    </div>
+    <div class="mastery-row">
+      <button class="mastery-btn mastery-no" data-level="no">😵 不熟</button>
+      <button class="mastery-btn mastery-soso" data-level="soso">🤔 普通</button>
+      <button class="mastery-btn mastery-yes" data-level="yes">😎 掌握</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" id="prevBtn">上一張</button>
+      <button class="btn-secondary" id="backToSetupBtn">結束學習</button>
+    </div>
+  </div>
+
+  <div class="footer-note">BrokerX 備考 Project・依《經紀法規概要_重點筆記》A-H八篇28子章節整理</div>
+</div>
+
+<script>
+const ALL_CARDS = [{"id": "A101", "front": "主管機關層級", "back": "中央：內政部\n直轄市：地政處\n縣市：縣市政府", "category": "def", "chapter": "A1"}, {"id": "A102", "front": "「不動產」的法定定義", "back": "土地、土地定著物或房屋及其可移轉之權利", "category": "def", "chapter": "A1"}, {"id": "A103", "front": "「成屋」vs「預售屋」", "back": "成屋：領有使用執照，或實施建管前建造完成之建築物\n預售屋：領有建造執照尚未建造完成，以將來完成之建築物為交易標的", "category": "confuse", "chapter": "A1"}, {"id": "A104", "front": "「仲介業務」vs「代銷業務」", "back": "仲介業務：從事買賣互易租賃之居間或代理\n代銷業務：受起造人或建築業委託，企劃並代理銷售不動產", "category": "confuse", "chapter": "A1"}, {"id": "A105", "front": "「經紀人」vs「經紀營業員」", "back": "經紀人：執行仲介或代銷業務\n經紀營業員：協助經紀人執行業務（不可單獨執行）", "category": "confuse", "chapter": "A1"}, {"id": "A106", "front": "★陷阱：「差價」的定義", "back": "實際買賣交易價格與「委託銷售價格」之差額\n（不是與市場行情價的差額！）", "category": "trap", "chapter": "A1"}, {"id": "A201", "front": "經紀業設立四步驟", "back": "①申請許可→②辦理公司或商業登記→③加入登記所在地同業公會→④6個月內開始營業", "category": "law", "chapter": "A2"}, {"id": "A202", "front": "開業期限與展延", "back": "應於許可後6個月內開始營業；逾期未開業主管機關廢止許可；有正當理由得申請展延一次，以3個月為限", "category": "law", "chapter": "A2"}, {"id": "A203", "front": "★陷阱：經營國外不動產業務的組織型態", "back": "經營國外不動產仲介或代銷業務者，應以「公司」型態組織辦理登記，商號不可！", "category": "trap", "chapter": "A2"}, {"id": "A204", "front": "不得申請經營經紀業之事由（時間數字版）", "back": "詐欺背信侵占罪：徒刑1年以上，執行完畢/赦免後未滿3年\n受感訓處分：執行完畢後未滿3年\n撤銷或廢止許可：未滿5年\n廢止經紀人員證書：未滿5年", "category": "law", "chapter": "A2"}, {"id": "A205", "front": "營業保證金管理", "back": "由「全國聯合會」統一設置營業保證基金專戶管理\n基金管理委員會中經紀業代表人數不得超過委員總數5分之2", "category": "def", "chapter": "A2"}, {"id": "A206", "front": "營業保證金退還條件", "back": "公司解散/商號歇業/組織存續但已無仲介代銷業務\n可自核准註銷營業滿1年後2年內請求退還（孳息不退還）", "category": "law", "chapter": "A2"}, {"id": "A207", "front": "★高頻數字：經紀人配置門檻", "back": "一般營業處所：至少置經紀人1人\n非常態營業處所銷售額達6億元以上：至少專業經紀人1人\n經紀營業員每逾20名：應增設經紀人1人", "category": "trap", "chapter": "A2"}, {"id": "A301", "front": "★陷阱：經紀人證書請領條件", "back": "考試及格≠可以請證！\n須「具備1年以上經紀營業員經驗」才能向直轄市/縣市政府請領經紀人證書", "category": "trap", "chapter": "A3"}, {"id": "A302", "front": "經紀人證書效期與換證", "back": "證書有效期限4年\n期滿需檢附4年內完成30小時以上專業訓練證明辦理換證", "category": "law", "chapter": "A3"}, {"id": "A303", "front": "經紀營業員訓練與登錄", "back": "初次訓練不得少於30小時，證明有效期限4年\n期滿需完成20小時以上訓練重新登錄", "category": "law", "chapter": "A3"}, {"id": "A304", "front": "★高頻易混淆：訓練時數比較", "back": "經紀人換證：30小時以上\n經紀營業員重新登錄：20小時以上\n→兩者證書效期皆為4年", "category": "confuse", "chapter": "A3"}, {"id": "A305", "front": "★陷阱：經紀人員可以兼職嗎？", "back": "原則應專任一經紀業，不得為自己或他經紀業執行業務\n但「經所屬經紀業同意」為他經紀業執行業務者，不在此限\n→並非絕對禁止兼職！", "category": "trap", "chapter": "A3"}, {"id": "A306", "front": "經紀人員保密義務", "back": "對因業務知悉或持有之他人秘密，不得無故洩漏（第25條）", "category": "def", "chapter": "A3"}, {"id": "A401", "front": "廣告與銷售三前提", "back": "①須先與委託人簽訂委託契約書，方得刊登廣告及銷售\n②廣告銷售內容應與事實相符並註明經紀業名稱\n③不符者負損害賠償責任", "category": "law", "chapter": "A4"}, {"id": "A402", "front": "★高頻：應由經紀人簽章之六類文件", "back": "①委託契約書②要約書③定金收據④廣告稿⑤不動產說明書⑥租賃買賣契約書", "category": "law", "chapter": "A4"}, {"id": "A403", "front": "★高頻陷阱：代銷業務的例外", "back": "第1、2款（委託契約書、要約書）於經營「代銷業務」者不適用！\n因代銷業是建商委託，相對人是社會大眾買方，無「委託契約書」概念", "category": "trap", "chapter": "A4"}, {"id": "A404", "front": "★極高頻：不動產說明書解說流程口訣", "back": "製作→委託人先簽章確認→經紀人向相對人解說→締約時交付相對人並簽章→視為契約之一部分", "category": "mnem", "chapter": "A4"}, {"id": "A405", "front": "★高頻陷阱：說明書≠現況確認書", "back": "不動產說明書：條例22-24條，經紀人製作，需委託人與相對人簽章，視為契約一部分\n建物現況確認書：成屋契約附件一，賣方自填，不能替代說明書內容", "category": "trap", "chapter": "A4"}, {"id": "A406", "front": "雙方代理六項義務", "back": "①公平提供雙方類似不動產交易價格②公平提供契約內容說明③提供必要資訊④告知應查知瑕疵⑤協助必要檢查⑥其他中央主管機關規定", "category": "law", "chapter": "A4"}, {"id": "A407", "front": "★高頻：申報登錄期限", "back": "仲介（租賃案件）：簽約起30日內申報登錄\n代銷（委託代銷契約）：簽訂變更終止起30日內報請備查\n代銷（買賣契約）：簽約起30日內申報登錄", "category": "law", "chapter": "A4"}, {"id": "A408", "front": "損害賠償責任歸屬", "back": "可歸責經紀業未能履行委託契約：經紀業負責\n經紀人員執行業務故意過失致損害：經紀業與經紀人員「連帶」賠償", "category": "def", "chapter": "A4"}, {"id": "A409", "front": "★高頻：報酬限制與違反處理", "back": "不得收取差價或其他報酬，應依實際成交價金按主管機關報酬標準計收\n違反者：已收取部分應「加計利息後加倍返還」支付人", "category": "trap", "chapter": "A4"}, {"id": "A501", "front": "★高頻金額：經紀業最常見罰鍰級距", "back": "第7Ⅵ/11/17/19Ⅰ/21/22Ⅰ等條文：NT$6萬以上30萬以下", "category": "law", "chapter": "A5"}, {"id": "A502", "front": "經紀人員懲戒：申誡 vs 停止執行業務", "back": "申誡：第16兼業/22Ⅰ簽章/23解說/25保密\n6個月以上3年以下停止執行業務：第19Ⅰ收取差價或報酬", "category": "confuse", "chapter": "A5"}, {"id": "A503", "front": "★陷阱：申誡累計後果", "back": "申誡累計3次→另予6個月以上3年以下停止執行業務\n停止執行業務累計達5年以上→廢止經紀人員證書", "category": "trap", "chapter": "A5"}, {"id": "A504", "front": "★陷阱：非經紀業違法經營，先罰後刑", "back": "①主管機關禁止營業＋處負責人或行為人NT$10萬-30萬罰鍰\n②經禁止後仍繼續營業→才構成刑事責任：1年以下徒刑或併科10萬-30萬罰金\n→並非一犯就有刑責！", "category": "trap", "chapter": "A5"}, {"id": "C101", "front": "土地說明書七大記載項目（口訣）", "back": "標示權利→所有權人→交易權利種類→管理使用情況→使用管制→重要交易條件→其他重要事項", "category": "mnem", "chapter": "C1"}, {"id": "C201", "front": "成屋建物型態三分類", "back": "一般建物（獨棟/連棟/雙併，無共有部分）\n區分所有建物（公寓/透天/店面/大樓/華廈/套房）\n其他特殊建物（工廠/廠辦/農舍/倉庫）", "category": "def", "chapter": "C2"}, {"id": "C202", "front": "★115年新增：建築能效情形", "back": "成屋說明書新增第6目：有無取得建築能效標示？\n若有應敘明等級、核發日期及證書效期（配合近零碳建築政策）", "category": "trap", "chapter": "C2"}, {"id": "C301", "front": "預售屋特有記載事項", "back": "建照字號、出售面積占比、共有部分分配比例、主要建材廠牌、工程進度（開工/取照/通知交屋/保固期限）、規約草約7項內容", "category": "def", "chapter": "C3"}, {"id": "C302", "front": "★115年陷阱：氯離子檢測新舊用語", "back": "舊：建築物混凝土氯離子含量檢測報告＋無放射性污染證明\n新：施工中建築物「新拌」混凝土氯離子含量檢測報告單＋無「輻射」污染證明\n→僅見於預售屋，成屋章節未同步修正！", "category": "trap", "chapter": "C3"}, {"id": "C401", "front": "不得記載事項六項", "back": "①不得載「僅供參考」②不得載「繳回說明書」③不得用受益/銷售/使用面積等替代詞④預售屋不得載未領照夾層⑤不得以現況確認書替代說明書⑥不得載房價有上漲空間", "category": "law", "chapter": "C4"}, {"id": "C501", "front": "★115年三大最新修正重點", "back": "①建築能效標示揭露②太陽光電發電設備揭露③最近5年內基地周邊300公尺水災淹水救助紀錄", "category": "trap", "chapter": "C5"}, {"id": "C502", "front": "★陷阱：300公尺水災紀錄的適用範圍", "back": "成屋與預售屋的「其他重要事項」皆新增此項\n但「土地素地」章節未列入此項！", "category": "trap", "chapter": "C5"}, {"id": "D101", "front": "成屋買賣契約審閱期", "back": "至少5日", "category": "def", "chapter": "D1"}, {"id": "D102", "front": "★高頻：成屋交屋遲延違約金", "back": "賣方逾期交屋：買方得請求每日按已付價款萬分之二單利計算之損害賠償", "category": "law", "chapter": "D1"}, {"id": "D103", "front": "★核心高頻：成屋違約罰則", "back": "賣方違約：全部退還已付價款＋每日萬分之二單利＋同額違約金，但違約金不超過總價15%\n買方違約（逾期5日未付）：賣方沒收已付價款充違約金，不超過總價15%", "category": "trap", "chapter": "D1"}, {"id": "D104", "front": "成屋契約不得記載：利率上限", "back": "不得記載超過民法第205條週年16%利率之利息", "category": "law", "chapter": "D1"}, {"id": "D201", "front": "預售屋履約擔保五選一", "back": "不動產開發信託／價金返還之保證／價金信託／同業連帶擔保／公會辦理連帶保證協定", "category": "def", "chapter": "D2"}, {"id": "D202", "front": "★陷阱：面積誤差找補規則", "back": "不足部分：賣方應「全部找補」\n超過部分：買方最多找補2%為限\n誤差超過3%：買方得解除契約", "category": "trap", "chapter": "D2"}, {"id": "D203", "front": "預售屋保固期限", "back": "結構部分（基礎/樑柱/承重牆/樓地板/屋頂/樓梯/擋土牆）：保固15年\n固定建材設備（門窗/粉刷/地磚）：保固1年", "category": "law", "chapter": "D2"}, {"id": "D204", "front": "★陷阱：預售屋違約罰則方向相反", "back": "賣方違約：賠償總價款百分比「不得低於15%」（但不超過已繳價款）\n買方違約：沒收金額「最高不得超過15%」\n→與成屋「不超過15%」邏輯相反！", "category": "trap", "chapter": "D2"}, {"id": "D301", "front": "委託銷售契約審閱期", "back": "不得少於3日（注意：與成屋/預售屋「至少5日」不同！）", "category": "trap", "chapter": "D3"}, {"id": "D302", "front": "受託人（仲介業者）六大義務", "back": "①善良管理人注意義務②簽約前提供近3個月成交行情③市調廣告費用自行負擔④說明書指派經紀人簽章⑤要約書24小時內轉交⑥定金24小時內送交", "category": "law", "chapter": "D3"}, {"id": "D303", "front": "★高頻陷阱：委託銷售契約禁止收取斡旋金", "back": "不得約定在契約成立前，受託人得向消費者收取斡旋金、訂金或其他任何名目之費用\n→實務常見但定型化契約明文禁止事先收取！", "category": "trap", "chapter": "D3"}, {"id": "D304", "front": "要約書關鍵規則", "back": "審閱期不得少於3日\n買方撤回權：要約期限內可撤回，但賣方已承諾並送達買方者不可\n賣方變更要約內容而承諾＝視為拒絕原要約而為新要約", "category": "def", "chapter": "D3"}, {"id": "D401", "front": "★必背：三契約審閱期比較", "back": "成屋買賣：至少5日\n預售屋買賣：至少5日\n委託銷售/要約書：不得少於3日", "category": "confuse", "chapter": "D4"}, {"id": "D402", "front": "★必背：違約金比例方向相反", "back": "成屋買賣違約金：不超過15%\n預售屋買賣違約金：不得低於15%\n→方向完全相反，極易混淆！", "category": "trap", "chapter": "D4"}, {"id": "E101", "front": "公寓大廈四種部分定義", "back": "專有部分／共用部分／約定專用部分／約定共用部分", "category": "def", "chapter": "E1"}, {"id": "E102", "front": "住戶 vs 管理委員會 vs 管理負責人", "back": "住戶：區權人/承租人/經同意使用人/取得停車空間所有權者\n管理委員會：執行區權會決議的組織\n管理負責人：未成立管委會時推選之住戶1人", "category": "confuse", "chapter": "E1"}, {"id": "E103", "front": "「規約」的定義", "back": "區分所有權人為增進共同利益確保良好生活環境，經區權會決議之共同遵守事項", "category": "def", "chapter": "E1"}, {"id": "E201", "front": "★高頻：不得約定專用之共用部分五項", "back": "①本身所占地面②連通走廊樓梯通往室外通路門廳/巷道防火巷弄③基礎主要樑柱承重牆樓地板屋頂構造④違反法令使用限制者⑤其他生活利用不可或缺者", "category": "law", "chapter": "E2"}, {"id": "E202", "front": "外牆變更構造限制與回復義務", "back": "違反者管理負責人應制止，逾1個月未回復原狀，得由管委會代為回復，費用由該住戶負擔", "category": "law", "chapter": "E2"}, {"id": "E203", "front": "★高頻：強制遷離/強制拍賣完整流程", "back": "積欠費用達應有部分總價1%或受罰鍰後不改善：促請改善\n→3個月內未改善：依區權會決議訴請法院強制遷離\n→若為區分所有權人拒絕出讓，判決確定3個月內未完成移轉：聲請法院拍賣\n→拍賣受償順序與第一順位抵押權同", "category": "mnem", "chapter": "E2"}, {"id": "E301", "front": "★高頻陷阱：區權會決議門檻", "back": "一般決議：區權人2/3以上＋區分所有權比例2/3以上出席，出席3/4以上同意\n流會重新召集：3人並1/5以上出席，出席過半數同意（決議後7日內得提反對意見）", "category": "trap", "chapter": "E3"}, {"id": "E302", "front": "★陷阱：單一人表決權限制", "back": "任一區分所有權人之區分所有權占全部1/5以上者，超過部分不予計算\n→防止大戶壟斷決議", "category": "trap", "chapter": "E3"}, {"id": "E303", "front": "★陷阱：管理委員連任次數限制", "back": "主委/管理負責人/財務監察委員：連選得連任「1次」\n其餘一般管理委員：連選得連任「無次數限制」", "category": "trap", "chapter": "E3"}, {"id": "E304", "front": "管委會的當事人能力", "back": "管理委員會有當事人能力，可為原告或被告", "category": "def", "chapter": "E3"}, {"id": "E401", "front": "★高頻：非經載明於規約不生效力七項", "back": "約定專用共用範圍主體／共用部分使用收益特約／禁止飼養動物特約／違反義務處理方式／財務監督規定／決議出席同意人數特約／糾紛協調程序", "category": "law", "chapter": "E4"}, {"id": "E402", "front": "規約範本的法律地位", "back": "由中央主管機關定之，性質為「參考性」非強制套用\n條例施行前已取得建照者，訂定規約前以規約範本「視為規約」", "category": "def", "chapter": "E4"}, {"id": "E501", "front": "★高頻罰鍰級距對照", "back": "第47條（召集義務/棄置垃圾等）：3千-1萬5千\n第49條（外觀變更/未投保/未繳公共基金等）：4萬-20萬\n第49-1條（未成立管委會）：每專有部分4萬-20萬", "category": "law", "chapter": "E5"}, {"id": "E502", "front": "★陷阱：刑事責任的特殊限制", "back": "僅限「供營業使用事實之住戶」違反第49條第3、4款致人於死或重傷才有刑責\n致死：1年以上7年以下徒刑；致重傷：6個月以上5年以下徒刑", "category": "trap", "chapter": "E5"}, {"id": "E601", "front": "起造人移交義務", "back": "應於管委會成立或負責人推選後7日內，會同檢測水電機械消防管線後移交", "category": "law", "chapter": "E6"}, {"id": "E602", "front": "★陷阱：重建的同意門檻", "back": "原則：應經「全體」區權人及基地所有權人/地上權人/典權人同意\n例外（配合都更/嚴重毀損/災變）：不在此限，可依區權會決議重建", "category": "trap", "chapter": "E6"}, {"id": "F101", "front": "★高頻計算：公共基金提列比例", "back": "1000萬以下：千分之20\n逾1000萬至1億：千分之15\n逾1億至10億：千分之5\n逾10億：千分之3", "category": "law", "chapter": "F1"}, {"id": "F102", "front": "區分所有權總價的定義", "back": "建築物評定標準價格＋當期土地公告現值之和（用於計算1%強制遷離門檻）", "category": "def", "chapter": "F1"}, {"id": "F201", "front": "★高頻：規約範本四層級效力分類", "back": "①沒寫就無效（條例23條7項）②寫了也無效（條例7條不得約定專用）③僅得變更（須先有規定，如決議額數）④可以變更（任意性規定，如外牆限制/任期）", "category": "mnem", "chapter": "F2"}, {"id": "F202", "front": "★陷阱：第1類vs第2類邏輯相反", "back": "非經載明不生效力＝沒寫就無效\n載明於規約亦不生效力＝寫了也無效\n→兩者邏輯完全相反，極易混淆！", "category": "trap", "chapter": "F2"}, {"id": "G101", "front": "★高頻：第21條不實廣告核心要件", "back": "事業不得在商品或廣告上，對足以影響交易決定之事項，為虛偽不實或引人錯誤之表示或表徵", "category": "def", "chapter": "G1"}, {"id": "G102", "front": "★高頻：廣告連帶責任三主體", "back": "廣告代理業明知或可得而知仍製作：連帶賠償\n廣告媒體業明知或可得而知仍傳播：連帶賠償\n廣告薦證者明知或可得而知仍薦證：連帶賠償（非知名人士僅報酬10倍範圍內負責）", "category": "law", "chapter": "G1"}, {"id": "G103", "front": "公平法損害賠償與罰則金額", "back": "故意行為：法院得酌定不超過已證明損害額3倍之賠償\n違反第21條：NT$5萬-2500萬罰鍰；屆期不改正按次處10萬-5000萬", "category": "law", "chapter": "G1"}, {"id": "G201", "front": "★極高頻：廣告查核五種分工情形", "back": "①經紀業自身廣告→主管機關（管理條例）②涉及企業形象行銷策略等→公平會（公平法）③加盟未標明加盟字樣→主管機關④建商與經紀業共同具名→公平會⑤無法劃分→協調處理", "category": "mnem", "chapter": "G2"}, {"id": "G202", "front": "★陷阱：建商自行銷售廣告不實的管轄", "back": "若非經紀業所為（建商自售），廣告不實非屬管理條例範疇\n應回歸公平交易法處理（呼應分工原則第一款的對照組）", "category": "trap", "chapter": "G2"}, {"id": "G203", "front": "不實廣告認定標準七項", "back": "坐落地點不符／面積不符登記／格局與事實不符／圖說文字不符／建材不符／公設交通表徵不符／停車位廣告與施工圖不符", "category": "law", "chapter": "G2"}, {"id": "H101", "front": "★核心高頻：定型化契約法源（第17條）", "back": "中央主管機關得選擇特定行業，擬訂應記載/不得記載事項，報請行政院核定後公告\n→此即三大定型化契約之法律授權來源", "category": "def", "chapter": "H1"}, {"id": "H102", "front": "★陷阱：審閱期母法上限", "back": "消保法第11-1條僅規定審閱期上限「30日以內」\n各行業具體期間由中央主管機關另行公告（不動產為5日/3日）", "category": "trap", "chapter": "H1"}, {"id": "H103", "front": "定型化契約效力三規則", "back": "條款違反誠信顯失公平：無效\n個別磋商條款牴觸定型化條款：定型化條款部分無效\n違反公告應記載/不得記載事項：無效", "category": "law", "chapter": "H1"}, {"id": "H104", "front": "★高頻：未記載仍構成契約內容", "back": "中央主管機關公告之應記載事項，雖未記載於契約，仍構成契約內容（第17條第5項）", "category": "trap", "chapter": "H1"}, {"id": "H201", "front": "★高頻：七日猶豫期", "back": "通訊交易或訪問交易消費者得於收受商品或接受服務後7日內解除契約，無須說明理由及負擔費用", "category": "law", "chapter": "H2"}, {"id": "H202", "front": "★陷阱：不動產買賣是否適用七日解約權", "back": "一般不動產買賣係面對面接洽、實地看屋完成\n原則上非屬通訊交易或訪問交易範疇\n→消保法第19條七日解約權通常不適用於一般不動產買賣！審閱期才是主要保護工具", "category": "trap", "chapter": "H2"}, {"id": "H301", "front": "廣告真實義務與媒體連帶責任", "back": "企業經營者對消費者所負義務不得低於廣告內容（第22條）\n媒體經營者明知或可得而知不實仍刊登：與企業經營者連帶責任（第23條）", "category": "law", "chapter": "H3"}, {"id": "H302", "front": "★高頻：懲罰性賠償金三級倍數", "back": "故意：5倍以下\n重大過失：3倍以下\n過失：1倍以下", "category": "mnem", "chapter": "H3"}, {"id": "H303", "front": "消保法罰則金額", "back": "違反應記載/不得記載事項，限期改正屆期不改正：NT$3萬-30萬\n再次限期不改正：NT$5萬-50萬，得按次處罰", "category": "law", "chapter": "H3"}];
+const GROUPS = {"A": ["A1", "A2", "A3", "A4", "A5"], "C": ["C1", "C2", "C3", "C4", "C5"], "D": ["D1", "D2", "D3", "D4"], "E": ["E1", "E2", "E3", "E4", "E5", "E6"], "F": ["F1", "F2"], "G": ["G1", "G2"], "H": ["H1", "H2", "H3"]};
+const GROUP_TITLES = {"A": "A篇　經紀業管理條例", "C": "C篇　不動產說明書", "D": "D篇　三大定型化契約", "E": "E篇　公寓大廈管理條例", "F": "F篇　施行細則與規約範本", "G": "G篇　公平交易法", "H": "H篇　消費者保護法"};
+const CAT_LABELS = {def:'定義原則', law:'法條要件', confuse:'易混淆比較', mnem:'口訣速記', trap:'高頻陷阱'};
+
+let selectedGroups = new Set(Object.keys(GROUPS));
+let order = 'order';
+let pool = [];
+let current = 0;
+let flipped = false;
+let mastery = {};
+
+async function loadMastery() {
+  try {
+    const r = await window.storage.get('jingji_flashcard_mastery');
+    if (r && r.value) mastery = JSON.parse(r.value);
+  } catch(e) { mastery = {}; }
+  renderSetup();
+}
+async function saveMastery() {
+  try { await window.storage.set('jingji_flashcard_mastery', JSON.stringify(mastery)); } catch(e) {}
+}
+
+function chapterToGroup(chapter) {
+  const letter = chapter[0];
+  return letter;
+}
+
+function renderSetup() {
+  const total = ALL_CARDS.length;
+  const masteredCount = Object.values(mastery).filter(m => m === 'yes').length;
+  const weakCount = Object.values(mastery).filter(m => m === 'no').length;
+  document.getElementById('overallStats').innerHTML = `
+    <div class="stat-chip">總卡數 <b>${total}</b></div>
+    <div class="stat-chip">已掌握 <b>${masteredCount}</b></div>
+    <div class="stat-chip">待加強 <b>${weakCount}</b></div>
+  `;
+
+  const chipDiv = document.getElementById('groupChips');
+  chipDiv.innerHTML = '';
+  Object.keys(GROUPS).forEach(g => {
+    const cnt = ALL_CARDS.filter(c => chapterToGroup(c.chapter) === g).length;
+    const chip = document.createElement('div');
+    chip.className = 'group-chip' + (selectedGroups.has(g) ? ' active' : '');
+    chip.textContent = `${GROUP_TITLES[g]} (${cnt})`;
+    chip.onclick = () => {
+      if (selectedGroups.has(g)) selectedGroups.delete(g);
+      else selectedGroups.add(g);
+      renderSetup();
+    };
+    chipDiv.appendChild(chip);
+  });
+}
+
+document.getElementById('selectAllBtn').onclick = () => { selectedGroups = new Set(Object.keys(GROUPS)); renderSetup(); };
+document.getElementById('selectNoneBtn').onclick = () => { selectedGroups = new Set(); renderSetup(); };
+document.getElementById('selectWeakBtn').onclick = () => {
+  const weakIds = new Set(Object.keys(mastery).filter(k => mastery[k] === 'no'));
+  pool = ALL_CARDS.filter(c => weakIds.has(c.id));
+  if (pool.length === 0) { alert('目前沒有標記「不熟」的卡片！'); return; }
+  startStudy(pool);
+};
+
+document.querySelectorAll('.mode-chip').forEach(chip => {
+  chip.onclick = () => {
+    document.querySelectorAll('.mode-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    order = chip.dataset.mode;
+  };
+});
+
+document.getElementById('startBtn').onclick = () => {
+  let filtered = ALL_CARDS.filter(c => selectedGroups.has(chapterToGroup(c.chapter)));
+  if (filtered.length === 0) { alert('請至少選擇一個篇章'); return; }
+  if (order === 'random') filtered = [...filtered].sort(() => Math.random() - 0.5);
+  startStudy(filtered);
+};
+
+function startStudy(list) {
+  pool = list;
+  current = 0;
+  flipped = false;
+  document.getElementById('setupArea').style.display = 'none';
+  document.getElementById('studyArea').style.display = 'block';
+  renderCard();
+}
+
+function renderCard() {
+  const c = pool[current];
+  flipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('progressFill').style.width = `${(current/pool.length)*100}%`;
+  document.getElementById('cardPosition').textContent = `第 ${current+1} / ${pool.length} 張`;
+  document.getElementById('cardChapterLabel').textContent = c.chapter;
+
+  document.getElementById('frontCatTag').textContent = CAT_LABELS[c.category];
+  document.getElementById('backCatTag').textContent = CAT_LABELS[c.category];
+  document.getElementById('cardFrontText').textContent = c.front;
+  document.getElementById('cardBackText').textContent = c.back;
+
+  const cardEl = document.getElementById('flashcard');
+  cardEl.className = 'flashcard cat-' + c.category;
+
+  document.getElementById('prevBtn').disabled = current === 0;
+}
+
+document.getElementById('flashcard').onclick = () => {
+  flipped = !flipped;
+  document.getElementById('flashcard').classList.toggle('flipped', flipped);
+};
+
+document.querySelectorAll('.mastery-btn').forEach(btn => {
+  btn.onclick = async (e) => {
+    e.stopPropagation();
+    const c = pool[current];
+    mastery[c.id] = btn.dataset.level;
+    await saveMastery();
+    if (current < pool.length - 1) {
+      current++;
+      renderCard();
+    } else {
+      alert('本輪卡片已全部複習完成！');
+      backToSetup();
+    }
+  };
+});
+
+document.getElementById('prevBtn').onclick = () => {
+  if (current > 0) { current--; renderCard(); }
+};
+function backToSetup() {
+  document.getElementById('studyArea').style.display = 'none';
+  document.getElementById('setupArea').style.display = 'block';
+  renderSetup();
+}
+document.getElementById('backToSetupBtn').onclick = backToSetup;
+
+loadMastery();
+</script>
+</body>
+</html>

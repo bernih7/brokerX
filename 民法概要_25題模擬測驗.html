@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜25題模擬測驗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F8F3E9;--paper-deep:#EFE6D5;--ink:#2A2722;--ink-soft:#7A7165;--rule:#DED1B9;--stamp:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;--blue:#2A6496;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 56px;}
+.wrap{width:100%;max-width:600px;}
+header{text-align:center;margin-bottom:20px;}
+.exam-tag{display:inline-flex;align-items:center;gap:6px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;letter-spacing:.12em;color:var(--stamp);border:1px solid var(--stamp);border-radius:999px;padding:3px 12px;margin-bottom:10px;}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;letter-spacing:.04em;}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:5px;font-family:'Noto Sans TC',sans-serif;}
+.meta-row{display:flex;justify-content:center;gap:20px;margin-top:12px;font-size:13px;color:var(--ink-soft);}
+.meta-row b{color:var(--ink);}
+/* 計時器 */
+.timer-box{text-align:center;margin:16px 0;font-family:'Noto Serif TC',serif;font-weight:900;font-size:28px;letter-spacing:.15em;color:var(--stamp);}
+.timer-box.warning{color:#c0392b;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+/* 進度 */
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;color:var(--ink-soft);}
+.prog-bar{height:4px;background:var(--rule);border-radius:2px;overflow:hidden;margin-bottom:20px;}
+.prog-fill{height:100%;background:var(--stamp);transition:width .3s ease;}
+/* 題目卡 */
+.q-card{background:#fff;border-radius:14px;border:1.5px solid var(--rule);padding:20px;box-shadow:0 4px 16px rgba(42,39,34,.07);margin-bottom:16px;}
+.q-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.q-num{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;width:32px;height:32px;border-radius:50%;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-meta{font-size:11px;color:var(--ink-soft);}
+.q-text{font-size:14px;line-height:1.9;font-weight:500;margin-bottom:14px;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;gap:10px;padding:10px 12px;border-radius:8px;border:1.5px solid var(--rule);background:#FAFAF8;font-size:13px;line-height:1.65;cursor:pointer;transition:all .15s ease;user-select:none;}
+.opt:hover:not(.locked){border-color:var(--gold);background:#FBF8F0;}
+.opt .letter{font-family:'Noto Serif TC',serif;font-weight:900;flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:12px;}
+.opt.selected{border-color:var(--blue);background:#EEF1F7;}
+.opt.selected .letter{color:var(--blue);border-color:var(--blue);}
+.opt.correct{border-color:var(--green) !important;background:#EFF4EC !important;}
+.opt.correct .letter{color:var(--green);border-color:var(--green);}
+.opt.wrong{border-color:var(--stamp) !important;background:#FBEAE6 !important;}
+.opt.wrong .letter{color:var(--stamp);border-color:var(--stamp);}
+/* 解析區 */
+.exp-box{margin-top:12px;border-radius:10px;overflow:hidden;display:none;}
+.exp-box.show{display:block;}
+.exp-item{padding:9px 12px;font-size:12px;line-height:1.75;border-bottom:1px solid var(--rule);}
+.exp-item:last-child{border-bottom:none;}
+.exp-item.right{background:#EFF4EC;}
+.exp-item .eh{font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:2px;}
+.exp-item.right .eh{color:var(--green);}
+.exp-item:not(.right) .eh{color:var(--stamp);}
+.trap-row{padding:9px 12px;font-size:11.5px;line-height:1.7;background:#FBF1E6;border-top:1.5px solid var(--gold);}
+.trap-row b{color:var(--gold);}
+/* 控制區 */
+.ctrl{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+.btn{font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;padding:10px 18px;cursor:pointer;transition:all .15s ease;}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.success{background:var(--green);border-color:var(--green);color:#fff;}
+/* 開始畫面 */
+#startScreen{text-align:center;padding:24px 0;}
+.rule-box{background:#fff;border:1.5px solid var(--rule);border-radius:12px;padding:18px 20px;margin:20px 0;text-align:left;font-size:13px;line-height:2;}
+.rule-box h3{font-family:'Noto Serif TC',serif;font-weight:900;margin-bottom:10px;}
+/* 交卷畫面 */
+#resultScreen{display:none;text-align:center;}
+.score-big{font-family:'Noto Serif TC',serif;font-weight:900;font-size:56px;color:var(--stamp);line-height:1;}
+.score-sub{font-size:14px;color:var(--ink-soft);margin-top:4px;}
+.result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:20px 0;}
+.rg-item{background:#fff;border-radius:10px;border:1.5px solid var(--rule);padding:14px;text-align:center;}
+.rg-item .rn{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;}
+.rg-item .rl{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+.review-list{text-align:left;margin-top:16px;}
+.review-list h3{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;margin-bottom:10px;}
+.rl-item{padding:8px 12px;margin-bottom:6px;background:#FBEAE6;border-radius:8px;border:1px solid #EAC0B5;font-size:12px;line-height:1.7;}
+.rl-item .ri{font-weight:700;color:var(--stamp);}
+/* 測驗中畫面 */
+#examScreen{display:none;}
+.sticky-ctrl{position:sticky;bottom:0;background:linear-gradient(transparent,var(--paper) 30%);padding-top:20px;padding-bottom:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 開始畫面 -->
+<div id="startScreen">
+  <header>
+    <div class="exam-tag">模擬測驗 第一回</div>
+    <h1>民法概要 25題模擬測驗
+      <span class="sub">99-114年歷屆精選・A總則＋BC債編＋D物權＋E親屬繼承</span>
+    </h1>
+    <div class="meta-row">
+      <span>📋 <b>25</b> 題</span>
+      <span>⏱ <b>45</b> 分鐘</span>
+      <span>💯 <b>50</b> 分（每題2分）</span>
+    </div>
+  </header>
+  <div class="rule-box">
+    <h3>⚠️ 考前說明</h3>
+    <div>・測驗開始後計時 <b>45 分鐘</b>，倒數結束自動交卷</div>
+    <div>・每題四選一，選完即判對錯，並可展開詳解</div>
+    <div>・可隨時按「立即交卷」提前結束，查看成績與錯題解析</div>
+    <div>・本回測驗涵蓋五大段：<b>A總則（6）/ BC債編（7）/ D物權（8）/ E親屬繼承（4）</b></div>
+    <div>・及格線：<b>60分（30分/50分）</b>，目標：<b>75分（37.5分/50分）</b></div>
+  </div>
+  <div class="ctrl">
+    <button class="btn primary" onclick="startExam()" style="font-size:16px;padding:14px 36px;">▶ 開始測驗</button>
+  </div>
+</div>
+
+<!-- 測驗畫面 -->
+<div id="examScreen">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+    <div style="font-size:13px;color:var(--ink-soft);">民法概要模擬測驗</div>
+    <div id="timer" class="timer-box" style="font-size:22px;margin:0;">45:00</div>
+  </div>
+  <div class="prog-row">
+    <span>已作答 <b id="answered">0</b> / 25 題</span>
+    <span id="liveScore" style="color:var(--green);font-weight:700;">0 / 50分</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div id="qList"></div>
+  <div class="sticky-ctrl ctrl">
+    <button class="btn" onclick="reviewWrong()">⚠️ 跳到錯題</button>
+    <button class="btn primary" onclick="submitExam()">📋 立即交卷</button>
+  </div>
+</div>
+
+<!-- 結果畫面 -->
+<div id="resultScreen">
+  <header>
+    <div class="exam-tag">測驗完成</div>
+    <h1 style="margin-bottom:8px;">成績報告</h1>
+  </header>
+  <div class="score-big" id="scoreNum">0</div>
+  <div class="score-sub" id="scoreSub">/ 50 分</div>
+  <div id="passTag" style="margin:10px 0;font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;"></div>
+  <div class="result-grid">
+    <div class="rg-item"><div class="rn" id="correctNum" style="color:var(--green);">0</div><div class="rl">答對題數</div></div>
+    <div class="rg-item"><div class="rn" id="wrongNum" style="color:var(--stamp);">0</div><div class="rl">答錯題數</div></div>
+    <div class="rg-item"><div class="rn" id="timeUsed">--</div><div class="rl">用時</div></div>
+  </div>
+  <div class="result-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-top:0;">
+    <div class="rg-item"><div class="rn" id="segA" style="font-size:16px;">-/-</div><div class="rl">A總則</div></div>
+    <div class="rg-item"><div class="rn" id="segBC" style="font-size:16px;">-/-</div><div class="rl">BC債編</div></div>
+    <div class="rg-item"><div class="rn" id="segD" style="font-size:16px;">-/-</div><div class="rl">D物權</div></div>
+    <div class="rg-item"><div class="rn" id="segE" style="font-size:16px;">-/-</div><div class="rl">E親屬</div></div>
+  </div>
+  <div class="review-list" id="wrongList"></div>
+  <div class="ctrl" style="margin-top:20px;">
+    <button class="btn" onclick="location.reload()">🔄 重新測驗</button>
+  </div>
+  <footer style="text-align:center;font-size:11px;color:var(--ink-soft);margin-top:24px;letter-spacing:.1em;line-height:2;">
+    民法概要模擬測驗 v1.0　2026-06-24<br>25題精選・A(6)+BC(7)+D(8)+E(4)・滿分50分
+  </footer>
+</div>
+
+</div>
+<script>
+const QS=[
+{num:1,year:"112年第5題",cat:"A3法律行為效力",q:"下列法律行為，何者有效？",opts:["以天上的星星為買賣標的之契約","以不能之給付為標的之契約","違反強制或禁止規定之法律行為","以10年後可繼承的遺產為買賣標的之契約"],correct:3,exps:["以不能給付為標的，自始客觀不能，依民法246條無效。","同上，自始客觀不能無效。","違反強制或禁止規定者，依民法71條無效。","（本題答案）以未來物（10年後繼承的遺產）為買賣標的，是「未來物的買賣」，民法247條承認以未來給付為契約標的，契約有效，敘述正確。"],trap:"自始客觀不能（根本不可能實現）→無效；未來物（將來可能存在）→有效。以未來繼承財產為標的，雖然現在不存在，但將來可能存在，是允許的未來物買賣。"},
+{num:2,year:"109年第7題",cat:"A4意思表示瑕疵",q:"甲受乙詐欺，向乙購買A屋，甲應如何撤銷其意思表示以保護自身權益？",opts:["甲可於知悉受詐欺後一年內，以意思表示向乙撤銷之","甲可於知悉受詐欺後兩年內，向法院聲請撤銷之","甲可於契約成立後三年內，向乙撤銷之","甲的撤銷，應由法院依職權為之，甲不得單獨撤銷"],correct:0,exps:["（本題答案）民法93條：詐欺撤銷應於發見詐欺後一年內為之，且以「意思表示」向對方為之（不需向法院聲請），敘述正確。","期間是一年不是兩年，且不需向法院聲請，本選項兩點都錯。","三年不是法條規定的期間，本選項不正確。","詐欺撤銷是當事人的形成權，由表意人（甲）主動向對方表示撤銷即可，不需法院依職權，本選項不正確。"],trap:"詐欺撤銷（民法92-93條）：①由甲主動向乙做撤銷意思表示（不需向法院）②知悉後一年內或行為後十年內。注意是一年（短期）加十年（長期），不是兩年或三年。"},
+{num:3,year:"111年第11題",cat:"A6代理",q:"關於代理制度之敘述，下列何者正確？",opts:["代理人須有完全行為能力，否則代理行為無效","本人得隨時撤回代理權","代理人得以本人名義為本人與自己之法律行為（自己代理）","代理權之授與，以書面為之者，始生效力"],correct:1,exps:["民法104條：代理人無行為能力或限制行為能力，不影響代理行為效力，本選項不正確。","（本題答案）民法108條：代理人得於授與關係存續中撤回代理權（本人得隨時撤回），敘述正確。","民法106條：代理人非經本人許諾，不得為自己代理（自己代理原則上禁止），本選項不正確。","代理權授與以書面或口頭均可（不要式），本選項不正確。"],trap:"代理制度三個高頻考點：①代理人行為能力不影響代理效力（104條）②本人可隨時撤回代理權（108條）③自己代理/雙方代理原則禁止（106條）。"},
+{num:4,year:"114年第3題",cat:"A7消滅時效",q:"關於消滅時效之規定，下列何者正確？",opts:["消滅時效完成後，債務人之債務當然消滅","消滅時效期間，不得以法律行為加長或縮短之，但當事人合意例外","不動產所有人因所有權受侵害而提起訴訟，已登記之不動產所有物返還請求，不適用消滅時效","消滅時效中斷後，重新起算之期間，與原期間相同，最長不得逾15年"],correct:2,exps:["消滅時效完成後，只賦予債務人「拒絕給付的抗辯權」，債務本身不消滅，本選項不正確。","民法147條：時效期間不得以法律行為加長或縮短——沒有「當事人合意例外」，這是強制規定，本選項不正確。","（本題答案）已登記不動產的所有物返還請求（767條），依通說不適用消滅時效（登記制度保護已登記所有人），敘述正確。","時效中斷後重新起算的期間，依原法定期間（不是另加15年上限），本選項敘述不夠精確。"],trap:"消滅時效完成的效果是「抗辯權」不是「債務消滅」；已登記不動產的物上請求不罹時效；時效期間不得以當事人合意加長或縮短（強制規定）。"},
+{num:5,year:"110年第3題",cat:"A1自然人法人",q:"關於法人之敘述，下列何者正確？",opts:["社團法人須有住所，財團法人無住所","法人非依民法或其他法律之規定，不得成立","法人得為任何法律行為，不受限制","法人之負責人因執行職務所生之侵權行為，法人不需負責"],correct:1,exps:["法人（社團或財團）均須有住所，本選項不正確。","（本題答案）民法25條：法人非依民法或其他法律之規定，不得成立——法人法定原則，不能自行創設法人，必須依法律規定，敘述正確。","法人的能力受目的事業範圍及法律的限制，不是「任何法律行為均可」，本選項不正確。","民法28條：法人對其董事或其他代理人因執行職務所生之損害，與行為人連帶負賠償責任，本選項說不需負責，與法條相反，不正確。"],trap:"法人法定原則（民法25條）：法人必須依民法或其他法律之規定成立，不能自行創設——這是法人制度最基本的原則，確保法人的成立有公示和監督。法人對執行職務的侵權行為需連帶負責（28條）。"},
+{num:6,year:"113年第19題",cat:"A5物",q:"關於動產與不動產之敘述，下列何者正確？",opts:["土地及其定著物，為不動產；不動產以外之物，為動產","土地以外之物，均為動產","定著物包含種植在土地上的植物","動產以登記為所有權移轉之要件"],correct:0,exps:["（本題答案）民法66條：稱不動產者，謂土地及其定著物；不動產以外之物，為動產——完整正確地引用法條，敘述正確。","不動產包含土地及定著物，選項B只說土地以外均為動產，忽略定著物也是不動產，本選項不正確。","種植在土地上的植物，若已附合成為土地成分（如果樹），屬土地成分；但植物本身不是「定著物」（定著物指人工建築物），本選項表述不精確。","動產以「交付」為所有權移轉要件（民法761條），不是登記，本選項不正確。"],trap:"不動產=土地+定著物（如房屋、橋梁）；動產=不動產以外的物。移轉要件：動產以交付（761條），不動產以登記（758條）——兩種物的移轉要件完全不同，是最基礎的物法考點。"},
+{num:7,year:"113年第1題",cat:"C1買賣",q:"甲就其所有之A地，先與乙訂立買賣契約，後與丙訂立買賣契約，均未辦理所有權移轉登記。關於二個買賣契約之效力，下列敘述何者正確？",opts:["甲乙間之買賣契約有效，甲丙間之買賣契約無效","甲乙間之買賣契約有效，甲丙間之買賣契約效力未定","甲乙及甲丙之買賣契約均有效","甲乙間之買賣契約有效，甲丙間之買賣契約因甲出賣他人之物而無效"],correct:2,exps:["甲先賣給乙，再賣給丙（一物二賣），兩個買賣契約的效力分別判斷：買賣契約是債權行為（諾成契約，合意即成立），甲乙買賣契約有效；甲丙買賣契約同樣是債權行為，甲出賣的A地是自己所有（不是他人之物），甲丙買賣契約也有效——「甲丙之買賣契約因甲出賣他人之物而無效」的前提不成立，因為甲丙訂約時A地仍是甲所有的（只是已承諾賣給乙，但所有權還沒移轉），本選項前半對後半錯，不完整。","甲丙買賣契約是否效力未定？一物二賣的情形下，甲丙買賣契約並非無權處分（A地仍是甲的），所以不是效力未定，本選項不正確。","（本題答案）一物二賣（甲先賣給乙再賣給丙）的情形，兩個買賣契約在債權行為層面都有效——買賣契約是甲分別對乙和丙各自的承諾（債權行為），兩個都有效；問題在於甲最多只能讓一方取得所有權（物權行為，登記移轉），誰先辦理登記，誰就取得所有權，另一方則可向甲請求債務不履行的損害賠償。兩個買賣契約本身均有效，敘述正確。","甲丙訂約時A地仍是甲所有，不是「他人之物」，本選項前提錯誤。"],trap:"「一物二賣」的核心規則：甲對乙、對丙分別訂立買賣契約，兩個債權行為都有效（各自的合意都成立）；但物權行為（所有權移轉登記）只能發生一次，誰先辦理登記誰取得所有權，另一方的買賣契約雖仍有效，但甲已無法再移轉所有權，構成給付不能，另一方得依給付不能的規定向甲主張損害賠償。這是不動產交易中最常見的法律糾紛之一，也是不動產仲介考試的核心考點。"},
+{num:8,year:"109年第3題",cat:"C1買賣",q:"甲與乙訂立買賣契約，將其二手汽車出賣予乙，若當事人間無特別約定者，關於該汽車之利益及危險，下列何者正確？",opts:["於甲與乙簽訂買賣契約時起，由乙承受負擔","於甲收受乙全部價金時起，由乙承受負擔","於甲將汽車交付乙時起，由乙承受負擔","於辦理汽車過戶完成時起，由乙承受負擔"],correct:2,exps:["買賣危險負擔的轉移時點是「交付時」，不是「簽訂契約時」，本選項把契約成立時點誤當成危險移轉時點，錯誤。","收受價金是買受人的義務履行，不影響危險移轉的時點（危險移轉以交付為準，不以付款為準），本選項錯誤。","（本題答案）民法373條：買賣標的物之利益及危險，自交付時起，均由買受人承受負擔——汽車（動產）的危險在甲將汽車「交付」乙時移轉給乙，敘述正確。","汽車過戶（所有權移轉登記）只影響所有權的歸屬，不影響危險負擔的轉移時點（危險以交付為準），且動產的所有權移轉以交付為生效要件（不是登記），本選項錯誤。"],trap:"危險負擔的時點口訣：「交付危險移轉，登記所有權移轉」——危險從「交付」時移轉，所有權從「登記」（不動產）或「交付」（動產）時移轉。本題是動產（汽車）買賣，危險和所有權都在「交付」時移轉，過戶登記（動產的行政程序）不影響所有權或危險的移轉時點。這個時間點的正確認識是危險負擔考題的核心。"},
+{num:9,year:"112年第9題",cat:"C2租賃",q:"依民法之規定，有關租賃契約之效力，下列何者錯誤？",opts:["租賃物有修繕之必要時，原則上承租人可直接自行修繕後再請求出租人給付修繕費用","承租人應依約定方法，為租賃物之使用收益","承租人如以強暴脅迫他人妨礙其占有，被妨礙之人得請求法院除去其妨礙","租賃物因不可歸責於承租人之事由，致一部滅失者，承租人得按滅失之部分，請求減少租金"],correct:0,exps:["（本題答案，敘述錯誤）民法430條第1項：租賃物如有修繕之必要，承租人應定相當期限，催告出租人修繕；出租人於期限內不為修繕者，承租人「得自行修繕，並請求費用」——原則上須先催告出租人修繕，逾期不修才得自行修繕請求費用，本選項說「原則上可直接自行修繕」，省略了「先催告出租人」這個必要前置步驟，與430條規定不符，是本題錯誤敘述。","民法438條：承租人應依約定方法，為租賃物之使用收益，敘述正確，非本題答案。","占有被侵奪或妨礙，依民法962條可以請求除去妨礙，敘述正確，非本題答案。","民法435條：租賃物因不可歸責承租人之事由致一部滅失，承租人得按滅失部分請求減少租金，敘述正確，非本題答案。"],trap:"這題是104年第20題、99年第17題同一考點（承租人不能直接自行修繕，須先催告）的再次出現。三題考同一個核心規則：「催告→逾期不修→才能自行修繕/終止」的兩步驟，其中「省略催告步驟、直接自行修繕」是最常被誤認的錯誤說法。16年間反覆出現這個考點，是租賃段的最高頻陷阱，務必牢記「催告前置」原則。"},
+{num:10,year:"108年第11題",cat:"C3居間承攬委任",q:"依我國民法之規定，下列關於居間契約之敘述何者錯誤？",opts:["稱居間者，謂當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約","居間人如就契約之履行有保證者，就保證部分得向委任人請求報酬","居間人不得同時受雙方之委託","居間人就媒介所生費用，原則上不得請求償還"],correct:1,exps:["民法565條的居間定義完全正確，敘述正確，非本題答案。","（本題答案，敘述錯誤）民法568條第2項：居間人就契約之履行有保證者，就保證部分，得請求「特別報酬」——保證契約履行是居間人額外的特別服務（超出普通居間服務範圍），可以請求額外的特別報酬，但本選項說「就保證部分得向委任人請求報酬」表述混淆，且更重要的是居間人若保證契約履行，通常這屬於超出標準居間業務的特別約定，此種保證本身的法律效果與「居間」的定義有所衝突，568條第2項是針對這種特別情形的規定，本選項表述不夠精確或有誤，是本題錯誤敘述。","民法567條第1項：居間人不得同時受委託人雙方之委託為居間，但若雙方均同意或有習慣，則可以——原則不得同時受雙方委託（避免利益衝突），有例外，敘述方向正確，非本題答案。","民法571條：居間媒介所生費用，原則上不得請求償還，敘述正確，非本題答案。"],trap:"居間人的特別報酬（568條第2項）是指居間人「對契約履行提出保證」時（如保證賣方一定會交屋、買方一定會付款），居間人因為多承擔了一個「擔保履行」的風險，得請求額外的特別報酬。這個「特別報酬」不同於一般的居間報酬，是超出普通居間業務的額外收費基礎。考試常以「居間人可否請求保證報酬」為題，答案是可以，但需要有「就契約履行有保證」的特別約定。"},
+{num:11,year:"113年第5題",cat:"C4其他各種之債",q:"甲申請之建案因違法無法取得建造許可，遂與乙約定，由甲贈與乙之妻丙100萬元後，乙須幫助甲取得建造許可，後來乙收賄之事曝光。下列敘述，何者正確？",opts:["甲對乙之妻丙之贈與契約無效，因甲之贈與行為違反公序良俗","甲對乙之妻丙之贈與契約，若已給付，乙之妻丙得保有該款項","乙幫助甲取得建造許可，係合法行為","甲可向乙請求損害賠償"],correct:1,exps:["甲贈與丙100萬是「以金錢買通乙（丙之夫）幫助甲取得違法建造許可」的安排，整個法律安排違反公序良俗，甲對丙的贈與可能因此被認定為無效（72條：法律行為違反公序良俗者無效），但本選項說「贈與契約無效」，依官方答案B，此題的結論是丙得保有，表示官方認為贈與本身可以獨立有效（甲贈與丙的行為本身，若僅看債權行為效力，丙是善意受贈人，可能受到保護），本選項非官方答案。","（本題答案）民法180條：給付係履行不法原因之給付者，不得請求返還。但其不法原因僅在受領人一方者，不在此限——本題的「不法原因」（賄賂取得違法建造許可）在於甲乙之間的約定，而丙（乙之妻）作為贈與的受領人，若丙本身未參與不法行為，丙得以「不法原因不在受領人一方」主張保有，甲不得向丙請求返還，本選項敘述正確。","乙幫助甲取得「違法的建造許可」，這是違法行為（可能涉及賄賂罪），不是合法行為，本選項錯誤。","依180條，甲不得請求丙返還（因為不法原因給付者不得請求返還），甲更無從向乙請求賠償（因為甲自己也是不法行為的參與者），本選項不正確。"],trap:"民法180條的「不法原因給付不得請求返還」原則是重要但冷僻的考點：以不法原因（如賄賂）而為的給付，給付者事後「不得請求返還」——這是法律對自行從事不法行為者的懲罰（自業自得，不能事後反悔要回賄款）。但但書規定：若不法原因「僅在受領人一方」（如受領人詐騙給付者），給付者可以請求返還。本題甲乙雙方均有不法意圖，甲不得請求返還；但丙是善意受贈人，丙得保有。"},
+{num:12,year:"110年第15題",cat:"C1買賣",q:"關於買賣瑕疵擔保的敘述，下列何者正確？",opts:["買受人對於由他地送到之物，主張有瑕疵，不願受領者，買受人無暫為保管之責","從物有瑕疵者，買受人僅得就從物之部分，主張解除契約","買受人於契約成立時，知有瑕疵者，出賣人不負物之瑕疵擔保責任","買受人受有損害時，若出賣人係善意（即出賣人不知有瑕疵），買受人仍得請求損害賠償"],correct:2,exps:["民法374條：買受人對於由他地送來之物，主張有瑕疵拒絕受領者，如出賣人未於該地有代理人，買受人有暫為保管之義務——本選項說「無暫為保管之責」與374條規定相反，錯誤。","民法364條第2項：從物有瑕疵，買受人得主張解除全部契約（即就主物連同從物解除），而非僅就從物部分解除，本選項說「僅得就從物部分解除」不正確（實際上可以就全部解除）。","（本題答案）民法355條第1項：買受人於契約成立時知有瑕疵者，出賣人不負物之瑕疵擔保責任——明知有瑕疵仍然購買，視為自願承受，出賣人免除瑕疵擔保責任，敘述正確。","民法360條：買賣之物，缺少出賣人所保證之品質者，或出賣人故意不告知物之瑕疵者，買受人得不解除契約或請求減少價金，而請求不履行之損害賠償。損害賠償請求需要出賣人有「保證」或「故意不告知」，善意的出賣人（不知有瑕疵）原則上不需負損害賠償責任，本選項說「善意出賣人仍得請求損害賠償」不正確。"],trap:"物之瑕疵擔保的重要例外：①買受人訂約時已知瑕疵（355條）→出賣人免責（買受人自甘冒險）；②出賣人「保證」無瑕疵或「故意隱瞞」（360條）→可以請求損害賠償（不只是減價或解除）；③善意出賣人（不知瑕疵）→原則上不負損害賠償責任（只負瑕疵擔保責任，如解除/減價）。這三種特殊情形是考試最愛考的例外規則，必須逐一記住各自的法律效果。"},
+{num:13,year:"101年第7題",cat:"C5債權讓與",q:"甲與乙約定，甲不得將其對乙之非不得讓與的A金錢債權讓與予第三人。事後，甲卻違反與乙之約定，將A債權讓與予丙。就甲違反約定讓與債權，下列敘述何者最正確？",opts:["甲違反約定，讓與行為無效，丙不能取得A債權","甲違反約定，讓與行為仍屬有效，若丙為善意，則丙取得A債權","甲違反約定，讓與行為係效力未定，須乙承認後方生效","甲違反約定，丙雖取得A債權，但甲得撤銷讓與行為，丙應將A債權返還甲"],correct:1,exps:["甲乙間的「不得讓與約定」是甲乙之間的契約條款（債權行為層面的限制），不影響對外的讓與行為效力——甲違反此約定讓與債權給丙，對甲乙間是違約（甲需賠償乙），但對善意的丙而言，讓與行為仍然有效（丙可以取得債權），本選項說「讓與行為無效，丙不能取得」不正確。","（本題答案）民法294條第2項：讓與之禁止約定，對善意第三人不生效力——甲乙間的不得讓與約定只能在甲乙之間發生效力，不能對善意的丙（不知有禁止約定）主張，故善意的丙仍取得A債權，敘述正確。","甲乙間的禁止讓與約定不使讓與行為變成效力未定，讓與行為在甲與丙之間已有效成立，本選項不正確。","讓與行為對善意的丙有效，甲沒有撤銷讓與的依據（違反契約不等於可以撤銷），本選項不正確。"],trap:"「讓與禁止特約」的對抗效力（民法294條第2項）：甲乙間約定不得讓與，是「對人」的約定（只對甲乙有效），不能對抗不知情的善意第三人丙——甲雖然違約（對乙有賠償責任），但丙若善意（不知有禁止約定），仍能取得被讓與的債權。這個「讓與禁止約定不對抗善意第三人」的規則是債權讓與制度的重要保護設計，保障債權讓與市場的交易安全。"},
+{num:14,year:"110年第16題",cat:"D1物概念孳息從物",q:"關於果實自落於鄰地，而鄰地非為公用地者，下列何者正確？",opts:["視為遺失物","視為無主物","視為屬於鄰地所有人","視為屬於原土地所有人"],correct:2,exps:["果實自落鄰地不是「遺失物」（遺失物是有主物非出於自願喪失占有），本選項不正確。","果實自落鄰地不是「無主物」（果樹所有人仍有所有權，只是偶然落到鄰地），本選項不正確。","（本題答案）民法812條第2項：果實自落於鄰地者，視為屬於鄰地所有人（但若鄰地為公用地則例外）——這是法律為了維持地界秩序、避免糾紛的特別規定，果實一旦自然落入鄰地，就視為歸鄰地所有人所有，敘述正確。","依民法812條第2項，果實自落鄰地視為鄰地所有人所有，不是原土地所有人，本選項與法條規定相反，錯誤。"],trap:"「果實自落鄰地」（812條第2項）是民法的特殊規定，與「天然孳息分離後仍屬原物所有人」的一般原則不同——這個特殊規定打破了一般「孳息屬於有收取權利之人（通常是原地所有人）」的邏輯，改由鄰地所有人取得所有權，是維護土地界線法律秩序的例外設計。考試很愛考這個例外，因為跟一般人的直覺（果樹的果實當然屬於果樹主人）不一樣，容易選錯。"},
+{num:15,year:"112年第18題",cat:"D2所有權共有登記",q:"關於民法區分所有建築物規定之敘述，下列何者錯誤？",opts:["專有部分與其所屬之共有部分及其基地之權利，得分離而為移轉或設定負擔","共有部分之使用，由區分所有人依其應有部分之多寡，各按比例為之","區分所有人就其專有部分之使用，有造成損鄰之虞者，有責任採取必要之防護措施","各共有部分及其所屬之基地，應隨同各專有部分及其所屬基地之權利為移轉"],correct:0,exps:["（本題答案，敘述錯誤）民法799條第4項：共有部分不得與各區分所有人之專有部分或其所屬基地持分分離而為移轉或設定負擔——共有部分、基地持分、專有部分三者必須一起移轉，不能分離，本選項說得分離而為移轉或設定負擔，與法條規定完全相反，是本題錯誤敘述。","共有部分的使用，依區分所有人的應有部分比例分配，敘述符合一般規則，正確，非本題答案。","區分所有人對專有部分的使用，若可能損害鄰居，應採取必要防護措施，屬於合理的相鄰關係規範，敘述正確，非本題答案。","各共有部分及基地，應隨同各專有部分及其所屬基地的權利一起移轉——這正是799條第4項的正確敘述，非本題答案。"],trap:"這題是106年第17題、104年第28題同一考點的第三次重複——區分所有建築物的共有部分和基地持分不得與專有部分分離移轉（799條第4項），這個規則在16年考題中至少出現三次，足見其為高頻考點。每次考法略有不同，但考的都是同一法條（799條第4項），務必牢記三合一不可分離的規則。"},
+{num:16,year:"109年第13題",cat:"D2所有權共有登記",q:"甲乙丙共同出資購買一筆A土地，應有部分各三分之一。下列何種行為應經甲乙丙三個共有人全體同意，始為有效？",opts:["共有人之一人將其應有部分讓與第三人","甲乙以多數決同意，就A地進行測量","將全部A地出售第三人丁","依多數決同意，就A地之特定部分進行修繕"],correct:2,exps:["共有人讓與自己的應有部分（民法819條第1項），是自己份額的自由處分，不需要其他共有人的同意，本選項不需要全體同意，錯誤。","土地測量屬於保存行為或管理行為的輕微事項，依民法820條第5項，各共有人得單獨為保存行為，本選項不需要全體同意，錯誤。","（本題答案）民法819條第2項：共有物之處分、變更及設定負擔，應得共有人全體之同意——出售全部A地給第三人丁是整體共有物的處分，必須甲乙丙全體同意，缺一不可，敘述正確。","修繕屬於管理行為，依民法820條第1項，以共有人過半數及其應有部分合計過半數決之，不需要全體同意（甲乙2人佔2/3多數，已達法定多數），本選項不需要全體同意，錯誤。"],trap:"共有物的決議門檻分三個層次：①保存行為（緊急維護）→各共有人得單獨為之②管理行為（使用收益、修繕）→過半數人及過半數份額（820條）③處分行為（出賣、設定抵押整體）→全體同意（819條第2項）。考試很愛在管理vs處分的邊界出題，記住口訣：保存獨幹、管理多數、處分全體。"},
+{num:17,year:"114年第15題",cat:"D4相鄰通行",q:"依現行民法物權編有關不動產所有權相鄰關係規定之內容，下列之選項，何者正確？",opts:["土地所有人建築房屋故意逾越地界者，鄰地所有人得請求移去或變更其建築物，且不受是否即時提出異議之限制","相鄰地所有人得為利用土地目的，通過他人土地敷設管線，但他人有事先知情同意之必要","土地所有人非因故意或重大過失逾越地界者，鄰地所有人不得請求損害賠償","土地因與公路無適宜聯絡而不能為通常使用，土地所有人請求通行他人土地時，不須給付通行地所有人任何代價"],correct:0,exps:["（本題答案）故意越界建築房屋，鄰地所有人可以請求移去或變更，且不受「是否即時提出異議」的限制（796條的保護前提是非故意非重大過失，故意越界不受保護）——與非故意越界（知情未即時異議→不得請求移去）形成對比，故意越界鄰地所有人隨時可主張，敘述正確。","民法786條：土地所有人為利用土地目的，得通過他人土地設置管線，「他人不得拒絕」——不需要「事先知情同意」，是鄰地所有人的容忍義務，本選項說需要事先同意，與法條規定相反，錯誤。","796條只保護非故意非重大過失越界建築者「免於被要求拆除」，但並不排除損害賠償請求——鄰地所有人知情未異議（失去拆除請求），但仍可請求損害賠償（796條之1），本選項說不得請求損害賠償，不正確。","民法787條第2項：通行人應給付通行地所有人以「償金」——通行是有代價的（需給付償金），不是免費，本選項說不須給付任何代價，與法條規定相反，錯誤。"],trap:"這題把相鄰關係的四個常考規則整合在一起：①故意越界→鄰地所有人隨時可請求移去（不受即時異議限制）②管線通過→鄰地所有人不得拒絕（不需同意）③非故意越界→鄰地知情未異議→不得請求拆除，但仍可請求損害賠償④袋地通行→需給付償金。四個選項各自錯誤的方向都很典型，是D4相鄰通行主題的完整總複習題型。"},
+{num:18,year:"114年第17題",cat:"D5地上權農育役權典權",q:"依我國民法關於地上權之規定，下列何者正確之論述？",opts:["地上權未定有存續期間者，逾越30年後，土地所有人始得向法院請求定其存續期間或終止地上權","地上權定有存續期間者，存續期間屆滿時，地上權當然消滅，無需任何程序","地上權設定後，若地租依原定給付顯失公平，土地所有人得片面請求增加地租，不需經法院判決","地上權人積欠地租達二年之總額，土地所有人得定相當期限催告清償，若地上權人於期限內未清償，土地所有人得終止地上權"],correct:3,exps:["民法833條之1：地上權未定有期限者，逾20年（不是30年），法院得因當事人之請求定存續期間或終止——本選項把20年誤寫成30年，是本題的核心數字陷阱，錯誤。","地上權定有期限，期限屆滿時地上權消滅，但若地上物（建築物）仍存在，地上權人得請求土地所有人以時價收買（840條），並不是什麼程序都不需要，本選項說無需任何程序過於絕對，錯誤。","地租的增減需要依法定要件且可聲請法院，不是土地所有人可以片面增加，需依民法835條規定請求法院增減，本選項說片面增加，不正確。","（本題答案）積欠地租達二年+催告+逾期不清償→得終止，這是第五次出現的同一考點，敘述正確。"],trap:"本題同時考了D5段兩個最高頻的數字記憶考點：①不定期地上權逾20年可請求法院介入（833條之1），本題選項A故意寫成30年②積欠地租達二年才可催告終止（836條），本題選項D是正確的標準表述。這兩個數字（20年和二年）是D5段地上權主題最必須記住的兩個數字，建議用口訣：不定期20年法院介入，欠租二年催告終止。"},
+{num:19,year:"101年第40題",cat:"D5地上權農育役權典權",q:"甲有A地一筆，設定地上權於乙，下列敘述何者最正確？",opts:["若乙積欠地租達一年之總額時，甲得不經催告終止地上權","若乙積欠地租達二年之總額時，甲得不經催告終止地上權","若乙積欠地租達二年之總額時，甲得經催告後終止地上權","若乙積欠地租達一年之總額時，甲得經催告後終止地上權"],correct:2,exps:["積欠地租需達二年（不是一年）才構成終止條件，且需催告，本選項兩個條件都錯，錯誤。","積欠地租達二年是正確的，但不經催告錯誤——依民法836條，需定相當期限催告清償，仍不清償才能終止，本選項省略催告程序，錯誤。","（本題答案）民法836條第1項：地上權人積欠地租達二年之總額，土地所有人得定相當期限催告清償，逾期不清償者，得終止地上權——二年總額+催告程序+逾期不清償→才能終止，敘述正確。","積欠一年即可催告終止，與法條規定二年不符，錯誤。"],trap:"積欠地租終止地上權的兩個關鍵數字和程序：①需積欠達二年總額（不是一年）②需定相當期限催告清償（不是無需催告）③逾期不清償→才得終止。三個要素缺一不可，考試很愛在一年vs二年和需不需要催告這兩個點上製造混淆。"},
+{num:20,year:"111年第18題",cat:"D5地上權農育役權典權",q:"甲將其A地設定地上權予乙，乙於A土地上興建B屋一棟。其後甲為貸款擔保而將其A地設定抵押權予丙。甲屆期未清償債務，丙聲請拍賣A地，拍定後A地由戊取得。下列敘述，何者正確？",opts:["乙之地上權不受戊之影響，但乙仍可要求戊拆除B屋","乙之地上權對戊有效，乙仍得繼續使用A地","乙之地上權因A地被拍賣而當然消滅，乙得向甲請求損害賠償","乙之地上權雖對戊有效，但乙需另行向戊支付地租"],correct:1,exps:["地上權設定在前，抵押權設定在後，先設定的地上權對抗後設定的抵押，地上權不因抵押權的實現而消滅，本選項說乙可要求戊拆除B屋（但乙根本不要拆B屋，那是乙自己建的），邏輯錯誤。","（本題答案）乙的地上權設定在先，甲的抵押（丙）設定在後，A地被拍賣給戊，戊取得的是有地上權負擔的土地，乙的地上權仍然有效，乙仍可繼續使用A地，敘述正確。","乙的地上權設定在先，不因A地被拍賣而消滅（抵押設定在地上權之後，後設定的抵押不能消滅先設定的地上權），本選項說當然消滅，錯誤。","乙的地租義務是針對A地所有人，若原地上權有地租約定，乙需向新土地所有人（戊）支付地租，但這不是使地上權無效或受影響的問題，本選項描述不夠精確且非本題的關鍵差異點。"],trap:"先設地上權vs後設抵押的衝突：先設定的地上權，對後設定的抵押（及抵押執行後的拍定）有對抗效力——A地被拍賣後，買家（戊）買到的是有地上權負擔的土地，不是空地。這是不動產業務中非常重要的實務知識（辦理抵押前要查清楚是否有地上權負擔）。"},
+{num:21,year:"113年第6題",cat:"D2所有權共有登記",q:"甲無權占有乙所有已登記之A地15年後，乙對甲提起所有物返還請求之訴訟，下列敘述，何者正確？",opts:["甲得對乙為消滅時效之抗辯，因甲已占有超過15年","乙對甲之所有物返還請求，不罹於消滅時效","甲已時效取得A地所有權，故乙之主張無理","甲已時效取得A地地上權，乙之請求無理由"],correct:1,exps:["甲無法以占有超過15年主張消滅時效——消滅時效對象是請求權，而乙的所有物返還請求（767條）依實務見解，已登記不動產的所有物返還請求不適用消滅時效，本選項說甲可以時效抗辯，不正確。","（本題答案）已登記不動產的所有物返還請求權（767條）不適用消滅時效——不動產登記制度賦予登記所有人對抗第三人的公示效力，若允許時效消滅，登記制度的保障意義將被架空，所以實務上認定乙的所有物返還請求不因甲占有多少年而罹於時效，敘述正確。","已登記的A地不能被時效取得所有權（769條限於未登記不動產），甲15年的占有不能使甲取得A地所有權，本選項不正確。","時效取得地上權，依民法772條準用769條，同樣限於未登記土地（或限制條件未滿足），乙的A地已登記，甲不能時效取得地上權，本選項不正確。"],trap:"已登記不動產的兩個重要保護：①所有物返還請求不罹於消滅時效（保護登記所有人）②不能被他人時效取得所有權（時效取得限於未登記不動產）。這兩個保護都是為了維護不動產登記制度的公信力。本題15年占有既不能構成時效消滅乙的請求權，也不能讓甲取得所有權，乙的請求完全成立。"},
+{num:22,year:"104年第34題",cat:"E1婚約婚姻結婚",q:"甲男婚外情，甲妻丁得知忿而與甲離婚，並完成登記。甲旋即與乙女於教堂牧師見證下，宣布結為夫妻，並請鄰近攤販丙、戊於結婚證書上簽名。下列敘述，何者正確？",opts:["甲丁之離婚有效，甲乙之結婚有效","甲丁之離婚有效，甲乙之結婚有效，但因甲有婚外情，丙戊之見證不合乎道德","甲丁之離婚有效，甲乙之結婚無效，因應在戶政機關完成登記","甲丁之離婚有效，甲乙之結婚無效，因未依法辦理結婚登記"],correct:3,exps:["甲乙未辦戶政登記，現行法下結婚不成立，不正確。","見證人道德問題不影響法律效力，不正確。","C方向正確但不夠完整。","（本題答案）現行法（民法982條）：結婚須書面+二人以上見證人+向戶政機關登記——甲乙未辦戶政登記，結婚不成立（無效），敘述正確。"],trap:"現行法結婚三要件：書面、二人以上見證人、向戶政機關登記——缺少任一要件，結婚不成立。"},
+{num:23,year:"107年第23題",cat:"E2夫妻財產制",q:"甲與乙於民國100年結婚，雙方並未約定夫妻財產制，嗣於105年乙因外遇而雙方離婚。關於婚後財產，下列敘述何者正確？",opts:["甲及乙之婚後財產均歸甲所有","甲及乙之婚後財產均歸乙所有","甲及乙之婚後財產由甲乙平均分配","甲及乙之婚後財產差額，由婚後財產較多的一方給付婚後財產較少之一方（各半）"],correct:3,exps:["婚後財產不是全歸甲，本選項不正確。","婚後財產不是全歸乙，本選項不正確。","不是「平均」分配所有婚後財產，而是「差額」的平均分配，本選項表述不精確。","（本題答案）民法1030條之1：法定財產制消滅時，雙方婚後財產（扣除婚姻期間所負債務）的「差額」平均分配（各取一半差額）——婚後財產較多的一方給付差額的一半給較少的一方，敘述正確。"],trap:"剩餘財產分配的計算：不是「所有婚後財產平均分配」，而是「兩人婚後財產的差額除以2」——即差額的一半歸婚後財產較少的一方。例：甲婚後財產600萬，乙婚後財產200萬，差額400萬，乙可請求甲給付200萬（差額的1/2），結果甲有400萬，乙有400萬。"},
+{num:24,year:"100年第40題",cat:"E4繼承遺囑",q:"下列何種繼承人之繼承特留分，為其應繼分三分之一？",opts:["直系血親卑親屬","父母","配偶","祖父母"],correct:3,exps:["直系血親卑親屬的特留分是「應繼分的二分之一」，不是三分之一，本選項不正確。","父母的特留分是「應繼分的二分之一」，不是三分之一，本選項不正確。","配偶的特留分是「應繼分的二分之一」，不是三分之一，本選項不正確。","（本題答案）民法1223條：祖父母的特留分為其應繼分的「三分之一」——兄弟姊妹的特留分也是三分之一，祖父母和兄弟姊妹同為三分之一，直系血親卑親屬/父母/配偶則是二分之一，敘述正確。"],trap:"特留分比例分兩組：①「二分之一」：直系血親卑親屬、父母、配偶②「三分之一」：祖父母、兄弟姊妹。口訣：「子父配二分之一，祖兄三分之一」。這組數字是繼承制度最常考的記憶題，幾乎每年都考，必須背熟。"},
+{num:25,year:"113年第25題",cat:"E4繼承遺囑",q:"甲死亡後留有土地一筆，由其妻乙、兒子丙及女兒丁及戊繼承，因丙不想繼承該筆土地，故向法院以書面聲明拋棄繼承，並依法通知有繼承權之人。下列敘述，何者正確？",opts:["丙之拋棄繼承，溯及繼承開始後3個月時生效","丙之拋棄繼承後，丙的兒子己可代位繼承丙的應繼分","拋棄繼承後，丙之應繼分由乙承繼","拋棄繼承後，丙之應繼分由乙、丁、戊承繼，三人依其本來應繼分之比例繼承"],correct:3,exps:["拋棄繼承溯及「繼承開始時」生效（民法1175條），不是3個月後，本選項錯誤。","丙是活著的人拋棄繼承，己不能代位繼承（代位繼承只在繼承人先死時適用），本選項不正確。","丙拋棄後，其應繼分由同順位的其他繼承人（乙丁戊）承繼，不是只歸乙，本選項不正確。","（本題答案）丙（第一順位）拋棄後，丙的應繼分由同順位的乙（配偶，與第一順位共同繼承）、丁和戊（同為第一順位直系血親卑親屬）承繼，依三人本來應繼分的比例分配丙的份額，敘述正確。"],trap:"拋棄繼承後的應繼分流向：由「同順位其他繼承人」依其原應繼分比例承繼——不是單獨歸某一人，不是由下一順位繼承人繼承（只要同順位還有其他人），也不適用代位繼承（代位繼承只在繼承人先死時才發生）。"}
+];
+// 段落對照
+const SEG_MAP={
+  'A1自然人法人':'A','A2物':'A','A3法律行為效力':'A','A4意思表示瑕疵':'A','A5物':'A','A6代理':'A','A7消滅時效':'A',
+  'B1債之發生與消滅':'BC','B2債務不履行':'BC','B3連帶債務與保證':'BC','B4不當得利':'BC','B5無因管理':'BC','B6侵權行為':'BC',
+  'C1買賣':'BC','C2租賃':'BC','C3居間承攬委任':'BC','C4其他各種之債':'BC','C5債權讓與':'BC',
+  'D1物概念孳息從物':'D','D2所有權共有登記':'D','D3拾得遺失添附':'D','D4相鄰通行':'D','D5地上權農育役權典權':'D','D6抵押質權占有':'D',
+  'E1婚約婚姻結婚':'E','E2夫妻財產制':'E','E3親子收養監護':'E','E4繼承遺囑':'E',
+};
+const CAT_COLOR={'A':'#5B7A99','BC':'#A8402B','D':'#2A6496','E':'#7C6A8E'};
+
+let answers=new Array(25).fill(null);
+let startTime=null;let timerInterval=null;let totalSec=45*60;let elapsed=0;
+let submitted=false;
+
+function startExam(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('examScreen').style.display='block';
+  startTime=Date.now();
+  renderAll();
+  timerInterval=setInterval(tick,1000);
+}
+
+function tick(){
+  elapsed=Math.floor((Date.now()-startTime)/1000);
+  const rem=totalSec-elapsed;
+  if(rem<=0){submitExam();return;}
+  const m=Math.floor(rem/60),s=rem%60;
+  const el=document.getElementById('timer');
+  el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if(rem<=300)el.classList.add('warning'); else el.classList.remove('warning');
+}
+
+function renderAll(){
+  const list=document.getElementById('qList');
+  list.innerHTML='';
+  QS.forEach((q,i)=>{
+    const seg=SEG_MAP[q.cat]||'A';
+    const color=CAT_COLOR[seg]||'#666';
+    const div=document.createElement('div');
+    div.className='q-card';div.id=`qc${i}`;
+    const L=['A','B','C','D'];
+    div.innerHTML=`
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-meta">${q.year}・<span style="color:${color};font-weight:700;">${q.cat}</span></div>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="opts" id="opts${i}">
+        ${q.opts.map((o,j)=>`<div class="opt" id="opt${i}_${j}" onclick="pick(${i},${j})"><span class="letter">${L[j]}</span><span>${o}</span></div>`).join('')}
+      </div>
+      <div class="exp-box" id="exp${i}">
+        ${q.exps.map((e,j)=>`<div class="exp-item${j===q.correct?' right':''}"><div class="eh">${L[j]}. ${j===q.correct?'✓ 正解':'✗'}</div>${e}</div>`).join('')}
+        ${q.trap?`<div class="trap-row"><b>⚠️ 考試陷阱</b>　${q.trap}</div>`:''}
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function pick(qi,optIdx){
+  if(submitted)return;
+  const q=QS[qi];
+  // 已作答不能改
+  if(answers[qi]!==null)return;
+  answers[qi]=optIdx;
+  const L=['A','B','C','D'];
+  const isOk=(optIdx===q.correct);
+  // 標記選項
+  for(let j=0;j<4;j++){
+    const el=document.getElementById(`opt${qi}_${j}`);
+    el.classList.add('locked');
+    if(j===q.correct)el.classList.add('correct');
+    else if(j===optIdx&&!isOk)el.classList.add('wrong');
+  }
+  // 展開解析
+  document.getElementById(`exp${qi}`).classList.add('show');
+  updateProgress();
+}
+
+function updateProgress(){
+  const done=answers.filter(a=>a!==null).length;
+  const ok=answers.filter((a,i)=>a===QS[i].correct).length;
+  document.getElementById('answered').textContent=done;
+  document.getElementById('liveScore').textContent=`${ok*2} / 50分`;
+  document.getElementById('progFill').style.width=`${done/25*100}%`;
+}
+
+function reviewWrong(){
+  const wrongIdx=answers.findIndex((a,i)=>a!==null&&a!==QS[i].correct);
+  if(wrongIdx<0){alert('目前沒有答錯的題目！');return;}
+  document.getElementById(`qc${wrongIdx}`).scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function submitExam(){
+  if(submitted)return;
+  submitted=true;
+  clearInterval(timerInterval);
+  const rem=Math.max(0,totalSec-elapsed);
+  const usedSec=Math.min(elapsed,totalSec);
+  const usedM=Math.floor(usedSec/60),usedS=usedSec%60;
+  // 鎖定所有未作答
+  QS.forEach((q,i)=>{
+    if(answers[i]===null){
+      for(let j=0;j<4;j++){
+        const el=document.getElementById(`opt${i}_${j}`);
+        if(el){el.classList.add('locked');}
+      }
+      document.getElementById(`exp${i}`).classList.add('show');
+      document.getElementById(`qc${i}`).style.opacity='0.7';
+    }
+  });
+  showResult(usedM,usedS);
+}
+
+function showResult(usedM,usedS){
+  document.getElementById('examScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  const correct=answers.filter((a,i)=>a===QS[i].correct).length;
+  const wrong=answers.filter((a,i)=>a!==null&&a!==QS[i].correct).length;
+  const score=correct*2;
+  document.getElementById('scoreNum').textContent=score;
+  document.getElementById('scoreSub').textContent=`/ 50 分（${correct}/25 題）`;
+  document.getElementById('correctNum').textContent=correct;
+  document.getElementById('wrongNum').textContent=wrong;
+  document.getElementById('timeUsed').textContent=`${String(usedM).padStart(2,'0')}:${String(usedS).padStart(2,'0')}`;
+  const passEl=document.getElementById('passTag');
+  if(score>=38)passEl.innerHTML='<span style="color:var(--green)">🎉 優秀！目標分數達成</span>';
+  else if(score>=30)passEl.innerHTML='<span style="color:var(--gold)">✅ 及格</span>';
+  else passEl.innerHTML='<span style="color:var(--stamp)">⚠️ 未達及格線，繼續加油</span>';
+  // 各段分數
+  const segs={A:0,BC:0,D:0,E:0};
+  const totals={A:0,BC:0,D:0,E:0};
+  QS.forEach((q,i)=>{
+    const seg=SEG_MAP[q.cat]||'A';
+    totals[seg]++;
+    if(answers[i]===q.correct)segs[seg]++;
+  });
+  ['A','BC','D','E'].forEach(s=>{
+    document.getElementById(`seg${s}`).textContent=`${segs[s]}/${totals[s]}`;
+    document.getElementById(`seg${s}`).style.color=segs[s]/totals[s]>=0.6?'var(--green)':'var(--stamp)';
+  });
+  // 錯題清單
+  const wrongList=document.getElementById('wrongList');
+  const wrongQs=QS.filter((_,i)=>answers[i]!==null&&answers[i]!==QS[i].correct||answers[i]===null);
+  if(wrongQs.length>0){
+    const L=['A','B','C','D'];
+    wrongList.innerHTML=`<h3>❌ 錯題 / 未作答（${wrongQs.length}題）</h3>`+
+      QS.map((q,i)=>{
+        if(answers[i]===q.correct)return '';
+        const myAns=answers[i]!==null?`你選：${L[answers[i]]}`:'未作答';
+        return `<div class="rl-item"><span class="ri">Q${q.num}</span>　${q.cat}　${myAns}　→ 正解：<b>${L[q.correct]}</b><br><span style="color:var(--ink-soft);">${q.q.slice(0,40)}...</span></div>`;
+      }).join('');
+  }else{
+    wrongList.innerHTML='<h3 style="color:var(--green)">🎉 全對！完美成績</h3>';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

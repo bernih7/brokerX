@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規刷題練習｜A5獎懲：行政罰與刑罰對照表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --line:#DDD2BB;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif; line-height:1.6; padding-bottom:60px;
+}
+header{
+  padding:20px 16px 14px; border-bottom:3px double var(--vermillion);
+  background:linear-gradient(180deg,#FBF8F0,var(--paper));
+  position:sticky; top:0; z-index:20;
+}
+h1{
+  font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.35rem;
+  margin:0 0 4px; color:var(--vermillion); letter-spacing:.02em;
+}
+.sub{font-size:.78rem; color:#7a6f5c;}
+.stats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; font-size:.78rem; }
+.stat{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:5px 10px; color:#5a5142; }
+.stat b{color:var(--vermillion);}
+.controls{ max-width:920px; margin:14px auto 0; padding:0 16px; }
+.filter-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.fbtn{
+  border:1.5px solid var(--gold); background:#fff; color:#7a5c1e;
+  padding:7px 14px; border-radius:20px; font-size:.82rem; cursor:pointer;
+  font-family:"Noto Sans TC",sans-serif; transition:.15s;
+}
+.fbtn.active{ background:var(--gold); color:#fff; }
+.fbtn.danger{ border-color:var(--vermillion); color:var(--vermillion); }
+.fbtn.danger.active{ background:var(--vermillion); color:#fff; }
+.chip-row{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; }
+.chip{
+  border:1px solid var(--line); background:#fff; color:#6b6252;
+  padding:4px 11px; border-radius:14px; font-size:.75rem; cursor:pointer;
+}
+.chip.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+main{ max-width:920px; margin:0 auto; padding:14px 16px 40px; }
+.qcard{
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  padding:16px 18px 14px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.qmeta{ font-size:.72rem; color:#9a8f78; margin-bottom:6px; display:flex; gap:8px; align-items:center; }
+.badge{ display:inline-block; font-size:.68rem; padding:1px 7px; border-radius:8px; border:1px solid var(--line); color:#7a6f5c; }
+.badge.wrong{ border-color:var(--vermillion); color:var(--vermillion); background:#FBEDEA;}
+.stem{ font-size:1rem; font-weight:500; margin:4px 0 10px; }
+.opt{
+  display:block; width:100%; text-align:left; padding:9px 12px;
+  margin-bottom:7px; border:1.5px solid var(--line); border-radius:8px;
+  background:#FEFCF7; cursor:pointer; font-size:.9rem; color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+}
+.opt:hover{ border-color:var(--gold); }
+.opt.correct{ border-color:var(--green); background:#EAF3EC; font-weight:700; }
+.opt.chosen-wrong{ border-color:var(--vermillion); background:#FBEDEA; font-weight:700; }
+.opt.disabled{ cursor:default; }
+.explain-box{
+  margin-top:10px; padding:12px 14px; background:#FBF8F0;
+  border-left:3px solid var(--gold); border-radius:6px; font-size:.85rem; display:none;
+}
+.explain-box.show{ display:block; }
+.explain-line{ margin-bottom:6px; }
+.explain-line b{ color:var(--vermillion); }
+.explain-line.ok b{ color:var(--green); }
+.ref{ margin-top:8px; font-size:.75rem; color:#8a7f68; }
+.errtag-row{ margin-top:10px; display:none; gap:6px; }
+.errtag-row.show{ display:flex; }
+.etag{
+  font-size:.72rem; padding:3px 9px; border-radius:12px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; color:#6b6252;
+}
+.etag.on-A{ background:#A8402B; color:#fff; border-color:#A8402B; }
+.etag.on-B{ background:#BC8A2E; color:#fff; border-color:#BC8A2E; }
+.etag.on-C{ background:#3F6B4C; color:#fff; border-color:#3F6B4C; }
+footer{ text-align:center; font-size:.7rem; color:#a49a86; padding:20px 10px 10px; }
+.empty{ text-align:center; color:#9a8f78; padding:40px 0; font-size:.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>不動產經紀相關法規概要｜整批刷題練習</h1>
+  <div class="sub">A5　獎懲：行政罰與刑罰對照表｜逐選項解析＋四鍵篩選系統</div>
+  <div class="stats">
+    <span class="stat">總題數：<b id="statTotal">0</b></span>
+    <span class="stat">已作答：<b id="statDone">0</b></span>
+    <span class="stat">答對：<b id="statCorrect">0</b></span>
+    <span class="stat">答錯：<b id="statWrong">0</b></span>
+    <span class="stat">正確率：<b id="statRate">--</b></span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="filter-row">
+    <button class="fbtn active" data-filter="all">顯示全部</button>
+    <button class="fbtn" data-filter="unanswered">只看未作答</button>
+    <button class="fbtn danger" data-filter="wrong">只看答錯</button>
+    <button class="fbtn danger" id="resetBtn">清除作答紀錄</button>
+  </div>
+  <div class="chip-row" id="chapterChips"></div>
+</div>
+
+<main id="quizList"></main>
+
+<footer>
+  📅 最新編輯時間：2026-07-01｜版本 v1.0<br>
+  不動產經紀相關法規概要・A5獎懲：行政罰與刑罰對照表（38題）｜BrokerX Project
+</footer>
+
+<script>
+const QUESTIONS = [{"year": 100, "qnum": 12, "stem": "不動產經紀業受託銷售不動產，未製作不動產說明書即促成雙方當事人簽訂買賣契約，主管機關可處以多少新臺幣之罰鍰？", "options": ["三萬元以上十五萬元以下", "二萬元以上二十萬元以下", "六萬元以上三十萬元以下", "五萬元以上五十萬元以下"], "answer": "C", "explains": {"A": "金額級距不符，非重大業務性違規之罰鍰級距。", "B": "金額級距不符，非法定罰鍰級距。", "C": "正確。違反不動產說明書相關規定（第22-24條核心業務義務）屬重大違規，罰鍰級距為「6萬元以上30萬元以下」，此為本科罰鍰數字中最高頻出現之級距，務必牢記。", "D": "金額級距不符，非法定罰鍰級距。"}, "ref": "不動產經紀業管理條例第29條", "id": 1, "chapter": "A5"}, {"year": 100, "qnum": 15, "stem": "經紀業與委託人簽訂委託契約書後，方得刊登廣告及銷售，違反規定者應作何處罰？", "options": ["處新臺幣三萬元以上十五萬元以下罰鍰", "處新臺幣六萬元以上三十萬元以下罰鍰", "應予三個月以上二年以下之停止執行業務處分", "應予六個月以上三年以下之停止執行業務處分"], "answer": "B", "explains": {"A": "金額級距不符，違反第21條屬重大業務性違規。", "B": "正確。違反第21條「先簽委託契約書方得刊登廣告」規定，罰鍰為「6萬元以上30萬元以下」。", "C": "停止執行業務處分是對「經紀人員個人」之懲戒，本題規範對象為「經紀業」之罰鍰處分，處分類型不符。", "D": "同上，此為經紀業罰鍰而非經紀人員停止執行業務處分。"}, "ref": "不動產經紀業管理條例第21條、第29條", "id": 2, "chapter": "A5"}, {"year": 100, "qnum": 16, "stem": "非經紀業而經營仲介或代銷業務者，主管機關應禁止其營業，並處公司負責人、商號負責人或行為人多少金額之罰鍰？", "options": ["新臺幣五萬元以上二十萬元以下", "新臺幣五萬元以上三十萬元以下", "新臺幣十萬元以上四十萬元以下", "新臺幣十萬元以上三十萬元以下"], "answer": "D", "explains": {"A": "金額級距不符。", "B": "金額級距不符。", "C": "上限金額不符，應為30萬元非40萬元。", "D": "正確。非法經營經紀業務（無照經營）為本科罰鍰最重之情形，主管機關應禁止其營業，並處負責人或行為人「10萬元以上30萬元以下」罰鍰，此為全科最高罰鍰級距，務必牢記。"}, "ref": "不動產經紀業管理條例第27條", "id": 3, "chapter": "A5"}, {"year": 100, "qnum": 23, "stem": "依不動產經紀業管理條例第 6 條規定，在某些情形下不得申請經營經紀業，其經許可者，撤銷或廢止其許可。下列何者不符前述之規定？", "options": ["無行為能力或限制行為能力者", "受破產之宣告尚未復權者", "受感訓處分之裁定確定，尚未執行完畢或執行完畢後未滿五年者", "受本條例第29條之停止營業處分，尚未執行完畢者"], "answer": "C", "explains": {"A": "無行為能力或限制行為能力者，確為第6條不得申請經營之事由，非本題答案。", "B": "破產宣告尚未復權者，確為第6條事由，非本題答案。", "C": "正確答案（不符規定之敘述）。受感訓處分裁定確定，執行完畢後「未滿3年」者不得申請經營，本選項誤植為「未滿五年」，數字錯誤（與撤銷/廢止許可未滿5年、廢止經紀人員證書未滿5年之情形混淆，屬★高頻數字陷阱）。", "D": "受停止營業處分尚未執行完畢者，確為第6條事由，非本題答案。"}, "ref": "不動產經紀業管理條例第6條", "id": 4, "chapter": "A5"}, {"year": 101, "qnum": 1, "stem": "依不動產經紀業管理條例規定，曾經營經紀業，經主管機關撤銷許可者，自撤銷之日起未滿幾年，不得申請經營經紀業？", "options": ["五", "十", "十五", "二十"], "answer": "A", "explains": {"A": "正確。曾經營經紀業經撤銷或廢止許可者，自撤銷或廢止之日起未滿「5年」，不得申請經營經紀業，此5年為本科多處反覆出現之高頻數字（撤銷許可、廢止經紀人員證書皆為5年）。", "B": "數字錯誤，非10年。", "C": "數字錯誤，非15年。", "D": "數字錯誤，非20年。"}, "ref": "不動產經紀業管理條例第6條", "id": 5, "chapter": "A5"}, {"year": 101, "qnum": 32, "stem": "下列有關廣告及銷售之敘述，何者為最正確？", "options": ["經紀業與委託人簽訂不動產說明書後，方得刊登廣告及銷售", "不動產廣告稿應由經紀業指派經紀人簽章", "廣告及銷售內容，應與事實相符，並註明委託人名稱", "廣告及銷售內容，與事實不符時，處委託人新臺幣六萬元以上三十萬元以下罰鍰"], "answer": "B", "explains": {"A": "應先簽訂「委託契約書」而非「不動產說明書」，兩者法律文件性質不同，此為易混淆陷阱。", "B": "正確。不動產廣告稿為第22條所列六類法定應簽章文件之一，應由經紀業指派經紀人簽章。", "C": "廣告及銷售內容應與事實相符，並註明「經紀業名稱」，而非「委託人名稱」，主體錯誤。", "D": "廣告內容不實之處罰對象為「經紀業」，而非「委託人」，主體錯誤（委託人為屋主，非受規範之經紀業）。"}, "ref": "不動產經紀業管理條例第21條、第22條", "id": 6, "chapter": "A5"}, {"year": 101, "qnum": 34, "stem": "下列有關經紀人員違反不動產經紀業管理條例規定之懲戒，何者錯誤？", "options": ["經紀人員對於因業務知悉之他人秘密，不得無故洩漏，違者依法應予申誡", "經紀人員違反規定收取差價者，依法應予申誡", "經紀人員受申誡處分三次者，應另予六個月以上三年以下之停止執行業務處分", "受停止執行業務處分累計達五年以上者，廢止其經紀人員證書"], "answer": "B", "explains": {"A": "洩漏業務秘密屬申誡情形，敘述正確，非本題答案。", "B": "正確答案（錯誤敘述）。經紀人員收取差價或其他報酬，其懲戒應為「六個月以上三年以下之停止執行業務處分」，而非僅申誡，此為業務核心規範違反，處分較重，屬★極高頻陷阱（易與其他申誡情形混淆）。", "C": "申誡累計3次者，另予6個月以上3年以下停止執行業務處分，敘述正確，非本題答案。", "D": "停止執行業務處分累計達5年以上者，廢止經紀人員證書，敘述正確，非本題答案。"}, "ref": "不動產經紀業管理條例第29條", "id": 7, "chapter": "A5"}, {"year": 101, "qnum": 39, "stem": "依不動產經紀業管理條例規定，經營代銷業務者，對於起造人或建築業委託代銷之案件，未於規定期限內，向主管機關申報登錄成交案件實際資訊者，至少將被處新臺幣多少萬元以上之罰鍰？", "options": ["三", "五", "六", "十"], "answer": "A", "explains": {"A": "正確。未依規定期限申報登錄成交案件實際資訊者，處新臺幣「3萬元以上」15萬元以下罰鍰（申報登錄類罰鍰級距通常較業務核心義務違反為低）。", "B": "數字錯誤，非5萬元。", "C": "數字錯誤，非6萬元（6萬元以上30萬元以下級距適用於較重大之業務違規，非本題申報登錄逾期情形）。", "D": "數字錯誤，非10萬元。"}, "ref": "不動產經紀業管理條例第24條之1、第29條", "id": 8, "chapter": "A5"}, {"year": 101, "qnum": 40, "stem": "依不動產經紀業管理條例規定，經營仲介業務者，對於買賣委託案件，應於簽訂買賣契約書並辦竣所有權移轉登記後幾日內，向主管機關申報登錄成交案件實際資訊，否則將被處以罰鍰？", "options": ["七", "十", "十五", "三十"], "answer": "D", "explains": {"A": "數字錯誤，非7日。", "B": "數字錯誤，非10日。", "C": "數字錯誤，非15日。", "D": "正確。仲介業務買賣案件應於簽訂買賣契約書並辦竣所有權移轉登記後「30日內」申報登錄成交案件實際資訊，此為全科最高頻數字之一，逾期未辦者處罰鍰。"}, "ref": "不動產經紀業管理條例第24條之1", "id": 9, "chapter": "A5"}, {"year": 102, "qnum": 6, "stem": "不動產經紀人員未經所屬經紀業同意，擅自為他經紀業執行仲介或代銷業務者，有何處罰規定？", "options": ["申誡", "六個月以上三年以下停止執行業務處分", "廢止其經紀人員證書或證明", "處六萬元以上三十萬元以下罰鍰"], "answer": "A", "explains": {"A": "正確。違反專任義務（未經所屬經紀業同意擅自為他經紀業執行業務）之懲戒為「申誡」，屬較輕微之違規類型。", "B": "停止執行業務處分適用於「收取差價或其他報酬」等較重大違規，非本題情形。", "C": "廢止證書為停止執行業務處分累計達5年以上之最終結果，非違反專任義務之直接懲戒。", "D": "罰鍰為對「經紀業」之處分，本題規範對象為「經紀人員個人」之懲戒，處分類型不符。"}, "ref": "不動產經紀業管理條例第16條、第29條", "id": 10, "chapter": "A5"}, {"year": 102, "qnum": 7, "stem": "關於不動產經紀業營業保證金之敘述，以下何者錯誤？", "options": ["應繳之營業保證金及繳存或提供擔保之辦法，由中華民國不動產仲介經紀業或代銷經紀業同業公會全國聯合會定之", "經營不動產經紀業者未繳存營業保證金即開始營業時，主管機關應予停止營業處分，其期間至補足營業保證金為止", "營業保證金除不動產經紀業管理條例另有規定外，不因經紀業或經紀人員之債務債權關係而為讓與、扣押或設定負擔", "中華民國不動產仲介經紀業或代銷經紀業同業公會全國聯合會代為賠償受害人後，即應通知經紀業限期補足之"], "answer": "A", "explains": {"A": "正確答案（錯誤敘述）。應繳營業保證金金額及繳存/提供擔保之「辦法」，應由「中央主管機關」定之，而非由同業公會全國聯合會自行訂定，訂定機關主體錯誤（全國聯合會僅負責「管理」基金專戶，非「訂定辦法」之機關），此為★陷阱。", "B": "未繳存保證金即開始營業者，主管機關應予停止營業處分至補足為止，敘述正確，非本題答案。", "C": "營業保證金不因經紀業/經紀人員之債務債權關係而讓與、扣押或設定負擔，敘述正確，非本題答案。", "D": "全國聯合會代為賠償後應通知經紀業限期補足，敘述正確，非本題答案。"}, "ref": "不動產經紀業管理條例第26條", "id": 11, "chapter": "A5"}, {"year": 103, "qnum": 4, "stem": "有關經紀人員違反不動產經紀業管理條例相關規定者，下列之懲罰何者正確？", "options": ["經紀人員收取差價者，應予六個月以上三年以下之停止執行業務處分", "經紀人員其已收取之差價或其他報酬，應於加計利息後返還支付人", "經紀人員受停止執行業務處分累計達三年以上者，廢止其經紀人員證書或證明", "中央主管機關對於經紀人員獎懲事項，應設置獎懲委員會處理之"], "answer": "A", "explains": {"A": "正確。收取差價之懲戒為「六個月以上三年以下之停止執行業務處分」，屬重大業務違規。", "B": "應為「加計利息後加倍返還」，本選項漏未「加倍」，返還程度不足，屬★陷阱。", "C": "應為累計達「5年以上」廢止證書，而非「3年以上」，數字錯誤。", "D": "實務上經紀人員獎懲事項係由「地方（直轄市、縣市）主管機關」處理，法條並未規定須設置「獎懲委員會」處理，此為虛構機制之陷阱選項。"}, "ref": "不動產經紀業管理條例第19條、第29條", "id": 12, "chapter": "A5"}, {"year": 103, "qnum": 8, "stem": "依不動產經紀業管理條例規定，經紀業開始營業後自行停止營業至少連續多久時間以上，且未依法辦理停業登記者，直轄市或縣（市）主管機關得廢止其許可？", "options": ["三個月", "五個月", "六個月", "一年"], "answer": "C", "explains": {"A": "數字錯誤，非3個月。", "B": "數字錯誤，非5個月。", "C": "正確。經紀業開始營業後自行停止營業「連續6個月以上」，且未依法辦理停業登記者，主管機關得廢止其許可，此為高頻重複命題數字（103、104、109年皆考）。", "D": "數字錯誤，非1年。"}, "ref": "不動產經紀業管理條例第28條", "id": 13, "chapter": "A5"}, {"year": 104, "qnum": 4, "stem": "依不動產經紀業管理條例之規定，非不動產經紀業而經營不動產仲介或代銷業務者，應予處罰，下列敘述何者正確？", "options": ["主管機關將通知限期改正", "處分公司負責人新臺幣四十萬元以上之罰鍰", "處分公司負責人一年以上有期徒刑", "主管機關應禁止其營業"], "answer": "D", "explains": {"A": "無照經營非屬「限期改正」之違規類型，屬直接應禁止營業之重大違規，無改正空間。", "B": "罰鍰上限為30萬元，非40萬元起跳，金額錯誤。", "C": "本條例對此情形僅設罰鍰，未設有期徒刑之刑罰規定。", "D": "正確。非經紀業而經營仲介或代銷業務者，主管機關「應禁止其營業」，並處公司負責人、商號負責人或行為人10萬元以上30萬元以下罰鍰。"}, "ref": "不動產經紀業管理條例第27條", "id": 14, "chapter": "A5"}, {"year": 104, "qnum": 26, "stem": "依不動產經紀業管理條例之規定，下列何種情形，直轄市或縣（市）主管機關得廢止經紀業之營業許可？", "options": ["經紀業開始營業後自行停止營業連續六個月以上者", "經紀業未將許可文件揭示於營業處所明顯之處", "經紀業僱用未具備經紀人員資格者從事仲介業務", "經紀業拒絕主管機關業務檢查"], "answer": "A", "explains": {"A": "正確。自行停止營業連續6個月以上（未辦停業登記），主管機關得廢止其許可。", "B": "未揭示許可文件屬較輕微行政違規，處以罰鍰（經限期改正未改正），非直接廢止許可。", "C": "僱用不具資格者從事仲介業務屬罰鍰處分（6萬以上30萬以下），非直接廢止許可事由。", "D": "拒絕業務檢查屬罰鍰處分，非直接廢止許可事由。"}, "ref": "不動產經紀業管理條例第28條", "id": 15, "chapter": "A5"}, {"year": 104, "qnum": 27, "stem": "加盟經營之經紀業未於營業處所明顯之處標明加盟店或加盟經營字樣時，應如何處罰？", "options": ["處新臺幣3萬元以上15萬元以下罰鍰", "處新臺幣4萬元以上20萬元以下罰鍰", "處新臺幣5萬元以上25萬元以下罰鍰", "處新臺幣6萬元以上30萬元以下罰鍰"], "answer": "A", "explains": {"A": "正確。未標明加盟店字樣（揭示義務之一環），屬較輕微行政違規，罰鍰級距為「3萬元以上15萬元以下」。", "B": "金額級距不符，法定罰鍰無此級距。", "C": "金額級距不符，法定罰鍰無此級距。", "D": "6萬以上30萬以下適用於較重大業務性違規（如簽章、委託契約書等），非本題揭示義務違反之級距。"}, "ref": "不動產經紀業管理條例第9條、第29條", "id": 16, "chapter": "A5"}, {"year": 105, "qnum": 2, "stem": "關於不動產經紀業違法行為之行政處罰，下列何種行為之法定最低罰鍰金額為最嚴重？", "options": ["經紀業未將經紀人到職與異動向主管機關報請備查", "於雙方當事人簽訂租賃或買賣契約書時，經紀人未將不動產說明書交付與委託人交易之相對人", "經紀業未於營業處所設置符合法定最低人數之經紀人", "非經紀業（無經營執照）而經營仲介或代銷業務"], "answer": "D", "explains": {"A": "未報備到職異動屬較輕微行政違規，罰鍰級距較低。", "B": "未交付說明書屬第22-24條業務性違規，罰鍰級距為6萬至30萬元，非本題最嚴重者。", "C": "未設置法定經紀人數屬業務性違規，罰鍰級距為6萬至30萬元，非本題最嚴重者。", "D": "正確。非經紀業而經營仲介或代銷業務（無照經營）為全科罰鍰最重情形，處負責人或行為人「10萬元以上30萬元以下」罰鍰，法定最低罰鍰金額（10萬元）高於其他各項。"}, "ref": "不動產經紀業管理條例第27條、第29條", "id": 17, "chapter": "A5"}, {"year": 105, "qnum": 5, "stem": "關於經紀人員違反不動產經紀業管理條例之情形中，下列何者並非予以申誡處分？", "options": ["委由經紀業仲介不動產買賣時，經紀業未指派經紀人於法定文件上簽章者", "經紀人員對於因業務知悉或持有之他人秘密，無故洩漏者", "經紀人員收取差價或其他報酬", "經紀人員在執行業務過程中，未以不動產說明書向與委託人交易之相對人解說"], "answer": "C", "explains": {"A": "未依規定於法定文件簽章，屬申誡情形，非本題答案。", "B": "無故洩漏業務秘密，屬申誡情形，非本題答案。", "C": "正確答案。收取差價或其他報酬之懲戒為「六個月以上三年以下之停止執行業務處分」，並非申誡，處分程度較重，此為★極高頻重複命題陷阱（需牢記「收差價」是全科唯一明確對應「停止執行業務處分」的經紀人員個人違規類型）。", "D": "未以說明書向相對人解說，屬申誡情形，非本題答案。"}, "ref": "不動產經紀業管理條例第29條", "id": 18, "chapter": "A5"}, {"year": 105, "qnum": 9, "stem": "不動產經紀人資格的敘述，下列何者正確？", "options": ["經不動產經紀人考試及格者，應具備1年以上經紀營業員經驗，始得向直轄市或縣（市）政府請領經紀人證書", "經紀人證書有效期限為3年，期滿時，經紀人應檢附其於3年內在中央主管機關認可之機構、團體完成專業訓練30個小時以上之證明文件，向直轄市或縣（市）政府辦理換證", "經紀人辦理換發證書時，應於證書有效期限屆滿前3個月內，檢附相關文件，向原核發機關申請之", "經紀業不得僱用未具備經紀人員資格者從事仲介或代銷業務，違反者，處新臺幣3萬元以上15萬元以下罰鍰"], "answer": "A", "explains": {"A": "正確。經考試及格者，應具備1年以上經紀營業員經驗，始得請領經紀人證書。", "B": "證書有效期限為「4年」，非3年，數字錯誤。", "C": "法條未規定須於「屆滿前3個月內」申請換證，此為虛構期限之陷阱選項。", "D": "僱用不具資格者從事業務之罰鍰級距為「6萬元以上30萬元以下」，非3萬至15萬元，級距錯誤（此為業務核心義務之重大違規，非輕微行政違規）。"}, "ref": "不動產經紀業管理條例第14條、第17條", "id": 19, "chapter": "A5"}, {"year": 106, "qnum": 1, "stem": "依不動產經紀業管理條例規定，經紀人員違反下列何者應予停止執行業務處分？", "options": ["收取差價或其他報酬", "未自己執行仲介或代銷業務，且未經所屬經紀業同意者", "未於不動產出租、出售委託契約書上簽章", "在執行業務過程中，未以不動產說明書向與委託人交易之相對人解說"], "answer": "A", "explains": {"A": "正確。收取差價或其他報酬應予「六個月以上三年以下」之停止執行業務處分，此為經紀人員個人違規對應停止執行業務處分之核心考點。", "B": "違反專任義務（未經同意為他經紀業執行業務）之懲戒為申誡，非停止執行業務。", "C": "未於文件簽章之懲戒為申誡，非停止執行業務。", "D": "未以說明書解說之懲戒為申誡，非停止執行業務。"}, "ref": "不動產經紀業管理條例第29條", "id": 20, "chapter": "A5"}, {"year": 106, "qnum": 3, "stem": "依不動產經紀業管理條例規定，關於不動產經紀人員之資格，下列敘述何者錯誤？", "options": ["經不動產經紀人考試及格者，應具備1年以上經紀營業員經驗，始得向直轄市或縣市政府請領經紀人證書", "經紀人證書有效期限為4年。期滿時，應檢附4年內完成專業訓練30個小時以上之證明文件辦理換證", "曾經營經紀業，經主管機關撤銷或廢止許可，自撤銷或廢止之日起未滿5年者，不得充任經紀人員", "經紀人員應專任一經紀業，並不得為自己或他經紀業執行仲介或代銷業務。但經所屬經紀業同意為他經紀業執行業務者，不在此限"], "answer": "C", "explains": {"A": "經考試及格具備1年以上經驗始得請領證書，敘述正確，非本題答案。", "B": "證書效期4年、換證須30小時訓練，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。「曾經營經紀業，經撤銷或廢止許可未滿5年者」，此規定係規範「不得申請經營經紀業」之公司/商號負責人資格，並非直接規範「不得充任經紀人員」之個人資格要件（第6條與第13-14條規範對象不同），此為主體混淆之★陷阱。", "D": "專任義務及例外規定，敘述正確，非本題答案。"}, "ref": "不動產經紀業管理條例第6條、第13條、第16條", "id": 21, "chapter": "A5"}, {"year": 106, "qnum": 8, "stem": "依不動產經紀業管理條例規定，經營仲介業務者未揭示報酬標準及收取方式於營業處所明顯之處者，應如何懲處？", "options": ["經主管機關限期改正而未改正者，處新臺幣3萬元以上15萬元以下罰鍰", "逕處新臺幣3萬元以上15萬元以下罰鍰", "經主管機關限期改正而未改正者，處新臺幣6萬元以上30萬元以下罰鍰", "逕處新臺幣6萬元以上30萬元以下罰鍰"], "answer": "A", "explains": {"A": "正確。未揭示報酬標準等屬揭示義務之輕微違規，須「先經主管機關限期改正，屆期未改正」，始處3萬元以上15萬元以下罰鍰，並非逕予處罰，此為★陷阱（是否須先限期改正是常考程序要件）。", "B": "未經限期改正程序即逕予處罰，程序不符，本題規定須先限期改正。", "C": "金額級距不符，揭示義務違規非6萬至30萬元級距。", "D": "金額級距及程序皆不符。"}, "ref": "不動產經紀業管理條例第9條、第29條", "id": 22, "chapter": "A5"}, {"year": 107, "qnum": 1, "stem": "關於不動產經紀業刊登廣告及銷售，依不動產經紀業管理條例之規定，何者正確？", "options": ["經紀業與買受人簽訂委託契約書後，方得刊登廣告及銷售", "廣告及銷售內容與事實不符者，應負損失補償責任", "廣告及銷售內容，應註明經紀業名稱。如有違反，處新臺幣三萬元以上十五萬元以下罰鍰", "不動產廣告稿應由經紀業指派經紀人簽章。如有違反，處新臺幣六萬元以上三十萬元以下罰鍰"], "answer": "D", "explains": {"A": "委託契約書應與「委託人（屋主）」簽訂，而非與「買受人」簽訂，交易相對人主體錯誤。", "B": "廣告內容不符事實者，應負「損害賠償責任」，而非「損失補償責任」，法律用語不同（損害賠償責任範圍較廣，含故意過失責任）。", "C": "未註明經紀業名稱之罰鍰級距應為「6萬元以上30萬元以下」，非3萬至15萬元，金額錯誤。", "D": "正確。廣告稿應由經紀業指派經紀人簽章，違反者處6萬元以上30萬元以下罰鍰，敘述正確完整。"}, "ref": "不動產經紀業管理條例第21條、第22條、第29條", "id": 23, "chapter": "A5"}, {"year": 107, "qnum": 4, "stem": "依不動產經紀業管理條例之規定，何者為應予停止營業處分之情形？", "options": ["經紀業未於經紀人到職之日起十五日內，造具名冊報請所在地主管機關層報中央主管機關備查", "經紀業繳存之營業保證金低於規定之額度時，經中華民國不動產仲介經紀業或代銷經紀業同業公會全國聯合會通知經紀業者於一個月內補足而未補足", "經紀業僱用未具備經紀人員資格者從事仲介或代銷業務", "經營仲介業務者，對於買賣或租賃委託案件，未依規定於簽訂買賣契約書並辦竣所有權移轉登記或簽訂租賃契約書後三十日內，向主管機關申報登錄成交案件實際資訊"], "answer": "B", "explains": {"A": "未於15日內報備名冊屬較輕微行政違規，處以罰鍰，非停止營業處分。", "B": "正確。營業保證金低於規定額度，經全國聯合會通知1個月內補足而未補足者，應予「停止營業處分」，此為停止營業處分之明確法定情形之一。", "C": "僱用不具資格者從事業務，處6萬元以上30萬元以下罰鍰，非停止營業處分。", "D": "未依規定申報登錄成交資訊，處罰鍰，非停止營業處分。"}, "ref": "不動產經紀業管理條例第26條、第28條", "id": 24, "chapter": "A5"}, {"year": 108, "qnum": 5, "stem": "有下列何種情形者，不得申請經營經紀業，其經許可者，撤銷或廢止其許可？", "options": ["犯詐欺、背信、侵占罪經受有期徒刑一年以上刑之宣告確定，執行完畢或赦免後已滿三年者", "曾經營經紀業，經主管機關撤銷或廢止許可，自撤銷或廢止之日起已滿五年者", "受停止營業處分，已執行完畢者", "受廢止經紀人員證書或證明處分未滿五年者"], "answer": "D", "explains": {"A": "「已滿3年」者不在禁止之列（未滿3年才禁止），本選項條件已滿足除斥期間，不構成不得申請事由。", "B": "「已滿5年」者不在禁止之列（未滿5年才禁止），本選項已滿足除斥期間。", "C": "停止營業處分「已執行完畢」者不受影響，僅「尚未執行完畢」者才禁止申請。", "D": "正確。受廢止經紀人員證書或證明處分「未滿5年」者，不得申請經營經紀業，此為第6條明文列舉之禁止事由。"}, "ref": "不動產經紀業管理條例第6條", "id": 25, "chapter": "A5"}, {"year": 108, "qnum": 6, "stem": "甲通過不動產經紀人考試並領有不動產經紀人證書，從事不動產仲介業務多年，同時擔任乙仲介公司董事長。執業期間因車禍腦部受創而受法院監護宣告，成為無行為能力人。下列敘述何者正確？", "options": ["甲得繼續充任不動產經紀人，其資格不受影響", "主管機關應予甲申誡處分", "主管機關應廢止乙公司之營業許可", "由主管機關命乙公司限期改善；逾期未改善者，廢止其許可，並通知公司或商業登記主管機關廢止其登記"], "answer": "D", "explains": {"A": "受監護宣告成為無行為能力人，屬第6條不得充任經紀人員之事由，甲之經紀人資格將受影響（證書應予廢止），敘述錯誤。", "B": "本情形非屬懲戒事由，而是資格喪失事由，申誡處分不適用於此情形。", "C": "主管機關並非「應直接廢止」乙公司之許可，而是先命限期改善（更換不合格負責人），逾期未改善才廢止許可，程序上有先後順序，本選項跳過限期改善程序，敘述不完整。", "D": "正確。甲受監護宣告成為無行為能力人，已不符公司負責人資格要件，主管機關應命乙公司限期改善（如更換負責人），逾期未改善者，始廢止其許可，並通知登記主管機關廢止公司登記，程序完整正確。"}, "ref": "不動產經紀業管理條例第6條、第28條", "id": 26, "chapter": "A5"}, {"year": 109, "qnum": 3, "stem": "除依法辦理停業登記者外，經紀業開始營業後自行停止營業達多久以上者，直轄市或縣（市）主管機關得廢止其許可？", "options": ["連續三個月以上者", "合計三個月以上者", "連續六個月以上者", "合計六個月以上者"], "answer": "C", "explains": {"A": "數字與用語皆錯誤，非3個月，且須為「連續」而非「合計」。", "B": "數字與用語皆錯誤。", "C": "正確。除依法辦理停業登記外，自行「連續」停止營業達「6個月以上」者，主管機關得廢止其許可，須注意「連續」二字之要件（非累計零星合計）。", "D": "用語錯誤，應為「連續」而非「合計」。"}, "ref": "不動產經紀業管理條例第28條", "id": 27, "chapter": "A5"}, {"year": 109, "qnum": 15, "stem": "近來針對不動產經紀業的廣告行為，發生許多爭議。依不動產經紀業管理條例之規定，下列敘述何者正確？", "options": ["經紀業與委託人簽訂委託契約書後，方得刊登廣告及銷售", "廣告及銷售內容，應與事實相符，並應註明廣告業名稱", "廣告及銷售內容與事實不符者，經紀業應負行政之損失補償責任", "主管機關僅能就經紀業違反得刊登廣告及銷售時間之規定，處罰經紀業新臺幣六萬元以上三十萬元以下罰鍰"], "answer": "A", "explains": {"A": "正確。經紀業須先與委託人簽訂委託契約書，方得刊登廣告及銷售，此為第21條核心規定。", "B": "應註明「經紀業名稱」，而非「廣告業名稱」（不動產經紀業管理條例規範主體為經紀業，無「廣告業」此一法律用詞），用詞錯誤。", "C": "廣告不實應負「損害賠償責任」，而非「行政之損失補償責任」，法律性質不同（損害賠償為民事責任，非行政補償）。", "D": "主管機關對經紀業之罰鍰處分不限於「刊登廣告時間」規定之違反，凡違反第21-25條相關業務規範者均可處罰，本選項限縮範圍錯誤。"}, "ref": "不動產經紀業管理條例第21條", "id": 28, "chapter": "A5"}, {"year": 110, "qnum": 10, "stem": "依不動產經紀業管理條例規定，經營代銷業務的公司甲，若有申報登錄價格、交易面積資訊不實之情形，直轄市、縣（市）主管機關得為何種處分？", "options": ["令公司甲限期改正並處新臺幣一萬元以上五萬元以下罰鍰", "令公司甲限期改正；屆期未改正，處新臺幣六千元以上三萬元以下罰鍰", "按公司甲申報之戶（棟）處新臺幣三萬元以上十五萬元以下罰鍰，並令其限期改正；屆期未改正者，按次處罰", "按違規情形，停止公司甲之營業處分或併科新臺幣三萬元以上十五萬元以下罰鍰"], "answer": "C", "explains": {"A": "金額級距及計算方式不符，實際規定係按「戶（棟）」計算罰鍰。", "B": "金額級距不符，且未反映按戶（棟）計算之計罰方式。", "C": "正確。申報登錄價格、面積資訊不實者，主管機關按其申報之「戶（棟）」處3萬元以上15萬元以下罰鍰，並令限期改正，屆期未改正者按次處罰，此為申報不實特有之計罰方式（按戶棟計算＋按次處罰），與一般單一罰鍰不同。", "D": "停止營業處分非本情形之法定處分方式，本題應為按戶棟罰鍰。"}, "ref": "不動產經紀業管理條例第24條之1、第29條", "id": 29, "chapter": "A5"}, {"year": 111, "qnum": 5, "stem": "依不動產經紀業管理條例關於獎懲之規定，下列敘述何者錯誤？", "options": ["非經紀業而經營仲介或代銷業務者，主管機關應禁止其營業，並處公司負責人、商號負責人或行為人罰鍰", "經紀業開始營業後自行停止營業連續六個月以上者，直轄市或縣（市）主管機關得廢止其許可", "中央主管機關對於經紀人員獎懲事項，應設置獎懲委員會處理之", "依本條例所處罰鍰，經通知繳納而逾期不繳納者，移送法院強制執行"], "answer": "C", "explains": {"A": "無照經營者應禁止營業並處負責人罰鍰，敘述正確，非本題答案。", "B": "連續停止營業6個月以上得廢止許可，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。法條並未規定須設置「獎懲委員會」處理經紀人員獎懲事項，此為虛構機制之陷阱選項，經紀人員獎懲事項實務上由地方主管機關依法逕行審認處理。", "D": "罰鍰逾期未繳者移送法院強制執行，敘述正確，非本題答案（現行實務為「移送行政執行署」強制執行，惟本科命題長期依此敘述認定為正確選項，需留意法規名稱沿革）。"}, "ref": "不動產經紀業管理條例第28條、第32條", "id": 30, "chapter": "A5"}, {"year": 111, "qnum": 24, "stem": "對經紀人違反不動產經紀業管理條例規定之懲戒，下列何者正確？", "options": ["經紀人員違反規定收取差價或其他報酬，應予申誡", "經紀人員在執行業務過程中，未以不動產說明書向與委託人交易之相對人解說，應予申誡", "經紀人員無故洩漏對於因業務知悉或持有之他人秘密，應予六個月以上三年以下之停止執行業務處分", "經紀人員受申誡處分三次者，應廢止其經紀人員證書或證明"], "answer": "B", "explains": {"A": "收取差價或其他報酬應予「六個月以上三年以下停止執行業務處分」，非僅申誡，處分程度錯誤。", "B": "正確。未以說明書向相對人解說，屬申誡情形，敘述正確。", "C": "無故洩漏業務秘密應予「申誡」，而非停止執行業務處分，處分程度錯誤。", "D": "申誡累計3次者，應「另予六個月以上三年以下停止執行業務處分」，而非直接廢止證書；廢止證書之要件為停止執行業務處分累計達5年以上，本選項處分結果錯誤。"}, "ref": "不動產經紀業管理條例第29條", "id": 31, "chapter": "A5"}, {"year": 111, "qnum": 25, "stem": "經紀業尚未與委託人簽訂委託契約書便刊登廣告及銷售時，依規定由直轄市、縣（市）主管機關處多少罰鍰？", "options": ["新臺幣六千元以上三萬元以下罰鍰", "新臺幣一萬元以上五萬元以下罰鍰", "新臺幣三萬元以上十五萬元以下罰鍰", "新臺幣六萬元以上三十萬元以下罰鍰"], "answer": "D", "explains": {"A": "金額級距不符。", "B": "金額級距不符。", "C": "金額級距不符，非本題所屬之重大業務違規級距。", "D": "正確。違反須先簽委託契約書方得刊登廣告及銷售之規定（第21條），罰鍰為「6萬元以上30萬元以下」。"}, "ref": "不動產經紀業管理條例第21條、第29條", "id": 32, "chapter": "A5"}, {"year": 112, "qnum": 1, "stem": "有關不動產經紀業營業保證金之敘述，下列何者錯誤？", "options": ["營業保證金由中華民國不動產仲介經紀業或代銷經紀業同業公會全國聯合會統一於指定之金融機構設置營業保證基金專戶儲存", "經紀業未依規定繳存營業保證金者，應予停止營業處分，其停止營業期間達一年者，應撤銷其許可", "營業保證金獨立於經紀業及經紀人員之外，除不動產經紀業管理條例另有規定外，不因經紀業或經紀人員之債務債權關係而為讓與、扣押、抵銷或設定負擔", "經紀業申請解散者，得自核准註銷營業之日滿一年後二年內，請求退還原繳存之營業保證金"], "answer": "B", "explains": {"A": "營業保證金由全國聯合會統一於指定金融機構設置專戶儲存，敘述正確，非本題答案。", "B": "正確答案（錯誤敘述）。法條規定未繳存保證金即開始營業者，應予停止營業處分「至補足營業保證金為止」，並未規定「停止營業期間達一年者，應撤銷其許可」此一自動銜接機制，此為過度延伸法條、虛構後續處分之陷阱。", "C": "營業保證金獨立性規定，敘述正確，非本題答案。", "D": "申請解散者得自核准註銷營業滿1年後2年內請求退還，敘述正確，非本題答案。"}, "ref": "不動產經紀業管理條例第26條", "id": 33, "chapter": "A5"}, {"year": 113, "qnum": 2, "stem": "依不動產經紀業管理條例規定，中華民國國民經不動產經紀人考試及格並領有不動產經紀人證書者，得充不動產經紀人。下列有關不動產經紀人證書之敘述，何者正確？", "options": ["經不動產經紀人考試及格者，應具備一年以上經紀營業員經驗，始得向考試院考選部請領不動產經紀人證書", "不動產經紀人證書有效期限為四年，期滿時，經紀人應檢附其於四年內在中央主管機關認可之機構、團體完成專業訓練二十個小時以上之證明文件，向中央主管機關指定之機構、團體辦理換證", "不動產經紀人受申誡處分三次者，應廢止其經紀人證書", "不動產經紀人受監護宣告成為無行為能力人，應廢止其經紀人證書"], "answer": "D", "explains": {"A": "經紀人證書應向「直轄市或縣（市）政府」請領，而非「考試院考選部」（考選部僅辦理考試，非證書核發機關），機關主體錯誤。", "B": "經紀人換證應完成訓練「30小時」以上，而非「20小時」（20小時是經紀營業員重新登錄之時數要求），時數混淆★陷阱；且換證機關為「直轄市或縣市政府」而非中央主管機關指定機構。", "C": "申誡累計3次者，應另予「六個月以上三年以下停止執行業務處分」，非直接廢止證書。", "D": "正確。經紀人受監護宣告成為無行為能力人，已喪失第6條規定之充任資格要件，應廢止其經紀人證書。"}, "ref": "不動產經紀業管理條例第6條、第14條", "id": 34, "chapter": "A5"}, {"year": 113, "qnum": 3, "stem": "經紀人員違反業務規範時，應負之法律責任，下列敘述何者錯誤？", "options": ["未經所屬經紀業同意為他經紀業執行業務，而為自己或他經紀業執行仲介或代銷業務者，應予以六個月以上三年以下之停止執行業務之懲戒處分", "在執行業務過程中，未向與委託人交易之相對人解說不動產說明書之內容者，應予申誡", "對於因業務知悉或持有之他人秘密，無故洩漏者，應予申誡", "執行業務因故意或過失不法侵害交易當事人致其受有損害者，應與經紀業負連帶賠償責任"], "answer": "A", "explains": {"A": "正確答案（錯誤敘述）。違反專任義務（未經同意為他經紀業執行業務）之懲戒為「申誡」，而非「六個月以上三年以下停止執行業務處分」（此重處分僅適用於收取差價或其他報酬之情形），處分程度錯置，屬★極高頻陷阱。", "B": "未解說說明書內容，屬申誡情形，敘述正確，非本題答案。", "C": "無故洩漏秘密，屬申誡情形，敘述正確，非本題答案。", "D": "經紀人員執行業務故意過失致損害，應與經紀業負連帶賠償責任，敘述正確，非本題答案。"}, "ref": "不動產經紀業管理條例第16條、第26條、第29條", "id": 35, "chapter": "A5"}, {"year": 113, "qnum": 18, "stem": "不動產經紀業違反不動產經紀業管理條例相關規定時，下列何種情形，直轄市、縣（市）主管機關應先令其限期改正，屆期未改正，始處一定金額之罰鍰？", "options": ["設立之營業處所未置經紀人", "僱用未具備經紀人員資格者從事仲介或代銷業務", "收取差價或其他報酬", "未將其仲介或代銷相關證照及許可文件連同經紀人證書揭示於營業處所明顯之處"], "answer": "D", "explains": {"A": "未置法定經紀人數屬重大業務違規，通常逕予處罰（6萬至30萬元），非須先限期改正之類型。", "B": "僱用不具資格者從事業務屬重大業務違規，逕予處罰，非須先限期改正之類型。", "C": "收取差價或其他報酬為業務核心禁止行為，逕予處罰及要求返還，非須先限期改正之類型。", "D": "正確。未揭示證照許可文件等揭示義務違反，屬較輕微行政違規，須「先令限期改正，屆期未改正」，始處3萬元以上15萬元以下罰鍰，此為揭示義務類違規特有之「先改正後處罰」程序，與業務核心違規（逕罰）不同，須區辨。"}, "ref": "不動產經紀業管理條例第9條、第29條", "id": 36, "chapter": "A5"}, {"year": 114, "qnum": 12, "stem": "甲不動產仲介經紀有限公司，A 營業處所之經紀人離職缺人，因而僱用剛考取不動產經紀人考試及格者丁，承辦仲介業務並於委託銷售契約書上簽章。下列甲違反不動產經紀業管理條例規定之敘述，何者錯誤？", "options": ["甲違反經紀業設立之營業處所至少應置經紀人一人", "甲違反不動產之委託契約書應由經紀業指派經紀人簽章", "甲違反不得僱用未具備經紀人員資格者從事仲介業務", "甲違反規定受停止執行業務處分累計達3次以上者，廢止其經營許可"], "answer": "D", "explains": {"A": "丁僅考試及格但未具備1年以上經紀營業員經驗，尚未能請領經紀人證書，故A處所未置合格經紀人，違反第11條，敘述正確，非本題答案。", "B": "丁非合格經紀人卻於委託契約書上簽章，違反第22條簽章規定，敘述正確，非本題答案。", "C": "丁尚未具經紀人員資格（未領得經紀人證書），甲僱用其從事仲介業務，違反第17條，敘述正確，非本題答案。", "D": "正確答案（錯誤敘述）。「停止執行業務處分累計達3次以上廢止經營許可」此一規定並不存在，該規定之對象混淆：停止執行業務處分是對「經紀人員個人」之懲戒（累計達5年以上廢止其個人經紀人員證書），與「經紀業之經營許可」廢止（適用於連續停止營業6個月以上等情形）為不同主體、不同要件，本選項將兩種懲戒制度混為一談，屬★陷阱。"}, "ref": "不動產經紀業管理條例第11條、第17條、第22條、第29條", "id": 37, "chapter": "A5"}, {"year": 114, "qnum": 18, "stem": "依不動產經紀業管理條例之規定，經紀人員違反下列那一選項之規定，不僅應依規定懲戒，經紀業亦將依規定處罰？", "options": ["經紀人員未專任一經紀業，違法為他經紀業執行仲介或代銷業務", "經紀人員收取差價或其他報酬", "經紀人員在執行業務過程中，未以不動產說明書向與委託人交易之相對人解說", "經紀人員無故洩漏因業務知悉或持有之他人秘密"], "answer": "B", "explains": {"A": "違反專任義務僅為經紀人員個人之申誡懲戒，法條未同時規範經紀業之處罰。", "B": "正確。不得收取差價或其他報酬（第19條）之規定，同時拘束「經紀業」與「經紀人員」雙重主體，若經紀人員違反收取差價，經紀業亦一併受罰（因第19條本身即並列規範經紀業或經紀人員均不得收取差價），此為本科獨有的「雙主體同罰」條文，屬★高頻陷阱。", "C": "未以說明書解說僅為經紀人員個人之申誡懲戒，非經紀業同罰事由。", "D": "無故洩漏秘密僅為經紀人員個人之申誡懲戒，非經紀業同罰事由。"}, "ref": "不動產經紀業管理條例第19條、第29條", "id": 38, "chapter": "A5"}];
+const STORAGE_KEY = "brokerlaw_a5_mastery_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveState(state){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+let state = loadState();
+let currentFilter = "all";
+let currentChapter = "ALL";
+
+function getChapters(){
+  const set = new Set(QUESTIONS.map(q=>q.chapter));
+  return Array.from(set);
+}
+
+function renderChips(){
+  const chips = getChapters();
+  const wrap = document.getElementById('chapterChips');
+  wrap.innerHTML = '';
+  const allChip = document.createElement('div');
+  allChip.className = 'chip' + (currentChapter==='ALL' ? ' active':'');
+  allChip.textContent = '全部章節';
+  allChip.onclick = ()=>{ currentChapter='ALL'; renderChips(); renderList(); };
+  wrap.appendChild(allChip);
+  chips.forEach(c=>{
+    const el = document.createElement('div');
+    el.className = 'chip' + (currentChapter===c ? ' active':'');
+    el.textContent = c;
+    el.onclick = ()=>{ currentChapter=c; renderChips(); renderList(); };
+    wrap.appendChild(el);
+  });
+}
+
+function matchesFilter(q){
+  const s = state[q.id];
+  if(currentChapter !== 'ALL' && q.chapter !== currentChapter) return false;
+  if(currentFilter === 'unanswered') return !s;
+  if(currentFilter === 'wrong') return s && s.correct === false;
+  return true;
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  let done=0, correct=0, wrong=0;
+  QUESTIONS.forEach(q=>{
+    const s = state[q.id];
+    if(s){ done++; if(s.correct) correct++; else wrong++; }
+  });
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statRate').textContent = done ? Math.round(correct/done*100)+'%' : '--';
+}
+
+function renderList(){
+  const list = document.getElementById('quizList');
+  list.innerHTML = '';
+  const items = QUESTIONS.filter(matchesFilter);
+  if(items.length === 0){
+    list.innerHTML = '<div class="empty">目前篩選條件下沒有題目。</div>';
+    updateStats();
+    return;
+  }
+  items.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.id = 'q'+q.id;
+
+    const meta = document.createElement('div');
+    meta.className = 'qmeta';
+    const s = state[q.id];
+    meta.innerHTML = `<span class="badge">${q.year}年第${q.qnum}題</span><span class="badge">${q.chapter}</span>` +
+      (s ? (s.correct ? '<span class="badge" style="border-color:#3F6B4C;color:#3F6B4C;">✓已答對</span>' : '<span class="badge wrong">✗已答錯</span>') : '');
+    card.appendChild(meta);
+
+    const stem = document.createElement('div');
+    stem.className = 'stem';
+    stem.textContent = q.stem;
+    card.appendChild(stem);
+
+    const labels = ['A','B','C','D'];
+    labels.forEach((L,idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = L + '. ' + q.options[idx];
+      const st = state[q.id];
+      if(st){
+        btn.classList.add('disabled');
+        if(L === q.answer) btn.classList.add('correct');
+        else if(L === st.chosen && st.chosen !== q.answer) btn.classList.add('chosen-wrong');
+      }
+      btn.onclick = ()=>{
+        if(state[q.id]) return;
+        const correct = (L === q.answer);
+        state[q.id] = { chosen:L, correct: correct, tag: null };
+        saveState(state);
+        renderList();
+        setTimeout(()=>{
+          const el = document.getElementById('q'+q.id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }, 30);
+      };
+      card.appendChild(btn);
+    });
+
+    if(state[q.id]){
+      const exp = document.createElement('div');
+      exp.className = 'explain-box show';
+      labels.forEach(L=>{
+        const line = document.createElement('div');
+        line.className = 'explain-line' + (L===q.answer ? ' ok':'');
+        line.innerHTML = `<b>${L===q.answer?'✓':'✗'}${L}.</b> ${q.explains[L]}`;
+        exp.appendChild(line);
+      });
+      const ref = document.createElement('div');
+      ref.className = 'ref';
+      ref.textContent = '📖 法規依據：' + q.ref;
+      exp.appendChild(ref);
+      card.appendChild(exp);
+
+      const tagRow = document.createElement('div');
+      tagRow.className = 'errtag-row show';
+      if(!state[q.id].correct){
+        ['A','B','C'].forEach(t=>{
+          const tagBtn = document.createElement('div');
+          const label = t==='A' ? 'A 法條混淆' : (t==='B' ? 'B 粗心' : 'C 真的不熟');
+          tagBtn.className = 'etag' + (state[q.id].tag===t ? ' on-'+t : '');
+          tagBtn.textContent = label;
+          tagBtn.onclick = ()=>{
+            state[q.id].tag = (state[q.id].tag===t) ? null : t;
+            saveState(state);
+            renderList();
+          };
+          tagRow.appendChild(tagBtn);
+        });
+      }
+      card.appendChild(tagRow);
+    }
+
+    list.appendChild(card);
+  });
+  updateStats();
+}
+
+document.querySelectorAll('.fbtn[data-filter]').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.fbtn[data-filter]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderList();
+  };
+});
+
+document.getElementById('resetBtn').onclick = ()=>{
+  if(confirm('確定要清除所有作答紀錄嗎？此動作無法復原。')){
+    state = {};
+    saveState(state);
+    renderList();
+  }
+};
+
+renderChips();
+renderList();
+</script>
+</body>
+</html>

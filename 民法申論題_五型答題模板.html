@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法申論題｜五型答題模板（99-114年16年32題・已修正並還原）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F8F3E9;
+  --paper-dark: #EFE7D6;
+  --paper-darker: #E5DAC2;
+  --ink: #2A2722;
+  --ink-soft: #6b6354;
+  --vermillion: #A8402B;
+  --vermillion-soft: #c2614a;
+  --gold: #BC8A2E;
+  --green: #4C6B43;
+  --blue: #3A5A78;
+  --orange: #C07830;
+  --purple: #6B4C8A;
+  --line: #D9CFB8;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(168,64,43,.04), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(188,138,46,.05), transparent 45%);
+  color: var(--ink);
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.7;
+}
+.app { max-width: 760px; margin: 0 auto; padding: 18px 16px 70px; }
+
+header { text-align: center; margin-bottom: 18px; position: relative; }
+.eyebrow { font-size: .68rem; letter-spacing: .18em; color: var(--ink-soft); font-weight: 700; margin-bottom: 6px; }
+h1 { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 1.5rem; margin: 0 0 4px; letter-spacing: .02em; }
+.subtitle { font-size: .78rem; color: var(--ink-soft); }
+
+.stamp-row { display: flex; justify-content: center; gap: 8px; margin: 14px 0 6px; flex-wrap: wrap; }
+.stamp {
+  position: relative; width: 54px; height: 54px; border-radius: 50%;
+  border: 2.5px solid var(--vermillion); color: var(--vermillion);
+  background: rgba(168,64,43,.04);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; font-family: 'Noto Serif TC', serif; font-weight: 900;
+  transform: rotate(-4deg);
+  transition: transform .25s, background .25s, color .25s, box-shadow .25s;
+  flex-shrink: 0;
+}
+.stamp .num { font-size: 1.05rem; line-height: 1; }
+.stamp .ch { font-size: .55rem; font-weight: 700; margin-top: 1px; letter-spacing: .01em; }
+.stamp .cnt { position: absolute; bottom: -6px; right: -4px; background: var(--gold); color: #fff; font-size: .58rem; font-weight: 800; border-radius: 8px; padding: 1px 5px; font-family: 'Noto Sans TC', sans-serif; }
+.stamp:hover { transform: rotate(-1deg) scale(1.04); }
+.stamp.active { background: var(--vermillion); color: #fff; box-shadow: 0 3px 10px rgba(168,64,43,.35); transform: rotate(0deg) scale(1.07); }
+.stamp::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px dashed transparent; }
+.stamp.active::after { border-color: rgba(168,64,43,.35); }
+
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(42,39,34,.05); }
+
+.type-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.type-head .big-num { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 2.1rem; color: var(--vermillion); line-height: 1; flex-shrink: 0; }
+.type-head .tt { flex: 1; }
+.type-head .tt-name { font-family: 'Noto Serif TC', serif; font-weight: 800; font-size: 1.18rem; }
+.type-head .tt-alias { font-size: .76rem; color: var(--gold); font-weight: 700; margin-top: 1px; }
+.type-head .tt-count { font-size: .72rem; color: var(--ink-soft); margin-top: 3px; }
+.signal-box { background: var(--paper-dark); border-left: 3px solid var(--gold); border-radius: 4px; padding: 8px 12px; font-size: .82rem; margin-bottom: 14px; }
+.signal-box b { color: var(--vermillion); }
+
+.skeleton { margin-bottom: 14px; }
+.skel-title { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .88rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.skel-title::before { content: '萬'; font-size: .7rem; background: var(--ink); color: var(--paper); width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.skel-steps { display: flex; flex-direction: column; gap: 6px; }
+.skel-step { display: flex; align-items: flex-start; gap: 10px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: .84rem; }
+.skel-step .sn { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--vermillion); color: #fff; font-weight: 700; font-size: .76rem; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; }
+
+.pitfall { background: linear-gradient(135deg, rgba(168,64,43,.06), rgba(168,64,43,.02)); border: 1px solid rgba(168,64,43,.25); border-radius: 8px; padding: 10px 12px; font-size: .82rem; margin-top: 4px; }
+.pitfall b { color: var(--vermillion); }
+
+.example-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 10px; }
+.ex-chip { border: 1px solid var(--line); background: var(--paper-dark); border-radius: 16px; padding: 5px 11px; font-size: .74rem; font-weight: 700; cursor: pointer; color: var(--ink-soft); position: relative; }
+.ex-chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ex-chip.prob-red::before { content: '🔴'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.prob-yellow::before { content: '🟡'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.prob-green::before { content: '🟢'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.done { opacity: .55; }
+.ex-chip.done::after { content: '✓'; margin-left: 3px; color: var(--green); font-weight: 900; }
+.ex-chip.active.done::after { color: #9fd99a; }
+
+.flashcard-wrap { perspective: 1400px; margin-bottom: 10px; }
+.flashcard { position: relative; min-height: 300px; border-radius: 14px; cursor: pointer; transition: transform .5s; transform-style: preserve-3d; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.card-face { position: absolute; inset: 0; border-radius: 14px; padding: 20px; backface-visibility: hidden; display: flex; flex-direction: column; box-shadow: 0 3px 12px rgba(42,39,34,.08); overflow-y: auto; }
+.card-front { background: var(--paper-dark); border: 1px solid var(--line); justify-content: center; align-items: center; text-align: center; }
+.card-front .qmeta { font-size: .72rem; color: var(--ink-soft); font-weight: 700; margin-bottom: 10px; letter-spacing: .04em; }
+.card-front .qtitle { font-family: 'Noto Serif TC', serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 12px; }
+.card-front .qbrief { font-size: .86rem; color: var(--ink); }
+.card-front .tap-hint { margin-top: 16px; font-size: .7rem; color: var(--ink-soft); }
+.card-back { background: #fff; border: 1px solid var(--vermillion); transform: rotateY(180deg); }
+.back-row { margin-bottom: 10px; }
+.back-row:last-child { margin-bottom: 0; }
+.back-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .76rem; color: var(--vermillion); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+.back-text { font-size: .85rem; }
+.back-text.conclusion { background: var(--paper-dark); padding: 8px 10px; border-radius: 6px; font-weight: 600; }
+.back-text.trap { color: var(--orange); }
+
+.card-meta-row { display: flex; justify-content: space-between; align-items: center; font-size: .72rem; color: var(--ink-soft); font-weight: 700; margin-bottom: 8px; }
+.progress-bar-wrap { background: var(--paper-dark); border-radius: 6px; height: 6px; overflow: hidden; flex: 1; margin: 0 10px; }
+.progress-bar-fill { background: var(--gold); height: 100%; transition: width .25s; }
+
+.btn-row { display: flex; gap: 8px; margin-top: 4px; }
+button { font-family: 'Noto Sans TC', sans-serif; font-weight: 700; border: none; border-radius: 8px; padding: 10px 14px; font-size: .82rem; cursor: pointer; }
+button:active { transform: scale(.97); }
+.btn-secondary { background: var(--paper-dark); color: var(--ink); border: 1px solid var(--line); flex: 1; }
+.btn-mastered { background: var(--green); color: #fff; flex: 1.3; }
+.btn-mastered.is-mastered { background: var(--ink-soft); }
+
+.quickref-toggle { display: block; width: 100%; text-align: center; background: var(--ink); color: var(--paper); margin-top: 4px; }
+.quickref { display: none; margin-top: 14px; }
+.quickref.open { display: block; }
+.qr-table { width: 100%; border-collapse: collapse; font-size: .76rem; }
+.qr-table th, .qr-table td { border: 1px solid var(--line); padding: 7px 8px; text-align: left; vertical-align: top; }
+.qr-table th { background: var(--paper-dark); font-family: 'Noto Serif TC', serif; }
+.qr-table td.tnum { color: var(--vermillion); font-weight: 800; text-align: center; width: 26px; }
+
+.dist-bars { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.dist-row { display: flex; align-items: center; gap: 8px; font-size: .76rem; }
+.dist-label { width: 92px; flex-shrink: 0; font-weight: 700; }
+.dist-track { flex: 1; background: var(--paper-dark); border-radius: 6px; height: 16px; overflow: hidden; position: relative; }
+.dist-fill { height: 100%; border-radius: 6px 0 0 6px; }
+.dist-num { width: 60px; text-align: right; color: var(--ink-soft); flex-shrink: 0; }
+
+.sop-list { counter-reset: sop; padding: 0; margin: 0; list-style: none; }
+.sop-list li { counter-increment: sop; position: relative; padding: 8px 0 8px 34px; font-size: .84rem; border-bottom: 1px dashed var(--line); }
+.sop-list li:last-child { border-bottom: none; }
+.sop-list li::before { content: counter(sop); position: absolute; left: 0; top: 7px; width: 22px; height: 22px; background: var(--gold); color: #fff; border-radius: 50%; font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .76rem; display: flex; align-items: center; justify-content: center; }
+
+.stats-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
+.stat-chip { background: var(--paper-dark); border: 1px solid var(--line); border-radius: 20px; padding: 5px 11px; font-size: .74rem; font-weight: 600; }
+.stat-chip b { color: var(--vermillion); }
+
+.filter-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+.filter-chip { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 4px 10px; font-size: .7rem; font-weight: 700; cursor: pointer; color: var(--ink-soft); }
+.filter-chip.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+.section-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .92rem; margin-bottom: 10px; border-left: 4px solid var(--vermillion); padding-left: 8px; }
+
+footer { text-align: center; font-size: .68rem; color: var(--ink-soft); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="eyebrow">民法概要・申論題實戰・99-114年16年32題</div>
+    <h1>五型答題模板</h1>
+    <div class="subtitle">看到新題，先判型，骨架就出來了｜32題皆已對照官方PDF核實</div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-chip">已掌握 <b id="statMastered">0</b>/5型</div>
+    <div class="stat-chip">已讀範例 <b id="statRead">0</b>/32題</div>
+  </div>
+
+  <div class="stamp-row" id="stampRow"></div>
+
+  <div class="filter-row" id="filterRow">
+    <div class="filter-chip active" data-f="all">全部</div>
+    <div class="filter-chip" data-f="red">🔴 高機率</div>
+    <div class="filter-chip" data-f="yellow">🟡 中機率</div>
+    <div class="filter-chip" data-f="green">🟢 低機率</div>
+  </div>
+
+  <div class="panel" id="typePanel"></div>
+
+  <button class="quickref-toggle" id="qrToggle">📊 展開五型分布總覽＋速查表</button>
+  <div class="panel quickref" id="quickref">
+    <div class="section-label">五型分布總覽（32題全收錄）</div>
+    <div class="dist-bars" id="distBars"></div>
+    <div class="section-label" style="margin-top:18px;">五型速查表</div>
+    <table class="qr-table" id="qrTable"></table>
+    <div class="pitfall" style="margin-top:12px;">
+      <b>觀察：</b>型一（效力判斷）與型四（多階段審查）合計佔68%，是115年最該優先練熟的兩型。型四又是失分風險最高的類型（漏關卡），建議優先用型四反覆練習「先列大綱」的習慣。
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="section-label">考場實戰SOP（拿到題目後60秒內）</div>
+    <ol class="sop-list">
+      <li>讀題目最後一句問句（不是讀題幹），先框出題目到底問什麼</li>
+      <li>判斷屬於五型中的哪一型（看速查表關鍵字訊號）</li>
+      <li>多階段型 → 立刻在題目空白處列①②③大綱</li>
+      <li>比較辨析型 → 立刻畫一個簡單的左右對照表草稿</li>
+      <li>計算型 → 立刻把題目給的年份/數字圈起來</li>
+      <li>開始寫：定義→法條→涵攝→結論，四段式不變</li>
+    </ol>
+  </div>
+
+  <footer>BrokerX｜民法申論五型答題模板・99-114年16年32題（v4，經PDF編碼問題修正並還原）</footer>
+</div>
+
+<script>
+const TYPES = [
+  {
+    id: 'a', num: '一', ch: '效力判斷型', alias: '一刀流', color: 'var(--vermillion)',
+    signal: '「有效嗎」「效力如何」「誰可以主張權利？」只有一個核心法律行為要判斷效力',
+    steps: ['定義該法律行為／制度', '列出構成要件（法條）', '本題逐一檢驗事實是否符合要件（涵攝）', '下結論：有效／無效／效力未定／得撤銷'],
+    pitfall: '只寫到「效力未定」就停筆，忘記往下走一步判斷善意第三人是否阻斷原所有人的回復請求權。<b>這型幾乎都要走兩階段：原因行為效力 → 是否有第三人介入阻斷。</b>',
+    examples: [
+      { year: '108-一', tag: '借名登記＋無權處分', prob: 'red', brief: '甲借丙名義登記農地，丙出售予不知情之丁並辦理移轉登記，甲能否取回？', def: '依民法第118條，無權利人就權利標的物所為之處分，經有權利人之承認始生效力。', law: '§118無權處分、§759-1善意取得', subsume: '丙以自己名義登記但非真正所有權人，丙就A農地之處分屬無權處分，效力未定；丁不知情且無重大過失，符合§759-1善意取得要件', conclusion: '丁已依§759-1善意取得A農地所有權，甲不得向丁請求返還，僅得依不當得利或侵權行為向丙請求損害賠償。', trap: '忘記分析丁是否善意；以為無權處分當然無效（實為效力未定）；借名登記人丙對外仍是登記名義人，善意第三人丁受§759-1保護不受影響' },
+      { year: '109-二', tag: '時效取得地上權', prob: 'red', brief: '甲有建物所有權但土地遭查封無法登記，逾20年後土地由丁拍得，甲得否主張時效取得地上權？', def: '依民法第832條，稱地上權者，謂以在他人土地之上下有建築物或其他工作物為目的而使用其土地之權。', law: '§832地上權定義、§772準用§769時效取得（20年）、§770（10年善意）', subsume: '甲以行使地上權之意思，和平、公然、繼續占有丁之土地逾20年，符合時效取得要件', conclusion: '甲得請求登記為地上權人，丁不得請求甲拆屋還地。', trap: '寫成「自動取得」地上權（正確：「得請求登記」）；忘記須以「行使地上權之意思」占有，時效取得不是直接取得物權，是取得「請求登記的權利」' },
+      { year: '102-二', tag: '未辦繼承登記之抵押權實行', prob: 'yellow', brief: '甲向乙借款並設定抵押權，乙死亡後其子丙未辦繼承登記，丙得否實行抵押權？759條意涵？', def: '依民法第759條，因繼承、強制執行、徵收、法院之判決或其他非因法律行為，於登記前已取得不動產物權者，非經登記，不得處分其物權。', law: '§759宣示登記、繼承之物權移轉', subsume: '丙因繼承（非法律行為）於乙死亡時已當然取得抵押權；惟依759條後段，未辦繼承登記前，丙「不得處分」該抵押權；「實行抵押權」是否屬於759條所稱之「處分」，多數見解認為非屬處分行為', conclusion: '丙得逕行聲請法院拍賣實行抵押權，僅辦理登記與否影響其能否將抵押權讓與或設定負擔等處分行為。', trap: '誤以為未辦繼承登記就完全不能行使任何權利（759條限制的是「處分」，不是全面禁止行使一切權利）' },
+      { year: '104-一', tag: '居間報酬請求權成立時點', prob: 'yellow', brief: '甲委託乙仲介專任銷售A地，委託期限內乙找到買家丙，但因抵押權未塗銷拖到委託期限後才簽約，乙得否請求服務費？', def: '依民法第565條，稱居間者，謂當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約。', law: '§565居間、§568報酬請求權（契約因媒介而成立時）、誠信原則', subsume: '乙在委託期限內已促成乙丙會面磋商，買賣契約遲未簽訂的原因可歸責於甲（屋主），非乙（仲介）未盡媒介義務；乙的媒介行為與買賣契約最終成立間具有相當因果關係', conclusion: '乙得請求報酬；若委託人故意拖延以規避報酬義務，依誠信原則不應允許脫免給付報酬之義務。', trap: '機械地以「委託期限屆滿即不得請求報酬」作結論，忽略可歸責性與誠信原則的實質判斷' },
+      { year: '104-二', tag: '抵押權＋地上權併存效力', prob: 'yellow', brief: '乙以A素地設定抵押權於甲擔保貸款，同時設定地上權於甲，但地上權未約定地租，效力如何？', def: '依民法第860條，抵押權謂對於債務人或第三人不移轉占有而供擔保之不動產，得就該不動產賣得價金優先受償之權。', law: '§860抵押權定義、§832地上權定義（得無償）、§882抵押權及於地上權', subsume: '抵押權設定：甲乙合意＋登記即生效，敘述完整可成立；地上權「得約定有償或無償」，未約定地租並不影響地上權之有效成立', conclusion: '抵押權與地上權均合法成立，甲同時取得地上權，屬§882「以地上權為抵押權標的」之特殊情形，性質仍分別獨立。', trap: '誤以為「未約定地租」會使地上權不成立或無效（地租並非地上權的必要要素）' },
+      { year: '108-二', tag: '最高限額抵押權代位性', prob: 'yellow', brief: '甲設定最高限額1200萬之抵押權擔保對乙1000萬借款，A屋發生毀損滅失，乙本於代位性得如何行使權利？', def: '最高限額抵押權之擔保範圍限於最高限額內之不特定債權（限於一定法律關係所生債權或票據權利）。', law: '§881-1最高限額抵押權、§881抵押權之代位性（物上代位）', subsume: 'A屋滅失，乙之抵押權因標的物滅失而消滅，但依§881物上代位性，抵押權人就抵押人因滅失得受之賠償或其他利益（如保險金、損害賠償請求權），有同一之權利', conclusion: '乙得就該代位物（保險金等）優先受償。', trap: '誤以為抵押物滅失抵押權當然完全消失而無從求償（忽略代位性的物上代位制度，可以追及到代替物上）' },
+      { year: '109-一', tag: '夫妻財產制＋無權處分', prob: 'yellow', brief: '甲乙未約定夫妻財產制，婚後甲出資購買A屋登記在乙名下，協議離婚期間甲擅自賣A屋給丙，效力如何？', def: '依民法第1017條，夫或妻之財產分為婚前財產與婚後財產，由夫妻各自所有。', law: '§1017法定財產制婚後財產各自所有、§118無權處分', subsume: '法定財產制下，財產登記在何人名下即歸該登記名義人所有（不問出資來源）；A屋登記在乙名下，即為乙之婚後財產，甲對A屋無所有權；甲擅自出賣構成無權處分', conclusion: '依§118效力未定，須得乙之承認，若乙不承認則確定無效。', trap: '誤以為「出資的人」就是真正所有權人（法定財產制下財產各自所有以登記為準，不問資金來源，這是常考核心）' },
+      { year: '110-一', tag: '共有土地分割＋抵押權移轉', prob: 'red', brief: '甲乙共有土地，乙之應有部分上先後有丙丁戊三個最高限額抵押權，分割後甲訴請塗銷移轉到自己土地上的抵押權，有無理由？', def: '依民法第824-1條第1項，共有人自共有物分割之效力發生時起，取得分得部分之所有權。', law: '§824-1分割效力、§824-1第2項抵押權移存規則', subsume: '乙應有部分上原有之抵押權，依§824-1第2項，移存於乙分得部分（或依其情形按比例移存於甲乙雙方分得部分）；須注意抵押權人是否「同意分割」「參加訴訟」「經告知未參加」三種情形分別處理', conclusion: '甲訴請塗銷抵押權登記，無理由。', trap: '不知道§824-1的存在；誤以為分割可以讓抵押權當然消滅，這是物權編修正後新增的條文' },
+      { year: '112-一', tag: '靈骨塔永久使用權vs強制執行', prob: 'yellow', brief: '甲向A公司買得靈骨塔某塔位永久使用權，A公司大樓嗣後因強制執行被B公司拍定，甲得否對B公司主張永久使用權？', def: '甲與A公司間的「永久使用權」契約性質上為債權契約（使用權狀僅是債權憑證，非物權），僅具相對效力。', law: '§348買賣效力（債權契約僅有相對效力）、強制執行拍賣的承受範圍', subsume: '甲僅能向A公司主張該債權契約；強制執行拍賣後，B公司基於拍定取得所有權，除法律明文規定特殊承受效果外，原則上不受原所有人與第三人間「債權契約」之拘束', conclusion: '甲對B公司主張永久使用權存在，原則上無理由（除非依特殊法規或法院拍賣公告有特別約定使用權隨同移轉）。', trap: '誤以為「永久使用權」是一種物權（具有對抗第三人的效力），實際上多數實務見解認為此類使用權僅是債權性質，不能對抗拍定人' },
+      { year: '112-二', tag: '居間契約報酬請求權', prob: 'red', brief: 'A仲介促成甲乙買賣，甲給付1000萬服務費，事後甲乙合意解除買賣，甲請求A返還服務費是否有理？', def: '依民法第565條，稱居間者，謂當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約。', law: '§565居間定義、§568報酬請求權（契約因居間人之媒介而成立時）', subsume: 'A之報酬請求權於甲乙間買賣契約成立時即已確定，嗣後甲乙合意解除買賣契約，不影響A已成立之報酬請求權', conclusion: '甲請求返還1000萬服務費，無理由。', trap: '以為「買賣解除→報酬消滅」（錯！報酬在契約成立時即確定，與後來是否解除無關），報酬請求的時點是「契約成立」，不是「契約履行完畢」' }
+    ]
+  },
+  {
+    id: 'b', num: '二', ch: '請求權基礎型', alias: '誰告誰', color: 'var(--blue)',
+    signal: '「甲得向乙請求什麼？」「有無理由？」核心是找出正確的請求權基礎（可能不只一個）',
+    steps: ['先定性兩造之間的法律關係（買賣／租賃／無權占有／不當得利…）', '列出可能的請求權基礎（可以不只一條）', '逐條檢驗要件是否成立', '結論：得依第幾條請求什麼，不得請求什麼'],
+    pitfall: '只找到一個請求權基礎就停（漏寫不當得利，租金部分就回答不完整）。<b>常常是「原物返還＋衍生的金錢請求」兩個基礎並用，缺一不可。</b>',
+    examples: [
+      { year: '100-一', tag: '信賴利益損害賠償', prob: 'green', brief: '契約因故未能有效成立，相對人因信賴契約有效而支出之費用（締約費用等），得否請求賠償？', def: '信賴利益是指相對人「相信契約有效」卻因故未生效，所受之損害（如締約費用），無單一條文完整定義，須列舉相關條文。', law: '§91、§110、§247、§245-1', subsume: '依個案情形檢驗是否符合相關條文之要件，例如§91（意思表示錯誤撤銷之損害賠償）、§110（無權代理人對善意相對人之損害賠償）、§245-1（締約過失責任）等', conclusion: '符合要件者，得請求賠償所受之信賴利益損害（以不超過履行利益為限）。', trap: '誤以為信賴利益有單一明確條文（須視個案情形列舉適用之條文，無法僅引用一條）' },
+      { year: '107-一', tag: '債權人代位請求取得土地', prob: 'red', brief: '甲將土地出賣於乙，乙未受領交付亦未辦理移轉登記即轉賣於丙，丙得如何行使權利取得該土地所有權？', def: '依民法第242條，債務人怠於行使其權利時，債權人因保全債權，得以自己之名義，行使其權利。', law: '§242債權人代位權、§758登記生效要件', subsume: '丙基於丙乙買賣契約，得請求乙協助辦理移轉登記，惟乙尚未取得所有權，無法直接移轉；乙怠於行使其對甲之請求權時，丙得依§242代位乙向甲請求辦理所有權移轉登記', conclusion: '登記完成後，所有權鏈條為甲→乙→丙依序辦理移轉，丙始終局取得土地所有權。', trap: '誤以為丙可以「跳過」乙直接向甲請求移轉登記給自己（代位權的效果是代位乙向甲請求，移轉登記的對象仍是乙）' },
+      { year: '111-一', tag: '無權代理出租＋所有物返還', prob: 'red', brief: '乙未獲授權擅自以自己名義將甲A屋出租給丙，甲返國後向丙請求返還A屋及租金補償，丙抗辯合法承租，誰有理由？', def: '依民法第767條第1項，所有人對於無權占有或侵奪其所有物者，得請求返還之。', law: '§767所有物返還請求、§179不當得利', subsume: '乙以自己名義出租（非代理），甲丙間無任何法律關係，丙係無權占有A屋；就租金部分，丙受有使用利益而無法律上原因', conclusion: '甲得依§767請求丙返還A屋；就租金補償，甲得依不當得利請求返還相當於租金之利益。', trap: '把乙的行為誤認為「無權代理」（乙是以自己名義出租，不是代理問題）；丙善意支付租金給乙，不影響其對甲的無權占有狀態' },
+      { year: '113-一', tag: '瑕疵擔保＋精神損害賠償', prob: 'red', brief: '乙保證A屋無瑕疵，甲買後發現漏水，得否向乙請求修繕費30萬及精神損害賠償2萬？', def: '依民法第354條第1項，出賣人就買賣標的物之瑕疵，負擔保責任。', law: '§354物之瑕疵擔保、§360故意不告知或保證無瑕疵之損害賠償、§195精神損害賠償', subsume: '乙保證無瑕疵但故意不告知，符合§360要件，得請求修繕費30萬；精神損害賠償依§195須以侵害人格法益為要件，本件漏水僅屬財產上損害', conclusion: '甲得依§360向乙請求修繕費30萬元；惟不得請求非財產上損害賠償2萬元。', trap: '只會寫§354（只能減價/解除），忘記§360（故意不告知可請求損害賠償）才是這題的關鍵，兩條效果不同' }
+    ]
+  },
+  {
+    id: 'c', num: '三', ch: '比較辨析型', alias: '左右開弓', color: 'var(--purple)',
+    signal: '題目明示或暗示要「比較」兩種制度／兩種情形（A vs B），不是單純判斷一件事的效力',
+    steps: ['先各自定義A、B兩個概念', '列出兩者的關鍵差異點（用「同／異」對照，差異點才是得分核心）', '套入本題事實，分別判斷A情形如何、B情形如何', '結論：分別下結論，不要混在一起講'],
+    pitfall: '把A、B寫成兩段各自獨立的申論，沒有明確點出「差異在哪」。<b>分數核心在「差異點」這一段，定義反而是次要的。</b>',
+    examples: [
+      { year: '99-一', tag: '共謀詐欺＋抵押權塗銷', prob: 'yellow', brief: '甲乙共謀，甲詐欺丙使丙賤賣A地予乙，乙再以A地向丁設定抵押權，丙得否向乙請求返還？向丁請求塗銷抵押權？', def: '依民法第92條，因被詐欺而為意思表示者，表意人得撤銷其意思表示；但第三人詐欺須相對人明知或可得而知，始得撤銷。', law: '§92詐欺撤銷（第三人詐欺須相對人明知或可得而知）、§759-1抵押權登記效力', subsume: '甲是第三人，但乙與甲共謀＝乙明知詐欺事實，丙得依§92撤銷；撤銷後買賣契約及物權行為均溯及無效，乙無權處分人地位；丁是否善意決定抵押權存廢', conclusion: '丙得向乙請求返還A地；丁若善意不知情，依§759-1取得抵押權保護，丙不得請求塗銷；丁若知情則不受保護。', trap: '誤以為第三人詐欺一律不得撤銷（忽略92條但書：相對人明知或可得而知時仍得撤銷）；忘記檢驗丁是否善意' },
+      { year: '100-二', tag: '分別共有vs公同共有比較', prob: 'yellow', brief: '甲乙出資購買A地（分別共有）vs共同繼承B地C屋（公同共有），兩者型態有何不同？應有部分與應繼分有何區別？', def: '分別共有：依§817，數人按應有部分共有一物，得自由處分其應有部分。公同共有：依§827-829，基於公同關係共有一物，無應有部分概念，處分須全體同意。', law: '§817分別共有、§827-829公同共有、§1151遺產公同共有', subsume: 'A地為出資購買成立分別共有，按出資比例享有應有部分，得自由處分；B地C屋因繼承成立公同共有，無應有部分概念，處分須得全體共有人同意', conclusion: '應有部分是對共有物的量化所有權比例可自由處分；應繼分是繼承時應得遺產之比例，是分配遺產的計算基準，兩者不可混淆。', trap: '把應有部分和應繼分混為一談；不知道公同共有「沒有應有部分」這個核心差異' },
+      { year: '101-一', tag: '拋棄債權／抵押權／繼承權之效力比較', prob: 'yellow', brief: '戊對丙之債權設有乙之抵押擔保、丁之連帶保證；甲死亡留有遺產未立遺囑，戊拋棄債權、抵押權，丁拋棄繼承權，效力各如何？', def: '拋棄債權（債務免除）使主債權消滅；拋棄抵押權（從權利）僅使從權利消滅，主債權不受影響；拋棄繼承權須以書面向法院為之。', law: '§343債務免除、§864抵押權之拋棄、§1174拋棄繼承', subsume: '戊拋棄債權：丙債務消滅，從屬之抵押權及保證債務隨主債權消滅而消滅；戊單獨拋棄抵押權：抵押權消滅，但債權本身不消滅；丁拋棄繼承權須以書面向法院為之，且溯及繼承開始時生效', conclusion: '三種拋棄方向不同：拋棄主權利使從權利消滅；拋棄從權利不影響主權利；拋棄身分權（繼承權）適用獨立規則須法院為之。', trap: '誤以為拋棄抵押權會使主債權也消滅（抵押權是從權利，拋棄從權利不影響主債權，但拋棄主債權會使從權利消滅，兩者方向不同）' },
+      { year: '102-一', tag: '共有出租vs修繕比較', prob: 'yellow', brief: '甲乙丙共有房屋，甲出租於丁，又僱工修復門窗交付丁使用，出租契約效力？乙丙得否向丁主張返還？修繕需經乙丙同意嗎？', def: '出租屬「管理行為」，原則上應經多數決或全體同意；修繕（保存行為）依§820第5項，各共有人均得單獨為之。', law: '§820共有物管理、§821共有人對第三人之請求權', subsume: '出租非單獨保存行為，甲未經乙丙同意之出租契約，效力未定或對乙丙不生效力；乙丙依§821得請求丁返還房屋於全體共有人；修繕門窗屬保存行為，不須得乙丙同意', conclusion: '出租契約對乙丙不生效力，乙丙得請求丁返還；修繕行為甲得單獨為之，不需乙丙同意——兩種行為性質不同，結論也不同。', trap: '把「出租」（管理行為，原則須經同意）與「修繕」（保存行為，得單獨為之）混為一談，這是本題的核心區分點' },
+      { year: '103-一', tag: '詐欺撤銷vs脅迫撤銷之比較', prob: 'red', brief: '甲被乙詐欺賣房並移轉登記，甲僅撤銷債權行為vs同時撤銷債權物權行為，法律關係如何？詐欺vs脅迫撤銷效力有何不同？', def: '依民法第92條第1項，因被詐欺或脅迫而為意思表示者，表意人得撤銷其意思表示；惟詐欺撤銷不得對抗善意第三人，脅迫撤銷則無此限制。', law: '§92詐欺脅迫撤銷、§92第2項詐欺不得對抗善意第三人', subsume: '僅撤銷債權行為：物權行為仍有效，乙仍是合法所有人，甲僅得依不當得利請求差額；同時撤銷債權及物權行為：物權溯及消滅，甲得依§767請求返還', conclusion: '詐欺撤銷「不得對抗善意第三人」（§92第2項），脅迫撤銷則無此限制，得對抗任何第三人（包括善意第三人）。', trap: '忘記詐欺與脅迫在「能否對抗善意第三人」上的差異，這是本題最後一問的核心' },
+      { year: '107-二', tag: '消滅時效vs除斥期間', prob: 'red', brief: '甲有登記之A地及未辦保存登記之B屋，於92年被乙擅自占用，107年才向乙請求返還，乙抗辯時效消滅，有無理由？', def: '消滅時效得因請求、承認等事由中斷；除斥期間為不變期間，不能中斷。', law: '§125消滅時效15年、釋字107號已登記不動產回復請求權不適用時效', subsume: 'A地已登記，依釋字107號，所有物返還請求權不適用消滅時效規定；B屋未辦保存登記，仍適用一般消滅時效規定（15年），自92至107年已逾15年', conclusion: '乙之抗辯就A地部分無理由，就B屋部分有理由——已登記與未登記不動產須分別論述。', trap: '不知道「已登記」與「未登記」不動產適用消滅時效規則完全不同，須分別論述' }
+    ]
+  },
+  {
+    id: 'd', num: '四', ch: '多階段審查型', alias: '過五關', color: 'var(--orange)',
+    signal: '題目事實複雜，牽涉好幾個法律關係環環相扣，必須按時間／邏輯順序一關一關檢驗',
+    steps: ['列出本題涉及的所有法律關係環節（用①②③編號，先列大綱再寫）', '第一關判斷：依時間順序，先處理最前端的法律行為效力', '第二關判斷：在第一關結論基礎上，檢驗後續行為／物權變動是否受影響', '總結論：把每一關的結論串起來，講清楚最終法律狀態'],
+    pitfall: '沒有先列大綱就下筆，寫到一半邏輯打結、漏掉某一關。<b>考前必須養成「先在題目旁邊列①②③再開始寫」的習慣</b>，113-二是公認最難的一題，就是這個原因。',
+    examples: [
+      { year: '101-二', tag: '出典＋買賣＋押租金歸屬', prob: 'green', brief: '甲將A地出租於乙，租賃存續中甲將A地出典於丙後又賣與丁並完成登記，何人得對乙收取租金？何人應返還押租金？', def: '依民法第917-1條，典權人有典物之使用收益權，原租賃關係之出租人地位隨同移轉予典權人。', law: '§425買賣不破租賃、§911典權定義、§917-1出租人地位移轉', subsume: '①出典後，典物使用收益權移屬典權人丙，丙取得出租人地位，得向乙收取租金 ②嗣後丁因買賣取得所有權，但典權存在期間丙仍保有典物使用收益權，丁須繼受出典關係 ③押租金返還義務人原則上隨出租人地位移轉而移轉，應由實際終止租約時之出租人返還', conclusion: '丙於出典期間為收租人及押租金返還義務人；丁取得所有權後須繼受出典關係，待典權消滅後始回復完整出租人地位。', trap: '忽略「出典」後出租人地位移轉給典權人這個關卡，誤以為甲始終是收租人；混淆典權與抵押權（典權人有占有使用權，抵押權人無）' },
+      { year: '103-二', tag: '分割共有物＋抵押權移轉＋補償金保障', prob: 'yellow', brief: '甲乙共有土地各設定抵押權於丙丁，法院判決分割給甲並命甲補償乙100萬，乙之補償金債權有何保障？丁之抵押權如何處理？', def: '依民法第824-1條第3項，以原物為分配而需以金錢補償者，受補償之共有人就其補償金，對於補償義務人所分得之不動產，有法定抵押權。', law: '§824-1第3項法定抵押權、§824-1第2項抵押權移存規則', subsume: '①乙之補償金債權，依§824-1第3項，對甲分得之土地有法定抵押權保障 ②丁原在乙應有部分上的抵押權，依§824-1第2項移存規則處理：原則上移存於乙分得之部分（若乙分得金錢補償而非實物，則丁之抵押權及於該補償金或依協議處理）', conclusion: '乙之補償金債權受法定抵押權保障；丁之抵押權依移存規則繼續存在，不因分割而消滅。', trap: '不知道824-1第3項「法定抵押權」這個保障乙補償金債權的特殊機制；混淆「移存」與「消滅」' },
+      { year: '105-二', tag: '頂樓加蓋使用權源＋買賣效力', prob: 'yellow', brief: '甲於頂樓平台加蓋鐵皮屋（未辦保存登記），其他區分所有權人未反對，甲出售5樓及鐵皮屋給乙，使用權源為何？買賣契約是否有效？', def: '依民法第826-1條，共有人間就共有物之管理達成分管契約者，於登記後對受讓人或取得物權之人具有效力。', law: '§799區分所有建築物共有部分、§826-1分管契約、§799-1規約效力', subsume: '①甲長期占用屋頂平台未受其他共有人反對，可能成立「默示分管契約」作為其占用之使用權源 ②鐵皮屋為違章建築（未辦保存登記），雖無法辦理移轉登記，但其「事實上處分權」得作為交易客體 ③買賣契約（債權契約）本身有效成立，甲僅得將鐵皮屋之事實上處分權讓與乙', conclusion: '甲乙間買賣契約有效成立；乙無法取得鐵皮屋之所有權，僅取得事實上處分權及默示分管契約之使用權源（若對後手生效）。', trap: '誤以為違章建築無法交易（債權契約仍有效，僅物權效果受限為事實上處分權之讓與）' },
+      { year: '106-一', tag: '共有出租＋連帶債務追討', prob: 'yellow', brief: '甲乙丙丁共同出資並借款購置公寓，由甲負責付息給戊，甲未經其他人同意出租一樓給娃娃機店，契約效力？戊應如何向四人追討借款？', def: '出租為管理行為，依§820第1項原則應經共有人多數決同意；可分債務原則上按比例分擔，連帶債務須有特約或法律規定。', law: '§820共有物管理、§271可分債務、連帶債務之成立須有特約或法律規定', subsume: '①出租部分若未經其他共有人三分之二以上同意，依§820第1項多數決規定，效力可能對其他共有人不生效力 ②若四人僅是「共同借款」而非「連帶債務人」，依§271，可分債務原則上按比例分擔，戊僅得按各人比例請求', conclusion: '甲未經同意之出租契約對其他共有人不生效力；戊向四人追討借款，原則上僅得按比例分別請求，除非借款契約另有約定連帶責任。', trap: '誤以為共同借款當然是連帶債務（連帶債務須有特約或法律明文規定，不是當然發生）' },
+      { year: '106-二', tag: '限制行為能力人購屋＋海砂屋瑕疵', prob: 'yellow', brief: '甲現年18歲未婚，未經法定代理人同意與乙建設公司簽訂買賣契約並辦理移轉登記，購買500萬元A套房，其後發現海砂屋，得依民法向乙主張何權利？', def: '現行法18歲已為成年（§12已修正），買賣契約及移轉登記均有效成立；出賣人就標的物之瑕疵負擔保責任（§354）。', law: '§12成年（修法後）、§354瑕疵擔保、§360', subsume: '①依現行法，甲18歲已為完全行為能力人，契約及登記均有效成立（注意作答時應依現行法說明，不適用限制行為能力人之規定） ②海砂屋瑕疵：甲得依§354請求解除契約或減少價金，若乙故意不告知或保證無瑕疵，得依§360請求損害賠償', conclusion: '契約有效成立；甲得依§354或§360向乙主張瑕疵擔保相關權利。', trap: '忽略18歲成年制修法後對本題的影響；混淆§354及§360的請求權基礎與效果差異' },
+      { year: '110-二', tag: '通謀虛偽＋繼承人善意取得', prob: 'red', brief: '甲為避債與乙通謀虛偽買賣A地並移轉登記，乙死亡，子女丙丁辦妥繼承登記，甲向丙丁請求塗銷登記返還，有無理由？', def: '依民法第87條，表意人與相對人通謀而為虛偽意思表示者，其意思表示無效。', law: '§87通謀虛偽無效、§1147繼承因死亡開始、§759宣示登記、§759-1善意取得保護', subsume: '①甲乙間通謀虛偽買賣無效，乙自始未真正取得A地所有權 ②惟乙已辦妥移轉登記，丙丁因繼承於乙死亡時即已當然取得登記名義上之物權 ③丙丁是否受§759-1善意取得保護，取決於丙丁對甲乙間通謀虛偽是否善意不知情', conclusion: '若丙丁善意不知通謀虛偽之事，受§759-1保護，甲不得請求返還；若丙丁知情，不受保護，甲得請求塗銷登記。', trap: '誤以為繼承人當然「概括承受」不實登記的瑕疵而不適用善意取得保護（繼承人本身若善意不知，仍可受759-1保護）' },
+      { year: '111-二', tag: '相鄰關係工程車使用＋越界建築', prob: 'yellow', brief: '甲建商辦大樓，僅B地有空間供工程車迴旋，B地所有人乙拒絕；C地所有人丙返國發現建物越界2平方公尺，主張拆屋還地，甲應如何主張及負責？', def: '依民法第791條，土地所有人因建築或修繕房屋有使用鄰地之必要者，得請求使用鄰地，但應支付償金。', law: '§791鄰地使用權、§796越界建築（非因故意重大過失＋鄰地所有人未即時異議）', subsume: '①甲得依§791請求使用乙之B地為工程車迴旋空間，但應支付償金，乙不得拒絕 ②越界建築部分：須符合「非因故意或重大過失」及「鄰地所有人未即時提出異議」兩要件才不得請求拆除；丙返國始發現，已逾相當時間未即時異議', conclusion: '甲得使用B地（須付償金）；依§796，丙不得請求拆除，僅得請求甲以相當價額購買越界部分土地或請求償金。', trap: '忘記§791鄰地使用權「仍須支付償金」；混淆§796「非因故意重大過失」與「未即時異議」兩個要件須同時具備' },
+      { year: '113-二', tag: '委託銷售＋居間報酬＋無權處分定金', prob: 'red', brief: '乙仲介甲丙簽約，保管100萬定金，丙違約後乙未得甲同意退還定金，乙得否向甲請求服務報酬？', def: '本題甲乙間就A廠房土地委託銷售，兼具居間（§565）及委任（§528）之性質。', law: '§565居間、§568報酬、§535受任人善良管理人之注意義務、§248定金、§118無權處分', subsume: '①甲乙法律關係定性為居間＋委任 ②買賣契約已成立，乙報酬請求權原則確定 ③乙擅自退還定金，違反受任人義務（§535），可能需另負損害賠償責任', conclusion: '就報酬部分，買賣契約已成立，乙原則上得請求服務報酬；惟乙違反受任人義務擅自退還定金，甲得主張乙違約損害賠償，兩個爭點分開計算。', trap: '把兩個問題（報酬是否確定、退還定金的法律效果）混在一起寫，架構不清——這是32題中最複雜的一題，須拆成兩個獨立爭點分析' },
+      { year: '114-一', tag: '默示分管契約對後手效力', prob: 'red', brief: '甲在屋頂平台增建20多年，其他共有人未反對，後手乙主張拆除返還，誰有理？', def: '依民法第820條第1項，共有物之管理，除契約另有約定外，應由共有人共同決定。', law: '§820共有物管理、§821返還請求、§826-1分管契約對後手效力', subsume: '①縱認甲乙原共有人間已默示成立分管契約，惟默示分管的認定門檻較高，須有客觀事證足認全體共有人有此意思 ②縱使成立，該分管契約未經登記，乙受讓房屋時不知悉亦無可得而知該情事，依§826-1，分管契約對乙不生效力', conclusion: '乙得依§821請求甲拆除返還屋頂平台。', trap: '不知道§826-1的登記／知悉要件；以為占用20年就自動成立分管且當然對後手有效，即使分管契約成立，仍須檢驗「對後手是否生效」這一層，兩個關卡分開檢驗' },
+      { year: '114-二', tag: '抵押權＋地上權＋所有權三方優先順序', prob: 'red', brief: '甲先設定抵押權於乙，再設定地上權於丙，後將所有權讓與丁，三方法律關係如何？', def: '依民法第758條，不動產物權之設定，非經登記不生效力，故三人物權成立時點依登記先後定其優先順序。', law: '§758登記生效、§867抵押不因讓與消滅、§866抵押權影響時得除去後次序物權', subsume: '①乙抵押權成立在先，效力最優 ②丙地上權成立在後，丁取得所有權須承受乙抵押權及丙地上權 ③乙實行抵押權時，若地上權有影響，法院得除去丙地上權後拍賣', conclusion: '丁取得所有權後仍須承受乙之抵押權及丙之地上權；乙實行抵押權拍賣時，如丙之地上權影響其受償，法院得除去丙之地上權後拍賣。', trap: '以為丁取得所有權後原有物權消滅；搞混各物權設定順序與效力強弱' }
+    ]
+  },
+  {
+    id: 'e', num: '五', ch: '計算量化型', alias: '算到底', color: 'var(--green)',
+    signal: '題目雖然問的是法律問題，但答案需要落到具體數字、期限、比例上',
+    steps: ['定義相關制度', '列出計算／期限規則的法條', '代入本題具體數字或時間軸計算', '結論：給出明確的數字／期限結果，並說明法律效果'],
+    pitfall: '只寫法條規則，沒有真的把題目給的年份代入算出結果。<b>閱卷最容易給分的地方就是看你有沒有「算出數字」，光講規則不代入等於沒寫完。</b>',
+    examples: [
+      { year: '99-二', tag: '同時遇難繼承應繼分計算', prob: 'yellow', brief: '甲乙戊同車同時死亡，甲遺產600萬如何繼承？丙曾向庚借款後拋棄繼承，庚得否依詐害債權撤銷？', def: '依民法第11條，二人以上同時遇難，不能證明其死亡之先後時，推定其為同時死亡。', law: '§11同時死亡推定互不繼承、§1138法定繼承順序、§1174拋棄繼承、§1175拋棄效力溯及、§244債權人撤銷權範圍', subsume: '①甲乙戊同時死亡，互不繼承 ②甲遺產由丙丁（子女，第一順序）及代位繼承人（戊之子女代位戊之應繼分）繼承，依比例代入計算600萬之分配 ③拋棄繼承屬「身分行為」，非244條所稱「財產上之無償行為」，不適用債權人撤銷權', conclusion: '依§1138、§1140代位繼承規則代入應繼分計算後分配600萬遺產；拋棄繼承不適用一般債權人撤銷權制度，庚不得撤銷。', trap: '誤以為拋棄繼承可被244條撤銷（拋棄繼承是身分行為的性質決定，不適用一般債權人撤銷權制度）' },
+      { year: '105-一', tag: '消滅時效＋抵押權塗銷', prob: 'red', brief: '甲向乙借款並設定抵押權，逾20年未清償，甲死亡後繼承人丙發現抵押權，主張債權及抵押權均已罹於時效消滅，請求塗銷，有無理由？', def: '一般債權消滅時效15年（§125），抵押權有§880特殊5年緩衝規則。', law: '§125一般時效15年、§880抵押權時效完成後5年實行期限、§145抵押權不因主債權時效消滅而當然消滅', subsume: '借款債權罹於15年消滅時效，債務人得拒絕給付（§144僅生抗辯權，債權不當然消滅）；依§880，抵押權擔保之債權已罹於時效，抵押權人若於消滅時效完成後5年內不實行抵押權，抵押權才消滅；需依題目實際年數逐一計算「時效完成後」是否已逾5年', conclusion: '若已逾5年，抵押權消滅，丙之請求有理由；若未逾5年，抵押權尚未消滅，丙之請求無理由——須代入題目實際年數計算後明確下結論。', trap: '誤以為主債權時效完成，抵押權當然立即消滅（須注意880條額外的5年緩衝期）' }
+    ]
+  }
+];
+
+const STORAGE_KEY = 'civlaw_essay_template_mastery_v4';
+let mastery = {};
+let currentType = 0;
+let currentEx = 0;
+let flipped = false;
+let probFilter = 'all';
+
+async function loadMastery() {
+  try {
+    const r = await window.storage.get(STORAGE_KEY);
+    mastery = r && r.value ? JSON.parse(r.value) : {};
+  } catch (e) { mastery = {}; }
+}
+async function saveMastery() {
+  try { await window.storage.set(STORAGE_KEY, JSON.stringify(mastery)); }
+  catch (e) { console.error('storage save failed', e); }
+}
+
+function exKey(typeId, idx) { return typeId + '_' + idx; }
+
+function filteredExamples(t) {
+  if (probFilter === 'all') return t.examples.map((ex, i) => ({ ex, i }));
+  return t.examples.map((ex, i) => ({ ex, i })).filter(o => o.ex.prob === probFilter);
+}
+
+function renderStamps() {
+  const row = document.getElementById('stampRow');
+  row.innerHTML = '';
+  TYPES.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'stamp' + (i === currentType ? ' active' : '');
+    div.innerHTML = `<div class="num">${t.num}</div><div class="ch">${t.ch.slice(0,2)}</div><div class="cnt">${t.examples.length}</div>`;
+    div.onclick = () => { currentType = i; currentEx = 0; flipped = false; renderAll(); };
+    row.appendChild(div);
+  });
+}
+
+function renderTypePanel() {
+  const t = TYPES[currentType];
+  const visible = filteredExamples(t);
+  if (visible.length === 0) {
+    // fallback: no examples match filter, show all
+    probFilter = 'all';
+    syncFilterChips();
+  }
+  const list = filteredExamples(t);
+  if (currentEx >= list.length) currentEx = 0;
+
+  const stepsHtml = t.steps.map((s, i) => `<div class="skel-step"><div class="sn">${i+1}</div><div>${s}</div></div>`).join('');
+
+  const exChips = list.map((o, li) => {
+    const key = exKey(t.id, o.i);
+    const isDone = !!mastery[key];
+    return `<div class="ex-chip prob-${o.ex.prob} ${li === currentEx ? 'active' : ''} ${isDone ? 'done' : ''}" data-li="${li}">${o.ex.year}</div>`;
+  }).join('');
+
+  const o = list[currentEx];
+  const ex = o.ex;
+  const key = exKey(t.id, o.i);
+  const state = mastery[key] || null;
+
+  document.getElementById('typePanel').innerHTML = `
+    <div class="type-head">
+      <div class="big-num" style="color:${t.color}">${t.num}</div>
+      <div class="tt">
+        <div class="tt-name">${t.ch}</div>
+        <div class="tt-alias">${t.alias}</div>
+        <div class="tt-count">共 ${t.examples.length} 題</div>
+      </div>
+    </div>
+    <div class="signal-box"><b>辨識特徵：</b>${t.signal}</div>
+
+    <div class="skeleton">
+      <div class="skel-title">萬用骨架</div>
+      <div class="skel-steps">${stepsHtml}</div>
+    </div>
+
+    <div class="pitfall">⚠️ <b>最容易扣分的地方：</b>${t.pitfall}</div>
+
+    <div class="example-bar">${exChips}</div>
+
+    <div class="card-meta-row">
+      <span>${ex.year}｜${ex.tag}</span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${((currentEx+1)/list.length)*100}%"></div></div>
+      <span>${currentEx+1}/${list.length}</span>
+    </div>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+        <div class="card-face card-front">
+          <div class="qmeta">${ex.year}年申論題</div>
+          <div class="qtitle">${ex.tag}</div>
+          <div class="qbrief">${ex.brief}</div>
+          <div class="tap-hint">點擊翻面看四段式範本 →</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="back-row"><div class="back-label">① 定義（開頭句）</div><div class="back-text">${ex.def}</div></div>
+          <div class="back-row"><div class="back-label">② 必背法條</div><div class="back-text">${ex.law}</div></div>
+          <div class="back-row"><div class="back-label">③ 涵攝分析</div><div class="back-text">${ex.subsume}</div></div>
+          <div class="back-row"><div class="back-label">④ 結論</div><div class="back-text conclusion">${ex.conclusion}</div></div>
+          <div class="back-row"><div class="back-label">🪤 陷阱</div><div class="back-text trap">${ex.trap}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" id="prevBtn">← 上一題</button>
+      <button class="btn-mastered ${state === 'mastered' ? 'is-mastered' : ''}" id="masterBtn">${state === 'mastered' ? '✓ 已掌握' : '✅ 標記已掌握'}</button>
+      <button class="btn-secondary" id="nextBtn">下一題 →</button>
+    </div>
+  `;
+
+  document.getElementById('flashcard').onclick = () => {
+    flipped = !flipped;
+    document.getElementById('flashcard').classList.toggle('flipped', flipped);
+    if (!mastery[key]) { mastery[key] = 'read'; saveMastery(); renderStats(); }
+  };
+  document.querySelectorAll('.ex-chip').forEach(c => {
+    c.onclick = (e) => { e.stopPropagation(); currentEx = parseInt(c.dataset.li); flipped = false; renderTypePanel(); };
+  });
+  document.getElementById('prevBtn').onclick = () => { currentEx = (currentEx - 1 + list.length) % list.length; flipped = false; renderTypePanel(); };
+  document.getElementById('nextBtn').onclick = () => { currentEx = (currentEx + 1) % list.length; flipped = false; renderTypePanel(); };
+  document.getElementById('masterBtn').onclick = (e) => {
+    e.stopPropagation();
+    mastery[key] = mastery[key] === 'mastered' ? 'read' : 'mastered';
+    saveMastery();
+    renderTypePanel();
+    renderStats();
+  };
+}
+
+function syncFilterChips() {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.f === probFilter));
+}
+
+document.getElementById('filterRow').addEventListener('click', (e) => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  probFilter = chip.dataset.f;
+  currentEx = 0;
+  flipped = false;
+  syncFilterChips();
+  renderTypePanel();
+});
+
+function renderQuickref() {
+  const coreMap = {
+    a: '兩階段：原因行為效力→是否有善意第三人阻斷',
+    b: '找全部請求權基礎，原物＋金錢常常並存',
+    c: '差異點才是分數核心，不是定義',
+    d: '先列大綱再寫，逐關推進，總結論要串起來',
+    e: '一定要代入數字算出結果，不能只講規則'
+  };
+  let html = '<tr><th>型</th><th>關鍵字訊號</th><th>核心得分點</th></tr>';
+  TYPES.forEach(t => {
+    html += `<tr><td class="tnum" style="color:${t.color}">${t.num}</td><td><b>${t.ch}</b>（${t.examples.length}題）<br><span style="color:var(--ink-soft);font-size:.7rem">${t.signal.split('，')[0]}</span></td><td>${coreMap[t.id]}</td></tr>`;
+  });
+  document.getElementById('qrTable').innerHTML = html;
+
+  const total = TYPES.reduce((s,t)=>s+t.examples.length,0);
+  const distHtml = TYPES.map(t => {
+    const pct = (t.examples.length/total*100).toFixed(0);
+    return `<div class="dist-row">
+      <div class="dist-label" style="color:${t.color}">${t.num}・${t.ch}</div>
+      <div class="dist-track"><div class="dist-fill" style="width:${pct}%;background:${t.color}"></div></div>
+      <div class="dist-num">${t.examples.length}題・${pct}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('distBars').innerHTML = distHtml;
+}
+
+function renderStats() {
+  const totalEx = TYPES.reduce((s,t)=>s+t.examples.length,0);
+  const readCount = Object.keys(mastery).filter(k => mastery[k]).length;
+  const masteredTypes = TYPES.filter(t => t.examples.every((_,ei)=> mastery[exKey(t.id,ei)] === 'mastered')).length;
+  document.getElementById('statRead').textContent = readCount;
+  document.getElementById('statMastered').textContent = masteredTypes;
+}
+
+function renderAll() { renderStamps(); renderTypePanel(); renderStats(); }
+
+document.getElementById('qrToggle').onclick = () => {
+  const qr = document.getElementById('quickref');
+  qr.classList.toggle('open');
+  document.getElementById('qrToggle').textContent = qr.classList.contains('open') ? '📊 收合分布總覽＋速查表' : '📊 展開五型分布總覽＋速查表';
+};
+
+(async function init() {
+  await loadMastery();
+  renderQuickref();
+  renderAll();
+})();
+</script>
+</body>
+</html>
