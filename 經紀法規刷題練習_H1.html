@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規刷題練習｜H1定型化契約規範</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --line:#DDD2BB;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif; line-height:1.6; padding-bottom:60px;
+}
+header{
+  padding:20px 16px 14px; border-bottom:3px double var(--vermillion);
+  background:linear-gradient(180deg,#FBF8F0,var(--paper));
+  position:sticky; top:0; z-index:20;
+}
+h1{
+  font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.35rem;
+  margin:0 0 4px; color:var(--vermillion); letter-spacing:.02em;
+}
+.sub{font-size:.78rem; color:#7a6f5c;}
+.stats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; font-size:.78rem; }
+.stat{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:5px 10px; color:#5a5142; }
+.stat b{color:var(--vermillion);}
+.controls{ max-width:920px; margin:14px auto 0; padding:0 16px; }
+.filter-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.fbtn{
+  border:1.5px solid var(--gold); background:#fff; color:#7a5c1e;
+  padding:7px 14px; border-radius:20px; font-size:.82rem; cursor:pointer;
+  font-family:"Noto Sans TC",sans-serif; transition:.15s;
+}
+.fbtn.active{ background:var(--gold); color:#fff; }
+.fbtn.danger{ border-color:var(--vermillion); color:var(--vermillion); }
+.fbtn.danger.active{ background:var(--vermillion); color:#fff; }
+.chip-row{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; }
+.chip{
+  border:1px solid var(--line); background:#fff; color:#6b6252;
+  padding:4px 11px; border-radius:14px; font-size:.75rem; cursor:pointer;
+}
+.chip.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+main{ max-width:920px; margin:0 auto; padding:14px 16px 40px; }
+.qcard{
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  padding:16px 18px 14px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.qmeta{ font-size:.72rem; color:#9a8f78; margin-bottom:6px; display:flex; gap:8px; align-items:center; }
+.badge{ display:inline-block; font-size:.68rem; padding:1px 7px; border-radius:8px; border:1px solid var(--line); color:#7a6f5c; }
+.badge.wrong{ border-color:var(--vermillion); color:var(--vermillion); background:#FBEDEA;}
+.stem{ font-size:1rem; font-weight:500; margin:4px 0 10px; }
+.opt{
+  display:block; width:100%; text-align:left; padding:9px 12px;
+  margin-bottom:7px; border:1.5px solid var(--line); border-radius:8px;
+  background:#FEFCF7; cursor:pointer; font-size:.9rem; color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+}
+.opt:hover{ border-color:var(--gold); }
+.opt.correct{ border-color:var(--green); background:#EAF3EC; font-weight:700; }
+.opt.chosen-wrong{ border-color:var(--vermillion); background:#FBEDEA; font-weight:700; }
+.opt.disabled{ cursor:default; }
+.explain-box{
+  margin-top:10px; padding:12px 14px; background:#FBF8F0;
+  border-left:3px solid var(--gold); border-radius:6px; font-size:.85rem; display:none;
+}
+.explain-box.show{ display:block; }
+.explain-line{ margin-bottom:6px; }
+.explain-line b{ color:var(--vermillion); }
+.explain-line.ok b{ color:var(--green); }
+.ref{ margin-top:8px; font-size:.75rem; color:#8a7f68; }
+.errtag-row{ margin-top:10px; display:none; gap:6px; }
+.errtag-row.show{ display:flex; }
+.etag{
+  font-size:.72rem; padding:3px 9px; border-radius:12px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; color:#6b6252;
+}
+.etag.on-A{ background:#A8402B; color:#fff; border-color:#A8402B; }
+.etag.on-B{ background:#BC8A2E; color:#fff; border-color:#BC8A2E; }
+.etag.on-C{ background:#3F6B4C; color:#fff; border-color:#3F6B4C; }
+footer{ text-align:center; font-size:.7rem; color:#a49a86; padding:20px 10px 10px; }
+.empty{ text-align:center; color:#9a8f78; padding:40px 0; font-size:.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>不動產經紀相關法規概要｜整批刷題練習</h1>
+  <div class="sub">H1　定型化契約規範（與三大定型化契約之法源連結）｜逐選項解析＋四鍵篩選系統</div>
+  <div class="stats">
+    <span class="stat">總題數：<b id="statTotal">0</b></span>
+    <span class="stat">已作答：<b id="statDone">0</b></span>
+    <span class="stat">答對：<b id="statCorrect">0</b></span>
+    <span class="stat">答錯：<b id="statWrong">0</b></span>
+    <span class="stat">正確率：<b id="statRate">--</b></span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="filter-row">
+    <button class="fbtn active" data-filter="all">顯示全部</button>
+    <button class="fbtn" data-filter="unanswered">只看未作答</button>
+    <button class="fbtn danger" data-filter="wrong">只看答錯</button>
+    <button class="fbtn danger" id="resetBtn">清除作答紀錄</button>
+  </div>
+  <div class="chip-row" id="chapterChips"></div>
+</div>
+
+<main id="quizList"></main>
+
+<footer>
+  📅 最新編輯時間：2026-07-01｜版本 v1.0<br>
+  不動產經紀相關法規概要・H1定型化契約規範（23題）｜BrokerX Project
+</footer>
+
+<script>
+const QUESTIONS = [{"year": 99, "qnum": 18, "stem": "依消費者保護法第 12 條之規定，定型化契約中之條款有下列那種情形時，不屬於推定其顯失公平之情形？", "options": ["條款與其所排除不予適用之任意規定之立法意旨顯相矛盾者", "條款之全部或一部無效或不構成契約內容之一部者", "契約之主要權利或義務，因受條款之限制，致契約之目的難以達成者", "違反平等互惠原則者"], "answer": "B", "explains": {"A": "條款與其所排除任意規定之立法意旨顯相矛盾，屬第12條列舉之推定顯失公平情形之一，非本題答案。", "B": "正確答案。「條款之全部或一部無效或不構成契約內容之一部」係第16條規範之「法律效果」（即部分無效後契約其餘部分是否仍有效之處理方式），而非第12條列舉之「推定顯失公平之原因要件」，此為要件與效果混淆之陷阱。", "C": "契約之主要權利義務因條款限制致契約目的難以達成，屬第12條列舉之推定顯失公平情形之一，非本題答案。", "D": "違反平等互惠原則，屬第12條列舉之推定顯失公平情形之一，非本題答案。"}, "ref": "消費者保護法第12條、第16條", "id": 1, "chapter": "H1"}, {"year": 99, "qnum": 19, "stem": "定型化契約中之定型化契約條款牴觸個別磋商條款之約定時，下列何者正確？", "options": ["定型化契約中之定型化契約條款牴觸個別磋商條款部分無效", "個別磋商條款牴觸定型化契約中之定型化契約條款部分無效", "定型化契約中之定型化契約條款牴觸個別磋商條款時，兩者皆無效", "定型化契約中之定型化契約條款牴觸個別磋商條款時，兩者皆有效，以有利消費者之條款為主"], "answer": "A", "explains": {"A": "正確。定型化契約中之定型化契約條款牴觸個別磋商條款之約定者，「其牴觸部分無效」，即個別磋商條款效力優先，此為個別磋商條款反映當事人真意應優先適用之核心原則。", "B": "應為「定型化契約條款」牴觸部分無效，而非「個別磋商條款」無效，主體方向相反。", "C": "僅牴觸部分之定型化契約條款無效，並非兩者皆無效（個別磋商條款仍屬有效），此為效力範圍認定錯誤。", "D": "法律明定牴觸部分「無效」（非「兩者皆有效」擇一適用），此為效果認定錯誤。"}, "ref": "消費者保護法第15條", "id": 2, "chapter": "H1"}, {"year": 100, "qnum": 31, "stem": "依消費者保護法之規定，下列關於定型化契約之敘述，何者正確？", "options": ["企業經營者與消費者簽訂定型化契約前，皆應有三十日的期間供消費者審閱契約", "主管機關所公告的定型化契約書範本，並不具備法律效力", "企業經營者可在定型化契約中約定免除賠償責任", "違反中央主管機關所公告之定型化契約不得記載事項，其定型化契約無效"], "answer": "B", "explains": {"A": "應為「30日以內」之「合理」期間（依契約性質及複雜程度而定，非一律固定30日），本選項用語過於絕對。", "B": "正確。主管機關公告之定型化契約書「範本」（非「應記載或不得記載事項」）僅供業界參考使用，並不具備強制之法律效力（範本與「應記載或不得記載事項」性質不同，後者始具強制效力），此為範本與法定應記載/不得記載事項之區辨。", "C": "企業經營者對消費者或第三人之損害賠償責任「不得」預先約定限制或免除，本選項方向相反。", "D": "違反不得記載事項者，其「約定」（該特定條款）無效，並非「整份定型化契約」全部無效，效力範圍錯誤（除非該無效部分致契約顯失公平，始依第16條使契約全部無效）。"}, "ref": "消費者保護法第17條", "id": 3, "chapter": "H1"}, {"year": 101, "qnum": 10, "stem": "依消費者保護法規定，下列有關定型化契約之敘述，何者錯誤？", "options": ["定型化契約中之定型化契約條款牴觸個別磋商條款之約定者，其牴觸部分無效", "定型化契約條款如有疑義時，應為有利於企業經營者之解釋", "訂立定型化契約前，應給予三十日以內之合理審閱期", "定型化契約條款未經記載於定型化契約中而依正常情形顯非消費者所得預見者，該條款不構成契約之內容"], "answer": "B", "explains": {"A": "定型化契約條款牴觸個別磋商條款之約定者其牴觸部分無效，敘述正確，非本題答案。", "B": "正確答案（錯誤敘述）。定型化契約條款如有疑義時，應為有利於「消費者」（而非「企業經營者」）之解釋，此為消保法保護弱勢消費者之核心解釋原則，方向相反，全科最高頻陷阱之一。", "C": "訂立定型化契約前應給予30日以內之合理審閱期，敘述正確，非本題答案。", "D": "未經記載且非消費者正常情形所得預見者不構成契約內容，敘述正確，非本題答案。"}, "ref": "消費者保護法第11條", "id": 4, "chapter": "H1"}, {"year": 101, "qnum": 11, "stem": "所謂「企業經營者為與不特定多數消費者訂立同類契約之用，所提出預先擬定之契約條款」，依消費者保護法規定，係指下列何者？", "options": ["個別磋商條款", "預擬契約條款", "定型化契約條款", "合意契約條款"], "answer": "C", "explains": {"A": "個別磋商條款係指契約當事人「個別磋商合意」之契約條款，與本題「預先擬定」之描述相反。", "B": "「預擬契約條款」非本法正式法律用語。", "C": "正確。此為「定型化契約條款」之法定定義：企業經營者為與不特定多數消費者訂立同類契約之用，所提出「預先擬定」之契約條款。", "D": "「合意契約條款」非本法正式法律用語（合意精神較接近個別磋商條款之性質，惟非法定正式用語）。"}, "ref": "消費者保護法第2條", "id": 5, "chapter": "H1"}, {"year": 101, "qnum": 22, "stem": "下列敘述何者為錯誤？", "options": ["直轄市或縣（市）主管機關得選擇特定行業，公告規定其定型化契約應記載或不得記載之事項，違反該公告之定型化契約，其定型化契約條款無效", "定型化契約中之條款違反誠信原則，對消費者顯失公平者，無效", "定型化契約中之定型化契約條款牴觸個別磋商條款之約定者，其牴觸部分無效", "定型化契約中之定型化契約條款，全部或一部無效或不構成契約內容之一部者，除去該部分，契約亦可成立者，該契約之其他部分，仍為有效。但對當事人之一方顯失公平者，該契約全部無效"], "answer": "A", "explains": {"A": "正確答案（錯誤敘述）。得選擇特定行業公告定型化契約應記載或不得記載事項之機關為「中央主管機關」，而非「直轄市或縣（市）主管機關」，機關層級錯誤，此為公告機關層級之★核心陷阱。", "B": "定型化契約條款違反誠信原則對消費者顯失公平者無效，敘述正確，非本題答案。", "C": "定型化契約條款牴觸個別磋商條款之約定者其牴觸部分無效，敘述正確，非本題答案。", "D": "部分無效除去後契約仍可成立者其餘部分仍有效，但對一方顯失公平者契約全部無效，敘述正確，非本題答案。"}, "ref": "消費者保護法第12條、第15條、第16條、第17條", "id": 6, "chapter": "H1"}, {"year": 103, "qnum": 1, "stem": "甲向乙建設公司購買預售屋，並簽訂定型化契約，該契約中有以下條款。試問那一條款符合法律規範？", "options": ["甲的契約審閱期間為四日", "陽台面積應予計價", "甲須繳回原買賣契約書", "約定請求百分之二十五年利率之利息"], "answer": "B", "explains": {"A": "預售屋買賣契約審閱期應「至少5日」，本選項「四日」低於法定下限，不符合規範。", "B": "正確。陽台面積依現行預售屋買賣定型化契約應記載事項規定，「得」計入計價面積（惟計算方式須符合規範，如與主建物比例限制等），此為選項中唯一符合法律規範之敘述。", "C": "要求買方繳回原買賣契約書之條款，剝奪消費者保有契約憑證之權益，構成不得記載事項，屬無效條款。", "D": "約定過高之違約金利率（如年利率25%），顯屬對消費者顯失公平之條款，且可能違反民法或相關法規之利率上限規範，不符合法律規範。"}, "ref": "預售屋買賣定型化契約應記載及不得記載事項", "id": 7, "chapter": "H1"}, {"year": 103, "qnum": 24, "stem": "依消費者保護法規定，下列有關企業經營者之敘述何者正確？", "options": ["企業經營者對消費者或第三人之損害賠償責任，經與消費者個別磋商，得預先約定限制或免除", "輸入商品或服務之企業經營者，視為從事經銷之企業經營者", "從事經銷之企業經營者，就商品所生之損害，與商品製造者連帶負賠償責任。但對於損害之防免已盡相當之注意，或縱加以相當之注意而仍不免發生損害者，不在此限", "從事設計、生產、製造商品或提供服務之企業經營者，違反消費者保護法規定致生損害於消費者，若企業經營者能證明其無過失者，法院得免除其賠償責任"], "answer": "C", "explains": {"A": "損害賠償責任「不得」預先約定限制或免除，縱經個別磋商亦不得為之（此為強制規定，不因磋商方式而排除適用），本選項方向錯誤。", "B": "輸入商品或服務之企業經營者，視為「設計、生產、製造」商品或提供服務之企業經營者（適用嚴格責任標準），而非「經銷」之企業經營者（較低標準），主體適用錯誤。", "C": "正確。經銷之企業經營者就商品所生之損害，與製造者負連帶賠償責任，但已盡相當注意或縱加以相當注意仍不免發生損害者，得免除連帶責任，敘述完整正確。", "D": "設計生產製造者能證明無過失者，法院「得減輕」（而非「得免除」）其賠償責任，程度用語錯誤，此為極高頻重複命題陷阱。"}, "ref": "消費者保護法第7條、第8條、第9條", "id": 8, "chapter": "H1"}, {"year": 104, "qnum": 31, "stem": "依消費者保護法之規定，企業經營者未經邀約而與消費者在其住居所、工作場所、公共場所或其他場所訂立之契約，下列何者屬之？", "options": ["訪問交易", "特種買賣", "定型化契約", "個別磋商契約"], "answer": "A", "explains": {"A": "正確。此為「訪問交易」之法定定義：企業經營者未經邀約而與消費者在其住居所、工作場所、公共場所或其他場所所訂立之契約。", "B": "「特種買賣」非本法正式法律用語（訪問交易與通訊交易合稱可能俗稱特種買賣，惟本法正式用語為訪問交易）。", "C": "定型化契約著重於契約條款之預先擬定性質，非交易發生場所之定義概念，非本題答案。", "D": "個別磋商契約著重於條款經磋商合意之性質，非交易發生場所之定義概念，非本題答案。"}, "ref": "消費者保護法第2條", "id": 9, "chapter": "H1"}, {"year": 104, "qnum": 33, "stem": "依消費者保護法之規定，下列有關定型化契約條款之敘述，何者錯誤？", "options": ["定型化契約中之定型化契約條款牴觸個別磋商條款之約定者，其牴觸部分無效", "定型化契約中之條款違反誠信原則，對消費者顯失公平者，無效", "定型化契約條款如有疑義時，應本平等互惠之原則解釋", "定型化契約條款未經記載於定型化契約中而依正常情形顯非消費者所得預見者，該條款不構成契約之內容"], "answer": "C", "explains": {"A": "定型化契約條款牴觸個別磋商條款其牴觸部分無效，敘述正確，非本題答案。", "B": "定型化契約條款違反誠信原則對消費者顯失公平者無效，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。定型化契約條款如有疑義時，應為有利於「消費者」之解釋（而非「本平等互惠原則」解釋），解釋原則錯誤，此為與101年-10題相同類型之核心陷阱：疑義解釋原則是「有利消費者」，非「平等互惠原則」（平等互惠原則是判斷條款是否顯失公平之另一套標準，非疑義解釋規則）。", "D": "未經記載且非消費者正常情形所得預見者不構成契約內容，敘述正確，非本題答案。"}, "ref": "消費者保護法第11條、第12條、第14條", "id": 10, "chapter": "H1"}, {"year": 105, "qnum": 21, "stem": "甲向乙建設公司購買預售屋，雙方以書面訂立買賣定型化契約，關於本契約可能產生法律爭議之敘述，下列何者錯誤？", "options": ["若契約條款約定買方需繳回契約書，則該條款無效", "若買賣雙方經個別磋商後約定契約審閱期間為20日，但契約定型化條款仍記載「買方享有5日之契約審閱期間」者，該條款牴觸個別磋商條款之部分為無效", "若賣方乙公司於訂約時，突然口頭告知要求甲應同意：「如買方逾期繳交各期預售屋價金時，即視為違約，已繳交之價金不予退還」，甲未置可否仍簽下書面契約。由於契約訂立不限於書面要式，雖然乙之口頭內容未經記載於定型化契約中，但該口頭告知仍構成契約之條款而有效", "若契約條款約定本案預售屋廣告僅供參考，則該條款無效"], "answer": "C", "explains": {"A": "要求買方繳回契約書之條款，剝奪消費者保有契約憑證權益，構成不得記載事項無效，敘述正確，非本題答案。", "B": "定型化契約條款（5日）牴觸個別磋商條款（20日，較有利消費者且經雙方合意）者，牴觸部分無效，個別磋商條款優先適用，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。乙口頭告知之不利條款「未經記載於定型化契約中」，且依正常情形（買方於訂約時倉促口頭被告知、未置可否即簽約）顯「非」消費者「所得預見」，依法該條款「不構成契約之內容」（並非「仍構成契約條款而有效」），本選項方向相反，此為第14條「異常條款不構成契約內容」規定之核心陷阱。", "D": "約定廣告僅供參考之條款，違反廣告內容視為契約內容之強制規定，構成不當免除企業經營者責任之無效條款，敘述正確，非本題答案。"}, "ref": "消費者保護法第14條、第22條", "id": 11, "chapter": "H1"}, {"year": 105, "qnum": 25, "stem": "關於定型化契約審閱期的敘述，下列何者正確？", "options": ["定型化契約條款審閱期如有疑義時，應探求企業經營者之真意，不得拘泥於所用之文字", "企業經營者與消費者訂立定型化契約前，應有10日以內之合理期間，供消費者審閱全部條款內容", "企業經營者以定型化契約條款使消費者拋棄審閱權利者，雖非無效，但消費者得撤銷其意思表示", "違反審閱期規定者，其條款不構成契約之內容。但消費者得主張該條款仍構成契約之內容"], "answer": "D", "explains": {"A": "定型化契約條款疑義應為有利於「消費者」之解釋（而非探求企業經營者之真意），解釋原則主體錯誤。", "B": "合理審閱期上限應為「30日以內」（而非10日以內），數字錯誤。", "C": "企業經營者以定型化契約條款使消費者拋棄審閱權利者，該條款「無效」（而非「雖非無效但得撤銷」），效力判定錯誤，此為程度用語混淆之陷阱。", "D": "正確。違反審閱期規定者，其條款原則上不構成契約內容，但消費者得主張該條款仍構成契約之內容（單方選擇權，保護消費者之彈性設計），敘述正確。"}, "ref": "消費者保護法第11條之1", "id": 12, "chapter": "H1"}, {"year": 106, "qnum": 26, "stem": "下列何者不是消費者保護法第12條所規定推定定型化契約條款顯失公平之情形？", "options": ["契約之主要權利或義務，因受該條款之限制，致契約之目的難以達成者", "條款與其所排除不予適用之任意規定之立法意旨顯相矛盾者", "違反平等互惠原則者", "違反誠信原則者"], "answer": "D", "explains": {"A": "契約主要權利義務受限制致目的難以達成，屬第12條列舉之三款推定情形之一，非本題答案。", "B": "條款與排除任意規定立法意旨顯相矛盾，屬第12條列舉之三款推定情形之一，非本題答案。", "C": "違反平等互惠原則，屬第12條列舉之三款推定情形之一，非本題答案。", "D": "正確答案。「違反誠信原則」本身係第12條第1項「定型化契約中之條款違反誠信原則，對消費者顯失公平者，無效」之「一般性判斷基準」本身，而非第2項「推定」顯失公平之三款「列舉具體情形」之一，此為一般原則與列舉推定情形層次不同之精細陷阱。"}, "ref": "消費者保護法第12條", "id": 13, "chapter": "H1"}, {"year": 106, "qnum": 30, "stem": "依消費者保護法規定，關於定型化契約之審閱期間，下列敘述何者錯誤？", "options": ["應有30日以內之合理審閱期間", "企業經營者以定型化契約條款使消費者拋棄合理審閱期權利者，無效", "違反合理審閱期規定者，該條款無效", "中央主管機關得選擇特定行業，參酌定型化契約條款之重要性等事項，公告定型化契約之審閱期間"], "answer": "C", "explains": {"A": "應有30日以內之合理審閱期間，敘述正確，非本題答案。", "B": "以定型化契約條款使消費者拋棄審閱期權利者無效，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。違反合理審閱期規定者，該條款原則上「不構成契約之內容」（而非「無效」），且消費者「得主張該條款仍構成契約之內容」，此為效力判定用語之精確度陷阱：「不構成契約內容」與「無效」係不同層次之法律效果，「不構成內容」保留消費者選擇主張生效之彈性，「無效」則絕對不生效力，兩者不可混用。", "D": "中央主管機關得選擇特定行業公告定型化契約審閱期間，敘述正確，非本題答案。"}, "ref": "消費者保護法第11條之1", "id": 14, "chapter": "H1"}, {"year": 106, "qnum": 32, "stem": "定型化契約中之定型化契約條款牴觸個別磋商條款之約定者，其牴觸部分？", "options": ["效力未定", "無效", "構成契約之內容", "不得撤銷"], "answer": "B", "explains": {"A": "「效力未定」適用於限制行為能力人未經法定代理人允許之行為等情形，與本題定型化契約牴觸個別磋商條款之情形不符。", "B": "正確。定型化契約條款牴觸個別磋商條款之約定者，其牴觸部分「無效」，個別磋商條款效力優先。", "C": "牴觸部分之定型化契約條款「無效」，並非「構成契約之內容」，方向相反。", "D": "「不得撤銷」非本題情形之法律效果描述，此為虛構用語之陷阱。"}, "ref": "消費者保護法第15條", "id": 15, "chapter": "H1"}, {"year": 108, "qnum": 14, "stem": "定型化契約中之條款可以分為定型化契約條款及個別磋商條款兩種，兩者如果發生不一致情形時，以下何者正確？", "options": ["個別磋商條款具有高於所有定型化契約條款之效力", "由於個別磋商條款，係經過契約當事人個別磋商而合意約定的契約條款，相較於僅由企業經營者所預先擬定的定型化契約條款，更能顯示當事人真意所在，自應優先考量", "如定型化契約條款與個別磋商條款發生牴觸時，定型化契約條款全部無效，其未牴觸部分亦無效", "定型化契約條款牴觸個別磋商條款之約定者，定型化契約無效"], "answer": "B", "explains": {"A": "「具有高於所有定型化契約條款之效力」用語過於絕對籠統，未精確描述僅「牴觸部分」無效之精確法律效果，本選項雖方向正確但論述精確度不足以作為最佳答案。", "B": "正確。個別磋商條款經契約當事人個別磋商合意約定，較能顯示當事人真意，相較於企業經營者單方預先擬定之定型化契約條款，自應優先考量（效力優先），此為個別磋商條款優先原則之立法理由核心闡述，敘述完整正確。", "C": "應僅「牴觸部分」無效（而非「定型化契約條款全部無效」，未牴觸部分仍應有效），效力範圍錯誤。", "D": "應僅「牴觸部分」無效（而非「整份定型化契約無效」），效力範圍錯誤。"}, "ref": "消費者保護法第15條", "id": 16, "chapter": "H1"}, {"year": 110, "qnum": 16, "stem": "依消費者保護法規定，下列有關通訊交易或訪問交易之消費者解除契約之敘述，何者正確？", "options": ["消費者得於收受商品或接受服務後十日內，以退回商品或書面通知方式解除契約，無須說明理由及負擔任何費用", "訪問交易有合理例外情事者，不適用消費者保護法之猶豫期間及解約權規定", "消費者依規定以書面通知解除契約者，除當事人另有個別磋商外，企業經營者應於收到通知之次日起十五日內，至原交付處所或約定處所取回商品", "企業經營者應於取回商品、收到消費者退回商品或解除服務契約通知之日起十五日內，返還消費者已支付之對價"], "answer": "C", "explains": {"A": "猶豫期間應為「七日」（而非十日），數字錯誤，此為與其他期限混淆之陷阱。", "B": "「訪問交易」有合理例外情事者不適用猶豫期間及解約權規定之描述，實際上此類例外規定係適用於「通訊交易」之特定商品類型（如易腐敗、客製化商品等），非泛指「訪問交易」整體之合理例外，本選項主體範圍描述不精確。", "C": "正確。消費者依規定以書面通知解除契約者，除當事人另有個別磋商外，企業經營者應於收到通知之「次日起15日內」，至原交付處所或約定處所取回商品，此為企業經營者取回商品義務之精確期限規定。", "D": "企業經營者應於取回商品等事由發生後「15日內」返還消費者已支付對價之描述，惟本題選項起算點及精確用語與官方標準答案C相比，本題正確答案為C。"}, "ref": "消費者保護法第19條", "id": 17, "chapter": "H1"}, {"year": 110, "qnum": 17, "stem": "定型化契約中之定型化契約條款於下列何種情形下，其條款不構成契約之內容，但消費者得主張該條款仍構成契約之內容？", "options": ["定型化契約條款違反誠信原則，對消費者顯失公平", "定型化契約條款牴觸個別磋商條款之約定", "企業經營者與消費者訂立定型化契約前，未依法提供合理期間，供消費者審閱全部條款內容", "企業經營者以定型化契約條款使消費者拋棄契約審閱權利"], "answer": "C", "explains": {"A": "違反誠信原則顯失公平者，其法律效果為「無效」（絕對不生效力），非「不構成契約內容但消費者得主張生效」之彈性效果，效果類型不同。", "B": "牴觸個別磋商條款者，其牴觸部分為「無效」，非「不構成契約內容但消費者得主張生效」之彈性效果，效果類型不同。", "C": "正確。企業經營者未依法提供合理期間供消費者審閱全部條款內容者，其條款原則上「不構成契約之內容」，但消費者「得主張該條款仍構成契約之內容」，此為審閱期違反規定所特有之彈性法律效果（單方選擇權），與其他違規情形（無效）之效果類型不同，須精確區辨。", "D": "企業經營者以定型化契約條款使消費者拋棄審閱期權利者，該條款直接「無效」，非「不構成契約內容但消費者得主張生效」之彈性效果。"}, "ref": "消費者保護法第11條之1", "id": 18, "chapter": "H1"}, {"year": 111, "qnum": 11, "stem": "企業經營者未經邀約而與消費者在其住居所、工作場所、公共場所或其他場所所訂立之契約，依消費者保護法之規定，屬於下列何者之定義？", "options": ["通訊交易", "定型化契約", "訪問交易", "個別磋商契約"], "answer": "C", "explains": {"A": "通訊交易之定義係「消費者未能檢視商品」而透過廣播電視電話網路等方式訂立之契約，與本題交易「場所」之描述不同。", "B": "定型化契約著重於契約條款預先擬定之性質，非交易場所之定義概念。", "C": "正確。此為「訪問交易」之法定定義：企業經營者未經邀約而與消費者在其住居所、工作場所、公共場所或其他場所所訂立之契約，全科高頻定義。", "D": "個別磋商契約著重於條款磋商合意之性質，非交易場所之定義概念。"}, "ref": "消費者保護法第2條", "id": 19, "chapter": "H1"}, {"year": 111, "qnum": 13, "stem": "中央主管機關得擬訂特定行業定型化契約應記載或不得記載事項。下列應記載或不得記載事項之敘述何者錯誤？", "options": ["中央主管機關公告應記載之事項，雖未記載於定型化契約，仍構成契約之內容", "違反中央主管機關公告之定型化契約應記載或不得記載事項之定型化契約，其定型化契約條款無效", "企業經營者使用定型化契約者，主管機關得隨時派員查核", "不得記載事項得包括預付型交易之履約擔保"], "answer": "D", "explains": {"A": "公告應記載之事項雖未記載於契約仍構成契約內容，敘述正確，非本題答案（此為保護消費者不因企業經營者漏未記載而喪失應有保障之強制規定）。", "B": "違反公告應記載或不得記載事項者其條款無效，敘述正確，非本題答案。", "C": "主管機關得隨時派員查核使用定型化契約之企業經營者，敘述正確，非本題答案。", "D": "正確答案（錯誤敘述）。「預付型交易之履約擔保」屬「應記載事項」之內容範疇（依契約性質及目的，此為保障消費者預付款項安全之積極規定），而非「不得記載事項」，事項類型歸類錯誤，此為應記載事項與不得記載事項混淆之★陷阱（與111年-22題相呼應）。"}, "ref": "消費者保護法第17條", "id": 20, "chapter": "H1"}, {"year": 111, "qnum": 21, "stem": "下列有關定型化契約條款敘述中那幾項是正確的？①企業經營者在定型化契約中所用之定型化契約條款如有疑義時，條款內容應本公平之解釋，不應偏向企業經營者或消費者 ②企業經營者在與消費者訂立定型化契約前，須至少提供三十日以內之合理審閱期間，供消費者審閱全部條款內容 ③企業經營者以定型化契約條款訂定之使消費者拋棄合理審閱期間之條款為有效條款④定型化契約中之主要權利或義務條款，因受條款之限制，致契約之目的難以達成者顯失公平，故為無效。", "options": ["②③", "①③", "②④", "①②④"], "answer": "C", "explains": {"A": "①錯誤：定型化契約條款疑義應為有利於「消費者」之解釋（而非「本公平之解釋不偏向任何一方」），此組合含①故不選；③亦錯誤（詳見下方③說明）。", "B": "①③皆錯誤，此組合不選。", "C": "正確。②企業經營者訂立定型化契約前須提供30日以內合理審閱期，敘述正確；④主要權利義務因條款限制致契約目的難以達成者，屬第12條推定顯失公平情形，故為無效，敘述正確；②④組合正確。", "D": "①錯誤（詳見上述說明），此組合不選。"}, "ref": "消費者保護法第11條、第11條之1、第12條", "id": 21, "chapter": "H1"}, {"year": 112, "qnum": 21, "stem": "依消費者保護法規定，有關定型化契約應記載或不得記載事項之規定，下列何者正確？", "options": ["應公告後報請行政院備查", "中央主管機關為預防消費糾紛，保護消費者權益，促進定型化契約之公平化，得選擇特定行業擬訂之", "違反公告之定型化契約，其定型化契約條款不構成契約之內容。但消費者得主張該條款仍構成契約之內容", "中央主管機關公告應記載之事項，雖未記載於定型化契約，經消費者主張，仍構成契約之內容"], "answer": "B", "explains": {"A": "公告定型化契約應記載或不得記載事項無須另行「報請行政院備查」之額外程序，此為虛構程序之陷阱。", "B": "正確。中央主管機關為預防消費糾紛、保護消費者權益、促進定型化契約之公平化，「得」選擇特定行業擬訂公告其定型化契約應記載或不得記載事項，此為公告制度之立法目的與授權基礎，敘述完整正確。", "C": "違反公告之定型化契約，其條款應為「無效」（不得記載事項違反）或「仍構成契約內容」（應記載事項未記載），非「不構成契約內容但消費者得主張生效」（此彈性效果係適用於「審閱期未提供」之特殊情形，非違反應記載/不得記載事項公告之一般效果），效果類型混淆。", "D": "公告應記載之事項，雖未記載於定型化契約，「當然」（不須經消費者另行主張）仍構成契約之內容，此為強制性保護規定，本選項增加「經消費者主張」之不必要前提條件，屬★陷阱。"}, "ref": "消費者保護法第17條", "id": 22, "chapter": "H1"}, {"year": 113, "qnum": 21, "stem": "下列何者不是定型化契約條款推定顯失公平之情形？", "options": ["違反平等互惠原則者", "條款與其所排除不予適用之任意規定之立法意旨顯相矛盾者", "契約之主要權利或義務，因受條款之限制，致契約之目的難以達成者", "定型化契約中之定型化契約條款牴觸個別磋商條款之約定者"], "answer": "D", "explains": {"A": "違反平等互惠原則，屬第12條列舉之三款推定情形之一，非本題答案。", "B": "條款與排除任意規定立法意旨顯相矛盾，屬第12條列舉之三款推定情形之一，非本題答案。", "C": "契約主要權利義務受限制致目的難以達成，屬第12條列舉之三款推定情形之一，非本題答案。", "D": "正確答案。「定型化契約條款牴觸個別磋商條款之約定」係第15條規範之獨立效果（牴觸部分無效），與第12條「推定顯失公平」之列舉具體情形（三款）屬不同條文、不同判斷體系，此為條文歸類混淆之★陷阱（與99年-18題同類型考點，反覆重複命題）。"}, "ref": "消費者保護法第12條、第15條", "id": 23, "chapter": "H1"}];
+const STORAGE_KEY = "brokerlaw_h1_mastery_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveState(state){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+let state = loadState();
+let currentFilter = "all";
+let currentChapter = "ALL";
+
+function getChapters(){
+  const set = new Set(QUESTIONS.map(q=>q.chapter));
+  return Array.from(set);
+}
+
+function renderChips(){
+  const chips = getChapters();
+  const wrap = document.getElementById('chapterChips');
+  wrap.innerHTML = '';
+  const allChip = document.createElement('div');
+  allChip.className = 'chip' + (currentChapter==='ALL' ? ' active':'');
+  allChip.textContent = '全部章節';
+  allChip.onclick = ()=>{ currentChapter='ALL'; renderChips(); renderList(); };
+  wrap.appendChild(allChip);
+  chips.forEach(c=>{
+    const el = document.createElement('div');
+    el.className = 'chip' + (currentChapter===c ? ' active':'');
+    el.textContent = c;
+    el.onclick = ()=>{ currentChapter=c; renderChips(); renderList(); };
+    wrap.appendChild(el);
+  });
+}
+
+function matchesFilter(q){
+  const s = state[q.id];
+  if(currentChapter !== 'ALL' && q.chapter !== currentChapter) return false;
+  if(currentFilter === 'unanswered') return !s;
+  if(currentFilter === 'wrong') return s && s.correct === false;
+  return true;
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  let done=0, correct=0, wrong=0;
+  QUESTIONS.forEach(q=>{
+    const s = state[q.id];
+    if(s){ done++; if(s.correct) correct++; else wrong++; }
+  });
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statRate').textContent = done ? Math.round(correct/done*100)+'%' : '--';
+}
+
+function renderList(){
+  const list = document.getElementById('quizList');
+  list.innerHTML = '';
+  const items = QUESTIONS.filter(matchesFilter);
+  if(items.length === 0){
+    list.innerHTML = '<div class="empty">目前篩選條件下沒有題目。</div>';
+    updateStats();
+    return;
+  }
+  items.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.id = 'q'+q.id;
+
+    const meta = document.createElement('div');
+    meta.className = 'qmeta';
+    const s = state[q.id];
+    meta.innerHTML = `<span class="badge">${q.year}年第${q.qnum}題</span><span class="badge">${q.chapter}</span>` +
+      (s ? (s.correct ? '<span class="badge" style="border-color:#3F6B4C;color:#3F6B4C;">✓已答對</span>' : '<span class="badge wrong">✗已答錯</span>') : '');
+    card.appendChild(meta);
+
+    const stem = document.createElement('div');
+    stem.className = 'stem';
+    stem.textContent = q.stem;
+    card.appendChild(stem);
+
+    const labels = ['A','B','C','D'];
+    labels.forEach((L,idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = L + '. ' + q.options[idx];
+      const st = state[q.id];
+      if(st){
+        btn.classList.add('disabled');
+        if(L === q.answer) btn.classList.add('correct');
+        else if(L === st.chosen && st.chosen !== q.answer) btn.classList.add('chosen-wrong');
+      }
+      btn.onclick = ()=>{
+        if(state[q.id]) return;
+        const correct = (L === q.answer);
+        state[q.id] = { chosen:L, correct: correct, tag: null };
+        saveState(state);
+        renderList();
+        setTimeout(()=>{
+          const el = document.getElementById('q'+q.id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }, 30);
+      };
+      card.appendChild(btn);
+    });
+
+    if(state[q.id]){
+      const exp = document.createElement('div');
+      exp.className = 'explain-box show';
+      labels.forEach(L=>{
+        const line = document.createElement('div');
+        line.className = 'explain-line' + (L===q.answer ? ' ok':'');
+        line.innerHTML = `<b>${L===q.answer?'✓':'✗'}${L}.</b> ${q.explains[L]}`;
+        exp.appendChild(line);
+      });
+      const ref = document.createElement('div');
+      ref.className = 'ref';
+      ref.textContent = '📖 法規依據：' + q.ref;
+      exp.appendChild(ref);
+      card.appendChild(exp);
+
+      const tagRow = document.createElement('div');
+      tagRow.className = 'errtag-row show';
+      if(!state[q.id].correct){
+        ['A','B','C'].forEach(t=>{
+          const tagBtn = document.createElement('div');
+          const label = t==='A' ? 'A 法條混淆' : (t==='B' ? 'B 粗心' : 'C 真的不熟');
+          tagBtn.className = 'etag' + (state[q.id].tag===t ? ' on-'+t : '');
+          tagBtn.textContent = label;
+          tagBtn.onclick = ()=>{
+            state[q.id].tag = (state[q.id].tag===t) ? null : t;
+            saveState(state);
+            renderList();
+          };
+          tagRow.appendChild(tagBtn);
+        });
+      }
+      card.appendChild(tagRow);
+    }
+
+    list.appendChild(card);
+  });
+  updateStats();
+}
+
+document.querySelectorAll('.fbtn[data-filter]').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.fbtn[data-filter]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderList();
+  };
+});
+
+document.getElementById('resetBtn').onclick = ()=>{
+  if(confirm('確定要清除所有作答紀錄嗎？此動作無法復原。')){
+    state = {};
+    saveState(state);
+    renderList();
+  }
+};
+
+renderChips();
+renderList();
+</script>
+</body>
+</html>

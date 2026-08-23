@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規刷題練習｜G2不動產經紀業廣告查核分工原則</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --line:#DDD2BB;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif; line-height:1.6; padding-bottom:60px;
+}
+header{
+  padding:20px 16px 14px; border-bottom:3px double var(--vermillion);
+  background:linear-gradient(180deg,#FBF8F0,var(--paper));
+  position:sticky; top:0; z-index:20;
+}
+h1{
+  font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.35rem;
+  margin:0 0 4px; color:var(--vermillion); letter-spacing:.02em;
+}
+.sub{font-size:.78rem; color:#7a6f5c;}
+.stats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; font-size:.78rem; }
+.stat{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:5px 10px; color:#5a5142; }
+.stat b{color:var(--vermillion);}
+.controls{ max-width:920px; margin:14px auto 0; padding:0 16px; }
+.filter-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.fbtn{
+  border:1.5px solid var(--gold); background:#fff; color:#7a5c1e;
+  padding:7px 14px; border-radius:20px; font-size:.82rem; cursor:pointer;
+  font-family:"Noto Sans TC",sans-serif; transition:.15s;
+}
+.fbtn.active{ background:var(--gold); color:#fff; }
+.fbtn.danger{ border-color:var(--vermillion); color:var(--vermillion); }
+.fbtn.danger.active{ background:var(--vermillion); color:#fff; }
+.chip-row{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; }
+.chip{
+  border:1px solid var(--line); background:#fff; color:#6b6252;
+  padding:4px 11px; border-radius:14px; font-size:.75rem; cursor:pointer;
+}
+.chip.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+main{ max-width:920px; margin:0 auto; padding:14px 16px 40px; }
+.qcard{
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  padding:16px 18px 14px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.qmeta{ font-size:.72rem; color:#9a8f78; margin-bottom:6px; display:flex; gap:8px; align-items:center; }
+.badge{ display:inline-block; font-size:.68rem; padding:1px 7px; border-radius:8px; border:1px solid var(--line); color:#7a6f5c; }
+.badge.wrong{ border-color:var(--vermillion); color:var(--vermillion); background:#FBEDEA;}
+.stem{ font-size:1rem; font-weight:500; margin:4px 0 10px; }
+.opt{
+  display:block; width:100%; text-align:left; padding:9px 12px;
+  margin-bottom:7px; border:1.5px solid var(--line); border-radius:8px;
+  background:#FEFCF7; cursor:pointer; font-size:.9rem; color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;
+}
+.opt:hover{ border-color:var(--gold); }
+.opt.correct{ border-color:var(--green); background:#EAF3EC; font-weight:700; }
+.opt.chosen-wrong{ border-color:var(--vermillion); background:#FBEDEA; font-weight:700; }
+.opt.disabled{ cursor:default; }
+.explain-box{
+  margin-top:10px; padding:12px 14px; background:#FBF8F0;
+  border-left:3px solid var(--gold); border-radius:6px; font-size:.85rem; display:none;
+}
+.explain-box.show{ display:block; }
+.explain-line{ margin-bottom:6px; }
+.explain-line b{ color:var(--vermillion); }
+.explain-line.ok b{ color:var(--green); }
+.ref{ margin-top:8px; font-size:.75rem; color:#8a7f68; }
+.errtag-row{ margin-top:10px; display:none; gap:6px; }
+.errtag-row.show{ display:flex; }
+.etag{
+  font-size:.72rem; padding:3px 9px; border-radius:12px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; color:#6b6252;
+}
+.etag.on-A{ background:#A8402B; color:#fff; border-color:#A8402B; }
+.etag.on-B{ background:#BC8A2E; color:#fff; border-color:#BC8A2E; }
+.etag.on-C{ background:#3F6B4C; color:#fff; border-color:#3F6B4C; }
+footer{ text-align:center; font-size:.7rem; color:#a49a86; padding:20px 10px 10px; }
+.empty{ text-align:center; color:#9a8f78; padding:40px 0; font-size:.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>不動產經紀相關法規概要｜整批刷題練習</h1>
+  <div class="sub">G2　不動產經紀業廣告查核分工原則｜逐選項解析＋四鍵篩選系統</div>
+  <div class="stats">
+    <span class="stat">總題數：<b id="statTotal">0</b></span>
+    <span class="stat">已作答：<b id="statDone">0</b></span>
+    <span class="stat">答對：<b id="statCorrect">0</b></span>
+    <span class="stat">答錯：<b id="statWrong">0</b></span>
+    <span class="stat">正確率：<b id="statRate">--</b></span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="filter-row">
+    <button class="fbtn active" data-filter="all">顯示全部</button>
+    <button class="fbtn" data-filter="unanswered">只看未作答</button>
+    <button class="fbtn danger" data-filter="wrong">只看答錯</button>
+    <button class="fbtn danger" id="resetBtn">清除作答紀錄</button>
+  </div>
+  <div class="chip-row" id="chapterChips"></div>
+</div>
+
+<main id="quizList"></main>
+
+<footer>
+  📅 最新編輯時間：2026-07-01｜版本 v1.0<br>
+  不動產經紀相關法規概要・G2不動產經紀業廣告查核分工原則（9題）｜BrokerX Project
+</footer>
+
+<script>
+const QUESTIONS = [{"year": 99, "qnum": 12, "stem": "有關公平交易法第 21 條之規定，下列何者錯誤？", "options": ["事業不得在商品上對於商品之製造方法為虛偽不實表示", "事業對在商品廣告上對於商品之用途為引人錯誤之表示時，此商品不得運送", "事業不得以其他使公眾得知之方法，對於商品之使用方法為虛偽不實之表示", "廣告媒體業知曉其刊載之廣告有引人錯誤之虞，仍予刊載，損害賠償責任在廣告主，其無須負連帶損害賠償責任"], "answer": "D", "explains": {"A": "不得在商品上對製造方法虛偽不實表示，敘述正確，非本題答案。", "B": "商品廣告用途引人錯誤表示時該商品不得運送，敘述正確，非本題答案（此為防止不實商品流入市場之配套規定）。", "C": "不得以其他方法對使用方法虛偽不實表示，敘述正確，非本題答案。", "D": "正確答案（錯誤敘述）。廣告媒體業明知（知曉）其刊載之廣告有引人錯誤之虞，仍予刊載者，「應與廣告主負連帶損害賠償責任」，並非「無須負連帶責任」，本選項方向相反，此為廣告查核分工責任體系之核心觀念，全科最高頻陷阱之一。"}, "ref": "公平交易法第21條、第21條之1", "id": 1, "chapter": "G2"}, {"year": 102, "qnum": 33, "stem": "廣告代理業在明知或可得而知情形下，仍製作或設計有引人錯誤之廣告，應負何種責任？", "options": ["由廣告主負損害賠償責任", "與廣告主負連帶損害賠償責任", "與廣告媒體業負連帶損害賠償責任", "與廣告薦證者負連帶損害賠償責任"], "answer": "B", "explains": {"A": "廣告代理業明知或可得而知仍製作設計不實廣告者，「亦」須負連帶責任，非僅由廣告主單獨負責。", "B": "正確。廣告代理業明知或可得而知情形下，仍製作或設計有引人錯誤之廣告者，應與「廣告主」負連帶損害賠償責任，此為廣告查核分工原則之核心規定：各廣告參與角色（代理業、媒體業、薦證者）明知或可得而知仍為不當行為者，皆係與「廣告主」本身負連帶責任，而非彼此之間互負連帶責任。", "C": "廣告代理業之連帶責任對象為「廣告主」，非「廣告媒體業」，此為主體混淆之陷阱。", "D": "廣告代理業之連帶責任對象為「廣告主」，非「廣告薦證者」，此為主體混淆之陷阱。"}, "ref": "公平交易法第21條之1", "id": 2, "chapter": "G2"}, {"year": 104, "qnum": 9, "stem": "依公平交易法第 21 條之規定，下列敘述何者錯誤？", "options": ["事業不得在商品上對於商品之製造方法為虛偽不實表示", "事業對在商品廣告上對於商品之用途為引人錯誤之表示時，此商品不得運送", "事業不得以其他使公眾得知之方法，對於商品之使用方法為虛偽不實之表示", "廣告媒體業知曉其刊載之廣告有引人錯誤之虞，仍予刊載，損害賠償責任在廣告主，其無須負連帶損害賠償責任"], "answer": "D", "explains": {"A": "不得在商品上對製造方法虛偽不實表示，敘述正確，非本題答案。", "B": "商品廣告用途引人錯誤表示時該商品不得運送，敘述正確，非本題答案。", "C": "不得以其他方法對使用方法虛偽不實表示，敘述正確，非本題答案。", "D": "正確答案（錯誤敘述）。廣告媒體業明知其刊載廣告有引人錯誤之虞仍予刊載者，「應與廣告主負連帶損害賠償責任」，並非「無須負連帶責任」，此為與99年-12題完全相同之重複命題陷阱，須牢記廣告媒體業之連帶責任要件。"}, "ref": "公平交易法第21條、第21條之1", "id": 3, "chapter": "G2"}, {"year": 104, "qnum": 36, "stem": "依公平交易法之規定，非屬知名公眾人物之廣告薦證者，在明知或可得而知其薦證有引人錯誤之虞時，於受廣告主報酬最高幾倍之範圍內與廣告主負連帶損害賠償責任？", "options": ["5倍", "10倍", "15倍", "20倍"], "answer": "B", "explains": {"A": "數字錯誤，非5倍。", "B": "正確答案。⚠️需特別留意：法條就非知名公眾人物薦證者之責任區分「明知」與「不知情」兩種情形——「不知情」（不知或不可得而知）者，僅於受廣告主報酬「10倍」之範圍內負連帶責任；本題題幹敘述為「明知或可得而知」情形，理論上明知者應「不受」倍數上限限制（負完全連帶責任），惟本題官方標準答案為B（10倍），建議對照官方詳解確認題幹「明知或可得而知」與「不知情」之情境設定是否有出入，一般原則為：非知名公眾人物「不知情」時責任上限為報酬10倍。", "C": "數字錯誤，非15倍。", "D": "數字錯誤，非20倍。"}, "ref": "公平交易法第21條之1；⚠️本題請留意「明知」與「不知情」情形責任範圍之區辨，建議對照官方詳解確認", "id": 4, "chapter": "G2"}, {"year": 105, "qnum": 17, "stem": "甲建商為銷售新屋建案，委請廣告代理業者乙為整體廣告行銷，由乙請來知名歌星丙代言房屋銷售。乙基於甲的指示，請求丙於廣告案中大力推薦該建案房屋地點近臺北市，開車只要 15 分鐘，每天可在天然溫泉泡湯，然事實上，甲、乙、丙均明知該建案房屋距離臺北市有相當距離，搭高鐵要 30 分鐘，且無天然溫泉。試問甲、乙、丙針對虛偽不實廣告行為，應負何種責任？", "options": ["甲、乙、丙均各自單獨負損害賠償責任", "甲、乙應各自單獨負損害賠償責任，丙僅廣告薦證而無責任", "甲應負損害賠償責任，乙、丙應與廣告主甲負連帶損害賠償責任", "甲應負損害賠償責任，乙應與廣告主甲負連帶損害賠償責任，丙僅廣告薦證而無責任"], "answer": "C", "explains": {"A": "廣告代理業乙及薦證者丙明知不實仍為之，應與廣告主甲「連帶」負責，並非各自「單獨」負責，責任型態錯誤。", "B": "薦證者丙為「知名歌星」（知名公眾人物），且明知廣告內容不實仍為薦證，依法須與廣告主負連帶責任，並非「無責任」，此為知名公眾人物薦證者責任之核心規定。", "C": "正確。廣告主甲應負損害賠償責任；廣告代理業乙明知或可得而知仍製作設計不實廣告，與甲負連帶責任；薦證者丙為知名公眾人物且明知不實仍為薦證，亦與甲負連帶責任，三者責任關係完整正確。", "D": "丙為知名公眾人物且明知不實仍薦證，依法應負連帶責任，本選項稱「僅廣告薦證而無責任」，與法定規定不符。"}, "ref": "公平交易法第21條之1", "id": 5, "chapter": "G2"}, {"year": 109, "qnum": 6, "stem": "關於不實廣告之敘述，下列何者正確？", "options": ["廣告代理業在明知或可得而知情形下，仍製作或設計有引人錯誤之廣告，應自負損害賠償責任，與廣告主無涉", "廣告媒體業在明知或可得而知其所傳播或刊載之廣告有引人錯誤之虞，仍予傳播或刊載，應與廣告代理業負連帶損害賠償責任", "廣告薦證者，指廣告主以外，於廣告中反映其對商品或服務之意見、信賴、發現或親身體驗結果之人或機構", "廣告薦證者非屬知名公眾人物、專業人士或機構，僅於受有報酬二十倍之範圍內，與廣告代理業負連帶損害賠償責任"], "answer": "C", "explains": {"A": "廣告代理業明知或可得而知仍為不實廣告，應「與廣告主負連帶」損害賠償責任，並非「自負責任與廣告主無涉」，此為責任連帶關係之陷阱。", "B": "廣告媒體業之連帶責任對象應為「廣告主」，而非「廣告代理業」，主體錯誤，此為各廣告角色皆與「廣告主」連帶（而非彼此互相連帶）之核心觀念。", "C": "正確。廣告薦證者之法定定義：指廣告主「以外」，於廣告中反映其對商品或服務之意見、信賴、發現或親身體驗結果之人或機構，定義完整正確。", "D": "應為「10倍」（而非20倍），且連帶對象應為「廣告主」（而非「廣告代理業」），兩處皆錯誤。"}, "ref": "公平交易法第21條之1", "id": 6, "chapter": "G2"}, {"year": 110, "qnum": 25, "stem": "依公平交易法規定，廣告相關業者與廣告主之間對於不實廣告應負之損害賠償責任，下列何者錯誤？", "options": ["專業人士或機構之廣告薦證者明知或可得而知其所從事之薦證有引人錯誤之虞，而仍為薦證者，與廣告主負連帶損害賠償責任", "非屬知名公眾人物之廣告薦證者不知情其所從事之薦證有引人錯誤之虞，仍為薦證者，僅於受廣告主報酬十倍之範圍內，與廣告主負連帶損害賠償責任", "廣告媒體業在明知或可得而知其所傳播或刊載之廣告有引人錯誤之虞，仍予傳播或刊載，與廣告主負連帶損害賠償責任", "廣告代理業在明知或可得而知情形下，仍製作或設計有引人錯誤之廣告，與廣告主負連帶損害賠償責任"], "answer": "B", "explains": {"A": "專業人士或機構薦證者明知或可得而知仍為薦證，與廣告主負連帶責任，敘述正確，非本題答案（本題要找「錯誤」敘述，惟此選項本身正確，官方答案指向B選項為錯誤）。", "B": "正確答案（本題設計為找出「錯誤」之選項，經核對本選項數字「十倍」及情境「不知情」之描述，符合法定「非知名公眾人物不知情時受報酬10倍範圍內負連帶責任」之規定，惟依考選部公告本題標準答案認定此選項為錯誤，可能涉及「不知情」與「明知或可得而知」情境設定之細節差異，建議對照官方詳解確認出題原意）。", "C": "廣告媒體業明知或可得而知仍傳播刊載，與廣告主負連帶責任，敘述正確，非本題答案。", "D": "廣告代理業明知或可得而知仍製作設計，與廣告主負連帶責任，敘述正確，非本題答案。"}, "ref": "公平交易法第21條之1；⚠️本題選項B之數字「十倍」與情境描述本身大致符合法條規定，惟官方標準答案認定其為錯誤選項，建議對照官方詳解確認出題細節", "id": 7, "chapter": "G2"}, {"year": 111, "qnum": 8, "stem": "甲建商為廣告主，委託乙廣告代理業製作廣告，請來丙明星擔任廣告薦證者，在丁廣告媒體業之電子媒體刊登引人錯誤之廣告，下列敘述何者錯誤？", "options": ["乙廣告代理業在明知或可得而知情形下，仍製作或設計有引人錯誤之廣告，與甲建商負連帶損害賠償責任", "甲建商不得在商品或廣告上，或以其他使公眾得知之方法，對於與商品相關而足以影響交易決定之事項，為虛偽不實或引人錯誤之表示或表徵", "丙明星明知或可得而知其所從事之薦證有引人錯誤之虞，而仍為薦證者，與乙廣告代理業負連帶損害賠償責任", "丁廣告媒體業在明知或可得而知其所傳播或刊載之廣告有引人錯誤之虞，仍予傳播或刊載，與甲建商負連帶損害賠償責任"], "answer": "C", "explains": {"A": "廣告代理業乙明知或可得而知仍製作設計不實廣告，與廣告主甲負連帶責任，敘述正確，非本題答案。", "B": "甲建商不得在商品或廣告上為虛偽不實或引人錯誤表示，敘述正確，非本題答案。", "C": "正確答案（錯誤敘述）。薦證者丙明知或可得而知仍為薦證者，應與「廣告主甲」（而非「廣告代理業乙」）負連帶損害賠償責任，連帶對象主體錯誤，此為★核心陷阱：各廣告角色（代理業、媒體業、薦證者）之連帶責任對象皆為「廣告主」本身，彼此之間並不互相連帶。", "D": "廣告媒體業丁明知或可得而知仍傳播刊載，與廣告主甲負連帶責任，敘述正確，非本題答案。"}, "ref": "公平交易法第21條之1", "id": 8, "chapter": "G2"}, {"year": 114, "qnum": 24, "stem": "依公平交易法之規定，下列那一個定義之內容錯誤？", "options": ["廣告薦證者，指廣告主於廣告中反映其對商品或服務之意見、信賴、發現或親身體驗結果", "獨占，指事業在相關市場處於無競爭狀態，或具有壓倒性地位，可排除競爭之能力者", "競爭，指二以上事業在市場上以較有利之價格、數量、品質、服務或其他條件，爭取交易機會之行為", "控制性持股，指前項之人或團體及其關係人持有他事業有表決權之股份或出資額，超過他事業已發行有表決權之股份總數或資本總額半數者"], "answer": "A", "explains": {"A": "正確答案（錯誤定義）。廣告薦證者之法定定義應為「廣告主『以外』之人或機構」於廣告中反映其對商品或服務之意見信賴發現或親身體驗結果，本選項漏未「以外」之關鍵限定詞，誤將薦證者主體等同於廣告主本身，兩者本應為不同主體（廣告主是委託製作廣告者，薦證者是廣告主以外受邀為商品背書之人或機構），此為定義主體混淆之★陷阱。", "B": "獨占之法定定義正確，非本題答案。", "C": "競爭之法定定義正確，非本題答案。", "D": "控制性持股之法定定義正確，非本題答案。"}, "ref": "公平交易法第4條、第21條之1", "id": 9, "chapter": "G2"}];
+const STORAGE_KEY = "brokerlaw_g2_mastery_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveState(state){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+let state = loadState();
+let currentFilter = "all";
+let currentChapter = "ALL";
+
+function getChapters(){
+  const set = new Set(QUESTIONS.map(q=>q.chapter));
+  return Array.from(set);
+}
+
+function renderChips(){
+  const chips = getChapters();
+  const wrap = document.getElementById('chapterChips');
+  wrap.innerHTML = '';
+  const allChip = document.createElement('div');
+  allChip.className = 'chip' + (currentChapter==='ALL' ? ' active':'');
+  allChip.textContent = '全部章節';
+  allChip.onclick = ()=>{ currentChapter='ALL'; renderChips(); renderList(); };
+  wrap.appendChild(allChip);
+  chips.forEach(c=>{
+    const el = document.createElement('div');
+    el.className = 'chip' + (currentChapter===c ? ' active':'');
+    el.textContent = c;
+    el.onclick = ()=>{ currentChapter=c; renderChips(); renderList(); };
+    wrap.appendChild(el);
+  });
+}
+
+function matchesFilter(q){
+  const s = state[q.id];
+  if(currentChapter !== 'ALL' && q.chapter !== currentChapter) return false;
+  if(currentFilter === 'unanswered') return !s;
+  if(currentFilter === 'wrong') return s && s.correct === false;
+  return true;
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  let done=0, correct=0, wrong=0;
+  QUESTIONS.forEach(q=>{
+    const s = state[q.id];
+    if(s){ done++; if(s.correct) correct++; else wrong++; }
+  });
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statRate').textContent = done ? Math.round(correct/done*100)+'%' : '--';
+}
+
+function renderList(){
+  const list = document.getElementById('quizList');
+  list.innerHTML = '';
+  const items = QUESTIONS.filter(matchesFilter);
+  if(items.length === 0){
+    list.innerHTML = '<div class="empty">目前篩選條件下沒有題目。</div>';
+    updateStats();
+    return;
+  }
+  items.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.id = 'q'+q.id;
+
+    const meta = document.createElement('div');
+    meta.className = 'qmeta';
+    const s = state[q.id];
+    meta.innerHTML = `<span class="badge">${q.year}年第${q.qnum}題</span><span class="badge">${q.chapter}</span>` +
+      (s ? (s.correct ? '<span class="badge" style="border-color:#3F6B4C;color:#3F6B4C;">✓已答對</span>' : '<span class="badge wrong">✗已答錯</span>') : '');
+    card.appendChild(meta);
+
+    const stem = document.createElement('div');
+    stem.className = 'stem';
+    stem.textContent = q.stem;
+    card.appendChild(stem);
+
+    const labels = ['A','B','C','D'];
+    labels.forEach((L,idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = L + '. ' + q.options[idx];
+      const st = state[q.id];
+      if(st){
+        btn.classList.add('disabled');
+        if(L === q.answer) btn.classList.add('correct');
+        else if(L === st.chosen && st.chosen !== q.answer) btn.classList.add('chosen-wrong');
+      }
+      btn.onclick = ()=>{
+        if(state[q.id]) return;
+        const correct = (L === q.answer);
+        state[q.id] = { chosen:L, correct: correct, tag: null };
+        saveState(state);
+        renderList();
+        setTimeout(()=>{
+          const el = document.getElementById('q'+q.id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }, 30);
+      };
+      card.appendChild(btn);
+    });
+
+    if(state[q.id]){
+      const exp = document.createElement('div');
+      exp.className = 'explain-box show';
+      labels.forEach(L=>{
+        const line = document.createElement('div');
+        line.className = 'explain-line' + (L===q.answer ? ' ok':'');
+        line.innerHTML = `<b>${L===q.answer?'✓':'✗'}${L}.</b> ${q.explains[L]}`;
+        exp.appendChild(line);
+      });
+      const ref = document.createElement('div');
+      ref.className = 'ref';
+      ref.textContent = '📖 法規依據：' + q.ref;
+      exp.appendChild(ref);
+      card.appendChild(exp);
+
+      const tagRow = document.createElement('div');
+      tagRow.className = 'errtag-row show';
+      if(!state[q.id].correct){
+        ['A','B','C'].forEach(t=>{
+          const tagBtn = document.createElement('div');
+          const label = t==='A' ? 'A 法條混淆' : (t==='B' ? 'B 粗心' : 'C 真的不熟');
+          tagBtn.className = 'etag' + (state[q.id].tag===t ? ' on-'+t : '');
+          tagBtn.textContent = label;
+          tagBtn.onclick = ()=>{
+            state[q.id].tag = (state[q.id].tag===t) ? null : t;
+            saveState(state);
+            renderList();
+          };
+          tagRow.appendChild(tagBtn);
+        });
+      }
+      card.appendChild(tagRow);
+    }
+
+    list.appendChild(card);
+  });
+  updateStats();
+}
+
+document.querySelectorAll('.fbtn[data-filter]').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.fbtn[data-filter]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderList();
+  };
+});
+
+document.getElementById('resetBtn').onclick = ()=>{
+  if(confirm('確定要清除所有作答紀錄嗎？此動作無法復原。')){
+    state = {};
+    saveState(state);
+    renderList();
+  }
+};
+
+renderChips();
+renderList();
+</script>
+</body>
+</html>
