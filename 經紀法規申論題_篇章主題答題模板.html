@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規申論題｜篇章主題答題模板（32題核實版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F8F3E9; --paper-dark: #EFE7D6; --paper-darker: #E5DAC2;
+  --ink: #2A2722; --ink-soft: #6b6354;
+  --vermillion: #A8402B; --vermillion-soft: #c2614a;
+  --gold: #BC8A2E; --green: #4C6B43; --blue: #3A5A78;
+  --orange: #C07830; --purple: #6B4C8A; --line: #D9CFB8;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0; background: var(--paper);
+  background-image: radial-gradient(circle at 15% 8%, rgba(168,64,43,.04), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(188,138,46,.05), transparent 45%);
+  color: var(--ink); font-family: 'Noto Sans TC', sans-serif; line-height: 1.7;
+}
+.app { max-width: 760px; margin: 0 auto; padding: 18px 16px 70px; }
+header { text-align: center; margin-bottom: 18px; position: relative; }
+.eyebrow { font-size: .68rem; letter-spacing: .18em; color: var(--ink-soft); font-weight: 700; margin-bottom: 6px; }
+h1 { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 1.5rem; margin: 0 0 4px; letter-spacing: .02em; }
+.subtitle { font-size: .78rem; color: var(--ink-soft); }
+.version-tag { font-size: .68rem; color: var(--ink-soft); margin-top: 6px; }
+.stamp-row { display: flex; justify-content: center; gap: 8px; margin: 14px 0 6px; flex-wrap: wrap; }
+.stamp {
+  position: relative; width: 58px; height: 58px; border-radius: 50%;
+  border: 2.5px solid var(--vermillion); color: var(--vermillion);
+  background: rgba(168,64,43,.04);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; font-family: 'Noto Serif TC', serif; font-weight: 900;
+  transform: rotate(-4deg); transition: transform .25s, background .25s, color .25s, box-shadow .25s;
+  flex-shrink: 0;
+}
+.stamp .num { font-size: .95rem; line-height: 1; }
+.stamp .ch { font-size: .5rem; font-weight: 700; margin-top: 1px; letter-spacing: .01em; }
+.stamp .cnt { position: absolute; bottom: -6px; right: -4px; background: var(--gold); color: #fff; font-size: .58rem; font-weight: 800; border-radius: 8px; padding: 1px 5px; font-family: 'Noto Sans TC', sans-serif; }
+.stamp:hover { transform: rotate(-1deg) scale(1.04); }
+.stamp.active { background: var(--vermillion); color: #fff; box-shadow: 0 3px 10px rgba(168,64,43,.35); transform: rotate(0deg) scale(1.07); }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(42,39,34,.05); }
+.type-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.type-head .big-num { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 2.1rem; color: var(--vermillion); line-height: 1; flex-shrink: 0; }
+.type-head .tt { flex: 1; }
+.type-head .tt-name { font-family: 'Noto Serif TC', serif; font-weight: 800; font-size: 1.18rem; }
+.type-head .tt-alias { font-size: .76rem; color: var(--gold); font-weight: 700; margin-top: 1px; }
+.type-head .tt-count { font-size: .72rem; color: var(--ink-soft); margin-top: 3px; }
+.signal-box { background: var(--paper-dark); border-left: 3px solid var(--gold); border-radius: 4px; padding: 8px 12px; font-size: .82rem; margin-bottom: 14px; }
+.signal-box b { color: var(--vermillion); }
+.skeleton { margin-bottom: 14px; }
+.skel-title { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .88rem; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.skel-title::before { content: '萬'; font-size: .7rem; background: var(--ink); color: var(--paper); width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.skel-steps { display: flex; flex-direction: column; gap: 6px; }
+.skel-step { display: flex; align-items: flex-start; gap: 10px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: .84rem; }
+.skel-step .sn { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--vermillion); color: #fff; font-weight: 700; font-size: .76rem; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; }
+.pitfall { background: linear-gradient(135deg, rgba(168,64,43,.06), rgba(168,64,43,.02)); border: 1px solid rgba(168,64,43,.25); border-radius: 8px; padding: 10px 12px; font-size: .82rem; margin-top: 4px; }
+.pitfall b { color: var(--vermillion); }
+.example-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 10px; }
+.ex-chip { border: 1px solid var(--line); background: var(--paper-dark); border-radius: 16px; padding: 5px 11px; font-size: .74rem; font-weight: 700; cursor: pointer; color: var(--ink-soft); position: relative; }
+.ex-chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ex-chip.prob-red::before { content: '🔴'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.prob-yellow::before { content: '🟡'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.prob-green::before { content: '🟢'; font-size: .6rem; margin-right: 2px; }
+.ex-chip.done { opacity: .55; }
+.ex-chip.done::after { content: '✓'; margin-left: 3px; color: var(--green); font-weight: 900; }
+.ex-chip.active.done::after { color: #9fd99a; }
+.flashcard-wrap { perspective: 1400px; margin-bottom: 10px; }
+.flashcard { position: relative; min-height: 320px; border-radius: 14px; cursor: pointer; transition: transform .5s; transform-style: preserve-3d; }
+.flashcard.flipped { transform: rotateY(180deg); }
+.card-face { position: absolute; inset: 0; border-radius: 14px; padding: 20px; backface-visibility: hidden; display: flex; flex-direction: column; box-shadow: 0 3px 12px rgba(42,39,34,.08); overflow-y: auto; }
+.card-front { background: var(--paper-dark); border: 1px solid var(--line); justify-content: center; align-items: center; text-align: center; }
+.card-front .qmeta { font-size: .72rem; color: var(--ink-soft); font-weight: 700; margin-bottom: 10px; letter-spacing: .04em; }
+.card-front .qtitle { font-family: 'Noto Serif TC', serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 12px; }
+.card-front .qbrief { font-size: .86rem; color: var(--ink); }
+.card-front .tap-hint { margin-top: 16px; font-size: .7rem; color: var(--ink-soft); }
+.card-back { background: #fff; border: 1px solid var(--vermillion); transform: rotateY(180deg); }
+.back-row { margin-bottom: 10px; }
+.back-row:last-child { margin-bottom: 0; }
+.back-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .76rem; color: var(--vermillion); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+.back-text { font-size: .85rem; }
+.back-text.conclusion { background: var(--paper-dark); padding: 8px 10px; border-radius: 6px; font-weight: 600; }
+.back-text.trap { color: var(--orange); }
+.card-meta-row { display: flex; justify-content: space-between; align-items: center; font-size: .72rem; color: var(--ink-soft); font-weight: 700; margin-bottom: 8px; }
+.progress-bar-wrap { background: var(--paper-dark); border-radius: 6px; height: 6px; overflow: hidden; flex: 1; margin: 0 10px; }
+.progress-bar-fill { background: var(--gold); height: 100%; transition: width .25s; }
+.btn-row { display: flex; gap: 8px; margin-top: 4px; }
+button { font-family: 'Noto Sans TC', sans-serif; font-weight: 700; border: none; border-radius: 8px; padding: 10px 14px; font-size: .82rem; cursor: pointer; }
+button:active { transform: scale(.97); }
+.btn-secondary { background: var(--paper-dark); color: var(--ink); border: 1px solid var(--line); flex: 1; }
+.btn-mastered { background: var(--green); color: #fff; flex: 1.3; }
+.btn-mastered.is-mastered { background: var(--ink-soft); }
+.quickref-toggle { display: block; width: 100%; text-align: center; background: var(--ink); color: var(--paper); margin-top: 4px; }
+.quickref { display: none; margin-top: 14px; }
+.quickref.open { display: block; }
+.qr-table { width: 100%; border-collapse: collapse; font-size: .76rem; }
+.qr-table th, .qr-table td { border: 1px solid var(--line); padding: 7px 8px; text-align: left; vertical-align: top; }
+.qr-table th { background: var(--paper-dark); font-family: 'Noto Serif TC', serif; }
+.qr-table td.tnum { color: var(--vermillion); font-weight: 800; text-align: center; width: 26px; }
+.dist-bars { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.dist-row { display: flex; align-items: center; gap: 8px; font-size: .76rem; }
+.dist-label { width: 100px; flex-shrink: 0; font-weight: 700; }
+.dist-track { flex: 1; background: var(--paper-dark); border-radius: 6px; height: 16px; overflow: hidden; position: relative; }
+.dist-fill { height: 100%; border-radius: 6px 0 0 6px; }
+.dist-num { width: 60px; text-align: right; color: var(--ink-soft); flex-shrink: 0; }
+.sop-list { counter-reset: sop; padding: 0; margin: 0; list-style: none; }
+.sop-list li { counter-increment: sop; position: relative; padding: 8px 0 8px 34px; font-size: .84rem; border-bottom: 1px dashed var(--line); }
+.sop-list li:last-child { border-bottom: none; }
+.sop-list li::before { content: counter(sop); position: absolute; left: 0; top: 7px; width: 22px; height: 22px; background: var(--gold); color: #fff; border-radius: 50%; font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .76rem; display: flex; align-items: center; justify-content: center; }
+.stats-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
+.stat-chip { background: var(--paper-dark); border: 1px solid var(--line); border-radius: 20px; padding: 5px 11px; font-size: .74rem; font-weight: 600; }
+.stat-chip b { color: var(--vermillion); }
+.filter-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+.filter-chip { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 4px 10px; font-size: .7rem; font-weight: 700; cursor: pointer; color: var(--ink-soft); }
+.filter-chip.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+.section-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .92rem; margin-bottom: 10px; border-left: 4px solid var(--vermillion); padding-left: 8px; }
+footer { text-align: center; font-size: .68rem; color: var(--ink-soft); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="eyebrow">經紀法規概要・申論題實戰・32題官方核實版</div>
+    <h1>篇章主題答題模板</h1>
+    <div class="subtitle">看到題目，先判篇章，骨架就出來了</div>
+    <div class="version-tag">📅 2026-06-30 v1.0　32題官方核實通過（無虛構），含1題115年新修正預擬題</div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-chip">已掌握 <b id="statMastered">0</b>/5群</div>
+    <div class="stat-chip">已讀範例 <b id="statRead">0</b>/30題</div>
+  </div>
+
+  <div class="stamp-row" id="stampRow"></div>
+
+  <div class="filter-row" id="filterRow">
+    <div class="filter-chip active" data-f="all">全部</div>
+    <div class="filter-chip" data-f="red">🔴 高機率</div>
+    <div class="filter-chip" data-f="yellow">🟡 中機率</div>
+    <div class="filter-chip" data-f="green">🟢 低機率</div>
+  </div>
+
+  <div class="panel" id="typePanel"></div>
+
+  <button class="quickref-toggle" id="qrToggle">📊 展開五群分布總覽＋速查表</button>
+  <div class="panel quickref" id="quickref">
+    <div class="section-label">五群分布總覽（30題收錄）</div>
+    <div class="dist-bars" id="distBars"></div>
+    <div class="section-label" style="margin-top:18px;">五群速查表</div>
+    <table class="qr-table" id="qrTable"></table>
+    <div class="pitfall" style="margin-top:12px;">
+      <b>觀察：</b>A篇＋E篇＋G篇＋H篇四大法律平台合計佔83%，是115年最該優先練熟的四群。其他高機率主題雖然單題佔比低，但115年最新修正之不動產說明書（115年預擬題）極可能是新增考點，務必額外準備。
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="section-label">考場實戰SOP（拿到題目後60秒內）</div>
+    <ol class="sop-list">
+      <li>讀題目最後一句問句（不是讀題幹），先框出題目到底問什麼</li>
+      <li>判斷屬於哪個篇章（看速查表關鍵字訊號：A經紀業/E公寓大廈/G公平法/H消保法）</li>
+      <li>多子問題型（如108年申論二） → 立刻在題目空白處列①②③大綱，逐一回答不能漏項</li>
+      <li>案例分析型（如114年申論二、112年申論一） → 先判斷案例中有幾個獨立違規行為，分開分析</li>
+      <li>數字密集型（如決議門檻、報酬上限） → 立刻把題目給的關鍵數字圈起來核對</li>
+      <li>開始寫：定義→法條→涵攝→結論，四段式不變</li>
+    </ol>
+  </div>
+
+  <footer>BrokerX｜經紀法規申論篇章主題答題模板・30題收錄 v1.0</footer>
+</div>
+
+<script>
+const GROUPS = [{"id": "a", "num": "一", "ch": "A篇核心主題", "alias": "經紀業管理條例", "signal": "考經紀業設立、經紀人員資格義務、業務規範（說明書簽章/雙方代理/報酬限制）、罰則", "steps": ["定義該制度（條文授權來源）", "列出構成要件或辦理程序（法條）", "逐一檢驗本題事實是否符合要件（涵攝）", "結論：合法/違法，應如何處理或受何處罰"], "pitfall": "只背法條數字卻說不出「為什麼」要這樣規定（立法目的）。<b>A篇申論常考「立法目的」或「制度設計精神」，務必在定義段落講清楚規範背後的政策考量，不能只是抄法條條文。<\/b>", "examples": [{"year": "108-二", "tag": "不動產說明書簽章解說流程（5子問題整合）", "prob": "red", "brief": "不動產買賣委由經紀業仲介者，第22條第3項對說明書內容有何限制？簽章人及時點？解說義務人與對象？締約時如何處置？損害賠償向何人請求？", "def": "不動產說明書係經紀業仲介或代銷不動產時，依法應提供予交易相對人之重要交易資訊揭露文件，目的在使相對人締約前充分了解標的物現況。", "law": "§22Ⅰ⑤、§22Ⅲ、§23Ⅰ、§23Ⅱ、§24Ⅰ、§24Ⅱ、§26Ⅱ", "subsume": "內容限制：應記載及不得記載事項由中央主管機關定之；簽章人時點：經紀人簽章，提供解說前應先經委託人簽章；解說義務人對象：經紀人員向交易相對人解說；締約處置：交付相對人並由其簽章，視為契約之一部分；賠償對象：經紀人員執行業務有故意過失致損害，經紀業應與經紀人員負連帶責任", "conclusion": "流程依序為委託人簽章確認→經紀人員向相對人解說→締約時交付相對人簽章→視為契約一部分，任一環節疏失致生損害由經紀業與經紀人員連帶賠償。", "trap": "忘記區分「委託人簽章」（解說前）與「相對人簽章」（締約時）兩個不同階段、不同對象；忘記說明書視為契約之一部分這個關鍵效力"}, {"year": "105-一", "tag": "應由經紀人簽章之文件清單（簡化版）", "prob": "red", "brief": "不動產買賣委由經紀業仲介或代銷者，那些文件應由經紀業指派經紀人簽章？", "def": "經紀業執行仲介或代銷業務時，特定重要文件須經其指派之經紀人簽章，以確保文件內容經專業人員把關審核。", "law": "§22Ⅰ①-⑥、§22Ⅱ", "subsume": "六類應簽章文件：①委託契約書②要約書③定金收據④廣告稿⑤不動產說明書⑥租賃買賣契約書；惟第①②款（委託契約書、要約書）於經營代銷業務者不適用，因代銷業之相對人是社會大眾買方，無委託契約書概念", "conclusion": "六類文件均應由經紀人簽章，但代銷業務排除委託契約書及要約書兩款，僅適用其餘四款。", "trap": "忘記代銷業務的排除規定（第1、2款不適用），把全部六款不分業務類型一概適用"}, {"year": "109-二", "tag": "雙方代理制度（介紹型）", "prob": "red", "brief": "經營仲介業務者欲同時接受不動產買賣或租賃雙方之委託，應如何辦理？", "def": "雙方代理係指經紀業同時受買賣或租賃雙方當事人委託，分別代理雙方利益之特殊仲介型態，因有違反代理人不得雙方代理原則之虞，須特別明文規定其合法辦理方式。", "law": "§24-2、§29", "subsume": "須先取得雙方當事人書面同意；同意後應依法落實六項義務：①公平提供雙方類似不動產交易價格②公平提供契約內容說明③提供必要資訊④告知應查知瑕疵⑤協助必要檢查⑥其他中央主管機關規定", "conclusion": "須先經雙方書面同意並落實六項公平提供資訊與保護義務，否則構成違法雙方代理，處3萬以上15萬以下罰鍰。", "trap": "只記得「需雙方同意」卻漏掉六項義務內容，這六項才是本題真正的得分主體"}, {"year": "114-二", "tag": "雙方代理超收報酬（違規案例型）", "prob": "red", "brief": "甲仲介公司經雙方書面同意同時接受雙方委託，收取仲介服務費總額超過規定之6%；經紀營業員乙並收取仲介服務費以外之其他報酬，甲乙違反何種規範？應如何處罰？超收報酬如何處理？", "def": "§19規定經紀業或經紀人員不得收取差價或其他報酬，應依實際成交價金按主管機關報酬標準計收，目的在防止經紀業利用資訊不對等地位巧取超額利益。", "law": "§19Ⅰ、§19Ⅱ、§29Ⅰ①、§31Ⅰ②", "subsume": "甲雖合法成立雙方代理，但收取總額超過報酬標準，違反§19Ⅰ；乙另收取報酬以外之其他報酬，同屬§19Ⅰ禁止範疇；已收取部分依§19Ⅱ應加計利息後加倍返還；甲處6萬-30萬罰鍰；乙受6個月-3年停止執行業務懲戒", "conclusion": "甲乙均違反§19不得收取差價或其他報酬之規定，甲受罰鍰、乙受停止執行業務懲戒，超收部分加計利息後加倍返還。", "trap": "誤以為雙方代理本身違法（雙方代理已取得書面同意是合法的，違法的是「超收報酬」這個獨立行為，須切開分析）"}, {"year": "102-二", "tag": "何謂不動產經紀業+簽章立法目的+違反處理", "prob": "red", "brief": "何謂不動產經紀業？經紀人於委託契約書上簽章之立法目的為何？違反者應如何處理？", "def": "依§4④，不動產經紀業指依本條例規定經營仲介或代銷業務之公司或商號。", "law": "§4④、§22Ⅰ①、§29", "subsume": "簽章立法目的：確保委託契約書內容經專業經紀人審核把關，避免未具資格人員草率代客戶簽訂契約損害委託人權益；違反者依§29Ⅰ①處6萬以上30萬以下罰鍰", "conclusion": "不動產經紀業係經許可經營仲介或代銷業務之公司或商號，委託契約書簽章制度旨在透過專業審核保護委託人權益，違反者處6萬-30萬罰鍰。", "trap": "立法目的段落寫得太籠統（只說「保護消費者」），未具體點出「避免未具資格人員草率代簽損害委託人權益」這個精確說法"}, {"year": "103-一", "tag": "經營經紀業開業要件+期限+僱用未具資格罰則", "prob": "red", "brief": "某甲擬投資從事不動產經紀業之經營，應符合那些要件？應於多久期限內開始營業？經紀業如僱用未具備經紀人員資格者，會受何種處罰？", "def": "經紀業須先取得主管機關許可，再依序完成法定設立程序，方得合法營業。", "law": "§5、§7、§17、§29Ⅰ①", "subsume": "要件：①申請許可②辦妥公司或商業登記③加入登記所在地同業公會④繳存營業保證金；期限：許可後6個月內開始營業，逾期主管機關廢止許可，有正當理由得申請展延一次以3個月為限；僱用未具資格者：依§29Ⅰ①處6萬以上30萬以下罰鍰", "conclusion": "設立須經許可、登記、入會、繳存保證金四步驟，並於6個月內開業（得展延一次3個月），僱用未具資格人員處6萬-30萬罰鍰。", "trap": "四步驟順序顛倒或遺漏其中一項；忘記「展延一次以3個月為限」這個限制"}, {"year": "107-二", "tag": "差價定義+違反處理+經紀業及經紀人員處罰", "prob": "red", "brief": "何謂差價？違反規定者應如何處理？經紀業及經紀人員有何處罰規定？", "def": "依§4⑨，差價指實際買賣交易價格與委託銷售價格之差額（並非與市場行情價之差額，此為常見陷阱）。", "law": "§4⑨、§19、§29Ⅰ①、§31Ⅰ②", "subsume": "違反處理：已收取之差價應加計利息後加倍返還支付人；經紀業處6萬以上30萬以下罰鍰；經紀人員受6個月以上3年以下停止執行業務處分", "conclusion": "差價係實際成交價與委託銷售價之差額，違反者除加倍返還外，經紀業受罰鍰、經紀人員受停止執行業務懲戒。", "trap": "把差價誤解為「與市場行情價的差額」，正確定義是「與委託銷售價格的差額」"}]}, {"id": "e", "num": "二", "ch": "E篇核心主題", "alias": "公寓大廈管理條例", "signal": "考管理組織決議門檻、強制遷離拍賣程序、重建同意、規約效力、約定共用部分", "steps": ["定義該制度（公寓大廈管理條例相關概念）", "列出構成要件或決議門檻（法條）", "逐一檢驗本題事實是否符合（涵攝）", "結論：法律效果或應採取之程序"], "pitfall": "決議門檻數字記混（一般決議2/3出席3/4同意 vs 重新召集過半數出席過半數同意）。<b>E篇申論最常因為數字寫錯整段失分，務必把「一般決議」「重新召集」「重建」「規約訂定變更」四種不同決議門檻分開背熟，不要互相套用。<\/b>", "examples": [{"year": "112-二", "tag": "強制遷離與強制拍賣程序（惡鄰居案例）", "prob": "red", "brief": "社區住戶甲以資源回收為業，經常將資源回收物堆放於樓梯間及梯廳，經管委會多次要求移置仍未處理，報請環保局罰鍰後依舊拒不處理，問如何將此惡鄰居趕出社區？", "def": "§22規定住戶有積欠費用達區分所有權總價1%、受罰鍰後仍不改善或續犯、或其他違反法令情節重大者，管委會得促請其改善，逾期不改善時得訴請法院強制遷離。", "law": "§16Ⅱ、§22Ⅰ②、§22Ⅱ、§22Ⅲ", "subsume": "甲堆置雜物違反§16Ⅱ，經罰鍰後仍不改善已該當§22Ⅰ②強制遷離前提；管委會應先促請改善，3個月內未改善依區權會決議訴請法院強制遷離；若甲為區分所有權人且判決確定後3個月內不自行出讓，得聲請法院拍賣，受償順序與第一順位抵押權同", "conclusion": "依§22法定程序：先促請改善→3個月內未改善訴請法院強制遷離→若拒絕出讓聲請法院拍賣，拍賣受償順序與第一順位抵押權同。", "trap": "忘記「3個月改善期」這個關卡，直接跳到訴請法院；忘記拍賣受償順序的特殊規定"}, {"year": "99-二", "tag": "公寓大廈重建同意與不同意重建之處理", "prob": "red", "brief": "公寓大廈管理條例對於公寓大廈之重建同意與不同意重建之處理有何規定？", "def": "重建原則須經全體區分所有權人及基地所有權人、地上權人、典權人同意，但有例外情形可依區權會決議重建。", "law": "§13、§14", "subsume": "例外情形（不需全體同意）：①配合都市更新計畫②嚴重毀損有公安之虞③因災變肇致公安危害；此三種例外可依區權會決議重建；不同意重建者，管委會得訴請法院命其出讓區分所有權及基地所有權應有部分，受讓人視為同意重建", "conclusion": "重建原則應全體同意，例外三種情形可依區權會決議重建，不同意者管委會得訴請法院命其出讓應有部分，受讓人視為同意重建。", "trap": "忘記三種例外情形的具體內容；混淆「重建」與「強制遷離」適用的不同決議門檻"}, {"year": "102-一", "tag": "約定共用部分定義+規約定義+對繼受人效力", "prob": "red", "brief": "某不動產仲介公司被委託出售一棟五層公寓大廈之某層樓，大廈地下室劃設四個停車位。何謂約定共用部分？何謂規約？系爭樓層承購戶主張該規約對其不生效力，其主張有無理由？", "def": "約定共用部分指專有部分經約定供共同使用者；規約指經區分所有權人會議決議之共同遵守事項。", "law": "§3⑥、§3⑫、§23Ⅱ、§24", "subsume": "判斷規約是否對承購戶生效，關鍵在於該規約是否已依§23Ⅱ合法載明於規約並完成法定要件；若規約已合法成立，依§24繼受人應遵守原區分所有權人依規約所定之一切權利義務", "conclusion": "若規約已合法成立並載明，承購戶之繼受人地位使其應受規約拘束，主張規約對其不生效力原則上無理由。", "trap": "忘記§24「繼受人應遵守規約」這個關鍵效力規定，誤以為買受人不知情即可主張規約不對其生效"}, {"year": "111-二", "tag": "區權會臨時會議召開情形+召集人", "prob": "red", "brief": "區分所有權人會議於何種情形時，應召開臨時會議？召集人為何？", "def": "區權會原則上每年至少召開定期會議1次，但有特定情形應召開臨時會議。", "law": "§25", "subsume": "臨時會議召開情形：①發生重大事故有及時處理之必要，經管理負責人或管委會請求②經區分所有權人1/5以上及其區分所有權比例合計1/5以上以書面載明召集目的及理由請求召集；召集人原則由具區分所有權人身分之管理負責人/主任委員/管理委員為之，無人擔任時由區分所有權人互推一人", "conclusion": "兩種情形得召開臨時會議，召集人原則由管理負責人或主任委員擔任，無人擔任時由區分所有權人互推一人。", "trap": "忘記「1/5以上區分所有權人及1/5以上區分所有權比例」這個雙重門檻數字"}, {"year": "113-二", "tag": "區權會決議出席比例同意方式+未獲決議重新召集", "prob": "red", "brief": "區分所有權人會議之決議，其出席人數、區分所有權比例及同意方式應依該條例規定如何辦理？未獲致決議者，得如何處理？", "def": "區權會決議依事項性質不同有不同之出席與同意門檻規定。", "law": "§31、§32", "subsume": "一般決議：應有區分所有權人2/3以上及其區分所有權比例合計2/3以上出席，以出席人數3/4以上及其區分所有權比例占出席人數3/4以上同意；未獲決議重新召集：開議應有區分所有權人3人並1/5以上及區分所有權比例合計1/5以上出席，以出席人數過半數及區分所有權比例占出席人數過半數之同意作成決議，惟決議後仍須送達各區分所有權人，7日內得提反對意見，書面反對意見未超過全體區分所有權人及其區分所有權比例合計半數時，該決議視為成立", "conclusion": "一般決議須2/3出席3/4同意，未獲決議時重新召集僅需過半數出席過半數同意，但須經7日異議期確認生效。", "trap": "忘記重新召集後決議仍須經過「7日異議期」才能確定生效，不是同意即立即生效"}]}, {"id": "g", "num": "三", "ch": "G篇核心主題", "alias": "公平交易法", "signal": "考廣告查核分工原則、不實廣告連帶責任、聯合行為、多層次傳銷（已退場考點）", "steps": ["定義相關公平法概念（事業/廣告/聯合行為等）", "列出法條構成要件或分工原則", "逐一檢驗本題案例事實是否符合（涵攝）", "結論：適法性判斷或得主張之權利"], "pitfall": "誤判該廣告不實案例的管轄機關。<b>G篇申論最常考「廣告查核分工原則」的應用，務必先判斷廣告主是否為經紀業本身、是否涉及企業形象策略、建商是否共同具名，才能正確判斷由內政部或公平會管轄。<\/b>", "examples": [{"year": "103-二", "tag": "不動產經紀業廣告定義+廣告不實查核權責分工原則（示範題）", "prob": "red", "brief": "何謂不動產經紀業廣告？對於不動產廣告不實案件之查核，其權責分工原則為何？", "def": "依不動產經紀業廣告處理原則第二點，廣告係指經紀業利用各種媒介使不特定多數人知悉其宣傳內容之傳播。", "law": "廣告處理原則第二點、第三點", "subsume": "查核分工依第三點分五種情形：①經紀業所為之廣告案件由主管機關依管理條例處理②非屬管理條例規範範疇（涉及企業形象/行銷策略等虛偽不實）由公平會依公平法處理③加盟經營未標明加盟字樣者由主管機關依管理條例處理④建商與經紀業共同具名者由公平會依公平法處理⑤其他無法劃分者由內政部與公平會協調處理", "conclusion": "不動產廣告不實案件依廣告內容性質分別由內政部（管理條例）或公平會（公平法）管轄，非單一機關專責。", "trap": "忘記五種情形的順序與內容，特別是「加盟未標明字樣」這個容易被忽略的第三種情形"}, {"year": "112-一", "tag": "建商泳池廣告不實（最新案例型）", "prob": "red", "brief": "建商甲在銷售建案時使用某飯店之無邊際泳池圖片，乙受廣告吸引購買該建案其中一戶，但完工交屋時，乙發現只有一個景觀水池，請問乙如何主張其權利？", "def": "公平交易法第21條規定，事業不得在商品或廣告上，對足以影響交易決定之事項，為虛偽不實或引人錯誤之表示。", "law": "公平法§21、§29、§30、§31", "subsume": "本案為建商自行銷售（非經紀業代銷），廣告不實非屬管理條例規範範疇，應依公平法處理（呼應分工原則第一款之對照組）；甲使用他飯店泳池圖片代表自身建案設施，屬對商品內容（公共設施項目）之引人錯誤表示，違反§21；乙得依§29、30請求除去侵害及損害賠償；若甲為故意行為，法院得酌定不超過已證明損害額3倍之賠償", "conclusion": "乙得依公平法第29、30條請求除去侵害及損害賠償，若能證明甲為故意行為，得請求法院酌定不超過已證明損害額3倍之賠償。", "trap": "誤以為本案應依不動產經紀業管理條例處理（建商自售非經紀業代銷，不適用管理條例，須回歸公平法）"}, {"year": "101-二", "tag": "仲介公會決議收費下限是否適法", "prob": "yellow", "brief": "仲介公會以理監事會議決議，要求會員收取仲介費用之標準，不得低於公會所訂之下限。試依公平交易法之相關規定，評析該公會之前述會議決議是否適法。", "def": "公平交易法第14條第4項規定，同業公會藉決議所為約束事業活動之行為，亦為本法之聯合行為。", "law": "公平法§14、§15", "subsume": "公會藉理監事會議決議要求會員收費不得低於下限，該當§14Ⅳ「同業公會藉決議所為約束事業活動之行為」，屬聯合行為，原則禁止，除非符合§15八款例外並經申請許可", "conclusion": "該公會決議若未經依§15申請許可，屬違法之聯合行為。", "trap": "忘記「同業公會的決議」也算聯合行為這個特殊規定（§14Ⅳ），誤以為只有事業間協議才算聯合行為"}, {"year": "104-一", "tag": "經紀人甲網路刊登仲介廣告適法性分析", "prob": "yellow", "brief": "經紀人甲在網路上刊登仲介廣告，僅刊有甲個人聯絡電話未註明經紀業名稱，試分析此廣告之適法性。", "def": "§21規定須先與委託人簽訂委託契約書，方得刊登廣告及銷售，且廣告銷售內容應與事實相符並註明經紀業名稱。", "law": "不動產經紀業管理條例§21", "subsume": "廣告須先簽訂委託契約書才能刊登，且廣告內容應與事實相符並註明經紀業名稱；甲僅刊有個人聯絡電話未註明經紀業名稱，違反§21Ⅱ", "conclusion": "甲之廣告未註明經紀業名稱，違反§21Ⅱ規定，應依管理條例相關罰則處罰。", "trap": "誤以為只要廣告內容真實即合法，忽略「未註明經紀業名稱」本身就是獨立的違法事由"}, {"year": "104-二", "tag": "代銷公司與廣告公司虛偽不實廣告責任", "prob": "yellow", "brief": "代銷公司甲與廣告公司乙合作製作引人錯誤之廣告，問甲乙之責任各為何？", "def": "§21第5項規定廣告代理業明知或可得而知仍製作引人錯誤廣告者，與廣告主負連帶損害賠償責任。", "law": "不動產經紀業管理條例§21Ⅴ", "subsume": "甲代銷公司為廣告主應負損害賠償責任；乙廣告公司明知或可得而知仍製作引人錯誤廣告，依§21Ⅴ與甲負連帶損害賠償責任", "conclusion": "甲負廣告主之損害賠償責任，乙明知或可得而知仍製作者，與甲負連帶賠償責任。", "trap": "忘記廣告代理業須「明知或可得而知」才需負連帶責任，並非當然連帶"}, {"year": "110-二", "tag": "公平法事業定義+預售屋抽籤選戶禮賓活動有無違法", "prob": "yellow", "brief": "建設公司辦理預售屋抽籤選戶活動，商品資訊未規劃完成前即辦理限量抽籤、營造排隊搶購氣氛、僅給1分鐘選戶時間，是否違法？", "def": "公平法§2規定事業指公司、獨資或合夥之工商行號、同業公會及其他提供商品或服務從事交易之人或團體；§25規定事業不得為其他足以影響交易秩序之欺罔或顯失公平行為。", "law": "公平法§2、§25", "subsume": "建設公司、地產代銷公司均屬§2事業；商品資訊未規劃完成前即辦理限量抽籤、營造排隊搶購氣氛、僅給1分鐘選戶時間，足以影響具普通知識經驗之交易相對人作合理判斷", "conclusion": "此等行為屬欺罔或顯失公平之行為，違反公平法§25。", "trap": "誤以為僅單純行銷手法不構成違法，忽略「足以影響具普通知識經驗之交易相對人合理判斷」這個關鍵判準"}, {"year": "111-一", "tag": "何謂加盟經營者+標明義務+違反處罰", "prob": "yellow", "brief": "何謂加盟經營者？經紀業係加盟經營者，應於何處標明加盟經營字樣？經紀業違反規定者，應如何處罰之？", "def": "§4⑧規定加盟經營者指經紀業之一方以契約約定使用他方所發展之服務、營運方式、商標、服務標章等，並受其規範或監督。", "law": "不動產經紀業管理條例§18、施行細則§22、§29Ⅰ④", "subsume": "應於廣告、市招、名片等明顯處標明加盟店或加盟經營字樣；未標明者，由主管機關令其限期改正，屆期未改正處3萬以上15萬以下罰鍰", "conclusion": "加盟經紀業須於廣告等明顯處標明加盟字樣，未標明者經限期改正未果處3萬-15萬罰鍰。", "trap": "忘記「限期改正」這個前置程序，誤以為未標明即直接處罰"}]}, {"id": "h", "num": "四", "ch": "H篇核心主題", "alias": "消費者保護法", "signal": "考企業經營者責任、懲罰性賠償金、定型化契約規範、消費爭議處理程序", "steps": ["定義消保法相關概念（企業經營者/定型化契約/消費爭議等）", "列出法條構成要件或程序步驟", "逐一檢驗本題事實是否符合（涵攝）", "結論：法律效果或應採取之程序"], "pitfall": "混淆消費爭議三階段程序（申訴→調解→訴訟）的先後順序與是否可跳過。<b>H篇申論最常考「能否逕行申請調解」這類程序順序題，務必記熟「不得跳過申訴程序逕行申請調解」這個鐵律。<\/b>", "examples": [{"year": "108-一", "tag": "企業經營者責任三條文整合（示範題）", "prob": "red", "brief": "依消保法之規定，何謂企業經營者？企業經營者對商品或服務應負之責任為何？消費者得請求之懲罰性賠償金有何規定？企業經營者於商品或服務有危害消費者安全健康之虞時，應如何處理？", "def": "§2②規定企業經營者指以設計、生產、製造、輸入、經銷商品或提供服務為營業者。", "law": "§2②、§7Ⅰ-Ⅲ、§10、§51", "subsume": "§7：商品服務未具備可合理期待之安全性致生損害，應負連帶賠償責任，但能證明無過失者法院得減輕；§51懲罰性賠償金：故意5倍以下/重大過失3倍以下/過失1倍以下；§10：有事實足認商品服務有危害消費者安全健康之虞時應即回收或停止服務，但已採取必要處理足以除去危害者不在此限", "conclusion": "企業經營者對商品服務負無過失責任（得減輕非免責），懲罰性賠償金依過失程度分三級（5倍/3倍/1倍），危害發生時應即回收或停止服務但得以積極處理除去危害而免責。", "trap": "誤以為能證明無過失即完全免責（正確是法院得「減輕」，並非完全免除責任）"}, {"year": "114-一", "tag": "消保法申訴流程+得否逕行申請調解+調解書效力", "prob": "red", "brief": "消費者向建商購買預售屋，消費者就消費爭議如何提起申訴？得否不經申訴，逕行申請調解？消費爭議事件調解成立作成之調解書，經法院核定後，有何效力？", "def": "消保法建立申訴→調解→訴訟三階段消費爭議處理程序。", "law": "§43-46", "subsume": "申訴：消費者得向企業經營者/消保團體/消保服務中心申訴，企業經營者應於申訴之日起15日內妥適處理；未獲妥適處理時得向消保官申訴，再未獲妥適處理才能向消費爭議調解委員會申請調解，不得跳過申訴程序逕行申請調解；調解書效力：調解成立應作成調解書，經法院核定後與民事確定判決有同一效力", "conclusion": "消費者須先經申訴程序未獲妥適處理，方得申請調解，不得逕行跳過；調解書經法院核定後具與民事確定判決同一之效力。", "trap": "誤以為消費者得隨時逕行申請調解（正確是須先經申訴程序未獲妥適處理才能進入調解階段）"}, {"year": "106-二", "tag": "何謂定型化契約+應記載不得記載事項內容範疇", "prob": "yellow", "brief": "何謂定型化契約？定型化契約之應記載及不得記載事項，其內容範疇為何？", "def": "§2⑨規定定型化契約指以企業經營者提出之定型化契約條款作為契約內容全部或一部而訂立之契約。", "law": "§2⑨、§17", "subsume": "應記載事項得包括：契約之重要權利義務事項／違反契約之法律效果／預付型交易之履約擔保／契約之解除權終止權及其法律效果／其他與契約履行有關之事項；不得記載事項得包括：企業經營者保留契約內容或期限之變更權解釋權／限制或免除企業經營者義務責任／限制或剝奪消費者行使權利加重消費者義務責任／其他對消費者顯失公平事項", "conclusion": "定型化契約係以企業經營者預先擬定條款作為契約內容之契約，中央主管機關得就特定行業公告應記載及不得記載事項，以保護消費者權益。", "trap": "把「應記載事項」與「不得記載事項」的內容類別記混，這兩組清單的方向完全相反"}, {"year": "109-一", "tag": "消保法規範不動產廣告主要規範內容", "prob": "yellow", "brief": "消費者保護法對於不動產廣告之規範主要內容為何？", "def": "消保法第22、22-1、23條建立企業經營者廣告真實義務與媒體連帶責任制度。", "law": "§22、§22-1、§23", "subsume": "企業經營者應確保廣告內容真實，所負義務不得低於廣告內容，契約成立後應確實履行；與信用有關交易應於廣告明示總費用年百分率；媒體經營者明知或可得而知廣告不實仍刊登者，與企業經營者負連帶責任", "conclusion": "消保法要求廣告內容真實且企業經營者所負義務不得低於廣告內容，媒體明知不實仍刊登者須負連帶責任。", "trap": "忘記「契約成立後應確實履行」這項規定，誤以為廣告真實義務僅止於締約前"}, {"year": "99-一", "tag": "消保法消費爭議調解委員會調解方案及異議規定", "prob": "yellow", "brief": "對於消費爭議調解委員會提出調解方案及調解方案之異議，消費者保護法有何規定？", "def": "消保法第45-2、45-3條規定調解委員得依職權提出解決方案之機制。", "law": "§45-2、§45-3", "subsume": "調解委員得依職權提出解決方案並送達當事人，須經參與調解委員過半數同意；當事人得於送達後10日不變期間內提出異議，逾期未異議視為已依方案成立調解；提出異議者視為調解不成立", "conclusion": "調解委員得依職權提出解決方案，當事人有10日異議期，逾期未異議視為調解成立，異議者視為調解不成立。", "trap": "忘記10日是「不變期間」，逾期即視為調解成立，不可事後再異議"}]}, {"id": "misc", "num": "五", "ch": "其他高機率主題", "alias": "雜項條文與最新修正", "signal": "考經紀業細項規定（保證金/揭示文件/申報登錄）、實價登錄、不動產說明書最新修正", "steps": ["定義該制度", "列出構成要件或數字規則（法條）", "逐一檢驗本題事實是否符合（涵攝）", "結論：法律效果或具體數字"], "pitfall": "低頻主題容易因為平時練習少而臨場想不起來具體數字。<b>這類主題建議用考點分析中的「鐵律考點」清單反覆複習數字本身，因為這類題目通常不需要複雜推理，純粹是數字記憶的得分題。<\/b>", "examples": [{"year": "100-一", "tag": "經紀業退還營業保證金之原因/期限/範圍/應檢附文件", "prob": "yellow", "brief": "試說明經紀業得請求退還繳存營業保證金之原因、期限、範圍，以及申請時應檢附之證明文件。", "def": "營業保證金由全國聯合會統一設置基金專戶管理，於特定情形下經紀業得請求退還。", "law": "施行細則§13-1、§13-2", "subsume": "原因：公司解散/商號歇業/營業項目變更後已無仲介代銷業務而組織仍存續；期限：自核准註銷營業之日滿1年後2年內請求退還；範圍：不包括孳息；應檢附文件：核准註銷營業證明文件及其他中央主管機關規定文件", "conclusion": "三種原因得請求退還保證金，須於核准註銷滿1年後2年內提出，範圍不含孳息，並應檢附註銷證明文件。", "trap": "忘記退還範圍「不包括孳息」，以及期限是「滿1年後2年內」這個特定區間（不是隨時可申請）"}, {"year": "110-一", "tag": "110年新制代銷仲介申報實價登錄之申報人/時機/罰責", "prob": "yellow", "brief": "代銷及仲介業務之申報登錄資訊制度，申報人、申報時機、罰責各為何？", "def": "§24-1規定經紀業執行仲介或代銷業務應依限申報登錄相關交易資訊。", "law": "§24-1Ⅰ、§24-1Ⅱ、§29Ⅰ②-⑥", "subsume": "代銷：受託代銷預售屋者應於簽訂/變更/終止委託代銷契約之日起30日內報請備查，並於簽訂買賣契約書之日起30日內申報登錄成交資訊；仲介：居間或代理成交之租賃案件應於簽訂租賃契約書之日起30日內申報登錄；未依限申報或申報不實之罰責依違反項目分別處3萬-15萬、1萬-5萬不等罰鍰，並有累計加重規定", "conclusion": "代銷與仲介均有30日申報登錄義務，未依限申報依違反項目處3萬-15萬或1萬-5萬不等罰鍰。", "trap": "忘記代銷業務有「委託代銷契約備查」與「成交資訊申報登錄」兩個獨立的30日期限，不是只有一個"}, {"year": "113-一", "tag": "經紀業應揭示文件+代銷不適用項目+違反處罰", "prob": "yellow", "brief": "不動產經紀業應於營業處所明顯之處，揭示那些文件？那一文件代銷經紀業不適用之？違反此一規定者，應如何處罰之？", "def": "§18、§20規定經紀業應於營業處所揭示特定文件，使消費者得以查核其合法性與收費標準。", "law": "§18、§20、施行細則§21、§29Ⅰ①④", "subsume": "應揭示文件：經紀業許可文件/同業公會會員證書/不動產經紀人證書/報酬標準及收取方式；報酬標準及收取方式之揭示於代銷經紀業不適用（因代銷業是建商委託收取代銷服務費，性質與仲介報酬計收方式不同）；未揭示證照及許可文件處6萬以上30萬以下罰鍰，未揭示報酬標準則先限期改正屆期未改正處3萬以上15萬以下罰鍰", "conclusion": "四類文件應揭示，惟報酬標準揭示不適用於代銷業，違反證照揭示處6萬-30萬罰鍰，違反報酬標準揭示則先限期改正。", "trap": "忘記兩種違反情形有不同處罰機制（一個直接處罰，一個先限期改正），不能一概而論"}, {"year": "100-二", "tag": "多層次傳銷參加人定義+解約權終止權（已退場考點）", "prob": "green", "brief": "何謂多層次傳銷參加人？公平交易法對於多層次傳銷參加人之解約權與終止權規定如何？", "def": "多層次傳銷參加人指與多層次傳銷事業訂立書面參加契約，並參與該傳銷活動之人。", "law": "（已退場，103年起獨立為多層次傳銷管理法，現行考科不再出現）", "subsume": "本主題104年起完全未再出現於試題中，研判已脫離本科考試範疇", "conclusion": "此為已退場考點，了解即可，不需深記具體條文內容。", "trap": "誤以為仍是本科必考重點而投入過多時間準備，應將有限時間優先用於其他高頻主題"}, {"year": "105-二", "tag": "不動產說明書土地使用管制內容應記載事項", "prob": "green", "brief": "依不動產說明書應記載事項，土地（素地）之使用管制內容應記載那些項目？", "def": "不動產說明書應記載事項旨在使交易相對人充分了解標的物之使用限制狀況。", "law": "不動產說明書應記載事項壹一(五)", "subsume": "使用分區或編定／法定建蔽率／法定容積率／開發方式限制／是否屬不得興建農舍之農業用地／土地開發者應敘明之8項特殊管制：山坡地、水保特定區、河川區域、排水設施範圍、國家公園特別景觀區、飲用水水源保護區、自來水水質水量保護區、土壤或地下水污染場址", "conclusion": "土地使用管制應記載事項涵蓋分區編定、建蔽容積率、開發限制及8項特殊管制區域標示。", "trap": "8項特殊管制區域容易漏記或記不全，建議用口訣分組記憶（山坡水保河川排水／國家公園飲用水自來水／土壤地下水污染）"}, {"year": "115年預擬", "tag": "不動產說明書最新修正（建築能效/太陽光電/水災紀錄）", "prob": "yellow", "brief": "依115.1.13最新修正之不動產說明書應記載及不得記載事項，成屋及預售屋之說明書應記載那些新增之揭露事項？其修正目的為何？（115年最可能出現之全新考點，尚無歷屆題可參考）", "def": "不動產說明書之解說目的在使承買人經由重要交易事項說明，得就交易現況充分理解後決定是否成立契約。", "law": "115.1.13修正總說明（配合再生能源發展條例§12-1及建築能效評估標示制度）", "subsume": "①建築能效標示（成屋第6目）：有無取得建築能效標示？若有應敘明等級、核發日期及證書效期，配合近零碳建築政策②太陽光電發電設備：有無設置？設置依據為何？配合再生能源發展條例強制設置規定③最近5年內基地周邊半徑300公尺範圍內水災淹水救助紀錄（成屋與預售屋其他重要事項皆新增）：使消費者於交易前能評估標的物防災風險④預售屋瑕疵擔保用語精緻化為施工中建築物新拌混凝土氯離子含量檢測報告單及無輻射污染證明", "conclusion": "本次修正係因應再生能源政策、近零碳建築推廣及消費者防災資訊需求而新增三大揭露事項，經紀業製作說明書時應確實依新版本記載，否則可能違反§22Ⅲ規定。", "trap": "此為尚無歷屆題的全新考點，務必額外花時間熟記三大新增項目的具體內容與修正目的，不能單純套用舊版說明書架構回答"}]}];
+
+const STORAGE_KEY = 'brokerlaw_essay_template_mastery_v1';
+let mastery = {};
+let currentType = 0;
+let currentEx = 0;
+let flipped = false;
+let probFilter = 'all';
+
+function loadMastery() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    mastery = raw ? JSON.parse(raw) : {};
+  } catch (e) { mastery = {}; }
+}
+function saveMastery() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(mastery)); }
+  catch (e) { console.error('storage save failed', e); }
+}
+
+function exKey(typeId, idx) { return typeId + '_' + idx; }
+
+function filteredExamples(t) {
+  if (probFilter === 'all') return t.examples.map((ex, i) => ({ ex, i }));
+  return t.examples.map((ex, i) => ({ ex, i })).filter(o => o.ex.prob === probFilter);
+}
+
+function renderStamps() {
+  const row = document.getElementById('stampRow');
+  row.innerHTML = '';
+  GROUPS.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'stamp' + (i === currentType ? ' active' : '');
+    div.innerHTML = `<div class="num">${t.num}</div><div class="ch">${t.alias.slice(0,4)}</div><div class="cnt">${t.examples.length}</div>`;
+    div.onclick = () => { currentType = i; currentEx = 0; flipped = false; renderAll(); };
+    row.appendChild(div);
+  });
+}
+
+function renderTypePanel() {
+  const t = GROUPS[currentType];
+  let visible = filteredExamples(t);
+  if (visible.length === 0) {
+    probFilter = 'all';
+    syncFilterChips();
+    visible = filteredExamples(t);
+  }
+  const list = visible;
+  if (currentEx >= list.length) currentEx = 0;
+
+  const stepsHtml = t.steps.map((s, i) => `<div class="skel-step"><div class="sn">${i+1}</div><div>${s}</div></div>`).join('');
+
+  const exChips = list.map((o, li) => {
+    const key = exKey(t.id, o.i);
+    const isDone = !!mastery[key];
+    return `<div class="ex-chip prob-${o.ex.prob} ${li === currentEx ? 'active' : ''} ${isDone ? 'done' : ''}" data-li="${li}">${o.ex.year}</div>`;
+  }).join('');
+
+  const o = list[currentEx];
+  const ex = o.ex;
+  const key = exKey(t.id, o.i);
+  const state = mastery[key] || null;
+
+  document.getElementById('typePanel').innerHTML = `
+    <div class="type-head">
+      <div class="big-num">${t.num}</div>
+      <div class="tt">
+        <div class="tt-name">${t.ch}</div>
+        <div class="tt-alias">${t.alias}</div>
+        <div class="tt-count">共 ${t.examples.length} 題</div>
+      </div>
+    </div>
+    <div class="signal-box"><b>辨識特徵：</b>${t.signal}</div>
+
+    <div class="skeleton">
+      <div class="skel-title">萬用骨架</div>
+      <div class="skel-steps">${stepsHtml}</div>
+    </div>
+
+    <div class="pitfall">⚠️ <b>最容易扣分的地方：</b>${t.pitfall}</div>
+
+    <div class="example-bar">${exChips}</div>
+
+    <div class="card-meta-row">
+      <span>${ex.year}｜${ex.tag}</span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${((currentEx+1)/list.length)*100}%"></div></div>
+      <span>${currentEx+1}/${list.length}</span>
+    </div>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+        <div class="card-face card-front">
+          <div class="qmeta">${ex.year}申論題</div>
+          <div class="qtitle">${ex.tag}</div>
+          <div class="qbrief">${ex.brief}</div>
+          <div class="tap-hint">點擊翻面看四段式範本 →</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="back-row"><div class="back-label">① 定義（開頭句）</div><div class="back-text">${ex.def}</div></div>
+          <div class="back-row"><div class="back-label">② 必背法條</div><div class="back-text">${ex.law}</div></div>
+          <div class="back-row"><div class="back-label">③ 涵攝分析</div><div class="back-text">${ex.subsume}</div></div>
+          <div class="back-row"><div class="back-label">④ 結論</div><div class="back-text conclusion">${ex.conclusion}</div></div>
+          <div class="back-row"><div class="back-label">🪤 陷阱</div><div class="back-text trap">${ex.trap}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" id="prevBtn">← 上一題</button>
+      <button class="btn-mastered ${state === 'mastered' ? 'is-mastered' : ''}" id="masterBtn">${state === 'mastered' ? '✓ 已掌握' : '✅ 標記已掌握'}</button>
+      <button class="btn-secondary" id="nextBtn">下一題 →</button>
+    </div>
+  `;
+
+  document.getElementById('flashcard').onclick = () => {
+    flipped = !flipped;
+    document.getElementById('flashcard').classList.toggle('flipped', flipped);
+    if (!mastery[key]) { mastery[key] = 'read'; saveMastery(); renderStats(); }
+  };
+  document.querySelectorAll('.ex-chip').forEach(c => {
+    c.onclick = (e) => { e.stopPropagation(); currentEx = parseInt(c.dataset.li); flipped = false; renderTypePanel(); };
+  });
+  document.getElementById('prevBtn').onclick = () => { currentEx = (currentEx - 1 + list.length) % list.length; flipped = false; renderTypePanel(); };
+  document.getElementById('nextBtn').onclick = () => { currentEx = (currentEx + 1) % list.length; flipped = false; renderTypePanel(); };
+  document.getElementById('masterBtn').onclick = (e) => {
+    e.stopPropagation();
+    mastery[key] = mastery[key] === 'mastered' ? 'read' : 'mastered';
+    saveMastery();
+    renderTypePanel();
+    renderStats();
+  };
+}
+
+function syncFilterChips() {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.f === probFilter));
+}
+
+document.getElementById('filterRow').addEventListener('click', (e) => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  probFilter = chip.dataset.f;
+  currentEx = 0;
+  flipped = false;
+  syncFilterChips();
+  renderTypePanel();
+});
+
+function renderQuickref() {
+  let html = '<tr><th>群</th><th>關鍵字訊號</th><th>核心得分點</th></tr>';
+  GROUPS.forEach(t => {
+    const firstSignal = t.signal.split('、')[0];
+    html += `<tr><td class="tnum">${t.num}</td><td><b>${t.ch}</b>（${t.examples.length}題）<br><span style="color:var(--ink-soft);font-size:.7rem">${firstSignal}</span></td><td>${t.pitfall.replace(/<[^>]+>/g,'').slice(0,40)}...</td></tr>`;
+  });
+  document.getElementById('qrTable').innerHTML = html;
+
+  const total = GROUPS.reduce((s,t)=>s+t.examples.length,0);
+  const distHtml = GROUPS.map(t => {
+    const pct = (t.examples.length/total*100).toFixed(0);
+    return `<div class="dist-row">
+      <div class="dist-label">${t.num}・${t.ch}</div>
+      <div class="dist-track"><div class="dist-fill" style="width:${pct}%;background:var(--vermillion)"></div></div>
+      <div class="dist-num">${t.examples.length}題・${pct}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('distBars').innerHTML = distHtml;
+}
+
+function renderStats() {
+  const readCount = Object.keys(mastery).filter(k => mastery[k]).length;
+  const masteredTypes = GROUPS.filter(t => t.examples.every((_,ei)=> mastery[exKey(t.id,ei)] === 'mastered')).length;
+  document.getElementById('statRead').textContent = readCount;
+  document.getElementById('statMastered').textContent = masteredTypes;
+}
+
+function renderAll() { renderStamps(); renderTypePanel(); renderStats(); }
+
+document.getElementById('qrToggle').onclick = () => {
+  const qr = document.getElementById('quickref');
+  qr.classList.toggle('open');
+  document.getElementById('qrToggle').textContent = qr.classList.contains('open') ? '📊 收合分布總覽＋速查表' : '📊 展開五群分布總覽＋速查表';
+};
+
+(function init() {
+  loadMastery();
+  renderQuickref();
+  renderAll();
+})();
+</script>
+</body>
+</html>
