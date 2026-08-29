@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規｜讀書攻略與備考指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif; line-height:1.7;
+  padding-bottom:60px;
+}
+.wrap{ max-width:760px; margin:0 auto; padding:0 20px; }
+
+header{
+  padding:44px 20px 30px; text-align:center;
+  border-bottom:3px double var(--vermillion);
+  background:linear-gradient(180deg,var(--paper2),var(--paper));
+}
+header .eyebrow{
+  font-size:.75rem; letter-spacing:.25em; color:var(--gold);
+  font-weight:700; margin-bottom:10px;
+}
+header h1{
+  font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.9rem;
+  color:var(--vermillion); letter-spacing:.02em; margin-bottom:8px;
+}
+header p{ font-size:.9rem; color:#7a6f5c; }
+
+.section{ padding:36px 0 8px; }
+.section-head{
+  display:flex; align-items:baseline; gap:12px; margin-bottom:18px;
+}
+.section-num{
+  font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.6rem;
+  color:var(--gold); opacity:.55;
+}
+.section h2{
+  font-family:"Noto Serif TC",serif; font-weight:700; font-size:1.3rem;
+  color:var(--ink);
+}
+.section .sub{ font-size:.82rem; color:#8a7f68; margin:-10px 0 18px; }
+
+/* 讀書攻略：優先度表格 */
+.priority-table{
+  width:100%; border-collapse:collapse; background:#fff;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  font-size:.88rem;
+}
+.priority-table th{
+  background:var(--ink); color:var(--paper2); text-align:left;
+  padding:10px 14px; font-weight:500; font-size:.78rem;
+}
+.priority-table td{
+  padding:11px 14px; border-top:1px solid var(--line); vertical-align:top;
+}
+.priority-table tr:nth-child(even) td{ background:#FCFAF4; }
+.tag{
+  display:inline-block; padding:2px 9px; border-radius:12px; font-size:.72rem;
+  font-weight:700; white-space:nowrap;
+}
+.tag-red{ background:#FBEDEA; color:var(--vermillion); border:1px solid var(--vermillion); }
+.tag-gold{ background:#FBF3E0; color:#8a6a1e; border:1px solid var(--gold); }
+.tag-green{ background:#EAF3EC; color:var(--green); border:1px solid var(--green); }
+
+/* 法則卡片 */
+.rules{ display:flex; flex-direction:column; gap:12px; }
+.rule{
+  background:#fff; border:1px solid var(--line); border-left:4px solid var(--vermillion);
+  border-radius:8px; padding:14px 18px;
+}
+.rule b{ color:var(--vermillion); }
+.rule .rule-title{
+  font-weight:700; font-size:.95rem; margin-bottom:4px; display:block;
+}
+.rule p{ font-size:.86rem; color:#4a4238; }
+
+/* 運用Claude：對話框樣式 */
+.usecase{
+  background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:16px 18px; margin-bottom:12px;
+}
+.usecase .u-title{
+  font-weight:700; font-size:.92rem; color:var(--ink); margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+.usecase .u-icon{
+  width:22px; height:22px; border-radius:50%; background:var(--gold);
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:.72rem; font-weight:900; flex-shrink:0;
+}
+.usecase .u-example{
+  background:var(--paper2); border-left:3px solid var(--gold);
+  padding:8px 12px; margin-top:8px; font-size:.82rem; color:#5a5142;
+  border-radius:4px; font-family:"Noto Sans TC",sans-serif;
+}
+.usecase p{ font-size:.85rem; color:#5a5142; }
+
+/* 時程表 */
+.timeline{ position:relative; padding-left:24px; }
+.timeline::before{
+  content:''; position:absolute; left:6px; top:6px; bottom:6px; width:2px;
+  background:var(--line);
+}
+.t-item{ position:relative; padding-bottom:20px; }
+.t-item::before{
+  content:''; position:absolute; left:-24px; top:4px; width:11px; height:11px;
+  border-radius:50%; background:var(--vermillion); border:2px solid var(--paper);
+}
+.t-item .t-label{ font-weight:700; font-size:.88rem; color:var(--vermillion); }
+.t-item p{ font-size:.83rem; color:#5a5142; margin-top:2px; }
+
+footer{
+  text-align:center; font-size:.72rem; color:#a49a86;
+  padding:30px 20px 10px; border-top:1px solid var(--line); margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">BROKERX · 不動產經紀人 115年應考</div>
+  <h1>經紀法規｜讀書攻略與備考指南</h1>
+  <p>四大法律平台均衡分布・520題全數現行法查證・32題申論範文全套</p>
+</header>
+
+<div class="wrap">
+
+  <!-- 一、讀書攻略 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>讀書攻略：四大法律平台優先順序</h2>
+    </div>
+    <p class="sub">經紀法規不是「單一法規」的科目，而是四部法律均衡分布（A+E+H+G合計佔比94.7%），依此順序讀效益最高</p>
+
+    <table class="priority-table">
+      <tr><th>順序</th><th>篇章</th><th>佔比</th><th>核心考點</th></tr>
+      <tr>
+        <td><span class="tag tag-red">1</span></td>
+        <td><b>A</b> 經紀業管理條例</td>
+        <td>26.5%</td>
+        <td>業務責任章（說明書簽章解說流程）、獎懲罰則數字對照、經紀人員資格證書</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">2</span></td>
+        <td><b>E</b> 公寓大廈管理條例</td>
+        <td>23.8%</td>
+        <td>決議門檻（2/3出席3/4同意）、強制遷離拍賣程序、約定專用共用部分</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">3</span></td>
+        <td><b>H</b> 消費者保護法</td>
+        <td>22.5%</td>
+        <td>定型化契約規範、企業經營者責任、消費爭議三階段程序、懲罰性賠償金三級距</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">4</span></td>
+        <td><b>G</b> 公平交易法</td>
+        <td>21.9%</td>
+        <td>不實廣告連帶責任、廣告查核三層分工原則（申論最愛）、聯合結合行為</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-gold">5</span></td>
+        <td><b>D</b> 三大定型化契約</td>
+        <td>2.9%</td>
+        <td>審閱期天數比較（5日vs3日）、違約金比例方向相反</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">6</span></td>
+        <td><b>C</b> 不動產說明書</td>
+        <td>2.3%</td>
+        <td>佔比低但申論常考，<b>115.1.13最新修正版務必留意</b>（建築能效／太陽光電／300公尺水災紀錄）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 二、準備法則 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>準備法則：五條鐵律</h2>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <span class="rule-title">法則一・以現行法為準，不是以「背過的答案」為準</span>
+        <p>歷屆題答案是「出題當年」的正確答案，法規會修法。四輪查證已抓出43處新舊制混淆（如消保法委員人數7-21名非7-15名、消保團體設立2年非3年），刷題時看到解析裡的「⚠️現行法提醒」務必優先記住現行數字。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-title">法則二・四鍵篩選法：先求廣、再求準、最後求快</span>
+        <p><b>顯示全部</b>建立整體印象→<b>只看未作答</b>逐章節刷完→<b>只看答錯</b>反覆針對弱點→<b>清除紀錄</b>重刷驗收，一輪至少刷兩次以上，第二輪只看錯題本。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-title">法則三・錯題分類，不是錯了就算了</span>
+        <p><b>A法條混淆</b>＝記錯數字或條號，回頭補重點筆記；<b>B粗心</b>＝看錯題幹或選項，練習抓題感；<b>C真的不熟</b>＝整個觀念沒建立，優先回去讀重點筆記或申論範文的定義段落。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-title">法則四・申論題「架構先於文采」</span>
+        <p>四段式（定義→法條→涵攝分析→結論）是拿分骨架，考場上先把四個標題寫出來再填內容，避免漏答子問題。32題範文都拆解過作答骨幹，考前每題至少限時寫過一次。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-title">法則五・易混淆數字要「對照著背」，不要單獨背</span>
+        <p>經紀人換證30小時 vs 經紀營業員登錄20小時；委託契約書於代銷業務不適用；審閱期成屋5日 vs 委託銷售3日——這類「一組兩個數字」的陷阱，單獨背容易記混，要成對記憶。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、如何運用我 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>怎麼運用我</h2>
+    </div>
+    <p class="sub">這個對話窗保留了完整脈絡，直接接續使用，不用重新解釋背景</p>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">1</span>單題法條查證</div>
+      <p>讀書時看到「這個數字好像不太對」，直接丟給我，我會去law.moj.gov.tw查現行條文，不是憑印象回答。</p>
+      <div class="u-example">範例：「消保法第43條的15日申報期限，現行法還是這樣嗎？」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">2</span>申論題批改</div>
+      <p>照範文架構寫完一題後貼給我，我會對照四段式結構檢查有沒有漏答子問題、法條有沒有引用錯。</p>
+      <div class="u-example">範例：「我寫了108年申論二，幫我看哪裡漏了」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">3</span>刷題工具維護</div>
+      <p>刷題過程中發現任何一題解析寫得怪怪的，直接指出來，我會查證後修正對應的HTML檔案再給你重新下載。</p>
+      <div class="u-example">範例：「A4的110-8題答案我看不懂為什麼是這個」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">4</span>模擬考與弱點分析</div>
+      <p>可以請我出一份限時模擬題，或是統整某個章節的所有陷阱題給你複習。</p>
+      <div class="u-example">範例：「幫我抓20題A4和E3的混合模擬題」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">5</span>115年新修正內容預測</div>
+      <p>不動產說明書115.1.13新版還沒出現在歷屆題庫裡，屬於「新法規、舊題庫不可能考過」的高風險考點，可以請我幫你準備預擬架構。</p>
+      <div class="u-example">範例：「幫我把說明書新增的三項揭露事項整理成申論預擬題」</div>
+    </div>
+  </div>
+
+  <!-- 四、建議時程 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>建議讀書時程（依12週計畫收尾階段）</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item">
+        <span class="t-label">第一輪・章節刷題</span>
+        <p>依A→E→H→G→D→C順序，每章節先讀重點筆記再刷該章節的整批刷題練習，只看未作答，全數過一遍。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第二輪・錯題複習</span>
+        <p>切換「只看答錯」篩選，針對錯題本裡A/B/C三類分別處理，A類回頭補條文、C類回頭讀範文定義段落。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第三輪・申論限時寫作</span>
+        <p>每次挑1-2題，限時25分鐘寫完，寫完立刻對照範文自評，優先寫🔴A級必考的11題。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">考前一週・全科模擬＋數字總複習</span>
+        <p>清除作答紀錄重刷一次520題（限時，比照考場步調），並把「準備法則五」提到的成對數字整理成小抄最後過一遍。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  BrokerX Project・不動產經紀人 115年應考｜經紀法規科目<br>
+  📅 2026-08-23
+</footer>
+
+</body>
+</html>
