@@ -146,6 +146,14 @@ button:active { transform: scale(.97); }
 .filter-chip { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 4px 10px; font-size: .7rem; font-weight: 700; cursor: pointer; color: var(--ink-soft); }
 .filter-chip.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 
+.mode-toggle-row { display: flex; gap: 8px; justify-content: center; margin: 4px 0 14px; }
+.mode-toggle-chip { flex: 1; max-width: 180px; text-align: center; border: 1.5px solid var(--vermillion); background: #fff; color: var(--vermillion); border-radius: 20px; padding: 8px 14px; font-size: .78rem; font-weight: 700; cursor: pointer; font-family: 'Noto Serif TC', serif; transition: all .15s; }
+.mode-toggle-chip.active { background: var(--vermillion); color: #fff; }
+.year-bar { display: flex; gap: 5px; overflow-x: auto; padding: 4px 2px 10px; margin: 10px 0; -webkit-overflow-scrolling: touch; }
+.year-bar::-webkit-scrollbar { height: 4px; }
+.year-bar::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+.year-type-tag { display: inline-block; font-size: .68rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; color: #fff; }
+
 .section-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .92rem; margin-bottom: 10px; border-left: 4px solid var(--vermillion); padding-left: 8px; }
 
 footer { text-align: center; font-size: .68rem; color: var(--ink-soft); margin-top: 10px; }
@@ -163,6 +171,11 @@ footer { text-align: center; font-size: .68rem; color: var(--ink-soft); margin-t
   <div class="stats-row">
     <div class="stat-chip">已掌握 <b id="statMastered">0</b>/5型</div>
     <div class="stat-chip">已讀範例 <b id="statRead">0</b>/32題</div>
+  </div>
+
+  <div class="mode-toggle-row" id="modeToggleRow">
+    <div class="mode-toggle-chip active" data-mode="type">🗂️ 依題型瀏覽</div>
+    <div class="mode-toggle-chip" data-mode="year">📅 依年度瀏覽</div>
   </div>
 
   <div class="stamp-row" id="stampRow"></div>
@@ -282,8 +295,10 @@ const STORAGE_KEY = 'civlaw_essay_template_mastery_v2';
 let mastery = {};
 let currentType = 0;
 let currentEx = 0;
+let currentYearIdx = 0;
 let flipped = false;
 let probFilter = 'all';
+let viewMode = 'type';
 
 async function loadMastery() {
   try {
@@ -297,6 +312,25 @@ async function saveMastery() {
 }
 
 function exKey(typeId, idx) { return typeId + '_' + idx; }
+
+function buildYearList() {
+  const flat = [];
+  TYPES.forEach(t => {
+    t.examples.forEach((ex, i) => {
+      flat.push({ ex, typeId: t.id, typeCh: t.ch, typeColor: t.color, idx: i });
+    });
+  });
+  const subMap = { '一': 1, '二': 2 };
+  flat.sort((a, b) => {
+    const [ayRaw, aq] = a.ex.year.split('-');
+    const [byRaw, bq] = b.ex.year.split('-');
+    const ay = parseInt(ayRaw, 10), by = parseInt(byRaw, 10);
+    if (ay !== by) return ay - by;
+    return (subMap[aq] || 0) - (subMap[bq] || 0);
+  });
+  return flat;
+}
+const YEAR_LIST = buildYearList();
 
 function filteredExamples(t) {
   if (probFilter === 'all') return t.examples.map((ex, i) => ({ ex, i }));
@@ -409,6 +443,85 @@ function renderTypePanel() {
   };
 }
 
+function renderYearPanel() {
+  let list = probFilter === 'all' ? YEAR_LIST : YEAR_LIST.filter(o => o.ex.prob === probFilter);
+  if (list.length === 0) { probFilter = 'all'; list = YEAR_LIST; syncFilterChips(); }
+  if (currentYearIdx >= list.length) currentYearIdx = 0;
+
+  const o = list[currentYearIdx];
+  const ex = o.ex;
+  const key = exKey(o.typeId, o.idx);
+  const state = mastery[key] || null;
+
+  const yearChips = list.map((oo, li) => {
+    const k = exKey(oo.typeId, oo.idx);
+    const isDone = !!mastery[k];
+    return `<div class="ex-chip prob-${oo.ex.prob} ${li === currentYearIdx ? 'active' : ''} ${isDone ? 'done' : ''}" data-li="${li}">${oo.ex.year}</div>`;
+  }).join('');
+
+  document.getElementById('typePanel').innerHTML = `
+    <div class="type-head">
+      <div class="big-num" style="color:${o.typeColor}">📅</div>
+      <div class="tt">
+        <div class="tt-name">依年度瀏覽</div>
+        <div class="tt-alias">99年－114年・共32題</div>
+        <div class="tt-count">本題屬於「${o.typeCh}」</div>
+      </div>
+    </div>
+    <div class="signal-box"><b>提示：</b>依年度順序刷完32題後，若想抓題型手感，可切回「依題型瀏覽」查看對應骨架。</div>
+
+    <div class="year-bar" id="yearBar">${yearChips}</div>
+
+    <div class="card-meta-row">
+      <span>${ex.year}｜${ex.tag}<span class="year-type-tag" style="background:${o.typeColor}">${o.typeCh}</span></span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${((currentYearIdx+1)/list.length)*100}%"></div></div>
+      <span>${currentYearIdx+1}/${list.length}</span>
+    </div>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+        <div class="card-face card-front">
+          <div class="qmeta">${ex.year}年申論題</div>
+          <div class="qtitle">${ex.tag}</div>
+          <div class="qbrief">${ex.brief}</div>
+          <div class="tap-hint">點擊翻面看四段式範本 →</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="back-row"><div class="back-label">① 定義（開頭句）</div><div class="back-text">${ex.def}</div></div>
+          <div class="back-row"><div class="back-label">② 必背法條</div><div class="back-text">${ex.law}</div></div>
+          <div class="back-row"><div class="back-label">③ 涵攝分析</div><div class="back-text">${ex.subsume}</div></div>
+          <div class="back-row"><div class="back-label">④ 結論</div><div class="back-text conclusion">${ex.conclusion}</div></div>
+          <div class="back-row"><div class="back-label">🪤 陷阱</div><div class="back-text trap">${ex.trap}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" id="prevBtn">← 上一題</button>
+      <button class="btn-mastered ${state === 'mastered' ? 'is-mastered' : ''}" id="masterBtn">${state === 'mastered' ? '✓ 已掌握' : '✅ 標記已掌握'}</button>
+      <button class="btn-secondary" id="nextBtn">下一題 →</button>
+    </div>
+  `;
+
+  document.getElementById('flashcard').onclick = () => {
+    flipped = !flipped;
+    document.getElementById('flashcard').classList.toggle('flipped', flipped);
+    if (!mastery[key]) { mastery[key] = 'read'; saveMastery(); renderStats(); }
+  };
+  document.querySelectorAll('#yearBar .ex-chip').forEach(c => {
+    c.onclick = (e) => { e.stopPropagation(); currentYearIdx = parseInt(c.dataset.li); flipped = false; renderYearPanel(); };
+  });
+  document.getElementById('prevBtn').onclick = () => { currentYearIdx = (currentYearIdx - 1 + list.length) % list.length; flipped = false; renderYearPanel(); };
+  document.getElementById('nextBtn').onclick = () => { currentYearIdx = (currentYearIdx + 1) % list.length; flipped = false; renderYearPanel(); };
+  document.getElementById('masterBtn').onclick = (e) => {
+    e.stopPropagation();
+    mastery[key] = mastery[key] === 'mastered' ? 'read' : 'mastered';
+    saveMastery();
+    renderYearPanel();
+    renderStats();
+  };
+}
+
 function syncFilterChips() {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.f === probFilter));
 }
@@ -418,9 +531,10 @@ document.getElementById('filterRow').addEventListener('click', (e) => {
   if (!chip) return;
   probFilter = chip.dataset.f;
   currentEx = 0;
+  currentYearIdx = 0;
   flipped = false;
   syncFilterChips();
-  renderTypePanel();
+  if (viewMode === 'type') { renderTypePanel(); } else { renderYearPanel(); }
 });
 
 function renderQuickref() {
@@ -457,7 +571,30 @@ function renderStats() {
   document.getElementById('statMastered').textContent = masteredTypes;
 }
 
-function renderAll() { renderStamps(); renderTypePanel(); renderStats(); }
+function renderAll() {
+  if (viewMode === 'type') {
+    document.getElementById('stampRow').style.display = 'flex';
+    renderStamps();
+    renderTypePanel();
+  } else {
+    document.getElementById('stampRow').style.display = 'none';
+    renderYearPanel();
+  }
+  renderStats();
+}
+
+document.getElementById('modeToggleRow').addEventListener('click', (e) => {
+  const chip = e.target.closest('.mode-toggle-chip');
+  if (!chip) return;
+  viewMode = chip.dataset.mode;
+  document.querySelectorAll('.mode-toggle-chip').forEach(c => c.classList.toggle('active', c.dataset.mode === viewMode));
+  currentEx = 0;
+  currentYearIdx = 0;
+  flipped = false;
+  probFilter = 'all';
+  syncFilterChips();
+  renderAll();
+});
 
 document.getElementById('qrToggle').onclick = () => {
   const qr = document.getElementById('quickref');
