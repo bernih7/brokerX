@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法概要｜讀書攻略與備考指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F8F3E9;
+  --paper-dark: #EFE7D6;
+  --ink: #2A2722;
+  --ink-soft: #6b6354;
+  --vermillion: #A8402B;
+  --gold: #BC8A2E;
+  --green: #5C7A4A;
+  --blue: #3E6B8C;
+  --line: #D9CFB8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(168,64,43,.05), transparent 40%),
+    radial-gradient(circle at 92% 92%, rgba(188,138,46,.06), transparent 45%);
+  color: var(--ink);
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.75;
+}
+.wrap { max-width: 780px; margin: 0 auto; padding: 28px 18px 80px; }
+
+header { text-align: center; margin-bottom: 26px; }
+.eyebrow { font-size: .72rem; letter-spacing: .2em; color: var(--vermillion); font-weight: 700; margin-bottom: 8px; }
+h1 { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 1.9rem; margin: 0 0 8px; }
+.subtitle { font-size: .85rem; color: var(--ink-soft); }
+
+.stat-row { display: flex; gap: 8px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+.stat-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 16px; text-align: center; min-width: 84px;
+}
+.stat-num { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 1.3rem; color: var(--vermillion); }
+.stat-label { font-size: .68rem; color: var(--ink-soft); margin-top: 2px; }
+
+.warn-banner {
+  background: rgba(168,64,43,.07); border: 1px solid rgba(168,64,43,.25);
+  border-radius: 10px; padding: 12px 16px; font-size: .82rem; margin-bottom: 24px;
+  color: var(--vermillion); font-weight: 600;
+}
+
+.section { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; margin-bottom: 18px; }
+.section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.section-num { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 1.5rem; color: var(--gold); }
+.section h2 { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; margin: 0; }
+.section-sub { font-size: .78rem; color: var(--ink-soft); margin: -8px 0 14px; }
+
+table { width: 100%; border-collapse: collapse; font-size: .82rem; margin: 10px 0; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+th { font-size: .7rem; color: var(--ink-soft); font-weight: 700; }
+.tag-red { color: var(--vermillion); font-weight: 700; }
+.tag-yellow { color: var(--gold); font-weight: 700; }
+.tag-green { color: var(--green); font-weight: 700; }
+
+.rule-list { list-style: none; padding: 0; margin: 0; counter-reset: rule; }
+.rule-list li {
+  counter-increment: rule; position: relative; padding: 10px 0 10px 34px;
+  border-bottom: 1px dashed var(--line); font-size: .85rem;
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-list li::before {
+  content: counter(rule); position: absolute; left: 0; top: 9px;
+  width: 22px; height: 22px; border-radius: 50%; background: var(--vermillion); color: #fff;
+  font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: .72rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.rule-title { font-weight: 700; margin-bottom: 2px; }
+
+.piece-card {
+  border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px;
+  background: var(--paper-dark);
+}
+.piece-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.piece-badge {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--vermillion); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif;
+  font-weight: 700; font-size: .8rem; flex-shrink: 0;
+}
+.piece-name { font-weight: 700; font-size: .95rem; }
+.piece-where { font-size: .72rem; color: var(--ink-soft); margin-bottom: 8px; }
+.piece-use { font-size: .82rem; margin-bottom: 10px; }
+.link-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.link-chip {
+  display: inline-flex; align-items: center; gap: 4px; font-size: .72rem;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 5px 11px;
+  color: var(--blue); text-decoration: none; font-weight: 600; transition: all .15s;
+}
+.link-chip:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.link-chip.kb { color: var(--green); }
+.link-chip.kb:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+.usecase {
+  border-left: 3px solid var(--gold); padding: 8px 0 8px 14px; margin-bottom: 10px; font-size: .84rem;
+}
+.u-title { font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+.u-icon {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--gold); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center; font-size: .68rem; font-weight: 700;
+}
+.u-example { font-size: .76rem; color: var(--ink-soft); margin-top: 4px; font-style: italic; }
+
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before { content: ''; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--line); }
+.t-item { position: relative; padding-bottom: 16px; }
+.t-item:last-child { padding-bottom: 0; }
+.t-item::before {
+  content: ''; position: absolute; left: -20px; top: 3px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--vermillion); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--vermillion);
+}
+.t-label { font-weight: 700; font-size: .85rem; color: var(--vermillion); }
+.t-item p { font-size: .8rem; margin: 3px 0 0; color: var(--ink); }
+
+.pitfall-box {
+  background: rgba(188,138,46,.08); border-left: 3px solid var(--gold);
+  padding: 10px 14px; font-size: .8rem; border-radius: 0 8px 8px 0; margin-top: 10px;
+}
+
+footer { text-align: center; font-size: .72rem; color: var(--ink-soft); margin-top: 30px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">BrokerX・不動產經紀人115年應考・民法概要</div>
+    <h1>讀書攻略與備考指南</h1>
+    <div class="subtitle">第三次應考・弱點科目第一名，這科拉不起來就沒有這次</div>
+  </header>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">325</div><div class="stat-label">選擇題（16年）</div></div>
+    <div class="stat-card"><div class="stat-num">32</div><div class="stat-label">申論題（99–114）</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">段落 A/BC/D/E</div></div>
+    <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">今日核實修正題數</div></div>
+  </div>
+
+  <div class="warn-banner">
+    ⚠️ 申論32題已於2026-08-29完整核對官方PDF原文，修正10題事實/結論錯誤。攻略總表、完整範文、答題模板分類卡皆為v1.1修正版；HTML互動小卡已從知識庫移除，僅存放於GitHub，本頁連結一律導向GitHub版本。
+  </div>
+
+  <!-- 一、讀書攻略：優先順序表 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>讀書攻略：段落優先順序</h2>
+    </div>
+    <div class="section-sub">依《民法概要_16年考點分析》高頻考點排行，按段落加總排序</div>
+    <table>
+      <tr><th>順序</th><th>段落</th><th>核心考點（16年累計題數）</th><th>優先度</th></tr>
+      <tr>
+        <td>1</td><td><b>D・物權編</b></td>
+        <td>抵押權36・地上權27・共有24・所有權20</td>
+        <td><span class="tag-red">🔴 第一優先</span></td>
+      </tr>
+      <tr>
+        <td>2</td><td><b>E・親屬繼承</b></td>
+        <td>繼承53・夫妻財產37（近年翻倍）・特留分15</td>
+        <td><span class="tag-red">🔴 第一優先</span></td>
+      </tr>
+      <tr>
+        <td>3</td><td><b>A・總則</b></td>
+        <td>意思表示44（降溫中）・行為能力28・代理18・時效13</td>
+        <td><span class="tag-yellow">🟡 第二優先</span></td>
+      </tr>
+      <tr>
+        <td>4</td><td><b>C・各種之債</b></td>
+        <td>租賃27・瑕疵擔保20・居間14（近年申論爆發）</td>
+        <td><span class="tag-yellow">🟡 第二優先</span></td>
+      </tr>
+      <tr>
+        <td>5</td><td><b>B・債編總則</b></td>
+        <td>侵權行為13（107年後幾乎絕跡）</td>
+        <td><span class="tag-green">🟢 第三優先</span></td>
+      </tr>
+    </table>
+    <div class="pitfall-box">
+      <b>115年特別留意：</b>居間契約112、113年連續兩年是申論主角（報酬請求權成立時點、合意解除對報酬之影響）；夫妻財產制選擇題16年翻倍，重心已轉向法定財產制剩餘財產分配請求權（§1030-1）。
+    </div>
+  </div>
+
+  <!-- 二、五件套實際應用方式 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>五件套：實際放在哪、怎麼用</h2>
+    </div>
+    <div class="section-sub">民法的五件套有點不一樣——重點筆記與題庫不是md檔，是直接做成互動HTML工具</div>
+
+    <div class="piece-card">
+      <div class="piece-head"><div class="piece-badge">1</div><div class="piece-name">16年考點分析</div></div>
+      <div class="piece-where">📚 知識庫（md）</div>
+      <div class="piece-use">高頻考點排行、四大趨勢轉變、16年不變鐵律考點、115年預測。<b>用法：</b>每次開始一個新段落前，先來這裡確認這段在16年裡佔多少比重、有沒有近年趨勢轉變，避免花力氣在早年集中、近年已消退的冷門考點上。</div>
+      <div class="link-row">
+        <span class="link-chip kb">📚 民法概要_16年考點分析_99-114_.md</span>
+      </div>
+    </div>
+
+    <div class="piece-card">
+      <div class="piece-head"><div class="piece-badge">2</div><div class="piece-name">重點筆記</div></div>
+      <div class="piece-where">🌐 GitHub（彩色重點速記系列，A/BC/D/E四段）</div>
+      <div class="piece-use">色塊分類速讀，🟢定義／🔵法條／🟠易混淆／🟣口訣／🔴易錯點。<b>用法：</b>每段刷題前先讀一次，當作該段落的地圖，不是拿來背，是拿來知道「等一下刷題會遇到哪些類型的坑」。</div>
+      <div class="link-row">
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">A段 彩色重點速記</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">BC段 彩色重點速記</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">D段 彩色重點速記</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">E段 彩色重點速記</a>
+      </div>
+    </div>
+
+    <div class="piece-card">
+      <div class="piece-head"><div class="piece-badge">3</div><div class="piece-name">題庫含答案</div></div>
+      <div class="piece-where">🌐 GitHub（考題小卡精選版／完整版／刷題練習系列）</div>
+      <div class="piece-use"><b>Phase 1（現在）：</b>用精選版考題小卡（18題／段），配合互動單字卡抓手感，不要一開始就衝完整版。<b>Phase 2（弱點回頭複習）：</b>完整考題小卡與依年份區間分包的刷題練習（99~106、107~114），拿來針對錯題本裡A型（法條混淆）的段落重刷。</div>
+      <div class="link-row">
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">A段 考題小卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">BC段 考題小卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">D段 考題小卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">E段 考題小卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">A段 完整版</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">BC段 完整版</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">D段 完整版</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">E段 完整版</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html" target="_blank">25題模擬測驗</a>
+      </div>
+    </div>
+
+    <div class="piece-card">
+      <div class="piece-head"><div class="piece-badge">4</div><div class="piece-name">申論題攻略表</div></div>
+      <div class="piece-where">📚 知識庫（md，v1.1修正版）</div>
+      <div class="piece-use">32題逐題查——每題附必背法條、開頭句、結論句、常犯的錯、陷阱。<b>用法：</b>看到一題新題目，先來這裡查有沒有對應年度的架構可以參考，這是「逐題查」的工具，不是拿來練手感的。</div>
+      <div class="link-row">
+        <span class="link-chip kb">📚 民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md</span>
+      </div>
+    </div>
+
+    <div class="piece-card">
+      <div class="piece-head"><div class="piece-badge">5</div><div class="piece-name">申論題實戰範文</div></div>
+      <div class="piece-where">📚 知識庫（md，v1.1修正版，已修正10題）</div>
+      <div class="piece-use">32題完整四段式論述（定義→法條→涵攝分析→結論），字數比照25分申論合理作答量。<b>用法：</b>限時作答後拿來對照自評；或考前抓🔴高機率題目直接背誦模仿寫法。</div>
+      <div class="link-row">
+        <span class="link-chip kb">📚 民法申論題實戰範文_32題完整版.md</span>
+      </div>
+    </div>
+
+    <div class="pitfall-box">
+      <b>額外加碼工具（非五件套正式編制，但實用）：</b>互動單字卡（A/BC/D/E翻牌記憶）、申論題五型答題模板（依題型／依年度雙模式瀏覽，考前抓套路用）。
+      <div class="link-row" style="margin-top:8px;">
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">A段 互動單字卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">BC段 互動單字卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">D段 互動單字卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">E段 互動單字卡</a>
+        <a class="link-chip" href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html" target="_blank">申論五型答題模板</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、準備法則 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>準備法則：五條鐵律</h2>
+    </div>
+    <ol class="rule-list">
+      <li>
+        <div class="rule-title">現行法優先於歷屆答案</div>
+        106年那題「限制行為能力人」現行法已修為18歲成年，答題要用現行法，不是舊制。看到年代較早的題目，先確認條文有沒有修正過。
+      </li>
+      <li>
+        <div class="rule-title">四鍵篩選刷題法</div>
+        刷完整版考題小卡時，用「只看答錯」「只看A型」「只看未作答」交叉篩選，不要每次都從頭刷到尾，時間有限要花在真正的洞上。
+      </li>
+      <li>
+        <div class="rule-title">錯題ABC三分類要誠實</div>
+        A（法條混淆）回頭補條文原文；B（粗心）記下自己容易漏看的關鍵字（例如「善意」「登記」）；C（真的不熟）回頭讀重點筆記的定義段落，不要跳過。
+      </li>
+      <li>
+        <div class="rule-title">申論架構先於文采</div>
+        定義→法條→涵攝→結論，四段式先寫對順序、再求流暢。閱卷者要看的是你抓對爭點，不是你的文筆。
+      </li>
+      <li>
+        <div class="rule-title">易混淆數字／方向成對記憶</div>
+        善意占有(§952)vs惡意占有；詐欺撤銷不得對抗善意第三人vs脅迫撤銷得對抗；§824-1第2項原則按比例、例外才歸抵押人——這種「方向容易講反」的規則，用「成對」方式記，才不會考場上瞬間短路。
+      </li>
+    </ol>
+  </div>
+
+  <!-- 四、怎麼運用我 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>怎麼運用我</h2>
+    </div>
+    <div class="section-sub">這個對話窗保留完整脈絡，直接接續使用，不用重新解釋背景</div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">1</span>單題法條查證</div>
+      刷題時發現「這個數字好像不對」，直接丟給我，我會去law.moj.gov.tw查現行條文核對，不是憑印象回答。
+      <div class="u-example">範例：「民法952條善意占有人使用收益，現行法還是這樣規定嗎？」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">2</span>申論題批改</div>
+      照攻略表架構寫完一題後貼給我，我會對照四段式結構檢查有沒有漏答子問題、法條有沒有引用錯、有沒有漏掉關鍵抗辯（例如善意占有這種容易被忽略的反方論點）。
+      <div class="u-example">範例：「我寫了111年申論一，幫我看哪裡漏了」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">3</span>題庫工具核對</div>
+      刷題過程中發現任何一題解析寫得怪怪的，或懷疑角色/數字錯了，直接指出來，我會回頭核對官方PDF原文後修正。
+      <div class="u-example">範例：「104年那題居間報酬，甲乙角色好像怪怪的」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">4</span>模擬考與弱點分析</div>
+      可以請我出一份限時模擬題，或統整某個段落的所有陷阱題給你複習，也可以根據錯題本做弱點分析。
+      <div class="u-example">範例：「幫我抓20題D段共有＋抵押權的混合模擬題」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">5</span>PDF逐題核實</div>
+      如果對某年題目的真實性或內容有疑慮，可以請我直接對照官方PDF原文逐題核對，不要只信任二手摘要或攻略表骨幹——今天的32題核實就是這樣做的。
+      <div class="u-example">範例：「請對照PDF重新核對109年這兩題申論的事實有沒有寫對」</div>
+    </div>
+  </div>
+
+  <!-- 五、建議時程 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>建議讀書時程</h2>
+    </div>
+    <div class="section-sub">依12週計畫，民法是第一階段主攻科目</div>
+
+    <div class="timeline">
+      <div class="t-item">
+        <span class="t-label">第一輪・段落刷題（D→E→A→C→B）</span>
+        <p>依優先順序表，每段先讀彩色重點速記，再刷精選版考題小卡（18題／段），搭配互動單字卡抓手感。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第二輪・錯題複習</span>
+        <p>用完整版考題小卡與依年份區間的刷題練習，篩「只看答錯」，針對A/B/C三類錯題分別處理。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第三輪・申論限時寫作</span>
+        <p>從32題攻略表挑🔴高機率題目，限時25分鐘手寫，寫完立刻對照實戰範文自評，優先練104-一、108-二、109-一、110-一、111-一、113-二這幾題今天核實過易錯的題目。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">考前一週・全科模擬＋易混淆規則總複習</span>
+        <p>重刷25題模擬測驗（限時，比照考場步調），並把「準備法則五」提到的成對規則整理成小抄最後過一遍。</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    BrokerX Project・不動產經紀人 115年應考｜民法概要科目<br>
+    📅 2026-08-29・對應五件套v1.1修正版
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土地法與土地相關稅法概要｜讀書攻略與備考指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F8F3E9;
+    --ink:#2A2722;
+    --vermillion:#A8402B;
+    --gold:#BC8A2E;
+    --green:#5C7A4A;
+    --blue:#3E6B8C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;
+    line-height:1.75;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:36px 20px 80px;}
+  header.hero{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:22px;
+    margin-bottom:32px;
+    position:relative;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:.12em;
+    color:var(--vermillion);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:clamp(28px,5vw,40px);
+    margin:0 0 10px;
+    letter-spacing:.02em;
+  }
+  .sub{color:#5b564c;font-size:15px;margin:0;}
+  .stamp{
+    position:absolute;
+    top:0;right:0;
+    width:64px;height:64px;
+    border:3px solid var(--vermillion);
+    border-radius:50%;
+    color:var(--vermillion);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:13px;
+    text-align:center;
+    transform:rotate(8deg);
+    line-height:1.2;
+  }
+  .section{margin-bottom:46px;}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;}
+  .section-num{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:15px;
+    color:var(--paper);
+    background:var(--ink);
+    padding:4px 10px;
+    border-radius:3px;
+  }
+  h2{
+    font-family:'Noto Serif TC',serif;
+    font-size:22px;
+    margin:0;
+    font-weight:700;
+  }
+  p{margin:0 0 12px;}
+
+  /* 一、優先順序表 */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+    background:#fffdf8;
+    box-shadow:0 1px 0 rgba(0,0,0,.05);
+  }
+  th,td{
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1px solid #e4ddcc;
+    vertical-align:top;
+  }
+  th{
+    font-family:'Noto Serif TC',serif;
+    font-size:13px;
+    color:#5b564c;
+    border-bottom:2px solid var(--ink);
+  }
+  td.pri{font-size:18px;text-align:center;width:34px;}
+  td.code{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    white-space:nowrap;
+    color:var(--blue);
+  }
+  tr.row-red td{background:rgba(168,64,43,.05);}
+  tr.row-yellow td{background:rgba(188,138,46,.06);}
+  tr.row-green td{background:rgba(92,122,74,.05);}
+  .tag{
+    display:inline-block;
+    font-size:11px;
+    padding:1px 7px;
+    border-radius:10px;
+    margin-left:6px;
+    font-weight:700;
+  }
+  .tag-new{background:var(--blue);color:#fff;}
+
+  /* 二、鐵律 */
+  .rule{
+    display:flex;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px dashed #d8cfb8;
+  }
+  .rule:last-child{border-bottom:none;}
+  .rule-num{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    font-size:26px;
+    color:var(--gold);
+    min-width:34px;
+  }
+  .rule-title{font-weight:700;margin-bottom:4px;font-size:15.5px;}
+  .rule-body{color:#454138;font-size:14.5px;}
+  .rule-body b{color:var(--vermillion);}
+
+  /* 三、使用情境 */
+  .usecase{
+    background:#fffdf8;
+    border-left:4px solid var(--green);
+    padding:14px 18px;
+    margin-bottom:12px;
+    border-radius:0 6px 6px 0;
+  }
+  .u-title{
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+    font-size:15.5px;
+  }
+  .u-icon{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--green);
+    color:#fff;
+    font-size:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .u-example{
+    margin-top:8px;
+    font-size:13.5px;
+    color:#5b564c;
+    background:#f0ead9;
+    padding:8px 12px;
+    border-radius:5px;
+  }
+
+  /* 四、時程 */
+  .timeline{border-left:2px solid var(--ink);padding-left:22px;margin-left:6px;}
+  .t-item{position:relative;padding-bottom:22px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:'';
+    position:absolute;
+    left:-27px;top:4px;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--vermillion);
+    border:2px solid var(--paper);
+  }
+  .t-label{font-weight:700;color:var(--vermillion);font-size:14.5px;}
+  .t-item p{margin-top:4px;font-size:14.5px;}
+
+  /* 五、五件套 */
+  .kit{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .kit-item{
+    display:flex;
+    gap:12px;
+    background:#fffdf8;
+    padding:12px 16px;
+    border-radius:6px;
+    border:1px solid #e4ddcc;
+  }
+  .kit-num{
+    font-family:'Noto Serif TC',serif;
+    font-weight:900;
+    color:var(--gold);
+    font-size:15px;
+    flex-shrink:0;
+  }
+  .kit-name{font-weight:700;font-size:14.5px;}
+  .kit-use{font-size:13.5px;color:#5b564c;margin-top:2px;}
+
+  /* GitHub 工具連結 */
+  .tools{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:10px;
+  }
+  .tool-link{
+    display:block;
+    background:#fffdf8;
+    border:1px solid #e4ddcc;
+    border-left:4px solid var(--blue);
+    border-radius:0 6px 6px 0;
+    padding:10px 14px;
+    text-decoration:none;
+    color:var(--ink);
+    font-size:13.5px;
+    transition:background .15s;
+  }
+  .tool-link:hover{background:#f0ead9;}
+  .tool-name{font-weight:700;display:block;margin-bottom:2px;}
+  .tool-desc{color:#5b564c;font-size:12.5px;}
+
+  footer{
+    margin-top:50px;
+    padding-top:18px;
+    border-top:1px solid #d8cfb8;
+    font-size:12.5px;
+    color:#8a8474;
+    text-align:center;
+  }
+  .callout{
+    background:rgba(168,64,43,.07);
+    border:1px solid rgba(168,64,43,.25);
+    border-radius:6px;
+    padding:12px 16px;
+    font-size:13.5px;
+    margin-top:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="stamp">土地法<br>備考</div>
+    <div class="eyebrow">BrokerX Project・弱點順序第三科</div>
+    <h1>土地法與土地相關稅法概要</h1>
+    <p class="sub">讀書攻略與備考指南｜第三次應考，115年11月14–15日｜這個對話窗保留完整脈絡，直接接續使用</p>
+  </header>
+
+  <!-- 一、讀書攻略 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>讀書攻略：優先順序表</h2>
+    </div>
+    <p style="color:#5b564c;font-size:14px;">依《土地法概要_16年考點分析(99-114)》520題精確分類與趨勢統計排序。土地法橫跨九部法規（土地法、平均地權條例、土地徵收條例、土地稅法、房屋稅條例、契稅條例、所得稅法…），數字多、法規來源多，優先順序比背誦順序更重要。</p>
+    <table>
+      <tr><th>優先度</th><th>章節</th><th>主題</th><th>備考重點</th></tr>
+      <tr class="row-red"><td class="pri">🔴</td><td class="code">A2</td><td>土地登記</td><td>16年最高頻(55題)；預告登記效力範圍、繼承登記列冊15年制度、地籍測量重測複丈</td></tr>
+      <tr class="row-red"><td class="pri">🔴</td><td class="code">B2</td><td>都市計畫法</td><td>申論第一主角(5/32題命中)；公共設施保留地使用限制/地價稅/取得方式三合一，常包裝成說明書解說義務情境</td></tr>
+      <tr class="row-red"><td class="pri">🔴</td><td class="code">E1</td><td>地價稅</td><td>累進稅率結構、自用住宅優惠、納稅義務人(含信託/典權/共有)，選擇題申論題雙高頻</td></tr>
+      <tr class="row-red"><td class="pri">🔴</td><td class="code">A3</td><td>共有優先購買權(34-1)</td><td>近年題數逆勢成長；34-1 vs 104條 vs 耕地375減租15條，三者要能交叉比較</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">E2</td><td>土地增值稅</td><td>選擇題降溫但申論仍是常客(112/113/114連續出現)；自用住宅優惠、重購退稅、原地價認定</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">C4</td><td>實價登錄／預售屋管理</td><td>從邊緣到核心(0.9%→5.5%)；平均地權條例47條申報期限、47-4轉售限制、79-1私法人購屋</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">C2</td><td>市地重劃</td><td>107、113年連續申論出現，出題者偏好「公告異議程序」這類程序題</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">A1</td><td>總則</td><td>外國人取得地權限制、不得私有土地列舉，105年憲法143條申論已考過一次</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">G1</td><td>契稅</td><td>稅率結構、申報起算日、納稅義務人，常與地價稅房屋稅合併出題比較</td></tr>
+      <tr class="row-yellow"><td class="pri">🟡</td><td class="code">F1</td><td>房屋稅</td><td>選擇題密度已降，重點放在申論可能考的稅基計算與非自住房屋稅率</td></tr>
+      <tr class="row-green"><td class="pri">🟢</td><td class="code">D1–D4</td><td>徵收程序／補償／區段徵收</td><td>掌握基本流程與必備要件即可，細節數字以申論常考者(抵價地比例)為主</td></tr>
+      <tr class="row-green"><td class="pri">🟢</td><td class="code">B1</td><td>區域計畫法</td><td>大幅消退(9.4%→2.5%)，只需認識使用分區基本架構，不必深背容積率細節</td></tr>
+      <tr class="row-green"><td class="pri">🟢</td><td class="code">I1</td><td>耕地三七五減租</td><td>近8年選擇題幾乎絕跡，16年申論從未出現，快速掃過即可</td></tr>
+      <tr class="row-green"><td class="pri">🟢</td><td class="code">B3</td><td>國土計畫法<span class="tag tag-new">新法</span></td><td>112年正式上路，歷屆題庫題量必然偏少——這是「法規已生效但舊題庫測不到」的新增風險考點，留意基本權責劃分</td></tr>
+    </table>
+  </div>
+
+  <!-- 二、準備法則 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>準備法則：五條鐵律</h2>
+    </div>
+    <div class="rule">
+      <div class="rule-num">1</div>
+      <div>
+        <div class="rule-title">現行法優先於歷屆答案</div>
+        <div class="rule-body">土地稅（房屋稅2.0、土地增值稅優惠要件）修法頻率高，歷屆題目答案是「當年」正確，不代表「現行」正確。刷到稅率數字，直接問我查<b>現行</b>法規再記，不要照單全收舊答案。</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">2</div>
+      <div>
+        <div class="rule-title">四鍵篩選刷題法</div>
+        <div class="rule-body">全部／未作答／答錯／清除，四個篩選鍵配合章節chip篩選使用。土地法9個HTML工具皆已內建此功能，第一輪先刷「全部」建立地圖，第二輪起只刷「答錯」。</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">3</div>
+      <div>
+        <div class="rule-title">錯題ABC三分類，A型要多記一件事</div>
+        <div class="rule-body">A（法條混淆）／B（粗心）／C（真的不熟）。土地法橫跨<b>六部以上法規</b>，A型錯題除了記錯哪一條，更常是記錯「這件事到底規定在土地法本法、平均地權條例、還是土地稅法」——建議錯題本A型額外註記法規來源，這科最容易搞混的不是條號，是法規本身。</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">4</div>
+      <div>
+        <div class="rule-title">申論架構優先於文采</div>
+        <div class="rule-body">定義→法條→涵攝分析→結論，四段式。土地法申論題近年常把「地用地權」議題包裝成不動產經紀人實務情境（如112、114年的說明書解說義務），先辨識情境對應哪個章節、再套架構，比想文筆更重要。</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-num">5</div>
+      <div>
+        <div class="rule-title">成對數字比較記憶法</div>
+        <div class="rule-body">土地法的高頻考點多是「兩兩對照」型：34-1 vs 104條優先購買權、預告登記 vs 禁止處分登記、地價稅原則稅率 vs 累進例外、空地稅2–5倍 vs 一般稅率。做成對照卡而非單獨死背，考場遇到「哪個是原則哪個是例外」的陷阱題才不會憑直覺答錯。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三、怎麼運用我 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>怎麼運用我：五種使用情境</h2>
+    </div>
+    <p style="color:#5b564c;font-size:14px;">這個對話窗保留了完整脈絡，直接接續使用，不用重新解釋背景。</p>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">1</span>單題法條／稅率查證</div>
+      <p>讀書時看到「這個稅率／比例好像不太對」，直接丟給我，我會去law.moj.gov.tw查現行條文，不是憑印象回答。</p>
+      <div class="u-example">範例：「地價稅累進起點地價以上五倍以下的稅率，現行法還是千分之十五嗎？」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">2</span>申論題批改</div>
+      <p>照《土地法申論題實戰範文》架構寫完一題後貼給我，我會對照四段式結構檢查有沒有漏答子問題、法條有沒有引用錯、角色與金額有沒有寫顛倒。</p>
+      <div class="u-example">範例：「我寫了109年申論一抵價地，幫我看哪裡漏了」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">3</span>刷題工具維護</div>
+      <p>刷題過程中發現任一題解析寫得怪怪的，直接指出來，我會查證後修正對應的HTML檔案再給你重新下載。</p>
+      <div class="u-example">範例：「LandLaw_E_quiz.html裡110年第5題答案我看不懂為什麼是這個」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">4</span>模擬考與弱點分析</div>
+      <p>可以請我出一份限時模擬題，或是統整某個章節的所有陷阱題給你複習。</p>
+      <div class="u-example">範例：「幫我抓20題A2土地登記和E2土增稅的混合模擬題」</div>
+    </div>
+
+    <div class="usecase">
+      <div class="u-title"><span class="u-icon">5</span>115年新法／新趨勢預測</div>
+      <p>B3國土計畫法屬於「新法上路、舊題庫測不到」的高風險考點，可以請我幫你準備預擬架構；C4實價登錄/預售屋管理近年題量密集成長，也適合請我預擬申論題。</p>
+      <div class="u-example">範例：「幫我把國土計畫法上路後的使用管制權責劃分整理成申論預擬題」</div>
+    </div>
+  </div>
+
+  <!-- 四、建議讀書時程 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>建議讀書時程</h2>
+    </div>
+    <p style="color:#5b564c;font-size:14px;">依現行12週計畫（8/21–11/13）弱點順序：民法→估價→<b>土地法</b>→經紀法規，土地法第一輪刷題排在民法、估價之後登場。實際起訖週次以「總控」對話窗的每週進度為準，這裡先給收尾階段流程參考。</p>
+    <div class="timeline">
+      <div class="t-item">
+        <span class="t-label">第一輪・章節刷題</span>
+        <p>依A→B→C→D→E→FGHI順序，每章節先讀《重點筆記》對應段落，再刷該篇的LandLaw_*_quiz.html，只看未作答，全數過一遍。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第二輪・錯題複習</span>
+        <p>切換「只看答錯」篩選，錯題本A/B/C三類分別處理，A類回頭補「這是哪一部法」、C類回頭讀《重點筆記》定義段落，優先鎖定🔴A2/B2/E1/A3四章。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">第三輪・申論限時寫作</span>
+        <p>每次挑1–2題，限時25分鐘寫完，寫完立刻對照《申論題實戰範文》自評，優先寫🔴A級必考的「都市計畫公設保留地×說明書解說義務」「地價稅/土增稅稅基與納稅義務人」兩大主題。</p>
+      </div>
+      <div class="t-item">
+        <span class="t-label">考前一週・全科模擬＋數字總複習</span>
+        <p>清除作答紀錄重刷一次518題（限時，比照考場步調），並把「準備法則五」提到的成對數字整理成小抄最後過一遍。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五、五件套實際應用方式 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>五件套實際應用方式</h2>
+    </div>
+    <p style="color:#5b564c;font-size:14px;">土地法五件套皆已完成並存於 BrokerX Project 知識庫，各檔案的使用時機如下：</p>
+    <div class="kit">
+      <div class="kit-item">
+        <div class="kit-num">01</div>
+        <div>
+          <div class="kit-name">16年考點分析</div>
+          <div class="kit-use">開始讀一個新章節前先看，掌握佔比排序與趨勢標籤（鐵打必考／降溫／成長），決定要花多少時間</div>
+        </div>
+      </div>
+      <div class="kit-item">
+        <div class="kit-num">02</div>
+        <div>
+          <div class="kit-name">重點筆記</div>
+          <div class="kit-use">章節主讀教材，含★陷阱標記與稅率結構表，刷題前先讀一遍建立框架</div>
+        </div>
+      </div>
+      <div class="kit-item">
+        <div class="kit-num">03</div>
+        <div>
+          <div class="kit-name">題庫（含答案）</div>
+          <div class="kit-use">520題原始題庫md版，適合搜尋特定年度題目或查證答案來源；日常刷題請改用下方GitHub互動版</div>
+        </div>
+      </div>
+      <div class="kit-item">
+        <div class="kit-num">04</div>
+        <div>
+          <div class="kit-name">申論題攻略表</div>
+          <div class="kit-use">32題拆題邏輯與架構鷹架，限時作答前先讀，訓練「看到題目先抓子問題」的反射</div>
+        </div>
+      </div>
+      <div class="kit-item">
+        <div class="kit-num">05</div>
+        <div>
+          <div class="kit-name">申論題實戰範文</div>
+          <div class="kit-use">32題完整四段式範文，限時寫完後拿來對照自評用，不是拿來預先背誦</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      ⚠️ 提醒：《申論題實戰範文》目前僅完成「攻略表主題」與PDF官方原文的比對核實（32題主題/情境/人物皆相符），還沒有像民法那樣做「完整範文逐句核對」（角色、金額、登記名義人是否寫顛倒）。這件事還沒做，不代表範文有錯，只是還沒被同等嚴格地查過——如果你想先做這個查證，我可以直接開始，但需要你重新上傳土地法官方PDF（<code>LanLaw_merged_98_114.pdf</code>）。
+    </div>
+  </div>
+
+  <!-- 六、GitHub 互動工具 -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2>GitHub 互動工具（點擊直接開啟）</h2>
+    </div>
+    <p style="color:#5b564c;font-size:14px;">共9個HTML工具，皆已確認可透過GitHub Pages正常開啟，跨裝置皆可使用。</p>
+    <div class="tools">
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A1A2_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_A1A2_quiz</span>
+        <span class="tool-desc">A1總則＋A2土地登記／76題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A3A4A5_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_A3A4A5_quiz</span>
+        <span class="tool-desc">A3共有優先購買權＋A4基地租賃＋A5公有土地／59題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_B_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_B_quiz</span>
+        <span class="tool-desc">B1區域計畫＋B2都市計畫＋B3國土計畫／77題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_C_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_C_quiz</span>
+        <span class="tool-desc">C1地價評議＋C2市地重劃＋C3照價收買空地稅＋C4申報登錄／54題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_D_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_D_quiz</span>
+        <span class="tool-desc">D1徵收程序＋D2補償標準＋D3區段徵收＋D4撤銷廢止／78題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_E_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_E_quiz</span>
+        <span class="tool-desc">E1地價稅＋E2土地增值稅／73題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_FGHI_quiz.html" target="_blank">
+        <span class="tool-name">LandLaw_FGHI_quiz</span>
+        <span class="tool-desc">F1房屋稅＋G1契稅＋H1房地合一稅＋I1耕地375減租／75題</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E4%BA%92%E5%8B%95%E7%B7%B4%E7%BF%92.html" target="_blank">
+        <span class="tool-name">土地法互動練習</span>
+        <span class="tool-desc">518題全篇快速勾選練習版</span>
+      </a>
+      <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%89%88%E7%B7%B4%E7%BF%92.html" target="_blank">
+        <span class="tool-name">土地法解析版練習</span>
+        <span class="tool-desc">作答後顯示法條出處的解析版</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    BrokerX Project・不動產經紀人 115年應考｜土地法與土地相關稅法概要科目<br>
+    📅 2026-08-30
+  </footer>
+
+</div>
+</body>
+</html>
