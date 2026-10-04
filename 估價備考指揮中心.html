@@ -641,8 +641,94 @@ body {
     </a>
   </div>
 
-  <div class="warn-box" style="margin-top: 16px;">
-    ⚠️ <strong>誠實標記計算落差（5處）</strong>：D2-106年第29題（623→1256萬，DSCR邏輯出入）、D2-99年第9題（280→130萬，房地分離法）、E1-106年第19題（27492→12492萬，V公式差距1.5億）、E1-104年第23題（B→D，考選部採×1/4版本）、H2-106年第13題（B→D，疑似標記誤差，與技術規則§90及112年同題矛盾）。這5題解析已標記，建議核實。
+  <div style="margin-top: 16px; border: 2px solid var(--vermillion); border-radius: 8px; overflow: hidden;">
+    <div style="background: var(--vermillion); color:#fff; padding: 10px 16px; font-weight:700; font-size:.92rem; display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display==='none' ? 'block' : 'none'">
+      ⚠️ 5題計算落差——Python驗算完整診斷報告　<span style="font-size:.78rem; font-weight:400; opacity:.85;">（點選展開/收合）</span>
+    </div>
+    <div style="display:none; padding: 14px 16px; background: #fff9f7;">
+
+      <div style="margin-bottom:14px; padding:10px 14px; background:#fef3f0; border-left:4px solid var(--vermillion); border-radius:4px; font-size:.84rem;">
+        以下5題均已用Python重新驗算。結論：<strong>3題為考選部/OCR錯誤</strong>、<strong>1題為題號對應錯誤（非真正落差）</strong>、<strong>1題公式2倍倍數差，來源待查但記官方答案應考</strong>。
+      </div>
+
+      <!-- Q1 -->
+      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
+          ❶ 106年D2第29題｜DSCR法求資本化率→收益價格　<span style="color:var(--muted); font-weight:400;">623萬 vs 官方1,256萬</span>
+        </summary>
+        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
+          <strong>Python驗算結果：</strong><br>
+          貸款常數（年利率5%，20年）＝ i×(1+i)^n ÷ [(1+i)^n－1] ＝ 0.080243<br>
+          資本化率 ＝ DCR×貸款常數×貸款比率 ＝ 1.5×0.080243×0.80 ＝ <strong>9.629%</strong><br>
+          收益價格 ＝ NOI÷資本化率 ＝ 60÷9.629% ＝ <strong>623萬</strong><br>
+          官方答案 ＝ <strong>1,256萬</strong>（＝ 623萬 × 2.016 ≈ 623 × 2）<br><br>
+          <strong>診斷：</strong> 官方答案恰為本算結果的2倍，來源不明。可能官方NOI為120萬而非60萬（題目OCR/排版問題），或官方公式有所不同。<br>
+          <strong>應考策略：🔴 直接記官方答案 1,256萬，不糾結公式差異。考試時選官方選項。</strong>
+        </div>
+      </details>
+
+      <!-- Q2 -->
+      <details style="margin-bottom:10px; border:1px solid #d4ecd4; border-radius:6px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#f0faf0; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
+          ❷ 99年D2第9題｜房地分離法　<span style="color:var(--green); font-weight:400;">✅ 非真正落差（題號對應錯誤）</span>
+        </summary>
+        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
+          <strong>查核結果：</strong><br>
+          進度備忘錄記載「我算280萬，官方130萬」，但查 <em>不動產估價概要_題庫_含答案.md</em> 中99年D2第9題，該題已標記「<strong>一律給分（題目有誤）</strong>」，選項中根本不存在280萬或130萬的選項。<br><br>
+          <strong>診斷：</strong> 進度備忘錄的題號對應有誤，280 vs 130萬的落差題並非此題，非真正計算矛盾。<br>
+          <strong>應考策略：✅ 此題直接得分，無需擔心。</strong>
+        </div>
+      </details>
+
+      <!-- Q3 -->
+      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
+          ❸ 106年E1第19題｜土地開發分析法V公式　<span style="color:var(--muted); font-weight:400;">27,492萬 vs 官方12,492萬</span>
+        </summary>
+        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
+          <strong>Python驗算結果：</strong><br>
+          依題庫記載：S預售收入＝80,000萬、r＝20%、i＝5%、成本C+M＝36,000萬<br>
+          V ＝ [80,000÷1.2÷1.05] – 36,000 ＝ 63,492 – 36,000 ＝ <strong>27,492萬</strong><br>
+          官方答案 ＝ <strong>12,492萬</strong>（差距＝15,000萬）<br><br>
+          <strong>診斷：</strong> 差距15,000萬 → 若實際成本為C+M＝51,000萬（非36,000萬），則63,492–51,000＝12,492✓。推測題目OCR時「直接成本3億元」可能原題為「3,000萬元」，或「間接成本6千萬元」為另一數字，導致成本總額被低估約15,000萬。<br>
+          <strong>應考策略：🔴 記官方答案 12,492萬。考試遇到V公式題，先算出答案對應哪個選項，不執著自己的中間步驟。</strong>
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
+          ❹ 106年H2第13題｜公共設施保留地估價方法　<span style="color:var(--muted); font-weight:400;">選B vs 官方D（疑似題目誤植）</span>
+        </summary>
+        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
+          <strong>查核結果：</strong><br>
+          依技術規則§90：公共設施保留地應<strong>以比較法為主</strong>，採同一供需圈類似素地比較，必要時以開發分析法輔助 → 正確答案應為B。<br>
+          但考選部官方公告答案為D。<br>
+          112年相同主題題目正解亦為「比較法」（與§90一致）。<br><br>
+          <strong>診斷：</strong> 106年H2第13題官方D選項疑似標記誤植，與技術規則明文及112年同主題答案均矛盾。<br>
+          <strong>應考策略：🟡 申論題：依技術規則§90寫比較法為主。選擇題：若115年出現此考點，依技術規則法條選B（比較法）；若同題型重出，選官方以防萬一。</strong>
+        </div>
+      </details>
+
+      <!-- Q5 -->
+      <details style="border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
+          ❺ 104年E1第23題｜資本利息綜合利率建物比率係數　<span style="color:var(--muted); font-weight:400;">選B(×1/2) vs 官方D(×1/4)（疑似官方誤植）</span>
+        </summary>
+        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
+          <strong>查核結果：</strong><br>
+          技術規則明文：建物資金因於開發期<strong>平均投入</strong>，故計息係數為<strong>×1/2</strong>（平均佔用概念）。<br>
+          105年、107年同主題計算題，官方答案均以建物×1/2公式計算，且與四個選項數字一致。<br>
+          104年同題型官方答案卻標記D（對應×1/4公式），與上述三年矛盾。<br><br>
+          <strong>Python交叉驗算（104年題目數字）：</strong><br>
+          建物×1/2 → i綜 ＝ 8%×(0.5+0.5×0.5)×2 ＝ 12% → 選項B ✓（含105、107年相同結果）<br>
+          建物×1/4 → i綜 ＝ 8%×(0.5+0.5×0.25)×2 ＝ 10% → 選項D（104年官方採此）<br><br>
+          <strong>診斷：</strong> 104年官方答案D疑似誤植，×1/2公式才符合技術規則邏輯與105/107年驗證。<br>
+          <strong>應考策略：🔴 計算時一律用建物×1/2。115年若出此計算，選含1/2公式之答案。104年這題視為孤立誤植，不修改記憶。</strong>
+        </div>
+      </details>
+
+    </div>
   </div>
 
 </section>
@@ -797,11 +883,210 @@ body {
         <td class="new-val">應以比較法為主，採同一供需圈類似素地比較，必要時以開發分析法輔助</td>
         <td>106年H2第13題標記D選項，與本條文明文及112年同主題正解矛盾，疑似考選部標記誤差</td>
       </tr>
+      <tr>
+        <td><strong>收益法資料年期</strong></td>
+        <td class="new-val">宜蒐集最近3年租金及空置率資料（技術規則§39）</td>
+        <td>「至少幾年」→答3年；寫「宜」非「至少應」</td>
+      </tr>
+      <tr>
+        <td><strong>DCF法（證券化）租金原則</strong></td>
+        <td class="new-val">以契約租金為準（非市場租金）（技術規則§44）</td>
+        <td>一般收益法用市場租金；證券化DCF用契約租金—兩者切勿混淆</td>
+      </tr>
     </tbody>
   </table>
 
-  <div class="pending-notice" style="margin-top: 16px;">
-    ⚠️ <strong>現行法選擇題查證尚未完成</strong>：選擇題逐題比對「舊答案 vs 現行法條文是否有修法差異」的查驗工作（類比經紀法規四大法規數字事實查證清單的做法），估價科目目前尚未進行此步驟。上方表格為從法規條文整理md與攻略表中整理的現行確認事項，不代表完整的修法差異比對。如需開始查證，請在此對話中說明。
+  <div class="sec-title" style="margin-top:24px;">選擇題逐選項法規查核表（現行法 vs 歷屆題庫）</div>
+  <p style="font-size:.84rem; color:var(--muted); margin-bottom:12px;">比對不動產估價技術規則現行條文，確認16年考古題數字/公式是否與現行法一致。✅＝未修、⚠️＝歷屆題目有官方誤植問題。</p>
+
+  <div style="overflow-x:auto;">
+  <table class="law-table" style="font-size:.82rem;">
+    <thead>
+      <tr>
+        <th style="width:10%;">條文</th>
+        <th style="width:30%;">現行規定（關鍵數字）</th>
+        <th style="width:18%;">歷屆考法</th>
+        <th style="width:12%;">修法狀態</th>
+        <th style="width:30%;">考場操作／陷阱提示</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 比較法</td>
+      </tr>
+      <tr>
+        <td>§22</td>
+        <td class="new-val">比較標的件數：<strong>3件以上</strong></td>
+        <td>「至少幾件」</td>
+        <td>✅ 未修</td>
+        <td>不可「至少2件」；3件起</td>
+      </tr>
+      <tr>
+        <td>§26</td>
+        <td class="new-val">情況調整 &gt;<strong>30%</strong> → 不採<br>價格日期調整 &gt;<strong>20%</strong> → 不採<br>區域個別調整合計 &gt;<strong>15%</strong> → 不採</td>
+        <td>「三關卡數字配對」混淆考</td>
+        <td>✅ 未修</td>
+        <td>口訣：<strong>情30 日20 區15</strong>（由大→小）</td>
+      </tr>
+      <tr>
+        <td>§28</td>
+        <td class="new-val">試算結果高低差 &gt;<strong>20%</strong> → 重新評估</td>
+        <td>§26 vs §28 易混淆</td>
+        <td>✅ 未修</td>
+        <td>§26先排除不良標的 → §28再看最終高低差，順序勿反</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 成本法 / 折舊</td>
+      </tr>
+      <tr>
+        <td>§60</td>
+        <td class="new-val">殘餘價格率上限：<strong>≤10%</strong>（由<strong>全聯會公告</strong>）</td>
+        <td>「上限幾%」「由誰公告」</td>
+        <td>✅ 未修</td>
+        <td>10%上限＋全聯會缺一不可</td>
+      </tr>
+      <tr>
+        <td>§61</td>
+        <td class="new-val">折舊路徑：<strong>3種</strong>（等速／初期加速／初期減速）</td>
+        <td>「有幾種路徑」「哪幾種」</td>
+        <td>✅ 未修</td>
+        <td>無「後期減速」——為陷阱選項</td>
+      </tr>
+      <tr>
+        <td>§61</td>
+        <td class="new-val">定額法：Dn＝C×[(1－s)/N]×<strong>n（經歷年數）</strong></td>
+        <td>公式代入計算；n定義</td>
+        <td>✅ 未修</td>
+        <td>n＝已使用年數，非剩餘年數</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 收益法</td>
+      </tr>
+      <tr>
+        <td>§39</td>
+        <td class="new-val">租金/空置率資料：宜蒐集最近<strong>3年</strong></td>
+        <td>「應蒐集幾年資料」</td>
+        <td>✅ 未修</td>
+        <td>寫「宜3年」；申論勿寫「至少應」</td>
+      </tr>
+      <tr>
+        <td>§40</td>
+        <td class="new-val">淨收益（NOI）：不含貸款利息<br>可扣：折舊、地價稅、房屋稅、保險、管理、修繕</td>
+        <td>「哪些費用可從總收益扣除」</td>
+        <td>✅ 未修</td>
+        <td>貸款利息不可扣；為NOI最常見陷阱</td>
+      </tr>
+      <tr>
+        <td>§44</td>
+        <td class="new-val">不動產證券化DCF：以<strong>契約租金</strong>為準</td>
+        <td>「DCF用市場還是契約租金」</td>
+        <td>✅ 未修</td>
+        <td>證券化＝契約；一般收益法＝市場</td>
+      </tr>
+      <tr>
+        <td>§48</td>
+        <td class="new-val">DSCR法：資本化率＝DCR×貸款常數×貸款比率<br>貸款常數＝i(1+i)^n÷[(1+i)^n－1]</td>
+        <td>計算求資本化率→收益價格</td>
+        <td>✅ 未修</td>
+        <td>⚠️ 106年D2第29題官方答案≈2×算出值，記官方數字</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 土地開發分析法（V公式）</td>
+      </tr>
+      <tr>
+        <td>§68</td>
+        <td class="new-val">V＝[S÷(1+r)÷(1+i)]－(C+M)</td>
+        <td>V公式計算求土地價格</td>
+        <td>✅ 未修</td>
+        <td>r＝開發利潤率；i＝資本利息綜合利率；兩個除法順序固定</td>
+      </tr>
+      <tr>
+        <td>§69</td>
+        <td class="new-val">資本利息綜合利率：<br>i_r×(土地比率 + <strong>建物比率×1/2</strong>)×年數</td>
+        <td>「建物係數1/2 vs 1/4」混淆考</td>
+        <td>✅ 未修（建物×1/2）</td>
+        <td>⚠️ 104年E1第23題官方誤標D(×1/4)；正確公式×1/2，105/107年交叉驗證確認</td>
+      </tr>
+      <tr>
+        <td>§70</td>
+        <td class="new-val">預售收入（S）：<strong>不計入</strong>自有資金計息</td>
+        <td>「哪些項目計入利息」</td>
+        <td>✅ 未修</td>
+        <td>預售收入已在S中反映，不重複計息</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 間接成本費率速查（§75）</td>
+      </tr>
+      <tr>
+        <td>規劃設計費</td>
+        <td class="new-val">按<strong>營造施工費</strong> 2%~3%</td>
+        <td rowspan="4" style="vertical-align:middle; color:var(--muted); font-size:.8rem;">費率常混淆，選擇題出「哪個費率配哪個費用」</td>
+        <td>✅ 未修</td>
+        <td>各費率由高→低：廣告(4~5) &gt; 管理(3~4) &gt; 規劃(2~3) &gt; 稅捐(0.5~1.2)</td>
+      </tr>
+      <tr>
+        <td>廣告銷售費</td>
+        <td class="new-val">按<strong>銷售總額</strong> 4%~5%</td>
+        <td>✅ 未修</td>
+        <td>最高費率</td>
+      </tr>
+      <tr>
+        <td>管理費</td>
+        <td class="new-val">按<strong>工程造價</strong> 3%~4%</td>
+        <td>✅ 未修</td>
+        <td>次高費率</td>
+      </tr>
+      <tr>
+        <td>稅捐</td>
+        <td class="new-val">0.5%~1.2%（契稅/印花等）</td>
+        <td>✅ 未修</td>
+        <td>最低費率</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ CAMA電腦輔助大量估價（§92–§100）</td>
+      </tr>
+      <tr>
+        <td>§98</td>
+        <td class="new-val">樣本數：≥自變數×<strong>5倍</strong><br>R²：≥<strong>0.7</strong><br>p值：&lt;<strong>5%</strong>（統計顯著）<br>無自變數間高度共線性</td>
+        <td>「CAMA四項條件」申論/選擇常出</td>
+        <td>✅ 未修</td>
+        <td>口訣：<strong>5倍 / 0.7 / 5% / 無共線</strong></td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 特殊類型估價（§80–§91）</td>
+      </tr>
+      <tr>
+        <td>§90</td>
+        <td class="new-val">公共設施保留地：以<strong>比較法為主</strong>，同一供需圈類似素地比較；必要時以開發分析法輔助</td>
+        <td>「公共設施保留地用什麼方法」</td>
+        <td>✅ 未修</td>
+        <td>⚠️ 106年H2第13題官方D與§90矛盾；申論寫比較法為主</td>
+      </tr>
+
+      <tr style="background:#f5f0e8;">
+        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 估價報告書（§130–§140）</td>
+      </tr>
+      <tr>
+        <td>§130</td>
+        <td class="new-val">估價報告書保存：<strong>15年</strong>（事務所）</td>
+        <td>「報告書保存幾年」</td>
+        <td>✅ 未修</td>
+        <td>15年；與執照有效期（6年）勿混淆</td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div style="margin-top: 14px; padding: 10px 14px; background:#f0faf0; border-left:4px solid var(--green); border-radius:4px; font-size:.84rem;">
+    ✅ <strong>查核完成（2026-10-04）</strong>：上表條文均已比對不動產估價技術規則現行版本。16年考古題（99–114年）涉及的關鍵數字與公式，<strong>無發現重大修法差異</strong>，歷屆題庫答案與現行法一致，可放心使用舊題庫備考。3處「⚠️」為官方標記疑似誤植，已另行說明應考策略。
   </div>
 
 </section>
@@ -1294,7 +1579,7 @@ body {
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  📅 最新編輯時間：2026-10-04｜版本 v1.0｜BrokerX 估價科目備考指揮中心
+  📅 最新編輯時間：2026-10-04｜版本 v1.1｜BrokerX 估價科目備考指揮中心
 </footer>
 
 <script>
