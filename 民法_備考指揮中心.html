@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>民法｜備考指揮中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F8F3E9;--ink:#2A2722;--vermillion:#A8402B;--gold:#BC8A2E;--green:#3F6B4C;--line:#DDD2BB;--paper2:#FBF8F0;--muted:#6f685b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.75;font-size:16px}
+h1,h2,h3,h4{font-family:'Noto Serif TC',serif;margin:0}
+a{color:var(--vermillion)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 60px}
+header{padding:28px 0 12px}
+.kicker{color:var(--gold);letter-spacing:.2em;font-size:13px;font-weight:700}
+h1{font-size:30px;margin:4px 0 6px}
+.sub{color:var(--muted);font-size:14px}
+.count{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap;margin:16px 0 8px}
+.cbox{background:var(--paper2);border:1px solid var(--line);border-left:5px solid var(--vermillion);padding:10px 18px;border-radius:6px}
+.cbox .n{font-family:'Noto Serif TC',serif;font-size:38px;color:var(--vermillion);font-weight:700;line-height:1.1}
+.cbox .l{font-size:13px;color:var(--muted)}
+.cbox.g{border-left-color:var(--gold)} .cbox.g .n{color:var(--gold);font-size:26px}
+.stat{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+.chip{background:var(--paper2);border:1px solid var(--line);border-radius:99px;padding:2px 12px;font-size:13px}
+nav.tabs{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:2px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 0 0;margin-top:14px}
+nav.tabs button{font:inherit;font-weight:500;border:1px solid var(--line);border-bottom:none;background:var(--paper2);color:var(--ink);padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;white-space:nowrap}
+nav.tabs button.on{background:var(--vermillion);border-color:var(--vermillion);color:#fff}
+section.tab{display:none;padding-top:20px}
+section.tab.on{display:block}
+h2{font-size:22px;margin:0 0 4px}
+.lead{color:var(--muted);font-size:14px;margin:0 0 14px}
+.group{margin:22px 0 8px;font-family:'Noto Serif TC',serif;font-size:17px;color:var(--vermillion);border-bottom:1px dashed var(--line);padding-bottom:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;position:relative;transition:.15s}
+.card:hover{border-color:var(--vermillion);transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.card .nm{font-weight:700;font-size:15px;padding-right:62px}
+.card .ds{font-size:13px;color:var(--muted)}
+.card .bd{position:absolute;right:10px;top:10px;background:var(--vermillion);color:#fff;border-radius:99px;font-size:12px;padding:0 9px}
+table{width:100%;border-collapse:collapse;background:var(--paper2);font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#efe6d1;font-family:'Noto Serif TC',serif}
+.tw{overflow-x:auto}
+.ok{color:var(--green);font-weight:700}.no{color:var(--vermillion);font-weight:700}.part{color:var(--gold);font-weight:700}
+.note{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--gold);padding:10px 14px;border-radius:4px;margin:14px 0;font-size:14.5px}
+.note.r{border-left-color:var(--vermillion)}
+.note.gr{border-left-color:var(--green)}
+.todo{background:repeating-linear-gradient(45deg,var(--paper2),var(--paper2) 8px,#f3ecda 8px,#f3ecda 16px);border:1px dashed var(--gold);padding:12px 14px;border-radius:6px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;align-items:center}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:5px 14px;border-radius:99px;cursor:pointer}
+.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.filters input[type=search]{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:5px 12px;border-radius:99px;min-width:160px}
+.essay{background:var(--paper2);border:1px solid var(--line);border-radius:8px;margin:8px 0}
+.essay[open]{border-color:var(--vermillion)}
+.essay summary{cursor:pointer;padding:10px 12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;list-style:none}
+.essay summary::-webkit-details-marker{display:none}
+.essay summary::before{content:'▸';color:var(--vermillion)}
+.essay[open] summary::before{content:'▾'}
+.ek{font-weight:700;font-family:'Noto Serif TC',serif;color:var(--vermillion);min-width:76px}
+.et{font-weight:500;flex:1 1 220px}
+.ec{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:0 8px}
+.essay.read summary .ek::after{content:' ✓';color:var(--green)}
+.ebody{padding:4px 18px 16px;border-top:1px dashed var(--line)}
+.ebody h4{font-size:16px;color:var(--vermillion);margin:16px 0 2px}
+.ebody p{margin:4px 0 8px;text-align:justify}
+.oq{background:#f3ecda;border-left:4px solid var(--gold);padding:8px 12px;margin:10px 0;font-size:14.5px}
+.done{display:inline-block;margin-top:10px;font-size:14px;color:var(--green);cursor:pointer}
+.ph{border-left:5px solid var(--line);background:var(--paper2);padding:8px 14px;margin:8px 0;border-radius:4px}
+.ph.cur{border-left-color:var(--vermillion);background:#f6e6dd}
+.ph .tg{display:none;color:var(--vermillion);font-weight:700;font-size:13px}
+.ph.cur .tg{display:inline}
+pre.pr{background:var(--paper2);border:1px solid var(--line);border-radius:6px;padding:10px 14px;white-space:pre-wrap;font:14px/1.7 'Noto Sans TC',sans-serif;margin:6px 0}
+footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
+@media(max-width:600px){h1{font-size:24px}.cbox .n{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="kicker">BROKERX・不動產經紀人 115年</div>
+ <h1>民法｜備考指揮中心</h1>
+ <div class="sub">考試日 2026-11-14・此頁開啟時即時計算倒數</div>
+ <div class="count">
+  <div class="cbox"><div class="n" id="days">--</div><div class="l" id="dayl">距離考試（天）</div></div>
+  <div class="cbox g"><div class="n" id="weeks">--</div><div class="l">約剩幾週</div></div>
+  <div class="cbox g"><div class="n" id="hours">--</div><div class="l">依平日2h／假日6h推算可讀時數</div></div>
+ </div>
+ <div class="stat"><span class="chip">📝 選擇題刷題 417 題＋模擬 25 題</span><span class="chip">✍️ 申論範文 32 題（🔴15・🟡15・🟢2）</span></div>
+</header>
+
+<nav class="tabs" id="tabs">
+ <button data-t="t1" class="on">📝 刷題工具</button>
+ <button data-t="t2">✅ 完成清單</button>
+ <button data-t="t3">⚡ 現行法小抄</button>
+ <button data-t="t4">✍️ 申論範文全文</button>
+ <button data-t="t5">📖 讀書攻略</button>
+</nav>
+
+<!-- 1 刷題工具 -->
+<section class="tab on" id="t1">
+ <h2>📝 刷題工具</h2>
+ <p class="lead">每張卡片連到 GitHub Pages 上的實際檔案；右上角為該工具題數。</p>
+ <div id="toolbox"></div>
+ <div class="note">題數說明：刷題練習 8 檔共 417 題（A94／B127／D121／E75，為各檔實際題陣列筆數）；「完整考題小卡」合計 422 張，兩者統計口徑不同（小卡含分類重疊與拆題），不是漏題。</div>
+</section>
+
+<!-- 2 完成清單 -->
+<section class="tab" id="t2">
+ <h2>✅ 民法五件套完成清單</h2>
+ <p class="lead">依知識庫與 GitHub 實際檔案盤點，缺的就寫「缺」。</p>
+ <div class="tw"><table>
+  <tr><th>#</th><th>件</th><th>狀態</th><th>實際檔案／備註</th></tr>
+  <tr><td>1</td><td>16年考點分析</td><td class="ok">✅ 有</td><td>知識庫：民法概要_16年考點分析_99-114_v1.1修正版.md（325題選擇題＋32題申論分類排名）</td></tr>
+  <tr><td>2</td><td>重點筆記</td><td class="no">❌ 缺</td><td>知識庫沒有「民法概要_重點筆記.md」。目前只有 GitHub 的「彩色重點速記」四檔可暫代掃讀，但不是完整筆記，也不在知識庫內。</td></tr>
+  <tr><td>3</td><td>題庫（含答案）</td><td class="no">❌ 缺（有替代）</td><td>知識庫沒有「民法概要_題庫_含答案.md」。GitHub 有刷題練習 8 檔（417 題）＋25題模擬，可練習但並非知識庫題庫檔。</td></tr>
+  <tr><td>4</td><td>申論題攻略表</td><td class="ok">✅ 有</td><td>知識庫：民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md（32題速查＋逐題骨架＋萬用口訣）；另有答題模板分類卡 v1.1</td></tr>
+  <tr><td>5</td><td>申論題實戰範文</td><td class="ok">✅ 有 32／32</td><td>知識庫：民法申論題實戰範文_32題完整版.md；32題皆為完整四段式全文，已對照官方試題 PDF 核實（本頁第④頁籤內嵌全文）</td></tr>
+ </table></div>
+ <div class="note r"><b>結論：5 件中 3 件完整、2 件缺（重點筆記、題庫含答案）。</b>缺的兩件在別科都有 md 版本；民法目前以 GitHub HTML 工具頂替，若要補齊需另行製作 md 檔放進知識庫。</div>
+ <div class="note">配套工具（GitHub，不放知識庫）：刷題練習、完整／精選考題小卡、互動單字卡、彩色重點速記、25題模擬、五型答題模板、讀書攻略與備考指南。</div>
+</section>
+
+<!-- 3 現行法小抄 -->
+<section class="tab" id="t3">
+ <h2>⚡ 現行法小抄</h2>
+ <p class="lead">只收「已核實」的項目；沒核實的一律標「待補充」，不憑記憶填。</p>
+ <div class="tw"><table>
+  <tr><th>題／點</th><th>容易寫成的舊答案</th><th>現行／核實後的正確寫法</th><th>依據・看哪裡</th></tr>
+  <tr><td>106-二<br>成年年齡</td><td>未滿20歲為限制行為能力人</td><td>成年年齡為 <b>18歲</b>；7歲以上未滿18歲為限制行為能力人</td><td>民法§12、§13｜範文16</td></tr>
+  <tr><td>111-一<br>善意占有人</td><td>丙無權占有→甲可依不當得利請求租金補償</td><td>丙為<b>善意占有人</b>，依§952得為使用收益；丙拒付36萬之抗辯<b>有理由</b>。乙是「以自己名義」出租，不是代理</td><td>§767、§952、§179｜範文25</td></tr>
+  <tr><td>110-一<br>共有物分割後之抵押權</td><td>抵押權僅存於抵押人分得部分（或規則方向寫反）</td><td>§824-1 第2項：<b>原則</b>按原應有部分比例存於各分得人；<b>例外</b>才僅存於抵押人分得部分</td><td>§824-1 Ⅱ｜範文23</td></tr>
+  <tr><td>109-一<br>A屋歸屬</td><td>未先以登記名義定歸屬</td><td>先看<b>登記名義</b>定歸屬，再定性他方擅自處分為<b>無權處分</b></td><td>§118、§759-1｜範文21</td></tr>
+  <tr><td>113-二<br>和解契約</td><td>只談居間報酬與定金，漏掉甲丙曾簽和解契約</td><td>須分段處理：委託／居間關係→和解契約效力→定金退還</td><td>居間、和解、定金相關條文｜範文30</td></tr>
+ </table></div>
+ <div class="note gr">以上 5 項皆來自「申論題對照官方試題 PDF」的核實過程（修正已寫進範文與攻略表）。這是「核實修正表」，不是修法對照表。</div>
+ <div class="todo"><b>待補充：</b>選擇題的「歷屆答案 vs 現行法」逐題對照表尚未建立（例如成年／結婚年齡相關、繼承編、夫妻財產制等近年修法影響的題）。要補時，需逐題以法務部全國法規資料庫現行條文核實後再填，目前不列任何未核實內容。</div>
+</section>
+
+<!-- 4 申論範文 -->
+<section class="tab" id="t4">
+ <h2>✍️ 申論範文全文（32題）</h2>
+ <p class="lead">四段式：定義→法條→涵攝分析→結論。🔴A 必練／🟡B 次練／🟢C 備讀。點題目展開全文。</p>
+ <div class="filters" id="fl">
+  <button data-f="all" class="on">全部 32</button>
+  <button data-f="A">🔴 A級 15</button>
+  <button data-f="B">🟡 B級 15</button>
+  <button data-f="C">🟢 C級 2</button>
+  <button data-f="unread">未讀</button>
+  <input type="search" id="sq" placeholder="搜尋年度／關鍵字">
+  <button id="ex">全部展開</button><button id="co">全部收合</button>
+  <span class="sub" id="rcount"></span>
+ </div>
+ <div id="elist">
+<details class="essay" data-lv="A" data-key="99-一" data-yr="99">
+<summary><span class="lv">🔴</span><span class="ek">99年第一題</span><span class="et">共謀詐欺與抵押權塗銷</span><span class="ec">A意思表示瑕疵</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲乙共謀，由甲出面詐欺丙，使丙將A地廉價售予乙，已交付並辦妥所有權移轉登記。乙即以A地向丁貸款並設定抵押權。丙發現被詐欺後，可否請求乙返還土地？可否請求丁塗銷抵押權？（25分）</div>
+<h4><strong>一、第三人詐欺撤銷制度之意義</strong></h4>
+<p>民法為兼顧表意人意思自主與交易安全，就受第三人詐欺而為意思表示者，設有較嚴格之撤銷要件，非任意受第三人詐欺即得撤銷，須相對人就該詐欺事實具備主觀可歸責性，始例外允許撤銷，以避免動輒推翻已成立之法律行為，危及交易相對人之信賴。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第92條（詐欺脅迫之撤銷）、第759條之1（不動產物權登記之權利推定與善意取得）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）丙得否撤銷其與乙間之買賣及物權行為：</strong> 依第92條第1項，因被詐欺而為意思表示者，表意人得撤銷其意思表示；但詐欺係由第三人所為者，以相對人明知或可得而知其事實者為限，始得撤銷。本題甲雖立於「第三人」之地位出面詐欺丙，惟甲乙二人<strong>事前共謀</strong>，乙就甲對丙施用詐術一事<strong>自始明知</strong>，已該當「相對人明知」之要件，不受第三人詐欺原則上不得撤銷之限制。丙自得依第92條第1項撤銷其與乙間之買賣契約（債權行為）及所有權移轉之物權行為，撤銷後該等法律行為溯及自始無效，乙自始未曾合法取得A地所有權，僅係無權處分人。</p>
+<p><strong>（二）丙得否請求丁塗銷抵押權：</strong> 乙既屬無權處分人，其嗣後就A地為丁設定抵押權之物權行為，亦屬無權處分。惟依第759條之1第2項，因信賴不動產登記之善意第三人，已依法律行為為物權變動之登記者，其變動之效力，不因原登記物權之不實而受影響。故丁能否保有其抵押權，關鍵在於丁就甲乙間之詐欺、通謀情事是否<strong>善意不知情</strong>：若丁不知亦無重大過失而信賴登記，依前條規定善意取得抵押權，丙不得請求塗銷；反之，若丁明知或可得而知甲乙間詐欺共謀之事實，則不受善意取得保護，丙得請求塗銷丁之抵押權登記。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙就甲對丙之詐欺行為自始明知，丙得依民法第92條第1項撤銷其與乙間之買賣契約及所有權移轉行為，並得請求乙返還A地；至丙得否進一步請求丁塗銷抵押權，則須視丁對甲乙間詐欺共謀情事是否善意不知情而定：丁善意者，依第759條之1善意取得抵押權，丙不得請求塗銷；丁非善意者，丙得請求塗銷。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="99-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="99-二" data-yr="99">
+<summary><span class="lv">🟡</span><span class="ek">99年第二題</span><span class="et">同時遇難繼承應繼分計算與拋棄繼承詐害債權</span><span class="ec">E繼承</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲男乙女為夫妻，育有丙丁，並收養戊。戊與己結婚生有A、B。甲乙戊同車同時死亡。甲遺產600萬如何繼承？丙曾向庚借款300萬後拋棄繼承，庚得否依詐害債權撤銷？（25分）</div>
+<h4><strong>一、同時死亡推定與代位繼承制度之意義</strong></h4>
+<p>民法就數人同時遇難、無法證明死亡先後之情形，設有同時死亡推定機制，使各該死亡人相互間<strong>不發生繼承關係</strong>；為避免因先於被繼承人死亡（或視為同時死亡）之直系血親卑親屬應繼分無人繼承，另設代位繼承制度，由其直系血親卑親屬代位繼承其應繼分，以維持繼承公平。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第11條（同時死亡推定）、第1138條（法定繼承順序）、第1140條（代位繼承）、第1174條、第1175條（拋棄繼承及其溯及效力）、第244條（債權人撤銷權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲遺產600萬元之繼承：</strong> 依第11條，二人以上同時遇難，不能證明其死亡之先後時，推定其為同時死亡。甲、乙、戊三人既同車同時死亡，相互間<strong>推定同時死亡、互不發生繼承關係</strong>，故乙（配偶）、戊（養子女）均不得繼承甲之遺產。依第1138條，甲之遺產由第一順序繼承人即其直系血親卑親屬丙、丁繼承；戊雖與甲同時死亡而不能繼承，惟依第1140條，戊之應繼分由其直系血親卑親屬即戊之子女A、B代位繼承。是以甲之600萬遺產，應由丙、丁、（A、B代位戊之應繼分）三房依人數比例平均計算分配。</p>
+<p><strong>（二）庚得否對丙拋棄繼承主張詐害債權撤銷：</strong> 依第1174條，繼承人得拋棄其繼承權，其拋棄應於知悉得繼承之時起3個月內以書面向法院為之；依第1175條，拋棄繼承之效力溯及於繼承開始時發生效力。惟拋棄繼承在性質上屬<strong>身分行為</strong>，並非第244條所稱得撤銷之「債務人所為之財產上行為」，蓋是否繼承攸關繼承人之身分意願及家族倫理考量，法律尊重繼承人自主決定，不許債權人以其影響財產狀況為由，援引一般債權人撤銷權制度加以干預。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲、乙、戊推定同時死亡、互不繼承；甲之600萬遺產由丙、丁及代位繼承之A、B依代位繼承規則計算分配；丙向庚借款後拋棄繼承之行為，因拋棄繼承屬身分行為性質，不適用民法第244條債權人撤銷權之規定，庚不得撤銷丙拋棄繼承之意思表示。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="99-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="C" data-key="100-一" data-yr="100">
+<summary><span class="lv">🟢</span><span class="ek">100年第一題</span><span class="et">信賴利益之定義與損害賠償規定</span><span class="ec">B債編總則</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>何謂信賴利益？我國民法關於信賴利益之損害賠償規定有那些？請列舉說明之。（25分）</div>
+<h4><strong>一、信賴利益之意義</strong></h4>
+<p>信賴利益，係指當事人因<strong>信賴某法律行為有效成立或將來會發生效力</strong>，而為一定之準備或支出，嗣因該法律行為不成立、無效、被撤銷或不能履行，致其信賴落空所受之損害。信賴利益與履行利益不同：履行利益係指契約如<strong>依約履行</strong>當事人所能獲得之利益（積極利益）；信賴利益則是回復至<strong>未信賴該法律行為前</strong>應有之狀態（消極利益），其賠償範圍原則上不得超過履行利益，以避免受害人因法律行為不成立反而獲得較契約有效履行更優厚之地位。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第91條（意思表示錯誤或誤傳之損害賠償）、第110條（無權代理人之責任）、第113條（無效法律行為當事人之回復原狀及損害賠償義務）、第245條之1（締約過失責任）、第247條（因契約撤銷、解除或不能成立所生之損害賠償）。</p>
+<h4><strong>三、涵攝分析（列舉說明）</strong></h4>
+<p><strong>（一）意思表示錯誤撤銷之賠償（第91條）：</strong> 表意人依第88條、第89條規定撤銷其意思表示時，對於信其意思表示為有效而受損害之相對人或第三人，應負賠償責任；但其撤銷之原因，受害人明知或可得而知者，不在此限。此為表意人因自身錯誤撤銷契約，對信賴該表示有效之相對人負信賴利益賠償責任之典型規定。</p>
+<p><strong>（二）無權代理人之責任（第110條）：</strong> 無代理權人以他人代理人之名義所為之法律行為，對於善意之相對人，負損害賠償之責。此係無權代理人使善意相對人信賴其有代理權而受損害時，課予信賴利益賠償責任。</p>
+<p><strong>（三）締約過失責任（第245條之1）：</strong> 契約未成立時，當事人為準備或商議訂立契約而有：故意隱匿或為不實說明、知悉或持有他方之秘密而不當洩漏或利用、其他顯然違反誠實信用方法之情形，致他方受損害者，應負賠償責任。此為契約磋商階段因一方可歸責事由致契約未能成立，對他方信賴契約將成立所受損害之賠償規定。</p>
+<p><strong>（四）契約撤銷或不能成立之賠償（第247條）：</strong> 契約因標的自始給付不能而無效，或因當事人一方於訂約時知其事情或可得而知，致契約無效或被撤銷，對於非因過失而信契約有效致受損害之他方當事人，應負賠償責任，其賠償範圍以不超過相對人因契約有效而可得之利益（履行利益）為限。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，信賴利益係指當事人信賴法律行為有效而受之損害，其賠償以回復未信賴前之原狀為目的，範圍不得逾越履行利益；我國民法就此設有多項具體規定，分別對應意思表示錯誤撤銷（第91條）、無權代理（第110條）、締約過失（第245條之1）及契約無效或撤銷（第247條）等不同情境，各條要件雖有不同，惟均體現法律對信賴落空一方之衡平保護。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="100-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="100-二" data-yr="100">
+<summary><span class="lv">🟡</span><span class="ek">100年第二題</span><span class="et">分別共有與公同共有之比較</span><span class="ec">D共有</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲、乙為兄弟，共同出資購買A地，應有部分各二分之一。嗣後甲、乙之父親死亡，二人共同繼承其遺產B地及C屋，應繼分均等。問：①甲乙在A地上之共有關係與在B地及C屋上之共有關係，其型態有何不同？試比較說明之。②應有部分與應繼分有何區別？（25分）</div>
+<h4><strong>一、分別共有與公同共有制度之意義</strong></h4>
+<p>民法就數人共有一物之型態，設有分別共有與公同共有二種不同制度：分別共有係基於數人按其應有部分共有一物之關係，各共有人對共有物有一定之量化比例權利，得自由處分其應有部分；公同共有則係基於公同關係（例如繼承、合夥等），共同享有一物所有權，各公同共有人之權利及於公同共有物之全部，並無應有部分之量化概念，處分公同共有物須得全體公同共有人同意。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第817條（分別共有）、第827條至第829條（公同共有）、第1151條（遺產之公同共有）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）A地與B地C屋之共有型態比較：</strong> 甲乙就A地係基於<strong>出資購買、共同約定應有部分各二分之一</strong>而成立共有關係，依第817條，屬<strong>分別共有</strong>，甲乙各自對A地享有可量化、可自由處分之應有部分。反之，甲乙就B地C屋，係因<strong>繼承</strong>父親遺產而取得，依第1151條，繼承人有數人時，於遺產分割前，各繼承人對於遺產全部為<strong>公同共有</strong>；甲乙就B地C屋之共有關係屬<strong>公同共有</strong>，性質上無應有部分之概念，各繼承人之權利及於遺產之全部，處分公同共有物（例如出售B地或C屋）須得全體公同共有人（本題即甲乙二人）之同意，不得由一人單獨自由處分其潛在比例部分。</p>
+<p><strong>（二）應有部分與應繼分之區別：</strong> 應有部分係<strong>分別共有</strong>制度下，各共有人對共有物所享有之量化所有權比例，係一種<strong>已具體化、可自由處分、可設定負擔</strong>之財產權利內容（例如本題甲乙就A地各有二分之一應有部分，得單獨出賣其應有部分）。應繼分則係<strong>繼承</strong>制度下，各繼承人依法定或指定比例，對被繼承人<strong>遺產整體</strong>所應得之比例，僅為<strong>計算遺產分配之基準</strong>，於遺產分割完成前，繼承人尚不能就特定遺產標的物主張其應繼分比例之應有部分，亦不得單獨處分特定遺產標的物中相當於其應繼分之部分。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲乙就A地因出資購買而成立分別共有，各有可自由處分之應有部分；就B地C屋則因繼承成立公同共有，權利及於遺產全部，處分須全體同意。應有部分是分別共有下已具體化、可自由處分之所有權比例；應繼分則是公同共有（繼承）下計算遺產分配之抽象比例基準，二者性質迥異，不可混淆。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="100-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="101-一" data-yr="101">
+<summary><span class="lv">🟡</span><span class="ek">101年第一題</span><span class="et">拋棄債權、抵押權及繼承權之效力比較</span><span class="ec">B+D+E</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>父甲、母乙、子丙、女丁一家，丙創業向戊融資1000萬元，由乙提供A地設定抵押權擔保，丁為連帶保證人；甲死亡留有2000萬元遺產，未立遺囑。問：戊拋棄債權、戊拋棄抵押權，丁拋棄繼承權，其效力各如何？（25分）</div>
+<h4><strong>一、拋棄制度之意義</strong></h4>
+<p>民法對於不同性質之權利拋棄，設有相異之規範方向：拋棄主權利（如債權）之效力，及於依附於其上之從權利（如擔保物權、保證債務）；拋棄從權利，則原則上不影響主權利之存續；至拋棄具身分性質之權利（如繼承權），則因涉及身分關係與家族倫理，另設獨立之要式規範，三者拋棄之效力方向截然不同，不可一概而論。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第343條（債務免除）、第864條（抵押權之拋棄）、第1174條、第1175條（拋棄繼承之方式及效力）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）戊拋棄對丙之債權：</strong> 依第343條，債權人向債務人表示免除其債務之意思者，債之關係消滅。戊若拋棄其對丙之1000萬元債權（即為債務免除），該<strong>主債權</strong>消滅，依從權利從屬性原則，<strong>從屬於該債權之乙所設定之抵押權，以及丁之連帶保證債務，均隨主債權之消滅而消滅</strong>，蓋擔保物權及保證債務之存在，以主債權存在為前提。</p>
+<p><strong>（二）戊單獨拋棄抵押權：</strong> 依第864條，抵押權人得拋棄其抵押權。此係戊僅拋棄<strong>從權利</strong>（抵押權）本身，其對丙之<strong>主債權（1000萬元借款債權）並不因此消滅</strong>，戊仍得依原債之關係向丙請求清償，僅喪失就A地優先受償之擔保利益；至丁之連帶保證債務，亦不因戊單獨拋棄抵押權而受影響，仍繼續存在（惟依保證之從屬性及擔保物權喪失之相關規定，丁得於戊怠於保全擔保物權致丁受損害之限度內，主張其保證責任相應減免）。</p>
+<p><strong>（三）丁拋棄繼承權：</strong> 依第1174條，繼承人得拋棄其繼承權，其拋棄應於知悉其得繼承之時起3個月內，以<strong>書面</strong>向法院為之；依第1175條，繼承之拋棄，溯及於繼承開始時發生效力。丁拋棄對甲2000萬元遺產之繼承權，須具備前開書面要式並向法院為之，一經合法拋棄，溯及甲死亡時即視為丁自始未繼承，其應繼分歸屬其他同順序繼承人（或依代位繼承等規則處理）。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，三種拋棄之效力方向各異：戊拋棄主債權，使從屬之抵押權及保證債務隨同消滅；戊單獨拋棄抵押權（從權利），不影響主債權之存續，僅喪失擔保利益；丁拋棄繼承權則屬身分行為，須依法定方式（書面向法院）為之，並溯及繼承開始時發生效力。三者性質不同，效力互不相涉，作答時應分別論述，不宜混為一談。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="101-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="C" data-key="101-二" data-yr="101">
+<summary><span class="lv">🟢</span><span class="ek">101年第二題</span><span class="et">出典、買賣與押租金歸屬</span><span class="ec">C租賃／典權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲將A地出租於乙供其停放遊覽車三年，租賃存續中甲將A地出典於丙後又賣與丁並完成登記。何人得對乙收取租金？何人應返還乙押租金？（25分）</div>
+<h4><strong>一、典權與出租人地位移轉制度之意義</strong></h4>
+<p>典權係支付典價，占有他人之不動產，而為使用、收益之權，典權人於典權存續期間對典物享有完整之使用收益權能。承租物設定典權時，原出租人與承租人間之租賃關係，其出租人一方之權利義務，應隨同典物使用收益權之移轉，一併移轉予典權人，蓋典權人既已取得對典物之使用收益權，自應同時承受因此衍生之出租人地位，始符合權責一致原則。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第425條（買賣不破租賃）、第911條（典權之定義）、第917條之1（典權人之使用收益權及出租人地位之移轉）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）典權成立後之出租人地位：</strong> 依第911條，稱典權者，謂支付典價占有他人之不動產，而為使用、收益之權。甲將A地出典於丙後，依第917條之1，典權人（丙）就典物有使用收益之權，<strong>原租賃關係之出租人地位，隨同典物使用收益權移轉予典權人丙</strong>。是以，出典後，<strong>丙取得出租人地位</strong>，得向乙收取租金，甲已非收租之出租人。</p>
+<p><strong>（二）丁買受A地後之法律關係：</strong> 甲嗣後將A地出賣並移轉登記予丁，依第425條買賣不破租賃原則，租賃關係固不因所有權讓與而消滅，惟本題A地此時已存在<strong>典權負擔</strong>，丁因買賣取得之所有權，性質上係<strong>受有典權負擔之所有權</strong>，丁須繼受此一出典關係，在典權存續期間，<strong>丙仍保有其對典物之使用收益權及出租人地位</strong>，丁尚不能取得完整之出租人權能，須待典權因回贖或期滿而消滅後，丁始能回復完整之出租人地位。</p>
+<p><strong>（三）押租金返還義務之歸屬：</strong> 押租金返還義務，原則上應隨出租人地位之移轉而移轉，由<strong>實際終止租約時之出租人</strong>負返還義務。本題於典權存續期間，丙既取得出租人地位，即應由丙負押租金返還義務；若嗣後典權消滅、丁回復完整出租人地位後租約始行終止，則應由丁負返還義務，須依終止租約時點之實際出租人而定。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲出典A地後，丙取得出租人地位，得向乙收取租金；丁其後雖因買賣取得A地所有權，惟因典權負擔仍存在，須繼受出典關係，於典權存續期間不得排除丙之收租及出租人地位；押租金返還義務人，應視終止租約時之實際出租人而定，於典權存續期間應由丙負責，典權消滅回復完整所有權後則由丁負責。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="101-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="102-一" data-yr="102">
+<summary><span class="lv">🟡</span><span class="ek">102年第一題</span><span class="et">共有物出租與修繕之比較</span><span class="ec">D共有</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲乙丙共有房屋，應有部分各三分之一，甲出租於丁，又因房屋門窗不牢僱工修復後交付丁使用。甲出租契約效力如何？乙丙對丁可否主張所有物返還請求權？甲僱工修復是否需事先徵得乙丙同意？（25分）</div>
+<h4><strong>一、共有物管理行為與保存行為之意義</strong></h4>
+<p>共有物之利用涉及全體共有人之權益，民法就共有人對共有物所為之行為，依其性質區分為「管理行為」與「保存行為」而異其規範：管理行為（如出租）攸關共有物之整體使用收益方式，原則上應經多數決或全體共有人同意，始得為之；保存行為（如單純之修繕、防止毀損滅失）則因具急迫性且有利於全體共有人，各共有人得單獨為之，無庸事先取得其他共有人同意。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第820條（共有物之管理）、第821條（共有人對第三人之權利）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲出租契約之效力：</strong> 依第820條第1項，共有物之管理，除契約另有約定外，應由共有人共同決定，其決定並應以共有人過半數及其應有部分合計過半數之同意行之（或應有部分合計逾三分之二者，其人數不予計算）。本題甲出租房屋予丁，性質上屬<strong>管理行為</strong>，甲未經乙丙同意即擅自出租，其出租契約<strong>對乙丙不生效力</strong>（僅於甲丁間發生債之拘束力，甲須自負契約責任）。</p>
+<p><strong>（二）乙丙得否對丁主張返還：</strong> 依第821條，各共有人對於第三人，得就共有物之全部，為本於所有權之請求；但回復共有物之請求，僅得為共有人全體之利益為之。乙丙就其未同意之出租，得依第767條、第821條規定，本於所有權對無權占有人丁主張返還請求權，惟其請求應為<strong>共有人全體之利益</strong>而為之。</p>
+<p><strong>（三）甲僱工修復是否須經乙丙同意：</strong> 甲僱工修復門窗不牢之情形，性質上屬<strong>保存行為</strong>，依第820條第5項，各共有人於保存共有物之必要範圍內，得單獨為之，<strong>不須事先徵得乙丙同意</strong>。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲未經乙丙同意逕行出租，屬管理行為未經共有人多數決同意，該出租契約對乙丙不生效力，乙丙得依第821條為全體共有人之利益，請求丁返還房屋；至甲僱工修復門窗，屬保存行為，甲得單獨為之，不須事先徵得乙丙同意。本題核心在於區辨「出租」（管理行為）與「修繕」（保存行為）之不同規範要求。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="102-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="102-二" data-yr="102">
+<summary><span class="lv">🟡</span><span class="ek">102年第二題</span><span class="et">未辦繼承登記之抵押權實行</span><span class="ec">D抵押權／E繼承</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲向乙借款1000萬元並以A地設定抵押權，乙死亡後其子丙未辦繼承登記，丙得否實行抵押權？民法第759條所謂「非經登記不得處分」之意涵為何？（25分）</div>
+<h4><strong>一、宣示登記制度之意義</strong></h4>
+<p>民法就不動產物權變動，原則上採登記生效主義；惟因繼承、強制執行、徵收或法院之判決等<strong>非基於法律行為</strong>之原因取得不動產物權者，其取得不待登記即已生效，僅於嗣後欲進一步「處分」該物權時，始須先完成登記，此即所謂宣示登記，其規範目的在於兼顧繼承等法定物權變動之即時效力，同時維持地政登記之公示正確性，以保護交易安全。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第759條（因繼承等非法律行為取得不動產物權之登記）、第1147條（繼承因被繼承人死亡而開始）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）丙因繼承已當然取得抵押權：</strong> 依第1147條，繼承因被繼承人死亡而開始。乙死亡時，其對甲之1000萬元債權及從屬之A地抵押權，依法當然由其繼承人丙繼承取得，<strong>不待登記即生繼承之效力</strong>，此為繼承取得物權「不待登記即生效力」原則之當然結果。</p>
+<p><strong>（二）第759條「非經登記不得處分」之意涵：</strong> 依第759條，因繼承、強制執行、徵收、法院之判決或其他非因法律行為，於登記前已取得不動產物權者，<strong>非經登記，不得處分其物權</strong>。本條所稱「處分」，通說及實務多數見解認為係指<strong>處分行為</strong>，即以物權變動為直接效果之行為，例如將該抵押權讓與他人、或就該抵押權另行設定負擔等；至於「實行抵押權」（即聲請法院拍賣抵押物以受清償），其性質上係抵押權人<strong>行使</strong>擔保物權以實現債權之權能，並非使該抵押權本身發生移轉或消滅等物權變動效果之「處分行為」，故多數見解認為<strong>不受第759條「未登記不得處分」之限制</strong>。</p>
+<p><strong>（三）丙得否實行抵押權：</strong> 承上，丙雖尚未就繼承取得之抵押權辦理繼承登記，惟因實行抵押權不屬第759條所稱之處分行為，丙仍得<strong>逕行聲請法院拍賣</strong>A地以實行其抵押權，無須先完成繼承登記；惟丙如欲將該抵押權讓與第三人或設定權利負擔等處分行為，則仍須先辦妥繼承登記，始得為之。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙死亡時，丙已因繼承當然取得對A地之抵押權，不待登記即生效力；依民法第759條，丙未辦繼承登記前，僅係不得就該抵押權為「處分行為」（如讓與、再設定負擔），惟「實行抵押權」聲請拍賣以受清償，並非處分行為，不受本條限制，丙<strong>得</strong>逕行實行抵押權，無庸先辦理繼承登記。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="102-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="103-一" data-yr="103">
+<summary><span class="lv">🔴</span><span class="ek">103年第一題</span><span class="et">詐欺撤銷債權物權行為與脅迫撤銷之比較</span><span class="ec">A法律行為效力</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲被乙詐欺出賣房屋並已辦妥所有權移轉登記，若甲僅撤銷債權行為、或同時撤銷債權及物權行為，法律關係各如何？詐欺撤銷與脅迫撤銷之效力有何不同？（25分）</div>
+<h4><strong>一、意思表示撤銷制度之意義</strong></h4>
+<p>民法對於因詐欺、脅迫而為之意思表示，賦予表意人撤銷權，惟就撤銷後能否對抗善意第三人，區分詐欺與脅迫而異其規範：詐欺情形下，法律認為表意人本身於形成意思過程中已有一定程度之疏失可能，為兼顧交易安全，其撤銷不得對抗善意第三人；脅迫情形下，表意人係在意思自由完全受壓制之情況下為表示，可責難性極低，故法律未設此一限制，撤銷效力得對抗任何第三人。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第92條（詐欺脅迫之撤銷及其對抗效力）、第113條（無效或撤銷法律行為之回復原狀義務）、第767條（所有物返還請求權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲僅撤銷債權行為：</strong> 買賣契約（債權行為）與所有權移轉登記（物權行為）在我國採物權行為獨立性及無因性理論下，係屬<strong>各自獨立</strong>之法律行為。若甲僅撤銷債權行為（買賣契約），物權行為（所有權移轉登記）<strong>不當然隨同失效</strong>，乙依然是登記名義上之合法所有權人；甲僅得依第113條規定，向乙請求返還其因買賣契約無效所受之給付（例如已收取之價金差額），尚不能直接請求返還房屋所有權本身。</p>
+<p><strong>（二）甲同時撤銷債權及物權行為：</strong> 若甲一併撤銷債權行為及物權行為（物權行為亦因受詐欺而為，得單獨撤銷），該所有權移轉登記之物權行為溯及自始無效，乙自始未曾合法取得房屋所有權，甲仍為所有權人，甲得依第767條規定，向乙請求返還房屋所有權（塗銷登記並返還占有）。</p>
+<p><strong>（三）詐欺撤銷與脅迫撤銷對抗善意第三人之差異：</strong> 依第92條第2項，<strong>被詐欺</strong>而為之意思表示，其撤銷<strong>不得對抗善意第三人</strong>；本條就脅迫則未設此一限制，故<strong>被脅迫</strong>而為之意思表示，其撤銷<strong>得對抗任何第三人</strong>（包括善意第三人）。此為本題後段比較之核心：若房屋已輾轉移轉予不知情之第三人，因被詐欺而撤銷者，甲不得對抗該善意第三人；因被脅迫而撤銷者，甲仍得對抗，訴請塗銷該第三人之登記。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲僅撤銷債權行為，物權行為不受影響，僅得請求返還已為之給付；同時撤銷債權及物權行為，甲得依第767條請求返還房屋所有權。至詐欺與脅迫撤銷之效力差異，關鍵在於「能否對抗善意第三人」：詐欺撤銷不得對抗善意第三人，脅迫撤銷則無此限制、得對抗任何第三人，此一差異係本題比較之核心得分點。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="103-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="103-二" data-yr="103">
+<summary><span class="lv">🟡</span><span class="ek">103年第二題</span><span class="et">分割共有物、抵押權移轉與補償金保障</span><span class="ec">D共有／抵押權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲、乙共有一筆土地，面積100平方公尺，僅符合建築面積最小單位，應有部分分別為甲十分之八、乙十分之二，甲、乙以其應有部分分別向丙、丁貸款，設定抵押權作為擔保。嗣甲請求分割，因與乙無法達成協議，遂提起分割共有物之訴，法院依民法第824條第3項規定，判決將該共有地分配於甲，並命甲補償乙新臺幣100萬元。請問乙對甲之補償金債權，民法設有何種保障機制？又丁在乙之應有部分上原有之抵押權如何處理？（25分）</div>
+<h4><strong>一、共有物分割後抵押權移存及法定抵押權制度之意義</strong></h4>
+<p>共有物分割乃使共有關係消滅、各共有人取得單獨所有權之制度，惟共有人應有部分上原已存在之抵押權，不應因分割而受影響，民法乃設有抵押權「移存」規則，使原抵押權轉載於分割後對應之土地部分；又於以原物分配而須以金錢補償他共有人之情形，為保障受補償共有人之補償金債權得以確實受償，另設法定抵押權制度，使其就補償義務人分得之不動產享有優先受償地位。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第824條之1第2項（分割後抵押權之移存）、第3項（法定抵押權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）乙補償金債權之保障（法定抵押權）：</strong> 依第824條之1第3項，以原物為分配而應以金錢補償者，<strong>受補償之共有人，就其補償金額，對於補償義務人所分得之不動產，有法定抵押權</strong>。本題土地面積僅100平方公尺，恰為建築面積最小單位，客觀上無從按應有部分（甲8/10、乙2/10）為原物分割，法院乃依第824條第3項，判決將土地全部分配予甲，並命甲補償乙100萬元；乙即為受補償之共有人，依第824條之1第3項規定，<strong>乙就其100萬元補償金債權，對甲分得之土地，當然享有法定抵押權</strong>，無須另行約定或辦理設定登記，即得就甲分得之土地優先受償，充分保障乙補償金債權之實現。</p>
+<p><strong>（二）丁抵押權之處理（移存規則）：</strong> 本題丁之抵押權原設定於<strong>乙之應有部分（2/10）</strong>上，依第824條之1第2項，應有部分有抵押權者，其權利不因共有物之分割而受影響；惟因本題係以金錢補償方式分配（乙未受領任何實物土地，僅取得補償金債權），依同項規定意旨，<strong>丁原設定於乙應有部分上之抵押權，應移存於乙嗣後因分割所受領之補償金（或乙對甲之補償金債權）之上，不因分割而消滅</strong>；至於甲原以其應有部分（8/10）向丙設定之抵押權，因甲受配得原物之土地全部，丙之抵押權則依法<strong>移存於甲分得之土地全部</strong>之上，效力不受影響。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙之100萬元補償金債權，依民法第824條之1第3項，就甲分得之土地享有法定抵押權，得優先受償，無須另行設定；丁原於乙應有部分上之抵押權，依同條第2項移存規則，繼續存在於乙嗣後所得之分配（補償金或相對應之財產）之上，不因共有物分割而消滅，僅其擔保客體隨分割結果而轉載。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="103-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="104-一" data-yr="104">
+<summary><span class="lv">🟡</span><span class="ek">104年第一題</span><span class="et">居間服務費計算與報酬請求權成立時點</span><span class="ec">C居間</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>A建地面積130坪，乙為A地所有權人，於民國101年7月26日委由甲不動產經紀人代為尋找買主，甲乙簽訂專任委託銷售契約約定：「委託底價：每坪20萬元（合計2,600萬元）；服務費：超過每坪20萬元以上，均算為『服務費』予甲；委託期限：自101年7月26日至101年10月25日止」。甲於101年8月26日找到丙願意以每坪21萬元購買，乙丙雙方碰面後，乙表示要先塗銷A地原有的抵押權登記，再與丙約期簽約。之後，一直到101年10月25日前止，乙均以抵押權登記尚未塗銷為理由，拒絕簽約。102年2月25日後乙丙雙方合意辦理A地所有權移轉登記完畢，而買賣價格即為每坪21萬元。甲發現後即起訴，請求乙給付130萬元服務費，請問有無理由？（25分）</div>
+<h4><strong>一、底價式居間報酬約定與報酬請求權成立時點之意義</strong></h4>
+<p>居間契約係當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約。本題委託銷售契約採<strong>底價式服務費約定</strong>（成交價超過底價部分即歸居間人作為服務費），此為不動產仲介實務常見之報酬計算方式，與一般依成交總價一定比例計算報酬之方式不同，應先依約定內容計算服務費具體金額，再判斷該報酬請求權是否已成立。居間人之報酬請求權，其成立之關鍵時點為<strong>契約因居間人之媒介而成立</strong>之時，而非委託期限是否仍在存續中。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第565條（居間之定義）、第568條第1項（報酬請求權之發生時點）、誠實信用原則（第148條）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）服務費金額之計算：</strong> 依委託銷售契約約定，底價為每坪20萬元，超過部分即為甲之服務費。乙丙最終成交價格為每坪21萬元，每坪超過底價1萬元，A地面積130坪，是以甲得請求之服務費應為：<strong>（21萬元－20萬元）×130坪＝130萬元</strong>，核與甲起訴請求之金額相符。</p>
+<p><strong>（二）買賣契約遲延簽訂之可歸責事由：</strong> 依第565條，居間人之義務在於促成訂約機會或為訂約之媒介。甲於委託期限內（101年7月26日至101年10月25日）之101年8月26日，即已找到買家丙，並促成乙丙雙方會面磋商，就價金（每坪21萬元）達成共識，甲之居間媒介行為於委託期限內業已完成。買賣契約嗣後之所以遲至委託期限屆滿（101年10月25日）後、乃至102年2月25日始正式簽約完成移轉登記，其原因在於<strong>A地上原有抵押權尚未塗銷</strong>，而此一權利瑕疵之排除義務，應歸屬於<strong>出賣人乙</strong>一方，<strong>非可歸責於甲未盡居間媒介之義務</strong>。乙一再以抵押權未塗銷為由拒絕簽約，其自身遲延排除權利瑕疵之事由，不應轉嫁為甲喪失報酬請求權之理由。</p>
+<p><strong>（三）報酬請求權之成立時點：</strong> 依第568條第1項，居間人<strong>於契約因其報告或媒介而成立時</strong>，即得請求報酬。買賣契約最終確因甲先前之媒介行為而成立（乙丙係經甲媒合而相識、磋商並達成價金合意），縱使正式簽約及移轉登記之時點已逾委託期限，惟甲之媒介行為與買賣契約最終成立間，仍具有相當因果關係，應認甲之報酬請求權已具體發生，<strong>不因正式簽約時點在委託期限屆滿之後而受影響</strong>。</p>
+<p><strong>（四）誠信原則之補充適用：</strong> 縱認委託期限屆滿於形式上具有一定意義，惟乙明知交易之所以遲延至委託期限後始完成，實係因<strong>乙自身</strong>未及時處理抵押權塗銷事宜所致，乙猶執此形式上之期限經過為由，拒絕給付甲已實質促成之服務費，顯係利用自己可歸責之事由規避報酬給付義務，依第148條誠實信用原則，亦不應允許乙以此作為免除給付報酬義務之抗辯。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲於委託期限內已完成媒介丙、促成乙丙就每坪21萬元價金達成合意之居間義務，買賣契約遲延正式簽訂之原因可歸責於乙（抵押權未及時塗銷），甲之媒介行為與契約最終成立間具相當因果關係，依民法第568條，甲之報酬請求權已成立；依約定之底價服務費計算方式，甲得請求之服務費為（21萬元－20萬元）×130坪＝<strong>130萬元</strong>，<strong>甲之起訴請求，有理由</strong>。</p>
+<p><strong>特別提醒（角色與計算不可搞混）：</strong> 本題原題中<strong>乙為委託人（地主）、甲為受託之不動產經紀人</strong>，且服務費並非固定比例，而是「底價式」約定（超過底價部分歸經紀人）。作答時務必先看清楚題目中誰委託誰、報酬如何約定計算，並將具體數字代入算出金額，此為請求權基礎型／計算量化型混合題目最容易失分之處——只寫法律規則、不算出具體金額，等於沒有完整回答題目。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="104-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="104-二" data-yr="104">
+<summary><span class="lv">🟡</span><span class="ek">104年第二題</span><span class="et">抵押權與地上權併存之效力</span><span class="ec">D抵押權／地上權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>乙企業向甲銀行申請企業貸款5,000萬元，乙提供其所有的A素地為擔保，設定抵押權給甲，甲同意貸款，但要求乙同意將A素地同時設定地上權給甲，然而就設定地上權的契約，並未約定**權利金或地租**的給付。請問雙方設定抵押權與地上權的效力？（25分）</div>
+<h4><strong>一、抵押權與地上權併存制度之意義</strong></h4>
+<p>不動產所有人得就同一標的物，同時設定不同種類之物權，各物權依其成立要件分別判斷其效力，互不當然影響。地上權係以在他人土地上下有建築物或其他工作物為目的而使用其土地之權，性質上得為有償或無償，未約定地租者，並不影響地上權本身之成立及效力，僅係其權利內容不含地租給付義務。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第860條（普通抵押權之定義）、第832條（地上權之定義，得無償）、第882條（抵押權之效力及於地上權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）抵押權之成立與效力：</strong> 依第860條，稱普通抵押權者，謂債權人對於債務人或第三人不移轉占有而供其債權擔保之不動產，得就該不動產賣得價金優先受償之權。本題乙以A素地為甲之借款設定抵押權，雙方合意並完成登記，<strong>抵押權合法成立</strong>，甲就A地享有優先受償之擔保物權。</p>
+<p><strong>（二）地上權之成立與效力（未約定權利金或地租不影響成立）：</strong> 依第832條，稱普通地上權者，謂以在他人土地之上下有建築物或其他工作物為目的而使用其土地之權。地上權之設定，<strong>得約定為有償或無償</strong>，是否給付權利金或地租，並非地上權成立之必要要件；本題乙甲雖未就權利金或地租為約定，惟不影響地上權本身依當事人合意及登記而<strong>合法成立</strong>。本題地上權係銀行甲為強化其對A素地擔保利益之<strong>附加擔保措施</strong>（併同取得地上權，可防止乙或第三人於A地上另行設定其他用益權而稀釋抵押物之擔保價值），雖非典型「供地上權人建築房屋」之目的，惟地上權之設定原因及目的，並非其成立要件所問，不影響其效力。</p>
+<p><strong>（三）抵押權與地上權併存之關係：</strong> 依第882條，普通抵押權之效力，及於抵押物之從物與從權利，於同一土地上設定用益物權（如地上權）與抵押權併存之情形，原則上依其<strong>成立（登記）先後定其優先順序</strong>及相互影響關係；本題抵押權與地上權若同時或先後設定於甲一人名下，因權利主體同一，實務上尚須注意日後若甲之抵押權經實行拍賣、由第三人拍定取得所有權時，該地上權對拍定人之效力及其存續問題，惟此非本題所問之核心，本題僅須確認<strong>抵押權及地上權均合法有效成立</strong>，二者性質不同、可並存不悖。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙就A地為甲設定之抵押權，依民法第860條合法成立，甲享有優先受償之擔保利益；乙甲間就同一土地設定之地上權，依第832條，縱未約定地租，亦不影響其合法成立，甲仍合法取得於A地建築房屋之地上權。抵押權與地上權性質不同、得併存於同一不動產之上，本題二物權均合法有效成立。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="104-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="105-一" data-yr="105">
+<summary><span class="lv">🔴</span><span class="ek">105年第一題</span><span class="et">消滅時效與抵押權塗銷</span><span class="ec">A時效／D抵押權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲向乙借款並以其所有不動產設定普通抵押權，逾20年未清償。甲死亡後，其繼承人丙發現該抵押權，主張借款債權及抵押權均已罹於消滅時效而消滅，訴請乙塗銷抵押權登記，有無理由？（25分）</div>
+<h4><strong>一、消滅時效與抵押權特殊實行期限制度之意義</strong></h4>
+<p>一般債權原則上適用15年之一般消滅時效，惟抵押權因具有優先受償之擔保物權性質，若任令其於主債權罹於時效後永久存續，將使不動產長期陷於權利不明確之狀態，有礙物之流通，民法乃就抵押權另設「主債權罹於時效後，抵押權人應於時效完成後一定期間內實行抵押權，逾期抵押權始歸於消滅」之特殊緩衝期間規定，兼顧債權人受償利益與物之流通安定。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第125條（一般消滅時效15年）、第144條（時效完成之效力，僅生抗辯權）、第880條（抵押權因除斥期間經過而消滅）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）借款債權是否消滅：</strong> 依第125條，請求權，因15年間不行使而消滅。甲向乙借款逾20年未清償，該借款債權已罹於15年之一般消滅時效。惟依第144條第1項，時效完成後，債務人<strong>得拒絕給付</strong>，僅發生<strong>抗辯權</strong>，債權本身並<strong>不當然消滅</strong>，債務人（丙為甲之繼承人，繼受此一抗辯權）僅得拒絕清償，尚不能謂債權已不存在。</p>
+<p><strong>（二）抵押權是否消滅（第880條）：</strong> 依第880條，以抵押權擔保之債權，其請求權已因時效而消滅，如抵押權人於消滅時效完成後，<strong>5年間不實行</strong>其抵押權者，該抵押權消滅。本題須依題目所示之實際年數，具體計算「消滅時效完成後」是否已逾5年：借款債權於逾15年時效完成，此後乙若於5年內未實行抵押權（聲請拍賣受償），則抵押權方歸於消滅；若乙已於此5年緩衝期內行使權利（如聲請強制執行、承認等中斷事由），則抵押權尚未消滅。</p>
+<p><strong>（三）丙之請求是否有理由：</strong> 承上，丙之請求是否有理由，取決於自借款債權時效完成之日起算，迄丙訴請塗銷之時，<strong>是否已逾5年之緩衝期間</strong>：若已逾5年，抵押權依第880條消滅，丙訴請塗銷有理由；若未逾5年，抵押權尚未消滅，丙之請求無理由，須代入本題實際年數計算後明確下結論。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲之借款債權雖已罹於15年消滅時效，惟依第144條僅生抗辯權，債權本身不消滅；抵押權部分則應依第880條規定，計算自消滅時效完成後是否已逾5年未經抵押權人實行：已逾5年者，抵押權消滅，丙之訴請有理由；未逾5年者，抵押權尚未消滅，丙之訴請無理由。本題不可誤認為主債權時效完成即當然使抵押權立即消滅，須經第880條額外5年緩衝期間之檢驗。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="105-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="105-二" data-yr="105">
+<summary><span class="lv">🟡</span><span class="ek">105年第二題</span><span class="et">區分所有頂樓加蓋之使用權源與買賣效力</span><span class="ec">D共有／區分所有</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲為A公寓5樓之區分所有權人，將公寓頂樓搭建鐵皮屋並隔成三間房間使用（未辦建物所有權第一次登記），其他區分所有權人長期未表反對意思，今甲將該5樓及頂樓鐵皮屋一併出售予乙。問：甲於頂樓搭建鐵皮屋之使用權源為何？甲乙間就該鐵皮屋之買賣契約是否有效？（25分）</div>
+<h4><strong>一、默示分管契約與違章建築交易效力之意義</strong></h4>
+<p>區分所有建築物之共有部分（如屋頂平台），依其性質原則上應由全體區分所有權人共同管理使用，惟共有人間就共有物之特定使用方式，得以明示或默示方式成立分管契約，經全體共有人長期沉默、未加反對等客觀事實，若足認已形成共有人間之默示合意，亦得成立默示分管契約，作為特定共有人使用特定部分之合法權源。至未辦保存登記之違章建築，雖無法辦理所有權移轉登記，惟其買賣契約（債權契約）本身之效力，不因標的物欠缺保存登記而受影響，僅其物權效果受有限制。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第820條（共有物之管理）、第799條（區分所有建築物之共有部分）、第826條之1（分管契約之效力及其對受讓人之拘束）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲搭建鐵皮屋之使用權源：</strong> 依第820條第1項，共有物之管理原則上應經共有人共同決定；惟本題甲長期於頂樓平台搭建使用，其他區分所有權人<strong>長期未表反對意思</strong>，客觀上足認全體共有人已就頂樓平台之此一使用方式，達成<strong>默示分管契約</strong>，甲得以此作為其占用頂樓平台搭建鐵皮屋之<strong>合法使用權源</strong>。</p>
+<p><strong>（二）甲乙間買賣契約之效力：</strong> 鐵皮屋雖屬<strong>未辦保存登記之違章建築</strong>，客觀上無法辦理所有權移轉登記，惟依債權契約與物權契約各自獨立之原則，<strong>買賣契約本身（債權契約）之成立生效，不以標的物具備移轉登記能力為必要</strong>，甲乙間就鐵皮屋成立之買賣契約，<strong>仍屬有效成立</strong>。惟因鐵皮屋無法辦理保存登記及所有權移轉登記，乙透過買賣所得取得者，僅係該鐵皮屋之<strong>事實上處分權</strong>（非嚴格意義之所有權），並連同承受甲原有之默示分管契約使用權源；至該分管契約是否對乙（作為受讓人）發生拘束力，依第826條之1，未經登記之分管契約，須乙於受讓時知悉或可得而知該分管情事，始對乙發生效力。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲因其他共有人長期未反對其占用頂樓平台搭建鐵皮屋，客觀上足認已成立默示分管契約，作為甲之合法使用權源；甲乙間就鐵皮屋之買賣契約，縱標的物為未辦保存登記之違章建築，其債權契約仍有效成立，乙得取得該鐵皮屋之事實上處分權，至於原分管契約之使用權源能否隨同對乙生效，則另應依第826條之1判斷乙是否知悉或可得而知該分管情事而定。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="105-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="106-一" data-yr="106">
+<summary><span class="lv">🟡</span><span class="ek">106年第一題</span><span class="et">共有出租與連帶債務追討</span><span class="ec">D共有／B債編</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲乙丙丁共同出資並借款購置公寓，由甲負責付息予戊，甲未經其他共有人同意，逕將一樓出租予娃娃機店。問：該出租契約效力如何？戊應如何向四人追討借款？（25分）</div>
+<h4><strong>一、共有物出租之管理性質與可分債務原則之意義</strong></h4>
+<p>共有物之出租涉及共有物整體使用收益方式之變更，性質上屬管理行為，原則上應經共有人多數決同意，未經同意者，該出租行為對其他未同意之共有人不生效力。另就數人共同負擔之借款債務，民法採<strong>可分之債原則上按比例分擔</strong>之立場，除當事人間另有特約，或法律明文規定為連帶債務者外，債務人間並非當然互負連帶清償責任，債權人不得逕行請求任一債務人清償全部債務。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第820條（共有物之管理）、第271條（可分之債）、連帶債務成立之特約或法定原則。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲出租契約之效力：</strong> 依第820條第1項，共有物之管理應由共有人共同決定，出租為管理行為之一種。甲未經乙丙丁同意，逕自出租一樓予娃娃機店，若未達應有部分合計過半數同意之門檻，該出租契約對其他未同意之共有人<strong>不生效力</strong>，僅於甲丁間發生債之拘束力（此處丁應理解為承租之娃娃機店業者，甲須自負此一契約責任）。</p>
+<p><strong>（二）戊向四人追討借款之方式：</strong> 甲乙丙丁四人共同向戊借款購置公寓，其借款債務性質上屬<strong>金錢債務</strong>，原則上為<strong>可分之債</strong>。依第271條，數人負同一債務，而其給付可分者，除法律另有規定或契約另有訂定外，應各平均分擔之。四人<strong>共同借款</strong>之事實，本身<strong>尚不足以當然構成連帶債務</strong>，連帶債務之成立<strong>須有特約或法律明文規定</strong>，本題事實中並未敘明四人有連帶清償之特別約定，亦無法律明文規定此類共同借款當然連帶，故戊向四人追討借款，<strong>原則上僅得按各人約定或均等比例，分別向各人請求其應分擔部分</strong>，不得逕行請求任一人清償借款全部金額。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲未經其他共有人同意出租一樓，屬管理行為未經多數決同意，對乙丙丁不生效力；戊向甲乙丙丁四人追討借款，因共同借款不當然構成連帶債務，除非另有特約或法律明文規定，戊原則上僅得依可分之債原則，按各人應分擔之比例分別請求清償，不得就借款全額逕向任一人求償。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="106-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="106-二" data-yr="106">
+<summary><span class="lv">🟡</span><span class="ek">106年第二題</span><span class="et">限制行為能力人購屋與海砂屋瑕疵擔保</span><span class="ec">A行為能力／C瑕疵擔保</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲現年18歲未婚，未經法定代理人同意，與乙建設公司簽訂買賣契約並辦理移轉登記，購買500萬元A套房，其後發現該屋為海砂屋。甲得依民法向乙主張何等權利？（25分）</div>
+<h4><strong>一、現行法成年年齡與物之瑕疵擔保制度之意義</strong></h4>
+<p>民法就自然人行為能力之取得，以年齡為劃分標準；另就買賣契約標的物存有瑕疵之情形，課予出賣人擔保責任，使買受人得於瑕疵發生時，透過解除契約、請求減少價金或請求損害賠償等方式獲得救濟，以確保有償契約當事人間之對價公平。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第12條（成年之年齡，現行法為18歲）、第354條（物之瑕疵擔保責任）、第360條（出賣人故意不告知瑕疵或保證無瑕疵之損害賠償責任）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲之締約能力與契約效力：</strong> 依現行民法第12條規定（該條業經修正，成年年齡已由20歲修正為18歲），甲現年18歲，<strong>已為完全行為能力人</strong>，其與乙建設公司簽訂之買賣契約，<strong>不生限制行為能力人未經法定代理人允許而效力未定之問題</strong>，甲乙間之買賣契約及其後辦理之所有權移轉登記，<strong>均合法有效成立</strong>，作答時應注意依現行法而非修法前之舊制論述，此為本題重要陷阱所在。</p>
+<p><strong>（二）甲得主張之瑕疵擔保權利：</strong> 依第354條第1項，物之出賣人對於買受人，應擔保其物依第373條之規定危險移轉於買受人時無滅失或減少其價值之瑕疵，亦不得有滅失或減少其通常效用或契約預定效用之瑕疵。A套房為海砂屋，屬物之瑕疵，甲得依第359條規定，請求<strong>解除契約或請求減少價金</strong>。</p>
+<p><strong>（三）故意不告知瑕疵之損害賠償責任：</strong> 依第360條，出賣人故意不告知物之瑕疵，或保證其無瑕疵者，買受人得<strong>不解除契約或請求減少價金，而請求不履行之損害賠償</strong>。海砂屋瑕疵通常涉及混凝土氯離子含量超標之結構性問題，非經專業檢測難以察覺，若乙明知該屋為海砂屋而故意不告知甲，或曾對甲保證無此瑕疵，甲即得依本條規定，請求乙賠償其因瑕疵所受之損害（如修繕費用、房屋減損之價值等），此一請求權基礎與第354條之解除或減價請求權效果不同、得單獨主張。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲現年18歲依現行法已為完全行為能力人，甲乙間買賣契約及移轉登記均有效成立；甲發現A套房為海砂屋，得依第354條請求解除契約或減少價金，若乙明知瑕疵而故意不告知或曾保證無瑕疵，甲並得依第360條另行請求損害賠償，二請求權基礎效果不同，作答時應併予論述。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="106-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="107-一" data-yr="107">
+<summary><span class="lv">🔴</span><span class="ek">107年第一題</span><span class="et">債權人代位請求取得土地所有權</span><span class="ec">B代位權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲將自己所有之一筆土地出賣於乙，尚未交付，亦未辦理所有權移轉登記，乙即將該土地轉賣於丙，屆清償期乙未依約將該土地所有權移轉登記於丙，丙一再催促，乙均置之不理，而該土地仍登記為甲所有。請問：丙得如何行使權利，取得該土地所有權？（25分）</div>
+<h4><strong>一、債權人代位權制度之意義</strong></h4>
+<p>債之關係原則上僅拘束契約當事人（債之相對性），惟債務人有其應行使之權利而怠於行使，致害及債權人債權之保全者，法律例外允許債權人以自己名義代位行使債務人之權利，此即債權人代位權制度，目的在防止債務人消極不行使權利，致其財產（責任財產）不當減損，影響債權人債權之實現。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第242條（債權人代位權）、第758條（不動產物權登記生效要件）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）丙與乙間之法律關係：</strong> 丙基於其與乙間之買賣契約，得請求乙履行<strong>移轉土地所有權登記</strong>之義務；惟乙本身尚<strong>未取得</strong>該土地之所有權——依題示，<strong>甲尚未將土地交付予乙，亦未辦理所有權移轉登記予乙</strong>，依第758條，不動產物權，依法律行為而取得、設定、喪失及變更者，非經登記，不生效力，該土地現仍登記為甲所有，乙現尚非該土地之所有權人，客觀上<strong>無從</strong>直接將所有權移轉登記予丙。乙屆期未依約辦理移轉登記，丙一再催促均置之不理，益徵乙有怠於行使其對甲之權利之情事。</p>
+<p><strong>（二）丙得依第242條代位行使乙對甲之請求權：</strong> 依第242條，債務人怠於行使其權利時，債權人因保全債權，得以自己之名義，行使其權利；但專屬於債務人本身者，不在此限。本題乙對甲享有請求辦理土地所有權移轉登記之權利（基於甲乙間買賣契約），若乙<strong>怠於行使</strong>該項請求權，致丙無法自乙處取得土地所有權、其對乙之債權有不能實現之虞，丙即得依第242條，以<strong>自己名義</strong>，<strong>代位乙</strong>向甲請求辦理土地所有權移轉登記。</p>
+<p><strong>（三）所有權取得之流程：</strong> 須特別注意者，丙代位行使之效果，係使<strong>甲將土地所有權移轉登記予乙</strong>（而非直接移轉登記予丙自己），蓋代位權之行使，係代位債務人（乙）行使其對第三債務人（甲）之權利，取得之利益原則上歸屬於債務人（乙）之責任財產。俟甲乙間移轉登記完成，<strong>乙始終局取得土地所有權</strong>，丙再依其與乙間之買賣契約，請求乙將該土地所有權移轉登記予丙，完成甲→乙→丙之連續移轉登記，丙始終局取得土地所有權。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙尚未取得土地所有權，無從直接移轉登記予丙；丙得依民法第242條規定，於乙怠於行使其對甲之移轉登記請求權時，以自己名義代位乙向甲請求辦理所有權移轉登記，惟該登記結果係使乙取得所有權，丙尚須進一步依其與乙間之買賣契約，請求乙將所有權移轉登記予自己，始能終局取得該土地所有權，不可誤認丙得依代位權直接取得甲之土地所有權登記於自己名下。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="107-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="107-二" data-yr="107">
+<summary><span class="lv">🔴</span><span class="ek">107年第二題</span><span class="et">消滅時效與除斥期間之區別及所有物返還請求權</span><span class="ec">A時效／D所有權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>消滅時效與除斥期間之區別何在？設甲有一筆登記在其名下之A地及一棟未辦理保存登記之B屋，於民國92年5月1日被乙擅自占用，甲直到107年10月25日始向乙請求返還，乙抗辯甲之請求權已罹於時效而消滅，其抗辯是否有理由？（25分）</div>
+<h4><strong>一、消滅時效與除斥期間之區別（本題第一問，不可省略）</strong></h4>
+<p><strong>（一）消滅時效：</strong> 係指請求權人於法定期間內<strong>不行使</strong>其請求權，經過該期間後，義務人取得<strong>拒絕給付之抗辯權</strong>（民法第144條），惟該請求權本身<strong>並不當然消滅</strong>，僅生抗辯權；消滅時效之進行，因請求、承認、起訴等法定事由而<strong>得中斷</strong>（第129條），中斷後已進行之期間歸零、重行起算，亦得因特定事由（如天災）而<strong>不完成</strong>（暫停計算）；其規範對象原則上為<strong>請求權</strong>。</p>
+<p><strong>（二）除斥期間：</strong> 係指法律對於<strong>形成權</strong>（如撤銷權、解除權）行使所定之<strong>存續期間</strong>，期間經過後，該形成權<strong>本身即告消滅</strong>，並非僅生抗辯權；除斥期間為<strong>不變期間</strong>，<strong>不得中斷、不得停止</strong>，一旦期間屆滿，權利當然、確定地消滅，法院並得依職權審酌之。</p>
+<p><strong>（三）核心差異對照：</strong> ①適用對象：消滅時效適用於<strong>請求權</strong>；除斥期間適用於<strong>形成權</strong>。②效果：消滅時效完成僅生<strong>抗辯權</strong>（權利不消滅）；除斥期間屆滿則使<strong>權利本身消滅</strong>。③得否中斷或不完成：消滅時效<strong>得</strong>中斷、不完成；除斥期間<strong>為不變期間，不得中斷或停止</strong>。</p>
+<h4><strong>二、已登記與未登記不動產所有物返還請求權時效適用之意義（本題第二問）</strong></h4>
+<p>不動產所有人之所有物返還請求權，原則上與其他財產上請求權相同，適用民法一般<strong>消滅時效</strong>規定；惟司法院大法官釋字第107號解釋認為，<strong>已登記不動產</strong>之所有人所享有之回復請求權，因該不動產已有登記之公示，權利狀態明確，不生因長期不行使而應歸於消滅之疑慮，故解為<strong>不適用</strong>消滅時效之規定；至<strong>未辦保存登記</strong>之不動產，因欠缺此一公示基礎，其所有物返還請求權仍應適用一般消滅時效規定。</p>
+<h4><strong>三、相關法條依據</strong></h4>
+<p>民法第125條（一般消滅時效15年）、第129條（時效中斷事由）、第144條（時效完成之效力，僅生抗辯權）、第767條（所有物返還請求權）、司法院大法官釋字第107號解釋（已登記不動產回復請求權不適用時效規定）。</p>
+<h4><strong>四、涵攝分析</strong></h4>
+<p><strong>（一）A地部分（已辦保存登記）：</strong> 依釋字第107號解釋意旨，已登記不動產所有人之回復請求權（第767條），<strong>不在</strong>第125條消滅時效規定之適用範圍內。甲就A地雖遭乙占用長達15年（92年至107年），惟因A地已辦保存登記，甲之所有物返還請求權<strong>不因時效而消滅</strong>，乙抗辯時效消滅，就A地部分<strong>無理由</strong>。</p>
+<p><strong>（二）B屋部分（未辦保存登記）：</strong> B屋因<strong>未辦保存登記</strong>，不具備前開解釋所稱「已登記」之要件，其所有物返還請求權<strong>仍應適用</strong>第125條一般消滅時效規定，時效期間為15年。甲自92年起遭乙占用，迄107年始行使請求權，其間已逾15年，B屋部分之所有物返還請求權<strong>已罹於消滅時效</strong>，乙依第144條規定得拒絕給付，其抗辯就B屋部分<strong>有理由</strong>。</p>
+<p><strong>（三）已登記與未登記不動產適用規則不同之理由：</strong> 二者規範結果之差異，根本原因在於「登記」所具備之權利狀態公示功能：已登記不動產之權利狀態明確可查，長期占有不致使真正權利歸屬陷於不明，無適用消滅時效督促權利人行使權利之必要；未登記不動產則欠缺此一公示基礎，仍應適用一般時效規定，以督促真正權利人及時行使權利、避免權利狀態長期處於不安定狀態。</p>
+<h4><strong>五、結論</strong></h4>
+<p>綜上，乙之時效消滅抗辯，應就A地與B屋分別論斷：A地已辦保存登記，依釋字第107號解釋，甲之所有物返還請求權不適用消滅時效規定，乙之抗辯<strong>無理由</strong>；B屋未辦保存登記，仍適用一般15年消滅時效，甲遲至逾15年後始行使請求權，乙之抗辯<strong>有理由</strong>。本題核心在於辨明已登記與未登記不動產適用消滅時效規則之根本差異，不可一概而論。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="107-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="108-一" data-yr="108">
+<summary><span class="lv">🔴</span><span class="ek">108年第一題</span><span class="et">借名登記與無權處分予善意第三人</span><span class="ec">A無權處分／D善意取得</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲向乙購買A農地，為掩人耳目，借用丙的名義，登記在丙的名下，交給丙無償使用，雙方協議丙不得處分。丙將A農地出售給不知情的丁，並辦理所有權移轉登記。試問：無權處分的意義及效力如何？丙是否為無權處分？（25分）</div>
+<h4><strong>一、無權處分之意義、借名登記與善意取得制度之意義</strong></h4>
+<p>所謂<strong>無權處分</strong>，依民法第118條，係指無權利人（就權利標的物無處分權之人）對他人權利標的物所為之處分行為，該處分行為須經有權利人之承認，始生效力；於承認前，效力未定。借名登記係借名人與出名人約定，將自己所有之財產以出名人名義登記，而仍由借名人自行管理使用（或如本題交由出名人無償使用）之無名契約。此一約定原則上僅存在借名人與出名人之<strong>內部</strong>債之關係，不影響出名人於<strong>外部登記名義</strong>之表徵效力；出名人若違反借名登記約定，擅自將登記於其名下之財產處分予第三人，該第三人若不知借名情事而信賴登記外觀，法律例外賦予其善意取得之保護，以維護不動產登記之公信力。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第118條（無權處分及效力未定）、第759條之1（不動產物權登記之權利推定及善意取得）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲對A農地之所有權基礎：</strong> 依題示，甲原<strong>向乙購買A農地</strong>，取得該農地之權利基礎；惟為掩人耳目，借用丙之名義登記，並<strong>交由丙無償使用</strong>，雙方並協議<strong>丙不得處分</strong>該農地。是以，甲乙間之買賣關係，係甲取得A農地實質權利之原因；丙僅為借名登記之出名人，對外雖為登記名義人，對內則因借名登記契約及不得處分之特別約定，<strong>並無實質處分權</strong>，真正應享有權利之人仍為甲。</p>
+<p><strong>（二）丙是否為無權處分：</strong> 丙未經甲同意，擅自將A農地出售並移轉登記予丁，就<strong>物權行為</strong>而言，丙係就<strong>其無處分權之A農地</strong>為處分，核屬<strong>無權利人就權利標的物所為之處分</strong>，依第118條第1項，<strong>丙之行為該當無權處分</strong>，須經有權利人（甲）之承認，始生效力，於甲承認前，該處分行為之效力<strong>未定</strong>。</p>
+<p><strong>（三）丁是否善意取得A農地所有權：</strong> 依第759條之1第2項，因信賴不動產登記之善意第三人，已依法律行為為物權變動之登記者，其變動之效力，不因原登記物權之不實而受影響。丙為登記名義人，其登記外觀足使交易相對人信賴丙有處分權限；丁與丙訂約時<strong>不知</strong>甲丙間借名登記之內部關係，屬<strong>善意信賴登記</strong>之第三人，依前開規定，丁縱因丙之無權處分，仍得<strong>善意取得</strong>A農地所有權。</p>
+<p><strong>（四）甲得否向丁請求返還：</strong> 承上，丁既已善意取得A農地所有權，甲<strong>不得</strong>依所有物返還請求權（第767條）向丁請求返還A農地，蓋丁已合法取得所有權，甲已非該農地之所有權人。甲僅得轉而向丙（無權處分之出名人）依<strong>不當得利</strong>或<strong>侵權行為</strong>之規定，請求丙賠償其因喪失A農地所有權所受之損害。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，丙未經甲同意擅自處分借名登記於其名下之A農地，就物權行為而言屬無權處分，依第118條效力未定；惟丁係不知借名登記情事之善意第三人，依第759條之1善意取得A農地所有權，甲<strong>不得</strong>向丁請求返還A農地，僅得另循不當得利或侵權行為之途徑，向丙請求損害賠償。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="108-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="108-二" data-yr="108">
+<summary><span class="lv">🟡</span><span class="ek">108年第二題</span><span class="et">最高限額抵押權擔保範圍與滅失後之代位性</span><span class="ec">D抵押權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲有A屋，因向乙貸款1000萬元（新臺幣，下同），乃設定最高限額1200萬元之最高限額抵押權予以擔保。試問：最高限額抵押權擔保的債權範圍如何？A屋如發生毀損或滅失，乙本於代位性得如何行使權利？（25分）</div>
+<h4><strong>一、最高限額抵押權擔保範圍與物上代位性制度之意義</strong></h4>
+<p>最高限額抵押權係為擔保債權人對債務人一定範圍內<strong>現在已發生及將來可能發生之不特定債權</strong>，而於一定金額限度內設定之特殊抵押權；抵押權之標的物（不動產）若因滅失、毀損而生代位物（如保險金、補償金），法律賦予抵押權人得就該代位物優先受償之權能，此即物上代位性，目的在於避免抵押物實體滅失即使抵押權人喪失擔保利益，確保擔保物權之經濟價值得以延續至代位物之上。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第881條之1（最高限額抵押權之定義）、第881條（抵押權之物上代位性）、第881條之17（最高限額抵押權準用普通抵押權代位性相關規定）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）最高限額抵押權之擔保債權範圍：</strong> 依第881條之1第1項，稱最高限額抵押權者，謂債務人或第三人提供其不動產為擔保，就債權人對債務人<strong>一定範圍內之不特定債權</strong>，在<strong>最高限額</strong>內設定之抵押權。本題<strong>甲以其所有A屋，向乙借款1000萬元，並設定最高限額1200萬元之最高限額抵押權</strong>予乙作為擔保。凡於抵押權確定前，甲乙間基於原借貸法律關係範圍內所生之各筆債權（含本金、利息、違約金等），均在<strong>1200萬元最高限額</strong>內受本抵押權擔保，現階段甲對乙之借款本金雖為1000萬元，惟抵押權擔保範圍不以此為限，凡日後在此法律關係項下續生之債權（如遲延利息、實行抵押權之費用等），仍在1200萬元最高限額範圍內一併受擔保，直至抵押權確定時，始就確定時實際存在之債權額（不逾最高限額）為擔保範圍之終局確定。</p>
+<p><strong>（二）A屋毀損滅失時乙如何依代位性行使權利：</strong> 依第881條規定之物上代位性原理（並依第881條之17，於最高限額抵押權準用普通抵押權相關規定），抵押物因滅失、毀損而得受賠償或其他利益者（例如甲就A屋投保之<strong>火災保險金</strong>、因公用徵收所受之<strong>徵收補償金</strong>、或因第三人侵權行為毀損A屋所生之<strong>損害賠償請求權</strong>等），抵押權人乙就該等<strong>代位物</strong>，於其擔保債權範圍內，<strong>有優先受償之權利</strong>，其效力與原設定於A屋上之抵押權相同。本題A屋若發生毀損或滅失，<strong>乙之抵押權雖因標的物滅失而不能繼續存在於A屋實體之上</strong>，惟依物上代位性，乙得就甲因此所得受領之保險金、補償金或損害賠償請求權等代位利益，<strong>主張優先受償</strong>，其優先受償之範圍以抵押權所擔保之實際債權額（不逾1200萬元最高限額）為限。<strong>乙應留意於代位物（如保險金）實際給付或提存前，及時行使其權利（例如向保險公司或應負賠償責任之第三人聲明就該代位利益有抵押權存在、請求提存等），以確保其優先受償地位不因代位物逕行交付甲本人而落空。</strong></p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲以A屋向乙借款1000萬元，並設定最高限額1200萬元之最高限額抵押權，其擔保範圍及於抵押權確定前，甲乙間基於該借貸法律關係陸續發生、在1200萬元限額內之各筆債權；A屋如發生毀損或滅失，乙依民法第881條之物上代位性，得就甲因此所生之保險金、徵收補償金或損害賊賠償請求權等代位物，於其確定之擔保債權額範圍內主張優先受償，不因抵押物實體滅失而喪失其擔保利益。</p>
+<p><strong>特別提醒（角色與數字不可搞混）：</strong> 本題原題中<strong>甲為抵押人（所有人兼借款人），乙為抵押權人（貸款人）</strong>，最高限額為<strong>1200萬元</strong>，現有借款為<strong>1000萬元</strong>，作答時務必先確認題目中「誰是抵押人、誰是抵押權人、金額各是多少」，避免張冠李戴；本題第二問問的是「<strong>A屋毀損滅失時</strong>」之具體情境應用，並非要求泛論代位性之抽象定義，作答時應具體點出代位物之種類（保險金、補償金、損害賠償請求權）及乙應如何確保其優先受償地位落實，而非僅停留在制度定義層次。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="108-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="109-一" data-yr="109">
+<summary><span class="lv">🟡</span><span class="ek">109年第一題</span><span class="et">夫妻財產制、A屋所有權歸屬與擅自處分之效力</span><span class="ec">E夫妻財產制／A無權處分</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲男、乙女結婚十餘年，未約定夫妻財產制度。婚後甲出資購買A屋一棟，**登記在乙女名下**。嗣後因故，甲、乙雙方乃協議離婚，協議離婚期間**甲男未經乙女同意，擅自拿走A屋所有權狀與乙的印章**，與丙簽訂A屋買賣契約，**但尚未完成產權移轉登記**。試問：A屋之所有權為何人所有？甲、丙間A屋買賣契約之效力為何？（25分）</div>
+<h4><strong>一、法定財產制下財產歸屬與無權處分制度之意義</strong></h4>
+<p>夫妻未約定夫妻財產制度者，依法適用<strong>法定財產制</strong>，其財產區分為婚前財產與婚後財產，各自所有、各自管理、各自使用收益及處分，財產之歸屬<strong>以登記名義為準</strong>，不因資金來源或出資來源而異其歸屬，此為本類題目最核心之考點——即使出資之人與登記名義人不同，仍應以<strong>登記名義</strong>判斷所有權歸屬。若非所有權人之人，就他人所有之物擅自為處分行為，則屬<strong>無權處分</strong>，依民法第118條，須經有權利人之承認，始生效力，於承認前，該處分行為效力未定。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第1017條第1項（婚後財產之範圍及歸屬）、第118條（無權處分及效力未定）、第758條（不動產物權變動之登記生效要件）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）A屋所有權之歸屬：</strong> 依第1017條第1項，夫或妻之財產分為婚前財產與婚後財產，由夫妻各自所有；婚後財產不能證明為婚前或婚後財產者，推定為婚後財產。本題A屋雖係甲於婚後<strong>出資</strong>購買，惟<strong>登記於乙名下</strong>，依前開規定及不動產登記之公示效力，<strong>A屋為乙之婚後財產，所有權歸屬於乙</strong>，此為法定財產制「各自所有」原則之當然結果——<strong>出資來源不影響所有權之歸屬判斷，應以登記名義為準</strong>，甲雖為實際出資之人，對A屋<strong>並無所有權</strong>。</p>
+<p><strong>（二）甲之處分行為性質：</strong> 承上，A屋所有權既歸屬乙一人所有，甲於協議離婚期間，<strong>未經乙同意</strong>，擅自拿取A屋所有權狀與乙之印章，與丙簽訂A屋買賣契約，就<strong>物之所有權處分</strong>而言，甲係就<strong>乙所有之A屋</strong>為處分，甲本身<strong>並無處分權</strong>，此屬<strong>無權處分</strong>。依民法第118條第1項，無權利人就權利標的物所為之處分，經有權利人之<strong>承認</strong>，始生效力；於乙承認前，甲丙間就A屋所有權移轉部分之<strong>物權行為，效力未定</strong>。</p>
+<p><strong>（三）甲丙間買賣契約（債權行為）之效力：</strong> 依物權行為與債權行為各自獨立之原則，甲丙間之<strong>買賣契約（債權契約）本身，不因甲對標的物欠缺處分權而受影響，仍屬有效成立</strong>（債權契約成立不以出賣人有處分權為必要，此與物權處分行為須有處分權不同）；惟其中<strong>所有權移轉之物權行為</strong>部分，因甲無權處分乙所有之A屋，依第118條，效力未定，須經乙承認始生效力。又依題示，<strong>甲丙間買賣契約尚未完成所有權移轉登記</strong>，依第758條，不動產物權之變動非經登記不生效力，故縱使乙事後承認，仍須完成登記，丙始能取得A屋所有權；於登記完成前，A屋所有權<strong>仍屬乙</strong>所有，尚不生善意第三人是否受保護之問題（因根本尚未有移轉登記之物權變動效果發生）。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，A屋雖以甲之出資購買，惟登記於乙名下，依民法第1017條法定財產制「各自所有」原則，<strong>A屋所有權歸屬於乙一人所有</strong>；甲未經乙同意，擅自持乙之權狀及印章與丙簽訂買賣契約，就物權處分而言屬<strong>無權處分</strong>（第118條），其<strong>債權契約於甲丙間仍屬有效成立</strong>，惟<strong>所有權移轉之物權行為，效力未定，須經乙承認始生效力</strong>；又因<strong>尚未完成移轉登記</strong>，A屋所有權現階段仍歸乙所有，丙尚未取得任何物權，乙若拒絕承認，甲丙間之物權移轉即確定不生效力，丙僅得依買賣契約向甲主張債務不履行之損害賠償。</p>
+<p><strong>特別提醒（登記名義與作答結論不可搞混）：</strong> 本題最大陷阱在於<strong>A屋登記在乙名下、而非甲名下</strong>——這與許多同類題型「出資人＝登記名義人」的常見設定相反。一旦誤讀為登記在甲名下，會導出「甲有權處分、契約有效」的<strong>完全相反結論</strong>，是本題最容易失分之處。作答前務必先確認登記名義人是誰，再判斷後續處分行為之性質是有權處分還是無權處分。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="109-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="109-二" data-yr="109">
+<summary><span class="lv">🔴</span><span class="ek">109年第二題</span><span class="et">時效取得地上權</span><span class="ec">D地上權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲向乙建設公司購買與丙地主合建之預售房屋A屋一棟，乙建設公司以買受人甲為起造人進行蓋造。房屋完工後，甲取得房屋所有權並登記完畢，但土地部分因地主丙債務問題，導致合建土地遭債權人查封，而無法移轉登記於買受人甲。事隔逾20年，該筆土地經法院強制執行由某丁拍定。試依民法相關規定說明：甲得否主張時效取得地上權？（25分）</div>
+<h4><strong>一、時效取得地上權制度之意義</strong></h4>
+<p>地上權係以在他人土地上下有建築物或其他工作物為目的而使用其土地之權。民法為保護長期以行使地上權意思，和平、公然、繼續占有他人土地之事實狀態，設有時效取得地上權制度，使占有人於符合一定要件後，得請求登記為地上權人，藉以調和土地實際使用狀態與登記名義不一致所生之權利爭議，避免長期存在之使用事實因欠缺登記而完全不受保護。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第832條（地上權之定義）、第772條準用第769條、第770條（時效取得所有權規定之準用）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）時效取得地上權之要件：</strong> 依第772條準用第769條規定，以行使地上權之意思，20年間<strong>和平、公然、繼續</strong>占有他人未登記之不動產者，得請求登記為地上權人（若係他人已登記之不動產，依實務見解及第772條之立法意旨，亦得類推適用，於符合要件時請求登記）。本題甲向乙建設公司購買與地主丙合建之預售房屋，房屋完工後甲已取得建物所有權並完成登記，惟因<strong>丙之債務問題致合建土地遭查封</strong>，甲始終無法辦理土地權利之移轉登記；甲<strong>基於其房屋所有權人之地位，繼續在該筆土地上有建築物、行使地上權之意思占有使用該土地已逾20年</strong>，其占有客觀上<strong>和平、公然、繼續</strong>達20年之久，核與時效取得地上權之要件相符。</p>
+<p><strong>（二）時效取得之效果係「得請求登記」，非「當然取得」：</strong> 須特別注意者，時效取得地上權之效果，<strong>並非使占有人當然、自動取得地上權</strong>，而係使占有人取得<strong>得請求登記為地上權人</strong>之權利，此一請求權仍須經占有人主動向該土地所有人或依法向地政機關、法院請求登記，於登記完成前，占有人尚未取得地上權本身，僅享有得請求登記之權利。</p>
+<p><strong>（三）甲得否對丁主張：</strong> 該土地嗣後經法院拍賣由丁拍定取得所有權，惟此一所有權之變動，並不影響甲於拍賣前已因時效完成而生之<strong>請求登記為地上權人之權利</strong>，此一權利具獨立性，不因土地所有權易主而消滅。甲於符合時效取得要件後，仍得對現所有權人丁，主張其<strong>得請求登記為地上權人</strong>，丁基於前手土地所有人之地位所受繼受之土地，仍應容忍此一時效取得地上權之法定負擔，不得逕以其為拍賣取得之新所有權人為由，逕行請求甲拆屋還地。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲以行使地上權之意思，和平、公然、繼續占有他人土地已逾20年，符合民法第772條準用第769條時效取得地上權之要件，<strong>得請求登記為地上權人</strong>；此一請求登記之權利不因土地嗣後經拍賣易主而受影響，甲仍得對現所有權人丁主張其得請求登記為地上權人，丁不得請求甲拆屋還地。惟應注意時效取得之效果僅係「得請求登記」，並非「當然自動取得地上權」，此為作答時不可省略之關鍵用語。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="109-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="110-一" data-yr="110">
+<summary><span class="lv">🔴</span><span class="ek">110年第一題</span><span class="et">共有土地分割與抵押權按比例移轉</span><span class="ec">D共有／抵押權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲與乙共有一筆土地，甲持分2/3，乙持分為1/3。乙分別於99年1月28日、99年8月10日、99年9月8日設定最高限額抵押權與丙、丁、戊等人。嗣後甲與乙於110年3月18日訴請法院分割，兩人並因此取得因分割而形成單獨所有的土地，而**上述三筆抵押權按應有部分比例移轉到甲與乙之土地上**。甲不服該抵押權移轉到自己分得單獨所有的土地上，遂向法院起訴請求塗銷抵押權登記。請問甲之請求是否有理由？（25分）</div>
+<h4><strong>一、共有物分割後應有部分抵押權移存規則之意義</strong></h4>
+<p>共有物分割之效果，使各共有人取得單獨所有權，共有關係歸於消滅；惟共有人應有部分上原已存在之抵押權，性質上係就該共有人於共有物上之權利比例所設定，若因分割而使抵押權完全消滅，將嚴重損及抵押權人之擔保利益，故民法明定此類抵押權於分割後應予<strong>移存</strong>，以維持其擔保效力之延續。民法第824條之1第2項就移存之<strong>具體範圍</strong>，設有「原則按比例分配於全體分得部分」與「例外僅移存於抵押人分得部分」兩種不同結果，其適用關鍵在於抵押權人對分割程序之<strong>參與情形</strong>。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第824條之1第1項（分割效力發生時取得分得部分所有權）、第2項（抵押權之移存規則）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）分割之效力：</strong> 依第824條之1第1項，共有人自共有物分割之效力發生時起，取得分得部分之所有權。甲乙訴請法院分割後，甲乙分別就其分得部分取得單獨所有權。</p>
+<p><strong>（二）抵押權移存規則之正確內涵（原則按比例、例外僅歸抵押人部分）：</strong> 依第824條之1第2項，應有部分有抵押權或質權者，其權利<strong>不因共有物之分割而受影響</strong>；惟有下列情形之一者，其抵押權或質權<strong>僅移存於抵押人（乙）分得之部分</strong>：①權利人（丙、丁、戊）<strong>同意分割</strong>者；②權利人<strong>已參加</strong>共有物分割訴訟者；③權利人<strong>經共有人告知訴訟而未參加</strong>者。<strong>若前述三款例外情形均不該當</strong>（即抵押權人未同意分割、未參加訴訟、亦未經告知），依本項<strong>原則規定</strong>，該抵押權<strong>應按各共有人（甲、乙）應有部分比例，分別移存於甲、乙分割後所受分配之各部分</strong>，不因分割而僅侷限於原抵押人（乙）單獨取得之土地上。</p>
+<p><strong>（三）本題事實適用：</strong> 依題示，丙丁戊三筆最高限額抵押權係設定於<strong>乙之應有部分</strong>上，甲乙嗣後訴請<strong>法院裁判分割</strong>（非丙丁戊同意之協議分割），題目並未敘明丙丁戊有參加該分割訴訟或經告知參加之情事，<strong>依一般情形應認未該當前開三款例外規定</strong>。依第824條之1第2項<strong>原則規定</strong>，丙丁戊之抵押權<strong>應按甲2/3、乙1/3之應有部分比例，分別移轉登載於甲、乙分割後各自取得之單獨所有土地上</strong>，此與題目所示「上述三筆抵押權按應有部分比例移轉到甲與乙之土地上」之事實完全吻合，<strong>此為法律規定之正確結果，並非登記機關或法院之錯誤</strong>。</p>
+<p><strong>（四）甲之請求是否有理由：</strong> 甲雖非原抵押權設定人（抵押權原設定於乙之應有部分上），惟依前開原則規定，於丙丁戊未同意分割、未參加訴訟、亦未經告知之情形下，<strong>抵押權依法即應按比例移轉登載於甲、乙雙方分得之土地上</strong>，此為民法第824條之1第2項之當然效果，甲分得之土地依法應承受相對應比例之抵押權負擔，<strong>並非法律賦予甲得請求排除之事由</strong>。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，民法第824條之1第2項就共有物分割後抵押權之移存範圍，<strong>原則上係按應有部分比例，分別移存於全體共有人分割後取得之各部分</strong>，僅於抵押權人同意分割、已參加分割訴訟、或經告知而未參加等<strong>例外情形</strong>下，始<strong>僅移存於原抵押人（乙）單獨分得之部分</strong>。本題丙丁戊未見有前開例外情形之事證，依法應適用原則規定，抵押權按甲2/3、乙1/3之比例移轉登載於甲乙雙方分得之土地上，<strong>此為法律規定之正確結果</strong>，甲訴請塗銷該移轉登載於自己土地上之抵押權，<strong>無理由</strong>。</p>
+<p><strong>特別提醒（原則與例外方向不可顛倒）：</strong> 本題最容易犯的錯誤，是誤以為「抵押權原則上僅移存於原抵押人（乙）之土地，例外才按比例分配到雙方」——這與法條規定的方向<strong>完全相反</strong>。民法第824條之1第2項的正確結構是：<strong>原則＝按比例分配於全體分得部分；例外（權利人同意分割／參加訴訟／經告知未參加）＝僅移存於抵押人分得部分</strong>。作答時務必先確認原則與例外何者是何者，避免因方向顛倒而導出相反的結論。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="110-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="110-二" data-yr="110">
+<summary><span class="lv">🔴</span><span class="ek">110年第二題</span><span class="et">通謀虛偽意思表示與繼承人善意取得</span><span class="ec">A意思表示瑕疵／E繼承</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲為了避免債主追討以及法院強制執行拍賣其不動產，而與乙通謀虛偽意思表示進行土地買賣。乙因此取得甲所有之A地，並且完成移轉登記。乙於99年1月28日死亡、其子女丙與丁於99年2月2日辦妥繼承登記。請問丙丁**何時取得**A地所有權？又嗣後甲向丙與丁請求塗銷登記，返還其所有之土地，請問甲之請求是否有理由？（25分）</div>
+<h4><strong>一、通謀虛偽意思表示與繼承人善意取得保護之意義</strong></h4>
+<p>通謀虛偽意思表示係表意人與相對人通謀而為之非真意表示，因欠缺效果意思，法律明定其為當然無效；惟該無效不得以之對抗善意第三人，以維護交易安全。繼承人因繼承而取得被繼承人之權利義務，於判斷繼承人是否得主張善意取得保護時，應獨立<strong>就繼承人本身</strong>對通謀虛偽情事是否知情為判斷，不因其繼受被繼承人之地位而當然承受被繼承人明知虛偽之不利益。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第87條第1項（通謀虛偽意思表示無效）、第1147條（繼承因死亡而開始）、第759條（宣示登記）、第759條之1（善意取得）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲乙間買賣及移轉登記之效力：</strong> 依第87條第1項，表意人與相對人通謀而為虛偽意思表示者，其意思表示<strong>無效</strong>。甲乙間就A地成立之買賣契約及所有權移轉之物權行為，均係通謀虛偽而為，<strong>當然無效</strong>，乙自始<strong>未曾真正取得</strong>A地所有權，僅係登記名義上之權利人。</p>
+<p><strong>（二）丙丁因繼承取得之地位及取得時點：</strong> 乙於99年1月28日死亡，依第1147條，繼承因被繼承人死亡而開始，丙丁為乙之繼承人，就乙原登記名下之A地，依第759條規定，<strong>因繼承（非法律行為）於乙死亡之時（即99年1月28日）即已當然取得</strong>登記名義上之物權地位；丙丁嗣後於99年2月2日辦妥之繼承登記，<strong>僅係事後補辦之宣示登記，非取得所有權之時點</strong>，依第759條，未辦繼承登記前僅不得處分該物權，惟取得之效力仍溯及乙死亡之時即已發生。<strong>是以，丙丁應認於99年1月28日（乙死亡時）即已取得A地所有權（登記名義），而非遲至99年2月2日辦妥繼承登記時始取得。</strong></p>
+<p><strong>（三）丙丁是否受善意取得保護：</strong> 丙丁雖係基於繼承而取得登記名義，惟其取得之基礎（乙之登記）本身即係通謀虛偽無效之結果，甲原則上得對抗此一無效之登記，請求塗銷。惟依第759條之1第2項善意取得規定之意旨，若<strong>丙丁本身</strong>（作為信賴登記外觀之第三人）於繼承取得該登記名義時，<strong>善意不知</strong>甲乙間存有通謀虛偽之情事，依保護交易安全及登記公信力之法理，仍應類推適用善意取得規定，使丙丁受保護，甲不得對抗善意之丙丁而請求塗銷登記；反之，若丙丁<strong>明知</strong>甲乙間之通謀虛偽情事，則不受善意取得保護，甲仍得對丙丁主張登記無效，請求塗銷登記並返還A地。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲乙間之買賣及所有權移轉行為，因通謀虛偽意思表示，依第87條第1項當然無效；丙丁雖因繼承取得登記名義，惟其是否受善意取得保護，應<strong>獨立就丙丁本身</strong>對甲乙間通謀虛偽情事是否善意不知情為判斷：丙丁善意不知者，受第759條之1類推適用保護，甲不得請求返還；丙丁明知者，不受保護，甲得請求塗銷登記並返還A地。不可誤認繼承人當然概括承受被繼承人明知虛偽之不利益地位，而逕行否定其受善意取得保護之可能性。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="110-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="111-一" data-yr="111">
+<summary><span class="lv">🔴</span><span class="ek">111年第一題</span><span class="et">以自己名義出租他人之屋、所有物返還與善意占有人租金抗辯</span><span class="ec">A代理區辨／D所有權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲出國進修期間將其名下A屋委託好友乙打掃照看，但乙卻未經甲同意，私自以自己名義將A屋出租給不知情的丙並按月收取租金一萬元，租期五年。三年後甲學成歸國，發現此事非常生氣，主張丙無權占有A屋，向丙請求返還A屋，並要求丙支付占有使用A屋三年之租金36萬元作為補償。丙認為自己是合法承租A屋且已按時向乙支付租金，斷然拒絕甲之請求。請問丙之主張是否有理由？（25分）</div>
+<h4><strong>一、以自己名義處分他人之物與代理制度之區辨意義</strong></h4>
+<p>代理係代理人於代理權限內，<strong>以本人名義</strong>為意思表示，其效果直接歸屬於本人；若行為人並非以本人名義、而係<strong>以自己名義</strong>與相對人為法律行為，縱其處分之標的物屬他人所有，其性質亦非代理（無論有權或無權），僅屬行為人就他人之物擅自為處分或利用之問題，本人不受該法律行為之拘束。惟丙就其占有使用A屋期間之利益，是否應對甲負不當得利返還責任，另涉及<strong>善意占有人使用收益權</strong>之獨立爭點，不能僅因丙屬無權占有人即當然導出丙負返還責任之結論，此為本題最終結論之關鍵分水嶺。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第103條（代理之效力，以本人名義為前提）、第767條第1項前段（所有物返還請求權）、第179條（不當得利）、第952條（善意占有人之使用收益權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）乙丙間租約之定性，基於債之相對性不得對抗甲：</strong> 依第103條，代理係代理人於代理權限內，<strong>以本人名義</strong>為意思表示，直接對本人發生效力。本題乙係<strong>以自己名義</strong>與丙訂立租賃契約，並未表明其為甲之代理人，乙丙間之法律行為性質上<strong>非屬代理</strong>（無論有權或無權代理），僅係乙就他人之物擅自出租。租賃契約為債權契約，出租人不以租賃物所有人為限，乙未經甲同意擅以自己名義出租A屋，其租約<strong>並非無效</strong>，於<strong>乙丙間仍屬有效成立</strong>，惟基於<strong>債之相對性</strong>，丙<strong>不得以其與乙間之租賃契約對抗甲</strong>、對甲主張自己為有權占有。</p>
+<p><strong>（二）甲得依第767條請求丙返還A屋：</strong> 乙丙間之租約既不能對抗甲，甲丙之間<strong>並無任何契約關係</strong>，丙就A屋之占有，對甲而言仍屬<strong>無權占有</strong>。依第767條第1項前段，所有人對於無權占有其所有物者，得請求返還之。甲為A屋所有權人，甲自得依本條規定向丙請求返還A屋，丙不得以其與乙間之租約合法承租為由，對抗甲之物上返還請求權。<strong>此部分丙之抗辯，無理由。</strong></p>
+<p><strong>（三）甲得否依第179條請求36萬元使用利益，應視丙是否善意而定（本題核心爭點）：</strong> 甲得否另依不當得利之法律關係，向丙請求返還占有使用A屋三年之利益（36萬元），學說與實務見解曾有變遷，應分兩說說明：</p>
+<p>①<strong>舊說（傳統實務見解）：</strong> 無權占有人不問善意或惡意，均因無法律上之原因而受有使用之利益，所有權人並因此受有不能使用、收益之損害，故無權占有人對所有權人仍應負不當得利返還責任。依此說，丙仍應返還36萬元。</p>
+<p>②<strong>新說（近期實務見解）：</strong> 倘承租人為善意，依民法第952條規定，善意占有人依推定其為適法所有之權利，得為占有物之<strong>使用及收益</strong>，其因此項占有使用所獲之利益，對於所有人<strong>不負返還之義務</strong>，自無不當得利可言。依此說，善意占有人之使用收益本身即有法律上原因（§952），不構成無法律上原因受利益。</p>
+<p>本題丙<strong>不知</strong>乙係無權出租A屋（題目已敘明丙係「不知情」而承租），核屬<strong>善意占有人</strong>，依前開近期實務見解（新說），丙依第952條規定，得對A屋為使用收益，其因此所獲之利益，<strong>對甲不負返還義務</strong>，並無不當得利可言。<strong>丙就此部分之抗辯，即拒絕給付36萬元乙節，有理由。</strong></p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，丙雖不得以其與乙間之租賃契約對抗甲、對甲主張有權占有，甲仍得依民法第767條第1項前段請求丙返還A屋，<strong>此部分丙之抗辯無理由</strong>；惟就甲另請求丙給付占有使用三年之租金補償36萬元部分，因丙係善意不知乙為無權出租A屋而承租，依民法第952條規定，丙就其善意占有期間之使用收益本有法律上原因，對甲<strong>不負不當得利返還責任</strong>，<strong>丙拒絕給付36萬元之抗辯，有理由</strong>。</p>
+<p><strong>特別提醒（作答陷阱）：</strong> 本題極易被誤導為單純的「§767＋§179雙軌請求」型（型二請求權基礎型）標準公式，逕行認定甲兩項請求均有理由。惟本題真正的得分關鍵，在於<strong>丙是否善意</strong>這一事實認定，會直接牽動§952善意占有人使用收益權之適用，進而<strong>推翻</strong>不當得利請求之成立要件（「無法律上之原因」）。凡遇「無權占有＋請求使用利益」之題型，作答前應先檢驗占有人是否善意，不可逕行套用§179了事。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="111-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="111-二" data-yr="111">
+<summary><span class="lv">🟡</span><span class="ek">111年第二題</span><span class="et">相鄰關係工程車使用與越界建築</span><span class="ec">D相鄰關係</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲建商興建大樓，因基地條件限制，僅相鄰B地有空間可供工程車迴旋使用，B地所有人乙拒絕提供；工程完工後，相鄰C地所有人丙返國始發現甲之建物越界2平方公尺，主張拆屋還地。甲應如何主張其權利，並應如何負責？（25分）</div>
+<h4><strong>一、鄰地使用權與越界建築容忍義務之意義</strong></h4>
+<p>土地相鄰關係涉及數宗土地間利用上之調和，民法就土地所有人因建築或修繕房屋確有使用鄰地必要之情形，賦予其鄰地使用權，惟課予支付償金之義務，以兼顧鄰地所有人之權益；就建築物逾越地界之情形，若逾越非因故意或重大過失，且鄰地所有人未即時提出異議者，法律例外限制鄰地所有人之拆除請求權，以避免資源浪費，改以金錢方式衡平雙方利益。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第791條（鄰地使用權）、第796條（越界建築）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲得否使用B地作工程車迴旋空間：</strong> 依第791條第1項，土地所有人因建築或修繕房屋，有使用鄰地之必要者，得<strong>請求使用</strong>鄰地，但應支付償金；鄰地所有人如有異議，得請求法院裁定之。本題甲因基地條件限制，僅B地有空間可供工程車迴旋，客觀上具備使用鄰地之必要性，甲得依本條<strong>請求使用</strong>B地，<strong>惟應支付償金</strong>予乙，乙<strong>不得逕行拒絕</strong>，僅得就使用方式、範圍或償金數額有爭議時聲請法院裁定。</p>
+<p><strong>（二）甲越界建築部分應如何負責：</strong> 依第796條，土地所有人建築房屋逾越疆界者，鄰地所有人<strong>如知其越界而不即提出異議，不得請求移去或變更其建築物</strong>；土地所有人並應支付相當之償金，其逾越地界之部分，鄰地所有人得請求土地所有人以相當之價額購買越界部分之土地及因此形成之空間，或依情形調整土地界址。惟本條保護以土地所有人（甲）之越界<strong>非因故意或重大過失</strong>為前提要件，若甲係故意或因重大過失越界，則不受本條保護，丙仍得請求拆屋還地。本題丙係<strong>返國始發現</strong>越界情事，客觀上已逾相當合理期間始提出異議，若甲越界2平方公尺確係非因故意或重大過失（例如施工測量誤差等技術性因素），依第796條，丙<strong>不得請求拆除</strong>，僅得請求甲以相當價額購買越界部分土地，或請求相當之償金。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲得依民法第791條請求使用乙之B地作為工程車迴旋空間，惟應支付相當償金，乙不得逕行拒絕；就越界建築部分，若甲之越界非因故意或重大過失，且丙未即時提出異議，依第796條，丙<strong>不得請求甲拆除</strong>越界部分，僅得請求甲以相當價額購買該越界部分土地，或另請求相當之償金。本題須同時把握第791條「仍須支付償金」及第796條「非因故意重大過失＋未即時異議」二要件須同時具備之要點。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="111-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="B" data-key="112-一" data-yr="112">
+<summary><span class="lv">🟡</span><span class="ek">112年第一題</span><span class="et">靈骨塔永久使用權與強制執行效力</span><span class="ec">C買賣／D物權</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲向A公司購得靈骨塔某塔位之「永久使用權」。A公司大樓其後因遭強制執行而由B公司拍定取得。問：甲得否對B公司主張其永久使用權存在？（25分）</div>
+<h4><strong>一、靈骨塔使用權之債權性質與強制執行拍賣承受範圍之意義</strong></h4>
+<p>實務及多數學說見解認為，塔位業者出售之「永久使用權」，其性質上多屬<strong>債權契約</strong>（使用權狀僅為債權憑證），並非具備對抗第三人效力之<strong>物權</strong>；強制執行拍賣程序中，拍定人原則上取得標的物完整之所有權，除法律有特別規定（如拍賣公告載明承受特定負擔）或該負擔本身具備物權效力（例如已辦理登記之他項權利）外，拍定人原則上不受出賣人與第三人間單純債權契約之拘束。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第348條（買賣契約出賣人之給付義務，債權契約僅有相對效力）、強制執行程序拍定人承受範圍之相關法理。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲之永久使用權性質：</strong> 甲與A公司間就靈骨塔塔位成立之「永久使用權」買賣，依第348條，買賣契約成立後，出賣人負交付其物並移轉財產權之義務，惟此<strong>債權契約本身僅具相對效力</strong>，僅拘束契約當事人（甲與A公司），若該使用權未辦理具備物權效力之登記或未經法律賦予特別對抗效力，其性質應認定為<strong>債權</strong>，甲僅得<strong>向A公司</strong>主張其契約上之權利。</p>
+<p><strong>（二）強制執行拍賣後之效力：</strong> A公司大樓嗣後因強制執行由B公司拍定取得所有權，B公司係基於法院拍賣程序、依強制執行法相關規定原始取得該不動產所有權。B公司之取得，原則上不受A公司與其個別客戶（如甲）間所成立之單純債權契約拘束，<strong>除非</strong>該等使用權依相關特別法規（例如殯葬管理條例等）或法院拍賣公告已明定應予承受，否則B公司<strong>無義務</strong>繼受A公司與甲間之債權契約內容。</p>
+<p><strong>（三）甲得否對B公司主張永久使用權：</strong> 承上，甲與A公司間之永久使用權契約，性質上屬債權，不具備對抗B公司（非契約當事人之拍定人）之物權效力，甲<strong>原則上不得</strong>對B公司主張其永久使用權繼續存在，僅得依其與A公司間之契約關係，另向A公司請求損害賠償或其他救濟（例如依給付不能之規定請求賠償）。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲向A公司購得之靈骨塔永久使用權，性質上屬債權契約，僅具相對效力，不能對抗因強制執行拍賣而原始取得所有權之B公司；甲<strong>原則上不得</strong>對B公司主張其永久使用權存在，僅得另循契約關係向A公司求償。惟若相關特別法規或法院拍賣公告有特別規定應予承受該等使用權者，則應依其特別規定另為判斷，此為本題例外情形，宜於答案中附帶敘明以求周延。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="112-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="112-二" data-yr="112">
+<summary><span class="lv">🔴</span><span class="ek">112年第二題</span><span class="et">居間契約報酬請求權成立時點</span><span class="ec">C居間</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>A仲介公司受買方甲之委託媒介甲購買乙所有之土地，雙方簽訂居間契約，約定「於甲乙間土地買賣契約成立後，甲應依約給付A公司新臺幣一千萬的服務費」。後來甲與乙在A公司之媒合下簽訂土地買賣契約，甲於是給付A公司一千萬元。然嗣後甲乙間對於**土地分區使用有所爭執**，因而甲乙合意解除該買賣契約。甲因此對A公司主張，請求A公司返還所支付之一千萬服務費，是否有理？請附具理由說明之。（25分）</div>
+<h4><strong>一、居間報酬請求權成立時點之意義</strong></h4>
+<p>居間人之報酬請求權，其法律上具體發生之時點為<strong>契約因居間人之報告或媒介而成立之時</strong>，此一時點一經到來，居間人之報酬請求權即告確定發生，不受該契約嗣後是否履行完畢、是否經當事人合意解除或因其他事由消滅之影響，蓋居間人之給付義務內容僅止於促成契約成立，其報酸給付義務與契約後續之履行狀況，於法律評價上應予分離。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第565條（居間之定義）、第568條（報酬請求權之發生時點）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）A報酬請求權之發生：</strong> 依第565條，稱居間者，謂當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約。A居間促成甲乙間買賣契約之成立，依第568條第1項，居間人<strong>於契約因其報告或媒介而成立時</strong>，即得請求報酬。甲乙間買賣契約既已因A之媒介而<strong>合法成立</strong>，A之報酬請求權於<strong>契約成立當時即已確定發生</strong>，甲亦已依約給付1000萬元報酬完畢。</p>
+<p><strong>（二）甲乙嗣後合意解除買賣契約之影響：</strong> 甲乙嗣後因<strong>土地分區使用有所爭執</strong>，合意解除買賣契約，此一解除係甲乙<strong>雙方</strong>於契約成立並生效後，因履約過程中發現之爭議事項，另行合意消滅契約效力之行為，其解除之原因及效果，<strong>純屬甲乙間契約關係之範疇</strong>（與A之居間媒介行為本身是否完善並無關聯——A係受買方甲委託促成甲乙成立買賣契約，其媒合行為與契約成立間之因果關係已然具備，土地分區使用之爭議屬契約履行階段甲乙雙方始發現之事由，非A居間媒介時可得預見或可歸責之範圍），與A先前已完成之居間媒介行為及因此發生之報酬請求權<strong>並無關聯</strong>。A之報酬請求權既已於契約成立時確定發生，並不因契約嗣後經當事人合意解除而<strong>溯及或嗣後消滅</strong>，此與契約自始未成立、或因居間人未盡媒介義務而不成立之情形有本質區別。</p>
+<p><strong>（三）甲請求返還服務費是否有理由：</strong> 承上，A之1000萬元報酬請求權於甲乙買賣契約成立時已確定取得法律上原因，甲依約給付該報酬，<strong>非無法律上原因之給付</strong>，不生不當得利返還之問題；甲乙嗣後合意解除買賣契約一事，不能溯及影響A已合法取得之報酬請求權基礎。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，A之報酬請求權於甲乙間買賣契約因其媒介而成立時即已確定發生，甲已依約給付完畢，此一給付具備法律上原因；甲乙嗣後合意解除買賣契約，純屬其二人間契約關係之事，不影響A已確定取得之報酬請求權，<strong>甲請求A返還1000萬元服務費，無理由</strong>。本題核心陷阱在於誤以為「契約解除即報酬應返還」，實則報酬請求權之判斷基準時點為「契約成立時」，而非「契約是否履行完畢或存續」。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="112-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="113-一" data-yr="113">
+<summary><span class="lv">🔴</span><span class="ek">113年第一題</span><span class="et">買賣瑕疵擔保與精神損害賠償</span><span class="ec">C瑕疵擔保</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>乙出售A屋予甲，並保證A屋無任何瑕疵，甲買受後發現A屋漏水。甲得否向乙請求修繕費用30萬元及精神損害賠償2萬元？（25分）</div>
+<h4><strong>一、物之瑕疵擔保與非財產上損害賠償制度之意義</strong></h4>
+<p>出賣人就買賣標的物之瑕疵，原則上負瑕疵擔保責任，買受人得請求解除契約或減少價金；惟若出賣人係<strong>故意不告知</strong>物之瑕疵、或<strong>保證</strong>其無瑕疵而事實不符者，法律另賦予買受人得逕行請求<strong>損害賠償</strong>之權利，較單純解除或減價之效果更有利於買受人。至精神慰撫金（非財產上損害賠償）之請求，民法原則上以侵害<strong>人格法益</strong>為前提要件，財產上損害本身原則不得請求精神慰撫金，此為本題後段之重要限制。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第354條（物之瑕疵擔保責任）、第360條（故意不告知瑕疵或保證無瑕疵之損害賠償）、第195條（人格法益侵害之非財產上損害賠償）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）修繕費30萬元之請求：</strong> 依第354條第1項，出賣人就買賣標的物之瑕疵負擔保責任；漏水屬減損房屋通常效用之物之瑕疵。依第360條，出賣人故意不告知物之瑕疵，或保證其無瑕疵者，買受人<strong>得不解除契約或請求減少價金，而請求不履行之損害賠償</strong>。本題乙<strong>保證</strong>A屋無任何瑕疵，事後卻發現漏水，該當第360條所定保證無瑕疵而事實不符之情形，甲得依本條規定，向乙請求<strong>修繕費用30萬元</strong>作為不履行之損害賠償，毋須先行解除契約或請求減少價金。</p>
+<p><strong>（二）精神損害賠償2萬元之請求：</strong> 依第195條第1項，不法侵害他人之<strong>身體、健康、名譽、自由、信用、隱私、貞操</strong>，或不法侵害其他人格法益而情節重大者，被害人雖非財產上之損害，亦得請求賠償相當之金額。本題A屋漏水，其性質上係買賣標的物存有<strong>物之瑕疵</strong>所致之<strong>財產上損害</strong>（房屋價值減損、修繕費用等），核與第195條所稱之人格法益侵害（身體、健康、名譽等）<strong>性質不同</strong>，甲因漏水所受之不便或不快，尚難認已該當人格法益受侵害且情節重大之要件，<strong>不符</strong>第195條之請求要件。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙保證A屋無瑕疵而事實不符，甲得依民法第360條，向乙請求修繕費用<strong>30萬元</strong>之損害賠償；惟A屋漏水純屬財產上之瑕疵損害，未該當人格法益受侵害之要件，甲<strong>不得</strong>依第195條請求非財產上損害賠償<strong>2萬元</strong>。本題作答關鍵在於區辨第354條（僅得解除或減價）與第360條（得直接請求損害賠償）二條之適用要件與效果差異，以及財產上損害與人格法益侵害之非財產上損害二者性質不同、不得混用之基本原則。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="113-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="113-二" data-yr="113">
+<summary><span class="lv">🔴</span><span class="ek">113年第二題</span><span class="et">委託銷售、居間報酬與定金退還爭議</span><span class="ec">C居間／B委任</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲乙簽訂一般委託銷售契約書，甲委託乙出售其所有之A廠房土地，委託契約之報酬為委託銷售總價2%，同日乙即媒介甲與丙公司簽立不動產買賣意向書，丙交付100萬元支票為定金，由乙保管作為嗣後丙履約時價金之一部或違約時之賠償；三週後，甲與丙公司以總價7500萬元簽訂不動產買賣契約書，惟丙公司並未依約給付第一期款，亦未開設履約專戶，**甲丙簽訂和解契約**，乙未得甲同意逕將作為定金之100萬支票退還給丙公司。試問：甲乙之法律關係為何？乙得否向甲主張服務報酬？（25分）</div>
+<h4><strong>一、委託銷售關係兼具居間與委任性質之意義</strong></h4>
+<p>不動產經紀業受託處理委託銷售事務，其與委託人間之法律關係，往往兼具<strong>居間</strong>（促成訂約，第565條）與<strong>委任</strong>（受託保管款項、處理相關事務，第528條）之雙重性質；居間人之報酬請求權，於契約因其媒介而成立時即已確定發生，不受契約後續履行狀況影響；惟其另受託保管款項之部分，仍應依委任之規定，盡善良管理人之注意義務，二者法律效果各自獨立，應分別檢驗。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第565條（居間）、第568條（報酬請求權發生時點）、第528條（委任之定義）、第535條（受任人善良管理人注意義務）、第249條第3款（定金之效力，可歸責於受定金人事由不能履行者不得請求返還）、第737條（和解之效力）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲乙間法律關係之定性：</strong> 甲乙簽訂一般委託銷售契約書，甲委託乙出售A廠房土地，並約定報酬為委託銷售總價2%，此屬<strong>居間契約</strong>（第565條）之性質，乙負有為甲報告訂約機會、媒介訂約之義務；乙其後受託<strong>保管</strong>丙交付之100萬元定金支票，就此部分則另構成<strong>委任關係</strong>（第528條），乙就受託保管之款項，應依第535條負善良管理人之注意義務，妥善處理，非經甲同意不得任意處分。</p>
+<p><strong>（二）乙之居間報酬請求權是否成立：</strong> 依第568條第1項，居間人於契約因其報告或媒介而成立時，即得請求報酬。乙媒介甲與丙公司簽立買賣意向書後，甲丙嗣後確已<strong>以總價7500萬元簽訂正式不動產買賣契約書</strong>，買賣契約已因乙之媒介而<strong>合法成立</strong>，乙之報酬請求權於<strong>契約成立之時即已確定發生</strong>。其後丙公司未依約給付第一期款、未開設履約專戶，乃至甲丙另簽訂和解契約，均屬<strong>契約成立後之履約爭議與處理</strong>，依報酬請求權「於契約成立時確定」之原則（同居間契約其他各題所論之共通法理），<strong>不影響乙已確定發生之報酬請求權</strong>。</p>
+<p><strong>（三）乙逕自退還定金之行為是否違反受任人義務：</strong> 依題示，該100萬元定金係作為丙「<strong>履約時價金之一部或違約時之賠償</strong>」，性質上屬<strong>違約定金</strong>，依第249條第3款，契約因可歸責於受定金當事人（丙）之事由，致不能履行者，<strong>受定金之當事人（甲）不得請求返還定金</strong>，即甲原則上得就丙之違約<strong>沒收該定金</strong>作為損害賠償。惟本題乙退還定金之行為，係發生於<strong>甲丙已簽訂和解契約之後</strong>，題目並未載明該和解契約之具體內容，故乙退還定金是否違反其對甲之受任人義務，應分別情形討論：</p>
+<p>①<strong>若和解契約本身即約定應將定金退還丙</strong>（例如作為雙方和解讓步條件之一部），則乙依和解契約之意旨辦理退還，<strong>尚難認乙有違反受任人義務之可歸責事由</strong>，蓋乙僅係執行甲丙雙方已合意之和解結果。</p>
+<p>②<strong>若和解契約未涉及定金之處理，或甲丙和解內容並未同意退還定金</strong>，則乙<strong>未經甲同意</strong>、逕自將依第249條第3款甲原則上得沒收之定金退還丙公司，顯然<strong>違反其依第535條所負善良管理人之注意義務</strong>，致甲喪失原得沒收該定金以填補損害之機會，乙就此應對甲<strong>負損害賠償責任</strong>。</p>
+<p>本題事實僅敘明「乙未得甲同意逕將定金退還丙公司」，可見<strong>至少就退還定金一事，乙確實未經甲之同意</strong>，縱令和解契約內容有調整丙之給付方式，乙未經甲同意逕自處分保管中之定金，仍難謂已盡受任人應盡之通知及徵詢義務，<strong>原則上仍應認乙有可歸責之違反義務情事</strong>，除非乙能舉證證明其退還行為確係依和解契約明文約定或甲事後已默示同意。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲乙間就A廠房土地委託銷售事宜，兼具居間及委任性質；甲丙間買賣契約已因乙之媒介而成立，乙之居間報酬請求權於契約成立時即已確定發生，<strong>不因丙其後違約、甲丙另行和解而受影響，乙仍得向甲請求委託銷售總價2%之服務報酬</strong>。惟乙於甲丙和解後，未經甲同意逕將依第249條第3款甲原則上得沒收之100萬元定金退還丙公司，除非能證明該退還確係依和解契約意旨或甲另行同意辦理，否則<strong>應認乙違反其受任人善良管理人之注意義務，應對甲另負損害賠償責任</strong>，甲得就此另行請求乙賠償，或於乙請求報酬時主張抵銷。<strong>報酬請求權之成立與退還定金之違約責任，為兩個各自獨立之法律問題，應分別論述、分別計算。</strong></p>
+<p><strong>特別提醒（原題細節不可省略）：</strong> 本題官方原題明確載有「<strong>甲丙簽訂和解契約</strong>」此一情節，此為判斷乙退還定金行為是否違反義務之重要前提事實，作答時不可略去不論；若逕以「丙違約、乙擅自退款」之簡化事實直接下結論「乙必然違反義務」，將忽略和解契約可能已變更雙方權利義務關係之可能性，屬於對原題事實掌握不完整之作答方式，應予避免。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="113-二"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="114-一" data-yr="114">
+<summary><span class="lv">🔴</span><span class="ek">114年第一題</span><span class="et">共有屋頂平台默示分管契約對後手效力</span><span class="ec">D共有</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲為某公寓五樓住戶，該公寓之屋頂平台係屬全體十戶區分所有權人按其應有部分共有。甲於20多年前在屋頂平台上增建一處鋼構加蓋房屋，自用作倉庫與晾衣之用，歷年來其他區分所有權人均未對此提出異議。乙於2年前購得該公寓四樓房屋後，發現屋頂平台被甲占用，遂主張系爭增建物妨礙其共有物使用，請求甲拆除並返還占用部分予全體共有人。甲抗辯：其占用屋頂平台已逾20年，其他共有人均未反對，已成立默示分管契約，該分管契約對後來之買受人乙亦有拘束力，故乙不得請求拆除或返還。試問，誰的主張有理由？（25分）</div>
+<h4><strong>一、默示分管契約及其對受讓人拘束力之意義</strong></h4>
+<p>共有人間就共有物之特定使用方式，得以默示方式成立分管契約，惟該分管契約性質上僅具<strong>債之效力</strong>，原則上僅拘束締約之共有人本身；為兼顧交易安全與受讓人之信賴保護，民法就未經登記之分管契約對後手（應有部分或專有部分之受讓人）之拘束力，另設「知悉或可得而知」之主觀要件限制，避免受讓人於毫無所悉之情況下，逕受其所不知之共有物使用限制所拘束。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第820條第1項（共有物之管理）、第821條（共有人對第三人之請求權）、第826條之1（分管契約之登記與對受讓人之效力）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）甲乙間就分管契約成立之抗辯：</strong> 依第820條第1項，共有物之管理，除契約另有約定外，應由共有人共同決定。甲於屋頂平台增建鋼構房屋已逾20年，其他全體共有人<strong>歷年均未提出異議</strong>，客觀上足認全體共有人間已就此一使用方式，形成默示之合意，<strong>默示分管契約應認已成立</strong>，甲就其占用屋頂平台一節，非無合法之使用權源可資主張。</p>
+<p><strong>（二）分管契約對乙（受讓人）之效力：</strong> 惟默示分管契約成立與否，與其<strong>是否對後手發生拘束力</strong>，係應分別檢驗之兩個層次。依第826條之1，共有人間就共有物管理之約定，於登記後，對於應有部分之受讓人或取得物權之人，具有效力；未經登記者，僅於受讓人<strong>知悉或可得而知</strong>該分管情事時，始對其發生效力。本題該默示分管契約<strong>未經登記</strong>，乙係2年前始購得四樓房屋，題目並未敘明乙於受讓前已知悉或可得而知該分管關係之存在，就本題事實而論，甲並未能舉證證明乙符合「知悉或可得而知」之要件，依第826條之1，<strong>該分管契約對乙不生效力</strong>。</p>
+<p><strong>（三）乙得否請求拆除返還：</strong> 分管契約既對乙不生效力，甲占用屋頂平台增建之行為，對乙而言即欠缺正當使用權源之對抗效力，依第821條，各共有人對於第三人，得就共有物之全部為本於所有權之請求，乙身為共有人之一，<strong>得請求甲拆除增建物並返還占用部分予全體共有人</strong>。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，甲逾20年占用屋頂平台，其他共有人歷年未表反對，客觀上足認默示分管契約已成立，甲有其使用權源；惟該分管契約<strong>未經登記</strong>，且無事證顯示乙於受讓四樓房屋時已知悉或可得而知此一分管情事，依民法第826條之1，該分管契約<strong>對乙不生效力</strong>，乙得依第821條請求甲拆除該增建物並返還占用部分予全體共有人。<strong>乙之主張有理由</strong>。本題核心在於區辨「分管契約是否成立」與「是否對後手生效」二層次，即使分管契約成立，仍須通過登記或受讓人知悉可得而知之檢驗，方能拘束後手，不可因占用時間長久即逕認當然對後手發生效力。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="114-一"> 我已讀懂這題的邏輯</label></div></details>
+<details class="essay" data-lv="A" data-key="114-二" data-yr="114">
+<summary><span class="lv">🔴</span><span class="ek">114年第二題</span><span class="et">抵押權、地上權與所有權讓與之三方優先順序</span><span class="ec">D物權優先順序</span></summary>
+<div class="ebody"><div class="oq"><b>【原題】</b>甲為A地之所有人。甲因資金需求，向乙借款新臺幣500萬元，並以A地設定抵押權予乙。其後，甲又就A地設定地上權予丙，以供丙在其上建築房屋。再後，甲將A地所有權讓與其子丁，並完成移轉登記。試問：依物權之一般效力，乙、丙、丁三人間之法律關係為何？並說明各物權之優先順序及其效力範圍。（25分）</div>
+<h4><strong>一、不動產物權登記生效及成立在先者優先原則之意義</strong></h4>
+<p>不動產物權依法律行為而設定、變更者，非經登記不生效力，各物權相互間之優先順序，原則上依其<strong>登記完成之先後時間</strong>定之，先登記之物權效力優先於後登記者；抵押權因不移轉占有標的物之特性，其設定後，土地所有人仍得於同一不動產上，就其使用收益權能另行設定用益物權（如地上權）或讓與所有權，惟後設定之權利或後手取得之所有權，均應<strong>承受</strong>先存在之物權負擔，不得排除先物權之效力。</p>
+<h4><strong>二、相關法條依據</strong></h4>
+<p>民法第758條（不動產物權之登記生效要件）、第860條（普通抵押權之定義）、第832條（地上權之定義）、第867條（抵押權不因抵押物所有權讓與而受影響）、第866條（抵押權受影響時得除去後次序用益物權）。</p>
+<h4><strong>三、涵攝分析</strong></h4>
+<p><strong>（一）三物權設定之先後順序：</strong> 依第758條，不動產物權，依法律行為而取得、設定、喪失及變更者，非經登記，不生效力。本題乙之抵押權<strong>最先</strong>設定登記，丙之地上權<strong>次之</strong>設定登記，丁則係<strong>最後</strong>因所有權讓與而完成移轉登記，三者依登記完成之先後時間，其優先順序依序為<strong>乙（抵押權）＞丙（地上權）＞丁（所有權受讓人）</strong>。</p>
+<p><strong>（二）丁受讓所有權後之法律地位：</strong> 依第867條，不動產所有人設定抵押權後，得將不動產讓與他人，但其抵押權不因此而受影響。甲將A地所有權讓與丁並完成移轉登記，丁固然合法取得A地所有權，惟<strong>丁所取得者，係已負擔乙抵押權及丙地上權之所有權</strong>，丁應<strong>概括承受</strong>先存在之乙抵押權及丙地上權之物權負擔，不得以其為後手受讓人為由，主張排除乙、丙先前已合法設定之物權。</p>
+<p><strong>（三）乙實行抵押權時對丙地上權之影響：</strong> 乙之抵押權因設定在先，效力最優，乙於符合實行要件時，得聲請法院拍賣A地以受清償。惟丙之地上權設定在後，其存在可能影響抵押物之拍賣價值及乙之受償效果，依第866條第1項，不動產所有人設定抵押權後，於同一不動產上，得設定地上權或其他以使用收益為目的之物權，但其抵押權不因此而受影響；抵押權<strong>如因此而受影響者</strong>，法院得<strong>除去該用益物權</strong>（即丙之地上權）<strong>後</strong>拍賣之。是以，若丙之地上權確實影響乙抵押權之優先受償效果，乙得聲請法院於拍賣時一併除去丙之地上權，使拍定人取得無地上權負擔之完整所有權，惟丙因此所受之損害，得另依相關規定向甲請求賠償或補償。</p>
+<h4><strong>四、結論</strong></h4>
+<p>綜上，乙、丙、丁三人就A地之物權關係，依登記完成先後定其優先順序，依序為乙之抵押權、丙之地上權、丁受讓之所有權；丁取得所有權後，仍須承受乙之抵押權及丙之地上權，不得主張排除；乙實行抵押權拍賣A地時，若丙之地上權有影響其優先受償之情形，依民法第866條，法院得除去丙之地上權後進行拍賣，使拍定人取得無負擔之所有權，丙則另循途徑向甲求償其因地上權被除去所受之損害。三物權「登記先後定優先順序」及「後次序權利不得對抗先次序權利、但抵押權受影響時得除去後次序用益物權」二項原則，為本題作答之核心架構。</p>
+<label class="done"><input type="checkbox" class="rd" data-key="114-二"> 我已讀懂這題的邏輯</label></div></details>
+ </div>
+</section>
+
+<!-- 5 讀書攻略 -->
+<section class="tab" id="t5">
+ <h2>📖 讀書攻略</h2>
+ <p class="lead">民法是你最弱的一科，順序排第一。</p>
+
+ <div class="group">① 章節優先順序（16年325題選擇題統計）</div>
+ <div class="tw"><table>
+  <tr><th>優先</th><th>主題</th><th>16年題數</th><th>讀法</th></tr>
+  <tr><td class="no">1</td><td>繼承（含特留分15）</td><td>53</td><td>題量第一，先把應繼分、特留分、拋棄／限定繼承算熟</td></tr>
+  <tr><td class="no">2</td><td>意思表示</td><td>44</td><td>虛偽、錯誤、詐欺脅迫、撤銷效力——也是申論高頻</td></tr>
+  <tr><td class="no">3</td><td>夫妻財產制</td><td>37</td><td>法定財產制、剩餘財產分配，分清楚歸屬與處分</td></tr>
+  <tr><td class="no">4</td><td>抵押權</td><td>36</td><td>申論＋選擇都常考，§866–§880 要熟</td></tr>
+  <tr><td class="part">5</td><td>行為能力</td><td>28</td><td>年齡以現行法為準</td></tr>
+  <tr><td class="part">6</td><td>地上權／租賃</td><td>27／27</td><td>時效取得、買賣不破租賃</td></tr>
+  <tr><td class="part">7</td><td>共有</td><td>24</td><td>分別共有 vs 公同共有，申論近年愛考</td></tr>
+  <tr><td class="ok">8</td><td>所有權20／瑕疵擔保20／代理18／居間14／時效13／侵權13</td><td>—</td><td>第二輪補強</td></tr>
+ </table></div>
+
+ <div class="group">② 讀書規則</div>
+ <div class="note">
+  • 時間：平日 2 小時、假日 6 小時。<br>
+  • 雙軌：選擇題為主軸，申論暗線同步；申論現階段「每週讀一題作答架構，不寫，只讀懂邏輯」。<br>
+  • 錯題本三型：<b>A 法條混淆</b>／<b>B 粗心</b>／<b>C 真的不熟</b>——C 型優先回頭讀。<br>
+  • 申論答題：先判斷題型（見「五型答題模板」），再用四段式；多階段題先列①②③大綱。<br>
+  • 每個申論都檢查兩件事：有沒有找全請求權基礎；有沒有往下檢驗善意第三人／抗辯。
+ </div>
+
+ <div class="group">③ 依剩餘天數的階段（系統自動標出你現在的位置）</div>
+ <div id="phases">
+  <div class="ph" data-min="31" data-max="9999"><b>第一階段・剩餘 31 天以上</b> <span class="tg">◀ 你在這裡</span><br>刷題練習全跑一輪、錯題分型；每週 1 題申論架構。</div>
+  <div class="ph" data-min="15" data-max="30"><b>第二階段・剩餘 15–30 天</b> <span class="tg">◀ 你在這裡</span><br>回頭啃 C 型錯題；25 題模擬測驗計時；🔴A 級申論逐題過一遍。</div>
+  <div class="ph" data-min="8" data-max="14"><b>第三階段・剩餘 8–14 天</b> <span class="tg">◀ 你在這裡</span><br>五型答題模板訓練手感；高頻章節（繼承、意思表示、抵押權）再掃一輪。</div>
+  <div class="ph" data-min="0" data-max="7"><b>最後一週・剩餘 7 天以內</b> <span class="tg">◀ 你在這裡</span><br>只看錯題本、現行法小抄、速記頁；不再開新題庫，維持睡眠。</div>
+ </div>
+
+ <div class="group">④ 怎麼叫我（範例提示詞）</div>
+ <pre class="pr">給我民法〔繼承〕這章，歷屆題的錯題解析（白話概念＋法條＋例子＋考試陷阱）</pre>
+ <pre class="pr">我今天只有 2 小時，民法該讀什麼？照優先順序幫我排</pre>
+ <pre class="pr">給我〔110年第二題〕的申論作答架構，定義→法條→涵攝分析→結論</pre>
+ <pre class="pr">這題我寫錯了：〔貼題目與你的答案〕，判斷是 A 法條混淆／B 粗心／C 不熟，並告訴我怎麼補</pre>
+ <pre class="pr">幫我出 5 題〔抵押權〕的選擇題，跟歷屆考法相近，附詳解</pre>
+
+ <div class="note r"><b>提醒：</b>題目與答案以考選部官方試題為準；解析若與現行條文有出入，以全國法規資料庫為準。</div>
+</section>
+
+<footer>民法備考指揮中心｜內容對應知識庫「五件套 v1.1修正版」與 GitHub 工具檔｜倒數與階段標記為開啟頁面時即時計算。</footer>
+</div>
+
+<script>
+(function(){
+  var TOOLS=[{"g": "刷題練習", "name": "民法A 總則｜99–106年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1%2899~106%29.html", "n": "56題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法A 總則｜107–114年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1%28107~114%29.html", "n": "38題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法B 債編總則｜99–106年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B1%2899~106%29.html", "n": "81題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法B 債編總則｜107–114年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B1%28107~114%29.html", "n": "46題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法D 物權｜99–106年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1%2899~106%29.html", "n": "77題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法D 物權｜107–114年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1%28107~114%29.html", "n": "44題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法E 親屬繼承｜99–106年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1%2899~106%29.html", "n": "44題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法E 親屬繼承｜107–114年", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1%28107~114%29.html", "n": "31題", "desc": "真題選擇題作答＋即時對答案"}, {"g": "刷題練習", "name": "民法概要 25題模擬測驗", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html", "n": "25題", "desc": "整份模擬、限時自測"}, {"g": "考題小卡", "name": "民法A 總則｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "52題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法BC 債編（總則＋分則）｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "119題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法D 物權｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "124題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法E 親屬繼承｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "127題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法A 總則｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法BC 債編（總則＋分則）｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "20題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法D 物權｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法E 親屬繼承｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "速記與單字卡", "name": "民法A 總則｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法BC 債編（總則＋分則）｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "38張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法D 物權｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "50張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法E 親屬繼承｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法A 總則｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法BC 債編（總則＋分則）｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法D 物權｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法E 親屬繼承｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "申論工具", "name": "民法申論題 五型答題模板", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html", "n": "32題", "desc": "五型判型＋依年度瀏覽"}, {"g": "申論工具", "name": "民法 讀書攻略與備考指南", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E8%AE%80%E6%9B%B8%E6%94%BB%E7%95%A5%E8%88%87%E5%82%99%E8%80%83%E6%8C%87%E5%8D%97.html", "n": "—", "desc": "五件套怎麼用、讀書順序"}];
+  // tabs
+  var tabs=document.querySelectorAll('#tabs button');
+  function show(id){
+    tabs.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
+    document.querySelectorAll('section.tab').forEach(function(s){s.classList.toggle('on',s.id===id)});
+    try{history.replaceState(null,'','#'+id)}catch(e){}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
+  var h=(location.hash||'').slice(1); if(/^t[1-5]$/.test(h)) show(h);
+
+  // countdown (computed at open time, local date)
+  var exam=new Date(2026,10,14);
+  var now=new Date(); var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var d=Math.round((exam-today)/86400000);
+  var dEl=document.getElementById('days');
+  if(d>0){dEl.textContent=d;}
+  else if(d===0){dEl.textContent='今天';document.getElementById('dayl').textContent='考試日，加油！';}
+  else {dEl.textContent='已過';document.getElementById('dayl').textContent='考試日已過';}
+  var left=Math.max(d,0);
+  document.getElementById('weeks').textContent=(left/7).toFixed(1);
+  // study hours: count weekdays*2 + weekend*6 from today to day before exam
+  var hrs=0;
+  for(var i=0;i<left;i++){var dt=new Date(today.getFullYear(),today.getMonth(),today.getDate()+i);var w=dt.getDay();hrs+=(w===0||w===6)?6:2;}
+  document.getElementById('hours').textContent=hrs;
+  // phase highlight
+  document.querySelectorAll('#phases .ph').forEach(function(p){
+    var mn=+p.dataset.min,mx=+p.dataset.max; if(left>=mn&&left<=mx)p.classList.add('cur');
+  });
+
+  // tools
+  var box=document.getElementById('toolbox'),groups={},order=[];
+  TOOLS.forEach(function(t){if(!groups[t.g]){groups[t.g]=[];order.push(t.g)}groups[t.g].push(t)});
+  order.forEach(function(g){
+    var h=document.createElement('div');h.className='group';h.textContent=g;box.appendChild(h);
+    var gr=document.createElement('div');gr.className='grid';
+    groups[g].forEach(function(t){
+      var a=document.createElement('a');a.className='card';a.href=t.url;a.target='_blank';a.rel='noopener';
+      var bd=document.createElement('span');bd.className='bd';bd.textContent=t.n;
+      var nm=document.createElement('div');nm.className='nm';nm.textContent=t.name;
+      var ds=document.createElement('div');ds.className='ds';ds.textContent=t.desc;
+      a.appendChild(bd);a.appendChild(nm);a.appendChild(ds);gr.appendChild(a);
+    });
+    box.appendChild(gr);
+  });
+
+  // essays
+  var essays=[].slice.call(document.querySelectorAll('.essay'));
+  var readSet={};
+  try{readSet=JSON.parse(localStorage.getItem('minfa_read')||'{}')}catch(e){}
+  var curF='all';
+  function save(){try{localStorage.setItem('minfa_read',JSON.stringify(readSet))}catch(e){}}
+  function apply(){
+    var q=document.getElementById('sq').value.trim().toLowerCase();var n=0;
+    essays.forEach(function(e){
+      var ok=true;
+      if(curF==='A'||curF==='B'||curF==='C') ok=e.dataset.lv===curF;
+      else if(curF==='unread') ok=!readSet[e.dataset.key];
+      if(ok&&q) ok=e.textContent.toLowerCase().indexOf(q)>-1;
+      e.style.display=ok?'':'none'; if(ok)n++;
+    });
+    var r=Object.keys(readSet).filter(function(k){return readSet[k]}).length;
+    document.getElementById('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／32';
+  }
+  essays.forEach(function(e){
+    var cb=e.querySelector('.rd');var k=e.dataset.key;
+    if(readSet[k]){cb.checked=true;e.classList.add('read')}
+    cb.addEventListener('change',function(){readSet[k]=cb.checked;e.classList.toggle('read',cb.checked);save();apply()});
+  });
+  document.querySelectorAll('#fl button[data-f]').forEach(function(b){
+    b.addEventListener('click',function(){
+      curF=b.dataset.f;document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});apply();
+    });
+  });
+  document.getElementById('sq').addEventListener('input',apply);
+  document.getElementById('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});
+  document.getElementById('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
+  apply();
+})();
+</script>
+</body>
+</html>
