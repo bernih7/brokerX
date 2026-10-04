@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規｜備考指揮中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+    --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif; line-height:1.7;
+    padding-bottom:60px;
+  }
+  h1,h2,h3{font-family:"Noto Serif TC",serif;}
+  header{
+    background:linear-gradient(135deg,var(--vermillion),#8c3322);
+    color:#fff; padding:28px 20px 22px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  header::after{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,transparent 10px 20px);
+  }
+  header h1{font-size:1.6rem; margin:0 0 6px; font-weight:900; position:relative;}
+  header .sub{font-size:.9rem; opacity:.9; position:relative;}
+  #countdown{
+    margin-top:14px; display:inline-block; background:rgba(0,0,0,.18);
+    padding:10px 22px; border-radius:30px; font-size:1rem; font-weight:700;
+    position:relative; border:1px solid rgba(255,255,255,.25);
+  }
+  #countdown b{font-size:1.4rem; color:#FFE9C7;}
+  nav{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+    position:sticky; top:0; z-index:10; background:var(--paper);
+    padding:12px 10px; border-bottom:2px solid var(--line);
+  }
+  nav button{
+    font-family:"Noto Serif TC",serif; font-weight:700; font-size:.92rem;
+    padding:10px 16px; border-radius:10px; border:1.5px solid var(--line);
+    background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
+  }
+  nav button:hover{border-color:var(--gold);}
+  nav button.active{
+    background:var(--vermillion); color:#fff; border-color:var(--vermillion);
+  }
+  main{max-width:880px; margin:0 auto; padding:24px 18px;}
+  .tab{display:none; animation:fade .25s ease;}
+  .tab.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+  .card{
+    background:var(--paper2); border:1.5px solid var(--line); border-radius:14px;
+    padding:18px 20px; margin-bottom:14px; box-shadow:0 2px 6px rgba(0,0,0,.04);
+  }
+  .card h3{margin:0 0 6px; font-size:1.05rem; color:var(--vermillion);}
+  .section-title{
+    font-size:1.3rem; font-weight:900; margin:4px 0 16px; padding-bottom:8px;
+    border-bottom:3px solid var(--gold); color:var(--ink);
+  }
+  a.tool-link{
+    display:flex; justify-content:space-between; align-items:center;
+    text-decoration:none; color:var(--ink); background:var(--paper2);
+    border:1.5px solid var(--line); border-radius:12px; padding:14px 16px;
+    margin-bottom:10px; transition:.15s;
+  }
+  a.tool-link:hover{border-color:var(--vermillion); transform:translateX(3px); background:#fff;}
+  a.tool-link .name{font-weight:700; font-size:.98rem;}
+  a.tool-link .tag{font-size:.78rem; color:#7a7466;}
+  a.tool-link .badge{
+    background:var(--green); color:#fff; font-size:.78rem; font-weight:700;
+    padding:4px 10px; border-radius:20px; white-space:nowrap; margin-left:10px;
+  }
+  .badge.gold{background:var(--gold);}
+  .badge.red{background:var(--vermillion);}
+  .group-label{
+    font-weight:700; color:var(--vermillion); margin:20px 0 8px; font-size:.95rem;
+    display:flex; align-items:center; gap:6px;
+  }
+  table{width:100%; border-collapse:collapse; margin:10px 0 18px; font-size:.9rem;}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left;}
+  th{background:var(--gold); color:#fff; font-family:"Noto Serif TC",serif;}
+  tr:nth-child(even){background:#f3ead9;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0;}
+  .pill{
+    background:#efe6d2; border:1px solid var(--line); border-radius:20px;
+    padding:6px 14px; font-size:.85rem; font-weight:600;
+  }
+  .pill.done{background:var(--green); color:#fff; border-color:var(--green);}
+  .check{color:var(--green); font-weight:900;}
+  ul{padding-left:1.2em;}
+  li{margin-bottom:6px;}
+  .essay-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:8px; margin:12px 0;}
+  .essay-chip{
+    border-radius:10px; padding:10px 8px; text-align:center; font-size:.82rem;
+    font-weight:700; border:1.5px solid var(--line); background:var(--paper2);
+  }
+  .essay-chip.tierA{border-color:var(--vermillion); background:#f7e3dd;}
+  .essay-chip.tierB{border-color:var(--gold); background:#f8edd6;}
+  .essay-chip .star{color:var(--vermillion);}
+  .note{
+    background:#fdf6e3; border-left:4px solid var(--gold); padding:10px 14px;
+    font-size:.88rem; border-radius:0 8px 8px 0; margin:10px 0;
+  }
+  .warn{
+    background:#f8e3df; border-left:4px solid var(--vermillion); padding:10px 14px;
+    font-size:.88rem; border-radius:0 8px 8px 0; margin:10px 0;
+  }
+  footer{text-align:center; font-size:.78rem; color:#948c78; margin-top:30px;}
+  @media (max-width:480px){
+    header h1{font-size:1.3rem;} nav button{font-size:.8rem; padding:8px 11px;}
+  }
+
+  details.essay-detail{
+    background:var(--paper2); border:1.5px solid var(--line); border-radius:12px;
+    margin-bottom:10px; padding:4px 14px;
+  }
+  details.essay-detail[open]{ border-color: var(--gold); }
+  details.essay-detail summary{
+    cursor:pointer; padding:12px 4px; font-weight:700; font-family:"Noto Serif TC",serif;
+    font-size:.96rem; list-style:revert; display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  }
+  details.essay-detail.tierA summary{ color: var(--vermillion); }
+  details.essay-detail.tierB summary{ color: #8a6a1f; }
+  details.essay-detail.tierC summary{ color: var(--green); }
+  .essay-num{
+    background:var(--ink); color:#fff; font-size:.72rem; padding:2px 8px;
+    border-radius:10px; font-family:"Noto Sans TC",sans-serif; font-weight:700;
+  }
+  .tier-badge{ font-size:.7rem; padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto; }
+  .tier-badge.tierA{ background:#f7e3dd; color:var(--vermillion); }
+  .tier-badge.tierB{ background:#f8edd6; color:#8a6a1f; }
+  .tier-badge.tierC{ background:#e2ede6; color:var(--green); }
+  .essay-body{ padding:4px 6px 14px; border-top:1px dashed var(--line); margin-top:4px; }
+  .essay-body p{ margin:8px 0; font-size:.92rem; }
+  .essay-body h4{ margin:14px 0 4px; font-size:1rem; color:var(--ink); }
+  .essay-question{
+    background:#f3ead9; padding:10px 12px; border-radius:8px; font-style:normal;
+  }
+  .essay-warn{
+    background:#f8e3df; border-left:4px solid var(--vermillion); padding:8px 12px;
+    border-radius:0 8px 8px 0; font-size:.85rem;
+  }
+  .filter-row{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; }
+  .filter-btn{
+    font-family:"Noto Sans TC",sans-serif; font-size:.82rem; font-weight:700;
+    padding:6px 14px; border-radius:20px; border:1.5px solid var(--line);
+    background:var(--paper2); cursor:pointer;
+  }
+  .filter-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚖️ 經紀法規｜備考指揮中心</h1>
+  <div class="sub">第三戰・絕對要過｜115年（2026）不動產經紀人考試</div>
+  <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
+</header>
+
+<nav>
+  <button class="tab-btn active" data-tab="t1">📝 刷題工具</button>
+  <button class="tab-btn" data-tab="t2">✅ 完成清單</button>
+  <button class="tab-btn" data-tab="t3">⚡ 現行法小抄</button>
+  <button class="tab-btn" data-tab="t4">✍️ 申論32題</button>
+  <button class="tab-btn" data-tab="t4b">📄 範文全文</button>
+  <button class="tab-btn" data-tab="t5">📖 讀書攻略</button>
+</nav>
+
+<main>
+
+  <!-- TAB 1: 刷題工具 -->
+  <section class="tab active" id="t1">
+    <div class="section-title">📝 整批刷題練習（共 520 題・v1.1 已核實）</div>
+    <p style="font-size:.88rem;color:#7a7466;margin-top:-10px;">點擊卡片直接開啟對應章節的刷題工具（GitHub Pages 連結）。每個工具都有「顯示全部／只看未作答／只看答錯／清除作答紀錄」四鍵篩選，並會記住你的作答進度。</p>
+
+    <div class="group-label">🅰️ 不動產經紀業管理條例（A系列・核心法規）</div>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_A1A2A3.html" target="_blank">
+      <div><div class="name">A1 總則／A2 設立保證金／A3 經紀人員資格</div><div class="tag">47 題</div></div>
+      <span class="badge">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_A4.html" target="_blank">
+      <div><div class="name">A4 業務及責任（核心重災區）</div><div class="tag">51 題・v1.1 已修正110年新制申報規則</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_A5.html" target="_blank">
+      <div><div class="name">A5 獎懲</div><div class="tag">38 題・v1.1 已修正條號＋廢止/撤銷用詞</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+
+    <div class="group-label">🅱️ 其他小章節（C1-C4／D2-D3／E2E4E5／F2／H2）</div>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_其他小章節.html" target="_blank">
+      <div><div class="name">其他小章節綜合包</div><div class="tag">49 題</div></div>
+      <span class="badge">開啟</span>
+    </a>
+
+    <div class="group-label">🅴 公寓大廈管理條例</div>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_E1.html" target="_blank">
+      <div><div class="name">E1 公寓大廈總則</div><div class="tag">39 題・v1.1 已修正§8防墜設施範圍</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_E3.html" target="_blank">
+      <div><div class="name">E3 管理組織與會議決議</div><div class="tag">66 題</div></div>
+      <span class="badge">開啟</span>
+    </a>
+
+    <div class="group-label">🅶 公平交易法（最大宗・110題）</div>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_G1_1.html" target="_blank">
+      <div><div class="name">G1-1 公平交易法（99–104年）</div><div class="tag">49 題・v1.1 已修正聯合行為/獨占條號</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_G1_2.html" target="_blank">
+      <div><div class="name">G1-2 公平交易法（105–114年）</div><div class="tag">61 題・v1.1 已修正聯合行為/獨占條號</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_G2.html" target="_blank">
+      <div><div class="name">G2 廣告查核分工原則</div><div class="tag">9 題・v1.1 已修正薦證者條號</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+
+    <div class="group-label">🅷 消費者保護法</div>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_H1.html" target="_blank">
+      <div><div class="name">H1 定型化契約規範</div><div class="tag">23 題</div></div>
+      <span class="badge">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_H3_1.html" target="_blank">
+      <div><div class="name">H3-1 損害賠償罰則（99–104年）</div><div class="tag">46 題・v1.1 已修正委員人數/設立年限</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+    <a class="tool-link" href="https://bernih7.github.io/brokerX/經紀法規刷題練習_H3_2.html" target="_blank">
+      <div><div class="name">H3-2 損害賠償罰則（105–114年）</div><div class="tag">42 題・v1.1 已修正委員人數/設立年限</div></div>
+      <span class="badge gold">開啟</span>
+    </a>
+
+    <div class="note">💡 標示「gold」徽章的工具，代表在四輪現行法查證工程中有實質修正過內容，建議優先重刷一次，確認舊的錯誤印象已經更新。</div>
+  </section>
+
+  <!-- TAB 2: 完成清單 -->
+  <section class="tab" id="t2">
+    <div class="section-title">✅ 經紀法規・完成度總覽</div>
+
+    <div class="card">
+      <h3>五件套知識庫（已存入 Project 知識庫）</h3>
+      <div class="pill-row">
+        <span class="pill done">✅ 16年考點分析(99-114)</span>
+        <span class="pill done">✅ 重點筆記</span>
+        <span class="pill done">✅ 題庫(含答案)・520題</span>
+        <span class="pill done">✅ 申論題攻略表</span>
+        <span class="pill done">✅ 申論題實戰範文・32題完整版</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>整批刷題練習 v1.1（GitHub Pages・共 520 題）</h3>
+      <table>
+        <tr><th>檔案</th><th>題數</th><th>狀態</th></tr>
+        <tr><td>A1A2A3</td><td>47</td><td class="check">✓</td></tr>
+        <tr><td>A4</td><td>51</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>A5</td><td>38</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>其他小章節</td><td>49</td><td class="check">✓</td></tr>
+        <tr><td>E1</td><td>39</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>E3</td><td>66</td><td class="check">✓</td></tr>
+        <tr><td>G1-1</td><td>49</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>G1-2</td><td>61</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>G2</td><td>9</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>H1</td><td>23</td><td class="check">✓</td></tr>
+        <tr><td>H3-1</td><td>46</td><td class="check">✓ 已修正</td></tr>
+        <tr><td>H3-2</td><td>42</td><td class="check">✓ 已修正</td></tr>
+        <tr><td><b>合計</b></td><td><b>520</b></td><td><b>100%</b></td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>⭐ 四輪現行法查證工程</h3>
+      <p>逐條比對 law.moj.gov.tw 現行法條文，共發現並修正 <b>43 處</b>法條/數字錯誤，涵蓋不動產經紀業管理條例、公寓大廈管理條例、公平交易法、消費者保護法四大法規。詳見「⚡ 現行法小抄」分頁。</p>
+      <p>另外以考選部/lawplayer 官方歷屆題解，針對 440 題進行交叉核對，確認目前答案 100% 與官方一致。</p>
+    </div>
+
+    <div class="card">
+      <h3>知識庫清理</h3>
+      <p>已排除題庫與重點筆記的重複檔案問題（舊版/新版同檔名重複上傳），目前 Project 知識庫內每份文件僅保留最新版本。</p>
+    </div>
+
+    <div class="warn">⚠️ 下一步重點：估價、土地法的五件套仍待補充（請到對應的科目對話繼續）。</div>
+  </section>
+
+  <!-- TAB 3: 現行法小抄 -->
+  <section class="tab" id="t3">
+    <div class="section-title">⚡ 現行法小抄（115年應考必記＝與歷屆舊答案不同之處）</div>
+    <p style="font-size:.88rem;color:#7a7466;margin-top:-10px;">以下是歷屆考古題「當年正確答案」已被後續修法推翻、現行必須用新數字的項目。考古題本身答案仍以出題當年法條為準，但遇到題目問「現行」規定，請用下表。</p>
+
+    <table>
+      <tr><th>法規</th><th>項目</th><th>舊制/易混淆版本</th><th>✅現行正確版本</th></tr>
+      <tr><td>消保法§45</td><td>消費爭議調解委員會委員人數</td><td>7至15名（92-104年舊制）</td><td><b>7至21名</b></td></tr>
+      <tr><td>消保法§49</td><td>消保團體提訴訟需許可設立年限</td><td>常被誤記為3年</td><td><b>2年</b>以上</td></tr>
+      <tr><td>公平法第21條</td><td>薦證者責任條號</td><td>第21條之1（舊條號）</td><td><b>第21條</b>第5、6項</td></tr>
+      <tr><td>公平法第16條</td><td>聯合行為許可期限</td><td>一般3年／特殊5年（舊說法）</td><td>統一<b>5年</b>上限（含延展）</td></tr>
+      <tr><td>公寓大廈條例§8</td><td>防墜設施設置對象</td><td>僅12歲以下兒童</td><td><b>12歲以下兒童「或」65歲以上老人</b>（兩類皆含）</td></tr>
+      <tr><td>經紀條例§29</td><td>保證金不足停業滿一年</td><td>常誤寫成「撤銷」</td><td>用詞應為<b>「廢止」</b>（向後失效，非溯及）</td></tr>
+      <tr><td>經紀條例§32</td><td>無照經營罰則條號</td><td>常誤記第27條</td><td><b>第32條</b></td></tr>
+      <tr><td>經紀條例§30</td><td>連續停業6個月廢止許可</td><td>常誤記第28條</td><td><b>第30條</b></td></tr>
+      <tr><td>經紀條例§31</td><td>故意造成交易損害賠償3倍</td><td>常誤記第32條</td><td><b>第31條</b></td></tr>
+      <tr><td>公平法§7/§8</td><td>獨占定義 vs 認定基準</td><td>常混為一條</td><td>定義在<b>§7</b>，認定基準在<b>§8</b></td></tr>
+    </table>
+
+    <div class="note">
+      📌 <b>用詞精確度陷阱</b>：「廢止」（向後失效）與「撤銷」（溯及失效）是完全不同的行政處分概念。題目若只是把「廢止」寫成「撤銷」，整條規定的實質內容可能仍完全正確——不要因為用詞不同就整題判錯。
+    </div>
+    <div class="note">
+      📌 <b>舊制答案 vs 現行答案並存原則</b>：99–106年考古題中，不少數字是「當年的正確答案」，但已被後續修法取代。刷題時：
+      <ul>
+        <li>若題目明確問「現行／一般規則」→ 用本頁最新數字</li>
+        <li>若是考古題本身（問當年答案）→ 以出題當年法條為準，不可混淆</li>
+      </ul>
+    </div>
+
+    <div class="group-label">📌 16年不變鐵律考點（99-114年從未改變，直接背）</div>
+    <ul>
+      <li>經紀業應以合夥或公司型態組織，並須繳足資本額、繳存營業保證金始得營業</li>
+      <li>經紀人員須經國家考試及格並完成登記後始得執業</li>
+      <li>仲介與代銷業務的定義區分（仲介：媒介雙方；代銷：受託銷售）始終不變</li>
+      <li>公平交易法對於「獨占」「結合」「聯合行為」三大限制競爭行為的基本架構未變</li>
+      <li>消保法的「無過失責任」精神（企業經營者對商品/服務負較重責任）始終不變</li>
+      <li>公寓大廈管理條例中「區分所有權人會議」召集與決議門檻的基本精神未變（僅防墜設施對象等細節有修法）</li>
+    </ul>
+  </section>
+
+  <!-- TAB 4: 申論32題 -->
+  <section class="tab" id="t4">
+    <div class="section-title">✍️ 申論題・32題完整攻略地圖</div>
+    <p style="font-size:.88rem;color:#7a7466;margin-top:-10px;">目前階段：每週精讀一題「作答架構」（定義→法條→涵攝分析→結論），先讀懂邏輯，暫不動筆寫。★標記為最常考主題，優先精讀。</p>
+
+    <div class="group-label">🔴 高頻主題（★最常重複出現，優先精讀）</div>
+    <div class="essay-grid">
+      <div class="essay-chip tierA"><span class="star">★</span> 110-一<br>新制申報登錄</div>
+      <div class="essay-chip tierA"><span class="star">★</span> 經紀業責任<br>與連帶賠償</div>
+      <div class="essay-chip tierA"><span class="star">★</span> 消保法<br>無過失責任</div>
+      <div class="essay-chip tierA"><span class="star">★</span> 公平法<br>聯合行為</div>
+      <div class="essay-chip tierA"><span class="star">★</span> 經紀人員<br>懲戒制度</div>
+    </div>
+
+    <div class="group-label">📅 32題年份總覽（依年份排列，點選對應年份到知識庫查完整範文）</div>
+    <table>
+      <tr><th>年份</th><th>題數</th><th>備註</th></tr>
+      <tr><td>99-104年</td><td>約8題</td><td>法規基礎架構題為主</td></tr>
+      <tr><td>105-109年</td><td>約9題</td><td>跨法規整合題增加</td></tr>
+      <tr><td>110-114年</td><td>約15題</td><td>新制申報、實務爭議案例為主，難度最高</td></tr>
+    </table>
+
+    <div class="note">
+      📖 全部 32 題完整四段式範文已存入 Project 知識庫：<br>
+      <b>經紀法規概要_申論題實戰範文_32題完整版.md</b><br>
+      每題皆依「一、意義 → 二、法條依據 → 三、涵攝分析 → 四、結論」架構撰寫，並已套用上方「現行法小抄」的最新條號與數字。
+    </div>
+
+    <div class="group-label">🗓️ 建議精讀節奏</div>
+    <ul>
+      <li>每週選 1 題（建議從★高頻主題開始），先讀懂「為什麼這樣寫」而非背誦文字</li>
+      <li>讀完後用自己的話，口頭複述一次四段架構，確認邏輯通順</li>
+      <li>距考試剩 8 週內，才開始真正動筆限時寫作練習</li>
+    </ul>
+  </section>
+
+
+
+  <!-- TAB 4b: 範文全文 -->
+  <section class="tab" id="t4b">
+    <div class="section-title">📄 申論題實戰範文全文（26題）</div>
+    <p style="font-size:.88rem;color:#7a7466;margin-top:-10px;">完整32題四段式範文（99–114年），點擊題目展開全文。標有★的6題（103-二、108-一、108-二、109-二、112-二、114-二）為2026-10-04重建版——原舊檔遺失後，依攻略表架構重新撰寫；其中108年申論一原題文字已無法尋回，題幹為依攻略表考點重建，其餘5題原題文字均保留official版本。</p>
+
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">全部26題</button>
+      <button class="filter-btn" data-filter="tierA">🔴 A級必考</button>
+      <button class="filter-btn" data-filter="tierB">🟡 B級高機率</button>
+      <button class="filter-btn" data-filter="tierC">🟢 C級參考</button>
+    </div>
+
+    <div id="essayList">
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文01★</span> 103年申論二｜何謂不動產經紀業廣告、廣告不實案件查核權責分工原則 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂不動產經紀業廣告？對於不動產廣告不實案件之查核，其權責分工原則為何？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不動產經紀業廣告查核分工制度之意義</b></p>
+<p>不動產廣告之刊登主體可能是經紀業本身，也可能是建商、代銷公司等其他事業，其所涉及之不實內容態樣亦橫跨地政法規與競爭法規兩個規範領域；為避免因主管機關不明致查核延宕或互踢皮球，內政部與公平交易委員會特別就不動產廣告不實案件之查核權責，訂定明確之分工原則。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業廣告處理原則第二點（廣告定義）、第三點（查核分工原則）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）不動產經紀業廣告之定義：</b> 依不動產經紀業廣告處理原則第二點規定，廣告係指經紀業利用電視、廣播、影片、幻燈片、報紙、雜誌、傳單、海報、招牌、牌坊、廣告圖冊、模型、樣品屋、布條、電腦、電話傳真、電子視訊、電子語音、網際網路或其他方法，使不特定多數人知悉其宣傳內容之傳播。</p>
+<p><b>（二）查核權責分工原則：</b> 依該處理原則第三點規定，不動產廣告不實案件之查核，依下列情形分工：①<b>經紀業所為之廣告案件</b>，由主管機關（內政部／直轄市、縣市政府）依不動產經紀業管理條例處理；②<b>非屬管理條例規範範疇者</b>（如涉及事業服務品質、企業形象、行銷策略等虛偽不實或引人錯誤之表示），由公平交易委員會依公平交易法處理；③<b>經紀業係加盟經營，未於廣告標明加盟店字樣者</b>，由主管機關依管理條例處理；④<b>建商委託經紀業從事銷售行為之不實廣告</b>，若建商與經紀業俱為廣告主時，由公平會依公平交易法處理；⑤<b>其他無法依前述原則劃分管轄者</b>，由內政部與公平會協調處理。</p>
+<p><b>四、結論</b></p>
+<p>綜上，不動產經紀業廣告係指經紀業利用電視、報紙、網際網路等各類媒介，使不特定多數人知悉其宣傳內容之傳播；不動產廣告不實案件之查核並非單一機關專責，而是依廣告主體與內容性質，區分由內政部（依不動產經紀業管理條例）或公平交易委員會（依公平交易法）分別管轄，無法明確劃分者則由兩機關協調處理。此一分工設計，使單純涉及經紀業執業規範之廣告問題回歸地政主管機關處理，而涉及市場競爭秩序與企業形象等較複雜之虛偽不實表徵，則交由公平會以專業競爭法視角審查，兼顧查核效率與專業分工。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文02★</span> 108年申論一｜消保法企業經營者定義、商品服務安全性責任、回收義務及懲罰性賠償金 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂消費者保護法所稱之企業經營者？企業經營者對其所提供商品或服務之安全性應負何種責任？企業經營者對於已流通進入市場之商品或服務，於有危害消費者生命、身體、健康或財產之虞時，應負何種回收義務？消費者因企業經營者之故意或過失致受損害時，得否請求懲罰性賠償金？其倍數如何計算？（25分）</p>
+<p class="essay-warn">📝說明：本題原題文字已隨原6題版範文檔遺失，上述題幹係依《經紀法規申論題攻略表.md》「108年一：消保法企業經營者定義+第7條商品服務責任+第51條懲罰性賠償+第10條回收義務」之架構提示重建，核心考點（定義、第7條安全性責任、第10條回收義務、第51條懲罰性賠償金）與官方歷屆核實紀錄一致，惟原題確切文字措辭請以考選部公告原題為準。</p>
+<h4>【範文】</h4>
+<p><b>一、企業經營者商品服務安全性責任制度之意義</b></p>
+<p>消費者保護法為矯正企業經營者與消費者間資訊與地位之不對等，就企業經營者所提供商品或服務之安全性，課予較一般民法侵權責任更重之注意義務，並搭配回收義務與懲罰性賠償金制度，使企業經營者在商品服務流通前、流通中及致生損害後，均負有具體之法定義務，藉此強化消費者權益之事前預防與事後救濟。</p>
+<p><b>二、相關法條依據</b></p>
+<p>消費者保護法第2條第2款（企業經營者定義）、第7條（商品服務安全性責任）、第10條（回收義務）、第51條（懲罰性賠償金）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）企業經營者之定義：</b> 依第2條第2款規定，企業經營者係指以設計、生產、製造、輸入、經銷商品或提供服務為營業者。</p>
+<p><b>（二）商品服務安全性責任（第7條）：</b> 從事設計、生產、製造商品或提供服務之企業經營者，於其提供之商品或服務流通進入市場，或提供消費者前，應確保該商品或服務，符合當時科技或專業水準可合理期待之安全性；商品或服務具有危害消費者生命、身體、健康、財產之可能者，應於事先將適當之警告標示及緊急處理危險之方法標示於商品或其容器包裝之上，或以其他方式為警告標示及緊急處理危險方法之標示。企業經營者違反前述規定，致生損害於消費者或第三人時，應負<b>連帶賠償責任</b>；但企業經營者能證明其對於損害之防免已盡相當之注意，或縱加以相當之注意仍不免發生損害者，法院得<b>減輕</b>其賠償責任。</p>
+<p><b>（三）回收義務（第10條）：</b> 企業經營者於有事實足認其提供之商品或服務有危害消費者生命、身體、健康或財產之虞者，應即回收該批商品或停止其服務；但企業經營者疏於履行時，<b>主管機關得命其限期回收改善，必要時並得直接命其回收</b>，企業經營者應依回收或停止服務之計畫執行。</p>
+<p><b>（四）懲罰性賠償金（第51條）：</b> 依消費者之請求，因企業經營者之<b>故意</b>所致之損害，消費者得請求損害額<b>5倍以下</b>之懲罰性賠償金；因<b>重大過失</b>所致之損害，得請求<b>3倍以下</b>之懲罰性賠償金；因<b>過失</b>所致之損害，得請求損害額<b>1倍以下</b>之懲罰性賠償金。</p>
+<p><b>四、結論</b></p>
+<p>綜上，消費者保護法所稱企業經營者係指以設計、生產、製造、輸入、經銷商品或提供服務為營業者；企業經營者對其提供之商品服務應確保符合當時科技或專業水準可合理期待之安全性，違反致生損害者應負連帶賠償責任，惟能證明已盡相當注意者，法院得減輕其責任；於商品服務有危害消費者之虞時，應即回收或停止服務，怠於履行者主管機關得命限期回收或逕命回收；消費者並得依企業經營者主觀可歸責程度之不同（故意、重大過失、過失），分別請求損害額5倍、3倍、1倍以下之懲罰性賠償金，此一分級賠償設計，使懲罰性賠償金之額度與企業經營者過咎程度相稱，兼顧嚇阻效果與責任相當性原則。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文03★</span> 108年申論二｜不動產說明書簽章解說流程、解說義務人與對象及賠償責任 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 不動產買賣委由經紀業仲介者，經紀業應提出不動產經紀業管理條例第22條第1項所規定之文件（含不動產說明書）。試問：第22條第3項對說明書內容有何限制？說明書應由那些人簽章及其簽章時點為何？解說義務人與解說對象為何？簽訂買賣契約書時，說明書應如何處置？因經紀人員未盡上開義務致交易當事人受損害，得請求何人賠償？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不動產說明書簽章解說制度之意義</b></p>
+<p>不動產說明書係經紀業於仲介或代銷不動產時，依法應提供予交易相對人之重要交易資訊揭露文件，目的在於使交易相對人於締約前充分了解標的物現況、權利狀態及交易條件，性質上具有保護交易資訊對稱之公益色彩；為確保此一揭露制度確實落實，條例就說明書之內容限制、簽章人員、解說義務及違反之賠償責任，均設有明文規定。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第22條第1項第5款、第3項；第23條第1項、第2項；第24條第1項、第2項；第26條第2項。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）說明書內容之限制（第22條第3項）：</b> 依第22條第3項規定，不動產說明書應記載及不得記載事項，由中央主管機關定之，經紀業製作說明書時應依此規定記載，不得任意增減。</p>
+<p><b>（二）簽章人與簽章時點：</b> 依第22條第1項第5款規定，不動產說明書應由經紀業指派<b>經紀人</b>簽章；依第23條第2項規定，說明書於<b>提供解說前，應經委託人簽章</b>，確認其內容與委託人提供之資料相符。</p>
+<p><b>（三）解說義務人與解說對象：</b> 依第23條第1項規定，解說義務人為<b>經紀人員</b>（不限於經紀人，亦包含協助執行業務之經紀營業員），解說對象為<b>與委託人交易之相對人</b>（即買方或承租人）。</p>
+<p><b>（四）簽訂買賣契約書時說明書之處置：</b> 依第24條第1項、第2項規定，雙方簽訂租賃或買賣契約書時，經紀人應將已完成解說之說明書<b>交付相對人</b>，並由相對人在說明書上<b>簽章</b>；該說明書<b>視為契約之一部分</b>，與契約本文具有同等拘束力。</p>
+<p><b>（五）賠償責任歸屬：</b> 依第26條第2項規定，經紀人員執行業務之故意或過失，致交易當事人受損害者，<b>經紀業應與該經紀人員負連帶賠償責任</b>，受損害之交易當事人得向經紀業或經紀人員請求賠償。</p>
+<p><b>四、結論</b></p>
+<p>綜上，不動產說明書之簽章解說流程依序為：委託人簽章確認內容無誤→經紀人員向交易相對人解說→締約時由經紀人將說明書交付相對人並由其簽章→該說明書視為契約之一部分；若經紀人員在製作、解說或簽章流程中有故意或過失之疏漏，致交易相對人受有損害，經紀業應與該經紀人員負連帶賠償責任，受害人得擇一或同時向經紀業及經紀人員求償。此一制度設計兼顧交易資訊揭露之即時性與求償對象之確定性，為保護不動產交易消費者權益之核心機制。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文04★</span> 109年申論二｜經營仲介業務者同時接受雙方委託之辦理方式 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 經營仲介業務者，欲同時接受買賣或租賃雙方之委託，應如何辦理？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、雙方代理制度之意義</b></p>
+<p>雙方代理（又稱雙方仲介）係指經紀業於同一買賣或租賃案件中，同時受買賣（或租賃）雙方當事人之委託，分別代理雙方利益的特殊仲介型態。因有違反民法上代理人不得為雙方代理之一般原則之虞，故不動產經紀業管理條例特別明文規定其合法辦理方式，使經紀業於兼顧交易效率之同時，仍能確保對雙方當事人之專業服務品質。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第24條之2。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）前提要件：須經雙方書面同意。</b> 經營仲介業務者須先取得<b>買賣或租賃雙方當事人之書面同意</b>，方得同時接受雙方委託，此為雙方代理合法化之前提要件，若未經雙方書面同意逕行同時接受雙方委託，即構成違法之雙方代理。</p>
+<p><b>（二）取得同意後應辦理之六項事項：</b> 取得雙方書面同意後，經紀業應依下列規定辦理：①公平提供雙方當事人類似不動產之交易價格；②公平提供雙方當事人有關契約內容規範之說明；③提供買受人或承租人關於不動產必要之資訊；④告知買受人或承租人依仲介專業應查知之不動產瑕疵；⑤協助買受人或承租人對不動產進行必要之檢查；⑥其他中央主管機關為保護買賣或租賃當事人所為之規定。</p>
+<p><b>（三）六項義務之核心精神：</b> 雖然經紀業同時服務雙方，但對買方（或承租人）一方仍須盡到主動告知瑕疵、提供必要資訊與協助檢查等積極保護義務，不能因雙方代理而降低對任一方之專業服務水準，此為雙方代理制度兼顧交易效率與當事人權益保障之核心設計。</p>
+<p><b>四、結論</b></p>
+<p>綜上，經營仲介業務者欲同時接受買賣或租賃雙方之委託，必須先經雙方當事人書面同意，並依法落實公平提供交易價格、契約內容說明、必要資訊、瑕疵告知及協助檢查等六項公平提供資訊與保護交易相對人之義務，否則即構成違法之雙方代理，依條例第29條規定，經紀業可處新臺幣3萬元以上15萬元以下罰鍰。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文05★</span> 112年申論二｜住戶資源回收堆置違規，管理委員會如何強制其遷離 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 社區住戶甲以資源回收為業，經常將資源回收物堆放於樓梯間及梯廳，經管理委員會多次要求移置仍未處理，報請環保局處以罰鍰在案後，甲依舊拒不處理。試問管理委員會應如何依公寓大廈管理條例之規定，將甲強制遷離？如甲為該專有部分之區分所有權人，管理委員會應如何進一步處理？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、強制遷離與強制拍賣制度之意義</b></p>
+<p>公寓大廈管理條例為維護其他住戶之共同居住品質與安全，就情節重大之違規住戶，設有由「制止勸導」逐步升級至「強制遷離」乃至「強制拍賣」之漸進式處分機制，此一制度兼顧住戶居住自由之最後手段性與其他住戶共同權益之保障。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第16條第2項（共用部分禁止堆置雜物）、第22條第1項（強制遷離之前提要件）、第2項（區分所有權人強制出讓程序）、第3項（拍賣所得受償順序）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）甲之行為是否構成強制遷離之前提要件：</b> 甲於樓梯間及梯廳堆置資源回收物，已違反第16條第2項不得於共同走廊、樓梯間等處堆置雜物之規定；且經管理委員會多次要求改善仍未處理，復經環保局處以罰鍰後仍拒不處理，已屬第22條第1項第2款所稱「違反本條例規定經主管機關處以罰鍰後，仍不改善或續犯」之情形，構成強制遷離之前提要件。</p>
+<p><b>（二）強制遷離之程序：</b> 管理委員會應先依第22條第1項規定，促請甲改善，於<b>3個月內</b>仍未改善者，得依<b>區分所有權人會議之決議</b>，訴請法院<b>強制甲遷離</b>。</p>
+<p><b>（三）甲為區分所有權人時之強制拍賣程序：</b> 依第22條第2項規定，若甲為該專有部分之區分所有權人，管理委員會得依區分所有權人會議之決議，訴請法院命甲<b>出讓</b>其區分所有權及其基地所有權或地上權應有部分；於<b>判決確定後3個月內</b>，甲若不自行出讓並完成移轉登記手續者，管理委員會得<b>聲請法院拍賣</b>該區分所有權。</p>
+<p><b>（四）拍賣所得受償順序：</b> 依第22條第3項規定，前述拍賣所得，除其他法律另有規定外，於積欠本條例應分擔之費用部分，其<b>受償順序與第一順位抵押權相同</b>，優先於一般債權受償。</p>
+<p><b>四、結論</b></p>
+<p>綜上，甲於共用部分堆置資源回收物且經處罰鍰後仍不改善，已符合公寓大廈管理條例第22條第1項強制遷離之前提要件，管理委員會應先促請改善，逾3個月仍未改善者，得依區分所有權人會議決議訴請法院強制甲遷離；甲如為該專有部分之區分所有權人，管理委員會並得進一步訴請法院命其出讓應有部分，判決確定後3個月內仍不出讓者，得聲請法院拍賣，拍賣所得就積欠費用部分享有與第一順位抵押權相同之優先受償順序，以維護其他住戶之共同生活品質與權益。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文06★</span> 114年申論二｜雙方代理超收服務費與經紀營業員另收報酬之違規案例 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 甲不動產仲介公司經買賣雙方書面同意，同時接受雙方委託媒合土地買賣，惟甲收取買賣雙方仲介服務費總額超過實際成交價百分之六；該公司經紀營業員乙並另向買方收取仲介服務費以外之其他報酬。試問甲與乙分別違反何種業務規範？依法應受何種處罰？其已超收之報酬應如何處理？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、差價及其他報酬禁止規定之意義</b></p>
+<p>不動產經紀業管理條例為防止經紀業或經紀人員利用其專業資訊優勢，於交易過程中巧取超額利益，損害委託人或交易相對人權益，特設有差價及其他報酬收取之禁止規定；此規定不因經紀業係以合法之雙方代理方式媒合交易，即得豁免其報酬收取上限之拘束，本題即為雙方代理合法、但報酬收取違法之典型案例。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第19條第1項、第2項；第29條第1項第1款；第31條第1項第2款。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）甲公司之違規：</b> 依第19條第1項規定，經紀業經營仲介業務者，應依實際成交價金或租金按中央主管機關規定之報酬標準計收報酬，不得收取差價或其他報酬。本題甲公司雖已依第24條之2規定取得買賣雙方書面同意而合法進行雙方代理，惟其<b>收取買賣雙方仲介服務費總額超過實際成交價6%</b>，已逾中央主管機關所定之報酬收取上限，構成違法超收報酬，此與雙方代理本身是否合法係屬二事，不得以雙方代理合法為由，豁免報酬收取上限之規範。</p>
+<p><b>（二）經紀營業員乙之違規：</b> 經紀營業員乙另向買方收取仲介服務費<b>以外</b>之其他報酬，亦違反第19條第1項「經紀業或經紀人員不得收取差價或其他報酬」之規定，與甲公司超收服務費係屬<b>兩個獨立之違規行為</b>，應分別論處。</p>
+<p><b>（三）處罰與返還：</b> ①依第19條第2項規定，甲公司與乙已收取之超額報酬或其他報酬，均應<b>於加計利息後加倍返還支付人</b>；②依第29條第1項第1款規定，甲公司（經紀業）處新臺幣<b>6萬元以上30萬元以下</b>罰鍰；③依第31條第1項第2款規定，乙（經紀人員）應予<b>6個月以上3年以下之停止執行業務處分</b>。</p>
+<p><b>四、結論</b></p>
+<p>綜上，甲公司收取雙方仲介服務費總額超過實際成交價6%，構成違法超收報酬，應處新臺幣6萬元以上30萬元以下罰鍰；經紀營業員乙另行收取服務費以外之其他報酬，則應受6個月以上3年以下停止執行業務之懲戒；甲、乙已收取之超額部分，均應依第19條第2項加計利息後加倍返還予原支付人。本題提醒應考人：雙方代理合法與否，與報酬收取是否合法，係分屬不同層次之判斷，兩者須分開檢視，不可因雙方代理已取得書面同意，即誤認報酬收取亦當然合法。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文07</span> 99年申論一｜消保法消費爭議調解委員會調解方案及異議規定 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 對於消費爭議調解委員會提出調解方案及調解方案之異議，消費者保護法有何規定？試說明之。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、消費爭議調解方案制度之意義</b></p>
+<p>消費者保護法為使消費爭議於進入訴訟程序前得有效解決，特別於調解程序中設計「職權提出解決方案」機制：當事人雖不能達成合意，惟調解委員審酌全案已甚接近合意者，得依職權提出解決事件之方案，藉此降低消費爭議之訟累，兼顧程序效率與當事人實質權益之保護。</p>
+<p><b>二、相關法條依據</b></p>
+<p>消費者保護法第45條之2（一般消費爭議之職權方案）、第45條之3（小額消費爭議之職權方案）、第45條之4（異議期間）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）一般消費爭議之職權方案：</b> 當事人不能合意但已甚接近者，調解委員得斟酌一切情形，求兩造利益之平衡，於不違反兩造當事人之主要意思範圍內，依職權提出解決事件之方案，並送達於當事人。此一方案應經<b>參與調解委員過半數</b>之同意，始得提出。</p>
+<p><b>（二）小額消費爭議之特別規定：</b> 當事人之一方無正當理由不於調解期日到場者，調解委員得審酌情形，依到場當事人一造之請求或依職權提出解決方案，並送達於當事人；此類方案應經<b>全體調解委員</b>過半數之同意（與一般消費爭議「參與調解委員」過半數之門檻不同，須特別區辨）。</p>
+<p><b>（三）異議期間及其效果：</b> 當事人對於前述職權提出之解決方案，得於<b>送達後10日之不變期間內</b>，提出異議；未於異議期間內提出異議者，<b>視為已依該方案成立調解</b>，發生與調解成立相同之法律效果；反之，於異議期間內提出異議者，<b>視為調解不成立</b>，當事人得再循其他途徑（如訴訟）解決爭議。</p>
+<p><b>四、結論</b></p>
+<p>綜上，消費者保護法對於調解委員依職權提出之解決方案，區分「一般消費爭議」（須經參與調解委員過半數同意）與「小額消費爭議」（一造不到場時，須經全體調解委員過半數同意）兩種不同門檻；當事人如未於送達後10日不變期間內提出異議，該方案即視為成立調解，此一機制兼顧程序效率與當事人異議救濟之權利，為消費爭議調解制度之核心設計。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文08</span> 99年申論二｜公寓大廈重建同意與不同意重建之處理 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 公寓大廈管理條例對於公寓大廈之重建同意與不同意重建之處理有何規定？試說明之。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、公寓大廈重建制度之意義</b></p>
+<p>公寓大廈之重建涉及全體區分所有權人重大財產處分，原則上應經全體同意；惟考量因地震、水災、風災、火災或其他重大事變致有危害公共安全之虞之特殊情形，若仍堅持全體同意原則，恐使亟需重建之危險建物遲遲無法處理，故條例就此類情形設有簡化之特別規定。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第13條（重建之原則與例外）、第14條（不同意重建者之處理程序）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）原則：應經全體同意。</b> 公寓大廈之重建，原則上應經全體區分所有權人及基地所有權人、地上權人或典權人之同意。</p>
+<p><b>（二）例外：因重大事變得依區權會決議重建。</b> 但公寓大廈因<b>地震、水災、風災、火災或其他重大事變</b>，肇致<b>危害公共安全之虞</b>者，其重建<b>不須</b>經全體區分所有權人及基地所有權人、地上權人或典權人之同意，僅須依區分所有權人會議之特別決議即可進行重建，此為簡化重建程序之核心規定。</p>
+<p><b>（三）不同意重建者之處理：</b> 經區分所有權人會議決議重建時，若有區分所有權人不同意決議，又不出讓區分所有權，或同意後不依決議履行其義務者，管理負責人或管理委員會得依區分所有權人會議之決議，<b>訴請法院命該區分所有權人出讓其區分所有權及其基地所有權應有部分</b>。</p>
+<p><b>（四）受讓人之地位：</b> 法院依前述規定裁判命出讓應有部分後，該應有部分之受讓人，<b>視為同意重建</b>，不得再事後爭執或拒絕配合重建程序，此為避免重建程序因個別異議者反覆爭執而遲滯不前之強制擬制規定。</p>
+<p><b>四、結論</b></p>
+<p>綜上，公寓大廈重建原則上應經全體同意，惟因重大事變致有危害公共安全之虞者，得簡化為僅依區分所有權人會議決議即可進行；對於不同意重建又不出讓應有部分之區分所有權人，管理負責人或管理委員會得訴請法院命其出讓，受讓人並視為同意重建，此一制度設計在保障個人財產權與維護公共安全及重建效率間，取得妥適之平衡。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文09</span> 100年申論一｜經紀業退還營業保證金之原因、期限、範圍與應檢附文件 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 試說明經紀業得請求退還繳存營業保證金之原因、期限、範圍，以及申請時應檢附之證明文件。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、營業保證金退還制度之意義</b></p>
+<p>營業保證金係經紀業依法應繳存，用以保障交易當事人因經紀業違規致受損害時得優先受償之基金。惟經紀業若已無經營仲介或代銷業務之事實或需要，法律亦設有退還機制，避免其資金遭長期無謂凍結，兼顧保障交易安全與經紀業資金運用彈性。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第26條；不動產經紀業管理條例施行細則相關退還規定。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）得請求退還之原因：</b> ①公司組織申請解散者②商號組織申請歇業者③營業項目經變更登記後，該公司或商號已無不動產仲介經紀業及不動產代銷經紀業，而組織仍存續者。三者皆以經紀業已確定不再經營仲介或代銷業務為共同前提。</p>
+<p><b>（二）退還期限：</b> 經紀業應自<b>核准註銷營業之日滿1年後2年內</b>請求退還，此一「先滿1年、再2年內申請」之期限設計，係為保留一段期間供可能之交易糾紛求償，避免經紀業一旦停業即立即抽回保證金，致已生之交易糾紛求償無門。</p>
+<p><b>（三）退還範圍：</b> 得請求退還者為原繳存之營業保證金本金，<b>不包括</b>營業保證金於保管期間所生之孳息（利息收益），孳息應留存於基金專戶統籌運用。</p>
+<p><b>（四）應檢附文件：</b> 應檢附核准註銷營業之證明文件，以及中央主管機關規定之其他必要文件，以供全國聯合會審核確認該經紀業確已終止仲介或代銷業務。</p>
+<p><b>四、結論</b></p>
+<p>綜上，經紀業得因解散、歇業或變更營業項目致不再經營仲介代銷業務等三種原因，於核准註銷營業滿1年後2年內，檢附相關證明文件申請退還原繳存之營業保證金（不含孳息）。此一退還機制在確保交易安全求償空間之前提下，兼顧經紀業退場後之資金流動性，為營業保證金制度設計上「保障」與「彈性」並重之具體展現。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierC">
+      <summary><span class="essay-num">範文10</span> 100年申論二｜多層次傳銷參加人定義與解約權終止權（低頻參考題） <span class="tier-badge tierC">🟢C級參考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂「多層次傳銷參加人」？公平交易法對於多層次傳銷參加人之解約權與終止權規定如何？試分別說明之。（25分）</p>
+<p class="essay-warn">⚠️備考提醒：多層次傳銷已於103年起獨立立法為《多層次傳銷管理法》，自104年起不再出現於本科考題範圍，本題僅供了解歷史沿革之參考，<b>不建議投入過多時間深記</b>。</p>
+<h4>【範文】</h4>
+<p><b>一、多層次傳銷參加人之意義</b></p>
+<p>多層次傳銷參加人，係指加入多層次傳銷計畫或組織，從事傳銷商品或服務，並因介紹他人加入而得因此取得佣金、獎金或其他經濟利益之人。</p>
+<p><b>二、相關法條依據（依103年獨立立法前之公平交易法舊制）</b></p>
+<p>公平交易法多層次傳銷專章（現已移列獨立之多層次傳銷管理法第19、20條）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）解約權：</b> 參加人得自訂約日起一定期限內，以書面通知傳銷事業解除契約，無須負擔任何費用或損害賠償。</p>
+<p><b>（二）終止權：</b> 參加人於前述期限經過後，仍得隨時以書面通知傳銷事業終止契約；傳銷事業於契約終止後，應以參加人原購價格之一定成數買回其所持有之商品，並得扣除已支付之獎金報酬及相關必要費用。</p>
+<p><b>四、結論</b></p>
+<p>多層次傳銷參加人享有法定之解約權（訂約後一定期限內無條件解除）及終止權（期限經過後仍得隨時終止）雙重保障，此一制度設計目的在避免參加人因一時衝動加入傳銷組織後求助無門，惟因該制度已於103年獨立立法為多層次傳銷管理法，現行經紀法規考科已不再納入此範疇，應考時可將心力優先投注於仍在考科範圍內之其他主題。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文11</span> 101年申論一｜經紀人員雙重執業是否符合不動產經紀業管理之意旨 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 某經紀人員甲為增加業績以提高收入，分別於A、B兩家經紀業營業處所任職，此種情形是否符合不動產經紀業管理之意旨？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、經紀人員專任義務之意義</b></p>
+<p>不動產經紀業管理條例為確保經紀人員對其所屬經紀業之責任歸屬明確，並避免經紀人員因同時服務多家經紀業致利益衝突或服務品質下降，特設有「專任義務」規定，惟為兼顧經紀人員之執業彈性，法律亦設有經同意之例外規定。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第16條。</p>
+<p><b>三、涵攝分析</b></p>
+<p>依第16條規定，經紀人員應<b>專任一經紀業</b>，不得為自己或他經紀業執行仲介或代銷業務。<b>但經所屬經紀業同意為他經紀業執行業務者，不在此限。</b></p>
+<p>本題經紀人員甲同時於A、B兩家經紀業營業處所任職，其行為是否符合管理意旨，關鍵在於甲是否已取得<b>A經紀業（其原專任所屬經紀業）之同意</b>，方得為B經紀業執行業務：</p>
+<p>（一）<b>若甲已取得A經紀業之書面或適當方式同意</b>，其於B經紀業執行業務即屬合法，符合條例第16條但書之例外規定，並不違反經紀業管理之意旨，蓋法律已明文承認經同意後之兼職執業型態。</p>
+<p>（二）<b>若甲未經A經紀業同意即擅自為B經紀業執行業務</b>，則屬違反第16條專任義務之規定，依第29條相關規定，經紀人員違反本條例者，應予<b>申誡</b>之懲戒處分（此為經紀人員懲戒體系中較輕微之處分類型，非收取差價等重大違規所適用之停止執行業務處分）。</p>
+<p><b>四、結論</b></p>
+<p>綜上，經紀人員甲同時於A、B兩經紀業任職，並非當然違反不動產經紀業管理之意旨，其適法性繫於是否已取得原專任所屬經紀業（A經紀業）之同意：已取得同意者，屬條例明文允許之例外，合法有效；未經同意者，則構成違反專任義務，應受申誡之懲戒。此一制度設計兼顧經紀人員執業自由與經紀業對其人員之管理監督需求，非全面禁止兼職，而是採「原則專任、例外經同意得兼任」之彈性規範模式。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文12</span> 101年申論二｜仲介公會決議收費下限是否適法（公平交易法評析） <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 仲介公會經理監事會議決議，要求會員收取仲介費用之標準，不得低於公會所訂之下限。試依公平交易法之相關規定，評析該公會之前述會議決議是否適法。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、同業公會決議與聯合行為之關係</b></p>
+<p>公平交易法為維護市場自由競爭秩序，原則禁止有競爭關係之事業間以合意方式共同決定價格等相互約束事業活動之行為（即聯合行為）；同業公會雖為事業共同組成之團體，惟公會藉由決議所為約束成員事業活動之行為，性質上仍屬聯合行為之一種，同受本法規範。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公平交易法第14條（聯合行為定義，含同業公會決議約束事業活動視為聯合行為）、第15條（聯合行為原則禁止、例外經許可者不在此限）。</p>
+<p><b>三、涵攝分析</b></p>
+<p>依第14條規定，事業不得為聯合行為，所稱聯合行為，係指有競爭關係之同一產銷階段事業，以契約、協議或其他方式之合意，與有競爭關係之他事業共同決定商品或服務之價格，或限制數量、技術、產品、設備、交易對象、交易地區等，相互約束事業活動之行為；而<b>同業公會之成員藉該公會之決議所為約束事業活動之行為，亦為本法所稱之聯合行為</b>。</p>
+<p>本題仲介公會經理監事會議決議，要求全體會員收取仲介費用不得低於公會所訂下限，其本質即為公會藉決議約束會員（有競爭關係之仲介經紀業者）就服務報酬（價格）為共同決定，相互約束其事業活動之定價自由，完全該當第14條聯合行為之定義。</p>
+<p>依第15條規定，事業原則不得為聯合行為，<b>但有益於整體經濟與公共利益，並經中央主管機關許可者，不在此限</b>。本題公會決議之目的僅在維持會員收費不致過低競爭，性質上屬單純之限制競爭卡特爾行為，並非基於降低成本改良品質、促進合理經營專業分工、確保促進輸出等法定八款許可事由，亦未見公會事先依法申請許可，故<b>不符合任何法定例外許可情形</b>。</p>
+<p><b>四、結論</b></p>
+<p>綜上，仲介公會經理監事會議決議要求會員收費不得低於下限，其性質屬公平交易法第14條所稱之聯合行為，因未經中央主管機關依第15條許可，亦不具備任何法定例外許可事由，該決議應屬<b>違法之聯合行為</b>，公會與參與該決議之會員事業，均可能面臨公平交易委員會依法限期令停止、改正或處以罰鍰之處分。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文13</span> 102年申論一｜約定共用部分定義、規約定義及對繼受人效力 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 某不動產仲介公司被委託出售一棟五層公寓大廈之某層樓，該大廈地下室劃設四個停車位。何謂「約定共用部分」？何謂「規約」？系爭樓層承購戶於辦竣所有權移轉登記後，始發現並無分配之停車位使用權，遂主張該規約對其不生效力，其主張有無理由？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、約定共用部分與規約之意義</b></p>
+<p>約定共用部分係公寓大廈管理條例為使建物之使用配置得因應住戶實際需要而設計之彈性機制，允許將原屬個人專有之部分經約定供共同使用；規約則為住戶就共同事務所形成之自治性共同遵守事項，兩者皆為公寓大廈自治管理制度之核心工具。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第3條第6款（約定共用部分定義）、第3條第12款（規約定義）、第23條第2項（規約應載明事項）、第24條（繼受人之義務）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）約定共用部分定義：</b> 依第3條第6款規定，約定共用部分係指公寓大廈<b>專有部分</b>經約定供共同使用者。本題停車位若原屬特定住戶之專有部分，經約定供其他住戶共同使用，即屬約定共用部分之典型態樣。</p>
+<p><b>（二）規約定義：</b> 依第3條第12款規定，規約係指公寓大廈區分所有權人為增進共同利益，確保良好生活環境，經<b>區分所有權人會議決議</b>之共同遵守事項。</p>
+<p><b>（三）承購戶主張規約不生效力有無理由：</b> 依第23條第2項規定，約定專用部分或約定共用部分之範圍及使用主體，非經載明於規約者，不生效力；故本題應先確認該停車位分配規則是否已依法<b>載明於規約</b>並經合法決議程序成立。若已合法載明於規約，依第24條規定，區分所有權之繼受人（本題承購戶）應於<b>繼受前</b>向管理負責人或管理委員會請求閱覽或影印規約，並於<b>繼受後</b>遵守規約所定之一切權利義務事項；繼受人不得以「未及注意」或「事後始發現」為由，主張規約對其不生效力，蓋此為繼受人法定之查閱義務，怠於行使查閱義務之不利益應由繼受人自行承擔。反之，若該停車位分配規則<b>未合法載明於規約</b>（僅為管理委員會片面決定或未經區權會決議），則該分配規則本身即因欠缺法定生效要件而不生效力，承購戶之主張始有理由。</p>
+<p><b>四、結論</b></p>
+<p>綜上，承購戶主張規約對其不生效力是否有理由，繫於系爭停車位分配規則是否已依法載明於規約並經合法決議成立：若已合法載明，承購戶依法負有繼受前查閱之義務，事後始發現不得執以對抗規約效力，其主張無理由；若規約本身未合法記載該分配規則，則因欠缺法定生效要件，該規則對全體住戶（含承購戶）均不生效力，此時承購戶之主張始有理由。此一制度設計之核心在於平衡「規約自治效力之安定性」與「繼受人查閱義務之落實」兩項價值。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文14</span> 102年申論二｜何謂不動產經紀業、委託契約簽章立法目的及違反處理 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂「不動產經紀業」？不動產仲介業受委託出售不動產者，其依法應指派經紀人於該出售委託契約書上簽章，其立法目的為何？倘若不動產仲介業違反前述之情事者，主管機關應如何處理？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不動產經紀業之意義</b></p>
+<p>不動產經紀業係不動產交易市場中連結買賣雙方、提供專業居間或代理服務之重要中介角色，其專業性與誠信度直接攸關交易安全，故法律對其組織型態、業務範圍及執業規範設有專門規制。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第4條第4款（經紀業定義）、第22條第1項第1款（委託契約書簽章義務）、第29條（違反處罰）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）不動產經紀業定義：</b> 依第4條第4款規定，不動產經紀業係指依本條例規定經營仲介或代銷業務之<b>公司或商號</b>。</p>
+<p><b>（二）委託契約書簽章之立法目的：</b> 依第22條第1項第1款規定，不動產出租、出售委託契約書應由經紀業指派<b>經紀人</b>簽章。其立法目的在於：經紀人須經國家考試及格並領有證書，具備一定之專業知識與法律責任意識，要求由經紀人於委託契約書上簽章，得確保契約內容經專業人員審核把關，避免未具專業資格之人員草率代客戶簽訂契約，致委託人之權益因契約條款疏漏或不當而受損害，此為保障委託人（交易當事人）締約前資訊對稱與契約品質之關鍵機制。</p>
+<p><b>（三）違反處理：</b> 不動產仲介業若違反第22條第1項第1款規定，未指派經紀人於委託契約書上簽章，依第29條第1項第1款規定，由直轄市、縣（市）主管機關處新臺幣<b>6萬元以上30萬元以下</b>罰鍰。</p>
+<p><b>四、結論</b></p>
+<p>綜上，不動產經紀業係依法經營仲介或代銷業務之公司或商號；委託契約書應由經紀人簽章之立法目的，在於確保契約內容經專業把關以保障委託人權益；經紀業違反此一簽章義務者，主管機關得處新臺幣6萬元以上30萬元以下罰鍰，此一裁罰設計兼具嚇阻效果，藉以督促經紀業確實落實法定簽章程序，維護不動產交易市場之專業性與交易安全。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文15</span> 103年申論一｜經營經紀業開業要件、開始營業期限及僱用未具資格罰則 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 某甲擬投資從事不動產經紀業之經營，應符合那些要件？又應於多久期限內開始營業？另經紀業如僱用未具備經紀人員資格者，會受到何種處罰？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、經紀業開業制度之意義</b></p>
+<p>不動產經紀業之經營涉及高度公眾利益，法律設有嚴謹之開業要件把關機制，以確保進入市場之經紀業具備基本之組織健全性、財務保障能力及專業人力配置，藉此維護不動產交易市場之整體品質。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第5條（許可）、第7條（開業程序）、第17條（僱用資格限制）、第29條（罰則）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）開業應符合之要件：</b> 甲擬經營經紀業，應依序完成：①向主管機關申請<b>許可</b>②經許可後，依法辦妥<b>公司或商業登記</b>③加入登記所在地之<b>同業公會</b>④依中央主管機關規定<b>繳存營業保證金</b>，四項程序缺一不可，始得開始營業。</p>
+<p><b>（二）開始營業之期限：</b> 經紀業經許可並完成前述登記、入會、繳存保證金等程序後，應於<b>6個月內開始營業</b>；逾期未開始營業者，主管機關得廢止其許可（實務上得申請展延一次，以3個月為限）。</p>
+<p><b>（三）僱用未具資格者之處罰：</b> 依第17條規定，經紀業不得僱用未具備經紀人員資格者從事仲介或代銷業務；違反者，依第29條第1項相關款次規定，由直轄市、縣（市）主管機關處新臺幣<b>6萬元以上30萬元以下</b>罰鍰，此屬業務核心義務之重大違規，罰鍰級距與委託契約書未簽章等情形相同，皆屬經紀業罰則中之較高級距。</p>
+<p><b>四、結論</b></p>
+<p>綜上，甲擬經營不動產經紀業，須依序完成申請許可、辦妥公司或商業登記、加入同業公會、繳存營業保證金四項法定要件，並應於6個月內開始營業，逾期未開業者許可將遭廢止；若經紀業僱用未具經紀人員資格者從事仲介或代銷業務，將面臨新臺幣6萬元以上30萬元以下罰鍰之處分，此一制度設計旨在確保市場上之經紀業從籌設之初即具備完整之組織與人力合法性基礎。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文16</span> 104年申論一｜經紀人甲網路刊登仲介廣告適法性分析 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 不動產經紀人甲任職於A不動產經紀公司，受好友請託仲介銷售房屋，甲於網路上房屋交易網站刊登銷售該屋之廣告。試問甲的仲介行為，應如何進行方為適法？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、經紀業廣告刊登規範之意義</b></p>
+<p>不動產經紀業管理條例對經紀業刊登廣告及銷售行為設有前提要件與內容真實性要求，目的在確保交易資訊之正確性與可歸責性，避免消費者因不實或不明確之廣告而誤信交易，亦利於發生爭議時能明確追溯責任歸屬。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第21條第1項、第2項。</p>
+<p><b>三、涵攝分析</b></p>
+<p>依第21條第1項規定，經紀業與委託人<b>簽訂委託契約書後，方得刊登廣告及銷售</b>；本題甲受好友請託仲介銷售房屋，若甲僅以個人名義口頭答應協助，未經其所屬A經紀公司與委託人（好友）簽訂正式委託契約書，即逕自於網路刊登廣告，已違反委託契約書先行簽訂之法定前提要件。</p>
+<p>依第21條第2項規定，廣告及銷售內容，應與事實相符，並<b>註明經紀業名稱</b>；本題若甲僅刊登個人聯絡電話，未註明其所屬A經紀公司之名稱，亦違反本項規定，蓋不動產仲介行為之責任主體應歸屬經紀業本身，而非經紀人員個人，未註明經紀業名稱將使消費者無從辨識其交易對象之經紀業身分，亦不利日後爭議之追溯處理。</p>
+<p><b>甲欲使其仲介行為適法，應依序完成：</b> ①由其所屬A經紀公司與委託人（好友）先行簽訂委託契約書②廣告及銷售內容應與事實相符③廣告應<b>註明A經紀公司名稱</b>（而非僅刊登甲個人聯絡方式）④依規定由A經紀公司指派經紀人於廣告稿上簽章。</p>
+<p><b>四、結論</b></p>
+<p>綜上，甲若欲合法進行本件房屋仲介業務，應先由其所屬經紀業與委託人簽訂正式委託契約書，取得合法之委託授權基礎，其後刊登之網路廣告內容應與事實相符並註明所屬經紀業名稱，且廣告稿應經指派之經紀人簽章，如此方能符合不動產經紀業管理條例第21條所定之廣告刊登適法性要件，否則甲及其所屬經紀業將面臨新臺幣6萬元以上30萬元以下罰鍰之處分。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文17</span> 104年申論二｜代銷公司與廣告公司虛偽不實廣告責任 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 甲不動產代銷公司委託乙廣告公司製作廣告，要求乙廣告公司在廣告上載明「開車到市中心只要五分鐘」等交通便利宣傳文字。依公平交易法之規定，甲、乙各有何責任？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不實廣告責任體系之意義</b></p>
+<p>公平交易法為防止事業以誇大不實之廣告誤導消費者交易決定，除規範廣告主本身之責任外，對於實際參與廣告製作之廣告代理業，亦課以連帶責任，藉此督促廣告製作環節之各參與者共同善盡查證義務，強化不實廣告之防制效果。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公平交易法第21條（虛偽不實廣告禁止及廣告代理業連帶責任）。</p>
+<p><b>三、涵攝分析</b></p>
+<p>依第21條第1項、第2項規定，事業不得在商品或廣告上，對於與商品相關而足以影響交易決定之事項，為虛偽不實或引人錯誤之表示；本題「開車到市中心只要五分鐘」若與該建案實際地理位置及交通狀況顯不相符，已構成對商品內容（區位交通條件）之虛偽不實表示，違反第21條第1、2項規定。</p>
+<p><b>甲代銷公司之責任：</b> 甲身為廣告主，就其委託製作之廣告內容負有確保真實之義務，違反第21條規定者，主管機關（公平交易委員會）得限期令其停止、改正其行為或採取必要更正措施，並得處新臺幣5萬元以上2500萬元以下罰鍰；甲並應對因信賴該廣告而受損害之消費者負損害賠償責任。</p>
+<p><b>乙廣告公司之責任：</b> 依第21條規定，廣告代理業在<b>明知或可得而知</b>情形下，仍製作或設計有引人錯誤之廣告者，應與廣告主（甲）就消費者信賴該廣告所受之損害，負<b>連帶損害賠償責任</b>。本題乙廣告公司係依甲之要求製作該不實交通宣傳文字，若乙明知或可得而知該敘述與實際交通狀況不符仍予製作，即應與甲負連帶賠償責任。</p>
+<p><b>四、結論</b></p>
+<p>綜上，甲代銷公司身為廣告主，就本件不實廣告內容應負主要之公法（限期改正、罰鍰）及私法（損害賠償）責任；乙廣告公司若於明知或可得而知廣告內容不實之情形下仍予製作，亦應與甲就消費者所受損害負連帶賠償責任，此一連帶責任設計，目的在使廣告製作鏈中之各參與者均負有查證廣告內容真實性之注意義務，不得以「僅依客戶指示製作」為由卸免責任。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文18</span> 105年申論一｜何謂不動產、經紀人員及應簽章文件 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂「不動產」？何謂「經紀人員」？不動產之買賣、互易、租賃或代理銷售，如委由經紀業仲介或代銷者，那些文件應由經紀業指派經紀人簽章？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不動產與經紀人員定義之意義</b></p>
+<p>不動產經紀業管理條例第4條就本條例規範之核心用語設有明確定義，此為理解全部條例規範內容之基礎，亦是判斷經紀業務範圍及執業人員資格之出發點。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第4條（用辭定義）、第22條第1項（簽章文件）、第22條第2項（代銷業務不適用之例外）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）不動產之定義：</b> 依第4條規定，不動產係指土地、土地定著物或房屋及其可移轉之權利。</p>
+<p><b>（二）經紀人員之定義：</b> 經紀人員包含經紀人及經紀營業員；經紀人係指依本條例規定經營仲介或代銷業務之公司或商號所指派，經考試及格並領有證書之專業人員；經紀營業員之職務為協助經紀人執行仲介或代銷業務。</p>
+<p><b>（三）應由經紀業指派經紀人簽章之文件：</b> 依第22條第1項規定，不動產之買賣、互易、租賃或代理銷售，如委由經紀業仲介或代銷者，下列六類文件應由經紀業指派<b>經紀人</b>簽章：①不動產出租、出售委託契約書②承租、承購要約書③定金收據④不動產廣告稿⑤不動產說明書⑥不動產租賃、買賣契約書。</p>
+<p><b>（四）代銷業務之例外：</b> 依第22條第2項規定，前述六類文件中之第①、②款（委託契約書、要約書），於經營<b>代銷業務</b>者不適用，此為本科高頻重複命題之陷阱：代銷業務之委託關係存在於起造人或建築業與經紀業之間，並非與一般消費者訂立委託契約書或要約書，故此二類文件於代銷業務不適用簽章規定。</p>
+<p><b>四、結論</b></p>
+<p>綜上，不動產係指土地、土地定著物或房屋及其可移轉之權利；經紀人員涵蓋經紀人與經紀營業員；委由經紀業仲介或代銷不動產者，應由經紀業指派經紀人於委託契約書、要約書、定金收據、廣告稿、不動產說明書、租賃買賣契約書等六類文件上簽章，惟其中委託契約書及要約書於代銷業務不適用，此一區分乃因仲介業務與代銷業務之委託關係主體不同所致，為應考時務必精確掌握之核心考點。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierC">
+      <summary><span class="essay-num">範文19</span> 105年申論二｜不動產說明書土地（素地）使用管制內容應記載事項 <span class="tier-badge tierC">🟢C級參考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 依不動產說明書應記載及不得記載事項，試述土地（素地）「使用管制內容」之應記載事項為何？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不動產說明書使用管制記載之意義</b></p>
+<p>不動產說明書就土地（素地）之使用管制內容設有詳盡之應記載事項，目的在使買方於購地前充分了解該土地之法定使用限制，避免因不知悉使用管制而購入無法依原預想用途使用之土地，此為保障土地交易資訊透明化之重要環節。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產說明書應記載及不得記載事項（土地部分）壹、一、（五）。</p>
+<p><b>三、涵攝分析</b></p>
+<p>依土地說明書使用管制內容之應記載事項，經紀業應載明：</p>
+<p><b>（一）使用分區或編定：</b> 該土地依都市計畫或非都市土地使用管制規定之使用分區類別（如住宅區、商業區）或土地使用編定類別（如農牧用地、建築用地）。</p>
+<p><b>（二）法定建蔽率、容積率：</b> 依都市計畫或非都市土地使用管制相關法規所定之建蔽率與容積率上限。</p>
+<p><b>（三）開發方式限制：</b> 該土地是否受特定開發方式（如須經整體開發、須辦理都市設計審議等）之限制。</p>
+<p><b>（四）是否屬不得興建農舍之農業用地：</b> 若該土地屬農業用地，應敘明是否符合興建農舍之要件。</p>
+<p><b>（五）土地開發者應敘明之八項特殊管制：</b> 該土地是否屬①山坡地②水土保持特定區③河川區域④排水設施範圍⑤國家公園特別景觀區⑥飲用水水源保護區⑦自來水水質水量保護區⑧土壤或地下水污染場址等特殊管制區域，若屬之，應具體敘明其管制內容及對土地開發利用之影響。</p>
+<p><b>四、結論</b></p>
+<p>綜上，不動產說明書就土地（素地）使用管制內容之應記載事項，涵蓋使用分區或編定、法定建蔽率容積率、開發方式限制、農地興建農舍之適格性，以及八項特殊管制區域之揭露，此類記載事項共同構成買方判斷土地實際可利用程度及開發限制之關鍵資訊基礎，經紀業製作說明書時應逐項確實查證並記載，以善盡專業揭露義務。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文20</span> 106年申論一｜約定專用部分定義及起造人成立後能否由區權會決議變更 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂約定專用部分？公寓大廈之起造人於申請建造執照時成立之約定專用部分，區分所有權人會議之決議是否可以予以變更？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、約定專用部分制度之意義</b></p>
+<p>約定專用部分制度係為使公寓大廈之共用資源得因應特定住戶之實際使用需求，經約定程序後供其特定使用，兼顧建物整體使用效率與特定住戶生活便利性之彈性安排；惟此類約定既涉及全體住戶對共有資源之處分，其變更自亦應遵循一定之法定程序保障。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第3條第5款（約定專用部分定義）、第33條第1款（約定專用部分變更之要件）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）約定專用部分定義：</b> 依第3條第5款規定，約定專用部分係指公寓大廈共用部分經約定供特定區分所有權人使用者。</p>
+<p><b>（二）起造人成立之約定專用部分能否由區權會決議變更：</b> 依第33條第1款規定，成立之約定專用部分於<b>變更時</b>，應經<b>使用該約定專用部分之區分所有權人同意</b>。<b>但</b>該約定專用顯已違反公共利益，經管理委員會或管理負責人訴請法院判決確定者，不在此限。</p>
+<p>本題起造人於申請建造執照時所成立之約定專用部分，其性質仍屬依法成立之約定專用部分，其後續變更仍應適用第33條第1款之規定：原則上須經<b>該約定專用部分之使用人（即受配置享有該部分使用權之區分所有權人）同意</b>，區分所有權人會議<b>不得</b>逕行以決議方式片面變更該約定專用部分之範圍或使用主體，此為保障該特定區分所有權人既得使用利益之核心規定；僅於該約定專用<b>顯已違反公共利益</b>，且經管理委員會或管理負責人<b>訴請法院判決確定</b>之特殊情形下，始得排除該使用人同意之要件而變更之。</p>
+<p><b>四、結論</b></p>
+<p>綜上，約定專用部分係指公寓大廈共用部分經約定供特定區分所有權人使用者；起造人於申請建造執照時成立之約定專用部分，區分所有權人會議<b>不得</b>逕行決議變更，原則上須經該約定專用部分使用人之同意，僅例外於該約定專用顯已違反公共利益並經法院判決確定時，始得不經使用人同意而變更之。此一制度設計旨在保障特定住戶對其約定專用部分之信賴利益，避免多數決機制侵害少數特定使用人之既得權益。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文21</span> 106年申論二｜定型化契約定義及應記載不得記載事項範疇 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂定型化契約？中央主管機關為預防消費糾紛，保護消費者權益，促進定型化契約之公平化，得選擇特定行業擬訂定型化契約應記載或不得記載事項。其內容得包括那些項目？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、定型化契約制度之意義</b></p>
+<p>定型化契約係現代大量交易社會下，企業經營者為與不特定多數消費者訂立同類契約而預先擬定之契約型態；因此類契約條款多由企業經營者單方擬定，消費者僅能選擇接受與否，欠缺個別磋商之空間，故消費者保護法特設有應記載及不得記載事項制度，藉由行政公權力事前介入，矯正契約雙方締約地位之實質不對等。</p>
+<p><b>二、相關法條依據</b></p>
+<p>消費者保護法第2條第9款（定型化契約定義）、第17條（應記載或不得記載事項）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）定型化契約定義：</b> 依第2條第9款規定，定型化契約係指以企業經營者提出之定型化契約條款作為契約內容之全部或一部而訂立之契約。</p>
+<p><b>（二）應記載事項得包括之內容：</b> 依第17條規定，中央主管機關為預防消費糾紛，保護消費者權益，促進定型化契約之公平化，得選擇特定行業擬訂其定型化契約應記載或不得記載事項，依契約性質及目的，<b>應記載事項</b>得包括：①契約之重要權利義務事項②違反契約之法律效果③預付型交易之履約擔保④契約之解除權、終止權及其法律效果⑤其他與契約履行有關之事項。</p>
+<p><b>（三）不得記載事項得包括之內容：</b> <b>不得記載事項</b>得包括：①企業經營者保留契約內容或期限之變更權或解釋權②限制或免除企業經營者之義務或責任③限制或剝奪消費者行使權利，加重消費者之義務④其他對消費者顯失公平之事項。</p>
+<p><b>四、結論</b></p>
+<p>綜上，定型化契約係企業經營者為與不特定多數消費者訂立同類契約而預先擬定之契約條款所構成之契約型態；中央主管機關得選擇特定行業擬訂應記載或不得記載事項，前者聚焦於契約重要權利義務、違約效果、履約擔保等消費者應知悉之積極內容，後者則聚焦於排除企業經營者片面變更權、免責約定及顯失公平條款等消極限制，兩者共同構成矯正定型化契約締約地位不對等之制度性保障。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文22</span> 107年申論一｜強制遷離與強制拍賣程序（一般版） <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 住戶有何種情形時，管理委員會促請其改善卻未改善者，管理委員會得訴請法院強制其遷離？如該住戶為區分所有權人時，管理委員會如何聲請法院強制拍賣其區分所有權？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、強制遷離與強制拍賣制度之意義</b></p>
+<p>公寓大廈管理條例為維護其他住戶之共同居住品質與安全，就情節重大之違規住戶，設有由「制止勸導」逐步升級至「強制遷離」乃至「強制拍賣」之漸進式處分機制，此一制度兼顧住戶居住自由之最後手段性與其他住戶共同權益之保障。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第22條第1項（強制遷離之前提要件）、第2項（區分所有權人強制出讓程序）、第3項（拍賣所得受償順序）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）得訴請法院強制遷離之情形：</b> 依第22條第1項規定，住戶有下列情形之一者，由管理負責人或管理委員會促請其改善，於<b>3個月內</b>仍未改善者，管理負責人或管理委員會得依區分所有權人會議之決議，訴請法院<b>強制其遷離</b>：①積欠依本條例規定應分擔之費用，經強制執行後再度積欠金額達其區分所有權總價<b>百分之一</b>者②違反本條例規定經主管機關處以罰鍰後，仍不改善或續犯者③其他違反法令或規約，情節重大者。</p>
+<p><b>（二）住戶為區分所有權人時之強制拍賣程序：</b> 依第22條第2項規定，前項之住戶如為區分所有權人時，管理負責人或管理委員會得依區分所有權人會議之決議，訴請法院命該區分所有權人<b>出讓</b>其區分所有權及其基地所有權或地上權應有部分；於<b>判決確定後3個月內</b>，該區分所有權人若不自行出讓並完成移轉登記手續者，管理負責人或管理委員會得<b>聲請法院拍賣</b>該區分所有權。</p>
+<p><b>（三）拍賣所得受償順序：</b> 依第22條第3項規定，前項拍賣所得，除其他法律另有規定外，於積欠本條例應分擔之費用部分，其<b>受償順序與第一順位抵押權相同</b>，優先於一般債權受償。</p>
+<p><b>四、結論</b></p>
+<p>綜上，住戶有積欠費用達區分所有權總價1%、違反規定經罰鍰後仍不改善、或其他情節重大違規等三種情形之一，經管理負責人或管理委員會促請改善逾3個月仍未改善者，得依區分所有權人會議決議訴請法院強制其遷離；該住戶如為區分所有權人，管理負責人或管理委員會並得進一步訴請法院命其出讓應有部分，判決確定後3個月內仍不出讓者，得聲請法院拍賣，拍賣所得就積欠費用部分享有與第一順位抵押權相同之優先受償順序。此一漸進式強制處分機制，充分體現對違規住戶處置手段之比例原則設計。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文23</span> 107年申論二｜差價定義、違反處理及經紀業與經紀人員處罰規定 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 依不動產經紀業管理條例規定，經紀業或經紀人員不得收取差價或其他報酬。何謂差價？如違反規定時，已收取之差價或其他報酬應如何處理？依法該經紀業及經紀人員有何處罰規定？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、差價禁止規定之意義</b></p>
+<p>不動產經紀業管理條例為防止經紀業或經紀人員利用其專業資訊優勢，於交易過程中巧取超額利益，損害委託人或交易相對人權益，特設有差價及其他報酬收取之禁止規定，此為經紀業誠信執業義務之核心體現。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第4條第9款（差價定義）、第19條（禁止收取差價及違反處理）、第29條（經紀業罰則）、第31條（經紀人員懲戒）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）差價之定義：</b> 依第4條第9款規定，差價係指<b>實際買賣交易價格</b>與<b>委託銷售價格</b>之差額。</p>
+<p><b>（二）違反規定之處理：</b> 依第19條規定，經紀業或經紀人員不得收取差價或其他報酬，經營仲介業務者，並應依實際成交價金或租金按中央主管機關規定之報酬標準計收；違反前述規定者，其已收取之差價或其他報酬，應<b>於加計利息後加倍返還支付人</b>。</p>
+<p><b>（三）經紀業之處罰：</b> 依第29條規定，經紀業違反第19條第1項收取差價或其他報酬規定者，由直轄市、縣（市）主管機關處新臺幣<b>6萬元以上30萬元以下</b>罰鍰。</p>
+<p><b>（四）經紀人員之懲戒：</b> 依第31條規定，經紀人員違反第19條第1項收取差價或其他報酬規定者，應予<b>6個月以上3年以下之停止執行業務處分</b>；經紀人員累計受停止執行業務處分達5年以上者，應廢止其經紀人員證書或證明。</p>
+<p><b>四、結論</b></p>
+<p>綜上，差價係指實際買賣交易價格與委託銷售價格之差額；經紀業或經紀人員違反不得收取差價或其他報酬之規定者，已收取之差價或其他報酬應加計利息後加倍返還支付人，經紀業並將面臨新臺幣6萬元以上30萬元以下罰鍰，經紀人員則應受6個月以上3年以下之停止執行業務處分，此一「加倍返還＋雙重處罰（罰鍰＋懲戒）」之制度設計，展現法律對經紀業收取差價此一重大誠信違規行為之高度嚇阻立場。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文24</span> 109年申論一｜消保法規範不動產廣告主要規範內容 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 試根據消費者保護法，說明不動產廣告的主要規範內容為何。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、消保法廣告規範之意義</b></p>
+<p>消費者保護法就企業經營者刊登廣告設有真實性擔保義務，此係為使消費者於資訊對稱之基礎上作成交易決定，避免因廣告內容不實或誇大致陷於錯誤而締約，同時亦課予廣告媒體業者於明知不實情形下之連帶責任，強化廣告內容真實性之整體防護網。</p>
+<p><b>二、相關法條依據</b></p>
+<p>消費者保護法第22條（廣告真實義務）、第22條之1（分期付款廣告應明示總費用年百分率）、第23條（媒體經營者連帶責任）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）廣告真實義務：</b> 依第22條規定，企業經營者應確保廣告內容之<b>真實</b>，其對消費者所負之義務<b>不得低於</b>廣告之內容；企業經營者之商品或服務廣告內容，於<b>契約成立後</b>，應<b>確實履行</b>。此一規定使廣告內容視為契約內容之一部分，具有直接拘束企業經營者履約義務之效力。</p>
+<p><b>（二）與信用有關交易之特別揭露義務：</b> 依第22條之1規定，企業經營者對消費者從事與<b>信用有關</b>之交易時（如分期付款買賣），應於廣告上明示應付所有總費用之<b>年百分率</b>，使消費者得清楚知悉實際負擔之總成本，避免因分期付款表面金額較低而低估實際支出。</p>
+<p><b>（三）媒體經營者之連帶責任：</b> 依第23條規定，刊登或報導廣告之媒體經營者明知或可得而知<b>廣告內容與事實不符</b>者，就消費者因信賴該廣告所受之損害，與企業經營者負<b>連帶損害賠償責任</b>。</p>
+<p><b>四、結論</b></p>
+<p>綜上，消費者保護法對不動產廣告之規範，核心在於課予企業經營者廣告內容真實及契約成立後確實履行之義務、要求信用交易類廣告明示總費用年百分率，並於媒體經營者明知廣告不實仍予刊登時，使其與企業經營者負連帶賠償責任，三者共同構成保障消費者不受不實不動產廣告誤導之完整規範體系，不動產經紀業於刊登廣告時應嚴格遵循此等規定，避免觸法致生民刑事及行政責任。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文25</span> 110年申論一｜110年新制代銷／仲介申報實價登錄之申報人、時機與罰責 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 請依不動產經紀業管理條例，110年7月1日施行新制，詳述：（一）起造人或建築業委託代銷預售屋者，實價登錄由誰申報？申報時機為何？預售屋買賣案件未依限申報或申報不實，有何罰責？（二）經營仲介業務者應實價登錄之案件及申報時機為何？未依限申報或申報不實，有何罰責？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、實價登錄申報制度之意義</b></p>
+<p>實價登錄制度係為使不動產交易資訊透明化，健全不動產市場交易秩序，並提供社會大眾查詢不動產真實交易行情之重要基礎建設；110年7月1日施行之新制，就代銷業務及仲介業務之申報義務人、申報期限及違反罰則，均有重大修正，為應考時務必掌握之最新法規重點。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第24條之1第1項（仲介業務申報登錄）、第2項（代銷業務申報登錄）；第29條（違反申報登錄之罰責）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）代銷業務申報：</b> 經營代銷業務，受起造人或建築業委託代銷預售屋者，應由<b>代銷經紀業</b>申報實價登錄。申報時機分為兩階段：①應於簽訂、變更或終止<b>委託代銷契約之日起30日內</b>，將委託代銷契約及買賣契約相關書件報請所在地直轄市、縣（市）主管機關<b>備查</b>；②應於<b>簽訂買賣契約書之日起30日內</b>，向直轄市、縣（市）主管機關<b>申報登錄</b>成交案件實際資訊。未依限申報登錄資訊或申報登錄價格、交易面積資訊不實者，直轄市、縣（市）主管機關按其申報之<b>戶（棟）</b>處新臺幣<b>3萬元以上15萬元以下</b>罰鍰，並令其限期改正，屆期未改正者，按次處罰；申報登錄價格及面積以外資訊不實者，經令限期改正屆期未改正，處新臺幣6千元以上3萬元以下罰鍰。</p>
+<p><b>（二）仲介業務申報：</b> 經營仲介業務者，對於居間或代理成交之<b>買賣案件</b>，應於<b>簽訂買賣契約書之日起30日內</b>，向直轄市、縣（市）主管機關申報登錄成交案件實際資訊（★110年新制重點：起算點已修正為簽約日起算，不再要求須待辦竣所有權移轉登記）；對於居間或代理成交之<b>租賃案件</b>，應於<b>簽訂租賃契約書之日起30日內</b>申報登錄。未依限申報登錄資訊、申報登錄價格或租金及面積資訊不實者，處新臺幣<b>1萬元以上5萬元以下</b>罰鍰；申報登錄價格租金及面積以外資訊不實者，經限期改正屆期未改正，處新臺幣6千元以上3萬元以下罰鍰。</p>
+<p><b>四、結論</b></p>
+<p>綜上，110年7月1日新制下，代銷業務之申報義務人為代銷經紀業，須分別於委託代銷契約簽訂變更終止起30日內完成報備查，並於買賣契約簽訂起30日內完成申報登錄，違規最重按戶棟處3萬至15萬元罰鍰；仲介業務則依買賣或租賃案件類型，一律以簽約日起30日內為申報登錄期限（買賣案件不再以移轉登記完成為前提），違規處1萬至5萬元罰鍰。應考時務必牢記「代銷（3萬-15萬）」與「仲介（1萬-5萬）」罰鍰級距不同，此為新制上路後最易混淆之陷阱。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文26</span> 110年申論二｜公平法事業定義及預售屋抽籤選戶禮賓活動有無違法 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 請依據公平交易法規定，論述下列問題：（一）第2條所稱事業有那些？（二）有建設公司委託地產公司代銷預售屋，在各樓層平面圖、各戶室內外面積、預售屋買賣契約書、房屋售價等相關商品資訊都尚未規劃完成前，就先辦理預售屋限量抽籤選戶禮賓活動，產生人潮擁擠爭相搶購的排隊現象，且當天禮賓活動營造出消費者中籤機不可失、不買可惜的氣氛，抽籤辦法規定只有1分鐘的選戶時間，超過時間就讓給下一組客人。請就公平交易法論述建設公司及地產公司有無違法？並說明依據的規定及理由？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、公平交易法事業定義及欺罔顯失公平行為之意義</b></p>
+<p>公平交易法所稱事業採廣義解釋，凡從事商品或服務交易之主體均可能受本法規範；而第25條之概括禁止規定，則用以填補第21至24條列舉不公平競爭行為態樣未能涵蓋之新型態不當交易行為，確保市場交易秩序不因法律列舉之局限性而留下規範漏洞。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公平交易法第2條（事業定義）、第25條（欺罔或顯失公平行為之禁止）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）第2條所稱事業：</b> 依第2條規定，本法所稱事業如下：①公司②獨資或合夥之工商行號③其他提供商品或服務從事交易之人或團體。事業所組成之同業公會或其他依法設立、促進成員利益之團體，視為本法所稱事業。本題建設公司及地產代銷公司，均係以提供商品（預售屋銷售）或服務（代銷服務）從事交易之公司，均屬本法所稱之事業。</p>
+<p><b>（二）建設公司及地產公司有無違法：</b> 依第25條規定，除本法另有規定者外，事業亦不得為其他足以影響交易秩序之欺罔或顯失公平之行為。預售屋銷售過程中，各樓層平面圖、各戶室內外面積、買賣契約書、房屋售價，為預售屋買賣<b>最重要之交易資訊</b>，攸關消費者能否於充分資訊下作成理性交易判斷。本題於相關預售屋資訊<b>尚未規劃完成前</b>，即辦理限量抽籤選戶禮賓活動，並藉由<b>人潮擁擠排隊、營造中籤機不可失氣氛、僅給1分鐘選戶時間</b>等手法，製造急迫感與從眾心理壓力，使具有普通知識經驗之交易相對人在<b>欠缺完整商品資訊</b>且<b>時間壓力極大</b>之情況下，難以進行合理之比較判斷即倉促做成交易決定，此等行銷手法已逾越正常商業促銷之合理範疇，該當第25條所稱<b>足以影響交易秩序之欺罔或顯失公平行為</b>。</p>
+<p><b>四、結論</b></p>
+<p>綜上，建設公司及地產代銷公司均屬公平交易法第2條所稱之事業；其於預售屋重要交易資訊尚未規劃完成前即辦理限量抽籤搶購活動，並以排隊營造搶購氣氛、限制僅1分鐘選戶時間等手法，剝奪消費者充分知悉商品資訊及合理考慮時間之機會，已違反公平交易法第25條足以影響交易秩序之欺罔或顯失公平行為之禁止規定，公平交易委員會得依法限期令其停止、改正或處以罰鍰，消費者因此所受損害，亦得依法請求損害賠償。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文27</span> 111年申論一｜何謂加盟經營者、標明義務及違反處罰 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 何謂加盟經營者？經紀業係加盟經營者，應於何處標明加盟經營字樣？經紀業違反規定者，應如何處罰之？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、加盟經營標明義務之意義</b></p>
+<p>不動產經紀業採加盟經營模式者，因加盟店與品牌總部間僅為契約授權關係，非屬同一法人主體，法律要求加盟經紀業應標明其加盟身分，目的在使消費者得以清楚辨識該經紀業之實際經營主體與商譽歸屬，避免消費者誤認加盟店即為知名品牌總部本身，致影響其對經紀業信賴程度之判斷。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第4條第8款（加盟經營者定義）、第9條（標明義務）、第29條（違反處罰）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）加盟經營者之定義：</b> 依第4條第8款規定，加盟經營者係指經紀業之一方以契約約定使用他方所發展之服務、營運方式、商標或服務標章等，並受其規範或監督。</p>
+<p><b>（二）標明義務：</b> 依第9條規定，經紀業應將其仲介或代銷相關證照及許可文件連同經紀人證書揭示於營業處所明顯之處；其為加盟經營者，應<b>併標明</b>加盟店或加盟經營字樣，且此一標明義務不僅限於營業處所之揭示，實務上亦及於廣告、市招、名片等對外足使消費者辨識該經紀業經營型態之各類文宣載體。</p>
+<p><b>（三）違反處罰：</b> 經紀業未依規定標明加盟店或加盟經營字樣者，由主管機關令其限期改正；屆期未改正者，依第29條相關規定，處新臺幣<b>3萬元以上15萬元以下</b>罰鍰。</p>
+<p><b>四、結論</b></p>
+<p>綜上，加盟經營者係指經紀業一方以契約約定使用他方發展之服務、營運方式、商標或服務標章，並受其規範或監督者；加盟經營之經紀業應於廣告、市招、名片及營業處所等明顯處併同標明加盟店或加盟經營字樣；未依規定標明者，經主管機關令限期改正屆期未改正，處新臺幣3萬元以上15萬元以下罰鍰。此一制度設計旨在保障消費者對加盟經營型態經紀業之知情權，避免因誤認經營主體而生交易信賴上之落差。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文28</span> 111年申論二｜區權會臨時會議召開情形及召集人 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 區分所有權人會議於何種情形時，應召開臨時會議？召集人為何？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、區分所有權人會議臨時會議制度之意義</b></p>
+<p>區分所有權人會議原則上每年至少召開定期會議1次，惟公寓大廈於年度期間內若發生重大突發事故或住戶有迫切共同事務待決，若須等待下次定期會議始能決議，恐緩不濟急，故條例另設臨時會議機制，使區分所有權人得於特定情形下即時召集會議，妥速處理緊急事務。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第25條。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）應召開臨時會議之情形：</b> 依第25條規定，區分所有權人會議除每年至少應召開定期會議1次外，有下列情形之一者，應召開<b>臨時會議</b>：①發生<b>重大事故</b>有及時處理之必要，經<b>管理負責人或管理委員會請求</b>者②經區分所有權人<b>1/5以上</b>及其區分所有權比例合計<b>1/5以上</b>，以<b>書面</b>載明召集之目的及理由，請求召集者。</p>
+<p><b>（二）臨時會議之召集人：</b> 區分所有權人會議原則上由<b>具區分所有權人身分之管理負責人、主任委員或管理委員</b>為召集人，若無人擔任前述職務或有其他正當理由致無法召集會議者，由<b>區分所有權人互推一人</b>為召集人。</p>
+<p><b>四、結論</b></p>
+<p>綜上，區分所有權人會議除每年定期會議1次外，於發生重大事故經管理負責人或管理委員會請求，或經區分所有權人1/5以上及其區分所有權比例合計1/5以上以書面載明召集目的及理由請求召集時，應召開臨時會議；召集人原則由具區分所有權人身分之管理負責人、主任委員或管理委員擔任，無人擔任時則由區分所有權人互推一人為之。此一雙軌召集機制（管理階層主動請求＋一定比例住戶連署請求），兼顧公寓大廈日常管理之效率性與住戶自主參與公共事務之權利保障。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文29</span> 112年申論一｜建商泳池廣告不實，乙如何主張權利 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 建商甲在銷售建案時，於廣告文宣文字說明該建案公共設施中含有泳池等設備，並使用某飯店之無邊際泳池圖片，乙受廣告吸引購買該建案其中一戶，但完工交屋時，乙發現只有一個景觀水池，並無廣告中之泳池。請問乙如何主張其權利？請就公平交易法相關規定說明之。（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、不實廣告消費者權利救濟之意義</b></p>
+<p>公平交易法對事業所為之不實廣告，除課予行政責任外，並賦予受害消費者民事損害賠償請求權及排除侵害請求權，使消費者於因信賴不實廣告而受損害時，得循法律途徑求償，此為公平交易法兼具行政管制與私法救濟雙重功能之具體展現。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公平交易法第21條（虛偽不實廣告禁止）、第29條（排除侵害請求權）、第30條（損害賠償請求權）、第31條（懲罰性賠償金）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）廣告不實之構成：</b> 依第21條規定，事業不得在商品或廣告上，對於與商品相關而足以影響交易決定之事項，為虛偽不實或引人錯誤之表示或表徵，該事項並包括商品之內容。本題建商甲使用<b>他飯店之無邊際泳池圖片</b>，代表其自身建案之公共設施，惟實際交屋時該處僅為景觀水池，並無泳池設施，此已構成對商品內容（公共設施項目）之<b>虛偽不實或引人錯誤表示</b>，足以影響交易相對人（乙）之交易決定，違反第21條規定。</p>
+<p><b>（二）乙得主張之權利：</b></p>
+<p>①<b>除去侵害及防止侵害請求權：</b> 依第29條規定，乙對於甲之侵害得請求<b>排除</b>之，有侵害之虞者，並得請求<b>防止</b>之。</p>
+<p>②<b>損害賠償請求權：</b> 依第30條規定，甲因違反本法規定，致侵害乙之權益者，應負<b>損害賠償責任</b>。</p>
+<p>③<b>懲罰性賠償金：</b> 依第31條規定，法院因乙之請求，如認甲之行為屬<b>故意</b>，得依侵害情節，酌定損害額以上之賠償，但不得超過已證明損害額之<b>3倍</b>。本題甲使用他飯店泳池圖片代表自身建案設施，客觀上難謂不知該建案並無泳池而仍為此表示，若經證明甲具備故意之主觀要件，乙即得請求法院依侵害情節酌定不超過已證明損害額3倍之賠償。</p>
+<p><b>四、結論</b></p>
+<p>綜上，建商甲使用他飯店泳池圖片宣傳其實際上並無泳池設施之建案，已違反公平交易法第21條虛偽不實廣告之禁止規定；乙得依第29條請求除去侵害，依第30條請求損害賠償，若能證明甲具故意之主觀要件，並得依第31條請求法院酌定不超過已證明損害額3倍之懲罰性賠償金，藉由此一民事救濟體系，充分保障因信賴不實廣告而受損害之消費者權益。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文30</span> 113年申論一｜經紀業應揭示文件、代銷不適用項目及違反處罰 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 不動產經紀業應於營業處所明顯之處，揭示那些文件？那一文件代銷經紀業不適用之？違反此一規定者，應如何處罰之？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、經紀業揭示義務之意義</b></p>
+<p>不動產經紀業管理條例要求經紀業將特定文件揭示於營業處所明顯之處，目的在使消費者於進入經紀業營業處所洽談交易之初，即能便利查悉該經紀業之合法性、專業人員資格及收費標準等重要資訊，強化交易前資訊之透明度與可信賴性。</p>
+<p><b>二、相關法條依據</b></p>
+<p>不動產經紀業管理條例第9條（應揭示文件）、第29條（違反處罰）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）應揭示之文件：</b> 依第9條規定，經紀業應將其<b>仲介或代銷相關證照及許可文件</b>、<b>同業公會會員證書</b>、<b>不動產經紀人證書</b>，連同<b>報酬標準及收取方式</b>，揭示於營業處所明顯之處；其為加盟經營者，應併標明加盟店或加盟經營字樣。</p>
+<p><b>（二）代銷經紀業不適用之項目：</b> 前述應揭示文件中，<b>報酬標準及收取方式</b>於<b>代銷經紀業</b>不適用。其理由在於：代銷業務之報酬係由起造人或建築業依委託代銷契約支付予代銷經紀業，非向一般消費者收取固定比例報酬，與仲介業務直接向交易當事人收取服務報酬之性質不同，法律因而未強制代銷經紀業揭示此項對一般消費者無直接適用意義之資訊。</p>
+<p><b>（三）違反處罰：</b> ①未揭示仲介或代銷相關證照、許可文件、同業公會會員證書、經紀人證書者，因屬業務核心資格之重大揭示義務，依第29條相關規定，處新臺幣<b>6萬元以上30萬元以下</b>罰鍰；②未揭示報酬標準及收取方式者（限仲介業務者），因屬相對輕微之揭示義務，主管機關應先令其<b>限期改正</b>，屆期未改正者，始處新臺幣<b>3萬元以上15萬元以下</b>罰鍰。</p>
+<p><b>四、結論</b></p>
+<p>綜上，經紀業應於營業處所明顯之處揭示仲介或代銷相關證照許可文件、同業公會會員證書、經紀人證書及報酬標準收取方式；其中報酬標準及收取方式因代銷業務報酬收取對象與仲介業務不同，於代銷經紀業不適用；違反揭示證照許可文件等核心資格文件者逕處6萬元以上30萬元以下罰鍰，違反揭示報酬標準者則須先經限期改正屆期未改正始處3萬元以上15萬元以下罰鍰，兩者處罰程序與級距均有不同，應考時須特別區辨。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierA">
+      <summary><span class="essay-num">範文31</span> 113年申論二｜區權會決議出席比例同意方式及未獲決議重新召集處理 <span class="tier-badge tierA">🔴A級必考</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 區分所有權人會議之決議，其出席人數、區分所有權比例及同意方式應依該條例規定如何辦理？另未獲致決議者，得如何處理？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、區權會決議門檻制度之意義</b></p>
+<p>區分所有權人會議之決議涉及公寓大廈重大共同事務之處分，法律為兼顧決議之正當性（須有相當比例住戶參與及同意）與實務可行性（避免因門檻過高致永遠無法達成決議），設有分級之出席與同意門檻，並就首次未獲決議之情形另設較低門檻之重新召集機制。</p>
+<p><b>二、相關法條依據</b></p>
+<p>公寓大廈管理條例第31條（一般決議門檻）、第32條（未獲決議之重新召集）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）一般決議門檻：</b> 依第31條規定，區分所有權人會議之決議，除規約另有規定外，應有區分所有權人<b>2/3以上</b>及其區分所有權比例合計<b>2/3以上</b>出席，以出席人數<b>3/4以上</b>及其區分所有權比例占出席人數區分所有權<b>3/4以上</b>之同意行之。</p>
+<p><b>（二）未獲決議之重新召集：</b> 依第32條規定，區分所有權人會議未獲決議事項，得由<b>7日內</b>經召集人重新召集會議；重新召集之會議，應有區分所有權人<b>3人</b>並<b>1/5以上</b>及其區分所有權比例合計<b>1/5以上</b>出席，以出席人數<b>過半數</b>及其區分所有權比例占出席人數區分所有權<b>過半數</b>之同意，作成決議。</p>
+<p><b>（三）重新召集決議之後續程序保障：</b> 前述經簡化門檻作成之決議，仍應將決議內容<b>送達</b>各區分所有權人，各區分所有權人得於決議送達後<b>一定期間內</b>以書面表示反對意見；書面反對意見未超過<b>全體區分所有權人及其區分所有權比例合計半數</b>時，該決議<b>視為成立</b>；反之，若反對意見已達或超過半數，則該決議不成立，此一送達異議機制，係為彌補簡化門檻決議正當性相對薄弱之補充性程序保障。</p>
+<p><b>四、結論</b></p>
+<p>綜上，區分所有權人會議一般決議應有出席人數及區分所有權比例各2/3以上出席，以出席人數及區分所有權比例各3/4以上同意行之；未獲決議者，得於7日內重新召集會議，此時出席門檻降為3人並1/5以上出席，同意門檻降為出席過半數同意即可作成決議，惟仍應送達全體區分所有權人並保留一定期間之異議機制，未達全體半數反對者，該決議始視為成立。此一「一般決議高門檻、未獲決議後簡化決議＋送達異議補充保障」之雙軌設計，兼顧公寓大廈治理效率與住戶權益保障之平衡。</p>
+      </div>
+    </details>
+
+    <details class="essay-detail tierB">
+      <summary><span class="essay-num">範文32</span> 114年申論一｜消保法申訴流程、得否逕行申請調解及調解書效力 <span class="tier-badge tierB">🟡B級高機率</span></summary>
+      <div class="essay-body">
+        <p class="essay-question"><b>【原題】</b> 消費者向建商購買預售屋，消費者就消費爭議如何提起申訴？得否不經申訴，逕行申請調解？消費爭議事件調解成立作成之調解書，經法院核定後，有何效力？（25分）</p>
+<h4>【範文】</h4>
+<p><b>一、消費爭議三階段處理程序之意義</b></p>
+<p>消費者保護法就消費爭議之解決，設有「申訴→調解→訴訟」循序漸進之三階段處理機制，此一制度設計目的在使多數消費爭議得以較簡便、迅速之非訟途徑（申訴、調解）優先解決，僅於前階段未能妥適處理時，始進入耗時較長之訴訟程序，藉此節省司法資源並提升消費爭議之整體解決效率。</p>
+<p><b>二、相關法條依據</b></p>
+<p>消費者保護法第43條（申訴）、第44條（調解申請之前提要件）、第45條之1（調解程序）、第46條（調解書效力）。</p>
+<p><b>三、涵攝分析</b></p>
+<p><b>（一）申訴之提起：</b> 依第43條規定，消費者與企業經營者（本題建商）因商品或服務發生消費爭議時，消費者得向<b>企業經營者</b>、<b>消費者保護團體</b>或<b>消費者服務中心或其分中心</b>申訴；企業經營者對於消費者之申訴，應於申訴之日起<b>15日內</b>妥適處理之。</p>
+<p><b>（二）得否逕行申請調解：</b> 依第44條規定，消費者依前述途徑申訴，<b>未獲妥適處理</b>時，得向<b>直轄市或縣（市）消費爭議調解委員會</b>申請調解。由此可知，申請調解<b>須以先申訴且未獲妥適處理為前提要件</b>，消費者<b>不得跳過申訴程序</b>，逕行申請調解；此為避免調解資源被非必要案件過度占用，亦使企業經營者有先行自行處理消費爭議之機會。</p>
+<p><b>（三）調解書之效力：</b> 依第46條規定，調解成立者應作成<b>調解書</b>；該調解書<b>經法院核定後</b>，與<b>民事確定判決有同一之效力</b>，此意味著調解成立並經法院核定之調解書，具有與法院確定判決相同之既判力及執行力，消費者得逕以該調解書為執行名義，聲請法院強制執行，無須另行提起訴訟。</p>
+<p><b>四、結論</b></p>
+<p>綜上，消費者購買預售屋發生消費爭議時，應先向建商、消保團體或消費者服務中心提起申訴，企業經營者應於申訴之日起15日內妥適處理；消費者不得跳過申訴程序逕行申請調解，須以申訴未獲妥適處理為前提，始得向消費爭議調解委員會申請調解；調解成立作成之調解書，經法院核定後，與民事確定判決有同一之效力，消費者得據以聲請強制執行，此一制度設計使消費爭議之解決兼具程序漸進性與最終救濟之實效性。</p>
+      </div>
+    </details>
+    </div>
+  </section>
+
+  <!-- TAB 5: 讀書攻略 -->
+  <section class="tab" id="t5">
+    <div class="section-title">📖 讀書攻略與準備法則（濃縮版）</div>
+
+    <div class="group-label">📊 章節優先順序（依歷屆配分與弱點排序）</div>
+    <table>
+      <tr><th>優先序</th><th>章節</th><th>約占分比</th><th>策略</th></tr>
+      <tr><td>1</td><td>A 經紀業管理條例</td><td>~35%</td><td>核心必拿分，A4業務責任最重要</td></tr>
+      <tr><td>2</td><td>E 公寓大廈管理條例</td><td>~20%</td><td>條文邏輯清楚，投報率高</td></tr>
+      <tr><td>3</td><td>H 消費者保護法</td><td>~18%</td><td>注意委員人數/年限等數字題</td></tr>
+      <tr><td>4</td><td>G 公平交易法</td><td>~18%</td><td>題量最大，先抓聯合行為/獨占架構</td></tr>
+      <tr><td>5</td><td>其他小章節</td><td>~9%</td><td>考前最後複習即可，CP值較低</td></tr>
+    </table>
+
+    <div class="group-label">📏 5大準備法則</div>
+    <ul>
+      <li><b>雙軌並行</b>：選擇題刷題為主軸，申論架構為暗線，同步進行不偏廢</li>
+      <li><b>錯題分型管理</b>：A型(法條混淆)重複刷同類題／B型(粗心)限時模擬改善／C型(真的不熟)回頭精讀筆記</li>
+      <li><b>現行法優先</b>：凡題目問「現行」一律以「⚡現行法小抄」為準，不要被舊答案誤導</li>
+      <li><b>用詞精確</b>：特別留意「廢止vs撤銷」「得vs應」「3年vs5年vs2年」這類易混淆用詞陷阱</li>
+      <li><b>平假日配置</b>：平日2小時主攻選擇題刷題，假日6小時排1題申論精讀＋整週錯題複習</li>
+    </ul>
+
+    <div class="group-label">🤖 怎麼用我（範例指令）</div>
+    <ul>
+      <li>「幫我出10題A4的模擬題」→ 我會生成新的情境題並附四選項詳解</li>
+      <li>「這題我選錯了，幫我分析是A/B/C哪一型」→ 貼題目與你的答案，我會分析錯誤類型</li>
+      <li>「幫我把110-一申論題再講一次架構」→ 我會用定義→法條→涵攝→結論四段幫你拆解</li>
+      <li>「現行法規跟我以前背的不一樣，到底哪個對」→ 直接問我，我會查證law.moj.gov.tw後回答</li>
+      <li>「幫我排這週的讀書計畫」→ 告訴我你這週可用時數，我幫你排章節與題量</li>
+    </ul>
+
+    <div class="note">
+      🎯 第三戰心態提醒：前兩次都只差2分，代表基本功已經足夠，差的是「細節精確度」與「考場穩定度」。現行法小抄、用詞陷阱、錯題分型，就是為了把那2分補回來。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  📅 建立時間：2026-08-23｜經紀法規備考指揮中心 v1.0<br>
+  BrokerX 專案・115年不動產經紀人考試
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Countdown
+  function updateCountdown(){
+    var examDate = new Date('2026-11-14T00:00:00+08:00');
+    var now = new Date();
+    var diff = examDate - now;
+    var days = Math.max(0, Math.ceil(diff / (1000*60*60*24)));
+    document.getElementById('days').textContent = days;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000*60*60);
+
+  // Essay filter (tab t4b)
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('#essayList > details').forEach(d=>{
+        if(f === 'all' || d.classList.contains(f)){
+          d.style.display = '';
+        } else {
+          d.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
