@@ -487,7 +487,14 @@ function render(){
     quizRight.style.display = revealed ? '' : 'none';
     quizWrong.style.display = revealed ? '' : 'none';
   }
+  fitCard();
 }
+function fitCard(){
+  cardEl.style.minHeight='300px';
+  const h=Math.max(300,...[...cardEl.querySelectorAll('.face')].map(f=>f.scrollHeight+2));
+  cardEl.style.minHeight=h+'px';
+}
+window.addEventListener('resize',fitCard);
 
 cardEl.addEventListener('click',()=>{
   if(mode==='study'){
