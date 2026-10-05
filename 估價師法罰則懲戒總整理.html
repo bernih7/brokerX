@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>估價師法罰則懲戒總整理</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F8F3E9;
+  --paper2: #FBF8F0;
+  --ink: #2A2722;
+  --vermillion: #A8402B;
+  --gold: #BC8A2E;
+  --green: #3F6B4C;
+  --blue: #2B5082;
+  --line: #DDD2BB;
+  --muted: #8A7F6E;
+  --card: #FFFEF9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 20px 14px;
+}
+.site-header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--paper);
+}
+.site-header .sub {
+  font-size: .8rem;
+  color: #B8AFA2;
+  margin-top: 4px;
+}
+.countdown-bar {
+  background: var(--vermillion);
+  color: #fff;
+  text-align: center;
+  padding: 9px 16px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.countdown-bar span { font-size: 1.3rem; font-weight: 700; }
+
+/* NAV */
+.tabs-nav {
+  display: flex;
+  overflow-x: auto;
+  background: var(--ink);
+  border-bottom: 3px solid var(--gold);
+  scrollbar-width: none;
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: 0 0 auto;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  color: #B8AFA2;
+  cursor: pointer;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition: color .15s, background .15s;
+}
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(188,138,46,.08); }
+.tab-btn:hover:not(.active) { color: var(--paper); }
+
+/* PANELS */
+.tab-panel { display: none; padding: 20px 16px 40px; }
+.tab-panel.active { display: block; }
+
+/* SECTION TITLES */
+.sec-label {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Noto Serif TC', serif;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.sec-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--vermillion);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 8px;
+  margin: 24px 0 14px;
+}
+.sec-title:first-child { margin-top: 0; }
+
+/* LAW BADGE */
+.law-badge {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.law-badge.green { background: var(--green); }
+.law-badge.gold { background: var(--gold); }
+.law-badge.red { background: var(--vermillion); }
+
+/* TABLES */
+.penalty-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .84rem;
+  margin-bottom: 18px;
+}
+.penalty-table th {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: .79rem;
+  letter-spacing: .03em;
+}
+.penalty-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.penalty-table tr:nth-child(even) td { background: var(--paper2); }
+.penalty-table tr:hover td { background: #f0ebe0; }
+
+.amount {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  color: var(--vermillion);
+  white-space: nowrap;
+}
+.amount-small { color: var(--blue); font-weight: 700; }
+.amount-mid { color: var(--green); font-weight: 700; }
+.note-cell { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+.trap-tag {
+  display: inline-block;
+  background: #fef3e0;
+  border: 1px solid var(--gold);
+  color: #7a5a00;
+  font-size: .72rem;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-top: 3px;
+}
+.no-exam { font-size: .78rem; color: var(--muted); font-style: italic; }
+
+/* MEMORY CARD */
+.memory-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: .88rem;
+}
+.memory-box .mem-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.memory-box .mem-body {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.memory-box .mem-explain {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* LADDER (懲戒階梯) */
+.ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 14px 0;
+  max-width: 400px;
+}
+.ladder-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: .88rem;
+  border-radius: 4px;
+  position: relative;
+}
+.ladder-step:not(:last-child)::after {
+  content: '▼';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .75rem;
+  color: var(--muted);
+  z-index: 1;
+}
+.ladder-step .step-no {
+  flex: 0 0 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .82rem;
+  color: #fff;
+}
+.step-1 { background: #e8f3ea; }
+.step-1 .step-no { background: var(--green); }
+.step-2 { background: #fff8e6; }
+.step-2 .step-no { background: var(--gold); }
+.step-3 { background: #fdf0ed; }
+.step-3 .step-no { background: #c06a20; }
+.step-4 { background: #fce9e6; }
+.step-4 .step-no { background: var(--vermillion); }
+.ladder-gap { height: 20px; }
+
+.ladder-rule {
+  background: #f5f0e8;
+  border: 1px dashed var(--gold);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: .82rem;
+  color: var(--ink);
+  margin: 6px 0;
+}
+.ladder-rule strong { color: var(--vermillion); }
+
+/* HIDE-ANSWER */
+.hide-toggle-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 16px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 600;
+  user-select: none;
+  margin-top: 24px;
+}
+.hide-toggle-bar .toggle-icon { font-size: 1.1rem; }
+.practice-section { border: 1px solid var(--line); border-top: none; border-radius: 0 0 6px 6px; padding: 14px 16px; }
+.answer-item {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.answer-q {
+  background: var(--paper2);
+  padding: 8px 12px;
+  font-size: .86rem;
+  font-weight: 600;
+  cursor: default;
+}
+.answer-a {
+  background: var(--card);
+  padding: 8px 12px;
+  font-size: .86rem;
+  cursor: pointer;
+  transition: filter .15s;
+}
+.answer-a.hidden {
+  filter: blur(5px);
+  user-select: none;
+}
+.answer-a .hint { font-size: .72rem; color: var(--muted); margin-top: 3px; }
+
+/* TRAP SECTION */
+.trap-card {
+  background: #fff8f6;
+  border-left: 4px solid var(--vermillion);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: .86rem;
+}
+.trap-card .trap-title {
+  font-weight: 700;
+  color: var(--vermillion);
+  margin-bottom: 4px;
+  font-size: .88rem;
+}
+.trap-card .trap-body { color: var(--ink); line-height: 1.6; }
+
+/* FLASH CARDS */
+.flash-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.flash-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .15s;
+}
+.flash-card:hover { box-shadow: 0 2px 8px rgba(42,39,34,.1); }
+.flash-front {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 14px;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: .88rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flash-back {
+  padding: 10px 14px;
+  font-size: .86rem;
+  line-height: 1.65;
+  display: none;
+}
+.flash-back.show { display: block; }
+.flash-card .reveal-hint { font-size: .7rem; color: #B8AFA2; }
+
+/* INFO BOX */
+.info-box {
+  background: #eef5ff;
+  border: 1px solid #b4d0f0;
+  border-left: 4px solid var(--blue);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: .84rem;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+.warn-box {
+  background: #fff8e6;
+  border: 1px solid #e6cc80;
+  border-left: 4px solid var(--gold);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: .84rem;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+.site-footer {
+  background: var(--ink);
+  color: #B8AFA2;
+  padding: 20px 20px;
+  font-size: .76rem;
+  line-height: 1.8;
+  margin-top: 40px;
+}
+.site-footer a { color: var(--gold); text-decoration: none; }
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .site-header h1 { font-size: 1.15rem; }
+  .penalty-table { font-size: .78rem; }
+  .penalty-table th, .penalty-table td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>估價師法 罰則 · 懲戒 總整理</h1>
+  <div class="sub">不動產估價師法 第30–40條 ｜ 113.08.07 修正版</div>
+</header>
+
+<div class="countdown-bar">
+  距 115年考試還有 <span id="days">--</span> 天
+</div>
+
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn active" onclick="showTab('tab-fine',this)">💰 罰鍰</button>
+  <button class="tab-btn" onclick="showTab('tab-disc',this)">⚖️ 懲戒</button>
+  <button class="tab-btn" onclick="showTab('tab-proc',this)">📋 程序</button>
+  <button class="tab-btn" onclick="showTab('tab-trap',this)">⚠️ 考古陷阱</button>
+  <button class="tab-btn" onclick="showTab('tab-flash',this)">⚡ 速背卡</button>
+</nav>
+
+<!-- ===== TAB 1: 罰鍰 ===== -->
+<div id="tab-fine" class="tab-panel active">
+
+  <div class="sec-label">TRACK A</div>
+  <div class="sec-title">罰鍰（行政罰）</div>
+
+  <div class="info-box">
+    <strong>什麼是罰鍰？</strong>
+    罰鍰是金錢性的行政處罰，由<strong>直轄市、縣（市）主管機關</strong>裁處。
+    三條路線：無資格執業（重罰）→ 有資格但違規執業（中罰）→ 三犯廢止資格。
+    <br><br>
+    ⚡ <strong>考點提醒：16年考試中，估價師法罰鍰相關題目為零，本表為申論備用。</strong>
+  </div>
+
+  <!-- 記憶法 #1 -->
+  <div class="memory-box">
+    <div class="mem-label">記憶法 ①｜數字錨點法</div>
+    <div class="mem-body">5、25（第32條）→ 3、15（第33條第2項）→ 2、10（第33條第1項）</div>
+    <div class="mem-explain">
+      從大到小記：「沒資格」罰最重（5萬起），「有證但停業仍跑」居中（3萬起），「有證但沒入公會」最輕（2萬起）。<br>
+      口訣：<strong>「假裝估價 5–25，硬撐執業 3–15，沒入公會 2–10」</strong>
+    </div>
+  </div>
+
+  <table class="penalty-table">
+    <thead>
+      <tr>
+        <th style="width:28%">金額</th>
+        <th>條號（白話說明）</th>
+        <th style="width:18%">考古題題號</th>
+        <th style="width:24%">提醒</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="amount">5萬～25萬</span></td>
+        <td>
+          <span class="law-badge">第32條</span>（未取得估價師資格，擅自辦理估價業務）<br>
+          <small>→ 違反第14條第2項：非估價師不得辦理估價業務</small>
+        </td>
+        <td class="no-exam">無歷屆考題</td>
+        <td class="note-cell">
+          「無照執業」。
+          <span class="trap-tag">⚠️ 金額上限最高</span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="amount-mid">3萬～15萬</span></td>
+        <td>
+          <span class="law-badge green">第33條第2項</span>（已領證但屆期未換證、已廢止、已註銷、受停業處分仍執業）<br>
+          <small>→ 「有過證但現在名不正言不順」的執業</small>
+        </td>
+        <td class="no-exam">無歷屆考題</td>
+        <td class="note-cell">
+          注意：「受停業處分仍執業」也在此條，而非懲戒條。
+        </td>
+      </tr>
+      <tr>
+        <td><span class="amount-small">2萬～10萬</span></td>
+        <td>
+          <span class="law-badge">第33條第1項</span>（已領開業證書，但未加入公會即執行業務）<br>
+          <small>→ 違反第22條第1項：開業前須加入公會</small>
+        </td>
+        <td class="no-exam">無歷屆考題</td>
+        <td class="note-cell">
+          「有證但沒入公會」。金額三檔中最輕。
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" style="background:#fff5f3; padding:10px 12px; font-size:.84rem;">
+          <strong style="color:var(--vermillion)">第33條第3項｜三犯廢止</strong><br>
+          上述第32條或第33條罰鍰處分「合計三次」仍繼續執業者 → <strong>廢止資格，並註銷證書</strong>。<br>
+          <span class="trap-tag">⚠️ 合計三次，跨條累算</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warn-box">
+    <strong>第34條（強制執行）：</strong>
+    罰鍰經通知限期繳納，屆期未繳者，依法移送強制執行。<br>
+    <em>此條無罰鍰金額，只是「催繳→移送」的機制。</em>
+  </div>
+
+  <!-- 遮答案練習 -->
+  <div class="hide-toggle-bar" id="fine-toggle" onclick="toggleHide('fine-answers')">
+    <span class="toggle-icon">🙈</span>
+    <span>遮答案練習 — 按一下遮住答案，逐格點擊查看</span>
+  </div>
+  <div class="practice-section" id="fine-answers">
+    <div class="answer-item">
+      <div class="answer-q">Q1 未取得估價師資格，擅自辦理估價業務，罰鍰多少？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        新臺幣 <strong>5萬以上25萬以下</strong>（第32條，違反第14條第2項）
+        <div class="hint">→ 點擊顯示 / 再點遮住</div>
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q2 已領開業證書但未加入公會即執業，罰鍰多少？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        新臺幣 <strong>2萬以上10萬以下</strong>（第33條第1項）
+        <div class="hint">→ 點擊顯示</div>
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q3 受停業處分仍繼續執業，罰鍰多少？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        新臺幣 <strong>3萬以上15萬以下</strong>（第33條第2項）
+        <div class="hint">→ 點擊顯示</div>
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q4 罰鍰合計幾次仍執業，廢止資格？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        合計 <strong>3次</strong>仍繼續執業 → 廢止資格並<strong>註銷證書</strong>（第33條第3項）
+        <div class="hint">→ 點擊顯示</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-fine -->
+
+
+<!-- ===== TAB 2: 懲戒 ===== -->
+<div id="tab-disc" class="tab-panel">
+
+  <div class="sec-label">TRACK B</div>
+  <div class="sec-title">懲戒</div>
+
+  <div class="info-box">
+    <strong>懲戒 vs 罰鍰的區別：</strong>
+    罰鍰是「罰錢」，由主管機關裁處。<br>
+    懲戒是「職業身份的處分」，由各直轄市、縣（市）主管機關設<strong>懲戒委員會</strong>負責。
+    兩者可以並行，互不取代。
+  </div>
+
+  <!-- 記憶法 #2 -->
+  <div class="memory-box">
+    <div class="mem-label">記憶法 ②｜懲戒階梯圖</div>
+    <div class="mem-body">警告 → 申誡 → 停業（2月∼2年）→ 除名</div>
+    <div class="mem-explain">
+      想像四格樓梯，每格加重一次。累進觸發點：
+      <strong>警告×3＝申誡×1；申誡×3＝停業；停業累計3年＝除名</strong><br>
+      口訣：<strong>「3-3-3 爬梯子，到頂就除名」</strong>
+    </div>
+  </div>
+
+  <div class="ladder">
+    <div class="ladder-step step-1">
+      <div class="step-no">1</div>
+      <div>
+        <strong>警告</strong>
+        <div style="font-size:.8rem; color:var(--muted)">最輕。正式書面告知違規。</div>
+      </div>
+    </div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-rule">⤷ 警告 <strong>3次</strong>，視為申誡 <strong>1次</strong>（第35條第2項）</div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-step step-2">
+      <div class="step-no">2</div>
+      <div>
+        <strong>申誡</strong>
+        <div style="font-size:.8rem; color:var(--muted)">書面訓誡，留下職涯紀錄。</div>
+      </div>
+    </div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-rule">⤷ 申誡 <strong>3次</strong>，應另予<strong>停止執行業務</strong>（第35條第3項）</div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-step step-3">
+      <div class="step-no">3</div>
+      <div>
+        <strong>停止執行業務</strong>
+        <div style="font-size:.8rem; color:var(--muted)">期間：<strong>2個月以上、2年以下</strong>（第35條第1項）</div>
+      </div>
+    </div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-rule">⤷ 停止執行業務累計滿 <strong>3年</strong>，應予<strong>除名</strong>（第35條第4項）</div>
+    <div class="ladder-gap"></div>
+    <div class="ladder-step step-4">
+      <div class="step-no">4</div>
+      <div>
+        <strong>除名</strong>
+        <div style="font-size:.8rem; color:var(--muted)">資格消滅，撤除公會會籍。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:20px">
+    <strong>跨地懲戒累計（施行細則第17條）：</strong>
+    各直轄市、縣（市）主管機關所為之懲戒處分，<strong>應予累計</strong>。
+    換言之，在台北市被警告1次 + 新北市被警告2次 = 合計3次，視為申誡1次。
+  </div>
+
+  <div class="sec-title">違規行為與懲戒對應（第36條）</div>
+
+  <!-- 記憶法 #3 -->
+  <div class="memory-box">
+    <div class="mem-label">記憶法 ③｜輕中重分類法</div>
+    <div class="mem-body">輕違規→警告/申誡；中違規→申誡/停業；重違規→停業/除名</div>
+    <div class="mem-explain">
+      記「違規的性質有多嚴重」：登記變更類是行政手續，最輕；
+      保密/技術規則類損害委託人，居中；
+      誠信/同業競爭/公會義務類最嚴重。
+    </div>
+  </div>
+
+  <table class="penalty-table">
+    <thead>
+      <tr>
+        <th style="width:35%">違規行為</th>
+        <th>相關條號（白話說明）</th>
+        <th style="width:22%">懲戒等級</th>
+        <th style="width:18%">考古題</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>輕微行政疏失</strong><br><small>事務所設置、遷移、變更登記、停業、復業、註銷等規定</small></td>
+        <td>
+          <span class="law-badge">第9條第2項</span>（事務所設置應向主管機關申報）<br>
+          <span class="law-badge">第10–12條</span>（遷移、停業、復業、組織形態變更）<br>
+          <span class="law-badge">第15條</span>（業務資料之建立及保存）
+        </td>
+        <td style="color:var(--green); font-weight:700">警告或申誡</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+      <tr>
+        <td><strong>保密或技術規則違反</strong><br><small>洩漏業務秘密或未依技術規則估價</small></td>
+        <td>
+          <span class="law-badge green">第18條</span>（保守業務秘密之義務）<br>
+          <span class="law-badge green">第19條第2項</span>（應依技術規則執行業務）
+        </td>
+        <td style="color:#c06a20; font-weight:700">申誡或停止執行業務</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+      <tr>
+        <td><strong>誠信倫理或制度義務</strong><br><small>不誠信、不守規矩、破壞職業倫理</small></td>
+        <td>
+          <span class="law-badge red">第16條第1項</span>（誠實信用原則，不得有不正當行為）<br>
+          <span class="law-badge red">第17條</span>（禁止他人在其名義下執行業務）<br>
+          <span class="law-badge red">第21條</span>（不得拒絕主管機關業務檢查）<br>
+          <span class="law-badge red">第22條第4項</span>（公會懲戒決定應配合執行）
+        </td>
+        <td style="color:var(--vermillion); font-weight:700">停止執行業務或除名</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 遮答案練習 -->
+  <div class="hide-toggle-bar" onclick="toggleHide('disc-answers')">
+    <span class="toggle-icon">🙈</span>
+    <span>遮答案練習</span>
+  </div>
+  <div class="practice-section" id="disc-answers">
+    <div class="answer-item">
+      <div class="answer-q">Q1 停止執行業務的最短期間？最長？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        最短 <strong>2個月</strong>，最長 <strong>2年</strong>（第35條第1項）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q2 警告幾次視為申誡幾次？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        警告 <strong>3次</strong> → 申誡 <strong>1次</strong>（第35條第2項）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q3 申誡幾次須予停業？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        申誡 <strong>3次</strong> → 應另予停止執行業務（第35條第3項）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q4 停業累計幾年須除名？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        停業累計滿 <strong>3年</strong> → 應予除名（第35條第4項）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q5 洩漏業務秘密（違反第18條），懲戒等級？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        <strong>申誡或停止執行業務</strong>（第36條中級）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q6 讓他人借用名義執業（違反第17條），懲戒等級？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        <strong>停止執行業務或除名</strong>（第36條最重）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q7 跨縣市的懲戒次數要累計嗎？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        要。各直轄市、縣（市）懲戒處分<strong>應予累計</strong>（施行細則第17條）
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-disc -->
+
+
+<!-- ===== TAB 3: 程序 ===== -->
+<div id="tab-proc" class="tab-panel">
+
+  <div class="sec-label">PROCEDURE</div>
+  <div class="sec-title">懲戒委員會與程序（第37–40條）</div>
+
+  <!-- 記憶法 #4 -->
+  <div class="memory-box">
+    <div class="mem-label">記憶法 ④｜程序流程故事法</div>
+    <div class="mem-body">「設委員會 → 通知20天 → 逾期逕決 → 刊登公報 → 涉刑移送」</div>
+    <div class="mem-explain">
+      故事：主管機關收到投訴後，叫委員會開會；先給當事人20天抗議機會；
+      20天到了沒回應就直接決定；決定後登報公告；若有犯罪嫌疑，移送檢察官。
+    </div>
+  </div>
+
+  <table class="penalty-table">
+    <thead>
+      <tr>
+        <th style="width:22%">條號</th>
+        <th>條文重點</th>
+        <th style="width:18%">考古題</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="law-badge">第37條</span><br><small>（設置懲戒委員會）</small></td>
+        <td>直轄市、縣（市）主管機關<strong>設懲戒委員會</strong>，負責受理懲戒案件</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+      <tr>
+        <td><span class="law-badge">第38條</span><br><small>（通知答辯期間）</small></td>
+        <td>
+          懲戒委員會應將懲戒事由通知被付懲戒人，限於<strong>20日內</strong>提出答辯書或到會陳述意見；逾期得逕行決定
+        </td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+      <tr>
+        <td><span class="law-badge">第39條</span><br><small>（刊登政府公報）</small></td>
+        <td>懲戒決定應<strong>刊登政府公報</strong>，並通知相關主管機關及公會</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+      <tr>
+        <td><span class="law-badge">第40條</span><br><small>（移送司法機關）</small></td>
+        <td>懲戒委員會認有<strong>犯罪嫌疑</strong>者，應移送<strong>司法機關</strong>偵辦（懲戒與刑事程序並行）</td>
+        <td class="no-exam">無歷屆考題</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warn-box">
+    <strong>第31條（獎勵）備忘：</strong>
+    估價師在學術研究、技術創新或法規研究有重大貢獻者，得頒發
+    <strong>獎狀或獎牌</strong>、<strong>專業獎章</strong>。
+    （考試不考，但罰則章首條，架構完整起見納入）
+  </div>
+
+  <!-- 遮答案練習 -->
+  <div class="hide-toggle-bar" onclick="toggleHide('proc-answers')">
+    <span class="toggle-icon">🙈</span>
+    <span>遮答案練習</span>
+  </div>
+  <div class="practice-section" id="proc-answers">
+    <div class="answer-item">
+      <div class="answer-q">Q1 懲戒委員會由哪個機關設置？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        <strong>直轄市、縣（市）主管機關</strong>（第37條）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q2 通知被付懲戒人答辯的期間為幾日？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        限於 <strong>20日內</strong> 提出答辯書或陳述意見（第38條）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q3 逾20日未答辯，懲戒委員會可以怎麼做？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        得<strong>逕行決定</strong>（不等答辯，直接作成懲戒決定）（第38條）
+      </div>
+    </div>
+    <div class="answer-item">
+      <div class="answer-q">Q4 懲戒決定要刊登哪裡？</div>
+      <div class="answer-a" onclick="this.classList.remove('hidden')">
+        <strong>政府公報</strong>，並通知相關主管機關及公會（第39條）
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-proc -->
+
+
+<!-- ===== TAB 4: 考古陷阱 ===== -->
+<div id="tab-trap" class="tab-panel">
+
+  <div class="sec-label">EXAM TRAPS</div>
+  <div class="sec-title">考古題陷阱總整理</div>
+
+  <div class="warn-box">
+    <strong>重要聲明：</strong>
+    99–114年16年間，估價科目選擇題中
+    <strong>完全沒有</strong>針對估價師法罰則、懲戒的直接考題。
+    所有考點都在技術計算（比較法、成本法、收益法、土地開發分析法）。
+    本區為<strong>申論防禦備用</strong>，或萬一115年出奇兵時快速提取用。
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ① 罰鍰金額搞混</div>
+    <div class="trap-body">
+      三個金額容易搞反：<br>
+      • 5萬～25萬：「無資格的人」（最重）<br>
+      • 3萬～15萬：「有資格但狀況不對卻仍執業」<br>
+      • 2萬～10萬：「有資格有證但未入公會」（最輕）<br>
+      記法：<strong>無資格最重，有資格但沒入公會最輕</strong>
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ② 三次廢止的對象</div>
+    <div class="trap-body">
+      廢止資格的條件是「第32條或第33條罰鍰合計三次」，而非「任意三次違規」。
+      <strong>只有罰鍰類（行政罰）才算，懲戒次數不納入此計算。</strong>
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ③ 懲戒累進的「各次獨立」迷思</div>
+    <div class="trap-body">
+      可能題目：「甲在台北市受警告2次，在新北市受警告1次，合計幾次？」<br>
+      正確答案：<strong>合計3次，視為申誡1次</strong>（施行細則第17條跨地累計）。<br>
+      若誤以為各縣市獨立計算，就中陷阱。
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ④ 停業期間的上下限</div>
+    <div class="trap-body">
+      停業期間：<strong>2個月以上，2年以下</strong>（第35條第1項）。<br>
+      不是「1個月以上3年以下」，不是「6個月以上2年以下」。<br>
+      <strong>累計到3年才除名，單次最長才2年</strong>——這是關鍵區別。
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ⑤ 答辯期間20日vs其他法律</div>
+    <div class="trap-body">
+      不動產經紀法的懲戒答辯期也有類似規定，但天數可能不同。
+      估價師法答辯期明定<strong>20日</strong>（第38條），不要和其他法規混用。
+    </div>
+  </div>
+
+  <div class="trap-card">
+    <div class="trap-title">陷阱 ⑥ 懲戒 vs 罰鍰——何者由誰執行</div>
+    <div class="trap-body">
+      懲戒：由<strong>懲戒委員會</strong>決定（直轄市/縣市主管機關設置）<br>
+      罰鍰：由<strong>直轄市/縣市主管機關</strong>直接裁處<br>
+      兩者可並行，互不取代，不要混淆執行機關。
+    </div>
+  </div>
+
+</div><!-- /tab-trap -->
+
+
+<!-- ===== TAB 5: 速背卡 ===== -->
+<div id="tab-flash" class="tab-panel">
+
+  <div class="sec-label">30-SEC FLASH</div>
+  <div class="sec-title">30秒速背卡</div>
+
+  <!-- 記憶法 #5 -->
+  <div class="memory-box">
+    <div class="mem-label">記憶法 ⑤｜場景聯想法（速背版）</div>
+    <div class="mem-body">假裝估價（5萬起）→ 停業還跑（3萬起）→ 沒入公會（2萬起）→ 三犯消牌</div>
+    <div class="mem-explain">
+      三個故事主角：① 假裝考過的騙子 ② 被叫停還偷跑的硬頸師 ③ 省麻煩沒入公會的懶散師。
+      最後三犯廢牌，代誌大條。
+    </div>
+  </div>
+
+  <div class="flash-grid" id="flash-grid">
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第32條—罰鍰金額</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        <strong>新臺幣 5萬～25萬</strong><br>
+        對象：未取得估價師資格，擅自辦理估價業務（違反第14條第2項）<br>
+        → 「無資格無照，罰最重」
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第33條第1項—罰鍰金額</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        <strong>新臺幣 2萬～10萬</strong><br>
+        對象：已領開業證書，但<strong>未加入公會</strong>即執行業務<br>
+        → 「有資格沒入公會，罰最輕」
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第33條第2項—罰鍰金額</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        <strong>新臺幣 3萬～15萬</strong><br>
+        對象：未領證 / 屆期未換證 / 已註銷 / <strong>受停業處分仍執業</strong><br>
+        → 「名不正言不順，中等罰」
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第33條第3項—三犯廢止</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        罰鍰合計 <strong>3次</strong>仍繼續執業 →<br>
+        <strong>廢止資格，並註銷證書</strong><br>
+        → 「三犯消牌，永久出局」
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>懲戒四級</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        <strong>警告 → 申誡 → 停業（2月∼2年）→ 除名</strong><br>
+        第35條第1項
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>懲戒三條累進規則</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        ① 警告 <strong>3次</strong> → 申誡 <strong>1次</strong><br>
+        ② 申誡 <strong>3次</strong> → 停業<br>
+        ③ 停業累計滿 <strong>3年</strong> → 除名<br>
+        第35條第2–4項
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>跨地懲戒累計</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        各直轄市、縣（市）懲戒處分<strong>應予累計</strong><br>
+        施行細則<strong>第17條</strong><br>
+        → 跨縣市合計，不分開算
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第36條—違規對應懲戒</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        <strong>輕</strong>（登記事務）→ 警告或申誡<br>
+        <strong>中</strong>（保密/技術規則）→ 申誡或停業<br>
+        <strong>重</strong>（誠信/借名/拒查/公會義務）→ 停業或除名
+      </div>
+    </div>
+
+    <div class="flash-card" onclick="toggleFlash(this)">
+      <div class="flash-front">
+        <span>第38條—答辯期間</span>
+        <span class="reveal-hint">點開</span>
+      </div>
+      <div class="flash-back">
+        懲戒委員會通知被付懲戒人，限 <strong>20日內</strong> 答辯或到會陳述<br>
+        逾期得<strong>逕行決定</strong>
+      </div>
+    </div>
+
+  </div><!-- /flash-grid -->
+
+  <div style="margin-top: 18px; text-align: center;">
+    <button onclick="resetFlash()" style="background:var(--ink); color:var(--paper); border:none; padding:10px 22px; border-radius:4px; cursor:pointer; font-family:'Noto Sans TC', sans-serif; font-size:.86rem; font-weight:500;">
+      全部重置（蓋回所有答案）
+    </button>
+  </div>
+
+</div><!-- /tab-flash -->
+
+
+<footer class="site-footer">
+  <strong style="color:var(--paper)">條文來源與核對方式</strong><br>
+  主要來源：<a href="https://www.6laws.net/6law/law/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E5%B8%AB%E6%B3%95.htm" target="_blank">6laws.net 不動產估價師法（113.08.07修正）</a>、
+  <a href="https://www.rootlaw.com.tw/LawContent.aspx?LawID=A040040090006600-1130807" target="_blank">植根法律網</a>。<br>
+  互核來源：s6law.com，兩個以上來源比對結果一致，條文確認無誤。<br>
+  施行細則（第17條跨地累計）：來源為專案知識庫《不動產估價師法暨施行細則_條文整理》，線上無法逐條核對，存疑條文另行說明。<br>
+  <br>
+  <strong style="color:var(--paper)">無法核對說明</strong>：施行細則第17條（跨地懲戒累計），線上多個網站未列出施行細則全文，僅能以知識庫條文為準，請以補習班教材交叉驗證。<br>
+  <br>
+  製作日期：2026-10-05　｜　考試日：2026-11-14（115年不動產經紀人考試）
+</footer>
+
+<script>
+// 倒計時
+(function() {
+  var target = new Date('2026-11-14T09:00:00');
+  function update() {
+    var diff = Math.floor((target - Date.now()) / 86400000);
+    var el = document.getElementById('days');
+    if (el) el.textContent = diff > 0 ? diff : '已到達！';
+  }
+  update();
+  setInterval(update, 60000);
+})();
+
+// Tab 切換
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  var panel = document.getElementById(id);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// 遮答案練習 — 全遮/全顯切換
+function toggleHide(sectionId) {
+  var answers = document.querySelectorAll('#' + sectionId + ' .answer-a');
+  var allHidden = Array.from(answers).every(function(a) { return a.classList.contains('hidden'); });
+  answers.forEach(function(a) {
+    if (allHidden) {
+      a.classList.remove('hidden');
+    } else {
+      a.classList.add('hidden');
+    }
+  });
+}
+
+// 初始化：答案全遮
+window.addEventListener('load', function() {
+  document.querySelectorAll('.answer-a').forEach(function(a) {
+    a.classList.add('hidden');
+  });
+});
+
+// 閃卡切換
+function toggleFlash(card) {
+  var back = card.querySelector('.flash-back');
+  back.classList.toggle('show');
+}
+
+// 全部重置
+function resetFlash() {
+  document.querySelectorAll('.flash-back').forEach(function(b) {
+    b.classList.remove('show');
+  });
+}
+</script>
+
+</body>
+</html>
