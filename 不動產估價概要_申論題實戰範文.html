@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價｜申論題實戰範文</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0; --muted:#8A7F6E;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif; background:var(--paper); color:var(--ink);
+  line-height:1.8; font-size:15px; padding-bottom:60px;
+}
+h1,h2,h3,h4{font-family:"Noto Serif TC",serif;}
+header{
+  background:linear-gradient(135deg,var(--vermillion),#8c3322);
+  color:#fff; padding:28px 20px 22px; text-align:center;
+  position:relative; overflow:hidden;
+}
+header::after{
+  content:""; position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,transparent 10px 20px);
+}
+header h1{font-size:1.5rem; font-weight:900; position:relative; margin-bottom:6px;}
+header .sub{font-size:.88rem; opacity:.9; position:relative;}
+
+/* FILTER BAR */
+.filter-bar{
+  position:sticky; top:0; z-index:10; background:var(--paper);
+  padding:10px 14px; border-bottom:2px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+}
+.filter-label{font-size:.8rem; color:var(--muted); font-weight:700; margin-right:4px;}
+.f-btn{
+  font-family:"Noto Serif TC",serif; font-size:.8rem; font-weight:700;
+  padding:6px 13px; border-radius:8px; border:1.5px solid var(--line);
+  background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
+}
+.f-btn:hover{border-color:var(--gold);}
+.f-btn.active{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+
+/* MAIN */
+main{max-width:860px; margin:0 auto; padding:20px 16px;}
+
+/* ESSAY CARD */
+.essay-card{
+  background:var(--paper2); border:1.5px solid var(--line); border-radius:14px;
+  margin-bottom:18px; overflow:hidden;
+}
+.essay-card.hidden{display:none;}
+.card-header{
+  padding:16px 20px; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1.5px solid var(--line);
+}
+.card-header:hover{background:#f0e8d8;}
+.card-header-left{flex:1;}
+.card-year{
+  font-size:.75rem; font-weight:700; color:#fff; background:var(--vermillion);
+  padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:6px;
+}
+.card-year.tier-b{background:var(--gold);}
+.card-year.tier-c{background:var(--muted);}
+.card-title{font-family:"Noto Serif TC",serif; font-size:1rem; font-weight:700; line-height:1.4;}
+.card-meta{display:flex; gap:10px; margin-top:6px; flex-wrap:wrap;}
+.tag{
+  font-size:.75rem; padding:3px 10px; border-radius:12px; font-weight:600;
+  border:1px solid var(--line); background:var(--paper);
+}
+.tag.calc{color:var(--vermillion); border-color:#d4a89a;}
+.tag.explain{color:var(--blue,#2B5082); border-color:#a9b8cc;}
+.card-arrow{font-size:1.1rem; color:var(--muted); transition:.2s; flex-shrink:0; margin-left:10px;}
+.essay-card.open .card-arrow{transform:rotate(180deg);}
+.card-body{display:none; padding:20px 20px 24px;}
+.essay-card.open .card-body{display:block;}
+
+/* BODY CONTENT */
+.q-box{
+  background:#f8e3df; border-left:4px solid var(--vermillion);
+  padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:20px;
+  font-size:.88rem; line-height:1.7;
+}
+.q-box strong{color:var(--vermillion);}
+.section-h{
+  font-family:"Noto Serif TC",serif; font-size:.95rem; font-weight:700;
+  color:var(--ink); margin:18px 0 8px; padding-bottom:5px;
+  border-bottom:2px solid var(--gold);
+}
+p{margin-bottom:10px; font-size:.93rem;}
+.formula-box{
+  background:#2A2722; color:#FFE9C7; border-radius:8px;
+  padding:12px 16px; font-family:monospace; font-size:.88rem;
+  margin:10px 0; line-height:1.8; white-space:pre-wrap;
+}
+table{width:100%; border-collapse:collapse; margin:12px 0; font-size:.88rem;}
+th,td{border:1px solid var(--line); padding:8px 10px; text-align:left;}
+th{background:var(--gold); color:#fff; font-family:"Noto Serif TC",serif;}
+tr:nth-child(even){background:#f3ead9;}
+.note{
+  background:#fdf6e3; border-left:4px solid var(--gold);
+  padding:10px 14px; border-radius:0 8px 8px 0; margin:10px 0;
+  font-size:.85rem;
+}
+.conclusion{
+  background:#e8f0e9; border-left:4px solid var(--green);
+  padding:12px 16px; border-radius:0 8px 8px 0; margin:16px 0 0;
+  font-size:.9rem; line-height:1.75;
+}
+ol,ul{padding-left:1.4em; margin:8px 0 12px;}
+li{margin-bottom:6px; font-size:.93rem;}
+
+/* USAGE BOX */
+.usage-box{
+  background:var(--paper2); border:1.5px solid var(--line); border-radius:12px;
+  padding:18px 20px; margin-bottom:20px;
+}
+.usage-box h3{font-size:.95rem; color:var(--vermillion); margin-bottom:10px;}
+.usage-box li{font-size:.88rem;}
+
+footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;}
+@media(max-width:480px){
+  header h1{font-size:1.25rem;}
+  .f-btn{font-size:.75rem; padding:5px 10px;}
+  .card-title{font-size:.95rem;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>📝 不動產估價｜申論題實戰範文</h1>
+  <div class="sub">A級必考6題 · 四段式架構（定義→法條→計算→結論）· 📅 2026-10-08</div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">篩選：</span>
+  <button class="f-btn active" onclick="filterCards('all',this)">全部（6題）</button>
+  <button class="f-btn" onclick="filterCards('calc',this)">計算型（4題）</button>
+  <button class="f-btn" onclick="filterCards('explain',this)">說明型（2題）</button>
+</div>
+
+<main>
+
+<div class="usage-box">
+  <h3>📌 使用建議</h3>
+  <ul>
+    <li>先蓋住範文，計時12-13分鐘自己嘗試作答，再對照檢查漏掉哪些得分點</li>
+    <li>計算過程務必完整列式，列式過程本身占分，答案有誤仍可拿部分分數</li>
+    <li>結論段落要扣回題目問題，展現「專業判斷」，不只是重複公式</li>
+    <li>讀完範文後蓋住默寫一次架構與公式，確認能獨立完整作答</li>
+  </ul>
+</div>
+
+<!-- 範文1 -->
+<div class="essay-card" data-type="calc" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜105年第一題</span></div>
+      <div class="card-title">折舊路徑種類＋定額法計算並繪製示意圖</div>
+      <div class="card-meta">
+        <span class="tag calc">計算型</span>
+        <span class="tag">公式：Dn = C×(1-s)/N×n</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 建物累積折舊額之計算，應視建物特性及市場動態，選擇適合的折舊方法。依不動產估價技術規則的規定，有那些路徑的折舊方法？請詳述說明之。假設有一價值200萬元的建物，耐用年數50年，殘價率5%，試繪製示意圖說明之。（25分）
+    </div>
+    <div class="section-h">一、折舊路徑之種類</div>
+    <p>依不動產估價技術規則之規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇下列三種路徑之折舊方法為之：</p>
+    <ol>
+      <li><strong>等速折舊</strong>：建物價值隨經歷年數呈等速、直線方式遞減，每年折舊金額固定不變，適用於建物功能與效用衰退速度較為穩定之情形，常以定額法計算之。</li>
+      <li><strong>初期加速折舊</strong>：建物於使用初期折舊速度較快，隨後逐漸減緩，價值曲線呈現由急轉緩之凹型曲線，適用於建物初期使用密集、設備耗損快速之情形，常以定率法計算之。</li>
+      <li><strong>初期減速折舊</strong>：建物於使用初期折舊速度較慢，隨後逐漸加快，價值曲線呈現由緩轉急之凸型曲線，適用於建物初期狀況良好、後期老化加速之情形，常以償債基金法計算之。</li>
+    </ol>
+    <div class="note">⚠️ 考試陷阱：折舊路徑僅有上述三種，<strong>並無「後期減速折舊」</strong>之路徑，此為實務上常見之易混淆點。</div>
+    <div class="section-h">二、定額法計算公式</div>
+    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
+
+其中：C = 重建成本（或重置成本）
+      s = 殘餘價格率
+      N = 經濟耐用年數
+      n = 經歷年數
+
+建物現值 ＝ C － Dn</div>
+    <div class="section-h">三、代入本題數字計算</div>
+    <p>本題：C = 200萬元，s = 5%，N = 50年</p>
+    <div class="formula-box">每年折舊額 ＝ 200 × (0.95 ÷ 50) ＝ 200 × 0.019 ＝ 3.8萬元/年</div>
+    <table>
+      <tr><th>經歷年數n</th><th>累積折舊額Dn（萬元）</th><th>建物現值（萬元）</th></tr>
+      <tr><td>0</td><td>0</td><td>200.0</td></tr>
+      <tr><td>10</td><td>38.0</td><td>162.0</td></tr>
+      <tr><td>20</td><td>76.0</td><td>124.0</td></tr>
+      <tr><td>30</td><td>114.0</td><td>86.0</td></tr>
+      <tr><td>40</td><td>152.0</td><td>48.0</td></tr>
+      <tr><td>50</td><td>190.0</td><td>10.0</td></tr>
+    </table>
+    <p><strong>示意圖說明：</strong> 橫軸為經歷年數（0至50年）、縱軸為建物價值（萬元）。本案採等速折舊，圖形呈現由起點（0年，200萬元）等速直線下降至終點（50年，10萬元）之直線，斜率固定為每年－3.8萬元，與初期加速折舊（曲線初期陡降後趨緩）及初期減速折舊（曲線初期平緩後陡降）之曲線形態明顯不同。</p>
+    <div class="conclusion">
+      <strong>四、結論</strong><br>
+      依不動產估價技術規則規定，建物累積折舊額之計算路徑分為等速折舊、初期加速折舊及初期減速折舊三種；本案建物若採等速折舊路徑並以定額法計算，每年折舊3.8萬元，第50年末之殘餘價值為10萬元（＝200萬元×5%），折舊曲線呈現一條由200萬元等速遞減至10萬元之直線，足見等速折舊路徑之核心特徵即在於折舊速度之均勻一致性。
+    </div>
+  </div>
+</div>
+
+<!-- 範文2 -->
+<div class="essay-card" data-type="calc" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜107年第一題</span></div>
+      <div class="card-title">成本法定率法折舊公式＋計算題</div>
+      <div class="card-meta">
+        <span class="tag calc">計算型</span>
+        <span class="tag">公式：C×(1-r)^n</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 請列式說明定率法的折舊公式。如果一個1000萬元的建築物，以每年減損2%的速度折舊，請問第5年年末，該建築物的現值為多少？（25分）
+    </div>
+    <div class="section-h">一、定率法之意義</div>
+    <p>定率法係建物累積折舊額計算方法之一，其折舊邏輯為：每年依固定之折舊率，對該年初（即前一年末）之建物帳面餘值計算當年折舊金額，而非對原始重建成本計算。因每年計算基礎之餘值隨折舊逐年減少，故定率法之折舊金額呈現初期較大、後期遞減之趨勢，與初期加速折舊路徑相符。</p>
+    <div class="section-h">二、定率法計算公式</div>
+    <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n
+
+其中：C = 建物原始重建成本
+      r = 每年固定之折舊率
+      n = 經歷年數</div>
+    <p>此種計算方式為「複利式遞減」之折舊概念，與定額法之線性遞減（每年折舊金額固定）有本質上的不同。</p>
+    <div class="section-h">三、代入本題數字計算</div>
+    <p>本題：C = 1000萬元，r = 2%，求第5年年末現值</p>
+    <div class="formula-box">第5年末現值 ＝ 1000 × (1－2%)^5
+           ＝ 1000 × (0.98)^5
+           ＝ 1000 × 0.9039
+           ≈ 903.9 萬元</div>
+    <table>
+      <tr><th>年末</th><th>期初現值（萬元）</th><th>當年折舊額（萬元）</th><th>期末現值（萬元）</th></tr>
+      <tr><td>第1年</td><td>1000.00</td><td>20.00</td><td>980.00</td></tr>
+      <tr><td>第2年</td><td>980.00</td><td>19.60</td><td>960.40</td></tr>
+      <tr><td>第3年</td><td>960.40</td><td>19.21</td><td>941.19</td></tr>
+      <tr><td>第4年</td><td>941.19</td><td>18.82</td><td>922.37</td></tr>
+      <tr><td>第5年</td><td>922.37</td><td>18.45</td><td>903.92</td></tr>
+    </table>
+    <p>由上表可見，第1年折舊20.00萬元，至第5年已遞減至18.45萬元，正符合定率法「初期折舊較多、隨經歷年數增加而逐年遞減」之特性。</p>
+    <div class="note">💡 對比：若以定額法計算（年折舊率同為2%），每年折舊固定1000×2%＝20萬元，第5年末現值為1000－100＝900萬元，略低於定率法的903.9萬元，因定率法後期折舊基礎縮小所致。</div>
+    <div class="conclusion">
+      <strong>四、結論</strong><br>
+      定率法係以每年固定比率對前一年餘值計算折舊，公式為第n年末現值＝C×(1－r)^n；本案1000萬元建築物以每年2%折舊率計算，第5年年末建物現值約為903.9萬元，反映定率法折舊金額初期較高、後期遞減之特性，與定額法之等速折舊邏輯有明顯區別，估價人員應依建物特性及市場動態正確選用折舊方法。
+    </div>
+  </div>
+</div>
+
+<!-- 範文3 -->
+<div class="essay-card" data-type="explain" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜111年第一題</span></div>
+      <div class="card-title">建物折舊額及累積折舊額計算方式（三種方法比較）</div>
+      <div class="card-meta">
+        <span class="tag explain">說明型</span>
+        <span class="tag">定額法 / 定率法 / 償債基金法</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 建物折舊額如何計算？建物累積折舊額又如何計算？請依不動產估價技術規則述說之。（25分）
+    </div>
+    <div class="section-h">一、建物折舊之意義</div>
+    <p>建物因使用、自然耗損或功能衰退等原因，其價值將隨經歷年數增加而遞減，此價值減損之金額即為折舊額；逐年累積之折舊總額，則稱為累積折舊額。依不動產估價技術規則規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並得採定額法、定率法或償債基金法計算。</p>
+    <div class="section-h">二、三種計算方法及其公式</div>
+    <p><strong>（一）定額法</strong>：假定建物於耐用年限內，每年折舊金額均等，其累積折舊額公式為：</p>
+    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
+（對應：等速折舊路徑 → 折舊曲線呈直線下降）</div>
+    <p><strong>（二）定率法</strong>：假定建物每年依固定比率對前一年餘值計算折舊，折舊金額隨經歷年數增加而遞減，建物第n年末現值公式為：</p>
+    <div class="formula-box">建物現值 ＝ C × (1－r)^n
+（對應：初期加速折舊路徑 → 曲線初期陡降、後期趨緩）</div>
+    <p><strong>（三）償債基金法</strong>：假定按年提存一定金額，以複利方式累積，至耐用年限屆滿時累積本利和恰等於應折舊之總金額，因複利效果使初期折舊金額較小、後期較大：</p>
+    <div class="formula-box">折舊提存率 dn ＝ (1－s) × i ÷ [(1＋i)^N－1]
+（對應：初期減速折舊路徑 → 曲線初期平緩、後期陡升）</div>
+    <div class="section-h">三、三種方法之比較</div>
+    <table>
+      <tr><th>比較項目</th><th>定額法</th><th>定率法</th><th>償債基金法</th></tr>
+      <tr><td>對應折舊路徑</td><td>等速折舊</td><td>初期加速折舊</td><td>初期減速折舊</td></tr>
+      <tr><td>折舊曲線形態</td><td>直線</td><td>初期陡降後趨緩</td><td>初期平緩後陡升</td></tr>
+      <tr><td>初期折舊金額</td><td>均等</td><td>較大</td><td>較小</td></tr>
+      <tr><td>計算基礎</td><td>重建成本固定比例</td><td>前一年餘值</td><td>複利提存概念</td></tr>
+    </table>
+    <p>三種方法之選用，應視建物實際使用狀況、設備耗損特性及市場對該類建物之折舊認知而定，並非任意選擇，估價人員應於估價報告書中敘明選用理由。</p>
+    <div class="conclusion">
+      <strong>四、結論</strong><br>
+      建物折舊額之計算應依不動產估價技術規則規定，視建物特性及市場動態選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並分別以定額法、定率法或償債基金法計算累積折舊額；三種方法之核心差異在於折舊速度隨經歷年數變化之趨勢不同，估價人員應審慎判斷後選用最能反映該建物實際價值減損情形之方法，以確保估價結果之合理性與可信度。
+    </div>
+  </div>
+</div>
+
+<!-- 範文4 -->
+<div class="essay-card" data-type="calc" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜112年第二題</span></div>
+      <div class="card-title">屋齡10年建物等速折舊計算＋專業觀點分析合理性</div>
+      <div class="card-meta">
+        <span class="tag calc">計算型</span>
+        <span class="tag">C=800萬 / N=50年 / s=5% / n=10年</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 有一屋齡10年的中古住宅，於建物重新建造成本800萬元、耐用年數50年、殘餘價格率5%的條件下，依不動產估價技術規則的等速折舊路徑計算，建物的現在價值是多少？另請以專業人士的觀點，分析這個價格的合理性。（25分）
+    </div>
+    <div class="section-h">一、等速折舊計算公式</div>
+    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
+建物現值 ＝ C － Dn</div>
+    <div class="section-h">二、代入本題數字計算</div>
+    <p>C = 800萬元，s = 5%，N = 50年，n = 10年</p>
+    <div class="formula-box">累積折舊額 Dn ＝ 800 × [(1－5%) / 50] × 10
+              ＝ 800 × (0.95 ÷ 50) × 10
+              ＝ 800 × 0.019 × 10
+              ＝ 152 萬元
+
+建物現值 ＝ 800 － 152 ＝ 648 萬元</div>
+    <div class="section-h">三、專業觀點之合理性分析</div>
+    <p>以專業估價人員之觀點，648萬元僅為成本法下建物單獨之現值，分析其合理性應從以下面向切入：</p>
+    <ol>
+      <li><strong>成本法本身之限制性</strong>：成本法反映「重新建造所需花費扣除折舊損耗」之概念，並非市場實際成交價格。若該住宅所在地段房價上漲、土地稀缺性提高，市場實際成交之房地總價可能遠高於成本法計算結果。</li>
+      <li><strong>未考慮土地價值</strong>：本題僅計算建物部分之現值，完整之房地總價尚須加計土地價格；土地價格受區域發展、交通便利性等因素影響甚大，無法由成本法單獨反映。</li>
+      <li><strong>應結合三大方法綜合判斷</strong>：依替代原則，理性買方不會支付高於具相同滿意度替代財貨之代價，故完整合理性判斷仍須參酌附近類似中古住宅之比較法實例價格，及以收益法評估之收益價格，三者綜合比較後方能掌握市場真實價格水準。</li>
+      <li><strong>等速折舊未必符合市場實際</strong>：等速折舊假設建物價值均速遞減，但實際上建物初期因裝修新穎對市場買方吸引力較高，中古屋之實際跌價速度未必與等速折舊曲線完全吻合，估價人員仍應實地勘查建物使用狀況，適時調整折舊路徑。</li>
+    </ol>
+    <div class="conclusion">
+      <strong>四、結論</strong><br>
+      本案建物依等速折舊路徑計算之現在價值為648萬元；惟此數值僅反映建物本身依重建成本及折舊推算之成本價格，並未涵蓋土地價值與市場供需狀況，實務上完整之房地總價評估，仍應搭配比較法及收益法之評估結果綜合決定，方能更貼近市場實際交易行情，單以成本法之648萬元作為該住宅之市場價值，尚有其限制性，須以專業判斷補充說明。
+    </div>
+  </div>
+</div>
+
+<!-- 範文5 -->
+<div class="essay-card" data-type="calc" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜99年第一題</span></div>
+      <div class="card-title">收益資本化率風險因素＋加權平均資金成本法（WACC）計算</div>
+      <div class="card-meta">
+        <span class="tag calc">計算型</span>
+        <span class="tag">WACC = Σ（資金比重×利率）</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 收益法又稱收益資本化法，除了精準計算房地客觀淨收益外，收益資本化率或折現率的有效掌握對於價格決定具有關鍵影響。請說明收益資本化率或折現率一般考慮的風險因素與選擇比較基準？同時，請試舉例說明依加權平均資金成本方式決定收益資本化率或折現率的計算過程與結果？（25分）
+    </div>
+    <div class="section-h">一、收益資本化率或折現率考慮之風險因素與選擇比較基準</div>
+    <p>依不動產估價技術規則規定，決定收益資本化率或折現率時，應考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，選擇最具一般性財貨之投資報酬率為比較基準，並就下列各項因素加以比較觀察：</p>
+    <ol>
+      <li><strong>流通性</strong>：不動產相較於一般金融商品流通性較低，變現速度較慢，此將提高其要求報酬率。</li>
+      <li><strong>風險性</strong>：不動產投資存在市場波動、政策變動、自然災害等風險，風險性越高，要求之收益資本化率亦越高。</li>
+      <li><strong>增值性</strong>：具增值潛力之不動產，因未來資本利得預期較高，市場願意接受較低之收益資本化率。</li>
+      <li><strong>管理上之難易程度</strong>：管理較為複雜（如商場、旅館等）者，要求報酬率相對較高。</li>
+    </ol>
+    <div class="section-h">二、加權平均資金成本法（WACC）之意義與公式</div>
+    <div class="formula-box">收益資本化率（WACC）
+  ＝ 自有資金比重 × 自有資金要求報酬率
+  ＋ 借貸資金比重 × 借款利率</div>
+    <p>此方法依不動產投資所需資金來源之比重，以及各資金來源各自之報酬率或利率，加權平均計算收益資本化率，核心邏輯在於自有資金之機會成本通常高於銀行貸款利率，故應依各自占總投資金額之比重加權平均，方能反映該筆不動產投資真實之綜合資金成本。</p>
+    <div class="section-h">三、舉例計算</div>
+    <p>假設某商用不動產投資總額中，自有資金比重40%，要求報酬率8%；借貸資金比重60%，借款利率4%，則：</p>
+    <div class="formula-box">WACC ＝ 0.4 × 8% ＋ 0.6 × 4%
+     ＝ 3.2% ＋ 2.4%
+     ＝ 5.6%
+
+若未來1年期淨收益為100萬元，依直接資本化法：
+收益價格 ＝ 100萬元 ÷ 5.6% ≈ 1,785.7萬元</div>
+    <div class="conclusion">
+      <strong>四、結論</strong><br>
+      收益資本化率或折現率之決定，應綜合考慮銀行定存利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格變動趨勢等因素，並就流通性、風險性、增值性及管理難易程度加以比較；加權平均資金成本法係依自有資金與借貸資金之比重及各自報酬率加權計算，本案範例計算結果為5.6%，此一資本化率即可進一步用於直接資本化法推算勘估標的之收益價格，足見資本化率之合理掌握，對於收益法估價結果之準確性具有決定性影響。
+    </div>
+  </div>
+</div>
+
+<!-- 範文6 -->
+<div class="essay-card" data-type="explain" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜104年第二題</span></div>
+      <div class="card-title">收益法折舊提存費計算＋成本法營造施工費估計</div>
+      <div class="card-meta">
+        <span class="tag explain">說明型</span>
+        <span class="tag">償債基金公式 / 直接法間接法</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 不論是收益法或是成本法在房地產收益價格估計時都扮演著重要的角色，當估價時，勘估標的如果包含建物應加計建物之折舊提存費，請問要如何計算建物的折舊提存費？又勘估標的在估價時，對於其營造或施工費要如何估計？請分別論述之。（25分）
+    </div>
+    <div class="section-h">一、建物折舊提存費之計算</div>
+    <p>於收益法估價時，勘估標的若包含建物，應加計建物之折舊提存費。依不動產估價技術規則規定，折舊提存費得依下列方式計算：</p>
+    <p><strong>（一）等速折舊型（定額法提存）</strong>：每年提存金額均等</p>
+    <div class="formula-box">折舊提存率 dn ＝ (1－s) / N</div>
+    <p><strong>（二）償債基金型</strong>：按年提存一定金額，以複利方式累積至耐用年限屆滿時，累積本利和恰等於應提列之折舊總額</p>
+    <div class="formula-box">折舊提存率 dn ＝ (1－s) × i ÷ [(1＋i)^N－1]
+
+其中：s = 殘餘價格率，N = 經濟耐用年數，i = 利率</div>
+    <div class="note">💡 建物之折舊提存費 ＝ 建物現值 × 折舊提存率。當折舊提存率大於零時，扣除折舊提存費後之淨收益較小，為還原出相同建物價格，所需採用之資本化率相應較低。</div>
+    <div class="section-h">二、成本法營造或施工費之估計</div>
+    <p>成本法估價時，建物之營造或施工費得就同一供需圈內近鄰或類似地區中，選擇與勘估標的類似之比較標的，經比較差異並作價格調整以求取之，方法可分為直接法與間接法兩大類：</p>
+    <p><strong>（一）直接法</strong></p>
+    <ol>
+      <li><strong>淨計法</strong>：就所需各種建材及人工數量，逐一乘以當時單價及工資，並加計管理費、稅捐、資本利息及利潤。最精細惟資料蒐集成本較高，實務較少採用。</li>
+      <li><strong>單位工程法</strong>：以建築細部工程各項目單價乘以施工數量並合計，為估價實務上最常採用之方法。</li>
+    </ol>
+    <p><strong>（二）間接法</strong></p>
+    <ol>
+      <li><strong>工程造價比較法</strong>：按工程概算項目逐項比較差異，依工程價格及工程數量比率進行調整求取。</li>
+      <li><strong>單位面積（或體積）比較法</strong>：以類似標的之單位面積施工費單價為基礎，經比較調整後乘以勘估標的面積（或體積）求取。</li>
+    </ol>
+    <p>此外，營造施工費總成本應加計：規劃設計費（2%–3%）、廣告費及銷售費（4%–5%）、管理費（3%–4%）、稅捐（0.5%–1.2%）及資本利息（依分期投入資本數額及使用年數計息）。</p>
+    <div class="conclusion">
+      <strong>三、結論</strong><br>
+      收益法估價時建物之折舊提存費，得依等速折舊型或償債基金型之公式計算，以使淨收益還原為價格之過程更貼近建物實際價值消耗情形；成本法估價時，營造或施工費則得採淨計法、單位工程法等直接法，或工程造價比較法、單位面積比較法等間接法求取，並應加計規劃設計費、廣告銷售費、管理費、稅捐及資本利息等各項費用，兩者雖分屬不同估價環節，惟皆係正確掌握建物價值消長之關鍵，估價人員應依勘估標的特性及資料取得難易程度選用最適當之計算方法。
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>📅 2026-10-08 · 不動產估價概要申論題實戰範文 · BrokerX 備考專用</footer>
+
+<script>
+function toggleCard(header){
+  var card = header.closest('.essay-card');
+  card.classList.toggle('open');
+}
+
+function filterCards(type, btn){
+  document.querySelectorAll('.f-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.essay-card').forEach(function(card){
+    if(type === 'all'){
+      card.classList.remove('hidden');
+    } else {
+      var t = card.getAttribute('data-type');
+      if(t === type){ card.classList.remove('hidden'); }
+      else { card.classList.add('hidden'); }
+    }
+  });
+}
+</script>
+</body>
+</html>
