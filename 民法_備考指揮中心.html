@@ -74,6 +74,30 @@ th{background:#efe6d1;font-family:'Noto Serif TC',serif}
 pre.pr{background:var(--paper2);border:1px solid var(--line);border-radius:6px;padding:10px 14px;white-space:pre-wrap;font:14px/1.7 'Noto Sans TC',sans-serif;margin:6px 0}
 footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
 @media(max-width:600px){h1{font-size:24px}.cbox .n{font-size:30px}}
+
+.today{background:#F6E6DD;border:1px solid #E3B7A8;border-left:6px solid var(--vermillion);border-radius:8px;padding:12px 16px;margin:4px 0 14px}
+.today h3{font-size:17px;margin-bottom:4px}.today ol{margin:6px 0 0 20px;padding:0}.today li{margin:2px 0}
+.today .tg{font-size:13px;color:var(--muted)}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+.subtabs button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:6px 14px;border-radius:99px;cursor:pointer}
+.subtabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sp{display:none}.sp.on{display:block}
+details.seg{background:var(--paper2);border:1px solid var(--line);border-radius:8px;margin:8px 0}
+details.seg[open]{border-color:var(--vermillion)}
+details.seg>summary{cursor:pointer;padding:10px 12px;list-style:none;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+details.seg>summary::-webkit-details-marker{display:none}
+details.seg>summary::before{content:'▸';color:var(--vermillion)}
+details.seg[open]>summary::before{content:'▾'}
+details.seg .sn{font-family:'Noto Serif TC',serif;font-weight:700;font-size:16px}
+details.seg .sm{font-size:13px;color:var(--muted)}
+details.seg .grid{padding:4px 12px 12px}
+.bar2{height:8px;background:#eadfc6;border-radius:4px;overflow:hidden;min-width:90px;flex:1 1 90px}
+.bar2 i{display:block;height:100%;background:var(--green)}
+.card .pg{display:block;font-size:12px;color:var(--green);margin-top:2px}
+.card.old{opacity:.85}
+nav.tabs button{flex:1 1 auto}
+@media(max-width:600px){nav.tabs{gap:2px}nav.tabs button{padding:8px 3px;font-size:13px}}
+@media(max-width:380px){nav.tabs button{padding:8px 1px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -87,60 +111,57 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
   <div class="cbox g"><div class="n" id="weeks">--</div><div class="l">約剩幾週</div></div>
   <div class="cbox g"><div class="n" id="hours">--</div><div class="l">依平日2h／假日6h推算可讀時數</div></div>
  </div>
- <div class="stat"><span class="chip">📝 選擇題刷題 520 題＋模擬 25 題</span><span class="chip">✍️ 申論範文 32 題（🔴15・🟡15・🟢2）</span></div>
+ <div class="stat"><span class="chip">📝 選擇題 520 題（刷題 A～E 篇）＋整卷模擬 8 卷</span><span class="chip">✍️ 申論 32 題</span></div>
 </header>
 
 <nav class="tabs" id="tabs">
- <button data-t="t1" class="on">📝 刷題工具</button>
- <button data-t="t2">✅ 完成清單</button>
- <button data-t="t3">⚡ 現行法小抄</button>
- <button data-t="t4">✍️ 申論範文全文</button>
- <button data-t="t5">📖 讀書攻略與備考指南</button>
+ <button data-t="t1" class="on">📝 刷題</button>
+ <button data-t="t2">🧠 記憶</button>
+ <button data-t="t3">✍️ 申論</button>
+ <button data-t="t4">⚡ 現行法</button>
+ <button data-t="t5">📊 進度</button>
+ <button data-t="t6">📖 攻略</button>
 </nav>
 
-<!-- 1 刷題工具 -->
+<main>
+<!-- 1 刷題 -->
 <section class="tab on" id="t1">
- <h2>📝 刷題工具</h2>
- <p class="lead">每張卡片連到 GitHub Pages 上的實際檔案；右上角為該工具題數。</p>
- <div id="toolbox"></div>
- <div class="note">題數說明：刷題練習 5 檔共 520 題（A107／B85／C77／D134／E117），已用考選部官方題重建，取代舊的8檔（舊檔含非官方題與錯誤答案，請勿再用）；「完整考題小卡」合計 422 張，兩者統計口徑不同（小卡含分類重疊與拆題），不是漏題。</div>
+ <h2>📝 刷題</h2>
+ <div class="today" id="today"></div>
+ <div class="subtabs" id="st1">
+  <button data-s="p1" class="on">📚 章節練習</button>
+  <button data-s="p2">🔀 混合・錯題本</button>
+  <button data-s="p3">🎯 整卷模擬</button>
+ </div>
+ <div class="sp on" id="p1">
+  <p class="lead">依近8年各篇占比由大到小排列（D26%・E24%・A21.5%・B14.5%・C14%）。點開看該篇所有工具；進度為此瀏覽器記錄。</p>
+  <div id="segbox"></div>
+  <div class="note">題數：刷題練習 A～E 篇共 520 題（A107／B85／C77／D134／E117），皆為考選部官方題＋官方答案。「完整考題小卡」只當概念複習：稽核發現約62張題目非官方或標錯年份、約283張選項為改寫，答案以刷題練習為準。</div>
+ </div>
+ <div class="sp" id="p2">
+  <p class="lead">錯題本：到各篇刷題頁按「只看答錯」重做；每題自己分型 A 法條混淆／B 粗心／C 真的不熟（C 型優先回頭讀）。</p>
+  <div class="tw"><table id="wrongtb"><tr><th>篇</th><th>已作答</th><th>錯題</th><th>連結</th></tr></table></div>
+  <div class="note">整卷模擬的錯題清單在交卷後的結果頁。刷題頁的作答紀錄存在此瀏覽器，換裝置不會同步。</div>
+ </div>
+ <div class="sp" id="p3">
+  <p class="lead">歷屆整卷模擬（107–114年，每年25題、45分鐘；選年份作答）。成績只記錄在此瀏覽器。</p>
+  <div id="simbox"></div>
+  <div class="tw"><table id="simtb"><tr><th>年份</th><th>最近成績（/50）</th><th>答對</th><th>A／BC／D／E</th></tr></table></div>
+  <div class="note">補習班模擬卷：目前尚無登記。自建模擬卷：尚無。</div>
+ </div>
 </section>
 
-<!-- 2 完成清單 -->
+<!-- 2 記憶 -->
 <section class="tab" id="t2">
- <h2>✅ 民法五件套完成清單</h2>
- <p class="lead">依知識庫與 GitHub 實際檔案盤點。</p>
- <div class="tw"><table>
-  <tr><th>#</th><th>件</th><th>狀態</th><th>實際檔案／備註</th></tr>
-  <tr><td>1</td><td>16年考點分析</td><td class="ok">✅ 有</td><td>知識庫：民法概要_16年考點分析_99-114_v1.1修正版.md（325題選擇題＋32題申論分類排名）</td></tr>
-  <tr><td>2</td><td>重點筆記</td><td class="ok">✅ 有（AI整理）</td><td>知識庫：民法概要_重點筆記.md（條號已逐步對照現行條文，另有〈歷屆答案vs現行法對照表〉）；GitHub：彩色重點速記 A／BC／D／E、法律效果總整理</td></tr>
-  <tr><td>3</td><td>題庫（含答案）</td><td class="ok">✅ 有 520題</td><td>知識庫：民法概要_題庫_含答案.md（官方題＋官方答案）；GitHub：刷題練習 A～E篇、25題模擬</td></tr>
-  <tr><td>4</td><td>申論題攻略表</td><td class="ok">✅ 有</td><td>知識庫：民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md（32題速查＋逐題骨架＋萬用口訣）；另有答題模板分類卡 v1.1</td></tr>
-  <tr><td>5</td><td>申論題實戰範文</td><td class="ok">✅ 有 32／32</td><td>知識庫：民法申論題實戰範文_32題完整版.md；32題皆為完整四段式全文，已對照官方試題 PDF 核實（本頁第④頁籤內嵌全文）</td></tr>
- </table></div>
- <div class="note r"><b>結論：5 件齊全。</b>GitHub 工具（刷題、小卡、單字卡、速記、模擬、法律效果總整理）見第①頁籤。</div>
+ <h2>🧠 記憶</h2>
+ <p class="lead">固定順序：彩色重點速記 → 互動單字卡 → 精選考題小卡（在刷題頁）。總整理用來考前掃陷阱與數字。</p>
+ <div id="membox"></div>
 </section>
 
-<!-- 3 現行法小抄 -->
 <section class="tab" id="t3">
- <h2>⚡ 現行法小抄</h2>
- <p class="lead">只收「已核實」的項目；沒核實的一律標「待補充」，不憑記憶填。</p>
- <div class="tw"><table>
-  <tr><th>題／點</th><th>容易寫成的舊答案</th><th>現行／核實後的正確寫法</th><th>依據・看哪裡</th></tr>
-  <tr><td>106-二<br>成年年齡</td><td>未滿20歲為限制行為能力人</td><td>成年年齡為 <b>18歲</b>；7歲以上未滿18歲為限制行為能力人</td><td>民法§12、§13｜範文16</td></tr>
-  <tr><td>111-一<br>善意占有人</td><td>丙無權占有→甲可依不當得利請求租金補償</td><td>丙為<b>善意占有人</b>，依§952得為使用收益；丙拒付36萬之抗辯<b>有理由</b>。乙是「以自己名義」出租，不是代理</td><td>§767、§952、§179｜範文25</td></tr>
-  <tr><td>110-一<br>共有物分割後之抵押權</td><td>抵押權僅存於抵押人分得部分（或規則方向寫反）</td><td>§824-1 第2項：<b>原則</b>按原應有部分比例存於各分得人；<b>例外</b>才僅存於抵押人分得部分</td><td>§824-1 Ⅱ｜範文23</td></tr>
-  <tr><td>109-一<br>A屋歸屬</td><td>未先以登記名義定歸屬</td><td>先看<b>登記名義</b>定歸屬，再定性他方擅自處分為<b>無權處分</b></td><td>§118、§759-1｜範文21</td></tr>
-  <tr><td>113-二<br>和解契約</td><td>只談居間報酬與定金，漏掉甲丙曾簽和解契約</td><td>須分段處理：委託／居間關係→和解契約效力→定金退還</td><td>居間、和解、定金相關條文｜範文30</td></tr>
- </table></div>
- <div class="note gr">以上 5 項皆來自「申論題對照官方試題 PDF」的核實過程（修正已寫進範文與攻略表）。這是「核實修正表」，不是修法對照表。</div>
- <div class="todo"><b>待補充：</b>選擇題的「歷屆答案 vs 現行法」逐題對照表尚未建立（例如成年／結婚年齡相關、繼承編、夫妻財產制等近年修法影響的題）。要補時，需逐題以法務部全國法規資料庫現行條文核實後再填，目前不列任何未核實內容。</div>
-</section>
-
-<!-- 4 申論範文 -->
-<section class="tab" id="t4">
- <h2>✍️ 申論範文全文（32題）</h2>
- <p class="lead">四段式：定義→法條→涵攝分析→結論。🔴A 必練／🟡B 次練／🟢C 備讀。點題目展開全文。</p>
+ <h2>✍️ 申論（32題）</h2>
+ <p class="lead">四段式：定義→法條→涵攝分析→結論。🔴A 必練／🟡B 次練／🟢C 備讀（依主題重複度的備考優先度，非官方分級）。點題目展開全文。</p>
+ <div id="essaytool"></div>
  <div class="filters" id="fl">
   <button data-f="all" class="on">全部 32</button>
   <button data-f="A">🔴 A級 15</button>
@@ -613,26 +634,62 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
 <label class="done"><input type="checkbox" class="rd" data-key="114-二"> 我已讀懂這題的邏輯</label></div></details>
  </div>
 </section>
-
-<!-- 5 讀書攻略 -->
-<section class="tab" id="t5">
- <h2>📖 讀書攻略與備考指南</h2>
- <p class="lead">民法是你最弱的一科，順序排第一。（本頁已合併原《讀書攻略與備考指南》）</p>
-
- <div class="group">① 段落優先順序（依16年考點加總）</div>
+<section class="tab" id="t4">
+ <h2>⚡ 現行法</h2>
+ <p class="lead">只收「已核實」的項目；沒核實的一律標「待補充」，不憑記憶填。</p>
+ <div class="group">① 修法（影響多題）</div>
  <div class="tw"><table>
-  <tr><th>順序</th><th>段落</th><th>核心考點（16年累計題數）</th><th>優先度</th></tr>
-  <tr><td class="no">1</td><td>D・物權編</td><td>抵押權36・地上權27・共有24・所有權20</td><td>🔴 第一優先</td></tr>
-  <tr><td class="no">2</td><td>E・親屬繼承</td><td>繼承53・夫妻財產37（近年翻倍）・特留分15</td><td>🔴 第一優先</td></tr>
-  <tr><td class="part">3</td><td>A・總則</td><td>意思表示44（降溫中）・行為能力28・代理18・時效13</td><td>🟡 第二優先</td></tr>
-  <tr><td class="part">4</td><td>C・各種之債</td><td>租賃27・瑕疵擔保20・居間14（近年申論爆發）</td><td>🟡 第二優先</td></tr>
-  <tr><td class="ok">5</td><td>B・債編總則</td><td>侵權行為13（107年後幾乎絕跡）</td><td>🟢 第三優先</td></tr>
+  <tr><th>條文</th><th>舊法</th><th>現行法</th><th>施行／備註</th></tr>
+  <tr><td>§12 成年</td><td>20歲</td><td><b>18歲</b></td><td>112.1.1；題幹出現18、19歲的限制行為能力人，舊答案不能直接套</td></tr>
+  <tr><td>§980 結婚年齡</td><td>男18、女16</td><td><b>男女均18歲</b>；未成年人不得結婚（§981 同意規定刪除）</td><td>112.1.1</td></tr>
+  <tr><td>§205 約定利率上限</td><td>週年20%；超過部分債權人無請求權</td><td><b>週年16%</b>；超過部分之約定<b>無效</b></td><td>109.12.25 修正公布</td></tr>
+  <tr><td>§1223 特留分</td><td>兄弟姊妹、祖父母 1/3</td><td>兄弟姊妹之特留分<b>刪除</b>（祖父母1/3不變）</td><td>2026-08-17 公布，<b>2027-02-17 施行</b>，以被繼承人死亡日為界。<b>115年11月考試仍按舊條文</b>；兄弟姊妹法定繼承順位不變</td></tr>
  </table></div>
- <div class="note r"><b>115年特別留意：</b>居間契約112、113年連續兩年是申論主角（報酬請求權成立時點、合意解除對報酬之影響）；夫妻財產制重心已轉向法定財產制剩餘財產分配請求權（§1030-1）。時間不夠要砍時，先砍B段，其次A段的行為能力子題；D、E不能砍。</div>
-
- <div class="group">② 章節（主題）優先順序（16年325題選擇題統計）</div>
+ <div class="group">② 申論核實修正表</div>
  <div class="tw"><table>
-  <tr><th>優先</th><th>主題</th><th>16年題數</th><th>讀法</th></tr>
+  <tr><th>題／點</th><th>容易寫成的舊答案</th><th>現行／核實後的正確寫法</th><th>依據・看哪裡</th></tr>
+  <tr><td>106-二<br>成年年齡</td><td>未滿20歲為限制行為能力人</td><td>成年年齡為 <b>18歲</b>；7歲以上未滿18歲為限制行為能力人</td><td>民法§12、§13｜範文16</td></tr>
+  <tr><td>111-一<br>善意占有人</td><td>丙無權占有→甲可依不當得利請求租金補償</td><td>丙為<b>善意占有人</b>，依§952得為使用收益；丙拒付36萬之抗辯<b>有理由</b>。乙是「以自己名義」出租，不是代理</td><td>§767、§952、§179｜範文25</td></tr>
+  <tr><td>110-一<br>共有物分割後之抵押權</td><td>抵押權僅存於抵押人分得部分（或規則方向寫反）</td><td>§824-1 第2項：<b>原則</b>按原應有部分比例存於各分得人；<b>例外</b>才僅存於抵押人分得部分</td><td>§824-1 Ⅱ｜範文23</td></tr>
+  <tr><td>109-一<br>A屋歸屬</td><td>未先以登記名義定歸屬</td><td>先看<b>登記名義</b>定歸屬，再定性他方擅自處分為<b>無權處分</b></td><td>§118、§759-1｜範文21</td></tr>
+  <tr><td>113-二<br>和解契約</td><td>只談居間報酬與定金，漏掉甲丙曾簽和解契約</td><td>須分段處理：委託／居間關係→和解契約效力→定金退還</td><td>居間、和解、定金相關條文｜範文30</td></tr>
+ </table></div>
+ <div class="note gr">以上 5 項皆來自「申論題對照官方試題 PDF」的核實過程（修正已寫進範文與攻略表）。這是「核實修正表」，不是修法對照表。</div>
+ <div class="todo"><b>尚待核對：</b>選擇題「歷屆答案 vs 現行法」逐題對照表已建立在知識庫（《民法概要_歷屆答案vs現行法對照表》），但只有上表4項經過查證，其餘為 AI 初篩，另有171題沿用舊解析尚未比對（例如成年／結婚年齡相關、繼承編、夫妻財產制等近年修法影響的題）。要補時，需逐題以法務部全國法規資料庫現行條文核實後再填，目前不列任何未核實內容。</div>
+</section>
+<!-- 5 進度 -->
+<section class="tab" id="t5">
+ <h2>📊 進度</h2>
+ <p class="lead">資料來自各工具在此瀏覽器的紀錄；換裝置或清除資料就會歸零。</p>
+ <div class="today" id="phnow"></div>
+ <div class="group">① 刷題進度（依篇）</div>
+ <div class="tw"><table id="progtb"><tr><th>篇</th><th>已作答／總數</th><th>正確率</th><th>錯題</th></tr></table></div>
+ <div class="group">② 整卷模擬</div>
+ <div id="simsum" class="note"></div>
+ <div class="group">③ 申論</div>
+ <div id="essum" class="note"></div>
+ <div class="group">④ 每週日自查</div>
+ <div class="note">• 這週刷題進度有沒有跟上「今天做什麼」的建議？<br>• 錯題本 C 型（真的不熟）有沒有回頭讀速記？<br>• 申論這週有讀一題作答架構嗎？<br>• 有沒有看到數字或條號想不起來的？記進錯題本。</div>
+</section>
+
+<section class="tab" id="t6">
+ <h2>📖 攻略</h2>
+ <p class="lead">民法是你最弱的一科，順序排第一。</p>
+
+ <div class="group">① 段落優先順序（依 520 題分篇統計）</div>
+ <div class="tw"><table>
+  <tr><th>順序</th><th>段落</th><th>全部題數／近8年占比</th><th>核心考點</th><th>優先度</th></tr>
+  <tr><td class="no">1</td><td>D・物權編</td><td>134題／26%</td><td>抵押權・地上權・共有・所有權</td><td>🔴 第一優先</td></tr>
+  <tr><td class="no">2</td><td>E・親屬繼承</td><td>117題／24%</td><td>繼承・夫妻財產制（近年翻倍）・特留分</td><td>🔴 第一優先</td></tr>
+  <tr><td class="part">3</td><td>A・總則</td><td>107題／21.5%</td><td>意思表示（降溫中）・行為能力・代理・時效</td><td>🟡 第二優先</td></tr>
+  <tr><td class="part">4</td><td>B・債編總論</td><td>85題／14.5%</td><td>債務不履行・侵權行為（107年後幾乎絕跡）</td><td>🟡 與C並列</td></tr>
+  <tr><td class="part">4</td><td>C・債編分則</td><td>77題／14%</td><td>租賃・瑕疵擔保・居間（近年申論爆發）</td><td>🟡 與B並列</td></tr>
+ </table></div>
+ <div class="note r"><b>115年特別留意：</b>居間契約112、113年連續兩年是申論主角（報酬請求權成立時點、合意解除對報酬之影響）；夫妻財產制重心已轉向法定財產制剩餘財產分配請求權（§1030-1）。B、C 占比相近，時間不夠要砍時，先看錯題本再決定；D、E 不能砍。</div>
+
+ <div class="group">② 高頻考點排行（舊版統計口徑，只看趨勢，不當精確題數）</div>
+ <div class="tw"><table>
+  <tr><th>優先</th><th>主題</th><th>舊版統計題數</th><th>讀法</th></tr>
   <tr><td class="no">1</td><td>繼承（含特留分15）</td><td>53</td><td>題量第一，先把應繼分、特留分、拋棄／限定繼承算熟</td></tr>
   <tr><td class="no">2</td><td>意思表示</td><td>44</td><td>虛偽、錯誤、詐欺脅迫、撤銷效力——也是申論高頻</td></tr>
   <tr><td class="no">3</td><td>夫妻財產制</td><td>37</td><td>法定財產制、剩餘財產分配，分清楚歸屬與處分</td></tr>
@@ -667,7 +724,7 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
 
  <div class="group">⑤ 時程：四輪順序＋依剩餘天數的階段（系統自動標出你現在的位置）</div>
  <div class="note">
-  <b>第一輪・段落刷題</b>：D→E→A→C→B，每段先讀速記、再刷精選小卡，搭配單字卡。固定順序「速記→單字卡→精選小卡」，不要顛倒或跳過。<br>
+  <b>第一輪・段落刷題</b>：D→E→A→B／C，每段先讀速記、再刷精選小卡，搭配單字卡。固定順序「速記→單字卡→精選小卡」，不要顛倒或跳過。<br>
   <b>第二輪・錯題複習</b>：刷題練習A～E篩「只看答錯」，A／B／C三類分別處理。<br>
   <b>第三輪・申論限時寫作</b>：從🔴高機率題挑選，限時25分鐘手寫，寫完對照範文自評。<br>
   <b>考前一週・全科模擬</b>：25題模擬（107–114年整卷，45分鐘，8卷輪流）＋成對規則小抄＋法律效果總整理速背卡。
@@ -689,15 +746,32 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
  <pre class="pr">請對照官方PDF，重新核對〔109年〕這兩題申論的事實有沒有寫對</pre>
 
  <div class="note r"><b>提醒：</b>題目與答案以考選部官方試題為準；解析若與現行條文有出入，以全國法規資料庫為準。</div>
-</section>
 
+ <div class="group">⑦ 五件套完成清單</div>
+ <div class="tw"><table>
+  <tr><th>#</th><th>件</th><th>狀態</th><th>實際檔案／備註</th></tr>
+  <tr><td>1</td><td>16年考點分析</td><td class="ok">✅ 有</td><td>知識庫：民法概要_16年考點分析_99-114_v1.1修正版.md（520題分篇統計＋高頻考點排行〔舊口徑，看趨勢〕＋32題申論分類）</td></tr>
+  <tr><td>2</td><td>重點筆記</td><td class="ok">✅ 有（AI整理）</td><td>知識庫：民法概要_重點筆記.md（條號已逐步對照現行條文，另有〈歷屆答案vs現行法對照表〉）；GitHub：彩色重點速記 A／BC／D／E、法律效果總整理</td></tr>
+  <tr><td>3</td><td>題庫（含答案）</td><td class="ok">✅ 有 520題</td><td>知識庫：民法概要_題庫_含答案.md（官方題＋官方答案）；GitHub：刷題練習 A～E篇、25題模擬</td></tr>
+  <tr><td>4</td><td>申論題攻略表</td><td class="ok">✅ 有</td><td>知識庫：民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md（32題速查＋逐題骨架＋萬用口訣）；另有答題模板分類卡 v1.1</td></tr>
+  <tr><td>5</td><td>申論題實戰範文</td><td class="ok">✅ 有 32／32</td><td>知識庫：民法申論題實戰範文_32題完整版.md；32題皆為完整四段式全文，已對照官方試題 PDF 核實（本頁第④頁籤內嵌全文）</td></tr>
+ </table></div>
+ <div class="note r"><b>結論：5 件齊全。</b>GitHub 工具見「刷題」「記憶」頁籤。</div>
+
+</section>
+</main>
 <footer>民法備考指揮中心｜內容對應知識庫「五件套 v1.1修正版」與 GitHub 工具檔｜倒數與階段標記為開啟頁面時即時計算。</footer>
 </div>
 
 <script>
 (function(){
-  var TOOLS=[{"g": "刷題練習", "name": "民法A篇 總則｜官方99–114年全題（v2）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A%E7%AF%87.html", "n": "107題", "desc": "官方520題重建版、逐選項解析"}, {"g": "刷題練習", "name": "民法B篇 債編總論｜官方99–114年全題（v2）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B%E7%AF%87.html", "n": "85題", "desc": "官方520題重建版、逐選項解析"}, {"g": "刷題練習", "name": "民法C篇 債編分則｜官方99–114年全題（v2）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C%E7%AF%87.html", "n": "77題", "desc": "官方520題重建版、逐選項解析"}, {"g": "刷題練習", "name": "民法D篇 物權｜官方99–114年全題（v2）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D%E7%AF%87.html", "n": "134題", "desc": "官方520題重建版、逐選項解析"}, {"g": "刷題練習", "name": "民法E篇 親屬繼承｜官方99–114年全題（v2）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E%E7%AF%87.html", "n": "117題", "desc": "官方520題重建版、逐選項解析"}, {"g": "刷題練習", "name": "民法概要 25題模擬測驗", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html", "n": "25題", "desc": "整份模擬、限時自測"}, {"g": "考題小卡", "name": "民法A 總則｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "52題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法BC 債編（總則＋分則）｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "119題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法D 物權｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "124題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法E 親屬繼承｜完整考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "127題", "desc": "歷屆選擇題逐題翻卡"}, {"g": "考題小卡", "name": "民法A 總則｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法BC 債編（總則＋分則）｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "20題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法D 物權｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "考題小卡", "name": "民法E 親屬繼承｜精選考題小卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"g": "速記與單字卡", "name": "民法A 總則｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法BC 債編（總則＋分則）｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "38張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法D 物權｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "50張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法E 親屬繼承｜互動單字卡", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶"}, {"g": "速記與單字卡", "name": "民法A 總則｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法BC 債編（總則＋分則）｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法D 物權｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法E 親屬繼承｜彩色重點速記", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點、可快速掃讀"}, {"g": "速記與單字卡", "name": "民法 法律效果總整理（無效／撤銷／效力未定／解除／時效）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%B3%95%E5%BE%8B%E6%95%88%E6%9E%9C%E7%B8%BD%E6%95%B4%E7%90%86.html", "n": "10段", "desc": "民法沒有罰則→整理法律效果；條號附白話、遮答案練習、速背卡"}, {"g": "申論工具", "name": "民法申論題 五型答題模板", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html", "n": "32題", "desc": "五型判型＋依年度瀏覽"}];
-  // tabs
+  var TOOLS=[{"kind": "drill", "seg": "A", "name": "刷題練習 A篇 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A%E7%AF%87.html", "n": "107題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_a_v2", "total": 107}, {"kind": "drill", "seg": "B", "name": "刷題練習 B篇 債編總論", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B%E7%AF%87.html", "n": "85題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_b_v2", "total": 85}, {"kind": "drill", "seg": "C", "name": "刷題練習 C篇 債編分則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C%E7%AF%87.html", "n": "77題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_c_v2", "total": 77}, {"kind": "drill", "seg": "D", "name": "刷題練習 D篇 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D%E7%AF%87.html", "n": "134題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_d_v2", "total": 134}, {"kind": "drill", "seg": "E", "name": "刷題練習 E篇 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E%E7%AF%87.html", "n": "117題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_e_v2", "total": 117}, {"kind": "sim", "seg": "", "name": "歷屆整卷模擬（107–114年）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html", "n": "8卷", "desc": "每年25題、45分鐘，選年份作答"}, {"kind": "sel", "seg": "A", "name": "精選考題小卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "B", "name": "精選考題小卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "20題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "D", "name": "精選考題小卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "E", "name": "精選考題小卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "full", "seg": "A", "name": "完整考題小卡｜A 總則（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "52張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "B", "name": "完整考題小卡｜BC 債編（總則＋分則）（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "119張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "D", "name": "完整考題小卡｜D 物權（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "124張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "E", "name": "完整考題小卡｜E 親屬繼承（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "127張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "note", "seg": "", "name": "彩色重點速記｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "38張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "50張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "sum", "seg": "", "name": "法律效果總整理", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%B3%95%E5%BE%8B%E6%95%88%E6%9E%9C%E7%B8%BD%E6%95%B4%E7%90%86.html", "n": "10段", "desc": "無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡", "grp": "總整理"}, {"kind": "essay", "seg": "", "name": "申論題 五型答題模板", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html", "n": "32題", "desc": "五型判型＋依年度瀏覽"}];
+  var ORDER=['D','E','A','B','C'];
+  var SEGN={A:'A 總則',B:'B 債編總論',C:'C 債編分則',D:'D 物權',E:'E 親屬繼承'};
+  var SEGP={A:'21.5%',B:'14.5%',C:'14%',D:'26%',E:'24%'};
+  function $(id){return document.getElementById(id)}
+  function ls(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+  // ---- tabs
   var tabs=document.querySelectorAll('#tabs button');
   function show(id){
     tabs.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
@@ -705,51 +779,114 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
     try{history.replaceState(null,'','#'+id)}catch(e){}
   }
   tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
-  var h=(location.hash||'').slice(1); if(/^t[1-5]$/.test(h)) show(h);
-
-  // countdown (computed at open time, local date)
+  var h=(location.hash||'').slice(1); if(/^t[1-6]$/.test(h)) show(h);
+  document.querySelectorAll('#st1 button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('#st1 button').forEach(function(x){x.classList.toggle('on',x===b)});
+    document.querySelectorAll('#t1 .sp').forEach(function(p){p.classList.toggle('on',p.id===b.dataset.s)});
+  })});
+  // ---- countdown
   var exam=new Date(2026,10,14);
   var now=new Date(); var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   var d=Math.round((exam-today)/86400000);
-  var dEl=document.getElementById('days');
+  var dEl=$('days');
   if(d>0){dEl.textContent=d;}
-  else if(d===0){dEl.textContent='今天';document.getElementById('dayl').textContent='考試日，加油！';}
-  else {dEl.textContent='已過';document.getElementById('dayl').textContent='考試日已過';}
+  else if(d===0){dEl.textContent='今天';$('dayl').textContent='考試日，加油！';}
+  else {dEl.textContent='已過';$('dayl').textContent='考試日已過';}
   var left=Math.max(d,0);
-  document.getElementById('weeks').textContent=(left/7).toFixed(1);
-  // study hours: count weekdays*2 + weekend*6 from today to day before exam
+  $('weeks').textContent=(left/7).toFixed(1);
   var hrs=0;
   for(var i=0;i<left;i++){var dt=new Date(today.getFullYear(),today.getMonth(),today.getDate()+i);var w=dt.getDay();hrs+=(w===0||w===6)?6:2;}
-  document.getElementById('hours').textContent=hrs;
-  // phase highlight
+  $('hours').textContent=hrs;
+  var phText='';
   document.querySelectorAll('#phases .ph').forEach(function(p){
-    var mn=+p.dataset.min,mx=+p.dataset.max; if(left>=mn&&left<=mx)p.classList.add('cur');
+    var mn=+p.dataset.min,mx=+p.dataset.max; if(left>=mn&&left<=mx){p.classList.add('cur');phText=p.innerHTML.replace(/<span class="tg">[^<]*<\/span>/,'');}
   });
-
-  // tools
-  var box=document.getElementById('toolbox'),groups={},order=[];
-  TOOLS.forEach(function(t){if(!groups[t.g]){groups[t.g]=[];order.push(t.g)}groups[t.g].push(t)});
-  order.forEach(function(g){
-    var h=document.createElement('div');h.className='group';h.textContent=g;box.appendChild(h);
-    var gr=document.createElement('div');gr.className='grid';
-    groups[g].forEach(function(t){
-      var a=document.createElement('a');a.className='card';a.href=t.url;a.target='_blank';a.rel='noopener';
-      var bd=document.createElement('span');bd.className='bd';bd.textContent=t.n;
-      var nm=document.createElement('div');nm.className='nm';nm.textContent=t.name;
-      var ds=document.createElement('div');ds.className='ds';ds.textContent=t.desc;
-      a.appendChild(bd);a.appendChild(nm);a.appendChild(ds);gr.appendChild(a);
-    });
-    box.appendChild(gr);
+  // ---- progress data
+  var prog={},tw=0,td=0,tc=0;
+  TOOLS.filter(function(t){return t.kind==='drill'}).forEach(function(t){
+    var S=ls(t.ls)||{};var done=0,ok=0;
+    Object.keys(S).forEach(function(k){if(S[k]){done++;if(S[k].ok)ok++}});
+    prog[t.seg]={done:done,ok:ok,wrong:done-ok,total:t.total,url:t.url};
+    td+=done;tc+=ok;tw+=done-ok;
   });
-
-  // essays
+  var sim=ls('bx_mock_civ_sim')||[];
+  var latest={};sim.forEach(function(r){latest[r.y]=r});
   var essays=[].slice.call(document.querySelectorAll('.essay'));
-  var readSet={};
-  try{readSet=JSON.parse(localStorage.getItem('minfa_read')||'{}')}catch(e){}
+  var readSet=ls('minfa_read')||{};
+  // ---- 今天做什麼
+  var dow=now.getDay(),weekend=(dow===0||dow===6);
+  var next=null;ORDER.forEach(function(s){if(!next&&prog[s].done<prog[s].total)next=s});
+  var steps=[];
+  if(tw>0)steps.push('先清錯題：共 '+tw+' 題（刷題頁按「只看答錯」，每題分型 A／B／C）');
+  if(next)steps.push('速記＋單字卡 15 分鐘，再刷「'+SEGN[next]+'篇」（已 '+prog[next].done+'／'+prog[next].total+'）'+(weekend?'，今天目標 40 題以上':'，今天目標 20 題'));
+  else steps.push('第一輪刷題已完成 → 轉第二輪：回頭重做錯題，並做整卷模擬');
+  var nextEs=essays.filter(function(e){return e.dataset.lv==='A'&&!readSet[e.dataset.key]})[0];
+  if(weekend){
+    if(nextEs)steps.push('申論：讀 '+nextEs.dataset.yr+'年這題的作答架構（每週一題，只讀不寫）');
+    var simDone=Object.keys(latest).length;
+    if(left<=30||!next)steps.push('做一份整卷模擬（45分鐘），目前已做 '+simDone+'／8 卷');
+  } else if(nextEs&&dow===3){ steps.push('申論：讀 '+nextEs.dataset.yr+'年這題的作答架構（10 分鐘）'); }
+  var phase=left>=31?'第一階段':(left>=15?'第二階段':(left>=8?'第三階段':'最後一週'));
+  $('today').innerHTML='<h3>今天做什麼（'+(weekend?'假日 6 小時':'平日 2 小時')+'）</h3><ol>'+steps.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol><div class="tg">'+phase+'・距離考試 '+left+' 天・建議依你的進度即時產生，作答紀錄只存在這個瀏覽器</div>';
+  // ---- card builder
+  function card(t,extra){
+    var a=document.createElement('a');a.className='card'+(t.old?' old':'');a.href=t.url;a.target='_blank';a.rel='noopener';
+    var bd=document.createElement('span');bd.className='bd';bd.textContent=t.n;
+    var nm=document.createElement('div');nm.className='nm';nm.textContent=t.name;
+    var ds=document.createElement('div');ds.className='ds';ds.textContent=t.desc;
+    a.appendChild(bd);a.appendChild(nm);a.appendChild(ds);
+    if(extra){var p=document.createElement('span');p.className='pg';p.textContent=extra;a.appendChild(p)}
+    return a;
+  }
+  // ---- 章節練習
+  var segbox=$('segbox');
+  ORDER.forEach(function(s,idx){
+    var p=prog[s];
+    var det=document.createElement('details');det.className='seg';if(idx===0)det.open=true;
+    var sm=document.createElement('summary');
+    var pct=p.total?Math.round(p.done/p.total*100):0;
+    sm.innerHTML='<span class="sn">'+SEGN[s]+'</span><span class="sm">近8年占比 '+SEGP[s]+'・'+p.total+' 題・已作答 '+p.done+'</span><span class="bar2"><i style="width:'+pct+'%"></i></span>';
+    det.appendChild(sm);
+    var gr=document.createElement('div');gr.className='grid';
+    TOOLS.filter(function(t){return t.seg===s}).sort(function(a,b){var o={drill:0,sel:1,full:2};return o[a.kind]-o[b.kind]}).forEach(function(t){
+      gr.appendChild(card(t,t.kind==='drill'?('已作答 '+p.done+'／'+p.total+(p.done?'・正確率 '+Math.round(p.ok/p.done*100)+'%・錯 '+p.wrong:'')):''));
+    });
+    det.appendChild(gr);segbox.appendChild(det);
+  });
+  // ---- 錯題本
+  var wt=$('wrongtb');
+  ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td><td><a href="'+p.url+'" target="_blank" rel="noopener">開啟（按「只看答錯」）</a></td>';wt.appendChild(tr)});
+  // ---- 整卷
+  var simT=TOOLS.filter(function(t){return t.kind==='sim'})[0];
+  $('simbox').appendChild(card(simT));
+  var st=$('simtb');
+  [107,108,109,110,111,112,113,114].forEach(function(y){var r=latest[y];var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+y+'年</td>'+(r?'<td>'+r.score+'</td><td>'+r.correct+'／25</td><td>'+['A','BC','D','E'].map(function(k){return r.segs[k]}).join('／')+'</td>':'<td colspan="3" class="part">尚未做</td>');st.appendChild(tr)});
+  // ---- 記憶
+  var mb=$('membox');
+  [['彩色重點速記','note'],['互動單字卡','vocab'],['總整理','sum']].forEach(function(g){
+    var hh=document.createElement('div');hh.className='group';hh.textContent=g[0];mb.appendChild(hh);
+    var gr=document.createElement('div');gr.className='grid';
+    TOOLS.filter(function(t){return t.kind===g[1]}).forEach(function(t){gr.appendChild(card(t))});mb.appendChild(gr);
+  });
+  // ---- 申論工具卡
+  var es=TOOLS.filter(function(t){return t.kind==='essay'})[0];
+  var eg=document.createElement('div');eg.className='grid';eg.appendChild(card(es));$('essaytool').appendChild(eg);
+  // ---- 進度
+  var pt=$('progtb');
+  ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td>'+(p.done?Math.round(p.ok/p.done*100)+'%':'—')+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td>';pt.appendChild(tr)});
+  var tot=0;ORDER.forEach(function(s){tot+=prog[s].total});
+  var trt=document.createElement('tr');trt.innerHTML='<th>合計</th><th>'+td+'／'+tot+'</th><th>'+(td?Math.round(tc/td*100)+'%':'—')+'</th><th>'+tw+'</th>';pt.appendChild(trt);
+  var simN=Object.keys(latest).length;
+  $('simsum').textContent=simN?('已做 '+simN+'／8 卷；最近一次 '+sim[sim.length-1].y+'年：'+sim[sim.length-1].score+' 分'):'尚未做整卷模擬';
+  $('phnow').innerHTML='<h3>目前階段</h3>'+phText;
+  // ---- essays
   var curF='all';
   function save(){try{localStorage.setItem('minfa_read',JSON.stringify(readSet))}catch(e){}}
   function apply(){
-    var q=document.getElementById('sq').value.trim().toLowerCase();var n=0;
+    var q=$('sq').value.trim().toLowerCase();var n=0;
     essays.forEach(function(e){
       var ok=true;
       if(curF==='A'||curF==='B'||curF==='C') ok=e.dataset.lv===curF;
@@ -758,7 +895,8 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
       e.style.display=ok?'':'none'; if(ok)n++;
     });
     var r=Object.keys(readSet).filter(function(k){return readSet[k]}).length;
-    document.getElementById('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／32';
+    $('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／32';
+    $('essum').textContent='已讀懂 '+r+'／32 題作答架構';
   }
   essays.forEach(function(e){
     var cb=e.querySelector('.rd');var k=e.dataset.key;
@@ -770,9 +908,9 @@ footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid 
       curF=b.dataset.f;document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});apply();
     });
   });
-  document.getElementById('sq').addEventListener('input',apply);
-  document.getElementById('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});
-  document.getElementById('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
+  $('sq').addEventListener('input',apply);
+  $('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});
+  $('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
   apply();
 })();
 </script>
