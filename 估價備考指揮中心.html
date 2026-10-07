@@ -4,246 +4,346 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>估價備考指揮中心</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --paper: #F8F3E9;
-  --paper2: #FBF8F0;
-  --ink: #2A2722;
-  --vermillion: #A8402B;
-  --gold: #BC8A2E;
-  --green: #3F6B4C;
-  --line: #DDD2BB;
-  --muted: #8A7F6E;
-  --blue: #2B5082;
-  --shadow: rgba(42,39,34,0.08);
+:root{
+  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
+  --green:#3F6B4C; --blue:#2B5082; --line:#DDD2BB; --paper2:#FBF8F0;
+  --muted:#8A7F6E; --shadow:rgba(42,39,34,0.08);
 }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif; background:var(--paper); color:var(--ink);
+  min-height:100vh; font-size:15px; line-height:1.7; padding-bottom:60px;
+}
+h1,h2,h3{font-family:"Noto Serif TC",serif;}
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--vermillion),#8c3322);
+  color:#fff; padding:28px 20px 22px; text-align:center;
+  position:relative; overflow:hidden;
+}
+header::after{
+  content:""; position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,transparent 10px 20px);
+}
+header h1{font-size:1.6rem; margin:0 0 6px; font-weight:900; position:relative;}
+header .sub{font-size:.9rem; opacity:.9; position:relative;}
+#countdown{
+  margin-top:14px; display:inline-block; background:rgba(0,0,0,.18);
+  padding:10px 22px; border-radius:30px; font-size:1rem; font-weight:700;
+  position:relative; border:1px solid rgba(255,255,255,.25);
+}
+#countdown b{font-size:1.4rem; color:#FFE9C7;}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* SUGGEST FLOW */
+/* TABS */
+nav{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+  position:sticky; top:0; z-index:10; background:var(--paper);
+  padding:12px 10px; border-bottom:2px solid var(--line);
+}
+.tab-btn{
+  font-family:"Noto Serif TC",serif; font-weight:700; font-size:.92rem;
+  padding:10px 16px; border-radius:10px; border:1.5px solid var(--line);
+  background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
+}
+.tab-btn:hover{border-color:var(--gold);}
+.tab-btn.active{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
 
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-/* ── HEADER ── */
-.site-header {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 20px 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.site-header h1 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  color: var(--paper);
-}
-.site-header .sub {
-  font-size: .82rem;
-  color: #B8AFA2;
-  letter-spacing: .02em;
-}
-.countdown-bar {
-  background: var(--vermillion);
-  color: #fff;
-  text-align: center;
-  padding: 10px 16px;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: .06em;
-}
-.countdown-bar span#days {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-/* ── TABS ── */
-.tabs-nav {
-  display: flex;
-  overflow-x: auto;
-  background: var(--ink);
-  border-bottom: 3px solid var(--gold);
-  gap: 0;
-  scrollbar-width: none;
-}
-.tabs-nav::-webkit-scrollbar { display: none; }
-.tab-btn {
-  flex: 0 0 auto;
-  padding: 11px 18px;
-  background: none;
-  border: none;
-  color: #B8AFA2;
-  cursor: pointer;
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: .82rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: color .15s, background .15s;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -3px;
-}
-.tab-btn.active {
-  color: var(--gold);
-  border-bottom-color: var(--gold);
-  background: rgba(188,138,46,.08);
-}
-.tab-btn:hover:not(.active) { color: var(--paper); }
-
-/* ── CONTENT PANELS ── */
-.panel { display: none; padding: 20px 16px 40px; max-width: 900px; margin: 0 auto; }
+/* PANELS */
+.panel { display: none; padding: 18px 16px 48px; max-width: 900px; margin: 0 auto; }
 .panel.active { display: block; }
 
-/* ── SECTION TITLES ── */
+/* SEC TITLE */
 .sec-title {
   font-family: 'Noto Serif TC', serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--vermillion);
   border-bottom: 2px solid var(--line);
   padding-bottom: 6px;
-  margin: 24px 0 14px;
+  margin: 22px 0 12px;
 }
 .sec-title:first-child { margin-top: 4px; }
 
-/* ── QUIZ CARDS GRID ── */
+/* TODAY CARD */
+.today-card {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.today-card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.today-steps { display: flex; flex-direction: column; gap: 6px; }
+.today-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .85rem;
+  line-height: 1.5;
+  color: #D8CEBC;
+}
+.step-num {
+  background: var(--vermillion);
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-num.gold { background: var(--gold); }
+
+/* SUB TABS */
+.sub-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sub-tabs::-webkit-scrollbar { display: none; }
+.sub-btn {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color .15s;
+}
+.sub-btn.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
+.sub-btn:hover:not(.active) { color: var(--ink); }
+
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
+/* QUIZ GRID */
 .quiz-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
 }
 .quiz-card {
   background: var(--paper2);
   border: 1.5px solid var(--line);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   text-decoration: none;
   color: var(--ink);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   transition: border-color .15s, box-shadow .15s, transform .1s;
-  cursor: pointer;
 }
-.quiz-card:hover {
-  border-color: var(--gold);
-  box-shadow: 0 3px 12px var(--shadow);
-  transform: translateY(-2px);
-}
-.quiz-card .card-label {
+.quiz-card:hover { border-color: var(--gold); box-shadow: 0 3px 10px var(--shadow); transform: translateY(-2px); }
+.card-label {
   font-family: 'Noto Serif TC', serif;
-  font-size: .78rem;
+  font-size: .72rem;
   font-weight: 700;
   color: var(--gold);
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  letter-spacing: .06em;
 }
-.quiz-card .card-title {
-  font-size: .92rem;
+.card-title {
+  font-size: .88rem;
   font-weight: 700;
   color: var(--ink);
   line-height: 1.4;
 }
-.quiz-card .card-meta {
-  font-size: .78rem;
+.card-meta {
+  font-size: .75rem;
   color: var(--muted);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 .badge {
   background: var(--vermillion);
   color: #fff;
   border-radius: 20px;
-  padding: 1px 8px;
-  font-size: .72rem;
+  padding: 1px 7px;
+  font-size: .7rem;
   font-weight: 700;
-  line-height: 1.5;
 }
 .badge.green { background: var(--green); }
-.badge.gold  { background: var(--gold); }
+.badge.gold  { background: var(--gold); color: var(--ink); }
+.badge.blue  { background: var(--blue); }
 
-/* ── EXTRA TOOLS ── */
-.extra-tools {
+/* GROUP COLLAPSIBLE */
+.group-header {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper2);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  user-select: none;
+  transition: border-color .15s;
+}
+.group-header:hover { border-color: var(--gold); }
+.group-header.open { border-color: var(--gold); border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; }
+.group-header-left { display: flex; align-items: center; gap: 10px; }
+.group-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.group-pct {
+  font-size: .75rem;
+  color: var(--muted);
+}
+.group-arrow { color: var(--muted); font-size: .75rem; transition: transform .2s; }
+.group-header.open .group-arrow { transform: rotate(180deg); }
+.group-body {
+  display: none;
+  border: 1.5px solid var(--gold);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: var(--paper2);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+}
+.group-body.open { display: block; }
+
+/* TOOL BUTTONS */
+.tool-row {
+  display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   margin-top: 6px;
 }
 .tool-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   background: var(--paper2);
   border: 1.5px solid var(--line);
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   text-decoration: none;
   color: var(--ink);
-  font-size: .88rem;
+  font-size: .85rem;
   font-weight: 500;
   transition: border-color .15s, box-shadow .15s;
   cursor: pointer;
 }
-.tool-btn:hover {
-  border-color: var(--gold);
-  box-shadow: 0 2px 8px var(--shadow);
-}
-.tool-btn .icon { font-size: 1.1rem; }
+.tool-btn:hover { border-color: var(--gold); box-shadow: 0 2px 8px var(--shadow); }
+.tool-btn .icon { font-size: 1.05rem; }
 
-/* ── CHECKLIST ── */
-.checklist { display: flex; flex-direction: column; gap: 10px; }
+/* ESSAY TABLE */
+.essay-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  background: var(--paper2);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  margin-bottom: 14px;
+}
+.essay-table th {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 9px 12px;
+  text-align: left;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: .78rem;
+}
+.essay-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.essay-table tr:last-child td { border-bottom: none; }
+.essay-table tr:nth-child(even) td { background: var(--paper); }
+.pri-a { color: #C0392B; font-weight: 700; }
+.pri-b { color: var(--gold); font-weight: 700; }
+.pri-c { color: var(--green); font-weight: 700; }
+
+/* PRIORITY FILTER */
+.priority-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.pri-btn {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--line);
+  background: var(--paper2);
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 500;
+  transition: all .15s;
+  color: var(--muted);
+}
+.pri-btn.active { background: var(--vermillion); color: #fff; border-color: var(--vermillion); }
+
+/* CHECKLIST */
+.checklist { display: flex; flex-direction: column; gap: 8px; }
 .chk-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   background: var(--paper2);
   border: 1.5px solid var(--line);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 12px 14px;
 }
 .chk-status {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .85rem;
+  font-size: .8rem;
   flex-shrink: 0;
   margin-top: 1px;
 }
 .chk-status.done  { background: var(--green); color: #fff; }
 .chk-status.todo  { background: #E8E0D0; color: var(--muted); }
 .chk-body { flex: 1; }
-.chk-title {
-  font-weight: 700;
-  font-size: .92rem;
-  margin-bottom: 3px;
-  color: var(--ink);
-}
-.chk-desc {
-  font-size: .8rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
+.chk-title { font-weight: 700; font-size: .88rem; margin-bottom: 3px; }
+.chk-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 .chk-item.done-item { border-left: 3px solid var(--green); }
 .chk-item.todo-item { border-left: 3px solid #D4C8B0; }
 
-/* ── LAW CHECK TABLE ── */
+/* LAW TABLE */
 .law-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: .83rem;
+  font-size: .82rem;
   background: var(--paper2);
   border-radius: 8px;
   overflow: hidden;
@@ -252,1381 +352,821 @@ body {
 .law-table th {
   background: var(--ink);
   color: var(--paper);
-  padding: 10px 12px;
+  padding: 9px 12px;
   text-align: left;
   font-family: 'Noto Serif TC', serif;
   font-weight: 600;
-  font-size: .8rem;
-  letter-spacing: .04em;
+  font-size: .78rem;
 }
 .law-table td {
-  padding: 10px 12px;
+  padding: 9px 12px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
   line-height: 1.5;
 }
 .law-table tr:last-child td { border-bottom: none; }
 .law-table tr:nth-child(even) td { background: var(--paper); }
-.old-val { color: var(--muted); text-decoration: line-through; font-size: .78rem; }
-.new-val { color: var(--vermillion); font-weight: 700; }
-.pending-notice {
-  background: #FEF3CD;
-  border: 1.5px solid #F0C86A;
-  border-radius: 8px;
-  padding: 14px 16px;
-  font-size: .88rem;
-  color: #7A5C0A;
-  line-height: 1.6;
-}
+.tag-warn { color: var(--vermillion); font-weight: 700; }
+.tag-ok   { color: var(--green); font-weight: 700; }
 
-/* ── ESSAY SECTION ── */
-.priority-filter {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-.pri-btn {
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1.5px solid var(--line);
-  background: var(--paper2);
-  cursor: pointer;
+/* STAT TABLE */
+.stat-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: .82rem;
-  font-weight: 500;
-  transition: all .15s;
-  color: var(--muted);
-}
-.pri-btn.active { border-color: currentColor; }
-.pri-btn[data-pri="all"].active { background: var(--ink); color: #fff; border-color: var(--ink); }
-.pri-btn[data-pri="red"].active { background: #FEE2DC; color: var(--vermillion); border-color: var(--vermillion); }
-.pri-btn[data-pri="yellow"].active { background: #FEF3CD; color: #7A5C0A; border-color: #F0C86A; }
-.pri-btn[data-pri="green"].active { background: #D8EDE1; color: var(--green); border-color: var(--green); }
-
-.essay-list { display: flex; flex-direction: column; gap: 12px; }
-.essay-item {
   background: var(--paper2);
-  border: 1.5px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
-}
-.essay-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px;
-  cursor: pointer;
-  transition: background .12s;
-  user-select: none;
-}
-.essay-header:hover { background: rgba(188,138,46,.06); }
-.pri-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.pri-dot.red    { background: var(--vermillion); }
-.pri-dot.yellow { background: var(--gold); }
-.pri-dot.green  { background: var(--green); }
-.essay-year {
-  font-family: 'Noto Serif TC', serif;
-  font-size: .8rem;
-  font-weight: 700;
-  color: var(--gold);
-  flex-shrink: 0;
-  min-width: 70px;
-}
-.essay-topic {
-  font-size: .88rem;
-  font-weight: 700;
-  flex: 1;
-  line-height: 1.4;
-  color: var(--ink);
-}
-.chevron {
-  font-size: .7rem;
-  color: var(--muted);
-  transition: transform .2s;
-  flex-shrink: 0;
-}
-.essay-item.open .chevron { transform: rotate(90deg); }
-.essay-body {
-  display: none;
-  padding: 0 16px 16px;
-  border-top: 1px solid var(--line);
-}
-.essay-item.open .essay-body { display: block; }
-.essay-q {
-  font-size: .82rem;
-  color: var(--muted);
-  font-style: italic;
-  padding: 10px 0 12px;
-  border-bottom: 1px dashed var(--line);
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
-.essay-text {
-  font-size: .86rem;
-  line-height: 1.85;
-  color: var(--ink);
-  white-space: pre-wrap;
-}
-.essay-text h4 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: .9rem;
-  font-weight: 700;
-  color: var(--vermillion);
-  margin: 14px 0 6px;
-}
-.essay-text table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .8rem;
-  margin: 10px 0;
-}
-.essay-text table th {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 6px 10px;
-  text-align: left;
-}
-.essay-text table td {
-  padding: 6px 10px;
-  border-bottom: 1px solid var(--line);
-}
-.essay-text table tr:nth-child(even) td { background: var(--paper); }
-.essay-text code {
-  display: block;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 10px 14px;
-  font-family: monospace;
-  font-size: .82rem;
-  margin: 8px 0;
-  white-space: pre;
-  overflow-x: auto;
-  color: var(--ink);
-}
-
-/* ── STRATEGY SECTION ── */
-.strategy-block {
-  background: var(--paper2);
   border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 16px 18px;
   margin-bottom: 14px;
 }
-.strategy-block h3 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: .95rem;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.strategy-block ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.strategy-block ul li {
-  font-size: .86rem;
-  line-height: 1.6;
-  padding-left: 16px;
-  position: relative;
-  color: var(--ink);
-}
-.strategy-block ul li::before {
-  content: '▸';
-  position: absolute;
-  left: 0;
-  color: var(--gold);
-  font-size: .75rem;
-  top: 4px;
-}
-.priority-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .83rem;
-  margin-top: 4px;
-}
-.priority-table th {
+.stat-table th {
   background: var(--ink);
   color: var(--paper);
-  padding: 8px 10px;
+  padding: 9px 12px;
   text-align: left;
+  font-family: 'Noto Serif TC', serif;
+  font-size: .78rem;
 }
-.priority-table td {
-  padding: 8px 10px;
+.stat-table td {
+  padding: 8px 12px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
   line-height: 1.5;
 }
-.priority-table tr:nth-child(even) td { background: var(--paper); }
+.stat-table tr:last-child td { border-bottom: none; }
+.stat-table tr:nth-child(even) td { background: var(--paper); }
+.rank-1 { color: #C0392B; font-weight: 700; }
+.rank-2 { color: var(--gold); font-weight: 700; }
+.rank-3 { color: var(--green); font-weight: 700; }
 
-.info-box {
-  background: #E8F0FC;
-  border: 1.5px solid #A8C0E8;
+/* NOTICE BOX */
+.notice-box {
+  background: #FEF3CD;
+  border: 1.5px solid #F0C86A;
   border-radius: 8px;
-  padding: 12px 16px;
-  font-size: .84rem;
-  color: var(--blue);
-  line-height: 1.65;
-  margin-top: 10px;
+  padding: 12px 14px;
+  font-size: .85rem;
+  color: #7A5C0A;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 .warn-box {
-  background: #FEE2DC;
+  background: #FDF0EE;
   border: 1.5px solid var(--vermillion);
   border-radius: 8px;
-  padding: 12px 16px;
-  font-size: .84rem;
+  padding: 12px 14px;
+  font-size: .85rem;
   color: var(--vermillion);
-  line-height: 1.65;
-  margin-top: 10px;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 
-/* ── FOOTER ── */
+/* PROGRESS BAR */
+.prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.prog-label { font-size: .78rem; font-weight: 600; min-width: 120px; flex-shrink: 0; }
+.prog-bar { flex: 1; background: var(--line); border-radius: 99px; height: 8px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 99px; background: var(--vermillion); }
+.prog-fill.green { background: var(--green); }
+.prog-pct { font-size: .75rem; color: var(--muted); min-width: 32px; text-align: right; }
+
+/* MOCK TABLE */
+.mock-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper2);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+}
+.mock-name { font-size: .85rem; font-weight: 600; }
+.mock-status { font-size: .78rem; }
+.mk-score { font-size: .85rem; font-weight: 700; color: var(--vermillion); }
+
+/* FOOTER */
 .site-footer {
-  background: var(--ink);
-  color: #B8AFA2;
   text-align: center;
-  padding: 14px 16px;
-  font-size: .78rem;
-  letter-spacing: .02em;
+  padding: 24px 16px;
+  font-size: .72rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
   margin-top: 20px;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  header h1{font-size:1.3rem;}
   .quiz-grid { grid-template-columns: 1fr; }
-  .extra-tools { flex-direction: column; }
-  .site-header h1 { font-size: 1.25rem; }
+  .tab-btn { font-size:.8rem; padding:8px 11px; }
+  .today-card { padding: 14px 14px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <h1>📐 不動產估價概要｜備考指揮中心</h1>
-  <div class="sub">BrokerX · 115年不動產經紀人考試 · 估價科目專用</div>
+<header>
+  <h1>📐 不動產估價備考指揮中心</h1>
+  <div class="sub">99–114年 520題選擇題＋32題申論｜依讀書流程編排</div>
+  <div id="countdown">距 115年考試還有 <b id="days">—</b> 天</div>
 </header>
 
-<!-- COUNTDOWN -->
-<div class="countdown-bar">
-  距離 115年考試（2026-11-14）還有 <span id="days">—</span> 天 &nbsp;｜&nbsp; <span id="date-now"></span>
-</div>
-
-<!-- TABS -->
-<nav class="tabs-nav">
-  <button class="tab-btn active" onclick="switchTab('quiz')">📝 刷題工具</button>
-  <button class="tab-btn" onclick="switchTab('checklist')">✅ 完成清單</button>
-  <button class="tab-btn" onclick="switchTab('law')">⚡ 現行法小抄</button>
-  <button class="tab-btn" onclick="switchTab('essay')">✍️ 申論範文全文</button>
-  <button class="tab-btn" onclick="switchTab('strategy')">📖 讀書攻略</button>
+<nav role="tablist">
+  <button class="tab-btn active" onclick="showTab('drill',this)" role="tab">① 刷題</button>
+  <button class="tab-btn" onclick="showTab('mem',this)" role="tab">② 記憶</button>
+  <button class="tab-btn" onclick="showTab('essay',this)" role="tab">③ 申論</button>
+  <button class="tab-btn" onclick="showTab('law',this)" role="tab">④ 現行法</button>
+  <button class="tab-btn" onclick="showTab('progress',this)" role="tab">⑤ 進度</button>
+  <button class="tab-btn" onclick="showTab('strategy',this)" role="tab">⑥ 攻略</button>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     TAB 1 · 刷題工具
-══════════════════════════════════════════════ -->
-<section id="panel-quiz" class="panel active">
+<!-- ① 刷題 -->
+<div id="tab-drill" class="panel active">
 
-  <div class="sec-title">選擇題刷題練習（15份 · v2.0 逐選項解析）</div>
+  <div class="today-card">
+    <h3>今天做什麼</h3>
+    <div class="today-steps" id="today-steps">
+      <!-- JS 動態填入 -->
+    </div>
+  </div>
 
-  <div class="quiz-grid">
+  <div class="sub-tabs">
+    <button class="sub-btn active" onclick="showSub('drill','ch',this)">📚 章節練習</button>
+    <button class="sub-btn" onclick="showSub('drill','mix',this)">🔀 混合・錯題本</button>
+    <button class="sub-btn" onclick="showSub('drill','mock',this)">🎯 模擬試題</button>
+  </div>
 
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1.html" target="_blank" class="quiz-card">
-      <span class="card-label">A1</span>
-      <span class="card-title">估價原則</span>
-      <span class="card-meta"><span class="badge">44題</span> 情境判斷型 · 近年偏時事包裝</span>
+  <!-- 章節練習 -->
+  <div id="sub-drill-ch" class="sub-panel active">
+    <div class="notice-box">依 16 年出題頻率由高到低排列（括號內為歷屆出題數）。點▼展開各組後直接開啟工具。</div>
+
+    <!-- G1 成本法 -->
+    <div class="group-header" onclick="toggleGroup(this)">
+      <div class="group-header-left">
+        <span class="badge">最高頻</span>
+        <span class="group-name">C 成本法（重建成本＋折舊）</span>
+        <span class="group-pct">88題｜17%</span>
+      </div>
+      <span class="group-arrow">▼</span>
+    </div>
+    <div class="group-body">
+      <div class="quiz-grid">
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C1.html" target="_blank">
+          <div class="card-label">C1 · 成本法</div>
+          <div class="card-title">重建成本與資本利息</div>
+          <div class="card-meta"><span class="badge">57題</span> 重置成本｜建物比率｜資本利息綜合利率</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C2.html" target="_blank">
+          <div class="card-label">C2 · 成本法</div>
+          <div class="card-title">折舊計算（定額／定率／償債基金）</div>
+          <div class="card-meta"><span class="badge">40題</span> 三種方法｜殘餘率≤10%｜三條路徑</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- G2 收益法 -->
+    <div class="group-header" onclick="toggleGroup(this)">
+      <div class="group-header-left">
+        <span class="badge">最高頻</span>
+        <span class="group-name">D 收益法（直接資本化＋資本化率＋DCF）</span>
+        <span class="group-pct">78題｜15%</span>
+      </div>
+      <span class="group-arrow">▼</span>
+    </div>
+    <div class="group-body">
+      <div class="quiz-grid">
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1.html" target="_blank">
+          <div class="card-label">D1 · 收益法</div>
+          <div class="card-title">直接資本化法</div>
+          <div class="card-meta"><span class="badge">42題</span> NOI公式｜潛在毛收入</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D2.html" target="_blank">
+          <div class="card-label">D2 · 收益法</div>
+          <div class="card-title">資本化率五種決定法</div>
+          <div class="card-meta"><span class="badge">29題</span> 市場萃取｜加權平均｜DSCR</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D3.html" target="_blank">
+          <div class="card-label">D3 · 收益法</div>
+          <div class="card-title">DCF 折現現金流法</div>
+          <div class="card-meta"><span class="badge">13題</span> 折現率｜期末處分價值</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- G3 比較法 -->
+    <div class="group-header" onclick="toggleGroup(this)">
+      <div class="group-header-left">
+        <span class="badge gold">高頻</span>
+        <span class="group-name">B 比較法（調整流程＋排除規則）</span>
+        <span class="group-pct">61題｜12%</span>
+      </div>
+      <span class="group-arrow">▼</span>
+    </div>
+    <div class="group-body">
+      <div class="quiz-grid">
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B.html" target="_blank">
+          <div class="card-label">B1+B2 · 比較法</div>
+          <div class="card-title">調整流程＋排除規則＋合併增值法</div>
+          <div class="card-meta"><span class="badge">65題</span> 15%/30%/20%三關｜區域個別因素</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- G4 估價原則+因素+程序 -->
+    <div class="group-header" onclick="toggleGroup(this)">
+      <div class="group-header-left">
+        <span class="badge gold">高頻</span>
+        <span class="group-name">A 估價原則、價格種類、影響因素、程序</span>
+        <span class="group-pct">A1–A4合計 147題｜28%</span>
+      </div>
+      <span class="group-arrow">▼</span>
+    </div>
+    <div class="group-body">
+      <div class="quiz-grid">
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1.html" target="_blank">
+          <div class="card-label">A1 · 估價原則</div>
+          <div class="card-title">最有效使用、貢獻、均衡等原則</div>
+          <div class="card-meta"><span class="badge">44題</span> 情境辨識為主</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A2.html" target="_blank">
+          <div class="card-label">A2 · 價格種類</div>
+          <div class="card-title">正常、限定、特定、特殊價格</div>
+          <div class="card-meta"><span class="badge">31題</span> 四種辨析</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A3.html" target="_blank">
+          <div class="card-label">A3 · 影響因素</div>
+          <div class="card-title">一般、區域、個別、特殊因素分類</div>
+          <div class="card-meta"><span class="badge">44題</span> 情境辨識</div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A4.html" target="_blank">
+          <div class="card-label">A4 · 估價程序</div>
+          <div class="card-title">8步驟、比較實例4原則、委託書</div>
+          <div class="card-meta"><span class="badge">44題</span></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- G5 其他 -->
+    <div class="group-header" onclick="toggleGroup(this)">
+      <div class="group-header-left">
+        <span class="badge green">中低頻</span>
+        <span class="group-name">E–I 土開、租金、樓層、特殊、CAMA</span>
+        <span class="group-pct">E1+F1+G1+H1H2+H3I1 合計 107題</span>
+      </div>
+      <span class="group-arrow">▼</span>
+    </div>
+    <div class="group-body">
+      <div class="quiz-grid">
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1.html" target="_blank">
+          <div class="card-label">E1 · 土地開發分析法</div>
+          <div class="card-title">V公式＋資本利息綜合利率</div>
+          <div class="card-meta"><span class="badge">24題</span> <span class="badge gold">申論高頻</span></div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_F1.html" target="_blank">
+          <div class="card-label">F1 · 租金估計</div>
+          <div class="card-title">實質租金、差額分配法</div>
+          <div class="card-meta"><span class="badge">33題</span></div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_G1.html" target="_blank">
+          <div class="card-label">G1 · 樓層別效用比</div>
+          <div class="card-title">地價分配計算</div>
+          <div class="card-meta"><span class="badge">15題</span></div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H1H2.html" target="_blank">
+          <div class="card-label">H1H2 · 權利＋特殊宗地</div>
+          <div class="card-title">地上權、抵押權、農場、鹽田</div>
+          <div class="card-meta"><span class="badge">21題</span></div>
+        </a>
+        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H3I1.html" target="_blank">
+          <div class="card-label">H3I1 · 都更＋CAMA</div>
+          <div class="card-title">權利變換、計量模型分析法</div>
+          <div class="card-meta"><span class="badge">17題</span></div>
+        </a>
+      </div>
+    </div>
+  </div><!-- /sub-drill-ch -->
+
+  <!-- 混合・錯題本 -->
+  <div id="sub-drill-mix" class="sub-panel">
+    <div class="notice-box">混合刷題目前透過各章節工具進行，請搭配紙本錯題本（A/B/C型）使用。</div>
+    <div class="sec-title">錯題分類說明</div>
+    <div class="checklist">
+      <div class="chk-item todo-item">
+        <div class="chk-status todo">A</div>
+        <div class="chk-body">
+          <div class="chk-title">A型 — 法條混淆</div>
+          <div class="chk-desc">技術規則條號混淆、排除規則數字記錯（15%/30%/20%）、折舊三法計算方向弄反</div>
+        </div>
+      </div>
+      <div class="chk-item todo-item">
+        <div class="chk-status todo">B</div>
+        <div class="chk-body">
+          <div class="chk-title">B型 — 粗心</div>
+          <div class="chk-desc">計算題加減乘除失誤、題目看漏條件（殘餘率、年數、建蔽率）</div>
+        </div>
+      </div>
+      <div class="chk-item todo-item">
+        <div class="chk-status todo">C</div>
+        <div class="chk-body">
+          <div class="chk-title">C型 — 真的不熟</div>
+          <div class="chk-desc">概念尚未釐清，需重讀重點筆記或找補習班教材對照</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /sub-drill-mix -->
+
+  <!-- 模擬試題 -->
+  <div id="sub-drill-mock" class="sub-panel">
+    <div class="notice-box">估價模擬卷尚未製作。如有補習班模擬卷，請依《備考_模擬試題_整理分析與出題提示詞.md》提示詞 M1 整理。</div>
+    <div class="sec-title">模擬卷成績追蹤</div>
+    <div id="mock-table">
+      <!-- JS 動態填入 -->
+    </div>
+    <div style="margin-top:12px;">
+      <div class="tool-row">
+        <a class="tool-btn" href="#" style="opacity:.5;pointer-events:none;cursor:default;"><span class="icon">📝</span> 診斷卷①（待製作）</a>
+      </div>
+    </div>
+  </div><!-- /sub-drill-mock -->
+
+</div><!-- /tab-drill -->
+
+<!-- ② 記憶 -->
+<div id="tab-mem" class="panel">
+  <div class="sec-title">速記工具</div>
+  <div class="tool-row">
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">
+      <span class="icon">🎨</span> 彩色重點速記（A1–I1全科）
     </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A2.html" target="_blank" class="quiz-card">
-      <span class="card-label">A2</span>
-      <span class="card-title">不動產價格種類</span>
-      <span class="card-meta"><span class="badge">31題</span> 正常／限定／特定／特殊辨析</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A3.html" target="_blank" class="quiz-card">
-      <span class="card-label">A3</span>
-      <span class="card-title">影響不動產價格因素</span>
-      <span class="card-meta"><span class="badge">44題</span> 一般／區域／個別因素辨識</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A4.html" target="_blank" class="quiz-card">
-      <span class="card-label">A4</span>
-      <span class="card-title">估價作業程序</span>
-      <span class="card-meta"><span class="badge">44題</span> 8步驟流程 · 勘查注意事項</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B.html" target="_blank" class="quiz-card">
-      <span class="card-label">B1＋B2</span>
-      <span class="card-title">比較法</span>
-      <span class="card-meta"><span class="badge vermillion">65題</span><span class="badge gold">高頻</span> 排除規則 15%/30%/20%</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C1.html" target="_blank" class="quiz-card">
-      <span class="card-label">C1</span>
-      <span class="card-title">成本法 — 重建成本</span>
-      <span class="card-meta"><span class="badge vermillion">57題</span> 直接法 vs 間接法</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C2.html" target="_blank" class="quiz-card">
-      <span class="card-label">C2</span>
-      <span class="card-title">成本法 — 折舊計算</span>
-      <span class="card-meta"><span class="badge">40題</span><span class="badge gold">必考</span> 三法三路徑 · 定額/定率/償債</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1.html" target="_blank" class="quiz-card">
-      <span class="card-label">D1</span>
-      <span class="card-title">收益法 — 直接資本化</span>
-      <span class="card-meta"><span class="badge">42題</span> 淨收益計算 · 客觀收益</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D2.html" target="_blank" class="quiz-card">
-      <span class="card-label">D2</span>
-      <span class="card-title">收益法 — 資本化率決定</span>
-      <span class="card-meta"><span class="badge">29題</span><span class="badge gold">必考</span> 五種方法 · WACC · DSCR</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D3.html" target="_blank" class="quiz-card">
-      <span class="card-label">D3</span>
-      <span class="card-title">收益法 — DCF</span>
-      <span class="card-meta"><span class="badge">13題</span> 折現現金流 · 期末處分價值</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1.html" target="_blank" class="quiz-card">
-      <span class="card-label">E1</span>
-      <span class="card-title">土地開發分析法</span>
-      <span class="card-meta"><span class="badge">24題</span><span class="badge gold">必考</span> V公式 · 資本利息綜合利率</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_F1.html" target="_blank" class="quiz-card">
-      <span class="card-label">F1</span>
-      <span class="card-title">租金估計</span>
-      <span class="card-meta"><span class="badge">33題</span> 實質租金 · 差額分配法</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_G1.html" target="_blank" class="quiz-card">
-      <span class="card-label">G1</span>
-      <span class="card-title">樓層別效用比</span>
-      <span class="card-meta"><span class="badge">15題</span> 分配公式 · 土地總價比例</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H1H2.html" target="_blank" class="quiz-card">
-      <span class="card-label">H1＋H2</span>
-      <span class="card-title">權利估價＋特殊宗地</span>
-      <span class="card-meta"><span class="badge">21題</span> 地上權／抵押權／農場鹽田</span>
-    </a>
-
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H3I1.html" target="_blank" class="quiz-card">
-      <span class="card-label">H3＋I1</span>
-      <span class="card-title">都市更新＋CAMA</span>
-      <span class="card-meta"><span class="badge">17題</span> 基地價值比率 · R²≥0.7</span>
-    </a>
-
-  </div><!-- /quiz-grid -->
-
-  <div class="sec-title">其他學習工具</div>
-  <div class="extra-tools">
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank" class="tool-btn">
-      <span class="icon">🎨</span> 彩色重點速記（全科 A1-I1）
-    </a>
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank" class="tool-btn">
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">
       <span class="icon">🃏</span> 互動單字卡（核心定義 65張）
     </a>
-    <a href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%B8%AB%E6%B3%95%E7%BD%B0%E5%89%87%E6%87%B2%E6%88%92%E7%B8%BD%E6%95%B4%E7%90%86.html" target="_blank" class="tool-btn">
-      <span class="icon">⚖️</span> 估價師法罰則懲戒總整理（第30–40條）
+  </div>
+
+  <div class="sec-title">法規總整理</div>
+  <div class="tool-row">
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%B8%AB%E6%B3%95%E7%BD%B0%E5%89%87%E6%87%B2%E6%88%92%E7%B8%BD%E6%95%B4%E7%90%86.html" target="_blank">
+      <span class="icon">⚖️</span> 估價師法罰則懲戒總整理（§30–40）
     </a>
   </div>
 
-  <div style="margin-top: 16px; border: 2px solid var(--vermillion); border-radius: 8px; overflow: hidden;">
-    <div style="background: var(--vermillion); color:#fff; padding: 10px 16px; font-weight:700; font-size:.92rem; display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display==='none' ? 'block' : 'none'">
-      ⚠️ 5題計算落差——Python驗算完整診斷報告　<span style="font-size:.78rem; font-weight:400; opacity:.85;">（點選展開/收合）</span>
-    </div>
-    <div style="display:none; padding: 14px 16px; background: #fff9f7;">
-
-      <div style="margin-bottom:14px; padding:10px 14px; background:#fef3f0; border-left:4px solid var(--vermillion); border-radius:4px; font-size:.84rem;">
-        以下5題均已用Python重新驗算。結論：<strong>3題為考選部/OCR錯誤</strong>、<strong>1題為題號對應錯誤（非真正落差）</strong>、<strong>1題公式2倍倍數差，來源待查但記官方答案應考</strong>。
-      </div>
-
-      <!-- Q1 -->
-      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
-        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
-          ❶ 106年D2第29題｜DSCR法求資本化率→收益價格　<span style="color:var(--muted); font-weight:400;">623萬 vs 官方1,256萬</span>
-        </summary>
-        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
-          <strong>Python驗算結果：</strong><br>
-          貸款常數（年利率5%，20年）＝ i×(1+i)^n ÷ [(1+i)^n－1] ＝ 0.080243<br>
-          資本化率 ＝ DCR×貸款常數×貸款比率 ＝ 1.5×0.080243×0.80 ＝ <strong>9.629%</strong><br>
-          收益價格 ＝ NOI÷資本化率 ＝ 60÷9.629% ＝ <strong>623萬</strong><br>
-          官方答案 ＝ <strong>1,256萬</strong>（＝ 623萬 × 2.016 ≈ 623 × 2）<br><br>
-          <strong>診斷：</strong> 官方答案恰為本算結果的2倍，來源不明。可能官方NOI為120萬而非60萬（題目OCR/排版問題），或官方公式有所不同。<br>
-          <strong>應考策略：🔴 直接記官方答案 1,256萬，不糾結公式差異。考試時選官方選項。</strong>
-        </div>
-      </details>
-
-      <!-- Q2 -->
-      <details style="margin-bottom:10px; border:1px solid #d4ecd4; border-radius:6px; overflow:hidden;">
-        <summary style="padding:10px 14px; background:#f0faf0; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
-          ❷ 99年D2第9題｜房地分離法　<span style="color:var(--green); font-weight:400;">✅ 非真正落差（題號對應錯誤）</span>
-        </summary>
-        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
-          <strong>查核結果：</strong><br>
-          進度備忘錄記載「我算280萬，官方130萬」，但查 <em>不動產估價概要_題庫_含答案.md</em> 中99年D2第9題，該題已標記「<strong>一律給分（題目有誤）</strong>」，選項中根本不存在280萬或130萬的選項。<br><br>
-          <strong>診斷：</strong> 進度備忘錄的題號對應有誤，280 vs 130萬的落差題並非此題，非真正計算矛盾。<br>
-          <strong>應考策略：✅ 此題直接得分，無需擔心。</strong>
-        </div>
-      </details>
-
-      <!-- Q3 -->
-      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
-        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
-          ❸ 106年E1第19題｜土地開發分析法V公式　<span style="color:var(--muted); font-weight:400;">27,492萬 vs 官方12,492萬</span>
-        </summary>
-        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
-          <strong>Python驗算結果：</strong><br>
-          依題庫記載：S預售收入＝80,000萬、r＝20%、i＝5%、成本C+M＝36,000萬<br>
-          V ＝ [80,000÷1.2÷1.05] – 36,000 ＝ 63,492 – 36,000 ＝ <strong>27,492萬</strong><br>
-          官方答案 ＝ <strong>12,492萬</strong>（差距＝15,000萬）<br><br>
-          <strong>診斷：</strong> 差距15,000萬 → 若實際成本為C+M＝51,000萬（非36,000萬），則63,492–51,000＝12,492✓。推測題目OCR時「直接成本3億元」可能原題為「3,000萬元」，或「間接成本6千萬元」為另一數字，導致成本總額被低估約15,000萬。<br>
-          <strong>應考策略：🔴 記官方答案 12,492萬。考試遇到V公式題，先算出答案對應哪個選項，不執著自己的中間步驟。</strong>
-        </div>
-      </details>
-
-      <!-- Q4 -->
-      <details style="margin-bottom:10px; border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
-        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
-          ❹ 106年H2第13題｜公共設施保留地估價方法　<span style="color:var(--muted); font-weight:400;">選B vs 官方D（疑似題目誤植）</span>
-        </summary>
-        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
-          <strong>查核結果：</strong><br>
-          依技術規則§90：公共設施保留地應<strong>以比較法為主</strong>，採同一供需圈類似素地比較，必要時以開發分析法輔助 → 正確答案應為B。<br>
-          但考選部官方公告答案為D。<br>
-          112年相同主題題目正解亦為「比較法」（與§90一致）。<br><br>
-          <strong>診斷：</strong> 106年H2第13題官方D選項疑似標記誤植，與技術規則明文及112年同主題答案均矛盾。<br>
-          <strong>應考策略：🟡 申論題：依技術規則§90寫比較法為主。選擇題：若115年出現此考點，依技術規則法條選B（比較法）；若同題型重出，選官方以防萬一。</strong>
-        </div>
-      </details>
-
-      <!-- Q5 -->
-      <details style="border:1px solid #e0c8c0; border-radius:6px; overflow:hidden;">
-        <summary style="padding:10px 14px; background:#fdf0ed; font-weight:600; font-size:.88rem; cursor:pointer; list-style:none;">
-          ❺ 104年E1第23題｜資本利息綜合利率建物比率係數　<span style="color:var(--muted); font-weight:400;">選B(×1/2) vs 官方D(×1/4)（疑似官方誤植）</span>
-        </summary>
-        <div style="padding:12px 14px; font-size:.86rem; line-height:1.8;">
-          <strong>查核結果：</strong><br>
-          技術規則明文：建物資金因於開發期<strong>平均投入</strong>，故計息係數為<strong>×1/2</strong>（平均佔用概念）。<br>
-          105年、107年同主題計算題，官方答案均以建物×1/2公式計算，且與四個選項數字一致。<br>
-          104年同題型官方答案卻標記D（對應×1/4公式），與上述三年矛盾。<br><br>
-          <strong>Python交叉驗算（104年題目數字）：</strong><br>
-          建物×1/2 → i綜 ＝ 8%×(0.5+0.5×0.5)×2 ＝ 12% → 選項B ✓（含105、107年相同結果）<br>
-          建物×1/4 → i綜 ＝ 8%×(0.5+0.5×0.25)×2 ＝ 10% → 選項D（104年官方採此）<br><br>
-          <strong>診斷：</strong> 104年官方答案D疑似誤植，×1/2公式才符合技術規則邏輯與105/107年驗證。<br>
-          <strong>應考策略：🔴 計算時一律用建物×1/2。115年若出此計算，選含1/2公式之答案。104年這題視為孤立誤植，不修改記憶。</strong>
-        </div>
-      </details>
-
-    </div>
-  </div>
-
-</section>
-
-<!-- ══════════════════════════════════════════════
-     TAB 2 · 完成清單
-══════════════════════════════════════════════ -->
-<section id="panel-checklist" class="panel">
-
-  <div class="sec-title">五件套備考素材進度</div>
-
-  <div class="checklist">
-
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">① 16年考點分析（99–114年）</div>
-        <div class="chk-desc">99–114年全520題測驗題＋32題申論，逐題比對官方答案，分類至9篇16章節（A1-I1）。含高頻考點排行、四大趨勢轉變、16年三大鐵律、115年備考三色優先清單。<br>📄 <em>不動產估價概要_16年考點分析(99-114).md</em></div>
-      </div>
-    </div>
-
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">② 重點筆記</div>
-        <div class="chk-desc">涵蓋A1-I1全部章節，含★高頻／★陷阱標記。表格化呈現估價原則、價格種類、影響因素、資本化率五法等核心比較表。已核對不動產估價技術規則官方條文。<br>📄 <em>不動產估價概要_重點筆記.md</em></div>
-      </div>
-    </div>
-
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">③ 題庫（含官方標準答案）</div>
-        <div class="chk-desc">99–114年全部520題，依章節分類，每題附四選項與正確答案。部分題附官方答案爭議點註解。102年第二題完整9項數據已核實與PDF原文精確相符。<br>📄 <em>不動產估價概要_題庫_含答案.md</em></div>
-      </div>
-    </div>
-
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">④ 申論題攻略表（99–114年）</div>
-        <div class="chk-desc">全32題，🔴/🟡/🟢三級優先，A級6題含完整列式計算範例。官方核實：32題100%與考選部PDF原文相符，0題虛構。<br>📄 <em>不動產估價概要_申論題攻略表(99-114).md</em></div>
-      </div>
-    </div>
-
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">⑤ 申論題實戰範文</div>
-        <div class="chk-desc">🔴A級必考6題，全部有完整四段式範文正文（定義→公式→代入計算→結論），含完整計算表格。範文一至六：105年折舊路徑、107年定率法、111年累積折舊額、112年等速折舊計算、99年WACC、104年折舊提存費＋施工費。<br>📄 <em>不動產估價概要_申論題實戰範文.md</em></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="sec-title">加分輔助素材</div>
-  <div class="checklist">
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">法規條文整理（2份）</div>
-        <div class="chk-desc">不動產估價技術規則_條文整理.md＋不動產估價師法暨施行細則_條文整理.md，已交叉比對16年考點標記★。</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">申論題官方核實紀錄</div>
-        <div class="chk-desc">99–114年32題逐題對照考選部PDF原文，全部通過核實，留存查核軌跡。</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">整批刷題練習 v2.0（HTML工具15份＋速記工具2份）</div>
-        <div class="chk-desc">519題全科逐選項解析，四鍵篩選（全部／未作答／答錯／清除），章節chip篩選，localStorage持久化，版本標記 v2.0。</div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-<!-- ══════════════════════════════════════════════
-     TAB 3 · 現行法小抄
-══════════════════════════════════════════════ -->
-<section id="panel-law" class="panel">
-
-  <div class="sec-title">申論題官方核實紀錄（已查證）</div>
-
-  <p style="font-size:.86rem; color:var(--muted); margin-bottom: 14px; line-height:1.7;">
-    依 <em>不動產估價概要_申論題_官方核實紀錄.md</em> 記載（2026-06-20 完成），99–114年32題申論題已逐題對照考選部官方PDF原文，<strong>全數一致、0題虛構</strong>。申論題攻略表、16年考點分析、申論實戰範文均不受影響，無需修正。
-  </p>
-
-  <div class="sec-title">技術規則關鍵數字與公式（現行版本確認）</div>
-
+  <div class="sec-title">核心公式速查</div>
+  <div class="notice-box">以下公式為 16年鐵律考點，必須能默寫並計算：</div>
   <table class="law-table">
-    <thead>
-      <tr>
-        <th>主題</th>
-        <th>現行規則規定</th>
-        <th>常見混淆陷阱</th>
-      </tr>
-    </thead>
+    <thead><tr><th>公式名稱</th><th>核心算式</th><th>重要條件</th></tr></thead>
     <tbody>
       <tr>
-        <td><strong>殘餘價格率上限</strong></td>
-        <td class="new-val">最高10%（技術規則§60）</td>
-        <td>不可超過10%；市場行情殘值可能更低但規則設上限</td>
+        <td><strong>折舊定額法（第46條）</strong></td>
+        <td>Dn = C × (1－s) / N × n</td>
+        <td>殘餘率 s ≤ 10%；以<strong>經濟耐用年數</strong>為主</td>
       </tr>
       <tr>
-        <td><strong>折舊路徑種類</strong></td>
-        <td class="new-val">三種：等速／初期加速／初期減速（技術規則§61）</td>
-        <td>無「後期減速折舊」；考題常出選項誤植四種</td>
+        <td><strong>比較法三道排除關卡（第22條）</strong></td>
+        <td>單項調整率｜總調整率｜試算差距</td>
+        <td><span class="tag-warn">15% / 30% / 20%</span>（三個數字必背）</td>
       </tr>
       <tr>
-        <td><strong>定額法公式</strong></td>
-        <td class="new-val">Dn＝C×[(1－s)/N]×n</td>
-        <td>n為「經歷年數」非「剩餘年數」</td>
+        <td><strong>土地開發分析法 V 公式（第29條）</strong></td>
+        <td>V = [S÷(1+r)÷(1+i)] − (C+M)</td>
+        <td>r=利潤率；i=資本利息綜合利率</td>
       </tr>
       <tr>
-        <td><strong>定率法公式</strong></td>
-        <td class="new-val">現值＝C×(1－r)^n</td>
-        <td>每年折舊基礎是「前一年餘值」非原始成本</td>
+        <td><strong>資本利息綜合利率（第29條）</strong></td>
+        <td>i = 土地比率×r_地 + 建物比率×r_建 × 1/2</td>
+        <td>建物成本×1/2（因逐期投入）</td>
       </tr>
       <tr>
-        <td><strong>V公式（土地開發分析法）</strong></td>
-        <td class="new-val">V＝[S÷(1+r)÷(1+i)]－(C+M)</td>
-        <td>建物比率×1/2（取得中期投入），土地比率不打折</td>
+        <td><strong>樓層別效用比（第55條）</strong></td>
+        <td>分配地價 = 土地總價 × (各樓效用比 ÷ 效用比總和)</td>
+        <td></td>
       </tr>
       <tr>
-        <td><strong>資本利息綜合利率</strong></td>
-        <td class="new-val">i綜＝i年×(土地比率+建物比率×1/2)×開發年數</td>
-        <td>建物資金平均在開發期中投入，故×1/2；土地一開始即全額投入</td>
-      </tr>
-      <tr>
-        <td><strong>比較法排除規則</strong></td>
-        <td class="new-val">情況調整>30%不採；價格日期>20%不採；區域/個別調整>15%不採（技術規則§26）</td>
-        <td>三組數字（15%/30%/20%）各自對應不同調整項目，順序可互換考</td>
-      </tr>
-      <tr>
-        <td><strong>CAMA樣本數</strong></td>
-        <td class="new-val">≥自變數個數×5倍（技術規則§98）</td>
-        <td>R²≥0.7、p值&lt;5%、避免自變數間高度共線性</td>
-      </tr>
-      <tr>
-        <td><strong>規劃設計費</strong></td>
-        <td class="new-val">按營造施工費2%~3%推估</td>
-        <td>廣告銷售費4%~5%、管理費3%~4%、稅捐0.5%~1.2%（各費率記錯易失分）</td>
-      </tr>
-      <tr>
-        <td><strong>技術規則§90（公共設施保留地）</strong></td>
-        <td class="new-val">應以比較法為主，採同一供需圈類似素地比較，必要時以開發分析法輔助</td>
-        <td>106年H2第13題標記D選項，與本條文明文及112年同主題正解矛盾，疑似考選部標記誤差</td>
-      </tr>
-      <tr>
-        <td><strong>收益法資料年期</strong></td>
-        <td class="new-val">宜蒐集最近3年租金及空置率資料（技術規則§39）</td>
-        <td>「至少幾年」→答3年；寫「宜」非「至少應」</td>
-      </tr>
-      <tr>
-        <td><strong>DCF法（證券化）租金原則</strong></td>
-        <td class="new-val">以契約租金為準（非市場租金）（技術規則§44）</td>
-        <td>一般收益法用市場租金；證券化DCF用契約租金—兩者切勿混淆</td>
+        <td><strong>直接資本化法（第32條）</strong></td>
+        <td>價格 = 純收益 ÷ 資本化率</td>
+        <td>純收益 = 潛在毛收入 − 空置損失 − 營運費用</td>
       </tr>
     </tbody>
   </table>
+</div><!-- /tab-mem -->
 
-  <div class="sec-title" style="margin-top:24px;">選擇題逐選項法規查核表（現行法 vs 歷屆題庫）</div>
-  <p style="font-size:.84rem; color:var(--muted); margin-bottom:12px;">比對不動產估價技術規則現行條文，確認16年考古題數字/公式是否與現行法一致。✅＝未修、⚠️＝歷屆題目有官方誤植問題。</p>
-
-  <div style="overflow-x:auto;">
-  <table class="law-table" style="font-size:.82rem;">
-    <thead>
-      <tr>
-        <th style="width:10%;">條文</th>
-        <th style="width:30%;">現行規定（關鍵數字）</th>
-        <th style="width:18%;">歷屆考法</th>
-        <th style="width:12%;">修法狀態</th>
-        <th style="width:30%;">考場操作／陷阱提示</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 比較法</td>
-      </tr>
-      <tr>
-        <td>§22</td>
-        <td class="new-val">比較標的件數：<strong>3件以上</strong></td>
-        <td>「至少幾件」</td>
-        <td>✅ 未修</td>
-        <td>不可「至少2件」；3件起</td>
-      </tr>
-      <tr>
-        <td>§26</td>
-        <td class="new-val">情況調整 &gt;<strong>30%</strong> → 不採<br>價格日期調整 &gt;<strong>20%</strong> → 不採<br>區域個別調整合計 &gt;<strong>15%</strong> → 不採</td>
-        <td>「三關卡數字配對」混淆考</td>
-        <td>✅ 未修</td>
-        <td>口訣：<strong>情30 日20 區15</strong>（由大→小）</td>
-      </tr>
-      <tr>
-        <td>§28</td>
-        <td class="new-val">試算結果高低差 &gt;<strong>20%</strong> → 重新評估</td>
-        <td>§26 vs §28 易混淆</td>
-        <td>✅ 未修</td>
-        <td>§26先排除不良標的 → §28再看最終高低差，順序勿反</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 成本法 / 折舊</td>
-      </tr>
-      <tr>
-        <td>§60</td>
-        <td class="new-val">殘餘價格率上限：<strong>≤10%</strong>（由<strong>全聯會公告</strong>）</td>
-        <td>「上限幾%」「由誰公告」</td>
-        <td>✅ 未修</td>
-        <td>10%上限＋全聯會缺一不可</td>
-      </tr>
-      <tr>
-        <td>§61</td>
-        <td class="new-val">折舊路徑：<strong>3種</strong>（等速／初期加速／初期減速）</td>
-        <td>「有幾種路徑」「哪幾種」</td>
-        <td>✅ 未修</td>
-        <td>無「後期減速」——為陷阱選項</td>
-      </tr>
-      <tr>
-        <td>§61</td>
-        <td class="new-val">定額法：Dn＝C×[(1－s)/N]×<strong>n（經歷年數）</strong></td>
-        <td>公式代入計算；n定義</td>
-        <td>✅ 未修</td>
-        <td>n＝已使用年數，非剩餘年數</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 收益法</td>
-      </tr>
-      <tr>
-        <td>§39</td>
-        <td class="new-val">租金/空置率資料：宜蒐集最近<strong>3年</strong></td>
-        <td>「應蒐集幾年資料」</td>
-        <td>✅ 未修</td>
-        <td>寫「宜3年」；申論勿寫「至少應」</td>
-      </tr>
-      <tr>
-        <td>§40</td>
-        <td class="new-val">淨收益（NOI）：不含貸款利息<br>可扣：折舊、地價稅、房屋稅、保險、管理、修繕</td>
-        <td>「哪些費用可從總收益扣除」</td>
-        <td>✅ 未修</td>
-        <td>貸款利息不可扣；為NOI最常見陷阱</td>
-      </tr>
-      <tr>
-        <td>§44</td>
-        <td class="new-val">不動產證券化DCF：以<strong>契約租金</strong>為準</td>
-        <td>「DCF用市場還是契約租金」</td>
-        <td>✅ 未修</td>
-        <td>證券化＝契約；一般收益法＝市場</td>
-      </tr>
-      <tr>
-        <td>§48</td>
-        <td class="new-val">DSCR法：資本化率＝DCR×貸款常數×貸款比率<br>貸款常數＝i(1+i)^n÷[(1+i)^n－1]</td>
-        <td>計算求資本化率→收益價格</td>
-        <td>✅ 未修</td>
-        <td>⚠️ 106年D2第29題官方答案≈2×算出值，記官方數字</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 土地開發分析法（V公式）</td>
-      </tr>
-      <tr>
-        <td>§68</td>
-        <td class="new-val">V＝[S÷(1+r)÷(1+i)]－(C+M)</td>
-        <td>V公式計算求土地價格</td>
-        <td>✅ 未修</td>
-        <td>r＝開發利潤率；i＝資本利息綜合利率；兩個除法順序固定</td>
-      </tr>
-      <tr>
-        <td>§69</td>
-        <td class="new-val">資本利息綜合利率：<br>i_r×(土地比率 + <strong>建物比率×1/2</strong>)×年數</td>
-        <td>「建物係數1/2 vs 1/4」混淆考</td>
-        <td>✅ 未修（建物×1/2）</td>
-        <td>⚠️ 104年E1第23題官方誤標D(×1/4)；正確公式×1/2，105/107年交叉驗證確認</td>
-      </tr>
-      <tr>
-        <td>§70</td>
-        <td class="new-val">預售收入（S）：<strong>不計入</strong>自有資金計息</td>
-        <td>「哪些項目計入利息」</td>
-        <td>✅ 未修</td>
-        <td>預售收入已在S中反映，不重複計息</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 間接成本費率速查（§75）</td>
-      </tr>
-      <tr>
-        <td>規劃設計費</td>
-        <td class="new-val">按<strong>營造施工費</strong> 2%~3%</td>
-        <td rowspan="4" style="vertical-align:middle; color:var(--muted); font-size:.8rem;">費率常混淆，選擇題出「哪個費率配哪個費用」</td>
-        <td>✅ 未修</td>
-        <td>各費率由高→低：廣告(4~5) &gt; 管理(3~4) &gt; 規劃(2~3) &gt; 稅捐(0.5~1.2)</td>
-      </tr>
-      <tr>
-        <td>廣告銷售費</td>
-        <td class="new-val">按<strong>銷售總額</strong> 4%~5%</td>
-        <td>✅ 未修</td>
-        <td>最高費率</td>
-      </tr>
-      <tr>
-        <td>管理費</td>
-        <td class="new-val">按<strong>工程造價</strong> 3%~4%</td>
-        <td>✅ 未修</td>
-        <td>次高費率</td>
-      </tr>
-      <tr>
-        <td>稅捐</td>
-        <td class="new-val">0.5%~1.2%（契稅/印花等）</td>
-        <td>✅ 未修</td>
-        <td>最低費率</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ CAMA電腦輔助大量估價（§92–§100）</td>
-      </tr>
-      <tr>
-        <td>§98</td>
-        <td class="new-val">樣本數：≥自變數×<strong>5倍</strong><br>R²：≥<strong>0.7</strong><br>p值：&lt;<strong>5%</strong>（統計顯著）<br>無自變數間高度共線性</td>
-        <td>「CAMA四項條件」申論/選擇常出</td>
-        <td>✅ 未修</td>
-        <td>口訣：<strong>5倍 / 0.7 / 5% / 無共線</strong></td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 特殊類型估價（§80–§91）</td>
-      </tr>
-      <tr>
-        <td>§90</td>
-        <td class="new-val">公共設施保留地：以<strong>比較法為主</strong>，同一供需圈類似素地比較；必要時以開發分析法輔助</td>
-        <td>「公共設施保留地用什麼方法」</td>
-        <td>✅ 未修</td>
-        <td>⚠️ 106年H2第13題官方D與§90矛盾；申論寫比較法為主</td>
-      </tr>
-
-      <tr style="background:#f5f0e8;">
-        <td colspan="5" style="font-weight:700; color:var(--gold); padding:7px 10px;">▶ 估價報告書（§130–§140）</td>
-      </tr>
-      <tr>
-        <td>§130</td>
-        <td class="new-val">估價報告書保存：<strong>15年</strong>（事務所）</td>
-        <td>「報告書保存幾年」</td>
-        <td>✅ 未修</td>
-        <td>15年；與執照有效期（6年）勿混淆</td>
-      </tr>
-
-    </tbody>
-  </table>
+<!-- ③ 申論 -->
+<div id="tab-essay" class="panel">
+  <div class="sec-title">申論題概況</div>
+  <div class="notice-box">
+    99–114年共 <strong>32題</strong>（每年2題，16年連續），官方PDF逐題核實通過（2026-06-20）。<br>
+    計算題密度遠高於民法、土地法：至少一半申論題需列式計算。
   </div>
-
-  <div style="margin-top: 14px; padding: 10px 14px; background:#f0faf0; border-left:4px solid var(--green); border-radius:4px; font-size:.84rem;">
-    ✅ <strong>查核完成（2026-10-04）</strong>：上表條文均已比對不動產估價技術規則現行版本。16年考古題（99–114年）涉及的關鍵數字與公式，<strong>無發現重大修法差異</strong>，歷屆題庫答案與現行法一致，可放心使用舊題庫備考。3處「⚠️」為官方標記疑似誤植，已另行說明應考策略。
-  </div>
-
-</section>
-
-<!-- ══════════════════════════════════════════════
-     TAB 4 · 申論範文全文
-══════════════════════════════════════════════ -->
-<section id="panel-essay" class="panel">
 
   <div class="sec-title">優先等級篩選</div>
   <div class="priority-filter">
-    <button class="pri-btn active" data-pri="all" onclick="filterEssay('all', this)">全部顯示</button>
-    <button class="pri-btn" data-pri="red" onclick="filterEssay('red', this)">🔴 高機率（A級）</button>
-    <button class="pri-btn" data-pri="yellow" onclick="filterEssay('yellow', this)">🟡 中機率（B級）</button>
-    <button class="pri-btn" data-pri="green" onclick="filterEssay('green', this)">🟢 低機率（C級）</button>
+    <button class="pri-btn active" onclick="filterEssay('all',this)">全部（32題）</button>
+    <button class="pri-btn" onclick="filterEssay('A',this)">🔴 A級 必練</button>
+    <button class="pri-btn" onclick="filterEssay('B',this)">🟡 B級 了解</button>
+    <button class="pri-btn" onclick="filterEssay('C',this)">🟢 C級 略讀</button>
   </div>
 
-  <div class="essay-list" id="essay-list">
-
-    <!-- ===== 範文一 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">105年第一題</span>
-        <span class="essay-topic">折舊路徑種類＋定額法計算示意圖</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】建物累積折舊額之計算，應視建物特性及市場動態，選擇適合的折舊方法。依不動產估價技術規則的規定，有那些路徑的折舊方法？請詳述說明之。假設有一價值200萬元的建物，耐用年數50年，殘價率5%，試繪製示意圖說明之。（25分）</div>
-        <div class="essay-text">
-<h4>一、折舊路徑之種類</h4>
-依不動產估價技術規則之規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇下列三種路徑之折舊方法為之：
-
-（一）<strong>等速折舊</strong>：建物價值隨經歷年數呈等速、直線方式遞減，每年折舊金額固定不變，適用於建物功能與效用衰退速度較為穩定之情形，常以定額法計算之。
-
-（二）<strong>初期加速折舊</strong>：建物於使用初期折舊速度較快，隨後逐漸減緩，價值曲線呈現由急轉緩之凹型曲線，適用於建物初期使用密集、設備耗損快速之情形，常以定率法計算之。
-
-（三）<strong>初期減速折舊</strong>：建物於使用初期折舊速度較慢，隨後逐漸加快，價值曲線呈現由緩轉急之凸型曲線，適用於建物初期狀況良好、後期老化加速之情形，常以償債基金法計算之。
-
-值得注意者，不動產估價技術規則所規定之折舊路徑僅有上述三種，並無「後期減速折舊」之路徑，此為實務上常見之易混淆點。
-
-<h4>二、定額法計算公式</h4>
-建物累積折舊額採定額法計算者，其公式為：
-<code>Dn ＝ C × [(1－s) / N] × n</code>
-其中，C為建物之重建成本，s為殘餘價格率，N為經濟耐用年數，n為經歷年數。建物現在價值則為：建物現值＝C－Dn。
-
-<h4>三、代入本題數字計算</h4>
-本題建物重建成本C＝200萬元，殘餘價格率s＝5%，經濟耐用年數N＝50年。
-每年折舊額＝200×(0.95/50)＝3.8萬元/年
-
-逐年累積折舊額及現值試算：
-
-<table><tr><th>經歷年數n</th><th>累積折舊額Dn（萬元）</th><th>建物現值（萬元）</th></tr><tr><td>0</td><td>0</td><td>200.0</td></tr><tr><td>10</td><td>38.0</td><td>162.0</td></tr><tr><td>20</td><td>76.0</td><td>124.0</td></tr><tr><td>30</td><td>114.0</td><td>86.0</td></tr><tr><td>40</td><td>152.0</td><td>48.0</td></tr><tr><td>50</td><td>190.0</td><td>10.0</td></tr></table>
-
-<strong>示意圖說明：</strong>橫軸為經歷年數（0至50年）、縱軸為建物價值（萬元）。本案採等速折舊，圖形呈現由起點（0年，200萬）等速直線下降至終點（50年，10萬）之直線，斜率固定為每年下降3.8萬元，與初期加速折舊（曲線初期陡降後趨緩）及初期減速折舊（曲線初期平緩後陡降）之曲線形態明顯不同。
-
-<h4>四、結論</h4>
-依不動產估價技術規則規定，折舊路徑分為等速折舊、初期加速折舊及初期減速折舊三種；本案建物採等速折舊路徑以定額法計算，每年折舊3.8萬元，第50年末殘餘價值為10萬元（即200萬元×5%），折舊曲線呈現一條等速遞減直線，足見等速折舊路徑之核心特徵即在於折舊速度之均勻一致性。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 範文二 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">107年第一題</span>
-        <span class="essay-topic">定率法折舊公式＋計算</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】請列式說明定率法的折舊公式。如果一個1000萬元的建築物，以每年減損2%的速度折舊，請問第5年年末，該建築物的現值為多少？（25分）</div>
-        <div class="essay-text">
-<h4>一、定率法之意義</h4>
-定率法係建物累積折舊額計算方法之一，每年依固定之折舊率，對該年初（即前一年末）之建物帳面餘值計算當年折舊金額，而非對原始重建成本計算。因每年計算基礎之餘值隨折舊逐年減少，故定率法之折舊金額呈現初期較大、後期遞減之趨勢，與初期加速折舊路徑相符。
-
-<h4>二、定率法計算公式</h4>
-定率法之公式可表示為：
-<code>第n年末建物現值 ＝ C × (1－r)^n</code>
-其中，C為建物原始重建成本，r為每年固定之折舊率，n為經歷年數。此種計算方式與複利計算之原理相反，是一種「複利式遞減」之折舊概念，與定額法之線性遞減有本質上的不同。
-
-<h4>三、代入本題數字計算</h4>
-本題建物原始價值C＝1000萬元，每年折舊率r＝2%，求第5年年末之建物現值。
-<code>第5年末現值 ＝ 1000 × (1－2%)^5
-       ＝ 1000 × (0.98)^5
-       ＝ 1000 × 0.9039
-       ≈ 903.9萬元</code>
-
-逐年計算過程（可見折舊金額逐年遞減之特性）：
-
-<table><tr><th>年末</th><th>期初現值（萬元）</th><th>當年折舊額（萬元）</th><th>期末現值（萬元）</th></tr><tr><td>第1年</td><td>1000.00</td><td>20.00</td><td>980.00</td></tr><tr><td>第2年</td><td>980.00</td><td>19.60</td><td>960.40</td></tr><tr><td>第3年</td><td>960.40</td><td>19.21</td><td>941.19</td></tr><tr><td>第4年</td><td>941.19</td><td>18.82</td><td>922.37</td></tr><tr><td>第5年</td><td>922.37</td><td>18.45</td><td>903.92</td></tr></table>
-
-<h4>四、結論</h4>
-定率法係以每年固定比率對前一年餘值計算折舊，公式為第n年末現值＝C×(1－r)^n；本案1000萬元建築物以每年2%折舊率計算，第5年年末之建物現值約為<strong>903.9萬元</strong>。此結果反映定率法折舊金額初期較高、後期遞減之特性，與定額法之等速折舊有明顯區別，估價人員應依建物特性及市場動態正確選用折舊方法，以求估價結果之合理性。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 範文三 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">111年第一題</span>
-        <span class="essay-topic">建物折舊額及累積折舊額計算方式</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】建物折舊額如何計算？建物累積折舊額又如何計算？請依不動產估價技術規則述說之。（25分）</div>
-        <div class="essay-text">
-<h4>一、建物折舊之意義</h4>
-建物因使用、自然耗損或功能衰退等原因，其價值將隨經歷年數增加而遞減，此價值減損之金額即為折舊額；逐年累積之折舊總額，則稱為累積折舊額。依不動產估價技術規則規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇等速折舊、初期加速折舊或初期減速折舊之路徑為之，並得採定額法、定率法或償債基金法計算。
-
-<h4>二、三種計算方法及其公式</h4>
-（一）<strong>定額法</strong>：假定建物於耐用年限內，每年折舊金額均等，累積折舊額公式為：
-<code>Dn ＝ C × [(1－s) / N] × n</code>
-定額法計算之折舊曲線呈直線下降，對應於等速折舊路徑。
-
-（二）<strong>定率法</strong>：假定建物每年依固定比率對前一年餘值計算折舊，折舊金額隨經歷年數增加而遞減，初期折舊較大，建物第n年末現值公式為：
-<code>建物現值 ＝ C × (1－r)^n</code>
-定率法計算之折舊曲線初期陡降、後期趨緩，對應於初期加速折舊路徑。
-
-（三）<strong>償債基金法</strong>：假定按年提存一定金額，以複利方式累積，至耐用年限屆滿時累積之本利和恰等於應折舊之總金額，折舊曲線初期平緩、後期陡升，對應於初期減速折舊路徑。
-
-三種方法比較：
-
-<table><tr><th>比較項目</th><th>定額法</th><th>定率法</th><th>償債基金法</th></tr><tr><td>對應折舊路徑</td><td>等速折舊</td><td>初期加速折舊</td><td>初期減速折舊</td></tr><tr><td>折舊曲線形態</td><td>直線</td><td>初期陡降後趨緩</td><td>初期平緩後陡升</td></tr><tr><td>初期折舊金額</td><td>均等</td><td>較大</td><td>較小</td></tr><tr><td>計算基礎</td><td>重建成本固定比例</td><td>前一年餘值</td><td>複利提存概念</td></tr></table>
-
-<h4>四、結論</h4>
-建物折舊額之計算應依不動產估價技術規則規定，視建物特性及市場動態選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並分別以定額法、定率法或償債基金法計算累積折舊額；三種方法之核心差異在於折舊速度隨經歷年數變化之趨勢不同，估價人員應審慎判斷後選用最能反映該建物實際價值減損情形之方法，以確保估價結果之合理性與可信度。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 範文四 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">112年第二題</span>
-        <span class="essay-topic">屋齡10年建物等速折舊計算＋合理性分析</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】有一屋齡10年的中古住宅，於建物重新建造成本800萬元、耐用年數50年、殘餘價格率5%的條件下，依不動產估價技術規則的等速折舊路徑計算，建物的現在價值是多少？另請以專業人士的觀點，分析這個價格的合理性。（25分）</div>
-        <div class="essay-text">
-<h4>一、等速折舊計算公式</h4>
-依不動產估價技術規則規定，建物採等速折舊路徑者，以定額法計算累積折舊額，公式為：
-<code>Dn ＝ C × [(1－s) / N] × n
-建物現值 ＝ C － Dn</code>
-
-<h4>二、代入本題數字計算</h4>
-本題：C＝800萬元，s＝5%，N＝50年，n＝10年。
-<code>累積折舊額Dn ＝ 800 × [(1－5%) / 50] × 10
-        ＝ 800 × 0.019 × 10
-        ＝ 152萬元
-
-建物現值 ＝ 800 － 152 ＝ 648萬元</code>
-
-<h4>三、專業觀點之合理性分析</h4>
-（一）<strong>成本法本身之侷限性</strong>：648萬元係重建成本扣除折舊推算之成本價格，並非市場上買方願意支付之實際成交價格。若所在地段近年房價上漲、土地稀缺性提高，市場實際成交總價可能遠高於此。
-
-（二）<strong>未考慮土地價值與區域因素</strong>：本題僅計算建物部分之現值，完整之房地總價尚須加計土地價格；而土地價格受區域發展、交通便利性、生活機能等因素影響甚大，無法單由成本法反映。
-
-（三）<strong>未考慮市場供需與替代性</strong>：依替代原則，理性買方不會支付高於具相同滿意度替代財貨之代價，故完整之合理性判斷，仍須參酌附近類似中古住宅之比較法實例價格及收益法評估結果，三者綜合比較後方能掌握市場真實價格水準。
-
-（四）<strong>折舊速度與實際耗損未必一致</strong>：等速折舊假設建物價值均速遞減，但市場上中古屋之實際跌價速度未必與等速折舊曲線完全吻合，估價人員仍應實地勘查建物實際使用狀況及維護情形，適時調整折舊路徑之選用。
-
-<h4>四、結論</h4>
-本案建物依等速折舊路徑計算之現在價值為<strong>648萬元</strong>；惟此數值僅反映建物本身依重建成本及折舊推算之成本價格，並未涵蓋土地價值與市場供需狀況，實務上完整之房地總價評估，仍應搭配比較法及收益法之評估結果綜合決定，方能更貼近市場實際交易行情，單以成本法之648萬元作為該住宅之市場價值，尚有其侷限性，須以專業判斷補充說明。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 範文五 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">99年第一題</span>
-        <span class="essay-topic">收益資本化率風險因素＋加權平均資金成本法計算</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】收益法又稱收益資本化法，除了精準計算房地客觀淨收益外，收益資本化率或折現率的有效掌握對於價格決定具有關鍵影響。請說明收益資本化率或折現率一般考慮的風險因素與選擇比較基準？同時，請試舉例說明依加權平均資金成本方式決定收益資本化率或折現率的計算過程與結果？（25分）</div>
-        <div class="essay-text">
-<h4>一、收益資本化率或折現率考慮之風險因素與選擇比較基準</h4>
-依不動產估價技術規則規定，決定收益資本化率或折現率時，應考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，選擇最具一般性財貨之投資報酬率為比較基準，並就下列各項因素加以比較觀察：
-
-（一）<strong>流通性</strong>：不動產相較於一般金融商品流通性較低，變現速度較慢，此將提高其要求報酬率。
-
-（二）<strong>風險性</strong>：不動產投資存在市場波動、政策變動、自然災害等風險，風險性越高，要求之收益資本化率亦越高。
-
-（三）<strong>增值性</strong>：具增值潛力之不動產，因未來資本利得預期較高，市場願意接受較低之收益資本化率。
-
-（四）<strong>管理上之難易程度</strong>：管理較為複雜者，要求報酬率相對較高。
-
-<h4>二、加權平均資金成本法之意義與公式</h4>
-加權平均資金成本法（WACC法）係依不動產投資所需資金來源之比重及各自之報酬率或利率，加權平均計算收益資本化率或折現率，公式為：
-<code>WACC ＝ 自有資金比重 × 自有資金要求報酬率
-       ＋ 借貸資金比重 × 借款利率</code>
-
-<h4>三、舉例計算</h4>
-假設某商用不動產投資中，自有資金比重40%，要求報酬率8%；借貸資金比重60%，借款利率4%，則：
-<code>WACC ＝ 0.4 × 8% ＋ 0.6 × 4%
-     ＝ 3.2% ＋ 2.4%
-     ＝ 5.6%</code>
-
-若該不動產勘估標的年期間之客觀淨收益為100萬元，依直接資本化法計算之收益價格為：
-<code>收益價格 ＝ 100萬元 ÷ 5.6% ≈ 1,785.7萬元</code>
-
-<h4>四、結論</h4>
-收益資本化率或折現率之決定，應綜合考慮銀行定存利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格變動趨勢等因素，並就流通性、風險性、增值性及管理難易程度加以比較；加權平均資金成本法係依自有資金與借貸資金之比重及各自報酬率加權計算，本案範例計算結果為<strong>5.6%</strong>，此一資本化率可進一步用於直接資本化法推算收益價格，足見資本化率之合理掌握對估價結果之準確性具有決定性影響。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 範文六 ===== -->
-    <div class="essay-item" data-pri="red">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot red"></span>
-        <span class="essay-year">104年第二題</span>
-        <span class="essay-topic">收益法折舊提存費＋成本法營造施工費</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】不論是收益法或是成本法在房地產收益價格估計時都扮演著重要的角色，當估價時，勘估標的如果包含建物應加計建物之折舊提存費，請問要如何計算建物的折舊提存費？又勘估標的在估價時，對於其營造或施工費要如何估計？請分別論述之。（25分）</div>
-        <div class="essay-text">
-<h4>一、建物折舊提存費之計算</h4>
-於收益法估價時，勘估標的若包含建物，應加計建物之折舊提存費。依不動產估價技術規則規定，得依下列方式計算：
-
-（一）<strong>等速折舊型</strong>：假定每年提存金額均等，折舊提存率公式為：
-<code>dn ＝ (1－s) / N</code>
-
-（二）<strong>償債基金型</strong>：假定按年提存一定金額，以複利方式累積至耐用年限屆滿時，累積本利和恰等於應提列之折舊總額，折舊提存率公式為：
-<code>dn ＝ (1－s) × i / [(1＋i)^N － 1]</code>
-
-上述公式中，s為殘餘價格率，N為經濟耐用年數，i為利率。建物之折舊提存費即為建物現值乘以折舊提存率。
-
-<h4>二、成本法營造或施工費之估計</h4>
-成本法估價時，營造或施工費得分為直接法及間接法求取：
-
-（一）<strong>直接法</strong>：
-1. 淨計法：就各種建築材料及人工之數量，逐一乘以價格日期當時之單價及人工工資，並加計管理費、稅捐、資本利息及利潤。
-2. 單位工程法：以建築細部工程之各項目單價乘以施工數量合計之，為實務上最常採用之方法。
-
-（二）<strong>間接法</strong>：
-1. 工程造價比較法：按工程概算項目逐項比較與比較標的之差異，依工程價格及數量比率調整求取。
-2. 單位面積（或體積）比較法：以類似標的之單位面積（或體積）施工費單價為基礎，比較調整後乘以勘估標的面積求取。
-
-此外，總成本尚應加計：規劃設計費（2%~3%）、廣告及銷售費（4%~5%，視標的性質決定是否計入）、管理費（3%~4%）、稅捐（0.5%~1.2%）及資本利息。
-
-<h4>四、結論</h4>
-收益法估價時建物之折舊提存費，得依等速折舊型或償債基金型公式計算；成本法估價時，營造或施工費則得採淨計法、單位工程法等直接法，或工程造價比較法、單位面積比較法等間接法求取，並應加計規劃設計費、廣告銷售費、管理費、稅捐及資本利息等費用。兩者雖分屬不同估價環節，惟皆係正確掌握建物價值消長之關鍵，估價人員應依勘估標的特性及資料取得難易程度選用最適當之計算方法。
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 中機率題型（攻略表，無完整範文）===== -->
-    <div class="essay-item" data-pri="yellow">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot yellow"></span>
-        <span class="essay-year">100年第一題</span>
-        <span class="essay-topic">土地開發分析法利潤率及資本利息綜合利率</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】運用土地開發分析法進行估價，如何有效選擇適當之利潤率及資本利息綜合利率，試說明利潤率及資本利息綜合利率計算依據與方法？</div>
-        <div class="essay-text">
-<h4>作答骨幹（攻略表摘要）</h4>
-<strong>必背公式：</strong>
-<code>V ＝ [S ÷ (1+r) ÷ (1+i)] － (C+M)
-資本利息綜合利率 ＝ 資本利息年利率 × (土地比率 + 建物比率×1/2) × 開發年數</code>
-
-①利潤率：依市場行情、開發風險、資金成本等綜合考量決定
-②資本利息綜合利率：考量土地與建物資金投入時點不同（土地全期、建物半期），故建物比率須×1/2
-
-<strong>最常犯的錯：</strong>忘記建物比率要乘1/2；利潤率與資本化率概念混淆。
-
-<strong>開頭句：</strong>「依不動產估價技術規則規定，土地開發分析法之利潤率，應參酌市場上一般開發商之利潤水準並考量市場風險、開發年期及資金成本等因素決定之；資本利息綜合利率之計算，則應考量土地與建物資金投入時點之差異。」
-
-<em>（本題目前為攻略表條目，無完整四段式範文。若需完整範文，可在此對話中告知。）</em>
-        </div>
-      </div>
-    </div>
-
-    <div class="essay-item" data-pri="yellow">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot yellow"></span>
-        <span class="essay-year">102年第二題</span>
-        <span class="essay-topic">土地開發分析法完整計算</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】現有一筆建地...土地面積1600坪...預期總銷售金額為新臺幣12億4200萬元（一年之資金折現率1.33%）...直接成本為1億8000萬元，資本利息綜合利率為1.94%，開發商要求利潤率為20%...請以土地開發分析法推估該土地的試算價格。</div>
-        <div class="essay-text">
-<h4>作答骨幹（攻略表摘要）</h4>
-<strong>必背公式：</strong>
-<code>V ＝ [S ÷ (1+r) ÷ (1+i)] － (C+M)</code>
-
-①先將總銷售金額折現至現值→②計算間接成本（規劃設計費、廣告銷售費、稅捐、管理費，皆按比率計算）→③代入公式計算V
-
-<strong>最常犯的錯：</strong>忘記先將總銷售金額折現就直接相減；間接成本各項比率算錯基礎（有的以直接成本為基礎，有的以總銷售金額為基礎）。
-
-<em>（本題所有9項數據已核實與考選部PDF原文精確相符。若需完整範文，可在此對話中告知。）</em>
-        </div>
-      </div>
-    </div>
-
-    <div class="essay-item" data-pri="yellow">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot yellow"></span>
-        <span class="essay-year">101年第二題</span>
-        <span class="essay-topic">經濟租金／實質租金／支付租金定義及計算</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】何謂經濟租金？何謂實質租金？何謂支付租金？某甲以低於市場行情一成的租金承租房屋一年，月租金9000元、押金兩個月，年定存利率2%，求三種租金。</div>
-        <div class="essay-text">
-<h4>作答骨幹（攻略表摘要）</h4>
-<code>支付租金 ＝ 月租×12 ＝ 9000×12 ＝ 108,000元
-實質租金 ＝ 支付租金 + 押金運用收益
-       ＝ 108,000 + (9000×2)×2% ＝ 108,360元
-經濟租金 ＝ 支付租金 ÷ (1－10%)
-       ＝ 108,000 ÷ 0.9 ＝ 120,000元</code>
-
-<strong>最常犯的錯：</strong>
-- 經濟租金計算方向搞反（應是÷0.9還原市場行情，不是×0.9打折）
-- 忘記押金運用收益要計入實質租金
-
-<em>（本題為攻略表條目，若需完整四段式範文，可在此對話中告知。）</em>
-        </div>
-      </div>
-    </div>
-
-    <div class="essay-item" data-pri="yellow">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot yellow"></span>
-        <span class="essay-year">113年第一題</span>
-        <span class="essay-topic">DCF定義＋與直接資本化法差異</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】何謂折現現金流量分析法？又其與直接資本化法有何差異？</div>
-        <div class="essay-text">
-<h4>作答骨幹（攻略表摘要）</h4>
-<strong>必背公式：</strong>
-<code>DCF：P ＝ Σ[CFk/(1+Y)^k] + Pn'/(1+Y)^n'
-直接資本化法：收益價格 ＝ 未來1年淨收益 ÷ 資本化率</code>
-
-兩者差異對照：
-<table><tr><th>比較項目</th><th>DCF</th><th>直接資本化法</th></tr><tr><td>考慮期間</td><td>多期（持有期間各年）</td><td>單期（未來1年）</td></tr><tr><td>期末處分</td><td>納入期末處分價值折現</td><td>不考慮</td></tr><tr><td>現金流假設</td><td>各期可不同</td><td>穩定不變</td></tr><tr><td>適用情境</td><td>現金流不規律或投資決策</td><td>現金流穩定之收益性不動產</td></tr></table>
-
-<strong>最常犯的錯：</strong>沒有用對照方式清楚呈現兩者差異；忘記DCF需要折現「期末處分價值」。
-
-<em>（本題為攻略表條目，若需完整四段式範文，可在此對話中告知。）</em>
-        </div>
-      </div>
-    </div>
-
-    <div class="essay-item" data-pri="green">
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <span class="pri-dot green"></span>
-        <span class="essay-year">107年第二題</span>
-        <span class="essay-topic">同一供需圈／近鄰地區／類似地區關係</span>
-        <span class="chevron">▶</span>
-      </div>
-      <div class="essay-body">
-        <div class="essay-q">【原題】何謂同一供需圈？何謂近鄰地區？何謂類似地區？請說明三者的關係。</div>
-        <div class="essay-text">
-<h4>作答要點（攻略表摘要）</h4>
-三者關係：近鄰地區＋類似地區＝同一供需圈。
-
-- <strong>近鄰地區</strong>：距勘估標的最接近、同質性最高之地區，與標的在地緣上鄰近，受相同地域因素影響。
-- <strong>類似地區</strong>：與近鄰地區性質相近（相同使用分區、相似土地條件），但與勘估標的並非地緣相鄰之地區。
-- <strong>同一供需圈</strong>：凡具替代可能性之不動產所在之地理範圍，包含近鄰地區與所有類似地區之總體。
-
-<strong>最常犯的錯：</strong>將近鄰地區與類似地區兩者定義對調；誤以為同一供需圈僅指近鄰地區。
-
-<em>（低機率題型，瞭解架構即可，不需深入準備。）</em>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /essay-list -->
-
-</section>
-
-<!-- ══════════════════════════════════════════════
-     TAB 5 · 讀書攻略
-══════════════════════════════════════════════ -->
-<section id="panel-strategy" class="panel">
-
-  <div class="sec-title">章節優先序（115年備考）</div>
-
-  <table class="priority-table">
+  <table class="essay-table" id="essay-table">
     <thead>
-      <tr><th>優先</th><th>章節</th><th>核心重點</th><th>為何重要</th></tr>
+      <tr><th>年度-題</th><th>核心主題</th><th>難度</th><th>等級</th></tr>
     </thead>
+    <tbody id="essay-tbody">
+      <!-- JS 動態填入 -->
+    </tbody>
+  </table>
+
+  <div class="sec-title">申論工具</div>
+  <div class="tool-row">
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank">
+      <span class="icon">📄</span> 申論題實戰範文（計算型四段式）
+    </a>
+  </div>
+
+  <div class="sec-title">估價申論答題架構</div>
+  <div class="notice-box">
+    <strong>計算題版四段式</strong>（估價申論多為計算題，架構調整如下）：<br>
+    ① <strong>定義</strong>：說明所用估價方法的定義與適用情境（技術規則條號）<br>
+    ② <strong>公式</strong>：列出完整計算公式，標示各變數意義<br>
+    ③ <strong>代入計算</strong>：逐步代入題目給定數值，單位必須標註<br>
+    ④ <strong>結論</strong>：寫出最終估價結論，並說明合理性
+  </div>
+</div><!-- /tab-essay -->
+
+<!-- ④ 現行法 -->
+<div id="tab-law" class="panel">
+  <div class="sec-title">現行法版本</div>
+  <table class="law-table">
+    <thead><tr><th>法規名稱</th><th>現行版本</th><th>狀態</th></tr></thead>
     <tbody>
-      <tr style="background:#FEE2DC;">
-        <td>🔴 一</td>
-        <td>C2 成本法折舊</td>
-        <td>定額法/定率法/償債基金法、三路徑、殘餘價格率10%上限</td>
-        <td>99、104、105、107、111、112年六度申論命題，選擇題最高頻</td>
-      </tr>
-      <tr style="background:#FEE2DC;">
-        <td>🔴 一</td>
-        <td>D2 資本化率</td>
-        <td>五種方法（市場萃取法/WACC/比較法/債務保障比率法/有效總收益倍數法）</td>
-        <td>99年申論WACC，選擇題16年最高頻</td>
-      </tr>
-      <tr style="background:#FEE2DC;">
-        <td>🔴 一</td>
-        <td>B1-B2 比較法</td>
-        <td>調整流程四步驟、排除規則 15%/30%/20%</td>
-        <td>99、102、108、110年四度申論命題</td>
-      </tr>
-      <tr style="background:#FEE2DC;">
-        <td>🔴 一</td>
-        <td>E1 土地開發分析</td>
-        <td>V公式、資本利息綜合利率（建物×1/2）</td>
-        <td>100、102、105、109、113年五度申論命題，題量逐年增</td>
-      </tr>
-      <tr style="background:#FEF3CD;">
-        <td>🟡 二</td>
-        <td>A1-A4 估價基礎</td>
-        <td>估價原則情境辨識、一般/區域/個別因素、8步驟程序</td>
-        <td>近年偏好凶宅、高壓電塔、綠建築等時事包裝</td>
-      </tr>
-      <tr style="background:#FEF3CD;">
-        <td>🟡 二</td>
-        <td>D1 直接資本化</td>
-        <td>淨收益計算、客觀收益、空置率扣除</td>
-        <td>收益法完整題型必考項目</td>
-      </tr>
-      <tr style="background:#FEF3CD;">
-        <td>🟡 二</td>
-        <td>F1 租金估計</td>
-        <td>實質租金公式、押金運用收益、差額分配法</td>
-        <td>101、110、114年三度申論命題</td>
+      <tr>
+        <td>不動產估價技術規則</td>
+        <td>107.09.17 修正</td>
+        <td><span class="tag-ok">✓ 已確認</span></td>
       </tr>
       <tr>
-        <td>🟢 三</td>
-        <td>G1/H1-H3/I1</td>
-        <td>樓層別效用比公式、地上權估價、都市更新基地價值比率、CAMA門檻值</td>
-        <td>了解即可，不需深入</td>
+        <td>不動產估價師法</td>
+        <td>113.08.07 修正</td>
+        <td><span class="tag-ok">✓ 已確認</span></td>
+      </tr>
+      <tr>
+        <td>不動產估價師法施行細則</td>
+        <td>101.01.11 發布</td>
+        <td><span class="tag-warn">⚠ §17跨地懲戒累計僅知識庫來源</span></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="sec-title">準備法則</div>
+  <div class="sec-title">易混淆核心數字（技術規則）</div>
+  <table class="law-table">
+    <thead><tr><th>考點</th><th>正確數字</th><th>常見誤填</th><th>條號</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>折舊定額法殘餘率上限</td>
+        <td><span class="tag-warn">10%</span></td>
+        <td>20%</td>
+        <td>§46</td>
+      </tr>
+      <tr>
+        <td>比較法單項調整率上限</td>
+        <td><span class="tag-warn">15%</span></td>
+        <td>20%</td>
+        <td>§22</td>
+      </tr>
+      <tr>
+        <td>比較法總調整率上限</td>
+        <td><span class="tag-warn">30%</span></td>
+        <td>40%</td>
+        <td>§22</td>
+      </tr>
+      <tr>
+        <td>比較法試算差距上限</td>
+        <td><span class="tag-warn">20%</span></td>
+        <td>30%</td>
+        <td>§23</td>
+      </tr>
+      <tr>
+        <td>CAMA 樣本數</td>
+        <td><span class="tag-warn">≥ 自變數個數×5</span></td>
+        <td>≥ 30個</td>
+        <td>§68</td>
+      </tr>
+      <tr>
+        <td>CAMA 判定係數</td>
+        <td><span class="tag-warn">R² ≥ 0.7</span></td>
+        <td>0.5</td>
+        <td>§68</td>
+      </tr>
+      <tr>
+        <td>CAMA 顯著機率</td>
+        <td><span class="tag-warn">p &lt; 5%</span></td>
+        <td>5%（含）</td>
+        <td>§68</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="strategy-block">
-    <h3>📐 選擇題攻略</h3>
-    <ul>
-      <li>刷題順序：C2→D2→B→E1→D1→F1→A（高頻先刷）</li>
-      <li>錯題三色標記：A型（法條混淆）、B型（粗心）、C型（真的不熟），三色策略不同</li>
-      <li>5處計算落差題（D2-106第29題、D2-99第9題、E1-106第19題等）已標記，做到時直接選官方答案、不糾結</li>
-      <li>比較法排除數字（15%/30%/20%）每次做題時默念一遍，不要背錯對應項目</li>
-      <li>CAMA四門檻同時記：樣本數≥自變數×5倍、R²≥0.7、p&lt;5%、避免共線性</li>
-    </ul>
+  <div class="sec-title">估價師法罰則核心數字（§30–40）</div>
+  <div class="warn-box">⚠️ 16年考題（520題）中估價師法罰則零出現，考前快速掃即可，勿花大量時間</div>
+  <div class="tool-row">
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%B8%AB%E6%B3%95%E7%BD%B0%E5%89%87%E6%87%B2%E6%88%92%E7%B8%BD%E6%95%B4%E7%90%86.html" target="_blank">
+      <span class="icon">⚖️</span> 估價師法罰則懲戒總整理（§30–40，兩源核對）
+    </a>
   </div>
 
-  <div class="strategy-block">
-    <h3>✍️ 申論題攻略</h3>
-    <ul>
-      <li>萬用口訣：定義 → 公式 → 代入計算 → 結論評析</li>
-      <li>計算題：每段都要實際代入數字計算，不能只列公式；列式過程本身即占相當分數</li>
-      <li>列舉題：條列式呈現，適時搭配「依不動產估價技術規則規定」起頭句</li>
-      <li>混合題（計算+分析）：算對數字只拿一半分，後段專業評析才是申論重點</li>
-      <li>結論務必有明確數字或選擇（金額/方法選擇/合理性判斷）</li>
-      <li>115年高機率組合：折舊計算（C2主題，已考6次）＋WACC（D2）＋V公式（E1）</li>
-    </ul>
+  <div class="sec-title">計算落差題目（誠實標記）</div>
+  <div class="notice-box">以下題目計算結果與官方答案有落差，已在刷題工具中標記，考試時以官方答案為準：</div>
+  <table class="law-table">
+    <thead><tr><th>題目</th><th>我的計算</th><th>官方答案</th><th>備注</th></tr></thead>
+    <tbody>
+      <tr><td>106年D2第29題</td><td>623萬</td><td>1,256萬</td><td>債務保障比率法邏輯有出入</td></tr>
+      <tr><td>99年D2第9題</td><td>280萬</td><td>130萬</td><td>房地分離法，無法重現</td></tr>
+      <tr><td>106年E1第19題</td><td>27,492萬</td><td>12,492萬</td><td>V公式差距，原因不明</td></tr>
+      <tr><td>106年H2第13題</td><td>應為B</td><td>D</td><td>與技術規則§90矛盾，疑似誤標</td></tr>
+      <tr><td>104年E1第23題</td><td>B (×1/2版)</td><td>D (×1/4版)</td><td>不同公式版本，建議核實</td></tr>
+    </tbody>
+  </table>
+</div><!-- /tab-law -->
+
+<!-- ⑤ 進度 -->
+<div id="tab-progress" class="panel">
+  <div class="sec-title">五件套完成狀態</div>
+  <div class="checklist">
+    <div class="chk-item done-item">
+      <div class="chk-status done">✓</div>
+      <div class="chk-body">
+        <div class="chk-title">16年考點分析（選擇520題＋申論32題）</div>
+        <div class="chk-desc">99–114年逐題分析，章節占比、趨勢轉變、115年優先清單</div>
+      </div>
+    </div>
+    <div class="chk-item done-item">
+      <div class="chk-status done">✓</div>
+      <div class="chk-body">
+        <div class="chk-title">重點筆記（A1–I1全科）</div>
+        <div class="chk-desc">含★高頻/★陷阱標記，表格化比較公式</div>
+      </div>
+    </div>
+    <div class="chk-item done-item">
+      <div class="chk-status done">✓</div>
+      <div class="chk-body">
+        <div class="chk-title">題庫（99–114年520題，含官方答案）</div>
+        <div class="chk-desc">部分計算題有誠實標記（落差題目，見④現行法頁）</div>
+      </div>
+    </div>
+    <div class="chk-item done-item">
+      <div class="chk-status done">✓</div>
+      <div class="chk-body">
+        <div class="chk-title">申論題攻略表（32題，🔴🟡🟢三級）</div>
+        <div class="chk-desc">攻略表已通過官方PDF核實（2026-06-20）</div>
+      </div>
+    </div>
+    <div class="chk-item done-item">
+      <div class="chk-status done">✓</div>
+      <div class="chk-body">
+        <div class="chk-title">申論題實戰範文（32題計算型四段式）</div>
+        <div class="chk-desc">主題層級已核實；完整範文逐句核實尚未執行</div>
+      </div>
+    </div>
   </div>
 
-  <div class="strategy-block">
-    <h3>🗂️ 怎麼用這個對話（估價科目固定chat）</h3>
-    <ul>
-      <li>解題不懂：「[年度]年第[n]題，[選項X]為什麼錯？」→ 白話概念+法條+陷阱解析</li>
-      <li>申論練習：「請幫我批改這題申論：[貼上你的作答]」→ 四段式架構逐項批改</li>
-      <li>公式複習：「定率法和定額法差別是什麼？」→ 對照表+計算範例</li>
-      <li>模擬考：「出一題接近115年程度的折舊計算申論題」→ 自行限時12分鐘作答再對答案</li>
-      <li>弱點清單：「我的C型錯題集中在D2，幫我整理資本化率五種方法對照表」</li>
-    </ul>
+  <div class="sec-title">HTML工具清單（18個）</div>
+  <div class="prog-row"><div class="prog-label">刷題練習</div><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="prog-pct">15個✓</div></div>
+  <div class="prog-row"><div class="prog-label">記憶工具</div><div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div><div class="prog-pct">3個✓</div></div>
+
+  <div class="sec-title">模擬卷成績</div>
+  <div id="mock-progress-table"></div>
+
+  <div class="sec-title">待辦事項</div>
+  <div class="checklist">
+    <div class="chk-item todo-item">
+      <div class="chk-status todo">!</div>
+      <div class="chk-body">
+        <div class="chk-title">上傳 GitHub</div>
+        <div class="chk-desc">估價師法罰則懲戒總整理.html（新增）＋估價備考指揮中心.html（覆蓋）</div>
+      </div>
+    </div>
+    <div class="chk-item todo-item">
+      <div class="chk-status todo">!</div>
+      <div class="chk-body">
+        <div class="chk-title">申論範文逐句核實</div>
+        <div class="chk-desc">需上傳官方PDF（Appraisa_Law_Exams_merged.pdf），依防呆提示詞逐句比對32題</div>
+      </div>
+    </div>
+    <div class="chk-item todo-item">
+      <div class="chk-status todo">!</div>
+      <div class="chk-body">
+        <div class="chk-title">施行細則§17跨地懲戒累計 — 線上核實</div>
+        <div class="chk-desc">目前僅知識庫來源，待上法規資料庫確認</div>
+      </div>
+    </div>
   </div>
+</div><!-- /tab-progress -->
 
-  <div class="info-box">
-    💡 <strong>估價科目特殊提醒：</strong>計算密度遠高於其他三科，不能只讀、必須動手算。建議每週至少完整演算一題🔴級計算申論，確認計算步驟（列式→代入→逐步計算→核對）均能在12分鐘內完成，才算真正準備好。
+<!-- ⑥ 攻略 -->
+<div id="tab-strategy" class="panel">
+  <div class="sec-title">16年章節占比（單一數據來源：考點分析MD）</div>
+  <table class="stat-table">
+    <thead><tr><th>優先</th><th>章節</th><th>題數</th><th>策略</th></tr></thead>
+    <tbody>
+      <tr><td class="rank-1">🔴</td><td>成本法折舊（C1+C2）</td><td>88</td><td>定額/定率/償債基金公式＋三路徑必背</td></tr>
+      <tr><td class="rank-1">🔴</td><td>收益法資本化率（D1+D2+D3）</td><td>78</td><td>五種決定法計算題、DSCR近年高頻</td></tr>
+      <tr><td class="rank-1">🔴</td><td>比較法（B1+B2）</td><td>61</td><td>三道排除關卡15%/30%/20%必背</td></tr>
+      <tr><td class="rank-1">🔴</td><td>估價原則（A1）</td><td>45</td><td>情境辨識，近年加入時事包裝</td></tr>
+      <tr><td class="rank-1">🔴</td><td>影響因素（A3）</td><td>44</td><td>一般/區域/個別/特殊四分類</td></tr>
+      <tr><td class="rank-1">🔴</td><td>估價程序（A4）</td><td>44</td><td>8步驟順序、比較實例4原則</td></tr>
+      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>估價方法綜合應用</td><td>41</td><td>獨立/部分估價辨析、容積違建處理</td></tr>
+      <tr><td class="rank-2">🟡</td><td>租金估計（F1）</td><td>33</td><td>實質租金公式、差額分配法</td></tr>
+      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>價格種類（A2）</td><td>31</td><td>正常/限定/特定/特殊四種辨析</td></tr>
+      <tr><td class="rank-2">🟡</td><td>估價程序（A4）</td><td>27</td><td>蒐集比較實例4原則</td></tr>
+      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>土地開發分析法（E1）</td><td>16</td><td>V公式計算，申論題申論高頻</td></tr>
+      <tr><td class="rank-3">🟢</td><td>特殊宗地（H1+H2）</td><td>21</td><td>農場/鹽田比較法、污染宗地成本法</td></tr>
+      <tr style="background:var(--paper)"><td class="rank-3">🟢</td><td>樓層別效用比（G1）</td><td>15</td><td>公式土地分配價格=總價×(效用比÷總和)</td></tr>
+      <tr><td class="rank-3">🟢</td><td>CAMA（I1）</td><td>12</td><td>樣本數≥5倍、R²≥0.7、p&lt;5%</td></tr>
+      <tr style="background:var(--paper)"><td class="rank-3">🟢</td><td>都市更新（H3）</td><td>5</td><td>基地價值比率計算</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">申論32題主題分布</div>
+  <table class="stat-table">
+    <thead><tr><th>主題群</th><th>題數</th><th>🔴A級題目（必練）</th></tr></thead>
+    <tbody>
+      <tr><td>成本法折舊（C1+C2）</td><td>4</td><td>104-二、107-二、111-一、112-一</td></tr>
+      <tr><td>收益法資本化率（D2）</td><td>2</td><td>99-一、114-二</td></tr>
+      <tr><td>土地開發分析法（E1）</td><td>5</td><td>100-一、102-二、105-二、109-二、113-二</td></tr>
+      <tr><td>比較法（B）</td><td>3</td><td>99-二、102-一、103-一</td></tr>
+      <tr><td>估價方法綜合說明</td><td>3</td><td>101-一（三大方法程序）</td></tr>
+      <tr><td>租金估計（F1）</td><td>2</td><td>101-二（計算）</td></tr>
+      <tr><td>DCF（D3）</td><td>1</td><td>110-二</td></tr>
+      <tr><td>其他（原則/因素/種類/特殊）</td><td>12</td><td>🟡B/🟢C級，閱讀架構</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">讀書時間建議</div>
+  <div class="notice-box">
+    <strong>平日（2小時）</strong>：記憶15分鐘（彩色速記/單字卡）→ 章節刷題1.5小時（依占比輪流，成本法/收益法優先）<br>
+    <strong>假日（6小時）</strong>：章節刷題3h → 混合刷題+錯題本2h → 申論（讀架構20分，不寫只讀懂）<br>
+    <strong>每週一題申論</strong>（暗線）：週一選定、週三讀架構一次、週六對照範文
   </div>
+</div><!-- /tab-strategy -->
 
-</section>
-
-<!-- FOOTER -->
 <footer class="site-footer">
-  📅 最新編輯時間：2026-10-04｜版本 v1.1｜BrokerX 估價科目備考指揮中心
+  📐 不動產估價備考指揮中心 v2.0｜2026-10-07 重建<br>
+  法規來源：不動產估價技術規則（107.09.17）、不動產估價師法（113.08.07）｜<a href="https://bernih7.github.io/brokerX/" style="color:var(--gold)">🏠 BrokerX 首頁</a>
 </footer>
 
 <script>
-// ── COUNTDOWN ──
-function updateCountdown() {
-  const exam = new Date('2026-11-14T09:00:00+08:00');
-  const now = new Date();
-  const diff = exam - now;
-  const days = diff > 0 ? Math.ceil(diff / 86400000) : 0;
-  document.getElementById('days').textContent = days;
-  const opts = { year:'numeric', month:'2-digit', day:'2-digit', weekday:'short', timeZone:'Asia/Taipei' };
-  document.getElementById('date-now').textContent = '今天 ' + now.toLocaleDateString('zh-TW', opts);
-}
-updateCountdown();
-setInterval(updateCountdown, 60000);
+// ── 倒數 ──
+(function(){
+  var exam = new Date('2026-11-14T09:00:00+08:00');
+  function update(){
+    var diff = Math.ceil((exam - new Date()) / 86400000);
+    var el = document.getElementById('days');
+    if(el) el.textContent = diff > 0 ? diff : '已考試';
+  }
+  update();
+  setInterval(update, 60000);
+})();
 
-// ── TABS ──
-function switchTab(tab) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + tab).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-// ── ESSAY TOGGLE ──
-function toggleEssay(header) {
-  const item = header.closest('.essay-item');
-  item.classList.toggle('open');
+// ── 主分頁切換 ──
+function showTab(id, btn){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var panel = document.getElementById('tab-'+id);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
 }
 
-// ── ESSAY FILTER ──
-function filterEssay(pri, btn) {
-  document.querySelectorAll('.pri-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.essay-item').forEach(item => {
-    if (pri === 'all' || item.dataset.pri === pri) {
-      item.style.display = '';
-    } else {
-      item.style.display = 'none';
-    }
+// ── 子分頁切換 ──
+function showSub(parent, id, btn){
+  var prefix = 'sub-'+parent+'-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(function(p){ p.classList.remove('active'); });
+  var panel = document.getElementById(prefix+id);
+  if(panel) panel.classList.add('active');
+  var parentPanel = document.getElementById('tab-'+parent);
+  if(parentPanel){
+    parentPanel.querySelectorAll('.sub-btn').forEach(function(b){ b.classList.remove('active'); });
+  }
+  if(btn) btn.classList.add('active');
+}
+
+// ── 群組折疊 ──
+function toggleGroup(header){
+  header.classList.toggle('open');
+  var body = header.nextElementSibling;
+  if(body) body.classList.toggle('open');
+}
+
+// ── 今日建議 ──
+(function(){
+  var day = new Date().getDay(); // 0=日,6=六
+  var isWeekend = (day === 0 || day === 6);
+  var steps = isWeekend ? [
+    { num:'①', text:'記憶15分鐘：彩色重點速記或互動單字卡' },
+    { num:'②', text:'章節刷題90分鐘：今日重點章節（成本法/收益法/比較法輪流）' },
+    { num:'③', text:'混合刷題+錯題本60分鐘' },
+    { num:'④', text:'申論暗線（週六）：讀本週指定題架構15分鐘，不寫只讀懂' },
+  ] : [
+    { num:'①', text:'記憶15分鐘：彩色重點速記或互動單字卡' },
+    { num:'②', text:'章節刷題90分鐘：今日重點章節（依占比輪流）' },
+  ];
+  var container = document.getElementById('today-steps');
+  if(!container) return;
+  steps.forEach(function(s){
+    var div = document.createElement('div');
+    div.className = 'today-step';
+    div.innerHTML = '<div class="step-num">' + s.num + '</div><div>' + s.text + '</div>';
+    container.appendChild(div);
+  });
+})();
+
+// ── 模擬卷成績（從 localStorage 讀取） ──
+(function(){
+  var mocks = [
+    { id:'1', name:'診斷卷①' },
+    { id:'2', name:'高頻考點卷②' },
+    { id:'3', name:'混淆對比卷③' },
+    { id:'4', name:'全真模擬卷④' },
+  ];
+  function renderMocks(containerId){
+    var c = document.getElementById(containerId);
+    if(!c) return;
+    mocks.forEach(function(m){
+      var key = 'bx_mock_'+m.id;
+      var stored;
+      try { stored = JSON.parse(localStorage.getItem(key)); } catch(e){}
+      var row = document.createElement('div');
+      row.className = 'mock-row';
+      var nameEl = '<div class="mock-name">' + m.name + '</div>';
+      var statusEl;
+      if(stored && stored.score !== undefined){
+        statusEl = '<div class="mk-score">' + stored.score + ' / 25</div>';
+      } else {
+        statusEl = '<div class="mock-status" style="color:var(--muted)">尚未作答</div>';
+      }
+      row.innerHTML = nameEl + statusEl;
+      c.appendChild(row);
+    });
+  }
+  renderMocks('mock-table');
+  renderMocks('mock-progress-table');
+})();
+
+// ── 申論題資料 ──
+var essayData = [
+  { yr:'99-一', topic:'收益資本化率/折現率風險因素＋加權平均資金成本法計算', hard:'計算', pri:'A' },
+  { yr:'99-二', topic:'比較法情況/價格日期/區域/個別因素調整重點', hard:'說明', pri:'A' },
+  { yr:'100-一', topic:'土地開發分析法利潤率及資本利息綜合利率', hard:'計算', pri:'A' },
+  { yr:'100-二', topic:'替代原則於三大估價法運用之考量', hard:'說明', pri:'B' },
+  { yr:'101-一', topic:'三大估價方法（比較/成本/收益）及其估價程序', hard:'說明', pri:'B' },
+  { yr:'101-二', topic:'經濟/實質/支付租金定義及計算', hard:'計算', pri:'A' },
+  { yr:'102-一', topic:'比較法應排除情況（無法量化調整）', hard:'說明', pri:'A' },
+  { yr:'102-二', topic:'土地開發分析法完整計算（含資本利息綜合利率）', hard:'計算', pri:'A' },
+  { yr:'103-一', topic:'影響不動產價格因素＋比較法估價程序及關聯性', hard:'說明', pri:'B' },
+  { yr:'103-二', topic:'不動產價格種類＋地上權設定土地估價方式', hard:'說明', pri:'B' },
+  { yr:'104-一', topic:'不景氣現象對應之估價原則＋估價原則綜述', hard:'說明', pri:'B' },
+  { yr:'104-二', topic:'收益法建物折舊提存費計算＋成本法營造施工費估計', hard:'計算', pri:'A' },
+  { yr:'105-一', topic:'成本法折舊路徑種類＋定額法計算並繪製示意圖', hard:'計算', pri:'A' },
+  { yr:'105-二', topic:'土地開發分析法資本利息綜合利率公式＋計算', hard:'計算', pri:'A' },
+  { yr:'106-一', topic:'都市計畫住宅區可立即開發建地之估價方法及運用程序', hard:'說明', pri:'B' },
+  { yr:'106-二', topic:'不動產估價應蒐集之資料＋蒐集比較實例之原則', hard:'說明', pri:'B' },
+  { yr:'107-一', topic:'成本法定率法折舊公式＋計算題', hard:'計算', pri:'A' },
+  { yr:'107-二', topic:'同一供需圈/近鄰地區/類似地區定義及三者關係', hard:'說明', pri:'C' },
+  { yr:'108-一', topic:'比較法蒐集比較實例分析（土地使用分區不同是否恰當）', hard:'說明', pri:'B' },
+  { yr:'108-二', topic:'數筆土地合併開發利用之估價方法', hard:'說明', pri:'B' },
+  { yr:'109-一', topic:'估價工作應留意之法則＋現場勘查應到場事項及處理方式', hard:'說明', pri:'C' },
+  { yr:'109-二', topic:'土地開發分析法計算（V公式完整列式）', hard:'計算', pri:'A' },
+  { yr:'110-一', topic:'比較法中應不予採用（無法掌握量化調整）之情況', hard:'說明', pri:'A' },
+  { yr:'110-二', topic:'不動產經紀人對租戶之租金估計建議', hard:'說明', pri:'B' },
+  { yr:'111-一', topic:'建物折舊額及累積折舊額計算方式', hard:'計算', pri:'A' },
+  { yr:'111-二', topic:'重建成本/重置成本定義＋成本法決定價格之程序與所需資料', hard:'說明', pri:'B' },
+  { yr:'112-一', topic:'凶宅（梯廳曾發生命案）屬何種影響因素＋是否影響該層價格', hard:'說明', pri:'B' },
+  { yr:'112-二', topic:'屋齡10年建物等速折舊計算＋專業觀點分析價格合理性', hard:'計算', pri:'A' },
+  { yr:'113-一', topic:'折現現金流量分析法定義＋與直接資本化法之差異', hard:'說明', pri:'B' },
+  { yr:'113-二', topic:'土地開發分析法計算公式＋成本項目內容說明', hard:'計算', pri:'A' },
+  { yr:'114-一', topic:'實質租金定義＋不動產租金估計應考慮之因素', hard:'說明', pri:'B' },
+  { yr:'114-二', topic:'不動產估價方法選取原則＋比較法/收益法/成本法適用時機', hard:'說明', pri:'A' },
+];
+
+function renderEssay(filter){
+  var tbody = document.getElementById('essay-tbody');
+  if(!tbody) return;
+  tbody.innerHTML = '';
+  essayData.forEach(function(row){
+    if(filter !== 'all' && row.pri !== filter) return;
+    var tr = document.createElement('tr');
+    var priText = row.pri === 'A' ? '<span class="pri-a">🔴 A</span>' :
+                  row.pri === 'B' ? '<span class="pri-b">🟡 B</span>' :
+                                    '<span class="pri-c">🟢 C</span>';
+    tr.innerHTML = '<td>' + row.yr + '</td><td>' + row.topic + '</td><td>' + row.hard + '</td><td>' + priText + '</td>';
+    tbody.appendChild(tr);
   });
 }
-</script>
+renderEssay('all');
 
+function filterEssay(filter, btn){
+  document.querySelectorAll('.pri-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  renderEssay(filter);
+}
+</script>
 </body>
 </html>
