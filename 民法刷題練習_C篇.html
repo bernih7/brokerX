@@ -48,6 +48,7 @@ main{padding:12px 16px;max-width:860px;margin:0 auto}
 .exp-line{font-size:13px;line-height:1.75;padding:3px 0;color:#3A3430}
 .exp-line.cl{color:var(--green);font-weight:500}
 .exp-line.wl{color:var(--red)}
+.exp-line.ainote{font-size:10.5px;color:#A8A39B;font-style:normal;font-weight:400;padding:0 0 4px;line-height:1.5}
 .exp-line.nl{color:var(--blue);font-style:italic;border-top:1px dashed var(--border);padding-top:8px;margin-top:4px}
 .err-tag{display:flex;align-items:center;gap:5px;margin-top:10px;flex-wrap:wrap}
 .etag{padding:3px 9px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);color:var(--gray);background:var(--chip-bg);transition:all .12s}
@@ -142,7 +143,7 @@ function card(q){
     op.appendChild(o);
   });
   const ex=mk('div','exp-block'+(s?' show':''));
-  if(q.src==='ai'){ex.appendChild(mk('div','exp-line nl','※AI解析：引用條號已於2026-10-08對照現行條文核實（兩源）；考前仍請以紙本六法為準'));}
+  if(q.src==='ai'){ex.appendChild(mk('div','exp-line ainote','AI解析・條號已核對現行條文，考前以紙本六法為準'));}
   q.exp.forEach(ln=>{
     const d=mk('div','exp-line');
     if(ln.startsWith('✓'))d.classList.add('cl');
