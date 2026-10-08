@@ -251,6 +251,11 @@
     font-size:13.5px;
     margin-top:14px;
   }
+.navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
+.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#D8CDB8);background:var(--paper,#F8F3E9);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
+.navfab .up{display:none;}
+.navfab .up.on{display:block;}
+
 </style>
 </head>
 <body>
@@ -443,7 +448,7 @@
       </div>
     </div>
     <div class="callout">
-      ⚠️ 提醒：《申論題實戰範文》v1.1（2026-08-30）已對照官方PDF逐句核對約20題，修正3處（範文02爭點、範文02/16/31地價稅率千分之十→六、範文30空地稅倍數改二至五倍）；其餘約12題僅核對主題與子問題完整性，尚未逐句核對。
+      ⚠️ 提醒：《申論題實戰範文》已更新至 v1.2（2026-10-08）：對照官方答案、重點筆記與條文，更正20餘處（抵價地比例、公設保留地土增稅、徵收失效、房屋稅減半、重劃異議、累進起點地價等）；仍標⚠️待核者（範文05效力性質、範文12申報期限、範文30租約條號、範文32條號）考前請對紙本六法。
     </div>
   </div>
 
@@ -453,23 +458,23 @@
       <span class="section-num">06</span>
       <h2>GitHub 互動工具（點擊直接開啟）</h2>
     </div>
-    <p style="color:#5b564c;font-size:14px;">共9個HTML工具，皆已確認可透過GitHub Pages正常開啟，跨裝置皆可使用。</p>
+    <p style="color:#5b564c;font-size:14px;">章節刷題7檔＋互動練習＋解析版（共9個）；備考指揮中心與罰則總整理另見指揮中心，皆已確認可透過GitHub Pages正常開啟，跨裝置皆可使用。</p>
     <div class="tools">
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A1A2_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_A1A2_quiz</span>
-        <span class="tool-desc">A1總則＋A2土地登記／79題</span>
+        <span class="tool-desc">A1總則＋A2土地登記／81題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A3A4A5_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_A3A4A5_quiz</span>
-        <span class="tool-desc">A3共有優先購買權＋A4基地租賃＋A5公有土地／59題</span>
+        <span class="tool-desc">A3共有優先購買權＋A4基地租賃＋A5公有土地／62題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_B_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_B_quiz</span>
-        <span class="tool-desc">B1區域計畫＋B2都市計畫＋B3國土計畫／77題</span>
+        <span class="tool-desc">B1區域計畫＋B2都市計畫＋B3國土計畫／80題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_C_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_C_quiz</span>
-        <span class="tool-desc">C1地價評議＋C2市地重劃＋C3照價收買空地稅＋C4申報登錄／54題</span>
+        <span class="tool-desc">C1地價評議＋C2市地重劃＋C3照價收買空地稅＋C4申報登錄／55題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_D_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_D_quiz</span>
@@ -477,11 +482,11 @@
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_E_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_E_quiz</span>
-        <span class="tool-desc">E1地價稅＋E2土地增值稅／73題</span>
+        <span class="tool-desc">E1地價稅＋E2土地增值稅／83題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_FGHI_quiz.html" target="_blank">
         <span class="tool-name">LandLaw_FGHI_quiz</span>
-        <span class="tool-desc">F1房屋稅＋G1契稅＋H1房地合一稅＋I1耕地375減租／75題</span>
+        <span class="tool-desc">F1房屋稅＋G1契稅＋H1房地合一稅＋I1耕地375減租／79題</span>
       </a>
       <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E4%BA%92%E5%8B%95%E7%B7%B4%E7%BF%92.html" target="_blank">
         <span class="tool-name">土地法互動練習</span>
@@ -500,5 +505,7 @@
   </footer>
 
 </div>
+<div class="navfab"><button class="up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button><a href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心">🏠</a></div>
+<script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
 </body>
 </html>
