@@ -609,5 +609,15 @@ document.getElementById('resetDataBtn').onclick = async () => {
 renderChapterGrid();
 loadMastery();
 </script>
+<!--NAVFAB-->
+<style>
+.navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
+.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#D8CDB8);background:var(--paper,#F8F3E9);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
+.navfab .up{display:none;}
+.navfab .up.on{display:block;}
+</style>
+<div class="navfab"><button class="up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button><a href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心">🏠</a></div>
+<script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
+<!--/NAVFAB-->
 </body>
 </html>
