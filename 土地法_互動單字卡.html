@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土地法概要｜互動單字卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F3E9;
+  --paper-deep:#EFE6D5;
+  --ink:#2A2722;
+  --ink-soft:#7A7165;
+  --rule:#DED1B9;
+  --stamp:#A8402B;
+  --gold:#BC8A2E;
+  --green:#5C7A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
+    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:28px 16px 48px;
+}
+.wrap{width:100%;max-width:520px;}
+header{text-align:center;margin-bottom:14px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--stamp);
+  border:1px solid var(--stamp);border-radius:999px;
+  padding:3px 12px;margin-bottom:10px;
+}
+h1{
+  font-family:'Noto Serif TC',serif;font-weight:900;
+  font-size:22px;letter-spacing:.04em;line-height:1.5;
+}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
+
+.mode-tabs{
+  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  border:1.5px solid var(--ink);border-radius:12px;padding:4px;
+}
+.mode-tab{
+  flex:1;text-align:center;padding:9px 8px;border-radius:9px;
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;
+  cursor:pointer;color:var(--ink-soft);transition:all .15s ease;
+  user-select:none;
+}
+.mode-tab.active{background:var(--ink);color:#fff;}
+
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  margin:10px 0 6px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  cursor:pointer;user-select:none;transition:all .15s ease;
+  white-space:nowrap;
+}
+.chip.active{color:#fff;border-color:transparent;}
+
+.filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip.active{background:var(--ink);color:#fff;}
+
+.status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.status-row .chip{border-color:var(--gold);color:var(--gold);}
+.status-row .chip.active{background:var(--gold);color:#fff;}
+.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
+.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.mastered{border-color:var(--green);color:var(--green);}
+.status-row .chip.mastered.active{background:var(--green);color:#fff;}
+
+.progress{
+  text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
+}
+.progress b{color:var(--ink);font-size:15px;}
+.progress-bar{
+  height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
+  margin:0 auto 18px;max-width:200px;
+}
+.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+
+.scene{perspective:1400px;width:100%;}
+.card{
+  position:relative;width:100%;min-height:320px;
+  transition:transform .55s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;border:1.5px solid var(--rule);
+  background:#fff;
+  display:flex;flex-direction:column;
+  padding:26px 24px;
+  box-shadow:0 4px 18px rgba(42,39,34,0.07);
+  overflow-y:auto;
+}
+.face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.cat-badge{
+  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+}
+.mastery-badge{
+  position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
+}
+.face-body{flex:1;display:flex;align-items:center;}
+.term{
+  font-family:'Noto Serif TC',serif;font-weight:700;
+  font-size:18px;line-height:1.7;color:var(--ink);
+}
+.answer{font-size:14px;line-height:1.9;color:var(--ink);}
+.answer b{color:var(--stamp);}
+.face-foot{
+  text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
+}
+.face.back .face-foot{color:var(--gold);}
+.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+
+.controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;flex-wrap:wrap;
+}
+.btn{
+  font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
+  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border-radius:10px;padding:10px 16px;cursor:pointer;
+  transition:all .15s ease;
+}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.btn.primary:hover{background:#8c3322;}
+.btn.green{border-color:var(--green);color:var(--green);}
+.btn.green:hover{background:var(--green);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--gold);color:#fff;}
+.btn.wide{flex:1;min-width:120px;text-align:center;}
+.btn.icon{padding:10px 14px;}
+
+.quiz-stats{
+  text-align:center;font-size:13px;color:var(--ink-soft);
+  margin-top:14px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+}
+.quiz-stats b{font-family:'Noto Serif TC',serif;}
+.quiz-stats .ok{color:var(--green);}
+.quiz-stats .ng{color:var(--stamp);}
+
+.breakdown{
+  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  border-radius:10px;padding:14px;font-size:13px;
+}
+.breakdown table{width:100%;border-collapse:collapse;}
+.breakdown td{padding:5px 4px;border-bottom:1px solid var(--rule);}
+.breakdown tr:last-child td{border-bottom:none;}
+.breakdown .bar{
+  display:block;height:6px;border-radius:3px;background:var(--rule);
+  overflow:hidden;margin-top:3px;
+}
+.breakdown .bar-fill{height:100%;background:var(--green);}
+
+footer{
+  margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);
+  letter-spacing:.12em;line-height:2;
+}
+footer .reset{
+  text-decoration:underline;cursor:pointer;color:var(--ink-soft);background:none;
+  border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;
+}
+.chip{font-size:11.5px;padding:4px 9px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="case-tag">土地法概要・核心概念精選</div>
+    <h1>土地法概要 互動單字卡
+      <span class="sub">核心定義・數字配對・陷阱辨析・共 104 張</span>
+    </h1>
+    <div style="font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;font-family:'Noto Serif TC',serif;">📅 最新編輯時間：2026-10-08　｜　版本 v1.0（內容以重點筆記與考選部答案核對版為準）</div>
+  </header>
+
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tabStudy">📖 學習模式</div>
+    <div class="mode-tab" id="tabQuiz">📝 測驗模式</div>
+  </div>
+
+  <div class="filter-row" id="resetRow">
+    <div class="chip active" id="resetBtn">全部分類</div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">104</span>　<span id="catName"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+  <div class="scene">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="cat-badge" id="badgeFront"></div>
+        <div class="mastery-badge" id="badgeMasteryFront"></div>
+        <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
+      </div>
+      <div class="face back">
+        <div class="cat-badge" id="badgeBack"></div>
+        <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="masteryControls">
+    <button class="btn icon" id="markReview">🔄 待複習</button>
+    <button class="btn green icon" id="markMastered">✅ 已掌握</button>
+  </div>
+
+  <div class="controls" id="quizControls" style="display:none;">
+    <button class="btn primary wide" id="revealBtn">👀 顯示答案</button>
+    <button class="btn icon" id="quizWrong" style="display:none;border-color:var(--stamp);color:var(--stamp);">❌ 答錯</button>
+    <button class="btn green icon" id="quizRight" style="display:none;">✅ 答對</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn icon" id="prevBtn">◂ 上一張</button>
+    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn icon" id="nextBtn">下一張 ▸</button>
+  </div>
+
+  <div class="quiz-stats" id="quizStatsBar" style="display:none;">
+    <span>本輪：<b class="ok" id="quizOk">0</b> 對　<b class="ng" id="quizNg">0</b> 錯</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="toggleBreakdown">看分類統計</span>
+    <span style="cursor:pointer;text-decoration:underline;" id="resetQuiz">重新測驗</span>
+  </div>
+  <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
+
+  <footer>不動產經紀人考試・土地法概要｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
+  </footer>
+</div>
+
+<script>
+const CARDS = [{"id": "L001", "cat": "總則・登記", "front": "土地分類（§2）四大類？", "back": "①<b>建築用地</b>　②<b>直接生產用地</b>（農林漁牧礦鹽水源地）　③<b>交通水利用地</b>　④<b>其他土地</b>（沙漠、雪山等）。"}, {"id": "L002", "cat": "總則・登記", "front": "不得私有之土地（§14）若已私有？", "back": "<b>得依法徵收之</b>（不是逕登記國有，也不是視為消滅）。例：礦泉地、瀑布地、名勝古蹟、可通運水道及其沿岸一定限度內土地。"}, {"id": "L003", "cat": "總則・登記", "front": "私有土地所有權消滅後歸屬？", "back": "<b>國有</b>（§10）。私有土地因天然變遷成湖澤或可通運水道，所有權<b>視為消滅</b>。"}, {"id": "L004", "cat": "總則・登記", "front": "外國人不得取得（§17）的土地？", "back": "<b>林、漁、狩獵、鹽、礦、水源地</b>＋<b>要塞軍備區域</b>＋<b>領域邊境土地</b>。陷阱：<b>牧地不在內</b>（口訣：林漁狩鹽礦水）。繼承取得者須於登記後<b>3年內</b>出售與本國人。"}, {"id": "L005", "cat": "總則・登記", "front": "外國人取得土地應向誰申請？", "back": "一般：向<b>土地所在地直轄市或縣（市）政府</b>申請核准。重大建設／整體經濟／農牧經營之投資：須先經<b>中央目的事業主管機關</b>同意。"}, {"id": "L006", "cat": "總則・登記", "front": "私有建築用地面積限制（平均地權條例）？", "back": "未建築之私有建築用地，最高額以<b>十公畝</b>為限；逾期未出售或使用者得<b>照價收買</b>。"}, {"id": "L007", "cat": "總則・登記", "front": "登記損害賠償（§68～71）重點？", "back": "地政機關負賠償責任；登記費提存<b>10%</b>為登記儲金；登記人員<b>重大過失</b>由地政機關先賠、再由該人員償還（§70，<b>非連帶</b>）；被拒賠得向<b>司法機關</b>起訴。"}, {"id": "L008", "cat": "總則・登記", "front": "免納登記費的登記（§78）？", "back": "總登記、更正、限制（含預告）、消滅、滅失、住址變更、書狀換給補給、<b>土地重劃變更登記</b>。陷阱：<b>繼承登記、共有物分割登記要繳登記費</b>。"}, {"id": "L009", "cat": "總則・登記", "front": "預告登記（§79-1）無排除效力的情形？", "back": "因<b>徵收、法院判決、強制執行</b>而為的新登記（只列此三者；<b>繼承、破產不在內</b>）。可保全請求權：移轉或消滅、內容或次序變更、附條件或期限。可單獨申請（檢附登記名義人同意書），免登記費。"}, {"id": "L010", "cat": "總則・登記", "front": "繼承登記逾期處理（§73-1）流程？", "back": "繼承開始<b>逾1年</b>未辦→公告<b>3個月</b>內聲請→仍未辦<b>列冊管理15年</b>→移請<b>財政部國產署公開標售</b>（優購順序：繼承人、合法使用人、其他共有人）→價款逾<b>10年</b>無人領歸國庫。"}, {"id": "L011", "cat": "總則・登記", "front": "地籍重測原因？", "back": "地籍原圖破損、滅失、比例尺變更（§46-1）。陷阱：<b>界址糾紛不是重測原因</b>。重測公告<b>30日</b>；界址爭議調處後不服須於<b>15日</b>內向司法機關起訴。"}, {"id": "L012", "cat": "優購權・租賃・公有地", "front": "§34-1 共有土地多數決？", "back": "處分、變更及設定<b>地上權、農育權、不動產役權、典權</b>：①人數過半＋應有部分過半；或②應有部分合計<b>逾2/3</b>（人數不計）。<b>設定抵押權不適用</b>（須全體同意）。"}, {"id": "L013", "cat": "優購權・租賃・公有地", "front": "§34-1 優先購買權期間與性質？", "back": "他共有人得以同一價格優先承購；<b>15日</b>內不表示視為放棄；<b>債權效力</b>。區分所有建物專有部分連同基地應有部分一併移轉同一人：不適用。"}, {"id": "L014", "cat": "優購權・租賃・公有地", "front": "§104 基地、房屋優先購買權？", "back": "基地出賣：<b>地上權人、典權人、承租人</b>有優購權；房屋出賣：<b>基地所有權人</b>有優購權。<b>10日</b>不表示視為放棄；債權效力；<b>抵押權人無</b>優購權。"}, {"id": "L015", "cat": "優購權・租賃・公有地", "front": "優購權期間速記：15日 vs 10日？", "back": "<b>§34-1共有人＝15日</b>；<b>§104基地房屋、§107耕地＝10日</b>。三七五減租§15耕地優購：<b>物權效力</b>（可請求塗銷登記），與土地法的債權效力不同。"}, {"id": "L016", "cat": "優購權・租賃・公有地", "front": "§107 耕地承租人優購權？", "back": "出租人出賣或出典耕地，承租人依同樣條件優先承買、承典，<b>10日</b>內不表示視為放棄，<b>債權效力</b>。"}, {"id": "L017", "cat": "優購權・租賃・公有地", "front": "房屋租金上限（§97）與擔保金（§99）？", "back": "租金不超過土地及建物<b>申報總價年息10%</b>；現金擔保視為租金一部分，不得超過<b>2個月</b>租金總額。"}, {"id": "L018", "cat": "優購權・租賃・公有地", "front": "§100 房屋出租人收回事由（六款）？", "back": "①收回自住或重建　②承租人違反租約　③積欠租金達<b>2個月</b>（扣擔保金後）　④供違法使用　⑤損壞房屋不賠　⑥轉租。"}, {"id": "L019", "cat": "優購權・租賃・公有地", "front": "§103 基地出租人收回事由（五款）？", "back": "①契約年限屆滿　②供違法使用　③轉租　④積欠租金達<b>2年</b>總額（扣擔保現金後）　⑤承租人違反租賃契約。"}, {"id": "L020", "cat": "優購權・租賃・公有地", "front": "§102 租用基地建房登記？", "back": "出租人與承租人應於契約訂立後<b>2個月內</b>，會同聲請<b>地上權登記</b>。"}, {"id": "L021", "cat": "優購權・租賃・公有地", "front": "§25 公有土地處分限制？", "back": "直轄市或縣（市）政府對所管公有土地，非經<b>民意機關同意＋行政院核准</b>，不得處分、設定負擔或為<b>超過10年</b>之租賃。照價收買、區段徵收、一般徵收取得之土地不受限制。"}, {"id": "L022", "cat": "優購權・租賃・公有地", "front": "公有土地 vs 國有土地？", "back": "公有土地<b>包含</b>國有、直轄市有、縣（市）有、鄉（鎮、市）有。台糖公司（公營事業）的土地屬<b>私有土地</b>。"}, {"id": "L023", "cat": "區域・國土・都市計畫", "front": "區域計畫法立法目的 vs 都市計畫法？", "back": "區域計畫法：<b>土地及天然資源保育利用</b>、<b>人口及產業活動合理分布</b>。「促進市鎮鄉街<b>有計畫之均衡發展</b>」是<b>都市計畫法</b>目的（陷阱）。"}, {"id": "L024", "cat": "區域・國土・都市計畫", "front": "非都市土地使用分區與使用地？", "back": "分區<b>11種</b>（特定農業、一般農業、工業、鄉村、森林、山坡地保育、風景、國家公園、河川、海域、特定專用）；使用地<b>19種</b>。"}, {"id": "L025", "cat": "區域・國土・都市計畫", "front": "非都市建蔽率／容積率速記？", "back": "甲、乙種建築：<b>60／240</b>；丙種：<b>40／120</b>；丁種：<b>70／300</b>；特定目的事業用地：60／180（考前對紙本）。"}, {"id": "L026", "cat": "區域・國土・都市計畫", "front": "開發規模門檻（變更分區）？", "back": "社區<b>50戶或1公頃</b>→鄉村區；遊憩<b>5公頃</b>→特定專用區；高爾夫<b>10公頃</b>→特定專用區；其他開發<b>2公頃</b>→特定專用區；工業使用<b>10公頃</b>→工業區。"}, {"id": "L027", "cat": "區域・國土・都市計畫", "front": "區域計畫法罰則（§21、§22）？", "back": "違規使用：<b>6萬～30萬</b>罰鍰、限期變更／拆除，可按次處罰；不依限變更（§22）另得處<b>6個月以下有期徒刑或拘役</b>。"}, {"id": "L028", "cat": "區域・國土・都市計畫", "front": "國土計畫法：中央 vs 地方核定？", "back": "四大分區：國土保育、海洋資源、農業發展、城鄉發展。<b>中央</b>核定：國土保育地區、海洋資源地區使用許可；<b>直轄市縣市</b>核定：農業發展地區、城鄉發展地區使用許可。"}, {"id": "L029", "cat": "區域・國土・都市計畫", "front": "都市計畫種類與市鎮計畫門檻？", "back": "市鎮計畫、鄉街計畫、特定區計畫。市鎮計畫：人口集居<b>3,000人</b>以上且工商業人口占就業人口<b>50%以上</b>。"}, {"id": "L030", "cat": "區域・國土・都市計畫", "front": "主要計畫核定與實施？", "back": "公開展覽<b>30天</b>→核定；直轄市、縣政府所在地、縣轄市由<b>內政部</b>核定；鎮、鄉街由<b>縣政府</b>核定、內政部備案；接核定公文<b>30日內</b>發布；進度<b>5年一期</b>、最長<b>25年</b>。"}, {"id": "L031", "cat": "區域・國土・都市計畫", "front": "第一期發展地區期限？", "back": "主要計畫發布後<b>2年內</b>完成細部計畫；細部計畫發布後<b>5年內</b>完成公共設施建設（不要顛倒）。"}, {"id": "L032", "cat": "區域・國土・都市計畫", "front": "公共設施保留地使用／地價稅／土增稅？", "back": "可繼續原來使用或改為妨礙較輕之使用；<b>建築使用統按6‰</b>（自用住宅2‰）；<b>未使用且與使用中土地隔離免徵</b>地價稅；徵收前移轉<b>免徵土增稅</b>。補償：毗鄰非保留地平均公告現值，加成<b>不超過40%</b>。"}, {"id": "L033", "cat": "區域・國土・都市計畫", "front": "容積移轉（§83-1）不適用於？", "back": "適用：保留地取得、公共開放空間提供、歷史建築保存。陷阱：<b>農業用地之保護</b>不屬之。"}, {"id": "L034", "cat": "區域・國土・都市計畫", "front": "都市更新三種方式？", "back": "<b>重建</b>（拆除重新建築）、<b>整建</b>（保持良好狀況、不拆除）、<b>維護</b>（強制修建，必要時對部分徵收拆除）。不願權利變換領現金：減徵土增稅<b>40%</b>。"}, {"id": "L035", "cat": "區域・國土・都市計畫", "front": "都市計畫迅行變更事由？", "back": "①重大事變毀損　②避免重大災害　③國防或經濟發展需要　④配合重大設施。陷阱：<b>土地權利人權利遭受重大損失</b>不是事由。通盤檢討：每<b>3年或5年</b>內至少一次。"}, {"id": "L036", "cat": "平均地權・重劃・收買", "front": "規定地價與申報地價？", "back": "每<b>2年</b>重新規定；申報地價在公告地價<b>80%～120%</b>；超過120%按120%；<b>未滿80%得照價收買或按80%</b>；<b>未申報者按80%</b>。"}, {"id": "L037", "cat": "平均地權・重劃・收買", "front": "公告地價 vs 公告土地現值？", "back": "公告地價→課<b>地價稅</b>（隨重新規定地價）；公告土地現值→課<b>土地增值稅</b>（<b>每年1次</b>，1月1日），應接近市價。"}, {"id": "L038", "cat": "平均地權・重劃・收買", "front": "累進起點地價？", "back": "扣除<b>工業用地、礦業用地、農業用地及免稅土地</b>後，<b>七公畝</b>之平均地價；報<b>財政部及內政部</b>備查。"}, {"id": "L039", "cat": "平均地權・重劃・收買", "front": "市地重劃法定共同負擔十項用地？", "back": "道路、溝渠、兒童遊樂場、鄰里公園、國民小學、國民中學、停車場、廣場、綠地、零售市場。陷阱：<b>機關用地、國民住宅用地不屬之</b>。"}, {"id": "L040", "cat": "平均地權・重劃・收買", "front": "抵費地重點？", "back": "抵付重劃負擔而保留之土地，出售<b>不計徵土地增值稅</b>；直轄市有抵費地得<b>自行公開標售</b>（免議會、內政部、行政院同意）。"}, {"id": "L041", "cat": "平均地權・重劃・收買", "front": "重劃禁限期間與異議？", "back": "公告禁止移轉、分割、建築等，最長<b>1年6個月</b>；已取得建照並開工者可繼續施工。分配結果異議：先<b>調處</b>，不成報上級主管機關<b>裁決</b>（§60-2），不服循行政救濟。"}, {"id": "L042", "cat": "平均地權・重劃・收買", "front": "自辦市地重劃同意門檻？", "back": "私有土地所有權人<b>過半數</b>，且所有土地面積<b>超過私有總面積過半</b>之同意。獎勵：減半收登記費、低利貸款、減免地價稅等。"}, {"id": "L043", "cat": "平均地權・重劃・收買", "front": "出租耕地因重劃的補償？", "back": "政府註銷租約；承租人得向出租人請求補償：重劃計畫書公告當期公告土地現值<b>扣除預計土增稅後餘額之1/3</b>。"}, {"id": "L044", "cat": "平均地權・重劃・收買", "front": "空地稅與荒地稅？", "back": "空地稅：按應納地價稅基本稅額加徵<b>2～5倍</b>；荒地稅：農地閒置，加徵田賦<b>1～3倍</b>，加徵滿<b>3年</b>仍不使用得照價收買（以收買當期公告土地現值）。"}, {"id": "L045", "cat": "平均地權・重劃・收買", "front": "空地認定：10% vs 20%？", "back": "平均地權條例（空地稅）：建築改良物價值不及基地申報地價<b>10%</b>＋經政府認定應增改建；土地法§87：不及<b>20%</b>視為空地。兩者不同勿混。"}, {"id": "L046", "cat": "平均地權・重劃・收買", "front": "照價收買五種時機？", "back": "①申報地價逾±20%無法調整　②空地逾期未建　③荒地稅滿3年仍閒置　④超過最高面積限額逾期未出售／使用　⑤依限期建築通知，與承租人協議不成後仍未建築。收買後歸<b>直轄市、縣（市）有</b>。"}, {"id": "L047", "cat": "平均地權・重劃・收買", "front": "實價登錄（申報登錄）罰則？", "back": "申報價格或面積資訊不實／未依限申報：先限期改正，屆期未改正處<b>6千～3萬</b>；已辦移轉登記仍未申報（§81-2）<b>3萬～15萬</b>。登錄資訊<b>不當然作為課稅依據</b>（陷阱）。"}, {"id": "L048", "cat": "平均地權・重劃・收買", "front": "預售屋轉售規定（§47-4）？", "back": "簽約後不得讓與或轉售第三人；例外：配偶、直系血親、二親等內旁系血親；經公告核准者全國每<b>2年1戶（棟）</b>為限。違規罰<b>50萬～300萬</b>（§81-3）。"}, {"id": "L049", "cat": "平均地權・重劃・收買", "front": "私法人買住宅？", "back": "應檢具使用計畫，經<b>中央主管機關許可</b>（合議制），許可有效期限<b>1年</b>；登記後<b>5年內</b>不得預告登記、移轉、讓與、預售。"}, {"id": "L050", "cat": "土地徵收", "front": "徵收評估公益性、必要性應考量？", "back": "社會、經濟、<b>文化及生態</b>、永續發展因素。陷阱：<b>地價因素</b>不在內。原則：公益性、必要性、<b>比例原則</b>（最後手段）。"}, {"id": "L051", "cat": "土地徵收", "front": "協議價購（§11）價格基準？", "back": "<b>市場正常交易價格</b>（不是公告土地現值，也不是公告現值加成）；協議價購時他人的<b>優先購買權不適用</b>。"}, {"id": "L052", "cat": "土地徵收", "front": "特定農業區農牧用地徵收？", "back": "原則不得徵收；例外：<b>國防所必須</b>或<b>行政院核定之重大建設</b>。重大建設爭議須辦<b>聽證</b>，一般徵收辦<b>公聽會</b>。"}, {"id": "L053", "cat": "土地徵收", "front": "徵用逾6年時？", "back": "徵用逾<b>6年</b>（或合計逾6年）須先書面通知；所有權人收到通知<b>30日</b>內得請求<b>徵收所有權</b>。"}, {"id": "L054", "cat": "土地徵收", "front": "一般土地徵收補償標準？", "back": "徵收當期<b>公告土地現值</b>，必要時依地價評議委員會評定之市價變動幅度<b>加成</b>（無40%上限）。公共設施保留地：毗鄰非保留地平均公告現值，加成最高<b>40%</b>。"}, {"id": "L055", "cat": "土地徵收", "front": "建築改良物與農作改良物補償？", "back": "建築改良物：<b>重建價格</b>；農作改良物：與孳息成熟相距<b>≦1年</b>按<b>成熟時孳息</b>，<b>＞1年</b>按<b>種植及培育費用</b>並參酌現值。"}, {"id": "L056", "cat": "土地徵收", "front": "地價變動調查週期？", "back": "各直轄市縣市主管機關每<b>6個月</b>調查地價動態，提交地價評議委員會評定市價變動幅度（土徵§30）。"}, {"id": "L057", "cat": "土地徵收", "front": "先行使用（公共安全急需）可限於？", "back": "<b>國防、交通、水利</b>事業。陷阱：社會福利、環境保護、公共衛生、平價住宅<b>不在內</b>。"}, {"id": "L058", "cat": "土地徵收", "front": "補償費專戶保管？", "back": "受領遲延、拒絕或不能受領：補償費發給期限屆滿次日起<b>3個月內</b>存入國庫專戶，<b>視同補償完竣</b>（不適用提存法）；逾<b>15年</b>未領歸屬國庫。"}, {"id": "L059", "cat": "土地徵收", "front": "徵收權利義務何時終止？", "back": "受補償費<b>發給完竣時</b>終止（不是公告徵收、公告期滿或登記完成時）。申請抵價地者：抵價地<b>點交接管時</b>終止。"}, {"id": "L060", "cat": "土地徵收", "front": "區段徵收抵價地比例？", "back": "原則<b>50%</b>；上級核准特殊情形不得少於<b>40%</b>；曾辦農地重劃部分不得少於<b>45%</b>。申請發給抵價地須在<b>徵收公告期間內</b>書面申請。"}, {"id": "L061", "cat": "土地徵收", "front": "抵價地第一次移轉原地價？", "back": "以原所有權人<b>實際領回抵價地之地價</b>為原地價（非徵收當期公告現值）；第一次移轉土增稅<b>減徵40%</b>；現金補償者<b>免徵</b>。"}, {"id": "L062", "cat": "土地徵收", "front": "區段徵收後可建築土地處理？", "back": "抵價地發還；國宅、安置、專案核准用地得<b>讓售</b>；零售市場用地<b>無償登記</b>為地方有；其餘可<b>標售、標租、設定地上權</b>，標租不逾<b>99年</b>。"}, {"id": "L063", "cat": "土地徵收", "front": "撤銷徵收 vs 廢止徵收？", "back": "<b>撤銷</b>：徵收本身有瑕疵（如作業錯誤致土地不在用地範圍）；<b>廢止</b>：開始使用前事業改變、計畫註銷，或開始使用後已無徵收必要。均由<b>需用土地人</b>向中央主管機關申請。"}, {"id": "L064", "cat": "土地徵收", "front": "原所有權人收回權（§49）？", "back": "徵收公告之日起<b>20年內</b>申請照原補償價額收回：①補償費發給完竣滿<b>3年</b>未開始使用；②未依核准事業使用；③開始使用後<b>未滿5年</b>不繼續使用。通知後<b>3個月</b>內繳還，逾期視為放棄。<b>區段徵收不適用</b>。"}, {"id": "L065", "cat": "土地徵收", "front": "徵收後變更目的標售（§59）？", "back": "公告<b>1個月</b>，原所有權人或繼承人有同樣條件<b>優先購買權</b>；他項權利人得申請恢復；<b>區段徵收不適用</b>。"}, {"id": "L066", "cat": "地價稅", "front": "地價稅納稅義務人？", "back": "一般：所有權人；<b>典權：典權人</b>（非出典人）；承領：承領人；承墾：耕作權人；信託存續中：<b>受託人</b>；共有：各共有人（得推定一人繳納）。"}, {"id": "L067", "cat": "地價稅", "front": "地價稅代繳（土稅§4）事由？", "back": "權屬不明、納稅義務人行蹤不明、<b>無人管理</b>、所有權人申請由占有人代繳：由稽徵機關指定<b>土地使用人</b>代繳，得向納稅義務人求償。"}, {"id": "L068", "cat": "地價稅", "front": "地價稅稅率級距？", "back": "基本稅率<b>10‰</b>；超過累進起點未達5倍<b>15‰</b>；5～10倍<b>25‰</b>；10～15倍<b>35‰</b>；15～20倍<b>45‰</b>；20倍以上<b>55‰</b>。陷阱：5～10倍不是20‰。"}, {"id": "L069", "cat": "地價稅", "front": "自用住宅用地2‰要件？", "back": "本人、配偶或直系親屬辦竣戶籍、無出租營業；都市<b>3公畝</b>、非都市<b>7公畝</b>以內；建物須為本人／配偶／直系親屬所有；全國<b>一處</b>為限。"}, {"id": "L070", "cat": "地價稅", "front": "地價稅免徵情形？", "back": "公有土地供公共使用；古蹟、歷史建築所定著土地；公共設施保留地<b>未使用且與使用中土地隔離</b>；政府機關、地方自治機關、合法立案私立學校用地。"}, {"id": "L071", "cat": "地價稅", "front": "事業直接使用土地稅率10‰不含？", "back": "工業用地、礦業用地等按<b>10‰</b>；陷阱：<b>農業用地不在內</b>（另依田賦／農地稅率）。"}, {"id": "L072", "cat": "地價稅", "front": "信託土地地價稅？", "back": "信託關係存續中納稅義務人為<b>受託人</b>；<b>受益人為委託人</b>者，與委託人同一縣市其他土地<b>合併計算地價總額</b>。"}, {"id": "L073", "cat": "地價稅", "front": "地價稅免稅起徵點？", "back": "每年（期）每戶稅額在新臺幣<b>100元以下</b>免課徵（田賦：每戶未滿1賦元免徵）。"}, {"id": "L074", "cat": "土地增值稅", "front": "土增稅稅率（一般）？", "back": "漲價總數額／原地價：<b>100%以下20%</b>；超過100%～200%部分<b>30%</b>；超過200%部分<b>40%</b>。"}, {"id": "L075", "cat": "土地增值稅", "front": "長期持有減徵？", "back": "持有<b>20年以上</b>減徵20%；<b>30年以上</b>減徵30%；<b>40年以上</b>減徵40%（對超過第一級最低稅率部分）。"}, {"id": "L076", "cat": "土地增值稅", "front": "自用住宅10%：一生一次？", "back": "都市<b>3公畝</b>／非都市<b>7公畝</b>；出售前<b>1年內</b>無出租營業；本人配偶直系親屬辦竣戶籍。"}, {"id": "L077", "cat": "土地增值稅", "front": "自用住宅10%：一生一屋？", "back": "都市<b>1.5公畝</b>／非都市<b>3.5公畝</b>；無該自用住宅以外房屋；設戶籍且持有<b>連續滿6年</b>；出售前<b>5年內</b>無營業或出租。"}, {"id": "L078", "cat": "土地增值稅", "front": "不課徵土增稅（須申請）四項？", "back": "①農業用地移轉自然人　②<b>配偶相互贈與</b>（再移轉以第一次贈與前原地價計算）　③區段徵收領回抵價地不足最小建築單位領現金　④私人捐贈社福／私校（未按目的使用罰<b>2倍</b>）。"}, {"id": "L079", "cat": "土地增值稅", "front": "免徵土增稅情形？", "back": "<b>繼承</b>；<b>被徵收</b>土地；政府出售或贈與公有土地；公共設施保留地<b>徵收前</b>移轉。"}, {"id": "L080", "cat": "土地增值稅", "front": "信託土增稅？", "back": "委託人→受託人、受託人變更、遺囑信託消滅返還委託人、受益人為委託人者消滅時返還：<b>不課徵</b>；受託人<b>有償移轉</b>：以受託人為納稅義務人；移轉給<b>委託人以外歸屬權利人</b>：應課徵。"}, {"id": "L081", "cat": "土地增值稅", "front": "土增稅納稅義務人？", "back": "有償移轉（買賣）：<b>原所有權人</b>；無償移轉（贈與）：<b>受贈人</b>；設典：<b>出典人</b>預繳（回贖<b>無息退還</b>）。"}, {"id": "L082", "cat": "土地增值稅", "front": "申報移轉現值審核標準（§30）？", "back": "訂約後<b>30日內</b>申報：<b>訂約日</b>；逾30日：<b>收件日</b>；遺贈：<b>死亡日</b>；法院判決：<b>起訴日</b>；法院拍賣：<b>拍定日</b>。申報超過公告現值者按申報（從高）。"}, {"id": "L083", "cat": "土地增值稅", "front": "土增稅申報與繳納期限？", "back": "共同申報：訂約後<b>30日內</b>；稽徵機關收件後<b>7日內</b>核定（自用住宅案件<b>20日</b>）；收到繳款書<b>30日內</b>繳納。"}, {"id": "L084", "cat": "土地增值稅", "front": "土增稅重購退稅？", "back": "出售自用住宅（或自耕農地）後<b>2年內</b>重購且地價較高，得退稅；重購後<b>5年內</b>再移轉或改作他用，<b>追繳</b>已退稅款。"}, {"id": "L085", "cat": "土地增值稅", "front": "重新規定地價增繳地價稅抵繳？", "back": "土地移轉時准予抵繳應納土增稅，以不超過土增稅總額<b>5%</b>為限。"}, {"id": "L086", "cat": "土地增值稅", "front": "減徵40%的三種情形？", "back": "①<b>重劃後第一次移轉</b>　②<b>區段徵收領回抵價地後第一次移轉</b>　③<b>都市更新不願參與權利變換領現金</b>。"}, {"id": "L087", "cat": "房屋稅・契稅", "front": "房屋稅納稅義務人？", "back": "所有人；<b>典權：典權人</b>；信託存續中：<b>受託人</b>；地上權使用權房屋：使用權人；未登記無人明：使用執照起造人→建造執照起造人→<b>現住人或管理人</b>。"}, {"id": "L088", "cat": "房屋稅・契稅", "front": "房屋標準價格評定？", "back": "由<b>不動產評價委員會</b>評定，縣市政府公告，<b>每3年</b>重評；因素：建造材料、耐用年數及折舊、<b>街道村里地段調整率</b>。陷阱：<b>地價水準</b>不是因素。"}, {"id": "L089", "cat": "房屋稅・契稅", "front": "房屋稅稅率（§5）？", "back": "自住或公益出租人出租：<b>1.2%</b>（全國單戶低額自住1%）；出租達租金標準或繼承共有：1.5～2.4%；其他住家用：<b>2～4.8%</b>；營業、醫院診所、事務所：<b>3～5%</b>；人民團體非營業：1.5～2.5%；待銷售房屋2年內：2～3.6%。"}, {"id": "L090", "cat": "房屋稅・契稅", "front": "房屋稅免徵 vs 減半？", "back": "免徵：私校／學術機構自有房屋、祭祀宗祠教堂、<b>無償供政府公用</b>、農業房屋、<b>司法保護事業</b>、毀損<b>50%以上</b>等；減半：<b>平民住宅、合法工廠直接生產自有房屋</b>、農會倉庫、毀損30%以上未達50%。"}, {"id": "L091", "cat": "房屋稅・契稅", "front": "房屋稅申報與異議？", "back": "稅籍變更於變更之日起<b>30日內</b>申報；對房屋現值有異議，接通知書<b>30日內</b>申請重行核計；新增建按<b>月</b>比例計課。"}, {"id": "L092", "cat": "房屋稅・契稅", "front": "契稅稅率？", "back": "買賣、贈與、占有：<b>6%</b>；典權：<b>4%</b>；交換、分割：<b>2%</b>。課稅基礎：<b>不動產評價委員會評定之標準價格</b>（契價）。已開徵土增稅的<b>土地</b>免徵契稅。"}, {"id": "L093", "cat": "房屋稅・契稅", "front": "契稅納稅義務人（與直覺相反）？", "back": "買賣：<b>買受人</b>；贈與：受贈人；<b>典權：典權人</b>；分割：分割人；占有：占有人；信託移轉歸屬權利人：歸屬權利人。"}, {"id": "L094", "cat": "房屋稅・契稅", "front": "契稅申報期限與起算日？", "back": "<b>30日內</b>申報；一般買賣自<b>訂約日</b>；起造人變更：核發<b>使用執照日</b>；標購公產：核發<b>產權移轉證明書日</b>；法院拍賣：發給<b>權利移轉證明書日</b>；糾紛：<b>判決確定日</b>。"}, {"id": "L095", "cat": "房屋稅・契稅", "front": "契稅罰則與免徵陷阱？", "back": "逾期申報每逾<b>3日</b>加徵1%怠報金（上限應納稅額、1.5萬元）；逾期繳納每逾2日1%滯納金；匿報短報<b>1～3倍</b>罰鍰。陷阱：<b>標購公產、向法院標購拍賣不動產不免徵</b>。"}, {"id": "L096", "cat": "房地合一・三七五", "front": "房地合一2.0稅率（境內個人）？", "back": "持有<b>2年內45%</b>；<b>2～5年35%</b>；<b>5～10年20%</b>；<b>10年以上15%</b>。（舊制1.0的稅率勿套用）"}, {"id": "L097", "cat": "房地合一・三七五", "front": "房地合一課稅範圍與稅基？", "back": "<b>105年1月1日以後取得</b>之房屋土地；與綜所稅分開計算；所得額＝成交價−成本−費用−<b>土地漲價總數額</b>；未提示費用證明得按成交價<b>3%</b>（上限30萬）。"}, {"id": "L098", "cat": "房地合一・三七五", "front": "房地合一自住優惠？", "back": "本人、配偶或<b>未成年子女</b>辦戶籍，持有並居住連續滿<b>6年</b>，交易前6年內無出租營業，且6年內未適用過；<b>400萬元以下免稅</b>，超過部分<b>10%</b>。"}, {"id": "L099", "cat": "房地合一・三七五", "front": "房地合一重購退稅與損失？", "back": "<b>2年內</b>重購，於重購移轉登記次日起<b>5年內</b>申請退稅；重購後<b>5年內</b>改作他用或再移轉追繳；交易損失得自損失發生日以後<b>3年內</b>所得扣除。"}, {"id": "L100", "cat": "房地合一・三七五", "front": "房地合一特殊20%情形？", "back": "因財政部公告之<b>非自願性因素</b>（調職、非自願離職等）持有<b>5年以下</b>：20%；個人以自有土地與營利事業<b>合建</b>，土地取得起<b>5年內完成並銷售</b>：20%。"}, {"id": "L101", "cat": "房地合一・三七五", "front": "三七五減租租期與續租？", "back": "租期不得少於<b>6年</b>；屆滿後承租人繼續耕作，出租人不即表示反對者視為<b>續訂</b>。"}, {"id": "L102", "cat": "房地合一・三七五", "front": "三七五終止租約事由？", "back": "承租人<b>繼續1年以上不為耕作</b>（非不可抗力）；<b>轉租</b>；地租積欠達<b>2年</b>總額；耕地依法變更為建築用地且出租人收回自建或出售；出租人收回自耕且符合條件。"}, {"id": "L103", "cat": "房地合一・三七五", "front": "三七五終止租約補償？", "back": "改良費用＋尚未收穫農作改良物，並按終止租約當期公告土地現值<b>扣除預計土增稅後餘額之1/3</b>補償承租人。"}, {"id": "L104", "cat": "房地合一・三七五", "front": "三七五租佃爭議處理？", "back": "公所耕地租佃委員會<b>調解</b>→縣市政府租佃委員會<b>調處</b>；<b>非經調解調處不得起訴</b>；訴訟<b>免收裁判費</b>；調解調處成立可逕聲請強制執行。"}];
+
+const CAT_COLORS = {"總則・登記": "#A8402B", "優購權・租賃・公有地": "#3A5A78", "區域・國土・都市計畫": "#BC8A2E", "平均地權・重劃・收買": "#3F6B4C", "土地徵收": "#6B4E8A", "地價稅": "#B9722A", "土地增值稅": "#7B5C8C", "房屋稅・契稅": "#3E6B8C", "房地合一・三七五": "#5C7A4A"};
+
+let activeCats = new Set(Object.keys(CAT_COLORS));
+let statusFilter = 'all';
+let mode = 'study';
+let mastery = {};
+let deck = [...CARDS];
+let idx = 0;
+let flipped = false;
+let revealed = false;
+let quizStats = {ok:0, ng:0, perCat:{}};
+
+const chipsEl = document.getElementById('chips');
+const resetBtn = document.getElementById('resetBtn');
+const statusRow = document.getElementById('statusRow');
+const cardEl = document.getElementById('card');
+const termText = document.getElementById('termText');
+const answerText = document.getElementById('answerText');
+const badgeFront = document.getElementById('badgeFront');
+const badgeBack = document.getElementById('badgeBack');
+const badgeMasteryFront = document.getElementById('badgeMasteryFront');
+const badgeMasteryBack = document.getElementById('badgeMasteryBack');
+const footFront = document.getElementById('footFront');
+const footBack = document.getElementById('footBack');
+const curNum = document.getElementById('curNum');
+const totalNum = document.getElementById('totalNum');
+const catName = document.getElementById('catName');
+const progFill = document.getElementById('progFill');
+const masteryControls = document.getElementById('masteryControls');
+const quizControls = document.getElementById('quizControls');
+const revealBtn = document.getElementById('revealBtn');
+const quizRight = document.getElementById('quizRight');
+const quizWrong = document.getElementById('quizWrong');
+const quizStatsBar = document.getElementById('quizStatsBar');
+const quizOk = document.getElementById('quizOk');
+const quizNg = document.getElementById('quizNg');
+const breakdownPanel = document.getElementById('breakdownPanel');
+
+const SKEY='land_flashcard_mastery_v1';
+async function loadMastery(){
+  try{const v=localStorage.getItem(SKEY);if(v)mastery=JSON.parse(v);}catch(e){mastery={};}
+}
+async function saveMastery(){
+  try{localStorage.setItem(SKEY,JSON.stringify(mastery));}catch(e){}
+}
+
+Object.keys(CAT_COLORS).forEach(cat=>{
+  const count = CARDS.filter(c=>c.cat===cat).length;
+  const chip = document.createElement('div');
+  chip.className='chip active';
+  chip.style.background=CAT_COLORS[cat];
+  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.color='#fff';
+  chip.textContent=`${cat} (${count})`;
+  chip.dataset.cat=cat;
+  chip.addEventListener('click',()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat);
+      chip.classList.remove('active');
+      chip.style.background='#fff';
+      chip.style.color=CAT_COLORS[cat];
+    } else {
+      activeCats.add(cat);
+      chip.classList.add('active');
+      chip.style.background=CAT_COLORS[cat];
+      chip.style.color='#fff';
+    }
+    rebuildDeck();
+  });
+  chipsEl.appendChild(chip);
+});
+
+resetBtn.addEventListener('click',()=>{
+  activeCats = new Set(Object.keys(CAT_COLORS));
+  document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
+    const cat=chip.dataset.cat;
+    chip.classList.add('active');
+    chip.style.background=CAT_COLORS[cat];
+    chip.style.color='#fff';
+  });
+  rebuildDeck();
+});
+
+function renderStatusRow(){
+  const inCat = CARDS.filter(c=>activeCats.has(c.cat));
+  const masteredCount = inCat.filter(c=>mastery[c.id]==='mastered').length;
+  const reviewCount = inCat.length - masteredCount;
+  statusRow.innerHTML = '';
+  const defs = [
+    {key:'all', label:`全部 (${inCat.length})`, cls:''},
+    {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
+    {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
+  ];
+  defs.forEach(d=>{
+    const chip=document.createElement('div');
+    chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
+    chip.textContent=d.label;
+    chip.addEventListener('click',()=>{
+      statusFilter = d.key;
+      rebuildDeck();
+    });
+    statusRow.appendChild(chip);
+  });
+}
+
+function rebuildDeck(){
+  renderStatusRow();
+  let pool = CARDS.filter(c=>activeCats.has(c.cat));
+  if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
+  if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
+  idx = 0;
+  render();
+}
+
+document.getElementById('tabStudy').addEventListener('click',()=>switchMode('study'));
+document.getElementById('tabQuiz').addEventListener('click',()=>switchMode('quiz'));
+function switchMode(m){
+  mode = m;
+  document.getElementById('tabStudy').classList.toggle('active', m==='study');
+  document.getElementById('tabQuiz').classList.toggle('active', m==='quiz');
+  masteryControls.style.display = (m==='study') ? 'flex' : 'none';
+  quizControls.style.display = (m==='quiz') ? 'flex' : 'none';
+  quizStatsBar.style.display = (m==='quiz') ? 'flex' : 'none';
+  if(m!=='quiz'){ breakdownPanel.style.display='none'; }
+  revealed = false;
+  flipped = false;
+  render();
+}
+
+function render(){
+  const c = deck[idx];
+  const color = CAT_COLORS[c.cat];
+  flipped = (mode==='quiz') ? revealed : false;
+  cardEl.classList.toggle('flipped', flipped);
+  termText.textContent = c.front;
+  answerText.innerHTML = c.back;
+  badgeFront.textContent = c.cat;
+  badgeFront.style.background = color;
+  badgeBack.textContent = c.cat;
+  badgeBack.style.background = color;
+  document.querySelector('.face.back').style.borderLeftColor = color;
+  const m = mastery[c.id];
+  const icon = m==='mastered' ? '✅' : '';
+  badgeMasteryFront.textContent = icon;
+  badgeMasteryBack.textContent = icon;
+  curNum.textContent = idx+1;
+  totalNum.textContent = deck.length;
+  catName.textContent = '・' + c.cat;
+  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+
+  if(mode==='study'){
+    footFront.textContent = '點擊卡片　看解析 ▸';
+    footBack.textContent = '◂ 點擊卡片　回題目';
+  } else {
+    footFront.textContent = '點擊卡片 或「顯示答案」▸';
+    footBack.textContent = '看完後請點　答對／答錯';
+    revealBtn.style.display = revealed ? 'none' : '';
+    quizRight.style.display = revealed ? '' : 'none';
+    quizWrong.style.display = revealed ? '' : 'none';
+  }
+}
+
+cardEl.addEventListener('click',()=>{
+  if(mode==='study'){
+    flipped=!flipped;
+    cardEl.classList.toggle('flipped',flipped);
+  } else {
+    if(!revealed){ revealed=true; render(); }
+  }
+});
+
+function goNext(){
+  idx=(idx+1)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+function goPrev(){
+  idx=(idx-1+deck.length)%deck.length;
+  revealed=false; flipped=false;
+  render();
+}
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('shuffleBtn').addEventListener('click',()=>{
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goNext();
+  if(e.key==='ArrowLeft') goPrev();
+  if(e.key===' '){ e.preventDefault(); cardEl.click(); }
+});
+
+document.getElementById('markMastered').addEventListener('click',()=>{
+  setMastery('mastered');
+});
+document.getElementById('markReview').addEventListener('click',()=>{
+  setMastery('review');
+});
+function setMastery(status){
+  const c = deck[idx];
+  mastery[c.id] = status;
+  saveMastery();
+  renderStatusRow();
+  if(statusFilter!=='all'){
+    const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
+                          (statusFilter==='review' && status!=='mastered');
+    if(!stillMatches){
+      let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
+      if(statusFilter==='mastered') pool = pool.filter(cc=>mastery[cc.id]==='mastered');
+      deck = pool.length ? pool : CARDS.filter(cc=>activeCats.has(cc.cat));
+      if(idx>=deck.length) idx=0;
+      render();
+      return;
+    }
+  }
+  render();
+}
+
+quizRight.addEventListener('click',()=>recordAnswer(true));
+quizWrong.addEventListener('click',()=>recordAnswer(false));
+revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+
+function recordAnswer(correct){
+  const c = deck[idx];
+  if(correct){ quizStats.ok++; mastery[c.id]='mastered'; }
+  else { quizStats.ng++; mastery[c.id]='review'; }
+  if(!quizStats.perCat[c.cat]) quizStats.perCat[c.cat]={ok:0, total:0};
+  quizStats.perCat[c.cat].total++;
+  if(correct) quizStats.perCat[c.cat].ok++;
+  saveMastery();
+  renderStatusRow();
+  updateQuizStatsBar();
+  if(breakdownPanel.style.display!=='none') renderBreakdown();
+  goNext();
+}
+
+function updateQuizStatsBar(){
+  quizOk.textContent = quizStats.ok;
+  quizNg.textContent = quizStats.ng;
+}
+
+document.getElementById('toggleBreakdown').addEventListener('click',()=>{
+  if(breakdownPanel.style.display==='none'){
+    renderBreakdown();
+    breakdownPanel.style.display='block';
+  } else {
+    breakdownPanel.style.display='none';
+  }
+});
+function renderBreakdown(){
+  const cats = Object.keys(quizStats.perCat);
+  if(!cats.length){
+    breakdownPanel.innerHTML = '<p style="text-align:center;color:var(--ink-soft);">尚無作答紀錄</p>';
+    return;
+  }
+  let html = '<table>';
+  cats.forEach(cat=>{
+    const s = quizStats.perCat[cat];
+    const pct = Math.round(s.ok/s.total*100);
+    html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
+  });
+  html += '</table>';
+  breakdownPanel.innerHTML = html;
+}
+
+document.getElementById('resetQuiz').addEventListener('click',()=>{
+  quizStats = {ok:0, ng:0, perCat:{}};
+  updateQuizStatsBar();
+  breakdownPanel.style.display='none';
+  idx=0; revealed=false; flipped=false; render();
+});
+
+document.getElementById('resetMastery').addEventListener('click',async ()=>{
+  if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
+  mastery = {};
+  await saveMastery();
+  rebuildDeck();
+});
+
+(async function init(){
+  await loadMastery();
+  renderStatusRow();
+  rebuildDeck();
+})();
+</script>
+<!--NAVFAB-->
+<style>
+.navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
+.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#D8CDB8);background:var(--paper,#F8F3E9);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
+.navfab .up{display:none;}
+.navfab .up.on{display:block;}
+</style>
+<div class="navfab"><button class="up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button><a href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心">🏠</a></div>
+<script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
+<!--/NAVFAB-->
+</body>
+</html>
