@@ -154,14 +154,21 @@ h3{
 table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:520px;}
 td b{color:var(--stamp);font-weight:700;}
 th{
-  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  color:#fff;font-family:'Noto Serif TC',serif;
   font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
   white-space:nowrap;
 }
+/* 欄位顏色區隔：第1欄橘（原則/名稱），第2欄深藍（核心概念/定義），第3欄深棕綠（情境） */
+th:nth-child(1){background:var(--orange);}
+th:nth-child(2){background:var(--blue);}
+th:nth-child(3){background:var(--green);}
 td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
+td:nth-child(2){line-height:1.85;word-break:keep-all;white-space:normal;}
 tr:last-child td{border-bottom:none;}
 tr:nth-child(even) td{background:#FBF8F1;}
 td b{color:var(--orange);}
+/* 第二欄的 b 標籤改藍色，與標題欄呼應 */
+td:nth-child(2) b{color:var(--blue);}
 
 .formula-box{
   background:#fff;border:2px solid var(--blue);border-radius:10px;
@@ -217,14 +224,14 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
   <div class="tbl-wrap">
     <table>
       <tr><th>原則</th><th>核心概念</th><th>常見情境例句</th></tr>
-      <tr><td><b>最有效使用</b></td><td>客觀上具良好意識及通常使用能力者，在<b>合法</b>、<b>實質可能</b>、<b>正當合理</b>、<b>財務可行</b>四項前提下，得以獲致<b>最高利益</b>之使用（★四項前提缺一不可）</td><td>「土地應如何利用以發揮最大價值」</td></tr>
-      <tr><td><b>替代原則</b></td><td>審慎消費者<b>不會支付高於</b>相同滿意度<b>替代財貨</b>之代價；<b>三大估價方法之共同基礎</b></td><td>比較法、成本法、收益法之評價基礎</td></tr>
-      <tr><td><b>貢獻原則</b></td><td><b>局部</b>對<b>整體</b>價值之貢獻；新增設備使<b>整體</b>價值提升（注意：衡量的是對整體的增量）</td><td>公寓加裝電梯、外牆更新→價格提升</td></tr>
-      <tr><td><b>均衡原則</b></td><td><b>生產要素間</b>達<b>最適配置</b>才能創造最高價值（陷阱：老舊公寓價格飆漲≠均衡原則）</td><td>老舊公寓價格飆漲（常見陷阱：非均衡原則）</td></tr>
-      <tr><td><b>適合原則</b></td><td>不動產與其<b>坐落環境</b>達成<b>協調一致</b>（環境指外部整體，非設備比例）</td><td>學校附近開書局、文具店</td></tr>
-      <tr><td><b>外部性原則</b></td><td><b>周邊環境設施</b>（非標的本身）對價格之影響，可正可負</td><td>鄰近公園/捷運（加值）、殯儀館/高壓電塔/垃圾掩埋場（減損）</td></tr>
-      <tr><td><b>預期（預測）原則</b></td><td>對<b>未來收益或發展</b>之<b>預期</b>影響<b>現在</b>價值（↑預期收益→↑現值）</td><td>收益性不動產求取將來收益之預測</td></tr>
-      <tr><td><b>變動原則</b></td><td>不動產價格<b>隨時間變動</b>，故須訂明<b>價格日期</b>及<b>有效期間</b></td><td>估價報告書記載價格日期、有效期間</td></tr>
+      <tr><td><b>最有效使用</b></td><td>客觀上具良好意識及通常使用能力者，<br>在<b>合法</b>、<b>實質可能</b>、<b>正當合理</b>、<b>財務可行</b><br>四項前提下，得以獲致<b>最高利益</b>之使用<br><small>★四項前提缺一不可</small></td><td>「土地應如何利用以發揮最大價值」</td></tr>
+      <tr><td><b>替代原則</b></td><td>審慎消費者<b>不會支付高於</b><br>相同滿意度<b>替代財貨</b>之代價<br><small>★三大估價方法之共同基礎</small></td><td>比較法、成本法、收益法之評價基礎</td></tr>
+      <tr><td><b>貢獻原則</b></td><td><b>局部</b>對<b>整體</b>價值之貢獻<br>新增設備使<b>整體</b>價值提升<br><small>注意：衡量的是對整體的增量</small></td><td>公寓加裝電梯、外牆更新→價格提升</td></tr>
+      <tr><td><b>均衡原則</b></td><td><b>生產要素間</b>達<b>最適配置</b><br>才能創造最高價值<br><small>陷阱：老舊公寓價格飆漲≠均衡原則</small></td><td>老舊公寓價格飆漲（常見陷阱：非均衡原則）</td></tr>
+      <tr><td><b>適合原則</b></td><td>不動產與其<b>坐落環境</b>達成<b>協調一致</b><br><small>環境指外部整體，非設備比例</small></td><td>學校附近開書局、文具店</td></tr>
+      <tr><td><b>外部性原則</b></td><td><b>周邊環境設施</b>（非標的本身）<br>對價格之影響，可正可負</td><td>鄰近公園/捷運（加值）、殯儀館/高壓電塔/垃圾掩埋場（減損）</td></tr>
+      <tr><td><b>預期（預測）原則</b></td><td>對<b>未來收益或發展</b>之<b>預期</b><br>影響<b>現在</b>價值<br><small>↑預期收益→↑現值</small></td><td>收益性不動產求取將來收益之預測</td></tr>
+      <tr><td><b>變動原則</b></td><td>不動產價格<b>隨時間變動</b><br>故須訂明<b>價格日期</b>及<b>有效期間</b></td><td>估價報告書記載價格日期、有效期間</td></tr>
     </table>
   </div>
 
@@ -254,9 +261,9 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
   <div class="tbl-wrap">
     <table>
       <tr><th>價格種類</th><th>定義</th><th>典型例子</th></tr>
-      <tr><td><b>正常價格</b></td><td>具市場性，由有意願買賣雙方依專業知識謹慎行動、不受債權債務或親友關係壓力，經適當市場行銷形成之價值</td><td>土地徵收補償市價查估</td></tr>
-      <tr><td><b>限定價格</b></td><td>具市場性，但基於①權利與所有權<b>合併</b>、②不動產<b>合併</b>、③違反經濟合理性之<b>分割</b>為前提形成之價值</td><td>地上權人購買設定地上權之土地；相鄰土地合併開發；學校購買鄰地擴校</td></tr>
-      <tr><td><b>特定價格</b></td><td>具市場性，但基於<b>特定條件</b>（如預期容積變更、都市計畫變更）形成之價值</td><td>都市邊緣農地以未來變更為建地之前提估價；工業區土地以變更為住宅區之前提估價</td></tr>
+      <tr><td><b>正常價格</b></td><td>具市場性<br>由有意願買賣雙方依專業知識謹慎行動<br>不受債權債務或親友關係壓力<br>經適當市場行銷形成之價值</td><td>土地徵收補償市價查估</td></tr>
+      <tr><td><b>限定價格</b></td><td>具市場性，但基於：<br>①權利與所有權<b>合併</b><br>②不動產<b>合併</b><br>③違反經濟合理性之<b>分割</b><br>為前提形成之價值</td><td>地上權人購買設定地上權之土地；相鄰土地合併開發；學校購買鄰地擴校</td></tr>
+      <tr><td><b>特定價格</b></td><td>具市場性，但基於<b>特定條件</b><br>（如預期容積變更、都市計畫變更）<br>形成之價值</td><td>都市邊緣農地以未來變更為建地之前提估價；工業區土地以變更為住宅區之前提估價</td></tr>
       <tr><td><b>特殊價格</b></td><td><b>不具市場性</b>之不動產所估計之價值</td><td>總統府、孔廟、媽祖廟、龜山島、太平島、東沙島、釣魚台</td></tr>
     </table>
   </div>
