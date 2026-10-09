@@ -111,10 +111,17 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   overflow-y:auto;
 }
 .face.back{transform:rotateY(180deg);background:var(--paper-deep);}
+.badge-row{display:flex;flex-direction:row;align-items:center;gap:6px;margin-bottom:18px;}
 .cat-badge{
-  align-self:flex-start;font-size:11px;font-weight:700;color:#fff;
+  font-size:11px;font-weight:700;color:#fff;
   padding:4px 12px;border-radius:999px;letter-spacing:.08em;
-  margin-bottom:18px;font-family:'Noto Serif TC',serif;
+  font-family:'Noto Serif TC',serif;
+}
+.freq-badge{
+  font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:999px;letter-spacing:.04em;
+  background:rgba(0,0,0,.08);color:var(--ink);
+  font-family:'Noto Serif TC',serif;white-space:nowrap;
 }
 .mastery-badge{
   position:absolute;top:14px;right:14px;font-size:18px;line-height:1;
@@ -230,13 +237,19 @@ footer .reset{
   <div class="scene">
     <div class="card" id="card">
       <div class="face front">
-        <div class="cat-badge" id="badgeFront"></div>
+        <div class="badge-row">
+          <div class="cat-badge" id="badgeFront"></div>
+          <div class="freq-badge" id="freqBadgeFront"></div>
+        </div>
         <div class="mastery-badge" id="badgeMasteryFront"></div>
         <div class="face-body"><div class="term" id="termText"></div></div>
         <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
       </div>
       <div class="face back">
-        <div class="cat-badge" id="badgeBack"></div>
+        <div class="badge-row">
+          <div class="cat-badge" id="badgeBack"></div>
+          <div class="freq-badge" id="freqBadgeBack"></div>
+        </div>
         <div class="mastery-badge" id="badgeMasteryBack"></div>
         <div class="face-body"><div class="answer" id="answerText"></div></div>
         <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
@@ -355,6 +368,20 @@ const CAT_COLORS = {
   "特殊估價綜合": "#3E6B8C"
 };
 
+// 16年考點頻率（99–114年資料）
+const CAT_FREQ = {
+  "成本法":       {stars:"★★★", count:88},
+  "收益法":       {stars:"★★★", count:78},
+  "比較法":       {stars:"★★★", count:61},
+  "估價原則":     {stars:"★★",  count:45},
+  "影響因素":     {stars:"★★",  count:44},
+  "租金估計":     {stars:"★★",  count:33},
+  "價格種類":     {stars:"★★",  count:31},
+  "估價程序":     {stars:"★★",  count:27},
+  "土地開發分析法":{stars:"★",   count:16},
+  "特殊估價綜合": {stars:"★",   count:13}
+};
+
 let activeCats = new Set(Object.keys(CAT_COLORS));
 let statusFilter = 'all';
 let mode = 'study';
@@ -373,6 +400,8 @@ const termText = document.getElementById('termText');
 const answerText = document.getElementById('answerText');
 const badgeFront = document.getElementById('badgeFront');
 const badgeBack = document.getElementById('badgeBack');
+const freqBadgeFront = document.getElementById('freqBadgeFront');
+const freqBadgeBack = document.getElementById('freqBadgeBack');
 const badgeMasteryFront = document.getElementById('badgeMasteryFront');
 const badgeMasteryBack = document.getElementById('badgeMasteryBack');
 const footFront = document.getElementById('footFront');
@@ -410,20 +439,35 @@ Object.keys(CAT_COLORS).forEach(cat=>{
   chip.style.background=CAT_COLORS[cat];
   chip.style.borderColor=CAT_COLORS[cat];
   chip.style.color='#fff';
-  chip.textContent=`${cat} (${count})`;
+  const f = CAT_FREQ[cat];
+  chip.textContent=`${cat} ${f?f.stars:''} (${count})`;
   chip.dataset.cat=cat;
   chip.addEventListener('click',()=>{
-    if(activeCats.has(cat)){
-      if(activeCats.size===1) return;
-      activeCats.delete(cat);
-      chip.classList.remove('active');
-      chip.style.background='#fff';
-      chip.style.color=CAT_COLORS[cat];
+    const isSolo = activeCats.size===1 && activeCats.has(cat);
+    if(isSolo){
+      // 已是solo狀態再點 → 恢復全選
+      activeCats = new Set(Object.keys(CAT_COLORS));
+      document.querySelectorAll('.chip[data-cat]').forEach(c=>{
+        const cc=c.dataset.cat;
+        c.classList.add('active');
+        c.style.background=CAT_COLORS[cc];
+        c.style.color='#fff';
+      });
     } else {
-      activeCats.add(cat);
-      chip.classList.add('active');
-      chip.style.background=CAT_COLORS[cat];
-      chip.style.color='#fff';
+      // 單擊 = 只看這科
+      activeCats = new Set([cat]);
+      document.querySelectorAll('.chip[data-cat]').forEach(c=>{
+        if(c.dataset.cat===cat){
+          c.classList.add('active');
+          c.style.background=CAT_COLORS[cat];
+          c.style.color='#fff';
+        } else {
+          c.classList.remove('active');
+          c.style.background='transparent';
+          c.style.color=CAT_COLORS[c.dataset.cat];
+          c.style.border=`1.5px solid ${CAT_COLORS[c.dataset.cat]}`;
+        }
+      });
     }
     rebuildDeck();
   });
@@ -499,6 +543,10 @@ function render(){
   badgeFront.style.background = color;
   badgeBack.textContent = c.cat;
   badgeBack.style.background = color;
+  const freq = CAT_FREQ[c.cat];
+  const freqLabel = freq ? `${freq.stars} ${freq.count}題` : '';
+  freqBadgeFront.textContent = freqLabel;
+  freqBadgeBack.textContent = freqLabel;
   document.querySelector('.face.back').style.borderLeftColor = color;
   const m = mastery[c.id];
   const icon = m==='mastered' ? '✅' : '';
