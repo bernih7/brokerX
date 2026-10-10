@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>估價定義填空練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
+header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 20px 20px;text-align:center}
+header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
+header .sub{font-size:13px;opacity:.85}
+
+/* nav */
+nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* main */
+main{max-width:720px;margin:0 auto;padding:20px 16px}
+.chapter{display:none}
+.chapter.active{display:block}
+.ch-title{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:14px}
+.term{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px}
+.blank-line{font-size:14px;line-height:2;color:var(--ink);margin-bottom:12px}
+.blank{display:inline-block;border-bottom:1.5px solid var(--red);min-width:60px;color:transparent;vertical-align:bottom;user-select:none}
+
+.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:6px 16px;border-radius:6px;border:none;background:var(--red);color:#fff;cursor:pointer;transition:opacity .15s}
+.reveal-btn:hover{opacity:.85}
+.reveal-btn.done{background:var(--green)}
+
+.answer{display:none;margin-top:12px;padding:12px 14px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:14px;line-height:1.9;color:var(--ink)}
+.answer.show{display:block}
+.answer .full{font-size:13.5px;color:#2A2722;line-height:1.85}
+.answer .key{color:var(--red);font-weight:700}
+.answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.prog-bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* hub */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>估價概要｜定義填空練習</h1>
+  <div class="sub">點「顯示答案」確認，全科章節共 60 題</div>
+</header>
+
+<nav id="nav"></nav>
+
+<main id="main"></main>
+
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
+
+<script>
+const DATA = [
+  {
+    id:'A1', label:'A1 估價原則',
+    cards:[
+      {
+        term:'最有效使用',
+        blank:'客觀上具___及___者，在___、___、___、___前提下，得致___之使用。',
+        answer:'客觀上具<span class="key">良好意識</span>及<span class="key">通常使用能力</span>者，在<span class="key">合法</span>、<span class="key">實質可能</span>、<span class="key">正當合理</span>、<span class="key">財務可行</span>前提下，得致<span class="key">最高利益</span>之使用。',
+        src:'技術規則§2第17款'
+      },
+      {
+        term:'替代原則',
+        blank:'三大估價方法（___、___、___）的共同基礎；審慎的消費者不會付出高於具相同___替代財貨之代價。',
+        answer:'三大估價方法（<span class="key">比較法</span>、<span class="key">成本法</span>、<span class="key">收益法</span>）的共同基礎；審慎的消費者不會付出高於具相同<span class="key">滿意度</span>替代財貨之代價。',
+        src:'估價原則（替代原則）'
+      },
+      {
+        term:'貢獻原則',
+        blank:'不動產某一構成部分對___的「貢獻」決定其價值，而非其本身___。',
+        answer:'不動產某一構成部分對<span class="key">整體價值</span>的「貢獻」決定其價值，而非其本身<span class="key">成本</span>。',
+        src:'估價原則（貢獻原則）'
+      },
+      {
+        term:'適合原則 vs 外部性原則',
+        blank:'適合原則：不動產與其___之間的協調一致。<br>外部性原則：不動產___（公園、捷運、嫌惡設施等）對其價值之影響。',
+        answer:'適合原則：不動產與其<span class="key">坐落環境</span>之間的協調一致。<br>外部性原則：不動產<span class="key">周邊環境</span>（公園、捷運、嫌惡設施等）對其價值之影響。',
+        src:'估價原則'
+      },
+      {
+        term:'預期（期待）原則',
+        blank:'不動產現在的價值，反映對___收益或效用的___。',
+        answer:'不動產現在的價值，反映對<span class="key">未來</span>收益或效用的<span class="key">預期</span>。',
+        src:'估價原則（預期原則）'
+      },
+    ]
+  },
+  {
+    id:'A2', label:'A2 價格種類',
+    cards:[
+      {
+        term:'正常價格',
+        blank:'具___之不動產，有意願買賣雙方依___謹慎行動、不受___，經___及正常交易條件形成之合理價值。',
+        answer:'具<span class="key">市場性</span>之不動產，有意願買賣雙方依<span class="key">專業知識</span>謹慎行動、不受<span class="key">脅迫</span>，經<span class="key">適當市場行銷</span>及正常交易條件形成之合理價值。',
+        src:'技術規則§2第1款'
+      },
+      {
+        term:'限定價格（三種前提）',
+        blank:'具市場性之不動產，在①以___以外其他權利與所有權___、②以不動產___、③以違反___之分割為前提，三種限定條件之一所形成之價值。',
+        answer:'具市場性之不動產，在①以<span class="key">所有權</span>以外其他權利與所有權<span class="key">合併</span>、②以不動產<span class="key">合併</span>、③以違反<span class="key">經濟合理性</span>之分割為前提，三種限定條件之一所形成之價值。',
+        src:'技術規則§2第2款'
+      },
+      {
+        term:'特定價格 vs 特殊價格',
+        blank:'特定價格：具___之不動產，基於特定___下形成之價值。<br>特殊價格：對___具市場性之不動產所估計之價值。',
+        answer:'特定價格：具<span class="key">市場性</span>之不動產，基於特定<span class="key">條件</span>下形成之價值。<br>特殊價格：對<span class="key">不</span>具市場性之不動產所估計之價值。',
+        src:'技術規則§2第3-4款'
+      },
+      {
+        term:'限定租金',
+        blank:'基於___或___為目的形成之租賃價值。',
+        answer:'基於<span class="key">續訂租約</span>或<span class="key">不動產合併</span>為目的形成之租賃價值。',
+        src:'技術規則§2第6款'
+      },
+      {
+        term:'價格日期 vs 勘察日期',
+        blank:'價格日期＝表示價格之___；勘察日期＝赴___調查分析之日期，二者___。',
+        answer:'價格日期＝表示價格之<span class="key">基準日期</span>；勘察日期＝赴<span class="key">現場</span>調查分析之日期，二者<span class="key">不必相同</span>。',
+        src:'技術規則§2第7-8款'
+      },
+    ]
+  },
+  {
+    id:'A3', label:'A3 影響因素',
+    cards:[
+      {
+        term:'近鄰地區',
+        blank:'___標的或___標的周圍，供相同或類似___之不動產，形成___較高之地區。',
+        answer:'<span class="key">勘估</span>標的或<span class="key">比較</span>標的周圍，供相同或類似<span class="key">用途</span>之不動產，形成<span class="key">同質性</span>較高之地區。',
+        src:'技術規則§2第11款'
+      },
+      {
+        term:'類似地區',
+        blank:'___內，近鄰地區___而使用性質___之其他地區。',
+        answer:'<span class="key">同一供需圈</span>內，近鄰地區<span class="key">以外</span>而使用性質<span class="key">相近</span>之其他地區。',
+        src:'技術規則§2第13款'
+      },
+      {
+        term:'同一供需圈',
+        blank:'比較標的與勘估標的能成立___關係、價格___之最適範圍。',
+        answer:'比較標的與勘估標的能成立<span class="key">替代</span>關係、價格<span class="key">互為影響</span>之最適範圍。',
+        src:'技術規則§2第10款'
+      },
+      {
+        term:'一般因素 / 區域因素 / 個別因素',
+        blank:'一般因素：對不動產市場及價格水準發生___影響之自然、政治、社會、經濟等共同因素。<br>區域因素：影響___不動產價格水準之因素。<br>個別因素：不動產___所產生之價格差異因素。',
+        answer:'一般因素：對不動產市場及價格水準發生<span class="key">全面</span>影響之自然、政治、社會、經濟等共同因素。<br>區域因素：影響<span class="key">近鄰地區</span>不動產價格水準之因素。<br>個別因素：不動產<span class="key">本身條件</span>所產生之價格差異因素。',
+        src:'技術規則§2第14-16款'
+      },
+      {
+        term:'區域因素 vs 個別因素（易混考點）',
+        blank:'「___寬度與連接性」→ ___因素（看那條路）<br>「___寬度」→ ___因素（看這筆地的門面）',
+        answer:'「<span class="key">道路</span>寬度與連接性」→ <span class="key">區域</span>因素（看那條路）<br>「<span class="key">臨街</span>寬度」→ <span class="key">個別</span>因素（看這筆地的門面）',
+        src:'103年第31題、105年第5題★陷阱'
+      },
+    ]
+  },
+  {
+    id:'A4', label:'A4 估價程序',
+    cards:[
+      {
+        term:'估價作業8大程序（§8）',
+        blank:'①確定___→②擬定___→③蒐集___→④確認___→⑤整理___→⑥運用___→⑦決定___→⑧製作___。',
+        answer:'①確定<span class="key">估價基本事項</span>→②擬定<span class="key">估價計畫</span>→③蒐集<span class="key">資料</span>→④確認<span class="key">勘估標的狀態</span>→⑤整理<span class="key">比較分析資料</span>→⑥運用<span class="key">估價方法推算</span>→⑦決定<span class="key">勘估標的價格</span>→⑧製作<span class="key">估價報告書</span>。',
+        src:'技術規則§8'
+      },
+      {
+        term:'估價基本事項4項（§9）',
+        blank:'勘估標的___／___／___及條件／___目的。',
+        answer:'勘估標的<span class="key">內容</span>／<span class="key">價格日期</span>／<span class="key">價格種類</span>及條件／<span class="key">估價</span>目的。',
+        src:'技術規則§9（注意：不含「估價方法」）'
+      },
+      {
+        term:'蒐集比較實例4原則（§12）',
+        blank:'①價格屬___或可調整為___②位於同一供需圈之___或___③使用性質或___相同或相近④___與價格日期接近。',
+        answer:'①價格屬<span class="key">正常價格</span>或可調整為<span class="key">正常價格</span>②位於同一供需圈之<span class="key">近鄰地區</span>或<span class="key">類似地區</span>③使用性質或<span class="key">管制</span>相同或相近④<span class="key">價格形成日期</span>與價格日期接近。',
+        src:'技術規則§12'
+      },
+      {
+        term:'兼採二種以上方法（§14）',
+        blank:'原則上應兼採___以上方法推算價格，但因___不能採二種以上，並於___敘明者不在此限。',
+        answer:'原則上應兼採<span class="key">二種</span>以上方法推算價格，但因<span class="key">情況特殊</span>不能採二種以上，並於<span class="key">報告書</span>敘明者不在此限。',
+        src:'技術規則§14★陷阱：有例外'
+      },
+      {
+        term:'估價報告書（§16）應載明幾事項',
+        blank:'估價報告書應載明___事項（行政執行或強制執行案件___）。',
+        answer:'估價報告書應載明<span class="key">15</span>事項（行政執行或強制執行案件<span class="key">格式不受此限制</span>）。',
+        src:'技術規則§16'
+      },
+    ]
+  },
+  {
+    id:'B', label:'B 比較法',
+    cards:[
+      {
+        term:'比較法定義（§18）',
+        blank:'以___價格為基礎，經比較、分析及調整等，推算___價格之方法；所求得之價格為___。',
+        answer:'以<span class="key">比較標的</span>價格為基礎，經比較、分析及調整等，推算<span class="key">勘估標的</span>價格之方法；所求得之價格為<span class="key">比較價格</span>。',
+        src:'技術規則§18'
+      },
+      {
+        term:'四大調整順序',
+        blank:'___調整 → ___調整 → ___因素調整 → ___因素調整 → 試算價格。',
+        answer:'<span class="key">情況</span>調整 → <span class="key">價格日期</span>調整 → <span class="key">區域</span>因素調整 → <span class="key">個別</span>因素調整 → 試算價格。',
+        src:'技術規則§21★每年必考順序'
+      },
+      {
+        term:'試算價格（§21）',
+        blank:'試算價格＝經___、___、___、___四項調整後所獲得之價格。',
+        answer:'試算價格＝經<span class="key">情況</span>、<span class="key">價格日期</span>、<span class="key">區域因素</span>、<span class="key">個別因素</span>四項調整後所獲得之價格。',
+        src:'技術規則§21第2項'
+      },
+      {
+        term:'三道排除關卡（§25-26）★鐵打必考',
+        blank:'【§25】任一單獨項目調整率超過___%，或總調整率超過___%→排除比較標的。<br>【§26】試算價格間差距達___%以上→排除該試算價格。',
+        answer:'【§25】任一單獨項目調整率超過<span class="key">15</span>%，或總調整率超過<span class="key">30</span>%→排除比較標的。<br>【§26】試算價格間差距達<span class="key">20</span>%以上→排除該試算價格。',
+        src:'技術規則§25-26★16年每年考'
+      },
+      {
+        term:'決定比較價格件數（§27）',
+        blank:'應採用___件以上比較標的。',
+        answer:'應採用<span class="key">3</span>件以上比較標的。',
+        src:'技術規則§27'
+      },
+      {
+        term:'區域因素調整 vs 個別因素調整（§19）',
+        blank:'區域因素調整：比較標的與勘估標的不在___時，調整為同一___之價格水準。<br>個別因素調整：因___不同所產生價格差異之調整。',
+        answer:'區域因素調整：比較標的與勘估標的不在<span class="key">同一近鄰地區</span>時，調整為同一<span class="key">近鄰地區</span>之價格水準。<br>個別因素調整：因<span class="key">個別因素</span>不同所產生價格差異之調整。',
+        src:'技術規則§19第3-4款'
+      },
+    ]
+  },
+  {
+    id:'C', label:'C 成本法',
+    cards:[
+      {
+        term:'成本法定義（§48）',
+        blank:'求取勘估標的於價格日期之___或___，扣減___，推算價格之方法；所求得之價格為___。',
+        answer:'求取勘估標的於價格日期之<span class="key">重建成本</span>或<span class="key">重置成本</span>，扣減<span class="key">累積折舊額</span>，推算價格之方法；所求得之價格為<span class="key">成本價格</span>。',
+        src:'技術規則§48'
+      },
+      {
+        term:'重建成本 vs 重置成本',
+        blank:'重建成本：使用___或___建材標準、設計、配置、施工品質___所需成本。<br>重置成本：以___建材標準、設計、配置建築___效用建物所需成本。',
+        answer:'重建成本：使用<span class="key">相同</span>或<span class="key">極類似</span>建材標準、設計、配置、施工品質<span class="key">重新複製</span>所需成本。<br>重置成本：以<span class="key">現代</span>建材標準、設計、配置建築<span class="key">相同</span>效用建物所需成本。',
+        src:'技術規則§48（建物估價以重建成本為原則）'
+      },
+      {
+        term:'總成本7項目（§52）',
+        blank:'___費／___設計費／廣告費___費／___費／稅捐及其他負擔／___利息／開發或___利潤。',
+        answer:'<span class="key">營造或施工</span>費／<span class="key">規劃</span>設計費／廣告費<span class="key">銷售</span>費／<span class="key">管理</span>費／稅捐及其他負擔／<span class="key">資本</span>利息／開發或<span class="key">建築</span>利潤。',
+        src:'技術規則§52'
+      },
+      {
+        term:'殘餘價格率（§67）',
+        blank:'殘餘價格率以不超過___%為原則（由___公告）。',
+        answer:'殘餘價格率以不超過<span class="key">10</span>%為原則（由<span class="key">全聯會</span>公告）。',
+        src:'技術規則§67'
+      },
+      {
+        term:'折舊3種路徑（§68）',
+        blank:'___折舊、初期___折舊、初期___折舊（無「後期減速」路徑）。',
+        answer:'<span class="key">等速</span>折舊、初期<span class="key">加速</span>折舊、初期<span class="key">減速</span>折舊（無「後期減速」路徑）。',
+        src:'技術規則§68★陷阱'
+      },
+      {
+        term:'折舊計算以何年數為主（§65）',
+        blank:'折舊計算以___耐用年數為主，必要時得以___耐用年數計算。',
+        answer:'折舊計算以<span class="key">經濟</span>耐用年數為主，必要時得以<span class="key">物理</span>耐用年數計算。',
+        src:'技術規則§65★陷阱：非以物理耐用年數為主'
+      },
+    ]
+  },
+  {
+    id:'D', label:'D 收益法',
+    cards:[
+      {
+        term:'收益法定義（§28）',
+        blank:'___法、___法（DCF），所求得之價格為___。',
+        answer:'<span class="key">直接資本化</span>法、<span class="key">折現現金流量分析</span>法（DCF），所求得之價格為<span class="key">收益價格</span>。',
+        src:'技術規則§28'
+      },
+      {
+        term:'直接資本化法公式（§29）',
+        blank:'收益價格＝未來平均一年___÷___。',
+        answer:'收益價格＝未來平均一年<span class="key">客觀淨收益</span>÷<span class="key">收益資本化率</span>。',
+        src:'技術規則§29-30'
+      },
+      {
+        term:'有效總收入（§36）',
+        blank:'___收入－___及其他收入損失＝有效總收入。',
+        answer:'<span class="key">總</span>收入－<span class="key">閒置</span>及其他收入損失＝有效總收入。',
+        src:'技術規則§36'
+      },
+      {
+        term:'五種資本化率決定方法（§43）★必考',
+        blank:'①___法②___法③___資金成本法④___比率法⑤___乘數法。',
+        answer:'①<span class="key">風險溢酬</span>法②<span class="key">市場萃取</span>法③<span class="key">加權平均資金成本</span>法④<span class="key">債務保障比率</span>法⑤<span class="key">有效總收入乘數</span>法。',
+        src:'技術規則§43★高頻計算題'
+      },
+      {
+        term:'蒐集資料年限（§35）',
+        blank:'應蒐集最近___年總收入總費用及資本化率資料。',
+        answer:'應蒐集最近<span class="key">三</span>年總收入總費用及資本化率資料。',
+        src:'技術規則§35★陷阱：3年不是5年'
+      },
+      {
+        term:'客觀淨收益基準（§33）',
+        blank:'以勘估標的___之客觀淨收益為基準，參酌___類似不動產收益推算。',
+        answer:'以勘估標的<span class="key">最有效使用</span>之客觀淨收益為基準，參酌<span class="key">鄰近</span>類似不動產收益推算。',
+        src:'技術規則§33'
+      },
+    ]
+  },
+  {
+    id:'E', label:'E 土地開發分析法',
+    cards:[
+      {
+        term:'土地開發分析法定義（§70）',
+        blank:'根據土地___、___進行開發改良估算___，扣除___、___、___及利潤後，求得___前或___前價格。',
+        answer:'根據土地<span class="key">法定用途</span>、<span class="key">使用強度</span>進行開發改良估算<span class="key">總銷售金額</span>，扣除<span class="key">直接成本</span>、<span class="key">間接成本</span>、<span class="key">資本利息</span>及利潤後，求得<span class="key">開發</span>前或<span class="key">建築</span>前價格。',
+        src:'技術規則§70'
+      },
+      {
+        term:'直接成本 vs 間接成本（§76）',
+        blank:'直接成本＝___費。<br>間接成本＝___費＋廣告___費＋___費＋稅捐及其他負擔。',
+        answer:'直接成本＝<span class="key">營造施工</span>費。<br>間接成本＝<span class="key">規劃設計</span>費＋廣告<span class="key">銷售</span>費＋<span class="key">管理</span>費＋稅捐及其他負擔。',
+        src:'技術規則§76'
+      },
+      {
+        term:'V公式（§81）★鐵打必考',
+        blank:'V＝___÷(1+___)÷(1+___)－(___+___)',
+        answer:'V＝<span class="key">S</span>÷(1+<span class="key">R</span>)÷(1+<span class="key">i</span>)－(<span class="key">C</span>+<span class="key">M</span>)<br>（V＝開發分析價格，S＝預期總銷售金額，R＝利潤率，i＝資本利息綜合利率，C＝直接成本，M＝間接成本）',
+        src:'技術規則§81'
+      },
+      {
+        term:'資本利息綜合利率公式（§79）',
+        blank:'資本利息綜合利率＝利率×（___比率＋___比率×___）×___年數。',
+        answer:'資本利息綜合利率＝利率×（<span class="key">土地價值</span>比率＋<span class="key">建物價值</span>比率×<span class="key">1/2</span>）×<span class="key">開發</span>年數。',
+        src:'技術規則§79'
+      },
+    ]
+  },
+  {
+    id:'F', label:'F 租金估計',
+    cards:[
+      {
+        term:'實質租金定義（§130）★必考',
+        blank:'實質租金＝承租人每期支付___＋___或保證金、___及其他相關運用收益之___。',
+        answer:'實質租金＝承租人每期支付<span class="key">租金</span>＋<span class="key">押金</span>或保證金、<span class="key">權利金</span>及其他相關運用收益之<span class="key">總數</span>。',
+        src:'技術規則§130'
+      },
+      {
+        term:'新訂 vs 續訂租約（§132-133）',
+        blank:'新訂租約：3種方式（比較法、___乘以___估計淨收益、分析___估計淨收益）。<br>續訂租約：4種方式，其中「___法」常考申論。',
+        answer:'新訂租約：3種方式（比較法、<span class="key">價格</span>乘以<span class="key">租金收益率</span>估計淨收益、分析<span class="key">企業經營總收入</span>估計淨收益）。<br>續訂租約：4種方式，其中「<span class="key">差額分配</span>法」常考申論。',
+        src:'技術規則§132-133'
+      },
+      {
+        term:'限定租金（§2第6款）',
+        blank:'基於___或___為目的形成之租賃價值。',
+        answer:'基於<span class="key">續訂租約</span>或<span class="key">不動產合併</span>為目的形成之租賃價值。',
+        src:'技術規則§2第6款'
+      },
+    ]
+  },
+  {
+    id:'G', label:'G 樓層效用比',
+    cards:[
+      {
+        term:'區分所有建物估價（§98）',
+        blank:'應就___部分、___部分比例及___合併估價，並考量___及位置差異調整。',
+        answer:'應就<span class="key">專有</span>部分、<span class="key">共用</span>部分比例及<span class="key">基地權利</span>合併估價，並考量<span class="key">樓層別效用比</span>及位置差異調整。',
+        src:'技術規則§98'
+      },
+      {
+        term:'樓層別效用比由誰公告',
+        blank:'樓層別效用比由___公告供參考。',
+        answer:'樓層別效用比由<span class="key">全聯會（不動產估價師全聯會）</span>公告供參考。',
+        src:'技術規則§98'
+      },
+    ]
+  },
+  {
+    id:'H', label:'H 特殊宗地與權利',
+    cards:[
+      {
+        term:'抵押權估價原則（§121）★陷阱',
+        blank:'估計價格日期當時勘估標的___，以___為基礎，考慮其他順位設定狀況、___、___、___、執行難易度調整。',
+        answer:'估計價格日期當時勘估標的<span class="key">正常價格</span>，以<span class="key">實際債權額</span>為基礎，考慮其他順位設定狀況、<span class="key">流通性</span>、<span class="key">風險性</span>、<span class="key">增值性</span>、執行難易度調整。',
+        src:'技術規則§121'
+      },
+      {
+        term:'違章建築估價（§103）',
+        blank:'違建部分___（但委託人要求___者不在此限）。',
+        answer:'違建部分<span class="key">不予評估</span>（但委託人要求<span class="key">分別標示</span>者不在此限）。',
+        src:'技術規則§103'
+      },
+      {
+        term:'特殊宗地（農場、墓地等）估價方法',
+        blank:'農場、牧場、鹽田、池沼、墓地均以___為原則；無實例者以___土地價格為基礎比較推估。',
+        answer:'農場、牧場、鹽田、池沼、墓地均以<span class="key">比較法</span>為原則；無實例者以<span class="key">附近</span>土地價格為基礎比較推估。',
+        src:'技術規則§92-94'
+      },
+      {
+        term:'都更基地價值比率公式（§125）★高頻',
+        blank:'基地價值比率＝（___×基地總面積）÷[___×基地總面積＋___×(1－___率)×全棟建物面積]',
+        answer:'基地價值比率＝（<span class="key">素地單價</span>×基地總面積）÷[<span class="key">素地單價</span>×基地總面積＋<span class="key">營造施工費單價</span>×(1－<span class="key">累積折舊</span>率)×全棟建物面積]',
+        src:'技術規則§125'
+      },
+    ]
+  },
+  {
+    id:'I', label:'I CAMA計量模型',
+    cards:[
+      {
+        term:'CAMA應用條件（§20）★高頻數字',
+        blank:'樣本數須為自變數個數___倍以上；判定係數R²不得低於___；顯著機率不得大於___%。',
+        answer:'樣本數須為自變數個數<span class="key">5</span>倍以上；判定係數R²不得低於<span class="key">0.7</span>；顯著機率不得大於<span class="key">5</span>%。',
+        src:'技術規則§20★鐵打必考數字'
+      },
+      {
+        term:'計量模型分析法（§19）定義',
+        blank:'蒐集相當數量___，透過___模型求出主要___因素與___關係式。',
+        answer:'蒐集相當數量<span class="key">比較標的</span>，透過<span class="key">計量</span>模型求出主要<span class="key">影響</span>因素與<span class="key">價格</span>關係式。',
+        src:'技術規則§19第7款'
+      },
+    ]
+  },
+];
+
+// build nav
+const nav = document.getElementById('nav');
+const main = document.getElementById('main');
+let opened = {};
+
+DATA.forEach((ch,ci)=>{
+  // nav btn
+  const btn = document.createElement('button');
+  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.textContent = ch.label;
+  btn.onclick = ()=> switchCh(ch.id);
+  nav.appendChild(btn);
+
+  // chapter div
+  const div = document.createElement('div');
+  div.className = 'chapter' + (ci===0?' active':'');
+  div.id = 'ch-'+ch.id;
+
+  // progress
+  const total = ch.cards.length;
+  div.innerHTML = `<div class="ch-title">${ch.label}</div>
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
+      <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
+    </div>`;
+
+  ch.cards.forEach((c,i)=>{
+    const key = ch.id+'-'+i;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="term">${c.term}</div>
+      <div class="blank-line">${c.blank}</div>
+      <button class="reveal-btn" id="rb-${key}" onclick="reveal('${key}','${ch.id}',${total})">顯示答案</button>
+      <div class="answer" id="ans-${key}">
+        <div class="full">${c.answer}</div>
+        <div class="src">📌 ${c.src}</div>
+      </div>`;
+    div.appendChild(card);
+  });
+
+  main.appendChild(div);
+  opened[ch.id] = 0;
+});
+
+function switchCh(id){
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('ch-'+id).classList.add('active');
+  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reveal(key, chId, total){
+  const ans = document.getElementById('ans-'+key);
+  const btn = document.getElementById('rb-'+key);
+  if(ans.classList.contains('show')) return;
+  ans.classList.add('show');
+  btn.textContent = '已確認 ✓';
+  btn.classList.add('done');
+  opened[chId] = (opened[chId]||0) + 1;
+  const pct = Math.round(opened[chId]/total*100);
+  document.getElementById('pf-'+chId).style.width = pct+'%';
+  document.getElementById('pt-'+chId).textContent = opened[chId]+' / '+total;
+}
+</script>
+</body>
+</html>
