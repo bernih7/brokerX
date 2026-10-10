@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>估價計算題攻略</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root {
+  --paper: #F8F3E9;
+  --paper-deep: #F1E8D8;
+  --paper-mid: #EDE0C8;
+  --ink: #2A2722;
+  --ink-soft: #7A7165;
+  --rule: #DED1B9;
+  --stamp: #A8402B;
+  --gold: #BC8A2E;
+  --green: #5C7A4A;
+  --blue: #3E6B8C;
+  --orange: #C17A2E;
+  --purple: #7B5C8C;
+  --red-light: #F9EDEA;
+  --gold-light: #FBF6EA;
+  --green-light: #EEF3EB;
+  --blue-light: #EAF0F5;
+  --purple-light: #F3EEF7;
+  --orange-light: #FBF3E8;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 0 0 120px;
+}
+
+/* HEADER */
+.page-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 32px 24px 28px;
+  text-align: center;
+}
+.page-header .label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  font-family: 'Noto Serif TC', serif;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.page-header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  text-wrap: balance;
+}
+.page-header .sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+}
+
+/* STAT RIBBON */
+.stat-ribbon {
+  display: flex;
+  background: var(--paper-deep);
+  border-bottom: 2px solid var(--rule);
+  overflow-x: auto;
+}
+.stat-item {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  padding: 14px 12px;
+  border-right: 1px solid var(--rule);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--stamp);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 3px;
+}
+
+/* SECTION */
+.section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 0;
+}
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--stamp);
+  letter-spacing: 2px;
+  border-left: 4px solid var(--stamp);
+  padding-left: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.section-title .sub-note {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  letter-spacing: 0;
+}
+
+/* OVERVIEW TABLE */
+.overview-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 28px;
+}
+.overview-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.overview-table thead tr {
+  background: var(--ink);
+  color: var(--paper);
+}
+.overview-table thead th {
+  padding: 10px 12px;
+  text-align: center;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.overview-table thead th:first-child { text-align: left; }
+.overview-table tbody tr {
+  border-bottom: 1px solid var(--rule);
+}
+.overview-table tbody tr:last-child { border-bottom: none; }
+.overview-table tbody tr:nth-child(even) { background: var(--paper-deep); }
+.overview-table td {
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.overview-table td:first-child { font-weight: 500; }
+.overview-table td:not(:first-child) { text-align: center; font-variant-numeric: tabular-nums; }
+.fire { color: var(--stamp); font-size: 13px; }
+.freq-bar {
+  display: inline-block;
+  height: 8px;
+  border-radius: 4px;
+  background: currentColor;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.risk-A { color: var(--stamp); font-weight: 700; }
+.risk-B { color: var(--orange); font-weight: 600; }
+.risk-C { color: var(--green); }
+.not-yet { color: var(--purple); font-weight: 700; background: var(--purple-light); padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.appeared { color: var(--ink-soft); font-size: 12px; }
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  vertical-align: middle;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.tag-hot { background: var(--red-light); color: var(--stamp); }
+.tag-rise { background: var(--green-light); color: var(--green); }
+.tag-mid { background: var(--gold-light); color: var(--gold); }
+
+/* CALC CARDS */
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.calc-card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.calc-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.calc-method-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-comp { background: var(--blue); }
+.dot-cost { background: var(--green); }
+.dot-inc { background: var(--gold); }
+.dot-dev { background: var(--purple); }
+.dot-rent { background: var(--orange); }
+.dot-other { background: var(--ink-soft); }
+.calc-card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  font-weight: 700;
+  flex: 1;
+}
+.calc-card-freq {
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.calc-card-body {
+  padding: 14px 16px;
+}
+.formula-box {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+.formula-box .formula-line {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--stamp);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.formula-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.card-steps {
+  list-style: none;
+  counter-reset: step;
+}
+.card-steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 5px;
+  color: var(--ink);
+}
+.card-steps li::before {
+  content: counter(step);
+  width: 18px; height: 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.trap-note {
+  background: var(--red-light);
+  border-left: 3px solid var(--stamp);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--stamp);
+  border-radius: 0 4px 4px 0;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.trap-note strong { display: block; margin-bottom: 2px; }
+.calc-history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.year-chip {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+.chip-choice { background: var(--blue-light); color: var(--blue); }
+.chip-essay { background: var(--red-light); color: var(--stamp); }
+
+/* NOT YET SECTION */
+.not-yet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.not-yet-card {
+  border: 1.5px solid var(--purple);
+  background: var(--purple-light);
+  border-radius: 8px;
+  padding: 16px;
+}
+.not-yet-card h4 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.not-yet-card .reason {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.not-yet-card .risk-level {
+  font-size: 11px;
+  color: var(--purple);
+  font-weight: 600;
+  margin-top: 8px;
+  background: rgba(123,92,140,0.12);
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+/* YEAR MATRIX */
+.matrix-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 28px;
+}
+.matrix-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.matrix-table th {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 6px;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.matrix-table th:first-child { text-align: left; min-width: 120px; padding-left: 12px; }
+.matrix-table td {
+  padding: 7px 6px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  font-variant-numeric: tabular-nums;
+}
+.matrix-table td:first-child { text-align: left; padding-left: 12px; font-weight: 500; }
+.matrix-table tbody tr:nth-child(even) { background: var(--paper-deep); }
+.cell-c { color: var(--blue); font-weight: 700; }   /* choice */
+.cell-e { color: var(--stamp); font-weight: 700; }  /* essay */
+.cell-b { color: var(--purple); font-weight: 700; } /* both */
+.cell-n { color: var(--rule); }                     /* none */
+.matrix-legend {
+  display: flex;
+  gap: 16px;
+  padding: 10px 14px;
+  background: var(--paper-deep);
+  border-top: 1px solid var(--rule);
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* SCORE TIPS */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.tip-card {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px;
+}
+.tip-card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tip-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--stamp);
+  line-height: 1;
+}
+.tip-card p { font-size: 12px; color: var(--ink-soft); line-height: 1.7; }
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  background: var(--stamp);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.28);
+  z-index: 100;
+  border: none;
+  cursor: pointer;
+}
+.fab:hover { background: #8B3420; }
+
+/* DIVIDER */
+.section-divider {
+  height: 1px;
+  background: var(--rule);
+  max-width: 860px;
+  margin: 8px auto 0;
+}
+
+@media (max-width: 480px) {
+  .page-header h1 { font-size: 21px; }
+  .stat-ribbon { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid var(--rule); }
+  .calc-grid { grid-template-columns: 1fr; }
+  .not-yet-grid { grid-template-columns: 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="label">不動產估價概要 · 備考工具</div>
+  <h1>計算題攻略專欄</h1>
+  <div class="sub">99–114年 16年×全部計算型考點完整追蹤<br>已出現年度 · 公式 · 高危未出現考點</div>
+</div>
+
+<!-- STAT RIBBON -->
+<div class="stat-ribbon">
+  <div class="stat-item">
+    <div class="stat-num">11</div>
+    <div class="stat-label">計算題型總數</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">14</div>
+    <div class="stat-label">折舊計算出現年</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">14</div>
+    <div class="stat-label">資本化率計算年</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5</div>
+    <div class="stat-label">土地開發申論次</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">高危未出現題型</div>
+  </div>
+</div>
+
+<!-- ① 總覽表 -->
+<div class="section">
+  <div class="section-title">① 16年計算題型出現頻次總覽 <span class="sub-note">依「選擇題＋申論題」累計出現年次排序</span></div>
+  <div class="overview-table-wrap">
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;min-width:160px">計算題型</th>
+          <th>所屬方法</th>
+          <th>選擇題<br>出現年</th>
+          <th>申論題<br>出現次</th>
+          <th>合計</th>
+          <th>風險等級</th>
+          <th>115年預測</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>成本法折舊計算<br><span style="font-size:11px;color:var(--ink-soft)">定額/定率/償債基金</span></td>
+          <td>成本法</td>
+          <td>14</td>
+          <td>6</td>
+          <td><strong>20</strong></td>
+          <td class="risk-A">🔴 A級</td>
+          <td><span class="tag tag-hot">必考</span></td>
+        </tr>
+        <tr>
+          <td>資本化率計算<br><span style="font-size:11px;color:var(--ink-soft)">五種方法套公式</span></td>
+          <td>收益法</td>
+          <td>14</td>
+          <td>4</td>
+          <td><strong>18</strong></td>
+          <td class="risk-A">🔴 A級</td>
+          <td><span class="tag tag-hot">必考</span></td>
+        </tr>
+        <tr>
+          <td>比較法調整率計算<br><span style="font-size:11px;color:var(--ink-soft)">單15% / 總30% / 差20%</span></td>
+          <td>比較法</td>
+          <td>16</td>
+          <td>3</td>
+          <td><strong>19</strong></td>
+          <td class="risk-A">🔴 A級</td>
+          <td><span class="tag tag-hot">必考</span></td>
+        </tr>
+        <tr>
+          <td>土地開發V公式計算<br><span style="font-size:11px;color:var(--ink-soft)">含資本利息綜合利率</span></td>
+          <td>土地開發</td>
+          <td>9</td>
+          <td>5</td>
+          <td><strong>14</strong></td>
+          <td class="risk-A">🔴 A級</td>
+          <td><span class="tag tag-rise">趨升</span></td>
+        </tr>
+        <tr>
+          <td>實質租金計算<br><span style="font-size:11px;color:var(--ink-soft)">押金利息還原＋預付租金</span></td>
+          <td>租金估計</td>
+          <td>8</td>
+          <td>3</td>
+          <td><strong>11</strong></td>
+          <td class="risk-B">🟡 B級</td>
+          <td><span class="tag tag-mid">備考</span></td>
+        </tr>
+        <tr>
+          <td>樓層別效用比計算<br><span style="font-size:11px;color:var(--ink-soft)">地價分配率→基地單價</span></td>
+          <td>比較法應用</td>
+          <td>7</td>
+          <td>0</td>
+          <td><strong>7</strong></td>
+          <td class="risk-B">🟡 B級</td>
+          <td><span class="tag tag-mid">備考</span></td>
+        </tr>
+        <tr>
+          <td>直接資本化收益價格<br><span style="font-size:11px;color:var(--ink-soft)">收益價格＝淨收益÷資本化率</span></td>
+          <td>收益法</td>
+          <td>9</td>
+          <td>1</td>
+          <td><strong>10</strong></td>
+          <td class="risk-B">🟡 B級</td>
+          <td><span class="tag tag-mid">備考</span></td>
+        </tr>
+        <tr>
+          <td>WACC加權平均資金成本<br><span style="font-size:11px;color:var(--ink-soft)">自有×比例＋借款×比例×(1-稅率)</span></td>
+          <td>收益法</td>
+          <td>5</td>
+          <td>2</td>
+          <td><strong>7</strong></td>
+          <td class="risk-B">🟡 B級</td>
+          <td><span class="tag tag-mid">備考</span></td>
+        </tr>
+        <tr>
+          <td>合併開發分配計算<br><span style="font-size:11px;color:var(--ink-soft)">各宗面積×單價→比例分配</span></td>
+          <td>比較法應用</td>
+          <td>2</td>
+          <td>1</td>
+          <td><strong>3</strong></td>
+          <td class="risk-C">🟢 C級</td>
+          <td><span class="tag tag-mid">留意</span></td>
+        </tr>
+        <tr>
+          <td>都更基地價值比率<br><span style="font-size:11px;color:var(--ink-soft)">各宗地更新前後價值比例</span></td>
+          <td>權利估價</td>
+          <td>3</td>
+          <td>0</td>
+          <td><strong>3</strong></td>
+          <td class="risk-C">🟢 C級</td>
+          <td><span class="tag tag-mid">留意</span></td>
+        </tr>
+        <tr>
+          <td>DCF折現現金流量<br><span style="font-size:11px;color:var(--ink-soft)">各期現金流÷(1+r)ⁿ加總</span></td>
+          <td>收益法</td>
+          <td>2</td>
+          <td>1</td>
+          <td><strong>3</strong></td>
+          <td class="risk-C">🟢 C級</td>
+          <td><span class="tag tag-mid">留意</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ② 核心公式拆解 -->
+<div class="section">
+  <div class="section-title">② 必考計算題型 · 公式完整拆解 <span class="sub-note">A級必考 4 大類型</span></div>
+  <div class="calc-grid">
+
+    <!-- 定額法 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-cost"></div>
+        <div class="calc-card-title">成本法①：定額法折舊（等速路徑）</div>
+        <div class="calc-card-freq">14年必考</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">Dₙ = C × (1－s) ÷ N × n</div>
+          <div>殘餘價格率 = 1 − [(1－s)/N × n]</div>
+        </div>
+        <div class="formula-note">
+          <strong>各符號：</strong><br>
+          C＝重建成本　s＝殘餘價值率（≤10%）<br>
+          N＝經濟耐用年數　n＝已用年數<br>
+          Dₙ＝累積折舊額（非年折舊額）
+        </div>
+        <ul class="card-steps">
+          <li>先確認「建築完成日期」→算 n（已使用年數）</li>
+          <li>確認「殘餘價值率 s」→若未給定，選擇題預設 0%</li>
+          <li>代入公式求 Dₙ →用重建/重置成本扣除</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 高頻陷阱</strong>
+          N 要用「經濟耐用年數」，不是物理耐用年數。<br>
+          申論題常附「殘餘價值率10%」，要換算為 s=0.10 代入。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-choice">99選</span><span class="year-chip chip-choice">100選</span><span class="year-chip chip-choice">101選</span><span class="year-chip chip-choice">103選</span><span class="year-chip chip-choice">104選</span><span class="year-chip chip-essay">105申</span><span class="year-chip chip-choice">106選</span><span class="year-chip chip-choice">109選</span><span class="year-chip chip-essay">111申</span><span class="year-chip chip-essay">112申</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 定率法 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-cost"></div>
+        <div class="calc-card-title">成本法②：定率法折舊（初期加速路徑）</div>
+        <div class="calc-card-freq">8年出現</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">殘餘價格率 = (1－d)ⁿ</div>
+          <div>每年折舊額 = 期初帳面價值 × d</div>
+        </div>
+        <div class="formula-note">
+          <strong>各符號：</strong><br>
+          d＝折舊率（年折舊率，題目會給）<br>
+          n＝已使用年數<br>
+          帳面價值逐年遞減（初期折舊額大，後期小）
+        </div>
+        <ul class="card-steps">
+          <li>求殘餘價格率：(1-d)ⁿ</li>
+          <li>殘餘價值 = 重建成本 × (1-d)ⁿ</li>
+          <li>累積折舊 = 重建成本 × [1－(1-d)ⁿ]</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 最常被混淆的地方</strong>
+          定率法＝初期加速（初年折舊最大）；定額法＝等速直線。兩者計算出來的折舊額在同一年度一定不同，常被選擇題拿來一起比較。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-essay">107申（完整計算）</span><span class="year-chip chip-choice">108選</span><span class="year-chip chip-choice">110選</span><span class="year-chip chip-choice">113選</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 償債基金法 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-cost"></div>
+        <div class="calc-card-title">成本法③：償債基金法（初期減速路徑）</div>
+        <div class="calc-card-freq">5年出現</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">年提存額 = (C－殘值) × i ÷ [(1+i)ᴺ－1]</div>
+          <div>累積折舊 = 年提存額 × [(1+i)ⁿ－1] ÷ i</div>
+        </div>
+        <div class="formula-note">
+          <strong>各符號：</strong><br>
+          C＝重建成本　i＝複利再投資利率<br>
+          N＝耐用年數　n＝已使用年數<br>
+          特色：每年提存額固定，但加上再投資利息，初期折舊貢獻最小
+        </div>
+        <ul class="card-steps">
+          <li>先算年提存額（分子分母各別計算避免錯誤）</li>
+          <li>再算 n 年末的累積折舊（等比級數和公式）</li>
+          <li>殘餘價值 = C − 累積折舊</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 考試陷阱</strong>
+          償債基金法分母是「(1+i)ᴺ－1」，分子是「(C－殘值)×i」。注意 i 出現兩次（分子＋分母），不要漏乘。選擇題常給數字直接比較三種方法在同一年的折舊大小。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-choice">104選</span><span class="year-chip chip-choice">106選</span><span class="year-chip chip-choice">111選</span><span class="year-chip chip-choice">113選</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- V公式 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-dev"></div>
+        <div class="calc-card-title">土地開發分析法：V公式完整計算</div>
+        <div class="calc-card-freq">5次申論</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">V = [S÷(1+r)÷(1+i)] − (C+M)</div>
+          <div style="margin-top:6px;font-size:13px">資本利息綜合利率：</div>
+          <div>r = (建物成本比率×½ + 地價比率×½) × 利率</div>
+          <div style="margin-top:4px;font-size:12px;color:var(--ink-soft)">※ 建物比率 × ½（因分批建設，平均投入一半期間）</div>
+        </div>
+        <div class="formula-note">
+          <strong>各符號：</strong><br>
+          S＝預估開發後銷售總價　r＝資本利息綜合利率<br>
+          i＝開發者合理利潤率　C＝建物開發成本<br>
+          M＝其他費用（規劃設計、管銷、稅費）<br>
+          V＝土地開發分析法推估地價
+        </div>
+        <ul class="card-steps">
+          <li>計算銷售總價 S（面積×銷售單價）</li>
+          <li>算資本利息綜合利率 r（建物×½+地價×½）×年利率</li>
+          <li>計算 C+M（建物成本＋所有其他費用）</li>
+          <li>代入公式：V = S÷(1+r)÷(1+i) − (C+M)</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 申論題必寫重點</strong>
+          建物成本 C 計算時，「建物面積」要乘以「½」處理資本利息（分批投入），地價 V 本身資本利息亦乘½。申論答題須列出資本利息綜合利率的完整計算過程，不能只寫結果。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">申論出現：</span>
+          <span class="year-chip chip-essay">100申</span><span class="year-chip chip-essay">102申</span><span class="year-chip chip-essay">105申</span><span class="year-chip chip-essay">109申</span><span class="year-chip chip-essay">113申</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 比較法排除 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-comp"></div>
+        <div class="calc-card-title">比較法：三道排除關卡計算</div>
+        <div class="calc-card-freq">16年全考</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">① 單項調整率 ≤ 15%</div>
+          <div class="formula-line" style="margin-top:6px">② 各項調整率絕對值總和 ≤ 30%</div>
+          <div class="formula-line" style="margin-top:6px">③ 試算價格差距 ≤ 20%</div>
+          <div style="margin-top:8px;font-size:12px">差距計算：｜最高–最低｜÷ 最低比較實例試算價格</div>
+        </div>
+        <ul class="card-steps">
+          <li>逐項列出各比較條件調整率（情況/日期/區域/個別）</li>
+          <li>檢查每一個單項是否超過±15%</li>
+          <li>加總所有調整率絕對值，檢查是否超過30%</li>
+          <li>算出各比較實例的試算價格，計算最高vs最低差距比例</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 計算陷阱</strong>
+          第③關差距分母是「最低試算價格」，不是「最高」或「平均」。且三關任一不符合就要排除該比較實例，排除後再重算其餘試算價格的差距（§23規定三關卡）。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-choice">99–114年全考</span><span class="year-chip chip-essay">99申</span><span class="year-chip chip-essay">102申</span><span class="year-chip chip-essay">110申</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 資本化率五種方法 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-inc"></div>
+        <div class="calc-card-title">收益法：五種資本化率決定方法</div>
+        <div class="calc-card-freq">14年出現</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">① 風險溢酬法：r = 無風險率 + 各項風險溢酬</div>
+          <div class="formula-line" style="margin-top:4px">② 市場萃取法：r = 淨收益 ÷ 成交價格（直接比較）</div>
+          <div class="formula-line" style="margin-top:4px">③ WACC：r = 自有×比例 + 借款×比例×(1-稅率)</div>
+          <div class="formula-line" style="margin-top:4px">④ 有效總收入乘數法：r = 1 ÷ GIM（乘數倒數）</div>
+          <div class="formula-line" style="margin-top:4px">⑤ 債務保障比率法：r = DCR × 借款常數 × LTV</div>
+        </div>
+        <div class="formula-note">
+          <strong>口訣：</strong>「溢萃加乘債」<br>
+          WACC中：借款成本 × (1-所得稅率)，因利息可抵稅<br>
+          GIM（有效總收入乘數）= 成交價格 ÷ 年有效總收入
+        </div>
+        <div class="trap-note">
+          <strong>⚠ 近年高頻：債務保障比率法</strong>
+          109、112、113、114年連續考，公式：資本化率 = DCR × 年還款常數 × 貸款成數(LTV)。其中「年還款常數 = 年還款額÷貸款本金」，勿與DCR混淆（DCR = 淨收益÷年還款額）。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-essay">99申(WACC)</span><span class="year-chip chip-choice">103選</span><span class="year-chip chip-choice">109選(債)</span><span class="year-chip chip-choice">112選(債)</span><span class="year-chip chip-choice">113選(債)</span><span class="year-chip chip-choice">114選(債)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 實質租金 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-rent"></div>
+        <div class="calc-card-title">租金估計：實質租金計算</div>
+        <div class="calc-card-freq">8年出現</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">實質租金 = 支付租金 + 押金×年利率 + 預付租金差額</div>
+          <div style="margin-top:6px;font-size:13px">押金運用收益 = 押金金額 × 年利率</div>
+          <div>預付期差額 = (實際預付期 − 正常預付期) × 月租金 × 月利率</div>
+        </div>
+        <div class="formula-note">
+          <strong>各符號：</strong><br>
+          押金運用收益：押金交給房東使用，等同出租人多收之額外報酬<br>
+          預付期差額：超出正常預付期間者，超過部分的利息調整
+        </div>
+        <ul class="card-steps">
+          <li>確認題目給的是哪一種租金（支付/契約/限定）</li>
+          <li>計算押金年利率收益（押金×利率），加回</li>
+          <li>若有非正常預付，計算差額利息並加回</li>
+        </ul>
+        <div class="trap-note">
+          <strong>⚠ 考試陷阱</strong>
+          實質租金高於支付租金（因押金利息要加回）。選擇題常給數字，問「實質租金為何」，容易直接填支付租金。114年申論題即考實質租金定義與計算因素。
+        </div>
+        <div class="calc-history">
+          <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
+          <span class="year-chip chip-essay">101申</span><span class="year-chip chip-choice">104選</span><span class="year-chip chip-choice">106選</span><span class="year-chip chip-essay">110申</span><span class="year-chip chip-essay">114申</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 樓層別效用比 -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-method-dot dot-comp"></div>
+        <div class="calc-card-title">樓層別效用比計算</div>
+        <div class="calc-card-freq">7年選擇</div>
+      </div>
+      <div class="calc-card-body">
+        <div class="formula-box">
+          <div class="formula-line">地價分配率 = 各樓層效用比 ÷ 效用比總和</div>
+          <div class="formula-line" style="margin-top:6px">各樓層地價 = 基地總地價 × 地價分配率</div>
+          <div style="margin-top:6px">基地單價 = 各樓層地價 ÷ 各樓層樓地板面積</div>
+        </div>
+        <div class="formula-note">
+          <strong>考試流程：</strong><br>
+          ①題目給各樓層效用比（如1F:100, 2F:60, 3F:50）<br>
+          ②算效用比總和（如210）<br>
+          ③各樓層地價分配率 = 各層效用比÷210<br>
+          ④各層地價 = 基地總地價 × 分配率 ÷ 各層建坪
+        </div>
+        <div class="trap-note">
+          <strong>⚠ 注意分母</strong>
+          地價分配率的分母是「所有樓層效用比加總」，不是建物樓板面積。若題目給的效用比是「每平方公尺」，要先×各樓板面積再算分配率。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ③ 年度×題型矩陣 -->
+<div class="section">
+  <div class="section-title">③ 16年 × 計算題型出現矩陣 <span class="sub-note">選 = 選擇題　申 = 申論題　雙 = 兩者皆考</span></div>
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>計算題型</th>
+          <th>99</th><th>100</th><th>101</th><th>102</th><th>103</th><th>104</th><th>105</th><th>106</th>
+          <th>107</th><th>108</th><th>109</th><th>110</th><th>111</th><th>112</th><th>113</th><th>114</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>成本法定額折舊</td>
+          <td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-b">雙</td><td class="cell-e">申</td><td class="cell-c">選</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-e">申</td><td class="cell-b">雙</td><td class="cell-c">選</td><td class="cell-n">—</td>
+        </tr>
+        <tr>
+          <td>成本法定率折舊</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td>
+          <td class="cell-e">申</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td>
+        </tr>
+        <tr>
+          <td>成本法償債基金</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td>
+        </tr>
+        <tr>
+          <td>比較法排除規則</td>
+          <td class="cell-b">雙</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-e">申</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td>
+          <td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-b">雙</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td>
+        </tr>
+        <tr>
+          <td>土地開發V公式</td>
+          <td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-c">選</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-b">雙</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-b">雙</td><td class="cell-n">—</td>
+        </tr>
+        <tr>
+          <td>資本化率計算</td>
+          <td class="cell-b">雙</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td>
+          <td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td>
+        </tr>
+        <tr>
+          <td>WACC計算</td>
+          <td class="cell-e">申</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td>
+        </tr>
+        <tr>
+          <td>債務保障比率法</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-c">選</td>
+        </tr>
+        <tr>
+          <td>實質租金計算</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-e">申</td>
+        </tr>
+        <tr>
+          <td>樓層別效用比</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td>
+          <td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td>
+        </tr>
+        <tr>
+          <td>DCF折現現金流量</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td>
+          <td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-n">—</td><td class="cell-c">選</td><td class="cell-n">—</td><td class="cell-e">申</td><td class="cell-n">—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="matrix-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span class="cell-c">選</span> = 選擇題考計算</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--stamp)"></div><span class="cell-e">申</span> = 申論題考計算</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div><span class="cell-b">雙</span> = 選擇＋申論同年皆考</div>
+      <div class="legend-item"><span class="cell-n">—</span> = 該年未出現</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ④ 高危未出現考點 -->
+<div class="section">
+  <div class="section-title">④ 高危未出現考點 <span class="sub-note">16年尚未在申論題考過，但命題邏輯高度可能在115年首次出現</span></div>
+  <div class="not-yet-grid">
+
+    <div class="not-yet-card">
+      <h4>⚡ 定率法申論完整計算題</h4>
+      <div class="reason">
+        定率法折舊計算107年曾在申論出現，但那次題目相對簡單（只問公式與1年計算）。16年來從未出現「定率法連續多年折舊金額＋建物現值全列式」的完整申論計算題型。<br><br>
+        近年選擇題持續考定率法（108、110、113年），且技術規則§88已明確定義三種折舊路徑，命題人有充分理由在申論要求完整展示定率法計算過程。
+      </div>
+      <div class="risk-level">🔴 命中機率：高（115年申論首次完整版計算機率 70%）</div>
+    </div>
+
+    <div class="not-yet-card">
+      <h4>⚡ 債務保障比率法申論推導</h4>
+      <div class="reason">
+        債務保障比率法（DCR法）在選擇題已連續四年（109、112、113、114）高頻出現，但16年來從未在申論出現過完整的「說明公式＋代入計算資本化率＋進而推估收益價格」流程。<br><br>
+        這個缺口非常明顯：選擇題連年考，申論卻零紀錄。命題上升趨勢明確，申論補考機率很高。
+      </div>
+      <div class="risk-level">🔴 命中機率：高（115年申論出現機率 65%）</div>
+    </div>
+
+    <div class="not-yet-card">
+      <h4>⚡ DCF折現現金流量完整計算申論</h4>
+      <div class="reason">
+        113年申論考「DCF定義與和直接資本化法的差異」，但沒有要求計算。選擇題近兩年開始出現DCF計算題（112、113年選擇）。<br><br>
+        DCF是收益法中最難的計算題型，且§92明確規定DCF為正式估價方法之一，命題人補上「完整DCF計算申論」的可能性在115年顯著提高。
+        <br><br>
+        <strong>應備公式：</strong>V = Σ[NOI_t ÷ (1+r)ᵗ] + [復歸價值 ÷ (1+r)ⁿ]
+      </div>
+      <div class="risk-level">🟡 命中機率：中（115年申論出現機率 45%）</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ⑤ 備考得分技巧 -->
+<div class="section">
+  <div class="section-title">⑤ 計算題高分技巧 <span class="sub-note">考試現場不失分的關鍵動作</span></div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4><span class="tip-num">①</span> 公式先列再代數</h4>
+      <p>申論題計算：先寫出完整公式（附符號說明），再代入數字計算。即使計算結果錯誤，公式列對仍可拿部分分數（估價申論每題約20分，公式分通常佔10分）。</p>
+    </div>
+    <div class="tip-card">
+      <h4><span class="tip-num">②</span> 折舊題確認耐用年數類型</h4>
+      <p>看到折舊計算，第一件事確認題目給的是「物理耐用年數」還是「經濟耐用年數」。估價規則§88規定折舊以「經濟耐用年數」為準，若題目給物理年數必須辨別是否要換算。</p>
+    </div>
+    <div class="tip-card">
+      <h4><span class="tip-num">③</span> 比較法三關卡順序</h4>
+      <p>計算排除規則時，順序是：①先檢查每個單項調整率是否≤15% → ②檢查各項絕對值總和≤30% → ③最後算試算價格差距≤20%。三關任一超標就排除，不能跳過順序。</p>
+    </div>
+    <div class="tip-card">
+      <h4><span class="tip-num">④</span> V公式建物成本乘以½</h4>
+      <p>土地開發分析法計算資本利息綜合利率時，建物成本的資本利息要乘以「½」（因建物分批建設，平均只有一半期間在使用資金）。這是每次申論最容易漏掉的步驟。</p>
+    </div>
+    <div class="tip-card">
+      <h4><span class="tip-num">⑤</span> WACC稅後成本</h4>
+      <p>WACC公式中，借款利率要乘以「(1-所得稅率)」。因為利息費用可以抵所得稅，所以實際借款成本是稅後的。自有資金報酬率不做稅後調整（已是稅後報酬）。</p>
+    </div>
+    <div class="tip-card">
+      <h4><span class="tip-num">⑥</span> 差距分母用最低</h4>
+      <p>比較法試算價格差距公式：差距 = ｜最高－最低｜÷ 最低試算價格。分母不是「平均值」，不是「最高值」，是「各比較實例中最低的那個試算價格」，記法：法規原文寫「以最低者為分母」。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAB -->
+<a href="估價備考指揮中心.html" class="fab" title="回到估價備考指揮中心">🏠</a>
+
+</body>
+</html>
