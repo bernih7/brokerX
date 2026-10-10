@@ -79,18 +79,86 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 
 /* hub */
 #hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+/* 模式切換 tab */
+.mode-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line)}
+.mode-tab{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 0;
+  border:none;background:transparent;color:var(--muted);cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .15s}
+.mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
+
+/* 測驗模式 */
+#quiz-mode{display:none;max-width:720px;margin:0 auto;padding:20px 16px 80px}
+#quiz-mode.active{display:block}
+
+/* 章節過濾 */
+.quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
+  border-radius:99px;border:1.5px solid var(--line);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qf-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.qf-all.on{background:var(--ink);border-color:var(--ink)}
+
+/* 題卡 */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:20px 18px 16px;margin-bottom:16px}
+.qc-meta{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px}
+.qc-chapter{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px}
+.qc-counter{font-size:11px;color:var(--muted)}
+.qc-term{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;
+  color:var(--red);margin-bottom:14px;text-wrap:balance}
+.qc-blank{font-size:14px;line-height:2.4;color:var(--ink);margin-bottom:14px;
+  word-break:break-all}
+.qc-blank .blank{
+  display:inline-block;border-bottom:2px solid var(--red);
+  padding:0 3px;color:transparent;background:rgba(168,64,43,.08);
+  border-radius:3px;vertical-align:bottom;cursor:pointer;user-select:none;
+  transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
+.qc-blank .blank:hover{background:rgba(168,64,43,.15)}
+.qc-blank .blank.revealed{color:var(--red);background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green)}
+.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
+  border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
+.qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
+.qc-btn-reveal:hover{background:var(--red);color:#fff}
+.qc-btn-all{border-color:var(--green);color:var(--green);background:transparent}
+.qc-btn-all:hover{background:var(--green);color:#fff}
+.qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
+.qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-answer{display:none;margin-top:10px;padding:10px 14px;
+  background:#F0F6EC;border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85}
+.qc-answer.show{display:block}
+.qc-answer .key{color:var(--red);font-weight:700}
+.qc-answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+.quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
+.quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
+.quiz-done-banner .big{font-size:48px;margin-bottom:8px}
 </style>
 </head>
 <body>
 
 <header>
   <h1>估價概要｜定義填空練習</h1>
-  <div class="sub">點「顯示答案」確認，全科章節共 61 題</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 61 題</div>
 </header>
+
+<div class="mode-tabs">
+  <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
+  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+</div>
 
 <nav id="nav"></nav>
 
 <main id="main"></main>
+
+<div id="quiz-mode">
+  <div class="quiz-filter" id="quiz-filter"></div>
+  <div class="quiz-progress" id="quiz-progress"></div>
+  <div id="quiz-card-area"></div>
+</div>
 
 <a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
 
@@ -680,6 +748,166 @@ function switchCh(id){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('ch-'+id).classList.add('active');
   [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===測驗模式===
+let quizPool = [];        // 所有題目扁平化
+let quizQueue = [];       // 本輪隨機排列
+let quizIdx = 0;
+let quizFilter = 'ALL';   // 'ALL' 或 chapter id
+
+function setMode(mode) {
+  const browse = document.getElementById('main');
+  const nav = document.getElementById('nav');
+  const quizEl = document.getElementById('quiz-mode');
+  const tabB = document.getElementById('tab-browse');
+  const tabQ = document.getElementById('tab-quiz');
+  if (mode === 'browse') {
+    browse.style.display = ''; nav.style.display = '';
+    quizEl.classList.remove('active');
+    tabB.classList.add('on'); tabQ.classList.remove('on');
+  } else {
+    browse.style.display = 'none'; nav.style.display = 'none';
+    quizEl.classList.add('active');
+    tabB.classList.remove('on'); tabQ.classList.add('on');
+    initQuiz();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function initQuiz() {
+  // 建 pool（只跑一次）
+  if (quizPool.length === 0) {
+    DATA.forEach(ch => {
+      ch.cards.forEach(c => {
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src });
+      });
+    });
+  }
+  // 章節過濾 buttons
+  const filterEl = document.getElementById('quiz-filter');
+  if (!filterEl.hasChildNodes()) {
+    const allBtn = document.createElement('button');
+    allBtn.className = 'qf-btn qf-all on';
+    allBtn.textContent = '全部章節';
+    allBtn.onclick = () => setQuizFilter('ALL', allBtn);
+    filterEl.appendChild(allBtn);
+    DATA.forEach(ch => {
+      const btn = document.createElement('button');
+      btn.className = 'qf-btn';
+      btn.textContent = ch.label;
+      btn.onclick = () => setQuizFilter(ch.id, btn);
+      filterEl.appendChild(btn);
+    });
+  }
+  startQuizRound();
+}
+
+function setQuizFilter(id, btn) {
+  quizFilter = id;
+  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  startQuizRound();
+}
+
+function startQuizRound() {
+  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  // Fisher-Yates shuffle
+  quizQueue = [...pool];
+  for (let i = quizQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quizQueue[i], quizQueue[j]] = [quizQueue[j], quizQueue[i]];
+  }
+  quizIdx = 0;
+  renderQuizCard();
+}
+
+function renderQuizCard() {
+  const area = document.getElementById('quiz-card-area');
+  const prog = document.getElementById('quiz-progress');
+  if (quizIdx >= quizQueue.length) {
+    prog.textContent = '';
+    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    return;
+  }
+  const c = quizQueue[quizIdx];
+  prog.textContent = `第 ${quizIdx + 1} / ${quizQueue.length} 題｜${c.chLabel}`;
+
+  // 取 key 列表
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(c.answer)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  const qid = 'q' + quizIdx;
+  const builtBlank = c.blank.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const plainAns = ans.replace(/<[^>]+>/g, '');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    const idx = ki++;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-qid="${qid}" onclick="toggleQBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span></span>`;
+  });
+
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="qc-meta">
+        <span class="qc-chapter">${c.chLabel}</span>
+        <span class="qc-counter">${quizIdx + 1} / ${quizQueue.length}</span>
+      </div>
+      <div class="qc-term">${c.term}</div>
+      <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      <div class="qc-btns">
+        <button class="qc-btn qc-btn-reveal" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
+        <button class="qc-btn qc-btn-all" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
+        <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
+      </div>
+      <div class="qc-answer" id="qans-${qid}">
+        <div>${c.answer}</div>
+        <div class="src">📌 ${c.src}</div>
+      </div>
+    </div>`;
+}
+
+function toggleQBlank(el) {
+  const mask = el.querySelector('.blank-mask');
+  const val = el.querySelector('.blank-val');
+  if (val.style.display !== 'none') {
+    val.style.display = 'none'; mask.style.display = '';
+    el.classList.remove('revealed');
+  } else {
+    val.style.display = ''; mask.style.display = 'none';
+    el.classList.add('revealed');
+  }
+}
+
+function revealOneQuizBlank(qid) {
+  // 找第一個未顯示的空格
+  const blanks = document.querySelectorAll(`#qblank-${qid} .blank`);
+  for (const b of blanks) {
+    if (!b.classList.contains('revealed')) {
+      b.querySelector('.blank-mask').style.display = 'none';
+      b.querySelector('.blank-val').style.display = '';
+      b.classList.add('revealed');
+      break;
+    }
+  }
+}
+
+function revealAllQuizBlanks(qid) {
+  document.querySelectorAll(`#qblank-${qid} .blank`).forEach(b => {
+    b.querySelector('.blank-mask').style.display = 'none';
+    b.querySelector('.blank-val').style.display = '';
+    b.classList.add('revealed');
+  });
+  const ans = document.getElementById('qans-' + qid);
+  if (ans) ans.classList.add('show');
+}
+
+function nextQuiz() {
+  quizIdx++;
+  renderQuizCard();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
