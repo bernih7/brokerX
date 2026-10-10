@@ -3,427 +3,591 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>估價程序流程圖</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700&display=swap">
+<title>估價程序流程記憶圖</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap">
 <style>
 :root{
-  --bg:#F8F3E9;--ink:#2A2722;--red:#A8402B;--gold:#BC8A2E;
-  --green:#4C7A3E;--card:#FFFDF8;--line:#E4DAC4;--muted:#8A7D6E;
-  --blue:#2B5082;--purple:#6B4C8A;
+  --bg:#F5F0E8;--ink:#2A2420;--red:#9B3522;--gold:#B07C1E;
+  --green:#3E6B32;--blue:#2A4A7A;--purple:#5C3E7A;--teal:#2A6A6A;
+  --card:#FFFDF7;--card2:#FAFAF5;--line:#DDD5C0;--muted:#8A7A68;
+  --freq-hot:#C8361A;--freq-mid:#B07C1E;
   color-scheme:light;
 }
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#1E1A15;--ink:#EDE6D6;--card:#2A241C;--line:#3A3028;--muted:#9A8D7A;
+    --bg:#1A1612;--ink:#EAE2D2;--card:#242018;--card2:#2C261E;
+    --line:#38302A;--muted:#968678;
+    --freq-hot:#E05040;--freq-mid:#C89020;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#1E1A15;--ink:#EDE6D6;--card:#2A241C;--line:#3A3028;--muted:#9A8D7A;
+  --bg:#1A1612;--ink:#EAE2D2;--card:#242018;--card2:#2C261E;
+  --line:#38302A;--muted:#968678;
+  --freq-hot:#E05040;--freq-mid:#C89020;
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);
-  font-size:15px;line-height:1.6;padding:env(safe-area-inset-top,0) 0 60px;min-height:100%}
+  font-size:15px;line-height:1.65;padding:env(safe-area-inset-top,0) 0 80px;min-height:100%}
 
-header{background:linear-gradient(135deg,#7B2D1E,var(--red));color:#fff;
-  padding:20px 20px 16px;text-align:center}
-header h1{font-family:"Noto Serif TC",serif;font-size:19px;font-weight:700;margin-bottom:3px}
-header .sub{font-size:12px;opacity:.85}
+/* ── Header ── */
+header{
+  background:linear-gradient(160deg,#6A1E10 0%,var(--red) 60%,#8B3520 100%);
+  color:#fff;padding:22px 20px 18px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'§';position:absolute;right:-10px;top:-20px;
+  font-size:160px;opacity:.06;font-family:"Noto Serif TC",serif;font-weight:900;line-height:1;pointer-events:none}
+header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:900;
+  letter-spacing:1px;margin-bottom:5px;position:relative}
+header .sub{font-size:12px;opacity:.82;position:relative;line-height:1.7}
 
-main{max-width:700px;margin:0 auto;padding:20px 16px}
+/* ── Layout ── */
+main{max-width:720px;margin:0 auto;padding:24px 16px}
+section{margin-bottom:32px}
+.sec-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
 
-/* ===口訣區=== */
-.mnemonic-box{background:var(--card);border:2px solid var(--gold);border-radius:12px;
-  padding:16px 18px;margin-bottom:24px;text-align:center}
-.mnemonic-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;
-  margin-bottom:6px}
-.mnemonic-chars{font-size:26px;font-weight:900;color:var(--red);letter-spacing:6px;
+/* ── Story Box ── */
+.story-box{background:var(--card);border-radius:14px;
+  border:2px solid var(--gold);overflow:hidden;margin-bottom:32px}
+.story-header{background:linear-gradient(135deg,var(--gold),#C8940A);
+  color:#fff;padding:10px 18px;display:flex;align-items:center;gap:10px}
+.story-icon{font-size:22px;line-height:1}
+.story-header-text{font-size:13px;font-weight:700;letter-spacing:.5px}
+.story-body{padding:18px 20px 16px}
+.story-sentence{font-size:17px;font-weight:700;color:var(--ink);
+  letter-spacing:2px;margin-bottom:12px;line-height:1.8;text-align:center;
   font-family:"Noto Serif TC",serif}
-.mnemonic-sub{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.8}
+.story-sentence em{color:var(--red);font-style:normal;
+  background:rgba(155,53,34,.10);border-radius:4px;padding:0 3px}
+.story-scene{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+@media(max-width:500px){.story-scene{grid-template-columns:repeat(2,1fr)}}
+.scene-card{background:var(--card2);border:1px solid var(--line);border-radius:10px;
+  padding:10px 8px;text-align:center}
+.scene-num{font-size:10px;color:var(--muted);margin-bottom:4px}
+.scene-char{font-size:20px;font-weight:900;color:var(--red);
+  font-family:"Noto Serif TC",serif;line-height:1.1;margin-bottom:4px}
+.scene-word{font-size:11.5px;color:var(--ink);line-height:1.4}
+.scene-card.s1c{border-top:3px solid #A8402B}
+.scene-card.s2c{border-top:3px solid #BC6E2A}
+.scene-card.s3c{border-top:3px solid #BC8A2E}
+.scene-card.s4c{border-top:3px solid #4C7A3E}
+.scene-card.s5c{border-top:3px solid #2E7A6A}
+.scene-card.s6c{border-top:3px solid #2B5082}
+.scene-card.s7c{border-top:3px solid #4C3A82}
+.scene-card.s8c{border-top:3px solid #7A3272}
+.story-note{font-size:12px;color:var(--muted);text-align:center;
+  border-top:1px solid var(--line);padding-top:12px;line-height:1.8}
+.story-note b{color:var(--ink)}
 
-/* ===流程圖=== */
-.flow-wrap{margin-bottom:28px}
-.flow-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:1px;
-  margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-
-.flow{display:flex;flex-direction:column;gap:0}
-.step-row{display:flex;align-items:stretch;gap:0}
-.step-num{width:32px;min-width:32px;display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;color:#fff;border-radius:8px 0 0 8px;
-  padding:0}
-.step-body{flex:1;background:var(--card);border:1px solid var(--line);
-  border-left:none;border-radius:0 8px 8px 0;padding:10px 14px;
-  display:flex;flex-direction:column;gap:2px}
-.step-name{font-size:14px;font-weight:700;color:var(--ink)}
+/* ── Flow Steps ── */
+.flow{display:flex;flex-direction:column}
+.step-row{display:grid;grid-template-columns:52px 1fr;gap:0;border-radius:12px;
+  overflow:hidden;margin-bottom:6px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.step-left{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:14px 6px;gap:4px}
+.step-num{font-size:18px;font-weight:900;color:#fff;font-family:"Noto Serif TC",serif;line-height:1}
+.step-char{font-size:12px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.5px}
+.step-right{background:var(--card);padding:12px 14px;display:flex;
+  flex-direction:column;gap:5px;border:1px solid var(--line);
+  border-left:none;border-radius:0 12px 12px 0}
+.step-name{font-size:14.5px;font-weight:700;color:var(--ink);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .step-law{font-size:11px;color:var(--muted)}
-.step-sub{font-size:12px;color:var(--ink);opacity:.8;margin-top:2px;line-height:1.55}
-.step-tag{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;
-  border-radius:99px;margin-top:4px;letter-spacing:.3px}
-.tag-trap{background:#FEF3F0;color:var(--red);border:1px solid rgba(168,64,43,.3)}
-.tag-key{background:#EEF6E8;color:var(--green);border:1px solid rgba(76,122,62,.3)}
+.step-detail{font-size:12.5px;color:var(--ink);opacity:.82;line-height:1.55}
+.step-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.tag{display:inline-block;font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:99px;letter-spacing:.2px}
+.tag-trap{background:#FEF0EE;color:var(--red);border:1px solid rgba(155,53,34,.25)}
+.tag-key{background:#EDF5E8;color:var(--green);border:1px solid rgba(62,107,50,.25)}
+.tag-tip{background:#EEF2F8;color:var(--blue);border:1px solid rgba(42,74,122,.25)}
 
-.arrow-down{text-align:center;padding:2px 0;color:var(--muted);font-size:13px;opacity:.6}
+/* 考頻標記 */
+.freq-badge{display:inline-flex;align-items:center;gap:3px;
+  font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;
+  letter-spacing:.2px}
+.freq-hot{background:#FEF0EE;color:var(--freq-hot);border:1px solid rgba(200,54,26,.3)}
+.freq-mid{background:#FEF7E8;color:var(--freq-mid);border:1px solid rgba(176,124,30,.3)}
+.freq-hint{font-size:10.5px;color:var(--muted);margin-top:4px;
+  padding:4px 8px;background:var(--card2);border-radius:6px;border:1px solid var(--line);
+  line-height:1.55}
 
-/* 顏色：8個步驟各有色 */
+/* Colors */
 .s1{background:#A8402B}.s2{background:#BC6E2A}.s3{background:#BC8A2E}
-.s4{background:#5C8A3E}.s5{background:#3E7A6A}.s6{background:#2B5082}
+.s4{background:#4C7A3E}.s5{background:#2E7A6A}.s6{background:#2B5082}
 .s7{background:#4C3A82}.s8{background:#7A3272}
 
-/* ===子項目展開區=== */
-.sub-section{margin-bottom:24px}
-.sub-section-title{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:700;
-  color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.sub-section-title .badge{background:var(--red);color:#fff;font-size:11px;
-  padding:2px 8px;border-radius:99px;font-family:"Noto Sans TC",sans-serif}
+.arrow{text-align:center;color:var(--muted);font-size:12px;line-height:1;
+  margin:0 0 6px;opacity:.5}
 
-.item-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.item-card{background:var(--card);border:1px solid var(--line);border-radius:8px;
-  padding:10px 12px;display:flex;align-items:flex-start;gap:8px}
-.item-no{width:22px;min-width:22px;height:22px;border-radius:50%;
-  background:var(--red);color:#fff;font-size:11px;font-weight:700;
+/* ── Sub sections ── */
+.sub-sec{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;margin-bottom:16px}
+.sub-sec-hd{display:flex;align-items:center;gap:10px;padding:11px 14px;
+  border-bottom:1px solid var(--line);background:var(--card2)}
+.sub-hd-dot{width:10px;height:10px;border-radius:50%}
+.sub-hd-title{font-size:13.5px;font-weight:700;color:var(--ink)}
+.sub-hd-badge{font-size:11px;color:var(--muted);margin-left:auto;
+  background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+.sub-sec-body{padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:480px){.sub-sec-body{grid-template-columns:1fr}}
+.item{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;
+  background:var(--card2);border:1px solid var(--line);border-radius:8px}
+.item.span2{grid-column:1/-1}
+.item-bullet{width:22px;min-width:22px;height:22px;border-radius:50%;
+  font-size:11px;font-weight:700;color:#fff;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.item-text{font-size:13px;color:var(--ink);line-height:1.5}
-.item-text b{color:var(--red)}
-.item-card.wide{grid-column:1/-1}
+.item-txt{font-size:13px;color:var(--ink);line-height:1.5}
+.item-txt b{color:var(--red)}
+.item.warn{background:#FEF0EE;border-color:rgba(155,53,34,.3)}
+.item.warn .item-txt{color:var(--red)}
 
-/* ===§16 15項=== */
-.fifteen-wrap{margin-bottom:24px}
-.fifteen-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
-.fi-cell{background:var(--card);border:1px solid var(--line);border-radius:8px;
-  padding:8px 6px;text-align:center}
-.fi-no{font-size:10px;color:var(--muted);margin-bottom:2px}
-.fi-char{font-size:22px;font-weight:900;color:var(--red);font-family:"Noto Serif TC",serif;line-height:1}
-.fi-word{font-size:10px;color:var(--ink);margin-top:3px;line-height:1.35}
-.fi-cell.group-a{border-top:3px solid var(--red)}
-.fi-cell.group-b{border-top:3px solid var(--blue)}
-.fi-cell.group-c{border-top:3px solid var(--green)}
-.fi-cell.group-d{border-top:3px solid var(--purple)}
+/* ── §16 表格 ── */
+.fifteen-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.leg-item{font-size:11.5px;display:flex;align-items:center;gap:5px}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.fifteen-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+@media(max-width:500px){.fifteen-grid{grid-template-columns:repeat(3,1fr)}}
+.fi{background:var(--card);border:1px solid var(--line);border-radius:9px;
+  padding:9px 6px;text-align:center;transition:transform .15s}
+.fi:hover{transform:translateY(-2px)}
+.fi-no{font-size:10px;color:var(--muted);margin-bottom:3px}
+.fi-char{font-size:24px;font-weight:900;font-family:"Noto Serif TC",serif;line-height:1;margin-bottom:4px}
+.fi-word{font-size:10px;color:var(--ink);line-height:1.4}
+.ga{border-top:3px solid var(--red);}.ga .fi-char{color:var(--red)}
+.gb{border-top:3px solid var(--blue);}.gb .fi-char{color:var(--blue)}
+.gc{border-top:3px solid var(--green);}.gc .fi-char{color:var(--green)}
+.gd{border-top:3px solid var(--purple);}.gd .fi-char{color:var(--purple)}
+.fi.star::after{content:'★';position:absolute;top:4px;right:5px;
+  font-size:9px;color:var(--gold)}
+.fi{position:relative}
 
-.group-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.gl-item{font-size:11px;display:flex;align-items:center;gap:4px}
-.gl-dot{width:10px;height:10px;border-radius:2px}
-.gl-dot.a{background:var(--red)}.gl-dot.b{background:var(--blue)}
-.gl-dot.c{background:var(--green)}.gl-dot.d{background:var(--purple)}
+.story-card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:14px 16px;font-size:13px;line-height:2.1}
+.story-card b{color:var(--red)}
+.story-card .label{font-size:11px;color:var(--muted);font-weight:700;
+  letter-spacing:.5px;margin-bottom:6px;display:block}
 
-.mnemonic-story{background:var(--card);border:1px solid var(--line);border-radius:10px;
-  padding:14px 16px;font-size:13px;line-height:2;color:var(--ink)}
-.mnemonic-story b{color:var(--red)}
-.story-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.5px;
-  margin-bottom:6px}
-
-/* hub */
-#hub{position:fixed;right:14px;bottom:14px;width:50px;height:50px;border-radius:50%;
-  background:var(--red);color:#fff;font-size:22px;text-align:center;line-height:50px;
-  text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
-
-@media(max-width:480px){
-  .item-grid{grid-template-columns:1fr}
-  .item-card.wide{grid-column:auto}
-  .fifteen-grid{grid-template-columns:repeat(3,1fr)}
-  .mnemonic-chars{font-size:20px;letter-spacing:3px}
-}
+/* ── Hub ── */
+#hub{position:fixed;right:16px;bottom:16px;width:48px;height:48px;
+  border-radius:50%;background:var(--red);color:#fff;font-size:20px;
+  text-align:center;line-height:48px;text-decoration:none;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);z-index:20;
+  display:flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>估價概要｜程序流程記憶圖</h1>
-  <div class="sub">技術規則§8～§16｜8大步驟完整展開</div>
+  <h1>估價程序流程記憶圖</h1>
+  <div class="sub">技術規則§8～§16｜8大步驟完整展開｜考頻標記</div>
 </header>
 
 <main>
 
-<!-- 口訣 -->
-<div class="mnemonic-box">
-  <div class="mnemonic-label">8步驟口訣（按順序）</div>
-  <div class="mnemonic-chars">確　擬　蒐　確　整　運　決　製</div>
-  <div class="mnemonic-sub">
-    確（定基本事項）｜擬（定計畫）｜蒐（集資料）｜確（認標的狀態）<br>
-    整（理比較分析資料）｜運（用方法推算）｜決（定勘估標的價格）｜製（作報告書）
+<!-- ①故事記憶法 -->
+<section>
+  <div class="sec-label">故事記憶法</div>
+  <div class="story-box">
+    <div class="story-header">
+      <div class="story-icon">📖</div>
+      <div class="story-header-text">8步驟故事句（每個動詞對應一個步驟）</div>
+    </div>
+    <div class="story-body">
+      <div class="story-sentence">
+        <em>確</em>認任務後，<em>擬</em>好計畫，<em>去</em>蒐資料，<br>
+        <em>到</em>現場看清楚，<em>整</em>理好，<em>用</em>三法推算，<br>
+        <em>決</em>定了，最後<em>寫</em>報告。
+      </div>
+      <div class="story-scene">
+        <div class="scene-card s1c">
+          <div class="scene-num">步驟①</div>
+          <div class="scene-char">確</div>
+          <div class="scene-word">確定<br>基本事項</div>
+        </div>
+        <div class="scene-card s2c">
+          <div class="scene-num">步驟②</div>
+          <div class="scene-char">擬</div>
+          <div class="scene-word">擬定<br>估價計畫</div>
+        </div>
+        <div class="scene-card s3c">
+          <div class="scene-num">步驟③</div>
+          <div class="scene-char">去</div>
+          <div class="scene-word">蒐集<br>資料</div>
+        </div>
+        <div class="scene-card s4c">
+          <div class="scene-num">步驟④</div>
+          <div class="scene-char">到</div>
+          <div class="scene-word">確認<br>現場狀態</div>
+        </div>
+        <div class="scene-card s5c">
+          <div class="scene-num">步驟⑤</div>
+          <div class="scene-char">整</div>
+          <div class="scene-word">整理<br>比較資料</div>
+        </div>
+        <div class="scene-card s6c">
+          <div class="scene-num">步驟⑥</div>
+          <div class="scene-char">用</div>
+          <div class="scene-word">運用<br>估價方法</div>
+        </div>
+        <div class="scene-card s7c">
+          <div class="scene-num">步驟⑦</div>
+          <div class="scene-char">決</div>
+          <div class="scene-word">決定<br>估價結果</div>
+        </div>
+        <div class="scene-card s8c">
+          <div class="scene-num">步驟⑧</div>
+          <div class="scene-char">寫</div>
+          <div class="scene-word">製作<br>報告書</div>
+        </div>
+      </div>
+      <div class="story-note">
+        <b>故事線：</b>接到案子 → 先確認任務（①確）→ 擬計畫排程（②擬）→ 去查資料（③去蒐）<br>
+        → 到現場勘察確認標的（④到現場）→ 整理比較實例（⑤整）→ 用三種方法推算（⑥用）<br>
+        → 決定最終價格（⑦決）→ 寫成報告書交付（⑧寫）
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- 流程圖 -->
-<div class="flow-wrap">
-  <div class="flow-title">▶ 估價作業8大程序（§8）視覺流程</div>
+<!-- ②8步驟流程 -->
+<section>
+  <div class="sec-label">8大步驟｜考頻標記</div>
   <div class="flow">
 
+    <!-- ①確定 -->
     <div class="step-row">
-      <div class="step-num s1">①</div>
-      <div class="step-body">
-        <div class="step-name">確定估價基本事項</div>
+      <div class="step-left s1">
+        <div class="step-num">①</div>
+        <div class="step-char">確</div>
+      </div>
+      <div class="step-right">
+        <div class="step-name">
+          確定估價基本事項
+          <span class="freq-badge freq-hot">🔴 超高頻</span>
+        </div>
         <div class="step-law">§9｜4項</div>
-        <div class="step-sub">內容・價格日期・價格種類及條件・估價目的</div>
-        <span class="step-tag tag-trap">⚠ 不含估價方法、不含勘察日期</span>
+        <div class="step-detail">勘估標的內容・價格日期・價格種類及條件・估價目的</div>
+        <div class="step-tags">
+          <span class="tag tag-trap">⚠ 不含估價方法</span>
+          <span class="tag tag-trap">⚠ 不含勘察日期</span>
+        </div>
+        <div class="freq-hint">🔴 99/29・101/8・103/29・104/27・105/4 — 共5年考過，多考「4項是什麼」「不含什麼」</div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ②擬定 -->
     <div class="step-row">
-      <div class="step-num s2">②</div>
-      <div class="step-body">
+      <div class="step-left s2">
+        <div class="step-num">②</div>
+        <div class="step-char">擬</div>
+      </div>
+      <div class="step-right">
         <div class="step-name">擬定估價計畫</div>
         <div class="step-law">§10｜5項</div>
-        <div class="step-sub">步驟・時間・人力・經費・進度表</div>
-        <span class="step-tag tag-key">口訣：步時人費表</span>
+        <div class="step-detail">作業步驟・時間・人力・經費・進度表</div>
+        <div class="step-tags">
+          <span class="tag tag-key">口訣：步時人費表</span>
+        </div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ③蒐集 -->
     <div class="step-row">
-      <div class="step-num s3">③</div>
-      <div class="step-body">
+      <div class="step-left s3">
+        <div class="step-num">③</div>
+        <div class="step-char">去</div>
+      </div>
+      <div class="step-right">
         <div class="step-name">蒐集資料</div>
         <div class="step-law">§11｜3類</div>
-        <div class="step-sub">①標示/權利/法定用途　②一般/區域/個別因素　③交易/收益/成本資料</div>
-        <span class="step-tag tag-key">口訣：基本→因素→市場</span>
+        <div class="step-detail">①標示/權利/法定用途　②一般/區域/個別因素　③交易/收益/成本資料</div>
+        <div class="step-tags">
+          <span class="tag tag-key">口訣：基本資料 → 影響因素 → 市場交易</span>
+        </div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ④確認 -->
     <div class="step-row">
-      <div class="step-num s4">④</div>
-      <div class="step-body">
-        <div class="step-name">確認勘估標的狀態</div>
+      <div class="step-left s4">
+        <div class="step-num">④</div>
+        <div class="step-char">到</div>
+      </div>
+      <div class="step-right">
+        <div class="step-name">
+          確認勘估標的狀態
+          <span class="freq-badge freq-mid">🟡 有考</span>
+        </div>
         <div class="step-law">§13｜4項</div>
-        <div class="step-sub">確認基本/權利狀態・使用現況・影響價格資料・紀錄＋照片</div>
-        <span class="step-tag tag-trap">⚠ 委託人未領勘→報告書敘明</span>
+        <div class="step-detail">確認基本/權利狀態・使用現況・影響價格特殊因素・紀錄＋照片</div>
+        <div class="step-tags">
+          <span class="tag tag-trap">⚠ 委託人未配合領勘→報告書敘明</span>
+        </div>
+        <div class="freq-hint">🟡 103/12 — 考「委託人未配合領勘之處理」</div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ⑤整理 -->
     <div class="step-row">
-      <div class="step-num s5">⑤</div>
-      <div class="step-body">
+      <div class="step-left s5">
+        <div class="step-num">⑤</div>
+        <div class="step-char">整</div>
+      </div>
+      <div class="step-right">
         <div class="step-name">整理比較分析資料</div>
-        <div class="step-law">§12｜選取比較實例4原則</div>
-        <div class="step-sub">正常價格・近鄰/類似地區・使用性質相近・價格日期接近</div>
+        <div class="step-law">§12｜比較實例選取4原則</div>
+        <div class="step-detail">正常價格・近鄰或類似地區・使用性質相近・價格日期接近</div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ⑥運用 -->
     <div class="step-row">
-      <div class="step-num s6">⑥</div>
-      <div class="step-body">
+      <div class="step-left s6">
+        <div class="step-num">⑥</div>
+        <div class="step-char">用</div>
+      </div>
+      <div class="step-right">
         <div class="step-name">運用估價方法推算</div>
         <div class="step-law">§14｜應兼採2種以上</div>
-        <div class="step-sub">比較法・成本法・收益法（例外：情況特殊→報告書敘明）</div>
-        <span class="step-tag tag-trap">⚠ 這裡才用「估價方法」（步驟①不含）</span>
+        <div class="step-detail">比較法・成本法・收益法（例外：情況特殊→報告書敘明）</div>
+        <div class="step-tags">
+          <span class="tag tag-trap">⚠ 「估價方法」在此步驟—步驟①不含</span>
+        </div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ⑦決定 -->
     <div class="step-row">
-      <div class="step-num s7">⑦</div>
-      <div class="step-body">
-        <div class="step-name">決定勘估標的價格</div>
+      <div class="step-left s7">
+        <div class="step-num">⑦</div>
+        <div class="step-char">決</div>
+      </div>
+      <div class="step-right">
+        <div class="step-name">
+          決定勘估標的價格
+          <span class="freq-badge freq-mid">🟡 有考</span>
+        </div>
         <div class="step-law">§15</div>
-        <div class="step-sub">綜合比較→顯著差異者重新檢討→詳述決定理由</div>
-        <span class="step-tag tag-trap">⚠ 不動產證券化以契約租金分配→DCF加大權重（清算時例外）</span>
+        <div class="step-detail">綜合比較→顯著差異重新檢討→詳述決定理由</div>
+        <div class="step-tags">
+          <span class="tag tag-trap">⚠ 不動產證券化→契約租金分配→DCF加大權重</span>
+        </div>
+        <div class="freq-hint">🟡 102/29 — 考「DCF vs 契約租金 vs 經濟租金」的選擇邏輯</div>
       </div>
     </div>
-    <div class="arrow-down">▼</div>
+    <div class="arrow">↓</div>
 
+    <!-- ⑧製作 -->
     <div class="step-row">
-      <div class="step-num s8">⑧</div>
-      <div class="step-body">
-        <div class="step-name">製作估價報告書</div>
+      <div class="step-left s8">
+        <div class="step-num">⑧</div>
+        <div class="step-char">寫</div>
+      </div>
+      <div class="step-right">
+        <div class="step-name">
+          製作估價報告書
+          <span class="freq-badge freq-hot">🔴 高頻</span>
+        </div>
         <div class="step-law">§16｜應載明15項</div>
-        <div class="step-sub">口訣：委基日種條目金‖他況管‖因程情‖項師</div>
-        <span class="step-tag tag-trap">⚠ 行政/強制執行委託→不受前二項限制（15項＋圖說同時豁免）</span>
+        <div class="step-detail">口訣見下方「委基日種條目金｜他況管｜因程情｜項師」</div>
+        <div class="step-tags">
+          <span class="tag tag-trap">⚠ 行政/強制執行委託→15項圖說同時豁免</span>
+        </div>
+        <div class="freq-hint">🔴 多年考過，常考「15項列舉」或「豁免規定」</div>
       </div>
     </div>
 
   </div>
-</div>
+</section>
 
-<!-- §9 步驟① 子項目 -->
-<div class="sub-section">
-  <div class="sub-section-title">
-    <span>① 確定估價基本事項</span>
-    <span class="badge">§9｜4項</span>
-  </div>
-  <div class="item-grid">
-    <div class="item-card">
-      <div class="item-no">1</div>
-      <div class="item-text">勘估標的的<b>內容</b></div>
+<!-- ③步驟①子項目 -->
+<section>
+  <div class="sec-label">步驟① 展開｜§9</div>
+  <div class="sub-sec">
+    <div class="sub-sec-hd">
+      <div class="sub-hd-dot" style="background:#A8402B"></div>
+      <div class="sub-hd-title">確定估價基本事項</div>
+      <div class="sub-hd-badge">§9 共4項</div>
     </div>
-    <div class="item-card">
-      <div class="item-no">2</div>
-      <div class="item-text"><b>價格日期</b></div>
-    </div>
-    <div class="item-card">
-      <div class="item-no">3</div>
-      <div class="item-text"><b>價格種類</b>及條件</div>
-    </div>
-    <div class="item-card">
-      <div class="item-no">4</div>
-      <div class="item-text"><b>估價目的</b></div>
-    </div>
-    <div class="item-card wide" style="border:1.5px solid var(--red);background:#FEF3F0">
-      <div class="item-no" style="background:#A8402B">✕</div>
-      <div class="item-text" style="color:var(--red)">
-        <b>不含「估價方法」</b>（方法在步驟⑥才決定）<br>
-        <b>不含「勘察日期」</b>（勘察日期 ≠ 價格日期）
+    <div class="sub-sec-body">
+      <div class="item">
+        <div class="item-bullet" style="background:#A8402B">1</div>
+        <div class="item-txt">勘估標的的<b>內容</b></div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#A8402B">2</div>
+        <div class="item-txt"><b>價格日期</b></div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#A8402B">3</div>
+        <div class="item-txt"><b>價格種類</b>及條件</div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#A8402B">4</div>
+        <div class="item-txt"><b>估價目的</b></div>
+      </div>
+      <div class="item span2 warn">
+        <div class="item-bullet" style="background:#9B3522">✕</div>
+        <div class="item-txt">
+          <b>不含「估價方法」</b>（方法在步驟⑥才決定）<br>
+          <b>不含「勘察日期」</b>（勘察日期 ≠ 價格日期）
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- §10 步驟② 子項目 -->
-<div class="sub-section">
-  <div class="sub-section-title">
-    <span>② 擬定估價計畫</span>
-    <span class="badge">§10｜5項</span>
+<!-- ④步驟②子項目 -->
+<section>
+  <div class="sec-label">步驟② 展開｜§10</div>
+  <div class="sub-sec">
+    <div class="sub-sec-hd">
+      <div class="sub-hd-dot" style="background:#BC6E2A"></div>
+      <div class="sub-hd-title">擬定估價計畫</div>
+      <div class="sub-hd-badge">§10 共5項</div>
+    </div>
+    <div class="sub-sec-body">
+      <div class="item">
+        <div class="item-bullet" style="background:#BC6E2A">1</div>
+        <div class="item-txt">確定作業<b>步驟</b></div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#BC6E2A">2</div>
+        <div class="item-txt">預估所需<b>時間</b></div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#BC6E2A">3</div>
+        <div class="item-txt">預估所需<b>人力</b></div>
+      </div>
+      <div class="item">
+        <div class="item-bullet" style="background:#BC6E2A">4</div>
+        <div class="item-txt">預估作業<b>經費</b></div>
+      </div>
+      <div class="item span2" style="border:1.5px solid var(--green);background:#EDF5E8">
+        <div class="item-bullet" style="background:var(--green)">5</div>
+        <div class="item-txt">擬定作業<b>進度</b>表
+          <span style="color:var(--green);font-weight:700;margin-left:10px">→ 口訣：步時人費表</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="item-grid">
-    <div class="item-card">
-      <div class="item-no">1</div>
-      <div class="item-text">確定作業<b>步驟</b></div>
-    </div>
-    <div class="item-card">
-      <div class="item-no">2</div>
-      <div class="item-text">預估所需<b>時間</b></div>
-    </div>
-    <div class="item-card">
-      <div class="item-no">3</div>
-      <div class="item-text">預估所需<b>人力</b></div>
-    </div>
-    <div class="item-card">
-      <div class="item-no">4</div>
-      <div class="item-text">預估作業<b>經費</b></div>
-    </div>
-    <div class="item-card wide" style="border:1.5px solid var(--green);background:#EEF6E8">
-      <div class="item-no" style="background:var(--green)">5</div>
-      <div class="item-text">擬定作業<b>進度</b>表　　<span style="color:var(--green);font-weight:700;font-size:12px">→ 口訣：步時人費表</span></div>
-    </div>
-  </div>
-</div>
+</section>
 
-<!-- §16 報告書15項 -->
-<div class="fifteen-wrap">
-  <div class="sub-section-title">
-    <span>⑧ 報告書應載明事項</span>
-    <span class="badge">§16｜15項</span>
-  </div>
+<!-- ⑤§16 報告書15項 -->
+<section>
+  <div class="sec-label">步驟⑧ 展開｜§16報告書15項</div>
 
-  <div class="group-legend">
-    <div class="gl-item"><div class="gl-dot a"></div><span style="color:var(--red)">紅｜核心身份（①-⑦）</span></div>
-    <div class="gl-item"><div class="gl-dot b"></div><span style="color:var(--blue)">藍｜外部狀態（⑧-⑩）</span></div>
-    <div class="gl-item"><div class="gl-dot c"></div><span style="color:var(--green)">綠｜分析過程（⑪-⑬）</span></div>
-    <div class="gl-item"><div class="gl-dot d"></div><span style="color:var(--purple)">紫｜收尾（⑭-⑮）</span></div>
+  <div class="fifteen-legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div><span style="color:var(--red)">紅｜核心身份①-⑦</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--blue)"></div><span style="color:var(--blue)">藍｜外部狀態⑧-⑩</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div><span style="color:var(--green)">綠｜分析過程⑪-⑬</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--purple)"></div><span style="color:var(--purple)">紫｜收尾⑭-⑮</span></div>
   </div>
 
   <div class="fifteen-grid">
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">①</div>
       <div class="fi-char">委</div>
       <div class="fi-word">委託人</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">②</div>
       <div class="fi-char">基</div>
       <div class="fi-word">基本資料</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga star">
       <div class="fi-no">③</div>
       <div class="fi-char">日</div>
       <div class="fi-word">價格日期<br>勘察日期★</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">④</div>
       <div class="fi-char">種</div>
       <div class="fi-word">價格種類</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">⑤</div>
       <div class="fi-char">條</div>
       <div class="fi-word">估價條件</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">⑥</div>
       <div class="fi-char">目</div>
       <div class="fi-word">估價目的</div>
     </div>
-    <div class="fi-cell group-a">
+    <div class="fi ga">
       <div class="fi-no">⑦</div>
       <div class="fi-char">金</div>
-      <div class="fi-word">金額</div>
+      <div class="fi-word">估價金額</div>
     </div>
-    <div class="fi-cell group-b">
+    <div class="fi gb">
       <div class="fi-no">⑧</div>
       <div class="fi-char">他</div>
       <div class="fi-word">他項權利<br>及負擔</div>
     </div>
-    <div class="fi-cell group-b">
+    <div class="fi gb">
       <div class="fi-no">⑨</div>
       <div class="fi-char">況</div>
       <div class="fi-word">使用現況</div>
     </div>
-    <div class="fi-cell group-b">
+    <div class="fi gb">
       <div class="fi-no">⑩</div>
       <div class="fi-char">管</div>
       <div class="fi-word">法定使用<br>管制</div>
     </div>
-    <div class="fi-cell group-c">
+    <div class="fi gc">
       <div class="fi-no">⑪</div>
       <div class="fi-char">因</div>
       <div class="fi-word">價格形成<br>主要因素</div>
     </div>
-    <div class="fi-cell group-c">
+    <div class="fi gc">
       <div class="fi-no">⑫</div>
       <div class="fi-char">程</div>
       <div class="fi-word">推算過程<br>及決定理由</div>
     </div>
-    <div class="fi-cell group-c">
+    <div class="fi gc">
       <div class="fi-no">⑬</div>
       <div class="fi-char">情</div>
-      <div class="fi-word">須敘明之<br>情況</div>
+      <div class="fi-word">特殊情事<br>及限制</div>
     </div>
-    <div class="fi-cell group-d">
+    <div class="fi gd">
       <div class="fi-no">⑭</div>
       <div class="fi-char">項</div>
-      <div class="fi-word">其他必要<br>事項</div>
+      <div class="fi-word">其他應<br>載明事項</div>
     </div>
-    <div class="fi-cell group-d">
+    <div class="fi gd">
       <div class="fi-no">⑮</div>
       <div class="fi-char">師</div>
-      <div class="fi-word">估價師<br>姓名字號</div>
+      <div class="fi-word">估價師<br>簽名蓋章</div>
     </div>
   </div>
 
-  <!-- 諧音記憶法 -->
-  <div class="mnemonic-story">
-    <div class="story-label">諧音聯想記憶法（三段背）</div>
-    <div style="margin-bottom:8px">
-      🔴 <b>危機日種跳木金</b><br>
-      <span style="font-size:12px;color:var(--muted)">危（委）機（基）日（日）種（種）跳（條）木（目）金（金）→ ①-⑦核心身份</span>
-    </div>
-    <div style="margin-bottom:8px">
-      🔵 <b>他況管</b>（他家況況管不著）<br>
-      <span style="font-size:12px;color:var(--muted)">他項・現況・管制 → ⑧-⑩外部狀態</span>
-    </div>
-    <div style="margin-bottom:8px">
-      🟢 <b>因成情</b>（因為工程有情緒）<br>
-      <span style="font-size:12px;color:var(--muted)">因素分析・推算程序・情況敘明 → ⑪-⑬分析過程</span>
-    </div>
-    <div>
-      🟣 <b>項師</b>（最後找師父）<br>
-      <span style="font-size:12px;color:var(--muted)">其他項目・估價師 → ⑭-⑮收尾</span>
-    </div>
+  <!-- 故事記憶 -->
+  <div class="story-card">
+    <span class="label">📌 諧音故事記憶（15項）</span>
+    <b>委基</b>（外婆）<b>日種條目金</b>（一種條魚金）<br>
+    <b>他況管</b>（他慌管）<br>
+    <b>因程情</b>（因情程）<br>
+    <b>項師</b>（項師傅）<br><br>
+    <span style="color:var(--muted);font-size:12px">
+      💡 故事：<b>外婆</b>去魚市，買了<b>一種條魚加金</b>魚，<b>他慌忙去管</b>理，<b>因為情況</b>有變，最後請<b>項師傅</b>來處理。<br>
+      → 委・基・日・種・條・目・金 ｜ 他・況・管 ｜ 因・程・情 ｜ 項・師
+    </span>
   </div>
-
-  <div style="background:#FEF3F0;border:1.5px solid var(--red);border-radius:8px;
-    padding:10px 14px;margin-top:10px;font-size:12.5px;line-height:1.8;color:var(--red)">
-    ⚠️ <b>第③項「日」</b>：同時含「價格日期」＋「勘察日期」（兩個日期都在這一項）<br>
-    ⚠️ <b>行政/強制執行</b>委託案：不受前二項限制 → 15項＋必要圖說同時豁免
-  </div>
-</div>
+</section>
 
 </main>
 
-<a id="hub" href="估價備考指揮中心.html" title="回備考指揮中心">🏠</a>
+<a id="hub" href="估價備考指揮中心.html" title="返回指揮中心">⌂</a>
 
 </body>
 </html>
