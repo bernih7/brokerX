@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土地法定義填空練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root[data-theme="light"]{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+  color-scheme:light;
+}
+:root{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
+header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 20px 20px;text-align:center}
+header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
+header .sub{font-size:13px;opacity:.85}
+
+/* nav */
+nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* main */
+main{max-width:720px;margin:0 auto;padding:20px 16px}
+.chapter{display:none}
+.chapter.active{display:block}
+.ch-title{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:14px}
+.term{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px}
+.blank-line{font-size:14px;line-height:2.2;color:var(--ink);margin-bottom:12px}
+
+/* 每個空格獨立可點擊 */
+.blank{
+  display:inline-block;
+  border-bottom:2px solid var(--red);
+  min-width:60px;
+  padding:0 4px;
+  color:transparent;
+  background:rgba(168,64,43,.08);
+  border-radius:3px;
+  vertical-align:bottom;
+  cursor:pointer;
+  user-select:none;
+  transition:color .18s, background .18s;
+  font-weight:700;
+  font-size:13.5px;
+}
+.blank:hover{background:rgba(168,64,43,.15)}
+.blank.revealed{
+  color:var(--red);
+  background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green);
+}
+.blank .blank-mask{display:inline}
+.blank.revealed .blank-mask{display:none}
+.blank .blank-val{display:none;color:var(--red)}
+.blank.revealed .blank-val{display:inline}
+
+/* 整張卡按鈕 */
+.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
+.reveal-btn:hover{background:var(--red);color:#fff}
+.reveal-all-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .15s}
+.reveal-all-btn:hover{background:var(--green);color:#fff}
+.reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
+
+.card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
+
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note.show{display:block}
+.answer-note .key{color:var(--red);font-weight:700}
+.answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.prog-bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* hub */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+/* 模式切換 tab */
+.mode-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line)}
+.mode-tab{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 0;
+  border:none;background:transparent;color:var(--muted);cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .15s}
+.mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
+
+/* 測驗模式 */
+#quiz-mode{display:none;max-width:720px;margin:0 auto;padding:20px 16px 80px}
+#quiz-mode.active{display:block}
+
+/* 章節過濾 */
+.quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
+  border-radius:99px;border:1.5px solid var(--line);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qf-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.qf-all.on{background:var(--ink);border-color:var(--ink)}
+
+/* 題卡 */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:20px 18px 16px;margin-bottom:16px}
+.qc-meta{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px}
+.qc-chapter{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px}
+.qc-counter{font-size:11px;color:var(--muted)}
+.qc-term{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;
+  color:var(--red);margin-bottom:14px;text-wrap:balance}
+.qc-blank{font-size:14px;line-height:2.4;color:var(--ink);margin-bottom:14px;
+  word-break:break-all}
+.qc-blank .blank{
+  display:inline-block;border-bottom:2px solid var(--red);
+  padding:0 3px;color:transparent;background:rgba(168,64,43,.08);
+  border-radius:3px;vertical-align:bottom;cursor:pointer;user-select:none;
+  transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
+.qc-blank .blank:hover{background:rgba(168,64,43,.15)}
+.qc-blank .blank.revealed{color:var(--red);background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green)}
+.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
+  border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
+.qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
+.qc-btn-reveal:hover{background:var(--red);color:#fff}
+.qc-btn-all{border-color:var(--green);color:var(--green);background:transparent}
+.qc-btn-all:hover{background:var(--green);color:#fff}
+.qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
+.qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-btn-prev{border-color:var(--muted);color:var(--muted);background:transparent}
+.qc-btn-prev:hover{background:var(--muted);color:#fff}
+.qc-btn-prev:disabled{opacity:.3;cursor:default}
+.qc-btn-prev:disabled:hover{background:transparent;color:var(--muted)}
+.qc-answer{display:none;margin-top:10px;padding:10px 14px;
+  background:rgba(92,122,74,.12);border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85}
+.qc-answer.show{display:block}
+.qc-answer .key{color:var(--red);font-weight:700}
+.qc-answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+.qc-exam-stat{display:none;margin-top:10px;padding:6px 12px;
+  background:var(--surface2);border:1px solid var(--line);border-radius:8px;
+  font-size:12px;color:var(--muted);text-align:center;letter-spacing:.3px}
+.qc-exam-stat.show{display:block}
+.qc-exam-stat strong{color:var(--ink)}
+/* 主題切換按鈕 */
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
+.quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
+.quiz-done-banner .big{font-size:48px;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
+<header>
+  <h1>土地法概要｜定義填空練習</h1>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 150 題・22 章</div><div style="font-size:11px;opacity:.75;margin-top:6px">內容取自土地法重點筆記（已更正版）；出題次數為關鍵詞比對99–114年題目的估計值</div>
+</header>
+
+<div class="mode-tabs">
+  <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
+  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+</div>
+
+<nav id="nav"></nav>
+
+<main id="main"></main>
+
+<div id="quiz-mode">
+  <div class="quiz-filter" id="quiz-filter"></div>
+  <div class="quiz-progress" id="quiz-progress"></div>
+  <div id="quiz-card-area"></div>
+</div>
+
+<a id="hub" href="%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
+
+<script>
+const DATA = [
+ {
+  "id": "A1",
+  "label": "A1 總則",
+  "cards": [
+   {
+    "term": "土地分類（§2）",
+    "blank": "土地依使用分為___、___、___、___四大類。",
+    "answer": "土地依使用分為<span class=\"key\">建築用地</span>、<span class=\"key\">直接生產用地</span>、<span class=\"key\">交通水利用地</span>、<span class=\"key\">其他土地</span>四大類。",
+    "src": "土地法§2",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "不得私有之土地（§14）",
+    "blank": "不得私有之土地（如礦泉地、瀑布地、名勝古蹟）若已成為私有，應___；私有土地所有權消滅者，歸屬___（§10）。",
+    "answer": "不得私有之土地（如礦泉地、瀑布地、名勝古蹟）若已成為私有，應<span class=\"key\">依法徵收</span>；私有土地所有權消滅者，歸屬<span class=\"key\">國有</span>（§10）。",
+    "src": "土地法§10、§14",
+    "mc": 2,
+    "essay": 1
+   },
+   {
+    "term": "外國人不得取得之土地（§17）★陷阱",
+    "blank": "不得移轉、設定負擔或租賃於外國人之土地：___、___、___、___、___、___、要塞軍備區域及領域邊境土地。（___不在內）",
+    "answer": "不得移轉、設定負擔或租賃於外國人之土地：<span class=\"key\">林地</span>、<span class=\"key\">漁地</span>、<span class=\"key\">狩獵地</span>、<span class=\"key\">鹽地</span>、<span class=\"key\">礦地</span>、<span class=\"key\">水源地</span>、要塞軍備區域及領域邊境土地。（<span class=\"key\">牧地</span>不在內）",
+    "src": "土地法§17（口訣：林漁狩鹽礦水）",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "外國人繼承取得（§17）",
+    "blank": "外國人因繼承取得§17限制土地者，應於登記後___年內出售與本國人，逾期___。",
+    "answer": "外國人因繼承取得§17限制土地者，應於登記後<span class=\"key\">3</span>年內出售與本國人，逾期<span class=\"key\">公開標售</span>。",
+    "src": "土地法§17",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "外國人取得土地之核准機關（§20）",
+    "blank": "外國人取得土地，一般應向土地所在地___申請核准；為重大建設、整體經濟或農牧經營之投資者，應先經___同意。",
+    "answer": "外國人取得土地，一般應向土地所在地<span class=\"key\">直轄市或縣（市）政府</span>申請核准；為重大建設、整體經濟或農牧經營之投資者，應先經<span class=\"key\">中央目的事業主管機關</span>同意。",
+    "src": "土地法§20",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "登記損害賠償（§68～71）",
+    "blank": "地政機關應於登記費內提存___作登記儲金專備賠償；登記人員___者，由地政機關先賠償再由該人員___（非連帶）；被拒賠得向___起訴。",
+    "answer": "地政機關應於登記費內提存<span class=\"key\">10%</span>作登記儲金專備賠償；登記人員<span class=\"key\">重大過失</span>者，由地政機關先賠償再由該人員<span class=\"key\">償還</span>（非連帶）；被拒賠得向<span class=\"key\">司法機關</span>起訴。",
+    "src": "土地法§68、§70、§71",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "私有建築用地面積限制",
+    "blank": "直轄市、縣市政府得限制尚未建築之私有建築用地所有面積最高額，以___為限；超額逾期未出售或使用者，得___。",
+    "answer": "直轄市、縣市政府得限制尚未建築之私有建築用地所有面積最高額，以<span class=\"key\">十公畝</span>為限；超額逾期未出售或使用者，得<span class=\"key\">照價收買</span>。",
+    "src": "平均地權條例",
+    "mc": 0,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "A2",
+  "label": "A2 土地登記",
+  "cards": [
+   {
+    "term": "免納登記費之登記（§78）",
+    "blank": "免納登記費：___、___、___（含預告）、___、滅失登記、住址變更登記、書狀換給補給、___。",
+    "answer": "免納登記費：<span class=\"key\">總登記</span>、<span class=\"key\">更正登記</span>、<span class=\"key\">限制登記</span>（含預告）、<span class=\"key\">消滅登記</span>、滅失登記、住址變更登記、書狀換給補給、<span class=\"key\">土地重劃變更登記</span>。",
+    "src": "土地法§78",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "繼承登記與登記費★陷阱",
+    "blank": "___與___不免登記費；一般權利變更登記按申報地價或權利價值___繳納。",
+    "answer": "<span class=\"key\">繼承登記</span>與<span class=\"key\">共有物分割登記</span>不免登記費；一般權利變更登記按申報地價或權利價值<span class=\"key\">千分之一</span>繳納。",
+    "src": "土地法規定",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "預告登記可保全之請求權（§79-1）",
+    "blank": "預告登記保全：土地權利___之請求權、權利___之請求權、___之請求權；由請求權人檢附登記名義人___單獨申請，___登記費。",
+    "answer": "預告登記保全：土地權利<span class=\"key\">移轉或使其消滅</span>之請求權、權利<span class=\"key\">內容或次序變更</span>之請求權、<span class=\"key\">附條件或期限</span>之請求權；由請求權人檢附登記名義人<span class=\"key\">同意書</span>單獨申請，<span class=\"key\">免納</span>登記費。",
+    "src": "土地法§79-1",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "預告登記之排除效力（§79-1）★高頻",
+    "blank": "預告登記對於因___、___或___而為新登記者，___排除效力（繼承不在條文所列）。",
+    "answer": "預告登記對於因<span class=\"key\">徵收</span>、<span class=\"key\">法院判決</span>或<span class=\"key\">強制執行</span>而為新登記者，<span class=\"key\">無</span>排除效力（繼承不在條文所列）。",
+    "src": "土地法§79-1",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "逾期未辦繼承登記（§73-1）",
+    "blank": "繼承開始___未辦→公告___→逾期列冊管理___年→移請___公開標售；價款逾___年無人領取歸屬國庫。",
+    "answer": "繼承開始<span class=\"key\">逾1年</span>未辦→公告<span class=\"key\">3個月</span>→逾期列冊管理<span class=\"key\">15</span>年→移請<span class=\"key\">財政部國有財產署</span>公開標售；價款逾<span class=\"key\">10</span>年無人領取歸屬國庫。",
+    "src": "土地法§73-1",
+    "mc": 11,
+    "essay": 0
+   },
+   {
+    "term": "標售之優先購買順序（§73-1）",
+    "blank": "繼承登記標售，標售前公告___，決標後___日內，依序有優先購買權者：___、___、___。",
+    "answer": "繼承登記標售，標售前公告<span class=\"key\">3個月</span>，決標後<span class=\"key\">30</span>日內，依序有優先購買權者：<span class=\"key\">繼承人</span>、<span class=\"key\">合法使用人</span>、<span class=\"key\">其他共有人</span>。",
+    "src": "土地法§73-1",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "地籍重測★陷阱",
+    "blank": "重測原因為地籍原圖___、___、___；___不是重測原因；重測結果公告___日；界址爭議調處不服者，應於接到通知後___日內向司法機關起訴。",
+    "answer": "重測原因為地籍原圖<span class=\"key\">破損</span>、<span class=\"key\">滅失</span>、<span class=\"key\">比例尺變更</span>；<span class=\"key\">界址糾紛</span>不是重測原因；重測結果公告<span class=\"key\">30</span>日；界址爭議調處不服者，應於接到通知後<span class=\"key\">15</span>日內向司法機關起訴。",
+    "src": "土地法§46-1、§59",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "限制登記之種類（§78第8款）",
+    "blank": "限制登記是限制登記名義人處分其土地權利之登記，包括___、___、___、___、破產登記等。",
+    "answer": "限制登記是限制登記名義人處分其土地權利之登記，包括<span class=\"key\">預告登記</span>、<span class=\"key\">查封</span>、<span class=\"key\">假扣押</span>、<span class=\"key\">假處分</span>、破產登記等。",
+    "src": "土地法§78",
+    "mc": 7,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "A3",
+  "label": "A3 共有土地優先購買權",
+  "cards": [
+   {
+    "term": "共有土地處分多數決（§34-1）",
+    "blank": "共有人處分、變更及設定地上權、農育權、不動產役權、典權，應以___及其___同意；或___者，其人數不予計算。",
+    "answer": "共有人處分、變更及設定地上權、農育權、不動產役權、典權，應以<span class=\"key\">共有人過半數</span>及其<span class=\"key\">應有部分合計過半數</span>同意；或<span class=\"key\">應有部分合計逾三分之二</span>者，其人數不予計算。",
+    "src": "土地法§34-1",
+    "mc": 10,
+    "essay": 1
+   },
+   {
+    "term": "34-1不適用多數決之情形",
+    "blank": "設定___不適用§34-1多數決，須___共有人同意；處分前應以___他共有人，不能通知者應___。",
+    "answer": "設定<span class=\"key\">抵押權</span>不適用§34-1多數決，須<span class=\"key\">全體</span>共有人同意；處分前應以<span class=\"key\">書面通知</span>他共有人，不能通知者應<span class=\"key\">公告（公示催告）</span>。",
+    "src": "土地法§34-1",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "34-1優先購買權：期間與效力",
+    "blank": "共有人出賣應有部分，他共有人得以同一價格優先承購；不表示視為放棄之期間為___日；性質為___效力。",
+    "answer": "共有人出賣應有部分，他共有人得以同一價格優先承購；不表示視為放棄之期間為<span class=\"key\">15</span>日；性質為<span class=\"key\">債權</span>效力。",
+    "src": "土地法§34-1",
+    "mc": 4,
+    "essay": 1
+   },
+   {
+    "term": "104條基地、房屋優先購買權",
+    "blank": "基地出賣：___、___、___有優先購買權；房屋出賣：___有優先購買權；___日內不表示視為放棄；___無此權利。",
+    "answer": "基地出賣：<span class=\"key\">地上權人</span>、<span class=\"key\">典權人</span>、<span class=\"key\">承租人</span>有優先購買權；房屋出賣：<span class=\"key\">基地所有權人</span>有優先購買權；<span class=\"key\">10</span>日內不表示視為放棄；<span class=\"key\">抵押權人</span>無此權利。",
+    "src": "土地法§104",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "34-1 與 104/107 條期間比較★陷阱",
+    "blank": "共有人優購期間___日；基地房屋§104、耕地§107優購期間均為___日。",
+    "answer": "共有人優購期間<span class=\"key\">15</span>日；基地房屋§104、耕地§107優購期間均為<span class=\"key\">10</span>日。",
+    "src": "土地法§34-1、§104、§107",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "耕地優先購買權（§107 vs 三七五§15）",
+    "blank": "土地法§107耕地承租人優購權為___效力；三七五減租條例§15承租人優購權為___效力，違反者得請求___。",
+    "answer": "土地法§107耕地承租人優購權為<span class=\"key\">債權</span>效力；三七五減租條例§15承租人優購權為<span class=\"key\">物權</span>效力，違反者得請求<span class=\"key\">塗銷登記</span>。",
+    "src": "土地法§107、三七五§15",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "區分所有建物之例外",
+    "blank": "區分所有建物專有部分連同其基地應有部分___同一人時，___§34-1優先購買規定。",
+    "answer": "區分所有建物專有部分連同其基地應有部分<span class=\"key\">一併移轉</span>同一人時，<span class=\"key\">不適用</span>§34-1優先購買規定。",
+    "src": "土地法§34-1",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "A4",
+  "label": "A4 房屋及基地租賃",
+  "cards": [
+   {
+    "term": "房屋租金上限（§97）",
+    "blank": "城市地方房屋租金，以不超過土地及建築物______為限，超過者得強制減定。",
+    "answer": "城市地方房屋租金，以不超過土地及建築物<span class=\"key\">申報總價</span><span class=\"key\">年息10%</span>為限，超過者得強制減定。",
+    "src": "土地法§97",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "租賃擔保金上限（§99）",
+    "blank": "以現金為租賃擔保者，視為租金之一部，金額不得超過___個月租金總額。",
+    "answer": "以現金為租賃擔保者，視為租金之一部，金額不得超過<span class=\"key\">2</span>個月租金總額。",
+    "src": "土地法§99",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "房屋出租人收回事由（§100）",
+    "blank": "出租人收回房屋事由：①收回___或重新建築；②承租人___；③積欠租金達___；④供違法使用；⑤損壞房屋不為賠償；⑥___。",
+    "answer": "出租人收回房屋事由：①收回<span class=\"key\">自住</span>或重新建築；②承租人<span class=\"key\">違反租賃契約</span>；③積欠租金達<span class=\"key\">2個月</span>；④供違法使用；⑤損壞房屋不為賠償；⑥<span class=\"key\">轉租</span>。",
+    "src": "土地法§100",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "基地出租人收回事由（§103）",
+    "blank": "出租人非因：年限___、供___、___、積欠租金達___總額、承租人___（共五款），不得收回基地。",
+    "answer": "出租人非因：年限<span class=\"key\">屆滿</span>、供<span class=\"key\">違法使用</span>、<span class=\"key\">轉租</span>、積欠租金達<span class=\"key\">2年</span>總額、承租人<span class=\"key\">違反租賃契約</span>（共五款），不得收回基地。",
+    "src": "土地法§103",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "租用基地建築房屋之登記（§102）",
+    "blank": "租用基地建築房屋者，應由出租人與承租人於契約訂立後___內，會同聲請地政機關為___登記。",
+    "answer": "租用基地建築房屋者，應由出租人與承租人於契約訂立後<span class=\"key\">2個月</span>內，會同聲請地政機關為<span class=\"key\">地上權</span>登記。",
+    "src": "土地法§102",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "不可抗力與租金（§106）",
+    "blank": "因___致租金收益減少或全無者，承租人得請求___租金。",
+    "answer": "因<span class=\"key\">不可抗力</span>致租金收益減少或全無者，承租人得請求<span class=\"key\">減少或免除</span>租金。",
+    "src": "土地法§106",
+    "mc": 0,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "A5",
+  "label": "A5 公有土地",
+  "cards": [
+   {
+    "term": "公有土地處分限制（§25）★高頻",
+    "blank": "政府對所管公有土地，非經該管區內___同意，並經___核准，不得處分、設定負擔或為超過___年之租賃。",
+    "answer": "政府對所管公有土地，非經該管區內<span class=\"key\">民意機關</span>同意，並經<span class=\"key\">行政院</span>核准，不得處分、設定負擔或為超過<span class=\"key\">10</span>年之租賃。",
+    "src": "土地法§25",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "不受§25限制之土地",
+    "blank": "依法以___、___、___取得之土地，得隨時公開出售，不受§25限制。",
+    "answer": "依法以<span class=\"key\">照價收買</span>、<span class=\"key\">區段徵收</span>、<span class=\"key\">一般徵收</span>取得之土地，得隨時公開出售，不受§25限制。",
+    "src": "平均地權條例",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "公有土地撥用",
+    "blank": "各級政府機關需用公有土地，應商同該管___，層請___核准撥用。",
+    "answer": "各級政府機關需用公有土地，應商同該管<span class=\"key\">直轄市或縣（市）政府</span>，層請<span class=\"key\">行政院</span>核准撥用。",
+    "src": "土地法",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "公有土地與國有土地關係",
+    "blank": "公有土地___國有、直轄市有、縣（市）有、鄉（鎮、市）有土地，故公有土地範圍___國有土地。",
+    "answer": "公有土地<span class=\"key\">包含</span>國有、直轄市有、縣（市）有、鄉（鎮、市）有土地，故公有土地範圍<span class=\"key\">大於</span>國有土地。",
+    "src": "土地法§4",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "台糖公司土地★陷阱",
+    "blank": "台灣糖業股份有限公司（公司化之公營事業）所有土地屬於___土地，不是公有土地。",
+    "answer": "台灣糖業股份有限公司（公司化之公營事業）所有土地屬於<span class=\"key\">私有</span>土地，不是公有土地。",
+    "src": "土地法§4",
+    "mc": 2,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "B1",
+  "label": "B1 區域計畫法／非都市",
+  "cards": [
+   {
+    "term": "區域計畫法立法目的★陷阱",
+    "blank": "區域計畫法目的：促進土地及天然資源之___、___之合理分布；「促進市鎮鄉街有計畫之___」則是___目的。",
+    "answer": "區域計畫法目的：促進土地及天然資源之<span class=\"key\">保育利用</span>、<span class=\"key\">人口及產業活動</span>之合理分布；「促進市鎮鄉街有計畫之<span class=\"key\">均衡發展</span>」則是<span class=\"key\">都市計畫法</span>目的。",
+    "src": "區域計畫法§1",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "非都市土地分區與使用地數量",
+    "blank": "非都市土地使用分區共___種；使用地編定共___種；中央主管機關為___。",
+    "answer": "非都市土地使用分區共<span class=\"key\">11</span>種；使用地編定共<span class=\"key\">19</span>種；中央主管機關為<span class=\"key\">內政部</span>。",
+    "src": "非都市土地使用管制規則",
+    "mc": 10,
+    "essay": 0
+   },
+   {
+    "term": "建蔽率與容積率（非都市）★數字",
+    "blank": "甲、乙種建築用地建蔽率___、容積率___；丙種___／___；丁種___／___。",
+    "answer": "甲、乙種建築用地建蔽率<span class=\"key\">60%</span>、容積率<span class=\"key\">240%</span>；丙種<span class=\"key\">40%</span>／<span class=\"key\">120%</span>；丁種<span class=\"key\">70%</span>／<span class=\"key\">300%</span>。",
+    "src": "非都市土地使用管制規則§9",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "開發規模門檻",
+    "blank": "開發社區達___以上變更為鄉村區；遊憩設施達___公頃、高爾夫球場___公頃、其他開發___公頃變更為特定專用區；工業使用___公頃變更為工業區。",
+    "answer": "開發社區達<span class=\"key\">50戶或1公頃</span>以上變更為鄉村區；遊憩設施達<span class=\"key\">5</span>公頃、高爾夫球場<span class=\"key\">10</span>公頃、其他開發<span class=\"key\">2</span>公頃變更為特定專用區；工業使用<span class=\"key\">10</span>公頃變更為工業區。",
+    "src": "非都市土地使用管制規則",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "違反使用管制之處罰（§21、§22）",
+    "blank": "違規使用處___以上___以下罰鍰，得限期變更、停止使用或拆除，可___處罰；不依限變更者（§22）另得處___以下有期徒刑或拘役。",
+    "answer": "違規使用處<span class=\"key\">6萬</span>以上<span class=\"key\">30萬</span>以下罰鍰，得限期變更、停止使用或拆除，可<span class=\"key\">按次</span>處罰；不依限變更者（§22）另得處<span class=\"key\">6個月</span>以下有期徒刑或拘役。",
+    "src": "區域計畫法§21、§22",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "區域計畫公告後之程序",
+    "blank": "區域計畫公告後，主管機關應製定非都市土地___並編定各種使用地；擬定機關接核定公文之日起___日內公告實施。",
+    "answer": "區域計畫公告後，主管機關應製定非都市土地<span class=\"key\">使用分區圖</span>並編定各種使用地；擬定機關接核定公文之日起<span class=\"key\">40</span>日內公告實施。",
+    "src": "區域計畫法",
+    "mc": 3,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "B2",
+  "label": "B2 都市計畫法",
+  "cards": [
+   {
+    "term": "市鎮計畫門檻",
+    "blank": "市鎮計畫：人口集居達___人，且工商業人口占就業總人口___以上之地區。",
+    "answer": "市鎮計畫：人口集居達<span class=\"key\">3,000</span>人，且工商業人口占就業總人口<span class=\"key\">50%</span>以上之地區。",
+    "src": "都市計畫法",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "主要計畫核定程序",
+    "blank": "主要計畫：委員會審議→公開展覽___天並舉行說明會→核定；直轄市、縣政府所在地、縣轄市由___核定；鎮、鄉街由___核定；接核定公文___日內發布。",
+    "answer": "主要計畫：委員會審議→公開展覽<span class=\"key\">30</span>天並舉行說明會→核定；直轄市、縣政府所在地、縣轄市由<span class=\"key\">內政部</span>核定；鎮、鄉街由<span class=\"key\">縣政府</span>核定；接核定公文<span class=\"key\">30</span>日內發布。",
+    "src": "都市計畫法",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "主要計畫實施進度",
+    "blank": "主要計畫實施進度以___年為一期，最長不得超過___年；通盤檢討每___至少一次。",
+    "answer": "主要計畫實施進度以<span class=\"key\">5</span>年為一期，最長不得超過<span class=\"key\">25</span>年；通盤檢討每<span class=\"key\">3年或5年</span>至少一次。",
+    "src": "都市計畫法",
+    "mc": 2,
+    "essay": 1
+   },
+   {
+    "term": "第一期發展地區★陷阱",
+    "blank": "第一期發展地區：主要計畫發布後最多___年內完成細部計畫；細部計畫發布後最多___年內完成公共設施建設。",
+    "answer": "第一期發展地區：主要計畫發布後最多<span class=\"key\">2</span>年內完成細部計畫；細部計畫發布後最多<span class=\"key\">5</span>年內完成公共設施建設。",
+    "src": "都市計畫法",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "計畫圖比例尺",
+    "blank": "主要計畫圖比例尺不得小於___；細部計畫圖比例尺不得小於___。",
+    "answer": "主要計畫圖比例尺不得小於<span class=\"key\">萬分之一</span>；細部計畫圖比例尺不得小於<span class=\"key\">1,200分之1</span>。",
+    "src": "都市計畫法",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "公共設施用地設置標準",
+    "blank": "公園、體育場所、綠地、廣場、兒童遊樂場占用土地總面積不得少於全部計畫面積___。",
+    "answer": "公園、體育場所、綠地、廣場、兒童遊樂場占用土地總面積不得少於全部計畫面積<span class=\"key\">10%</span>。",
+    "src": "都市計畫法",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "公共設施保留地之補償與稅",
+    "blank": "保留地地價補償按___平均公告土地現值，加成最高不超過___；建築使用統按___徵地價稅；未取得前得申請___使用。",
+    "answer": "保留地地價補償按<span class=\"key\">毗鄰非公共設施保留地</span>平均公告土地現值，加成最高不超過<span class=\"key\">40%</span>；建築使用統按<span class=\"key\">6‰</span>徵地價稅；未取得前得申請<span class=\"key\">臨時建築</span>使用。",
+    "src": "都市計畫法、土地稅法§19",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "保留地之稅捐優惠",
+    "blank": "保留地未使用且與使用中土地___者免徵___；尚未被徵收前之移轉免徵___。",
+    "answer": "保留地未使用且與使用中土地<span class=\"key\">隔離</span>者免徵<span class=\"key\">地價稅</span>；尚未被徵收前之移轉免徵<span class=\"key\">土地增值稅</span>。",
+    "src": "土地稅法",
+    "mc": 0,
+    "essay": 3
+   },
+   {
+    "term": "容積移轉不適用情形★陷阱",
+    "blank": "容積移轉適用：保留地取得、___提供、___保存；「___之保護」不屬之。",
+    "answer": "容積移轉適用：保留地取得、<span class=\"key\">公共開放空間</span>提供、<span class=\"key\">歷史建築</span>保存；「<span class=\"key\">農業用地</span>之保護」不屬之。",
+    "src": "都市計畫法§83-1",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "迅行變更事由★陷阱",
+    "blank": "迅行變更：重大事變___、避免重大___、適應___需要、配合重大設施；「土地權利人權利遭受___」不是事由。",
+    "answer": "迅行變更：重大事變<span class=\"key\">毀損</span>、避免重大<span class=\"key\">災害</span>、適應<span class=\"key\">國防或經濟發展</span>需要、配合重大設施；「土地權利人權利遭受<span class=\"key\">重大損失</span>」不是事由。",
+    "src": "都市計畫法",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "都市更新三種方式",
+    "blank": "都更：___（拆除重新建築）、___（保持良好狀況）、___（強制修建）；不願參加權利變換領現金者減徵土增稅___。",
+    "answer": "都更：<span class=\"key\">重建</span>（拆除重新建築）、<span class=\"key\">整建</span>（保持良好狀況）、<span class=\"key\">維護</span>（強制修建）；不願參加權利變換領現金者減徵土增稅<span class=\"key\">40%</span>。",
+    "src": "都市更新條例",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "B3",
+  "label": "B3 國土計畫法",
+  "cards": [
+   {
+    "term": "國土功能分區",
+    "blank": "國土功能分區四大類：___、___、___、___。",
+    "answer": "國土功能分區四大類：<span class=\"key\">國土保育地區</span>、<span class=\"key\">海洋資源地區</span>、<span class=\"key\">農業發展地區</span>、<span class=\"key\">城鄉發展地區</span>。",
+    "src": "國土計畫法§15",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "國土計畫主管機關",
+    "blank": "國土計畫中央主管機關為___；直轄市、縣市主管機關辦理轄區國土計畫之擬訂、公告、變更及執行。",
+    "answer": "國土計畫中央主管機關為<span class=\"key\">內政部</span>；直轄市、縣市主管機關辦理轄區國土計畫之擬訂、公告、變更及執行。",
+    "src": "國土計畫法§4",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "使用許可之核定（中央）",
+    "blank": "___、___使用許可、許可變更及廢止之核定，由___主管機關辦理。",
+    "answer": "<span class=\"key\">國土保育地區</span>、<span class=\"key\">海洋資源地區</span>使用許可、許可變更及廢止之核定，由<span class=\"key\">中央</span>主管機關辦理。",
+    "src": "國土計畫法§21",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "使用許可之核定（地方）",
+    "blank": "___、___使用許可、許可變更及廢止之核定，由___主管機關辦理。",
+    "answer": "<span class=\"key\">農業發展地區</span>、<span class=\"key\">城鄉發展地區</span>使用許可、許可變更及廢止之核定，由<span class=\"key\">直轄市、縣市</span>主管機關辦理。",
+    "src": "國土計畫法§21",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "國土功能分區圖公告期限",
+    "blank": "縣市國土計畫公告實施後___年內，依中央指定日期公告___。",
+    "answer": "縣市國土計畫公告實施後<span class=\"key\">1</span>年內，依中央指定日期公告<span class=\"key\">國土功能分區圖</span>。",
+    "src": "國土計畫法§45",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "C1",
+  "label": "C1 規定地價",
+  "cards": [
+   {
+    "term": "規定地價程序",
+    "blank": "分區調查最近___年土地買賣價格或收益價格→評議委員會評定→公告地價並接受申報，公告期間___日；每___年重新規定地價一次。",
+    "answer": "分區調查最近<span class=\"key\">1</span>年土地買賣價格或收益價格→評議委員會評定→公告地價並接受申報，公告期間<span class=\"key\">30</span>日；每<span class=\"key\">2</span>年重新規定地價一次。",
+    "src": "平均地權條例",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "申報地價範圍",
+    "blank": "申報地價在公告地價___～___範圍內；超過120%按___；未滿80%得___或按80%。",
+    "answer": "申報地價在公告地價<span class=\"key\">80%</span>～<span class=\"key\">120%</span>範圍內；超過120%按<span class=\"key\">120%</span>；未滿80%得<span class=\"key\">照價收買</span>或按80%。",
+    "src": "平均地權條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "未申報地價之處理",
+    "blank": "未於公告期間申報地價者，以公告地價___為其申報地價。",
+    "answer": "未於公告期間申報地價者，以公告地價<span class=\"key\">80%</span>為其申報地價。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "公告地價與公告土地現值",
+    "blank": "公告地價為課___之依據，配合___年重新規定；公告土地現值為課___之依據，每年___次（___）公告。",
+    "answer": "公告地價為課<span class=\"key\">地價稅</span>之依據，配合<span class=\"key\">2</span>年重新規定；公告土地現值為課<span class=\"key\">土地增值稅</span>之依據，每年<span class=\"key\">1</span>次（<span class=\"key\">1月1日</span>）公告。",
+    "src": "平均地權條例",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "累進起點地價",
+    "blank": "累進起點地價：扣除___、___、___及免稅土地後，以___之平均地價為準。",
+    "answer": "累進起點地價：扣除<span class=\"key\">工業用地</span>、<span class=\"key\">礦業用地</span>、<span class=\"key\">農業用地</span>及免稅土地後，以<span class=\"key\">七公畝</span>之平均地價為準。",
+    "src": "土地稅法",
+    "mc": 1,
+    "essay": 2
+   }
+  ]
+ },
+ {
+  "id": "C2",
+  "label": "C2 市地重劃",
+  "cards": [
+   {
+    "term": "十項共同負擔公共設施用地",
+    "blank": "重劃共同負擔：道路、溝渠、___、___、___、___、___、廣場、綠地、___（共十項）。",
+    "answer": "重劃共同負擔：道路、溝渠、<span class=\"key\">兒童遊樂場</span>、<span class=\"key\">鄰里公園</span>、<span class=\"key\">國民小學</span>、<span class=\"key\">國民中學</span>、<span class=\"key\">停車場</span>、廣場、綠地、<span class=\"key\">零售市場</span>（共十項）。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "不屬十項之用地★陷阱",
+    "blank": "___、___不屬於法定共同負擔十項用地。",
+    "answer": "<span class=\"key\">機關用地</span>、<span class=\"key\">國民住宅用地</span>不屬於法定共同負擔十項用地。",
+    "src": "平均地權條例",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "抵費地",
+    "blank": "抵費地為抵付重劃負擔保留之土地，出售___土地增值稅；直轄市有之抵費地得由市府___。",
+    "answer": "抵費地為抵付重劃負擔保留之土地，出售<span class=\"key\">不計徵</span>土地增值稅；直轄市有之抵費地得由市府<span class=\"key\">自行公開標售</span>。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "重劃禁限期間",
+    "blank": "重劃地區選定後公告禁止移轉、分割、新建等，禁止期間最長不得超過___；已領建照並開工者得___。",
+    "answer": "重劃地區選定後公告禁止移轉、分割、新建等，禁止期間最長不得超過<span class=\"key\">1年6個月</span>；已領建照並開工者得<span class=\"key\">繼續施工</span>。",
+    "src": "平均地權條例",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "重劃分配異議處理",
+    "blank": "對分配結果異議：先由主管機關___；調處不成報請______（§60-2），不服循___。",
+    "answer": "對分配結果異議：先由主管機關<span class=\"key\">調處</span>；調處不成報請<span class=\"key\">上級主管機關</span><span class=\"key\">裁決</span>（§60-2），不服循<span class=\"key\">行政救濟</span>。",
+    "src": "平均地權條例§60-2",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "自辦市地重劃同意門檻",
+    "blank": "自辦市地重劃須私有土地所有權人___，且其土地面積超過私有總面積___以上之同意，經主管機關核准。",
+    "answer": "自辦市地重劃須私有土地所有權人<span class=\"key\">半數以上</span>，且其土地面積超過私有總面積<span class=\"key\">半數</span>以上之同意，經主管機關核准。",
+    "src": "平均地權條例",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "出租耕地因重劃之補償",
+    "blank": "出租耕地因重劃註銷租約，承租人得請求補償：重劃計畫書公告當期公告土地現值___後餘額之___。",
+    "answer": "出租耕地因重劃註銷租約，承租人得請求補償：重劃計畫書公告當期公告土地現值<span class=\"key\">扣除預計土增稅</span>後餘額之<span class=\"key\">三分之一</span>。",
+    "src": "平均地權條例",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "重劃土增稅優惠",
+    "blank": "重劃後___，減徵土地增值稅___。",
+    "answer": "重劃後<span class=\"key\">第一次移轉</span>，減徵土地增值稅<span class=\"key\">40%</span>。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "C3",
+  "label": "C3 照價收買・空地稅",
+  "cards": [
+   {
+    "term": "空地稅與荒地稅",
+    "blank": "空地稅：按應納地價稅基本稅額加徵___；荒地稅：按應納田賦加徵___。",
+    "answer": "空地稅：按應納地價稅基本稅額加徵<span class=\"key\">2倍至5倍</span>；荒地稅：按應納田賦加徵<span class=\"key\">1倍至3倍</span>。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 1
+   },
+   {
+    "term": "荒地照價收買",
+    "blank": "荒地加徵荒地稅滿___年仍不使用者，得照價收買，收買地價以收買當期之___為準。",
+    "answer": "荒地加徵荒地稅滿<span class=\"key\">3</span>年仍不使用者，得照價收買，收買地價以收買當期之<span class=\"key\">公告土地現值</span>為準。",
+    "src": "平均地權條例",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "空地之認定",
+    "blank": "空地稅之空地：建築改良物價值不及所占基地申報地價___；土地法§87則為不及___視為空地，兩者不同。",
+    "answer": "空地稅之空地：建築改良物價值不及所占基地申報地價<span class=\"key\">10%</span>；土地法§87則為不及<span class=\"key\">20%</span>視為空地，兩者不同。",
+    "src": "平均地權條例、土地法§87",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "照價收買之時機",
+    "blank": "照價收買時機：申報地價逾___、空地逾期未建、荒地稅滿___年仍閒置、超過最高面積限額逾期未出售、依限期建築通知協議不成。",
+    "answer": "照價收買時機：申報地價逾<span class=\"key\">±20%</span>、空地逾期未建、荒地稅滿<span class=\"key\">3</span>年仍閒置、超過最高面積限額逾期未出售、依限期建築通知協議不成。",
+    "src": "平均地權條例",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "照價收買後之權屬",
+    "blank": "照價收買後之土地，歸屬___有。",
+    "answer": "照價收買後之土地，歸屬<span class=\"key\">直轄市、縣（市）</span>有。",
+    "src": "平均地權條例",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "C4",
+  "label": "C4 申報登錄・預售屋",
+  "cards": [
+   {
+    "term": "預售屋申報登錄期限",
+    "blank": "委託經紀業代銷預售屋者，應於簽訂買賣契約之日起___日內申報登錄。",
+    "answer": "委託經紀業代銷預售屋者，應於簽訂買賣契約之日起<span class=\"key\">30</span>日內申報登錄。",
+    "src": "平均地權條例§47-3",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "申報登錄罰則",
+    "blank": "申報價格或面積資訊不實或未依限申報：先___，屆期未改正處___以上___以下罰鍰並得按次處罰；已辦竣移轉登記仍未申報（§81-2）處___至___。",
+    "answer": "申報價格或面積資訊不實或未依限申報：先<span class=\"key\">限期改正</span>，屆期未改正處<span class=\"key\">6千</span>以上<span class=\"key\">3萬</span>以下罰鍰並得按次處罰；已辦竣移轉登記仍未申報（§81-2）處<span class=\"key\">3萬</span>至<span class=\"key\">15萬</span>。",
+    "src": "平均地權條例§81-2",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "登錄資訊與課稅★陷阱",
+    "blank": "政府機關對已登錄之不動產交易價格，___作為課稅依據。",
+    "answer": "政府機關對已登錄之不動產交易價格，<span class=\"key\">不當然</span>作為課稅依據。",
+    "src": "平均地權條例",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "預售屋轉售限制（§47-4）",
+    "blank": "預售屋買受人簽約後___將契約讓與或轉售；例外：___、___、___；經公告核准者全國每___年以___戶（棟）為限。",
+    "answer": "預售屋買受人簽約後<span class=\"key\">不得</span>將契約讓與或轉售；例外：<span class=\"key\">配偶</span>、<span class=\"key\">直系血親</span>、<span class=\"key\">二親等內旁系血親</span>；經公告核准者全國每<span class=\"key\">2</span>年以<span class=\"key\">1</span>戶（棟）為限。",
+    "src": "平均地權條例§47-4",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "預售屋違規處罰",
+    "blank": "買受人違規讓與或轉售契約（§81-3）處___以上___以下罰鍰；定型化契約應於___報主管機關備查。",
+    "answer": "買受人違規讓與或轉售契約（§81-3）處<span class=\"key\">50萬</span>以上<span class=\"key\">300萬</span>以下罰鍰；定型化契約應於<span class=\"key\">銷售前</span>報主管機關備查。",
+    "src": "平均地權條例§81-3",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "私法人買受住宅",
+    "blank": "私法人買受供住宅使用房屋應經___許可（合議制）；許可有效期限___年；登記後___年內不得預告登記、移轉、讓與、預售。",
+    "answer": "私法人買受供住宅使用房屋應經<span class=\"key\">中央主管機關</span>許可（合議制）；許可有效期限<span class=\"key\">1</span>年；登記後<span class=\"key\">5</span>年內不得預告登記、移轉、讓與、預售。",
+    "src": "平均地權條例§79-1",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D1",
+  "label": "D1 徵收程序與要件",
+  "cards": [
+   {
+    "term": "徵收基本原則與考量因素",
+    "blank": "徵收須符合公益性、必要性及___；評估應考量：___、___、___、___因素（___不在內）。",
+    "answer": "徵收須符合公益性、必要性及<span class=\"key\">比例原則</span>；評估應考量：<span class=\"key\">社會</span>、<span class=\"key\">經濟</span>、<span class=\"key\">文化及生態</span>、<span class=\"key\">永續發展</span>因素（<span class=\"key\">地價因素</span>不在內）。",
+    "src": "土地徵收條例",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "協議價購（§11）",
+    "blank": "徵收前需用土地人應先與所有權人___，價格以___為基準；他人之___於協議價購時不適用。",
+    "answer": "徵收前需用土地人應先與所有權人<span class=\"key\">協議價購</span>，價格以<span class=\"key\">市場正常交易價格</span>為基準；他人之<span class=\"key\">優先購買權</span>於協議價購時不適用。",
+    "src": "土地徵收條例§11",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "特定農業區徵收限制",
+    "blank": "特定農業區農牧用地原則___；例外：___或經___。",
+    "answer": "特定農業區農牧用地原則<span class=\"key\">不得徵收</span>；例外：<span class=\"key\">國防所必須</span>或經<span class=\"key\">行政院核定之重大建設</span>。",
+    "src": "土地徵收條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "聽證與公聽會",
+    "blank": "一般徵收案件舉辦___；行政院核定重大建設徵收特定農業區，所有權人有爭議者依行政程序法舉辦___。",
+    "answer": "一般徵收案件舉辦<span class=\"key\">公聽會</span>；行政院核定重大建設徵收特定農業區，所有權人有爭議者依行政程序法舉辦<span class=\"key\">聽證</span>。",
+    "src": "土地徵收條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "徵收審議機關",
+    "blank": "徵收案由___審議，採___，遴聘專家學者及民間團體代表不得少於___。",
+    "answer": "徵收案由<span class=\"key\">內政部</span>審議，採<span class=\"key\">合議制</span>，遴聘專家學者及民間團體代表不得少於<span class=\"key\">二分之一</span>。",
+    "src": "土地徵收條例",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "徵用逾期之處理",
+    "blank": "徵用期間逾___年，需用土地人應於申請徵用前___所有權人；所有權人收到通知___日內得請求___。",
+    "answer": "徵用期間逾<span class=\"key\">6</span>年，需用土地人應於申請徵用前<span class=\"key\">書面通知</span>所有權人；所有權人收到通知<span class=\"key\">30</span>日內得請求<span class=\"key\">徵收所有權</span>。",
+    "src": "土地徵收條例",
+    "mc": 0,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D2",
+  "label": "D2 徵收補償標準",
+  "cards": [
+   {
+    "term": "一般土地補償標準",
+    "blank": "徵收土地按當期___補償，必要時依地價評議委員會評定之___加成補償（一般土地___40%上限）。",
+    "answer": "徵收土地按當期<span class=\"key\">公告土地現值</span>補償，必要時依地價評議委員會評定之<span class=\"key\">市價變動幅度</span>加成補償（一般土地<span class=\"key\">無</span>40%上限）。",
+    "src": "土地徵收條例§30",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "公共設施保留地補償",
+    "blank": "公共設施保留地按毗鄰非保留地之___補償，必要時加成，最高不超過___。",
+    "answer": "公共設施保留地按毗鄰非保留地之<span class=\"key\">平均公告土地現值</span>補償，必要時加成，最高不超過<span class=\"key\">40%</span>。",
+    "src": "土地徵收條例、都計法",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "建築改良物補償",
+    "blank": "建築改良物按徵收當時之___估定。",
+    "answer": "建築改良物按徵收當時之<span class=\"key\">重建價格</span>估定。",
+    "src": "土地徵收條例",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "農作改良物補償",
+    "blank": "農作改良物與孳息成熟時間相距___按___估定；逾1年按___並參酌現值。",
+    "answer": "農作改良物與孳息成熟時間相距<span class=\"key\">1年以內</span>按<span class=\"key\">成熟時之孳息</span>估定；逾1年按<span class=\"key\">種植及培育費用</span>並參酌現值。",
+    "src": "土地徵收條例",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "地價動態調查",
+    "blank": "各直轄市縣市主管機關每___調查地價動態，提交地價評議委員會評定___。",
+    "answer": "各直轄市縣市主管機關每<span class=\"key\">6個月</span>調查地價動態，提交地價評議委員會評定<span class=\"key\">市價變動幅度</span>。",
+    "src": "土地徵收條例§30",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "先行使用之例外（公共安全急需）",
+    "blank": "因公共安全急需，___、___、___事業得先行使用；社福、環保、公衛、平價住宅事業___例外。",
+    "answer": "因公共安全急需，<span class=\"key\">國防</span>、<span class=\"key\">交通</span>、<span class=\"key\">水利</span>事業得先行使用；社福、環保、公衛、平價住宅事業<span class=\"key\">不在</span>例外。",
+    "src": "土地徵收條例",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "補償費專戶保管",
+    "blank": "補償費受領遲延等，應於期限屆滿次日起___內存入國庫專戶，視同___；逾___年未領歸屬國庫。",
+    "answer": "補償費受領遲延等，應於期限屆滿次日起<span class=\"key\">3個月</span>內存入國庫專戶，視同<span class=\"key\">補償完竣</span>；逾<span class=\"key\">15</span>年未領歸屬國庫。",
+    "src": "土地徵收條例§26",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "權利義務終止時點",
+    "blank": "被徵收土地所有權人之權利義務，於受補償___終止。",
+    "answer": "被徵收土地所有權人之權利義務，於受補償<span class=\"key\">費發給完竣時</span>終止。",
+    "src": "土地徵收條例",
+    "mc": 3,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D3",
+  "label": "D3 區段徵收",
+  "cards": [
+   {
+    "term": "抵價地比例",
+    "blank": "抵價地總面積以徵收總面積___為原則；經上級核准特殊情形不得少於___；曾經農地重劃者不得少於___。",
+    "answer": "抵價地總面積以徵收總面積<span class=\"key\">50%</span>為原則；經上級核准特殊情形不得少於<span class=\"key\">40%</span>；曾經農地重劃者不得少於<span class=\"key\">45%</span>。",
+    "src": "土地徵收條例",
+    "mc": 5,
+    "essay": 1
+   },
+   {
+    "term": "申請發給抵價地期限",
+    "blank": "原所有權人不願領現金補償者，應於___，以書面申請發給抵價地。",
+    "answer": "原所有權人不願領現金補償者，應於<span class=\"key\">徵收公告期間內</span>，以書面申請發給抵價地。",
+    "src": "土地徵收條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "抵價地第一次移轉之原地價★陷阱",
+    "blank": "計算漲價總數額之原地價，為原所有權人___（不是被徵收當期公告現值）。",
+    "answer": "計算漲價總數額之原地價，為原所有權人<span class=\"key\">實際領回抵價地之地價</span>（不是被徵收當期公告現值）。",
+    "src": "土地稅法",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "區段徵收土增稅優惠",
+    "blank": "區段徵收以___補償地價者___土增稅；領回抵價地後___減徵___。",
+    "answer": "區段徵收以<span class=\"key\">現金</span>補償地價者<span class=\"key\">免徵</span>土增稅；領回抵價地後<span class=\"key\">第一次移轉</span>減徵<span class=\"key\">40%</span>。",
+    "src": "土地稅法",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "申請抵價地者之權利義務終止",
+    "blank": "申請發給抵價地者，於抵價地___時，原所有權人權利義務終止。",
+    "answer": "申請發給抵價地者，於抵價地<span class=\"key\">點交接管</span>時，原所有權人權利義務終止。",
+    "src": "土地徵收條例",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "區段徵收整理後土地之處理",
+    "blank": "抵價地___原所有權人；國宅、安置原住戶用地得___；零售市場用地___為地方政府所有；其餘可___，標租不得逾___年。",
+    "answer": "抵價地<span class=\"key\">發還</span>原所有權人；國宅、安置原住戶用地得<span class=\"key\">讓售</span>；零售市場用地<span class=\"key\">無償登記</span>為地方政府所有；其餘可<span class=\"key\">標售、標租或設定地上權</span>，標租不得逾<span class=\"key\">99</span>年。",
+    "src": "土地徵收條例、平均地權條例§55-2",
+    "mc": 4,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D4",
+  "label": "D4 撤銷・廢止・收回權",
+  "cards": [
+   {
+    "term": "撤銷徵收",
+    "blank": "撤銷徵收適用於徵收___（如___致土地不在工程用地範圍）；由___向中央主管機關申請。",
+    "answer": "撤銷徵收適用於徵收<span class=\"key\">本身有瑕疵</span>（如<span class=\"key\">作業錯誤</span>致土地不在工程用地範圍）；由<span class=\"key\">需用土地人</span>向中央主管機關申請。",
+    "src": "土地徵收條例",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "廢止徵收",
+    "blank": "廢止徵收為徵收後___：開始使用前事業改變、計畫註銷；已使用但尚未完成使用，因情事變更已無徵收___。",
+    "answer": "廢止徵收為徵收後<span class=\"key\">情事變更</span>：開始使用前事業改變、計畫註銷；已使用但尚未完成使用，因情事變更已無徵收<span class=\"key\">必要</span>。",
+    "src": "土地徵收條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "原所有權人收回權（§49）",
+    "blank": "徵收公告之日起___年內，原所有權人得申請照原補償價額收回：補償發給完竣滿___年未使用；未依核准事業使用；使用後___不繼續使用。",
+    "answer": "徵收公告之日起<span class=\"key\">20</span>年內，原所有權人得申請照原補償價額收回：補償發給完竣滿<span class=\"key\">3</span>年未使用；未依核准事業使用；使用後<span class=\"key\">未滿5年</span>不繼續使用。",
+    "src": "土地徵收條例§49",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "收回權之繳還與適用",
+    "blank": "主管機關通知後，原所有權人應於___內繳還原補償價款，逾期視為___；___不適用收回權。",
+    "answer": "主管機關通知後，原所有權人應於<span class=\"key\">3個月</span>內繳還原補償價款，逾期視為<span class=\"key\">放棄</span>；<span class=\"key\">區段徵收</span>不適用收回權。",
+    "src": "土地徵收條例§49",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "徵收後變更使用標售（§59）",
+    "blank": "變更原使用目的標售者，應公告___，原所有權人或繼承人有___權；___不適用。",
+    "answer": "變更原使用目的標售者，應公告<span class=\"key\">1個月</span>，原所有權人或繼承人有<span class=\"key\">依同樣條件優先購買</span>權；<span class=\"key\">區段徵收</span>不適用。",
+    "src": "土地徵收條例§59",
+    "mc": 0,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "E1",
+  "label": "E1 地價稅",
+  "cards": [
+   {
+    "term": "地價稅納稅義務人★高頻",
+    "blank": "一般土地：___；設有典權：___（非出典人）；承領土地：___；承墾土地：___；信託存續中：___。",
+    "answer": "一般土地：<span class=\"key\">所有權人</span>；設有典權：<span class=\"key\">典權人</span>（非出典人）；承領土地：<span class=\"key\">承領人</span>；承墾土地：<span class=\"key\">耕作權人</span>；信託存續中：<span class=\"key\">受託人</span>。",
+    "src": "土地稅法§3",
+    "mc": 8,
+    "essay": 2
+   },
+   {
+    "term": "地價稅代繳",
+    "blank": "權屬不明、納稅義務人行蹤不明、___、所有權人申請由占有人代繳者，稽徵機關指定土地___代繳，代繳人得向納稅義務人___。",
+    "answer": "權屬不明、納稅義務人行蹤不明、<span class=\"key\">無人管理</span>、所有權人申請由占有人代繳者，稽徵機關指定土地<span class=\"key\">使用人</span>代繳，代繳人得向納稅義務人<span class=\"key\">求償</span>。",
+    "src": "土地稅法§4",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "地價稅稅率級距★高頻",
+    "blank": "基本稅率___；超過累進起點未達5倍___；5～10倍___；10～15倍___；15～20倍___；20倍以上___。",
+    "answer": "基本稅率<span class=\"key\">10‰</span>；超過累進起點未達5倍<span class=\"key\">15‰</span>；5～10倍<span class=\"key\">25‰</span>；10～15倍<span class=\"key\">35‰</span>；15～20倍<span class=\"key\">45‰</span>；20倍以上<span class=\"key\">55‰</span>。",
+    "src": "土地稅法",
+    "mc": 23,
+    "essay": 2
+   },
+   {
+    "term": "累進起點地價",
+    "blank": "累進起點地價以扣除___後，___之平均地價為準，報___備查。",
+    "answer": "累進起點地價以扣除<span class=\"key\">工業、礦業、農業用地及免稅土地</span>後，<span class=\"key\">七公畝</span>之平均地價為準，報<span class=\"key\">財政部及內政部</span>備查。",
+    "src": "土地稅法",
+    "mc": 9,
+    "essay": 2
+   },
+   {
+    "term": "自用住宅用地稅率（2‰）",
+    "blank": "自用住宅用地稅率___：都市土地面積___、非都市___以內，全國以___為限；土地所有權人本人、配偶或___辦竣戶籍。",
+    "answer": "自用住宅用地稅率<span class=\"key\">2‰</span>：都市土地面積<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>以內，全國以<span class=\"key\">一處</span>為限；土地所有權人本人、配偶或<span class=\"key\">直系親屬</span>辦竣戶籍。",
+    "src": "土地稅法",
+    "mc": 11,
+    "essay": 0
+   },
+   {
+    "term": "保留地與事業用地稅率",
+    "blank": "公共設施保留地仍為建築使用者統按___；工業、礦業等事業直接使用土地按___（___不包括在內）。",
+    "answer": "公共設施保留地仍為建築使用者統按<span class=\"key\">6‰</span>；工業、礦業等事業直接使用土地按<span class=\"key\">10‰</span>（<span class=\"key\">農業用地</span>不包括在內）。",
+    "src": "土地稅法§19",
+    "mc": 13,
+    "essay": 0
+   },
+   {
+    "term": "地價稅免徵情形",
+    "blank": "免徵：___；古蹟、歷史建築所定著土地；公共設施保留地___；政府機關、地方自治機關及合法立案私立學校用地。",
+    "answer": "免徵：<span class=\"key\">公有土地供公共使用</span>；古蹟、歷史建築所定著土地；公共設施保留地<span class=\"key\">未使用且與使用中土地隔離</span>；政府機關、地方自治機關及合法立案私立學校用地。",
+    "src": "土地稅法",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "信託與地價稅",
+    "blank": "信託關係存續中納稅義務人為___；受益人為委託人者，應與委託人同一縣市其他土地___。",
+    "answer": "信託關係存續中納稅義務人為<span class=\"key\">受託人</span>；受益人為委託人者，應與委託人同一縣市其他土地<span class=\"key\">合併計算地價總額</span>。",
+    "src": "土地稅法",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "地價稅起徵點",
+    "blank": "每年（期）地價稅每戶稅額在新臺幣___元以下者，免予課徵。",
+    "answer": "每年（期）地價稅每戶稅額在新臺幣<span class=\"key\">100</span>元以下者，免予課徵。",
+    "src": "土地稅法",
+    "mc": 0,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "E2",
+  "label": "E2 土地增值稅",
+  "cards": [
+   {
+    "term": "土增稅稅率（§33）★高頻",
+    "blank": "漲價總數額占原地價：___以下部分稅率___；超過100%至200%部分___；超過200%部分___。",
+    "answer": "漲價總數額占原地價：<span class=\"key\">100%</span>以下部分稅率<span class=\"key\">20%</span>；超過100%至200%部分<span class=\"key\">30%</span>；超過200%部分<span class=\"key\">40%</span>。",
+    "src": "土地稅法§33",
+    "mc": 10,
+    "essay": 1
+   },
+   {
+    "term": "長期持有減徵",
+    "blank": "持有土地___年以上減徵___；___年以上減徵___；___年以上減徵___（就超過第一級最低稅率部分）。",
+    "answer": "持有土地<span class=\"key\">20</span>年以上減徵<span class=\"key\">20%</span>；<span class=\"key\">30</span>年以上減徵<span class=\"key\">30%</span>；<span class=\"key\">40</span>年以上減徵<span class=\"key\">40%</span>（就超過第一級最低稅率部分）。",
+    "src": "土地稅法§33",
+    "mc": 7,
+    "essay": 1
+   },
+   {
+    "term": "自用住宅10%：一生一次",
+    "blank": "一生一次：都市土地___、非都市___以內；出售前___年內無出租或營業；本人、配偶或直系親屬辦竣戶籍；按___稅率課徵。",
+    "answer": "一生一次：都市土地<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>以內；出售前<span class=\"key\">1</span>年內無出租或營業；本人、配偶或直系親屬辦竣戶籍；按<span class=\"key\">10%</span>稅率課徵。",
+    "src": "土地稅法",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "自用住宅10%：一生一屋",
+    "blank": "一生一屋：都市土地___、非都市___以內；無自用住宅以外房屋；設戶籍並持有連續滿___年；出售前___年內無營業或出租。",
+    "answer": "一生一屋：都市土地<span class=\"key\">1.5公畝</span>、非都市<span class=\"key\">3.5公畝</span>以內；無自用住宅以外房屋；設戶籍並持有連續滿<span class=\"key\">6</span>年；出售前<span class=\"key\">5</span>年內無營業或出租。",
+    "src": "土地稅法",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "不課徵土增稅（須申請）",
+    "blank": "不課徵：___移轉自然人；___之土地；區段徵收領回抵價地不足最小建築單位而領現金者；私人捐贈社福或私校使用之土地。",
+    "answer": "不課徵：<span class=\"key\">農業用地</span>移轉自然人；<span class=\"key\">配偶相互贈與</span>之土地；區段徵收領回抵價地不足最小建築單位而領現金者；私人捐贈社福或私校使用之土地。",
+    "src": "土地稅法",
+    "mc": 9,
+    "essay": 1
+   },
+   {
+    "term": "免徵土增稅",
+    "blank": "免徵：___移轉之土地；___之土地；政府出售或贈與之公有土地；公共設施保留地___之移轉。",
+    "answer": "免徵：<span class=\"key\">繼承</span>移轉之土地；<span class=\"key\">被徵收</span>之土地；政府出售或贈與之公有土地；公共設施保留地<span class=\"key\">徵收前</span>之移轉。",
+    "src": "土地稅法",
+    "mc": 10,
+    "essay": 1
+   },
+   {
+    "term": "信託土增稅",
+    "blank": "信託成立（委託人→受託人）、受託人變更：___；受託人___：以受託人為納稅義務人；移轉給___：應課徵。",
+    "answer": "信託成立（委託人→受託人）、受託人變更：<span class=\"key\">不課徵</span>；受託人<span class=\"key\">有償移轉</span>：以受託人為納稅義務人；移轉給<span class=\"key\">委託人以外之歸屬權利人</span>：應課徵。",
+    "src": "土地稅法",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "土增稅納稅義務人",
+    "blank": "有償移轉：___；無償移轉：___；設定典權：___預繳，回贖時___退還。",
+    "answer": "有償移轉：<span class=\"key\">原所有權人</span>；無償移轉：<span class=\"key\">取得所有權人（受贈人）</span>；設定典權：<span class=\"key\">出典人</span>預繳，回贖時<span class=\"key\">無息</span>退還。",
+    "src": "土地稅法",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "申報移轉現值審核標準（§30）★高頻",
+    "blank": "訂約後30日內申報：___；逾30日：___；遺贈：___；法院判決移轉：___；法院拍賣：___。",
+    "answer": "訂約後30日內申報：<span class=\"key\">訂約日</span>；逾30日：<span class=\"key\">收件日</span>；遺贈：<span class=\"key\">遺贈人死亡日</span>；法院判決移轉：<span class=\"key\">申報人向法院起訴日</span>；法院拍賣：<span class=\"key\">拍定日</span>。",
+    "src": "土地稅法§30",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "申報與核定期限",
+    "blank": "權利人與義務人應於訂約日起___日內共同申報；稽徵機關應於收件日起___日內核定（自用住宅案件延長為___日）；繳款書收到後___日內繳納。",
+    "answer": "權利人與義務人應於訂約日起<span class=\"key\">30</span>日內共同申報；稽徵機關應於收件日起<span class=\"key\">7</span>日內核定（自用住宅案件延長為<span class=\"key\">20</span>日）；繳款書收到後<span class=\"key\">30</span>日內繳納。",
+    "src": "土地稅法",
+    "mc": 10,
+    "essay": 0
+   },
+   {
+    "term": "重購退稅",
+    "blank": "出售自用住宅用地後___年內重購且新地價較高，得退稅；重購後___年內再移轉或改作他用，應___已退稅額。",
+    "answer": "出售自用住宅用地後<span class=\"key\">2</span>年內重購且新地價較高，得退稅；重購後<span class=\"key\">5</span>年內再移轉或改作他用，應<span class=\"key\">追繳</span>已退稅額。",
+    "src": "土地稅法",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "土增稅減徵40%三情形",
+    "blank": "減徵___：①重劃後___；②區段徵收領回抵價地後___；③都市更新不願參加權利變換而領取現金。",
+    "answer": "減徵<span class=\"key\">40%</span>：①重劃後<span class=\"key\">第一次移轉</span>；②區段徵收領回抵價地後<span class=\"key\">第一次移轉</span>；③都市更新不願參加權利變換而領取現金。",
+    "src": "相關法規",
+    "mc": 4,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "F1",
+  "label": "F1 房屋稅",
+  "cards": [
+   {
+    "term": "房屋稅納稅義務人",
+    "blank": "一般房屋：___；設有典權：___；信託存續中：___；未辦保存登記、無人可徵者：使用執照／建造執照起造人，最後為___。",
+    "answer": "一般房屋：<span class=\"key\">所有人</span>；設有典權：<span class=\"key\">典權人</span>；信託存續中：<span class=\"key\">受託人</span>；未辦保存登記、無人可徵者：使用執照／建造執照起造人，最後為<span class=\"key\">現住人或管理人</span>。",
+    "src": "房屋稅條例",
+    "mc": 9,
+    "essay": 1
+   },
+   {
+    "term": "房屋標準價格評定",
+    "blank": "由___評定，縣市政府公告，每___年重新評定；因素：建造材料、耐用年數及折舊、___（___不是因素）。",
+    "answer": "由<span class=\"key\">不動產評價委員會</span>評定，縣市政府公告，每<span class=\"key\">3</span>年重新評定；因素：建造材料、耐用年數及折舊、<span class=\"key\">街道村里地段調整率</span>（<span class=\"key\">地價水準</span>不是因素）。",
+    "src": "房屋稅條例",
+    "mc": 5,
+    "essay": 1
+   },
+   {
+    "term": "房屋稅稅率：住家用",
+    "blank": "住家用：自住或公益出租人出租___（全國單戶低額自住1%）；出租達租金標準或繼承共有___；其他住家用___。",
+    "answer": "住家用：自住或公益出租人出租<span class=\"key\">1.2%</span>（全國單戶低額自住1%）；出租達租金標準或繼承共有<span class=\"key\">1.5%～2.4%</span>；其他住家用<span class=\"key\">2%～4.8%</span>。",
+    "src": "房屋稅條例§5",
+    "mc": 8,
+    "essay": 1
+   },
+   {
+    "term": "房屋稅稅率：非住家用",
+    "blank": "非住家用：營業、私人醫院、診所、自由職業事務所___；人民團體等非營業___。",
+    "answer": "非住家用：營業、私人醫院、診所、自由職業事務所<span class=\"key\">3%～5%</span>；人民團體等非營業<span class=\"key\">1.5%～2.5%</span>。",
+    "src": "房屋稅條例§5",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "房屋稅免徵與減半★陷阱",
+    "blank": "免徵（§15 Ⅰ）含___房屋、___；減半（§15 Ⅱ）含___、___直接生產自有房屋、農會倉庫、毀損30%以上未達50%。",
+    "answer": "免徵（§15 Ⅰ）含<span class=\"key\">司法保護事業</span>房屋、<span class=\"key\">無償供政府機關公用</span>；減半（§15 Ⅱ）含<span class=\"key\">政府平價配售之平民住宅</span>、<span class=\"key\">合法登記工廠</span>直接生產自有房屋、農會倉庫、毀損30%以上未達50%。",
+    "src": "房屋稅條例§15",
+    "mc": 10,
+    "essay": 1
+   },
+   {
+    "term": "房屋稅申報與異議",
+    "blank": "房屋稅籍變更應於變更之日起___日內申報；現值有異議者，於接到通知書___日內申請重行核計；房屋稅每年徵收___次。",
+    "answer": "房屋稅籍變更應於變更之日起<span class=\"key\">30</span>日內申報；現值有異議者，於接到通知書<span class=\"key\">30</span>日內申請重行核計；房屋稅每年徵收<span class=\"key\">1</span>次。",
+    "src": "房屋稅條例",
+    "mc": 3,
+    "essay": 1
+   }
+  ]
+ },
+ {
+  "id": "G1",
+  "label": "G1 契稅",
+  "cards": [
+   {
+    "term": "契稅稅率★高頻",
+    "blank": "買賣___、贈與___、占有___、典權___、交換___、分割___。",
+    "answer": "買賣<span class=\"key\">6%</span>、贈與<span class=\"key\">6%</span>、占有<span class=\"key\">6%</span>、典權<span class=\"key\">4%</span>、交換<span class=\"key\">2%</span>、分割<span class=\"key\">2%</span>。",
+    "src": "契稅條例",
+    "mc": 13,
+    "essay": 0
+   },
+   {
+    "term": "契稅納稅義務人★與直覺相反",
+    "blank": "買賣：___；贈與：___；典權：___；分割：___；占有：___。",
+    "answer": "買賣：<span class=\"key\">買受人</span>；贈與：<span class=\"key\">受贈人</span>；典權：<span class=\"key\">典權人</span>；分割：<span class=\"key\">分割人</span>；占有：<span class=\"key\">占有人</span>。",
+    "src": "契稅條例",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "契價與契稅範圍",
+    "blank": "契稅課稅基礎為當地___評定之___；已開徵土增稅之___免徵契稅（___仍課）。",
+    "answer": "契稅課稅基礎為當地<span class=\"key\">不動產評價委員會</span>評定之<span class=\"key\">標準價格</span>；已開徵土增稅之<span class=\"key\">土地</span>免徵契稅（<span class=\"key\">房屋</span>仍課）。",
+    "src": "契稅條例",
+    "mc": 11,
+    "essay": 1
+   },
+   {
+    "term": "契稅申報期限與查定",
+    "blank": "應於移轉、設典、占有發生後___日內申報；稽徵機關收到申報案件應於___日內查定應納稅額。",
+    "answer": "應於移轉、設典、占有發生後<span class=\"key\">30</span>日內申報；稽徵機關收到申報案件應於<span class=\"key\">15</span>日內查定應納稅額。",
+    "src": "契稅條例",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "契稅申報起算日",
+    "blank": "一般買賣自___；起造人名義變更自核發___日；標購公產自核發___日；法院拍賣自發給___日；糾紛自___日。",
+    "answer": "一般買賣自<span class=\"key\">訂約日</span>；起造人名義變更自核發<span class=\"key\">使用執照</span>日；標購公產自核發<span class=\"key\">產權移轉證明書</span>日；法院拍賣自發給<span class=\"key\">權利移轉證明書</span>日；糾紛自<span class=\"key\">法院判決確定</span>日。",
+    "src": "契稅條例",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "契稅罰則",
+    "blank": "逾期申報每逾___日加徵___怠報金（上限應納稅額且不超過1.5萬）；匿報、短報處應納稅額___倍至___倍罰鍰。",
+    "answer": "逾期申報每逾<span class=\"key\">3</span>日加徵<span class=\"key\">1%</span>怠報金（上限應納稅額且不超過1.5萬）；匿報、短報處應納稅額<span class=\"key\">1</span>倍至<span class=\"key\">3</span>倍罰鍰。",
+    "src": "契稅條例§24",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "契稅免徵之陷阱",
+    "blank": "領買或標購___、向___之不動產___契稅；政府機關因公務需要以公有不動產交換取得者免徵。",
+    "answer": "領買或標購<span class=\"key\">公產</span>、向<span class=\"key\">法院標購拍賣</span>之不動產<span class=\"key\">不免徵</span>契稅；政府機關因公務需要以公有不動產交換取得者免徵。",
+    "src": "契稅條例§11",
+    "mc": 5,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "H1",
+  "label": "H1 房地合一所得稅",
+  "cards": [
+   {
+    "term": "房地合一2.0稅率★高頻",
+    "blank": "境內個人持有期間：___稅率___；超過2年未逾5年___；超過5年未逾10年___；超過10年___。",
+    "answer": "境內個人持有期間：<span class=\"key\">2年以內</span>稅率<span class=\"key\">45%</span>；超過2年未逾5年<span class=\"key\">35%</span>；超過5年未逾10年<span class=\"key\">20%</span>；超過10年<span class=\"key\">15%</span>。",
+    "src": "所得稅法",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "課稅範圍與稅基",
+    "blank": "適用___以後取得之房屋、土地；所得額＝成交價額－成本－費用－依土地稅法計算之___；與綜合所得稅___計算。",
+    "answer": "適用<span class=\"key\">105年1月1日</span>以後取得之房屋、土地；所得額＝成交價額－成本－費用－依土地稅法計算之<span class=\"key\">土地漲價總數額</span>；與綜合所得稅<span class=\"key\">分開</span>計算。",
+    "src": "所得稅法",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "未提示證明之費用",
+    "blank": "個人未提示費用證明者，稽徵機關得按成交價額___計算費用，上限___元。",
+    "answer": "個人未提示費用證明者，稽徵機關得按成交價額<span class=\"key\">3%</span>計算費用，上限<span class=\"key\">30萬</span>元。",
+    "src": "所得稅法§14-6",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "自住房屋優惠",
+    "blank": "個人、配偶或___辦竣戶籍，持有並居住連續滿___年；所得___以下免稅，超過部分按___課徵。",
+    "answer": "個人、配偶或<span class=\"key\">未成年子女</span>辦竣戶籍，持有並居住連續滿<span class=\"key\">6</span>年；所得<span class=\"key\">400萬元</span>以下免稅，超過部分按<span class=\"key\">10%</span>課徵。",
+    "src": "所得稅法",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "重購退稅",
+    "blank": "出售後___年內重購自住房地者，於重購移轉登記次日起___年內申請退稅；重購後___年內改作他用或再移轉，應___。",
+    "answer": "出售後<span class=\"key\">2</span>年內重購自住房地者，於重購移轉登記次日起<span class=\"key\">5</span>年內申請退稅；重購後<span class=\"key\">5</span>年內改作他用或再移轉，應<span class=\"key\">追繳</span>。",
+    "src": "所得稅法§14-8",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "交易損失與特殊20%",
+    "blank": "交易損失得自損失發生日以後___年內之房地交易所得中扣除；因非自願因素持有___或與營利事業合建___，稅率___。",
+    "answer": "交易損失得自損失發生日以後<span class=\"key\">3</span>年內之房地交易所得中扣除；因非自願因素持有<span class=\"key\">5年以下</span>或與營利事業合建<span class=\"key\">5年內完成並銷售</span>，稅率<span class=\"key\">20%</span>。",
+    "src": "所得稅法",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "I1",
+  "label": "I1 耕地三七五減租",
+  "cards": [
+   {
+    "term": "租期與續租",
+    "blank": "耕地租期不得少於___年；租期屆滿承租人繼續耕作，出租人不即表示反對者，視為___租約。",
+    "answer": "耕地租期不得少於<span class=\"key\">6</span>年；租期屆滿承租人繼續耕作，出租人不即表示反對者，視為<span class=\"key\">續訂</span>租約。",
+    "src": "三七五減租條例",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "終止租約事由",
+    "blank": "承租人___、___、地租積欠達___總額、耕地依法變更為建地且出租人收回自建或出售，出租人得終止租約。",
+    "answer": "承租人<span class=\"key\">繼續一年以上不為耕作</span>、<span class=\"key\">轉租</span>、地租積欠達<span class=\"key\">兩年</span>總額、耕地依法變更為建地且出租人收回自建或出售，出租人得終止租約。",
+    "src": "三七五減租條例§17",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "優先承買權之效力",
+    "blank": "三七五§15出租人出賣耕地，承租人有___權，具___效力；違反者承租人得請求法院___登記。",
+    "answer": "三七五§15出租人出賣耕地，承租人有<span class=\"key\">優先承買</span>權，具<span class=\"key\">物權</span>效力；違反者承租人得請求法院<span class=\"key\">塗銷</span>登記。",
+    "src": "三七五減租條例§15",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "終止租約之補償",
+    "blank": "出租人終止租約須補償：___、尚未收穫之___，並按當期公告土地現值___後餘額之___補償承租人。",
+    "answer": "出租人終止租約須補償：<span class=\"key\">改良費用</span>、尚未收穫之<span class=\"key\">農作改良物</span>，並按當期公告土地現值<span class=\"key\">扣除預計土增稅</span>後餘額之<span class=\"key\">三分之一</span>補償承租人。",
+    "src": "三七五減租條例§17",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "租佃爭議處理程序",
+    "blank": "租佃爭議：公所耕地租佃委員會___→縣市政府租佃委員會___；非經調解、調處___；訴訟___。",
+    "answer": "租佃爭議：公所耕地租佃委員會<span class=\"key\">調解</span>→縣市政府租佃委員會<span class=\"key\">調處</span>；非經調解、調處<span class=\"key\">不得起訴</span>；訴訟<span class=\"key\">免收裁判費</span>。",
+    "src": "三七五減租條例",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "調解調處成立之執行",
+    "blank": "調解、調處成立，一方不履行義務，他方得逕向___聲請___。",
+    "answer": "調解、調處成立，一方不履行義務，他方得逕向<span class=\"key\">司法機關</span>聲請<span class=\"key\">強制執行</span>。",
+    "src": "三七五減租條例",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ }
+];
+
+// ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
+// blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
+// 兩者順序一致；額外 HTML（<br>、文字段落）原樣保留
+function buildBlankLine(blankText, answerHtml, cardKey) {
+  // 從 answer 中萃取 key 文字（按順序）
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(answerHtml)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  // 把 ___ 換成可點擊 span
+  const html = blankText.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const idx = ki;
+    ki++;
+    // 按答案字數生成底線（每字一個＿，最少2個）
+    const plainAns = ans.replace(/<[^>]+>/g,'');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val">${ans}</span></span>`;
+  });
+  return html;
+}
+
+// build nav
+const nav = document.getElementById('nav');
+const main = document.getElementById('main');
+let cardDone = {}; // cardKey -> bool
+
+// 全部隨機按鈕
+const randAllBtn = document.createElement('button');
+randAllBtn.className = 'nav-btn';
+randAllBtn.textContent = '🔀 全部隨機';
+randAllBtn.style.borderColor = 'var(--blue)';
+randAllBtn.style.color = 'var(--blue)';
+randAllBtn.onclick = () => setMode('quiz');
+nav.appendChild(randAllBtn);
+
+DATA.forEach((ch,ci)=>{
+  const btn = document.createElement('button');
+  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.textContent = ch.label;
+  btn.onclick = ()=> switchCh(ch.id);
+  nav.appendChild(btn);
+
+  const div = document.createElement('div');
+  div.className = 'chapter' + (ci===0?' active':'');
+  div.id = 'ch-'+ch.id;
+
+  const total = ch.cards.length;
+  div.innerHTML = `<div class="ch-title">${ch.label}</div>
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
+      <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
+    </div>
+    <div class="section-hint">💡 點空格顯示答案，再點收起</div>
+    ${ch.top||''}`;
+
+  ch.cards.forEach((c,i)=>{
+    const key = ch.id+'-'+i;
+    cardDone[key] = false;
+    const blankCount = (c.blank.match(/___/g)||[]).length;
+    const builtBlank = buildBlankLine(c.blank, c.answer, key);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-'+key;
+    const statParts = [];
+    if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
+    if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
+    const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+    card.innerHTML = `
+      <div class="term">${c.term}</div>
+      <div class="blank-line" id="bl-${key}">${builtBlank}</div>
+      <div class="card-btns">
+        <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
+        <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
+      </div>
+      <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
+      <div class="answer-note" id="ans-${key}">
+        <div class="key-note">${c.answer}</div>
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
+      </div>`;
+    div.appendChild(card);
+  });
+
+  main.appendChild(div);
+});
+
+function toggleBlank(el) {
+  el.classList.toggle('revealed');
+}
+
+function revealAllBlanks(key, chId, total) {
+  document.querySelectorAll(`.blank[data-key="${key}"]`).forEach(el => {
+    el.classList.add('revealed');
+  });
+  // 同時顯示完整答案注記
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 顯示考試出題紀錄
+  const bstat = document.getElementById('bstat-'+key);
+  if(bstat) bstat.classList.add('show');
+  markDone(key, chId, total);
+}
+
+function markDone(key, chId, total) {
+  if(cardDone[key]) return;
+  cardDone[key] = true;
+  const btn = document.getElementById('rb-'+key);
+  if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 更新進度
+  const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
+  const pct = Math.round(done/total*100);
+  const pf = document.getElementById('pf-'+chId);
+  const pt = document.getElementById('pt-'+chId);
+  if(pf) pf.style.width = pct+'%';
+  if(pt) pt.textContent = done+' / '+total;
+}
+
+function switchCh(id){
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('ch-'+id).classList.add('active');
+  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===測驗模式===
+let quizPool = [];        // 所有題目扁平化
+let quizQueue = [];       // 本輪隨機排列
+let quizIdx = 0;
+let quizFilter = 'ALL';   // 'ALL' 或 chapter id
+
+function setMode(mode) {
+  const browse = document.getElementById('main');
+  const nav = document.getElementById('nav');
+  const quizEl = document.getElementById('quiz-mode');
+  const tabB = document.getElementById('tab-browse');
+  const tabQ = document.getElementById('tab-quiz');
+  if (mode === 'browse') {
+    browse.style.display = ''; nav.style.display = '';
+    quizEl.classList.remove('active');
+    tabB.classList.add('on'); tabQ.classList.remove('on');
+  } else {
+    browse.style.display = 'none'; nav.style.display = 'none';
+    quizEl.classList.add('active');
+    tabB.classList.remove('on'); tabQ.classList.add('on');
+    initQuiz();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function initQuiz() {
+  // 建 pool（只跑一次）
+  if (quizPool.length === 0) {
+    DATA.forEach(ch => {
+      ch.cards.forEach(c => {
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
+      });
+    });
+  }
+  // 章節過濾 buttons
+  const filterEl = document.getElementById('quiz-filter');
+  if (!filterEl.hasChildNodes()) {
+    const allBtn = document.createElement('button');
+    allBtn.className = 'qf-btn qf-all on';
+    allBtn.textContent = '全部章節';
+    allBtn.onclick = () => setQuizFilter('ALL', allBtn);
+    filterEl.appendChild(allBtn);
+    DATA.forEach(ch => {
+      const btn = document.createElement('button');
+      btn.className = 'qf-btn';
+      btn.textContent = ch.label;
+      btn.onclick = () => setQuizFilter(ch.id, btn);
+      filterEl.appendChild(btn);
+    });
+  }
+  startQuizRound();
+}
+
+function setQuizFilter(id, btn) {
+  quizFilter = id;
+  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  startQuizRound();
+}
+
+function startQuizRound() {
+  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  // Fisher-Yates shuffle
+  quizQueue = [...pool];
+  for (let i = quizQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quizQueue[i], quizQueue[j]] = [quizQueue[j], quizQueue[i]];
+  }
+  quizIdx = 0;
+  renderQuizCard();
+}
+
+function renderQuizCard() {
+  const area = document.getElementById('quiz-card-area');
+  const prog = document.getElementById('quiz-progress');
+  if (quizIdx >= quizQueue.length) {
+    prog.textContent = '';
+    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    return;
+  }
+  const c = quizQueue[quizIdx];
+  prog.textContent = `第 ${quizIdx + 1} / ${quizQueue.length} 題｜${c.chLabel}`;
+
+  // 取 key 列表
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(c.answer)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  const qid = 'q' + quizIdx;
+  const builtBlank = c.blank.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const plainAns = ans.replace(/<[^>]+>/g, '');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    const idx = ki++;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-qid="${qid}" onclick="toggleQBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span></span>`;
+  });
+
+  const statParts = [];
+  if (c.mc > 0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
+  if (c.essay > 0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
+  const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="qc-meta">
+        <span class="qc-chapter">${c.chLabel}</span>
+        <span class="qc-counter">${quizIdx + 1} / ${quizQueue.length}</span>
+      </div>
+      <div class="qc-term">${c.term}</div>
+      <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      <div class="qc-btns">
+        <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
+        <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
+        <button class="qc-btn qc-btn-all" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
+        <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
+      </div>
+      <div class="qc-answer" id="qans-${qid}">
+        <div>${c.answer}</div>
+        <div class="src">📌 ${c.src}</div>
+      </div>
+      <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
+    </div>`;
+}
+
+function toggleQBlank(el) {
+  const mask = el.querySelector('.blank-mask');
+  const val = el.querySelector('.blank-val');
+  if (val.style.display !== 'none') {
+    val.style.display = 'none'; mask.style.display = '';
+    el.classList.remove('revealed');
+  } else {
+    val.style.display = ''; mask.style.display = 'none';
+    el.classList.add('revealed');
+  }
+}
+
+function revealOneQuizBlank(qid) {
+  const blanks = document.querySelectorAll(`#qblank-${qid} .blank`);
+  for (const b of blanks) {
+    if (!b.classList.contains('revealed')) {
+      b.querySelector('.blank-mask').style.display = 'none';
+      b.querySelector('.blank-val').style.display = '';
+      b.classList.add('revealed');
+      break;
+    }
+  }
+  // 如果顯示完最後一個，自動全顯示並改按鈕
+  const remaining = document.querySelectorAll(`#qblank-${qid} .blank:not(.revealed)`);
+  if (remaining.length === 0) {
+    revealAllQuizBlanks(qid);
+    const revBtn = document.getElementById('qbtn-reveal-' + qid);
+    if (revBtn) {
+      revBtn.textContent = '下一題 →';
+      revBtn.className = 'qc-btn qc-btn-next';
+      revBtn.onclick = () => nextQuiz();
+    }
+  }
+}
+
+function revealAllQuizBlanks(qid) {
+  document.querySelectorAll(`#qblank-${qid} .blank`).forEach(b => {
+    b.querySelector('.blank-mask').style.display = 'none';
+    b.querySelector('.blank-val').style.display = '';
+    b.classList.add('revealed');
+  });
+  const ans = document.getElementById('qans-' + qid);
+  if (ans) ans.classList.add('show');
+  const stat = document.getElementById('qstat-' + qid);
+  if (stat) stat.classList.add('show');
+}
+
+function nextQuiz() {
+  quizIdx++;
+  renderQuizCard();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevQuiz() {
+  if (quizIdx > 0) {
+    quizIdx--;
+    renderQuizCard();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ===主題切換===
+function updateThemeBtn(theme) {
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  updateThemeBtn(next);
+  try { localStorage.setItem('bx-theme', next); } catch(e) {}
+}
+(function(){
+  try {
+    const saved = localStorage.getItem('bx-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    updateThemeBtn(saved || 'light');
+  } catch(e) {}
+})();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
