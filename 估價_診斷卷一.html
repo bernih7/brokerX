@@ -2,902 +2,670 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>估價概要 診斷卷①</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
 <style>
-:root{
-  --bg:#F8F3E9;--bg2:#F0E9D8;--ink:#2C2C2C;--muted:#7A7060;
-  --vermillion:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;
-  --cost:#7B5C8C;--comp:#C17A2E;--income:#A8402B;--land:#3E6B8C;
-  --line:#D4C9B0;--paper:#FFFDF6;
-  color-scheme:light;
-}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1E1A14;--bg2:#252118;--ink:#EDE5D5;--muted:#9A9080;
-  --vermillion:#D4604A;--gold:#D4A845;--green:#7AAF62;
-  --cost:#A07CB5;--comp:#D4944A;--income:#D4604A;--land:#5C93BC;
-  --line:#3A3428;--paper:#242018;
-  color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#1E1A14;--bg2:#252118;--ink:#EDE5D5;--muted:#9A9080;
-  --vermillion:#D4604A;--gold:#D4A845;--green:#7AAF62;
-  --cost:#A07CB5;--comp:#D4944A;--income:#D4604A;--land:#5C93BC;
-  --line:#3A3428;--paper:#242018;
-  color-scheme:dark;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding:0 0 env(safe-area-inset-bottom,0) 0;}
-
-/* TOP BAR */
-.topbar{background:var(--vermillion);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:env(safe-area-inset-top,0);z-index:100;}
-.topbar h1{font-family:'Noto Serif TC',serif;font-size:1.1rem;font-weight:700;}
-.topbar-meta{font-size:.8rem;opacity:.85;}
-.home-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:4px 12px;font-size:.8rem;cursor:pointer;text-decoration:none;white-space:nowrap;}
-.home-btn:hover{background:rgba(255,255,255,.35);}
-
-/* PROGRESS */
-.progress-bar{height:4px;background:var(--line);position:relative;}
-.progress-fill{height:4px;background:var(--vermillion);width:0%;transition:width .3s;}
-
-/* MAIN */
-.container{max-width:820px;margin:0 auto;padding:24px 20px 40px;}
+:root{--bg:#F8F3E9;--ink:#2A2722;--red:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;--card:#FFFDF8;--line:#E4DAC4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding:0 0 env(safe-area-inset-bottom,0) 0}
+header{background:var(--red);color:#fff;padding:22px 20px 18px;text-align:center}
+header h1{font-family:'Noto Serif TC',serif;font-size:1.25rem;font-weight:700;letter-spacing:.05em}
+.sub{font-size:.8rem;opacity:.85;margin-top:4px}
+.progress-bar{height:4px;background:var(--line)}
+.progress-fill{height:4px;background:var(--red);width:0;transition:width .3s}
+.wrap{max-width:820px;margin:0 auto;padding:24px 20px 80px}
 
 /* STATUS */
-.status-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center;font-size:.85rem;color:var(--muted);}
-.status-chip{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:3px 12px;}
-.status-chip b{color:var(--ink);}
-
-/* QUESTION CARD */
-.q-card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px;}
-.q-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
-.q-num{font-size:.75rem;font-weight:700;color:#fff;background:var(--vermillion);border-radius:5px;padding:2px 8px;white-space:nowrap;font-family:'Noto Sans TC',sans-serif;letter-spacing:.05em;}
-.q-tag{font-size:.7rem;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap;color:#fff;}
-.tag-cost{background:var(--cost);}
-.tag-comp{background:var(--comp);}
-.tag-income{background:var(--income);}
-.tag-land{background:var(--land);}
-.tag-other{background:var(--muted);}
-.q-text{font-size:.95rem;line-height:1.75;flex:1;}
-.q-body .q-text{margin-bottom:12px;font-size:.95rem;color:var(--ink);}
-
-/* OPTIONS */
-.options{display:flex;flex-direction:column;gap:8px;}
-.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;transition:all .2s;background:var(--bg);}
-.opt:hover{border-color:var(--gold);background:var(--bg2);}
-.opt.selected{border-color:var(--gold);background:var(--bg2);}
-.opt.correct{border-color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--bg));}
-.opt.wrong{border-color:var(--vermillion);background:color-mix(in srgb,var(--vermillion) 8%,var(--bg));}
-.opt.reveal-correct{border-color:var(--green);background:color-mix(in srgb,var(--green) 8%,var(--bg));}
-.opt-label{font-weight:700;min-width:18px;color:var(--muted);font-size:.9rem;}
-.opt.correct .opt-label,.opt.reveal-correct .opt-label{color:var(--green);}
-.opt.wrong .opt-label{color:var(--vermillion);}
-.opt-text{font-size:.9rem;line-height:1.6;color:var(--ink);}
-
-/* FEEDBACK */
-.feedback{display:none;margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.88rem;line-height:1.7;}
-.feedback.show{display:block;}
-.feedback.ok{background:color-mix(in srgb,var(--green) 10%,var(--bg));border-left:3px solid var(--green);}
-.feedback.fail{background:color-mix(in srgb,var(--vermillion) 8%,var(--bg));border-left:3px solid var(--vermillion);}
-.feedback .ans-line{font-weight:700;margin-bottom:4px;}
-.feedback .exp{color:var(--muted);}
-.feedback .exp b{color:var(--ink);}
-
-/* CONTROLS */
-.ctrl-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
-.ctrl-btn{border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:6px;padding:6px 14px;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .15s;}
-.ctrl-btn:hover{border-color:var(--gold);color:var(--gold);}
-.ctrl-btn.primary{background:var(--vermillion);color:#fff;border-color:var(--vermillion);}
-.ctrl-btn.primary:hover{background:color-mix(in srgb,var(--vermillion) 85%,#000);}
-
-/* RESULT PANEL */
-.result-panel{display:none;background:var(--paper);border:2px solid var(--gold);border-radius:12px;padding:24px;margin-top:24px;text-align:center;}
-.result-panel.show{display:block;}
-.result-score{font-family:'Noto Serif TC',serif;font-size:2.8rem;font-weight:700;color:var(--vermillion);margin-bottom:4px;}
-.result-sub{color:var(--muted);font-size:.9rem;margin-bottom:20px;}
-.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
-.bd-chip{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;}
-.bd-chip .bd-label{font-size:.72rem;color:var(--muted);margin-bottom:2px;}
-.bd-chip .bd-val{font-size:1.1rem;font-weight:700;color:var(--ink);}
-.grade-msg{font-size:.95rem;padding:10px 16px;border-radius:8px;margin-bottom:16px;}
-.grade-A{background:color-mix(in srgb,var(--green) 12%,var(--bg));border:1px solid var(--green);color:var(--green);}
-.grade-B{background:color-mix(in srgb,var(--gold) 10%,var(--bg));border:1px solid var(--gold);color:var(--gold);}
-.grade-C{background:color-mix(in srgb,var(--vermillion) 8%,var(--bg));border:1px solid var(--vermillion);color:var(--vermillion);}
+.status-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;font-size:.82rem}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3px 12px}
+.chip b{color:var(--ink)}
 
 /* NAV */
-.nav-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
-.nav-btn{padding:8px 18px;border-radius:8px;font-size:.88rem;cursor:pointer;font-family:inherit;border:1.5px solid var(--vermillion);color:var(--vermillion);background:var(--bg);transition:all .15s;}
-.nav-btn:hover,.nav-btn.active{background:var(--vermillion);color:#fff;}
+.nav-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.nav-btn{padding:6px 14px;border-radius:20px;font-size:.82rem;cursor:pointer;font-family:inherit;border:1.5px solid var(--line);color:var(--ink);background:var(--card);transition:all .15s}
+.nav-btn.active,.nav-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
 
-/* FORMULA BOX */
-.formula{background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-family:monospace;font-size:.82rem;color:var(--ink);margin:6px 0;}
+/* CARD */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+.qn{display:inline-block;font-size:.72rem;font-weight:700;color:#fff;background:var(--red);border-radius:4px;padding:1px 7px;margin-right:6px;vertical-align:middle}
+.cls{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:1px 7px;vertical-align:middle;background:#8A7B66;color:#fff}
+.stem{margin:10px 0 12px;font-size:.95rem;line-height:1.75}
+.os{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;background:var(--bg);transition:all .18s;text-align:left;font-family:inherit;font-size:.9rem;color:var(--ink);width:100%}
+.opt:hover{border-color:var(--gold);background:#FAF5EC}
+.opt b{font-weight:700;min-width:22px;color:#8A7B66}
+.opt.sel{border-color:var(--gold);background:#FAF5EC}
+.opt.ok{border-color:var(--green);background:#EEF5EA}
+.opt.ok b{color:var(--green)}
+.opt.ng{border-color:var(--red);background:#F9EDEA}
+.opt.ng b{color:var(--red)}
+.opt.rv{border-color:var(--green);background:#EEF5EA}
+.opt.rv b{color:var(--green)}
+.nt{font-size:.8rem;line-height:1.5}
+.trap{display:none;margin-top:10px;padding:10px 14px;border-radius:7px;font-size:.86rem;line-height:1.65;border-left:3px solid var(--line)}
+.trap.show{display:block}
+.trap.ok{background:#EEF5EA;border-color:var(--green)}
+.trap.ng{background:#F9EDEA;border-color:var(--red)}
+.trap b{font-weight:700}
+.src{font-size:.75rem;margin-top:4px;color:#8A7B66}
+.ctrl{margin-top:11px}
+.btn{border:1.5px solid var(--red);background:var(--red);color:#fff;border-radius:7px;padding:7px 16px;font-size:.83rem;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn:hover{background:#8A3020}
+.formula{background:#F0EAD8;border:1px solid var(--line);border-radius:5px;padding:7px 12px;font-family:monospace;font-size:.82rem;margin:6px 0}
 
-footer{text-align:center;font-size:.75rem;color:var(--muted);padding:20px;border-top:1px solid var(--line);}
+/* RESULT */
+.result{display:none;background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:24px;margin-top:24px;text-align:center}
+.result.show{display:block}
+.rscore{font-family:'Noto Serif TC',serif;font-size:2.8rem;font-weight:700;color:var(--red)}
+.rsub{color:#8A7B66;font-size:.88rem;margin-bottom:18px}
+.bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:18px}
+.bdc{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px;text-align:center}
+.bdc .lbl{font-size:.72rem;color:#8A7B66;margin-bottom:2px}
+.bdc .val{font-size:1.05rem;font-weight:700}
+.gmsg{font-size:.9rem;padding:9px 14px;border-radius:7px;margin-bottom:14px}
+.gA{background:#EEF5EA;border:1px solid var(--green);color:var(--green)}
+.gB{background:#FAF5E0;border:1px solid var(--gold);color:var(--gold)}
+.gC{background:#F9EDEA;border:1px solid var(--red);color:var(--red)}
+
+/* HUB */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+footer{text-align:center;font-size:.75rem;color:#8A7B66;padding:18px;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <h1>📊 不動產估價概要｜診斷卷①</h1>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <span class="topbar-meta">25題・依107–114年占比</span>
-    <a class="home-btn" href="估價備考指揮中心.html">🏠 備考中心</a>
-  </div>
-</div>
+<header>
+  <h1>不動產估價概要｜診斷卷①</h1>
+  <div class="sub">25題 · 依107–114年占比：收益法5、成本法4、比較法3、土地開發2、其他11</div>
+</header>
 <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
 
-<div class="container">
+<div class="wrap">
 
 <div class="status-row">
-  <div class="status-chip">已作答：<b id="sAnswered">0</b>/25</div>
-  <div class="status-chip">正確：<b id="sCorrect" style="color:var(--green)">0</b></div>
-  <div class="status-chip">錯誤：<b id="sWrong" style="color:var(--vermillion)">0</b></div>
-  <div class="status-chip">剩餘：<b id="sLeft">25</b></div>
+  <div class="chip">已作答：<b id="sAns">0</b>/25</div>
+  <div class="chip">正確：<b id="sOk" style="color:var(--green)">0</b></div>
+  <div class="chip">錯誤：<b id="sNg" style="color:var(--red)">0</b></div>
+  <div class="chip">剩餘：<b id="sLeft">25</b></div>
 </div>
 
 <div class="nav-row">
-  <button class="nav-btn active" onclick="filterQ('all',this)">全部25題</button>
-  <button class="nav-btn" onclick="filterQ('unanswered',this)">未作答</button>
-  <button class="nav-btn" onclick="filterQ('wrong',this)">錯題</button>
-  <button class="nav-btn" onclick="filterQ('correct',this)">答對</button>
+  <button class="nav-btn active" onclick="flt('all',this)">全部25題</button>
+  <button class="nav-btn" onclick="flt('un',this)">未作答</button>
+  <button class="nav-btn" onclick="flt('ng',this)">錯題</button>
+  <button class="nav-btn" onclick="flt('ok',this)">答對</button>
 </div>
 
-<!-- ===== Q1 ===== -->
-<div class="q-card" id="card-1" data-ans="B" data-cat="收益法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q1</span>
-  <span class="q-tag tag-income">收益法</span>
-  <span class="q-text">依不動產估價技術規則，以直接資本化法評估收益價格，下列敘述何者<b>正確</b>？</span>
+<!-- Q1 -->
+<div class="card" id="c1" data-a="B" data-cat="收益法" data-st="">
+<span class="qn">Q1</span><span class="cls">收益法</span>
+<div class="stem">依不動產估價技術規則，以直接資本化法評估收益價格，下列敘述何者<b>正確</b>？</div>
+<div class="os">
+  <button class="opt" onclick="pick(1,'A')"><b>(A)</b><span class="nt">收益價格＝淨收益÷（資本化率＋折舊率）</span></button>
+  <button class="opt" onclick="pick(1,'B')"><b>(B)</b><span class="nt">收益價格＝未來一年之淨收益÷資本化率</span></button>
+  <button class="opt" onclick="pick(1,'C')"><b>(C)</b><span class="nt">收益價格以各期淨收益折現加總求得，與折現現金流量分析法相同</span></button>
+  <button class="opt" onclick="pick(1,'D')"><b>(D)</b><span class="nt">資本化率係以市場比較法決定，不得採用其他方法</span></button>
 </div>
-<div class="options">
-  <div class="opt" onclick="choose(1,'A')"><span class="opt-label">A</span><span class="opt-text">收益價格＝淨收益÷（資本化率＋折舊率）</span></div>
-  <div class="opt" onclick="choose(1,'B')"><span class="opt-label">B</span><span class="opt-text">收益價格＝未來一年之淨收益÷資本化率</span></div>
-  <div class="opt" onclick="choose(1,'C')"><span class="opt-label">C</span><span class="opt-text">收益價格以各期淨收益折現加總求得，與折現現金流量分析法相同</span></div>
-  <div class="opt" onclick="choose(1,'D')"><span class="opt-label">D</span><span class="opt-text">資本化率係以市場比較法決定，不得採用其他方法</span></div>
+<div class="ctrl"><button class="btn" onclick="sub(1)">確認作答</button></div>
+<div class="trap" id="t1">
+  <b>✅ 正確答案：B</b><br>
+  <b>直接資本化法公式：</b>收益價格＝未來一年淨收益÷資本化率（技術規則第51條）。<br>
+  ❌ A：分母不加折舊率。❌ C：逐期折現是DCF法，非直接資本化法。❌ D：技術規則規定有五種方法可決定資本化率（風險溢酬法、市場萃取法、WACC法、有效總收入乘數法、債務保障比率法）。
+  <div class="src">技術規則第51條</div>
 </div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(1)">確認作答</button></div>
-<div class="feedback" id="fb-1">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>直接資本化法公式：</b>收益價格＝未來一年淨收益÷資本化率（技術規則第51條）。<br>
-    ❌ A：分母不加折舊率。❌ C：逐期折現是DCF法，非直接資本化法。❌ D：技術規則規定有五種方法可決定資本化率（風險溢酬法、市場萃取法、WACC法、有效總收入乘數法、債務保障比率法）。
+</div>
+
+<!-- Q2 -->
+<div class="card" id="c2" data-a="C" data-cat="收益法" data-st="">
+<span class="qn">Q2</span><span class="cls">收益法</span>
+<div class="stem">依加權平均資金成本法（WACC）決定資本化率，下列公式何者<b>正確</b>？（E：自有資金比率；r<sub>e</sub>：自有資金報酬率；D：借入資金比率；r<sub>d</sub>：借入資金利率）</div>
+<div class="os">
+  <button class="opt" onclick="pick(2,'A')"><b>(A)</b><span class="nt">r＝E×r<sub>d</sub>＋D×r<sub>e</sub></span></button>
+  <button class="opt" onclick="pick(2,'B')"><b>(B)</b><span class="nt">r＝E÷r<sub>e</sub>＋D÷r<sub>d</sub></span></button>
+  <button class="opt" onclick="pick(2,'C')"><b>(C)</b><span class="nt">r＝E×r<sub>e</sub>＋D×r<sub>d</sub></span></button>
+  <button class="opt" onclick="pick(2,'D')"><b>(D)</b><span class="nt">r＝(r<sub>e</sub>＋r<sub>d</sub>)÷2</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(2)">確認作答</button></div>
+<div class="trap" id="t2">
+  <b>✅ 正確答案：C</b><br>
+  <b>WACC公式：</b>r＝E×r<sub>e</sub>＋D×r<sub>d</sub>，各資金來源比率乘以各自報酬率後加總（99年申論題考點）。<br>
+  ❌ A：混淆自有與借入對應報酬率。❌ B：應乘法非除法。❌ D：簡單平均未考慮各自比率。
+  <div class="formula">r ＝ 自有比率×自有資金報酬率 ＋ 借入比率×借入資金利率</div>
+</div>
+</div>
+
+<!-- Q3 -->
+<div class="card" id="c3" data-a="A" data-cat="收益法" data-st="">
+<span class="qn">Q3</span><span class="cls">收益法</span>
+<div class="stem">債務保障比率法（DCR法）決定資本化率，其公式為何？（DCR：債務保障比率；MC：抵押貸款常數；LTV：放款成數）</div>
+<div class="os">
+  <button class="opt" onclick="pick(3,'A')"><b>(A)</b><span class="nt">資本化率＝MC×LTV÷DCR</span></button>
+  <button class="opt" onclick="pick(3,'B')"><b>(B)</b><span class="nt">資本化率＝DCR×MC÷LTV</span></button>
+  <button class="opt" onclick="pick(3,'C')"><b>(C)</b><span class="nt">資本化率＝DCR×LTV×MC</span></button>
+  <button class="opt" onclick="pick(3,'D')"><b>(D)</b><span class="nt">資本化率＝LTV÷（DCR×MC）</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(3)">確認作答</button></div>
+<div class="trap" id="t3">
+  <b>✅ 正確答案：A</b><br>
+  <b>DCR法公式：</b>r＝MC×LTV÷DCR（109、112、113、114年高頻考點）。<br>
+  口訣：「MC乘LTV，再除DCR」。DCR愈高安全邊際大，分母大→資本化率低。
+  <div class="formula">r ＝ 抵押貸款常數 × 放款成數 ÷ 債務保障比率</div>
+</div>
+</div>
+
+<!-- Q4 -->
+<div class="card" id="c4" data-a="D" data-cat="收益法" data-st="">
+<span class="qn">Q4</span><span class="cls">收益法</span>
+<div class="stem">折現現金流量分析法（DCF）與直接資本化法最主要的差異，在於前者：</div>
+<div class="os">
+  <button class="opt" onclick="pick(4,'A')"><b>(A)</b><span class="nt">以總收益而非淨收益為計算基礎</span></button>
+  <button class="opt" onclick="pick(4,'B')"><b>(B)</b><span class="nt">以市場比較法決定折現率，排除其他方法</span></button>
+  <button class="opt" onclick="pick(4,'C')"><b>(C)</b><span class="nt">僅適用於商業不動產，不適用於住宅</span></button>
+  <button class="opt" onclick="pick(4,'D')"><b>(D)</b><span class="nt">逐期估算各期淨收益及期末處分價值，分別折現後加總求得收益價格</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(4)">確認作答</button></div>
+<div class="trap" id="t4">
+  <b>✅ 正確答案：D</b><br>
+  <b>DCF核心特徵：</b>逐期估算各期淨收益＋保有期間末轉售價值，各別乘以折現因子後加總（113年申論題）。<br>
+  直接資本化法僅用「未來一年淨收益÷資本化率」，假設未來收益穩定；DCF適合未來收益波動大的情形。
+</div>
+</div>
+
+<!-- Q5 -->
+<div class="card" id="c5" data-a="B" data-cat="成本法" data-st="">
+<span class="qn">Q5</span><span class="cls">成本法</span>
+<div class="stem">依不動產估價技術規則，建物定額折舊法（直線法）每年折舊額Dn之公式，下列何者<b>正確</b>？（C：重建或重置成本；s：殘餘價格率；N：經濟耐用年數；n：經過年數）</div>
+<div class="os">
+  <button class="opt" onclick="pick(5,'A')"><b>(A)</b><span class="nt">Dn＝C×(1＋s)/N×n</span></button>
+  <button class="opt" onclick="pick(5,'B')"><b>(B)</b><span class="nt">Dn＝C×(1－s)/N×n</span></button>
+  <button class="opt" onclick="pick(5,'C')"><b>(C)</b><span class="nt">Dn＝C×s/N×n</span></button>
+  <button class="opt" onclick="pick(5,'D')"><b>(D)</b><span class="nt">Dn＝C/(1－s)×N×n</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(5)">確認作答</button></div>
+<div class="trap" id="t5">
+  <b>✅ 正確答案：B</b><br>
+  <b>定額法（直線法）：</b>累積折舊額 Dn＝C×(1－s)/N×n（技術規則第55條）。殘餘價格率s最高不超過10%。
+  <div class="formula">累積折舊額 Dn ＝ C × (1－s) ÷ N × n</div>
+  ❌ A：應用「1－s」非「1＋s」。❌ C：s是留下來的部分，不可直接乘。
+  <div class="src">技術規則第55條</div>
+</div>
+</div>
+
+<!-- Q6 -->
+<div class="card" id="c6" data-a="C" data-cat="成本法" data-st="">
+<span class="qn">Q6</span><span class="cls">成本法</span>
+<div class="stem">依不動產估價技術規則，建物折舊路徑（Pattern）共有三種，下列何者<b>不屬於</b>技術規則所規定的折舊路徑？</div>
+<div class="os">
+  <button class="opt" onclick="pick(6,'A')"><b>(A)</b><span class="nt">等速折舊路徑（直線形）</span></button>
+  <button class="opt" onclick="pick(6,'B')"><b>(B)</b><span class="nt">初期加速折舊路徑（遞減形）</span></button>
+  <button class="opt" onclick="pick(6,'C')"><b>(C)</b><span class="nt">後期加速折舊路徑（後段陡升形）</span></button>
+  <button class="opt" onclick="pick(6,'D')"><b>(D)</b><span class="nt">初期減速折舊路徑（遞增形）</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(6)">確認作答</button></div>
+<div class="trap" id="t6">
+  <b>✅ 正確答案：C</b><br>
+  <b>技術規則三種折舊路徑（第55條）：</b>①等速（直線形）→定額法 ②初期加速（遞減形）→定率法 ③初期減速（遞增形）→償債基金法。<br>
+  ❌ C「後期加速折舊」不在三種之列——考試陷阱！（105年申論題考點）
+</div>
+</div>
+
+<!-- Q7 -->
+<div class="card" id="c7" data-a="A" data-cat="成本法" data-st="">
+<span class="qn">Q7</span><span class="cls">成本法</span>
+<div class="stem">依定率法（倍減餘額法）計算折舊，建物重建成本C＝500萬元，折舊率d＝10%，則第2年末之帳面價值為何？</div>
+<div class="os">
+  <button class="opt" onclick="pick(7,'A')"><b>(A)</b><span class="nt">405萬元</span></button>
+  <button class="opt" onclick="pick(7,'B')"><b>(B)</b><span class="nt">400萬元</span></button>
+  <button class="opt" onclick="pick(7,'C')"><b>(C)</b><span class="nt">450萬元</span></button>
+  <button class="opt" onclick="pick(7,'D')"><b>(D)</b><span class="nt">410萬元</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(7)">確認作答</button></div>
+<div class="trap" id="t7">
+  <b>✅ 正確答案：A</b><br>
+  第1年：折舊500×10%＝50萬，帳面450萬。第2年：折舊450×10%＝45萬，帳面<b>405萬</b>。
+  <div class="formula">第n年帳面 ＝ C × (1－d)ⁿ ＝ 500 × (0.9)² ＝ 405萬</div>
+  考試陷阱：定率法對「帳面價值」課折舊，非原始成本；第2年折舊額45萬≠第1年50萬。
+</div>
+</div>
+
+<!-- Q8 -->
+<div class="card" id="c8" data-a="D" data-cat="成本法" data-st="">
+<span class="qn">Q8</span><span class="cls">成本法</span>
+<div class="stem">依不動產估價技術規則，「重建成本」與「重置成本」的差異，下列敘述何者<b>正確</b>？</div>
+<div class="os">
+  <button class="opt" onclick="pick(8,'A')"><b>(A)</b><span class="nt">重建成本係以現行建築材料及技術重建；重置成本係以估價當時具同等效用材料及技術重建</span></button>
+  <button class="opt" onclick="pick(8,'B')"><b>(B)</b><span class="nt">兩者均指以估價當時技術重建相同效用之建物</span></button>
+  <button class="opt" onclick="pick(8,'C')"><b>(C)</b><span class="nt">重建成本一定高於重置成本</span></button>
+  <button class="opt" onclick="pick(8,'D')"><b>(D)</b><span class="nt">重建成本係以估價當時建築材料及技術，重建與估價建物「完全相同」之建物成本；重置成本係以估價當時材料技術重建「同等效用」之建物成本</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(8)">確認作答</button></div>
+<div class="trap" id="t8">
+  <b>✅ 正確答案：D</b><br>
+  <b>重建成本：</b>完全相同（外形/結構/材料皆一樣）。<b>重置成本：</b>同等效用（效用相同，可用新材料）。<br>
+  ❌ A混淆定義。❌ C不一定哪個更高。（技術規則第53條，111年申論題）
+</div>
+</div>
+
+<!-- Q9 -->
+<div class="card" id="c9" data-a="B" data-cat="比較法" data-st="">
+<span class="qn">Q9</span><span class="cls">比較法</span>
+<div class="stem">依不動產估價技術規則，比較法「比較修正」之單項調整率與總調整率的限制為何？</div>
+<div class="os">
+  <button class="opt" onclick="pick(9,'A')"><b>(A)</b><span class="nt">單項不超過20%；總調整率不超過30%</span></button>
+  <button class="opt" onclick="pick(9,'B')"><b>(B)</b><span class="nt">單項不超過15%；總調整率不超過30%</span></button>
+  <button class="opt" onclick="pick(9,'C')"><b>(C)</b><span class="nt">單項不超過15%；總調整率不超過25%</span></button>
+  <button class="opt" onclick="pick(9,'D')"><b>(D)</b><span class="nt">單項不超過10%；總調整率不超過20%</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(9)">確認作答</button></div>
+<div class="trap" id="t9">
+  <b>✅ 正確答案：B</b><br>
+  <b>比較法排除規則（技術規則第25條）三道關卡：</b>①單項調整率不超過±15% ②總調整率（正值或負值加總）不超過30% ③各比較實例試算值差距不超過20%。超出任一均須排除——16年必考考點！
+</div>
+</div>
+
+<!-- Q10 -->
+<div class="card" id="c10" data-a="A" data-cat="比較法" data-st="">
+<span class="qn">Q10</span><span class="cls">比較法</span>
+<div class="stem">比較法的調整順序依技術規則之規定，正確順序為何？</div>
+<div class="os">
+  <button class="opt" onclick="pick(10,'A')"><b>(A)</b><span class="nt">情況調整→價格日期調整→區域因素調整→個別因素調整</span></button>
+  <button class="opt" onclick="pick(10,'B')"><b>(B)</b><span class="nt">區域因素調整→個別因素調整→情況調整→價格日期調整</span></button>
+  <button class="opt" onclick="pick(10,'C')"><b>(C)</b><span class="nt">價格日期調整→情況調整→區域因素調整→個別因素調整</span></button>
+  <button class="opt" onclick="pick(10,'D')"><b>(D)</b><span class="nt">個別因素調整→區域因素調整→價格日期調整→情況調整</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(10)">確認作答</button></div>
+<div class="trap" id="t10">
+  <b>✅ 正確答案：A</b><br>
+  <b>四步驟（技術規則第24條）：</b>①情況調整（排除非正常成交）→②價格日期調整（時間）→③區域因素調整（地段）→④個別因素調整（個別條件）。<br>
+  口訣：「情況日期區域個別」，由外到內、由大到小。
+</div>
+</div>
+
+<!-- Q11 -->
+<div class="card" id="c11" data-a="C" data-cat="比較法" data-st="">
+<span class="qn">Q11</span><span class="cls">比較法</span>
+<div class="stem">依不動產估價技術規則，下列何種情況的比較實例，應<b>不予採用</b>（無法以情況調整處理）？</div>
+<div class="os">
+  <button class="opt" onclick="pick(11,'A')"><b>(A)</b><span class="nt">買賣雙方情誼特殊（如親友間交易），成交價格偏低</span></button>
+  <button class="opt" onclick="pick(11,'B')"><b>(B)</b><span class="nt">賣方急需資金，售價低於市場行情</span></button>
+  <button class="opt" onclick="pick(11,'C')"><b>(C)</b><span class="nt">毗鄰地主購買相鄰土地，其獲得之特殊利益無法量化調整</span></button>
+  <button class="opt" onclick="pick(11,'D')"><b>(D)</b><span class="nt">附有特殊融資條件，可計算合理之融資調整率</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(11)">確認作答</button></div>
+<div class="trap" id="t11">
+  <b>✅ 正確答案：C</b><br>
+  情況調整目的是還原成「正常交易價格」，但<b>特殊利益無法量化</b>（如毗鄰地主合併增值），連調整都不可能→應直接排除。<br>
+  A/B雖非正常但可量化→可做情況調整。D可計算→可做情況調整。（102年、110年申論考點）
+</div>
+</div>
+
+<!-- Q12 -->
+<div class="card" id="c12" data-a="B" data-cat="土地開發" data-st="">
+<span class="qn">Q12</span><span class="cls">土地開發分析法</span>
+<div class="stem">土地開發分析法中，建物興建資金之利息計算方式為何？</div>
+<div class="os">
+  <button class="opt" onclick="pick(12,'A')"><b>(A)</b><span class="nt">建物興建費用全額乘以建設期間利率</span></button>
+  <button class="opt" onclick="pick(12,'B')"><b>(B)</b><span class="nt">建物興建費用乘以1/2再乘以建設期間利率，因為資金係陸續投入</span></button>
+  <button class="opt" onclick="pick(12,'C')"><b>(C)</b><span class="nt">建物興建費用乘以1/3再乘以建設期間利率</span></button>
+  <button class="opt" onclick="pick(12,'D')"><b>(D)</b><span class="nt">建物興建費用不計算資本利息，僅計土地取得資金之利息</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(12)">確認作答</button></div>
+<div class="trap" id="t12">
+  <b>✅ 正確答案：B</b><br>
+  <b>資本利息綜合利率（技術規則第66條）：</b>建物興建費採<b>×1/2</b>計算利息，因興建資金係陸續分批投入，平均使用時間約為建設期間的一半。
+  <div class="formula">資本利息 ＝ 土地取得資金利息 ＋ 建物興建費×(1/2)×建設期間利率</div>
+  105年、100年申論題均考此公式。
+</div>
+</div>
+
+<!-- Q13 -->
+<div class="card" id="c13" data-a="D" data-cat="土地開發" data-st="">
+<span class="qn">Q13</span><span class="cls">土地開發分析法</span>
+<div class="stem">土地開發分析法公式 V＝[S÷(1＋r)÷(1＋i)]－(C＋M)，各符號意義下列何者<b>錯誤</b>？</div>
+<div class="os">
+  <button class="opt" onclick="pick(13,'A')"><b>(A)</b><span class="nt">S＝開發完銷後不動產總銷售收入</span></button>
+  <button class="opt" onclick="pick(13,'B')"><b>(B)</b><span class="nt">r＝適當資本利息綜合利率</span></button>
+  <button class="opt" onclick="pick(13,'C')"><b>(C)</b><span class="nt">C＝建物興建費用及相關開發費用</span></button>
+  <button class="opt" onclick="pick(13,'D')"><b>(D)</b><span class="nt">i＝建物完工後銷售期間之空置率</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(13)">確認作答</button></div>
+<div class="trap" id="t13">
+  <b>✅ 正確答案：D</b><br>
+  i＝<b>開發者合理利潤率</b>（非空置率）。V＝待估土地價格；S＝總銷售金額；r＝資本利息綜合利率；C＝建物興建費及相關費用；M＝管銷費用。
+  <div class="formula">V ＝ [S ÷ (1＋r) ÷ (1＋i)] － (C＋M)</div>
+</div>
+</div>
+
+<!-- Q14 -->
+<div class="card" id="c14" data-a="C" data-cat="估價原則" data-st="">
+<span class="qn">Q14</span><span class="cls">估價原則</span>
+<div class="stem">某建物位於高壓電塔附近，因電磁波疑慮導致市場購買意願降低，此現象最符合哪個不動產估價原則？</div>
+<div class="os">
+  <button class="opt" onclick="pick(14,'A')"><b>(A)</b><span class="nt">預期原則</span></button>
+  <button class="opt" onclick="pick(14,'B')"><b>(B)</b><span class="nt">均衡原則</span></button>
+  <button class="opt" onclick="pick(14,'C')"><b>(C)</b><span class="nt">外部性原則</span></button>
+  <button class="opt" onclick="pick(14,'D')"><b>(D)</b><span class="nt">適合原則</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(14)">確認作答</button></div>
+<div class="trap" id="t14">
+  <b>✅ 正確答案：C</b><br>
+  <b>外部性原則（技術規則第6條）：</b>不動產價格受外部因素正面或負面影響。高壓電塔屬「外部嫌惡設施」→負外部性。<br>
+  113年情境型考法：凶宅（個別因素）、高壓電塔（外部性）、鄰近公園（外部性正面）要能快速辨識。
+</div>
+</div>
+
+<!-- Q15 -->
+<div class="card" id="c15" data-a="A" data-cat="估價原則" data-st="">
+<span class="qn">Q15</span><span class="cls">估價原則</span>
+<div class="stem">「最有效使用」原則在估價實務上的涵義，下列敘述何者<b>最完整</b>？</div>
+<div class="os">
+  <button class="opt" onclick="pick(15,'A')"><b>(A)</b><span class="nt">依法令規定、實際使用可能性，於估價當時能產生最高價值之合理使用</span></button>
+  <button class="opt" onclick="pick(15,'B')"><b>(B)</b><span class="nt">能使不動產所有人獲得最高利潤之使用</span></button>
+  <button class="opt" onclick="pick(15,'C')"><b>(C)</b><span class="nt">建蔽率與容積率用盡的使用方式</span></button>
+  <button class="opt" onclick="pick(15,'D')"><b>(D)</b><span class="nt">市場上最熱門的使用方式</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(15)">確認作答</button></div>
+<div class="trap" id="t15">
+  <b>✅ 正確答案：A</b><br>
+  <b>最有效使用原則（技術規則第5條）三要件：</b>①法令許可 ②物理可行 ③估價當時價值最高（非利潤最高、非用盡容積）。
+</div>
+</div>
+
+<!-- Q16 -->
+<div class="card" id="c16" data-a="D" data-cat="價格種類" data-st="">
+<span class="qn">Q16</span><span class="cls">價格種類</span>
+<div class="stem">下列哪種不動產價格種類，在估價時須同時估計正常價格？</div>
+<div class="os">
+  <button class="opt" onclick="pick(16,'A')"><b>(A)</b><span class="nt">正常價格</span></button>
+  <button class="opt" onclick="pick(16,'B')"><b>(B)</b><span class="nt">特定價格</span></button>
+  <button class="opt" onclick="pick(16,'C')"><b>(C)</b><span class="nt">特殊價格</span></button>
+  <button class="opt" onclick="pick(16,'D')"><b>(D)</b><span class="nt">限定價格</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(16)">確認作答</button></div>
+<div class="trap" id="t16">
+  <b>✅ 正確答案：D</b><br>
+  <b>限定價格（技術規則第13條）：</b>特定當事人間（如毗鄰地主合併），因合併增值而高於正常價格→<b>估限定價格時須同時估正常價格，說明差額及理由</b>。<br>
+  只有「限定價格」才有此規定——考試陷阱！
+</div>
+</div>
+
+<!-- Q17 -->
+<div class="card" id="c17" data-a="B" data-cat="價格種類" data-st="">
+<span class="qn">Q17</span><span class="cls">價格種類</span>
+<div class="stem">公立博物館建物（具文化保存價值，不在市場上買賣）之估價，應採下列何種價格種類？</div>
+<div class="os">
+  <button class="opt" onclick="pick(17,'A')"><b>(A)</b><span class="nt">限定價格</span></button>
+  <button class="opt" onclick="pick(17,'B')"><b>(B)</b><span class="nt">特殊價格</span></button>
+  <button class="opt" onclick="pick(17,'C')"><b>(C)</b><span class="nt">特定價格</span></button>
+  <button class="opt" onclick="pick(17,'D')"><b>(D)</b><span class="nt">正常價格</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(17)">確認作答</button></div>
+<div class="trap" id="t17">
+  <b>✅ 正確答案：B</b><br>
+  <b>特殊價格（技術規則第14條）：</b>非市場性不動產，因用途特殊或無市場交易（文化財、宗教用地、廟宇、博物館），以外於市場的價值概念決定之價格。<br>
+  ❌ 限定價格：市場存在但特定當事人合併。❌ 特定價格：市場存在但條件特殊（拍賣、抵押評估）。
+</div>
+</div>
+
+<!-- Q18 -->
+<div class="card" id="c18" data-a="C" data-cat="影響因素" data-st="">
+<span class="qn">Q18</span><span class="cls">影響因素</span>
+<div class="stem">政府公告調漲地價稅（稅率提高），對不動產市場整體價格造成下跌壓力，此屬於哪類影響因素？</div>
+<div class="os">
+  <button class="opt" onclick="pick(18,'A')"><b>(A)</b><span class="nt">區域因素</span></button>
+  <button class="opt" onclick="pick(18,'B')"><b>(B)</b><span class="nt">個別因素</span></button>
+  <button class="opt" onclick="pick(18,'C')"><b>(C)</b><span class="nt">一般因素</span></button>
+  <button class="opt" onclick="pick(18,'D')"><b>(D)</b><span class="nt">特殊因素</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(18)">確認作答</button></div>
+<div class="trap" id="t18">
+  <b>✅ 正確答案：C</b><br>
+  <b>一般因素：</b>影響全國不動產市場的大環境（政策/稅制/利率/總體經濟）。地價稅屬全國性稅制→一般因素。<br>
+  ❌ 「特殊因素」在技術規則四類分類中不存在（是干擾選項）。（技術規則第7–10條）
+</div>
+</div>
+
+<!-- Q19 -->
+<div class="card" id="c19" data-a="A" data-cat="影響因素" data-st="">
+<span class="qn">Q19</span><span class="cls">影響因素</span>
+<div class="stem">某大廈某層發生命案（凶宅），導致該戶市場價格低於其他相同樓層，此屬於下列何種影響因素？</div>
+<div class="os">
+  <button class="opt" onclick="pick(19,'A')"><b>(A)</b><span class="nt">個別因素</span></button>
+  <button class="opt" onclick="pick(19,'B')"><b>(B)</b><span class="nt">區域因素</span></button>
+  <button class="opt" onclick="pick(19,'C')"><b>(C)</b><span class="nt">一般因素</span></button>
+  <button class="opt" onclick="pick(19,'D')"><b>(D)</b><span class="nt">外部因素</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(19)">確認作答</button></div>
+<div class="trap" id="t19">
+  <b>✅ 正確答案：A</b><br>
+  <b>個別因素：</b>影響「個別不動產」本身的因素（地形、座向、樓層、凶宅污名）（112年申論考點）。<br>
+  凶宅僅影響該「戶」→個別因素。若整棟附近大事→區域因素；全市政策→一般因素。
+</div>
+</div>
+
+<!-- Q20 -->
+<div class="card" id="c20" data-a="C" data-cat="租金" data-st="">
+<span class="qn">Q20</span><span class="cls">租金</span>
+<div class="stem">「實質租金」的計算，下列何者<b>正確</b>？</div>
+<div class="os">
+  <button class="opt" onclick="pick(20,'A')"><b>(A)</b><span class="nt">實質租金＝支付租金（年租金）</span></button>
+  <button class="opt" onclick="pick(20,'B')"><b>(B)</b><span class="nt">實質租金＝支付租金×（1＋押金利率）</span></button>
+  <button class="opt" onclick="pick(20,'C')"><b>(C)</b><span class="nt">實質租金＝支付租金＋押金×資本化率（押金孳息）</span></button>
+  <button class="opt" onclick="pick(20,'D')"><b>(D)</b><span class="nt">實質租金＝年租金－管理費</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(20)">確認作答</button></div>
+<div class="trap" id="t20">
+  <b>✅ 正確答案：C</b><br>
+  <b>實質租金（技術規則第48條）：</b>承租人實際負擔的總租賃成本，含支付租金＋押金的機會成本（押金×資本化率）。
+  <div class="formula">實質租金 ＝ 支付租金 ＋ 押金 × 資本化率</div>
+  押金交給房東使用，承租人損失押金可孳生的利息→此為隱性租金成本。（114年、101年申論考點）
+</div>
+</div>
+
+<!-- Q21 -->
+<div class="card" id="c21" data-a="B" data-cat="收益法" data-st="">
+<span class="qn">Q21</span><span class="cls">收益法</span>
+<div class="stem">有效總收入乘數法（GIM法）決定資本化率，其公式為何？（GIM：有效總收入乘數；OER：營運費用率）</div>
+<div class="os">
+  <button class="opt" onclick="pick(21,'A')"><b>(A)</b><span class="nt">r＝GIM×OER</span></button>
+  <button class="opt" onclick="pick(21,'B')"><b>(B)</b><span class="nt">r＝(1－OER)÷GIM</span></button>
+  <button class="opt" onclick="pick(21,'C')"><b>(C)</b><span class="nt">r＝OER÷GIM</span></button>
+  <button class="opt" onclick="pick(21,'D')"><b>(D)</b><span class="nt">r＝GIM÷(1－OER)</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(21)">確認作答</button></div>
+<div class="trap" id="t21">
+  <b>✅ 正確答案：B</b><br>
+  <b>GIM法推導：</b>淨收益率＝(1－OER)；收益價格＝有效總收入×GIM；∴r＝淨收益÷收益價格＝(1－OER)÷GIM。
+  <div class="formula">資本化率 r ＝ (1 － 營運費用率) ÷ 有效總收入乘數</div>
+  五種資本化率方法都要能辨識與計算（近年高頻）。
+</div>
+</div>
+
+<!-- Q22 -->
+<div class="card" id="c22" data-a="D" data-cat="估價程序" data-st="">
+<span class="qn">Q22</span><span class="cls">估價程序</span>
+<div class="stem">依不動產估價技術規則，蒐集比較實例應符合的四項原則，下列何者<b>不屬於</b>其中之一？</div>
+<div class="os">
+  <button class="opt" onclick="pick(22,'A')"><b>(A)</b><span class="nt">實例之買賣日期與估價基準日接近</span></button>
+  <button class="opt" onclick="pick(22,'B')"><b>(B)</b><span class="nt">實例之不動產與勘估標的相同或類似</span></button>
+  <button class="opt" onclick="pick(22,'C')"><b>(C)</b><span class="nt">實例所在地區與勘估標的相同或類似</span></button>
+  <button class="opt" onclick="pick(22,'D')"><b>(D)</b><span class="nt">實例之成交價格須高於公告地價以上</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(22)">確認作答</button></div>
+<div class="trap" id="t22">
+  <b>✅ 正確答案：D</b><br>
+  <b>蒐集比較實例四原則（技術規則第22條）：</b>①不動產類似 ②地區類似 ③日期接近 ④成交價格能正確反映市場行情。<br>
+  ❌ D「須高於公告地價」不是規定條件——完全是干擾選項。（106年申論考點）
+</div>
+</div>
+
+<!-- Q23 -->
+<div class="card" id="c23" data-a="A" data-cat="綜合應用" data-st="">
+<span class="qn">Q23</span><span class="cls">綜合應用</span>
+<div class="stem">依不動產估價技術規則，計量模型分析法（CAMA）的「判定係數」（R²）應達多少以上？</div>
+<div class="os">
+  <button class="opt" onclick="pick(23,'A')"><b>(A)</b><span class="nt">0.7以上</span></button>
+  <button class="opt" onclick="pick(23,'B')"><b>(B)</b><span class="nt">0.5以上</span></button>
+  <button class="opt" onclick="pick(23,'C')"><b>(C)</b><span class="nt">0.8以上</span></button>
+  <button class="opt" onclick="pick(23,'D')"><b>(D)</b><span class="nt">0.6以上</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(23)">確認作答</button></div>
+<div class="trap" id="t23">
+  <b>✅ 正確答案：A</b><br>
+  <b>CAMA法三項門檻（技術規則第31條）：</b>①樣本數≥自變數個數×5倍 ②判定係數R²≥<b>0.7</b> ③各自變數顯著機率p值≤<b>5%</b>。<br>
+  三項同時達到才可使用。記憶：「5倍、0.7、5%」。
+</div>
+</div>
+
+<!-- Q24 -->
+<div class="card" id="c24" data-a="C" data-cat="綜合應用" data-st="">
+<span class="qn">Q24</span><span class="cls">綜合應用</span>
+<div class="stem">依不動產估價技術規則，估價師受託評估含有違章建築之不動產時，應如何處理？</div>
+<div class="os">
+  <button class="opt" onclick="pick(24,'A')"><b>(A)</b><span class="nt">應拒絕受理估價委託</span></button>
+  <button class="opt" onclick="pick(24,'B')"><b>(B)</b><span class="nt">僅估計合法建物部分，違建不計入</span></button>
+  <button class="opt" onclick="pick(24,'C')"><b>(C)</b><span class="nt">應於估價報告書中敘明，並說明違章建築對不動產價格之影響</span></button>
+  <button class="opt" onclick="pick(24,'D')"><b>(D)</b><span class="nt">違章建築依市場行情直接計入估價結果</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(24)">確認作答</button></div>
+<div class="trap" id="t24">
+  <b>✅ 正確答案：C</b><br>
+  <b>違章建築處理原則（技術規則第16條）：</b>不得拒絕受理，應於估價報告書中「敘明」違建情形，並說明對不動產價格之影響（增加使用空間 vs. 隨時可能被拆除的風險）。<br>
+  ❌ A：不得拒絕。❌ B：不能直接忽略，須說明。❌ D：不能直接計入，須說明風險。
+</div>
+</div>
+
+<!-- Q25 -->
+<div class="card" id="c25" data-a="B" data-cat="綜合應用" data-st="">
+<span class="qn">Q25</span><span class="cls">綜合應用</span>
+<div class="stem">依不動產估價技術規則，樓層別效用比計算後，決定「基地分攤地價」（各樓層基地單價）之方式為何？</div>
+<div class="os">
+  <button class="opt" onclick="pick(25,'A')"><b>(A)</b><span class="nt">各樓層基地單價＝基地總地價÷總樓地板面積</span></button>
+  <button class="opt" onclick="pick(25,'B')"><b>(B)</b><span class="nt">各樓層基地單價＝標準層基地單價×（該層效用比÷標準層效用比）</span></button>
+  <button class="opt" onclick="pick(25,'C')"><b>(C)</b><span class="nt">各樓層基地單價相同，與效用比無關</span></button>
+  <button class="opt" onclick="pick(25,'D')"><b>(D)</b><span class="nt">各樓層基地單價＝基地總地價÷樓層數</span></button>
+</div>
+<div class="ctrl"><button class="btn" onclick="sub(25)">確認作答</button></div>
+<div class="trap" id="t25">
+  <b>✅ 正確答案：B</b><br>
+  <b>樓層別效用比應用（技術規則第43條）：</b>各樓層基地單價＝標準層基地單價×（該層效用比÷標準層效用比）。<br>
+  效用比高的樓層（如一樓商業）分攤到較高地價；標準層通常設定效用比為1.0。
+</div>
+</div>
+
+<!-- RESULT -->
+<div class="result" id="rPanel">
+  <div class="rscore" id="rScore">—</div>
+  <div class="rsub" id="rSub">/ 25題</div>
+  <div class="gmsg" id="rGrade"></div>
+  <div class="bd">
+    <div class="bdc"><div class="lbl">收益法</div><div class="val" id="b收益法">—</div></div>
+    <div class="bdc"><div class="lbl">成本法</div><div class="val" id="b成本法">—</div></div>
+    <div class="bdc"><div class="lbl">比較法</div><div class="val" id="b比較法">—</div></div>
+    <div class="bdc"><div class="lbl">土地開發</div><div class="val" id="b土地開發">—</div></div>
+    <div class="bdc"><div class="lbl">估價原則</div><div class="val" id="b估價原則">—</div></div>
+    <div class="bdc"><div class="lbl">價格種類</div><div class="val" id="b價格種類">—</div></div>
+    <div class="bdc"><div class="lbl">影響因素</div><div class="val" id="b影響因素">—</div></div>
+    <div class="bdc"><div class="lbl">租金</div><div class="val" id="b租金">—</div></div>
+    <div class="bdc"><div class="lbl">其他</div><div class="val" id="bOther">—</div></div>
   </div>
-</div>
-</div>
-
-<!-- ===== Q2 ===== -->
-<div class="q-card" id="card-2" data-ans="C" data-cat="收益法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q2</span>
-  <span class="q-tag tag-income">收益法</span>
-  <span class="q-text">依加權平均資金成本法（WACC）決定資本化率，下列公式何者<b>正確</b>？（E：自有資金比率；r<sub>e</sub>：自有資金報酬率；D：借入資金比率；r<sub>d</sub>：借入資金利率）</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(2,'A')"><span class="opt-label">A</span><span class="opt-text">r＝E×r<sub>d</sub>＋D×r<sub>e</sub></span></div>
-  <div class="opt" onclick="choose(2,'B')"><span class="opt-label">B</span><span class="opt-text">r＝E÷r<sub>e</sub>＋D÷r<sub>d</sub></span></div>
-  <div class="opt" onclick="choose(2,'C')"><span class="opt-label">C</span><span class="opt-text">r＝E×r<sub>e</sub>＋D×r<sub>d</sub></span></div>
-  <div class="opt" onclick="choose(2,'D')"><span class="opt-label">D</span><span class="opt-text">r＝(r<sub>e</sub>＋r<sub>d</sub>)÷2</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(2)">確認作答</button></div>
-<div class="feedback" id="fb-2">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>WACC公式：</b>資本化率r＝E×r<sub>e</sub>＋D×r<sub>d</sub>，各資金來源比率乘以各自報酬率後加總（99年申論題考點）。<br>
-    ❌ A：混淆自有資金與借入資金對應報酬率。❌ B：應用乘法非除法。❌ D：簡單平均未考慮各自比率。
-    <div class="formula">r ＝ 自有比率×自有資金報酬率 ＋ 借入比率×借入資金利率</div>
-  </div>
-</div>
+  <button class="btn" onclick="revAll()">查看所有解析</button>
 </div>
 
-<!-- ===== Q3 ===== -->
-<div class="q-card" id="card-3" data-ans="A" data-cat="收益法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q3</span>
-  <span class="q-tag tag-income">收益法</span>
-  <span class="q-text">債務保障比率法（DCR法）決定資本化率，其公式為何？（DCR：債務保障比率；MC：抵押貸款常數；LTV：放款成數）</span>
 </div>
-<div class="options">
-  <div class="opt" onclick="choose(3,'A')"><span class="opt-label">A</span><span class="opt-text">資本化率＝MC×LTV÷DCR</span></div>
-  <div class="opt" onclick="choose(3,'B')"><span class="opt-label">B</span><span class="opt-text">資本化率＝DCR×MC÷LTV</span></div>
-  <div class="opt" onclick="choose(3,'C')"><span class="opt-label">C</span><span class="opt-text">資本化率＝DCR×LTV×MC</span></div>
-  <div class="opt" onclick="choose(3,'D')"><span class="opt-label">D</span><span class="opt-text">資本化率＝LTV÷（DCR×MC）</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(3)">確認作答</button></div>
-<div class="feedback" id="fb-3">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>DCR法公式：</b>資本化率 r ＝ MC × LTV ÷ DCR（109、112、113、114年選擇題高頻考點）。<br>
-    記憶口訣：「MC乘LTV，再除DCR」。DCR愈高表示安全邊際大，分母愈大則資本化率愈低。<br>
-    <div class="formula">r ＝ 抵押貸款常數 × 放款成數 ÷ 債務保障比率</div>
-  </div>
-</div>
-</div>
-
-<!-- ===== Q4 ===== -->
-<div class="q-card" id="card-4" data-ans="D" data-cat="收益法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q4</span>
-  <span class="q-tag tag-income">收益法</span>
-  <span class="q-text">折現現金流量分析法（DCF）與直接資本化法最主要的差異，在於前者：</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(4,'A')"><span class="opt-label">A</span><span class="opt-text">以總收益而非淨收益為計算基礎</span></div>
-  <div class="opt" onclick="choose(4,'B')"><span class="opt-label">B</span><span class="opt-text">以市場比較法決定折現率，排除其他方法</span></div>
-  <div class="opt" onclick="choose(4,'C')"><span class="opt-label">C</span><span class="opt-text">僅適用於商業不動產，不適用於住宅</span></div>
-  <div class="opt" onclick="choose(4,'D')"><span class="opt-label">D</span><span class="opt-text">逐期估算各期淨收益及期末處分價值，分別折現後加總求得收益價格</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(4)">確認作答</button></div>
-<div class="feedback" id="fb-4">
-  <div class="ans-line">✅ 正確答案：D</div>
-  <div class="exp">
-    <b>DCF核心特徵：</b>逐期（每年或每期）估算各期淨收益，加上保有期間末的不動產處分（轉售）價值，各別乘以折現因子後加總（113年申論題考點）。<br>
-    與直接資本化法差異：直接資本化法僅用「未來一年淨收益÷資本化率」，假設未來收益穩定；DCF適合未來收益波動大的情形。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q5 ===== -->
-<div class="q-card" id="card-5" data-ans="B" data-cat="成本法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q5</span>
-  <span class="q-tag tag-cost">成本法</span>
-  <span class="q-text">依不動產估價技術規則，建物定額折舊法（直線法）每年折舊額Dn之公式，下列何者<b>正確</b>？（C：重建或重置成本；s：殘餘價格率；N：經濟耐用年數；n：經過年數）</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(5,'A')"><span class="opt-label">A</span><span class="opt-text">Dn＝C×(1＋s)/N×n</span></div>
-  <div class="opt" onclick="choose(5,'B')"><span class="opt-label">B</span><span class="opt-text">Dn＝C×(1－s)/N×n</span></div>
-  <div class="opt" onclick="choose(5,'C')"><span class="opt-label">C</span><span class="opt-text">Dn＝C×s/N×n</span></div>
-  <div class="opt" onclick="choose(5,'D')"><span class="opt-label">D</span><span class="opt-text">Dn＝C/(1－s)×N×n</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(5)">確認作答</button></div>
-<div class="feedback" id="fb-5">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>定額法（直線法）：</b>累積折舊額 Dn ＝ C×(1－s)/N×n（技術規則第55條）。<br>
-    邏輯：總可折舊金額＝C×(1－s)，分攤於N年，第n年累積折舊即乘以n。殘餘價格率s最高不得超過10%（技術規則第55條第3項）。<br>
-    <div class="formula">累積折舊額 Dn ＝ C × (1－s) ÷ N × n</div>
-    ❌ A：殘餘價格率應用「1－s」非「1＋s」。❌ C：不以s乘，s是留下來的部分。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q6 ===== -->
-<div class="q-card" id="card-6" data-ans="C" data-cat="成本法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q6</span>
-  <span class="q-tag tag-cost">成本法</span>
-  <span class="q-text">依不動產估價技術規則，建物折舊的折舊路徑（Pattern）共有幾種？下列何者<b>不屬於</b>技術規則所規定的折舊路徑？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(6,'A')"><span class="opt-label">A</span><span class="opt-text">等速折舊路徑（直線形）</span></div>
-  <div class="opt" onclick="choose(6,'B')"><span class="opt-label">B</span><span class="opt-text">初期加速折舊路徑（遞減形）</span></div>
-  <div class="opt" onclick="choose(6,'C')"><span class="opt-label">C</span><span class="opt-text">後期加速折舊路徑（後段陡升形）</span></div>
-  <div class="opt" onclick="choose(6,'D')"><span class="opt-label">D</span><span class="opt-text">初期減速折舊路徑（遞增形）</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(6)">確認作答</button></div>
-<div class="feedback" id="fb-6">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>技術規則三種折舊路徑（第55條）：</b><br>
-    ①等速折舊路徑（直線形）→對應定額法<br>
-    ②初期加速折舊路徑（遞減形）→對應定率法（每年折舊率固定乘帳面價值）<br>
-    ③初期減速折舊路徑（遞增形）→對應償債基金法<br>
-    ❌ C「後期加速折舊」不在技術規則三種之列，是考試陷阱！（105年申論題考點）
-  </div>
-</div>
-</div>
-
-<!-- ===== Q7 ===== -->
-<div class="q-card" id="card-7" data-ans="A" data-cat="成本法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q7</span>
-  <span class="q-tag tag-cost">成本法</span>
-  <span class="q-text">依定率法（倍減餘額法）計算折舊，若建物重建成本C＝500萬元，折舊率d＝10%，殘餘價格率s＝5%，則第2年末的帳面價值（折舊後建物現值）為何？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(7,'A')"><span class="opt-label">A</span><span class="opt-text">405萬元</span></div>
-  <div class="opt" onclick="choose(7,'B')"><span class="opt-label">B</span><span class="opt-text">400萬元</span></div>
-  <div class="opt" onclick="choose(7,'C')"><span class="opt-label">C</span><span class="opt-text">450萬元</span></div>
-  <div class="opt" onclick="choose(7,'D')"><span class="opt-label">D</span><span class="opt-text">410萬元</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(7)">確認作答</button></div>
-<div class="feedback" id="fb-7">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>定率法計算：</b>每年折舊額＝帳面價值×折舊率d<br>
-    第1年：折舊＝500×10%＝50萬，帳面＝450萬<br>
-    第2年：折舊＝450×10%＝45萬，帳面＝450－45＝<b>405萬</b>（107年申論題類型）<br>
-    <div class="formula">第n年帳面價值 ＝ C × (1－d)ⁿ ＝ 500 × (0.9)² ＝ 405萬</div>
-    考試陷阱：定率法是對「帳面價值」課折舊，非對原始成本；第2年折舊額45萬≠第1年50萬。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q8 ===== -->
-<div class="q-card" id="card-8" data-ans="D" data-cat="成本法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q8</span>
-  <span class="q-tag tag-cost">成本法</span>
-  <span class="q-text">依不動產估價技術規則，「重建成本」與「重置成本」的差異，下列敘述何者<b>正確</b>？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(8,'A')"><span class="opt-label">A</span><span class="opt-text">重建成本係以現行建築材料及技術重建；重置成本係以估價當時具同等效用材料及技術重建</span></div>
-  <div class="opt" onclick="choose(8,'B')"><span class="opt-label">B</span><span class="opt-text">兩者均指以估價當時技術重建相同效用之建物</span></div>
-  <div class="opt" onclick="choose(8,'C')"><span class="opt-label">C</span><span class="opt-text">重建成本一定高於重置成本</span></div>
-  <div class="opt" onclick="choose(8,'D')"><span class="opt-label">D</span><span class="opt-text">重建成本係以估價當時建築材料及技術，重建與估價建物完全相同之建物所需成本；重置成本係以估價當時具同等效用之建材及技術重建所需成本</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(8)">確認作答</button></div>
-<div class="feedback" id="fb-8">
-  <div class="ans-line">✅ 正確答案：D</div>
-  <div class="exp">
-    <b>核心差異（技術規則第53條）：</b><br>
-    <b>重建成本：</b>以當時材料/技術，重建「完全相同」之建物（外形、結構、材料都一樣）<br>
-    <b>重置成本：</b>以當時材料/技術，重建「同等效用」之建物（效用相同，但可用新材料）<br>
-    ❌ A：混淆兩者定義。❌ C：不一定哪個更高，視建物新舊程度。（111年申論題考點）
-  </div>
-</div>
-</div>
-
-<!-- ===== Q9 ===== -->
-<div class="q-card" id="card-9" data-ans="B" data-cat="比較法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q9</span>
-  <span class="q-tag tag-comp">比較法</span>
-  <span class="q-text">依不動產估價技術規則，比較法在進行「比較修正」時，單項調整率、總調整率的規定限制為何？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(9,'A')"><span class="opt-label">A</span><span class="opt-text">單項不超過20%；總調整率不超過30%</span></div>
-  <div class="opt" onclick="choose(9,'B')"><span class="opt-label">B</span><span class="opt-text">單項不超過15%；總調整率不超過30%</span></div>
-  <div class="opt" onclick="choose(9,'C')"><span class="opt-label">C</span><span class="opt-text">單項不超過15%；總調整率不超過25%</span></div>
-  <div class="opt" onclick="choose(9,'D')"><span class="opt-label">D</span><span class="opt-text">單項不超過10%；總調整率不超過20%</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(9)">確認作答</button></div>
-<div class="feedback" id="fb-9">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>比較法排除規則（技術規則第25條）：三道關卡</b><br>
-    ① 單項調整率：<b>不超過±15%</b><br>
-    ② 總調整率（正值加總或負值加總）：<b>不超過30%</b><br>
-    ③ 試算價格差距（各比較實例試算值間差距）：<b>不超過20%</b><br>
-    超出任一限制均需排除該比較實例，這是16年最穩定的必考考點！
-  </div>
-</div>
-</div>
-
-<!-- ===== Q10 ===== -->
-<div class="q-card" id="card-10" data-ans="A" data-cat="比較法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q10</span>
-  <span class="q-tag tag-comp">比較法</span>
-  <span class="q-text">比較法的調整順序依技術規則之規定，正確順序為何？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(10,'A')"><span class="opt-label">A</span><span class="opt-text">情況調整→價格日期調整→區域因素調整→個別因素調整</span></div>
-  <div class="opt" onclick="choose(10,'B')"><span class="opt-label">B</span><span class="opt-text">區域因素調整→個別因素調整→情況調整→價格日期調整</span></div>
-  <div class="opt" onclick="choose(10,'C')"><span class="opt-label">C</span><span class="opt-text">價格日期調整→情況調整→區域因素調整→個別因素調整</span></div>
-  <div class="opt" onclick="choose(10,'D')"><span class="opt-label">D</span><span class="opt-text">個別因素調整→區域因素調整→價格日期調整→情況調整</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(10)">確認作答</button></div>
-<div class="feedback" id="fb-10">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>比較法四步驟調整順序（技術規則第24條）：</b><br>
-    <b>①情況調整</b>（先排除非正常成交因素）→<b>②價格日期調整</b>（時間調整）→<b>③區域因素調整</b>（地段差異）→<b>④個別因素調整</b>（個別條件差異）<br>
-    口訣：「情況日期區域個別」，從外部環境到個別條件由大到小。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q11 ===== -->
-<div class="q-card" id="card-11" data-ans="C" data-cat="比較法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q11</span>
-  <span class="q-tag tag-comp">比較法</span>
-  <span class="q-text">依不動產估價技術規則，下列何種情況的比較實例，應<b>不予採用</b>（無法以情況調整處理）？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(11,'A')"><span class="opt-label">A</span><span class="opt-text">買賣雙方情誼特殊（如親友間交易），成交價格偏低</span></div>
-  <div class="opt" onclick="choose(11,'B')"><span class="opt-label">B</span><span class="opt-text">賣方急需資金，售價低於市場行情</span></div>
-  <div class="opt" onclick="choose(11,'C')"><span class="opt-label">C</span><span class="opt-text">毗鄰地主購買相鄰土地，其獲得之特殊利益無法量化調整</span></div>
-  <div class="opt" onclick="choose(11,'D')"><span class="opt-label">D</span><span class="opt-text">附有特殊融資條件，可計算合理之融資調整率</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(11)">確認作答</button></div>
-<div class="feedback" id="fb-11">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>情況調整排除原則（技術規則第23條、102年、110年申論考點）：</b><br>
-    情況調整目的是還原成「正常交易價格」，但<b>若特殊利益無法量化</b>（如毗鄰地主的合併增值），則連調整都不可能，應直接排除。<br>
-    A、B雖非正常，但可以量化（親友折扣可估、急售折扣可算）→可做情況調整。<br>
-    D有特殊融資但可計算→可做情況調整。<br>
-    C毗鄰合併利益主觀且難以量化→不予採用。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q12 ===== -->
-<div class="q-card" id="card-12" data-ans="B" data-cat="土地開發" data-state="">
-<div class="q-header">
-  <span class="q-num">Q12</span>
-  <span class="q-tag tag-land">土地開發分析法</span>
-  <span class="q-text">土地開發分析法中，「資本利息綜合利率」計算公式，依技術規則之規定，建物興建資金之利息計算方式為何？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(12,'A')"><span class="opt-label">A</span><span class="opt-text">建物興建費用全額乘以建設期間利率</span></div>
-  <div class="opt" onclick="choose(12,'B')"><span class="opt-label">B</span><span class="opt-text">建物興建費用乘以1/2再乘以建設期間利率，因為資金係陸續投入</span></div>
-  <div class="opt" onclick="choose(12,'C')"><span class="opt-label">C</span><span class="opt-text">建物興建費用乘以1/3再乘以建設期間利率</span></div>
-  <div class="opt" onclick="choose(12,'D')"><span class="opt-label">D</span><span class="opt-text">建物興建費用不計算資本利息，僅計土地取得資金之利息</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(12)">確認作答</button></div>
-<div class="feedback" id="fb-12">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>資本利息綜合利率（技術規則第66條）：</b>建物興建費C採<b>1/2倍</�計算利息</b>，因興建工程資金係陸續分批投入（非一次全投），平均使用時間約為建設期間的一半。<br>
-    <div class="formula">土地取得資金利息 ＋ 建物興建費×(1/2)×建設期間利率 ＝ 資本利息</div>
-    105年、100年申論題均考此公式，是土開分析法的核心計算。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q13 ===== -->
-<div class="q-card" id="card-13" data-ans="D" data-cat="土地開發" data-state="">
-<div class="q-header">
-  <span class="q-num">Q13</span>
-  <span class="q-tag tag-land">土地開發分析法</span>
-  <span class="q-text">土地開發分析法之基本公式 V＝[S÷(1＋r)÷(1＋i)]－(C＋M) 中，各符號代表意義，下列何者<b>錯誤</b>？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(13,'A')"><span class="opt-label">A</span><span class="opt-text">S＝開發完銷後不動產總銷售收入</span></div>
-  <div class="opt" onclick="choose(13,'B')"><span class="opt-label">B</span><span class="opt-text">r＝適當資本利息綜合利率</span></div>
-  <div class="opt" onclick="choose(13,'C')"><span class="opt-label">C</span><span class="opt-text">C＝建物興建費用及相關開發費用</span></div>
-  <div class="opt" onclick="choose(13,'D')"><span class="opt-label">D</span><span class="opt-text">i＝建物完工後銷售期間之空置率</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(13)">確認作答</button></div>
-<div class="feedback" id="fb-13">
-  <div class="ans-line">✅ 正確答案：D</div>
-  <div class="exp">
-    <b>V公式各符號：</b><br>
-    V＝待估土地價格、S＝開發後不動產總銷售金額、r＝資本利息綜合利率、<b>i＝開發者合理利潤率</b>（非空置率）、C＝建物興建費及相關費用、M＝管銷費用<br>
-    ❌ D錯誤：i是開發者預期利潤率，空置率並未單獨出現在V公式中。<br>
-    <div class="formula">V ＝ [S ÷ (1＋r) ÷ (1＋i)] － (C＋M)</div>
-  </div>
-</div>
-</div>
-
-<!-- ===== Q14 ===== -->
-<div class="q-card" id="card-14" data-ans="C" data-cat="估價原則" data-state="">
-<div class="q-header">
-  <span class="q-num">Q14</span>
-  <span class="q-tag tag-other">估價原則</span>
-  <span class="q-text">某建物位於高壓電塔附近，因電磁波疑慮導致市場購買意願降低，此現象最符合下列哪個不動產估價原則？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(14,'A')"><span class="opt-label">A</span><span class="opt-text">預期原則</span></div>
-  <div class="opt" onclick="choose(14,'B')"><span class="opt-label">B</span><span class="opt-text">均衡原則</span></div>
-  <div class="opt" onclick="choose(14,'C')"><span class="opt-label">C</span><span class="opt-text">外部性原則</span></div>
-  <div class="opt" onclick="choose(14,'D')"><span class="opt-label">D</span><span class="opt-text">適合原則</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(14)">確認作答</button></div>
-<div class="feedback" id="fb-14">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>外部性原則：</b>不動產價格受外部因素（非自身因素）正面或負面影響（技術規則第6條）。<br>
-    高壓電塔屬「外部嫌惡設施」，造成不動產價格受外部環境負面影響→外部性原則（負外部性）。<br>
-    113年考題情境型考法：凶宅（個別因素）、高壓電塔（外部性）、鄰近公園（外部性正面）要能快速辨識。<br>
-    ❌ 預期：對未來收益的預期影響現值。❌ 均衡：各生產要素最適組合。❌ 適合：用途適合環境。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q15 ===== -->
-<div class="q-card" id="card-15" data-ans="A" data-cat="估價原則" data-state="">
-<div class="q-header">
-  <span class="q-num">Q15</span>
-  <span class="q-tag tag-other">估價原則</span>
-  <span class="q-text">「最有效使用」原則在估價實務上的涵義，下列敘述何者<b>最完整</b>？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(15,'A')"><span class="opt-label">A</span><span class="opt-text">依法令規定、實際使用可能性，於估價當時能產生最高價值之合理使用</span></div>
-  <div class="opt" onclick="choose(15,'B')"><span class="opt-label">B</span><span class="opt-text">能使不動產所有人獲得最高利潤之使用</span></div>
-  <div class="opt" onclick="choose(15,'C')"><span class="opt-label">C</span><span class="opt-text">建蔽率與容積率用盡的使用方式</span></div>
-  <div class="opt" onclick="choose(15,'D')"><span class="opt-label">D</span><span class="opt-text">市場上最熱門的使用方式</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(15)">確認作答</button></div>
-<div class="feedback" id="fb-15">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>最有效使用原則（技術規則第5條）：</b>指依「法令規定」（法令上可行性）、在「實際使用可能性」下（實體可行性）、於估價當時「能產生最高價值」之合理使用。<br>
-    三項要件缺一不可：①法令許可②物理可行③價值最高（非利潤最高、非用盡容積）。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q16 ===== -->
-<div class="q-card" id="card-16" data-ans="D" data-cat="價格種類" data-state="">
-<div class="q-header">
-  <span class="q-num">Q16</span>
-  <span class="q-tag tag-other">價格種類</span>
-  <span class="q-text">下列哪種不動產價格種類，在估價時須同時估計正常價格？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(16,'A')"><span class="opt-label">A</span><span class="opt-text">正常價格</span></div>
-  <div class="opt" onclick="choose(16,'B')"><span class="opt-label">B</span><span class="opt-text">特定價格</span></div>
-  <div class="opt" onclick="choose(16,'C')"><span class="opt-label">C</span><span class="opt-text">特殊價格</span></div>
-  <div class="opt" onclick="choose(16,'D')"><span class="opt-label">D</span><span class="opt-text">限定價格</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(16)">確認作答</button></div>
-<div class="feedback" id="fb-16">
-  <div class="ans-line">✅ 正確答案：D</div>
-  <div class="exp">
-    <b>四種不動產價格（技術規則第11–14條）：</b><br>
-    正常價格：公開市場自由交易之合理價格（標準）<br>
-    限定價格：特定當事人間（如毗鄰地主合併），因合併增值而高於正常價格→<b>估限定價格時須同時估正常價格，說明差額及理由</b><br>
-    特定價格：特定條件下（如拍賣、快速變現）<br>
-    特殊價格：非市場性用途（如廟宇、博物館）<br>
-    考試陷阱：只有「限定價格」才有須同時估正常價格的規定。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q17 ===== -->
-<div class="q-card" id="card-17" data-ans="B" data-cat="價格種類" data-state="">
-<div class="q-header">
-  <span class="q-num">Q17</span>
-  <span class="q-tag tag-other">價格種類</span>
-  <span class="q-text">公立博物館建物（具文化保存價值，不在市場上買賣）之估價，應採下列何種價格種類？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(17,'A')"><span class="opt-label">A</span><span class="opt-text">限定價格</span></div>
-  <div class="opt" onclick="choose(17,'B')"><span class="opt-label">B</span><span class="opt-text">特殊價格</span></div>
-  <div class="opt" onclick="choose(17,'C')"><span class="opt-label">C</span><span class="opt-text">特定價格</span></div>
-  <div class="opt" onclick="choose(17,'D')"><span class="opt-label">D</span><span class="opt-text">正常價格</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(17)">確認作答</button></div>
-<div class="feedback" id="fb-17">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>特殊價格（技術規則第14條）：</b>非市場性之不動產，因用途特殊或無市場交易（文化財、宗教用地、廟宇、博物館），以外於市場的價值概念所決定之價格。<br>
-    ❌ 限定價格：市場存在但特定當事人合併/分割。❌ 特定價格：市場存在但條件特殊（如拍賣、抵押評估）。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q18 ===== -->
-<div class="q-card" id="card-18" data-ans="C" data-cat="影響因素" data-state="">
-<div class="q-header">
-  <span class="q-num">Q18</span>
-  <span class="q-tag tag-other">影響因素</span>
-  <span class="q-text">政府公告調漲地價稅（稅率提高），對不動產市場整體價格造成下跌壓力，此屬於影響不動產價格的哪類因素？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(18,'A')"><span class="opt-label">A</span><span class="opt-text">區域因素</span></div>
-  <div class="opt" onclick="choose(18,'B')"><span class="opt-label">B</span><span class="opt-text">個別因素</span></div>
-  <div class="opt" onclick="choose(18,'C')"><span class="opt-label">C</span><span class="opt-text">一般因素</span></div>
-  <div class="opt" onclick="choose(18,'D')"><span class="opt-label">D</span><span class="opt-text">特殊因素</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(18)">確認作答</button></div>
-<div class="feedback" id="fb-18">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>四類影響因素（技術規則第7–10條）：</b><br>
-    <b>一般因素：</b>影響全國不動產市場的大環境因素（政策/稅制/利率/總體經濟）<br>
-    區域因素：影響特定地區（如商業區vs住宅區）<br>
-    個別因素：影響個別不動產（形狀、朝向、凶宅）<br>
-    ❌ 「特殊因素」在技術規則四類分類中不存在（是考試混淆選項）<br>
-    地價稅屬全國性稅制→一般因素。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q19 ===== -->
-<div class="q-card" id="card-19" data-ans="A" data-cat="影響因素" data-state="">
-<div class="q-header">
-  <span class="q-num">Q19</span>
-  <span class="q-tag tag-other">影響因素</span>
-  <span class="q-text">某大廈某層發生命案（凶宅），導致該戶市場價格低於其他相同樓層，此屬於下列何種影響因素？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(19,'A')"><span class="opt-label">A</span><span class="opt-text">個別因素</span></div>
-  <div class="opt" onclick="choose(19,'B')"><span class="opt-label">B</span><span class="opt-text">區域因素</span></div>
-  <div class="opt" onclick="choose(19,'C')"><span class="opt-label">C</span><span class="opt-text">一般因素</span></div>
-  <div class="opt" onclick="choose(19,'D')"><span class="opt-label">D</span><span class="opt-text">外部因素</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(19)">確認作答</button></div>
-<div class="feedback" id="fb-19">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>個別因素：</b>影響「個別不動產」本身的因素（地形、座向、樓層、有無凶宅污名）（112年申論考點）。<br>
-    凶宅僅影響該「戶」（個別），非整棟大樓（區域），更非全市場（一般）。<br>
-    區分：若是整棟附近發生大事→區域因素；若是全市房市政策→一般因素。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q20 ===== -->
-<div class="q-card" id="card-20" data-ans="C" data-cat="租金" data-state="">
-<div class="q-header">
-  <span class="q-num">Q20</span>
-  <span class="q-tag tag-other">租金</span>
-  <span class="q-text">「實質租金」的計算，下列何者<b>正確</b>？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(20,'A')"><span class="opt-label">A</span><span class="opt-text">實質租金＝支付租金（年租金）</span></div>
-  <div class="opt" onclick="choose(20,'B')"><span class="opt-label">B</span><span class="opt-text">實質租金＝支付租金×（1＋押金利率）</span></div>
-  <div class="opt" onclick="choose(20,'C')"><span class="opt-label">C</span><span class="opt-text">實質租金＝支付租金＋押金×資本化率（押金孳息）</span></div>
-  <div class="opt" onclick="choose(20,'D')"><span class="opt-label">D</span><span class="opt-text">實質租金＝年租金－管理費</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(20)">確認作答</button></div>
-<div class="feedback" id="fb-20">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>實質租金（技術規則第48條）：</b>承租人實際負擔的總租賃成本，包含支付租金＋押金的使用機會成本（押金×資本化率）。<br>
-    <div class="formula">實質租金 ＝ 支付租金 ＋ 押金 × 資本化率</div>
-    邏輯：押金交給房東使用，承租人損失押金可孳生的利息→這部分也是隱性租金成本。<br>
-    114年、101年申論均考租金計算（101年另考支付租金、經濟租金辨析）。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q21 ===== -->
-<div class="q-card" id="card-21" data-ans="B" data-cat="收益法" data-state="">
-<div class="q-header">
-  <span class="q-num">Q21</span>
-  <span class="q-tag tag-income">收益法</span>
-  <span class="q-text">有效總收入乘數法（GIM法）決定資本化率，其公式為何？（GIM：有效總收入乘數；OER：營運費用率）</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(21,'A')"><span class="opt-label">A</span><span class="opt-text">r＝GIM×OER</span></div>
-  <div class="opt" onclick="choose(21,'B')"><span class="opt-label">B</span><span class="opt-text">r＝(1－OER)÷GIM</span></div>
-  <div class="opt" onclick="choose(21,'C')"><span class="opt-label">C</span><span class="opt-text">r＝OER÷GIM</span></div>
-  <div class="opt" onclick="choose(21,'D')"><span class="opt-label">D</span><span class="opt-text">r＝GIM÷(1－OER)</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(21)">確認作答</button></div>
-<div class="feedback" id="fb-21">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>GIM法公式：</b>r＝(1－OER)÷GIM<br>
-    推導邏輯：淨收益率＝（1－營運費用率）；收益價格＝有效總收入×GIM；因此r＝淨收益÷收益價格＝（1－OER）÷GIM。<br>
-    <div class="formula">資本化率 r ＝ (1 － 營運費用率) ÷ 有效總收入乘數</div>
-    五種資本化率方法都要能辨識與計算（近年高頻出現）。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q22 ===== -->
-<div class="q-card" id="card-22" data-ans="D" data-cat="估價程序" data-state="">
-<div class="q-header">
-  <span class="q-num">Q22</span>
-  <span class="q-tag tag-other">估價程序</span>
-  <span class="q-text">依不動產估價技術規則，估價師進行估價時，蒐集比較實例應符合的四項原則，下列何者<b>不屬於</b>其中之一？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(22,'A')"><span class="opt-label">A</span><span class="opt-text">實例之買賣日期與估價基準日接近</span></div>
-  <div class="opt" onclick="choose(22,'B')"><span class="opt-label">B</span><span class="opt-text">實例之不動產與勘估標的相同或類似</span></div>
-  <div class="opt" onclick="choose(22,'C')"><span class="opt-label">C</span><span class="opt-text">實例所在地區與勘估標的相同或類似</span></div>
-  <div class="opt" onclick="choose(22,'D')"><span class="opt-label">D</span><span class="opt-text">實例之成交價格須高於公告地價以上</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(22)">確認作答</button></div>
-<div class="feedback" id="fb-22">
-  <div class="ans-line">✅ 正確答案：D</div>
-  <div class="exp">
-    <b>蒐集比較實例四原則（技術規則第22條）：</b><br>
-    ①實例之不動產與勘估標的類似（用途、種類）<br>
-    ②實例所在地區與勘估標的相同或類似<br>
-    ③買賣日期與估價基準日接近<br>
-    ④成交價格能正確反映市場行情（正常成交，可以情況調整者）<br>
-    ❌ D「須高於公告地價」不是規定條件，完全是干擾選項。（106年申論考點）
-  </div>
-</div>
-</div>
-
-<!-- ===== Q23 ===== -->
-<div class="q-card" id="card-23" data-ans="A" data-cat="綜合應用" data-state="">
-<div class="q-header">
-  <span class="q-num">Q23</span>
-  <span class="q-tag tag-other">綜合應用</span>
-  <span class="q-text">計量模型分析法（CAMA）在不動產估價中，關於「判定係數」（R²）的要求，技術規則規定應達多少以上？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(23,'A')"><span class="opt-label">A</span><span class="opt-text">0.7以上</span></div>
-  <div class="opt" onclick="choose(23,'B')"><span class="opt-label">B</span><span class="opt-text">0.5以上</span></div>
-  <div class="opt" onclick="choose(23,'C')"><span class="opt-label">C</span><span class="opt-text">0.8以上</span></div>
-  <div class="opt" onclick="choose(23,'D')"><span class="opt-label">D</span><span class="opt-text">0.6以上</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(23)">確認作答</button></div>
-<div class="feedback" id="fb-23">
-  <div class="ans-line">✅ 正確答案：A</div>
-  <div class="exp">
-    <b>CAMA法三項門檻（技術規則第31條）：</b><br>
-    ①樣本數≥自變數個數×5倍<br>
-    ②判定係數R²≥<b>0.7</b><br>
-    ③各自變數顯著機率（p值）≤<b>5%</b><br>
-    三項條件須同時達到，否則模型不可使用。記憶：「5倍、0.7、5%」三個數字。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q24 ===== -->
-<div class="q-card" id="card-24" data-ans="C" data-cat="綜合應用" data-state="">
-<div class="q-header">
-  <span class="q-num">Q24</span>
-  <span class="q-tag tag-other">綜合應用</span>
-  <span class="q-text">依不動產估價技術規則，不動產估價師受託評估含有違章建築之不動產時，應如何處理？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(24,'A')"><span class="opt-label">A</span><span class="opt-text">應拒絕受理估價委託</span></div>
-  <div class="opt" onclick="choose(24,'B')"><span class="opt-label">B</span><span class="opt-text">僅估計合法建物部分，違建不計入</span></div>
-  <div class="opt" onclick="choose(24,'C')"><span class="opt-label">C</span><span class="opt-text">應於估價報告書中敘明，並說明違章建築對不動產價格之影響</span></div>
-  <div class="opt" onclick="choose(24,'D')"><span class="opt-label">D</span><span class="opt-text">違章建築依市場行情直接計入估價結果</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(24)">確認作答</button></div>
-<div class="feedback" id="fb-24">
-  <div class="ans-line">✅ 正確答案：C</div>
-  <div class="exp">
-    <b>違章建築處理原則（技術規則第16條）：</b>估價師不得拒絕受理，應於估價報告書中「敘明」違章建築情形，並說明其對不動產價格之影響（可能加分：增加使用空間；可能減分：隨時可能被拆除的風險）。<br>
-    ❌ A：不得拒絕受理。❌ B：違建部分仍須說明，不能直接忽略。❌ D：不能直接以市場行情計入，須說明風險。
-  </div>
-</div>
-</div>
-
-<!-- ===== Q25 ===== -->
-<div class="q-card" id="card-25" data-ans="B" data-cat="綜合應用" data-state="">
-<div class="q-header">
-  <span class="q-num">Q25</span>
-  <span class="q-tag tag-other">綜合應用</span>
-  <span class="q-text">依不動產估價技術規則，樓層別效用比計算後，用以決定「基地分攤地價」（各樓層之基地單價）之方式為何？</span>
-</div>
-<div class="options">
-  <div class="opt" onclick="choose(25,'A')"><span class="opt-label">A</span><span class="opt-text">各樓層基地單價＝基地總地價÷總樓地板面積</span></div>
-  <div class="opt" onclick="choose(25,'B')"><span class="opt-label">B</span><span class="opt-text">各樓層基地單價＝標準層基地單價×（該層效用比÷標準層效用比）</span></div>
-  <div class="opt" onclick="choose(25,'C')"><span class="opt-label">C</span><span class="opt-text">各樓層基地單價相同，與效用比無關</span></div>
-  <div class="opt" onclick="choose(25,'D')"><span class="opt-label">D</span><span class="opt-text">各樓層基地單價＝基地總地價÷樓層數</span></div>
-</div>
-<div class="ctrl-row"><button class="ctrl-btn primary" onclick="submitQ(25)">確認作答</button></div>
-<div class="feedback" id="fb-25">
-  <div class="ans-line">✅ 正確答案：B</div>
-  <div class="exp">
-    <b>樓層別效用比應用（技術規則第43條）：</b><br>
-    各樓層基地單價＝標準層基地單價×（該層效用比÷標準層效用比）<br>
-    邏輯：效用比高的樓層（如一樓商業）分攤到較高的地價，效用比低的樓層分攤較低地價，總地價保持不變。<br>
-    標準層通常設定為某一樓層（如3樓），效用比定為1.0，其他樓層效用比相對計算。
-  </div>
-</div>
-</div>
-
-<!-- RESULT PANEL -->
-<div class="result-panel" id="resultPanel">
-  <div class="result-score" id="rScore">—</div>
-  <div class="result-sub" id="rSub">分 / 25題</div>
-  <div class="grade-msg" id="rGrade"></div>
-  <div class="breakdown">
-    <div class="bd-chip"><div class="bd-label">收益法</div><div class="bd-val" id="bd-收益法">—</div></div>
-    <div class="bd-chip"><div class="bd-label">成本法</div><div class="bd-val" id="bd-成本法">—</div></div>
-    <div class="bd-chip"><div class="bd-label">比較法</div><div class="bd-val" id="bd-比較法">—</div></div>
-    <div class="bd-chip"><div class="bd-label">土地開發</div><div class="bd-val" id="bd-土地開發">—</div></div>
-    <div class="bd-chip"><div class="bd-label">估價原則</div><div class="bd-val" id="bd-估價原則">—</div></div>
-    <div class="bd-chip"><div class="bd-label">價格種類</div><div class="bd-val" id="bd-價格種類">—</div></div>
-    <div class="bd-chip"><div class="bd-label">影響因素</div><div class="bd-val" id="bd-影響因素">—</div></div>
-    <div class="bd-chip"><div class="bd-label">租金</div><div class="bd-val" id="bd-租金">—</div></div>
-    <div class="bd-chip"><div class="bd-label">其他</div><div class="bd-val" id="bd-other">—</div></div>
-  </div>
-  <button class="ctrl-btn primary" onclick="reviewAll()">查看所有解析</button>
-</div>
-
-</div><!-- /container -->
-
 <footer>BrokerX 估價概要 診斷卷① · 依107–114年高頻考點設計 · 共25題</footer>
 
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考中心">🏠</a>
+
 <script>
-var state={answered:0,correct:0,wrong:0};
-var catStats={
-  '收益法':{c:0,t:0},'成本法':{c:0,t:0},'比較法':{c:0,t:0},
-  '土地開發':{c:0,t:0},'估價原則':{c:0,t:0},'價格種類':{c:0,t:0},
-  '影響因素':{c:0,t:0},'租金':{c:0,t:0},'綜合應用':{c:0,t:0},'估價程序':{c:0,t:0}
-};
+var S={ans:0,ok:0,ng:0};
+var C={'收益法':{c:0,t:0},'成本法':{c:0,t:0},'比較法':{c:0,t:0},'土地開發':{c:0,t:0},
+       '估價原則':{c:0,t:0},'價格種類':{c:0,t:0},'影響因素':{c:0,t:0},'租金':{c:0,t:0},
+       '綜合應用':{c:0,t:0},'估價程序':{c:0,t:0}};
 
-function choose(qn, opt){
-  var card=document.getElementById('card-'+qn);
-  if(card.dataset.state) return; // already answered
-  card.querySelectorAll('.opt').forEach(function(o){o.classList.remove('selected');});
-  card.querySelectorAll('.opt')[['A','B','C','D'].indexOf(opt)].classList.add('selected');
-  card.dataset.chosen=opt;
+function pick(n,o){
+  var card=document.getElementById('c'+n);
+  if(card.dataset.st) return;
+  card.querySelectorAll('.opt').forEach(function(b){b.classList.remove('sel');});
+  card.querySelectorAll('.opt')[['A','B','C','D'].indexOf(o)].classList.add('sel');
+  card.dataset.ch=o;
 }
-
-function submitQ(qn){
-  var card=document.getElementById('card-'+qn);
-  if(card.dataset.state) return;
-  var chosen=card.dataset.chosen;
-  if(!chosen){ alert('請先選擇答案！'); return; }
-  var ans=card.dataset.ans;
-  var cat=card.dataset.cat;
-  var opts=['A','B','C','D'];
-  var isCorrect=(chosen===ans);
-
-  // mark options
-  card.querySelectorAll('.opt').forEach(function(o,i){
-    var letter=opts[i];
-    o.style.cursor='default';
-    if(letter===ans) o.classList.add('reveal-correct');
-    if(letter===chosen && !isCorrect) o.classList.add('wrong');
-    if(letter===chosen && isCorrect) o.classList.remove('selected'),o.classList.add('correct');
+function sub(n){
+  var card=document.getElementById('c'+n);
+  if(card.dataset.st) return;
+  var ch=card.dataset.ch;
+  if(!ch){alert('請先選擇答案！');return;}
+  var ans=card.dataset.a, cat=card.dataset.cat;
+  var letters=['A','B','C','D'];
+  var right=(ch===ans);
+  card.querySelectorAll('.opt').forEach(function(b,i){
+    b.disabled=true;b.style.cursor='default';
+    var l=letters[i];
+    if(l===ans) b.classList.add(right&&l===ch?'ok':'rv');
+    if(l===ch&&!right) b.classList.add('ng');
+    if(l===ch&&right) b.classList.remove('sel'),b.classList.add('ok');
   });
-
-  // show feedback
-  var fb=document.getElementById('fb-'+qn);
-  fb.classList.add('show');
-  fb.classList.add(isCorrect?'ok':'fail');
-
-  // hide button
-  card.querySelector('.ctrl-btn').style.display='none';
-  card.dataset.state=isCorrect?'correct':'wrong';
-
-  // update stats
-  state.answered++;
-  if(isCorrect){ state.correct++; }else{ state.wrong++; }
-  if(catStats[cat]){ catStats[cat].t++; if(isCorrect) catStats[cat].c++; }
-
-  updateStatus();
-
-  if(state.answered===25) showResult();
+  var t=document.getElementById('t'+n);
+  t.classList.add('show',right?'ok':'ng');
+  card.querySelector('.btn').style.display='none';
+  card.dataset.st=right?'ok':'ng';
+  S.ans++;if(right){S.ok++;}else{S.ng++;}
+  if(C[cat]){C[cat].t++;if(right)C[cat].c++;}
+  upStat();
+  if(S.ans===25) showRes();
 }
-
-function updateStatus(){
-  document.getElementById('sAnswered').textContent=state.answered;
-  document.getElementById('sCorrect').textContent=state.correct;
-  document.getElementById('sWrong').textContent=state.wrong;
-  document.getElementById('sLeft').textContent=25-state.answered;
-  document.getElementById('pFill').style.width=(state.answered/25*100)+'%';
+function upStat(){
+  document.getElementById('sAns').textContent=S.ans;
+  document.getElementById('sOk').textContent=S.ok;
+  document.getElementById('sNg').textContent=S.ng;
+  document.getElementById('sLeft').textContent=25-S.ans;
+  document.getElementById('pFill').style.width=(S.ans/25*100)+'%';
 }
-
-function showResult(){
-  var pct=Math.round(state.correct/25*100);
-  document.getElementById('rScore').textContent=state.correct;
-  document.getElementById('rSub').textContent='/ 25題（'+pct+'%）';
-  var gMsg=document.getElementById('rGrade');
-  if(pct>=80){ gMsg.textContent='🎉 優秀！估價基礎扎實，繼續衝刺計算題細節'; gMsg.className='grade-msg grade-A'; }
-  else if(pct>=60){ gMsg.textContent='🟡 及格邊緣，重點複習錯題科目再來一次'; gMsg.className='grade-msg grade-B'; }
-  else{ gMsg.textContent='🔴 需要加強！建議先複習四大方法系統攻略再做此卷'; gMsg.className='grade-msg grade-C'; }
-
-  // breakdown
-  var catMap={'收益法':'bd-收益法','成本法':'bd-成本法','比較法':'bd-比較法',
-              '土地開發':'bd-土地開發','估價原則':'bd-估價原則','價格種類':'bd-價格種類',
-              '影響因素':'bd-影響因素','租金':'bd-租金'};
-  var otherC=0,otherT=0;
-  Object.keys(catStats).forEach(function(k){
-    if(catMap[k]){
-      var s=catStats[k];
-      document.getElementById(catMap[k]).textContent=s.t?s.c+'/'+s.t:'—';
-    } else { otherC+=catStats[k].c; otherT+=catStats[k].t; }
+function showRes(){
+  var p=Math.round(S.ok/25*100);
+  document.getElementById('rScore').textContent=S.ok;
+  document.getElementById('rSub').textContent='/ 25題（'+p+'%）';
+  var g=document.getElementById('rGrade');
+  if(p>=80){g.textContent='🎉 優秀！估價基礎扎實，繼續衝刺計算題細節';g.className='gmsg gA';}
+  else if(p>=60){g.textContent='🟡 及格邊緣，重點複習錯題科目再來一次';g.className='gmsg gB';}
+  else{g.textContent='🔴 需要加強！建議先複習四大方法系統攻略再做此卷';g.className='gmsg gC';}
+  var map={'收益法':'b收益法','成本法':'b成本法','比較法':'b比較法','土地開發':'b土地開發',
+           '估價原則':'b估價原則','價格種類':'b價格種類','影響因素':'b影響因素','租金':'b租金'};
+  var oc=0,ot=0;
+  Object.keys(C).forEach(function(k){
+    if(map[k]){var s=C[k];document.getElementById(map[k]).textContent=s.t?s.c+'/'+s.t:'—';}
+    else{oc+=C[k].c;ot+=C[k].t;}
   });
-  document.getElementById('bd-other').textContent=otherT?otherC+'/'+otherT:'—';
-
-  document.getElementById('resultPanel').classList.add('show');
-  document.getElementById('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('bOther').textContent=ot?oc+'/'+ot:'—';
+  var rp=document.getElementById('rPanel');
+  rp.classList.add('show');
+  rp.scrollIntoView({behavior:'smooth',block:'start'});
 }
-
-function reviewAll(){
-  document.querySelectorAll('.q-card').forEach(function(card){
-    var fb=card.querySelector('.feedback');
-    if(fb){ fb.classList.add('show'); }
-    // reveal correct option
-    var ans=card.dataset.ans;
-    var opts=['A','B','C','D'];
-    card.querySelectorAll('.opt').forEach(function(o,i){
-      if(opts[i]===ans && !o.classList.contains('correct')) o.classList.add('reveal-correct');
+function revAll(){
+  document.querySelectorAll('.card').forEach(function(card){
+    var t=card.querySelector('.trap');
+    if(t){t.classList.add('show');if(!t.classList.contains('ok')&&!t.classList.contains('ng'))t.classList.add('ng');}
+    var ans=card.dataset.a;
+    var letters=['A','B','C','D'];
+    card.querySelectorAll('.opt').forEach(function(b,i){
+      b.disabled=true;b.style.cursor='default';
+      if(letters[i]===ans&&!b.classList.contains('ok'))b.classList.add('rv');
     });
-    card.querySelectorAll('.ctrl-btn').forEach(function(b){b.style.display='none';});
+    var btn=card.querySelector('.btn');
+    if(btn)btn.style.display='none';
   });
 }
-
-function filterQ(type, btn){
+function flt(type,btn){
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  document.querySelectorAll('.q-card').forEach(function(card){
-    var s=card.dataset.state;
+  document.querySelectorAll('.card').forEach(function(card){
+    var s=card.dataset.st;
     if(type==='all') card.hidden=false;
-    else if(type==='unanswered') card.hidden=!!s;
-    else if(type==='wrong') card.hidden=(s!=='wrong');
-    else if(type==='correct') card.hidden=(s!=='correct');
+    else if(type==='un') card.hidden=!!s;
+    else if(type==='ng') card.hidden=(s!=='ng');
+    else if(type==='ok') card.hidden=(s!=='ok');
   });
 }
 </script>
