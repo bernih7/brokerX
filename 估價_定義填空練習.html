@@ -74,6 +74,10 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   background:rgba(168,64,43,.12);
   border-bottom-color:var(--green);
 }
+.blank .blank-mask{display:inline}
+.blank.revealed .blank-mask{display:none}
+.blank .blank-val{display:none;color:var(--red)}
+.blank.revealed .blank-val{display:inline}
 
 /* 整張卡按鈕 */
 .reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
@@ -677,9 +681,7 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
     // 按答案字數生成底線（每字一個＿，最少2個）
     const plainAns = ans.replace(/<[^>]+>/g,'');
     const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
-    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)">
-      <span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span>
-    </span>`;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val">${ans}</span></span>`;
   });
   return html;
 }
@@ -750,24 +752,12 @@ DATA.forEach((ch,ci)=>{
 });
 
 function toggleBlank(el) {
-  const mask = el.querySelector('.blank-mask');
-  const val  = el.querySelector('.blank-val');
-  const showing = el.classList.contains('revealed');
-  if (showing) {
-    val.style.display = 'none';
-    mask.style.display = '';
-    el.classList.remove('revealed');
-  } else {
-    val.style.display = 'inline';
-    mask.style.display = 'none';
-    el.classList.add('revealed');
-  }
+  el.classList.toggle('revealed');
+}
 }
 
 function revealAllBlanks(key, chId, total) {
   document.querySelectorAll(`.blank[data-key="${key}"]`).forEach(el => {
-    el.querySelector('.blank-mask').style.display = 'none';
-    el.querySelector('.blank-val').style.display = '';
     el.classList.add('revealed');
   });
   // 同時顯示完整答案注記
