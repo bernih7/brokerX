@@ -64,7 +64,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
 
 .card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-.card-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+.section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
 
 .answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
 .answer-note.show{display:block}
@@ -238,7 +238,7 @@ const DATA = [
       {
         term:'① 確定估價基本事項（§9）共4項',
         blank:'① 勘估標的___　② ___　③ ___及條件　④ ___目的。<br>（注意：不含___方法、不含___日期）',
-        answer:'① 勘估標的<span class="key">內容</span>　② <span class="key">價格日期</span>　③ <span class="key">價格種類</span>及條件　④ <span class="key">估價</span>目的。<br><span style="color:var(--red)">不含<strong>估價方法</strong>（方法是步驟⑥才用）、不含<strong>勘察日期</strong>（勘察日期≠價格日期）</span>',
+        answer:'① 勘估標的<span class="key">內容</span>　② <span class="key">價格日期</span>　③ <span class="key">價格種類</span>及條件　④ <span class="key">估價</span>目的。<br><span style="color:var(--red)">不含<span class="key">估價</span>方法（方法是步驟⑥才用）、不含<span class="key">勘察</span>日期（勘察日期≠價格日期）</span>',
         src:'技術規則§9★「步驟一」的4項內容，高頻陷阱：估價方法不在此列'
       },
       {
@@ -571,8 +571,11 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
     const ans = keyMatches[ki] || '？';
     const idx = ki;
     ki++;
+    // 按答案字數生成底線（每字一個＿，最少2個）
+    const plainAns = ans.replace(/<[^>]+>/g,'');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
     return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)">
-      <span class="blank-mask">＿＿</span><span class="blank-val" style="display:none">${ans}</span>
+      <span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span>
     </span>`;
   });
   return html;
@@ -599,7 +602,9 @@ DATA.forEach((ch,ci)=>{
     <div class="prog">
       <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
       <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
-    </div>${ch.top||''}`;
+    </div>
+    <div class="section-hint">💡 點空格顯示答案，再點收起</div>
+    ${ch.top||''}`;
 
   ch.cards.forEach((c,i)=>{
     const key = ch.id+'-'+i;
@@ -612,7 +617,6 @@ DATA.forEach((ch,ci)=>{
     card.id = 'card-'+key;
     card.innerHTML = `
       <div class="term">${c.term}</div>
-      <div class="card-hint">💡 點空格顯示答案，再點收起</div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
       <div class="card-btns">
         <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
