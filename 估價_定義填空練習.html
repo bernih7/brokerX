@@ -141,6 +141,31 @@ const DATA = [
   },
   {
     id:'A3', label:'A3 影響因素',
+    top:`<div style="margin-bottom:20px">
+      <div style="font-weight:700;color:var(--red);margin-bottom:10px;font-size:13px">📍 同心圓關係圖：記憶錨</div>
+      <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto">
+        <!-- 同一供需圈（最外） -->
+        <ellipse cx="160" cy="100" rx="148" ry="88" fill="#EAF2FB" stroke="#2B5082" stroke-width="1.5"/>
+        <text x="160" y="24" text-anchor="middle" fill="#2B5082" font-size="12" font-weight="bold">同一供需圈</text>
+        <text x="160" y="38" text-anchor="middle" fill="#2B5082" font-size="10">比較標的↔勘估標的能替代、互為影響</text>
+        <!-- 類似地區（中） -->
+        <ellipse cx="160" cy="105" rx="105" ry="60" fill="#FEF9EE" stroke="#BC8A2E" stroke-width="1.5"/>
+        <text x="160" y="58" text-anchor="middle" fill="#BC8A2E" font-size="11" font-weight="bold">類似地區</text>
+        <text x="160" y="71" text-anchor="middle" fill="#BC8A2E" font-size="10">供需圈內，近鄰以外，性質相近</text>
+        <!-- 近鄰地區（最內） -->
+        <ellipse cx="160" cy="112" rx="65" ry="36" fill="#FEF0EB" stroke="#A8402B" stroke-width="2"/>
+        <text x="160" y="103" text-anchor="middle" fill="#A8402B" font-size="11" font-weight="bold">近鄰地區</text>
+        <text x="160" y="117" text-anchor="middle" fill="#A8402B" font-size="10">同質性最高</text>
+        <text x="160" y="129" text-anchor="middle" fill="#A8402B" font-size="9">勘估標的 / 比較標的周圍</text>
+        <!-- 等式標注 -->
+        <text x="160" y="175" text-anchor="middle" fill="#5A5248" font-size="10">同一供需圈＝近鄰地區＋類似地區</text>
+      </svg>
+      <div style="background:#FFF7EE;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:13px;line-height:1.8">
+        <strong style="color:#A8402B">近</strong>（紅·最小）→ 同質性最高圈<br>
+        <strong style="color:#BC8A2E">似</strong>（金·中間）→ 性質相近但不同街區<br>
+        <strong style="color:#2B5082">需</strong>（藍·最大）→ 能互相替代的整個市場圈
+      </div>
+    </div>`,
     cards:[
       {
         term:'近鄰地區',
@@ -178,16 +203,16 @@ const DATA = [
     id:'A4', label:'A4 估價程序',
     cards:[
       {
-        term:'估價作業8大程序（§8）',
+        term:'估價作業8大程序（§8）口訣記憶',
         blank:'①確定___→②擬定___→③蒐集___→④確認___→⑤整理___→⑥運用___→⑦決定___→⑧製作___。',
-        answer:'①確定<span class="key">估價基本事項</span>→②擬定<span class="key">估價計畫</span>→③蒐集<span class="key">資料</span>→④確認<span class="key">勘估標的狀態</span>→⑤整理<span class="key">比較分析資料</span>→⑥運用<span class="key">估價方法推算</span>→⑦決定<span class="key">勘估標的價格</span>→⑧製作<span class="key">估價報告書</span>。',
+        answer:'①確定<span class="key">估價基本事項</span>→②擬定<span class="key">估價計畫</span>→③蒐集<span class="key">資料</span>→④確認<span class="key">勘估標的狀態</span>→⑤整理<span class="key">比較分析資料</span>→⑥運用<span class="key">估價方法推算</span>→⑦決定<span class="key">勘估標的價格</span>→⑧製作<span class="key">估價報告書</span>。<br><br><strong style="color:var(--green)">🔑 口訣（一句話記8步）：</strong><br><span style="color:#2A2722;font-size:13.5px;letter-spacing:.5px">「<strong>確擬蒐確整運決製</strong>」</span><br><span style="font-size:12px;color:#5A5248">確（定基本事項）擬（定計畫）蒐（集資料）確（認標的狀態）整（理比較資料）運（用方法推算）決（定價格）製（作報告書）</span><br><span style="font-size:11.5px;color:var(--red);margin-top:4px;display:block">⚠️ 順序不可顛倒，考題常考「哪個步驟第幾」</span>',
         src:'技術規則§8'
       },
       {
-        term:'估價基本事項4項（§9）',
-        blank:'勘估標的___／___／___及條件／___目的。',
-        answer:'勘估標的<span class="key">內容</span>／<span class="key">價格日期</span>／<span class="key">價格種類</span>及條件／<span class="key">估價</span>目的。',
-        src:'技術規則§9（注意：不含「估價方法」）'
+        term:'① 確定估價基本事項（§9）共4項',
+        blank:'① 勘估標的___　② ___　③ ___及條件　④ ___目的。<br>（注意：不含___方法、不含___日期）',
+        answer:'① 勘估標的<span class="key">內容</span>　② <span class="key">價格日期</span>　③ <span class="key">價格種類</span>及條件　④ <span class="key">估價</span>目的。<br><span style="color:var(--red)">不含<strong>估價方法</strong>（方法是步驟⑥才用）、不含<strong>勘察日期</strong>（勘察日期≠價格日期）</span>',
+        src:'技術規則§9★「步驟一」的4項內容，高頻陷阱：估價方法不在此列'
       },
       {
         term:'蒐集比較實例4原則（§12）',
@@ -473,7 +498,7 @@ DATA.forEach((ch,ci)=>{
     <div class="prog">
       <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
       <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
-    </div>`;
+    </div>${ch.top||''}`;
 
   ch.cards.forEach((c,i)=>{
     const key = ch.id+'-'+i;
