@@ -727,6 +727,10 @@ DATA.forEach((ch,ci)=>{
     const card = document.createElement('div');
     card.className = 'card';
     card.id = 'card-'+key;
+    const statParts = [];
+    if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
+    if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
+    const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
     card.innerHTML = `
       <div class="term">${c.term}</div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
@@ -734,6 +738,7 @@ DATA.forEach((ch,ci)=>{
         <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
         <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
       </div>
+      <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
       <div class="answer-note" id="ans-${key}">
         <div class="key-note">${c.answer}</div>
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
@@ -747,13 +752,13 @@ DATA.forEach((ch,ci)=>{
 function toggleBlank(el) {
   const mask = el.querySelector('.blank-mask');
   const val  = el.querySelector('.blank-val');
-  const showing = val.style.display !== 'none';
+  const showing = el.classList.contains('revealed');
   if (showing) {
     val.style.display = 'none';
     mask.style.display = '';
     el.classList.remove('revealed');
   } else {
-    val.style.display = '';
+    val.style.display = 'inline';
     mask.style.display = 'none';
     el.classList.add('revealed');
   }
@@ -768,6 +773,9 @@ function revealAllBlanks(key, chId, total) {
   // 同時顯示完整答案注記
   const note = document.getElementById('ans-'+key);
   if(note) note.classList.add('show');
+  // 顯示考試出題紀錄
+  const bstat = document.getElementById('bstat-'+key);
+  if(bstat) bstat.classList.add('show');
   markDone(key, chId, total);
 }
 
