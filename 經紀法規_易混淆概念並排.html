@@ -9,7 +9,7 @@
 <style>
 :root{
   --paper:#F8F3E9;--paper-deep:#F1E8D8;--ink:#2A2722;--ink-soft:#7A7165;
-  --rule:#DED1B9;--stamp:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;
+  --rule:#DDD2BB;--stamp:#A8402B;--gold:#BC8A2E;--green:#3F6B4C;
   --blue:#3E6B8C;--orange:#C17A2E;--purple:#7B5C8C;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -32,7 +32,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .sec-head .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--stamp);color:#fff;margin-left:6px;}
 
 /* VS layout */
-.vs-block{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:18px;}
+.vs-block{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:18px;}
 .vs-header{display:grid;grid-template-columns:1fr 36px 1fr;background:var(--paper-deep);}
 .vs-header .vh{padding:12px 16px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;text-align:center;}
 .vs-header .vs-mid{display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--stamp);}
@@ -57,7 +57,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .group-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase;margin:28px 0 10px;padding-bottom:4px;border-bottom:1px solid var(--rule);}
 
 /* ranking blocks */
-.rank-block{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:14px;}
+.rank-block{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:14px;}
 .rb-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .rb-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--blue);color:#fff;}
 .rank-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--rule);}
@@ -73,7 +73,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .rc-trap{font-size:11px;color:var(--stamp);font-weight:700;margin-top:4px;}
 
 /* trap summary */
-.trap-summary{background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.trap-summary{background:var(--card);border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:14px;}
 .ts-head{background:var(--stamp);color:#fff;padding:8px 14px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;}
 .ts-row{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--rule);font-size:12px;align-items:flex-start;}
 .ts-row:last-child{border-bottom:none;}
@@ -85,7 +85,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 /* home button */
 .home-btn{position:fixed;right:18px;bottom:22px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px;box-shadow:0 3px 10px rgba(0,0,0,.2);z-index:99;}
 </style><style>
-.tbl-wrap{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.tbl-wrap{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-bottom:14px}
 .tbl-wrap .tt{background:var(--paper-deep);padding:10px 14px;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px}
 .cmp{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.6;table-layout:fixed}
 .cmp th,.cmp td{border-top:1px solid var(--rule);padding:7px 8px;vertical-align:top;word-break:break-word}
@@ -97,10 +97,22 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .trap b{color:var(--stamp)}
 .yr{font-size:11px;color:var(--ink-soft);padding:6px 14px 8px;border-top:1px solid var(--rule)}
 .lead{font-size:12.5px;color:var(--ink-soft);text-align:center;max-width:620px;margin:0 auto 8px}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#1A1612;--paper-deep:#302820;--ink:#F0E8D8;--ink-soft:#9A8C7C;--rule:#3C3028;--stamp:#E05040}
-.tbl-wrap,.vs-block,.rank-block{background:#26201A}}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1A1612;--paper-deep:#302820;--ink:#F0E8D8;--ink-soft:#9A8C7C;--rule:#3C3028;--stamp:#E05040;--gold:#D4A030;--green:#5AAA48;--blue:#6090D8;--card:#26201A;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#1A1612;--paper-deep:#302820;--ink:#F0E8D8;--ink-soft:#9A8C7C;--rule:#3C3028;--stamp:#E05040;--gold:#D4A030;--green:#5AAA48;--blue:#6090D8;--card:#26201A;color-scheme:dark}
+:root{--card:#FBF8F0}
+:root[data-theme="light"]{--card:#FBF8F0;color-scheme:light}
+header{background:linear-gradient(135deg,#A8402B,#8c3322);color:#fff;padding:26px 18px 20px;margin:0 -18px 6px}
+header .case-tag{color:#fff;border-color:rgba(255,255,255,.7)}
+header h1{color:#fff}
+header h1 .sub{color:rgba(255,255,255,.88)}
+header .lead{color:rgba(255,255,255,.85);margin-bottom:0}
+.nav a{border:1.5px solid var(--rule);border-radius:99px;background:var(--card);padding:4px 11px}
+.nav a:hover{border-color:var(--gold)}
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:rgba(0,0,0,.22);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.home-btn{background:var(--stamp)}
 </style>
 <body>
+<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
 <div class="wrap">
 <header>
   <div class="case-tag">🔀 BROKERX 經紀法規</div>
@@ -132,6 +144,12 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 <div class="tbl-wrap"><div class="tt">各種天數／月數一次看</div><table class="cmp"><thead><tr><th></th><th>期限</th><th>事項</th></tr></thead><tbody><tr><th>24小時</th><td>要約書、定金轉交委託人（委託銷售契約）</td></tr><tr><th>2日</th><td>急迫情事公告開會，不得少於2日</td></tr><tr><th>7日</th><td>重新召集決議送達後異議期；起造人移交；通訊交易解除權</td></tr><tr><th>10日</th><td>區權會開會書面通知；召集人互推公告生效；調解方案異議</td></tr><tr><th>15日</th><td>許可申請補正；消費申訴妥適處理；解除契約返還對價</td></tr><tr><th>20日</th><td>預售屋付款間隔</td></tr><tr><th>30日</th><td>租賃申報登錄；代銷簽約申報；變更／遷出／分設備查</td></tr><tr><th>1個月</th><td>外牆違規逾期未回復，管委會得代為回復；未經要約商品視為拋棄</td></tr><tr><th>3個月</th><td>展延開業上限；§22促請改善期間；§22判決確定後出讓期間；簽約前近3個月成交行情</td></tr><tr><th>4個月</th><td>預售屋執照後辦移轉登記</td></tr><tr><th>6個月</th><td>開始營業期限；預售屋通知交屋；換證須屆滿前6個月內申請</td></tr><tr><th>1年</th><td>經紀人所需營業員經驗；保證金不足停業達1年廢止許可；退還保證金核准註銷滿1年</td></tr><tr><th>3年／5年</th><td>消極資格：執行完畢後3年／撤銷廢止許可後5年</td></tr></tbody></table><div class="trap"><b>★考試陷阱</b>　同一個數字在不同法規代表不同事項，背的時候一定連「主詞」一起背；表中次要項目以重點筆記為準。</div></div>
 </div>
 <a href="%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" class="home-btn" title="回指揮中心">🏠</a>
+<script>
+function updateThemeBtn(t){var b=document.getElementById('theme-btn');if(b)b.textContent=t==='dark'?'🌙':'☀️'}
+function curTheme(){var a=document.documentElement.getAttribute('data-theme');if(a)return a;return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+function toggleTheme(){var n=curTheme()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);updateThemeBtn(n);try{localStorage.setItem('bx-theme',n)}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)document.documentElement.setAttribute('data-theme',s)}catch(e){}updateThemeBtn(curTheme())})();
+</script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 </body>
 </html>
