@@ -67,8 +67,38 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 /* section */
 .sec{margin-bottom:20px}
 .sec-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;
-  padding:7px 12px;border-radius:8px;border-left:4px solid}
-.sec-head .num{font-size:11px;font-weight:900;opacity:.7}
+  padding:7px 12px;border-radius:8px;border-left:5px solid;
+  /* override: use the actual accent as background at higher opacity */}
+/* sec-head color variants — stronger background for clear section differentiation */
+.sec-head.c-red   {background:rgba(168,64,43,.16);border-left-color:var(--red)}
+.sec-head.c-gold  {background:rgba(184,134,30,.16);border-left-color:var(--gold)}
+.sec-head.c-green {background:rgba(78,112,64,.15);border-left-color:var(--green)}
+.sec-head.c-blue  {background:rgba(30,58,106,.13);border-left-color:var(--blue)}
+.sec-head.c-purple{background:rgba(90,46,122,.14);border-left-color:var(--purple)}
+.sec-head.c-orange{background:rgba(192,96,32,.15);border-left-color:var(--orange)}
+.sec-head.c-teal  {background:rgba(30,104,104,.14);border-left-color:var(--teal)}
+.sec-head.c-brown {background:rgba(122,68,40,.14);border-left-color:var(--brown)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  .sec-head.c-red   {background:rgba(224,80,64,.22)}
+  .sec-head.c-gold  {background:rgba(212,160,48,.20)}
+  .sec-head.c-green {background:rgba(90,170,72,.18)}
+  .sec-head.c-blue  {background:rgba(88,136,208,.18)}
+  .sec-head.c-purple{background:rgba(144,96,192,.18)}
+  .sec-head.c-orange{background:rgba(224,112,64,.20)}
+  .sec-head.c-teal  {background:rgba(64,168,168,.18)}
+  .sec-head.c-brown {background:rgba(192,112,80,.18)}
+}}
+:root[data-theme="dark"]{
+  .sec-head.c-red   {background:rgba(224,80,64,.22)}
+  .sec-head.c-gold  {background:rgba(212,160,48,.20)}
+  .sec-head.c-green {background:rgba(90,170,72,.18)}
+  .sec-head.c-blue  {background:rgba(88,136,208,.18)}
+  .sec-head.c-purple{background:rgba(144,96,192,.18)}
+  .sec-head.c-orange{background:rgba(224,112,64,.20)}
+  .sec-head.c-teal  {background:rgba(64,168,168,.18)}
+  .sec-head.c-brown {background:rgba(192,112,80,.18)}
+}
+.sec-head .num{font-size:11px;font-weight:900;opacity:.75}
 .sec-head .title{font-size:14px;font-weight:700}
 .sec-head .law{font-size:11px;color:var(--muted);margin-left:auto}
 
@@ -145,13 +175,13 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ①折舊三法 -->
 <div class="sec" id="s1">
-  <div class="sec-head c-red" style="border-left-color:var(--red)">
+  <div class="sec-head c-red">
     <span class="num">①</span>
     <span class="title">折舊計算三種方法</span>
     <span class="law">§65–68‧§40–41</span>
   </div>
   <div class="compare cols-3">
-    <div class="box c-red">
+    <div class="box c-blue">
       <div class="box-title">定額法（直線法）</div>
       <div class="box-sub">等速折舊路徑</div>
       <div class="row"><span class="label">公式</span><span class="val">Dn＝C×(1－s)/N×n</span></div>
@@ -159,7 +189,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
       <div class="row"><span class="label">適用</span><span class="val">一般估價<span class="key">最常用</span></span></div>
       <div class="row"><span class="label">考頻</span><span class="val">★★★ 16年多次計算題</span></div>
     </div>
-    <div class="box c-gold">
+    <div class="box c-red">
       <div class="box-title">定率法（餘額遞減法）</div>
       <div class="box-sub">初期加速折舊路徑</div>
       <div class="row"><span class="label">公式</span><span class="val">每年以固定比率×剩餘帳面價值</span></div>
@@ -167,7 +197,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
       <div class="row"><span class="label">適用</span><span class="val">折舊較快之建物</span></div>
       <div class="row"><span class="label">考頻</span><span class="val">★★★ 107年申論計算題</span></div>
     </div>
-    <div class="box c-blue">
+    <div class="box c-green">
       <div class="box-title">償債基金法</div>
       <div class="box-sub">初期減速折舊路徑</div>
       <div class="row"><span class="label">公式</span><span class="val">C×(1-s)×[i÷((1+i)^N-1)]</span></div>
@@ -182,7 +212,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ②比較法三道排除規則 -->
 <div class="sec" id="s2">
-  <div class="sec-head c-gold" style="border-left-color:var(--gold)">
+  <div class="sec-head c-gold">
     <span class="num">②</span>
     <span class="title">比較法三道排除規則</span>
     <span class="law">§25–26</span>
@@ -196,7 +226,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
       <div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div>
       <div class="row"><span class="label">例外</span><span class="val">勘估標的性質或區位特殊，缺乏交易資料並於報告書敘明者</span></div>
     </div>
-    <div class="box c-gold">
+    <div class="box c-purple">
       <div class="box-title">第二道｜總調整率</div>
       <div class="box-sub">§25 第2款</div>
       <div class="row"><span class="label">對象</span><span class="val">情況＋價格日期＋區域＋個別因素<span class="key">四項合計</span></span></div>
@@ -204,7 +234,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
       <div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div>
       <div class="row"><span class="label">例外</span><span class="val">同上（性質或區位特殊）</span></div>
     </div>
-    <div class="box c-blue">
+    <div class="box c-teal">
       <div class="box-title">第三道｜試算價格差距</div>
       <div class="box-sub">§26</div>
       <div class="row"><span class="label">對象</span><span class="val">各比較標的調整後<span class="key">試算價格之間</span></span></div>
@@ -218,7 +248,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ③四種價格 -->
 <div class="sec" id="s3">
-  <div class="sec-head c-green" style="border-left-color:var(--green)">
+  <div class="sec-head c-green">
     <span class="num">③</span>
     <span class="title">不動產價格四種類</span>
     <span class="law">§2 第1–4款</span>
@@ -256,27 +286,27 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ④三種租金 -->
 <div class="sec" id="s4">
-  <div class="sec-head c-teal" style="border-left-color:var(--teal)">
+  <div class="sec-head c-teal">
     <span class="num">④</span>
     <span class="title">租金三種類</span>
     <span class="law">§2第5–6款‧§129–133</span>
   </div>
   <div class="compare cols-3">
-    <div class="box c-red">
+    <div class="box c-orange">
       <div class="box-title">實質租金</div>
       <div class="box-sub">§130★鐵打必考</div>
       <div class="row"><span class="label">定義</span><span class="val">承租人每期支付租金＋押金保證金權利金等<span class="key">運用收益</span>之總數</span></div>
       <div class="row"><span class="label">計算</span><span class="val">實質租金 ＝ 支付租金 ＋ 押金×利率</span></div>
       <div class="row"><span class="label">估計原則</span><span class="val">租金估計以估<span class="key">實質租金</span>為原則</span></div>
     </div>
-    <div class="box c-gold">
+    <div class="box c-green">
       <div class="box-title">經濟租金（市場租金）</div>
       <div class="box-sub">參照§2‧§132</div>
       <div class="row"><span class="label">定義</span><span class="val">依最有效使用、正常市場條件下之<span class="key">合理租金水準</span></span></div>
       <div class="row"><span class="label">計算</span><span class="val">以正常價格×租金收益率估計，或比較法推算</span></div>
       <div class="row"><span class="label">說明</span><span class="val">排除契約關係影響，反映「應有水準」</span></div>
     </div>
-    <div class="box c-blue">
+    <div class="box c-purple">
       <div class="box-title">支付租金（契約租金）</div>
       <div class="box-sub">參照§130‧§133</div>
       <div class="row"><span class="label">定義</span><span class="val">承租人<span class="key">實際每期支付</span>給出租人之金額</span></div>
@@ -293,7 +323,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ⑤地區三概念 -->
 <div class="sec" id="s5">
-  <div class="sec-head c-blue" style="border-left-color:var(--blue)">
+  <div class="sec-head c-blue">
     <span class="num">⑤</span>
     <span class="title">地區三概念（近鄰／類似／同一供需圈）</span>
     <span class="law">§2 第10–13款</span>
@@ -324,7 +354,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ⑥重建成本vs重置成本 -->
 <div class="sec" id="s6">
-  <div class="sec-head c-orange" style="border-left-color:var(--orange)">
+  <div class="sec-head c-orange">
     <span class="num">⑥</span>
     <span class="title">重建成本 vs 重置成本</span>
     <span class="law">§48</span>
@@ -348,7 +378,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ⑦直接資本化法vsDCF -->
 <div class="sec" id="s7">
-  <div class="sec-head c-purple" style="border-left-color:var(--purple)">
+  <div class="sec-head c-purple">
     <span class="num">⑦</span>
     <span class="title">直接資本化法 vs 折現現金流量分析法（DCF）</span>
     <span class="law">§28–32‧§15</span>
@@ -378,7 +408,7 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
 
 <!-- ⑧獨立估價vs部分估價 -->
 <div class="sec" id="s8">
-  <div class="sec-head c-brown" style="border-left-color:var(--brown)">
+  <div class="sec-head c-brown">
     <span class="num">⑧</span>
     <span class="title">獨立估價 vs 部分估價（含素地概念）</span>
     <span class="law">§86‧§102–106</span>
