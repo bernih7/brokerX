@@ -572,5 +572,6 @@ var ct=document.getElementById('ctr');
 ['A 法條混淆','B 粗心','C 真的不熟'].forEach(function(n,i){var d=document.createElement('div');var k='e'+i;d.innerHTML='<b>'+(st[k]||0)+'</b>'+n+'<br>';var m=document.createElement('button');m.textContent='−';var p=document.createElement('button');p.textContent='＋';m.onclick=function(){st[k]=Math.max(0,(st[k]||0)-1);d.querySelector('b').textContent=st[k];save();};p.onclick=function(){st[k]=(st[k]||0)+1;d.querySelector('b').textContent=st[k];save();};d.appendChild(m);d.appendChild(p);ct.appendChild(d);});
 window.addEventListener('scroll',function(){document.getElementById('upBtn').classList.toggle('on',window.scrollY>400);},{passive:true});
 </script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 </body>
 </html>

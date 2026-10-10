@@ -70,4 +70,5 @@ function build(){
 function tab(i){["p1","p2","p3"].forEach(function(p,j){$(p).style.display=(j===i)?"":"none";$("t"+(j+1)).className=(j===i)?"on":""})}
 [0,1,2].forEach(function(i){$("t"+(i+1)).onclick=(function(ii){return function(){tab(ii)}})(i)});
 build();
-</script></body></html>
+</script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body></html>
