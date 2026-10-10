@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規定義填空練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root[data-theme="light"]{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+  color-scheme:light;
+}
+:root{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
+header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 20px 20px;text-align:center}
+header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
+header .sub{font-size:13px;opacity:.85}
+
+/* nav */
+nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* main */
+main{max-width:720px;margin:0 auto;padding:20px 16px}
+.chapter{display:none}
+.chapter.active{display:block}
+.ch-title{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:14px}
+.term{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px}
+.blank-line{font-size:14px;line-height:2.2;color:var(--ink);margin-bottom:12px}
+
+/* 每個空格獨立可點擊 */
+.blank{
+  display:inline-block;
+  border-bottom:2px solid var(--red);
+  min-width:60px;
+  padding:0 4px;
+  color:transparent;
+  background:rgba(168,64,43,.08);
+  border-radius:3px;
+  vertical-align:bottom;
+  cursor:pointer;
+  user-select:none;
+  transition:color .18s, background .18s;
+  font-weight:700;
+  font-size:13.5px;
+}
+.blank:hover{background:rgba(168,64,43,.15)}
+.blank.revealed{
+  color:var(--red);
+  background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green);
+}
+.blank .blank-mask{display:inline}
+.blank.revealed .blank-mask{display:none}
+.blank .blank-val{display:none;color:var(--red)}
+.blank.revealed .blank-val{display:inline}
+
+/* 整張卡按鈕 */
+.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
+.reveal-btn:hover{background:var(--red);color:#fff}
+.reveal-all-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .15s}
+.reveal-all-btn:hover{background:var(--green);color:#fff}
+.reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
+
+.card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
+
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note.show{display:block}
+.answer-note .key{color:var(--red);font-weight:700}
+.answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.prog-bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* hub */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+/* 模式切換 tab */
+.mode-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line)}
+.mode-tab{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 0;
+  border:none;background:transparent;color:var(--muted);cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .15s}
+.mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
+
+/* 測驗模式 */
+#quiz-mode{display:none;max-width:720px;margin:0 auto;padding:20px 16px 80px}
+#quiz-mode.active{display:block}
+
+/* 章節過濾 */
+.quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
+  border-radius:99px;border:1.5px solid var(--line);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qf-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.qf-all.on{background:var(--ink);border-color:var(--ink)}
+
+/* 題卡 */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:20px 18px 16px;margin-bottom:16px}
+.qc-meta{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px}
+.qc-chapter{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px}
+.qc-counter{font-size:11px;color:var(--muted)}
+.qc-term{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;
+  color:var(--red);margin-bottom:14px;text-wrap:balance}
+.qc-blank{font-size:14px;line-height:2.4;color:var(--ink);margin-bottom:14px;
+  word-break:break-all}
+.qc-blank .blank{
+  display:inline-block;border-bottom:2px solid var(--red);
+  padding:0 3px;color:transparent;background:rgba(168,64,43,.08);
+  border-radius:3px;vertical-align:bottom;cursor:pointer;user-select:none;
+  transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
+.qc-blank .blank:hover{background:rgba(168,64,43,.15)}
+.qc-blank .blank.revealed{color:var(--red);background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green)}
+.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
+  border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
+.qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
+.qc-btn-reveal:hover{background:var(--red);color:#fff}
+.qc-btn-all{border-color:var(--green);color:var(--green);background:transparent}
+.qc-btn-all:hover{background:var(--green);color:#fff}
+.qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
+.qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-btn-prev{border-color:var(--muted);color:var(--muted);background:transparent}
+.qc-btn-prev:hover{background:var(--muted);color:#fff}
+.qc-btn-prev:disabled{opacity:.3;cursor:default}
+.qc-btn-prev:disabled:hover{background:transparent;color:var(--muted)}
+.qc-answer{display:none;margin-top:10px;padding:10px 14px;
+  background:rgba(92,122,74,.12);border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85}
+.qc-answer.show{display:block}
+.qc-answer .key{color:var(--red);font-weight:700}
+.qc-answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+.qc-exam-stat{display:none;margin-top:10px;padding:6px 12px;
+  background:var(--surface2);border:1px solid var(--line);border-radius:8px;
+  font-size:12px;color:var(--muted);text-align:center;letter-spacing:.3px}
+.qc-exam-stat.show{display:block}
+.qc-exam-stat strong{color:var(--ink)}
+/* 主題切換按鈕 */
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
+.quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
+.quiz-done-banner .big{font-size:48px;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
+<header>
+  <h1>經紀法規概要｜定義填空練習</h1>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 95 題</div>
+</header>
+
+<div class="mode-tabs">
+  <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
+  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+</div>
+
+<nav id="nav"></nav>
+
+<main id="main"></main>
+
+<div id="quiz-mode">
+  <div class="quiz-filter" id="quiz-filter"></div>
+  <div class="quiz-progress" id="quiz-progress"></div>
+  <div id="quiz-card-area"></div>
+</div>
+
+<a id="hub" href="%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
+
+<script>
+const DATA = [
+ {
+  "id": "A",
+  "label": "A 經紀業管理條例",
+  "stat": "A篇歷屆 138 題（26.5%）",
+  "cards": [
+   {
+    "term": "差價（§4）",
+    "blank": "差價：實際___與___之差額（★不是與行情價之差額）。",
+    "answer": "差價：實際<span class=\"key\">買賣交易價格</span>與<span class=\"key\">委託銷售價格</span>之差額（★不是與行情價之差額）。",
+    "src": "條例§4",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "成屋／預售屋（§4）",
+    "blank": "成屋指領有___，或於實施___前建造完成之建築物；預售屋指領有___尚未建造完成，以___之建築物為交易標的。",
+    "answer": "成屋指領有<span class=\"key\">使用執照</span>，或於實施<span class=\"key\">建築管理</span>前建造完成之建築物；預售屋指領有<span class=\"key\">建造執照</span>尚未建造完成，以<span class=\"key\">將來完成</span>之建築物為交易標的。",
+    "src": "條例§4",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "仲介業務／代銷業務（§4）",
+    "blank": "仲介業務：從事買賣、互易、租賃之___或___業務；代銷業務：受___或___委託，負責企劃並___銷售。",
+    "answer": "仲介業務：從事買賣、互易、租賃之<span class=\"key\">居間</span>或<span class=\"key\">代理</span>業務；代銷業務：受<span class=\"key\">起造人</span>或<span class=\"key\">建築業</span>委託，負責企劃並<span class=\"key\">代理</span>銷售。",
+    "src": "條例§4",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "經紀業開業程序（§7）",
+    "blank": "經紀業經許可後，辦理___登記、加入___，並於___內開始營業；有正當理由得展延一次，以___為限。",
+    "answer": "經紀業經許可後，辦理<span class=\"key\">公司或商業</span>登記、加入<span class=\"key\">同業公會</span>，並於<span class=\"key\">6個月</span>內開始營業；有正當理由得展延一次，以<span class=\"key\">3個月</span>為限。",
+    "src": "條例§7（申論103年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "不得申請經營經紀業（§6）",
+    "blank": "受有期徒刑___以上宣告確定，執行完畢後未滿___（緩刑者除外）；經撤銷或廢止許可未滿___者，不得申請經營經紀業。",
+    "answer": "受有期徒刑<span class=\"key\">1年</span>以上宣告確定，執行完畢後未滿<span class=\"key\">3年</span>（緩刑者除外）；經撤銷或廢止許可未滿<span class=\"key\">5年</span>者，不得申請經營經紀業。",
+    "src": "條例§6",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "營業處所人員配置（§11）",
+    "blank": "營業處所至少置經紀人___人；經紀營業員每逾___名，應增設經紀人1人；非常態營業處所銷售總金額達新臺幣___以上者，另須置專業經紀人1人。",
+    "answer": "營業處所至少置經紀人<span class=\"key\">1</span>人；經紀營業員每逾<span class=\"key\">20</span>名，應增設經紀人1人；非常態營業處所銷售總金額達新臺幣<span class=\"key\">6億元</span>以上者，另須置專業經紀人1人。",
+    "src": "條例§11（罰鍰6萬～30萬）",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "營業保證金（§8-9）",
+    "blank": "營業保證金由___統一設置___專戶管理；基金管理委員會中由經紀業擔任之委員，不得超過總數___。",
+    "answer": "營業保證金由<span class=\"key\">全國聯合會</span>統一設置<span class=\"key\">營業保證基金</span>專戶管理；基金管理委員會中由經紀業擔任之委員，不得超過總數<span class=\"key\">五分之二</span>。",
+    "src": "條例§8、§9",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "訓練時數與效期（§13-14）",
+    "blank": "經紀營業員初次訓練不得少於___小時，證明效期___年，重新登錄需完成___小時；經紀人證書效期___年，換證需___小時。",
+    "answer": "經紀營業員初次訓練不得少於<span class=\"key\">30</span>小時，證明效期<span class=\"key\">4</span>年，重新登錄需完成<span class=\"key\">20</span>小時；經紀人證書效期<span class=\"key\">4</span>年，換證需<span class=\"key\">30</span>小時。",
+    "src": "條例§13、§14",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "經紀人請領證書（§14）",
+    "blank": "經紀人考試及格者，須具備___以上經紀營業員經驗，方得請領證書；換證應於效期屆滿前___內申請（細則）。",
+    "answer": "經紀人考試及格者，須具備<span class=\"key\">1年</span>以上經紀營業員經驗，方得請領證書；換證應於效期屆滿前<span class=\"key\">6個月</span>內申請（細則）。",
+    "src": "條例§14、細則",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "專任義務（§16）",
+    "blank": "經紀人員應___一經紀業，但經___同意得為他經紀業執行業務；違反者懲戒為___。",
+    "answer": "經紀人員應<span class=\"key\">專任</span>一經紀業，但經<span class=\"key\">所屬經紀業</span>同意得為他經紀業執行業務；違反者懲戒為<span class=\"key\">申誡</span>。",
+    "src": "條例§16、§31（申論101年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "委託契約與廣告（§21）",
+    "blank": "經紀業須先與委託人簽訂___，方得刊登___及銷售；廣告內容應與___相符，並註明___。",
+    "answer": "經紀業須先與委託人簽訂<span class=\"key\">委託契約書</span>，方得刊登<span class=\"key\">廣告</span>及銷售；廣告內容應與<span class=\"key\">事實</span>相符，並註明<span class=\"key\">經紀業名稱</span>。",
+    "src": "條例§21（罰鍰6萬～30萬）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "應簽章六類文件（§22）",
+    "blank": "應由經紀人簽章：①出租出售___；②承租承購___；③___收據；④廣告稿；⑤___；⑥租賃買賣契約書。代銷業務不適用第___款及第___款。",
+    "answer": "應由經紀人簽章：①出租出售<span class=\"key\">委託契約書</span>；②承租承購<span class=\"key\">要約書</span>；③<span class=\"key\">定金</span>收據；④廣告稿；⑤<span class=\"key\">不動產說明書</span>；⑥租賃買賣契約書。代銷業務不適用第<span class=\"key\">一</span>款及第<span class=\"key\">二</span>款。",
+    "src": "條例§22（申論105年一、113年一）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "不動產說明書流程（§23-24）",
+    "blank": "說明書提供解說前須經___簽章 → 經紀人向___解說 → 締約時交付___並由其簽章 → 視為___之一部分。",
+    "answer": "說明書提供解說前須經<span class=\"key\">委託人</span>簽章 → 經紀人向<span class=\"key\">交易相對人</span>解說 → 締約時交付<span class=\"key\">相對人</span>並由其簽章 → 視為<span class=\"key\">租賃或買賣契約書</span>之一部分。",
+    "src": "條例§23、§24（申論105年一、108年二）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "雙方代理（§24-2）",
+    "blank": "經買賣或租賃___書面同意，得同時接受雙方委託，並應公平提供雙方類似不動產___、契約內容規範說明、必要資訊，及告知應查知之___。",
+    "answer": "經買賣或租賃<span class=\"key\">雙方當事人</span>書面同意，得同時接受雙方委託，並應公平提供雙方類似不動產<span class=\"key\">交易價格</span>、契約內容規範說明、必要資訊，及告知應查知之<span class=\"key\">瑕疵</span>。",
+    "src": "條例§24-2（申論109年二、114年二）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "申報登錄（§24-1）",
+    "blank": "仲介業務成交租賃案件，簽訂租賃契約書之日起___內申報登錄；代銷預售屋，簽訂買賣契約書之日起___內申報登錄成交資訊；委託代銷契約簽訂、變更、終止之日起___內報請備查。",
+    "answer": "仲介業務成交租賃案件，簽訂租賃契約書之日起<span class=\"key\">30日</span>內申報登錄；代銷預售屋，簽訂買賣契約書之日起<span class=\"key\">30日</span>內申報登錄成交資訊；委託代銷契約簽訂、變更、終止之日起<span class=\"key\">30日</span>內報請備查。",
+    "src": "條例§24-1（申論110年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "損害賠償（§26）",
+    "blank": "經紀業因經紀人員執行業務之___致當事人受損害，經紀業與經紀人員負___賠償責任；受害人得於保證金及擔保總額內，請求___代為賠償。",
+    "answer": "經紀業因經紀人員執行業務之<span class=\"key\">故意或過失</span>致當事人受損害，經紀業與經紀人員負<span class=\"key\">連帶</span>賠償責任；受害人得於保證金及擔保總額內，請求<span class=\"key\">全國聯合會</span>代為賠償。",
+    "src": "條例§26",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "報酬限制（§19）",
+    "blank": "經紀業不得收取___或其他報酬，應依___按中央主管機關報酬標準計收；違反者已收取之差價應加計___後___返還。",
+    "answer": "經紀業不得收取<span class=\"key\">差價</span>或其他報酬，應依<span class=\"key\">實際成交價金或租金</span>按中央主管機關報酬標準計收；違反者已收取之差價應加計<span class=\"key\">利息</span>後<span class=\"key\">加倍</span>返還。",
+    "src": "條例§19（申論107年二）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "經紀業罰鍰級距（§29）",
+    "blank": "違反第11、17、19Ⅰ、21、22Ⅰ條等，處___；第12、18、20、27條限期改正未改正，處___；租賃案件未依限申報登錄，處___。",
+    "answer": "違反第11、17、19Ⅰ、21、22Ⅰ條等，處<span class=\"key\">6萬以上30萬以下</span>；第12、18、20、27條限期改正未改正，處<span class=\"key\">3萬以上15萬以下</span>；租賃案件未依限申報登錄，處<span class=\"key\">1萬以上5萬以下</span>。",
+    "src": "條例§29",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "經紀人員懲戒（§31）",
+    "blank": "違反兼業、簽章、解說、保密義務者，處___；違反收取差價者，處___停止執行業務；申誡累計___次另予停止執行業務；停止執行業務累計達___以上廢止證書。",
+    "answer": "違反兼業、簽章、解說、保密義務者，處<span class=\"key\">申誡</span>；違反收取差價者，處<span class=\"key\">6個月以上3年以下</span>停止執行業務；申誡累計<span class=\"key\">3</span>次另予停止執行業務；停止執行業務累計達<span class=\"key\">5年</span>以上廢止證書。",
+    "src": "條例§31",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "非經紀業違法經營（§32）",
+    "blank": "非經紀業而經營仲介或代銷業務者，主管機關先___並處___罰鍰；禁止後仍繼續營業，才處___有期徒刑、拘役，得科或併科罰金。",
+    "answer": "非經紀業而經營仲介或代銷業務者，主管機關先<span class=\"key\">禁止其營業</span>並處<span class=\"key\">10萬以上30萬以下</span>罰鍰；禁止後仍繼續營業，才處<span class=\"key\">1年以下</span>有期徒刑、拘役，得科或併科罰金。",
+    "src": "條例§32",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "保證金不足（§29）",
+    "blank": "保證金不足未補足者，處___至補足為止；停業達___應廢止許可。",
+    "answer": "保證金不足未補足者，處<span class=\"key\">停止營業</span>至補足為止；停業達<span class=\"key\">1年</span>應廢止許可。",
+    "src": "條例§29",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "B",
+  "label": "B 施行細則",
+  "stat": "併入A篇統計（138題）",
+  "cards": [
+   {
+    "term": "申請許可補正",
+    "blank": "受理經紀業許可申請，不合規定者通知___內補正，屆期未補正___。",
+    "answer": "受理經紀業許可申請，不合規定者通知<span class=\"key\">15日</span>內補正，屆期未補正<span class=\"key\">駁回</span>。",
+    "src": "施行細則",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "變更與分設備查",
+    "blank": "經紀業名稱、所在地、組織型態等變更，應於變更之日起___內申請備查；遷出管轄區域應於遷出後___內申請遷入備查；分設營業處所設立後___內申請備查。",
+    "answer": "經紀業名稱、所在地、組織型態等變更，應於變更之日起<span class=\"key\">30日</span>內申請備查；遷出管轄區域應於遷出後<span class=\"key\">30日</span>內申請遷入備查；分設營業處所設立後<span class=\"key\">30日</span>內申請備查。",
+    "src": "施行細則",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "簿冊保存",
+    "blank": "經紀業管理登記簿、經紀人名簿、經紀營業員名簿、經紀業專冊等簿冊，應___保存。",
+    "answer": "經紀業管理登記簿、經紀人名簿、經紀營業員名簿、經紀業專冊等簿冊，應<span class=\"key\">永久</span>保存。",
+    "src": "施行細則",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "經紀人換證時程",
+    "blank": "經紀人辦理換發證書，應於證書有效期限屆滿前___內申請；換發後有效期限自原證書屆滿___起算___年。",
+    "answer": "經紀人辦理換發證書，應於證書有效期限屆滿前<span class=\"key\">6個月</span>內申請；換發後有效期限自原證書屆滿<span class=\"key\">次日</span>起算<span class=\"key\">4</span>年。",
+    "src": "施行細則",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "營業保證金退還",
+    "blank": "公司解散、商號歇業等，得自核准註銷滿___後___內請求退還營業保證金，孳息___退還。",
+    "answer": "公司解散、商號歇業等，得自核准註銷滿<span class=\"key\">1年</span>後<span class=\"key\">2年</span>內請求退還營業保證金，孳息<span class=\"key\">不</span>退還。",
+    "src": "施行細則§13-1（申論100年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "業務紀錄查閱",
+    "blank": "經紀業執行業務應記錄辦理情形，主管機關得___或___業務紀錄及文件，經紀業不得規避、妨礙或拒絕。",
+    "answer": "經紀業執行業務應記錄辦理情形，主管機關得<span class=\"key\">查詢</span>或<span class=\"key\">取閱</span>業務紀錄及文件，經紀業不得規避、妨礙或拒絕。",
+    "src": "施行細則",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "C",
+  "label": "C 不動產說明書",
+  "stat": "C篇歷屆 12 題（2.3%）｜115年新修正必讀",
+  "cards": [
+   {
+    "term": "不得記載事項",
+    "blank": "不動產說明書不得記載：本說明書內容___；___說明書；「___面積」「___面積」「___面積」等名詞；房價有___空間。",
+    "answer": "不動產說明書不得記載：本說明書內容<span class=\"key\">僅供參考</span>；<span class=\"key\">繳回</span>說明書；「<span class=\"key\">受益</span>面積」「<span class=\"key\">銷售</span>面積」「<span class=\"key\">使用</span>面積」等名詞；房價有<span class=\"key\">上漲</span>空間。",
+    "src": "說明書不得記載事項",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "現況確認書≠說明書",
+    "blank": "建物現況確認書是成屋買賣契約附件___，由___自行填寫；不得用來___不動產說明書之內容（115年版不得記載事項第5點）。",
+    "answer": "建物現況確認書是成屋買賣契約附件<span class=\"key\">一</span>，由<span class=\"key\">賣方</span>自行填寫；不得用來<span class=\"key\">替代</span>不動產說明書之內容（115年版不得記載事項第5點）。",
+    "src": "成屋買賣契約附件一",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "115年新增三大揭露",
+    "blank": "115.1.13修正新增：建築___標示、___發電設備設置情形，及最近___年內基地周邊半徑___公尺範圍有無___救助紀錄。",
+    "answer": "115.1.13修正新增：建築<span class=\"key\">能效</span>標示、<span class=\"key\">太陽光電</span>發電設備設置情形，及最近<span class=\"key\">5</span>年內基地周邊半徑<span class=\"key\">300</span>公尺範圍有無<span class=\"key\">水災淹水</span>救助紀錄。",
+    "src": "說明書應記載事項（115.4.1生效）",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "水災紀錄適用範圍",
+    "blank": "「水災淹水救助紀錄」揭露於___與___章節，___（素地）未列入（★陷阱）。",
+    "answer": "「水災淹水救助紀錄」揭露於<span class=\"key\">成屋</span>與<span class=\"key\">預售屋</span>章節，<span class=\"key\">土地</span>（素地）未列入（★陷阱）。",
+    "src": "說明書應記載事項（115年）",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "氯離子用語修正",
+    "blank": "預售屋交屋時有無檢附施工中建築物___混凝土氯離子含量檢測報告單，及施工中建築物出具無___污染證明（成屋章節未同步修正）。",
+    "answer": "預售屋交屋時有無檢附施工中建築物<span class=\"key\">新拌</span>混凝土氯離子含量檢測報告單，及施工中建築物出具無<span class=\"key\">輻射</span>污染證明（成屋章節未同步修正）。",
+    "src": "說明書應記載事項（115年）",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "土地使用管制內容",
+    "blank": "土地（素地）說明書「使用管制內容」須載明使用___／編定、___率、___率、開發方式限制，及山坡地、水保區等特殊管制。",
+    "answer": "土地（素地）說明書「使用管制內容」須載明使用<span class=\"key\">分區</span>／編定、<span class=\"key\">建蔽</span>率、<span class=\"key\">容積</span>率、開發方式限制，及山坡地、水保區等特殊管制。",
+    "src": "說明書（申論105年二）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "建物型態分類",
+    "blank": "建物型態分：___建物（獨棟、連棟、雙併，無共有部分）、___建物（公寓、華廈、大樓等）、其他特殊建物（工廠、農舍、倉庫）。",
+    "answer": "建物型態分：<span class=\"key\">一般</span>建物（獨棟、連棟、雙併，無共有部分）、<span class=\"key\">區分所有</span>建物（公寓、華廈、大樓等）、其他特殊建物（工廠、農舍、倉庫）。",
+    "src": "說明書應記載事項",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "D",
+  "label": "D 三大定型化契約",
+  "stat": "D篇歷屆 15 題（2.9%）｜數字比較必背",
+  "cards": [
+   {
+    "term": "契約審閱期",
+    "blank": "成屋、預售屋買賣契約審閱期至少___日；委託銷售契約及要約書審閱期不得少於___日。",
+    "answer": "成屋、預售屋買賣契約審閱期至少<span class=\"key\">5</span>日；委託銷售契約及要約書審閱期不得少於<span class=\"key\">3</span>日。",
+    "src": "三契約應記載事項",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "利息上限",
+    "blank": "成屋、預售屋買賣契約不得記載超過民法第___條週年利率___之利息。",
+    "answer": "成屋、預售屋買賣契約不得記載超過民法第<span class=\"key\">205</span>條週年利率<span class=\"key\">16%</span>之利息。",
+    "src": "買賣契約不得記載事項",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "成屋買賣違約金",
+    "blank": "成屋：賣方違約，退還已付價款加每日萬分之___單利，並支付同額違約金，但以不超過房地總價款___為限；買方違約沒收亦以不超過___為限。",
+    "answer": "成屋：賣方違約，退還已付價款加每日萬分之<span class=\"key\">二</span>單利，並支付同額違約金，但以不超過房地總價款<span class=\"key\">15%</span>為限；買方違約沒收亦以不超過<span class=\"key\">15%</span>為限。",
+    "src": "成屋買賣契約",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "預售屋違約金（方向相反）",
+    "blank": "預售屋：賣方違約賠償比例不得___房地總價款15%；買方違約沒收最高不得___房地總價款15%（★與成屋方向相反）。",
+    "answer": "預售屋：賣方違約賠償比例不得<span class=\"key\">低於</span>房地總價款15%；買方違約沒收最高不得<span class=\"key\">超過</span>房地總價款15%（★與成屋方向相反）。",
+    "src": "預售屋買賣契約",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "履約擔保五選一",
+    "blank": "預售屋履約擔保：不動產開發___、價金返還之___、價金___、同業___擔保、公會辦理___保證協定。",
+    "answer": "預售屋履約擔保：不動產開發<span class=\"key\">信託</span>、價金返還之<span class=\"key\">保證</span>、價金<span class=\"key\">信託</span>、同業<span class=\"key\">連帶</span>擔保、公會辦理<span class=\"key\">連帶</span>保證協定。",
+    "src": "預售屋買賣契約",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "面積誤差找補",
+    "blank": "預售屋面積誤差：不足部分賣方___找補；超過部分買方最多找補___；誤差超過___者，買方得解除契約。",
+    "answer": "預售屋面積誤差：不足部分賣方<span class=\"key\">全部</span>找補；超過部分買方最多找補<span class=\"key\">2%</span>；誤差超過<span class=\"key\">3%</span>者，買方得解除契約。",
+    "src": "預售屋買賣契約",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "預售屋保固",
+    "blank": "預售屋保固：結構部分（基礎、樑柱、承重牆等）___年；固定建材及設備（門窗、粉刷、地磚）___年。",
+    "answer": "預售屋保固：結構部分（基礎、樑柱、承重牆等）<span class=\"key\">15</span>年；固定建材及設備（門窗、粉刷、地磚）<span class=\"key\">1</span>年。",
+    "src": "預售屋買賣契約",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "預售屋期限",
+    "blank": "預售屋：使用執照核發後___個月內備妥文件申辦移轉登記；領得使用執照___個月內通知交屋；每次付款間隔應在___日以上。",
+    "answer": "預售屋：使用執照核發後<span class=\"key\">4</span>個月內備妥文件申辦移轉登記；領得使用執照<span class=\"key\">6</span>個月內通知交屋；每次付款間隔應在<span class=\"key\">20</span>日以上。",
+    "src": "預售屋買賣契約",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "委託銷售：受託人義務",
+    "blank": "受託人簽約前應據實提供近___個月成交行情；買方簽立要約書，應於___小時內轉交委託人；收受定金後___小時內送交委託人。",
+    "answer": "受託人簽約前應據實提供近<span class=\"key\">3</span>個月成交行情；買方簽立要約書，應於<span class=\"key\">24</span>小時內轉交委託人；收受定金後<span class=\"key\">24</span>小時內送交委託人。",
+    "src": "委託銷售契約",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "禁止事先收費",
+    "blank": "委託銷售契約不得約定於契約成立前，受託人得向消費者收取___、___或其他任何名目之費用。",
+    "answer": "委託銷售契約不得約定於契約成立前，受託人得向消費者收取<span class=\"key\">斡旋金</span>、<span class=\"key\">訂金</span>或其他任何名目之費用。",
+    "src": "委託銷售契約不得記載事項",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "沒收定金分配",
+    "blank": "買方違約致定金被沒收，受託人分得之比例不得逾沒收定金之___，且不得逾約定___，並不得再收取服務報酬。",
+    "answer": "買方違約致定金被沒收，受託人分得之比例不得逾沒收定金之<span class=\"key\">50%</span>，且不得逾約定<span class=\"key\">服務報酬</span>，並不得再收取服務報酬。",
+    "src": "委託銷售契約",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "要約書規範",
+    "blank": "要約書：買方於要約期限內有撤回權，但賣方已___並送達買方者除外；賣方變更要約內容而承諾，視為___原要約而為___。",
+    "answer": "要約書：買方於要約期限內有撤回權，但賣方已<span class=\"key\">承諾</span>並送達買方者除外；賣方變更要約內容而承諾，視為<span class=\"key\">拒絕</span>原要約而為<span class=\"key\">新要約</span>。",
+    "src": "要約書定型化契約",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "成屋稅費負擔",
+    "blank": "成屋買賣：土地增值稅由___負擔；契稅、印花稅、登記規費、保險費由___負擔。",
+    "answer": "成屋買賣：土地增值稅由<span class=\"key\">賣方</span>負擔；契稅、印花稅、登記規費、保險費由<span class=\"key\">買方</span>負擔。",
+    "src": "成屋買賣契約",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "E",
+  "label": "E 公寓大廈管理條例",
+  "stat": "E篇歷屆 124 題（23.8%）",
+  "cards": [
+   {
+    "term": "住戶定義（§3）",
+    "blank": "住戶指___、承租人，或經區分所有權人同意而為專有部分使用者，或業經取得___所有權者。",
+    "answer": "住戶指<span class=\"key\">區分所有權人</span>、承租人，或經區分所有權人同意而為專有部分使用者，或業經取得<span class=\"key\">停車空間建築物</span>所有權者。",
+    "src": "條例§3",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "管理負責人（§3）",
+    "blank": "未成立管理委員會時，由住戶推選之___人擔任___。",
+    "answer": "未成立管理委員會時，由住戶推選之<span class=\"key\">1</span>人擔任<span class=\"key\">管理負責人</span>。",
+    "src": "條例§3",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "專有部分不得分離移轉（§4）",
+    "blank": "區分所有權人對專有部分不得與___及___分離移轉。",
+    "answer": "區分所有權人對專有部分不得與<span class=\"key\">共用部分應有部分</span>及<span class=\"key\">基地所有權應有部分</span>分離移轉。",
+    "src": "條例§4",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "不得約定專用部分（§7）",
+    "blank": "不得約定專用：公寓大廈本身所占之___、連通數專有部分之___與樓梯、基礎、主要___、承重牆壁、樓地板及___之構造。",
+    "answer": "不得約定專用：公寓大廈本身所占之<span class=\"key\">地面</span>、連通數專有部分之<span class=\"key\">走廊</span>與樓梯、基礎、主要<span class=\"key\">樑柱</span>、承重牆壁、樓地板及<span class=\"key\">屋頂</span>之構造。",
+    "src": "條例§7（申論102年一、106年一）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "外牆變更（§8）",
+    "blank": "外牆面、樓頂平臺變更構造或設置廣告物等違規，管理負責人應制止，逾___未回復原狀，得由管委會代為回復，費用由該住戶負擔。",
+    "answer": "外牆面、樓頂平臺變更構造或設置廣告物等違規，管理負責人應制止，逾<span class=\"key\">1個月</span>未回復原狀，得由管委會代為回復，費用由該住戶負擔。",
+    "src": "條例§8",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "強制遷離與拍賣（§22）",
+    "blank": "住戶積欠費用達區分所有權總價___，促請改善___內未改善，得訴請法院強制遷離；判決確定後___內未自行出讓，管委會得聲請法院___。",
+    "answer": "住戶積欠費用達區分所有權總價<span class=\"key\">1%</span>，促請改善<span class=\"key\">3個月</span>內未改善，得訴請法院強制遷離；判決確定後<span class=\"key\">3個月</span>內未自行出讓，管委會得聲請法院<span class=\"key\">拍賣</span>。",
+    "src": "條例§22（申論107年一、112年二）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "拍賣受償順序",
+    "blank": "強制出讓拍賣所得，其受償順序與___同；區分所有權總價指建築物評定___加當期土地___之和。",
+    "answer": "強制出讓拍賣所得，其受償順序與<span class=\"key\">第一順位抵押權</span>同；區分所有權總價指建築物評定<span class=\"key\">標準價格</span>加當期土地<span class=\"key\">公告現值</span>之和。",
+    "src": "條例§22、細則§6",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "區權會召開（§25、30）",
+    "blank": "區權會每年至少召開定期會議___次；開會前___日以書面通知，急迫情事得公告，但不得少於___日。",
+    "answer": "區權會每年至少召開定期會議<span class=\"key\">1</span>次；開會前<span class=\"key\">10</span>日以書面通知，急迫情事得公告，但不得少於<span class=\"key\">2</span>日。",
+    "src": "條例§25、§30",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "臨時會議（§25）",
+    "blank": "臨時會議得由區分所有權人___以上，及其區分所有權比例合計___以上，向負責人請求召開。",
+    "answer": "臨時會議得由區分所有權人<span class=\"key\">五分之一</span>以上，及其區分所有權比例合計<span class=\"key\">五分之一</span>以上，向負責人請求召開。",
+    "src": "條例§25（申論111年二）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "一般決議門檻（§31）",
+    "blank": "一般決議：區分所有權人___及區分所有權比例___以上出席，出席人數___及其區分所有權比例占出席___以上同意。",
+    "answer": "一般決議：區分所有權人<span class=\"key\">2/3</span>及區分所有權比例<span class=\"key\">2/3</span>以上出席，出席人數<span class=\"key\">3/4</span>及其區分所有權比例占出席<span class=\"key\">3/4</span>以上同意。",
+    "src": "條例§31（申論113年二）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "重新召集門檻（§32）",
+    "blank": "重新召集：出席須區分所有權人___人並___以上、比例___以上；同意須出席人數及比例___；決議送達後___內無過半數反對視為成立。",
+    "answer": "重新召集：出席須區分所有權人<span class=\"key\">3</span>人並<span class=\"key\">1/5</span>以上、比例<span class=\"key\">1/5</span>以上；同意須出席人數及比例<span class=\"key\">過半數</span>；決議送達後<span class=\"key\">7日</span>內無過半數反對視為成立。",
+    "src": "條例§32（申論113年二）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "單一人表決權限制（§27）",
+    "blank": "任一區分所有權人之區分所有權占全部___以上者，其超過部分___。",
+    "answer": "任一區分所有權人之區分所有權占全部<span class=\"key\">1/5</span>以上者，其超過部分<span class=\"key\">不予計算</span>。",
+    "src": "條例§27",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "任期與連任（§25、29）",
+    "blank": "召集人及管理委員任期___年，未規定者___年；主委、管理負責人、財務監察委員連選得連任___次，其餘管理委員連選___。",
+    "answer": "召集人及管理委員任期<span class=\"key\">1至2</span>年，未規定者<span class=\"key\">1</span>年；主委、管理負責人、財務監察委員連選得連任<span class=\"key\">1</span>次，其餘管理委員連選<span class=\"key\">得連任</span>。",
+    "src": "條例§25、§29",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "管委會當事人能力",
+    "blank": "管理委員會有___能力，可為原告或被告。",
+    "answer": "管理委員會有<span class=\"key\">當事人</span>能力，可為原告或被告。",
+    "src": "條例§38",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "規約七事項（§23）",
+    "blank": "非經載明於規約不生效力：約定專用共用部分範圍及主體、共用部分使用收益特別約定、禁止___特別約定、違反義務處理方式、___監督規定、決議出席同意人數特別約定、___協調程序。",
+    "answer": "非經載明於規約不生效力：約定專用共用部分範圍及主體、共用部分使用收益特別約定、禁止<span class=\"key\">飼養動物</span>特別約定、違反義務處理方式、<span class=\"key\">財務</span>監督規定、決議出席同意人數特別約定、<span class=\"key\">糾紛</span>協調程序。",
+    "src": "條例§23",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "公共基金來源（§18）",
+    "blank": "公共基金來源：起造人按工程造價一定比例提列（領得使照後___內）、區權人決議___、基金___、其他收入。",
+    "answer": "公共基金來源：起造人按工程造價一定比例提列（領得使照後<span class=\"key\">1年</span>內）、區權人決議<span class=\"key\">繳納</span>、基金<span class=\"key\">孳息</span>、其他收入。",
+    "src": "條例§18",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "行政罰鍰級距",
+    "blank": "第47條罰___；第48條罰___；第49、49-1、50條罰___。",
+    "answer": "第47條罰<span class=\"key\">3千以上1萬5千以下</span>；第48條罰<span class=\"key\">1千以上5千以下</span>；第49、49-1、50條罰<span class=\"key\">4萬以上20萬以下</span>。",
+    "src": "條例§47-50",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "刑事責任（§49Ⅱ）",
+    "blank": "供營業使用之住戶違反擅自變更使用／棄置危險物，致人於死者處___有期徒刑；致重傷者處___有期徒刑。",
+    "answer": "供營業使用之住戶違反擅自變更使用／棄置危險物，致人於死者處<span class=\"key\">1年以上7年以下</span>有期徒刑；致重傷者處<span class=\"key\">6個月以上5年以下</span>有期徒刑。",
+    "src": "條例§49Ⅱ",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "起造人義務（§57-58）",
+    "blank": "起造人應於管委會成立或負責人推選後___內，會同檢測水電機械消防管線後移交；未領得___不得辦理銷售。",
+    "answer": "起造人應於管委會成立或負責人推選後<span class=\"key\">7日</span>內，會同檢測水電機械消防管線後移交；未領得<span class=\"key\">建造執照</span>不得辦理銷售。",
+    "src": "條例§57、§58",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "重建（§13-14）",
+    "blank": "重建原則應經___區分所有權人及基地所有權人等同意；配合___計畫、嚴重毀損有公安之虞、災變肇致公安危害者，不在此限。",
+    "answer": "重建原則應經<span class=\"key\">全體</span>區分所有權人及基地所有權人等同意；配合<span class=\"key\">都更</span>計畫、嚴重毀損有公安之虞、災變肇致公安危害者，不在此限。",
+    "src": "條例§13、§14（申論99年二）",
+    "essay": 1,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "F",
+  "label": "F 細則與規約範本",
+  "stat": "併入E篇統計（124題）",
+  "cards": [
+   {
+    "term": "公共基金提列比例",
+    "blank": "工程造價___以下提列千分之___；逾1,000萬至1億元部分千分之___；逾1億至10億元部分千分之___；逾10億元部分千分之___。",
+    "answer": "工程造價<span class=\"key\">1,000萬元</span>以下提列千分之<span class=\"key\">20</span>；逾1,000萬至1億元部分千分之<span class=\"key\">15</span>；逾1億至10億元部分千分之<span class=\"key\">5</span>；逾10億元部分千分之<span class=\"key\">3</span>。",
+    "src": "施行細則§5（計算題）",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "召集人互推",
+    "blank": "召集人互推：應有區分所有權人___以上書面推選，經公告___後生效。",
+    "answer": "召集人互推：應有區分所有權人<span class=\"key\">2人</span>以上書面推選，經公告<span class=\"key\">10日</span>後生效。",
+    "src": "施行細則§7",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "規約效力四分類",
+    "blank": "①非經載明於規約，___效力（§23）；②載明於規約亦___效力（§7）；③決議額數（§31、32）僅得於規約___；④外牆變更、飼養動物等可於規約___。",
+    "answer": "①非經載明於規約，<span class=\"key\">不生</span>效力（§23）；②載明於規約亦<span class=\"key\">不生</span>效力（§7）；③決議額數（§31、32）僅得於規約<span class=\"key\">變更</span>；④外牆變更、飼養動物等可於規約<span class=\"key\">變更</span>。",
+    "src": "規約範本注意事項",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "規約範本地位",
+    "blank": "規約範本由___定之，供規約草約制作___；條例施行前已取得建照者，區權會訂定規約前，以規約範本___規約。",
+    "answer": "規約範本由<span class=\"key\">中央主管機關</span>定之，供規約草約制作<span class=\"key\">參考</span>；條例施行前已取得建照者，區權會訂定規約前，以規約範本<span class=\"key\">視為</span>規約。",
+    "src": "規約範本注意事項",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "會計用語定義",
+    "blank": "會計憑證指___憑證；會計帳簿指___帳及___帳；財務報表指___收支表及財產目錄。",
+    "answer": "會計憑證指<span class=\"key\">原始</span>憑證；會計帳簿指<span class=\"key\">日記</span>帳及<span class=\"key\">總分類</span>帳；財務報表指<span class=\"key\">現金</span>收支表及財產目錄。",
+    "src": "施行細則§10",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "G",
+  "label": "G 公平交易法與廣告",
+  "stat": "G篇歷屆 114 題（21.9%）",
+  "cards": [
+   {
+    "term": "不實廣告構成（§21）",
+    "blank": "事業不得在商品或廣告上，對足以影響___之事項，為___或___之表示或表徵。",
+    "answer": "事業不得在商品或廣告上，對足以影響<span class=\"key\">交易決定</span>之事項，為<span class=\"key\">虛偽不實</span>或<span class=\"key\">引人錯誤</span>之表示或表徵。",
+    "src": "公平法§21（申論112年一）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "連帶責任與10倍",
+    "blank": "廣告代理業、媒體業明知或可得而知仍製作／傳播，與廣告主負___責任；非知名公眾人物或專業機構之薦證者，僅於受廣告主報酬___範圍內負連帶責任。",
+    "answer": "廣告代理業、媒體業明知或可得而知仍製作／傳播，與廣告主負<span class=\"key\">連帶賠償</span>責任；非知名公眾人物或專業機構之薦證者，僅於受廣告主報酬<span class=\"key\">10倍</span>範圍內負連帶責任。",
+    "src": "公平法§21（申論104年二）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "不實廣告罰鍰",
+    "blank": "違反第21條，公平會得限期令停止改正，並處___罰鍰；屆期不停止改正者，按次處___。",
+    "answer": "違反第21條，公平會得限期令停止改正，並處<span class=\"key\">5萬以上2,500萬以下</span>罰鍰；屆期不停止改正者，按次處<span class=\"key\">10萬以上5,000萬以下</span>。",
+    "src": "公平法§42",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "損害賠償（§31、33）",
+    "blank": "故意行為法院得酌定不超過已證明損害額___之賠償；請求權自知悉起___、行為時起___不行使而消滅。",
+    "answer": "故意行為法院得酌定不超過已證明損害額<span class=\"key\">3倍</span>之賠償；請求權自知悉起<span class=\"key\">2年</span>、行為時起<span class=\"key\">10年</span>不行使而消滅。",
+    "src": "公平法§31、§33",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "廣告查核分工",
+    "blank": "經紀業所為廣告→___（管理條例）；涉及企業形象等不屬管理條例範疇→___；建商委託經紀業銷售俱為廣告主→___；無法劃分→內政部與公平會___。",
+    "answer": "經紀業所為廣告→<span class=\"key\">主管機關</span>（管理條例）；涉及企業形象等不屬管理條例範疇→<span class=\"key\">公平交易委員會</span>；建商委託經紀業銷售俱為廣告主→<span class=\"key\">公平交易委員會</span>；無法劃分→內政部與公平會<span class=\"key\">協調處理</span>。",
+    "src": "廣告處理原則第三點（申論103年二）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "加盟店標示",
+    "blank": "加盟店廣告應標明___或加盟經營字樣，不得逕以條例第21條經紀業名稱替代；未標明者由___處理。",
+    "answer": "加盟店廣告應標明<span class=\"key\">加盟店</span>或加盟經營字樣，不得逕以條例第21條經紀業名稱替代；未標明者由<span class=\"key\">主管機關</span>處理。",
+    "src": "廣告處理原則第五點（申論111年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "廣告查核罰則",
+    "blank": "經紀業拒絕查核限期改正未改正處___；違規經紀業處___並限期改正；違規經紀人員處___，累計3次另予停止執行業務。",
+    "answer": "經紀業拒絕查核限期改正未改正處<span class=\"key\">3萬以上15萬以下</span>；違規經紀業處<span class=\"key\">6萬以上30萬以下</span>並限期改正；違規經紀人員處<span class=\"key\">申誡</span>，累計3次另予停止執行業務。",
+    "src": "廣告處理原則第十點",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "獨占認定基準（§8）",
+    "blank": "獨占認定基準：一事業市占率達___；二事業合計達___；三事業合計達___。",
+    "answer": "獨占認定基準：一事業市占率達<span class=\"key\">1/2</span>；二事業合計達<span class=\"key\">2/3</span>；三事業合計達<span class=\"key\">3/4</span>。",
+    "src": "公平法§8",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "結合申報（§11）",
+    "blank": "結合申報門檻：市占率達___或單一事業達___；申報後___工作日內不得結合，得延長至不逾___工作日。",
+    "answer": "結合申報門檻：市占率達<span class=\"key\">1/3</span>或單一事業達<span class=\"key\">1/4</span>；申報後<span class=\"key\">30</span>工作日內不得結合，得延長至不逾<span class=\"key\">60</span>工作日。",
+    "src": "公平法§11",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "聯合行為（§14-16）",
+    "blank": "聯合行為：以契約、協議或其他方式之___，共同決定價格或限制數量等相互約束事業活動，足以影響生產、商品交易或服務供需之___；許可期限不得逾___。",
+    "answer": "聯合行為：以契約、協議或其他方式之<span class=\"key\">合意</span>，共同決定價格或限制數量等相互約束事業活動，足以影響生產、商品交易或服務供需之<span class=\"key\">市場功能</span>；許可期限不得逾<span class=\"key\">5年</span>。",
+    "src": "公平法§14、§16（申論101年二）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "違法刑罰（§37）",
+    "blank": "違反獨占濫用或未許可聯合行為，處___以下有期徒刑，得併科___以下罰金。",
+    "answer": "違反獨占濫用或未許可聯合行為，處<span class=\"key\">3年</span>以下有期徒刑，得併科<span class=\"key\">1億元</span>以下罰金。",
+    "src": "公平法§37",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ },
+ {
+  "id": "H",
+  "label": "H 消費者保護法",
+  "stat": "H篇歷屆 117 題（22.5%）",
+  "cards": [
+   {
+    "term": "審閱期（§11-1）",
+    "blank": "訂立定型化契約前，應有___以內之合理期間供消費者審閱；拋棄審閱權之條款___；違反者該條款不構成___。",
+    "answer": "訂立定型化契約前，應有<span class=\"key\">30日</span>以內之合理期間供消費者審閱；拋棄審閱權之條款<span class=\"key\">無效</span>；違反者該條款不構成<span class=\"key\">契約內容</span>。",
+    "src": "消保法§11-1",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "應記載／不得記載事項（§17）",
+    "blank": "中央主管機關得選擇特定行業，擬訂定型化契約___或___事項，報請___核定後公告。",
+    "answer": "中央主管機關得選擇特定行業，擬訂定型化契約<span class=\"key\">應記載</span>或<span class=\"key\">不得記載</span>事項，報請<span class=\"key\">行政院</span>核定後公告。",
+    "src": "消保法§17（申論106年二）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "公告事項效力（§17）",
+    "blank": "違反公告不得記載事項之條款___；公告應記載事項雖未記載於契約，仍___契約內容。",
+    "answer": "違反公告不得記載事項之條款<span class=\"key\">無效</span>；公告應記載事項雖未記載於契約，仍<span class=\"key\">構成</span>契約內容。",
+    "src": "消保法§17Ⅳ、Ⅴ",
+    "essay": 0,
+    "hot": 1
+   },
+   {
+    "term": "顯失公平（§12）",
+    "blank": "條款違反___原則對消費者顯失公平者無效；推定顯失公平：違反___原則、與任意規定立法意旨顯相矛盾、契約主要權利義務受限制致___難以達成。",
+    "answer": "條款違反<span class=\"key\">誠信</span>原則對消費者顯失公平者無效；推定顯失公平：違反<span class=\"key\">平等互惠</span>原則、與任意規定立法意旨顯相矛盾、契約主要權利義務受限制致<span class=\"key\">契約目的</span>難以達成。",
+    "src": "消保法§12",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "解釋與個別磋商（§11、15）",
+    "blank": "定型化契約條款如有疑義，應為有利於___之解釋；個別磋商條款牴觸定型化條款者，___部分無效。",
+    "answer": "定型化契約條款如有疑義，應為有利於<span class=\"key\">消費者</span>之解釋；個別磋商條款牴觸定型化條款者，<span class=\"key\">定型化條款</span>部分無效。",
+    "src": "消保法§11、§15",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "七日解除權（§19）",
+    "blank": "通訊交易、訪問交易消費者得於收受商品或接受服務後___內解除契約，無須說明理由及負擔費用；一般不動產買賣因面對面、實地看屋，原則___適用。",
+    "answer": "通訊交易、訪問交易消費者得於收受商品或接受服務後<span class=\"key\">7日</span>內解除契約，無須說明理由及負擔費用；一般不動產買賣因面對面、實地看屋，原則<span class=\"key\">不</span>適用。",
+    "src": "消保法§19",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "廣告真實義務（§22-23）",
+    "blank": "企業經營者對消費者所負義務不得___廣告內容；媒體經營者明知或可得而知與事實不符，與企業經營者負___責任。",
+    "answer": "企業經營者對消費者所負義務不得<span class=\"key\">低於</span>廣告內容；媒體經營者明知或可得而知與事實不符，與企業經營者負<span class=\"key\">連帶</span>責任。",
+    "src": "消保法§22、§23（申論109年一）",
+    "essay": 1,
+    "hot": 0
+   },
+   {
+    "term": "懲罰性賠償金（§51）",
+    "blank": "懲罰性賠償金：故意___倍以下、重大過失___倍以下、過失___倍以下。",
+    "answer": "懲罰性賠償金：故意<span class=\"key\">5</span>倍以下、重大過失<span class=\"key\">3</span>倍以下、過失<span class=\"key\">1</span>倍以下。",
+    "src": "消保法§51（申論108年一）",
+    "essay": 1,
+    "hot": 1
+   },
+   {
+    "term": "違反公告罰則（§56-1）",
+    "blank": "違反應記載／不得記載事項公告，限期改正屆期不改正，處___；再次令限期改正仍不改正，處___並得按次處罰。",
+    "answer": "違反應記載／不得記載事項公告，限期改正屆期不改正，處<span class=\"key\">3萬以上30萬以下</span>；再次令限期改正仍不改正，處<span class=\"key\">5萬以上50萬以下</span>並得按次處罰。",
+    "src": "消保法§56-1",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "調解委員會與異議",
+    "blank": "消費爭議調解委員會委員人數為___名；調解方案異議期限為___日。",
+    "answer": "消費爭議調解委員會委員人數為<span class=\"key\">7至21</span>名；調解方案異議期限為<span class=\"key\">10</span>日。",
+    "src": "消保法§45、§45-4（申論99年一、114年一）",
+    "essay": 2,
+    "hot": 1
+   },
+   {
+    "term": "消保團體訴訟",
+    "blank": "消保團體須許可設立___年以上，方得提起訴訟；受讓損害賠償請求權之消費者人數須___人以上。",
+    "answer": "消保團體須許可設立<span class=\"key\">2</span>年以上，方得提起訴訟；受讓損害賠償請求權之消費者人數須<span class=\"key\">20</span>人以上。",
+    "src": "消保法§49、§50",
+    "essay": 0,
+    "hot": 0
+   },
+   {
+    "term": "申訴與返還期限",
+    "blank": "企業經營者對申訴應於___內妥適處理；通訊交易解除契約，應於收到通知次日起___內返還對價；未經要約寄送商品，___視為拋棄。",
+    "answer": "企業經營者對申訴應於<span class=\"key\">15日</span>內妥適處理；通訊交易解除契約，應於收到通知次日起<span class=\"key\">15日</span>內返還對價；未經要約寄送商品，<span class=\"key\">1個月</span>視為拋棄。",
+    "src": "消保法§43、§19、§20",
+    "essay": 0,
+    "hot": 0
+   }
+  ]
+ }
+];
+
+// ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
+// blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
+// 兩者順序一致；額外 HTML（<br>、文字段落）原樣保留
+function buildBlankLine(blankText, answerHtml, cardKey) {
+  // 從 answer 中萃取 key 文字（按順序）
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(answerHtml)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  // 把 ___ 換成可點擊 span
+  const html = blankText.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const idx = ki;
+    ki++;
+    // 按答案字數生成底線（每字一個＿，最少2個）
+    const plainAns = ans.replace(/<[^>]+>/g,'');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val">${ans}</span></span>`;
+  });
+  return html;
+}
+
+
+function statOf(c, chStat){
+  const p=[];
+  if(c.hot) p.push('🔥 <strong>16年鐵律考點</strong>');
+  if((c.essay||0)>0) p.push('申論 <strong>'+c.essay+'</strong> 次');
+  p.push(chStat);
+  return p.join('　｜　');
+}
+
+// build nav
+const nav = document.getElementById('nav');
+const main = document.getElementById('main');
+let cardDone = {}; // cardKey -> bool
+
+// 全部隨機按鈕
+const randAllBtn = document.createElement('button');
+randAllBtn.className = 'nav-btn';
+randAllBtn.textContent = '🔀 全部隨機';
+randAllBtn.style.borderColor = 'var(--blue)';
+randAllBtn.style.color = 'var(--blue)';
+randAllBtn.onclick = () => setMode('quiz');
+nav.appendChild(randAllBtn);
+
+DATA.forEach((ch,ci)=>{
+  const btn = document.createElement('button');
+  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.textContent = ch.label;
+  btn.onclick = ()=> switchCh(ch.id);
+  nav.appendChild(btn);
+
+  const div = document.createElement('div');
+  div.className = 'chapter' + (ci===0?' active':'');
+  div.id = 'ch-'+ch.id;
+
+  const total = ch.cards.length;
+  div.innerHTML = `<div class="ch-title">${ch.label}</div>
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
+      <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
+    </div>
+    <div class="section-hint">💡 點空格顯示答案，再點收起</div>
+    ${ch.top||''}`;
+
+  ch.cards.forEach((c,i)=>{
+    const key = ch.id+'-'+i;
+    cardDone[key] = false;
+    const blankCount = (c.blank.match(/___/g)||[]).length;
+    const builtBlank = buildBlankLine(c.blank, c.answer, key);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-'+key;
+    const statHtml = statOf(c, ch.stat);
+    card.innerHTML = `
+      <div class="term">${c.term}</div>
+      <div class="blank-line" id="bl-${key}">${builtBlank}</div>
+      <div class="card-btns">
+        <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
+        <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
+      </div>
+      <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
+      <div class="answer-note" id="ans-${key}">
+        <div class="key-note">${c.answer}</div>
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
+      </div>`;
+    div.appendChild(card);
+  });
+
+  main.appendChild(div);
+});
+
+function toggleBlank(el) {
+  el.classList.toggle('revealed');
+}
+
+function revealAllBlanks(key, chId, total) {
+  document.querySelectorAll(`.blank[data-key="${key}"]`).forEach(el => {
+    el.classList.add('revealed');
+  });
+  // 同時顯示完整答案注記
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 顯示考試出題紀錄
+  const bstat = document.getElementById('bstat-'+key);
+  if(bstat) bstat.classList.add('show');
+  markDone(key, chId, total);
+}
+
+function markDone(key, chId, total) {
+  if(cardDone[key]) return;
+  cardDone[key] = true;
+  const btn = document.getElementById('rb-'+key);
+  if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 更新進度
+  const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
+  const pct = Math.round(done/total*100);
+  const pf = document.getElementById('pf-'+chId);
+  const pt = document.getElementById('pt-'+chId);
+  if(pf) pf.style.width = pct+'%';
+  if(pt) pt.textContent = done+' / '+total;
+}
+
+function switchCh(id){
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('ch-'+id).classList.add('active');
+  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===測驗模式===
+let quizPool = [];        // 所有題目扁平化
+let quizQueue = [];       // 本輪隨機排列
+let quizIdx = 0;
+let quizFilter = 'ALL';   // 'ALL' 或 chapter id
+
+function setMode(mode) {
+  const browse = document.getElementById('main');
+  const nav = document.getElementById('nav');
+  const quizEl = document.getElementById('quiz-mode');
+  const tabB = document.getElementById('tab-browse');
+  const tabQ = document.getElementById('tab-quiz');
+  if (mode === 'browse') {
+    browse.style.display = ''; nav.style.display = '';
+    quizEl.classList.remove('active');
+    tabB.classList.add('on'); tabQ.classList.remove('on');
+  } else {
+    browse.style.display = 'none'; nav.style.display = 'none';
+    quizEl.classList.add('active');
+    tabB.classList.remove('on'); tabQ.classList.add('on');
+    initQuiz();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function initQuiz() {
+  // 建 pool（只跑一次）
+  if (quizPool.length === 0) {
+    DATA.forEach(ch => {
+      ch.cards.forEach(c => {
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, essay: c.essay||0, hot: c.hot||0, chStat: ch.stat });
+      });
+    });
+  }
+  // 章節過濾 buttons
+  const filterEl = document.getElementById('quiz-filter');
+  if (!filterEl.hasChildNodes()) {
+    const allBtn = document.createElement('button');
+    allBtn.className = 'qf-btn qf-all on';
+    allBtn.textContent = '全部章節';
+    allBtn.onclick = () => setQuizFilter('ALL', allBtn);
+    filterEl.appendChild(allBtn);
+    DATA.forEach(ch => {
+      const btn = document.createElement('button');
+      btn.className = 'qf-btn';
+      btn.textContent = ch.label;
+      btn.onclick = () => setQuizFilter(ch.id, btn);
+      filterEl.appendChild(btn);
+    });
+  }
+  startQuizRound();
+}
+
+function setQuizFilter(id, btn) {
+  quizFilter = id;
+  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  startQuizRound();
+}
+
+function startQuizRound() {
+  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  // Fisher-Yates shuffle
+  quizQueue = [...pool];
+  for (let i = quizQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quizQueue[i], quizQueue[j]] = [quizQueue[j], quizQueue[i]];
+  }
+  quizIdx = 0;
+  renderQuizCard();
+}
+
+function renderQuizCard() {
+  const area = document.getElementById('quiz-card-area');
+  const prog = document.getElementById('quiz-progress');
+  if (quizIdx >= quizQueue.length) {
+    prog.textContent = '';
+    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    return;
+  }
+  const c = quizQueue[quizIdx];
+  prog.textContent = `第 ${quizIdx + 1} / ${quizQueue.length} 題｜${c.chLabel}`;
+
+  // 取 key 列表
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(c.answer)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  const qid = 'q' + quizIdx;
+  const builtBlank = c.blank.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const plainAns = ans.replace(/<[^>]+>/g, '');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    const idx = ki++;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-qid="${qid}" onclick="toggleQBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span></span>`;
+  });
+
+  const statHtml = statOf(c, c.chStat);
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="qc-meta">
+        <span class="qc-chapter">${c.chLabel}</span>
+        <span class="qc-counter">${quizIdx + 1} / ${quizQueue.length}</span>
+      </div>
+      <div class="qc-term">${c.term}</div>
+      <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      <div class="qc-btns">
+        <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
+        <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
+        <button class="qc-btn qc-btn-all" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
+        <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
+      </div>
+      <div class="qc-answer" id="qans-${qid}">
+        <div>${c.answer}</div>
+        <div class="src">📌 ${c.src}</div>
+      </div>
+      <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
+    </div>`;
+}
+
+function toggleQBlank(el) {
+  const mask = el.querySelector('.blank-mask');
+  const val = el.querySelector('.blank-val');
+  if (val.style.display !== 'none') {
+    val.style.display = 'none'; mask.style.display = '';
+    el.classList.remove('revealed');
+  } else {
+    val.style.display = ''; mask.style.display = 'none';
+    el.classList.add('revealed');
+  }
+}
+
+function revealOneQuizBlank(qid) {
+  const blanks = document.querySelectorAll(`#qblank-${qid} .blank`);
+  for (const b of blanks) {
+    if (!b.classList.contains('revealed')) {
+      b.querySelector('.blank-mask').style.display = 'none';
+      b.querySelector('.blank-val').style.display = '';
+      b.classList.add('revealed');
+      break;
+    }
+  }
+  // 如果顯示完最後一個，自動全顯示並改按鈕
+  const remaining = document.querySelectorAll(`#qblank-${qid} .blank:not(.revealed)`);
+  if (remaining.length === 0) {
+    revealAllQuizBlanks(qid);
+    const revBtn = document.getElementById('qbtn-reveal-' + qid);
+    if (revBtn) {
+      revBtn.textContent = '下一題 →';
+      revBtn.className = 'qc-btn qc-btn-next';
+      revBtn.onclick = () => nextQuiz();
+    }
+  }
+}
+
+function revealAllQuizBlanks(qid) {
+  document.querySelectorAll(`#qblank-${qid} .blank`).forEach(b => {
+    b.querySelector('.blank-mask').style.display = 'none';
+    b.querySelector('.blank-val').style.display = '';
+    b.classList.add('revealed');
+  });
+  const ans = document.getElementById('qans-' + qid);
+  if (ans) ans.classList.add('show');
+  const stat = document.getElementById('qstat-' + qid);
+  if (stat) stat.classList.add('show');
+}
+
+function nextQuiz() {
+  quizIdx++;
+  renderQuizCard();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevQuiz() {
+  if (quizIdx > 0) {
+    quizIdx--;
+    renderQuizCard();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ===主題切換===
+function updateThemeBtn(theme) {
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  updateThemeBtn(next);
+  try { localStorage.setItem('bx-theme', next); } catch(e) {}
+}
+(function(){
+  try {
+    const saved = localStorage.getItem('bx-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    updateThemeBtn(saved || 'light');
+  } catch(e) {}
+})();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
