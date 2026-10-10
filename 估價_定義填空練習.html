@@ -633,8 +633,8 @@ const DATA = [
       },
       {
         term:'都更基地價值比率公式（§125）★高頻',
-        blank:'基地價值比率＝（___×基地總面積）÷[___×基地總面積＋___×(1－___率)×全棟建物面積]',
-        answer:'基地價值比率＝（<span class="key">素地單價</span>×基地總面積）÷[<span class="key">素地單價</span>×基地總面積＋<span class="key">營造施工費單價</span>×(1－<span class="key">累積折舊</span>率)×全棟建物面積]',
+        blank:'<div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px"><div style="display:flex;align-items:center;gap:8px"><span style="font-weight:700">基地價值比率</span><span>＝</span><div style="display:inline-flex;flex-direction:column;text-align:center"><div style="padding:0 8px 2px">___×基地總面積</div><div style="border-top:2px solid currentColor;padding:2px 8px 0">___×基地總面積＋___×（1－___率）×全棟建物面積</div></div></div></div>',
+        answer:'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-weight:700">基地價值比率</span><span>＝</span><div style="display:inline-flex;flex-direction:column;text-align:center;line-height:1.8"><div style="padding:0 8px 2px"><span class="key">素地單價</span>×基地總面積</div><div style="border-top:2px solid var(--ink);padding:2px 8px 0"><span class="key">素地單價</span>×基地總面積＋<span class="key">營造施工費單價</span>×（1－<span class="key">累積折舊</span>率）×全棟建物面積</div></div></div>',
         src:'技術規則§125', mc:3, essay:0
       },
     ]
@@ -688,6 +688,15 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
 const nav = document.getElementById('nav');
 const main = document.getElementById('main');
 let cardDone = {}; // cardKey -> bool
+
+// 全部隨機按鈕
+const randAllBtn = document.createElement('button');
+randAllBtn.className = 'nav-btn';
+randAllBtn.textContent = '🔀 全部隨機';
+randAllBtn.style.borderColor = 'var(--blue)';
+randAllBtn.style.color = 'var(--blue)';
+randAllBtn.onclick = () => setMode('quiz');
+nav.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
   const btn = document.createElement('button');
