@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民法定義填空練習</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root[data-theme="light"]{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+  color-scheme:light;
+}
+:root{
+  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
+  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
+  --blue:#1E3E6E; --surface2:#F0EBE0;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
+  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
+  --blue:#6090D8; --surface2:#302820;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
+header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 20px 20px;text-align:center}
+header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
+header .sub{font-size:13px;opacity:.85}
+
+/* nav */
+nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* main */
+main{max-width:720px;margin:0 auto;padding:20px 16px}
+.chapter{display:none}
+.chapter.active{display:block}
+.ch-title{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:14px}
+.term{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px}
+.blank-line{font-size:14px;line-height:2.2;color:var(--ink);margin-bottom:12px}
+
+/* 每個空格獨立可點擊 */
+.blank{
+  display:inline-block;
+  border-bottom:2px solid var(--red);
+  min-width:60px;
+  padding:0 4px;
+  color:transparent;
+  background:rgba(168,64,43,.08);
+  border-radius:3px;
+  vertical-align:bottom;
+  cursor:pointer;
+  user-select:none;
+  transition:color .18s, background .18s;
+  font-weight:700;
+  font-size:13.5px;
+}
+.blank:hover{background:rgba(168,64,43,.15)}
+.blank.revealed{
+  color:var(--red);
+  background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green);
+}
+.blank .blank-mask{display:inline}
+.blank.revealed .blank-mask{display:none}
+.blank .blank-val{display:none;color:var(--red)}
+.blank.revealed .blank-val{display:inline}
+
+/* 整張卡按鈕 */
+.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
+.reveal-btn:hover{background:var(--red);color:#fff}
+.reveal-all-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .15s}
+.reveal-all-btn:hover{background:var(--green);color:#fff}
+.reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
+
+.card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
+
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note.show{display:block}
+.answer-note .key{color:var(--red);font-weight:700}
+.answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.prog-bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .3s}
+.prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* hub */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+/* 模式切換 tab */
+.mode-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line)}
+.mode-tab{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 0;
+  border:none;background:transparent;color:var(--muted);cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .15s}
+.mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
+
+/* 測驗模式 */
+#quiz-mode{display:none;max-width:720px;margin:0 auto;padding:20px 16px 80px}
+#quiz-mode.active{display:block}
+
+/* 章節過濾 */
+.quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
+  border-radius:99px;border:1.5px solid var(--line);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qf-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.qf-all.on{background:var(--ink);border-color:var(--ink)}
+
+/* 題卡 */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:20px 18px 16px;margin-bottom:16px}
+.qc-meta{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:8px}
+.qc-chapter{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px}
+.qc-counter{font-size:11px;color:var(--muted)}
+.qc-term{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;
+  color:var(--red);margin-bottom:14px;text-wrap:balance}
+.qc-blank{font-size:14px;line-height:2.4;color:var(--ink);margin-bottom:14px;
+  word-break:break-all}
+.qc-blank .blank{
+  display:inline-block;border-bottom:2px solid var(--red);
+  padding:0 3px;color:transparent;background:rgba(168,64,43,.08);
+  border-radius:3px;vertical-align:bottom;cursor:pointer;user-select:none;
+  transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
+.qc-blank .blank:hover{background:rgba(168,64,43,.15)}
+.qc-blank .blank.revealed{color:var(--red);background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green)}
+.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
+  border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
+.qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
+.qc-btn-reveal:hover{background:var(--red);color:#fff}
+.qc-btn-all{border-color:var(--green);color:var(--green);background:transparent}
+.qc-btn-all:hover{background:var(--green);color:#fff}
+.qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
+.qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-btn-prev{border-color:var(--muted);color:var(--muted);background:transparent}
+.qc-btn-prev:hover{background:var(--muted);color:#fff}
+.qc-btn-prev:disabled{opacity:.3;cursor:default}
+.qc-btn-prev:disabled:hover{background:transparent;color:var(--muted)}
+.qc-answer{display:none;margin-top:10px;padding:10px 14px;
+  background:rgba(92,122,74,.12);border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85}
+.qc-answer.show{display:block}
+.qc-answer .key{color:var(--red);font-weight:700}
+.qc-answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+.qc-exam-stat{display:none;margin-top:10px;padding:6px 12px;
+  background:var(--surface2);border:1px solid var(--line);border-radius:8px;
+  font-size:12px;color:var(--muted);text-align:center;letter-spacing:.3px}
+.qc-exam-stat.show{display:block}
+.qc-exam-stat strong{color:var(--ink)}
+/* 主題切換按鈕 */
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
+.quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
+.quiz-done-banner .big{font-size:48px;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
+<header>
+  <h1>民法概要｜定義填空練習</h1>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 142 題</div>
+</header>
+
+<div class="mode-tabs">
+  <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
+  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+</div>
+
+<nav id="nav"></nav>
+
+<main id="main"></main>
+
+<div id="quiz-mode">
+  <div class="quiz-filter" id="quiz-filter"></div>
+  <div class="quiz-progress" id="quiz-progress"></div>
+  <div id="quiz-card-area"></div>
+</div>
+
+<div style="max-width:720px;margin:0 auto;padding:0 16px 40px;font-size:11px;color:var(--muted);line-height:1.8">
+<p>※ 條文內容已於 2026-10-08 起對照現行條文（兩個來源）核實，考前仍請以紙本六法為準。</p>
+<p>※「選擇 N 次／申論 N 次」＝ 520 題選擇題的題幹與解析、32 題申論的〈相關法條依據〉中，引用該條號的題數（依條號比對，非人工分類）；「尚無歷屆引用紀錄」代表比對不到，不等於不會考。</p>
+<p>※ 特留分：兄弟姊妹特留分的修法時點請見《民法概要_重點筆記》；本頁依現行條文出題。</p>
+</div>
+<a id="hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
+
+<script>
+const DATA = [
+ {
+  "id": "A",
+  "label": "A 民法總則",
+  "cards": [
+   {
+    "term": "成年與行為能力的年齡界線",
+    "blank": "滿___歲為成年（§12）。<br>未滿___歲之未成年人，無行為能力；滿___歲以上之未成年人，有限制行為能力（§13）。",
+    "answer": "滿<span class=\"key\">18</span>歲為成年（§12）。<br>未滿<span class=\"key\">7</span>歲之未成年人，無行為能力；滿<span class=\"key\">7</span>歲以上之未成年人，有限制行為能力（§13）。",
+    "src": "民法§12、§13",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "限制行為能力人所訂契約",
+    "blank": "限制行為能力人未得法定代理人之允許，所訂立之契約，須經法定代理人之___，始生效力（§79）。<br>相對人得定___以上期限催告法定代理人確答；逾期不為確答者，視為___承認（§80）。",
+    "answer": "限制行為能力人未得法定代理人之允許，所訂立之契約，須經法定代理人之<span class=\"key\">承認</span>，始生效力（§79）。<br>相對人得定<span class=\"key\">一個月</span>以上期限催告法定代理人確答；逾期不為確答者，視為<span class=\"key\">拒絕</span>承認（§80）。",
+    "src": "民法§79、§80",
+    "mc": 12,
+    "essay": 0
+   },
+   {
+    "term": "通謀虛偽意思表示",
+    "blank": "表意人與相對人通謀而為虛偽意思表示者，其意思表示___。但不得以其無效對抗___（§87Ⅰ）。",
+    "answer": "表意人與相對人通謀而為虛偽意思表示者，其意思表示<span class=\"key\">無效</span>。但不得以其無效對抗<span class=\"key\">善意第三人</span>（§87Ⅰ）。",
+    "src": "民法§87Ⅰ",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "錯誤的撤銷",
+    "blank": "意思表示之內容有錯誤，或表意人若知其事情即不為意思表示者，表意人得將其意思表示___；但以其錯誤或不知事情，非由表意人___者為限（§88Ⅰ）。<br>撤銷權自意思表示後，經過___而消滅（§90）。",
+    "answer": "意思表示之內容有錯誤，或表意人若知其事情即不為意思表示者，表意人得將其意思表示<span class=\"key\">撤銷</span>；但以其錯誤或不知事情，非由表意人<span class=\"key\">自己之過失</span>者為限（§88Ⅰ）。<br>撤銷權自意思表示後，經過<span class=\"key\">一年</span>而消滅（§90）。",
+    "src": "民法§88Ⅰ、§90",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "詐欺脅迫的撤銷（要件與對抗）",
+    "blank": "因被詐欺或被脅迫而為意思表示者，表意人得___其意思表示。但詐欺係由第三人為之者，以相對人___或___其事實者為限（§92Ⅰ）。<br>被詐欺而為意思表示，其撤銷不得對抗___（§92Ⅱ）。",
+    "answer": "因被詐欺或被脅迫而為意思表示者，表意人得<span class=\"key\">撤銷</span>其意思表示。但詐欺係由第三人為之者，以相對人<span class=\"key\">明知</span>或<span class=\"key\">可得而知</span>其事實者為限（§92Ⅰ）。<br>被詐欺而為意思表示，其撤銷不得對抗<span class=\"key\">善意第三人</span>（§92Ⅱ）。",
+    "src": "民法§92",
+    "mc": 15,
+    "essay": 2
+   },
+   {
+    "term": "詐欺脅迫的撤銷期間",
+    "blank": "撤銷應於發見詐欺或脅迫終止後，___內為之。但自意思表示後，經過___，不得撤銷（§93）。",
+    "answer": "撤銷應於發見詐欺或脅迫終止後，<span class=\"key\">一年</span>內為之。但自意思表示後，經過<span class=\"key\">十年</span>，不得撤銷（§93）。",
+    "src": "民法§93",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "暴利行為（顯失公平）",
+    "blank": "乘他人之___、___或___，使其為財產上之給付，依當時情形顯失公平者，法院得因利害關係人之聲請，___其法律行為或___其給付（§74Ⅰ）。<br>前項聲請，應於法律行為後___內為之（§74Ⅱ）。",
+    "answer": "乘他人之<span class=\"key\">急迫</span>、<span class=\"key\">輕率</span>或<span class=\"key\">無經驗</span>，使其為財產上之給付，依當時情形顯失公平者，法院得因利害關係人之聲請，<span class=\"key\">撤銷</span>其法律行為或<span class=\"key\">減輕</span>其給付（§74Ⅰ）。<br>前項聲請，應於法律行為後<span class=\"key\">一年</span>內為之（§74Ⅱ）。",
+    "src": "民法§74",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "非對話意思表示的生效",
+    "blank": "非對話而為意思表示者，其意思表示，以通知___時，發生效力（§95Ⅰ）。",
+    "answer": "非對話而為意思表示者，其意思表示，以通知<span class=\"key\">達到相對人</span>時，發生效力（§95Ⅰ）。",
+    "src": "民法§95Ⅰ",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "無權處分",
+    "blank": "無權利人就權利標的物所為之處分，經有權利人之___始生效力（§118Ⅰ）。<br>無權利人就權利標的物為處分後，取得其權利者，其處分___（§118Ⅱ）。",
+    "answer": "無權利人就權利標的物所為之處分，經有權利人之<span class=\"key\">承認</span>始生效力（§118Ⅰ）。<br>無權利人就權利標的物為處分後，取得其權利者，其處分<span class=\"key\">自始有效</span>（§118Ⅱ）。",
+    "src": "民法§118Ⅰ、Ⅱ",
+    "mc": 8,
+    "essay": 2
+   },
+   {
+    "term": "代理的基本要件與表見代理",
+    "blank": "代理人於代理權限內，以___所為之意思表示，直接對本人發生效力（§103Ⅰ）。<br>由自己之行為表示以代理權授與他人，或知他人表示為其代理人而不為反對之表示者，對於第三人應負___之責任；但第三人明知其無代理權或___者，不在此限（§169）。",
+    "answer": "代理人於代理權限內，以<span class=\"key\">本人名義</span>所為之意思表示，直接對本人發生效力（§103Ⅰ）。<br>由自己之行為表示以代理權授與他人，或知他人表示為其代理人而不為反對之表示者，對於第三人應負<span class=\"key\">授權人</span>之責任；但第三人明知其無代理權或<span class=\"key\">可得而知</span>者，不在此限（§169）。",
+    "src": "民法§103Ⅰ、§169",
+    "mc": 5,
+    "essay": 1
+   },
+   {
+    "term": "無權代理",
+    "blank": "無代理權人以代理人之名義所為之法律行為，非經本人___，對於本人不生效力（§170Ⅰ）。<br>前項情形，法律行為之相對人，得定___，催告本人確答是否承認；本人逾期未為確答者，視為___承認（§170Ⅱ）。",
+    "answer": "無代理權人以代理人之名義所為之法律行為，非經本人<span class=\"key\">承認</span>，對於本人不生效力（§170Ⅰ）。<br>前項情形，法律行為之相對人，得定<span class=\"key\">相當期限</span>，催告本人確答是否承認；本人逾期未為確答者，視為<span class=\"key\">拒絕</span>承認（§170Ⅱ）。",
+    "src": "民法§170",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "消滅時效的期間（15年／5年／2年）",
+    "blank": "請求權，因___間不行使而消滅（§125）。<br>利息、租金等一年或不及一年之定期給付債權，其各期給付請求權，因___間不行使而消滅（§126）。<br>旅店飲食費、運送費、以租賃動產為營業者之租價、律師會計師報酬、承攬人報酬、商人供給商品之代價等，因___間不行使而消滅（§127）。",
+    "answer": "請求權，因<span class=\"key\">十五年</span>間不行使而消滅（§125）。<br>利息、租金等一年或不及一年之定期給付債權，其各期給付請求權，因<span class=\"key\">五年</span>間不行使而消滅（§126）。<br>旅店飲食費、運送費、以租賃動產為營業者之租價、律師會計師報酬、承攬人報酬、商人供給商品之代價等，因<span class=\"key\">二年</span>間不行使而消滅（§127）。",
+    "src": "民法§125、§126、§127",
+    "mc": 10,
+    "essay": 1
+   },
+   {
+    "term": "時效完成的效力",
+    "blank": "時效完成後，債務人得___（§144Ⅰ）。<br>請求權已經時效消滅，債務人仍為履行之給付者，不得以不知時效為理由，請求___（§144Ⅱ）。",
+    "answer": "時效完成後，債務人得<span class=\"key\">拒絕給付</span>（§144Ⅰ）。<br>請求權已經時效消滅，債務人仍為履行之給付者，不得以不知時效為理由，請求<span class=\"key\">返還</span>（§144Ⅱ）。",
+    "src": "民法§144",
+    "mc": 2,
+    "essay": 1
+   },
+   {
+    "term": "社團總會決議的瑕疵",
+    "blank": "總會決議內容違反法令或章程者，決議___（§56Ⅱ）。<br>總會之召集程序或決議方法，違反法令或章程時，社員得於決議後___內請求法院___其決議（§56Ⅰ）。",
+    "answer": "總會決議內容違反法令或章程者，決議<span class=\"key\">無效</span>（§56Ⅱ）。<br>總會之召集程序或決議方法，違反法令或章程時，社員得於決議後<span class=\"key\">三個月</span>內請求法院<span class=\"key\">撤銷</span>其決議（§56Ⅰ）。",
+    "src": "民法§56",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "B",
+  "label": "B 債編總論",
+  "cards": [
+   {
+    "term": "與有過失",
+    "blank": "損害之發生或擴大，被害人與有過失者，法院得___賠償金額，或___之（§217Ⅰ）。",
+    "answer": "損害之發生或擴大，被害人與有過失者，法院得<span class=\"key\">減輕</span>賠償金額，或<span class=\"key\">免除</span>之（§217Ⅰ）。",
+    "src": "民法§217Ⅰ",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "不完全給付",
+    "blank": "因可歸責於債務人之事由，致為不完全給付者，債權人得依關於___或___之規定行使其權利（§227Ⅰ）。<br>因不完全給付而生前項以外之損害者，債權人並得請求___（§227Ⅱ）。",
+    "answer": "因可歸責於債務人之事由，致為不完全給付者，債權人得依關於<span class=\"key\">給付遲延</span>或<span class=\"key\">給付不能</span>之規定行使其權利（§227Ⅰ）。<br>因不完全給付而生前項以外之損害者，債權人並得請求<span class=\"key\">賠償</span>（§227Ⅱ）。",
+    "src": "民法§227",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "給付遲延的責任",
+    "blank": "因___之事由，致未為給付者，債務人不負遲延責任（§230）。<br>債務人在遲延中，對於因___而生之損害，亦應負責；但債務人證明縱不遲延給付，而仍不免發生損害者，不在此限（§231Ⅱ）。",
+    "answer": "因<span class=\"key\">不可歸責於債務人</span>之事由，致未為給付者，債務人不負遲延責任（§230）。<br>債務人在遲延中，對於因<span class=\"key\">不可抗力</span>而生之損害，亦應負責；但債務人證明縱不遲延給付，而仍不免發生損害者，不在此限（§231Ⅱ）。",
+    "src": "民法§230、§231Ⅱ",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "契約解除（遲延與不能）",
+    "blank": "給付遲延：他方當事人得定___催告其履行，如於期限內不履行時，得___其契約（§254）。<br>給付不能（有§226之情形，即可歸責於債務人之給付不能）：債權人得解除其契約，不須先催告（§256）。",
+    "answer": "給付遲延：他方當事人得定<span class=\"key\">相當期限</span>催告其履行，如於期限內不履行時，得<span class=\"key\">解除</span>其契約（§254）。<br>給付不能（有§226之情形，即可歸責於債務人之給付不能）：債權人得解除其契約，不須先催告（§256）。",
+    "src": "民法§254、§256",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "解除後的回復原狀",
+    "blank": "契約解除時，當事人雙方回復原狀之義務：由他方所受領之給付物，應___之；受領之給付為金錢者，應附加自___起之___償還之（§259）。<br>解除權之行使，不妨礙___之請求（§260）。",
+    "answer": "契約解除時，當事人雙方回復原狀之義務：由他方所受領之給付物，應<span class=\"key\">返還</span>之；受領之給付為金錢者，應附加自<span class=\"key\">受領時</span>起之<span class=\"key\">利息</span>償還之（§259）。<br>解除權之行使，不妨礙<span class=\"key\">損害賠償</span>之請求（§260）。",
+    "src": "民法§259、§260",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "同時履行抗辯與不安抗辯",
+    "blank": "因契約互負債務者，於他方當事人未為對待給付前，得___自己之給付（§264Ⅰ）。<br>應向他方先為給付者，如他方之財產，於訂約後___，有難為對待給付之虞時，如他方未為對待給付或提出擔保前，得拒絕自己之給付（§265）。",
+    "answer": "因契約互負債務者，於他方當事人未為對待給付前，得<span class=\"key\">拒絕</span>自己之給付（§264Ⅰ）。<br>應向他方先為給付者，如他方之財產，於訂約後<span class=\"key\">顯形減少</span>，有難為對待給付之虞時，如他方未為對待給付或提出擔保前，得拒絕自己之給付（§265）。",
+    "src": "民法§264Ⅰ、§265",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "危險負擔",
+    "blank": "因不可歸責於雙方當事人之事由，致一方之給付全部不能者，他方免為___之義務；僅一部不能者，應按其比例減少對待給付（§266Ⅰ）。<br>買賣標的物之利益及危險，自___時起，均由買受人承受負擔；但契約另有訂定者，不在此限（§373）。",
+    "answer": "因不可歸責於雙方當事人之事由，致一方之給付全部不能者，他方免為<span class=\"key\">對待給付</span>之義務；僅一部不能者，應按其比例減少對待給付（§266Ⅰ）。<br>買賣標的物之利益及危險，自<span class=\"key\">交付</span>時起，均由買受人承受負擔；但契約另有訂定者，不在此限（§373）。",
+    "src": "民法§266Ⅰ、§373",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "定金",
+    "blank": "契約因___之事由，致不能履行時，定金___（§249第2款）。<br>契約因可歸責於___之事由，致不能履行時，該當事人應___其所受之定金（§249第3款）。<br>契約因不可歸責於雙方當事人之事由，致不能履行時，定金應___之（§249第4款）。",
+    "answer": "契約因<span class=\"key\">可歸責於付定金當事人</span>之事由，致不能履行時，定金<span class=\"key\">不得請求返還</span>（§249第2款）。<br>契約因可歸責於<span class=\"key\">受定金當事人</span>之事由，致不能履行時，該當事人應<span class=\"key\">加倍返還</span>其所受之定金（§249第3款）。<br>契約因不可歸責於雙方當事人之事由，致不能履行時，定金應<span class=\"key\">返還</span>之（§249第4款）。",
+    "src": "民法§249",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "違約金的酌減",
+    "blank": "違約金，除當事人另有訂定外，視為因不履行而生損害之___（§250Ⅱ前段）。<br>約定之違約金額___者，法院得減至___（§252）。",
+    "answer": "違約金，除當事人另有訂定外，視為因不履行而生損害之<span class=\"key\">賠償總額</span>（§250Ⅱ前段）。<br>約定之違約金額<span class=\"key\">過高</span>者，法院得減至<span class=\"key\">相當之數額</span>（§252）。",
+    "src": "民法§250、§252",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "利息與利率上限",
+    "blank": "應付利息之債務，其利率未經約定，亦無法律可據者，週年利率為___（§203）。<br>約定利率逾週年___者，經___後，債務人得隨時清償原本，但須於___前預告債權人（§204Ⅰ）。<br>約定利率超過週年___者，超過部分之約定___（§205）。",
+    "answer": "應付利息之債務，其利率未經約定，亦無法律可據者，週年利率為<span class=\"key\">百分之五</span>（§203）。<br>約定利率逾週年<span class=\"key\">百分之十二</span>者，經<span class=\"key\">一年</span>後，債務人得隨時清償原本，但須於<span class=\"key\">一個月</span>前預告債權人（§204Ⅰ）。<br>約定利率超過週年<span class=\"key\">百分之十六</span>者，超過部分之約定<span class=\"key\">無效</span>（§205）。",
+    "src": "民法§203、§204Ⅰ、§205",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "債權人代位權",
+    "blank": "債務人怠於行使其權利時，債權人因保全債權，得以___，行使其權利。但專屬於債務人本身者，不在此限（§242）。",
+    "answer": "債務人怠於行使其權利時，債權人因保全債權，得以<span class=\"key\">自己之名義</span>，行使其權利。但專屬於債務人本身者，不在此限（§242）。",
+    "src": "民法§242",
+    "mc": 1,
+    "essay": 1
+   },
+   {
+    "term": "債權人撤銷權",
+    "blank": "債務人所為之___行為，有害及債權者，債權人得聲請法院撤銷之；___行為，於行為時明知有損害於債權人之權利者，以受益人於受益時亦知其情事者為限，債權人得聲請法院撤銷之（§244Ⅰ、Ⅱ）。<br>撤銷權，自債權人知有撤銷原因時起，___間不行使，或自行為時起經過___而消滅（§245）。",
+    "answer": "債務人所為之<span class=\"key\">無償</span>行為，有害及債權者，債權人得聲請法院撤銷之；<span class=\"key\">有償</span>行為，於行為時明知有損害於債權人之權利者，以受益人於受益時亦知其情事者為限，債權人得聲請法院撤銷之（§244Ⅰ、Ⅱ）。<br>撤銷權，自債權人知有撤銷原因時起，<span class=\"key\">一年</span>間不行使，或自行為時起經過<span class=\"key\">十年</span>而消滅（§245）。",
+    "src": "民法§244、§245",
+    "mc": 7,
+    "essay": 1
+   },
+   {
+    "term": "債權讓與",
+    "blank": "債權之讓與，非經___或___通知債務人，對於債務人不生效力（§297Ⅰ）。<br>當事人特約不得讓與之債權，不得以之對抗___（§294Ⅱ）。",
+    "answer": "債權之讓與，非經<span class=\"key\">讓與人</span>或<span class=\"key\">受讓人</span>通知債務人，對於債務人不生效力（§297Ⅰ）。<br>當事人特約不得讓與之債權，不得以之對抗<span class=\"key\">善意第三人</span>（§294Ⅱ）。",
+    "src": "民法§297Ⅰ、§294Ⅱ",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "連帶債務",
+    "blank": "數人負同一債務，明示對於債權人各負全部給付之責任者，為連帶債務；無前項之明示者，連帶債務之成立，以___者為限（§272）。<br>債權人得對於債務人中之一人，或數人，或其全體，___請求全部或一部之給付（§273Ⅰ）。",
+    "answer": "數人負同一債務，明示對於債權人各負全部給付之責任者，為連帶債務；無前項之明示者，連帶債務之成立，以<span class=\"key\">法律有規定</span>者為限（§272）。<br>債權人得對於債務人中之一人，或數人，或其全體，<span class=\"key\">同時或先後</span>請求全部或一部之給付（§273Ⅰ）。",
+    "src": "民法§272、§273Ⅰ",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "不當得利",
+    "blank": "無法律上之原因而受利益，致他人受損害者，應___其利益。雖有法律上之原因，而其後已___者，亦同（§179）。<br>受領人不知無法律上之原因，而其所受之利益已不存在者，免負___或償還價額之責任（§182Ⅰ）。",
+    "answer": "無法律上之原因而受利益，致他人受損害者，應<span class=\"key\">返還</span>其利益。雖有法律上之原因，而其後已<span class=\"key\">不存在</span>者，亦同（§179）。<br>受領人不知無法律上之原因，而其所受之利益已不存在者，免負<span class=\"key\">返還</span>或償還價額之責任（§182Ⅰ）。",
+    "src": "民法§179、§182Ⅰ",
+    "mc": 6,
+    "essay": 2
+   },
+   {
+    "term": "一般侵權行為與僱用人責任",
+    "blank": "因故意或過失，不法侵害他人之___者，負損害賠償責任；故意以背於___之方法，加損害於他人者亦同（§184Ⅰ）。<br>違反保護他人之法律，致生損害於他人者，負賠償責任；但能證明其行為___者，不在此限（§184Ⅱ）。<br>受僱人因執行職務，不法侵害他人之權利者，由___與行為人連帶負賠償責任；但選任及監督已盡相當之注意者，僱用人不負賠償責任（§188Ⅰ）。",
+    "answer": "因故意或過失，不法侵害他人之<span class=\"key\">權利</span>者，負損害賠償責任；故意以背於<span class=\"key\">善良風俗</span>之方法，加損害於他人者亦同（§184Ⅰ）。<br>違反保護他人之法律，致生損害於他人者，負賠償責任；但能證明其行為<span class=\"key\">無過失</span>者，不在此限（§184Ⅱ）。<br>受僱人因執行職務，不法侵害他人之權利者，由<span class=\"key\">僱用人</span>與行為人連帶負賠償責任；但選任及監督已盡相當之注意者，僱用人不負賠償責任（§188Ⅰ）。",
+    "src": "民法§184、§188Ⅰ",
+    "mc": 16,
+    "essay": 0
+   },
+   {
+    "term": "侵權行為的請求權時效",
+    "blank": "損害賠償之請求權，自請求權人知有損害及賠償義務人時起，___間不行使而消滅；自有侵權行為時起，逾___者亦同（§197Ⅰ）。",
+    "answer": "損害賠償之請求權，自請求權人知有損害及賠償義務人時起，<span class=\"key\">二年</span>間不行使而消滅；自有侵權行為時起，逾<span class=\"key\">十年</span>者亦同（§197Ⅰ）。",
+    "src": "民法§197Ⅰ",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "C",
+  "label": "C 債編分則（契約）",
+  "cards": [
+   {
+    "term": "買賣契約的成立",
+    "blank": "稱買賣者，謂當事人約定一方移轉___於他方，他方支付___之契約。當事人就標的物及其價金互相同意時，買賣契約即為___（§345）。",
+    "answer": "稱買賣者，謂當事人約定一方移轉<span class=\"key\">財產權</span>於他方，他方支付<span class=\"key\">價金</span>之契約。當事人就標的物及其價金互相同意時，買賣契約即為<span class=\"key\">成立</span>（§345）。",
+    "src": "民法§345",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "權利瑕疵擔保",
+    "blank": "出賣人應擔保第三人就買賣之標的物，對於買受人不得主張任何___（§349）。",
+    "answer": "出賣人應擔保第三人就買賣之標的物，對於買受人不得主張任何<span class=\"key\">權利</span>（§349）。",
+    "src": "民法§349",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "物之瑕疵擔保（內容）",
+    "blank": "出賣人應擔保其物於___時，無滅失或減少其___之瑕疵，亦無滅失或減少其___或契約預定效用之瑕疵（§354Ⅰ）。",
+    "answer": "出賣人應擔保其物於<span class=\"key\">危險移轉</span>時，無滅失或減少其<span class=\"key\">價值</span>之瑕疵，亦無滅失或減少其<span class=\"key\">通常效用</span>或契約預定效用之瑕疵（§354Ⅰ）。",
+    "src": "民法§354Ⅰ",
+    "mc": 1,
+    "essay": 2
+   },
+   {
+    "term": "買受人的檢查通知義務",
+    "blank": "買受人應按物之性質，依通常程序從速___其所受領之物；發見有應由出賣人負擔保責任之瑕疵時，應即___出賣人。買受人怠於通知者，除依通常之檢查不能發見之瑕疵外，視為___其所受領之物（§356）。",
+    "answer": "買受人應按物之性質，依通常程序從速<span class=\"key\">檢查</span>其所受領之物；發見有應由出賣人負擔保責任之瑕疵時，應即<span class=\"key\">通知</span>出賣人。買受人怠於通知者，除依通常之檢查不能發見之瑕疵外，視為<span class=\"key\">承認</span>其所受領之物（§356）。",
+    "src": "民法§356",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "瑕疵擔保的效果",
+    "blank": "買受人得___或請求___；但依情形，解除契約顯失公平者，買受人僅得請求減少價金（§359）。<br>物缺少出賣人所保證之品質者，買受人得不解除契約或請求減少價金，而請求不履行之___；出賣人故意不告知物之瑕疵者亦同（§360）。",
+    "answer": "買受人得<span class=\"key\">解除契約</span>或請求<span class=\"key\">減少價金</span>；但依情形，解除契約顯失公平者，買受人僅得請求減少價金（§359）。<br>物缺少出賣人所保證之品質者，買受人得不解除契約或請求減少價金，而請求不履行之<span class=\"key\">損害賠償</span>；出賣人故意不告知物之瑕疵者亦同（§360）。",
+    "src": "民法§359、§360",
+    "mc": 5,
+    "essay": 2
+   },
+   {
+    "term": "瑕疵擔保的期間",
+    "blank": "買受人因物有瑕疵，而得解除契約或請求減少價金者，其解除權或請求權，於買受人依§356規定為通知後___間不行使，或自物之交付時起經過___而消滅（§365Ⅰ）。<br>前項六個月期間之規定，於出賣人___瑕疵者，不適用之（§365Ⅱ）。",
+    "answer": "買受人因物有瑕疵，而得解除契約或請求減少價金者，其解除權或請求權，於買受人依§356規定為通知後<span class=\"key\">六個月</span>間不行使，或自物之交付時起經過<span class=\"key\">五年</span>而消滅（§365Ⅰ）。<br>前項六個月期間之規定，於出賣人<span class=\"key\">故意不告知</span>瑕疵者，不適用之（§365Ⅱ）。",
+    "src": "民法§365",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "不動產租賃的書面要求",
+    "blank": "不動產之租賃契約，其期限逾___者，應以___訂立之，未以字據訂立者，視為___租賃（§422）。",
+    "answer": "不動產之租賃契約，其期限逾<span class=\"key\">一年</span>者，應以<span class=\"key\">字據</span>訂立之，未以字據訂立者，視為<span class=\"key\">不定期</span>租賃（§422）。",
+    "src": "民法§422",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "買賣不破租賃",
+    "blank": "出租人於租賃物交付後，承租人占有中，縱將其所有權讓與第三人，其租賃契約，對於受讓人仍繼續存在（§425Ⅰ）。<br>前項規定，於未經___之不動產租賃契約，其期限逾___或未定期限者，不適用之（§425Ⅱ）。",
+    "answer": "出租人於租賃物交付後，承租人占有中，縱將其所有權讓與第三人，其租賃契約，對於受讓人仍繼續存在（§425Ⅰ）。<br>前項規定，於未經<span class=\"key\">公證</span>之不動產租賃契約，其期限逾<span class=\"key\">五年</span>或未定期限者，不適用之（§425Ⅱ）。",
+    "src": "民法§425Ⅰ、Ⅱ",
+    "mc": 8,
+    "essay": 1
+   },
+   {
+    "term": "房地分屬時的推定租賃（不是法定地上權）",
+    "blank": "土地及其土地上之房屋，同屬一人所有，而僅將土地或僅將房屋所有權讓與他人，或將土地及房屋同時或先後讓與相異之人時，推定在房屋得使用期限內，有___（§425-1Ⅰ前段）。<br>其期限不受§449Ⅰ規定（___上限）之限制（§425-1Ⅰ後段）。<br>租金數額當事人不能協議時，得請求___定之（§425-1Ⅱ）。<br>※ 考試陷阱：這是「推定租賃」，不是法定地上權（法定地上權在§876、§838-1）。",
+    "answer": "土地及其土地上之房屋，同屬一人所有，而僅將土地或僅將房屋所有權讓與他人，或將土地及房屋同時或先後讓與相異之人時，推定在房屋得使用期限內，有<span class=\"key\">租賃關係</span>（§425-1Ⅰ前段）。<br>其期限不受§449Ⅰ規定（<span class=\"key\">二十年</span>上限）之限制（§425-1Ⅰ後段）。<br>租金數額當事人不能協議時，得請求<span class=\"key\">法院</span>定之（§425-1Ⅱ）。<br>※ 考試陷阱：這是「推定租賃」，不是法定地上權（法定地上權在§876、§838-1）。",
+    "src": "民法§425-1、§449Ⅰ",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "出租人修繕義務",
+    "blank": "租賃物之修繕，除契約另有訂定或另有習慣外，由___負擔（§429Ⅰ）。<br>租賃物有修繕之必要，應由出租人負擔者，承租人得定___催告修繕；出租人逾期不為修繕，承租人得___，或自行修繕而請求償還費用或於租金中扣除（§430）。",
+    "answer": "租賃物之修繕，除契約另有訂定或另有習慣外，由<span class=\"key\">出租人</span>負擔（§429Ⅰ）。<br>租賃物有修繕之必要，應由出租人負擔者，承租人得定<span class=\"key\">相當期限</span>催告修繕；出租人逾期不為修繕，承租人得<span class=\"key\">終止契約</span>，或自行修繕而請求償還費用或於租金中扣除（§430）。",
+    "src": "民法§429Ⅰ、§430",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "承租人失火責任",
+    "blank": "租賃物因承租人之___，致失火而毀損、滅失者，承租人對於出租人負損害賠償責任（§434）。",
+    "answer": "租賃物因承租人之<span class=\"key\">重大過失</span>，致失火而毀損、滅失者，承租人對於出租人負損害賠償責任（§434）。",
+    "src": "民法§434",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "承租人轉租",
+    "blank": "承租人非經出租人___，不得將租賃物轉租於他人。但租賃物為房屋者，除有反對之約定外，承租人得將其___轉租於他人（§443Ⅰ）。",
+    "answer": "承租人非經出租人<span class=\"key\">承諾</span>，不得將租賃物轉租於他人。但租賃物為房屋者，除有反對之約定外，承租人得將其<span class=\"key\">一部分</span>轉租於他人（§443Ⅰ）。",
+    "src": "民法§443Ⅰ",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "遲付租金的終止",
+    "blank": "承租人租金支付有遲延者，出租人得定___催告支付，逾期不為支付，出租人得終止契約（§440Ⅰ）。<br>租賃物為房屋者，遲付租金之總額，非達___之租額，不得依前項規定終止契約（§440Ⅱ）。<br>租用建築房屋之基地，遲付租金之總額，達___之租額時，適用前項之規定（§440Ⅲ）。",
+    "answer": "承租人租金支付有遲延者，出租人得定<span class=\"key\">相當期限</span>催告支付，逾期不為支付，出租人得終止契約（§440Ⅰ）。<br>租賃物為房屋者，遲付租金之總額，非達<span class=\"key\">二個月</span>之租額，不得依前項規定終止契約（§440Ⅱ）。<br>租用建築房屋之基地，遲付租金之總額，達<span class=\"key\">二年</span>之租額時，適用前項之規定（§440Ⅲ）。",
+    "src": "民法§440",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "租賃期限上限與默示更新",
+    "blank": "租賃契約之期限，不得逾___；逾二十年者，縮短為二十年（§449Ⅰ）。租用___者，不適用第一項之規定（§449Ⅲ）。<br>租賃期限屆滿後，承租人仍為租賃物之使用收益，而出租人不即表示反對之意思者，視為以___繼續契約（§451）。",
+    "answer": "租賃契約之期限，不得逾<span class=\"key\">二十年</span>；逾二十年者，縮短為二十年（§449Ⅰ）。租用<span class=\"key\">基地建築房屋</span>者，不適用第一項之規定（§449Ⅲ）。<br>租賃期限屆滿後，承租人仍為租賃物之使用收益，而出租人不即表示反對之意思者，視為以<span class=\"key\">不定期限</span>繼續契約（§451）。",
+    "src": "民法§449Ⅰ、Ⅲ、§451",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "居間契約的定義",
+    "blank": "稱居間者，謂當事人約定，一方為他方___或為訂約之___，他方給付___之契約（§565）。",
+    "answer": "稱居間者，謂當事人約定，一方為他方<span class=\"key\">報告訂約之機會</span>或為訂約之<span class=\"key\">媒介</span>，他方給付<span class=\"key\">報酬</span>之契約（§565）。",
+    "src": "民法§565",
+    "mc": 3,
+    "essay": 3
+   },
+   {
+    "term": "居間人的據實報告與調查義務",
+    "blank": "居間人關於訂約事項，應就其所知，___於各當事人；對於顯無履行能力之人，或知其無訂立該約能力之人，___（§567Ⅰ）。<br>以居間為營業者，關於訂約事項及當事人之履行能力或訂立該約之能力，有___之義務（§567Ⅱ）。",
+    "answer": "居間人關於訂約事項，應就其所知，<span class=\"key\">據實報告</span>於各當事人；對於顯無履行能力之人，或知其無訂立該約能力之人，<span class=\"key\">不得為其媒介</span>（§567Ⅰ）。<br>以居間為營業者，關於訂約事項及當事人之履行能力或訂立該約之能力，有<span class=\"key\">調查</span>之義務（§567Ⅱ）。",
+    "src": "民法§567",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "居間報酬請求權的成立",
+    "blank": "居間人以契約因其報告或媒介而___者為限，得請求報酬（§568Ⅰ）。<br>契約附有停止條件者，於___前，居間人不得請求報酬（§568Ⅱ）。",
+    "answer": "居間人以契約因其報告或媒介而<span class=\"key\">成立</span>者為限，得請求報酬（§568Ⅰ）。<br>契約附有停止條件者，於<span class=\"key\">條件成就</span>前，居間人不得請求報酬（§568Ⅱ）。",
+    "src": "民法§568",
+    "mc": 1,
+    "essay": 3
+   },
+   {
+    "term": "居間費用的償還",
+    "blank": "居間人支出之費用，非經___，不得請求償還（§569Ⅰ）。<br>前項規定，於居間人已為報告或媒介而契約___者適用之（§569Ⅱ）。",
+    "answer": "居間人支出之費用，非經<span class=\"key\">約定</span>，不得請求償還（§569Ⅰ）。<br>前項規定，於居間人已為報告或媒介而契約<span class=\"key\">不成立</span>者適用之（§569Ⅱ）。",
+    "src": "民法§569",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "居間人喪失報酬請求權",
+    "blank": "居間人違反其對於委託人之義務，而為___之行為，或違反___，由相對人收受利益者，不得向委託人請求___，並不得請求償還費用（§571）。",
+    "answer": "居間人違反其對於委託人之義務，而為<span class=\"key\">利於委託人之相對人</span>之行為，或違反<span class=\"key\">誠實及信用方法</span>，由相對人收受利益者，不得向委託人請求<span class=\"key\">報酬</span>，並不得請求償還費用（§571）。",
+    "src": "民法§571",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "居間報酬酌減與婚姻居間",
+    "blank": "約定之報酬較居間人所任勞務之價值，為數過巨失其公平者，法院得因報酬給付義務人之請求___之；但報酬已給付者，不得請求返還（§572）。<br>因婚姻居間而約定報酬者，就其報酬無___（§573）。",
+    "answer": "約定之報酬較居間人所任勞務之價值，為數過巨失其公平者，法院得因報酬給付義務人之請求<span class=\"key\">酌減</span>之；但報酬已給付者，不得請求返還（§572）。<br>因婚姻居間而約定報酬者，就其報酬無<span class=\"key\">請求權</span>（§573）。",
+    "src": "民法§572、§573",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "委任的注意義務與終止",
+    "blank": "受任人處理委任事務，應依委任人之指示，並與處理自己事務為___之注意；其受有報酬者，應以___之注意為之（§535）。<br>當事人任何一方得___委任契約；於不利於他方之時期終止者，應負損害賠償責任（§549）。",
+    "answer": "受任人處理委任事務，應依委任人之指示，並與處理自己事務為<span class=\"key\">同一</span>之注意；其受有報酬者，應以<span class=\"key\">善良管理人</span>之注意為之（§535）。<br>當事人任何一方得<span class=\"key\">隨時終止</span>委任契約；於不利於他方之時期終止者，應負損害賠償責任（§549）。",
+    "src": "民法§535、§549",
+    "mc": 4,
+    "essay": 1
+   },
+   {
+    "term": "承攬的終止與抵押權登記請求",
+    "blank": "工作未完成前，定作人得隨時___，但應賠償承攬人因契約終止而生之損害（§511）。<br>承攬之工作為建築物等土地上工作物者，承攬人得就承攬關係報酬額，對於其工作所附之定作人之不動產，請求定作人為___；或對於將來完成之不動產，請求___（§513Ⅰ）。",
+    "answer": "工作未完成前，定作人得隨時<span class=\"key\">終止契約</span>，但應賠償承攬人因契約終止而生之損害（§511）。<br>承攬之工作為建築物等土地上工作物者，承攬人得就承攬關係報酬額，對於其工作所附之定作人之不動產，請求定作人為<span class=\"key\">抵押權之登記</span>；或對於將來完成之不動產，請求<span class=\"key\">預為抵押權之登記</span>（§513Ⅰ）。",
+    "src": "民法§511、§513Ⅰ",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "贈與的撤銷",
+    "blank": "贈與物之權利___前，贈與人得撤銷其贈與（§408Ⅰ）。<br>前項規定，於經___之贈與，或為履行___而為贈與者，不適用之（§408Ⅱ）。",
+    "answer": "贈與物之權利<span class=\"key\">未移轉</span>前，贈與人得撤銷其贈與（§408Ⅰ）。<br>前項規定，於經<span class=\"key\">公證</span>之贈與，或為履行<span class=\"key\">道德上義務</span>而為贈與者，不適用之（§408Ⅱ）。",
+    "src": "民法§408",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "保證人的先訴抗辯與承受債權",
+    "blank": "保證人於債權人未就主債務人之財產___前，對於債權人得___（§745）。<br>保證人向債權人為清償後，於其清償之限度內，___債權人對於主債務人之債權；但不得有害於債權人之利益（§749）。",
+    "answer": "保證人於債權人未就主債務人之財產<span class=\"key\">強制執行而無效果</span>前，對於債權人得<span class=\"key\">拒絕清償</span>（§745）。<br>保證人向債權人為清償後，於其清償之限度內，<span class=\"key\">承受</span>債權人對於主債務人之債權；但不得有害於債權人之利益（§749）。",
+    "src": "民法§745、§749",
+    "mc": 4,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D1",
+  "label": "D1 物權變動・所有權・共有",
+  "cards": [
+   {
+    "term": "不動產物權變動：登記生效",
+    "blank": "不動產物權，依法律行為而取得、設定、喪失及變更者，非經___，不生效力（§758Ⅰ）。<br>前項行為，應以___為之（§758Ⅱ）。",
+    "answer": "不動產物權，依法律行為而取得、設定、喪失及變更者，非經<span class=\"key\">登記</span>，不生效力（§758Ⅰ）。<br>前項行為，應以<span class=\"key\">書面</span>為之（§758Ⅱ）。",
+    "src": "民法§758",
+    "mc": 20,
+    "essay": 4
+   },
+   {
+    "term": "非因法律行為取得不動產",
+    "blank": "因繼承、強制執行、徵收、法院之判決或其他非因法律行為，於登記前已取得不動產物權者，非經___，不得___其物權（§759）。",
+    "answer": "因繼承、強制執行、徵收、法院之判決或其他非因法律行為，於登記前已取得不動產物權者，非經<span class=\"key\">登記</span>，不得<span class=\"key\">處分</span>其物權（§759）。",
+    "src": "民法§759",
+    "mc": 11,
+    "essay": 2
+   },
+   {
+    "term": "登記的公信力",
+    "blank": "不動產物權經登記者，推定登記權利人適法有此權利（§759-1Ⅰ）。<br>因信賴不動產登記之___第三人，已依法律行為為物權變動之登記者，其變動之效力，不因原登記物權之___而受影響（§759-1Ⅱ）。",
+    "answer": "不動產物權經登記者，推定登記權利人適法有此權利（§759-1Ⅰ）。<br>因信賴不動產登記之<span class=\"key\">善意</span>第三人，已依法律行為為物權變動之登記者，其變動之效力，不因原登記物權之<span class=\"key\">不實</span>而受影響（§759-1Ⅱ）。",
+    "src": "民法§759-1",
+    "mc": 0,
+    "essay": 3
+   },
+   {
+    "term": "動產物權的讓與",
+    "blank": "動產物權之讓與，非將動產___，不生效力（§761Ⅰ本文）。<br>（交付方式還有：簡易交付、占有改定、指示交付。）",
+    "answer": "動產物權之讓與，非將動產<span class=\"key\">交付</span>，不生效力（§761Ⅰ本文）。<br>（交付方式還有：簡易交付、占有改定、指示交付。）",
+    "src": "民法§761Ⅰ",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "盜贓遺失物的回復請求",
+    "blank": "占有物如係盜贓、遺失物或其他非基於原占有人之意思而喪失其占有者，原占有人自喪失占有之時起___以內，得向___之現占有人請求回復其物（§949Ⅰ）。<br>現占有人由公開交易場所，或由販賣與其物同種之物之商人，以善意買得者，非___，不得回復其物（§950）。",
+    "answer": "占有物如係盜贓、遺失物或其他非基於原占有人之意思而喪失其占有者，原占有人自喪失占有之時起<span class=\"key\">二年</span>以內，得向<span class=\"key\">善意受讓</span>之現占有人請求回復其物（§949Ⅰ）。<br>現占有人由公開交易場所，或由販賣與其物同種之物之商人，以善意買得者，非<span class=\"key\">償還其支出之價金</span>，不得回復其物（§950）。",
+    "src": "民法§949Ⅰ、§950",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "所有人的物上請求權",
+    "blank": "所有人對於無權占有或侵奪其所有物者，得請求___之；對於妨害其所有權者，得請求___之；有妨害其所有權之虞者，得請求___之（§767Ⅰ）。",
+    "answer": "所有人對於無權占有或侵奪其所有物者，得請求<span class=\"key\">返還</span>之；對於妨害其所有權者，得請求<span class=\"key\">除去</span>之；有妨害其所有權之虞者，得請求<span class=\"key\">防止</span>之（§767Ⅰ）。",
+    "src": "民法§767",
+    "mc": 6,
+    "essay": 2
+   },
+   {
+    "term": "不動產取得時效",
+    "blank": "以所有之意思，___間和平、公然、繼續占有他人未登記之不動產者，得請求登記為所有人（§769）。<br>以所有之意思，___間和平、繼續占有他人未登記之不動產，而其占有之始為___者，得請求登記為所有人（§770）。",
+    "answer": "以所有之意思，<span class=\"key\">二十年</span>間和平、公然、繼續占有他人未登記之不動產者，得請求登記為所有人（§769）。<br>以所有之意思，<span class=\"key\">十年</span>間和平、繼續占有他人未登記之不動產，而其占有之始為<span class=\"key\">善意並無過失</span>者，得請求登記為所有人（§770）。",
+    "src": "民法§769、§770",
+    "mc": 9,
+    "essay": 1
+   },
+   {
+    "term": "動產取得時效與準用",
+    "blank": "以所有之意思，___間和平、公然占有他人之動產者，取得其所有權（§768）。<br>其占有之始為善意並無過失者，縮短為___（§768-1）。<br>前五條規定，於所有權以外財產權之取得，___之（§772），例如時效取得地上權。",
+    "answer": "以所有之意思，<span class=\"key\">十年</span>間和平、公然占有他人之動產者，取得其所有權（§768）。<br>其占有之始為善意並無過失者，縮短為<span class=\"key\">五年</span>（§768-1）。<br>前五條規定，於所有權以外財產權之取得，<span class=\"key\">準用</span>之（§772），例如時效取得地上權。",
+    "src": "民法§768、§768-1、§772",
+    "mc": 5,
+    "essay": 1
+   },
+   {
+    "term": "袋地通行",
+    "blank": "土地因與公路無適宜之聯絡，致不能為通常使用時，除因土地所有人之任意行為所生者外，土地所有人得___以至公路；對於通行地因此所受之損害，並應支付___（§787Ⅰ、Ⅱ）。<br>因土地一部之讓與或分割，致生袋地者，僅得通行受讓人、讓與人或他分割人之所有地，且___（§789）。",
+    "answer": "土地因與公路無適宜之聯絡，致不能為通常使用時，除因土地所有人之任意行為所生者外，土地所有人得<span class=\"key\">通行周圍地</span>以至公路；對於通行地因此所受之損害，並應支付<span class=\"key\">償金</span>（§787Ⅰ、Ⅱ）。<br>因土地一部之讓與或分割，致生袋地者，僅得通行受讓人、讓與人或他分割人之所有地，且<span class=\"key\">無須支付償金</span>（§789）。",
+    "src": "民法§787、§789",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "越界建築",
+    "blank": "土地所有人建築房屋，___逾越地界者，鄰地所有人如知其越界而不即提出___，不得請求移去或變更其房屋；但土地所有人對於鄰地因此所受之損害，應支付___（§796Ⅰ）。<br>鄰地所有人並得請求土地所有人，以相當之價額___越界部分之土地及因此形成之畸零地（§796Ⅱ）。",
+    "answer": "土地所有人建築房屋，<span class=\"key\">非因故意或重大過失</span>逾越地界者，鄰地所有人如知其越界而不即提出<span class=\"key\">異議</span>，不得請求移去或變更其房屋；但土地所有人對於鄰地因此所受之損害，應支付<span class=\"key\">償金</span>（§796Ⅰ）。<br>鄰地所有人並得請求土地所有人，以相當之價額<span class=\"key\">購買</span>越界部分之土地及因此形成之畸零地（§796Ⅱ）。",
+    "src": "民法§796",
+    "mc": 7,
+    "essay": 1
+   },
+   {
+    "term": "鄰地使用與果實自落",
+    "blank": "土地所有人因鄰地所有人在其地界或近旁，營造或修繕建築物有使用其土地之必要，應許鄰地所有人使用其土地；但因而受損害者，得請求___（§792）。<br>果實自落於鄰地者，視為屬於___；但鄰地為公用地者，不在此限（§798）。",
+    "answer": "土地所有人因鄰地所有人在其地界或近旁，營造或修繕建築物有使用其土地之必要，應許鄰地所有人使用其土地；但因而受損害者，得請求<span class=\"key\">償金</span>（§792）。<br>果實自落於鄰地者，視為屬於<span class=\"key\">鄰地所有人</span>；但鄰地為公用地者，不在此限（§798）。",
+    "src": "民法§792、§798",
+    "mc": 4,
+    "essay": 1
+   },
+   {
+    "term": "分別共有：應有部分與處分",
+    "blank": "各共有人，得自由處分其___（§819Ⅰ）。<br>共有物之處分、變更、及設定負擔，應得___之同意（§819Ⅱ）。",
+    "answer": "各共有人，得自由處分其<span class=\"key\">應有部分</span>（§819Ⅰ）。<br>共有物之處分、變更、及設定負擔，應得<span class=\"key\">共有人全體</span>之同意（§819Ⅱ）。",
+    "src": "民法§819",
+    "mc": 10,
+    "essay": 0
+   },
+   {
+    "term": "共有物的管理",
+    "blank": "共有物之管理，除契約另有約定外，應以共有人___及其應有部分合計___之同意行之。但其應有部分合計逾___者，其人數不予計算（§820Ⅰ）。",
+    "answer": "共有物之管理，除契約另有約定外，應以共有人<span class=\"key\">過半數</span>及其應有部分合計<span class=\"key\">過半數</span>之同意行之。但其應有部分合計逾<span class=\"key\">三分之二</span>者，其人數不予計算（§820Ⅰ）。",
+    "src": "民法§820Ⅰ",
+    "mc": 9,
+    "essay": 4
+   },
+   {
+    "term": "分割共有物的限制",
+    "blank": "各共有人得隨時請求分割共有物；但因物之使用目的不能分割或契約訂有不分割之期限者，不在此限（§823Ⅰ）。<br>約定不分割之期限，不得逾___；逾五年者，縮短為五年。但共有之不動產，其契約訂有管理之約定時，不得逾___（§823Ⅱ）。<br>如有___，共有人仍得隨時請求分割（§823Ⅲ）。",
+    "answer": "各共有人得隨時請求分割共有物；但因物之使用目的不能分割或契約訂有不分割之期限者，不在此限（§823Ⅰ）。<br>約定不分割之期限，不得逾<span class=\"key\">五年</span>；逾五年者，縮短為五年。但共有之不動產，其契約訂有管理之約定時，不得逾<span class=\"key\">三十年</span>（§823Ⅱ）。<br>如有<span class=\"key\">重大事由</span>，共有人仍得隨時請求分割（§823Ⅲ）。",
+    "src": "民法§823",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "分割共有物與抵押權",
+    "blank": "共有人自共有物分割之效力發生時起，取得分得部分之所有權（§824-1Ⅰ）。<br>應有部分有抵押權或質權者，其權利___共有物之分割而受影響；但權利人___、已___、或經共有人告知訴訟而___者，其權利移存於抵押人或出質人所分得之部分（§824-1Ⅱ）。",
+    "answer": "共有人自共有物分割之效力發生時起，取得分得部分之所有權（§824-1Ⅰ）。<br>應有部分有抵押權或質權者，其權利<span class=\"key\">不因</span>共有物之分割而受影響；但權利人<span class=\"key\">同意分割</span>、已<span class=\"key\">參加共有物分割訴訟</span>、或經共有人告知訴訟而<span class=\"key\">未參加</span>者，其權利移存於抵押人或出質人所分得之部分（§824-1Ⅱ）。",
+    "src": "民法§824-1Ⅰ、Ⅱ",
+    "mc": 1,
+    "essay": 2
+   },
+   {
+    "term": "補償金抵押權（申論高頻）",
+    "blank": "原物分配並由部分共有人補償者，應受補償之共有人，就其補償金額，對於補償義務人所分得之不動產，有___（§824-1Ⅳ）。<br>前項抵押權應於辦理共有物分割登記時，___，其次序優先於第二項但書之抵押權（§824-1Ⅴ）。",
+    "answer": "原物分配並由部分共有人補償者，應受補償之共有人，就其補償金額，對於補償義務人所分得之不動產，有<span class=\"key\">抵押權</span>（§824-1Ⅳ）。<br>前項抵押權應於辦理共有物分割登記時，<span class=\"key\">一併登記</span>，其次序優先於第二項但書之抵押權（§824-1Ⅴ）。",
+    "src": "民法§824-1Ⅳ、Ⅴ",
+    "mc": 1,
+    "essay": 2
+   },
+   {
+    "term": "分管契約對受讓人的效力",
+    "blank": "不動產共有人間關於共有物使用、管理、分割或禁止分割之約定，於___後，對於應有部分之受讓人或取得物權之人，具有效力（§826-1Ⅰ）。<br>動產共有人間之約定，對於受讓人，以受讓時___其情事或___者為限，亦具有效力（§826-1Ⅱ）。",
+    "answer": "不動產共有人間關於共有物使用、管理、分割或禁止分割之約定，於<span class=\"key\">登記</span>後，對於應有部分之受讓人或取得物權之人，具有效力（§826-1Ⅰ）。<br>動產共有人間之約定，對於受讓人，以受讓時<span class=\"key\">知悉</span>其情事或<span class=\"key\">可得而知</span>者為限，亦具有效力（§826-1Ⅱ）。",
+    "src": "民法§826-1",
+    "mc": 4,
+    "essay": 2
+   },
+   {
+    "term": "公同共有",
+    "blank": "依法律規定、習慣或法律行為，成一公同關係之數人，基於其公同關係，而共有一物者，為公同共有人（§827Ⅰ）。<br>各公同共有人之權利，及於公同共有物之___（§827Ⅲ）。<br>公同關係存續中，各公同共有人，不得請求___其公同共有物（§829）。",
+    "answer": "依法律規定、習慣或法律行為，成一公同關係之數人，基於其公同關係，而共有一物者，為公同共有人（§827Ⅰ）。<br>各公同共有人之權利，及於公同共有物之<span class=\"key\">全部</span>（§827Ⅲ）。<br>公同關係存續中，各公同共有人，不得請求<span class=\"key\">分割</span>其公同共有物（§829）。",
+    "src": "民法§827、§829",
+    "mc": 2,
+    "essay": 1
+   }
+  ]
+ },
+ {
+  "id": "D2",
+  "label": "D2 用益物權・典權",
+  "cards": [
+   {
+    "term": "普通地上權的定義",
+    "blank": "稱普通地上權者，謂以在他人土地之上下有___或其他___為目的而使用其土地之權（§832）。",
+    "answer": "稱普通地上權者，謂以在他人土地之上下有<span class=\"key\">建築物</span>或其他<span class=\"key\">工作物</span>為目的而使用其土地之權（§832）。",
+    "src": "民法§832",
+    "mc": 4,
+    "essay": 3
+   },
+   {
+    "term": "地上權的拋棄（地租）",
+    "blank": "地上權無支付地租之約定者，地上權人得___其權利（§834）。<br>地上權定有期限而有地租約定者，得支付未到期之___分地租後拋棄；未定期限而有地租約定者，應於___前通知土地所有人，或支付未到期之一年分地租（§835Ⅰ、Ⅱ）。",
+    "answer": "地上權無支付地租之約定者，地上權人得<span class=\"key\">隨時拋棄</span>其權利（§834）。<br>地上權定有期限而有地租約定者，得支付未到期之<span class=\"key\">三年</span>分地租後拋棄；未定期限而有地租約定者，應於<span class=\"key\">一年</span>前通知土地所有人，或支付未到期之一年分地租（§835Ⅰ、Ⅱ）。",
+    "src": "民法§834、§835Ⅰ、Ⅱ",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "積欠地租的終止",
+    "blank": "地上權人積欠地租達___之總額，除另有習慣外，土地所有人得定___催告地上權人支付地租，如地上權人於期限內不為支付，土地所有人得___地上權（§836Ⅰ前段）。<br>地上權經設定抵押權者，並應同時將該催告之事實___（§836Ⅰ後段）。",
+    "answer": "地上權人積欠地租達<span class=\"key\">二年</span>之總額，除另有習慣外，土地所有人得定<span class=\"key\">相當期限</span>催告地上權人支付地租，如地上權人於期限內不為支付，土地所有人得<span class=\"key\">終止</span>地上權（§836Ⅰ前段）。<br>地上權經設定抵押權者，並應同時將該催告之事實<span class=\"key\">通知抵押權人</span>（§836Ⅰ後段）。",
+    "src": "民法§836Ⅰ",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "地上權的讓與與抵押",
+    "blank": "地上權人得將其權利___他人或設定___；但契約另有約定或另有習慣者，不在此限（§838Ⅰ）。<br>前項約定，非經___，不得對抗第三人（§838Ⅱ）。",
+    "answer": "地上權人得將其權利<span class=\"key\">讓與</span>他人或設定<span class=\"key\">抵押權</span>；但契約另有約定或另有習慣者，不在此限（§838Ⅰ）。<br>前項約定，非經<span class=\"key\">登記</span>，不得對抗第三人（§838Ⅱ）。",
+    "src": "民法§838Ⅰ、Ⅱ",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "強制執行的法定地上權",
+    "blank": "土地及其土地上之建築物，同屬於一人所有，因強制執行之拍賣，其土地與建築物之拍定人各異時，視為已有___之設定，其地租、期間及範圍由當事人協議定之；不能協議者，得請求___以判決定之（§838-1Ⅰ）。<br>前項地上權，因建築物之___而消滅（§838-1Ⅱ）。",
+    "answer": "土地及其土地上之建築物，同屬於一人所有，因強制執行之拍賣，其土地與建築物之拍定人各異時，視為已有<span class=\"key\">地上權</span>之設定，其地租、期間及範圍由當事人協議定之；不能協議者，得請求<span class=\"key\">法院</span>以判決定之（§838-1Ⅰ）。<br>前項地上權，因建築物之<span class=\"key\">滅失</span>而消滅（§838-1Ⅱ）。",
+    "src": "民法§838-1",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "抵押的法定地上權",
+    "blank": "設定抵押權時，土地及其土地上之建築物，同屬於一人所有，而僅以土地或僅以建築物為抵押者，於抵押物___時，視為已有___之設定，其地租、期間及範圍由當事人協議定之（§876Ⅰ）。<br>如以土地及建築物為抵押，經拍賣，其土地與建築物之拍定人各異時，亦適用之（§876Ⅱ）。",
+    "answer": "設定抵押權時，土地及其土地上之建築物，同屬於一人所有，而僅以土地或僅以建築物為抵押者，於抵押物<span class=\"key\">拍賣</span>時，視為已有<span class=\"key\">地上權</span>之設定，其地租、期間及範圍由當事人協議定之（§876Ⅰ）。<br>如以土地及建築物為抵押，經拍賣，其土地與建築物之拍定人各異時，亦適用之（§876Ⅱ）。",
+    "src": "民法§876",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "區分地上權",
+    "blank": "稱區分地上權者，謂以在他人土地上下之一定___內設定之地上權（§841-1）。<br>區分地上權人得與其設定之土地上下有使用、收益權利之人，約定相互間使用收益之限制；其約定非經___，不得對抗第三人（§841-2）。",
+    "answer": "稱區分地上權者，謂以在他人土地上下之一定<span class=\"key\">空間範圍</span>內設定之地上權（§841-1）。<br>區分地上權人得與其設定之土地上下有使用、收益權利之人，約定相互間使用收益之限制；其約定非經<span class=\"key\">登記</span>，不得對抗第三人（§841-2）。",
+    "src": "民法§841-1、§841-2",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "不動產役權",
+    "blank": "稱不動產役權者，謂以他人不動產供自己不動產通行、汲水、採光、眺望、電信或其他以特定便宜之用為目的之權（§851）。<br>不動產役權不得由需役不動產___而為讓與，或為其他權利之標的物（§853）。",
+    "answer": "稱不動產役權者，謂以他人不動產供自己不動產通行、汲水、採光、眺望、電信或其他以特定便宜之用為目的之權（§851）。<br>不動產役權不得由需役不動產<span class=\"key\">分離</span>而為讓與，或為其他權利之標的物（§853）。",
+    "src": "民法§851、§853",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "農育權的期限",
+    "blank": "稱農育權者，謂在他人土地為農作、森林、養殖、畜牧、種植竹木或保育之權（§850-1Ⅰ）。<br>農育權之期限，不得逾___；逾二十年者，縮短為二十年。但以___為目的或法令另有規定者，不在此限（§850-1Ⅱ）。",
+    "answer": "稱農育權者，謂在他人土地為農作、森林、養殖、畜牧、種植竹木或保育之權（§850-1Ⅰ）。<br>農育權之期限，不得逾<span class=\"key\">二十年</span>；逾二十年者，縮短為二十年。但以<span class=\"key\">造林、保育</span>為目的或法令另有規定者，不在此限（§850-1Ⅱ）。",
+    "src": "民法§850-1",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "典權的定義與期限",
+    "blank": "稱典權者，謂支付___在他人之不動產為使用、收益，於他人不回贖時，取得該不動產___之權（§911）。<br>典權約定期限不得逾___；逾三十年者縮短為三十年（§912）。",
+    "answer": "稱典權者，謂支付<span class=\"key\">典價</span>在他人之不動產為使用、收益，於他人不回贖時，取得該不動產<span class=\"key\">所有權</span>之權（§911）。<br>典權約定期限不得逾<span class=\"key\">三十年</span>；逾三十年者縮短為三十年（§912）。",
+    "src": "民法§911、§912",
+    "mc": 2,
+    "essay": 1
+   },
+   {
+    "term": "絕賣條款與典期屆滿",
+    "blank": "典權之約定期限不滿___者，不得附有到期不贖即作絕賣之條款（§913Ⅰ）。<br>定有期限之典權，出典人於典期屆滿後，經過___，不以原典價回贖者，典權人即取得典物所有權（§923Ⅱ）。<br>未定期限之典權，自出典後經過___不回贖者，典權人即取得典物所有權（§924但書）。",
+    "answer": "典權之約定期限不滿<span class=\"key\">十五年</span>者，不得附有到期不贖即作絕賣之條款（§913Ⅰ）。<br>定有期限之典權，出典人於典期屆滿後，經過<span class=\"key\">二年</span>，不以原典價回贖者，典權人即取得典物所有權（§923Ⅱ）。<br>未定期限之典權，自出典後經過<span class=\"key\">三十年</span>不回贖者，典權人即取得典物所有權（§924但書）。",
+    "src": "民法§913Ⅰ、§923、§924",
+    "mc": 4,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "D3",
+  "label": "D3 擔保物權・占有",
+  "cards": [
+   {
+    "term": "普通抵押權的定義",
+    "blank": "稱普通抵押權者，謂債權人對於債務人或第三人不移轉___而供其債權擔保之不動產，得就其___受清償之權（§860）。",
+    "answer": "稱普通抵押權者，謂債權人對於債務人或第三人不移轉<span class=\"key\">占有</span>而供其債權擔保之不動產，得就其<span class=\"key\">賣得價金</span>受清償之權（§860）。",
+    "src": "民法§860",
+    "mc": 4,
+    "essay": 2
+   },
+   {
+    "term": "抵押權擔保範圍",
+    "blank": "抵押權所擔保者為___、___、___、___及實行抵押權之費用（§861Ⅰ）。<br>得優先受償之利息、遲延利息、一年或不及一年定期給付之違約金債權，以於抵押權人實行抵押權聲請強制執行前___內發生及於強制執行程序中發生者為限（§861Ⅱ）。",
+    "answer": "抵押權所擔保者為<span class=\"key\">原債權</span>、<span class=\"key\">利息</span>、<span class=\"key\">遲延利息</span>、<span class=\"key\">違約金</span>及實行抵押權之費用（§861Ⅰ）。<br>得優先受償之利息、遲延利息、一年或不及一年定期給付之違約金債權，以於抵押權人實行抵押權聲請強制執行前<span class=\"key\">五年</span>內發生及於強制執行程序中發生者為限（§861Ⅱ）。",
+    "src": "民法§861",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "抵押權效力及於從物與從權利",
+    "blank": "抵押權之效力，及於抵押物之___與___。第三人於抵押權設定前，就從物取得之權利，不受影響（§862Ⅰ、Ⅱ）。",
+    "answer": "抵押權之效力，及於抵押物之<span class=\"key\">從物</span>與<span class=\"key\">從權利</span>。第三人於抵押權設定前，就從物取得之權利，不受影響（§862Ⅰ、Ⅱ）。",
+    "src": "民法§862",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "抵押權次序與併存用益權",
+    "blank": "不動產所有人因擔保數債權，就同一不動產設定數抵押權者，其次序依___之先後定之（§865）。<br>設定抵押權後，所有人於同一不動產上，得設定地上權及其他以使用收益為目的之物權，或租賃與他人；但其抵押權___（§866Ⅰ）。",
+    "answer": "不動產所有人因擔保數債權，就同一不動產設定數抵押權者，其次序依<span class=\"key\">登記</span>之先後定之（§865）。<br>設定抵押權後，所有人於同一不動產上，得設定地上權及其他以使用收益為目的之物權，或租賃與他人；但其抵押權<span class=\"key\">不因此而受影響</span>（§866Ⅰ）。",
+    "src": "民法§865、§866Ⅰ",
+    "mc": 8,
+    "essay": 2
+   },
+   {
+    "term": "流抵約定",
+    "blank": "約定於債權已屆清償期而未為清償時，抵押物之所有權移屬於抵押權人者，___，不得對抗第三人（§873-1Ⅰ）。<br>抵押權人請求抵押人為所有權之移轉時，抵押物價值超過擔保債權部分，應___抵押人（§873-1Ⅱ）。",
+    "answer": "約定於債權已屆清償期而未為清償時，抵押物之所有權移屬於抵押權人者，<span class=\"key\">非經登記</span>，不得對抗第三人（§873-1Ⅰ）。<br>抵押權人請求抵押人為所有權之移轉時，抵押物價值超過擔保債權部分，應<span class=\"key\">返還</span>抵押人（§873-1Ⅱ）。",
+    "src": "民法§873-1",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "併付拍賣",
+    "blank": "土地所有人於設定抵押權後，在抵押財產上營造建築物者，抵押權人於必要時，得於強制執行程序中，聲請法院將其建築物與土地併付拍賣；但對於建築物之價金，無___之權（§877Ⅰ）。",
+    "answer": "土地所有人於設定抵押權後，在抵押財產上營造建築物者，抵押權人於必要時，得於強制執行程序中，聲請法院將其建築物與土地併付拍賣；但對於建築物之價金，無<span class=\"key\">優先受清償</span>之權（§877Ⅰ）。",
+    "src": "民法§877Ⅰ",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "物上保證人的承受",
+    "blank": "為債務人設定抵押權之第三人，代為清償債務，或因抵押權人實行抵押權致失抵押物之所有權時，該第三人於其清償之限度內，___債權人對於債務人之債權；但不得有害於債權人之利益（§879Ⅰ）。",
+    "answer": "為債務人設定抵押權之第三人，代為清償債務，或因抵押權人實行抵押權致失抵押物之所有權時，該第三人於其清償之限度內，<span class=\"key\">承受</span>債權人對於債務人之債權；但不得有害於債權人之利益（§879Ⅰ）。",
+    "src": "民法§879Ⅰ",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "抵押權的除斥",
+    "blank": "以抵押權擔保之債權，其請求權已因時效而消滅，如抵押權人於消滅時效完成後，___間不實行其抵押權者，其抵押權___（§880）。",
+    "answer": "以抵押權擔保之債權，其請求權已因時效而消滅，如抵押權人於消滅時效完成後，<span class=\"key\">五年</span>間不實行其抵押權者，其抵押權<span class=\"key\">消滅</span>（§880）。",
+    "src": "民法§880",
+    "mc": 4,
+    "essay": 1
+   },
+   {
+    "term": "抵押物滅失與物上代位",
+    "blank": "抵押權除法律另有規定外，因抵押物___而消滅；但抵押人因滅失得受賠償或其他利益者，不在此限（§881Ⅰ）。<br>抵押權人對於前項抵押人所得行使之賠償或其他請求權，有___，其次序與原抵押權同（§881Ⅱ）。<br>抵押物因毀損而得受之賠償或其他利益，準用前三項之規定（§881Ⅳ）。",
+    "answer": "抵押權除法律另有規定外，因抵押物<span class=\"key\">滅失</span>而消滅；但抵押人因滅失得受賠償或其他利益者，不在此限（§881Ⅰ）。<br>抵押權人對於前項抵押人所得行使之賠償或其他請求權，有<span class=\"key\">權利質權</span>，其次序與原抵押權同（§881Ⅱ）。<br>抵押物因毀損而得受之賠償或其他利益，準用前三項之規定（§881Ⅳ）。",
+    "src": "民法§881Ⅰ、Ⅱ、Ⅳ",
+    "mc": 2,
+    "essay": 1
+   },
+   {
+    "term": "最高限額抵押權的定義",
+    "blank": "稱最高限額抵押權者，謂債務人或第三人提供其不動產為擔保，就債權人對債務人一定___內之___，在___內設定之抵押權（§881-1Ⅰ）。",
+    "answer": "稱最高限額抵押權者，謂債務人或第三人提供其不動產為擔保，就債權人對債務人一定<span class=\"key\">範圍</span>內之<span class=\"key\">不特定債權</span>，在<span class=\"key\">最高限額</span>內設定之抵押權（§881-1Ⅰ）。",
+    "src": "民法§881-1Ⅰ",
+    "mc": 6,
+    "essay": 1
+   },
+   {
+    "term": "最高限額抵押權的擔保範圍",
+    "blank": "最高限額抵押權人就已確定之原債權，僅得於其約定之___範圍內，行使其權利。<br>前項債權之利息、遲延利息、違約金，與前項債權合計不逾最高限額範圍者，亦___（§881-2）。",
+    "answer": "最高限額抵押權人就已確定之原債權，僅得於其約定之<span class=\"key\">最高限額</span>範圍內，行使其權利。<br>前項債權之利息、遲延利息、違約金，與前項債權合計不逾最高限額範圍者，亦<span class=\"key\">同</span>（§881-2）。",
+    "src": "民法§881-2",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "最高限額抵押權的確定期日",
+    "blank": "得約定其所擔保原債權應確定之期日；確定之期日，自抵押權設定時起，不得逾___；逾三十年者，縮短為三十年（§881-4）。<br>未約定確定期日者，抵押人或抵押權人得___請求確定其所擔保之原債權；除另有約定外，自請求之日起，經___為其確定期日（§881-5）。",
+    "answer": "得約定其所擔保原債權應確定之期日；確定之期日，自抵押權設定時起，不得逾<span class=\"key\">三十年</span>；逾三十年者，縮短為三十年（§881-4）。<br>未約定確定期日者，抵押人或抵押權人得<span class=\"key\">隨時</span>請求確定其所擔保之原債權；除另有約定外，自請求之日起，經<span class=\"key\">十五日</span>為其確定期日（§881-5）。",
+    "src": "民法§881-4、§881-5",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "占有的定義與推定",
+    "blank": "對於物有___之力者，為占有人（§940）。<br>占有人於占有物上行使之權利，推定其適法有此權利（§943Ⅰ）。<br>占有人推定其為以___之意思，___、___、___及___占有（§944Ⅰ）。",
+    "answer": "對於物有<span class=\"key\">事實上管領</span>之力者，為占有人（§940）。<br>占有人於占有物上行使之權利，推定其適法有此權利（§943Ⅰ）。<br>占有人推定其為以<span class=\"key\">所有</span>之意思，<span class=\"key\">善意</span>、<span class=\"key\">和平</span>、<span class=\"key\">公然</span>及<span class=\"key\">無過失</span>占有（§944Ⅰ）。",
+    "src": "民法§940、§943Ⅰ、§944Ⅰ",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "占有人的物上請求權",
+    "blank": "占有人，其占有被侵奪者，得請求___其占有物；占有被妨害者，得請求___其妨害；占有有被妨害之虞者，得請求___其妨害（§962）。<br>前條請求權，自侵奪或妨害占有或危險發生後，___間不行使而消滅（§963）。",
+    "answer": "占有人，其占有被侵奪者，得請求<span class=\"key\">返還</span>其占有物；占有被妨害者，得請求<span class=\"key\">除去</span>其妨害；占有有被妨害之虞者，得請求<span class=\"key\">防止</span>其妨害（§962）。<br>前條請求權，自侵奪或妨害占有或危險發生後，<span class=\"key\">一年</span>間不行使而消滅（§963）。",
+    "src": "民法§962、§963",
+    "mc": 4,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "E1",
+  "label": "E1 結婚・離婚・夫妻財產制",
+  "cards": [
+   {
+    "term": "結婚年齡與形式要件",
+    "blank": "男女未滿___者，不得結婚（§980）。<br>結婚應以書面為之，有___以上證人之簽名，並應由雙方當事人向___為結婚之登記（§982Ⅰ）。",
+    "answer": "男女未滿<span class=\"key\">十八歲</span>者，不得結婚（§980）。<br>結婚應以書面為之，有<span class=\"key\">二人</span>以上證人之簽名，並應由雙方當事人向<span class=\"key\">戶政機關</span>為結婚之登記（§982Ⅰ）。",
+    "src": "民法§980、§982Ⅰ",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "近親禁婚",
+    "blank": "與下列親屬，不得結婚：一、___及___；二、旁系血親在___以內者（收養所成立之四親等及六親等旁系血親，輩分相同者除外）；三、旁系姻親在___以內，輩分不相同者（§983Ⅰ）。",
+    "answer": "與下列親屬，不得結婚：一、<span class=\"key\">直系血親</span>及<span class=\"key\">直系姻親</span>；二、旁系血親在<span class=\"key\">六親等</span>以內者（收養所成立之四親等及六親等旁系血親，輩分相同者除外）；三、旁系姻親在<span class=\"key\">五親等</span>以內，輩分不相同者（§983Ⅰ）。",
+    "src": "民法§983",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "結婚無效",
+    "blank": "結婚有下列情形之一者，無效：一、不具備第___條之方式；二、違反第___條規定；三、違反第___條規定（重婚）（§988）。",
+    "answer": "結婚有下列情形之一者，無效：一、不具備第<span class=\"key\">九百八十二</span>條之方式；二、違反第<span class=\"key\">九百八十三</span>條規定；三、違反第<span class=\"key\">九百八十五</span>條規定（重婚）（§988）。",
+    "src": "民法§988",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "結婚的撤銷",
+    "blank": "結婚違反§980規定者，當事人或其法定代理人得向法院請求撤銷之；但當事人已達該條所定年齡或已___者，不得請求撤銷（§989）。<br>因被詐欺或被脅迫而結婚者，得於發見詐欺或脅迫終止後，___內向法院請求撤銷之（§997）。",
+    "answer": "結婚違反§980規定者，當事人或其法定代理人得向法院請求撤銷之；但當事人已達該條所定年齡或已<span class=\"key\">懷胎</span>者，不得請求撤銷（§989）。<br>因被詐欺或被脅迫而結婚者，得於發見詐欺或脅迫終止後，<span class=\"key\">六個月</span>內向法院請求撤銷之（§997）。",
+    "src": "民法§989、§997",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "兩願離婚",
+    "blank": "兩願離婚，應以書面為之，有___以上證人之簽名並應向___為離婚之登記（§1050）。",
+    "answer": "兩願離婚，應以書面為之，有<span class=\"key\">二人</span>以上證人之簽名並應向<span class=\"key\">戶政機關</span>為離婚之登記（§1050）。",
+    "src": "民法§1050",
+    "mc": 4,
+    "essay": 0
+   },
+   {
+    "term": "離婚請求權的限制",
+    "blank": "對於§1052第1款（重婚）、第2款（與配偶以外之人合意性交）之情事，有請求權之一方，於事前同意或事後___，或知悉後逾___，或自其情事發生後已逾___者，不得請求離婚（§1053）。",
+    "answer": "對於§1052第1款（重婚）、第2款（與配偶以外之人合意性交）之情事，有請求權之一方，於事前同意或事後<span class=\"key\">宥恕</span>，或知悉後逾<span class=\"key\">六個月</span>，或自其情事發生後已逾<span class=\"key\">二年</span>者，不得請求離婚（§1053）。",
+    "src": "民法§1053",
+    "mc": 0,
+    "essay": 0
+   },
+   {
+    "term": "離婚的損害賠償與贍養費",
+    "blank": "夫妻之一方，因判決離婚而受有損害者，得向___之他方，請求賠償；非財產上之損害，以受害人___者為限（§1056Ⅰ、Ⅱ）。<br>夫妻無過失之一方，因判決離婚而陷於生活困難者，他方縱無過失，亦應給與相當之___（§1057）。",
+    "answer": "夫妻之一方，因判決離婚而受有損害者，得向<span class=\"key\">有過失</span>之他方，請求賠償；非財產上之損害，以受害人<span class=\"key\">無過失</span>者為限（§1056Ⅰ、Ⅱ）。<br>夫妻無過失之一方，因判決離婚而陷於生活困難者，他方縱無過失，亦應給與相當之<span class=\"key\">贍養費</span>（§1057）。",
+    "src": "民法§1056、§1057",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "夫妻財產制的預設與契約",
+    "blank": "夫妻未以契約訂立夫妻財產制者，以___為其夫妻財產制（§1005）。<br>夫妻財產制契約之訂立、變更或廢止，應以___為之（§1007）；非經___，不得以之對抗第三人（§1008）。",
+    "answer": "夫妻未以契約訂立夫妻財產制者，以<span class=\"key\">法定財產制</span>為其夫妻財產制（§1005）。<br>夫妻財產制契約之訂立、變更或廢止，應以<span class=\"key\">書面</span>為之（§1007）；非經<span class=\"key\">登記</span>，不得以之對抗第三人（§1008）。",
+    "src": "民法§1005、§1007、§1008",
+    "mc": 8,
+    "essay": 0
+   },
+   {
+    "term": "法定財產制的財產歸屬",
+    "blank": "夫或妻之財產分為婚前財產與婚後財產，由夫妻___。不能證明為婚前或婚後財產者，推定為___；不能證明為夫或妻所有之財產，推定為夫妻___（§1017Ⅰ）。<br>夫或妻婚前財產，於婚姻關係存續中所生之孳息，視為___（§1017Ⅱ）。",
+    "answer": "夫或妻之財產分為婚前財產與婚後財產，由夫妻<span class=\"key\">各自所有</span>。不能證明為婚前或婚後財產者，推定為<span class=\"key\">婚後財產</span>；不能證明為夫或妻所有之財產，推定為夫妻<span class=\"key\">共有</span>（§1017Ⅰ）。<br>夫或妻婚前財產，於婚姻關係存續中所生之孳息，視為<span class=\"key\">婚後財產</span>（§1017Ⅱ）。",
+    "src": "民法§1017",
+    "mc": 9,
+    "essay": 1
+   },
+   {
+    "term": "法定財產制：管理處分",
+    "blank": "夫或妻各自管理、使用、收益及處分其財產（§1018）。<br>分別財產制：夫妻各保有其財產之所有權，各自管理、使用、收益及處分（§1044）。",
+    "answer": "夫或妻各自管理、使用、收益及處分其財產（§1018）。<br>分別財產制：夫妻各保有其財產之所有權，各自管理、使用、收益及處分（§1044）。",
+    "src": "民法§1018、§1044",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "剩餘財產差額分配（核心）",
+    "blank": "法定財產制關係消滅時，夫或妻現存之婚後財產，扣除婚姻關係存續所負債務後，如有剩餘，其雙方剩餘財產之___，應___分配（§1030-1Ⅰ前段）。<br>但因___或其他___之財產、___，不在此限（§1030-1Ⅰ但書）。",
+    "answer": "法定財產制關係消滅時，夫或妻現存之婚後財產，扣除婚姻關係存續所負債務後，如有剩餘，其雙方剩餘財產之<span class=\"key\">差額</span>，應<span class=\"key\">平均</span>分配（§1030-1Ⅰ前段）。<br>但因<span class=\"key\">繼承</span>或其他<span class=\"key\">無償取得</span>之財產、<span class=\"key\">慰撫金</span>，不在此限（§1030-1Ⅰ但書）。",
+    "src": "民法§1030-1Ⅰ",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "剩餘財產分配的調整與時效",
+    "blank": "夫妻之一方對於婚姻生活無貢獻或協力，或有其他情事，致平均分配有失公平者，___得調整或免除其分配額（§1030-1Ⅱ）。<br>請求權自知有剩餘財產差額時起，___間不行使而消滅；自法定財產制關係消滅時起，逾___者亦同（§1030-1Ⅴ）。",
+    "answer": "夫妻之一方對於婚姻生活無貢獻或協力，或有其他情事，致平均分配有失公平者，<span class=\"key\">法院</span>得調整或免除其分配額（§1030-1Ⅱ）。<br>請求權自知有剩餘財產差額時起，<span class=\"key\">二年</span>間不行使而消滅；自法定財產制關係消滅時起，逾<span class=\"key\">五年</span>者亦同（§1030-1Ⅴ）。",
+    "src": "民法§1030-1Ⅱ、Ⅴ",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "剩餘財產的追加計算",
+    "blank": "夫或妻為減少他方對於剩餘財產之分配，而於法定財產制關係消滅前___內處分其婚後財產者，應將該財產___，視為現存之婚後財產（§1030-3Ⅰ）。<br>但為履行道德上義務所為之相當贈與，不在此限。",
+    "answer": "夫或妻為減少他方對於剩餘財產之分配，而於法定財產制關係消滅前<span class=\"key\">五年</span>內處分其婚後財產者，應將該財產<span class=\"key\">追加計算</span>，視為現存之婚後財產（§1030-3Ⅰ）。<br>但為履行道德上義務所為之相當贈與，不在此限。",
+    "src": "民法§1030-3Ⅰ",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "共同財產制",
+    "blank": "夫妻之財產及所得，除特有財產外，合併為共同財產，屬於夫妻___（§1031）。",
+    "answer": "夫妻之財產及所得，除特有財產外，合併為共同財產，屬於夫妻<span class=\"key\">公同共有</span>（§1031）。",
+    "src": "民法§1031",
+    "mc": 5,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "E2",
+  "label": "E2 親子・收養・扶養・監護",
+  "cards": [
+   {
+    "term": "婚生推定與否認之訴",
+    "blank": "妻之受胎，係在婚姻關係存續中者，推定其所生子女為___（§1063Ⅰ）。<br>夫妻之一方或子女能證明子女非為婚生子女者，得提起___（§1063Ⅱ）。<br>夫妻之一方自知悉時起、子女自知悉時起，均於___內為之；但子女於未成年時知悉者，仍得於成年後二年內為之（§1063Ⅲ）。",
+    "answer": "妻之受胎，係在婚姻關係存續中者，推定其所生子女為<span class=\"key\">婚生子女</span>（§1063Ⅰ）。<br>夫妻之一方或子女能證明子女非為婚生子女者，得提起<span class=\"key\">否認之訴</span>（§1063Ⅱ）。<br>夫妻之一方自知悉時起、子女自知悉時起，均於<span class=\"key\">二年</span>內為之；但子女於未成年時知悉者，仍得於成年後二年內為之（§1063Ⅲ）。",
+    "src": "民法§1063",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "非婚生子女",
+    "blank": "非婚生子女經生父___者，視為婚生子女；其經生父___者，視為認領（§1065Ⅰ）。<br>非婚生子女與其生母之關係，視為婚生子女，無須___（§1065Ⅱ）。",
+    "answer": "非婚生子女經生父<span class=\"key\">認領</span>者，視為婚生子女；其經生父<span class=\"key\">撫育</span>者，視為認領（§1065Ⅰ）。<br>非婚生子女與其生母之關係，視為婚生子女，無須<span class=\"key\">認領</span>（§1065Ⅱ）。",
+    "src": "民法§1065",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "子女姓氏",
+    "blank": "父母於子女出生登記前，應以書面約定子女從父姓或母姓；未約定或約定不成者，於戶政事務所___決定之（§1059Ⅰ）。<br>子女經出生登記後，於未成年前，得由父母以書面約定變更；變更以___為限（§1059Ⅱ、Ⅳ）。",
+    "answer": "父母於子女出生登記前，應以書面約定子女從父姓或母姓；未約定或約定不成者，於戶政事務所<span class=\"key\">抽籤</span>決定之（§1059Ⅰ）。<br>子女經出生登記後，於未成年前，得由父母以書面約定變更；變更以<span class=\"key\">一次</span>為限（§1059Ⅱ、Ⅳ）。",
+    "src": "民法§1059",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "收養的年齡差",
+    "blank": "收養者之年齡，應長於被收養者___歲以上。但夫妻共同收養時，夫或妻之一方長於被收養者二十歲以上，而他方長於被收養者___歲以上，亦得收養（§1073Ⅰ）。",
+    "answer": "收養者之年齡，應長於被收養者<span class=\"key\">二十</span>歲以上。但夫妻共同收養時，夫或妻之一方長於被收養者二十歲以上，而他方長於被收養者<span class=\"key\">十六</span>歲以上，亦得收養（§1073Ⅰ）。",
+    "src": "民法§1073Ⅰ",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "收養的效力",
+    "blank": "養子女與養父母及其親屬間之關係，除法律另有規定外，與___同。養子女與本生父母及其親屬間之權利義務，於收養關係存續中___（§1077Ⅰ、Ⅱ）。",
+    "answer": "養子女與養父母及其親屬間之關係，除法律另有規定外，與<span class=\"key\">婚生子女</span>同。養子女與本生父母及其親屬間之權利義務，於收養關係存續中<span class=\"key\">停止</span>（§1077Ⅰ、Ⅱ）。",
+    "src": "民法§1077Ⅰ、Ⅱ",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "法院認可收養",
+    "blank": "收養應以書面為之，並向___聲請認可（§1079Ⅰ）。",
+    "answer": "收養應以書面為之，並向<span class=\"key\">法院</span>聲請認可（§1079Ⅰ）。",
+    "src": "民法§1079Ⅰ",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "互負扶養義務的親屬",
+    "blank": "下列親屬互負扶養之義務：一、___相互間；二、夫妻之一方與他方之父母___者，其相互間；三、___相互間；四、___相互間（§1114）。",
+    "answer": "下列親屬互負扶養之義務：一、<span class=\"key\">直系血親</span>相互間；二、夫妻之一方與他方之父母<span class=\"key\">同居</span>者，其相互間；三、<span class=\"key\">兄弟姊妹</span>相互間；四、<span class=\"key\">家長家屬</span>相互間（§1114）。",
+    "src": "民法§1114",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "夫妻間的扶養順序",
+    "blank": "夫妻互負扶養之義務，其負扶養義務之順序與___同，其受扶養權利之順序與___同（§1116-1）。",
+    "answer": "夫妻互負扶養之義務，其負扶養義務之順序與<span class=\"key\">直系血親卑親屬</span>同，其受扶養權利之順序與<span class=\"key\">直系血親尊親屬</span>同（§1116-1）。",
+    "src": "民法§1116-1",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "未成年人監護",
+    "blank": "未成年人無父母，或父母均不能行使、負擔對於其未成年子女之權利義務時，應置___（§1091）。",
+    "answer": "未成年人無父母，或父母均不能行使、負擔對於其未成年子女之權利義務時，應置<span class=\"key\">監護人</span>（§1091）。",
+    "src": "民法§1091",
+    "mc": 1,
+    "essay": 0
+   }
+  ]
+ },
+ {
+  "id": "E3",
+  "label": "E3 法定繼承・拋棄・遺產分割",
+  "cards": [
+   {
+    "term": "法定繼承人及順序",
+    "blank": "遺產繼承人，除配偶外，依下列順序定之：一、___；二、___；三、___；四、___（§1138）。",
+    "answer": "遺產繼承人，除配偶外，依下列順序定之：一、<span class=\"key\">直系血親卑親屬</span>；二、<span class=\"key\">父母</span>；三、<span class=\"key\">兄弟姊妹</span>；四、<span class=\"key\">祖父母</span>（§1138）。",
+    "src": "民法§1138",
+    "mc": 14,
+    "essay": 1
+   },
+   {
+    "term": "親等近者優先；同順序平均",
+    "blank": "前條所定第一順序之繼承人，以___者為先（§1139）。<br>同一順序之繼承人有數人時，按___繼承；但法律另有規定者，不在此限（§1141）。",
+    "answer": "前條所定第一順序之繼承人，以<span class=\"key\">親等近</span>者為先（§1139）。<br>同一順序之繼承人有數人時，按<span class=\"key\">人數平均</span>繼承；但法律另有規定者，不在此限（§1141）。",
+    "src": "民法§1139、§1141",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "代位繼承",
+    "blank": "第一順序之繼承人，有於繼承開始前___或喪失繼承權者，由其___代位繼承其應繼分（§1140）。<br>（陷阱：拋棄繼承不發生代位繼承。）",
+    "answer": "第一順序之繼承人，有於繼承開始前<span class=\"key\">死亡</span>或喪失繼承權者，由其<span class=\"key\">直系血親卑親屬</span>代位繼承其應繼分（§1140）。<br>（陷阱：拋棄繼承不發生代位繼承。）",
+    "src": "民法§1140",
+    "mc": 8,
+    "essay": 1
+   },
+   {
+    "term": "配偶的應繼分（必背）",
+    "blank": "配偶與第一順序繼承人同為繼承時，應繼分與他繼承人___。<br>與第二順序或第三順序繼承人同為繼承時，應繼分為遺產___。<br>與第四順序繼承人同為繼承時，應繼分為遺產___。<br>無第一至第四順序繼承人時，應繼分為遺產___（§1144）。",
+    "answer": "配偶與第一順序繼承人同為繼承時，應繼分與他繼承人<span class=\"key\">平均</span>。<br>與第二順序或第三順序繼承人同為繼承時，應繼分為遺產<span class=\"key\">二分之一</span>。<br>與第四順序繼承人同為繼承時，應繼分為遺產<span class=\"key\">三分之二</span>。<br>無第一至第四順序繼承人時，應繼分為遺產<span class=\"key\">全部</span>（§1144）。",
+    "src": "民法§1144",
+    "mc": 18,
+    "essay": 0
+   },
+   {
+    "term": "喪失繼承權",
+    "blank": "第二款至第四款（以詐欺脅迫使被繼承人為、撤回或變更遺囑，或妨害其為，或偽造變造隱匿湮滅遺囑）事由，如經被繼承人___者，其繼承權不喪失（§1145Ⅱ）。<br>第五款（對被繼承人有重大虐待或侮辱情事）須經被繼承人___者，始喪失繼承權（§1145Ⅰ第5款）。",
+    "answer": "第二款至第四款（以詐欺脅迫使被繼承人為、撤回或變更遺囑，或妨害其為，或偽造變造隱匿湮滅遺囑）事由，如經被繼承人<span class=\"key\">宥恕</span>者，其繼承權不喪失（§1145Ⅱ）。<br>第五款（對被繼承人有重大虐待或侮辱情事）須經被繼承人<span class=\"key\">表示其不得繼承</span>者，始喪失繼承權（§1145Ⅰ第5款）。",
+    "src": "民法§1145",
+    "mc": 7,
+    "essay": 0
+   },
+   {
+    "term": "繼承的概括承受與有限責任",
+    "blank": "繼承人自繼承開始時，除本法另有規定外，承受被繼承人財產上之___；但權利、義務___者，不在此限（§1148Ⅰ）。<br>繼承人對於被繼承人之債務，以___為限，負清償責任（§1148Ⅱ）。",
+    "answer": "繼承人自繼承開始時，除本法另有規定外，承受被繼承人財產上之<span class=\"key\">一切權利、義務</span>；但權利、義務<span class=\"key\">專屬於被繼承人本身</span>者，不在此限（§1148Ⅰ）。<br>繼承人對於被繼承人之債務，以<span class=\"key\">因繼承所得遺產</span>為限，負清償責任（§1148Ⅱ）。",
+    "src": "民法§1148",
+    "mc": 13,
+    "essay": 1
+   },
+   {
+    "term": "喪失限定責任的利益",
+    "blank": "繼承人中有下列情事之一者，不得主張§1148Ⅱ所定（以因繼承所得遺產為限負清償責任）之利益：一、___情節重大；二、在遺產清冊為___之記載情節重大；三、意圖詐害被繼承人之債權人之權利而為遺產之___（§1163）。",
+    "answer": "繼承人中有下列情事之一者，不得主張§1148Ⅱ所定（以因繼承所得遺產為限負清償責任）之利益：一、<span class=\"key\">隱匿遺產</span>情節重大；二、在遺產清冊為<span class=\"key\">虛偽</span>之記載情節重大；三、意圖詐害被繼承人之債權人之權利而為遺產之<span class=\"key\">處分</span>（§1163）。",
+    "src": "民法§1163",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "分割前的公同共有與連帶責任",
+    "blank": "繼承人有數人時，在分割遺產前，各繼承人對於遺產全部為___（§1151）。<br>繼承人對於被繼承人之債務，負___責任（§1153Ⅰ）。",
+    "answer": "繼承人有數人時，在分割遺產前，各繼承人對於遺產全部為<span class=\"key\">公同共有</span>（§1151）。<br>繼承人對於被繼承人之債務，負<span class=\"key\">連帶</span>責任（§1153Ⅰ）。",
+    "src": "民法§1151、§1153Ⅰ",
+    "mc": 11,
+    "essay": 1
+   },
+   {
+    "term": "遺產分割的限制",
+    "blank": "繼承人得___請求分割遺產；但法律另有規定或契約另有訂定者，不在此限（§1164）。",
+    "answer": "繼承人得<span class=\"key\">隨時</span>請求分割遺產；但法律另有規定或契約另有訂定者，不在此限（§1164）。",
+    "src": "民法§1164",
+    "mc": 1,
+    "essay": 0
+   },
+   {
+    "term": "分割後連帶責任的免除",
+    "blank": "遺產分割後，其未清償之被繼承人之債務，移歸一定之人承受，或劃歸各繼承人分擔，如經債權人同意者，各繼承人免除連帶責任（§1171Ⅰ）。<br>繼承人之連帶責任，自遺產分割時起，如債權清償期在遺產分割後者，自清償期屆滿時起，經過___而免除（§1171Ⅱ）。",
+    "answer": "遺產分割後，其未清償之被繼承人之債務，移歸一定之人承受，或劃歸各繼承人分擔，如經債權人同意者，各繼承人免除連帶責任（§1171Ⅰ）。<br>繼承人之連帶責任，自遺產分割時起，如債權清償期在遺產分割後者，自清償期屆滿時起，經過<span class=\"key\">五年</span>而免除（§1171Ⅱ）。",
+    "src": "民法§1171",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "扣還與歸扣",
+    "blank": "繼承人中如對於被繼承人負有債務者，於遺產分割時，應按其債務數額，由該繼承人之應繼分內___（§1172）。<br>繼承人在繼承開始前因___、___或___，已從被繼承人受有財產之贈與者，應將該贈與價額加入應繼遺產；該價額應於遺產分割時，由該繼承人之應繼分中___（§1173）。",
+    "answer": "繼承人中如對於被繼承人負有債務者，於遺產分割時，應按其債務數額，由該繼承人之應繼分內<span class=\"key\">扣還</span>（§1172）。<br>繼承人在繼承開始前因<span class=\"key\">結婚</span>、<span class=\"key\">分居</span>或<span class=\"key\">營業</span>，已從被繼承人受有財產之贈與者，應將該贈與價額加入應繼遺產；該價額應於遺產分割時，由該繼承人之應繼分中<span class=\"key\">扣除</span>（§1173）。",
+    "src": "民法§1172、§1173",
+    "mc": 5,
+    "essay": 0
+   },
+   {
+    "term": "拋棄繼承的方式",
+    "blank": "繼承人得拋棄其繼承權（§1174Ⅰ）。拋棄，應於知悉其得繼承之時起___內，以___向___為之（§1174Ⅱ）。<br>拋棄繼承後，應以書面___因其拋棄而應為繼承之人；但不能通知者，不在此限（§1174Ⅲ）。",
+    "answer": "繼承人得拋棄其繼承權（§1174Ⅰ）。拋棄，應於知悉其得繼承之時起<span class=\"key\">三個月</span>內，以<span class=\"key\">書面</span>向<span class=\"key\">法院</span>為之（§1174Ⅱ）。<br>拋棄繼承後，應以書面<span class=\"key\">通知</span>因其拋棄而應為繼承之人；但不能通知者，不在此限（§1174Ⅲ）。",
+    "src": "民法§1174",
+    "mc": 13,
+    "essay": 2
+   },
+   {
+    "term": "拋棄繼承的效力與應繼分歸屬",
+    "blank": "繼承之拋棄，溯及於___時發生效力（§1175）。<br>第一順序之繼承人中有拋棄繼承權者，其應繼分歸屬於___（§1176Ⅰ）。<br>配偶拋棄繼承權者，其應繼分歸屬於與其___之人（§1176Ⅳ）。",
+    "answer": "繼承之拋棄，溯及於<span class=\"key\">繼承開始</span>時發生效力（§1175）。<br>第一順序之繼承人中有拋棄繼承權者，其應繼分歸屬於<span class=\"key\">其他同為繼承之人</span>（§1176Ⅰ）。<br>配偶拋棄繼承權者，其應繼分歸屬於與其<span class=\"key\">同為繼承</span>之人（§1176Ⅳ）。",
+    "src": "民法§1175、§1176Ⅰ、Ⅳ",
+    "mc": 6,
+    "essay": 2
+   }
+  ]
+ },
+ {
+  "id": "E4",
+  "label": "E4 遺囑與特留分",
+  "cards": [
+   {
+    "term": "遺囑能力",
+    "blank": "無行為能力人，不得為遺囑。限制行為能力人，無須經法定代理人之允許，得為遺囑；但未滿___者，不得為遺囑（§1186）。",
+    "answer": "無行為能力人，不得為遺囑。限制行為能力人，無須經法定代理人之允許，得為遺囑；但未滿<span class=\"key\">十六歲</span>者，不得為遺囑（§1186）。",
+    "src": "民法§1186",
+    "mc": 9,
+    "essay": 0
+   },
+   {
+    "term": "自書遺囑",
+    "blank": "自書遺囑者，應自書遺囑___，記明___，並親自___；如有增減、塗改，應註明增減、塗改之處所及字數，另行簽名（§1190）。",
+    "answer": "自書遺囑者，應自書遺囑<span class=\"key\">全文</span>，記明<span class=\"key\">年、月、日</span>，並親自<span class=\"key\">簽名</span>；如有增減、塗改，應註明增減、塗改之處所及字數，另行簽名（§1190）。",
+    "src": "民法§1190",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "代筆遺囑",
+    "blank": "代筆遺囑，由遺囑人指定___以上之見證人，由遺囑人口述遺囑意旨，使見證人中之一人筆記、宣讀、講解，經遺囑人認可後，記明年月日及代筆人之姓名，由見證人全體及遺囑人同行簽名（§1194）。",
+    "answer": "代筆遺囑，由遺囑人指定<span class=\"key\">三人</span>以上之見證人，由遺囑人口述遺囑意旨，使見證人中之一人筆記、宣讀、講解，經遺囑人認可後，記明年月日及代筆人之姓名，由見證人全體及遺囑人同行簽名（§1194）。",
+    "src": "民法§1194",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "口授遺囑及其失效",
+    "blank": "遺囑人因生命危急或其他特殊情形，不能依其他方式為遺囑者，得依口授遺囑方式為之，指定___以上之見證人（§1195）。<br>口授遺囑，自遺囑人能依其他方式為遺囑之時起，經過___而失其效力（§1196）。",
+    "answer": "遺囑人因生命危急或其他特殊情形，不能依其他方式為遺囑者，得依口授遺囑方式為之，指定<span class=\"key\">二人</span>以上之見證人（§1195）。<br>口授遺囑，自遺囑人能依其他方式為遺囑之時起，經過<span class=\"key\">三個月</span>而失其效力（§1196）。",
+    "src": "民法§1195、§1196",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "遺囑見證人的欠格",
+    "blank": "下列之人，不得為遺囑見證人：一、___；二、受監護或輔助宣告之人；三、___及其配偶或其直系血親；四、___及其配偶或其直系血親；五、為公證人或代行公證職務人之同居人、助理人或受僱人（§1198）。",
+    "answer": "下列之人，不得為遺囑見證人：一、<span class=\"key\">未成年人</span>；二、受監護或輔助宣告之人；三、<span class=\"key\">繼承人</span>及其配偶或其直系血親；四、<span class=\"key\">受遺贈人</span>及其配偶或其直系血親；五、為公證人或代行公證職務人之同居人、助理人或受僱人（§1198）。",
+    "src": "民法§1198",
+    "mc": 3,
+    "essay": 0
+   },
+   {
+    "term": "遺贈的失效與承認",
+    "blank": "受遺贈人於遺囑發生效力前死亡者，其遺贈___（§1201）。<br>繼承人或其他利害關係人，得定相當期限，請求受遺贈人於期限內為承認遺贈與否之表示；期限屆滿，尚無表示者，視為___遺贈（§1207）。",
+    "answer": "受遺贈人於遺囑發生效力前死亡者，其遺贈<span class=\"key\">不生效力</span>（§1201）。<br>繼承人或其他利害關係人，得定相當期限，請求受遺贈人於期限內為承認遺贈與否之表示；期限屆滿，尚無表示者，視為<span class=\"key\">承認</span>遺贈（§1207）。",
+    "src": "民法§1201、§1207",
+    "mc": 2,
+    "essay": 0
+   },
+   {
+    "term": "特留分的比例",
+    "blank": "直系血親卑親屬、父母、配偶之特留分，各為其應繼分___；兄弟姊妹、祖父母之特留分，各為其應繼分___（§1223，現行條文）。<br>（修法提醒：兄弟姊妹特留分之刪除，其施行日在115年11月考試之後，細節見重點筆記。）",
+    "answer": "直系血親卑親屬、父母、配偶之特留分，各為其應繼分<span class=\"key\">二分之一</span>；兄弟姊妹、祖父母之特留分，各為其應繼分<span class=\"key\">三分之一</span>（§1223，現行條文）。<br>（修法提醒：兄弟姊妹特留分之刪除，其施行日在115年11月考試之後，細節見重點筆記。）",
+    "src": "民法§1223",
+    "mc": 6,
+    "essay": 0
+   },
+   {
+    "term": "特留分的扣減",
+    "blank": "應得特留分之人，如因被繼承人所為之遺贈，致其應得之數不足者，得按其不足之數由遺贈財產___扣減之（§1225）。",
+    "answer": "應得特留分之人，如因被繼承人所為之遺贈，致其應得之數不足者，得按其不足之數由遺贈財產<span class=\"key\">比例</span>扣減之（§1225）。",
+    "src": "民法§1225",
+    "mc": 2,
+    "essay": 0
+   }
+  ]
+ }
+];
+
+// ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
+// blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
+// 兩者順序一致；額外 HTML（<br>、文字段落）原樣保留
+function buildBlankLine(blankText, answerHtml, cardKey) {
+  // 從 answer 中萃取 key 文字（按順序）
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(answerHtml)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  // 把 ___ 換成可點擊 span
+  const html = blankText.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const idx = ki;
+    ki++;
+    // 按答案字數生成底線（每字一個＿，最少2個）
+    const plainAns = ans.replace(/<[^>]+>/g,'');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val">${ans}</span></span>`;
+  });
+  return html;
+}
+
+// build nav
+const nav = document.getElementById('nav');
+const main = document.getElementById('main');
+let cardDone = {}; // cardKey -> bool
+
+// 全部隨機按鈕
+const randAllBtn = document.createElement('button');
+randAllBtn.className = 'nav-btn';
+randAllBtn.textContent = '🔀 全部隨機';
+randAllBtn.style.borderColor = 'var(--blue)';
+randAllBtn.style.color = 'var(--blue)';
+randAllBtn.onclick = () => setMode('quiz');
+nav.appendChild(randAllBtn);
+
+DATA.forEach((ch,ci)=>{
+  const btn = document.createElement('button');
+  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.textContent = ch.label;
+  btn.onclick = ()=> switchCh(ch.id);
+  nav.appendChild(btn);
+
+  const div = document.createElement('div');
+  div.className = 'chapter' + (ci===0?' active':'');
+  div.id = 'ch-'+ch.id;
+
+  const total = ch.cards.length;
+  div.innerHTML = `<div class="ch-title">${ch.label}</div>
+    <div class="prog">
+      <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
+      <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
+    </div>
+    <div class="section-hint">💡 點空格顯示答案，再點收起</div>
+    ${ch.top||''}`;
+
+  ch.cards.forEach((c,i)=>{
+    const key = ch.id+'-'+i;
+    cardDone[key] = false;
+    const blankCount = (c.blank.match(/___/g)||[]).length;
+    const builtBlank = buildBlankLine(c.blank, c.answer, key);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-'+key;
+    const statParts = [];
+    if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
+    if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
+    const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+    card.innerHTML = `
+      <div class="term">${c.term}</div>
+      <div class="blank-line" id="bl-${key}">${builtBlank}</div>
+      <div class="card-btns">
+        <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
+        <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
+      </div>
+      <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
+      <div class="answer-note" id="ans-${key}">
+        <div class="key-note">${c.answer}</div>
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
+      </div>`;
+    div.appendChild(card);
+  });
+
+  main.appendChild(div);
+});
+
+function toggleBlank(el) {
+  el.classList.toggle('revealed');
+}
+
+function revealAllBlanks(key, chId, total) {
+  document.querySelectorAll(`.blank[data-key="${key}"]`).forEach(el => {
+    el.classList.add('revealed');
+  });
+  // 同時顯示完整答案注記
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 顯示考試出題紀錄
+  const bstat = document.getElementById('bstat-'+key);
+  if(bstat) bstat.classList.add('show');
+  markDone(key, chId, total);
+}
+
+function markDone(key, chId, total) {
+  if(cardDone[key]) return;
+  cardDone[key] = true;
+  const btn = document.getElementById('rb-'+key);
+  if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 更新進度
+  const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
+  const pct = Math.round(done/total*100);
+  const pf = document.getElementById('pf-'+chId);
+  const pt = document.getElementById('pt-'+chId);
+  if(pf) pf.style.width = pct+'%';
+  if(pt) pt.textContent = done+' / '+total;
+}
+
+function switchCh(id){
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('ch-'+id).classList.add('active');
+  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===測驗模式===
+let quizPool = [];        // 所有題目扁平化
+let quizQueue = [];       // 本輪隨機排列
+let quizIdx = 0;
+let quizFilter = 'ALL';   // 'ALL' 或 chapter id
+
+function setMode(mode) {
+  const browse = document.getElementById('main');
+  const nav = document.getElementById('nav');
+  const quizEl = document.getElementById('quiz-mode');
+  const tabB = document.getElementById('tab-browse');
+  const tabQ = document.getElementById('tab-quiz');
+  if (mode === 'browse') {
+    browse.style.display = ''; nav.style.display = '';
+    quizEl.classList.remove('active');
+    tabB.classList.add('on'); tabQ.classList.remove('on');
+  } else {
+    browse.style.display = 'none'; nav.style.display = 'none';
+    quizEl.classList.add('active');
+    tabB.classList.remove('on'); tabQ.classList.add('on');
+    initQuiz();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function initQuiz() {
+  // 建 pool（只跑一次）
+  if (quizPool.length === 0) {
+    DATA.forEach(ch => {
+      ch.cards.forEach(c => {
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
+      });
+    });
+  }
+  // 章節過濾 buttons
+  const filterEl = document.getElementById('quiz-filter');
+  if (!filterEl.hasChildNodes()) {
+    const allBtn = document.createElement('button');
+    allBtn.className = 'qf-btn qf-all on';
+    allBtn.textContent = '全部章節';
+    allBtn.onclick = () => setQuizFilter('ALL', allBtn);
+    filterEl.appendChild(allBtn);
+    DATA.forEach(ch => {
+      const btn = document.createElement('button');
+      btn.className = 'qf-btn';
+      btn.textContent = ch.label;
+      btn.onclick = () => setQuizFilter(ch.id, btn);
+      filterEl.appendChild(btn);
+    });
+  }
+  startQuizRound();
+}
+
+function setQuizFilter(id, btn) {
+  quizFilter = id;
+  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  startQuizRound();
+}
+
+function startQuizRound() {
+  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  // Fisher-Yates shuffle
+  quizQueue = [...pool];
+  for (let i = quizQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quizQueue[i], quizQueue[j]] = [quizQueue[j], quizQueue[i]];
+  }
+  quizIdx = 0;
+  renderQuizCard();
+}
+
+function renderQuizCard() {
+  const area = document.getElementById('quiz-card-area');
+  const prog = document.getElementById('quiz-progress');
+  if (quizIdx >= quizQueue.length) {
+    prog.textContent = '';
+    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    return;
+  }
+  const c = quizQueue[quizIdx];
+  prog.textContent = `第 ${quizIdx + 1} / ${quizQueue.length} 題｜${c.chLabel}`;
+
+  // 取 key 列表
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(c.answer)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  const qid = 'q' + quizIdx;
+  const builtBlank = c.blank.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const plainAns = ans.replace(/<[^>]+>/g, '');
+    const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
+    const idx = ki++;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-qid="${qid}" onclick="toggleQBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span></span>`;
+  });
+
+  const statParts = [];
+  if (c.mc > 0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
+  if (c.essay > 0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
+  const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="qc-meta">
+        <span class="qc-chapter">${c.chLabel}</span>
+        <span class="qc-counter">${quizIdx + 1} / ${quizQueue.length}</span>
+      </div>
+      <div class="qc-term">${c.term}</div>
+      <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      <div class="qc-btns">
+        <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
+        <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
+        <button class="qc-btn qc-btn-all" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
+        <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
+      </div>
+      <div class="qc-answer" id="qans-${qid}">
+        <div>${c.answer}</div>
+        <div class="src">📌 ${c.src}</div>
+      </div>
+      <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
+    </div>`;
+}
+
+function toggleQBlank(el) {
+  const mask = el.querySelector('.blank-mask');
+  const val = el.querySelector('.blank-val');
+  if (val.style.display !== 'none') {
+    val.style.display = 'none'; mask.style.display = '';
+    el.classList.remove('revealed');
+  } else {
+    val.style.display = ''; mask.style.display = 'none';
+    el.classList.add('revealed');
+  }
+}
+
+function revealOneQuizBlank(qid) {
+  const blanks = document.querySelectorAll(`#qblank-${qid} .blank`);
+  for (const b of blanks) {
+    if (!b.classList.contains('revealed')) {
+      b.querySelector('.blank-mask').style.display = 'none';
+      b.querySelector('.blank-val').style.display = '';
+      b.classList.add('revealed');
+      break;
+    }
+  }
+  // 如果顯示完最後一個，自動全顯示並改按鈕
+  const remaining = document.querySelectorAll(`#qblank-${qid} .blank:not(.revealed)`);
+  if (remaining.length === 0) {
+    revealAllQuizBlanks(qid);
+    const revBtn = document.getElementById('qbtn-reveal-' + qid);
+    if (revBtn) {
+      revBtn.textContent = '下一題 →';
+      revBtn.className = 'qc-btn qc-btn-next';
+      revBtn.onclick = () => nextQuiz();
+    }
+  }
+}
+
+function revealAllQuizBlanks(qid) {
+  document.querySelectorAll(`#qblank-${qid} .blank`).forEach(b => {
+    b.querySelector('.blank-mask').style.display = 'none';
+    b.querySelector('.blank-val').style.display = '';
+    b.classList.add('revealed');
+  });
+  const ans = document.getElementById('qans-' + qid);
+  if (ans) ans.classList.add('show');
+  const stat = document.getElementById('qstat-' + qid);
+  if (stat) stat.classList.add('show');
+}
+
+function nextQuiz() {
+  quizIdx++;
+  renderQuizCard();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevQuiz() {
+  if (quizIdx > 0) {
+    quizIdx--;
+    renderQuizCard();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+// ===主題切換===
+function updateThemeBtn(theme) {
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  updateThemeBtn(next);
+  try { localStorage.setItem('bx-theme', next); } catch(e) {}
+}
+(function(){
+  try {
+    const saved = localStorage.getItem('bx-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    updateThemeBtn(saved || 'light');
+  } catch(e) {}
+})();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
