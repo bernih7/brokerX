@@ -9,15 +9,15 @@
 <style>
 /* ── tokens ── */
 :root {
-  --bg: #F7F5F0;
-  --paper: #FFFFFF;
-  --paper-2: #F2EFE8;
-  --ink: #2A2720;
+  --bg: #F8F3E9;
+  --paper: #FFFDF8;
+  --paper-2: #F2EBD9;
+  --ink: #2A2722;
   --ink-2: #5A5248;
-  --rule: #DDD8CF;
+  --rule: #E4DAC4;
 
   --cost:    #7B5C8C;  /* 成本法 紫 */
-  --comp:    #C17A2E;  /* 比較法 琥珀 */
+  --comp:    #BC8A2E;  /* 比較法 金 */
   --income:  #A8402B;  /* 收益法 磚紅 */
   --land:    #3E6B8C;  /* 土地開發 靛藍 */
 
@@ -36,43 +36,6 @@
   --warn-bg:#FBF4E8;
 
   --r: 10px;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #1C1A16;
-    --paper: #252218;
-    --paper-2: #2E2A22;
-    --ink: #EDE8DE;
-    --ink-2: #AFA898;
-    --rule: #3C382E;
-    --cost-bg:   #2A2032;
-    --comp-bg:   #2E2515;
-    --income-bg: #2E1A18;
-    --land-bg:   #182530;
-    --trap-bg:#2E1A18;
-    --note-bg:#182515;
-    --formula-bg:#182530;
-    --warn-bg:#2E2515;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #1C1A16;
-  --paper: #252218;
-  --paper-2: #2E2A22;
-  --ink: #EDE8DE;
-  --ink-2: #AFA898;
-  --rule: #3C382E;
-  --cost-bg:   #2A2032;
-  --comp-bg:   #2E2515;
-  --income-bg: #2E1A18;
-  --land-bg:   #182530;
-  --trap-bg:#2E1A18;
-  --note-bg:#182515;
-  --formula-bg:#182530;
-  --warn-bg:#2E2515;
-  color-scheme: dark;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -85,22 +48,30 @@ body {
   padding: 0 0 env(safe-area-inset-bottom, 0px);
 }
 
-/* ── top bar ── */
+/* ── header ── */
+header {
+  background: linear-gradient(135deg,#A8402B,#8c3322);
+  color: #fff;
+  padding: 24px 20px 0;
+  text-align: center;
+}
+header h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+/* ── tab bar ── */
 .topbar {
   background: var(--paper);
   border-bottom: 1px solid var(--rule);
-  padding: 14px 20px 0;
+  padding: 0 20px;
   position: sticky;
-  top: env(safe-area-inset-top, 0px);
+  top: 0;
   z-index: 100;
 }
-.topbar h1 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 12px;
-}
+/* hub button */
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:#A8402B;color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
 .tabs {
   display: flex;
   gap: 4px;
@@ -457,8 +428,10 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
 </head>
 <body>
 
+<header>
+  <h1>四大估價方法系統攻略</h1>
+</header>
 <div class="topbar">
-  <h1>⚖️ 四大估價方法系統攻略</h1>
   <div class="tabs">
     <button class="tab active" data-tab="overview">四法總覽</button>
     <button class="tab" data-tab="cost">🟣 成本法</button>
@@ -467,6 +440,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
     <button class="tab" data-tab="land">🔵 土地開發</button>
   </div>
 </div>
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考中心">🏠</a>
 
 <!-- ════════════════ TAB: 四法總覽 ════════════════ -->
 <div class="content active" id="tab-overview">
