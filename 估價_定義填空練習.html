@@ -31,18 +31,45 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 /* card */
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;margin-bottom:14px}
 .term{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px}
-.blank-line{font-size:14px;line-height:2;color:var(--ink);margin-bottom:12px}
-.blank{display:inline-block;border-bottom:1.5px solid var(--red);min-width:60px;color:transparent;vertical-align:bottom;user-select:none}
+.blank-line{font-size:14px;line-height:2.2;color:var(--ink);margin-bottom:12px}
 
-.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:6px 16px;border-radius:6px;border:none;background:var(--red);color:#fff;cursor:pointer;transition:opacity .15s}
-.reveal-btn:hover{opacity:.85}
-.reveal-btn.done{background:var(--green)}
+/* 每個空格獨立可點擊 */
+.blank{
+  display:inline-block;
+  border-bottom:2px solid var(--red);
+  min-width:60px;
+  padding:0 4px;
+  color:transparent;
+  background:rgba(168,64,43,.08);
+  border-radius:3px;
+  vertical-align:bottom;
+  cursor:pointer;
+  user-select:none;
+  transition:color .18s, background .18s;
+  font-weight:700;
+  font-size:13.5px;
+}
+.blank:hover{background:rgba(168,64,43,.15)}
+.blank.revealed{
+  color:var(--red);
+  background:rgba(168,64,43,.12);
+  border-bottom-color:var(--green);
+}
 
-.answer{display:none;margin-top:12px;padding:12px 14px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:14px;line-height:1.9;color:var(--ink)}
-.answer.show{display:block}
-.answer .full{font-size:13.5px;color:#2A2722;line-height:1.85}
-.answer .key{color:var(--red);font-weight:700}
-.answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
+/* 整張卡按鈕 */
+.reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
+.reveal-btn:hover{background:var(--red);color:#fff}
+.reveal-all-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .15s}
+.reveal-all-btn:hover{background:var(--green);color:#fff}
+.reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
+
+.card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.card-hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note.show{display:block}
+.answer-note .key{color:var(--red);font-weight:700}
+.answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
 
 /* progress */
 .prog{display:flex;align-items:center;gap:10px;margin-bottom:18px}
@@ -438,10 +465,16 @@ const DATA = [
         src:'技術規則§130'
       },
       {
-        term:'新訂 vs 續訂租約（§132-133）',
-        blank:'新訂租約：3種方式（比較法、___乘以___估計淨收益、分析___估計淨收益）。<br>續訂租約：4種方式，其中「___法」常考申論。',
-        answer:'新訂租約：3種方式（比較法、<span class="key">價格</span>乘以<span class="key">租金收益率</span>估計淨收益、分析<span class="key">企業經營總收入</span>估計淨收益）。<br>續訂租約：4種方式，其中「<span class="key">差額分配</span>法」常考申論。',
-        src:'技術規則§132-133'
+        term:'新訂租約估計方式（§132）★3種',
+        blank:'①以___之租賃實例為標的，採比較法。<br>②以勘估標的___乘以___，估計淨收益，再加計___。<br>③分析___之___，據以估計淨收益，再加計___。',
+        answer:'①以<span class="key">新訂租約</span>之租賃實例為標的，採比較法。<br>②以勘估標的<span class="key">價格</span>乘以<span class="key">租金收益率</span>，估計淨收益，再加計<span class="key">必要費用</span>。<br>③分析<span class="key">企業經營總收入</span>之<span class="key">淨收益</span>，據以估計淨收益，再加計<span class="key">必要費用</span>。',
+        src:'技術規則§132★陷阱：方式②「價格×租金收益率」、方式③「企業經營總收入」只適用新訂，不適用續訂'
+      },
+      {
+        term:'續訂租約估計方式（§133）★4種',
+        blank:'①以___之租賃實例為標的，採比較法。<br>②以___之___為基礎，乘以___，估計淨收益，加計___。<br>③以___之淨收益，依___趨勢調整後，加計___。<br>④分析___與___之差額，取應歸___之適當部分，加計___。',
+        answer:'①以<span class="key">續訂租約</span>之租賃實例為標的，採比較法。<br>②以<span class="key">價格日期</span>之<span class="key">正常價格</span>為基礎，乘以<span class="key">租金收益率</span>，估計淨收益，加計<span class="key">必要費用</span>。<br>③以<span class="key">原契約租金</span>之淨收益，依<span class="key">租金變動</span>趨勢調整後，加計<span class="key">必要費用</span>。<br>④分析<span class="key">原契約租金</span>與<span class="key">市場經濟租金</span>之差額，取應歸<span class="key">出租人</span>之適當部分，加計<span class="key">契約租金</span>。',
+        src:'技術規則§133★差額分配法（方式④）常考申論；方式②正常價格×租金收益率是續訂專屬，易與新訂②混淆'
       },
       {
         term:'限定租金（§2第6款）',
@@ -522,25 +555,45 @@ const DATA = [
   },
 ];
 
+// ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
+// blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
+// 兩者順序一致；額外 HTML（<br>、文字段落）原樣保留
+function buildBlankLine(blankText, answerHtml, cardKey) {
+  // 從 answer 中萃取 key 文字（按順序）
+  const keyMatches = [];
+  const keyRe = /<span class="key">([\s\S]*?)<\/span>/g;
+  let m;
+  while ((m = keyRe.exec(answerHtml)) !== null) keyMatches.push(m[1]);
+
+  let ki = 0;
+  // 把 ___ 換成可點擊 span
+  const html = blankText.replace(/___/g, () => {
+    const ans = keyMatches[ki] || '？';
+    const idx = ki;
+    ki++;
+    return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-key="${cardKey}" data-idx="${idx}" onclick="toggleBlank(this)">
+      <span class="blank-mask">＿＿</span><span class="blank-val" style="display:none">${ans}</span>
+    </span>`;
+  });
+  return html;
+}
+
 // build nav
 const nav = document.getElementById('nav');
 const main = document.getElementById('main');
-let opened = {};
+let cardDone = {}; // cardKey -> bool
 
 DATA.forEach((ch,ci)=>{
-  // nav btn
   const btn = document.createElement('button');
   btn.className = 'nav-btn' + (ci===0?' on':'');
   btn.textContent = ch.label;
   btn.onclick = ()=> switchCh(ch.id);
   nav.appendChild(btn);
 
-  // chapter div
   const div = document.createElement('div');
   div.className = 'chapter' + (ci===0?' active':'');
   div.id = 'ch-'+ch.id;
 
-  // progress
   const total = ch.cards.length;
   div.innerHTML = `<div class="ch-title">${ch.label}</div>
     <div class="prog">
@@ -550,22 +603,73 @@ DATA.forEach((ch,ci)=>{
 
   ch.cards.forEach((c,i)=>{
     const key = ch.id+'-'+i;
+    cardDone[key] = false;
+    const blankCount = (c.blank.match(/___/g)||[]).length;
+    const builtBlank = buildBlankLine(c.blank, c.answer, key);
+
     const card = document.createElement('div');
     card.className = 'card';
+    card.id = 'card-'+key;
     card.innerHTML = `
       <div class="term">${c.term}</div>
-      <div class="blank-line">${c.blank}</div>
-      <button class="reveal-btn" id="rb-${key}" onclick="reveal('${key}','${ch.id}',${total})">顯示答案</button>
-      <div class="answer" id="ans-${key}">
-        <div class="full">${c.answer}</div>
-        <div class="src">📌 ${c.src}</div>
+      <div class="card-hint">💡 點空格顯示答案，再點收起</div>
+      <div class="blank-line" id="bl-${key}">${builtBlank}</div>
+      <div class="card-btns">
+        <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
+        <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
+      </div>
+      <div class="answer-note" id="ans-${key}">
+        <div class="key-note">${c.answer}</div>
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;
     div.appendChild(card);
   });
 
   main.appendChild(div);
-  opened[ch.id] = 0;
 });
+
+function toggleBlank(el) {
+  const mask = el.querySelector('.blank-mask');
+  const val  = el.querySelector('.blank-val');
+  const showing = val.style.display !== 'none';
+  if (showing) {
+    val.style.display = 'none';
+    mask.style.display = '';
+    el.classList.remove('revealed');
+  } else {
+    val.style.display = '';
+    mask.style.display = 'none';
+    el.classList.add('revealed');
+  }
+}
+
+function revealAllBlanks(key, chId, total) {
+  document.querySelectorAll(`.blank[data-key="${key}"]`).forEach(el => {
+    el.querySelector('.blank-mask').style.display = 'none';
+    el.querySelector('.blank-val').style.display = '';
+    el.classList.add('revealed');
+  });
+  // 同時顯示完整答案注記
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  markDone(key, chId, total);
+}
+
+function markDone(key, chId, total) {
+  if(cardDone[key]) return;
+  cardDone[key] = true;
+  const btn = document.getElementById('rb-'+key);
+  if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
+  const note = document.getElementById('ans-'+key);
+  if(note) note.classList.add('show');
+  // 更新進度
+  const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
+  const pct = Math.round(done/total*100);
+  const pf = document.getElementById('pf-'+chId);
+  const pt = document.getElementById('pt-'+chId);
+  if(pf) pf.style.width = pct+'%';
+  if(pt) pt.textContent = done+' / '+total;
+}
 
 function switchCh(id){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
@@ -573,19 +677,6 @@ function switchCh(id){
   document.getElementById('ch-'+id).classList.add('active');
   [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function reveal(key, chId, total){
-  const ans = document.getElementById('ans-'+key);
-  const btn = document.getElementById('rb-'+key);
-  if(ans.classList.contains('show')) return;
-  ans.classList.add('show');
-  btn.textContent = '已確認 ✓';
-  btn.classList.add('done');
-  opened[chId] = (opened[chId]||0) + 1;
-  const pct = Math.round(opened[chId]/total*100);
-  document.getElementById('pf-'+chId).style.width = pct+'%';
-  document.getElementById('pt-'+chId).textContent = opened[chId]+' / '+total;
 }
 </script>
 </body>
