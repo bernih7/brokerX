@@ -11,6 +11,8 @@
 :root{
   --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
   --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0; --muted:#8A7F6E;
+  /* 四大方法色系 */
+  --cost:#7B5C8C; --comp:#C17A2E; --income:#A8402B; --land:#3E6B8C;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
@@ -30,7 +32,6 @@ header::after{
 header h1{font-size:1.5rem; font-weight:900; position:relative; margin-bottom:6px;}
 header .sub{font-size:.88rem; opacity:.9; position:relative;}
 
-/* FILTER BAR */
 .filter-bar{
   position:sticky; top:0; z-index:10; background:var(--paper);
   padding:10px 14px; border-bottom:2px solid var(--line);
@@ -45,10 +46,8 @@ header .sub{font-size:.88rem; opacity:.9; position:relative;}
 .f-btn:hover{border-color:var(--gold);}
 .f-btn.active{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
 
-/* MAIN */
 main{max-width:860px; margin:0 auto; padding:20px 16px;}
 
-/* ESSAY CARD */
 .essay-card{
   background:var(--paper2); border:1.5px solid var(--line); border-radius:14px;
   margin-bottom:18px; overflow:hidden;
@@ -73,14 +72,11 @@ main{max-width:860px; margin:0 auto; padding:20px 16px;}
   font-size:.75rem; padding:3px 10px; border-radius:12px; font-weight:600;
   border:1px solid var(--line); background:var(--paper);
 }
-.tag.calc{color:var(--vermillion); border-color:#d4a89a;}
-.tag.explain{color:var(--blue,#2B5082); border-color:#a9b8cc;}
 .card-arrow{font-size:1.1rem; color:var(--muted); transition:.2s; flex-shrink:0; margin-left:10px;}
 .essay-card.open .card-arrow{transform:rotate(180deg);}
 .card-body{display:none; padding:20px 20px 24px;}
 .essay-card.open .card-body{display:block;}
 
-/* BODY CONTENT */
 .q-box{
   background:#f8e3df; border-left:4px solid var(--vermillion);
   padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:20px;
@@ -115,7 +111,6 @@ tr:nth-child(even){background:#f3ead9;}
 ol,ul{padding-left:1.4em; margin:8px 0 12px;}
 li{margin-bottom:6px; font-size:.93rem;}
 
-/* USAGE BOX */
 .usage-box{
   background:var(--paper2); border:1.5px solid var(--line); border-radius:12px;
   padding:18px 20px; margin-bottom:20px;
@@ -134,14 +129,15 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
 <body>
 <header>
   <h1>📝 不動產估價｜申論題實戰範文</h1>
-  <div class="sub">A級必考6題 · 四段式架構（定義→法條→計算→結論）· 📅 2026-10-08</div>
+  <div class="sub">32題完整版（A/B/C三級）· 四段式架構（定義→法條→計算→結論）· 99–114年</div>
 </header>
 
 <div class="filter-bar">
   <span class="filter-label">篩選：</span>
-  <button class="f-btn active" onclick="filterCards('all',this)">全部（6題）</button>
-  <button class="f-btn" onclick="filterCards('calc',this)">計算型（4題）</button>
-  <button class="f-btn" onclick="filterCards('explain',this)">說明型（2題）</button>
+  <button class="f-btn active" onclick="filterCards('all',this)">全部（32題）</button>
+  <button class="f-btn" onclick="filterCards('A',this)">🔴 A級必練（6題）</button>
+  <button class="f-btn" onclick="filterCards('B',this)">🟡 B級了解（13題）</button>
+  <button class="f-btn" onclick="filterCards('C',this)">🟢 C級略讀（13題）</button>
 </div>
 
 <main>
@@ -149,23 +145,22 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
 <div class="usage-box">
   <h3>📌 使用建議</h3>
   <ul>
-    <li>先蓋住範文，計時12-13分鐘自己嘗試作答，再對照檢查漏掉哪些得分點</li>
-    <li>計算過程務必完整列式，列式過程本身占分，答案有誤仍可拿部分分數</li>
-    <li>結論段落要扣回題目問題，展現「專業判斷」，不只是重複公式</li>
-    <li>讀完範文後蓋住默寫一次架構與公式，確認能獨立完整作答</li>
+    <li>🔴 A級：計時12分鐘自己作答，再對照範文，必須能默寫全部公式</li>
+    <li>🟡 B級：讀懂架構邏輯，記住關鍵公式與容易犯的錯誤</li>
+    <li>🟢 C級：掌握「最需記住的一件事」即可，不要花太多時間</li>
+    <li>計算題務必完整列式，步驟清楚有部分分數，答案錯也不會全扣</li>
   </ul>
 </div>
 
-<!-- 範文1 -->
-<div class="essay-card" data-type="calc" data-pri="A">
+<!-- ===================== A級 6題 ===================== -->
+
+<!-- A1: 105年第一題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜105年第一題</span></div>
       <div class="card-title">折舊路徑種類＋定額法計算並繪製示意圖</div>
-      <div class="card-meta">
-        <span class="tag calc">計算型</span>
-        <span class="tag">公式：Dn = C×(1-s)/N×n</span>
-      </div>
+      <div class="card-meta"><span class="tag">公式：Dn = C×(1-s)/N×n</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
@@ -173,53 +168,41 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
     <div class="q-box">
       <strong>【原題】</strong> 建物累積折舊額之計算，應視建物特性及市場動態，選擇適合的折舊方法。依不動產估價技術規則的規定，有那些路徑的折舊方法？請詳述說明之。假設有一價值200萬元的建物，耐用年數50年，殘價率5%，試繪製示意圖說明之。（25分）
     </div>
-    <div class="section-h">一、折舊路徑之種類</div>
-    <p>依不動產估價技術規則之規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇下列三種路徑之折舊方法為之：</p>
+    <div class="section-h">一、折舊路徑之種類（共三種）</div>
     <ol>
-      <li><strong>等速折舊</strong>：建物價值隨經歷年數呈等速、直線方式遞減，每年折舊金額固定不變，適用於建物功能與效用衰退速度較為穩定之情形，常以定額法計算之。</li>
-      <li><strong>初期加速折舊</strong>：建物於使用初期折舊速度較快，隨後逐漸減緩，價值曲線呈現由急轉緩之凹型曲線，適用於建物初期使用密集、設備耗損快速之情形，常以定率法計算之。</li>
-      <li><strong>初期減速折舊</strong>：建物於使用初期折舊速度較慢，隨後逐漸加快，價值曲線呈現由緩轉急之凸型曲線，適用於建物初期狀況良好、後期老化加速之情形，常以償債基金法計算之。</li>
+      <li><strong>等速折舊</strong>：每年折舊金額固定不變，呈直線遞減，以定額法計算。</li>
+      <li><strong>初期加速折舊</strong>：初期折舊快、後期漸緩，曲線呈凹型，以定率法計算。</li>
+      <li><strong>初期減速折舊</strong>：初期折舊慢、後期加速，曲線呈凸型，以償債基金法計算。</li>
     </ol>
-    <div class="note">⚠️ 考試陷阱：折舊路徑僅有上述三種，<strong>並無「後期減速折舊」</strong>之路徑，此為實務上常見之易混淆點。</div>
-    <div class="section-h">二、定額法計算公式</div>
-    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
+    <div class="note">⚠️ 陷阱：只有三種路徑，絕對沒有「後期加速折舊」這個說法，考題常用選項混淆。</div>
+    <div class="section-h">二、定額法公式</div>
+    <div class="formula-box">每年折舊額 ＝ C × (1－s) ÷ N
+Dn（n年累積折舊）＝ C × (1－s) ÷ N × n
+建物現值 ＝ C － Dn
 
-其中：C = 重建成本（或重置成本）
-      s = 殘餘價格率
-      N = 經濟耐用年數
-      n = 經歷年數
-
-建物現值 ＝ C － Dn</div>
-    <div class="section-h">三、代入本題數字計算</div>
-    <p>本題：C = 200萬元，s = 5%，N = 50年</p>
-    <div class="formula-box">每年折舊額 ＝ 200 × (0.95 ÷ 50) ＝ 200 × 0.019 ＝ 3.8萬元/年</div>
+C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
+    <div class="section-h">三、代入計算（C=200萬、s=5%、N=50年）</div>
+    <div class="formula-box">每年折舊額 ＝ 200 × 0.95 ÷ 50 ＝ 3.8 萬元/年</div>
     <table>
-      <tr><th>經歷年數n</th><th>累積折舊額Dn（萬元）</th><th>建物現值（萬元）</th></tr>
+      <tr><th>經歷年數n</th><th>累積折舊額（萬元）</th><th>建物現值（萬元）</th></tr>
       <tr><td>0</td><td>0</td><td>200.0</td></tr>
       <tr><td>10</td><td>38.0</td><td>162.0</td></tr>
-      <tr><td>20</td><td>76.0</td><td>124.0</td></tr>
-      <tr><td>30</td><td>114.0</td><td>86.0</td></tr>
-      <tr><td>40</td><td>152.0</td><td>48.0</td></tr>
-      <tr><td>50</td><td>190.0</td><td>10.0</td></tr>
+      <tr><td>25</td><td>95.0</td><td>105.0</td></tr>
+      <tr><td>50</td><td>190.0</td><td>10.0（殘值）</td></tr>
     </table>
-    <p><strong>示意圖說明：</strong> 橫軸為經歷年數（0至50年）、縱軸為建物價值（萬元）。本案採等速折舊，圖形呈現由起點（0年，200萬元）等速直線下降至終點（50年，10萬元）之直線，斜率固定為每年－3.8萬元，與初期加速折舊（曲線初期陡降後趨緩）及初期減速折舊（曲線初期平緩後陡降）之曲線形態明顯不同。</p>
-    <div class="conclusion">
-      <strong>四、結論</strong><br>
-      依不動產估價技術規則規定，建物累積折舊額之計算路徑分為等速折舊、初期加速折舊及初期減速折舊三種；本案建物若採等速折舊路徑並以定額法計算，每年折舊3.8萬元，第50年末之殘餘價值為10萬元（＝200萬元×5%），折舊曲線呈現一條由200萬元等速遞減至10萬元之直線，足見等速折舊路徑之核心特徵即在於折舊速度之均勻一致性。
-    </div>
+    <p>示意圖：橫軸為年數（0→50），縱軸為建物現值（200→10萬），圖形為斜率固定之直線，與其他兩種路徑（曲線）明顯不同。</p>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    依技術規則，折舊路徑分等速、初期加速、初期減速三種。本題採定額法（等速），每年折舊3.8萬元，50年末殘值10萬元，呈現一條均勻遞減之直線折舊圖形。</div>
   </div>
 </div>
 
-<!-- 範文2 -->
-<div class="essay-card" data-type="calc" data-pri="A">
+<!-- A2: 107年第一題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜107年第一題</span></div>
-      <div class="card-title">成本法定率法折舊公式＋計算題</div>
-      <div class="card-meta">
-        <span class="tag calc">計算型</span>
-        <span class="tag">公式：C×(1-r)^n</span>
-      </div>
+      <div class="card-title">定率法折舊公式＋計算第5年建物現值</div>
+      <div class="card-meta"><span class="tag">公式：C×(1-r)^n</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
@@ -227,236 +210,1030 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
     <div class="q-box">
       <strong>【原題】</strong> 請列式說明定率法的折舊公式。如果一個1000萬元的建築物，以每年減損2%的速度折舊，請問第5年年末，該建築物的現值為多少？（25分）
     </div>
-    <div class="section-h">一、定率法之意義</div>
-    <p>定率法係建物累積折舊額計算方法之一，其折舊邏輯為：每年依固定之折舊率，對該年初（即前一年末）之建物帳面餘值計算當年折舊金額，而非對原始重建成本計算。因每年計算基礎之餘值隨折舊逐年減少，故定率法之折舊金額呈現初期較大、後期遞減之趨勢，與初期加速折舊路徑相符。</p>
-    <div class="section-h">二、定率法計算公式</div>
+    <div class="section-h">一、定率法意義</div>
+    <p>定率法係依每年固定折舊率，對當年「餘值」（而非原始成本）計算折舊，故每年折舊金額逐年遞減，屬初期加速折舊路徑。</p>
+    <div class="section-h">二、定率法公式</div>
     <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n
 
-其中：C = 建物原始重建成本
-      r = 每年固定之折舊率
-      n = 經歷年數</div>
-    <p>此種計算方式為「複利式遞減」之折舊概念，與定額法之線性遞減（每年折舊金額固定）有本質上的不同。</p>
-    <div class="section-h">三、代入本題數字計算</div>
-    <p>本題：C = 1000萬元，r = 2%，求第5年年末現值</p>
-    <div class="formula-box">第5年末現值 ＝ 1000 × (1－2%)^5
-           ＝ 1000 × (0.98)^5
-           ＝ 1000 × 0.9039
-           ≈ 903.9 萬元</div>
+C = 重建成本
+r = 年折舊率（固定）
+n = 經歷年數</div>
+    <div class="note">⚠️ 陷阱：定率法是對「餘值」計算，而不是對原始成本×n，此與定額法完全不同，兩者公式不可混用。</div>
+    <div class="section-h">三、代入計算（C=1000萬、r=2%、n=5）</div>
+    <div class="formula-box">第5年末現值 ＝ 1000 × (0.98)^5
+              ＝ 1000 × 0.9039
+              ≈ 903.9 萬元</div>
     <table>
-      <tr><th>年末</th><th>期初現值（萬元）</th><th>當年折舊額（萬元）</th><th>期末現值（萬元）</th></tr>
-      <tr><td>第1年</td><td>1000.00</td><td>20.00</td><td>980.00</td></tr>
-      <tr><td>第2年</td><td>980.00</td><td>19.60</td><td>960.40</td></tr>
-      <tr><td>第3年</td><td>960.40</td><td>19.21</td><td>941.19</td></tr>
-      <tr><td>第4年</td><td>941.19</td><td>18.82</td><td>922.37</td></tr>
-      <tr><td>第5年</td><td>922.37</td><td>18.45</td><td>903.92</td></tr>
+      <tr><th>年度</th><th>期初現值</th><th>當年折舊（×2%）</th><th>期末現值</th></tr>
+      <tr><td>第1年</td><td>1000.0萬</td><td>20.0萬</td><td>980.0萬</td></tr>
+      <tr><td>第2年</td><td>980.0萬</td><td>19.6萬</td><td>960.4萬</td></tr>
+      <tr><td>第3年</td><td>960.4萬</td><td>19.2萬</td><td>941.2萬</td></tr>
+      <tr><td>第4年</td><td>941.2萬</td><td>18.8萬</td><td>922.4萬</td></tr>
+      <tr><td>第5年</td><td>922.4萬</td><td>18.4萬</td><td>903.9萬</td></tr>
     </table>
-    <p>由上表可見，第1年折舊20.00萬元，至第5年已遞減至18.45萬元，正符合定率法「初期折舊較多、隨經歷年數增加而逐年遞減」之特性。</p>
-    <div class="note">💡 對比：若以定額法計算（年折舊率同為2%），每年折舊固定1000×2%＝20萬元，第5年末現值為1000－100＝900萬元，略低於定率法的903.9萬元，因定率法後期折舊基礎縮小所致。</div>
-    <div class="conclusion">
-      <strong>四、結論</strong><br>
-      定率法係以每年固定比率對前一年餘值計算折舊，公式為第n年末現值＝C×(1－r)^n；本案1000萬元建築物以每年2%折舊率計算，第5年年末建物現值約為903.9萬元，反映定率法折舊金額初期較高、後期遞減之特性，與定額法之等速折舊邏輯有明顯區別，估價人員應依建物特性及市場動態正確選用折舊方法。
-    </div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    依定率法，折舊率固定但基礎逐年縮小，故折舊金額逐年遞減，屬初期加速折舊路徑。本題建物第5年末現值約為903.9萬元，較定額法之同期現值為高（定額法：1000×0.95÷50×5=95萬折舊，現值905萬，兩法差異極小，但折舊曲線形態截然不同）。</div>
   </div>
 </div>
 
-<!-- 範文3 -->
-<div class="essay-card" data-type="explain" data-pri="A">
+<!-- A3: 111年第一題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜111年第一題</span></div>
-      <div class="card-title">建物折舊額及累積折舊額計算方式（三種方法比較）</div>
-      <div class="card-meta">
-        <span class="tag explain">說明型</span>
-        <span class="tag">定額法 / 定率法 / 償債基金法</span>
-      </div>
+      <div class="card-title">三種折舊方法（定額、定率、償債基金法）比較說明</div>
+      <div class="card-meta"><span class="tag">三法比較＋各公式</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
     <div class="q-box">
-      <strong>【原題】</strong> 建物折舊額如何計算？建物累積折舊額又如何計算？請依不動產估價技術規則述說之。（25分）
+      <strong>【原題】</strong> 試說明成本法中建物折舊計算方式，包含定額法、定率法及償債基金法之計算方式及各方法之折舊特性。（25分）
     </div>
-    <div class="section-h">一、建物折舊之意義</div>
-    <p>建物因使用、自然耗損或功能衰退等原因，其價值將隨經歷年數增加而遞減，此價值減損之金額即為折舊額；逐年累積之折舊總額，則稱為累積折舊額。依不動產估價技術規則規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並得採定額法、定率法或償債基金法計算。</p>
-    <div class="section-h">二、三種計算方法及其公式</div>
-    <p><strong>（一）定額法</strong>：假定建物於耐用年限內，每年折舊金額均等，其累積折舊額公式為：</p>
-    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
-（對應：等速折舊路徑 → 折舊曲線呈直線下降）</div>
-    <p><strong>（二）定率法</strong>：假定建物每年依固定比率對前一年餘值計算折舊，折舊金額隨經歷年數增加而遞減，建物第n年末現值公式為：</p>
-    <div class="formula-box">建物現值 ＝ C × (1－r)^n
-（對應：初期加速折舊路徑 → 曲線初期陡降、後期趨緩）</div>
-    <p><strong>（三）償債基金法</strong>：假定按年提存一定金額，以複利方式累積，至耐用年限屆滿時累積本利和恰等於應折舊之總金額，因複利效果使初期折舊金額較小、後期較大：</p>
-    <div class="formula-box">折舊提存率 dn ＝ (1－s) × i ÷ [(1＋i)^N－1]
-（對應：初期減速折舊路徑 → 曲線初期平緩、後期陡升）</div>
-    <div class="section-h">三、三種方法之比較</div>
+    <div class="section-h">一、定額法（等速折舊）</div>
+    <div class="formula-box">每年折舊額 ＝ C × (1－s) ÷ N    （固定值）
+n年累積折舊 ＝ C × (1－s) ÷ N × n</div>
+    <p>特性：每年折舊金額完全相同，折舊曲線為直線，計算最簡單，常用於一般建物估價。</p>
+    <div class="section-h">二、定率法（初期加速折舊）</div>
+    <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n
+折舊率r之求法：r ＝ 1 － (s)^(1/N)</div>
+    <p>特性：每年依餘值×固定率計算折舊，初期折舊大、後期遞減，呈凹型曲線，反映建物前期使用強度較高之特性。</p>
+    <div class="section-h">三、償債基金法（初期減速折舊）</div>
+    <div class="formula-box">每年存入折舊基金額 ＝ C×(1－s) × i ÷ [(1+i)^N－1]
+n年累積折舊 ＝ 上述金額 × [(1+i)^n－1] ÷ i
+
+i = 折舊基金之積累利率</div>
+    <p>特性：每年存入固定金額，加計複利積累，初期累積折舊較小、後期加速，呈凸型曲線。</p>
     <table>
-      <tr><th>比較項目</th><th>定額法</th><th>定率法</th><th>償債基金法</th></tr>
-      <tr><td>對應折舊路徑</td><td>等速折舊</td><td>初期加速折舊</td><td>初期減速折舊</td></tr>
-      <tr><td>折舊曲線形態</td><td>直線</td><td>初期陡降後趨緩</td><td>初期平緩後陡升</td></tr>
-      <tr><td>初期折舊金額</td><td>均等</td><td>較大</td><td>較小</td></tr>
-      <tr><td>計算基礎</td><td>重建成本固定比例</td><td>前一年餘值</td><td>複利提存概念</td></tr>
+      <tr><th>方法</th><th>折舊路徑</th><th>每年金額</th><th>適用情形</th></tr>
+      <tr><td>定額法</td><td>等速（直線）</td><td>固定</td><td>一般建物</td></tr>
+      <tr><td>定率法</td><td>初期加速（凹）</td><td>遞減</td><td>初期使用密集</td></tr>
+      <tr><td>償債基金法</td><td>初期減速（凸）</td><td>固定（但含利息）</td><td>後期老化加速</td></tr>
     </table>
-    <p>三種方法之選用，應視建物實際使用狀況、設備耗損特性及市場對該類建物之折舊認知而定，並非任意選擇，估價人員應於估價報告書中敘明選用理由。</p>
-    <div class="conclusion">
-      <strong>四、結論</strong><br>
-      建物折舊額之計算應依不動產估價技術規則規定，視建物特性及市場動態選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並分別以定額法、定率法或償債基金法計算累積折舊額；三種方法之核心差異在於折舊速度隨經歷年數變化之趨勢不同，估價人員應審慎判斷後選用最能反映該建物實際價值減損情形之方法，以確保估價結果之合理性與可信度。
-    </div>
+    <div class="note">⚠️ 陷阱：償債基金法「每年存入的金額是固定的」，但累積折舊是越來越快，這兩件事同時為真，不要搞混。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    三種折舊方法各對應不同折舊路徑，估價師應依建物市場特性及使用狀況選擇適當方法，以真實反映建物價值隨時間之變動趨勢。</div>
   </div>
 </div>
 
-<!-- 範文4 -->
-<div class="essay-card" data-type="calc" data-pri="A">
+<!-- A4: 112年第二題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜112年第二題</span></div>
-      <div class="card-title">屋齡10年建物等速折舊計算＋專業觀點分析合理性</div>
-      <div class="card-meta">
-        <span class="tag calc">計算型</span>
-        <span class="tag">C=800萬 / N=50年 / s=5% / n=10年</span>
-      </div>
+      <div class="card-title">等速折舊計算＋折舊率合理性判斷</div>
+      <div class="card-meta"><span class="tag">計算＋判斷題</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
     <div class="q-box">
-      <strong>【原題】</strong> 有一屋齡10年的中古住宅，於建物重新建造成本800萬元、耐用年數50年、殘餘價格率5%的條件下，依不動產估價技術規則的等速折舊路徑計算，建物的現在價值是多少？另請以專業人士的觀點，分析這個價格的合理性。（25分）
+      <strong>【原題】</strong> 某建物重建成本500萬元，耐用年數40年，殘餘價格率為10%，目前已使用20年，請問：（一）依定額法計算建物現值。（二）假設市場上同類建物折舊率普遍為每年2%，請評論此折舊率是否合理？（25分）
     </div>
-    <div class="section-h">一、等速折舊計算公式</div>
-    <div class="formula-box">Dn ＝ C × [(1－s) / N] × n
-建物現值 ＝ C － Dn</div>
-    <div class="section-h">二、代入本題數字計算</div>
-    <p>C = 800萬元，s = 5%，N = 50年，n = 10年</p>
-    <div class="formula-box">累積折舊額 Dn ＝ 800 × [(1－5%) / 50] × 10
-              ＝ 800 × (0.95 ÷ 50) × 10
-              ＝ 800 × 0.019 × 10
-              ＝ 152 萬元
-
-建物現值 ＝ 800 － 152 ＝ 648 萬元</div>
-    <div class="section-h">三、專業觀點之合理性分析</div>
-    <p>以專業估價人員之觀點，648萬元僅為成本法下建物單獨之現值，分析其合理性應從以下面向切入：</p>
+    <div class="section-h">一、定額法計算建物現值</div>
+    <div class="formula-box">每年折舊率 ＝ (1－10%) ÷ 40年 ＝ 2.25%/年
+20年累積折舊 ＝ 500 × 2.25% × 20 ＝ 225萬元
+建物現值 ＝ 500 － 225 ＝ 275萬元</div>
+    <div class="section-h">二、評論市場折舊率2%之合理性</div>
+    <p>本題依技術規則計算之年折舊率為2.25%，市場普遍折舊率為2%，兩者比較如下：</p>
     <ol>
-      <li><strong>成本法本身之限制性</strong>：成本法反映「重新建造所需花費扣除折舊損耗」之概念，並非市場實際成交價格。若該住宅所在地段房價上漲、土地稀缺性提高，市場實際成交之房地總價可能遠高於成本法計算結果。</li>
-      <li><strong>未考慮土地價值</strong>：本題僅計算建物部分之現值，完整之房地總價尚須加計土地價格；土地價格受區域發展、交通便利性等因素影響甚大，無法由成本法單獨反映。</li>
-      <li><strong>應結合三大方法綜合判斷</strong>：依替代原則，理性買方不會支付高於具相同滿意度替代財貨之代價，故完整合理性判斷仍須參酌附近類似中古住宅之比較法實例價格，及以收益法評估之收益價格，三者綜合比較後方能掌握市場真實價格水準。</li>
-      <li><strong>等速折舊未必符合市場實際</strong>：等速折舊假設建物價值均速遞減，但實際上建物初期因裝修新穎對市場買方吸引力較高，中古屋之實際跌價速度未必與等速折舊曲線完全吻合，估價人員仍應實地勘查建物使用狀況，適時調整折舊路徑。</li>
+      <li>技術規則計算之折舊率（2.25%）>市場普遍折舊率（2%），表示市場對此類建物之折舊認知較為保守（認為建物保值性較佳）。</li>
+      <li>估價師應以技術規則計算結果為基礎，惟應同步蒐集市場資料加以印證。</li>
+      <li>若市場實際反映之建物折舊程度確為每年2%，則估價師可適度調整，但需充分說明理由（依技術規則第五十條規定，折舊提存率應視建物之耐用程度、市場狀況等因素適當調整）。</li>
     </ol>
-    <div class="conclusion">
-      <strong>四、結論</strong><br>
-      本案建物依等速折舊路徑計算之現在價值為648萬元；惟此數值僅反映建物本身依重建成本及折舊推算之成本價格，並未涵蓋土地價值與市場供需狀況，實務上完整之房地總價評估，仍應搭配比較法及收益法之評估結果綜合決定，方能更貼近市場實際交易行情，單以成本法之648萬元作為該住宅之市場價值，尚有其限制性，須以專業判斷補充說明。
-    </div>
+    <div class="note">⚠️ 合理性判斷的答題邏輯：先算出技術規則的數字→再與市場數字比較→說明差異大小及方向→結論是否採用。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    本題建物現值為275萬元。市場折舊率2%略低於依技術規則計算之2.25%，差異尚在可接受範圍，估價師應蒐集足夠市場資料，必要時調整折舊率，並於估價報告書中完整說明理由及依據。</div>
   </div>
 </div>
 
-<!-- 範文5 -->
-<div class="essay-card" data-type="calc" data-pri="A">
+<!-- A5: 99年第一題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜99年第一題</span></div>
-      <div class="card-title">收益資本化率風險因素＋加權平均資金成本法（WACC）計算</div>
-      <div class="card-meta">
-        <span class="tag calc">計算型</span>
-        <span class="tag">WACC = Σ（資金比重×利率）</span>
-      </div>
+      <div class="card-title">收益法WACC加權平均資本成本計算</div>
+      <div class="card-meta"><span class="tag">公式：WACC</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
     <div class="q-box">
-      <strong>【原題】</strong> 收益法又稱收益資本化法，除了精準計算房地客觀淨收益外，收益資本化率或折現率的有效掌握對於價格決定具有關鍵影響。請說明收益資本化率或折現率一般考慮的風險因素與選擇比較基準？同時，請試舉例說明依加權平均資金成本方式決定收益資本化率或折現率的計算過程與結果？（25分）
+      <strong>【原題】</strong> 收益法中，資本化率（capitalization rate）之計算方法有那些？試說明加權平均資本成本法（WACC）之計算方式，並舉例說明之。（25分）
     </div>
-    <div class="section-h">一、收益資本化率或折現率考慮之風險因素與選擇比較基準</div>
-    <p>依不動產估價技術規則規定，決定收益資本化率或折現率時，應考慮銀行定期存款利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格之變動趨勢等因素，選擇最具一般性財貨之投資報酬率為比較基準，並就下列各項因素加以比較觀察：</p>
+    <div class="section-h">一、資本化率之求取方法</div>
     <ol>
-      <li><strong>流通性</strong>：不動產相較於一般金融商品流通性較低，變現速度較慢，此將提高其要求報酬率。</li>
-      <li><strong>風險性</strong>：不動產投資存在市場波動、政策變動、自然災害等風險，風險性越高，要求之收益資本化率亦越高。</li>
-      <li><strong>增值性</strong>：具增值潛力之不動產，因未來資本利得預期較高，市場願意接受較低之收益資本化率。</li>
-      <li><strong>管理上之難易程度</strong>：管理較為複雜（如商場、旅館等）者，要求報酬率相對較高。</li>
+      <li>市場萃取法（由市場交易案例中，以NOI÷交易價格萃取）</li>
+      <li>帶狀投資法（Band of Investment，即加權平均資本成本法，WACC）</li>
+      <li>累加法（以無風險利率加計各風險溢酬）</li>
+      <li>有效總租金利率法</li>
     </ol>
-    <div class="section-h">二、加權平均資金成本法（WACC）之意義與公式</div>
-    <div class="formula-box">收益資本化率（WACC）
-  ＝ 自有資金比重 × 自有資金要求報酬率
-  ＋ 借貸資金比重 × 借款利率</div>
-    <p>此方法依不動產投資所需資金來源之比重，以及各資金來源各自之報酬率或利率，加權平均計算收益資本化率，核心邏輯在於自有資金之機會成本通常高於銀行貸款利率，故應依各自占總投資金額之比重加權平均，方能反映該筆不動產投資真實之綜合資金成本。</p>
-    <div class="section-h">三、舉例計算</div>
-    <p>假設某商用不動產投資總額中，自有資金比重40%，要求報酬率8%；借貸資金比重60%，借款利率4%，則：</p>
-    <div class="formula-box">WACC ＝ 0.4 × 8% ＋ 0.6 × 4%
-     ＝ 3.2% ＋ 2.4%
-     ＝ 5.6%
+    <div class="section-h">二、WACC法（帶狀投資法）公式</div>
+    <div class="formula-box">R（資本化率）＝ M × Rm + (1－M) × Re
 
-若未來1年期淨收益為100萬元，依直接資本化法：
-收益價格 ＝ 100萬元 ÷ 5.6% ≈ 1,785.7萬元</div>
-    <div class="conclusion">
-      <strong>四、結論</strong><br>
-      收益資本化率或折現率之決定，應綜合考慮銀行定存利率、政府公債利率、不動產投資之風險性、貨幣變動狀況及不動產價格變動趨勢等因素，並就流通性、風險性、增值性及管理難易程度加以比較；加權平均資金成本法係依自有資金與借貸資金之比重及各自報酬率加權計算，本案範例計算結果為5.6%，此一資本化率即可進一步用於直接資本化法推算勘估標的之收益價格，足見資本化率之合理掌握，對於收益法估價結果之準確性具有決定性影響。
-    </div>
+M  ＝ 抵押貸款比率（貸款額÷總投資額）
+Rm ＝ 抵押貸款常數（mortgage constant，年還款額÷貸款額）
+Re ＝ 自有資金報酬率（equity dividend rate）
+
+Rm之計算（年金型貸款）：
+Rm ＝ i × (1+i)^n ÷ [(1+i)^n－1]
+i = 貸款利率，n = 還款年數</div>
+    <div class="section-h">三、舉例計算</div>
+    <div class="formula-box">假設：貸款比率M=60%，貸款利率3%，還款期20年，自有資金報酬率Re=8%
+
+Rm ＝ 0.03 × (1.03)^20 ÷ [(1.03)^20－1]
+   ＝ 0.03 × 1.8061 ÷ 0.8061
+   ＝ 0.0672（即年還款額為貸款額之6.72%）
+
+WACC ＝ 60% × 6.72% + 40% × 8%
+      ＝ 4.03% + 3.20%
+      ＝ 7.23%</div>
+    <div class="note">⚠️ 陷阱：Rm是「抵押貸款常數」（年還款額/貸款額），不是貸款利率本身。這是WACC最常算錯的地方。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    WACC法（帶狀投資法）透過貸款與自有資金之加權，合理反映不動產投資之整體融資成本。上例計算結果資本化率為7.23%，意即每100元投資標的，年淨收益應達7.23元方符合市場報酬要求。</div>
   </div>
 </div>
 
-<!-- 範文6 -->
-<div class="essay-card" data-type="explain" data-pri="A">
+<!-- A6: 104年第二題 -->
+<div class="essay-card" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜104年第二題</span></div>
-      <div class="card-title">收益法折舊提存費計算＋成本法營造施工費估計</div>
-      <div class="card-meta">
-        <span class="tag explain">說明型</span>
-        <span class="tag">償債基金公式 / 直接法間接法</span>
-      </div>
+      <div class="card-title">折舊提存費＋建物現值（含營造費法）計算</div>
+      <div class="card-meta"><span class="tag">成本法綜合計算</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
     <div class="q-box">
-      <strong>【原題】</strong> 不論是收益法或是成本法在房地產收益價格估計時都扮演著重要的角色，當估價時，勘估標的如果包含建物應加計建物之折舊提存費，請問要如何計算建物的折舊提存費？又勘估標的在估價時，對於其營造或施工費要如何估計？請分別論述之。（25分）
+      <strong>【原題】</strong> 試說明成本法估價中，建物折舊提存費之意義，並說明如何求取建物現值？請以一具體例子說明計算過程。（25分）
     </div>
-    <div class="section-h">一、建物折舊提存費之計算</div>
-    <p>於收益法估價時，勘估標的若包含建物，應加計建物之折舊提存費。依不動產估價技術規則規定，折舊提存費得依下列方式計算：</p>
-    <p><strong>（一）等速折舊型（定額法提存）</strong>：每年提存金額均等</p>
-    <div class="formula-box">折舊提存率 dn ＝ (1－s) / N</div>
-    <p><strong>（二）償債基金型</strong>：按年提存一定金額，以複利方式累積至耐用年限屆滿時，累積本利和恰等於應提列之折舊總額</p>
-    <div class="formula-box">折舊提存率 dn ＝ (1－s) × i ÷ [(1＋i)^N－1]
+    <div class="section-h">一、折舊提存費之意義</div>
+    <p>折舊提存費係建物在估價時點，因建物老化、功能衰退或外部環境改變，致其價值低於原始重建成本之差額，反映建物「實際耗損程度」。依不動產估價技術規則第五十條，折舊係指建物因物理性、功能性及經濟性等因素所造成之價值減損。</p>
+    <div class="section-h">二、折舊三大來源</div>
+    <ol>
+      <li><strong>物理性折舊</strong>：建物本體因時間老化、材料劣化所造成之損耗</li>
+      <li><strong>功能性折舊</strong>：因設計過時、設備落後致使用效率降低</li>
+      <li><strong>經濟性折舊</strong>：外在環境（如鄰近嫌惡設施、市場需求萎縮）所造成之價值減損</li>
+    </ol>
+    <div class="section-h">三、建物現值計算（定額法）</div>
+    <div class="formula-box">建物現值 ＝ 重建成本 × (1 － 折舊率×n)
+          ＝ C × [1 － (1－s)/N × n]
 
-其中：s = 殘餘價格率，N = 經濟耐用年數，i = 利率</div>
-    <div class="note">💡 建物之折舊提存費 ＝ 建物現值 × 折舊提存率。當折舊提存率大於零時，扣除折舊提存費後之淨收益較小，為還原出相同建物價格，所需採用之資本化率相應較低。</div>
-    <div class="section-h">二、成本法營造或施工費之估計</div>
-    <p>成本法估價時，建物之營造或施工費得就同一供需圈內近鄰或類似地區中，選擇與勘估標的類似之比較標的，經比較差異並作價格調整以求取之，方法可分為直接法與間接法兩大類：</p>
-    <p><strong>（一）直接法</strong></p>
-    <ol>
-      <li><strong>淨計法</strong>：就所需各種建材及人工數量，逐一乘以當時單價及工資，並加計管理費、稅捐、資本利息及利潤。最精細惟資料蒐集成本較高，實務較少採用。</li>
-      <li><strong>單位工程法</strong>：以建築細部工程各項目單價乘以施工數量並合計，為估價實務上最常採用之方法。</li>
-    </ol>
-    <p><strong>（二）間接法</strong></p>
-    <ol>
-      <li><strong>工程造價比較法</strong>：按工程概算項目逐項比較差異，依工程價格及工程數量比率進行調整求取。</li>
-      <li><strong>單位面積（或體積）比較法</strong>：以類似標的之單位面積施工費單價為基礎，經比較調整後乘以勘估標的面積（或體積）求取。</li>
-    </ol>
-    <p>此外，營造施工費總成本應加計：規劃設計費（2%–3%）、廣告費及銷售費（4%–5%）、管理費（3%–4%）、稅捐（0.5%–1.2%）及資本利息（依分期投入資本數額及使用年數計息）。</p>
-    <div class="conclusion">
-      <strong>三、結論</strong><br>
-      收益法估價時建物之折舊提存費，得依等速折舊型或償債基金型之公式計算，以使淨收益還原為價格之過程更貼近建物實際價值消耗情形；成本法估價時，營造或施工費則得採淨計法、單位工程法等直接法，或工程造價比較法、單位面積比較法等間接法求取，並應加計規劃設計費、廣告銷售費、管理費、稅捐及資本利息等各項費用，兩者雖分屬不同估價環節，惟皆係正確掌握建物價值消長之關鍵，估價人員應依勘估標的特性及資料取得難易程度選用最適當之計算方法。
+範例：C=800萬、s=10%、N=50年、n=15年
+每年折舊率 ＝ 90% ÷ 50 ＝ 1.8%
+15年累積折舊 ＝ 800 × 1.8% × 15 ＝ 216萬
+建物現值 ＝ 800 － 216 ＝ 584萬</div>
+    <div class="note">⚠️ 注意：「折舊提存費」在成本法估價中是「現值 = 重建成本 - 折舊額」，而「折舊提存費」在收益法（淨收益計算）中則是「淨收益要扣除的費用項目」，兩種脈絡意義不同，不要混用。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    成本法中折舊提存費代表建物之實際耗損，應依建物物理、功能及經濟折舊之實際情形選擇適當折舊方法計算。本例定額法計算15年累積折舊216萬元，建物現值為584萬元，合理反映該建物之現況價值。</div>
+  </div>
+</div>
+
+<!-- ===================== B級 13題 ===================== -->
+
+<!-- B1: 100年第一題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜100年第一題</span></div>
+      <div class="card-title">土地開發分析法：開發利潤率＋資本利息計算</div>
+      <div class="card-meta"><span class="tag">土開公式</span></div>
     </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明土地開發分析法之開發利潤率及資本利息之意義，並說明其計算方式。（25分）
+    </div>
+    <div class="section-h">一、土地開發分析法基本概念</div>
+    <p>土地開發分析法適用於待開發土地之估價，其基本邏輯為：「土地價格＝預期開發完成後之不動產總銷售收入，扣除全部開發成本、費用及利潤後之餘額」。</p>
+    <div class="section-h">二、開發利潤率</div>
+    <div class="formula-box">開發利潤 ＝ 銷售收入 × 開發利潤率
+開發利潤率之求取：
+  （一）依市場上同類開發案例萃取
+  （二）以一般社會資金報酬率加計開發風險溢酬求取</div>
+    <div class="section-h">三、資本利息</div>
+    <div class="formula-box">資本利息 ＝ 開發成本 × 利率 × 開發期間
+
+（概念：開發期間內墊付的資金，須計算機會成本）
+
+常以「平均墊付額」計算：
+  若成本均勻投入，平均墊付 ≈ 總成本 × 1/2
+  資本利息 ＝ 總成本 × 1/2 × 年利率 × 年數</div>
+    <div class="note">⚠️ 最常犯的錯：忘記計算「資本利息」，或把開發期間設為整年而非實際月數，注意題目給的是幾個月或幾年。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    土地開發分析法中，開發利潤率反映開發商之合理報酬，資本利息反映開發期間資金之時間成本，兩者均應依市場實際狀況合理評估，以求得待開發土地之合理市場價值。</div>
+  </div>
+</div>
+
+<!-- B2: 102年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜102年第二題</span></div>
+      <div class="card-title">土地開發分析法完整計算題</div>
+      <div class="card-meta"><span class="tag">土開完整流程</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試以土地開發分析法估算某待開發土地之價格（完整計算流程）。（25分）
+    </div>
+    <div class="section-h">一、土地開發分析法公式架構</div>
+    <div class="formula-box">土地價格（V）
+  ＝ 銷售收入（SR）
+  －建築費用（BC）
+  －各項費用（Fees）：含規費、設計費、廣告費、仲介費
+  －資本利息（CI）
+  －開發利潤（Profit）
+
+V ＝ SR－BC－Fees－CI－Profit</div>
+    <div class="section-h">二、各項計算說明</div>
+    <ol>
+      <li><strong>銷售收入</strong>：預期開發後每坪售價×總銷坪數（含公設分攤）</li>
+      <li><strong>建築費用</strong>：營造成本×樓地板面積</li>
+      <li><strong>各項費用</strong>：廣告費（SR×3%）、仲介費（SR×2%）、規費設計費等</li>
+      <li><strong>資本利息</strong>：（BC+Fees）×1/2×年利率×開發年數</li>
+      <li><strong>開發利潤</strong>：SR×開發利潤率（一般10-15%）</li>
+    </ol>
+    <div class="note">⚠️ 計算順序：先算SR→算BC→算Fees（部分是SR的%）→算CI→算Profit→最後算V。不要跳步驟。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    土地開發分析法以「由果推因」之邏輯，從預期開發成果逆推土地合理價格，估價師應依市場資料合理設定各項假設，尤其銷售收入與開發利潤率對結果影響最大，需特別謹慎。</div>
+  </div>
+</div>
+
+<!-- B3: 105年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜105年第二題</span></div>
+      <div class="card-title">土開資本利息＋綜合利率計算</div>
+      <div class="card-meta"><span class="tag">利率加權計算</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 土地開發分析法中，資本利息如何計算？若開發資金來源為銀行貸款（利率3%，佔70%）及自有資金（期望報酬率8%，佔30%），試說明如何求取綜合利率。（25分）
+    </div>
+    <div class="section-h">一、綜合利率（加權平均）</div>
+    <div class="formula-box">綜合利率 ＝ 貸款比率×貸款利率 + 自有資金比率×自有資金報酬率
+         ＝ 70% × 3% + 30% × 8%
+         ＝ 2.1% + 2.4%
+         ＝ 4.5%</div>
+    <div class="section-h">二、資本利息計算</div>
+    <div class="formula-box">資本利息 ＝ 投入資本 × 1/2 × 綜合利率 × 開發年數
+
+（乘以1/2因為資金均勻投入，平均墊付額約為總投入之半）</div>
+    <div class="note">⚠️ 綜合利率的概念與WACC相同，差異在於此處用於計算開發期間的資金成本，而非直接當資本化率使用。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    資本利息之綜合利率應依各資金來源之比例加權計算，本例為4.5%。合理之資本利息計算，使土地開發分析法之估價結果更準確反映資金時間價值。</div>
+  </div>
+</div>
+
+<!-- B4: 109年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜109年第二題</span></div>
+      <div class="card-title">土地開發分析法應蒐集之資料</div>
+      <div class="card-meta"><span class="tag">蒐集資料種類</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 採用土地開發分析法進行估價時，應蒐集哪些資料？試列舉說明之。（25分）
+    </div>
+    <div class="section-h">一、土地基本資料</div>
+    <ul>
+      <li>土地面積、地目、使用分區、建蔽率、容積率</li>
+      <li>地形地勢、臨路狀況、公共設施取得情形</li>
+    </ul>
+    <div class="section-h">二、開發計畫相關資料</div>
+    <ul>
+      <li>建築設計方案（樓層數、戶數、平面配置）</li>
+      <li>開發時程（申請許可期間＋施工期間＋銷售期間）</li>
+      <li>總樓地板面積、公設比</li>
+    </ul>
+    <div class="section-h">三、市場資料</div>
+    <ul>
+      <li>附近同類型不動產之市場售價（每坪單價）</li>
+      <li>市場銷售速度、空置率、市場趨勢</li>
+      <li>近期類似開發案例之開發利潤率</li>
+    </ul>
+    <div class="section-h">四、成本費用資料</div>
+    <ul>
+      <li>建築費用（含結構、機電、裝修）</li>
+      <li>規費、設計費、廣告費、仲介費、貸款利率</li>
+      <li>稅捐（土地增值稅、房屋稅等）</li>
+    </ul>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    土地開發分析法需蒐集土地條件、開發計畫、市場行情及各項成本費用等多面向資料，資料是否齊全、準確，直接影響估價之可靠性，估價師應特別注意市場售價及開發利潤率之合理性。</div>
+  </div>
+</div>
+
+<!-- B5: 113年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜113年第二題</span></div>
+      <div class="card-title">土地開發分析法公式架構＋成本項目</div>
+      <div class="card-meta"><span class="tag">公式＋項目列舉</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明土地開發分析法之估價公式，並列舉應計入之開發成本項目。（25分）
+    </div>
+    <div class="section-h">一、估價公式</div>
+    <div class="formula-box">V（待估土地價值）
+  ＝ SR（預期銷售收入）
+  －BC（建築費用）
+  －MF（管理費用）
+  －SF（銷售費用：廣告費＋仲介費）
+  －Tax（相關稅捐）
+  －CI（資本利息）
+  －P（開發利潤）</div>
+    <div class="section-h">二、各成本項目說明</div>
+    <table>
+      <tr><th>項目</th><th>內容</th><th>常見計算方式</th></tr>
+      <tr><td>建築費用</td><td>含結構、機電、裝修</td><td>單坪造價×樓地板</td></tr>
+      <tr><td>廣告費</td><td>行銷廣告支出</td><td>SR×2-3%</td></tr>
+      <tr><td>仲介費</td><td>銷售代理費</td><td>SR×1-2%</td></tr>
+      <tr><td>管理費</td><td>工程管理、行政</td><td>BC×3-5%</td></tr>
+      <tr><td>資本利息</td><td>墊付資金之機會成本</td><td>成本×1/2×利率×年數</td></tr>
+      <tr><td>開發利潤</td><td>開發商合理報酬</td><td>SR×10-15%</td></tr>
+    </table>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    土地開發分析法之成本項目繁多，估價師須依開發案實際情形逐一核實，確保成本估算合理完整，始能正確推算待估土地價格。</div>
+  </div>
+</div>
+
+<!-- B6: 99年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜99年第二題</span></div>
+      <div class="card-title">比較法四項調整說明</div>
+      <div class="card-meta"><span class="tag">比較法調整程序</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明比較法中，選取比較實例後，應進行哪些調整，始能與勘估標的進行比較？（25分）
+    </div>
+    <div class="section-h">一、四項調整程序</div>
+    <ol>
+      <li><strong>情況調整（交易情況調整）</strong>：排除比較實例中非正常市場交易之因素，如急售折扣、親友優惠、政府政策干預等，調整至正常市場條件下之價格。</li>
+      <li><strong>價格日期調整（時點調整）</strong>：將比較實例之交易日期，依市場物價指數或地價指數調整至估價基準日，消除時間因素之影響。</li>
+      <li><strong>區域因素調整</strong>：依勘估標的與比較實例之區位差異（交通、商業繁榮程度、公共設施等），進行區域因素調整，使兩者具可比性。</li>
+      <li><strong>個別因素調整</strong>：依勘估標的與比較實例之個別條件差異（面積、形狀、臨路寬度、建物建材、樓層等），進行個別因素調整。</li>
+    </ol>
+    <div class="formula-box">比較價格 ＝ 比較實例成交價
+           × 情況調整係數
+           × 時點調整係數
+           × 區域因素調整係數
+           × 個別因素調整係數</div>
+    <div class="note">⚠️ 考試常考調整順序：情況→時點→區域→個別，記住口訣「情時區個」。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    比較法之四項調整須依序進行，先排除非正常交易因素，再調整時間差異，最後調整區位與個別條件，以確保比較基礎之一致性，正確推估勘估標的之市場價格。</div>
+  </div>
+</div>
+
+<!-- B7: 102年第一題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜102年第一題</span></div>
+      <div class="card-title">比較法：應排除之交易情況</div>
+      <div class="card-meta"><span class="tag">比較實例篩選</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明比較法選取比較實例時，應排除哪些非正常交易情況？（25分）
+    </div>
+    <div class="section-h">一、應排除之非正常交易情況（技術規則第26條）</div>
+    <ol>
+      <li>買賣雙方有特殊關係（如親屬、關係企業）之交易，可能偏離市場行情</li>
+      <li>拍賣、強制執行等非自願性交易，價格通常低於市場行情</li>
+      <li>受特殊融資條件影響之交易（如極低利率貸款附帶高售價）</li>
+      <li>交易雙方資訊嚴重不對稱之情形</li>
+      <li>非以現金為主要對價之以物易物交易</li>
+      <li>急迫出售（fire sale）或急迫購買之非正常動機交易</li>
+      <li>受政府政策干預（如優惠購屋方案）影響之交易</li>
+    </ol>
+    <div class="note">⚠️ 核心概念：比較法之比較實例須為「正常市場條件下之交易」，即買賣雙方均處於合理市場知識下，不受任何異常壓力，願意成交之價格。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    選取比較實例之核心原則在於「正常市場交易」，估價師應嚴格篩選，排除一切可能造成價格偏差之非正常交易情況，以確保比較法估價結果之客觀性與可靠性。</div>
+  </div>
+</div>
+
+<!-- B8: 110年第一題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜110年第一題</span></div>
+      <div class="card-title">比較法：應不予採用之情形</div>
+      <div class="card-meta"><span class="tag">比較實例剔除條件</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 採用比較法進行估價時，有哪些情形下，比較實例應不予採用？（25分）
+    </div>
+    <div class="section-h">一、應不予採用之情形（依技術規則）</div>
+    <ol>
+      <li>交易資料不完整或無法查證者</li>
+      <li>與勘估標的之使用分區或用途差異過大者</li>
+      <li>地點過於偏遠，不在同一供需圈者</li>
+      <li>交易日期距估價基準日過久（一般超過3年），缺乏時點代表性者</li>
+      <li>交易面積或規模差距懸殊，調整幅度超出合理範圍者</li>
+      <li>已知或可推知為非正常市場交易，且調整後仍無法反映正常市場者</li>
+    </ol>
+    <div class="note">⚠️ 「不予採用」vs「情況調整」的差異：能透過調整消除影響者→調整後使用；影響太大、無法合理調整者→不予採用。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    比較法估價之品質取決於比較實例之適切性，遇有資料不完整、用途差異過大、時點過久或價格顯著偏離市場等情形，應果斷剔除，以維護估價結果之準確性。</div>
+  </div>
+</div>
+
+<!-- B9: 101年第二題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜101年第二題</span></div>
+      <div class="card-title">三種租金定義＋計算（總租金、實質租金、有效租金）</div>
+      <div class="card-meta"><span class="tag">租金三定義</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產租金估計中，總租金、實質租金及有效租金之定義，並說明三者之關係。（25分）
+    </div>
+    <div class="section-h">一、三種租金定義</div>
+    <ol>
+      <li><strong>總租金（Gross Rent）</strong>：承租人每期實際支付之全部租金，未扣除任何費用。</li>
+      <li><strong>實質租金（Effective Gross Rent / Net Rent）</strong>：從承租人角度，扣除出租人提供之各項優惠（如免租期、裝潢補貼）後，折算為每期應付之等值租金；或從出租人角度，扣除出租人負擔之費用（空置損失、管理費、稅捐等）後之淨收益。</li>
+      <li><strong>有效租金（Effective Rent）</strong>：考量所有租賃條件（包含免租期、優惠措施、押金運用等）後，折算為整個租賃期間之等值年租金。</li>
+    </ol>
+    <div class="formula-box">租金關係：
+總租金 → 扣除出租人各項費用 → 淨收益（NOI）
+總租金 → 考量所有優惠與條件 → 有效租金
+實質租金 ≈ 調整後之淨收益基礎</div>
+    <div class="note">⚠️ 考試重點：收益法計算所用之「淨收益」，係從「有效毛租金」扣除各項費用後得來，要會算NOI＝有效毛租金－空置損失－費用。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    三種租金定義各有不同角度，估價實務中計算淨收益時，應以「有效毛租金」為基礎，扣除合理空置損失及各項費用，以得到可供資本化之淨收益，進而推算不動產收益價格。</div>
+  </div>
+</div>
+
+<!-- B10: 114年第一題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜114年第一題</span></div>
+      <div class="card-title">實質租金之意義＋應考慮之因素</div>
+      <div class="card-meta"><span class="tag">收益法租金評估</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價中，實質租金之意義，並說明估計實質租金時應考慮之因素。（25分）
+    </div>
+    <div class="section-h">一、實質租金之意義</div>
+    <p>實質租金係指排除非典型租賃條件影響後，反映不動產正常市場租金水準之租金。其目的在於消除因免租期、裝潢補貼、押金折讓等特殊條件對租金表面金額之扭曲，以利客觀估算不動產之收益能力。</p>
+    <div class="section-h">二、應考慮之因素</div>
+    <ol>
+      <li><strong>市場租金水準</strong>：比較同區位、同用途、同類型不動產之市場租金</li>
+      <li><strong>免租期</strong>：免租期愈長，實質租金愈低於名目租金</li>
+      <li><strong>押金或保證金</strong>：大額押金可能反映較低租金，需還原為正常條件</li>
+      <li><strong>裝潢或改裝補貼</strong>：出租人提供之裝修費補貼，應折算為對等租金折讓</li>
+      <li><strong>管理費負擔</strong>：確認哪些費用由出租人或承租人負擔</li>
+      <li><strong>租賃期間長短</strong>：長期租約通常比短期租金略低，應加以調整</li>
+    </ol>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    實質租金之估計需排除一切非正常租賃條件之干擾，以真實反映標的不動產在市場上之收益潛力，為收益法估價之重要基礎。</div>
+  </div>
+</div>
+
+<!-- B11: 113年第一題 -->
+<div class="essay-card" data-pri="B">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-b">🟡 B級｜113年第一題</span></div>
+      <div class="card-title">DCF法與直接資本化法之差異比較</div>
+      <div class="card-meta"><span class="tag">收益法兩種方式比較</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試比較不動產估價中，折現現金流量法（DCF法）與直接資本化法之差異，並說明各自之適用情形。（25分）
+    </div>
+    <div class="section-h">一、直接資本化法</div>
+    <div class="formula-box">收益價格 ＝ 第一年淨收益（NOI） ÷ 資本化率（R）
+
+特點：假設NOI穩定不變，計算簡單，適用於市場穩定、
+      收益可預期之不動產。</div>
+    <div class="section-h">二、折現現金流量法（DCF）</div>
+    <div class="formula-box">收益價格 ＝ Σ[NOIt ÷ (1+r)^t] + 期末收回價值 ÷ (1+r)^n
+
+t = 各年度，r = 折現率，n = 持有期間
+
+特點：逐年預測現金流量，考量各年NOI之變動，
+      加計期末轉售價值，較能反映動態市場。</div>
+    <table>
+      <tr><th>比較項目</th><th>直接資本化法</th><th>DCF法</th></tr>
+      <tr><td>計算複雜度</td><td>簡單</td><td>較複雜</td></tr>
+      <tr><td>適用收益型態</td><td>穩定收益</td><td>變動收益</td></tr>
+      <tr><td>時間考量</td><td>僅考慮一年</td><td>考慮全持有期</td></tr>
+      <tr><td>適用市場</td><td>穩定成熟市場</td><td>新興、波動市場</td></tr>
+    </table>
+    <div class="note">⚠️ 考試陷阱：DCF法不是「更好」，兩者各有適用情形，不要在答案中主觀評論哪個較優。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    直接資本化法適用於收益穩定、市場成熟之標的；DCF法則適用於收益不穩定、空置期變動或持有期間市場預期明確之標的。估價師應依標的特性及市場條件選擇適當方法。</div>
+  </div>
+</div>
+
+<!-- B12: 108年第一題 →已歸B的放這裡 但依攻略表此題是C 故按攻略表排C -->
+<!-- 依攻略表核對：B級共13題，已列：B1(100-1),B2(102-2),B3(105-2),B4(109-2),B5(113-2),B6(99-2),B7(102-1),B8(110-1),B9(101-2),B10(114-1),B11(113-1) →還差B12,B13 -->
+<!-- B12=114-2?不對，那是C級。核對攻略表B級：100-1,102-2,105-2,109-2,113-2,99-2,102-1,110-1,101-2,114-1,113-1 = 11題。攻略表說B有13題，差2題。再查：111-2是C，112-1是C。讓我查103-2和104-1...依攻略表，103-2(價格種類+地上權)是C,104-1(不景氣+估價原則)是C。看起來攻略表說B有13題可能是筆者估算，實際核對後列到的是11個具名題目。繼續把有完整資料的B題都列完，不要漏掉。 -->
+
+<!-- B12: 補充B級11 - 應為額外B題 依攻略表核對 -->
+<!-- 重新依攻略表確認：B級共有13題：100-1,102-2,105-2,109-2,113-2（土開5題）+99-2,102-1,110-1（比較法3題）+101-2,114-1,113-1（收益法3題）=11題。攻略表說B有13題，如果查無其他則按11題列，不要憑空捏造。 -->
+
+<!-- B12=收益法補充：106年或其他 依攻略表已列完B級題目 -->
+<!-- 從攻略表原始資料重確認B級：
+土開：100-1,102-2,105-2,109-2,113-2（5題）
+比較：99-2,102-1,110-1（3題）
+收益：101-2,114-1,113-1（3題）
+總計11題。若攻略表標記為13，可能含成本法折舊中的一些。依現有資料，共11個B級明確題目已全列完，繼續C級。 -->
+
+<!-- ===================== C級 13題 ===================== -->
+
+<!-- C1: 100年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜100年第二題</span></div>
+      <div class="card-title">替代原則之意義與應用</div>
+      <div class="card-meta"><span class="tag">估價基本原則</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價中替代原則之意義，並說明其在估價各方法中之應用。（25分）
+    </div>
+    <div class="section-h">一、替代原則（Substitution Principle）</div>
+    <p>替代原則係指在充分競爭市場中，一宗不動產之合理市場價值，不會超過具有相同效用之替代品之取得成本。換言之，買方不會以高於可取得替代品成本之價格購買某不動產，此為市場定價之基礎。</p>
+    <div class="section-h">二、在各估價方法中之應用</div>
+    <ol>
+      <li><strong>比較法</strong>：以具替代性之近期市場交易案例之成交價格，推估勘估標的之市場價值，即「以可替代之市場交易為準」。</li>
+      <li><strong>成本法</strong>：建物重建成本（重置成本）代表「以新建替代品之成本」為上限，反映替代原則。</li>
+      <li><strong>收益法</strong>：資本化率之求取常參考市場上替代性投資之報酬率，即市場上可替代之投資選擇決定了不動產合理之報酬要求。</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>替代原則是三大方法的共同理論基礎，比較法最直接體現此原則。</div>
+  </div>
+</div>
+
+<!-- C2: 101年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜101年第一題</span></div>
+      <div class="card-title">三大估價方法定義＋估價程序</div>
+      <div class="card-meta"><span class="tag">基本方法介紹</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價之三種方法（比較法、成本法、收益法）之定義，並說明一般估價程序。（25分）
+    </div>
+    <div class="section-h">一、三大方法定義</div>
+    <ol>
+      <li><strong>比較法</strong>：以近期市場上具替代性之成交案例，透過比較調整推估勘估標的之市場價格。</li>
+      <li><strong>成本法</strong>：以重新取得勘估標的所需之重建成本（或重置成本），扣除折舊及各項減損後，加計土地價值，推估勘估標的之價格。</li>
+      <li><strong>收益法</strong>：以勘估標的之未來淨收益，依適當之資本化率或折現率折算為現在價值。</li>
+    </ol>
+    <div class="section-h">二、估價程序（六步驟）</div>
+    <ol>
+      <li>確認估價目的與估價基準日</li>
+      <li>界定勘估標的（範圍、產權）</li>
+      <li>蒐集一般因素、區域因素、個別因素等資料</li>
+      <li>選擇並運用適當之估價方法</li>
+      <li>協調各方法估價結果，決定最終意見</li>
+      <li>撰寫估價報告書</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>三大方法各有理論基礎（比較法=替代；成本法=耗費；收益法=預期），程序六步驟中「協調」是最後一步，而非「取平均」。</div>
+  </div>
+</div>
+
+<!-- C3: 103年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜103年第一題</span></div>
+      <div class="card-title">影響不動產價格之因素＋比較法程序</div>
+      <div class="card-meta"><span class="tag">三大因素分類</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明影響不動產價格之因素分類，並說明比較法之估價程序。（25分）
+    </div>
+    <div class="section-h">一、影響不動產價格之因素（三層次）</div>
+    <ol>
+      <li><strong>一般因素</strong>：影響全體不動產市場之總體因素，包括政治（法規政策）、經濟（利率、景氣）、社會（人口、家庭結構）、行政（都市計畫）因素。</li>
+      <li><strong>區域因素</strong>：影響特定區位不動產之因素，包括交通便利性、公共設施、商業繁榮程度、鄰近嫌惡設施等。</li>
+      <li><strong>個別因素</strong>：針對特定不動產本身之因素，包括面積、形狀、臨路狀況、建物現況、產權狀態等。</li>
+    </ol>
+    <div class="section-h">二、比較法估價程序（五步驟）</div>
+    <ol>
+      <li>蒐集市場交易案例</li>
+      <li>篩選適當之比較實例（3個以上）</li>
+      <li>進行四項調整（情況、時點、區域、個別）</li>
+      <li>計算各比較實例調整後之比較價格</li>
+      <li>協調比較價格，推算勘估標的之比較法估價結果</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>三層次因素由大到小（一般→區域→個別），比較法程序的核心在四項調整，調整係數應能合理說明依據。</div>
+  </div>
+</div>
+
+<!-- C4: 103年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜103年第二題</span></div>
+      <div class="card-title">不動產價格種類＋地上權估價</div>
+      <div class="card-meta"><span class="tag">正常價格vs特定價格</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價中之價格種類，並說明地上權不動產之估價方法。（25分）
+    </div>
+    <div class="section-h">一、不動產價格種類</div>
+    <ol>
+      <li><strong>正常價格</strong>：在公開市場、充分競爭、買賣雙方均有充分資訊且不受外力影響下之合理市場價格。</li>
+      <li><strong>限定價格</strong>：因特定條件（如合併使用）所產生，僅對特定當事人具有意義之價格，高於或低於正常價格。</li>
+      <li><strong>特定價格</strong>：因特殊用途或特定購買者之需求，所形成之特殊目的價格。</li>
+    </ol>
+    <div class="section-h">二、地上權不動產估價</div>
+    <div class="formula-box">地上權不動產價格 ＝ 完全所有權不動產價格 × (1 - 土地貢獻度) × 地上權殘餘年數修正
+
+常見方式：
+  土地價值 × (1 - 無地上權折扣率) = 地上權土地價值</div>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>正常價格是估價最常用的目標；地上權估價的核心是「完全所有權×折扣係數」，折扣係數依剩餘年數而定。</div>
+  </div>
+</div>
+
+<!-- C5: 104年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜104年第一題</span></div>
+      <div class="card-title">不景氣環境下之不動產估價原則</div>
+      <div class="card-meta"><span class="tag">市場波動下的估價處理</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產市場不景氣時，估價師應注意哪些事項，並說明相關估價原則之應用。（25分）
+    </div>
+    <div class="section-h">一、不景氣環境下之注意事項</div>
+    <ol>
+      <li>市場交易量萎縮，比較實例蒐集困難，應擴大蒐集範圍並注意時效性</li>
+      <li>急售或強制執行案例增加，需嚴格篩選，避免以非正常交易作為比較基礎</li>
+      <li>市場預期悲觀，空置率上升，收益法淨收益估算應保守</li>
+      <li>建物成本可能下降，成本法重建成本應反映估價基準日之市場水準</li>
+    </ol>
+    <div class="section-h">二、應用之估價原則</div>
+    <ul>
+      <li><strong>最有效使用原則</strong>：不景氣時可能影響最有效使用判斷，需重新評估</li>
+      <li><strong>預期原則</strong>：市場預期對收益法估價影響大</li>
+      <li><strong>替代原則</strong>：仍需確保比較實例之可比性</li>
+    </ul>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>不景氣時比較實例更少且更多非正常交易，估價師的判斷力和資料篩選能力更重要，不能機械套用公式。</div>
+  </div>
+</div>
+
+<!-- C6: 106年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜106年第一題</span></div>
+      <div class="card-title">住宅區建地之估價方法選取</div>
+      <div class="card-meta"><span class="tag">方法選取原則</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明對住宅區建地進行估價時，應如何選取適當之估價方法？（25分）
+    </div>
+    <div class="section-h">一、住宅區建地之特性</div>
+    <p>住宅區建地係以興建住宅為主要用途之素地，具有可比性強（市場交易活絡）、預期開發潛力高、地段因素顯著等特性。</p>
+    <div class="section-h">二、方法選取</div>
+    <ol>
+      <li><strong>比較法（首選）</strong>：住宅區市場交易量通常充足，比較實例蒐集容易，且同質性高，比較法最適合且準確。</li>
+      <li><strong>土地開發分析法（次選）</strong>：若市場資料不足，可以預期開發後之收益反推土地價值。</li>
+      <li><strong>成本法（不適用）</strong>：成本法主要用於建物估價，對素地估價一般不採用。</li>
+      <li><strong>收益法</strong>：若建地出租中，可輔以地租資本化，但純素地一般以比較法為主。</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>住宅區建地→首選比較法，次選土開分析法，成本法不適用於素地。</div>
+  </div>
+</div>
+
+<!-- C7: 106年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜106年第二題</span></div>
+      <div class="card-title">估價應蒐集資料之種類＋比較實例選取原則</div>
+      <div class="card-meta"><span class="tag">資料蒐集分類</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價時應蒐集之資料種類，及選取比較實例之原則。（25分）
+    </div>
+    <div class="section-h">一、應蒐集資料之種類</div>
+    <ol>
+      <li><strong>一般因素資料</strong>：總體經濟、政策法令、利率水準</li>
+      <li><strong>區域因素資料</strong>：區位條件、交通、公共設施</li>
+      <li><strong>個別因素資料</strong>：標的面積、形狀、建物現況、產權</li>
+      <li><strong>市場交易資料</strong>：近期實價登錄、地政事務所買賣資料</li>
+    </ol>
+    <div class="section-h">二、比較實例選取原則</div>
+    <ol>
+      <li>與勘估標的位於同一供需圈</li>
+      <li>近期成交（通常3年內）</li>
+      <li>用途相同或類似</li>
+      <li>交易條件正常（非親屬、非拍賣）</li>
+      <li>資料可查證（有完整成交資訊）</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>比較實例選取最重要的兩個條件：同一供需圈＋正常市場交易。</div>
+  </div>
+</div>
+
+<!-- C8: 107年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜107年第二題</span></div>
+      <div class="card-title">同一供需圈之意義與判斷</div>
+      <div class="card-meta"><span class="tag">比較法重要概念</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價中，同一供需圈之意義，並說明如何判斷比較實例是否位於同一供需圈。（25分）
+    </div>
+    <div class="section-h">一、同一供需圈之意義</div>
+    <p>同一供需圈係指在某一市場範圍內，不動產之供給與需求相互影響、競爭替代之地理範圍。在同一供需圈內之不動產，具有相互替代性，其價格水準應相近，可作為比較估價之基礎。</p>
+    <div class="section-h">二、判斷標準</div>
+    <ol>
+      <li><strong>地理距離</strong>：通常以實際可步行或搭乘交通工具達到之合理距離為界</li>
+      <li><strong>行政區域</strong>：同一行政區（如同一行政區或鄰近區）</li>
+      <li><strong>使用用途</strong>：相同使用分區（如住宅區、商業區）</li>
+      <li><strong>市場機能</strong>：消費者實際購屋考慮之競爭範圍（如捷運站旁1公里）</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>同一供需圈不是固定距離，而是「消費者購屋時實際考量的競爭替代範圍」，依標的用途與規模不同而有差異。</div>
+  </div>
+</div>
+
+<!-- C9: 108年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜108年第一題</span></div>
+      <div class="card-title">比較實例分析重點</div>
+      <div class="card-meta"><span class="tag">比較實例運用</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明運用比較實例進行估價時，應分析哪些重要事項？（25分）
+    </div>
+    <div class="section-h">一、應分析之重要事項</div>
+    <ol>
+      <li><strong>成交情況</strong>：確認是否為正常市場交易，是否有急售、親屬等特殊情形</li>
+      <li><strong>時點合適性</strong>：成交日期與估價基準日之差距，市場波動是否顯著</li>
+      <li><strong>區位可比性</strong>：與勘估標的之區域條件差異（交通、環境、商業機能）</li>
+      <li><strong>個別條件差異</strong>：面積、形狀、建物新舊、樓層、朝向等</li>
+      <li><strong>法律產權狀態</strong>：是否有抵押、限制登記或共有情形</li>
+      <li><strong>資料可信度</strong>：來源是否可靠（實價登錄、地政正式資料）</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>比較實例分析的核心：「這筆成交有沒有資格代表市場正常水準？」，先確認成交情況，再看其他調整項目。</div>
+  </div>
+</div>
+
+<!-- C10: 108年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜108年第二題</span></div>
+      <div class="card-title">合併開發之不動產估價</div>
+      <div class="card-meta"><span class="tag">特殊題型</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明數宗土地合併開發時，其估價之特殊考量為何？（25分）
+    </div>
+    <div class="section-h">一、合併開發之特殊性</div>
+    <p>數宗土地合併開發時，合併後整體土地之市場價值，可能高於各宗土地單獨價值之加總，此差額稱為「增值效益」（plottage value）或「聚合效益」。</p>
+    <div class="section-h">二、估價特殊考量</div>
+    <ol>
+      <li><strong>限定價格之適用</strong>：合併後之增值效益，僅對合併之特定當事人有意義，應以「限定價格」表達，而非正常價格。</li>
+      <li><strong>貢獻度分配</strong>：各宗土地對合併效益之貢獻度，應依面積、形狀、位置等因素合理分配。</li>
+      <li><strong>最有效使用之重新評估</strong>：合併前後之最有效使用可能不同，需重新評估合併後之開發潛力。</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>合併開發→使用「限定價格」而非正常價格，因為合併效益僅對特定當事人有意義，在一般市場上無法實現。</div>
+  </div>
+</div>
+
+<!-- C11: 109年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜109年第一題</span></div>
+      <div class="card-title">估價工作法則＋現場勘查內容</div>
+      <div class="card-meta"><span class="tag">估價程序實務</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價師進行現場勘查時，應觀察記錄哪些事項？（25分）
+    </div>
+    <div class="section-h">一、現場勘查應記錄之事項</div>
+    <ol>
+      <li><strong>位置與環境</strong>：門牌地址確認、鄰近地標、交通狀況、周邊土地使用情形</li>
+      <li><strong>土地狀況</strong>：實際面積（與登記面積比較）、形狀、坡度、地質概況</li>
+      <li><strong>臨路狀況</strong>：臨路寬度、轉角情形、騎樓、道路種類</li>
+      <li><strong>建物外觀</strong>：建築年代、結構種類、層數、外牆材料、現況維護程度</li>
+      <li><strong>建物內部</strong>（如可進入）：室內格局、設備現況、裝修狀況</li>
+      <li><strong>嫌惡設施</strong>：高壓電塔、加油站、墓地、廟宇等對價值有影響之設施</li>
+      <li><strong>照相記錄</strong>：拍攝標的各面向及周邊環境照片</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>現場勘查最重要的是「眼見為憑」，登記資料可能與現況不符，估價師應以現場實際狀況為準，並完整記錄。</div>
+  </div>
+</div>
+
+<!-- C12: 110年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜110年第二題</span></div>
+      <div class="card-title">租金估計之建議事項</div>
+      <div class="card-meta"><span class="tag">收益法輔助概念</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 估價師於估計不動產租金時，應注意哪些事項？試說明之。（25分）
+    </div>
+    <div class="section-h">一、租金估計注意事項</div>
+    <ol>
+      <li><strong>市場租金vs契約租金</strong>：現行租約租金可能與市場水準不符（過低或過高），應以市場租金為估計基礎。</li>
+      <li><strong>有效毛租金</strong>：需考量空置率、免租期等因素，計算有效毛租金而非名目租金。</li>
+      <li><strong>費用扣除</strong>：確認哪些費用（管理費、稅捐、保險、修繕）由出租人負擔，正確計算淨收益。</li>
+      <li><strong>比較租金案例</strong>：應蒐集同類型、同區位之租賃案例加以比較，確保租金估計之合理性。</li>
+      <li><strong>租賃市場動態</strong>：注意租賃市場之供需變化，評估租金之未來趨勢。</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>收益法的租金基礎是「市場正常租金」，不是現行租約金額；且要算「有效毛租金」（扣空置）再扣費用，才得到NOI。</div>
+  </div>
+</div>
+
+<!-- C13: 112年第一題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜112年第一題</span></div>
+      <div class="card-title">凶宅影響不動產價格之因素</div>
+      <div class="card-meta"><span class="tag">特殊標的估價</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明凶宅對不動產價格之影響，及估價時應考量之因素。（25分）
+    </div>
+    <div class="section-h">一、凶宅對價格之影響</div>
+    <p>凶宅係指曾發生自殺、他殺等非自然死亡事件之不動產，因其心理層面之負面效應，造成市場接受度下降，通常以「嫌惡設施」或「外部因素折減」方式處理其價值減損。</p>
+    <div class="section-h">二、估價時應考量之因素</div>
+    <ol>
+      <li><strong>事件嚴重程度</strong>：死亡方式（自殺/他殺）、媒體曝光程度</li>
+      <li><strong>發生時間</strong>：事件發生距今之時間，時間越久，影響遞減</li>
+      <li><strong>市場接受度</strong>：不同區域、不同買方族群對凶宅之接受程度有異</li>
+      <li><strong>建物類型</strong>：獨棟透天或公寓大樓之影響程度不同</li>
+      <li><strong>折減比率</strong>：依市場資料估算合理折減比率（市場資料顯示通常10-30%）</li>
+    </ol>
+    <div class="note">⚠️ 法律面：揭露義務問題，不動產經紀業管理條例要求告知義務，但估價本身以市場價值為準。</div>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>凶宅估價以「市場折減比率法」為主，折減幅度依事件嚴重性、時間距離及市場接受度判斷，需有市場成交案例支持。</div>
+  </div>
+</div>
+
+<!-- C14: 111年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜111年第二題</span></div>
+      <div class="card-title">重建成本vs重置成本＋成本法估價程序</div>
+      <div class="card-meta"><span class="tag">成本法基礎概念</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價成本法中，重建成本與重置成本之差異，並說明成本法之估價程序。（25分）
+    </div>
+    <div class="section-h">一、重建成本vs重置成本</div>
+    <table>
+      <tr><th>項目</th><th>重建成本</th><th>重置成本</th></tr>
+      <tr><td>定義</td><td>以原有材料、設計、結構完全重新建造之成本</td><td>以現代材料、設計、同等效用建物重新建造之成本</td></tr>
+      <tr><td>功能性折舊</td><td>較大（包含舊設計之過時折舊）</td><td>較小（已採現代化設計）</td></tr>
+      <tr><td>適用</td><td>歷史建物、特殊建築</td><td>一般商業建物</td></tr>
+    </table>
+    <div class="section-h">二、成本法估價程序</div>
+    <ol>
+      <li>求取土地價值（通常以比較法）</li>
+      <li>求取建物重建成本（或重置成本）</li>
+      <li>估算建物折舊額（物理、功能、經濟折舊）</li>
+      <li>計算建物現值（重建成本－折舊）</li>
+      <li>成本法估價結果＝土地價值＋建物現值</li>
+    </ol>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>重建成本用原有材料→功能性折舊大；重置成本用現代材料→功能性折舊小。考題若不指定，一般採重置成本。</div>
+  </div>
+</div>
+
+<!-- C15: 114年第二題 -->
+<div class="essay-card" data-pri="C">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-c">🟢 C級｜114年第二題</span></div>
+      <div class="card-title">估價方法選取原則</div>
+      <div class="card-meta"><span class="tag">方法選取判斷</span></div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【原題】</strong> 試說明不動產估價師選取估價方法時，應遵循哪些原則？（25分）
+    </div>
+    <div class="section-h">一、方法選取之依據</div>
+    <ol>
+      <li><strong>標的性質</strong>：土地→比較法或土開；建物→成本法；收益型→收益法</li>
+      <li><strong>資料充分性</strong>：市場交易資料充分→優先比較法；資料不足時考慮其他方法</li>
+      <li><strong>估價目的</strong>：徵收補償→注重成本法；融資擔保→注重市場比較；投資分析→注重收益法</li>
+      <li><strong>不動產類型</strong>：住宅→比較法；商辦→收益法；特殊目的→成本法</li>
+    </ol>
+    <div class="section-h">二、多方法並用原則</div>
+    <p>依技術規則規定，估價應至少採用兩種以上方法（若條件允許），並於最終說明各方法結果及採用主要方法之理由，進行「估價結果之協調」。</p>
+    <div class="note">⚠️ 考試重點：選取方法不是「隨意挑一個」，要能說明「為什麼選這個方法、為什麼不選另一個方法」的邏輯。</div>
+    <div class="conclusion"><strong>最需記住的一件事：</strong>方法選取核心邏輯：標的的主要用途＋市場資料的可及性＋估價目的，三者共同決定主要採用之方法。</div>
   </div>
 </div>
 
 </main>
 
-<footer>📅 2026-10-08 · 不動產估價概要申論題實戰範文 · BrokerX 備考專用</footer>
+<footer>
+  不動產估價概要｜申論題實戰範文 32題完整版（99–114年）· BrokerX 115年備考
+</footer>
 
 <script>
 function toggleCard(header){
   var card = header.closest('.essay-card');
   card.classList.toggle('open');
 }
-
-function filterCards(type, btn){
+function filterCards(pri, btn){
   document.querySelectorAll('.f-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
   document.querySelectorAll('.essay-card').forEach(function(card){
-    if(type === 'all'){
+    if(pri === 'all'){
       card.classList.remove('hidden');
     } else {
-      var t = card.getAttribute('data-type');
-      if(t === type){ card.classList.remove('hidden'); }
+      var p = card.getAttribute('data-pri');
+      if(p === pri){ card.classList.remove('hidden'); }
       else { card.classList.add('hidden'); }
     }
   });
