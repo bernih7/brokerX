@@ -156,6 +156,14 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
 .quiz-done-banner .big{font-size:48px;margin-bottom:8px}
 
+/* 口訣 */
+.mnemo{margin-top:8px;padding:7px 12px;border-radius:8px;background:var(--tint3);border-left:3px solid var(--gold);font-size:13.5px;color:var(--key);font-weight:700}
+.mnemo b{color:var(--muted);font-weight:400;font-size:12px;margin-right:6px}
+.cp-actions{display:flex;gap:6px;width:100%;margin-bottom:2px}
+.cp-actions button{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+.cp-actions .done{margin-left:auto;background:var(--red);border-color:var(--red);color:var(--onpri)}
+.nav-btn.on::before,.qf-btn.on::before{content:"✓ "}
+.chapter+.chapter{margin-top:30px}
 /* 章節收納 */
 nav{padding:8px 16px;display:block}
 .ch-toggle,.qf-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;text-align:left}
@@ -218,9 +226,10 @@ const DATA = [
     "term": "外國人不得取得之土地（§17）★陷阱",
     "blank": "不得移轉、設定負擔或租賃於外國人之土地：___、___、___、___、___、___、要塞軍備區域及領域邊境土地。（___不在內）",
     "answer": "不得移轉、設定負擔或租賃於外國人之土地：<span class=\"key\">林地</span>、<span class=\"key\">漁地</span>、<span class=\"key\">狩獵地</span>、<span class=\"key\">鹽地</span>、<span class=\"key\">礦地</span>、<span class=\"key\">水源地</span>、要塞軍備區域及領域邊境土地。（<span class=\"key\">牧地</span>不在內）",
-    "src": "土地法§17（口訣：林漁狩鹽礦水）",
+    "src": "土地法§17",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mnemonic": "林漁狩鹽礦水"
    },
    {
     "term": "外國人繼承取得（§17）",
@@ -281,7 +290,7 @@ const DATA = [
     "blank": "預告登記保全：土地權利___之請求權、權利___之請求權、___之請求權；由請求權人檢附登記名義人___單獨申請，___登記費。",
     "answer": "預告登記保全：土地權利<span class=\"key\">移轉或使其消滅</span>之請求權、權利<span class=\"key\">內容或次序變更</span>之請求權、<span class=\"key\">附條件或期限</span>之請求權；由請求權人檢附登記名義人<span class=\"key\">同意書</span>單獨申請，<span class=\"key\">免納</span>登記費。",
     "src": "土地法§79-1",
-    "mc": 4,
+    "mc": 10,
     "essay": 0
    },
    {
@@ -289,7 +298,7 @@ const DATA = [
     "blank": "預告登記對於因___、___或___而為新登記者，___排除效力（繼承不在條文所列）。",
     "answer": "預告登記對於因<span class=\"key\">徵收</span>、<span class=\"key\">法院判決</span>或<span class=\"key\">強制執行</span>而為新登記者，<span class=\"key\">無</span>排除效力（繼承不在條文所列）。",
     "src": "土地法§79-1",
-    "mc": 5,
+    "mc": 10,
     "essay": 0
    },
    {
@@ -317,12 +326,13 @@ const DATA = [
     "essay": 0
    },
    {
-    "term": "限制登記之種類（§78第8款）",
-    "blank": "限制登記是限制登記名義人處分其土地權利之登記，包括___、___、___、___、破產登記等。",
-    "answer": "限制登記是限制登記名義人處分其土地權利之登記，包括<span class=\"key\">預告登記</span>、<span class=\"key\">查封</span>、<span class=\"key\">假扣押</span>、<span class=\"key\">假處分</span>、破產登記等。",
-    "src": "土地法§78",
-    "mc": 7,
-    "essay": 0
+    "term": "限制登記五種（§78第8款）★預告登記為其一",
+    "blank": "限制登記是限制登記名義人處分其土地權利之登記，包括___、___、___、___、___。",
+    "answer": "限制登記是限制登記名義人處分其土地權利之登記，包括<span class=\"key\">預告登記</span>、<span class=\"key\">查封</span>、<span class=\"key\">假扣押</span>、<span class=\"key\">假處分</span>、<span class=\"key\">破產登記</span>。",
+    "src": "重點筆記A2；土地法§78（第8款列『限制登記』免繳登記費；五種列舉屬筆記口徑，線上條文未逐字核到）；A2 含預告登記之選擇題共10題、申論103-一",
+    "mc": 10,
+    "essay": 1,
+    "mnemonic": "預查假假破（預告・查封・假扣押・假處分・破產）"
    }
   ]
  },
@@ -1148,7 +1158,8 @@ const DATA = [
     "answer": "基本稅率<span class=\"key\">10‰</span>；超過累進起點未達5倍<span class=\"key\">15‰</span>；5～10倍<span class=\"key\">25‰</span>；10～15倍<span class=\"key\">35‰</span>；15～20倍<span class=\"key\">45‰</span>；20倍以上<span class=\"key\">55‰</span>。",
     "src": "土地稅法",
     "mc": 23,
-    "essay": 2
+    "essay": 2,
+    "mnemonic": "15→25→35→45→55（第一級後每級 +10）"
    },
    {
     "term": "累進起點地價",
@@ -1554,10 +1565,14 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
 
 // build nav
 const nav = document.getElementById('nav');
+const selCh=new Set([DATA[0].id]);
 const chToggle = document.createElement('button');
 chToggle.className='ch-toggle';chToggle.setAttribute('aria-expanded','false');
-chToggle.innerHTML='<span><span id="chLabel">章節：選擇章節</span><small>點開選章節，選完自動收起</small></span><span class="arr">▾</span>';
+chToggle.innerHTML='<span><span id="chLabel">章節：選擇章節</span><small>可複選，多章會依序顯示在下方</small></span><span class="arr">▾</span>';
 const chPanel = document.createElement('div');chPanel.className='ch-panel';chPanel.id='chPanel';
+const chActs=document.createElement('div');chActs.className='cp-actions';
+chActs.innerHTML='<button type="button" onclick="selAllCh()">全選</button><button type="button" onclick="selOnlyFirst()">只留一章</button><button type="button" class="done" onclick="closeChPanel()">完成 ✓</button>';
+chPanel.appendChild(chActs);
 chToggle.onclick=()=>{const o=chPanel.classList.toggle('open');chToggle.setAttribute('aria-expanded',o?'true':'false')};
 nav.appendChild(chToggle);nav.appendChild(chPanel);
 function closeChPanel(){chPanel.classList.remove('open');chToggle.setAttribute('aria-expanded','false')}
@@ -1577,7 +1592,8 @@ DATA.forEach((ch,ci)=>{
   const btn = document.createElement('button');
   btn.className = 'nav-btn' + (ci===0?' on':'');
   btn.textContent = ch.label;
-  btn.onclick = ()=> switchCh(ch.id);
+  btn.dataset.id = ch.id;
+  btn.onclick = ()=> toggleCh(ch.id);
   chPanel.appendChild(btn);
 
   const div = document.createElement('div');
@@ -1616,6 +1632,7 @@ DATA.forEach((ch,ci)=>{
       <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
       <div class="answer-note" id="ans-${key}">
         <div class="key-note">${c.answer}</div>
+        ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;
     div.appendChild(card);
@@ -1624,7 +1641,7 @@ DATA.forEach((ch,ci)=>{
   main.appendChild(div);
 });
 
-document.getElementById('chLabel').textContent='章節：'+DATA[0].label;
+applyCh();
 
 function toggleBlank(el) {
   el.classList.toggle('revealed');
@@ -1659,14 +1676,18 @@ function markDone(key, chId, total) {
   if(pt) pt.textContent = done+' / '+total;
 }
 
-function switchCh(id){
-  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
-  document.getElementById('ch-'+id).classList.add('active');
-  const _b=[...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id));_b.classList.add('on');
-  document.getElementById('chLabel').textContent='章節：'+_b.textContent;closeChPanel();
-  window.scrollTo({top:0,behavior:'smooth'});
+function applyCh(){
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.toggle('active',selCh.has(c.id.slice(3))));
+  document.querySelectorAll('.nav-btn[data-id]').forEach(b=>b.classList.toggle('on',selCh.has(b.dataset.id)));
+  const ids=DATA.filter(c=>selCh.has(c.id)).map(c=>c.id);
+  document.getElementById('chLabel').textContent=ids.length===DATA.length?'章節：全部 '+DATA.length+' 章':(ids.length===1?'章節：'+DATA.find(c=>c.id===ids[0]).label:'章節：'+ids.join('、')+'（'+ids.length+' 章）');
 }
+function toggleCh(id){
+  if(selCh.has(id)){if(selCh.size>1)selCh.delete(id)}else selCh.add(id);
+  applyCh();
+}
+function selAllCh(){DATA.forEach(c=>selCh.add(c.id));applyCh()}
+function selOnlyFirst(){const f=[...selCh][0];selCh.clear();selCh.add(f);applyCh()}
 
 // ===測驗模式===
 let quizPool = [];        // 所有題目扁平化
@@ -1698,41 +1719,40 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', mc: c.mc||0, essay: c.essay||0 });
       });
     });
   }
   // 章節過濾 buttons
   const filterEl = document.getElementById('quiz-filter');
   if (!filterEl.hasChildNodes()) {
-    const allBtn = document.createElement('button');
-    allBtn.className = 'qf-btn qf-all on';
-    allBtn.textContent = '全部章節';
-    allBtn.onclick = () => setQuizFilter('ALL', allBtn);
-    filterEl.appendChild(allBtn);
+    const acts=document.createElement('div');acts.className='cp-actions';
+    acts.innerHTML='<button type="button" onclick="qfAll()">全部章節</button><button type="button" class="done" onclick="toggleQf()">完成 ✓</button>';
+    filterEl.appendChild(acts);
     DATA.forEach(ch => {
       const btn = document.createElement('button');
       btn.className = 'qf-btn';
+      btn.dataset.id = ch.id;
       btn.textContent = ch.label;
-      btn.onclick = () => setQuizFilter(ch.id, btn);
+      btn.onclick = () => toggleQfCh(ch.id);
       filterEl.appendChild(btn);
     });
   }
   startQuizRound();
 }
 
-function toggleQf(){const f=document.getElementById('quiz-filter');const o=f.classList.toggle('open');document.getElementById('qfToggle').setAttribute('aria-expanded',o?'true':'false')}
-function setQuizFilter(id, btn) {
-  quizFilter = id;
-  document.getElementById('qfLabel').textContent='篩選：'+btn.textContent;
-  document.getElementById('quiz-filter').classList.remove('open');document.getElementById('qfToggle').setAttribute('aria-expanded','false');
-  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  startQuizRound();
+const selQ = new Set(); // 空＝全部章節
+function qfLabelUpdate(){
+  const ids=DATA.filter(c=>selQ.has(c.id)).map(c=>c.id);
+  document.getElementById('qfLabel').textContent=ids.length?'篩選：'+(ids.length===1?DATA.find(c=>c.id===ids[0]).label:ids.join('、')+'（'+ids.length+' 章）'):'篩選：全部章節';
+  document.querySelectorAll('.qf-btn').forEach(b=>b.classList.toggle('on',selQ.has(b.dataset.id)));
 }
+function toggleQf(){const f=document.getElementById('quiz-filter');const o=f.classList.toggle('open');document.getElementById('qfToggle').setAttribute('aria-expanded',o?'true':'false')}
+function toggleQfCh(id){selQ.has(id)?selQ.delete(id):selQ.add(id);qfLabelUpdate();startQuizRound()}
+function qfAll(){selQ.clear();qfLabelUpdate();startQuizRound()}
 
 function startQuizRound() {
-  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  const pool = selQ.size ? quizPool.filter(c => selQ.has(c.chId)) : quizPool;
   // Fisher-Yates shuffle
   quizQueue = [...pool];
   for (let i = quizQueue.length - 1; i > 0; i--) {
@@ -1791,6 +1811,7 @@ function renderQuizCard() {
       </div>
       <div class="qc-answer" id="qans-${qid}">
         <div>${c.answer}</div>
+        ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
         <div class="src">📌 ${c.src}</div>
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
