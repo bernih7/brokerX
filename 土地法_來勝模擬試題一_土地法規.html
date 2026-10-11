@@ -34,6 +34,32 @@ table{width:100%;border-collapse:collapse;font-size:13px}td,th{border-bottom:1px
 .key{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px;font-size:14px}.key span{background:var(--opt);border:1px solid var(--line);border-radius:8px;padding:4px;text-align:center}
 ul{padding-left:18px;margin:6px 0}li{margin:4px 0}
 #hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+/* 解析樣式 B分離 / C摺疊 / D結論優先（同診斷卷一） */
+.exs{flex-basis:100%;display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding-top:4px;border-top:1px dashed var(--line);font-size:13px;color:var(--sub)}
+.exs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:13px;cursor:pointer}
+.exs button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
+.bg{display:none;font-size:11px;font-weight:700;border-radius:99px;padding:0 8px;margin-left:6px;color:#fff;vertical-align:middle}
+.done .opt.ok .bg.a{display:inline-block;background:var(--green)}.done .opt.bad .bg.p{display:inline-block;background:var(--red)}
+.res,.exa,.hn,.trap.top{display:none}
+.done .res{display:block;padding:8px 12px;border-radius:10px;font-weight:700;margin:6px 0;background:var(--badbg);color:var(--red)}
+.done .res.ok{background:var(--okbg);color:var(--green)}
+.exa{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:8px;font-size:13.5px}
+.exa h4{margin:0 0 4px;font-size:14px;color:var(--pri)}.exa div{padding:5px 0;border-bottom:1px solid var(--line);white-space:pre-wrap}.exa div:last-child{border:0}
+.card.done .opt .nt{display:none}
+body[data-ex="B"] .done .exa{display:block}
+body[data-ex="B"] .done .ex .trap,body[data-ex="D"] .done .ex .trap{display:none}
+body[data-ex="D"] .done .trap.top{display:block}
+body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt,body.allopen .done .opt .nt{display:block}
+.arr{display:none;float:right;margin-left:6px;color:var(--sub);transition:transform .15s}
+body[data-ex="C"] .done .arr,body[data-ex="D"] .done .arr{display:inline-block}
+.done .opt.open .arr,body.allopen .done .arr{transform:rotate(180deg)}
+.vd{display:none;margin-left:6px;font-size:13px}
+body[data-ex="C"] .done .opt:not(.open) .vd,body[data-ex="D"] .done .opt:not(.open) .vd{display:inline}
+body.allopen .done .vd{display:none!important}
+.hn{font-size:12px;color:var(--sub);margin:2px 0 6px}body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
+body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
 </style></head><body>
 <header><h1>來勝115年模擬試題（一）｜土地法規概要</h1><div class="sub">出題：曾榮耀（永慶班）｜90分鐘：申論2×25＋單選25×2<br>※補習班模擬題，非考選部官方試題。解答為 Claude 依現行法推導（老師解答尚未提供），標⚠️者信心較低，請與老師解答核對。</div></header>
 <div class="wrap"><div class="tabs"><button id="t1" class="on">單選25題</button><button id="t2">申論2題</button><button id="t3">配題分析</button><button id="t4">結果</button></div>
@@ -69,10 +95,15 @@ function okq(q,c){return c===q.ans||q.alt.indexOf(c)>=0}
 function stats(){var a=0,c=0;D.Q.forEach(function(q){if(ans[q.n]!==undefined){a++;if(okq(q,ans[q.n]))c++}});return{a:a,c:c}}
 function save(){var s=stats();lsSet("bx_mock_"+ID,JSON.stringify({a:s.a,c:s.c,n:25,t:Date.now()}))}
 function fmt(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+var EX="D";try{EX=localStorage.getItem("bx-ex2")||"D"}catch(e){}
+function applyOpen(cc){[].forEach.call(cc.querySelectorAll(".opt"),function(o){o.classList.toggle("open",EX==="C"&&(o.classList.contains("ok")||o.classList.contains("bad")))})}
+function setEx(m){EX=m;document.body.dataset.ex=m;[].forEach.call(document.querySelectorAll(".card.done"),applyOpen);try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.className=b.dataset.m===m?"on":""})}
 function bar(){var s=stats();var t=(mode==="exam"&&!finished)?'<span id="tm">'+fmt(left)+'</span>':"";
  $("bar").innerHTML='<button id="m1" class="'+(mode==="practice"?"on":"")+'">練習</button><button id="m2" class="'+(mode==="exam"?"on":"")+'">整卷90分</button>'+t+'<span class="sp"></span><span>已答 '+s.a+'/25'+((mode==="practice"||finished)?'｜對 '+s.c+'｜'+(s.c*2)+'/50':'')+'</span>'+(mode==="exam"&&!finished?'<button id="fin">交卷</button>':'')+'<button id="rs">重做</button>';
  $("m1").onclick=function(){setMode("practice")};$("m2").onclick=function(){setMode("exam")};$("rs").onclick=reset;
- if($("fin"))$("fin").onclick=function(){if(confirm("確定交卷？"))finish()}}
+ if($("fin"))$("fin").onclick=function(){if(confirm("確定交卷？"))finish()}
+ $("bar").insertAdjacentHTML("beforeend",'<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">'+(document.body.classList.contains("allopen")?"全部收合":"全部展開")+'</button></div>');
+ [].forEach.call($("bar").querySelectorAll(".exs button[data-m]"),function(b){b.onclick=function(){setEx(b.dataset.m)}});$("ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX)}
 function setMode(m){if(mode===m)return;mode=m;reset()}
 function reset(){ans={};revealed={};finished=false;left=5400;if(tmr){clearInterval(tmr);tmr=null}
  if(mode==="exam"){tmr=setInterval(function(){left--;var e=$("tm");if(e)e.textContent=fmt(left);if(left<=0)finish()},1000)}
@@ -84,21 +115,27 @@ function build(){
   var c=document.createElement("div");c.className="card";c.id="q"+q.n;
   var show=(mode==="practice"&&revealed[q.n])||finished;if(show)c.classList.add("done");
   var tg='<span class="tag ch">'+(D.CHN[q.ch]||q.ch)+'</span>'+(q.neg?'<span class="tag">問錯誤</span>':'')+(q.conf==="低"?'<span class="tag lo">⚠️信心低</span>':q.conf==="中"?'<span class="tag me">信心中</span>':'');
-  c.innerHTML='<div class="qn">第'+q.n+'題'+tg+'</div><div class="stem"></div><div class="os"></div><div class="ex"></div>';
+  c.innerHTML='<div class="qn">第'+q.n+'題'+tg+'</div><div class="stem"></div><div class="res"></div><div class="trap top"></div><div class="hn">點每個選項可展開／收合說明；右上「全部展開」一次看完</div><div class="os"></div><div class="exa"></div><div class="ex"></div>';
   c.querySelector(".stem").textContent=q.stem;
   var os=c.querySelector(".os");
   q.opts.forEach(function(t,i){
    var b=document.createElement("button");b.className="opt";
-   b.innerHTML='<b>('+L[i]+')</b><span class="tx"></span><div class="nt"></div>';
+   b.innerHTML='<b>('+L[i]+')</b><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><span class="vd"></span><div class="nt"></div>';
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=q.notes[i];
    if(!show&&ans[q.n]===L[i])b.classList.add("sel");
    if(show){if(okq(q,L[i]))b.classList.add("ok");else if(ans[q.n]===L[i])b.classList.add("bad")}
    b.onclick=function(){
+    if(show&&this.classList.contains("opt")&&(EX==="C"||EX==="D")){this.classList.toggle("open");return}
     if(finished||(mode==="practice"&&revealed[q.n]))return;
     ans[q.n]=L[i];
     if(mode==="practice"){revealed[q.n]=true;save();build();var e=$("q"+q.n);if(e)e.scrollIntoView({block:"nearest"})}
     else{os.querySelectorAll(".opt").forEach(function(x,j){x.classList.toggle("sel",j===i)});bar()}};
    os.appendChild(b)});
+  if(show){var pk=ans[q.n],okk=pk!==undefined&&okq(q,pk);if(!okk)c.classList.add("wrong");
+   var rs=c.querySelector(".res");rs.textContent=(pk===undefined?"未作答":(okk?"答對了":"答錯了"))+"　正解 "+q.ans+(pk===undefined||okk?"":"（你選 "+pk+"）");rs.className="res"+(okk?" ok":"");
+   c.querySelector(".trap.top").textContent="🎯 考試陷阱："+q.trap;
+   var ea=c.querySelector(".exa");ea.innerHTML="<h4>逐選項解析</h4>";q.opts.forEach(function(t,j){var d=document.createElement("div");d.textContent="("+L[j]+") "+q.notes[j];ea.appendChild(d)});var tt=document.createElement("div");tt.textContent="🎯 考試陷阱："+q.trap;tt.style.cssText="background:var(--tipbg);border-left:4px solid var(--gold);padding:8px 10px;border-radius:6px;margin-top:6px";ea.appendChild(tt);
+   [].forEach.call(c.querySelectorAll(".opt"),function(o,j){var ch=q.notes[j].charAt(0);o.querySelector(".vd").textContent=(ch==="❌"||ch==="✗"||ch==="×")?"❌":((ch==="✅"||ch==="✓")?"✅":"")});applyOpen(c)}
   var ex=c.querySelector(".ex"),h="";
   h+='<div class="trap">🎯 <b>正解 '+q.ans+(q.alt.length?'（亦接受 '+q.alt.join('、')+'）':'')+'</b>｜考試陷阱：'+esc(q.trap)+'</div>';
   h+=bxTax((q.ch||'').slice(0,2),q.stem+q.opts.join(''),q.stem+q.opts.join('')+q.notes.join(''));
