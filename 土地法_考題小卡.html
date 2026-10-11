@@ -322,7 +322,7 @@ function selectOption(i){
  var h='';if(x.m)h+=x.m.map(function(a){return '<div><b>'+a[0]+'</b>：'+a[1]+'</div>'}).join('');
  var ch=CHM[c.group]||[];if(ch.length)h+='<details style="margin-top:4px"><summary style="cursor:pointer;color:var(--gold)">本章口訣（'+ch.length+'）</summary>'+ch.map(function(a){return '<div style="margin-top:3px"><b>'+a[0]+'</b>：'+a[1]+'</div>'}).join('')+'</details>';
  trapText.innerHTML=h;tb.style.display=h?'':'none';
- var l=x.l||[];relatedText.innerHTML=l.map(function(a){return '<a href="土地法_稅率總表.html#'+a[1]+'" style="display:inline-block;margin:2px 6px 2px 0;padding:2px 10px;border:1px solid var(--gold);border-radius:99px;color:var(--gold);text-decoration:none;font-weight:700" onclick="event.stopPropagation()">'+a[0]+' →</a>'}).join('');rb.style.display=l.length?'':'none';var bk=document.querySelector('.face.back');cardEl.style.minHeight='';cardEl.style.minHeight=Math.max(parseInt(getComputedStyle(cardEl).minHeight)||0,bk.scrollHeight+4)+'px';})();
+ var l=x.l||[];relatedText.innerHTML=l.map(function(a){return '<a target="_blank" rel="noopener" href="土地法_稅率總表.html#'+a[1]+'" style="display:inline-block;margin:2px 6px 2px 0;padding:2px 10px;border:1px solid var(--gold);border-radius:99px;color:var(--gold);text-decoration:none;font-weight:700" onclick="event.stopPropagation()">'+a[0]+' →</a>'}).join('');rb.style.display=l.length?'':'none';var bk=document.querySelector('.face.back');cardEl.style.minHeight='';cardEl.style.minHeight=Math.max(parseInt(getComputedStyle(cardEl).minHeight)||0,bk.scrollHeight+4)+'px';})();
   if(correct)quizStats.ok++;else quizStats.ng++;
   const stat=getStat(c.id);
   stat.attempts+=1;if(correct)stat.correct+=1;

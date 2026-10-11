@@ -1,4 +1,11 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>來勝115模擬試題(一)｜土地法規概要</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><script>
+function bxTax(sec,so,all){var S={E1:["landvalue","地價稅"],E2:["zeng","土地增值稅"],F1:["house","房屋稅"],G1:["deed","契稅"],H1:["hehe","房地合一"],C3:["landvalue","地價稅（空地稅）"]},l=[];
+ if(S[sec])l.push([S[sec][1],S[sec][0]]);
+ [["地價稅|空地稅|累進起點","landvalue","地價稅"],["土地增值稅|土增稅|漲價總數額","zeng","土地增值稅"],["房屋稅","house","房屋稅"],["契稅","deed","契稅"],["房地合一","hehe","房地合一"]].forEach(function(a){if(new RegExp(a[0]).test(so)&&!l.some(function(x){return x[1]===a[1]}))l.push([a[2],a[1]])});
+ if(l.length||/稅/.test(so))[["自用住宅","selfuse","自用住宅・一生一屋一生一次"],["免徵|減徵|不課徵|減半|免稅","relief","免徵・減徵・不課徵"],["滯納|怠報|匿報|短報|罰鍰","penalty","罰則"],["納稅義務人|申報|期限|繳納","payer","義務人・期限・稽徵機關"]].forEach(function(a){if(new RegExp(a[0]).test(all)&&!l.some(function(x){return x[1]===a[1]}))l.push([a[2],a[1]])});
+ if(!l.length)return "";
+ return '<div class="bxtl" style="margin-top:8px">'+l.slice(0,3).map(function(a){return '<a target="_blank" rel="noopener" href="土地法_稅率總表.html#'+a[1]+'" style="display:inline-block;margin:2px 6px 2px 0;padding:2px 11px;border:1px solid #B8782E;border-radius:99px;color:#8A5517;background:#FBF1D9;text-decoration:none;font-size:13px;font-weight:700">💰 稅務總表：'+a[0]+' →</a>'}).join("")+'</div>'}
+/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>來勝115模擬試題(一)｜土地法規概要</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--sub:#5F6B63;--opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9}
@@ -94,6 +101,7 @@ function build(){
    os.appendChild(b)});
   var ex=c.querySelector(".ex"),h="";
   h+='<div class="trap">🎯 <b>正解 '+q.ans+(q.alt.length?'（亦接受 '+q.alt.join('、')+'）':'')+'</b>｜考試陷阱：'+esc(q.trap)+'</div>';
+  h+=bxTax((q.ch||'').slice(0,2),q.stem+q.opts.join(''),q.stem+q.opts.join('')+q.notes.join(''));
   if(q.st)h+='<div class="sts">'+esc(q.st.join("\n"))+'</div>';
   if(q.low)h+='<div class="low">⚠️ '+esc(q.low)+'</div>';
   if(show&&!okq(q,ans[q.n])&&ans[q.n]!==undefined||show&&ans[q.n]===undefined){
