@@ -70,6 +70,29 @@ h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:1.25rem;text-alig
 .verdict.ng{border:2px solid var(--pri);color:var(--pri);}
 
 .hidden{display:none!important;}
+
+/* 配色同診斷卷一：錯＝紅、對＝綠 */
+.opt.ng{border-color:#A8402B;background:#F8E4DD}.opt.ng .ltr{background:#A8402B;color:#fff;border-color:#A8402B}
+.qcard.answered-ng{border-left:4px solid #A8402B}.el.ng{background:#A8402B;color:#fff}.verdict.ng{border-color:#A8402B;color:#A8402B}
+/* 解析樣式 B分離 / C摺疊 / D結論優先 */
+.exs{position:sticky;top:0;z-index:6;display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--paper);padding:6px 2px;margin-bottom:8px;font-size:.78rem;color:#6b6354;border-bottom:1px dashed var(--line)}
+.exs button{border:1px solid var(--line);background:#FFFEFA;color:var(--ink);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:.78rem;cursor:pointer}
+.exs button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
+.ob{flex:1;min-width:0}
+.bg{display:none;font-size:.65rem;font-weight:700;border-radius:99px;padding:0 8px;margin-left:6px;color:#fff;vertical-align:middle}
+.opt.ok .bg.a,.opt.show-correct .bg.a{display:inline-block;background:var(--green)}.opt.ng .bg.p{display:inline-block;background:#A8402B}
+.nt{display:none;font-size:.8rem;line-height:1.6;margin-top:5px;border-top:1px dashed var(--line);padding-top:4px;color:var(--ink)}
+.arr{display:none;float:right;margin-left:6px;color:#8a7f72;transition:transform .15s}
+body[data-ex="C"] .done .arr,body[data-ex="D"] .done .arr{display:inline-block}
+.done .opt.open .arr,body.allopen .done .arr{transform:rotate(180deg)}
+body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt,body.allopen .done .opt .nt{display:block}
+body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
+body[data-ex="C"] .done .opt:disabled,body[data-ex="D"] .done .opt:disabled{cursor:pointer}
+.res{display:none}.done .res{display:block;padding:7px 12px;border-radius:8px;font-weight:700;font-size:.86rem;margin:0 0 8px;background:#F8E4DD;color:#A8402B}.done .res.ok{background:#E0EFE0;color:var(--green)}
+.hn{display:none;font-size:.72rem;color:#6b6354;margin:-4px 0 8px}body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
+body[data-ex="C"] .done .expbox,body[data-ex="D"] .done .expbox{display:none!important}
+.tl{margin-top:8px}
 </style>
 </head>
 <body>
@@ -204,7 +227,7 @@ function buildExpHTML(card, chosen, isok){
     const ec=i===card.ans?'ok':(i===chosen&&!isok?'ng':'no');
     html+=`<div class="ei"><span class="el ${ec}">${l}</span><span>${card.exps[i]||''}</span></div>`;
   });
-  return html+bxTax(card.ch.slice(0,2),card.q+card.opts.join(''),card.q+card.opts.join('')+(card.exps||[]).join(''));
+  return html;
 }
 
 function pick(idx, chosen){
@@ -275,5 +298,26 @@ renderList();
 <script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
 <!--/NAVFAB-->
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>
+(function(){
+var EX="D";try{EX=localStorage.getItem("bx-ex2")||"D"}catch(e){}
+function applyOpen(cc){[].forEach.call(cc.querySelectorAll(".opt"),function(o){o.classList.toggle("open",EX==="C"&&(o.classList.contains("ok")||o.classList.contains("show-correct")||o.classList.contains("ng")))})}
+function setEx(m){EX=m;document.body.dataset.ex=m;[].forEach.call(document.querySelectorAll(".qcard.done"),applyOpen);try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.className=b.dataset.m===m?"on":""})}
+function dec(div){if(div.dataset.dec||!/answered-(ok|ng)/.test(div.className))return;var m=(div.id||"").match(/(\d+)$/);if(!m||typeof CARDS==="undefined")return;var c=CARDS[+m[1]];if(!c)return;
+ div.dataset.dec="1";div.classList.add("done");var ok=div.classList.contains("answered-ok"),L="ABCD",chosen=-1;
+ var os=div.querySelectorAll(".opt");[].forEach.call(os,function(o,i){if(o.classList.contains("ng"))chosen=i});
+ [].forEach.call(os,function(o,i){var tx=o.children[1];if(!tx)return;tx.className="ob";tx.insertAdjacentHTML("beforeend",'<span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div>');tx.querySelector(".nt").textContent=(c.exps&&c.exps[i])||"";
+  o.addEventListener("click",function(){if(div.classList.contains("done")&&(EX==="C"||EX==="D"))o.classList.toggle("open")})});
+ var ob=div.querySelector(".opts");ob.insertAdjacentHTML("beforebegin",'<div class="res'+(ok?" ok":"")+'">'+(ok?"答對了":"答錯了")+"　正解 "+L[c.ans]+(ok||chosen<0?"":"（你選 "+L[chosen]+"）")+'</div><div class="hn">點每個選項可展開／收合說明；上方「全部展開」一次看完</div>');
+ var so=(c.q||"")+(c.opts||[]).join("");var tl=typeof bxTax==="function"?bxTax(String(c.ch||"").slice(0,2),so,so+(c.exps||[]).join("")):"";if(tl)div.insertAdjacentHTML("beforeend",'<div class="tl">'+tl+"</div>");
+ applyOpen(div)}
+function scan(){[].forEach.call(document.querySelectorAll(".qcard"),dec)}
+function init(){var L=document.getElementById("list")||document.getElementById("questionList");if(!L)return;
+ L.insertAdjacentHTML("beforebegin",'<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">全部展開</button></div>');
+ [].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.onclick=function(){setEx(b.dataset.m)}});
+ document.getElementById("ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};
+ setEx(EX);new MutationObserver(scan).observe(L,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});scan()}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init()})();
+</script>
 </body>
 </html>
