@@ -26,7 +26,7 @@ function build(){
  ids.forEach(function(id){var r=DB[id],ch=id.split("-")[0];var o=by[ch]=by[ch]||{sure:0,gok:0,wr:0};if(r.ok){if(r.k==="D"){o.gok++;tot.gok++;cat.D++}else{o.sure++;tot.sure++}}else{o.wr++;tot.wr++;if(r.k)cat[r.k]++;else cat.n++}if(r.t>lastRep)fresh++});
  var total=0,c;for(c in CH)total+=CH[c][2];var done=tot.sure+tot.gok+tot.wr,ok=tot.sure+tot.gok;
  var L=["【"+SUBJ+"學習回報】"+now(),"產生自："+(document.title||PAGE),"說明：同一瀏覽器所有頁面共用一份紀錄，任一頁產生的回報都涵蓋全部工具，不需每頁各貼；換裝置才另貼。","","══ 一、選擇題題庫（題庫七頁＋互動練習＋解析版練習 共用，共 "+total+" 題）══",
- "整體：已作答 "+done+"／"+total+"（達成 "+pc(done,total)+"%）｜答對 "+ok+"（確定 "+tot.sure+"、猜對 "+tot.gok+"）｜答錯 "+tot.wr+"｜正確率 "+(done?pc(ok,done)+"%":"-")+"｜及格線 "+TGT.p+"%・目標 "+TGT.g+"%","自上次回報新增：作答 "+fresh+" 題","","── 各頁（題庫七頁）──"];
+ "整體：已作答 "+done+"／"+total+"（達成 "+pc(done,total)+"%）｜答對 "+ok+"（確定 "+tot.sure+"、猜對 "+tot.gok+"）｜答錯 "+tot.wr+"｜正確率 "+(done?pc(ok,done)+"%":"-")+"｜及格線 "+TGT.p+"%・目標 "+TGT.g+"%","自上次回報新增：作答 "+fresh+" 題","","── 各頁（依題目章節歸入題庫頁；互動練習、解析版練習的作答也計入）──"];
  var pg={},order=[];for(c in CH){var p=CH[c][0];if(!pg[p]){pg[p]={t:0,d:0,o:0,w:0};order.push(p)}pg[p].t+=CH[c][2];var x=by[c];if(x){pg[p].d+=x.sure+x.gok+x.wr;pg[p].o+=x.sure+x.gok;pg[p].w+=x.wr}}
  order.forEach(function(p){var o=pg[p];L.push("LandLaw_"+p+"：已答 "+o.d+"／"+o.t+(o.d?"｜答對 "+o.o+"｜答錯 "+o.w+"｜"+pc(o.o,o.d)+"%":"｜未作答")+"（達成 "+pc(o.d,o.t)+"%）")});
  L.push("","── 各章 ──");for(c in CH){var o=by[c];if(!o){L.push(CH[c][1]+"：未作答（共 "+CH[c][2]+" 題）");continue}var d=o.sure+o.gok+o.wr;L.push(CH[c][1]+"：已答 "+d+"／"+CH[c][2]+"｜答對 "+(o.sure+o.gok)+"（猜對 "+o.gok+"）答錯 "+o.wr+"｜"+pc(o.sure+o.gok,d)+"%")}
