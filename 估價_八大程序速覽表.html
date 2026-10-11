@@ -1,294 +1,341 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>估價八大程序速覽</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700&display=swap">
 <style>
-:root {
-  --bg:#F7F2E8; --card:#FFFDF7; --ink:#2A2520; --ink2:#4A4238;
-  --muted:#8A7E6E; --line:#E0D8C4; --surface2:#EEE8D8;
-  --red:#A8402B; --red-bg:rgba(168,64,43,.07);
-  --gold:#B8861E; --gold-bg:rgba(184,134,30,.09);
-  --green:#4E7040; --green-bg:rgba(78,112,64,.08);
-  --blue:#1E3A6A; --blue-bg:rgba(30,58,106,.08);
-  --purple:#5A2E7A; --purple-bg:rgba(90,46,122,.08);
-  --orange:#C06020; --orange-bg:rgba(192,96,32,.09);
-  --teal:#1E6868; --teal-bg:rgba(30,104,104,.08);
-  --brown:#7A4428; --brown-bg:rgba(122,68,40,.08);
+:root{
+  --bg:#F5F1E6;--paper:#FFFEFA;--paper2:#F0EDE0;--fg:#25302C;
+  --primary:#2F5D50;--line:#DDD6C3;--muted:#7A8C84;--shadow:rgba(37,48,44,.09);
+  /* 步驟識別色 */
+  --s1:#A84030;--s1-bg:#FAEAE7;
+  --s2:#B8782E;--s2-bg:#FBF1D9;
+  --s3:#2F6B45;--s3-bg:#E5F0E8;
+  --s4:#1E6B8C;--s4-bg:#E8F3F8;
+  --s5:#5A2E7A;--s5-bg:#F0E8FA;
+  --s6:#C06020;--s6-bg:#FAF0E0;
+  --s7:#1E6868;--s7-bg:#E5F3F3;
+  --s8:#7A4428;--s8-bg:#F5EBE0;
+  --hi-red:#A84030;--hi-gold:#B8782E;--hi-grn:#2F6B45;
   color-scheme:light;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#181410; --card:#231E18; --ink:#F0E8D8; --ink2:#C8BCA8;
-  --muted:#8A7E6E; --line:#3A3228; --surface2:#2C2620;
-  --red:#E05040; --red-bg:rgba(224,80,64,.12);
-  --gold:#D4A030; --gold-bg:rgba(212,160,48,.12);
-  --green:#5AAA48; --green-bg:rgba(90,170,72,.10);
-  --blue:#5888D0; --blue-bg:rgba(88,136,208,.10);
-  --purple:#9060C0; --purple-bg:rgba(144,96,192,.10);
-  --orange:#E07040; --orange-bg:rgba(224,112,64,.12);
-  --teal:#40A8A8; --teal-bg:rgba(64,168,168,.10);
-  --brown:#C07050; --brown-bg:rgba(192,112,80,.10);
+  --bg:#181C19;--paper:#1E2420;--paper2:#242A26;--fg:#E8EFE6;
+  --primary:#5AADA0;--line:#2E3830;--muted:#6A8078;--shadow:rgba(0,0,0,.28);
+  --s1:#E06055;--s1-bg:rgba(224,96,85,.14);
+  --s2:#D4A030;--s2-bg:rgba(212,160,48,.13);
+  --s3:#5AAA68;--s3-bg:rgba(90,170,104,.12);
+  --s4:#5888D0;--s4-bg:rgba(88,136,208,.12);
+  --s5:#9060C0;--s5-bg:rgba(144,96,192,.12);
+  --s6:#E07840;--s6-bg:rgba(224,120,64,.13);
+  --s7:#40A8A8;--s7-bg:rgba(64,168,168,.12);
+  --s8:#C07050;--s8-bg:rgba(192,112,80,.13);
+  --hi-red:#E06055;--hi-gold:#D4A030;--hi-grn:#5AAA68;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#181410; --card:#231E18; --ink:#F0E8D8; --ink2:#C8BCA8;
-  --muted:#8A7E6E; --line:#3A3228; --surface2:#2C2620;
-  --red:#E05040; --red-bg:rgba(224,80,64,.12);
-  --gold:#D4A030; --gold-bg:rgba(212,160,48,.12);
-  --green:#5AAA48; --green-bg:rgba(90,170,72,.10);
-  --blue:#5888D0; --blue-bg:rgba(88,136,208,.10);
-  --purple:#9060C0; --purple-bg:rgba(144,96,192,.10);
-  --orange:#E07040; --orange-bg:rgba(224,112,64,.12);
-  --teal:#40A8A8; --teal-bg:rgba(64,168,168,.10);
-  --brown:#C07050; --brown-bg:rgba(192,112,80,.10);
+  --bg:#181C19;--paper:#1E2420;--paper2:#242A26;--fg:#E8EFE6;
+  --primary:#5AADA0;--line:#2E3830;--muted:#6A8078;--shadow:rgba(0,0,0,.28);
+  --s1:#E06055;--s1-bg:rgba(224,96,85,.14);
+  --s2:#D4A030;--s2-bg:rgba(212,160,48,.13);
+  --s3:#5AAA68;--s3-bg:rgba(90,170,104,.12);
+  --s4:#5888D0;--s4-bg:rgba(88,136,208,.12);
+  --s5:#9060C0;--s5-bg:rgba(144,96,192,.12);
+  --s6:#E07840;--s6-bg:rgba(224,120,64,.13);
+  --s7:#40A8A8;--s7-bg:rgba(64,168,168,.12);
+  --s8:#C07050;--s8-bg:rgba(192,112,80,.13);
+  --hi-red:#E06055;--hi-gold:#D4A030;--hi-grn:#5AAA68;
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;padding:12px 14px 60px}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--fg);
+  font-size:13px;line-height:1.55;padding:14px 14px 72px;max-width:680px;margin:0 auto}
 
-/* theme btn */
-#theme-btn{position:fixed;top:10px;right:10px;z-index:50;width:34px;height:34px;border-radius:50%;
-  border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:15px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+/* ── 主題切換 ── */
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;padding:5px 11px;
+  border-radius:20px;border:1.5px solid var(--line);background:var(--paper);
+  color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;
+  box-shadow:0 2px 6px var(--shadow);letter-spacing:.5px}
 
-/* header */
-header{text-align:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--line)}
-header h1{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);letter-spacing:1px}
-.mnemonic-main{font-size:15px;font-weight:900;letter-spacing:5px;color:var(--ink);margin:6px 0 2px}
-.mnemonic-sub{font-size:11px;color:var(--muted);letter-spacing:1px}
+/* ── 頁首 ── */
+header{text-align:center;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--line)}
+header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
+  color:var(--primary);letter-spacing:1.5px;margin-bottom:6px}
+.mnemonic-main{font-size:17px;font-weight:900;letter-spacing:6px;color:var(--fg);margin:6px 0 4px}
+.mnemonic-badge{display:inline-flex;gap:0;margin:4px 0}
+.mnemonic-badge span{width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;border-radius:6px;margin:0 2px}
+.mnemonic-sub{font-size:10.5px;color:var(--muted);letter-spacing:.5px;margin-top:4px}
 
-/* 總表格 */
-.table-wrap{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;
-  border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+/* ── 步驟卡 ── */
+.proc-card{border-radius:12px;overflow:hidden;border:1px solid var(--line);
+  margin-bottom:10px;box-shadow:0 2px 8px var(--shadow)}
+.proc-head{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:var(--paper2)}
+.proc-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;flex-shrink:0}
+.proc-key{font-size:22px;font-weight:900;line-height:1;flex-shrink:0;width:26px;text-align:center}
+.proc-title{flex:1;min-width:0}
+.proc-name{font-size:13px;font-weight:700;color:var(--fg)}
+.proc-law{font-size:10px;color:var(--muted);margin-top:1px}
+.mnem-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;
+  border:1.5px solid;white-space:nowrap;letter-spacing:1px;flex-shrink:0}
 
-/* 步驟列 */
-.step-row td{padding:0;vertical-align:top;border-bottom:1px solid var(--line)}
-.step-row:last-child td{border-bottom:none}
+.proc-body{padding:10px 14px 12px;background:var(--paper)}
+.items{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.item-tag{font-size:11px;padding:3px 9px;border-radius:99px;border:1.5px solid;
+  white-space:nowrap;line-height:1.4;font-weight:500}
+.note{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.55;font-style:italic;
+  padding-top:6px;border-top:1px dashed var(--line)}
+.warn{font-size:10.5px;font-weight:700;margin-top:6px;line-height:1.55;padding:5px 9px;
+  border-radius:6px;border-left:3px solid var(--hi-red);background:rgba(168,64,48,.07);color:var(--hi-red)}
 
-/* 左欄：口訣＋步驟名 */
-.left{width:88px;min-width:88px;padding:10px 8px;text-align:center;border-right:1px solid var(--line);background:var(--card)}
-.step-num{font-size:10px;color:var(--muted);margin-bottom:2px}
-.step-key{font-size:18px;font-weight:900;line-height:1;margin-bottom:3px}
-.step-name{font-size:10px;font-weight:700;color:var(--ink2);line-height:1.3;letter-spacing:.3px}
-.step-law{font-size:9.5px;color:var(--muted);margin-top:2px}
+/* 顏色套件 */
+.c1{color:var(--s1);border-color:var(--s1);background:var(--s1-bg)}
+.c2{color:var(--s2);border-color:var(--s2);background:var(--s2-bg)}
+.c3{color:var(--s3);border-color:var(--s3);background:var(--s3-bg)}
+.c4{color:var(--s4);border-color:var(--s4);background:var(--s4-bg)}
+.c5{color:var(--s5);border-color:var(--s5);background:var(--s5-bg)}
+.c6{color:var(--s6);border-color:var(--s6);background:var(--s6-bg)}
+.c7{color:var(--s7);border-color:var(--s7);background:var(--s7-bg)}
+.c8{color:var(--s8);border-color:var(--s8);background:var(--s8-bg)}
 
-/* 右欄：子項目 */
-.right{padding:8px 10px;background:var(--card)}
-.sub-mnemonic{font-size:12px;font-weight:700;letter-spacing:2px;margin-bottom:5px;padding:3px 8px;border-radius:4px;display:inline-block}
-.items{display:flex;flex-wrap:wrap;gap:4px}
-.item-tag{font-size:11px;padding:2px 7px;border-radius:99px;border:1px solid;white-space:nowrap;line-height:1.4}
-.note{font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.5;font-style:italic}
-.warn{font-size:10.5px;color:var(--red);margin-top:4px;line-height:1.5}
+/* ── 報告書特殊佈局 ── */
+.report-items{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.r-num{font-size:9.5px;font-weight:900;margin-right:3px}
 
-/* 顏色班 */
-.c-red   {color:var(--red);   border-color:var(--red);   background:var(--red-bg)}
-.c-gold  {color:var(--gold);  border-color:var(--gold);  background:var(--gold-bg)}
-.c-green {color:var(--green); border-color:var(--green); background:var(--green-bg)}
-.c-blue  {color:var(--blue);  border-color:var(--blue);  background:var(--blue-bg)}
-.c-purple{color:var(--purple);border-color:var(--purple);background:var(--purple-bg)}
-.c-orange{color:var(--orange);border-color:var(--orange);background:var(--orange-bg)}
-.c-teal  {color:var(--teal);  border-color:var(--teal);  background:var(--teal-bg)}
-.c-brown {color:var(--brown); border-color:var(--brown);  background:var(--brown-bg)}
-
-/* 印刷優化 */
-@media print{
-  body{padding:6px;font-size:11px}
-  #theme-btn{display:none}
-  .table-wrap{box-shadow:none}
-  @page{margin:8mm}
-}
+/* ── 浮動按鈕 ── */
+.fab-group{position:fixed;right:14px;bottom:16px;display:flex;flex-direction:column;gap:8px;z-index:20}
+.fab{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:0 3px 10px rgba(0,0,0,.22);text-decoration:none;line-height:1}
+.fab-home{background:var(--hi-red);color:#fff}
+.fab-top{background:var(--paper);color:var(--fg);border:1.5px solid var(--line);font-size:14px}
 </style>
-</head>
-<body>
-<button id="theme-btn" onclick="toggleTheme()">☀️</button>
+
+<button id="theme-btn" onclick="toggleTheme()">☀ 淺色</button>
 
 <header>
   <h1>不動產估價概要｜八大程序速覽</h1>
-  <div class="mnemonic-main">基・計・蒐・狀・整・估・決・書</div>
-  <div class="mnemonic-sub">技術規則 §8｜順序不可顛倒，考題常考「哪個步驟第幾」</div>
+  <div class="mnemonic-badge">
+    <span style="background:var(--s1-bg);color:var(--s1)">基</span>
+    <span style="background:var(--s2-bg);color:var(--s2)">計</span>
+    <span style="background:var(--s3-bg);color:var(--s3)">蒐</span>
+    <span style="background:var(--s4-bg);color:var(--s4)">狀</span>
+    <span style="background:var(--s5-bg);color:var(--s5)">整</span>
+    <span style="background:var(--s6-bg);color:var(--s6)">估</span>
+    <span style="background:var(--s7-bg);color:var(--s7)">決</span>
+    <span style="background:var(--s8-bg);color:var(--s8)">書</span>
+  </div>
+  <div class="mnemonic-sub">技術規則 §8 ｜ 順序不可顛倒，考題常考「哪個步驟第幾」</div>
 </header>
 
-<table class="table-wrap">
-  <!-- ① -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">①</div>
-      <div class="step-key" style="color:var(--red)">基</div>
-      <div class="step-name">確定估價<br>基本事項</div>
-      <div class="step-law">§9</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-red">口訣：內・日・種・目</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-red">勘估標的內容</span>
-        <span class="item-tag c-red">價格日期</span>
-        <span class="item-tag c-red">價格種類及條件</span>
-        <span class="item-tag c-red">估價目的</span>
-      </div>
-      <div class="warn">⚠️ 不含估價方法（方法是步驟⑥）｜不含勘察日期</div>
-    </td>
-  </tr>
-  <!-- ② -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">②</div>
-      <div class="step-key" style="color:var(--gold)">計</div>
-      <div class="step-name">擬定估價<br>計畫</div>
-      <div class="step-law">§10</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-gold">口訣：步・時・人・費・表</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-gold">作業步驟</span>
-        <span class="item-tag c-gold">所需時間</span>
-        <span class="item-tag c-gold">所需人力</span>
-        <span class="item-tag c-gold">作業經費</span>
-        <span class="item-tag c-gold">作業進度表</span>
-      </div>
-    </td>
-  </tr>
-  <!-- ③ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">③</div>
-      <div class="step-key" style="color:var(--green)">蒐</div>
-      <div class="step-name">蒐集<br>資料</div>
-      <div class="step-law">§11–12</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-green">口訣：標・因・比　（3類資料）</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-green">標示・權利・用途・管制</span>
-        <span class="item-tag c-green">一般・區域・個別因素</span>
-        <span class="item-tag c-green">交易・收益・成本資料</span>
-      </div>
-      <div class="note">比較實例4原則（§12）：正常價格可調整｜同一供需圈近鄰或類似地區｜用途或管制相近｜價格形成日期接近</div>
-    </td>
-  </tr>
-  <!-- ④ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">④</div>
-      <div class="step-key" style="color:var(--blue)">狀</div>
-      <div class="step-name">確認勘估<br>標的狀態</div>
-      <div class="step-law">§13</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-blue">口訣：權・況・影・記　（4項確認）</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-blue">基本資料及權利狀態</span>
-        <span class="item-tag c-blue">使用現況</span>
-        <span class="item-tag c-blue">影響價格各項資料</span>
-        <span class="item-tag c-blue">作成紀錄＋攝製照片</span>
-      </div>
-      <div class="warn">⚠️ 委託人未領勘，無法確認範圍或進入室內 → 於報告書敘明</div>
-    </td>
-  </tr>
-  <!-- ⑤ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">⑤</div>
-      <div class="step-key" style="color:var(--purple)">整</div>
-      <div class="step-name">整理比較<br>分析資料</div>
-      <div class="step-law">§14</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-purple">兼採二種以上方法（原則）</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-purple">比較標的整理</span>
-        <span class="item-tag c-purple">§23 排除13款情形</span>
-        <span class="item-tag c-purple">§25 單項>15%或總>30%排除</span>
-        <span class="item-tag c-purple">§26 差距≥20%排除試算價格</span>
-      </div>
-      <div class="note">例外：情況特殊不能採二種以上，於報告書敘明</div>
-    </td>
-  </tr>
-  <!-- ⑥ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">⑥</div>
-      <div class="step-key" style="color:var(--orange)">估</div>
-      <div class="step-name">運用估價<br>方法推算</div>
-      <div class="step-law">§15 前段</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-orange">三大方法＋土地開發分析法</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-orange">比較法 → 比較價格</span>
-        <span class="item-tag c-orange">成本法 → 成本價格</span>
-        <span class="item-tag c-orange">收益法 → 收益價格</span>
-        <span class="item-tag c-orange">土地開發分析法 → V值</span>
-      </div>
-      <div class="note">比較法調整順序：情況→價格日期→區域因素→個別因素</div>
-    </td>
-  </tr>
-  <!-- ⑦ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">⑦</div>
-      <div class="step-key" style="color:var(--teal)">決</div>
-      <div class="step-name">決定勘估<br>標的價格</div>
-      <div class="step-law">§15</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-teal">綜合比較 → 決定價格</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-teal">各方法綜合比較</span>
-        <span class="item-tag c-teal">金額顯著差異→重新檢討</span>
-        <span class="item-tag c-teal">考量資料可信度</span>
-        <span class="item-tag c-teal">詳予敘明決定理由</span>
-      </div>
-      <div class="warn">⚠️ 不動產證券化以契約租金為分配基礎 → DCF法應賦予較大權重（清算時例外）</div>
-    </td>
-  </tr>
-  <!-- ⑧ -->
-  <tr class="step-row">
-    <td class="left">
-      <div class="step-num">⑧</div>
-      <div class="step-key" style="color:var(--brown)">書</div>
-      <div class="step-name">製作估價<br>報告書</div>
-      <div class="step-law">§16</div>
-    </td>
-    <td class="right">
-      <div class="sub-mnemonic c-brown">口訣：委基日種條目金｜他況管｜因程敘｜其師</div>
-      <div class="items" style="margin-top:5px">
-        <span class="item-tag c-brown">①委託人</span>
-        <span class="item-tag c-brown">②基本資料</span>
-        <span class="item-tag c-brown">③日期★兩個</span>
-        <span class="item-tag c-brown">④種類</span>
-        <span class="item-tag c-brown">⑤條件</span>
-        <span class="item-tag c-brown">⑥目的</span>
-        <span class="item-tag c-brown">⑦金額</span>
-        <span class="item-tag c-brown">⑧他項權利</span>
-        <span class="item-tag c-brown">⑨使用現況</span>
-        <span class="item-tag c-brown">⑩法定管制</span>
-        <span class="item-tag c-brown">⑪因素分析</span>
-        <span class="item-tag c-brown">⑫推算過程</span>
-        <span class="item-tag c-brown">⑬須敘明情況（敘）</span>
-        <span class="item-tag c-brown">⑭其他必要事項（其）</span>
-        <span class="item-tag c-brown">⑮估價師簽章</span>
-      </div>
-      <div class="warn">⚠️ 共15項＋附必要圖說｜行政/強制執行案件不受前二項限制（15項＋圖說同時豁免）</div>
-    </td>
-  </tr>
-</table>
+<!-- ① 基 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s1)">①</div>
+    <div class="proc-key" style="color:var(--s1)">基</div>
+    <div class="proc-title">
+      <div class="proc-name">確定估價基本事項</div>
+      <div class="proc-law">技術規則 §9</div>
+    </div>
+    <span class="mnem-pill c1">內・日・種・目</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c1">勘估標的內容</span>
+      <span class="item-tag c1">價格日期</span>
+      <span class="item-tag c1">價格種類及條件</span>
+      <span class="item-tag c1">估價目的</span>
+    </div>
+    <div class="warn">⚠ 不含估價方法（方法是步驟⑥）｜不含勘察日期</div>
+  </div>
+</div>
 
-<a href="估價備考指揮中心.html" style="position:fixed;right:14px;bottom:14px;width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;font-size:22px;text-align:center;line-height:48px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20">🏠</a>
+<!-- ② 計 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s2)">②</div>
+    <div class="proc-key" style="color:var(--s2)">計</div>
+    <div class="proc-title">
+      <div class="proc-name">擬定估價計畫</div>
+      <div class="proc-law">技術規則 §10</div>
+    </div>
+    <span class="mnem-pill c2">步・時・人・費・表</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c2">作業步驟</span>
+      <span class="item-tag c2">所需時間</span>
+      <span class="item-tag c2">所需人力</span>
+      <span class="item-tag c2">作業經費</span>
+      <span class="item-tag c2">作業進度表</span>
+    </div>
+  </div>
+</div>
+
+<!-- ③ 蒐 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s3)">③</div>
+    <div class="proc-key" style="color:var(--s3)">蒐</div>
+    <div class="proc-title">
+      <div class="proc-name">蒐集資料</div>
+      <div class="proc-law">技術規則 §11–12</div>
+    </div>
+    <span class="mnem-pill c3">標・因・比（3類）</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c3">標示・權利・用途・管制</span>
+      <span class="item-tag c3">一般・區域・個別因素</span>
+      <span class="item-tag c3">交易・收益・成本資料</span>
+    </div>
+    <div class="note">比較實例4原則（§12）：① 正常價格可調整 ② 同一供需圈近鄰或類似地區 ③ 用途或管制相近 ④ 價格形成日期接近</div>
+  </div>
+</div>
+
+<!-- ④ 狀 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s4)">④</div>
+    <div class="proc-key" style="color:var(--s4)">狀</div>
+    <div class="proc-title">
+      <div class="proc-name">確認勘估標的狀態</div>
+      <div class="proc-law">技術規則 §13</div>
+    </div>
+    <span class="mnem-pill c4">權・況・影・記</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c4">基本資料及權利狀態</span>
+      <span class="item-tag c4">使用現況</span>
+      <span class="item-tag c4">影響價格各項資料</span>
+      <span class="item-tag c4">作成紀錄＋攝製照片</span>
+    </div>
+    <div class="warn">⚠ 委託人未領勘，無法確認範圍或進入室內 → 於報告書敘明</div>
+  </div>
+</div>
+
+<!-- ⑤ 整 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s5)">⑤</div>
+    <div class="proc-key" style="color:var(--s5)">整</div>
+    <div class="proc-title">
+      <div class="proc-name">整理比較分析資料</div>
+      <div class="proc-law">技術規則 §14</div>
+    </div>
+    <span class="mnem-pill c5">兼採二種以上原則</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c5">比較標的整理</span>
+      <span class="item-tag c5">§23 排除13款情形</span>
+      <span class="item-tag c5">§25 單項&gt;15%或總&gt;30%排除</span>
+      <span class="item-tag c5">§26 差距≥20%排除試算價格</span>
+    </div>
+    <div class="note">例外：情況特殊不能採二種以上 → 於報告書敘明理由</div>
+  </div>
+</div>
+
+<!-- ⑥ 估 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s6)">⑥</div>
+    <div class="proc-key" style="color:var(--s6)">估</div>
+    <div class="proc-title">
+      <div class="proc-name">運用估價方法推算</div>
+      <div class="proc-law">技術規則 §15 前段</div>
+    </div>
+    <span class="mnem-pill c6">四大方法</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c6">比較法 → 比較價格</span>
+      <span class="item-tag c6">成本法 → 成本價格</span>
+      <span class="item-tag c6">收益法 → 收益價格</span>
+      <span class="item-tag c6">土地開發分析法 → V值</span>
+    </div>
+    <div class="note">比較法調整順序：情況調整 → 價格日期調整 → 區域因素調整 → 個別因素調整</div>
+  </div>
+</div>
+
+<!-- ⑦ 決 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s7)">⑦</div>
+    <div class="proc-key" style="color:var(--s7)">決</div>
+    <div class="proc-title">
+      <div class="proc-name">決定勘估標的價格</div>
+      <div class="proc-law">技術規則 §15</div>
+    </div>
+    <span class="mnem-pill c7">綜合比較 → 決定</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c7">各方法綜合比較</span>
+      <span class="item-tag c7">金額顯著差異→重新檢討</span>
+      <span class="item-tag c7">考量資料可信度</span>
+      <span class="item-tag c7">詳予敘明決定理由</span>
+    </div>
+    <div class="warn">⚠ 不動產證券化以契約租金為分配基礎 → DCF法應賦予較大權重（清算時例外）</div>
+  </div>
+</div>
+
+<!-- ⑧ 書 -->
+<div class="proc-card">
+  <div class="proc-head">
+    <div class="proc-num" style="background:var(--s8)">⑧</div>
+    <div class="proc-key" style="color:var(--s8)">書</div>
+    <div class="proc-title">
+      <div class="proc-name">製作估價報告書</div>
+      <div class="proc-law">技術規則 §16 ｜ 共15項</div>
+    </div>
+    <span class="mnem-pill c8">委基日種條目金｜他況管｜因程敘｜其師</span>
+  </div>
+  <div class="proc-body">
+    <div class="report-items">
+      <span class="item-tag c8"><span class="r-num">①</span>委託人</span>
+      <span class="item-tag c8"><span class="r-num">②</span>基本資料</span>
+      <span class="item-tag c8"><span class="r-num">③</span>日期★兩個</span>
+      <span class="item-tag c8"><span class="r-num">④</span>種類</span>
+      <span class="item-tag c8"><span class="r-num">⑤</span>條件</span>
+      <span class="item-tag c8"><span class="r-num">⑥</span>目的</span>
+      <span class="item-tag c8"><span class="r-num">⑦</span>金額</span>
+      <span class="item-tag c8"><span class="r-num">⑧</span>他項權利</span>
+      <span class="item-tag c8"><span class="r-num">⑨</span>使用現況</span>
+      <span class="item-tag c8"><span class="r-num">⑩</span>法定管制</span>
+      <span class="item-tag c8"><span class="r-num">⑪</span>因素分析</span>
+      <span class="item-tag c8"><span class="r-num">⑫</span>推算過程</span>
+      <span class="item-tag c8"><span class="r-num">⑬</span>須敘明情況</span>
+      <span class="item-tag c8"><span class="r-num">⑭</span>其他必要事項</span>
+      <span class="item-tag c8"><span class="r-num">⑮</span>估價師簽章</span>
+    </div>
+    <div class="warn">⚠ 共15項＋附必要圖說 ｜ 行政/強制執行案件不受前二項限制（15項＋圖說同時豁免）</div>
+  </div>
+</div>
+
+<!-- 浮動按鈕 -->
+<div class="fab-group">
+  <button class="fab fab-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <a href="估價備考指揮中心.html" class="fab fab-home" title="返回指揮中心">🏠</a>
+</div>
 
 <script>
 function toggleTheme(){
-  const h=document.documentElement;
-  const next=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  var h=document.documentElement;
+  var cur=h.getAttribute('data-theme');
+  var next=cur==='dark'?'light':'dark';
   h.setAttribute('data-theme',next);
-  document.getElementById('theme-btn').textContent=next==='dark'?'🌙':'☀️';
+  document.getElementById('theme-btn').textContent=next==='dark'?'🌙 深色':'☀ 淺色';
   try{localStorage.setItem('bx-theme',next)}catch(e){}
 }
 (function(){
-  try{const s=localStorage.getItem('bx-theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'🌙':'☀️'}}catch(e){}
+  try{
+    var s=localStorage.getItem('bx-theme');
+    if(s){
+      document.documentElement.setAttribute('data-theme',s);
+      document.getElementById('theme-btn').textContent=s==='dark'?'🌙 深色':'☀ 淺色';
+    }
+  }catch(e){}
 })();
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
 </script>
-</body>
-</html>
