@@ -1,9 +1,10 @@
-const CACHE = 'brokerx-v44';
+const CACHE = 'brokerx-v45';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
   '/bx-quiz.css',
   '/bx-quiz-core.js',
+  '/bx-use.js',
   '/LandLaw_A1A2_quiz.html',
   '/LandLaw_A3A4A5_quiz.html',
   '/LandLaw_B_quiz.html',

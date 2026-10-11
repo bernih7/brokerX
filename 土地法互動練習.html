@@ -378,6 +378,7 @@ function renderChapterGrid() {
   });
 }
 
+if(!window.storage){window.storage={get:async function(k){return{value:localStorage.getItem(k)}},set:async function(k,v){localStorage.setItem(k,v)}}}
 async function loadMastery() {
   try {
     const res = await window.storage.get('landlaw_mastery_v1');
@@ -505,6 +506,7 @@ function selectAnswer(idx) {
   });
   const isCorrect = idx === q.answer;
   quizResults.push({qid: q.id, chapter: q.chapter, correct: isCorrect});
+  try{BXREP.rec(q,idx,isCorrect)}catch(e){}
 
   const fb = document.getElementById('feedbackArea');
   if (isCorrect) {
@@ -519,6 +521,7 @@ function selectAnswer(idx) {
         <button class="wrong-tag" data-type="A">A 法條混淆</button>
         <button class="wrong-tag" data-type="B">B 粗心</button>
         <button class="wrong-tag" data-type="C">C 真的不熟</button>
+        <button class="wrong-tag" data-type="D">D 猜的</button>
       </div>
     `;
     document.querySelectorAll('.wrong-tag').forEach(btn => {
@@ -527,6 +530,7 @@ function selectAnswer(idx) {
         btn.classList.add('selected');
         pendingWrongTag = btn.dataset.type;
         updateMastery(q.id, false, pendingWrongTag);
+        try{BXREP.tag(q,pendingWrongTag)}catch(e){}
         document.getElementById('nextBtn').classList.remove('hidden');
       };
     });
@@ -666,5 +670,6 @@ loadMastery();
 <script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
 <!--/NAVFAB-->
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script src="bx-use.js"></script>
 </body>
 </html>

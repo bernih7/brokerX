@@ -2102,6 +2102,7 @@ function revealAllBlanks(key, chId, total) {
 function markDone(key, chId, total) {
   if(cardDone[key]) return;
   cardDone[key] = true;
+  try{BXREP.fillMark(key)}catch(e){}
   const btn = document.getElementById('rb-'+key);
   if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
   const note = document.getElementById('ans-'+key);
@@ -2343,5 +2344,6 @@ function toggleTheme() {
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script src="bx-use.js"></script>
 </body>
 </html>

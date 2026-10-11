@@ -205,6 +205,10 @@ footer{text-align:center;font-size:.76rem;color:var(--sub);margin:24px 0 0}
  </section>
 
 <section class="tab" id="pProg">
+  <div class="group-label">📤 回報給【總控】（全站一份）</div>
+  <p style="font-size:.85rem;margin:4px 0 8px">涵蓋題庫七頁、互動練習、解析版練習、模擬卷、小卡／單字卡／填空、各頁開啟次數。按一下複製，貼到【總控】對話。</p>
+  <button id="bxRepBtn" style="padding:8px 14px;border-radius:99px;border:1px solid var(--pri);background:var(--pri);color:#fff;font-size:.9rem;cursor:pointer">複製全站回報</button>
+  <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:.78rem;box-sizing:border-box"></textarea>
   <div class="group-label">📋 完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>
   <div class="group-label">🗂️ 錯題本統計（A 法條混淆／B 粗心／C 真的不熟）</div>
@@ -299,5 +303,7 @@ var k="1";try{k=localStorage.getItem("bx-rv")||"1"}catch(e){}if(["1","2","3"].in
 <div id="bxfab"><button class="bx-up" id="upBtn" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div>
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
+<script src="bx-use.js"></script>
+<script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa");if(!b)return;b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bx-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼到【總控】"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
 </body>
 </html>

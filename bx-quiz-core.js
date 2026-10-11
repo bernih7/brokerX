@@ -87,7 +87,7 @@ function b64e(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
 function b64d(s){return JSON.parse(decodeURIComponent(escape(atob(s))))}
 function pad(n){return n<10?"0"+n:""+n}
 function now(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes())}
-function report(){
+function report(){if(window.BXREP)return BXREP.build();
  var ids=Object.keys(DB),by={},tot={sure:0,gok:0,wr:0},cat={A:0,B:0,C:0,D:0,n:0},lastRep=ld("bx-lastrep",0),fresh=0;
  ids.forEach(function(id){var r=DB[id],ch=id.split("-")[0];var o=by[ch]=by[ch]||{sure:0,gok:0,wr:0};if(r.ok){r.k==="D"?(o.gok++,tot.gok++,cat.D++):(o.sure++,tot.sure++)}else{o.wr++;tot.wr++;if(r.k)cat[r.k]++;else cat.n++}if(r.t>lastRep)fresh++});
  var total=ALL.reduce(function(a,c){return a+c.total},0),done=tot.sure+tot.gok+tot.wr,ok=tot.sure+tot.gok;
