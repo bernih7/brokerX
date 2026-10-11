@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>民法 B篇 債編總論 官方歷屆題 99–114</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F8F3E9;--card:#FFFDF7;--ink:#2A2722;--red:#A8402B;--gold:#BC8A2E;
-  --green:#3A7D44;--blue:#2B5797;--gray:#8C8077;--border:#D9CEBD;
-  --chip-bg:#EDE7D8;--chip-text:#5C5248;
-}
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--blue:#3A5A7A;--gray:#66726B;--border:#DDD6C0;--chip-bg:#EAE6D6;--chip-text:#4B5750;--pri:#2F5D50;--onpri:#FFFFFF;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--red:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--gray:#A5B1A8;--border:#34403A;--chip-bg:#2A342F;--chip-text:#C9D3CB;--pri:#84C2AE;--onpri:#10201B;}}
+:root[data-theme="dark"]{--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--red:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--gray:#A5B1A8;--border:#34403A;--chip-bg:#2A342F;--chip-text:#C9D3CB;--pri:#84C2AE;--onpri:#10201B;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-size:15px;line-height:1.7}
 header{background:var(--ink);color:#F8F3E9;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
@@ -88,13 +87,40 @@ body[data-ex="B"] .opt .nt,body[data-ex="B"] .opt .arr,body[data-ex="B"] .res,bo
 body[data-ex="C"] .exp-line.po,body[data-ex="D"] .exp-line.po{display:none}
 body[data-ex="B"] .opt .bg{display:inline-block}
 .opt:not(.ans) .arr{display:none}
+
+/* 松煙綠：與土地法、經紀法規、民法指揮中心同一組色（淺／深） */
+header{background:var(--pri);color:var(--onpri)}
+header h1{color:var(--onpri)}
+.ts{color:var(--onpri);opacity:.78}
+.thb{margin-left:8px;padding:4px 12px;border-radius:14px;border:1px solid var(--onpri);background:transparent;color:var(--onpri);font-size:12px;cursor:pointer;font-family:inherit}
+.fbtn.active,.chip.active,.ords button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.fbtn,.ords button{background:var(--card);color:var(--ink)}
+.chip{color:var(--chip-text)}
+.pbar-fill{background:var(--pri)}
+.q-year{background:var(--gold);color:var(--onpri)}
+.opt:hover{background:var(--chip-bg)}
+.opt.selected{background:color-mix(in srgb,var(--blue) 14%,var(--card))}
+.opt.correct{background:color-mix(in srgb,var(--green) 14%,var(--card))}
+.opt.wrong{background:color-mix(in srgb,var(--red) 12%,var(--card))}
+.exp-line{color:var(--ink)}
+.exp-line.ainote{color:var(--gray)}
+.exp-line.cl{color:var(--green)}
+.rbadge.ok{background:color-mix(in srgb,var(--green) 14%,var(--card));color:var(--green)}
+.rbadge.ng{background:color-mix(in srgb,var(--red) 12%,var(--card));color:var(--red)}
+.res{background:color-mix(in srgb,var(--red) 12%,var(--card))}
+.res.ok{background:color-mix(in srgb,var(--green) 14%,var(--card))}
+.opt .nt{color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.opt .bg.a,.opt .bg.p,.etag.a-on,.etag.b-on,.etag.c-on,.etag.d-on{color:var(--onpri)}
+.etag.a-on{background:var(--gold);border-color:var(--gold)}
+.fbtn.danger:hover{color:var(--onpri)}
+.yr-header{border-left-color:var(--pri)}
 </style>
 <script src="bxm-use.js"></script>
 </head>
 <body>
 <header>
   <h1>民法概要 B篇 債編總論｜99–114年 官方歷屆題｜刷題練習（85題）</h1>
-  <span class="ts">2026-10-05｜版本 v2.0（官方題重建）</span>
+  <span class="ts">2026-10-05｜版本 v2.0（官方題重建）</span><button class="thb" id="th" type="button" aria-label="切換深淺色"></button>
 </header>
 <div class="bar">
   <div class="filter-btns">
@@ -270,6 +296,25 @@ document.getElementById('ea').onclick=function(){const on=document.body.classLis
 
 render();
 </script>
-<a href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" class="bx-home" title="回備考指揮中心" aria-label="回備考指揮中心" style="position:fixed;right:14px;bottom:14px;z-index:9999;width:44px;height:44px;border-radius:50%;background:#A8402B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25)">🏠</a>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>(function(){var b=document.getElementById("th");if(!b)return;function sync(){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()}})()</script>
 </body></html>
