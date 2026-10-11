@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>提示排版 Demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--gold:#B8782E;--key:#8A5517;--tint:rgba(47,93,80,.09);--warn:#FBF1D9;--okbg:#E3EFE4}
+:root[data-theme=dark]{--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--gold:#E0B070;--key:#E0B070;--tint:rgba(132,194,174,.12);--warn:#3A2E14;--okbg:#22352A;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Noto Sans TC",system-ui,sans-serif;padding:14px 16px 80px}
+main{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1{font-size:18px;margin:0;color:var(--pri)}.sub{font-size:12.5px;color:var(--muted);margin:2px 0 0}
+.v{border:1.5px dashed var(--line);border-radius:14px;padding:10px 10px 12px}
+.vl{font-size:12px;font-weight:700;color:var(--pri);margin:0 0 6px}.vd{font-size:12px;color:var(--muted);margin:0 0 8px}
+.ls{display:flex;flex-direction:column;gap:8px}
+.it{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:10px;align-items:center}
+.it .tt{flex:1;min-width:0}.it b{display:block;font-size:15px}.it small{color:var(--muted);font-size:12.5px;display:block}
+.pill{flex:none;font-size:13px;font-weight:700;border-radius:99px;padding:2px 12px;background:var(--tint);color:var(--pri)}
+.tg{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;padding:0 8px;background:var(--warn);color:var(--key);border:1px solid var(--gold);margin-left:6px;vertical-align:middle;cursor:default}
+.f{font-size:12px;color:var(--muted);line-height:1.6}
+/* A 單行灰字 */
+.A .f{margin:6px 2px 0}
+/* B 細橫條 */
+.bar{display:flex;gap:8px;align-items:center;font-size:12.5px;background:var(--warn);border-radius:8px;padding:3px 10px;color:var(--key)}
+.bar button{margin-left:auto;border:0;background:none;color:inherit;font-size:16px;cursor:pointer;line-height:1}
+/* C 圖示＋點開 */
+details.i{font-size:12.5px;color:var(--muted);margin:2px 0 8px}details.i summary{cursor:pointer;list-style:none;display:inline-flex;gap:4px;align-items:center;color:var(--key);font-weight:700}
+details.i summary::-webkit-details-marker{display:none}details.i p{margin:4px 0 0;padding:6px 10px;background:var(--warn);border-radius:8px}
+/* E 角標 */
+.it.E{position:relative}.E .cn{position:absolute;top:-8px;right:10px;font-size:11px;background:var(--warn);color:var(--key);border:1px solid var(--gold);border-radius:99px;padding:0 8px}
+#tb{position:fixed;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;z-index:9}
+</style></head><body><button id="tb" onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme=='dark'?'light':'dark'">◐</button>
+<main><div><h1>模擬卷頁「提示」排版 Demo</h1><p class="sub">同一份內容五種做法，原版是兩大塊黃框。挑一個（可混搭）告訴我。</p></div>
+
+<div class="v A"><p class="vl">A　單行灰字</p><p class="vd">提示變成列表上下各一行小灰字，不佔卡片、不搶眼。</p>
+<p class="f" style="margin:0 2px 6px">⚠️ 診斷卷①答案已對照官方條文；來勝卷答案為 Claude 依現行法推導，老師解答未核對。</p>
+<div class="ls"><div class="it"><div class="tt"><b>🩺 土地法診斷卷①（自建）</b><small>單選25・依107–114占比配題・分篇答對率＋錯題歸類</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地稅法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div></div>
+<p class="f">拿到老師解答後請回報，由 Claude 更新。</p></div>
+
+<div class="v B"><p class="vl">B　細橫條（可關閉）</p><p class="vd">一條薄薄的提示，右邊 × 關掉；兩段提示合併成一句。</p>
+<div id="bb" class="bar" style="margin-bottom:8px">⚠️ 來勝卷答案為 Claude 推導，老師解答未核對；拿到解答請回報。<button onclick="document.getElementById('bb').remove()" aria-label="關閉">×</button></div>
+<div class="ls"><div class="it"><div class="tt"><b>🩺 土地法診斷卷①（自建）</b><small>單選25・依107–114占比配題・答案已對照官方條文</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地稅法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div></div></div>
+
+<div class="v C"><p class="vl">C　ⓘ 點開才看</p><p class="vd">平常只有一個小「⚠️ 提示」，點了才展開全文。</p>
+<details class="i"><summary>⚠️ 答案核對狀態（點開）</summary><p>診斷卷①答案已對照官方條文；來勝卷答案為 Claude 依現行法推導，老師解答尚未核對，有瑕疵或信心低的題已逐題標註。拿到老師解答後請回報，由 Claude 更新。</p></details>
+<div class="ls"><div class="it"><div class="tt"><b>🩺 土地法診斷卷①（自建）</b><small>單選25・依107–114占比配題・分篇答對率＋錯題歸類</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地稅法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div></div></div>
+
+<div class="v D"><p class="vl">D　卡片內小標籤</p><p class="vd">提示直接掛在各卷標題旁的小標籤，不另開區塊；診斷卷標「已核對」。</p>
+<div class="ls"><div class="it"><div class="tt"><b>🩺 土地法診斷卷①（自建）<span class="tg" style="background:var(--okbg);color:var(--pri);border-color:var(--pri)">已對照官方條文</span></b><small>單選25・依107–114占比配題・分篇答對率＋錯題歸類</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地法規概要<span class="tg">答案未核對</span></b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div>
+<div class="it"><div class="tt"><b>來勝115模擬試題(一)｜土地稅法規概要<span class="tg">答案未核對</span></b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div></div>
+<p class="f" style="margin-top:6px">未核對＝Claude 依現行法推導，老師解答未取得；有瑕疵題已逐題標註。</p></div>
+
+<div class="v E"><p class="vl">E　角標＋頁尾一行</p><p class="vd">卡片右上角一個小角標，所有說明收在頁尾一行小字。</p>
+<div class="ls" style="gap:14px;margin-top:10px"><div class="it E"><span class="cn" style="background:var(--okbg);color:var(--pri);border-color:var(--pri)">已核對</span><div class="tt"><b>🩺 土地法診斷卷①（自建）</b><small>單選25・依107–114占比配題・分篇答對率＋錯題歸類</small></div><span class="pill">25題</span></div>
+<div class="it E"><span class="cn">未核對</span><div class="tt"><b>來勝115模擬試題(一)｜土地法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div>
+<div class="it E"><span class="cn">未核對</span><div class="tt"><b>來勝115模擬試題(一)｜土地稅法規概要</b><small>曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘</small></div><span class="pill">25題</span></div></div>
+<p class="f" style="margin-top:8px">「未核對」＝答案為 Claude 推導，老師解答未取得；拿到後請回報更新。</p></div>
+</main></body></html>
