@@ -104,6 +104,14 @@ body.cloze .ans:not(.show){background:var(--line)}
 .trapb{background:var(--hotbg);color:var(--hot);font-weight:700;border-radius:6px;padding:1px 7px;font-size:.84rem;display:inline-block}
 #theme-btn{position:fixed;top:10px;right:10px;z-index:50;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper2);color:var(--ink);font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 /* sections */
+details.sub,details.tier{margin:8px 0}details.sub>summary,details.tier>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px}details.sub>summary::-webkit-details-marker,details.tier>summary::-webkit-details-marker{display:none}
+details.sub>summary{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:10px;padding:8px 12px;font-weight:700;font-size:.95rem;color:var(--ink)}
+details.sub>summary .stt{flex:1;min-width:0;line-height:1.45}details.sub>summary .cn,details.tier>summary .cn{flex:none;font-size:.72rem;font-weight:700;color:var(--muted);background:var(--paper2);border:1px solid var(--line);border-radius:99px;padding:0 8px}
+details.sub>summary .ar,details.tier>summary .ar{flex:none;color:var(--muted);transition:transform .15s}details.sub[open]>summary .ar,details.tier[open]>summary .ar{transform:rotate(90deg)}
+details.sub>.subb{margin:6px 0 0 10px;padding-left:12px;border-left:2px solid var(--line)}
+details.tier>summary{padding:6px 12px;border-radius:8px;font-weight:700;font-size:.9rem;color:var(--onc);background:var(--c,var(--pri))}details.tier>summary .cn{color:var(--onc);background:rgba(255,255,255,.2);border-color:transparent}
+details.tier>summary .ar{color:var(--onc)}details.tier.t1{--c:var(--pri)}details.tier.t2{--c:var(--orange)}details.tier.t3{--c:var(--gold)}details.tier.t4{--c:var(--green)}details.tier.pe{--c:var(--purple)}details.tier.bk{--c:var(--ink)}details.tier.pr{--c:var(--blue)}
+details.tier>.tierb{margin:6px 0 0 8px;display:flex;flex-direction:column;gap:6px}
 .spw{display:flex;flex-direction:column;gap:10px}.sp{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .sph{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}.sph b{font-family:"Noto Serif TC",serif;font-size:.98rem;color:var(--pri)}.sph span{font-size:.74rem;color:var(--muted)}
 .its{display:flex;flex-wrap:wrap;gap:6px}.it{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;padding:3px 9px;min-width:0;background:var(--paper)}
@@ -193,14 +201,33 @@ details.r .dt .art{font-size:.84rem}
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
-<script>(function(){var secs=function(){return document.querySelectorAll("details.sc")};
+<script>(function(){var secs=function(){return document.querySelectorAll("details.sc,details.sub,details.tier")};
+
+function txt(e){return (e.textContent||"").replace(/\s+/g," ").trim()}
+function mk(cls,title,cnt,open){var d=document.createElement("details");d.className=cls;if(open)d.open=true;var s=document.createElement("summary");s.innerHTML='<span class="stt">'+title+'</span>'+(cnt?'<span class="cn">'+cnt+'</span>':'')+'<span class="ar">▸</span>';d.appendChild(s);return d}
+function cnt(el){var n=el.querySelectorAll("details.r").length;return n?n+" 項":""}
+function tiersOf(el,body){var cc=[].slice.call(el.children),tg=null;cc.forEach(function(c){if(c.classList.contains("tierh")){var n=0;tg={box:mk("tier "+c.className.replace("tierh","").trim(),txt(c),"",false),body:document.createElement("div")};tg.box.dataset.g=c.dataset.g||"";tg.body.className="tierb";tg.box.appendChild(tg.body);body.appendChild(tg.box);c.remove()}else if(tg){tg.body.appendChild(c)}else body.appendChild(c)});
+ [].forEach.call(body.querySelectorAll(":scope>details.tier"),function(x){var n=cnt(x);if(n){var s=x.querySelector("summary");var sp=document.createElement("span");sp.className="cn";sp.textContent=n;s.insertBefore(sp,s.querySelector(".ar"))}})}
+function manyTiers(el){return el&&el.classList&&el.classList.contains("pcs")&&el.querySelectorAll(":scope>.tierh").length>=2}
+["s1","s2","s3","s4","s5"].forEach(function(id){var sec=document.getElementById(id);if(!sec)return;var sb=sec.querySelector(".sb");if(!sb)return;
+ var kids=[].slice.call(sb.children),groups=[],cur=null;
+ kids.forEach(function(k){if(k.tagName==="H3"){cur={title:k.innerHTML,els:[]};groups.push(cur);k.remove()}else if(k.classList.contains("lead")){}else{if(!cur){cur={title:null,els:[]};groups.push(cur)}cur.els.push(k)}});
+ if(groups.length>1&&groups[0].els[0]&&groups[0].els[0].classList.contains("lad")){var mi=0;while(mi<groups[0].els.length&&!groups[0].els[mi].classList.contains("pcs"))mi++;var mv=groups[0].els.splice(0,mi);groups[1].els=mv.concat(groups[1].els)}
+ groups.forEach(function(g){
+  if(!g.title&&g.els.some(manyTiers)){g.els.forEach(function(el){if(manyTiers(el))tiersOf(el,sb);else if(el.classList.contains("tw")){var d0=mk("sub","對照表（沒申報／沒繳納／匿報短報／檢舉獎金）","",false),b0=document.createElement("div");b0.className="subb";b0.appendChild(el);d0.appendChild(b0);sb.appendChild(d0)}else sb.appendChild(el)});return}
+  if(!g.title){var th=g.els.length&&g.els[0].querySelector&&g.els[0].querySelector(".tierh");g.title=th?txt(th):"概要";if(th&&g.els[0].querySelectorAll(".tierh").length===1)th.remove()}
+  var d=mk("sub",g.title,"",false);var body=document.createElement("div");body.className="subb";
+  g.els.forEach(function(el){if(manyTiers(el))tiersOf(el,body);else body.appendChild(el)});
+  d.appendChild(body);var n=cnt(body);if(n){var sp=document.createElement("span");sp.className="cn";sp.textContent=n;d.querySelector("summary").insertBefore(sp,d.querySelector(".ar"))}
+  else if(body.querySelector(".tlw")){var sp2=document.createElement("span");sp2.className="cn";sp2.textContent=body.querySelectorAll(".ts").length+" 步";d.querySelector("summary").insertBefore(sp2,d.querySelector(".ar"))}
+  sb.appendChild(d)})});
 function ub(t){var b=document.getElementById("theme-btn");if(b)b.textContent=t==="dark"?"🌙":"☀️"}
 window.toggleTheme=function(){var h=document.documentElement,c=h.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c==="dark"?"light":"dark";h.setAttribute("data-theme",n);ub(n);try{localStorage.setItem("bx-theme",n)}catch(e){}};
 ub(document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
-function op(id){var d=id&&document.getElementById(id);if(d&&d.tagName==="DETAILS"){d.open=true;setTimeout(function(){d.scrollIntoView({behavior:"smooth",block:"start"})},40)}}
+function op(id){var d=id&&document.getElementById(id);if(d&&d.tagName==="DETAILS"){d.open=true;var q=d.parentNode&&d.parentNode.closest&&d.parentNode.closest("details");while(q){q.open=true;q=q.parentNode.closest("details")}setTimeout(function(){d.scrollIntoView({behavior:"smooth",block:"start"})},40)}}
 document.addEventListener("click",function(e){var a=e.target.closest(".toolbar a, a.xref");if(a&&a.getAttribute("href").charAt(0)==="#"){e.preventDefault();op(a.getAttribute("href").slice(1))}});
 window.addEventListener("hashchange",function(){op(location.hash.slice(1))});if(location.hash)op(location.hash.slice(1));
-var ab=document.getElementById("allBtn"),all=true;ab.addEventListener("click",function(){all=!all;secs().forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開"});
+var ab=document.getElementById("allBtn"),all=false;ab.textContent="全部展開";ab.addEventListener("click",function(){all=!all;secs().forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開"});
 var cb=document.getElementById("clozeBtn");cb.addEventListener("click",function(){if(document.body.classList.contains("cloze")){all=true;secs().forEach(function(d){d.open=true});ab.textContent="全部收合"}});
 })();</script>
 <!--bxfab-->
