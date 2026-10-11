@@ -11,6 +11,38 @@
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface2:#27302B;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--red:#84C2AE;--pri2:#6FAE9A;--blue:#84C2AE;--gold:#E0B070;--key:#E0B070;--green:#8FCB93;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--tint:rgba(132,194,174,.10);--tint2:rgba(132,194,174,.18);--tint3:rgba(132,194,174,.14);--oktint:rgba(143,203,147,.12);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#161C19;--surface2:#27302B;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--red:#84C2AE;--pri2:#6FAE9A;--blue:#84C2AE;--gold:#E0B070;--key:#E0B070;--green:#8FCB93;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--tint:rgba(132,194,174,.10);--tint2:rgba(132,194,174,.18);--tint3:rgba(132,194,174,.14);--oktint:rgba(143,203,147,.12);color-scheme:dark}
 :root[data-theme="light"]{--bg:#F5F1E6;--surface2:#ECE6D4;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--red:#2F5D50;--pri2:#3E7566;--blue:#3E7566;--gold:#B8782E;--key:#8A5517;--green:#35693F;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--tint:rgba(47,93,80,.08);--tint2:rgba(47,93,80,.15);--tint3:rgba(47,93,80,.12);--oktint:rgba(53,105,63,.10);color-scheme:light}
+/* chapter colour by letter */
+[data-g="A"]{--gc:#2F5D50}
+[data-g="B"]{--gc:#1B6B73}
+[data-g="C"]{--gc:#3E7D32}
+[data-g="D"]{--gc:#6B7A1E}
+[data-g="E"]{--gc:#1F7A4D}
+[data-g="F"]{--gc:#5C8A2E}
+[data-g="G"]{--gc:#3C6E5B}
+[data-g="H"]{--gc:#0F5E4A}
+[data-g="I"]{--gc:#7A8B3A}
+[data-g="N"]{--gc:#4F6B45}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) [data-g="A"]{--gc:#74B1A0} :root:not([data-theme="light"]) [data-g="B"]{--gc:#5BC2CC} :root:not([data-theme="light"]) [data-g="C"]{--gc:#8DC583} :root:not([data-theme="light"]) [data-g="D"]{--gc:#BCCD64} :root:not([data-theme="light"]) [data-g="E"]{--gc:#65CD9A} :root:not([data-theme="light"]) [data-g="F"]{--gc:#A9CD84} :root:not([data-theme="light"]) [data-g="G"]{--gc:#8AB9A7} :root:not([data-theme="light"]) [data-g="H"]{--gc:#37CFA9} :root:not([data-theme="light"]) [data-g="I"]{--gc:#BFCB93} :root:not([data-theme="light"]) [data-g="N"]{--gc:#9DB594}}
+:root[data-theme="dark"] [data-g="A"]{--gc:#74B1A0}
+:root[data-theme="dark"] [data-g="B"]{--gc:#5BC2CC}
+:root[data-theme="dark"] [data-g="C"]{--gc:#8DC583}
+:root[data-theme="dark"] [data-g="D"]{--gc:#BCCD64}
+:root[data-theme="dark"] [data-g="E"]{--gc:#65CD9A}
+:root[data-theme="dark"] [data-g="F"]{--gc:#A9CD84}
+:root[data-theme="dark"] [data-g="G"]{--gc:#8AB9A7}
+:root[data-theme="dark"] [data-g="H"]{--gc:#37CFA9}
+:root[data-theme="dark"] [data-g="I"]{--gc:#BFCB93}
+:root[data-theme="dark"] [data-g="N"]{--gc:#9DB594}
+.nav-btn[data-g],.qf-btn[data-g]{border-left:5px solid var(--gc)}
+.nav-btn[data-g].on,.qf-btn[data-g].on{background:var(--gc);border-color:var(--gc);color:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav-btn[data-g].on,:root:not([data-theme="light"]) .qf-btn[data-g].on{color:#10201A}}
+:root[data-theme="dark"] .nav-btn[data-g].on,:root[data-theme="dark"] .qf-btn[data-g].on{color:#10201A}
+.chapter[data-g] .ch-title{color:var(--gc);border-bottom-color:var(--gc)}
+.chapter[data-g] .prog-fill{background:var(--gc)}
+.chapter[data-g] .card{border-left:4px solid var(--gc)}
+.qc-chapter[data-g]{color:var(--gc)}
+.plain{margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--tint);border-left:3px solid var(--pri2);font-size:13.5px}
+.plain b{margin-right:6px;color:var(--muted);font-size:12px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
 header{background:linear-gradient(135deg,var(--hbg1),var(--hbg2));color:#fff;padding:24px 20px 20px;text-align:center;color:#fff}
@@ -187,7 +219,7 @@ nav{padding:8px 16px;display:block}
 <button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
 <header>
   <h1>土地法概要｜定義填空練習</h1>
-  <div class="sub">章節練習 + 隨機測驗模式｜全科 150 題・22 章</div><div style="font-size:11px;opacity:.75;margin-top:6px">內容取自土地法重點筆記（已更正版）；出題次數為關鍵詞比對99–114年題目的估計值</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 179 題・25 章</div><div style="font-size:11px;opacity:.75;margin-top:6px">內容取自土地法重點筆記（已更正版）；出題次數為關鍵詞比對99–114年題目的估計值</div>
 </header>
 
 <div class="mode-tabs">
@@ -226,6 +258,7 @@ nav{padding:8px 16px;display:block}
 
 
 <script>
+const RATE_LBL={landvalue:'地價稅',zeng:'土地增值稅',house:'房屋稅',deed:'契稅',hehe:'房地合一',selfuse:'自用住宅・一生一屋一生一次',relief:'免徵・減徵・不課徵・減半',terms:'用語區辨',exam:'考題分析',payer:'義務人與期限',penalty:'罰則（怠報・滯納・匿報短報）'};
 const DATA = [
  {
   "id": "A1",
@@ -854,6 +887,33 @@ const DATA = [
     "src": "平均地權條例",
     "mc": 3,
     "essay": 0
+   },
+   {
+    "term": "重劃後不能分配改領現金（§53 Ⅰ）",
+    "blank": "重劃後應分配土地面積未達最小分配面積標準___而不能分配土地時，主管機關應於分配結果公告確定之次日起___日內，以其重劃前原有面積按___位置評定重劃___地價發給現金補償。",
+    "answer": "重劃後應分配土地面積未達最小分配面積標準<span class=\"key\">二分之一</span>而不能分配土地時，主管機關應於分配結果公告確定之次日起<span class=\"key\">六十</span>日內，以其重劃前原有面積按<span class=\"key\">原</span>位置評定重劃<span class=\"key\">後</span>地價發給現金補償。",
+    "src": "平均地權條例§53 Ⅰ（官方條文，使用者提供原文）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "未達半＝不能分：六十日、原面積、原位置、重劃「後」價〔自編〕"
+   },
+   {
+    "term": "§53 Ⅰ 但書：重劃範圍勘定後亂分割",
+    "blank": "重劃範圍勘定後，除因___或___者外，所有權人申請分割土地，致應分配面積未達最小分配面積標準二分之一者，以重劃前原有面積按原位置評定重劃___地價發給現金補償；逾期未領取者存入___保管（§53-1）。",
+    "answer": "重劃範圍勘定後，除因<span class=\"key\">繼承</span>或<span class=\"key\">強制執行</span>者外，所有權人申請分割土地，致應分配面積未達最小分配面積標準二分之一者，以重劃前原有面積按原位置評定重劃<span class=\"key\">前</span>地價發給現金補償；逾期未領取者存入<span class=\"key\">專戶</span>保管（§53-1）。",
+    "src": "平均地權條例§53 Ⅰ 但書、§53-1（官方條文，使用者提供原文）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "正常用「後」價；勘定後亂分割才改用「前」價（繼承、強制執行不算亂分）〔自編〕"
+   },
+   {
+    "term": "重劃補償：他項權利與出租協調（§53 Ⅲ）",
+    "blank": "前二項土地設有他項權利、出租或辦竣限制登記者，主管機關應於發給補償費前邀集權利人___；協議不成者，將補償費依§53-1 存入___保管，並列冊送登記機關逕為___登記。",
+    "answer": "前二項土地設有他項權利、出租或辦竣限制登記者，主管機關應於發給補償費前邀集權利人<span class=\"key\">協調</span>；協議不成者，將補償費依§53-1 存入<span class=\"key\">專戶</span>保管，並列冊送登記機關逕為<span class=\"key\">塗銷</span>登記。",
+    "src": "平均地權條例§53 Ⅲ（官方條文，使用者提供原文）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "先協調、不成就存專戶、再塗銷〔自編〕"
    }
   ]
  },
@@ -1271,6 +1331,16 @@ const DATA = [
     "mc": 0,
     "essay": 0,
     "rate": "landvalue"
+   },
+   {
+    "term": "地價稅繳納期間與特別稅率申請（§40、§41）",
+    "blank": "地價稅以每年___月___日為納稅義務基準日，於___月___日起___個月內一次徵收；申請自用住宅等特別稅率應於開徵前___日提出，逾期自___年起適用。",
+    "answer": "地價稅以每年<span class=\"key\">8</span>月<span class=\"key\">31</span>日為納稅義務基準日，於<span class=\"key\">11</span>月<span class=\"key\">1</span>日起<span class=\"key\">一</span>個月內一次徵收；申請自用住宅等特別稅率應於開徵前<span class=\"key\">40</span>日提出，逾期自<span class=\"key\">次</span>年起適用。",
+    "src": "土地稅法§40、§41（官方條文核對）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "八三一定身分、十一月一日起繳；特稅申請四十天前〔自編〕",
+    "rate": "payer"
    }
   ]
  },
@@ -1350,9 +1420,11 @@ const DATA = [
     "term": "申報移轉現值審核標準（§30）★高頻",
     "blank": "訂約後30日內申報：___；逾30日：___；遺贈：___；法院判決移轉：___；法院拍賣：___。",
     "answer": "訂約後30日內申報：<span class=\"key\">訂約日</span>；逾30日：<span class=\"key\">收件日</span>；遺贈：<span class=\"key\">遺贈人死亡日</span>；法院判決移轉：<span class=\"key\">申報人向法院起訴日</span>；法院拍賣：<span class=\"key\">拍定日</span>。",
-    "src": "土地稅法§30",
+    "src": "土地稅法§30 Ⅰ（官方條文；相關選擇題見分析頁）",
     "mc": 6,
-    "essay": 1
+    "essay": 1,
+    "mnemonic": "訂約日・收件日・死亡日・起訴日・拍定日：都是「權利原因發生那天」或「申報那天」〔自編〕",
+    "plain": "打官司可能拖好幾年，這期間公告土地現值一直在漲。如果以判決日算，拖越久稅越高，而且拖延的人可以左右稅額。法律改成以「起訴那天」為準，就像起訴時先把當時行情「拍照存檔」，之後不管拖多久都用那張照片計算。遺贈用「死亡日」也是同一道理：用權利原因發生當下的價格，而不是事後辦理的日期。考試陷阱：不是判決日、不是確定日，也不是申報日。（⚠️ 這是幫助理解的白話解釋，不是立法理由原文；條文就是起訴日。）"
    },
    {
     "term": "申報與核定期限",
@@ -1379,6 +1451,26 @@ const DATA = [
     "mc": 4,
     "essay": 0,
     "rate": "zeng"
+   },
+   {
+    "term": "免徵・減徵・不課徵・減半徵收怎麼分",
+    "blank": "___：本來該課，依法一次免除；___：照稅額減一定成數；___：先不課、日後再移轉才課且承續原地價；___：房屋稅災害毀損三成以上不及五成。",
+    "answer": "<span class=\"key\">免徵</span>：本來該課，依法一次免除；<span class=\"key\">減徵</span>：照稅額減一定成數；<span class=\"key\">不課徵</span>：先不課、日後再移轉才課且承續原地價；<span class=\"key\">減半徵收</span>：房屋稅災害毀損三成以上不及五成。",
+    "src": "考試用語歸納（條文未逐字定義）；土稅§28、§28-2、§28-3、§33、§39、§39-2；房屋稅條例§15",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "免＝免掉、減＝打折、不課＝先欠著、減半＝砍一半〔自編〕",
+    "rate": "relief"
+   },
+   {
+    "term": "土增稅欠稅限制（§51）",
+    "blank": "欠繳土地稅之土地，在欠稅未繳清前，不得辦理___登記或設定___。",
+    "answer": "欠繳土地稅之土地，在欠稅未繳清前，不得辦理<span class=\"key\">移轉</span>登記或設定<span class=\"key\">典權</span>。",
+    "src": "土地稅法§51（官方條文核對）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "欠稅不能過戶、不能設典〔自編〕",
+    "rate": "payer"
    }
   ]
  },
@@ -1398,9 +1490,10 @@ const DATA = [
     "term": "房屋標準價格評定",
     "blank": "由___評定，縣市政府公告，每___年重新評定；因素：建造材料、耐用年數及折舊、___（___不是因素）。",
     "answer": "由<span class=\"key\">不動產評價委員會</span>評定，縣市政府公告，每<span class=\"key\">3</span>年重新評定；因素：建造材料、耐用年數及折舊、<span class=\"key\">街道村里地段調整率</span>（<span class=\"key\">地價水準</span>不是因素）。",
-    "src": "房屋稅條例",
+    "src": "房屋稅條例§11（官方條文核對）",
     "mc": 5,
-    "essay": 1
+    "essay": 1,
+    "mnemonic": "三年一評：材・耐・街，地價不算（建造材料・耐用年數折舊・街道村里地段）〔自編〕"
    },
    {
     "term": "房屋稅稅率：住家用",
@@ -1435,6 +1528,26 @@ const DATA = [
     "src": "房屋稅條例",
     "mc": 3,
     "essay": 1
+   },
+   {
+    "term": "房屋稅住家用稅率規律（1.2 的倍數）",
+    "blank": "住家用上限＝自住稅率1.2%的___、___、___倍，即2.4%、3.6%、4.8%（出租／待銷售／其他）；自住固定___%，全國單戶低額自住___%。",
+    "answer": "住家用上限＝自住稅率1.2%的<span class=\"key\">2</span>、<span class=\"key\">3</span>、<span class=\"key\">4</span>倍，即2.4%、3.6%、4.8%（出租／待銷售／其他）；自住固定<span class=\"key\">1.2</span>%，全國單戶低額自住<span class=\"key\">1</span>%。",
+    "src": "房屋稅條例§5 Ⅰ（官方條文核對）；倍數規律為自編記憶法",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "上限 1.2 乘 2、3、4；下限 1.5、2、2〔自編〕",
+    "rate": "house"
+   },
+   {
+    "term": "房屋稅申報與逾期罰則（§7、§16、§18）",
+    "blank": "房屋建造完成後___日內應申報稅籍；未依期限申報致漏稅者，除補繳外按所漏稅額處___倍以下罰鍰；逾期未繳清稅款應加徵___。",
+    "answer": "房屋建造完成後<span class=\"key\">30</span>日內應申報稅籍；未依期限申報致漏稅者，除補繳外按所漏稅額處<span class=\"key\">二</span>倍以下罰鍰；逾期未繳清稅款應加徵<span class=\"key\">滯納金</span>。",
+    "src": "房屋稅條例§7、§16、§18（官方條文核對；滯納金比例本次未取得，⚠️待核）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "房屋稅：三十天報稅籍，漏稅罰二倍以下〔自編〕",
+    "rate": "penalty"
    }
   ]
  },
@@ -1495,9 +1608,22 @@ const DATA = [
     "term": "契稅免徵之陷阱",
     "blank": "領買或標購___、向___之不動產___契稅；政府機關因公務需要以公有不動產交換取得者免徵。",
     "answer": "領買或標購<span class=\"key\">公產</span>、向<span class=\"key\">法院標購拍賣</span>之不動產<span class=\"key\">不免徵</span>契稅；政府機關因公務需要以公有不動產交換取得者免徵。",
-    "src": "契稅條例§11",
+    "src": "契稅條例§11（不免徵）、§14（免徵）（官方條文核對；條號已更正，舊稿誤寫§11）",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mnemonic": "標公產、拍法拍，照繳；公務換、重劃換，才免〔自編〕",
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情形</th><th>契稅</th><th>條號</th></tr></thead><tbody><tr><td>領買、標購公產</td><td><span class=\"key\">不免徵</span></td><td>§11</td></tr><tr><td>向法院標購拍賣之不動產</td><td><span class=\"key\">不免徵</span></td><td>§11</td></tr><tr><td>政府機關、地方自治團體、公立學校因公使用取得（供營業者除外）</td><td><span class=\"key\">免徵</span></td><td>§14 Ⅰ</td></tr><tr><td>政府因公務需要以公有不動產交換，或因土地重劃交換取得</td><td><span class=\"key\">免徵</span></td><td>§14 Ⅲ</td></tr><tr><td>開徵土地增值稅區域之土地</td><td><span class=\"key\">免徵契稅</span>（只課房屋）</td><td>§2</td></tr></tbody></table></div>",
+    "rate": "deed"
+   },
+   {
+    "term": "匿報・短報・怠報・滯納區辨",
+    "blank": "___：逾期申報，加徵怠報金；___：逾期繳納，加徵滯納金；___：根本沒報；___：報了但報少；契稅匿報短報補稅後再罰應納稅額___至___倍。",
+    "answer": "<span class=\"key\">怠報</span>：逾期申報，加徵怠報金；<span class=\"key\">滯納</span>：逾期繳納，加徵滯納金；<span class=\"key\">匿報</span>：根本沒報；<span class=\"key\">短報</span>：報了但報少；契稅匿報短報補稅後再罰應納稅額<span class=\"key\">1</span>至<span class=\"key\">3</span>倍。",
+    "src": "契稅條例§24–§26；土地稅法§54（三倍以下）；房屋稅條例§16（二倍以下）（官方條文核對）",
+    "mc": 0,
+    "essay": 0,
+    "mnemonic": "怠報慢申報、滯納慢繳錢、匿報沒申報、短報報太少〔自編〕",
+    "rate": "penalty"
    }
   ]
  },
@@ -1509,10 +1635,11 @@ const DATA = [
     "term": "房地合一2.0稅率★高頻",
     "blank": "境內個人持有期間：___稅率___；超過2年未逾5年___；超過5年未逾10年___；超過10年___。",
     "answer": "境內個人持有期間：<span class=\"key\">2年以內</span>稅率<span class=\"key\">45%</span>；超過2年未逾5年<span class=\"key\">35%</span>；超過5年未逾10年<span class=\"key\">20%</span>；超過10年<span class=\"key\">15%</span>。",
-    "src": "所得稅法",
+    "src": "所得稅法§14-4（官方條文核對）",
     "mc": 1,
     "essay": 1,
-    "rate": "hehe"
+    "rate": "hehe",
+    "mnemonic": "越久越輕：45→35→20→15（−10、−15、−5），門檻 2・5・10 年〔自編〕"
    },
    {
     "term": "課稅範圍與稅基",
@@ -1649,10 +1776,10 @@ const DATA = [
     "term": "放棄分配改領現金（最小分配面積）",
     "blank": "重劃後應分配土地面積已達最小分配面積標準___，經按最小分配面積標準分配後，申請放棄分配改領現金：以其___面積，按重劃後___位置之評定___地價計算補償。",
     "answer": "重劃後應分配土地面積已達最小分配面積標準<span class=\"key\">二分之一</span>，經按最小分配面積標準分配後，申請放棄分配改領現金：以其<span class=\"key\">應分配權利</span>面積，按重劃後<span class=\"key\">分配</span>位置之評定<span class=\"key\">重劃後</span>地價計算補償。",
-    "src": "市地重劃實施辦法（官方112-11；條號待核）",
+    "src": "平均地權條例§53 Ⅱ（官方條文核對；官方112-11）",
     "mc": 1,
     "essay": 0,
-    "mnemonic": "領現金：算「應分配」面積、「分配位置」、「重劃後」地價〔自編〕"
+    "mnemonic": "已達半：先分再放棄；算「應分配」面積、「分配位置」、「重劃後」地價〔自編〕"
    },
    {
     "term": "三分之一對照：重劃 vs 三七五",
@@ -1750,12 +1877,13 @@ const DATA = [
     "term": "契稅逾期：怠報金・滯納金",
     "blank": "契稅逾期申報：每逾___日加徵應納稅額___之怠報金，以應納稅額為限且不得超過新臺幣___元；繳款書送達後___日內繳納。",
     "answer": "契稅逾期申報：每逾<span class=\"key\">三</span>日加徵應納稅額<span class=\"key\">1%</span>之怠報金，以應納稅額為限且不得超過新臺幣<span class=\"key\">1萬5千</span>元；繳款書送達後<span class=\"key\">30</span>日內繳納。",
-    "src": "契稅條例§24（6laws.net 鏡像 99.4.20 版＋財政部電子稅務入口，兩者一致；官方法規頁未取得）；§19 30日（官方114-16 A）。⚠️ 滯納金每逾幾日兩來源不一致（鏡像：每逾2日 1%；稅務入口：每逾3日 1%），待核，考前對紙本",
+    "src": "契稅條例§24 怠報金、§25 滯納金、§26 匿報短報（官方法規頁已核對）；§19 30日（官方114-16 A）",
     "mc": 2,
     "essay": 0,
-    "mnemonic": "怠報三天百分之一，頂多一萬五〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>契稅條例</th><th>內容</th><th>出處</th></tr></thead><tbody><tr><td>申報期限</td><td>契約成立之日起 <span class=\"key\">30 日</span></td><td>§16</td></tr><tr><td>查定</td><td>收件後 <span class=\"key\">15 日</span> 內查定；補正通知 7 日（鏡像）</td><td>§18／官方101-37 A</td></tr><tr><td>繳納期限</td><td>收到核定繳款書後 <span class=\"key\">30 日</span></td><td>§19／官方114-16 A</td></tr><tr><td>怠報金（逾期申報）</td><td>每逾 <span class=\"key\">3 日</span> 加徵 1%，上限應納稅額且 ≤1.5 萬</td><td>§24</td></tr><tr><td>滯納金（逾期繳納）</td><td>每逾 2 日或 3 日 1%（⚠️兩來源不一致）；逾 30 日移送強制執行</td><td>§25 待核</td></tr><tr><td>匿報短報罰鍰</td><td>補稅＋<span class=\"key\">1～3 倍</span></td><td>§26／官方101-37 C</td></tr><tr><td>檢舉獎金</td><td>罰鍰 20%（官方103-3）</td><td>§28? 待核</td></tr></tbody></table></div>",
-    "rate": "deed"
+    "mnemonic": "怠報三天、滯納兩天，都是百分之一〔自編〕",
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>契稅條例</th><th>內容</th><th>出處</th></tr></thead><tbody><tr><td>申報期限</td><td>契約成立之日起 <span class=\"key\">30 日</span></td><td>§16</td></tr><tr><td>查定</td><td>收件後 <span class=\"key\">15 日</span> 內查定；補正通知 7 日（鏡像）</td><td>§18／官方101-37 A</td></tr><tr><td>繳納期限</td><td>收到核定繳款書後 <span class=\"key\">30 日</span></td><td>§19／官方114-16 A</td></tr><tr><td>怠報金（逾期申報）</td><td>每逾 <span class=\"key\">3 日</span> 加徵 1%，上限應納稅額且 ≤1.5 萬</td><td>§24</td></tr><tr><td>滯納金（逾期繳納）</td><td>每逾 <span class=\"key\">2 日</span> 加徵 1%；逾 30 日移送強制執行</td><td>§25（官方核對）</td></tr><tr><td>匿報短報罰鍰</td><td>補稅＋<span class=\"key\">1～3 倍</span></td><td>§26／官方101-37 C</td></tr><tr><td>檢舉獎金</td><td>罰鍰 20%（官方103-3）</td><td>§28? ⚠️待核</td></tr></tbody></table></div>",
+    "rate": "deed",
+    "plain": "怠報＝晚「申報」（慢交申報書），每逾3日加徵1%，頂多應納稅額且不超過1萬5。滯納＝晚「繳錢」，每逾2日加徵1%，逾30日移送強制執行。匿報＝根本沒報；短報＝報了但報少，查到要補稅再罰1～3倍。"
    }
   ]
  },
@@ -1865,7 +1993,7 @@ chPanel.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
   const btn = document.createElement('button');
-  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.className = 'nav-btn' + (ci===0?' on':''); btn.dataset.g = ch.id[0];
   btn.textContent = ch.label;
   btn.dataset.id = ch.id;
   btn.onclick = ()=> toggleCh(ch.id);
@@ -1873,7 +2001,7 @@ DATA.forEach((ch,ci)=>{
 
   const div = document.createElement('div');
   div.className = 'chapter' + (ci===0?' active':'');
-  div.id = 'ch-'+ch.id;
+  div.id = 'ch-'+ch.id; div.dataset.g = ch.id[0];
 
   const total = ch.cards.length;
   div.innerHTML = `<div class="ch-title">${ch.label}</div>
@@ -1908,8 +2036,9 @@ DATA.forEach((ch,ci)=>{
       <div class="answer-note" id="ans-${key}">
         <div class="key-note">${c.answer}</div>
         ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
+        ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
-        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅率總表（${({landvalue:'地價稅',zeng:'土地增值稅',house:'房屋稅',deed:'契稅',hehe:'房地合一',selfuse:'自用住宅・一生一屋一生一次'})[c.rate]}）→</a>`:''}
+        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;
     div.appendChild(card);
@@ -1996,7 +2125,7 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0 });
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', plain: c.plain||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0 });
       });
     });
   }
@@ -2008,7 +2137,7 @@ function initQuiz() {
     filterEl.appendChild(acts);
     DATA.forEach(ch => {
       const btn = document.createElement('button');
-      btn.className = 'qf-btn';
+      btn.className = 'qf-btn'; btn.dataset.g = ch.id[0];
       btn.dataset.id = ch.id;
       btn.textContent = ch.label;
       btn.onclick = () => toggleQfCh(ch.id);
@@ -2075,7 +2204,7 @@ function renderQuizCard() {
   area.innerHTML = `
     <div class="quiz-card">
       <div class="qc-meta">
-        <span class="qc-chapter">${c.chLabel}</span>
+        <span class="qc-chapter" data-g="${c.chId[0]}">${c.chLabel}</span>
         <span class="qc-counter">${quizIdx + 1} / ${quizQueue.length}</span>
       </div>
       <div class="qc-term">${c.term}</div>
@@ -2089,8 +2218,9 @@ function renderQuizCard() {
       <div class="qc-answer" id="qans-${qid}">
         <div>${c.answer}</div>
         ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
+        ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
-        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅率總表（${({landvalue:'地價稅',zeng:'土地增值稅',house:'房屋稅',deed:'契稅',hehe:'房地合一',selfuse:'自用住宅・一生一屋一生一次'})[c.rate]}）→</a>`:''}
+        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
         <div class="src">📌 ${c.src}</div>
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
