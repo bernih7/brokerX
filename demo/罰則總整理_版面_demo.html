@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>罰則總整理版面 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--gold:#B8782E;--orange:#B9722A;--blue:#3A5A78;--green:#35693F;--red:#A8402B;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
+main{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}h2{font:700 16px "Noto Serif TC",serif;margin:8px 0 0;color:var(--pri)}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:30}
+.vs button{flex:1;font:inherit;font-weight:700;font-size:13.5px;padding:8px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.vs button[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13px;color:var(--muted);background:var(--tint);border-radius:10px;padding:8px 12px;margin:0}
+.v{display:none;flex-direction:column;gap:8px}.v.on{display:flex}
+.num{background:var(--numbg);color:var(--numfg);font-weight:800;border-radius:6px;padding:0 6px;white-space:nowrap}
+.trapb{background:var(--hotbg);color:var(--hot);font-weight:700;border-radius:6px;padding:1px 7px;font-size:13px}
+.k{color:var(--muted)}
+/* V1 timeline */
+.tlw{position:relative;padding-left:34px;display:flex;flex-direction:column;gap:10px}
+.tlw::before{content:"";position:absolute;left:13px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:2px}
+.ts{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+.ts::before{content:attr(data-n);position:absolute;left:-34px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--c);color:#fff;font:700 13px/28px "Noto Sans TC";text-align:center}
+.ts h4{margin:0;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.ts h4 .t{color:var(--c)}
+.ts p{margin:2px 0 0;font-size:14px}
+.ts .gap{position:absolute;left:-26px;bottom:-12px;font-size:11px;color:var(--muted)}
+.cond{font-size:12.5px;color:var(--muted);margin:-2px 0 0 0}
+/* V2 strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.strip div{background:var(--card);border:1.5px solid var(--c);border-radius:12px;text-align:center;padding:6px 2px}.strip b{display:block;font:800 19px/1.2 "Noto Serif TC",serif;color:var(--c)}.strip small{font-size:11.5px;color:var(--muted)}
+details.d{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:10px}
+details.d>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}details.d>summary::-webkit-details-marker{display:none}
+.nb{width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font:700 12px/24px "Noto Sans TC";text-align:center}
+.d .rb{padding:0 12px 10px;font-size:14px;display:grid;gap:4px}
+/* V3 table */
+.t3{display:grid;grid-template-columns:3.4em 1fr auto;gap:0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.t3>div{padding:8px 10px;border-bottom:1px solid var(--line);font-size:14px}.t3>div:nth-last-child(-n+3){border-bottom:0}
+.t3 .st{color:#fff;font-weight:800;text-align:center;font-size:13px;display:flex;align-items:center;justify-content:center;background:var(--c)}
+.t3 .nm{text-align:right;white-space:nowrap}
+.arrowrow{grid-column:1/-1;text-align:center;font-size:12px;color:var(--muted);background:var(--bg);padding:1px 0!important;border-bottom:1px solid var(--line)}
+/* penalty card */
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:5px}
+.pc h4{margin:0;font-size:15px}.pc .row{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.chip{font:700 12px "Noto Sans TC";border-radius:99px;padding:0 9px;border:1.5px solid var(--blue);color:var(--blue)}
+.pc details{border-top:1px dashed var(--line);padding-top:4px}.pc summary{cursor:pointer;color:var(--pri);font-weight:700;font-size:13px;list-style:none}.pc summary::-webkit-details-marker{display:none}
+.old{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px}.old .l{font-size:11px;font-weight:700;color:var(--muted);margin-top:6px}
+.note{font-size:12.5px;color:var(--muted)}
+</style></head><body><main>
+<header><h1>罰則總整理｜版面 demo</h1><p class="sub">先示範「繼承登記逾 1 年未辦（§73-1）」那段，三案擇一；下方另有「罰則列」改法。確認後才改真頁（正式版會有淺色與深色）。</p></header>
+<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+<h2>繼承登記逾 1 年未辦：不是罰鍰，是「強制處分」（§73-1）</h2>
+
+<!-- V1 -->
+<div class="v on" id="v1">
+<p class="desc"><b>方案 1：時間軸</b>　左邊一條線串起 5 步，每步＝「關鍵字標題＋一句話」，數字金底。陷阱和補充只在需要的步驟出現。</p>
+<div class="tlw">
+<div class="ts" style="--c:var(--gold)" data-n="1"><h4><span class="t">公告</span><span class="num">1 年</span></h4><p>繼承逾 <span class="num">1 年</span> 未辦 → 地政機關查明後公告；繼承人 <span class="num">3 個月</span> 內聲請</p></div>
+<div class="ts" style="--c:var(--orange)" data-n="2"><h4><span class="t">列管</span><span class="num">15 年</span></h4><p>逾期未聲請 → 地政機關列冊管理 <span class="num">15 年</span></p></div>
+<div class="ts" style="--c:var(--red)" data-n="3"><h4><span class="t">標售</span></h4><p>期滿仍未辦 → <b>財政部國有財產署</b> 公開標售</p><p><span class="trapb">不是地政機關、縣市政府、行政執行署</span></p></div>
+<div class="ts" style="--c:var(--blue)" data-n="4"><h4><span class="t">優購</span></h4><p>順序：<b>繼承人 → 合法使用人 → 其他共有人</b></p><p class="cond">租賃超過 5 年者，標售後以 <span class="num">5 年</span> 為限；無合法使用權的占有人，標售後喪失占有</p></div>
+<div class="ts" style="--c:var(--green)" data-n="5"><h4><span class="t">領款</span><span class="num">10 年</span></h4><p>價款存國庫專戶，繼承人依應繼分領取；逾 <span class="num">10 年</span> 無人領 → 歸國庫</p><p class="cond">五次標售不成登記為國有：登記完畢後 <span class="num">10 年</span> 內原權利人仍可請領價金</p></div>
+</div></div>
+
+<!-- V2 -->
+<div class="v" id="v2">
+<p class="desc"><b>方案 2：數字軌＋收合卡</b>　最上面先給「1 年 → 3 個月 → 15 年 → 10 年」四個大數字（這就是口訣），下面每步一行，點開才看細節。最短。</p>
+<div class="strip"><div style="--c:var(--gold)"><b>1 年</b><small>逾期未辦</small></div><div style="--c:var(--orange)"><b>3 個月</b><small>公告聲請</small></div><div style="--c:var(--red)"><b>15 年</b><small>列冊管理</small></div><div style="--c:var(--green)"><b>10 年</b><small>價款領取</small></div></div>
+<details class="d" style="--c:var(--gold)"><summary><span class="nb">1</span><span><b>公告</b>　逾 1 年未辦，查明後公告</span><span class="num">3 個月</span></summary><div class="rb"><div>繼承人於 <span class="num">3 個月</span> 內聲請（並書面通知）</div></div></details>
+<details class="d" style="--c:var(--orange)"><summary><span class="nb">2</span><span><b>列管</b>　逾期未聲請，列冊管理</span><span class="num">15 年</span></summary><div class="rb"><div>地政機關予以列冊管理，期間 <span class="num">15 年</span></div></div></details>
+<details class="d" style="--c:var(--red)"><summary><span class="nb">3</span><span><b>標售</b>　國有財產署公開標售</span><span></span></summary><div class="rb"><div><span class="trapb">不是地政機關、縣市政府、行政執行署</span></div></div></details>
+<details class="d" style="--c:var(--blue)"><summary><span class="nb">4</span><span><b>優購</b>　繼承人→合法使用人→其他共有人</span><span></span></summary><div class="rb"><div>租賃超過 5 年者，標售後以 <span class="num">5 年</span> 為限</div><div>無合法使用權的占有人，標售後喪失占有</div></div></details>
+<details class="d" style="--c:var(--green)"><summary><span class="nb">5</span><span><b>領款</b>　價款存國庫專戶</span><span class="num">10 年</span></summary><div class="rb"><div>繼承人依應繼分領取；逾 <span class="num">10 年</span> 無人領 → 歸國庫</div><div>五次標售不成登記為國有：登記完畢後 <span class="num">10 年</span> 內原權利人仍可請領價金</div></div></details>
+</div>
+
+<!-- V3 -->
+<div class="v" id="v3">
+<p class="desc"><b>方案 3：三欄對照表</b>　「階段｜做什麼｜數字」三欄，一列一步，數字集中在右邊直排，複習時掃一眼就能核對；沒有橫向捲動。</p>
+<div class="t3">
+<div class="st" style="--c:var(--gold)">公告</div><div>逾 1 年未辦，查明後公告，繼承人聲請</div><div class="nm"><span class="num">1 年</span><br><span class="num">3 個月</span></div>
+<div class="arrowrow">逾期仍未聲請 ▼</div>
+<div class="st" style="--c:var(--orange)">列管</div><div>地政機關列冊管理</div><div class="nm"><span class="num">15 年</span></div>
+<div class="arrowrow">期滿仍未聲請 ▼</div>
+<div class="st" style="--c:var(--red)">標售</div><div>國有財產署公開標售<br><span class="trapb">不是地政機關／縣市政府／行政執行署</span></div><div class="nm"></div>
+<div class="arrowrow">標售時 ▼</div>
+<div class="st" style="--c:var(--blue)">優購</div><div><b>繼承人 → 合法使用人 → 其他共有人</b><br><span class="k">租賃超過 5 年，標售後以 5 年為限</span></div><div class="nm"><span class="num">5 年</span></div>
+<div class="arrowrow">標售後 ▼</div>
+<div class="st" style="--c:var(--green)">領款</div><div>價款存國庫專戶，繼承人依應繼分領；無人領歸國庫<br><span class="k">五次標售不成登記國有：登記後 10 年內仍可請領</span></div><div class="nm"><span class="num">10 年</span></div>
+</div></div>
+
+<h2>另：全頁「罰則列」改法（以 §73 為例）</h2>
+<div class="old"><b>現況</b>：每一列拆成 5 段（對象／處罰／條號／考古題／提醒），手機上一列約 1.5 個螢幕高。<div class="l">處罰（金額／期間）</div>應權利變更後 1個月 內聲請；逾期每逾1個月得處應納登記費額 1倍 罰鍰，最高 20倍<div class="l">條號（白話）</div>§73第2項…<div class="l">考古題</div>99-10、107-1<div class="l">提醒</div>「得」處；107-1 把「1倍」改成「2倍」是陷阱…</div>
+<div class="pc"><div class="row"><h4>一般土地權利變更登記逾期</h4><span class="chip">§73 Ⅱ</span></div>
+<div>聲請期限 <span class="num">1 個月</span>；逾期每逾 1 個月罰登記費 <span class="num">1 倍</span>，最高 <span class="num">20 倍</span></div>
+<div><span class="trapb">「得」處；107-1 把「1 倍」改成「2 倍」是陷阱</span></div>
+<details><summary>考古題・補充 ▾</summary><div class="k" style="font-size:13px">考古題：99-10、107-1；基數是登記費額，不是公告地價或現值。</div></details></div>
+<p class="note">新版：標題＋條號 chip → 一行處罰（金底數字）→ 一行陷阱（紅底）→ 考古題收在「展開」。其餘（區塊標題色帶、數字口訣盒）沿用；全頁加深色模式、章節可收合、去掉 emoji 圓點與 1️⃣ 數字。</p>
+</main>
+<script>document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.v').forEach(function(v){v.classList.toggle('on',v.id==='v'+b.dataset.v)})});</script></body></html>
