@@ -18,7 +18,8 @@ h1{font:700 22px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri);text-wrap:b
 .bd ul{margin:6px 0;padding-left:1.2em;font-size:13.5px}.es,.lk{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
 .lg{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.lg span{display:inline-flex;gap:5px;align-items:center}.lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
 @media(max-width:420px){.tiles{gap:6px}.tile b{font-size:20px}.it summary{grid-template-columns:auto 1fr}.hn{grid-column:1/-1;justify-self:start}}
-</style></head><body><main>
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+</style></head><body><button id="theme-btn" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀️</button><main>
 <header><h1>土地法｜分數・倍數・數字分析</h1><p class="sub">官方歷屆 99–114 年共 520 題中，涉及分數、成數、倍數、百分比的題目歸納</p></header>
 <div class="tiles"><div class="tile"><b>58</b><span>相關選擇題（不重複）</span></div><div class="tile"><b>19</b><span>數字考點</span></div><div class="tile"><b>33</b><span>干擾辨析題（最多）</span></div></div>
 <section class="pn"><h2>選擇題會怎麼出？題型分佈</h2><div class="br"><span class="bl">直接問數字</span><span class="bt"><i style="width:66.7%;background:var(--c0)"></i></span><b>22</b></div><div class="br"><span class="bl">干擾辨析</span><span class="bt"><i style="width:100.0%;background:var(--c4)"></i></span><b>33</b></div><div class="br"><span class="bl">計算</span><span class="bt"><i style="width:3.0%;background:var(--c3)"></i></span><b>1</b></div><div class="br"><span class="bl">情境判斷</span><span class="bt"><i style="width:6.1%;background:var(--c1)"></i></span><b>2</b></div><div class="lg" style="margin-top:8px"><span><i style="background:var(--c0)"></i>直接問數字</span><span><i style="background:var(--c4)"></i>干擾辨析：選項放多個分數／倍數，或判斷敘述對錯</span><span><i style="background:var(--c3)"></i>計算</span><span><i style="background:var(--c1)"></i>情境</span></div><p class="note">結論：數字題不是單純背，約 57% 是「選項混放相近數字」，要同時記住旁邊容易混的那個數字。</p></section>
@@ -48,6 +49,9 @@ h1{font:700 22px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri);text-wrap:b
 <p class="warn">⚠️ 本頁題號與題型是我從題庫（含官方標準答案）人工歸納，未必窮盡所有含數字的題；「高／中／低」只依歷屆出現題數，不是命題機率。數字出處以填空頁各卡標示為準，標「條號待核」者考前對紙本六法。</p>
 </main><script>
 (function(){var fl=document.getElementById("fl"),its=document.querySelectorAll(".it");fl.addEventListener("click",function(e){var b=e.target.closest(".fc");if(!b)return;var on=b.getAttribute("aria-pressed")==="true";fl.querySelectorAll(".fc").forEach(function(x){x.setAttribute("aria-pressed","false")});if(!on)b.setAttribute("aria-pressed","true");var f=on?"":b.getAttribute("data-f");its.forEach(function(d){d.hidden=!!f&&d.getAttribute("data-cat")!==f})})})();
+function ub(t){var b=document.getElementById("theme-btn");if(b)b.textContent=t==="dark"?"🌙":"☀️"}
+function toggleTheme(){var h=document.documentElement,c=h.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),n=c==="dark"?"light":"dark";h.setAttribute("data-theme",n);ub(n);try{localStorage.setItem("bx-theme",n)}catch(e){}}
+(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s);ub(s||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))})();
 </script><!--bxfab-->
 <style>
 #bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
