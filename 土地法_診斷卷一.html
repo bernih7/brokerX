@@ -41,11 +41,19 @@ details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:
 .card.done .opt .nt{display:none}
 body[data-ex="B"] .done .exa{display:block}
 body[data-ex="B"] .done .trap:not(.top),body[data-ex="D"] .done .trap:not(.top){display:none}body[data-ex="B"] .done .exa .tp{display:block}
-body[data-ex="C"] .done .opt.ok .nt,body[data-ex="C"] .done .opt.bad .nt,body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt{display:block}
+body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt,body.allopen .done .opt .nt{display:block}
 body[data-ex="D"] .done .res{display:block}body[data-ex="B"] .done .res,body[data-ex="C"] .done .res{display:block}
 .trap.top{display:none!important}body[data-ex="D"] .done .trap.top{display:block!important}
 body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
-.done .opt::after{content:"";}
+.arr{display:none;float:right;margin-left:6px;color:#8a8478;transition:transform .15s}
+body[data-ex="C"] .done .arr,body[data-ex="D"] .done .arr{display:inline-block}
+.done .opt.open .arr,body.allopen .done .arr{transform:rotate(180deg)}
+.vd{display:none;margin-left:6px;font-size:13px}
+body[data-ex="C"] .done .opt:not(.open) .vd,body[data-ex="D"] .done .opt:not(.open) .vd{display:inline}
+body.allopen .done .vd{display:none!important}
+.hn{display:none;font-size:12px;color:#5F6B63;margin:2px 0 6px}
+body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
+.exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
 </style></head><body>
 <header><h1>土地法診斷卷①</h1><div class="sub">第一次基準線測驗：先知道哪一篇最弱。25 題單選｜配題依 107–114 年占比：A8／B3／C3／D4／E3／F1／G2／H1｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟｜答案已對照 2026-10-11 官方條文</div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
@@ -77,7 +85,8 @@ function taxLinks(q){var l=[],t=q.stem+q.opts.join("")+q.notes.join(""),k=(q.sec
 var L="ABCD",st={},cl={},cur=0,tmr=null,left=5400,qHost=document.createElement("div");
 var NAMES={"A": "A 總則・登記・共有優購・租賃", "B": "B 計畫三法", "C": "C 重劃・空地稅・預售屋", "D": "D 土地徵收", "E": "E 地價稅・土增稅", "F": "F 房屋稅", "G": "G 契稅", "H": "H 房地合一"};
 var EX="D";try{EX=localStorage.getItem("bx-ex2")||"D"}catch(e){}
-function setEx(m){EX=m;document.body.dataset.ex=m;try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".exs button"),function(b){b.className=b.dataset.m===m?"on":""})}
+function applyOpen(cc){[].forEach.call(cc.querySelectorAll(".opt"),function(o){o.classList.toggle("open",EX==="C"&&(o.classList.contains("ok")||o.classList.contains("bad")))})}
+function setEx(m){EX=m;document.body.dataset.ex=m;[].forEach.call(document.querySelectorAll(".card.done"),applyOpen);try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.className=b.dataset.m===m?"on":""})}
 function $(i){return document.getElementById(i)}
 function save(){try{var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}))}catch(e){}}
@@ -85,22 +94,24 @@ function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  qHost.querySelector("#sc").textContent="已答 "+a+"/"+D.Q.length+"｜答對 "+c+"｜選擇題 "+(c*2)+"/"+(D.Q.length*2);save()}
 function mm(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
 function mkQ(host){
- var top='<div class="score"><span id="sc"></span>'+(D.timer?'<span id="tm">90:00</span><button id="tb">開始計時</button>':'')+'<button id="rs">重做</button><div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button></div></div>';
+ var top='<div class="score"><span id="sc"></span>'+(D.timer?'<span id="tm">90:00</span><button id="tb">開始計時</button>':'')+'<button id="rs">重做</button><div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">全部展開</button></div></div>';
  host.innerHTML=top;
- [].forEach.call(host.querySelectorAll(".exs button"),function(b){b.onclick=function(){setEx(b.dataset.m)}});setEx(EX);
+ [].forEach.call(host.querySelectorAll(".exs button[data-m]"),function(b){b.onclick=function(){setEx(b.dataset.m)}});host.querySelector("#ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX);
  D.Q.forEach(function(q){
   var c=document.createElement("div");c.className="card";
-  c.innerHTML='<div class="qn">第'+q.n+'題<span class="tag">'+q.sec+'</span>'+(q.neg?'<span class="tag" style="background:var(--red)">問錯誤</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="trap top"></div><div class="os"></div><div class="exa"></div><div class="trap"></div><div class="tl"></div><div class="src"></div><div class="cls">這題為何答錯？<span class="bs"></span></div>';
+  c.innerHTML='<div class="qn">第'+q.n+'題<span class="tag">'+q.sec+'</span>'+(q.neg?'<span class="tag" style="background:var(--red)">問錯誤</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="trap top"></div><div class="hn">點每個選項可展開／收合說明；右上「全部展開」一次看完</div><div class="os"></div><div class="exa"></div><div class="trap"></div><div class="tl"></div><div class="src"></div><div class="cls">這題為何答錯？<span class="bs"></span></div>';
   c.querySelector(".stem").textContent=q.stem;
   var os=c.querySelector(".os");
   q.opts.forEach(function(t,i){
    var b=document.createElement("button");b.className="opt";
-   b.innerHTML='<b>('+L[i]+')</b><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><div class="nt"></div>';
+   b.innerHTML='<b>('+L[i]+')</b><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><span class="vd"></span><div class="nt"></div>';
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=q.notes[i];
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){this.classList.toggle("open");return}
      cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");
      cc.querySelectorAll(".opt").forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
+     qq.opts.forEach(function(t,j){var vd=cc.querySelectorAll(".opt")[j].querySelector(".vd"),ch=qq.notes[j].charAt(0);vd.textContent=(ch==="❌"||ch==="✅")?ch:""});
+     applyOpen(cc);
      cc.querySelector(".res").textContent=(ok?"答對了":"答錯了")+"　正解 "+qq.ans+(ok?"":"（你選 "+L[ii]+"）");
      var tp=cc.querySelector(".trap.top");tp.textContent="🎯 考試陷阱："+qq.trap;
      var ea=cc.querySelector(".exa");ea.innerHTML="<h4>逐選項解析</h4>";qq.opts.forEach(function(t,j){var d=document.createElement("div");d.textContent="("+L[j]+") "+qq.notes[j];ea.appendChild(d)});
