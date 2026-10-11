@@ -103,8 +103,8 @@ function report(){
 function importText(t){var m=/BXDATA1:([A-Za-z0-9+\/=]+)/.exec(t);if(!m)return"找不到 BXDATA1 資料，請把整段回報貼上。";var d;try{d=b64d(m[1])}catch(e){return"資料格式錯誤，無法讀取。"}var n=0,u=0;
  Object.keys(d).forEach(function(id){var a=d[id],o=DB[id];var rec={c:a[0],ok:a[1],g:a[2],k:a[3],t:a[4],n:a[5],w:a[6],h:(o&&o.h)||[]};if(!o||rec.t>o.t){if(o){rec.n=Math.max(rec.n,o.n||0);rec.w=Math.max(rec.w,o.w||0)}DB[id]=rec;u++}n++});save();renderList();return"已讀入 "+n+" 題紀錄，其中 "+u+" 題比本機新而更新。"}
 /* ---------- 對話框 ---------- */
-function modal(title,txt,okLabel,onok){var m=g("bxm");g("bxmt").textContent=title;var ta=g("bxta");ta.value=txt||"";g("bxok").textContent=okLabel||"";g("bxok").style.display=okLabel?"":"none";g("bxmsg").textContent="";m.classList.add("on");g("bxok").onclick=function(){onok&&onok(ta.value)};setTimeout(function(){ta.focus();if(txt)ta.select()},30)}
-function copyReport(){var t=report();var done=function(ok){modal(ok?"已複製到剪貼簿，貼到對話裡即可":"請全選後自行複製",t);try{sv("bx-lastrep",Math.floor(Date.now()/1000))}catch(e){}};
+function modal(title,txt,okLabel,onok,link){var m=g("bxm");g("bxlink").style.display=link?"":"none";g("bxmt").textContent=title;var ta=g("bxta");ta.value=txt||"";g("bxok").textContent=okLabel||"";g("bxok").style.display=okLabel?"":"none";g("bxmsg").textContent="";m.classList.add("on");g("bxok").onclick=function(){onok&&onok(ta.value)};setTimeout(function(){ta.focus();if(txt)ta.select()},30)}
+function copyReport(){var t=report();var done=function(ok){modal(ok?"已複製到剪貼簿，貼到【總控】對話裡即可":"請全選後自行複製，再貼到【總控】對話",t,"",null,true);try{sv("bx-lastrep",Math.floor(Date.now()/1000))}catch(e){}};
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else done(false)}
 function bindTools(){g("bSelAll").onclick=selAll;g("bSelNone").onclick=selNone;g("bReset").onclick=resetAll;
  var cb=g("bConf");function cl(){cb.textContent="信心模式："+(CONF?"開":"關");cb.className="btn-sm"+(CONF?" on":"")}cl();cb.onclick=function(){CONF=!CONF;sv("bx-conf",CONF?1:0);cl();renderList()};
