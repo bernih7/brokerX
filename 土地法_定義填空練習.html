@@ -7,39 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
 <style>
-:root[data-theme="light"]{
-  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
-  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
-  --blue:#1E3E6E; --surface2:#F0EBE0;
-  color-scheme:light;
-}
-:root{
-  --bg:#F8F3E9; --ink:#2A2722; --red:#A8402B; --gold:#BC8A2E;
-  --green:#5C7A4A; --card:#FFFDF8; --line:#E4DAC4; --muted:#7A6E5E;
-  --blue:#1E3E6E; --surface2:#F0EBE0;
-}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
-  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
-  --blue:#6090D8; --surface2:#302820;
-  color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#1A1612; --ink:#F0E8D8; --red:#E05040; --gold:#D4A030;
-  --green:#5AAA48; --card:#26201A; --line:#3C3028; --muted:#9A8C7C;
-  --blue:#6090D8; --surface2:#302820;
-  color-scheme:dark;
-}
+:root{--bg:#F5F1E6;--surface2:#ECE6D4;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--red:#2F5D50;--pri2:#3E7566;--blue:#3E7566;--gold:#B8782E;--key:#8A5517;--green:#35693F;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--tint:rgba(47,93,80,.08);--tint2:rgba(47,93,80,.15);--tint3:rgba(47,93,80,.12);--oktint:rgba(53,105,63,.10);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface2:#27302B;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--red:#84C2AE;--pri2:#6FAE9A;--blue:#84C2AE;--gold:#E0B070;--key:#E0B070;--green:#8FCB93;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--tint:rgba(132,194,174,.10);--tint2:rgba(132,194,174,.18);--tint3:rgba(132,194,174,.14);--oktint:rgba(143,203,147,.12);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161C19;--surface2:#27302B;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--red:#84C2AE;--pri2:#6FAE9A;--blue:#84C2AE;--gold:#E0B070;--key:#E0B070;--green:#8FCB93;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--tint:rgba(132,194,174,.10);--tint2:rgba(132,194,174,.18);--tint3:rgba(132,194,174,.14);--oktint:rgba(143,203,147,.12);color-scheme:dark}
+:root[data-theme="light"]{--bg:#F5F1E6;--surface2:#ECE6D4;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--red:#2F5D50;--pri2:#3E7566;--blue:#3E7566;--gold:#B8782E;--key:#8A5517;--green:#35693F;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--tint:rgba(47,93,80,.08);--tint2:rgba(47,93,80,.15);--tint3:rgba(47,93,80,.12);--oktint:rgba(53,105,63,.10);color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:80px}
-header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 20px 20px;text-align:center}
+header{background:linear-gradient(135deg,var(--hbg1),var(--hbg2));color:#fff;padding:24px 20px 20px;text-align:center;color:#fff}
 header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
 header .sub{font-size:13px;opacity:.85}
 
 /* nav */
 nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
 .nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
-.nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.nav-btn.on{background:var(--red);color:var(--onpri);border-color:var(--red)}
 
 /* main */
 main{max-width:720px;margin:0 auto;padding:20px 16px}
@@ -59,7 +40,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   min-width:60px;
   padding:0 4px;
   color:transparent;
-  background:rgba(168,64,43,.08);
+  background:var(--tint);
   border-radius:3px;
   vertical-align:bottom;
   cursor:pointer;
@@ -68,30 +49,30 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   font-weight:700;
   font-size:13.5px;
 }
-.blank:hover{background:rgba(168,64,43,.15)}
+.blank:hover{background:var(--tint2)}
 .blank.revealed{
-  color:var(--red);
-  background:rgba(168,64,43,.12);
+  color:var(--key);
+  background:var(--tint3);
   border-bottom-color:var(--green);
 }
 .blank .blank-mask{display:inline}
 .blank.revealed .blank-mask{display:none}
-.blank .blank-val{display:none;color:var(--red)}
+.blank .blank-val{display:none;color:var(--key)}
 .blank.revealed .blank-val{display:inline}
 
 /* 整張卡按鈕 */
 .reveal-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;transition:all .15s;margin-right:8px}
-.reveal-btn:hover{background:var(--red);color:#fff}
+.reveal-btn:hover{background:var(--red);color:var(--onpri)}
 .reveal-all-btn{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border-radius:6px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;transition:all .15s}
-.reveal-all-btn:hover{background:var(--green);color:#fff}
-.reveal-all-btn.done{background:var(--green);color:#fff;border-color:var(--green)}
+.reveal-all-btn:hover{background:var(--green);color:var(--onpri)}
+.reveal-all-btn.done{background:var(--green);color:var(--onpri);border-color:var(--green)}
 
 .card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-.section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
+.section-hint{font-size:11px;color:var(--muted);margin-bottom:14px;letter-spacing:.3px}
 
-.answer-note{display:none;margin-top:10px;padding:10px 12px;background:#F0F6EC;border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:var(--oktint);border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
 .answer-note.show{display:block}
-.answer-note .key{color:var(--red);font-weight:700}
+.answer-note .key{color:var(--key);font-weight:700}
 .answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
 
 /* progress */
@@ -101,7 +82,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
 
 /* hub */
-#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+#hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--red);color:var(--onpri);font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
 
 /* 模式切換 tab */
 .mode-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line)}
@@ -119,7 +100,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
   border-radius:99px;border:1.5px solid var(--line);background:transparent;
   color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
-.qf-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.qf-btn.on{background:var(--red);color:var(--onpri);border-color:var(--red)}
 .qf-all.on{background:var(--ink);border-color:var(--ink)}
 
 /* 題卡 */
@@ -135,30 +116,30 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   word-break:break-all}
 .qc-blank .blank{
   display:inline-block;border-bottom:2px solid var(--red);
-  padding:0 3px;color:transparent;background:rgba(168,64,43,.08);
+  padding:0 3px;color:transparent;background:var(--tint);
   border-radius:3px;vertical-align:bottom;cursor:pointer;user-select:none;
   transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
-.qc-blank .blank:hover{background:rgba(168,64,43,.15)}
-.qc-blank .blank.revealed{color:var(--red);background:rgba(168,64,43,.12);
+.qc-blank .blank:hover{background:var(--tint2)}
+.qc-blank .blank.revealed{color:var(--key);background:var(--tint3);
   border-bottom-color:var(--green)}
 .qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
   border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
 .qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
-.qc-btn-reveal:hover{background:var(--red);color:#fff}
+.qc-btn-reveal:hover{background:var(--red);color:var(--onpri)}
 .qc-btn-all{border-color:var(--green);color:var(--green);background:transparent}
-.qc-btn-all:hover{background:var(--green);color:#fff}
+.qc-btn-all:hover{background:var(--green);color:var(--onpri)}
 .qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
-.qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-btn-next:hover{background:var(--blue);color:var(--onpri)}
 .qc-btn-prev{border-color:var(--muted);color:var(--muted);background:transparent}
-.qc-btn-prev:hover{background:var(--muted);color:#fff}
+.qc-btn-prev:hover{background:var(--muted);color:var(--onpri)}
 .qc-btn-prev:disabled{opacity:.3;cursor:default}
 .qc-btn-prev:disabled:hover{background:transparent;color:var(--muted)}
 .qc-answer{display:none;margin-top:10px;padding:10px 14px;
-  background:rgba(92,122,74,.12);border-left:3px solid var(--green);
+  background:var(--oktint);border-left:3px solid var(--green);
   border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85}
 .qc-answer.show{display:block}
-.qc-answer .key{color:var(--red);font-weight:700}
+.qc-answer .key{color:var(--key);font-weight:700}
 .qc-answer .src{margin-top:6px;font-size:12px;color:var(--muted)}
 .qc-exam-stat{display:none;margin-top:10px;padding:6px 12px;
   background:var(--surface2);border:1px solid var(--line);border-radius:8px;
@@ -174,6 +155,16 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
 .quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
 .quiz-done-banner .big{font-size:48px;margin-bottom:8px}
+
+/* 章節收納 */
+nav{padding:8px 16px;display:block}
+.ch-toggle,.qf-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;text-align:left}
+.ch-toggle .arr,.qf-toggle .arr{color:var(--red);transition:transform .2s;flex:none}
+.ch-toggle[aria-expanded="true"] .arr,.qf-toggle[aria-expanded="true"] .arr{transform:rotate(180deg)}
+.ch-toggle small,.qf-toggle small{display:block;font-size:11px;font-weight:400;color:var(--muted)}
+.ch-panel,.quiz-filter.fold{display:none;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);flex-wrap:wrap;gap:6px;max-height:55vh;overflow-y:auto}
+.ch-panel.open,.quiz-filter.fold.open{display:flex}
+.quiz-wrap{margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -194,7 +185,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 <main id="main"></main>
 
 <div id="quiz-mode">
-  <div class="quiz-filter" id="quiz-filter"></div>
+  <div class="quiz-wrap"><button class="qf-toggle" id="qfToggle" aria-expanded="false" onclick="toggleQf()"><span><span id="qfLabel">篩選：全部章節</span><small>點開可只練單一章節</small></span><span class="arr">▾</span></button><div class="quiz-filter fold" id="quiz-filter"></div></div>
   <div class="quiz-progress" id="quiz-progress"></div>
   <div id="quiz-card-area"></div>
 </div>
@@ -1563,6 +1554,13 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
 
 // build nav
 const nav = document.getElementById('nav');
+const chToggle = document.createElement('button');
+chToggle.className='ch-toggle';chToggle.setAttribute('aria-expanded','false');
+chToggle.innerHTML='<span><span id="chLabel">章節：選擇章節</span><small>點開選章節，選完自動收起</small></span><span class="arr">▾</span>';
+const chPanel = document.createElement('div');chPanel.className='ch-panel';chPanel.id='chPanel';
+chToggle.onclick=()=>{const o=chPanel.classList.toggle('open');chToggle.setAttribute('aria-expanded',o?'true':'false')};
+nav.appendChild(chToggle);nav.appendChild(chPanel);
+function closeChPanel(){chPanel.classList.remove('open');chToggle.setAttribute('aria-expanded','false')}
 const main = document.getElementById('main');
 let cardDone = {}; // cardKey -> bool
 
@@ -1572,15 +1570,15 @@ randAllBtn.className = 'nav-btn';
 randAllBtn.textContent = '🔀 全部隨機';
 randAllBtn.style.borderColor = 'var(--blue)';
 randAllBtn.style.color = 'var(--blue)';
-randAllBtn.onclick = () => setMode('quiz');
-nav.appendChild(randAllBtn);
+randAllBtn.onclick = () => {closeChPanel();setMode('quiz')};
+chPanel.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
   const btn = document.createElement('button');
   btn.className = 'nav-btn' + (ci===0?' on':'');
   btn.textContent = ch.label;
   btn.onclick = ()=> switchCh(ch.id);
-  nav.appendChild(btn);
+  chPanel.appendChild(btn);
 
   const div = document.createElement('div');
   div.className = 'chapter' + (ci===0?' active':'');
@@ -1626,6 +1624,8 @@ DATA.forEach((ch,ci)=>{
   main.appendChild(div);
 });
 
+document.getElementById('chLabel').textContent='章節：'+DATA[0].label;
+
 function toggleBlank(el) {
   el.classList.toggle('revealed');
 }
@@ -1663,7 +1663,8 @@ function switchCh(id){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('ch-'+id).classList.add('active');
-  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  const _b=[...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id));_b.classList.add('on');
+  document.getElementById('chLabel').textContent='章節：'+_b.textContent;closeChPanel();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -1720,8 +1721,11 @@ function initQuiz() {
   startQuizRound();
 }
 
+function toggleQf(){const f=document.getElementById('quiz-filter');const o=f.classList.toggle('open');document.getElementById('qfToggle').setAttribute('aria-expanded',o?'true':'false')}
 function setQuizFilter(id, btn) {
   quizFilter = id;
+  document.getElementById('qfLabel').textContent='篩選：'+btn.textContent;
+  document.getElementById('quiz-filter').classList.remove('open');document.getElementById('qfToggle').setAttribute('aria-expanded','false');
   document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   startQuizRound();
@@ -1861,7 +1865,7 @@ function updateThemeBtn(theme) {
 }
 function toggleTheme() {
   const html = document.documentElement;
-  const current = html.getAttribute('data-theme') || 'light';
+  const current = html.getAttribute('data-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   const next = current === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   updateThemeBtn(next);
@@ -1871,7 +1875,7 @@ function toggleTheme() {
   try {
     const saved = localStorage.getItem('bx-theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
-    updateThemeBtn(saved || 'light');
+    updateThemeBtn(saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
   } catch(e) {}
 })();
 </script>
