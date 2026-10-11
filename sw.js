@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v8';
+const CACHE = 'brokerx-v9';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -45,6 +45,7 @@ const FILES = [
   '/土地法_稅制與取得方式比較表.html',
   '/土地法_速查三表.html',
   '/土地法_分數倍數數字分析.html',
+  '/土地法_稅率總表.html',
   '/土地法_申論題分類總覽.html',
   '/土地法_優先購買權_物權債權.html',
   '/土地法_診斷卷一.html',

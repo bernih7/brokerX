@@ -73,6 +73,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .answer-note{display:none;margin-top:10px;padding:10px 12px;background:var(--oktint);border-left:3px solid var(--green);border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
 .answer-note.show{display:block}
 .answer-note .key{color:var(--key);font-weight:700}
+.rtl{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--pri);text-decoration:none;border:1.5px solid var(--pri);border-radius:99px;padding:3px 12px}.rtl:hover{background:var(--tint)}
 .answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
 
 /* progress */
@@ -651,7 +652,8 @@ const DATA = [
     "answer": "保留地地價補償按<span class=\"key\">毗鄰非公共設施保留地</span>平均公告土地現值，加成最高不超過<span class=\"key\">40%</span>；建築使用統按<span class=\"key\">6‰</span>徵地價稅；未取得前得申請<span class=\"key\">臨時建築</span>使用。",
     "src": "都市計畫法、土地稅法§19",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "rate": "landvalue"
    },
    {
     "term": "保留地之稅捐優惠",
@@ -659,7 +661,8 @@ const DATA = [
     "answer": "保留地未使用且與使用中土地<span class=\"key\">隔離</span>者免徵<span class=\"key\">地價稅</span>；尚未被徵收前之移轉免徵<span class=\"key\">土地增值稅</span>。",
     "src": "土地稅法",
     "mc": 0,
-    "essay": 3
+    "essay": 3,
+    "rate": "landvalue"
    },
    {
     "term": "容積移轉不適用情形★陷阱",
@@ -775,7 +778,8 @@ const DATA = [
     "answer": "累進起點地價：扣除<span class=\"key\">工業用地</span>、<span class=\"key\">礦業用地</span>、<span class=\"key\">農業用地</span>及免稅土地後，以<span class=\"key\">七公畝</span>之平均地價為準。",
     "src": "土地稅法",
     "mc": 1,
-    "essay": 2
+    "essay": 2,
+    "rate": "landvalue"
    }
   ]
  },
@@ -863,7 +867,8 @@ const DATA = [
     "answer": "空地稅：按應納地價稅基本稅額加徵<span class=\"key\">2倍至5倍</span>；荒地稅：按應納田賦加徵<span class=\"key\">1倍至3倍</span>。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 1
+    "essay": 1,
+    "rate": "landvalue"
    },
    {
     "term": "荒地照價收買",
@@ -1212,7 +1217,8 @@ const DATA = [
     "mc": 23,
     "essay": 2,
     "mnemonic": "15→25→35→45→55（第一級後每級 +10）",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>地價（累進起點地價倍數）</th><th>稅率</th></tr></thead><tbody><tr><td>未超過累進起點地價</td><td><span class=\"key\">10‰</span></td></tr><tr><td>超過未達5倍</td><td><span class=\"key\">15‰</span></td></tr><tr><td>5倍～未達10倍</td><td><span class=\"key\">25‰</span></td></tr><tr><td>10倍～未達15倍</td><td><span class=\"key\">35‰</span></td></tr><tr><td>15倍～未達20倍</td><td><span class=\"key\">45‰</span></td></tr><tr><td>20倍以上</td><td><span class=\"key\">55‰</span></td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>地價（累進起點地價倍數）</th><th>稅率</th></tr></thead><tbody><tr><td>未超過累進起點地價</td><td><span class=\"key\">10‰</span></td></tr><tr><td>超過未達5倍</td><td><span class=\"key\">15‰</span></td></tr><tr><td>5倍～未達10倍</td><td><span class=\"key\">25‰</span></td></tr><tr><td>10倍～未達15倍</td><td><span class=\"key\">35‰</span></td></tr><tr><td>15倍～未達20倍</td><td><span class=\"key\">45‰</span></td></tr><tr><td>20倍以上</td><td><span class=\"key\">55‰</span></td></tr></tbody></table></div>",
+    "rate": "landvalue"
    },
    {
     "term": "累進起點地價",
@@ -1220,7 +1226,8 @@ const DATA = [
     "answer": "累進起點地價以扣除<span class=\"key\">工業、礦業、農業用地及免稅土地</span>後，<span class=\"key\">七公畝</span>之平均地價為準，報<span class=\"key\">財政部及內政部</span>備查。",
     "src": "土地稅法",
     "mc": 9,
-    "essay": 2
+    "essay": 2,
+    "rate": "landvalue"
    },
    {
     "term": "自用住宅用地稅率（2‰）",
@@ -1228,7 +1235,8 @@ const DATA = [
     "answer": "自用住宅用地稅率<span class=\"key\">2‰</span>：都市土地面積<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>以內，全國以<span class=\"key\">一處</span>為限；土地所有權人本人、配偶或<span class=\"key\">直系親屬</span>辦竣戶籍。",
     "src": "土地稅法",
     "mc": 11,
-    "essay": 0
+    "essay": 0,
+    "rate": "selfuse"
    },
    {
     "term": "保留地與事業用地稅率",
@@ -1236,7 +1244,8 @@ const DATA = [
     "answer": "公共設施保留地仍為建築使用者統按<span class=\"key\">6‰</span>；工業、礦業等事業直接使用土地按<span class=\"key\">10‰</span>（<span class=\"key\">農業用地</span>不包括在內）。",
     "src": "土地稅法§19",
     "mc": 13,
-    "essay": 0
+    "essay": 0,
+    "rate": "landvalue"
    },
    {
     "term": "地價稅免徵情形",
@@ -1260,7 +1269,8 @@ const DATA = [
     "answer": "每年（期）地價稅每戶稅額在新臺幣<span class=\"key\">100</span>元以下者，免予課徵。",
     "src": "土地稅法",
     "mc": 0,
-    "essay": 0
+    "essay": 0,
+    "rate": "landvalue"
    }
   ]
  },
@@ -1274,7 +1284,8 @@ const DATA = [
     "answer": "漲價總數額占原地價：<span class=\"key\">100%</span>以下部分稅率<span class=\"key\">20%</span>；超過100%至200%部分<span class=\"key\">30%</span>；超過200%部分<span class=\"key\">40%</span>。",
     "src": "土地稅法§33",
     "mc": 10,
-    "essay": 1
+    "essay": 1,
+    "rate": "zeng"
    },
    {
     "term": "長期持有減徵",
@@ -1282,7 +1293,8 @@ const DATA = [
     "answer": "持有土地<span class=\"key\">20</span>年以上減徵<span class=\"key\">20%</span>；<span class=\"key\">30</span>年以上減徵<span class=\"key\">30%</span>；<span class=\"key\">40</span>年以上減徵<span class=\"key\">40%</span>（就超過第一級最低稅率部分）。",
     "src": "土地稅法§33",
     "mc": 7,
-    "essay": 1
+    "essay": 1,
+    "rate": "zeng"
    },
    {
     "term": "自用住宅10%：一生一次",
@@ -1290,7 +1302,8 @@ const DATA = [
     "answer": "一生一次：都市土地<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>以內；出售前<span class=\"key\">1</span>年內無出租或營業；本人、配偶或直系親屬辦竣戶籍；按<span class=\"key\">10%</span>稅率課徵。",
     "src": "土地稅法",
     "mc": 8,
-    "essay": 0
+    "essay": 0,
+    "rate": "selfuse"
    },
    {
     "term": "自用住宅10%：一生一屋",
@@ -1298,7 +1311,8 @@ const DATA = [
     "answer": "一生一屋：都市土地<span class=\"key\">1.5公畝</span>、非都市<span class=\"key\">3.5公畝</span>以內；無自用住宅以外房屋；設戶籍並持有連續滿<span class=\"key\">6</span>年；出售前<span class=\"key\">5</span>年內無營業或出租。",
     "src": "土地稅法",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "rate": "selfuse"
    },
    {
     "term": "不課徵土增稅（須申請）",
@@ -1354,7 +1368,8 @@ const DATA = [
     "answer": "出售自用住宅用地後<span class=\"key\">2</span>年內重購且新地價較高，得退稅；重購後<span class=\"key\">5</span>年內再移轉或改作他用，應<span class=\"key\">追繳</span>已退稅額。",
     "src": "土地稅法",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "rate": "selfuse"
    },
    {
     "term": "土增稅減徵40%三情形",
@@ -1362,7 +1377,8 @@ const DATA = [
     "answer": "減徵<span class=\"key\">40%</span>：①重劃後<span class=\"key\">第一次移轉</span>；②區段徵收領回抵價地後<span class=\"key\">第一次移轉</span>；③都市更新不願參加權利變換而領取現金。",
     "src": "相關法規",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "rate": "zeng"
    }
   ]
  },
@@ -1392,7 +1408,8 @@ const DATA = [
     "answer": "住家用：自住或公益出租人出租<span class=\"key\">1.2%</span>（全國單戶低額自住1%）；出租達租金標準或繼承共有<span class=\"key\">1.5%～2.4%</span>；其他住家用<span class=\"key\">2%～4.8%</span>。",
     "src": "房屋稅條例§5",
     "mc": 8,
-    "essay": 1
+    "essay": 1,
+    "rate": "house"
    },
    {
     "term": "房屋稅稅率：非住家用",
@@ -1400,7 +1417,8 @@ const DATA = [
     "answer": "非住家用：營業、私人醫院、診所、自由職業事務所<span class=\"key\">3%～5%</span>；人民團體等非營業<span class=\"key\">1.5%～2.5%</span>。",
     "src": "房屋稅條例§5",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "rate": "house"
    },
    {
     "term": "房屋稅免徵與減半★陷阱",
@@ -1430,7 +1448,8 @@ const DATA = [
     "answer": "買賣<span class=\"key\">6%</span>、贈與<span class=\"key\">6%</span>、占有<span class=\"key\">6%</span>、典權<span class=\"key\">4%</span>、交換<span class=\"key\">2%</span>、分割<span class=\"key\">2%</span>。",
     "src": "契稅條例",
     "mc": 13,
-    "essay": 0
+    "essay": 0,
+    "rate": "deed"
    },
    {
     "term": "契稅納稅義務人★與直覺相反",
@@ -1492,7 +1511,8 @@ const DATA = [
     "answer": "境內個人持有期間：<span class=\"key\">2年以內</span>稅率<span class=\"key\">45%</span>；超過2年未逾5年<span class=\"key\">35%</span>；超過5年未逾10年<span class=\"key\">20%</span>；超過10年<span class=\"key\">15%</span>。",
     "src": "所得稅法",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "rate": "hehe"
    },
    {
     "term": "課稅範圍與稅基",
@@ -1524,7 +1544,8 @@ const DATA = [
     "answer": "出售後<span class=\"key\">2</span>年內重購自住房地者，於重購移轉登記次日起<span class=\"key\">5</span>年內申請退稅；重購後<span class=\"key\">5</span>年內改作他用或再移轉，應<span class=\"key\">追繳</span>。",
     "src": "所得稅法§14-8",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "rate": "selfuse"
    },
    {
     "term": "交易損失與特殊20%",
@@ -1532,7 +1553,8 @@ const DATA = [
     "answer": "交易損失得自損失發生日以後<span class=\"key\">3</span>年內之房地交易所得中扣除；因非自願因素持有<span class=\"key\">5年以下</span>或與營利事業合建<span class=\"key\">5年內完成並銷售</span>，稅率<span class=\"key\">20%</span>。",
     "src": "所得稅法",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "rate": "hehe"
    }
   ]
  },
@@ -1673,7 +1695,8 @@ const DATA = [
     "src": "土地稅法／平均地權條例（官方100-8、112-21）",
     "mc": 2,
     "essay": 0,
-    "mnemonic": "空地二到五，不建就收買〔自編〕"
+    "mnemonic": "空地二到五，不建就收買〔自編〕",
+    "rate": "landvalue"
    },
    {
     "term": "登記逾期罰鍰倍數",
@@ -1720,7 +1743,8 @@ const DATA = [
     "mc": 3,
     "essay": 0,
     "mnemonic": "荒地稅一到三，滿三年收買；空地稅二到五〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th></th><th>荒地稅（§26-1）</th><th>空地稅</th></tr></thead><tbody><tr><td>對象</td><td>農業用地閒置不用</td><td>私有空地逾期未建築</td></tr><tr><td>計算基礎</td><td>應納「田賦」</td><td>該宗土地應納「地價稅基本稅額」</td></tr><tr><td>倍數</td><td><span class=\"key\">1～3 倍</span></td><td><span class=\"key\">2～5 倍</span></td></tr><tr><td>滿三年仍不使用</td><td>得照價收買（公告土地現值，官方104-7）</td><td>逾期未建築得照價收買</td></tr><tr><td>核准機關</td><td>內政部</td><td>—</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th></th><th>荒地稅（§26-1）</th><th>空地稅</th></tr></thead><tbody><tr><td>對象</td><td>農業用地閒置不用</td><td>私有空地逾期未建築</td></tr><tr><td>計算基礎</td><td>應納「田賦」</td><td>該宗土地應納「地價稅基本稅額」</td></tr><tr><td>倍數</td><td><span class=\"key\">1～3 倍</span></td><td><span class=\"key\">2～5 倍</span></td></tr><tr><td>滿三年仍不使用</td><td>得照價收買（公告土地現值，官方104-7）</td><td>逾期未建築得照價收買</td></tr><tr><td>核准機關</td><td>內政部</td><td>—</td></tr></tbody></table></div>",
+    "rate": "landvalue"
    },
    {
     "term": "契稅逾期：怠報金・滯納金",
@@ -1730,7 +1754,8 @@ const DATA = [
     "mc": 2,
     "essay": 0,
     "mnemonic": "怠報三天百分之一，頂多一萬五〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>契稅條例</th><th>內容</th><th>出處</th></tr></thead><tbody><tr><td>申報期限</td><td>契約成立之日起 <span class=\"key\">30 日</span></td><td>§16</td></tr><tr><td>查定</td><td>收件後 <span class=\"key\">15 日</span> 內查定；補正通知 7 日（鏡像）</td><td>§18／官方101-37 A</td></tr><tr><td>繳納期限</td><td>收到核定繳款書後 <span class=\"key\">30 日</span></td><td>§19／官方114-16 A</td></tr><tr><td>怠報金（逾期申報）</td><td>每逾 <span class=\"key\">3 日</span> 加徵 1%，上限應納稅額且 ≤1.5 萬</td><td>§24</td></tr><tr><td>滯納金（逾期繳納）</td><td>每逾 2 日或 3 日 1%（⚠️兩來源不一致）；逾 30 日移送強制執行</td><td>§25 待核</td></tr><tr><td>匿報短報罰鍰</td><td>補稅＋<span class=\"key\">1～3 倍</span></td><td>§26／官方101-37 C</td></tr><tr><td>檢舉獎金</td><td>罰鍰 20%（官方103-3）</td><td>§28? 待核</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>契稅條例</th><th>內容</th><th>出處</th></tr></thead><tbody><tr><td>申報期限</td><td>契約成立之日起 <span class=\"key\">30 日</span></td><td>§16</td></tr><tr><td>查定</td><td>收件後 <span class=\"key\">15 日</span> 內查定；補正通知 7 日（鏡像）</td><td>§18／官方101-37 A</td></tr><tr><td>繳納期限</td><td>收到核定繳款書後 <span class=\"key\">30 日</span></td><td>§19／官方114-16 A</td></tr><tr><td>怠報金（逾期申報）</td><td>每逾 <span class=\"key\">3 日</span> 加徵 1%，上限應納稅額且 ≤1.5 萬</td><td>§24</td></tr><tr><td>滯納金（逾期繳納）</td><td>每逾 2 日或 3 日 1%（⚠️兩來源不一致）；逾 30 日移送強制執行</td><td>§25 待核</td></tr><tr><td>匿報短報罰鍰</td><td>補稅＋<span class=\"key\">1～3 倍</span></td><td>§26／官方101-37 C</td></tr><tr><td>檢舉獎金</td><td>罰鍰 20%（官方103-3）</td><td>§28? 待核</td></tr></tbody></table></div>",
+    "rate": "deed"
    }
   ]
  },
@@ -1884,6 +1909,7 @@ DATA.forEach((ch,ci)=>{
         <div class="key-note">${c.answer}</div>
         ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
         ${c.table||''}
+        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅率總表（${({landvalue:'地價稅',zeng:'土地增值稅',house:'房屋稅',deed:'契稅',hehe:'房地合一',selfuse:'自用住宅・一生一屋一生一次'})[c.rate]}）→</a>`:''}
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;
     div.appendChild(card);
@@ -1970,7 +1996,7 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', mc: c.mc||0, essay: c.essay||0 });
+        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0 });
       });
     });
   }
@@ -2064,6 +2090,7 @@ function renderQuizCard() {
         <div>${c.answer}</div>
         ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
         ${c.table||''}
+        ${c.rate?`<a class="rtl" href="土地法_稅率總表.html#${c.rate}">💰 看稅率總表（${({landvalue:'地價稅',zeng:'土地增值稅',house:'房屋稅',deed:'契稅',hehe:'房地合一',selfuse:'自用住宅・一生一屋一生一次'})[c.rate]}）→</a>`:''}
         <div class="src">📌 ${c.src}</div>
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
