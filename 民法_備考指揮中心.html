@@ -99,6 +99,7 @@ nav.tabs button{flex:1 1 auto}
 @media(max-width:600px){nav.tabs{gap:2px}nav.tabs button{padding:8px 3px;font-size:13px}}
 @media(max-width:380px){nav.tabs button{padding:8px 1px;font-size:12px}}
 </style>
+<script src="bxm-use.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -663,6 +664,11 @@ nav.tabs button{flex:1 1 auto}
 <section class="tab" id="t5">
  <h2>📊 進度</h2>
  <p class="lead">資料來自各工具在此瀏覽器的紀錄；換裝置或清除資料就會歸零。</p>
+ <div class="group">回報給【總控】（全站一份）</div>
+ <p style="font-size:13px;margin:4px 0 8px" id="bxTodayLine"></p>
+ <p style="font-size:13px;margin:4px 0 8px">涵蓋刷題 A～E 五篇、25題模擬、精選／完整小卡、單字卡、定義填空、各頁開啟次數。按一下複製，貼到【總控】對話。</p>
+ <button id="bxRepBtn" style="padding:8px 14px;border-radius:99px;border:1px solid var(--green);background:var(--green);color:#fff;font-size:14px;cursor:pointer">複製全站回報</button>
+ <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:12px;box-sizing:border-box"></textarea>
  <div class="today" id="phnow"></div>
  <div class="group">① 刷題進度（依篇）</div>
  <div class="tw"><table id="progtb"><tr><th>篇</th><th>已作答／總數</th><th>正確率</th><th>錯題</th></tr></table></div>
@@ -917,5 +923,6 @@ nav.tabs button{flex:1 1 auto}
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa"),l=document.getElementById("bxTodayLine");if(!b||!window.BXREP)return;var d=BXREP.today();if(l)l.textContent="今天已刷 "+d.q+" 題選擇題，卡片與填空操作 "+d.c+" 次。";b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bxm-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼到【總控】"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
 </body>
 </html>

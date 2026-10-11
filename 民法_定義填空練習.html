@@ -175,6 +175,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
 .quiz-done-banner .big{font-size:48px;margin-bottom:8px}
 </style>
+<script src="bxm-use.js"></script>
 </head>
 <body>
 
@@ -1539,6 +1540,7 @@ function revealAllBlanks(key, chId, total) {
 function markDone(key, chId, total) {
   if(cardDone[key]) return;
   cardDone[key] = true;
+  try{BXREP.fillMark(key)}catch(e){}
   const btn = document.getElementById('rb-'+key);
   if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
   const note = document.getElementById('ans-'+key);
