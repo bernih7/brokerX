@@ -28,7 +28,7 @@ details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:
 #hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
 
 /* 解析樣式 B分離 / C摺疊 / D結論優先 */
-.exs{display:flex;gap:6px;align-items:center;margin:8px 0;font-size:13px;color:#5F6B63;flex-wrap:wrap}
+.score{flex-wrap:wrap}.exs{flex-basis:100%;display:flex;gap:6px;align-items:center;margin:0;padding-top:4px;border-top:1px dashed var(--line);font-size:13px;color:#5F6B63;flex-wrap:wrap}
 .exs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
 .exs button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
 .bg{display:none;font-size:11px;font-weight:700;border-radius:99px;padding:0 8px;margin-left:6px;color:#fff;vertical-align:middle}
@@ -79,8 +79,8 @@ function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  qHost.querySelector("#sc").textContent="已答 "+a+"/"+D.Q.length+"｜答對 "+c+"｜選擇題 "+(c*2)+"/"+(D.Q.length*2);save()}
 function mm(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
 function mkQ(host){
- var top='<div class="score"><span id="sc"></span>'+(D.timer?'<span id="tm">90:00</span><button id="tb">開始計時</button>':'')+'<button id="rs">重做</button></div>';
- host.innerHTML=top+'<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button></div>';
+ var top='<div class="score"><span id="sc"></span>'+(D.timer?'<span id="tm">90:00</span><button id="tb">開始計時</button>':'')+'<button id="rs">重做</button><div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button></div></div>';
+ host.innerHTML=top;
  [].forEach.call(host.querySelectorAll(".exs button"),function(b){b.onclick=function(){setEx(b.dataset.m)}});setEx(EX);
  D.Q.forEach(function(q){
   var c=document.createElement("div");c.className="card";
