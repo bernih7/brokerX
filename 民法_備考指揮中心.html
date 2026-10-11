@@ -1,181 +1,275 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>民法｜備考指揮中心</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#F8F3E9;--ink:#2A2722;--vermillion:#A8402B;--gold:#BC8A2E;--green:#3F6B4C;--line:#DDD2BB;--paper2:#FBF8F0;--muted:#6f685b}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',system-ui,sans-serif;line-height:1.75;font-size:16px}
-h1,h2,h3,h4{font-family:'Noto Serif TC',serif;margin:0}
-a{color:var(--vermillion)}
-.wrap{max-width:980px;margin:0 auto;padding:0 16px 60px}
-header{padding:28px 0 12px}
-.kicker{color:var(--gold);letter-spacing:.2em;font-size:13px;font-weight:700}
-h1{font-size:30px;margin:4px 0 6px}
-.sub{color:var(--muted);font-size:14px}
-.count{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap;margin:16px 0 8px}
-.cbox{background:var(--paper2);border:1px solid var(--line);border-left:5px solid var(--vermillion);padding:10px 18px;border-radius:6px}
-.cbox .n{font-family:'Noto Serif TC',serif;font-size:38px;color:var(--vermillion);font-weight:700;line-height:1.1}
-.cbox .l{font-size:13px;color:var(--muted)}
-.cbox.g{border-left-color:var(--gold)} .cbox.g .n{color:var(--gold);font-size:26px}
-.stat{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
-.chip{background:var(--paper2);border:1px solid var(--line);border-radius:99px;padding:2px 12px;font-size:13px}
-nav.tabs{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:2px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 0 0;margin-top:14px}
-nav.tabs button{font:inherit;font-weight:500;border:1px solid var(--line);border-bottom:none;background:var(--paper2);color:var(--ink);padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;white-space:nowrap}
-nav.tabs button.on{background:var(--vermillion);border-color:var(--vermillion);color:#fff}
-section.tab{display:none;padding-top:20px}
-section.tab.on{display:block}
-h2{font-size:22px;margin:0 0 4px}
-.lead{color:var(--muted);font-size:14px;margin:0 0 14px}
-.group{margin:22px 0 8px;font-family:'Noto Serif TC',serif;font-size:17px;color:var(--vermillion);border-bottom:1px dashed var(--line);padding-bottom:3px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.card{display:block;text-decoration:none;color:var(--ink);background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;position:relative;transition:.15s}
-.card:hover{border-color:var(--vermillion);transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
-.card .nm{font-weight:700;font-size:15px;padding-right:62px}
-.card .ds{font-size:13px;color:var(--muted)}
-.card .bd{position:absolute;right:10px;top:10px;background:var(--vermillion);color:#fff;border-radius:99px;font-size:12px;padding:0 9px}
-table{width:100%;border-collapse:collapse;background:var(--paper2);font-size:14.5px}
-th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
-th{background:#efe6d1;font-family:'Noto Serif TC',serif}
-.tw{overflow-x:auto}
-.ok{color:var(--green);font-weight:700}.no{color:var(--vermillion);font-weight:700}.part{color:var(--gold);font-weight:700}
-.note{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--gold);padding:10px 14px;border-radius:4px;margin:14px 0;font-size:14.5px}
-.note.r{border-left-color:var(--vermillion)}
-.note.gr{border-left-color:var(--green)}
-.todo{background:repeating-linear-gradient(45deg,var(--paper2),var(--paper2) 8px,#f3ecda 8px,#f3ecda 16px);border:1px dashed var(--gold);padding:12px 14px;border-radius:6px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;align-items:center}
-.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:5px 14px;border-radius:99px;cursor:pointer}
-.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.filters input[type=search]{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:5px 12px;border-radius:99px;min-width:160px}
-.essay{background:var(--paper2);border:1px solid var(--line);border-radius:8px;margin:8px 0}
-.essay[open]{border-color:var(--vermillion)}
-.essay summary{cursor:pointer;padding:10px 12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;list-style:none}
-.essay summary::-webkit-details-marker{display:none}
-.essay summary::before{content:'▸';color:var(--vermillion)}
-.essay[open] summary::before{content:'▾'}
-.ek{font-weight:700;font-family:'Noto Serif TC',serif;color:var(--vermillion);min-width:76px}
-.et{font-weight:500;flex:1 1 220px}
-.ec{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:0 8px}
-.essay.read summary .ek::after{content:' ✓';color:var(--green)}
-.ebody{padding:4px 18px 16px;border-top:1px dashed var(--line)}
-.ebody h4{font-size:16px;color:var(--vermillion);margin:16px 0 2px}
-.ebody p{margin:4px 0 8px;text-align:justify}
-.oq{background:#f3ecda;border-left:4px solid var(--gold);padding:8px 12px;margin:10px 0;font-size:14.5px}
-.done{display:inline-block;margin-top:10px;font-size:14px;color:var(--green);cursor:pointer}
-.ph{border-left:5px solid var(--line);background:var(--paper2);padding:8px 14px;margin:8px 0;border-radius:4px}
-.ph.cur{border-left-color:var(--vermillion);background:#f6e6dd}
-.ph .tg{display:none;color:var(--vermillion);font-weight:700;font-size:13px}
-.ph.cur .tg{display:inline}
-pre.pr{background:var(--paper2);border:1px solid var(--line);border-radius:6px;padding:10px 14px;white-space:pre-wrap;font:14px/1.7 'Noto Sans TC',sans-serif;margin:6px 0}
-footer{margin-top:30px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:10px}
-@media(max-width:600px){h1{font-size:24px}.cbox .n{font-size:30px}}
 
-.today{background:#F6E6DD;border:1px solid #E3B7A8;border-left:6px solid var(--vermillion);border-radius:8px;padding:12px 16px;margin:4px 0 14px}
-.today h3{font-size:17px;margin-bottom:4px}.today ol{margin:6px 0 0 20px;padding:0}.today li{margin:2px 0}
-.today .tg{font-size:13px;color:var(--muted)}
-.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
-.subtabs button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--paper2);padding:6px 14px;border-radius:99px;cursor:pointer}
-.subtabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* 松煙綠：主色＝導覽／標題；金＝重點；綠＝完成／已核實；紅＝錯誤／陷阱／⚠️ */
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",sans-serif;line-height:1.7;padding-bottom:92px}
+h1,h2,h3,h4{font-family:"Noto Serif TC",serif}
+.top{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:10px 16px}
+.top h1{font-size:1.1rem;color:var(--pri);flex:1;margin:0}
+.cd{background:var(--pri);color:var(--on);border-radius:20px;padding:3px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}.cd b{font-size:1.05rem}
+.th{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 9px;font-size:12px;font-family:inherit;cursor:pointer}
+main{max-width:760px;margin:0 auto;padding:14px 16px}
+.tab{display:none}.tab.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tab.active{animation:none}}
+.hero{background:linear-gradient(135deg,var(--pri),var(--pri2));color:var(--on);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.hero small{opacity:.88}.hero h2{font-size:1.15rem;margin:2px 0 8px}
+.step{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.15);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:.92rem;cursor:pointer}
+:root[data-theme="dark"] .step{background:rgba(0,0,0,.18)}
+.step i{width:22px;height:22px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:12px;flex:none}
+.step.d i{background:currentColor}.step.d i::after{content:"✓";color:var(--pri)}.step.d span{opacity:.7;text-decoration:line-through}
+.hs{font-size:.85rem;margin-top:8px;opacity:.95}
+.sec{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);margin:22px 0 8px;display:flex;justify-content:space-between;align-items:baseline}
+.sec small{font-family:"Noto Sans TC",sans-serif;font-weight:400;color:var(--sub);font-size:.78rem}
+.row{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin:8px 0;color:inherit;text-decoration:none}
+.row .n{flex:1;min-width:0}.row b{display:block;font-family:"Noto Serif TC",serif;font-size:.95rem}.row small{color:var(--sub);font-size:.8rem}
+.b{padding:2px 9px;border-radius:12px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.b.mid{background:var(--acc-soft);color:var(--acc-ink)}
+.abc{display:flex;gap:8px}.abc div{flex:1;text-align:center;border-radius:12px;padding:10px 4px;background:var(--surface);border:1px solid var(--line)}.abc b{display:block;font-size:1.4rem;font-family:"Noto Serif TC",serif}.abc small{color:var(--sub)}
+.seg{display:flex;background:var(--pri-soft);border-radius:12px;padding:3px;gap:2px;margin:2px 0 12px}
+.seg button{flex:1;border:0;background:transparent;color:var(--pri);padding:8px 2px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.seg button.on{background:var(--surface);box-shadow:var(--shadow)}
 .sp{display:none}.sp.on{display:block}
-details.seg{background:var(--paper2);border:1px solid var(--line);border-radius:8px;margin:8px 0}
-details.seg[open]{border-color:var(--vermillion)}
-details.seg>summary{cursor:pointer;padding:10px 12px;list-style:none;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
-details.seg>summary::-webkit-details-marker{display:none}
-details.seg>summary::before{content:'▸';color:var(--vermillion)}
-details.seg[open]>summary::before{content:'▾'}
-details.seg .sn{font-family:'Noto Serif TC',serif;font-weight:700;font-size:16px}
-details.seg .sm{font-size:13px;color:var(--muted)}
-details.seg .grid{padding:4px 12px 12px}
-.bar2{height:8px;background:#eadfc6;border-radius:4px;overflow:hidden;min-width:90px;flex:1 1 90px}
-.bar2 i{display:block;height:100%;background:var(--green)}
-.card .pg{display:block;font-size:12px;color:var(--green);margin-top:2px}
-.card.old{opacity:.85}
-nav.tabs button{flex:1 1 auto}
-@media(max-width:600px){nav.tabs{gap:2px}nav.tabs button{padding:8px 3px;font-size:13px}}
-@media(max-width:380px){nav.tabs button{padding:8px 1px;font-size:12px}}
+.hint{font-size:.84rem;color:var(--sub);margin:0 0 10px}
+.section-title{font-family:"Noto Serif TC",serif;font-size:1.15rem;font-weight:900;margin:2px 0 8px;color:var(--pri)}
+a.tool-link{display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+a.tool-link:hover{border-color:var(--pri)}
+a.tool-link>div{min-width:0}
+#s4 a.tool-link{position:relative;margin:14px 0 8px}
+.cn{position:absolute;top:-8px;right:12px;font-size:.7rem;font-weight:700;padding:0 9px;border-radius:99px;background:var(--surface);color:var(--acc);border:1px solid var(--acc)}
+.cn.ok{color:var(--pri);border-color:var(--pri);background:var(--pri-soft)}
+.fnote{font-size:.78rem;color:var(--sub);margin:6px 2px 0;line-height:1.6}
+a.tool-link .name{font-weight:700;font-size:.95rem}
+a.tool-link .tag{font-size:.78rem;color:var(--sub)}
+a.tool-link .badge{background:var(--pri-soft);color:var(--pri);font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.badge.gold{background:var(--acc-soft);color:var(--acc-ink)}
+a.tool-link .badge.red{background:var(--bad-soft);color:var(--bad)}
+.group-label{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);margin:20px 0 8px;font-size:.98rem}
+.table-wrap,table{width:100%}
+table{border-collapse:collapse;margin:10px 0 16px;font-size:.88rem;background:var(--surface);border-radius:10px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:var(--pri-soft);color:var(--pri);font-family:"Noto Serif TC",serif}
+ul{padding-left:1.2em}li{margin-bottom:6px}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);padding:10px 12px;font-size:.86rem;border-radius:0 10px 10px 0;margin:10px 0;color:var(--ink)}
+.warn{background:var(--warn);border-left:4px solid var(--bad);padding:10px 12px;font-size:.86rem;border-radius:0 10px 10px 0;margin:10px 0}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.filter-btn{font-family:inherit;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.filter-btn.active{background:var(--pri);color:var(--on);border-color:var(--pri)}
+details.essay-detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:2px 12px}
+details.essay-detail[open]{border-color:var(--pri)}
+details.essay-detail summary{cursor:pointer;padding:11px 2px;font-weight:700;font-family:"Noto Serif TC",serif;font-size:.94rem;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+details.essay-detail.tierA summary{color:var(--bad)}details.essay-detail.tierB summary{color:var(--acc-ink)}details.essay-detail.tierC summary{color:var(--ok)}
+.essay-num{background:var(--pri);color:var(--on);font-size:.72rem;padding:2px 8px;border-radius:10px;font-family:"Noto Sans TC",sans-serif;font-weight:700}
+.tier-badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:auto}
+.tier-badge.tierA{background:var(--bad-soft);color:var(--bad)}.tier-badge.tierB{background:var(--acc-soft);color:var(--acc-ink)}.tier-badge.tierC{background:var(--ok-soft);color:var(--ok)}
+.essay-body{padding:4px 4px 14px;border-top:1px dashed var(--line);margin-top:2px;color:var(--ink)}
+.essay-body p{margin:8px 0;font-size:.92rem}
+.essay-body h4{margin:14px 0 4px;font-size:1rem}
+.cmpd{margin:8px 0;font-size:.9rem}.cmpd dt{font-weight:700;color:var(--pri);margin-top:10px}.cmpd dd{margin:3px 0 0;padding-left:.8em;border-left:3px solid var(--line)}.cmpd dd i{font-style:normal;font-weight:700;color:var(--acc-ink)}
+.essay-question{background:var(--pri-soft);padding:10px 12px;border-radius:8px}
+.essay-warn,.inwarn{display:block;background:var(--warn);border-left:4px solid var(--bad);padding:6px 10px;border-radius:0 8px 8px 0;font-size:.84rem;margin-top:6px}
+.flagdot{font-size:.68rem;background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:2px 7px}
+.chk{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.chk input{margin-top:5px;accent-color:var(--pri)}
+.ctr{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.ctr div{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:.85rem}
+.ctr button{font-size:1rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:2px 12px;margin:0 4px;cursor:pointer}
+.ctr b{font-size:1.3rem;display:block;font-family:"Noto Serif TC",serif}
+nav.bot{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+nav.bot button{flex:1;border:0;background:transparent;color:var(--sub);font-family:inherit;font-size:.72rem;padding:4px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:12px}
+nav.bot button span{font-size:1.3rem;line-height:1.2}
+nav.bot button.active{color:var(--pri);font-weight:700}nav.bot button.active span{background:var(--pri-soft);border-radius:14px;padding:0 16px}
+.navfab{position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:35}
+.navfab button{display:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--pri);font-size:1rem;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer}
+.navfab button.on{display:block}
+footer{text-align:center;font-size:.76rem;color:var(--sub);margin:24px 0 0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (max-width:560px){
+ table,tbody,tr,td{display:block;width:100%}
+ table{background:transparent}
+ tr:has(th){display:none}
+ tr{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:6px 10px}
+ td{border:0;padding:3px 0}
+ td::before{content:attr(data-label);display:block;font-size:.72rem;color:var(--sub);font-weight:700;letter-spacing:.04em}
+ td[data-label=""]::before{display:none}
+ td:first-child{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri)}
+}
+
+
+:root{--rv2:#3E6B8C}:root[data-theme="dark"]{--rv2:#8DB8E8}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rv2:#8DB8E8}}
+.rvseg{display:flex;gap:6px;margin:4px 0 10px}.rvseg button{flex:1;font:inherit;font-weight:700;font-size:.9rem;padding:8px 4px;border-radius:99px;border:1.5px solid var(--c);background:var(--surface);color:var(--c);cursor:pointer}.rvseg button[aria-pressed="true"]{background:var(--c);color:var(--on)}
+.rvp{display:flex;flex-direction:column;gap:6px}.rvp[hidden]{display:none}.rvq{font-size:.82rem;color:var(--sub);margin:0 0 2px}
+.rvst{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 11px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:var(--shadow)}
+.rvst>i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--on);font:700 13px/28px "Noto Sans TC";text-align:center}
+.rvst b{display:block;font-family:"Noto Serif TC",serif;font-size:.95rem}.rvst small{display:block;color:var(--sub);font-size:.8rem;line-height:1.45}
+.rvb{font-size:.74rem;font-weight:700;padding:2px 9px;border-radius:12px;background:var(--acc-soft);color:var(--acc-ink);white-space:nowrap}.rvb.hot{background:var(--bad-soft);color:var(--bad)}
+.rvsub{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}.rvsub span{font-size:.74rem;font-weight:700;border:1.5px solid var(--c);color:var(--c);border-radius:99px;padding:0 10px;cursor:pointer}
+/* ---- 民法 hub 補充 ---- */
+:root{--dA:#A8402B;--dB:#B8782E;--dC:#35693F}
+:root[data-theme="dark"]{--dA:#F08A7E;--dB:#E0B070;--dC:#8FCB93}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--dA:#F08A7E;--dB:#E0B070;--dC:#8FCB93}}
+nav.bot button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;padding:0;box-sizing:content-box}
+nav.bot button.active svg{background:var(--pri-soft);border-radius:14px;padding:2px 16px;margin:-2px 0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none;background:var(--sub)}.dot.A{background:var(--dA)}.dot.B{background:var(--dB)}.dot.C{background:var(--dC)}
+.hero .hm{font-size:.8rem;opacity:.9;margin:0 0 4px}
+.stats{display:flex;gap:8px}.stats div{flex:1;text-align:center;border-radius:12px;padding:10px 4px;background:var(--surface);border:1px solid var(--line)}.stats b{display:block;font-size:1.3rem;font-family:"Noto Serif TC",serif}.stats small{color:var(--sub);font-size:.76rem}
+.stats b.bad{color:var(--bad)}.stats b.good{color:var(--ok)}
+/* 章節練習 */
+details.chap{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c,var(--pri));border-radius:12px;margin:10px 0;box-shadow:var(--shadow)}
+details.chap>summary{list-style:none;cursor:pointer;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center}
+details.chap>summary::-webkit-details-marker{display:none}
+details.chap .sn{font-family:"Noto Serif TC",serif;font-weight:800;color:var(--c,var(--pri))}
+details.chap .sm{grid-column:1;font-size:.78rem;color:var(--sub)}
+details.chap .pgb{grid-row:1/3;grid-column:2;font-size:.74rem;font-weight:700;padding:2px 9px;border-radius:12px;background:var(--pri-soft);color:var(--pri);white-space:nowrap}
+details.chap .bar2{grid-column:1/3;height:5px;border-radius:3px;background:var(--pri-soft);overflow:hidden;margin-top:4px}details.chap .bar2 i{display:block;height:100%;background:var(--c,var(--pri))}
+details.chap .grid{padding:2px 10px 10px;display:flex;flex-direction:column;gap:6px}
+details.chap.s1{--c:var(--bad)}details.chap.s2{--c:var(--acc)}details.chap.s3{--c:var(--pri)}
+a.card{display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--ink);text-decoration:none}
+a.card:hover{border-color:var(--pri)}
+a.card .nm{font-weight:700;font-size:.9rem;grid-column:1}a.card .ds{font-size:.76rem;color:var(--sub);grid-column:1}
+a.card .bd{grid-column:2;grid-row:1;font-size:.72rem;font-weight:700;padding:1px 9px;border-radius:12px;background:var(--pri-soft);color:var(--pri);align-self:start;white-space:nowrap}
+a.card .pg{grid-column:1/3;font-size:.74rem;color:var(--acc-ink)}
+a.card.old{opacity:.88}
+.ok{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}.part{color:var(--sub)}
+/* 申論 */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;align-items:center}
+.filters button{font-family:inherit;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.filters button.on{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.filters input{flex:1;min-width:140px;font:inherit;font-size:.85rem;padding:5px 10px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.filters .sub{font-size:.78rem;color:var(--sub);width:100%}
+details.essay{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:2px 12px}
+details.essay[open]{border-color:var(--pri)}
+details.essay.read{border-left:5px solid var(--ok)}
+details.essay>summary{cursor:pointer;padding:10px 2px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;list-style:none}
+details.essay>summary::-webkit-details-marker{display:none}
+details.essay .ek{background:var(--pri);color:var(--on);font-size:.72rem;padding:2px 8px;border-radius:10px;font-weight:700}
+details.essay .et{font-family:"Noto Serif TC",serif;font-weight:700;font-size:.94rem;flex:1;min-width:10em}
+details.essay .ec{font-size:.7rem;color:var(--sub);margin-left:auto}
+.ebody{padding:4px 4px 14px;border-top:1px dashed var(--line);margin-top:2px}
+.ebody p{margin:8px 0;font-size:.92rem}.ebody h4{margin:14px 0 4px;font-size:1rem}
+.ebody .oq{background:var(--pri-soft);padding:10px 12px;border-radius:8px;font-size:.9rem}
+.ebody label.done{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.88rem}.ebody label.done input{accent-color:var(--pri)}
+/* 進度 / 攻略 */
+details.fold{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 12px}
+details.fold>summary{cursor:pointer;padding:11px 0;font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);list-style:none;display:flex;justify-content:space-between}
+details.fold>summary::-webkit-details-marker{display:none}details.fold>summary::after{content:"›";color:var(--sub);transition:transform .15s}details.fold[open]>summary::after{transform:rotate(90deg)}
+details.fold[open]{padding-bottom:6px}
+.tw{overflow-x:auto}
+.ph{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0;font-size:.88rem;background:var(--bg)}
+.ph .tg{display:none}.ph.cur{border-color:var(--pri);background:var(--pri-soft)}.ph.cur .tg{display:inline;color:var(--pri);font-weight:700}
+pre.pr{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;white-space:pre-wrap;word-break:break-word;font-family:inherit;font-size:.86rem;margin:6px 0}
+.todo{background:var(--warn);border-left:4px solid var(--bad);padding:10px 12px;font-size:.86rem;border-radius:0 10px 10px 0;margin:10px 0}
+.note.gr{border-left-color:var(--ok)}.note.r{border-left-color:var(--bad)}
+.todayfoot{font-size:.78rem;margin-top:8px;opacity:.92}
+@media (max-width:560px){
+ table.keep,table.keep tbody{display:table;width:100%}table.keep tbody{display:table-row-group}
+ table.keep tr{display:table-row;background:none;border:0;margin:0;padding:0}table.keep tr:has(th){display:table-row}
+ table.keep td,table.keep th{display:table-cell;padding:7px 6px;border-bottom:1px solid var(--line);font-size:.82rem}
+ table.keep td::before{display:none}table.keep td:first-child{font-family:inherit;font-weight:700;color:var(--ink)}
+}
+ table.keep td:not(:first-child),table.keep th:not(:first-child){white-space:nowrap;word-break:keep-all}
+
 </style>
 <script src="bxm-use.js"></script>
 </head>
 <body>
-<div class="wrap">
-<header>
- <div class="kicker">BROKERX・不動產經紀人 115年</div>
- <h1>民法｜備考指揮中心</h1>
- <div class="sub">考試日 2026-11-14・此頁開啟時即時計算倒數</div>
- <div class="count">
-  <div class="cbox"><div class="n" id="days">--</div><div class="l" id="dayl">距離考試（天）</div></div>
-  <div class="cbox g"><div class="n" id="weeks">--</div><div class="l">約剩幾週</div></div>
-  <div class="cbox g"><div class="n" id="hours">--</div><div class="l">依平日2h／假日6h推算可讀時數</div></div>
- </div>
- <div class="stat"><span class="chip">📝 選擇題 520 題（刷題 A～E 篇）＋整卷模擬 8 卷</span><span class="chip">✍️ 申論 32 題</span></div>
-</header>
-
-<nav class="tabs" id="tabs">
- <button data-t="t1" class="on">📝 刷題</button>
- <button data-t="t2">🧠 記憶</button>
- <button data-t="t3">✍️ 申論</button>
- <button data-t="t4">⚡ 現行法</button>
- <button data-t="t5">📊 進度</button>
- <button data-t="t6">📖 攻略</button>
-</nav>
-
+<div class="top"><h1>民法</h1><span class="cd">還有 <b id="days">--</b> 天</span><button class="th" id="th" aria-label="切換深淺色">深色</button></div>
 <main>
-<!-- 1 刷題 -->
-<section class="tab on" id="t1">
- <h2>📝 刷題</h2>
- <div class="today" id="today"></div>
- <div class="subtabs" id="st1">
-  <button data-s="p1" class="on">📚 章節練習</button>
-  <button data-s="p2">🔀 混合・錯題本</button>
-  <button data-s="p3">🎯 整卷模擬</button>
- </div>
- <div class="sp on" id="p1">
-  <p class="lead">依近8年各篇占比由大到小排列（D26%・E24%・A21.5%・B14.5%・C14%）。點開看該篇所有工具；進度為此瀏覽器記錄。</p>
-  <div id="segbox"></div>
-  <div class="note">題數：刷題練習 A～E 篇共 520 題（A107／B85／C77／D134／E117），皆為考選部官方題＋官方答案。「完整考題小卡」已於2026-10-08用官方520題重建（A107／BC162／D134／E117張，題幹、選項、答案皆為官方，解析與刷題工具同源）。</div>
- </div>
- <div class="sp" id="p2">
-  <p class="lead">錯題本：到各篇刷題頁按「只看答錯」重做；每題自己分型 A 法條混淆／B 粗心／C 真的不熟（C 型優先回頭讀）。</p>
-  <div class="tw"><table id="wrongtb"><tr><th>篇</th><th>已作答</th><th>錯題</th><th>連結</th></tr></table></div>
-  <div class="note">整卷模擬的錯題清單在交卷後的結果頁。刷題頁的作答紀錄存在此瀏覽器，換裝置不會同步。</div>
- </div>
- <div class="sp" id="p3">
-  <p class="lead">歷屆整卷模擬（107–114年，每年25題、45分鐘；選年份作答）。成績只記錄在此瀏覽器。</p>
-  <div id="simbox"></div>
-  <div class="tw"><table id="simtb"><tr><th>年份</th><th>最近成績（/50）</th><th>答對</th><th>A／BC／D／E</th></tr></table></div>
-  <div class="note">補習班模擬卷：目前尚無登記。自建模擬卷：尚無。</div>
- </div>
+
+<section class="tab active" id="pHome">
+  <div class="hero"><small id="homeSub">今天</small><h2 id="homeH">今日 N 步（點圓圈打勾）</h2><div id="steps"></div><div class="hs" id="homeFocus"></div></div>
+  <div class="sec">刷題概況<small>資料來自此瀏覽器的作答紀錄</small></div>
+  <div class="stats" id="stats"></div>
+  <div class="sec">待辦</div>
+  <a class="row" data-go="sim" href="#"><div class="n"><b>歷屆整卷模擬（107–114年）</b><small id="simSmall">每年 25 題・45 分鐘・選年份作答</small></div><span class="b mid">去做</span></a>
+  <a class="row" data-go="ess" href="#"><div class="n"><b>申論：讀懂作答架構</b><small id="essSmall">每週讀一題，A 級先、再 B 級</small></div><span class="b mid">去讀</span></a>
+  <div class="note">進度、錯題與申論已讀紀錄只存在這個瀏覽器，換裝置不會同步。錯題請到各篇刷題頁按「只看答錯」，每題自己分型：A 法條混淆／B 粗心／C 真的不熟（C 型優先回頭讀）。</div>
 </section>
 
-<!-- 2 記憶 -->
-<section class="tab" id="t2">
- <h2>🧠 記憶</h2>
- <p class="lead">固定順序：彩色重點速記 → 互動單字卡 → 精選考題小卡（在刷題頁）。總整理用來考前掃陷阱與數字。</p>
- <div id="membox"></div>
+<section class="tab" id="pPrac">
+  <div class="seg" data-g="prac"><button class="on" data-s="s1">章節</button><button data-s="s2">錯題・混合</button><button data-s="s3" id="simBtn">整卷模擬</button></div>
+  <div class="sp on" id="s1">
+    <p class="hint">依近 8 年各篇占比由大到小排列（D26%・E24%・A21.5%・B14.5%・C14%）。點開看該篇所有工具。</p>
+    <div id="segbox"></div>
+    <div class="note">題數：刷題練習 A～E 篇共 520 題（A107／B85／C77／D134／E117），皆為考選部官方題＋官方答案。「完整考題小卡」已於 2026-10-08 用官方 520 題重建（A107／BC162／D134／E117 張，題幹、選項、答案皆為官方，解析與刷題工具同源）。</div>
+  </div>
+  <div class="sp" id="s2">
+    <p class="hint">錯題本：到各篇刷題頁按「只看答錯」重做；每題自己分型 A 法條混淆／B 粗心／C 真的不熟（C 型優先回頭讀）。</p>
+    <div class="tw"><table class="keep" id="wrongtb"><tr><th>篇</th><th>已作答</th><th>錯題</th><th>連結</th></tr></table></div>
+    <div class="note">整卷模擬的錯題清單在交卷後的結果頁。刷題頁的作答紀錄存在此瀏覽器，換裝置不會同步。</div>
+  </div>
+  <div class="sp" id="s3">
+    <p class="hint">歷屆整卷模擬（107–114 年，每年 25 題、45 分鐘；選年份作答）。成績只記錄在此瀏覽器。</p>
+    <div id="simbox"></div>
+    <div class="tw"><table class="keep" id="simtb"><tr><th>年份</th><th>最近成績（/50）</th><th>答對</th><th>A／BC／D／E</th></tr></table></div>
+    <div class="note">補習班模擬卷：目前尚無登記。自建模擬卷：尚無。</div>
+  </div>
 </section>
 
-<section class="tab" id="t3">
- <h2>✍️ 申論（32題）</h2>
- <p class="lead">四段式：定義→法條→涵攝分析→結論。🔴A 必練（18題）／🟡B 次練（8題）／🟢C 備讀（6題）。分級規則：共有、抵押權、無權處分／善意取得、繼承四個母題族各考4次以上＝A；居間、意思表示、時效、地上權、瑕疵擔保2–3次＝B；只考1次＝C（備考優先度，非官方分級）。點題目展開全文。</p>
- <div id="essaytool"></div>
- <div class="filters" id="fl">
-  <button data-f="all" class="on">全部 32</button>
-  <button data-f="A">🔴 A級 18</button>
-  <button data-f="B">🟡 B級 8</button>
-  <button data-f="C">🟢 C級 6</button>
-  <button data-f="unread">未讀</button>
-  <input type="search" id="sq" placeholder="搜尋年度／關鍵字">
-  <button id="ex">全部展開</button><button id="co">全部收合</button>
-  <span class="sub" id="rcount"></span>
- </div>
- <div id="elist">
+<section class="tab" id="pRev">
+  <div class="seg" data-g="rev"><button class="on" data-s="r1">背誦工具</button><button data-s="r2">現行法</button></div>
+  <div class="sp on" id="r1">
+    <div class="rvseg" id="rvseg"><button style="--c:var(--pri)" aria-pressed="true" data-k="1">我要背</button><button style="--c:var(--rv2)" aria-pressed="false" data-k="2">我要查</button><button style="--c:var(--acc)" aria-pressed="false" data-k="3">看攻略</button></div>
+    <div class="rvp" id="rvp1" style="--c:var(--pri)"></div>
+    <div class="rvp" id="rvp2" style="--c:var(--rv2)" hidden></div>
+    <div class="rvp" id="rvp3" style="--c:var(--acc)" hidden></div>
+    <div class="note">固定順序：彩色重點速記 → 互動單字卡 → 精選考題小卡（在練習頁）。法律效果總整理用來考前掃陷阱與數字。</div>
+  </div>
+  <div class="sp" id="r2">
+    
+ <p class="hint">只收「已核實」的項目；沒核實的一律標「待補充」，不憑記憶填。</p>
+ <div class="group-label">① 修法（影響多題）</div>
+ <div class="tw"><table>
+  <tr><th>條文</th><th>舊法</th><th>現行法</th><th>施行／備註</th></tr>
+  <tr><td>§12 成年</td><td>20歲</td><td><b>18歲</b></td><td>112.1.1；題幹出現18、19歲的限制行為能力人，舊答案不能直接套</td></tr>
+  <tr><td>§980 結婚年齡</td><td>男18、女16</td><td><b>男女均18歲</b>；未成年人不得結婚（§981 同意規定刪除）</td><td>112.1.1</td></tr>
+  <tr><td>§205 約定利率上限</td><td>週年20%；超過部分債權人無請求權</td><td><b>週年16%</b>；超過部分之約定<b>無效</b></td><td>109.12.25 修正公布</td></tr>
+  <tr><td>§1223 特留分</td><td>兄弟姊妹、祖父母 1/3</td><td>兄弟姊妹之特留分<b>刪除</b>（祖父母1/3不變）</td><td>2026-08-17 公布，<b>2027-02-17 施行</b>，以被繼承人死亡日為界。<b>115年11月考試仍按舊條文</b>；兄弟姊妹法定繼承順位不變</td></tr>
+ </table></div>
+ <div class="group-label">② 申論核實修正表</div>
+ <div class="tw"><table>
+  <tr><th>題／點</th><th>容易寫成的舊答案</th><th>現行／核實後的正確寫法</th><th>依據・看哪裡</th></tr>
+  <tr><td>106-二<br>成年年齡</td><td>未滿20歲為限制行為能力人</td><td>成年年齡為 <b>18歲</b>；7歲以上未滿18歲為限制行為能力人</td><td>民法§12、§13｜範文16</td></tr>
+  <tr><td>111-一<br>善意占有人</td><td>丙無權占有→甲可依不當得利請求租金補償</td><td>丙為<b>善意占有人</b>，依§952得為使用收益；丙拒付36萬之抗辯<b>有理由</b>。乙是「以自己名義」出租，不是代理</td><td>§767、§952、§179｜範文25</td></tr>
+  <tr><td>110-一<br>共有物分割後之抵押權</td><td>抵押權僅存於抵押人分得部分（或規則方向寫反）</td><td>§824-1 第2項：<b>原則</b>按原應有部分比例存於各分得人；<b>例外</b>才僅存於抵押人分得部分</td><td>§824-1 Ⅱ｜範文23</td></tr>
+  <tr><td>109-一<br>A屋歸屬</td><td>未先以登記名義定歸屬</td><td>先看<b>登記名義</b>定歸屬，再定性他方擅自處分為<b>無權處分</b></td><td>§118、§759-1｜範文21</td></tr>
+  <tr><td>113-二<br>和解契約</td><td>只談居間報酬與定金，漏掉甲丙曾簽和解契約</td><td>須分段處理：委託／居間關係→和解契約效力→定金退還</td><td>居間、和解、定金相關條文｜範文30</td></tr>
+ </table></div>
+ <div class="note gr">以上 5 項皆來自「申論題對照官方試題 PDF」的核實過程（修正已寫進範文與攻略表）。這是「核實修正表」，不是修法對照表。</div>
+ <div class="todo"><b>尚待核對：</b>選擇題「歷屆答案 vs 現行法」逐題對照表已建立在知識庫（《民法概要_歷屆答案vs現行法對照表》），但只有上表4項經過查證，其餘為 AI 初篩，171題沿用舊解析已於2026-10-08逐題複核（102題重寫，成年／婚齡等修法影響題已在題目備註提醒）；解析中不含條號的白話說明僅抽查。要補時，需逐題以法務部全國法規資料庫現行條文核實後再填，目前不列任何未核實內容。</div>
+  </div>
+</section>
+
+<section class="tab" id="pEss">
+  <div class="section-title">申論（32 題）</div>
+  <p class="hint">四段式：定義→法條→涵攝分析→結論。A 級必練（18 題）／B 級次練（8 題）／C 級備讀（6 題）。分級規則：共有、抵押權、無權處分／善意取得、繼承四個母題族各考 4 次以上＝A；居間、意思表示、時效、地上權、瑕疵擔保 2–3 次＝B；只考 1 次＝C（備考優先度，非官方分級）。點題目展開全文。</p>
+  <div id="essaytool"></div>
+  <div class="filters" id="fl">
+    <button data-f="all" class="on">全部 32</button>
+    <button data-f="A"><span class="dot A"></span>A級 18</button>
+    <button data-f="B"><span class="dot B"></span>B級 8</button>
+    <button data-f="C"><span class="dot C"></span>C級 6</button>
+    <button data-f="unread">未讀</button>
+    <input type="search" id="sq" placeholder="搜尋年度／關鍵字">
+    <button id="ex">全部展開</button><button id="co">全部收合</button>
+    <span class="sub" id="rcount"></span>
+  </div>
+  <div id="elist">
 <details class="essay" data-lv="A" data-key="99-一" data-yr="99">
-<summary><span class="lv">🔴</span><span class="ek">99年第一題</span><span class="et">共謀詐欺與抵押權塗銷</span><span class="ec">A意思表示瑕疵</span></summary>
+<summary><span class="dot A"></span><span class="ek">99年第一題</span><span class="et">共謀詐欺與抵押權塗銷</span><span class="ec">A意思表示瑕疵</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲乙共謀，由甲出面詐欺丙，使丙將A地廉價售予乙，已交付並辦妥所有權移轉登記。乙即以A地向丁貸款並設定抵押權。丙發現被詐欺後，可否請求乙返還土地？可否請求丁塗銷抵押權？（25分）</div>
 <h4><strong>一、第三人詐欺撤銷制度之意義</strong></h4>
 <p>民法為兼顧表意人意思自主與交易安全，就受第三人詐欺而為意思表示者，設有較嚴格之撤銷要件，非任意受第三人詐欺即得撤銷，須相對人就該詐欺事實具備主觀可歸責性，始例外允許撤銷，以避免動輒推翻已成立之法律行為，危及交易相對人之信賴。</p>
@@ -188,7 +282,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙就甲對丙之詐欺行為自始明知，丙得依民法第92條第1項撤銷其與乙間之買賣契約及所有權移轉行為，並得請求乙返還A地；至丙得否進一步請求丁塗銷抵押權，則須視丁對甲乙間詐欺共謀情事是否善意不知情而定：丁善意者，依第759條之1善意取得抵押權，丙不得請求塗銷；丁非善意者，丙得請求塗銷。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="99-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="99-二" data-yr="99">
-<summary><span class="lv">🔴</span><span class="ek">99年第二題</span><span class="et">同時遇難繼承應繼分計算與拋棄繼承詐害債權</span><span class="ec">E繼承</span></summary>
+<summary><span class="dot A"></span><span class="ek">99年第二題</span><span class="et">同時遇難繼承應繼分計算與拋棄繼承詐害債權</span><span class="ec">E繼承</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲男乙女為夫妻，育有丙丁，並收養戊。戊與己結婚生有A、B。甲乙戊同車同時死亡。甲遺產600萬如何繼承？丙曾向庚借款300萬後拋棄繼承，庚得否依詐害債權撤銷？（25分）</div>
 <h4><strong>一、同時死亡推定與代位繼承制度之意義</strong></h4>
 <p>民法就數人同時遇難、無法證明死亡先後之情形，設有同時死亡推定機制，使各該死亡人相互間<strong>不發生繼承關係</strong>；為避免因先於被繼承人死亡（或推定同時死亡）之直系血親卑親屬應繼分無人繼承，另設代位繼承制度，由其直系血親卑親屬代位繼承其應繼分，以維持繼承公平。</p>
@@ -201,7 +295,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲、乙、戊推定同時死亡、互不繼承；甲之600萬遺產由丙、丁及代位繼承之A、B依代位繼承規則計算分配；丙向庚借款後拋棄繼承之行為，因拋棄繼承屬身分行為性質，不適用民法第244條債權人撤銷權之規定，庚不得撤銷丙拋棄繼承之意思表示。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="99-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="100-一" data-yr="100">
-<summary><span class="lv">🟢</span><span class="ek">100年第一題</span><span class="et">信賴利益之定義與損害賠償規定</span><span class="ec">B債編總則</span></summary>
+<summary><span class="dot C"></span><span class="ek">100年第一題</span><span class="et">信賴利益之定義與損害賠償規定</span><span class="ec">B債編總則</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>何謂信賴利益？我國民法關於信賴利益之損害賠償規定有那些？請列舉說明之。（25分）</div>
 <h4><strong>一、信賴利益之意義</strong></h4>
 <p>信賴利益，係指當事人因<strong>信賴某法律行為有效成立或將來會發生效力</strong>，而為一定之準備或支出，嗣因該法律行為不成立、無效、被撤銷或不能履行，致其信賴落空所受之損害。信賴利益與履行利益不同：履行利益係指契約如<strong>依約履行</strong>當事人所能獲得之利益（積極利益）；信賴利益則是回復至<strong>未信賴該法律行為前</strong>應有之狀態（消極利益），其賠償範圍原則上不得超過履行利益，以避免受害人因法律行為不成立反而獲得較契約有效履行更優厚之地位。</p>
@@ -216,7 +310,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，信賴利益係指當事人信賴法律行為有效而受之損害，其賠償以回復未信賴前之原狀為目的，範圍不得逾越履行利益；我國民法就此設有多項具體規定，分別對應意思表示錯誤撤銷（第91條）、無權代理（第110條）、締約過失（第245條之1）及契約因給付不能而無效（第247條）等不同情境，各條要件雖有不同，惟均體現法律對信賴落空一方之衡平保護。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="100-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="100-二" data-yr="100">
-<summary><span class="lv">🔴</span><span class="ek">100年第二題</span><span class="et">分別共有與公同共有之比較</span><span class="ec">D共有</span></summary>
+<summary><span class="dot A"></span><span class="ek">100年第二題</span><span class="et">分別共有與公同共有之比較</span><span class="ec">D共有</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲、乙為兄弟，共同出資購買A地，應有部分各二分之一。嗣後甲、乙之父親死亡，二人共同繼承其遺產B地及C屋，應繼分均等。問：①甲乙在A地上之共有關係與在B地及C屋上之共有關係，其型態有何不同？試比較說明之。②應有部分與應繼分有何區別？（25分）</div>
 <h4><strong>一、分別共有與公同共有制度之意義</strong></h4>
 <p>民法就數人共有一物之型態，設有分別共有與公同共有二種不同制度：分別共有係基於數人按其應有部分共有一物之關係，各共有人對共有物有一定之量化比例權利，得自由處分其應有部分；公同共有則係基於公同關係（例如繼承、合夥等），共同享有一物所有權，各公同共有人之權利及於公同共有物之全部，並無應有部分之量化概念，處分公同共有物須得全體公同共有人同意。</p>
@@ -229,7 +323,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲乙就A地因出資購買而成立分別共有，各有可自由處分之應有部分；就B地C屋則因繼承成立公同共有，權利及於遺產全部，處分須全體同意。應有部分是分別共有下已具體化、可自由處分之所有權比例；應繼分則是公同共有（繼承）下計算遺產分配之抽象比例基準，二者性質迥異，不可混淆。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="100-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="101-一" data-yr="101">
-<summary><span class="lv">🔴</span><span class="ek">101年第一題</span><span class="et">拋棄債權、抵押權及繼承權之效力比較</span><span class="ec">B+D+E</span></summary>
+<summary><span class="dot A"></span><span class="ek">101年第一題</span><span class="et">拋棄債權、抵押權及繼承權之效力比較</span><span class="ec">B+D+E</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>父甲、母乙、子丙、女丁一家，丙創業向戊融資1000萬元，由乙提供A地設定抵押權擔保，丁為連帶保證人；甲死亡留有2000萬元遺產，未立遺囑。問：戊拋棄債權、戊拋棄抵押權，丁拋棄繼承權，其效力各如何？（25分）</div>
 <h4><strong>一、拋棄制度之意義</strong></h4>
 <p>民法對於不同性質之權利拋棄，設有相異之規範方向：拋棄主權利（如債權）之效力，及於依附於其上之從權利（如擔保物權、保證債務）；拋棄從權利，則原則上不影響主權利之存續；至拋棄具身分性質之權利（如繼承權），則因涉及身分關係與家族倫理，另設獨立之要式規範，三者拋棄之效力方向截然不同，不可一概而論。</p>
@@ -243,7 +337,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，三種拋棄之效力方向各異：戊拋棄主債權，使從屬之抵押權及保證債務隨同消滅；戊單獨拋棄抵押權（從權利），不影響主債權之存續，僅喪失擔保利益；丁拋棄繼承權則屬身分行為，須依法定方式（書面向法院）為之，並溯及繼承開始時發生效力。三者性質不同，效力互不相涉，作答時應分別論述，不宜混為一談。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="101-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="101-二" data-yr="101">
-<summary><span class="lv">🟢</span><span class="ek">101年第二題</span><span class="et">出典、買賣與押租金歸屬</span><span class="ec">C租賃／典權</span></summary>
+<summary><span class="dot C"></span><span class="ek">101年第二題</span><span class="et">出典、買賣與押租金歸屬</span><span class="ec">C租賃／典權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲將A地出租於乙供其停放遊覽車三年，租賃存續中甲將A地出典於丙後又賣與丁並完成登記。何人得對乙收取租金？何人應返還乙押租金？（25分）</div>
 <h4><strong>一、典權與出租人地位移轉制度之意義</strong></h4>
 <p>依第911條，典權者，謂支付典價在他人之不動產為使用、收益，於他人不回贖時，取得該不動產所有權之權，典權人於典權存續期間對典物享有完整之使用收益權能。承租物設定典權時，原出租人與承租人間之租賃關係，其出租人一方之權利義務，依實務見解，應隨同典物使用收益權之移轉，一併移轉予典權人，蓋典權人既已取得對典物之使用收益權，自應同時承受因此衍生之出租人地位，始符合權責一致原則。</p>
@@ -257,7 +351,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲出典A地後，丙取得出租人地位，得向乙收取租金；丁其後雖因買賣取得A地所有權，惟因典權負擔仍存在，須繼受出典關係，於典權存續期間不得排除丙之收租及出租人地位；押租金返還義務人，應視終止租約時之實際出租人而定，於典權存續期間應由丙負責，典權消滅回復完整所有權後則由丁負責。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="101-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="102-一" data-yr="102">
-<summary><span class="lv">🔴</span><span class="ek">102年第一題</span><span class="et">共有物出租與修繕之比較</span><span class="ec">D共有</span></summary>
+<summary><span class="dot A"></span><span class="ek">102年第一題</span><span class="et">共有物出租與修繕之比較</span><span class="ec">D共有</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲乙丙共有房屋，應有部分各三分之一，甲出租於丁，又因房屋門窗不牢僱工修復後交付丁使用。甲出租契約效力如何？乙丙對丁可否主張所有物返還請求權？甲僱工修復是否需事先徵得乙丙同意？（25分）</div>
 <h4><strong>一、共有物管理行為與保存行為之意義</strong></h4>
 <p>共有物之利用涉及全體共有人之權益，民法就共有人對共有物所為之行為，依其性質區分為「管理行為」與「保存行為」而異其規範：管理行為（如出租）攸關共有物之整體使用收益方式，原則上應經多數決或全體共有人同意，始得為之；保存行為（如單純之修繕、防止毀損滅失）則因具急迫性且有利於全體共有人，各共有人得單獨為之，無庸事先取得其他共有人同意。</p>
@@ -271,7 +365,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲未經乙丙同意逕行出租，屬管理行為未經共有人多數決同意，該出租契約對乙丙不生效力，乙丙得依第821條為全體共有人之利益，請求丁返還房屋；至甲僱工修復門窗，屬保存行為，甲得單獨為之，不須事先徵得乙丙同意。本題核心在於區辨「出租」（管理行為）與「修繕」（保存行為）之不同規範要求。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="102-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="102-二" data-yr="102">
-<summary><span class="lv">🔴</span><span class="ek">102年第二題</span><span class="et">未辦繼承登記之抵押權實行</span><span class="ec">D抵押權／E繼承</span></summary>
+<summary><span class="dot A"></span><span class="ek">102年第二題</span><span class="et">未辦繼承登記之抵押權實行</span><span class="ec">D抵押權／E繼承</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲向乙借款1000萬元並以A地設定抵押權，乙死亡後其子丙未辦繼承登記，丙得否實行抵押權？民法第759條所謂「非經登記不得處分」之意涵為何？（25分）</div>
 <h4><strong>一、宣示登記制度之意義</strong></h4>
 <p>民法就不動產物權變動，原則上採登記生效主義；惟因繼承、強制執行、徵收或法院之判決等<strong>非基於法律行為</strong>之原因取得不動產物權者，其取得不待登記即已生效，僅於嗣後欲進一步「處分」該物權時，始須先完成登記，此即所謂宣示登記，其規範目的在於兼顧繼承等法定物權變動之即時效力，同時維持地政登記之公示正確性，以保護交易安全。</p>
@@ -285,7 +379,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙死亡時，丙依第1147條、第1148條第1項已當然承受乙對甲之債權，並依第870條隨同取得A地抵押權，不待登記即生效力；依第759條，丙未辦繼承登記前，不得就該抵押權為讓與、設定負擔等處分行為；至於實行抵押權（聲請拍賣以受清償），本文認為屬行使權利、非處分行為，丙<strong>得</strong>逕行聲請，不必先辦繼承登記。惟拍賣完成後抵押權會隨之消滅，是否仍構成「處分」尚有爭議空間，<strong>實務操作上先補辦繼承登記最穩妥</strong>。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="102-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="103-一" data-yr="103">
-<summary><span class="lv">🟡</span><span class="ek">103年第一題</span><span class="et">詐欺撤銷債權物權行為與脅迫撤銷之比較</span><span class="ec">A法律行為效力</span></summary>
+<summary><span class="dot B"></span><span class="ek">103年第一題</span><span class="et">詐欺撤銷債權物權行為與脅迫撤銷之比較</span><span class="ec">A法律行為效力</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲被乙詐欺出賣房屋並已辦妥所有權移轉登記，若甲僅撤銷債權行為、或同時撤銷債權及物權行為，法律關係各如何？詐欺撤銷與脅迫撤銷之效力有何不同？（25分）</div>
 <h4><strong>一、意思表示撤銷制度之意義</strong></h4>
 <p>民法對於因詐欺、脅迫而為之意思表示，賦予表意人撤銷權，惟就撤銷後能否對抗善意第三人，區分詐欺與脅迫而異其規範：詐欺情形下，法律認為表意人本身於形成意思過程中已有一定程度之疏失可能，為兼顧交易安全，其撤銷不得對抗善意第三人；脅迫情形下，表意人係在意思自由完全受壓制之情況下為表示，可責難性極低，故法律未設此一限制，撤銷效力得對抗任何第三人。</p>
@@ -299,7 +393,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲僅撤銷債權行為，物權行為不受影響，僅得請求返還已為之給付；同時撤銷債權及物權行為，甲得依第767條請求返還房屋所有權。至詐欺與脅迫撤銷之效力差異，關鍵在於「能否對抗善意第三人」：詐欺撤銷不得對抗善意第三人，脅迫撤銷則無此限制、得對抗任何第三人，此一差異係本題比較之核心得分點。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="103-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="103-二" data-yr="103">
-<summary><span class="lv">🔴</span><span class="ek">103年第二題</span><span class="et">分割共有物、抵押權移轉與補償金保障</span><span class="ec">D共有／抵押權</span></summary>
+<summary><span class="dot A"></span><span class="ek">103年第二題</span><span class="et">分割共有物、抵押權移轉與補償金保障</span><span class="ec">D共有／抵押權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲、乙共有一筆土地，面積100平方公尺，僅符合建築面積最小單位，應有部分分別為甲十分之八、乙十分之二，甲、乙以其應有部分分別向丙、丁貸款，設定抵押權作為擔保。嗣甲請求分割，因與乙無法達成協議，遂提起分割共有物之訴，法院依民法第824條第3項規定，判決將該共有地分配於甲，並命甲補償乙新臺幣100萬元。請問乙對甲之補償金債權，民法設有何種保障機制？又丁在乙之應有部分上原有之抵押權如何處理？（25分）</div>
 <h4><strong>一、共有物分割後抵押權移存及法定抵押權制度之意義</strong></h4>
 <p>共有物分割乃使共有關係消滅、各共有人取得單獨所有權之制度，惟共有人應有部分上原已存在之抵押權，不應因分割而受影響，民法乃設有抵押權「移存」規則，使原抵押權轉載於分割後對應之土地部分；又於以原物分配而須以金錢補償他共有人之情形，為保障受補償共有人之補償金債權得以確實受償，另設法定抵押權制度，使其就補償義務人分得之不動產享有優先受償地位。</p>
@@ -312,7 +406,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙之100萬元補償金債權，依民法第824條之1第4項，就甲分得之土地享有抵押權，並依同條第5項應於分割登記時一併登記，其次序優先於第2項但書之抵押權；丁原於乙應有部分上之抵押權，依同條第2項，不因共有物分割而受影響，於符合但書情形（同意分割、參加訴訟或經告知未參加）且以金錢補償時，依第3項準用第881條第1項、第2項，其權利及於乙對甲之補償金債權，不因共有物分割而當然消滅。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="103-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="104-一" data-yr="104">
-<summary><span class="lv">🟡</span><span class="ek">104年第一題</span><span class="et">居間服務費計算與報酬請求權成立時點</span><span class="ec">C居間</span></summary>
+<summary><span class="dot B"></span><span class="ek">104年第一題</span><span class="et">居間服務費計算與報酬請求權成立時點</span><span class="ec">C居間</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>A建地面積130坪，乙為A地所有權人，於民國101年7月26日委由甲不動產經紀人代為尋找買主，甲乙簽訂專任委託銷售契約約定：「委託底價：每坪20萬元（合計2,600萬元）；服務費：超過每坪20萬元以上，均算為『服務費』予甲；委託期限：自101年7月26日至101年10月25日止」。甲於101年8月26日找到丙願意以每坪21萬元購買，乙丙雙方碰面後，乙表示要先塗銷A地原有的抵押權登記，再與丙約期簽約。之後，一直到101年10月25日前止，乙均以抵押權登記尚未塗銷為理由，拒絕簽約。102年2月25日後乙丙雙方合意辦理A地所有權移轉登記完畢，而買賣價格即為每坪21萬元。甲發現後即起訴，請求乙給付130萬元服務費，請問有無理由？（25分）</div>
 <h4><strong>一、底價式居間報酬約定與報酬請求權成立時點之意義</strong></h4>
 <p>居間契約係當事人約定，一方為他方報告訂約之機會或為訂約之媒介，他方給付報酬之契約。本題委託銷售契約採<strong>底價式服務費約定</strong>（成交價超過底價部分即歸居間人作為服務費），此為不動產仲介實務常見之報酬計算方式，與一般依成交總價一定比例計算報酬之方式不同，應先依約定內容計算服務費具體金額，再判斷該報酬請求權是否已成立。居間人之報酬請求權，其成立之關鍵時點為<strong>契約因居間人之媒介而成立</strong>之時，而非委託期限是否仍在存續中。</p>
@@ -328,7 +422,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（角色與計算不可搞混）：</strong> 本題原題中<strong>乙為委託人（地主）、甲為受託之不動產經紀人</strong>，且服務費並非固定比例，而是「底價式」約定（超過底價部分歸經紀人）。作答時務必先看清楚題目中誰委託誰、報酬如何約定計算，並將具體數字代入算出金額，此為請求權基礎型／計算量化型混合題目最容易失分之處——只寫法律規則、不算出具體金額，等於沒有完整回答題目。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="104-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="104-二" data-yr="104">
-<summary><span class="lv">🔴</span><span class="ek">104年第二題</span><span class="et">抵押權與地上權併存之效力</span><span class="ec">D抵押權／地上權</span></summary>
+<summary><span class="dot A"></span><span class="ek">104年第二題</span><span class="et">抵押權與地上權併存之效力</span><span class="ec">D抵押權／地上權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>乙企業向甲銀行申請企業貸款5,000萬元，乙提供其所有的A素地為擔保，設定抵押權給甲，甲同意貸款，但要求乙同意將A素地同時設定地上權給甲，然而就設定地上權的契約，並未約定**權利金或地租**的給付。請問雙方設定抵押權與地上權的效力？（25分）</div>
 <h4><strong>一、抵押權與地上權併存制度之意義</strong></h4>
 <p>不動產所有人得就同一標的物，同時設定不同種類之物權，各物權依其成立要件分別判斷其效力，互不當然影響。地上權係以在他人土地上下有建築物或其他工作物為目的而使用其土地之權，性質上得為有償或無償，未約定地租者，並不影響地上權本身之成立及效力，僅係其權利內容不含地租給付義務。</p>
@@ -342,7 +436,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙就A地為甲設定之抵押權，依民法第860條合法成立，甲享有優先受償之擔保利益；乙甲間就同一土地設定之地上權，依第832條，縱未約定地租，亦不影響其合法成立，甲仍合法取得於A地建築房屋之地上權。抵押權與地上權性質不同、得併存於同一不動產之上，本題二物權均合法有效成立。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="104-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="105-一" data-yr="105">
-<summary><span class="lv">🔴</span><span class="ek">105年第一題</span><span class="et">消滅時效與抵押權塗銷</span><span class="ec">A時效／D抵押權</span></summary>
+<summary><span class="dot A"></span><span class="ek">105年第一題</span><span class="et">消滅時效與抵押權塗銷</span><span class="ec">A時效／D抵押權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲向乙借款並以其所有不動產設定普通抵押權，逾20年未清償。甲死亡後，其繼承人丙發現該抵押權，主張借款債權及抵押權均已罹於消滅時效而消滅，訴請乙塗銷抵押權登記，有無理由？（25分）</div>
 <h4><strong>一、消滅時效與抵押權特殊實行期限制度之意義</strong></h4>
 <p>一般債權原則上適用15年之一般消滅時效，惟抵押權因具有優先受償之擔保物權性質，若任令其於主債權罹於時效後永久存續，將使不動產長期陷於權利不明確之狀態，有礙物之流通，民法乃就抵押權另設「主債權罹於時效後，抵押權人應於時效完成後一定期間內實行抵押權，逾期抵押權始歸於消滅」之特殊緩衝期間規定，兼顧債權人受償利益與物之流通安定。</p>
@@ -356,7 +450,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲之借款債權雖已罹於15年消滅時效，惟依第144條僅生抗辯權，債權本身不消滅；抵押權部分則應依第880條規定，計算自消滅時效完成後是否已逾5年未經抵押權人實行：已逾5年者，抵押權消滅，丙之訴請有理由；未逾5年者，抵押權尚未消滅，丙之訴請無理由。本題不可誤認為主債權時效完成即當然使抵押權立即消滅，須經第880條額外5年緩衝期間之檢驗。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="105-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="105-二" data-yr="105">
-<summary><span class="lv">🔴</span><span class="ek">105年第二題</span><span class="et">區分所有頂樓加蓋之使用權源與買賣效力</span><span class="ec">D共有／區分所有</span></summary>
+<summary><span class="dot A"></span><span class="ek">105年第二題</span><span class="et">區分所有頂樓加蓋之使用權源與買賣效力</span><span class="ec">D共有／區分所有</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲為A公寓5樓之區分所有權人，將公寓頂樓搭建鐵皮屋並隔成三間房間使用（未辦建物所有權第一次登記），其他區分所有權人長期未表反對意思，今甲將該5樓及頂樓鐵皮屋一併出售予乙。問：甲於頂樓搭建鐵皮屋之使用權源為何？甲乙間就該鐵皮屋之買賣契約是否有效？（25分）</div>
 <h4><strong>一、默示分管契約與違章建築交易效力之意義</strong></h4>
 <p>區分所有建築物之共有部分（如屋頂平台），依其性質原則上應由全體區分所有權人共同管理使用，惟共有人間就共有物之特定使用方式，得以明示或默示方式成立分管契約，經全體共有人長期沉默、未加反對等客觀事實，若足認已形成共有人間之默示合意，亦得成立默示分管契約，作為特定共有人使用特定部分之合法權源。至未辦保存登記之違章建築，雖無法辦理所有權移轉登記，惟其買賣契約（債權契約）本身之效力，不因標的物欠缺保存登記而受影響，僅其物權效果受有限制。</p>
@@ -369,7 +463,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲因其他共有人長期未反對其占用頂樓平台搭建鐵皮屋，客觀上足認已成立默示分管契約，作為甲之合法使用權源；甲乙間就鐵皮屋之買賣契約，縱標的物為未辦保存登記之違章建築，其債權契約仍有效成立，乙得取得該鐵皮屋之事實上處分權，至於原分管契約之使用權源能否隨同對乙生效，則另應依第826條之1第1項，視該分管約定是否已經登記而定。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="105-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="106-一" data-yr="106">
-<summary><span class="lv">🔴</span><span class="ek">106年第一題</span><span class="et">共有出租與連帶債務追討</span><span class="ec">D共有／B債編</span></summary>
+<summary><span class="dot A"></span><span class="ek">106年第一題</span><span class="et">共有出租與連帶債務追討</span><span class="ec">D共有／B債編</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲乙丙丁共同出資並借款購置公寓，由甲負責付息予戊，甲未經其他共有人同意，逕將一樓出租予娃娃機店。問：該出租契約效力如何？戊應如何向四人追討借款？（25分）</div>
 <h4><strong>一、共有物出租之管理性質與可分債務原則之意義</strong></h4>
 <p>共有物之出租涉及共有物整體使用收益方式之變更，性質上屬管理行為，原則上應經共有人多數決同意，未經同意者，該出租行為對其他未同意之共有人不生效力。另就數人共同負擔之借款債務，民法採<strong>可分之債原則上按比例分擔</strong>之立場，除當事人間另有特約，或法律明文規定為連帶債務者外，債務人間並非當然互負連帶清償責任，債權人不得逕行請求任一債務人清償全部債務。</p>
@@ -382,7 +476,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲未經其他共有人同意出租一樓，屬管理行為未經多數決同意，對乙丙丁不生效力；戊向甲乙丙丁四人追討借款，因共同借款不當然構成連帶債務，除非另有特約或法律明文規定，戊原則上僅得依可分之債原則，按各人應分擔之比例分別請求清償，不得就借款全額逕向任一人求償。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="106-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="106-二" data-yr="106">
-<summary><span class="lv">🟡</span><span class="ek">106年第二題</span><span class="et">限制行為能力人購屋與海砂屋瑕疵擔保</span><span class="ec">A行為能力／C瑕疵擔保</span></summary>
+<summary><span class="dot B"></span><span class="ek">106年第二題</span><span class="et">限制行為能力人購屋與海砂屋瑕疵擔保</span><span class="ec">A行為能力／C瑕疵擔保</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲現年18歲未婚，未經法定代理人同意，與乙建設公司簽訂買賣契約並辦理移轉登記，購買500萬元A套房，其後發現該屋為海砂屋。甲得依民法向乙主張何等權利？（25分）</div>
 <h4><strong>一、現行法成年年齡與物之瑕疵擔保制度之意義</strong></h4>
 <p>民法就自然人行為能力之取得，以年齡為劃分標準；另就買賣契約標的物存有瑕疵之情形，課予出賣人擔保責任，使買受人得於瑕疵發生時，透過解除契約、請求減少價金或請求損害賠償等方式獲得救濟，以確保有償契約當事人間之對價公平。</p>
@@ -396,7 +490,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲現年18歲依現行法已為完全行為能力人，甲乙間買賣契約及移轉登記均有效成立；甲發現A套房為海砂屋，得依第354條請求解除契約或減少價金，若乙明知瑕疵而故意不告知或曾保證無瑕疵，甲並得依第360條另行請求損害賠償，二請求權基礎效果不同，作答時應併予論述。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="106-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="107-一" data-yr="107">
-<summary><span class="lv">🟢</span><span class="ek">107年第一題</span><span class="et">債權人代位請求取得土地所有權</span><span class="ec">B代位權</span></summary>
+<summary><span class="dot C"></span><span class="ek">107年第一題</span><span class="et">債權人代位請求取得土地所有權</span><span class="ec">B代位權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲將自己所有之一筆土地出賣於乙，尚未交付，亦未辦理所有權移轉登記，乙即將該土地轉賣於丙，屆清償期乙未依約將該土地所有權移轉登記於丙，丙一再催促，乙均置之不理，而該土地仍登記為甲所有。請問：丙得如何行使權利，取得該土地所有權？（25分）</div>
 <h4><strong>一、債權人代位權制度之意義</strong></h4>
 <p>債之關係原則上僅拘束契約當事人（債之相對性），惟債務人有其應行使之權利而怠於行使，致害及債權人債權之保全者，法律例外允許債權人以自己名義代位行使債務人之權利，此即債權人代位權制度，目的在防止債務人消極不行使權利，致其財產（責任財產）不當減損，影響債權人債權之實現。</p>
@@ -410,7 +504,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙尚未取得土地所有權，無從直接移轉登記予丙；丙得依民法第242條規定，於乙怠於行使其對甲之移轉登記請求權時，以自己名義代位乙向甲請求辦理所有權移轉登記，惟該登記結果係使乙取得所有權，丙尚須進一步依其與乙間之買賣契約，請求乙將所有權移轉登記予自己，始能終局取得該土地所有權，不可誤認丙得依代位權直接取得甲之土地所有權登記於自己名下。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="107-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="107-二" data-yr="107">
-<summary><span class="lv">🟡</span><span class="ek">107年第二題</span><span class="et">消滅時效與除斥期間之區別及所有物返還請求權</span><span class="ec">A時效／D所有權</span></summary>
+<summary><span class="dot B"></span><span class="ek">107年第二題</span><span class="et">消滅時效與除斥期間之區別及所有物返還請求權</span><span class="ec">A時效／D所有權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>消滅時效與除斥期間之區別何在？設甲有一筆登記在其名下之A地及一棟未辦理保存登記之B屋，於民國92年5月1日被乙擅自占用，甲直到107年10月25日始向乙請求返還，乙抗辯甲之請求權已罹於時效而消滅，其抗辯是否有理由？（25分）</div>
 <h4><strong>一、消滅時效與除斥期間之區別（本題第一問，不可省略）</strong></h4>
 <p><strong>（一）消滅時效：</strong> 係指請求權人於法定期間內<strong>不行使</strong>其請求權，經過該期間後，義務人取得<strong>拒絕給付之抗辯權</strong>（民法第144條），惟該請求權本身<strong>並不當然消滅</strong>，僅生抗辯權；消滅時效之進行，因請求、承認、起訴等法定事由而<strong>得中斷</strong>（第129條），中斷後已進行之期間歸零、重行起算，亦得因特定事由（如天災）而<strong>不完成</strong>（暫停計算）；其規範對象原則上為<strong>請求權</strong>。</p>
@@ -428,7 +522,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙之時效消滅抗辯，應就A地與B屋分別論斷：A地已辦保存登記，依釋字第107號解釋，甲之所有物返還請求權不適用消滅時效規定，乙之抗辯<strong>無理由</strong>；B屋未辦保存登記，仍適用一般15年消滅時效，甲遲至逾15年後始行使請求權，乙之抗辯<strong>有理由</strong>。本題核心在於辨明已登記與未登記不動產適用消滅時效規則之根本差異，不可一概而論。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="107-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="108-一" data-yr="108">
-<summary><span class="lv">🔴</span><span class="ek">108年第一題</span><span class="et">借名登記與無權處分（丙非無權處分）</span><span class="ec">A無權處分／D善意取得</span></summary>
+<summary><span class="dot A"></span><span class="ek">108年第一題</span><span class="et">借名登記與無權處分（丙非無權處分）</span><span class="ec">A無權處分／D善意取得</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲向乙購買A農地，為掩人耳目，借用丙的名義，登記在丙的名下，交給丙無償使用，雙方協議丙不得處分。丙將A農地出售給不知情的丁，並辦理所有權移轉登記。試問：無權處分的意義及效力如何？丙是否為無權處分？（25分）</div>
 <h4><strong>一、無權處分之意義與效力</strong></h4>
 <p>所謂<strong>無權處分</strong>，依民法第118條第1項，係指<strong>無處分權人</strong>，以自己名義就他人權利標的物所為之<strong>處分行為</strong>。此處之「處分行為」，包括<strong>物權行為</strong>（如所有權移轉、抵押權設定）及<strong>準物權行為</strong>（如債權讓與），但<strong>不包括債權行為</strong>——買賣契約等債權契約，出賣人不以有處分權為必要，故無權處分之對象僅限處分行為。</p>
@@ -442,10 +536,10 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>（四）甲之救濟：</strong> 甲不得依第767條向丁請求返還；僅得依借名登記契約之債務不履行，或第184條侵權行為，<strong>向丙請求損害賠償</strong>。</p>
 <h4><strong>四、結論</strong></h4>
 <p>無權處分，指無處分權人以自己名義就他人權利標的物所為之處分行為（含物權行為及準物權行為，不含債權行為），經承認溯及有效，未承認前效力未定。本題借名登記僅屬甲丙間債權契約，<strong>丙對外為登記名義人，其處分屬有權處分，並非無權處分</strong>；丁因而取得A農地所有權（縱採無權處分說，丁亦依第759條之1第2項善意取得），甲僅得向丙請求損害賠償。</p>
-<p>📌 <strong>備註：</strong>本題「借名登記人與出名人處分」屬<strong>實務見解</strong>問題，以最高法院多數「有權處分說」為準；考場上寫明「丙非無權處分」＋「縱認無權處分，丁仍善意取得」雙保險最穩。</p>
+<p><strong>備註：</strong>本題「借名登記人與出名人處分」屬<strong>實務見解</strong>問題，以最高法院多數「有權處分說」為準；考場上寫明「丙非無權處分」＋「縱認無權處分，丁仍善意取得」雙保險最穩。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="108-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="108-二" data-yr="108">
-<summary><span class="lv">🔴</span><span class="ek">108年第二題</span><span class="et">最高限額抵押權擔保範圍與滅失後之代位性</span><span class="ec">D抵押權</span></summary>
+<summary><span class="dot A"></span><span class="ek">108年第二題</span><span class="et">最高限額抵押權擔保範圍與滅失後之代位性</span><span class="ec">D抵押權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲有A屋，因向乙貸款1000萬元（新臺幣，下同），乃設定最高限額1200萬元之最高限額抵押權予以擔保。試問：最高限額抵押權擔保的債權範圍如何？A屋如發生毀損或滅失，乙本於代位性得如何行使權利？（25分）</div>
 <h4><strong>一、最高限額抵押權擔保範圍與物上代位性制度之意義</strong></h4>
 <p>最高限額抵押權係為擔保債權人對債務人一定範圍內<strong>現在已發生及將來可能發生之不特定債權</strong>，而於一定金額限度內設定之特殊抵押權；抵押權之標的物（不動產）若因滅失、毀損而生代位物（如保險金、補償金），法律賦予抵押權人得就該代位物優先受償之權能，此即物上代位性，目的在於避免抵押物實體滅失即使抵押權人喪失擔保利益，確保擔保物權之經濟價值得以延續至代位物之上。</p>
@@ -459,7 +553,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（角色與數字不可搞混）：</strong> 本題原題中<strong>甲為抵押人（所有人兼借款人），乙為抵押權人（貸款人）</strong>，最高限額為<strong>1200萬元</strong>，現有借款為<strong>1000萬元</strong>，作答時務必先確認題目中「誰是抵押人、誰是抵押權人、金額各是多少」，避免張冠李戴；本題第二問問的是「<strong>A屋毀損滅失時</strong>」之具體情境應用，並非要求泛論代位性之抽象定義，作答時應具體點出代位物之種類（保險金、補償金、損害賠償請求權）及乙應如何確保其優先受償地位落實，而非僅停留在制度定義層次。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="108-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="109-一" data-yr="109">
-<summary><span class="lv">🔴</span><span class="ek">109年第一題</span><span class="et">夫妻財產制、A屋所有權歸屬與擅自處分之效力</span><span class="ec">E夫妻財產制／A無權處分</span></summary>
+<summary><span class="dot A"></span><span class="ek">109年第一題</span><span class="et">夫妻財產制、A屋所有權歸屬與擅自處分之效力</span><span class="ec">E夫妻財產制／A無權處分</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲男、乙女結婚十餘年，未約定夫妻財產制度。婚後甲出資購買A屋一棟，**登記在乙女名下**。嗣後因故，甲、乙雙方乃協議離婚，協議離婚期間**甲男未經乙女同意，擅自拿走A屋所有權狀與乙的印章**，與丙簽訂A屋買賣契約，**但尚未完成產權移轉登記**。試問：A屋之所有權為何人所有？甲、丙間A屋買賣契約之效力為何？（25分）</div>
 <h4><strong>一、法定財產制下財產歸屬與無權處分制度之意義</strong></h4>
 <p>夫妻未約定夫妻財產制度者，依法適用<strong>法定財產制</strong>，其財產區分為婚前財產與婚後財產，依第1017條第1項由夫妻各自所有，並依第1018條各自管理、使用、收益及處分；不動產之歸屬，依第759條之1第1項<strong>推定登記名義人適法有此權利</strong>，不因資金來源或出資來源而異其歸屬，此為本類題目最核心之考點——即使出資之人與登記名義人不同，仍應先以<strong>登記名義</strong>推定所有權歸屬（得舉反證推翻）。若非所有權人之人，就他人所有之物擅自為處分行為，則屬<strong>無權處分</strong>，依民法第118條，須經有權利人之承認，始生效力，於承認前，該處分行為效力未定。</p>
@@ -474,7 +568,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（登記名義與作答結論不可搞混）：</strong> 本題最大陷阱在於<strong>A屋登記在乙名下、而非甲名下</strong>——這與許多同類題型「出資人＝登記名義人」的常見設定相反。一旦誤讀為登記在甲名下，會導出「甲有權處分、契約有效」的<strong>完全相反結論</strong>，是本題最容易失分之處。作答前務必先確認登記名義人是誰，再判斷後續處分行為之性質是有權處分還是無權處分。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="109-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="109-二" data-yr="109">
-<summary><span class="lv">🟡</span><span class="ek">109年第二題</span><span class="et">時效取得地上權</span><span class="ec">D地上權</span></summary>
+<summary><span class="dot B"></span><span class="ek">109年第二題</span><span class="et">時效取得地上權</span><span class="ec">D地上權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲向乙建設公司購買與丙地主合建之預售房屋A屋一棟，乙建設公司以買受人甲為起造人進行蓋造。房屋完工後，甲取得房屋所有權並登記完畢，但土地部分因地主丙債務問題，導致合建土地遭債權人查封，而無法移轉登記於買受人甲。事隔逾20年，該筆土地經法院強制執行由某丁拍定。試依民法相關規定說明：甲得否主張時效取得地上權？（25分）</div>
 <h4><strong>一、時效取得地上權制度之意義</strong></h4>
 <p>地上權係以在他人土地上下有建築物或其他工作物為目的而使用其土地之權。民法為保護長期以行使地上權意思，和平、公然、繼續占有他人土地之事實狀態，設有時效取得地上權制度，使占有人於符合一定要件後，得請求登記為地上權人，藉以調和土地實際使用狀態與登記名義不一致所生之權利爭議，避免長期存在之使用事實因欠缺登記而完全不受保護。</p>
@@ -488,7 +582,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲以行使地上權之意思，和平、公然、繼續占有他人土地已逾20年，符合民法第772條準用第769條時效取得地上權之要件，<strong>得請求登記為地上權人</strong>；此一請求登記之權利不因土地嗣後經拍賣易主而受影響，甲仍得對現所有權人丁主張其得請求登記為地上權人，丁不得請求甲拆屋還地。惟應注意時效取得之效果僅係「得請求登記」，並非「當然自動取得地上權」，此為作答時不可省略之關鍵用語。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="109-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="110-一" data-yr="110">
-<summary><span class="lv">🔴</span><span class="ek">110年第一題</span><span class="et">共有土地分割與抵押權按比例移轉</span><span class="ec">D共有／抵押權</span></summary>
+<summary><span class="dot A"></span><span class="ek">110年第一題</span><span class="et">共有土地分割與抵押權按比例移轉</span><span class="ec">D共有／抵押權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲與乙共有一筆土地，甲持分2/3，乙持分為1/3。乙分別於99年1月28日、99年8月10日、99年9月8日設定最高限額抵押權與丙、丁、戊等人。嗣後甲與乙於110年3月18日訴請法院分割，兩人並因此取得因分割而形成單獨所有的土地，而**上述三筆抵押權按應有部分比例移轉到甲與乙之土地上**。甲不服該抵押權移轉到自己分得單獨所有的土地上，遂向法院起訴請求塗銷抵押權登記。請問甲之請求是否有理由？（25分）</div>
 <h4><strong>一、共有物分割後應有部分抵押權移存規則之意義</strong></h4>
 <p>共有物分割之效果，使各共有人取得單獨所有權，共有關係歸於消滅；惟共有人應有部分上原已存在之抵押權，性質上係就該共有人於共有物上之權利比例所設定，若因分割而使抵押權完全消滅，將嚴重損及抵押權人之擔保利益，故民法明定此類抵押權於分割後應予<strong>移存</strong>，以維持其擔保效力之延續。民法第824條之1第2項本文規定抵押權<strong>不因共有物之分割而受影響</strong>（解釋上繼續按原應有部分比例存在於各共有人分得部分），僅於但書三款情形始<strong>移存於抵押人所分得之部分</strong>，其適用關鍵在於抵押權人對分割程序之<strong>參與情形</strong>。</p>
@@ -504,7 +598,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（原則與例外方向不可顛倒）：</strong> 本題最容易犯的錯誤，是誤以為「抵押權原則上僅移存於原抵押人（乙）之土地，例外才按比例分配到雙方」——這與法條規定的方向<strong>完全相反</strong>。民法第824條之1第2項的正確結構是：<strong>本文＝抵押權不因分割而受影響（解釋上按比例續存於全體分得部分）；但書例外（權利人同意分割／參加訴訟／經告知未參加）＝移存於抵押人所分得之部分</strong>。作答時務必先確認原則與例外何者是何者，避免因方向顛倒而導出相反的結論。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="110-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="110-二" data-yr="110">
-<summary><span class="lv">🔴</span><span class="ek">110年第二題</span><span class="et">通謀虛偽意思表示與繼承人善意取得</span><span class="ec">A意思表示瑕疵／E繼承</span></summary>
+<summary><span class="dot A"></span><span class="ek">110年第二題</span><span class="et">通謀虛偽意思表示與繼承人善意取得</span><span class="ec">A意思表示瑕疵／E繼承</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲為了避免債主追討以及法院強制執行拍賣其不動產，而與乙通謀虛偽意思表示進行土地買賣。乙因此取得甲所有之A地，並且完成移轉登記。乙於99年1月28日死亡、其子女丙與丁於99年2月2日辦妥繼承登記。請問丙丁**何時取得**A地所有權？又嗣後甲向丙與丁請求塗銷登記，返還其所有之土地，請問甲之請求是否有理由？（25分）</div>
 <h4><strong>一、通謀虛偽意思表示與繼承人善意取得保護之意義</strong></h4>
 <p>通謀虛偽意思表示係表意人與相對人通謀而為之非真意表示，因欠缺效果意思，法律明定其為當然無效；惟該無效不得以之對抗善意第三人，以維護交易安全。繼承人因繼承而取得被繼承人之權利義務，於判斷繼承人是否得主張善意取得保護時，應獨立<strong>就繼承人本身</strong>對通謀虛偽情事是否知情為判斷，不因其繼受被繼承人之地位而當然承受被繼承人明知虛偽之不利益。</p>
@@ -518,7 +612,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲乙間之買賣及所有權移轉行為，因通謀虛偽意思表示，依第87條第1項當然無效；丙丁雖因繼承取得登記名義，惟其是否受善意取得保護，應<strong>獨立就丙丁本身</strong>對甲乙間通謀虛偽情事是否善意不知情為判斷：丙丁善意不知者，受第759條之1類推適用保護，甲不得請求返還；丙丁明知者，不受保護，甲得請求塗銷登記並返還A地。不可誤認繼承人當然概括承受被繼承人明知虛偽之不利益地位，而逕行否定其受善意取得保護之可能性。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="110-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="111-一" data-yr="111">
-<summary><span class="lv">🟢</span><span class="ek">111年第一題</span><span class="et">以自己名義出租他人之屋、所有物返還與善意占有人租金抗辯</span><span class="ec">A代理區辨／D所有權</span></summary>
+<summary><span class="dot C"></span><span class="ek">111年第一題</span><span class="et">以自己名義出租他人之屋、所有物返還與善意占有人租金抗辯</span><span class="ec">A代理區辨／D所有權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲出國進修期間將其名下A屋委託好友乙打掃照看，但乙卻未經甲同意，私自以自己名義將A屋出租給不知情的丙並按月收取租金一萬元，租期五年。三年後甲學成歸國，發現此事非常生氣，主張丙無權占有A屋，向丙請求返還A屋，並要求丙支付占有使用A屋三年之租金36萬元作為補償。丙認為自己是合法承租A屋且已按時向乙支付租金，斷然拒絕甲之請求。請問丙之主張是否有理由？（25分）</div>
 <h4><strong>一、以自己名義處分他人之物與代理制度之區辨意義</strong></h4>
 <p>代理係代理人於代理權限內，<strong>以本人名義</strong>為意思表示，其效果直接歸屬於本人；若行為人並非以本人名義、而係<strong>以自己名義</strong>與相對人為法律行為，縱其處分之標的物屬他人所有，其性質亦非代理（無論有權或無權），僅屬行為人就他人之物擅自為處分或利用之問題，本人不受該法律行為之拘束。惟丙就其占有使用A屋期間之利益，是否應對甲負不當得利返還責任，另涉及<strong>善意占有人使用收益權</strong>之獨立爭點，不能僅因丙屬無權占有人即當然導出丙負返還責任之結論，此為本題最終結論之關鍵分水嶺。</p>
@@ -536,7 +630,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（作答陷阱）：</strong> 本題極易被誤導為單純的「§767＋§179雙軌請求」型（型二請求權基礎型）標準公式，逕行認定甲兩項請求均有理由。惟本題真正的得分關鍵，在於<strong>丙是否善意</strong>這一事實認定，會直接牽動§952善意占有人使用收益權之適用，進而<strong>推翻</strong>不當得利請求之成立要件（「無法律上之原因」）。凡遇「無權占有＋請求使用利益」之題型，作答前應先檢驗占有人是否善意，不可逕行套用§179了事。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="111-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="111-二" data-yr="111">
-<summary><span class="lv">🟢</span><span class="ek">111年第二題</span><span class="et">相鄰關係工程車使用與越界建築</span><span class="ec">D相鄰關係</span></summary>
+<summary><span class="dot C"></span><span class="ek">111年第二題</span><span class="et">相鄰關係工程車使用與越界建築</span><span class="ec">D相鄰關係</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲建商興建大樓，因基地條件限制，僅相鄰B地有空間可供工程車迴旋使用，B地所有人乙拒絕提供；工程完工後，相鄰C地所有人丙返國始發現甲之建物越界2平方公尺，主張拆屋還地。甲應如何主張其權利，並應如何負責？（25分）</div>
 <h4><strong>一、鄰地使用權與越界建築容忍義務之意義</strong></h4>
 <p>土地相鄰關係涉及數宗土地間利用上之調和，民法就土地所有人因建築或修繕房屋確有使用鄰地必要之情形，賦予其鄰地使用權，惟鄰地所有人因而受損害者，得請求償金，以兼顧鄰地所有人之權益；就建築物逾越地界之情形，若逾越非因故意或重大過失，且鄰地所有人知其越界而不即提出異議者，法律例外限制鄰地所有人之拆除請求權，以避免資源浪費，改以金錢方式衡平雙方利益。</p>
@@ -549,7 +643,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲得依民法第792條請求使用乙之B地作為工程車迴旋空間，乙應許其使用而不得逕行拒絕，乙因而受損害者，得請求償金；就越界建築部分，第796條須「非因故意或重大過失越界」及「鄰地所有人知其越界而不即提出異議」二要件同時具備，丙始<strong>不得請求甲拆除</strong>越界部分；本題丙返國知悉越界後即主張拆屋還地，難認該當後一要件，丙原則上<strong>得請求拆屋還地</strong>，甲難援引第796條免責；惟若甲能證明丙知悉後未即提出異議，則丙僅得請求償金（以受有損害為前提），或請求甲以相當價額購買該越界部分土地及因此形成之畸零地。本題須把握第792條「鄰地所有人受損害始得請求償金」及第796條「非因故意重大過失＋知其越界而不即提出異議」二要件須同時具備之要點。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="111-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="C" data-key="112-一" data-yr="112">
-<summary><span class="lv">🟢</span><span class="ek">112年第一題</span><span class="et">靈骨塔永久使用權與強制執行效力</span><span class="ec">C買賣／D物權</span></summary>
+<summary><span class="dot C"></span><span class="ek">112年第一題</span><span class="et">靈骨塔永久使用權與強制執行效力</span><span class="ec">C買賣／D物權</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲向A公司購得靈骨塔某塔位之「永久使用權」。A公司大樓其後因遭強制執行而由B公司拍定取得。問：甲得否對B公司主張其永久使用權存在？（25分）</div>
 <h4><strong>一、靈骨塔使用權之債權性質與強制執行拍賣承受範圍之意義</strong></h4>
 <p>實務及多數學說見解認為，塔位業者出售之「永久使用權」，其性質上多屬<strong>債權契約</strong>（使用權狀僅為債權憑證），並非具備對抗第三人效力之<strong>物權</strong>；強制執行拍賣程序中，依實務見解，拍定人原則上取得標的物完整之所有權，除法律有特別規定（如拍賣公告載明承受特定負擔）或該負擔本身具備物權效力（例如已辦理登記之他項權利）外，拍定人原則上不受出賣人與第三人間單純債權契約之拘束。</p>
@@ -563,7 +657,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲向A公司購得之靈骨塔永久使用權，性質上屬債權契約，僅具相對效力，不能對抗因強制執行拍賣而原始取得所有權之B公司；甲<strong>原則上不得</strong>對B公司主張其永久使用權存在，僅得另循契約關係向A公司求償。惟若相關特別法規或法院拍賣公告有特別規定應予承受該等使用權者，則應依其特別規定另為判斷，此為本題例外情形，宜於答案中附帶敘明以求周延。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="112-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="112-二" data-yr="112">
-<summary><span class="lv">🟡</span><span class="ek">112年第二題</span><span class="et">居間契約報酬請求權成立時點</span><span class="ec">C居間</span></summary>
+<summary><span class="dot B"></span><span class="ek">112年第二題</span><span class="et">居間契約報酬請求權成立時點</span><span class="ec">C居間</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>A仲介公司受買方甲之委託媒介甲購買乙所有之土地，雙方簽訂居間契約，約定「於甲乙間土地買賣契約成立後，甲應依約給付A公司新臺幣一千萬的服務費」。後來甲與乙在A公司之媒合下簽訂土地買賣契約，甲於是給付A公司一千萬元。然嗣後甲乙間對於**土地分區使用有所爭執**，因而甲乙合意解除該買賣契約。甲因此對A公司主張，請求A公司返還所支付之一千萬服務費，是否有理？請附具理由說明之。（25分）</div>
 <h4><strong>一、居間報酬請求權成立時點之意義</strong></h4>
 <p>居間人之報酬請求權，其法律上具體發生之時點為<strong>契約因居間人之報告或媒介而成立之時</strong>，此一時點一經到來，居間人之報酬請求權即告確定發生，不受該契約嗣後是否履行完畢、是否經當事人合意解除或因其他事由消滅之影響，蓋居間人之給付義務內容僅止於促成契約成立，其報酸給付義務與契約後續之履行狀況，於法律評價上應予分離。</p>
@@ -577,7 +671,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，A之報酬請求權於甲乙間買賣契約因其媒介而成立時即已確定發生，甲已依約給付完畢，此一給付具備法律上原因；甲乙嗣後合意解除買賣契約，純屬其二人間契約關係之事，不影響A已確定取得之報酬請求權，<strong>甲請求A返還1000萬元服務費，無理由</strong>。本題核心陷阱在於誤以為「契約解除即報酬應返還」，實則報酬請求權之判斷基準時點為「契約成立時」，而非「契約是否履行完畢或存續」。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="112-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="113-一" data-yr="113">
-<summary><span class="lv">🟡</span><span class="ek">113年第一題</span><span class="et">買賣瑕疵擔保與精神損害賠償</span><span class="ec">C瑕疵擔保</span></summary>
+<summary><span class="dot B"></span><span class="ek">113年第一題</span><span class="et">買賣瑕疵擔保與精神損害賠償</span><span class="ec">C瑕疵擔保</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>乙出售A屋予甲，並保證A屋無任何瑕疵，甲買受後發現A屋漏水。甲得否向乙請求修繕費用30萬元及精神損害賠償2萬元？（25分）</div>
 <h4><strong>一、物之瑕疵擔保與非財產上損害賠償制度之意義</strong></h4>
 <p>出賣人就買賣標的物之瑕疵，原則上負瑕疵擔保責任，買受人得請求解除契約或減少價金；惟若出賣人係<strong>故意不告知</strong>物之瑕疵、或物<strong>缺少其所保證之品質</strong>者，法律另賦予買受人得逕行請求<strong>損害賠償</strong>之權利，較單純解除或減價之效果更有利於買受人。至精神慰撫金（非財產上損害賠償）之請求，民法原則上以侵害<strong>人格法益</strong>為前提要件，財產上損害本身原則不得請求精神慰撫金，此為本題後段之重要限制。</p>
@@ -590,7 +684,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，乙保證A屋無瑕疵而事實不符，甲得依民法第360條，向乙請求修繕費用<strong>30萬元</strong>之損害賠償；惟A屋漏水純屬財產上之瑕疵損害，未該當人格法益受侵害之要件，甲<strong>不得</strong>依第195條請求非財產上損害賠償<strong>2萬元</strong>。本題作答關鍵在於區辨第359條（得解除契約或減少價金）與第360條（得直接請求損害賠償）二條之適用要件與效果差異，以及財產上損害與人格法益侵害之非財產上損害二者性質不同、不得混用之基本原則。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="113-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="B" data-key="113-二" data-yr="113">
-<summary><span class="lv">🟡</span><span class="ek">113年第二題</span><span class="et">委託銷售、居間報酬與定金退還爭議</span><span class="ec">C居間／B委任</span></summary>
+<summary><span class="dot B"></span><span class="ek">113年第二題</span><span class="et">委託銷售、居間報酬與定金退還爭議</span><span class="ec">C居間／B委任</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲乙簽訂一般委託銷售契約書，甲委託乙出售其所有之A廠房土地，委託契約之報酬為委託銷售總價2%，同日乙即媒介甲與丙公司簽立不動產買賣意向書，丙交付100萬元支票為定金，由乙保管作為嗣後丙履約時價金之一部或違約時之賠償；三週後，甲與丙公司以總價7500萬元簽訂不動產買賣契約書，惟丙公司並未依約給付第一期款，亦未開設履約專戶，**甲丙簽訂和解契約**，乙未得甲同意逕將作為定金之100萬支票退還給丙公司。試問：甲乙之法律關係為何？乙得否向甲主張服務報酬？（25分）</div>
 <h4><strong>一、委託銷售關係兼具居間與委任性質之意義</strong></h4>
 <p>不動產經紀業受託處理委託銷售事務，其與委託人間之法律關係，往往兼具<strong>居間</strong>（促成訂約，第565條）與<strong>委任</strong>（受託保管款項、處理相關事務，第528條）之雙重性質；居間人之報酬請求權，於契約因其媒介而成立時即已確定發生，不受契約後續履行狀況影響；惟其另受託保管款項之部分，仍應依委任之規定（第535條），盡受任人之注意義務（受有報酬者，應以善良管理人之注意為之），二者法律效果各自獨立，應分別檢驗。</p>
@@ -608,7 +702,7 @@ nav.tabs button{flex:1 1 auto}
 <p><strong>特別提醒（原題細節不可省略）：</strong> 本題官方原題明確載有「<strong>甲丙簽訂和解契約</strong>」此一情節，此為判斷乙退還定金行為是否違反義務之重要前提事實，作答時不可略去不論；若逕以「丙違約、乙擅自退款」之簡化事實直接下結論「乙必然違反義務」，將忽略和解契約可能已變更雙方權利義務關係之可能性，屬於對原題事實掌握不完整之作答方式，應予避免。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="113-二"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="114-一" data-yr="114">
-<summary><span class="lv">🔴</span><span class="ek">114年第一題</span><span class="et">共有屋頂平台默示分管契約對後手效力</span><span class="ec">D共有</span></summary>
+<summary><span class="dot A"></span><span class="ek">114年第一題</span><span class="et">共有屋頂平台默示分管契約對後手效力</span><span class="ec">D共有</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲為某公寓五樓住戶，該公寓之屋頂平台係屬全體十戶區分所有權人按其應有部分共有。甲於20多年前在屋頂平台上增建一處鋼構加蓋房屋，自用作倉庫與晾衣之用，歷年來其他區分所有權人均未對此提出異議。乙於2年前購得該公寓四樓房屋後，發現屋頂平台被甲占用，遂主張系爭增建物妨礙其共有物使用，請求甲拆除並返還占用部分予全體共有人。甲抗辯：其占用屋頂平台已逾20年，其他共有人均未反對，已成立默示分管契約，該分管契約對後來之買受人乙亦有拘束力，故乙不得請求拆除或返還。試問，誰的主張有理由？（25分）</div>
 <h4><strong>一、默示分管契約及其對受讓人拘束力之意義</strong></h4>
 <p>共有人間就共有物之特定使用方式，得以默示方式成立分管契約，惟該分管契約性質上僅具<strong>債之效力</strong>，原則上僅拘束締約之共有人本身；依民法第826條之1第1項，不動產共有人間關於共有物使用、管理之約定，須於<strong>登記後</strong>，始對應有部分之受讓人具有效力，「知悉或可得而知」之文義則見於動產共有之第2項；就未經登記之不動產分管契約（含默示分管契約）對後手之拘束力，為兼顧交易安全與受讓人之信賴保護，依實務見解參酌「知悉或可得而知」之主觀要件為限制，避免受讓人於毫無所悉之情況下，逕受其所不知之共有物使用限制所拘束。</p>
@@ -622,7 +716,7 @@ nav.tabs button{flex:1 1 auto}
 <p>綜上，甲逾20年占用屋頂平台，其他共有人歷年未表反對，客觀上足認默示分管契約已成立，甲有其使用權源；惟該分管契約<strong>未經登記</strong>，且無事證顯示乙於受讓四樓房屋時已知悉或可得而知此一分管情事，依民法第826條之1，該分管契約<strong>對乙不生效力</strong>，乙得依第767條第1項並參酌第821條（回復共有物之請求為共有人全體之利益）請求甲拆除該增建物並返還占用部分予全體共有人。<strong>乙之主張有理由</strong>。本題核心在於區辨「分管契約是否成立」與「是否對後手生效」二層次，即使分管契約成立，仍須通過第826條之1登記要件之檢驗（並參酌實務就受讓人知悉可得而知之見解），方能拘束後手，不可因占用時間長久即逕認當然對後手發生效力。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="114-一"> 我已讀懂這題的邏輯</label></div></details>
 <details class="essay" data-lv="A" data-key="114-二" data-yr="114">
-<summary><span class="lv">🔴</span><span class="ek">114年第二題</span><span class="et">抵押權、地上權與所有權讓與之三方優先順序</span><span class="ec">D物權優先順序</span></summary>
+<summary><span class="dot A"></span><span class="ek">114年第二題</span><span class="et">抵押權、地上權與所有權讓與之三方優先順序</span><span class="ec">D物權優先順序</span></summary>
 <div class="ebody"><div class="oq"><b>【原題】</b>甲為A地之所有人。甲因資金需求，向乙借款新臺幣500萬元，並以A地設定抵押權予乙。其後，甲又就A地設定地上權予丙，以供丙在其上建築房屋。再後，甲將A地所有權讓與其子丁，並完成移轉登記。試問：依物權之一般效力，乙、丙、丁三人間之法律關係為何？並說明各物權之優先順序及其效力範圍。（25分）</div>
 <h4><strong>一、不動產物權登記生效及成立在先者優先原則之意義</strong></h4>
 <p>不動產物權依法律行為而設定、變更者，非經登記不生效力，各物權相互間之優先順序，原則上依其<strong>登記完成之先後時間</strong>定之，先登記之物權效力優先於後登記者；抵押權因不移轉占有標的物之特性，其設定後，土地所有人仍得於同一不動產上，就其使用收益權能另行設定用益物權（如地上權）或讓與所有權，惟後設定之權利或後手取得之所有權，均應<strong>承受</strong>先存在之物權負擔，不得排除先物權之效力。</p>
@@ -635,67 +729,41 @@ nav.tabs button{flex:1 1 auto}
 <h4><strong>四、結論</strong></h4>
 <p>綜上，乙、丙、丁三人就A地之物權關係，依登記完成先後定其優先順序，依序為乙之抵押權、丙之地上權、丁受讓之所有權；丁取得所有權後，仍須承受乙之抵押權及丙之地上權，不得主張排除；乙實行抵押權拍賣A地時，若丙之地上權有影響其優先受償之情形，依民法第866條，法院得除去丙之地上權後進行拍賣，使拍定人取得無負擔之所有權，丙之地上權因而被除去，其與甲間之關係則另依雙方間之契約關係處理。三物權「登記先後定優先順序」及「後次序權利不得對抗先次序權利、但抵押權受影響時得除去後次序用益物權」二項原則，為本題作答之核心架構。</p>
 <label class="done"><input type="checkbox" class="rd" data-key="114-二"> 我已讀懂這題的邏輯</label></div></details>
- </div>
+  </div>
 </section>
-<section class="tab" id="t4">
- <h2>⚡ 現行法</h2>
- <p class="lead">只收「已核實」的項目；沒核實的一律標「待補充」，不憑記憶填。</p>
- <div class="group">① 修法（影響多題）</div>
- <div class="tw"><table>
-  <tr><th>條文</th><th>舊法</th><th>現行法</th><th>施行／備註</th></tr>
-  <tr><td>§12 成年</td><td>20歲</td><td><b>18歲</b></td><td>112.1.1；題幹出現18、19歲的限制行為能力人，舊答案不能直接套</td></tr>
-  <tr><td>§980 結婚年齡</td><td>男18、女16</td><td><b>男女均18歲</b>；未成年人不得結婚（§981 同意規定刪除）</td><td>112.1.1</td></tr>
-  <tr><td>§205 約定利率上限</td><td>週年20%；超過部分債權人無請求權</td><td><b>週年16%</b>；超過部分之約定<b>無效</b></td><td>109.12.25 修正公布</td></tr>
-  <tr><td>§1223 特留分</td><td>兄弟姊妹、祖父母 1/3</td><td>兄弟姊妹之特留分<b>刪除</b>（祖父母1/3不變）</td><td>2026-08-17 公布，<b>2027-02-17 施行</b>，以被繼承人死亡日為界。<b>115年11月考試仍按舊條文</b>；兄弟姊妹法定繼承順位不變</td></tr>
- </table></div>
- <div class="group">② 申論核實修正表</div>
- <div class="tw"><table>
-  <tr><th>題／點</th><th>容易寫成的舊答案</th><th>現行／核實後的正確寫法</th><th>依據・看哪裡</th></tr>
-  <tr><td>106-二<br>成年年齡</td><td>未滿20歲為限制行為能力人</td><td>成年年齡為 <b>18歲</b>；7歲以上未滿18歲為限制行為能力人</td><td>民法§12、§13｜範文16</td></tr>
-  <tr><td>111-一<br>善意占有人</td><td>丙無權占有→甲可依不當得利請求租金補償</td><td>丙為<b>善意占有人</b>，依§952得為使用收益；丙拒付36萬之抗辯<b>有理由</b>。乙是「以自己名義」出租，不是代理</td><td>§767、§952、§179｜範文25</td></tr>
-  <tr><td>110-一<br>共有物分割後之抵押權</td><td>抵押權僅存於抵押人分得部分（或規則方向寫反）</td><td>§824-1 第2項：<b>原則</b>按原應有部分比例存於各分得人；<b>例外</b>才僅存於抵押人分得部分</td><td>§824-1 Ⅱ｜範文23</td></tr>
-  <tr><td>109-一<br>A屋歸屬</td><td>未先以登記名義定歸屬</td><td>先看<b>登記名義</b>定歸屬，再定性他方擅自處分為<b>無權處分</b></td><td>§118、§759-1｜範文21</td></tr>
-  <tr><td>113-二<br>和解契約</td><td>只談居間報酬與定金，漏掉甲丙曾簽和解契約</td><td>須分段處理：委託／居間關係→和解契約效力→定金退還</td><td>居間、和解、定金相關條文｜範文30</td></tr>
- </table></div>
- <div class="note gr">以上 5 項皆來自「申論題對照官方試題 PDF」的核實過程（修正已寫進範文與攻略表）。這是「核實修正表」，不是修法對照表。</div>
- <div class="todo"><b>尚待核對：</b>選擇題「歷屆答案 vs 現行法」逐題對照表已建立在知識庫（《民法概要_歷屆答案vs現行法對照表》），但只有上表4項經過查證，其餘為 AI 初篩，171題沿用舊解析已於2026-10-08逐題複核（102題重寫，成年／婚齡等修法影響題已在題目備註提醒）；解析中不含條號的白話說明僅抽查。要補時，需逐題以法務部全國法規資料庫現行條文核實後再填，目前不列任何未核實內容。</div>
-</section>
-<!-- 5 進度 -->
-<section class="tab" id="t5">
- <h2>📊 進度</h2>
- <p class="lead">資料來自各工具在此瀏覽器的紀錄；換裝置或清除資料就會歸零。</p>
- <div class="group">回報給【總控】（全站一份）</div>
+
+<section class="tab" id="pProg">
+  <div class="group-label">回報給【總控】（全站一份）</div>
  <p style="font-size:13px;margin:4px 0 8px" id="bxTodayLine"></p>
  <p style="font-size:13px;margin:4px 0 8px">涵蓋刷題 A～E 五篇、25題模擬、精選／完整小卡、單字卡、定義填空、各頁開啟次數。按一下複製，貼到【總控】對話。</p>
- <button id="bxRepBtn" style="padding:8px 14px;border-radius:99px;border:1px solid var(--green);background:var(--green);color:#fff;font-size:14px;cursor:pointer">複製全站回報</button>
+ <button id="bxRepBtn" style="padding:8px 14px;border-radius:99px;border:1px solid var(--pri);background:var(--pri);color:var(--on);font-size:14px;cursor:pointer">複製全站回報</button>
  <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:12px;box-sizing:border-box"></textarea>
- <div class="today" id="phnow"></div>
- <div class="group">① 刷題進度（依篇）</div>
- <div class="tw"><table id="progtb"><tr><th>篇</th><th>已作答／總數</th><th>正確率</th><th>錯題</th></tr></table></div>
- <div class="group">② 整卷模擬</div>
- <div id="simsum" class="note"></div>
- <div class="group">③ 申論</div>
- <div id="essum" class="note"></div>
- <div class="group">④ 每週日自查</div>
- <div class="note">• 這週刷題進度有沒有跟上「今天做什麼」的建議？<br>• 錯題本 C 型（真的不熟）有沒有回頭讀速記？<br>• 申論這週有讀一題作答架構嗎？<br>• 有沒有看到數字或條號想不起來的？記進錯題本。</div>
-</section>
 
-<section class="tab" id="t6">
- <h2>📖 攻略</h2>
- <p class="lead">民法是你最弱的一科，順序排第一。</p>
+  <div class="today" id="phnow"></div>
+  <div class="group-label">刷題進度（依篇）</div>
+  <div class="tw"><table class="keep" id="progtb"><tr><th>篇</th><th>已作答／總數</th><th>正確率</th><th>錯題</th></tr></table></div>
+  <div class="group-label">整卷模擬</div>
+  <div id="simsum" class="note"></div>
+  <div class="group-label">申論</div>
+  <div id="essum" class="note"></div>
+  <div class="group-label">每週日自查</div>
+  <div class="note">• 這週刷題進度有沒有跟上「今天做什麼」的建議？<br>• 錯題本 C 型（真的不熟）有沒有回頭讀速記？<br>• 申論這週有讀一題作答架構嗎？<br>• 有沒有看到數字或條號想不起來的？記進錯題本。</div>
+  <div class="group-label">攻略</div>
+  
+ <p class="hint">民法是你最弱的一科，順序排第一。</p>
 
- <div class="group">① 段落優先順序（依 520 題分篇統計）</div>
+ <details class="fold" open><summary>① 段落優先順序（依 520 題分篇統計）</summary>
  <div class="tw"><table>
   <tr><th>順序</th><th>段落</th><th>全部題數／近8年占比</th><th>核心考點</th><th>優先度</th></tr>
-  <tr><td class="no">1</td><td>D・物權編</td><td>134題／26%</td><td>抵押權・地上權・共有・所有權</td><td>🔴 第一優先</td></tr>
-  <tr><td class="no">2</td><td>E・親屬繼承</td><td>117題／24%</td><td>繼承・夫妻財產制（近年翻倍）・特留分</td><td>🔴 第一優先</td></tr>
-  <tr><td class="part">3</td><td>A・總則</td><td>107題／21.5%</td><td>意思表示（降溫中）・行為能力・代理・時效</td><td>🟡 第二優先</td></tr>
-  <tr><td class="part">4</td><td>B・債編總論</td><td>85題／14.5%</td><td>債務不履行・侵權行為（107年後幾乎絕跡）</td><td>🟡 與C並列</td></tr>
-  <tr><td class="part">4</td><td>C・債編分則</td><td>77題／14%</td><td>租賃・瑕疵擔保・居間（近年申論爆發）</td><td>🟡 與B並列</td></tr>
+  <tr><td class="no">1</td><td>D・物權編</td><td>134題／26%</td><td>抵押權・地上權・共有・所有權</td><td>第一優先</td></tr>
+  <tr><td class="no">2</td><td>E・親屬繼承</td><td>117題／24%</td><td>繼承・夫妻財產制（近年翻倍）・特留分</td><td>第一優先</td></tr>
+  <tr><td class="part">3</td><td>A・總則</td><td>107題／21.5%</td><td>意思表示（降溫中）・行為能力・代理・時效</td><td>第二優先</td></tr>
+  <tr><td class="part">4</td><td>B・債編總論</td><td>85題／14.5%</td><td>債務不履行・侵權行為（107年後幾乎絕跡）</td><td>與C並列</td></tr>
+  <tr><td class="part">4</td><td>C・債編分則</td><td>77題／14%</td><td>租賃・瑕疵擔保・居間（近年申論爆發）</td><td>與B並列</td></tr>
  </table></div>
  <div class="note r"><b>115年特別留意：</b>居間契約112、113年連續兩年是申論主角（報酬請求權成立時點、合意解除對報酬之影響）；夫妻財產制重心已轉向法定財產制剩餘財產分配請求權（§1030-1）。B、C 占比相近，時間不夠要砍時，先看錯題本再決定；D、E 不能砍。</div>
 
- <div class="group">② 高頻考點排行（舊版統計口徑，只看趨勢，不當精確題數）</div>
+ </details><details class="fold"><summary>② 高頻考點排行（舊版統計口徑，只看趨勢，不當精確題數）</summary>
  <div class="tw"><table>
   <tr><th>優先</th><th>主題</th><th>舊版統計題數</th><th>讀法</th></tr>
   <tr><td class="no">1</td><td>繼承（含特留分15）</td><td>53</td><td>題量第一，先把應繼分、特留分、拋棄／限定繼承算熟</td></tr>
@@ -708,18 +776,18 @@ nav.tabs button{flex:1 1 auto}
   <tr><td class="ok">8</td><td>所有權20／瑕疵擔保20／代理18／居間14／時效13／侵權13</td><td>—</td><td>第二輪補強</td></tr>
  </table></div>
 
- <div class="group">③ 五件套怎麼用</div>
+ </details><details class="fold"><summary>③ 五件套怎麼用</summary>
  <div class="tw"><table>
   <tr><th>件</th><th>放哪</th><th>怎麼用</th></tr>
   <tr><td>1 16年考點分析</td><td>知識庫 md</td><td>開始新段落前，先確認這段在16年佔多少比重、有無近年趨勢轉變，別在已消退的冷門考點上花力氣。</td></tr>
-  <tr><td>2 重點筆記</td><td>GitHub 彩色重點速記 A／BC／D／E＋法律效果總整理；知識庫重點筆記 md</td><td>刷題前先讀一次當地圖，知道等一下會遇到哪些坑；不是拿來背。色塊：🟢定義 🔵法條 🟠易混淆 🟣口訣 🔴易錯點。</td></tr>
+  <tr><td>2 重點筆記</td><td>GitHub 彩色重點速記 A／BC／D／E＋法律效果總整理；知識庫重點筆記 md</td><td>刷題前先讀一次當地圖，知道等一下會遇到哪些坑；不是拿來背。色塊：綠＝定義、藍＝法條、橙＝易混淆、紫＝口訣、紅＝易錯點。</td></tr>
   <tr><td>3 題庫含答案</td><td>GitHub 刷題練習 A～E、考題小卡、25題模擬；知識庫題庫 md</td><td>第一輪用精選考題小卡＋互動單字卡抓手感；第二輪用刷題練習（官方520題）篩「只看答錯」；完整版小卡已用官方520題重建，可翻卡複習。</td></tr>
   <tr><td>4 申論題攻略表</td><td>知識庫 md</td><td>看到新題先查有沒有對應年度架構（逐題查，不是練手感）。</td></tr>
-  <tr><td>5 申論題實戰範文</td><td>知識庫 md＋本頁第④頁籤</td><td>限時作答後對照自評；考前抓🔴高機率題模仿寫法。</td></tr>
+  <tr><td>5 申論題實戰範文</td><td>知識庫 md＋本頁第④頁籤</td><td>限時作答後對照自評；考前抓高機率題模仿寫法。</td></tr>
  </table></div>
  <div class="note">加碼工具：互動單字卡、申論題五型答題模板、<b>法律效果總整理</b>（無效／撤銷／效力未定／解除／時效，含遮答案練習與30秒速背卡）。</div>
 
- <div class="group">④ 讀書規則與五條鐵律</div>
+ </details><details class="fold"><summary>④ 讀書規則與五條鐵律</summary>
  <div class="note">
   • 時間：平日 2 小時、假日 6 小時。<br>
   • 雙軌：選擇題為主軸，申論練習同步；申論練習：每週讀一題作答架構，讀懂邏輯。<br>
@@ -730,21 +798,21 @@ nav.tabs button{flex:1 1 auto}
   • <b>成對記憶易混淆規則</b>：善意占有(§952)vs惡意占有；詐欺撤銷不得對抗善意第三人vs脅迫撤銷得對抗；§824-1第2項原則按比例、例外才歸抵押人。
  </div>
 
- <div class="group">⑤ 時程：四輪順序＋依剩餘天數的階段（系統自動標出你現在的位置）</div>
+ </details><details class="fold"><summary>⑤ 時程：四輪順序＋依剩餘天數的階段（系統自動標出你現在的位置）</summary>
  <div class="note">
   <b>第一輪・段落刷題</b>：D→E→A→B／C，每段先讀速記、再刷精選小卡，搭配單字卡。固定順序「速記→單字卡→精選小卡」，不要顛倒或跳過。<br>
   <b>第二輪・錯題複習</b>：刷題練習A～E篩「只看答錯」，A／B／C三類分別處理。<br>
-  <b>第三輪・申論限時寫作</b>：從🔴高機率題挑選，限時25分鐘手寫，寫完對照範文自評。<br>
+  <b>第三輪・申論限時寫作</b>：從高機率題挑選，限時25分鐘手寫，寫完對照範文自評。<br>
   <b>考前一週・全科模擬</b>：25題模擬（107–114年整卷，45分鐘，8卷輪流）＋成對規則小抄＋法律效果總整理速背卡。
  </div>
  <div id="phases">
   <div class="ph" data-min="31" data-max="9999"><b>第一階段・剩餘 31 天以上</b> <span class="tg">◀ 你在這裡</span><br>刷題練習全跑一輪、錯題分型；每週 1 題申論架構。</div>
-  <div class="ph" data-min="15" data-max="30"><b>第二階段・剩餘 15–30 天</b> <span class="tg">◀ 你在這裡</span><br>回頭啃 C 型錯題；25 題模擬測驗計時；🔴A 級申論逐題過一遍。</div>
+  <div class="ph" data-min="15" data-max="30"><b>第二階段・剩餘 15–30 天</b> <span class="tg">◀ 你在這裡</span><br>回頭啃 C 型錯題；25 題模擬測驗計時；A 級申論逐題過一遍。</div>
   <div class="ph" data-min="8" data-max="14"><b>第三階段・剩餘 8–14 天</b> <span class="tg">◀ 你在這裡</span><br>五型答題模板訓練手感；高頻章節（繼承、意思表示、抵押權）再掃一輪。</div>
   <div class="ph" data-min="0" data-max="7"><b>最後一週・剩餘 7 天以內</b> <span class="tg">◀ 你在這裡</span><br>只看錯題本、現行法小抄、速記頁、速背卡；不再開新題庫，維持睡眠。</div>
  </div>
 
- <div class="group">⑥ 怎麼叫我（範例提示詞）</div>
+ </details><details class="fold"><summary>⑥ 怎麼叫我（範例提示詞）</summary>
  <pre class="pr">給我民法〔繼承〕這章，歷屆題的錯題解析（白話概念＋法條＋例子＋考試陷阱）</pre>
  <pre class="pr">我今天只有 2 小時，民法該讀什麼？照優先順序幫我排</pre>
  <pre class="pr">給我〔110年第二題〕的申論作答架構，定義→法條→涵攝分析→結論</pre>
@@ -755,174 +823,141 @@ nav.tabs button{flex:1 1 auto}
 
  <div class="note r"><b>提醒：</b>題目與答案以考選部官方試題為準；解析若與現行條文有出入，以全國法規資料庫為準。</div>
 
- <div class="group">⑦ 五件套完成清單</div>
+ </details><details class="fold"><summary>⑦ 五件套完成清單</summary>
  <div class="tw"><table>
   <tr><th>#</th><th>件</th><th>狀態</th><th>實際檔案／備註</th></tr>
-  <tr><td>1</td><td>16年考點分析</td><td class="ok">✅ 有</td><td>知識庫：民法概要_16年考點分析_99-114_v1.1修正版.md（520題分篇統計＋高頻考點排行〔舊口徑，看趨勢〕＋32題申論分類）</td></tr>
-  <tr><td>2</td><td>重點筆記</td><td class="ok">✅ 有（AI整理）</td><td>知識庫：民法概要_重點筆記.md（條號已逐步對照現行條文，另有〈歷屆答案vs現行法對照表〉）；GitHub：彩色重點速記 A／BC／D／E、法律效果總整理</td></tr>
-  <tr><td>3</td><td>題庫（含答案）</td><td class="ok">✅ 有 520題</td><td>知識庫：民法概要_題庫_含答案.md（官方題＋官方答案）；GitHub：刷題練習 A～E篇、25題模擬</td></tr>
-  <tr><td>4</td><td>申論題攻略表</td><td class="ok">✅ 有</td><td>知識庫：民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md（32題速查＋逐題骨架＋萬用口訣）；另有答題模板分類卡 v1.1</td></tr>
-  <tr><td>5</td><td>申論題實戰範文</td><td class="ok">✅ 有 32／32</td><td>知識庫：民法申論題實戰範文_32題完整版.md；32題皆為完整四段式全文，已對照官方試題 PDF 核實（本頁第④頁籤內嵌全文）</td></tr>
+  <tr><td>1</td><td>16年考點分析</td><td class="ok">有</td><td>知識庫：民法概要_16年考點分析_99-114_v1.1修正版.md（520題分篇統計＋高頻考點排行〔舊口徑，看趨勢〕＋32題申論分類）</td></tr>
+  <tr><td>2</td><td>重點筆記</td><td class="ok">有（AI整理）</td><td>知識庫：民法概要_重點筆記.md（條號已逐步對照現行條文，另有〈歷屆答案vs現行法對照表〉）；GitHub：彩色重點速記 A／BC／D／E、法律效果總整理</td></tr>
+  <tr><td>3</td><td>題庫（含答案）</td><td class="ok">有 520 題</td><td>知識庫：民法概要_題庫_含答案.md（官方題＋官方答案）；GitHub：刷題練習 A～E篇、25題模擬</td></tr>
+  <tr><td>4</td><td>申論題攻略表</td><td class="ok">有</td><td>知識庫：民法申論題攻略總表_99-114年16年完整版_v1.1修正版.md（32題速查＋逐題骨架＋萬用口訣）；另有答題模板分類卡 v1.1</td></tr>
+  <tr><td>5</td><td>申論題實戰範文</td><td class="ok">有 32／32</td><td>知識庫：民法申論題實戰範文_32題完整版.md；32題皆為完整四段式全文，已對照官方試題 PDF 核實（本頁第④頁籤內嵌全文）</td></tr>
  </table></div>
  <div class="note r"><b>結論：5 件齊全。</b>GitHub 工具見「刷題」「記憶」頁籤。</div>
-
+</details>
 </section>
 </main>
-<footer>民法備考指揮中心｜內容對應知識庫「五件套 v1.1修正版」與 GitHub 工具檔｜倒數與階段標記為開啟頁面時即時計算。</footer>
-</div>
-
+<nav class="bot" id="nav">
+  <button class="tab-btn active" data-tab="pHome"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>今日</button>
+  <button class="tab-btn" data-tab="pPrac"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>練習</button>
+  <button class="tab-btn" data-tab="pRev"><svg viewBox="0 0 24 24"><path d="M4 4h12a3 3 0 013 3v13H7a3 3 0 01-3-3zM8 4v13"/></svg>複習</button>
+  <button class="tab-btn" data-tab="pEss"><svg viewBox="0 0 24 24"><path d="M5 4h14M5 9h14M5 14h9M5 19h6"/></svg>申論</button>
+  <button class="tab-btn" data-tab="pProg"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>進度</button>
+</nav>
+<footer style="padding-bottom:8px">民法備考指揮中心｜內容對應知識庫「五件套 v1.1修正版」與 GitHub 工具檔｜倒數與階段標記為開啟頁面時即時計算。</footer>
 <script>
-(function(){
-  var TOOLS=[{"kind": "drill", "seg": "A", "name": "刷題練習 A篇 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A%E7%AF%87.html", "n": "107題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_a_v2", "total": 107}, {"kind": "drill", "seg": "B", "name": "刷題練習 B篇 債編總論", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B%E7%AF%87.html", "n": "85題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_b_v2", "total": 85}, {"kind": "drill", "seg": "C", "name": "刷題練習 C篇 債編分則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C%E7%AF%87.html", "n": "77題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_c_v2", "total": 77}, {"kind": "drill", "seg": "D", "name": "刷題練習 D篇 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D%E7%AF%87.html", "n": "134題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_d_v2", "total": 134}, {"kind": "drill", "seg": "E", "name": "刷題練習 E篇 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E%E7%AF%87.html", "n": "117題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_e_v2", "total": 117}, {"kind": "sim", "seg": "", "name": "歷屆整卷模擬（107–114年）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html", "n": "8卷", "desc": "每年25題、45分鐘，選年份作答"}, {"kind": "sel", "seg": "A", "name": "精選考題小卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "B", "name": "精選考題小卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "20題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "D", "name": "精選考題小卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "E", "name": "精選考題小卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "full", "seg": "A", "name": "完整考題小卡｜A 總則（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "52張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "B", "name": "完整考題小卡｜BC 債編（總則＋分則）（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "119張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "D", "name": "完整考題小卡｜D 物權（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "124張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "E", "name": "完整考題小卡｜E 親屬繼承（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "127張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "note", "seg": "", "name": "彩色重點速記｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "38張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "50張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "fill", "seg": "", "name": "定義填空練習", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E5%AE%9A%E7%BE%A9%E5%A1%AB%E7%A9%BA%E7%B7%B4%E7%BF%92.html", "n": "145張・10章", "desc": "定義／數字／要件挖空，點空格看答案、隨機測驗；條文皆已兩源核實", "grp": "定義填空練習"}, {"kind": "sum", "seg": "", "name": "法律效果總整理", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%B3%95%E5%BE%8B%E6%95%88%E6%9E%9C%E7%B8%BD%E6%95%B4%E7%90%86.html", "n": "10段", "desc": "無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡", "grp": "總整理"}, {"kind": "essay", "seg": "", "name": "申論題 五型答題模板", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html", "n": "32題", "desc": "五型判型＋依年度瀏覽"}];
-  var ORDER=['D','E','A','B','C'];
-  var SEGN={A:'A 總則',B:'B 債編總論',C:'C 債編分則',D:'D 物權',E:'E 親屬繼承'};
-  var SEGP={A:'21.5%',B:'14.5%',C:'14%',D:'26%',E:'24%'};
-  function $(id){return document.getElementById(id)}
-  function ls(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
-  // ---- tabs
-  var tabs=document.querySelectorAll('#tabs button');
-  function show(id){
-    tabs.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
-    document.querySelectorAll('section.tab').forEach(function(s){s.classList.toggle('on',s.id===id)});
-    try{history.replaceState(null,'','#'+id)}catch(e){}
-  }
-  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
-  var h=(location.hash||'').slice(1); if(/^t[1-6]$/.test(h)) show(h);
-  document.querySelectorAll('#st1 button').forEach(function(b){b.addEventListener('click',function(){
-    document.querySelectorAll('#st1 button').forEach(function(x){x.classList.toggle('on',x===b)});
-    document.querySelectorAll('#t1 .sp').forEach(function(p){p.classList.toggle('on',p.id===b.dataset.s)});
-  })});
-  // ---- countdown
-  var exam=new Date(2026,10,14);
-  var now=new Date(); var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  var d=Math.round((exam-today)/86400000);
-  var dEl=$('days');
-  if(d>0){dEl.textContent=d;}
-  else if(d===0){dEl.textContent='今天';$('dayl').textContent='考試日，加油！';}
-  else {dEl.textContent='已過';$('dayl').textContent='考試日已過';}
-  var left=Math.max(d,0);
-  $('weeks').textContent=(left/7).toFixed(1);
-  var hrs=0;
-  for(var i=0;i<left;i++){var dt=new Date(today.getFullYear(),today.getMonth(),today.getDate()+i);var w=dt.getDay();hrs+=(w===0||w===6)?6:2;}
-  $('hours').textContent=hrs;
-  var phText='';
-  document.querySelectorAll('#phases .ph').forEach(function(p){
-    var mn=+p.dataset.min,mx=+p.dataset.max; if(left>=mn&&left<=mx){p.classList.add('cur');phText=p.innerHTML.replace(/<span class="tg">[^<]*<\/span>/,'');}
-  });
-  // ---- progress data
-  var prog={},tw=0,td=0,tc=0;
-  TOOLS.filter(function(t){return t.kind==='drill'}).forEach(function(t){
-    var S=ls(t.ls)||{};var done=0,ok=0;
-    Object.keys(S).forEach(function(k){if(S[k]){done++;if(S[k].ok)ok++}});
-    prog[t.seg]={done:done,ok:ok,wrong:done-ok,total:t.total,url:t.url};
-    td+=done;tc+=ok;tw+=done-ok;
-  });
-  var sim=ls('bx_mock_civ_sim')||[];
-  var latest={};sim.forEach(function(r){latest[r.y]=r});
-  var essays=[].slice.call(document.querySelectorAll('.essay'));
-  var readSet=ls('minfa_read')||{};
-  // ---- 今天做什麼
-  var dow=now.getDay(),weekend=(dow===0||dow===6);
-  var next=null;ORDER.forEach(function(s){if(!next&&prog[s].done<prog[s].total)next=s});
-  var steps=[];
-  if(tw>0)steps.push('先清錯題：共 '+tw+' 題（刷題頁按「只看答錯」，每題分型 A／B／C）');
-  if(next)steps.push('速記＋單字卡 15 分鐘，再刷「'+SEGN[next]+'篇」（已 '+prog[next].done+'／'+prog[next].total+'）'+(weekend?'，今天目標 40 題以上':'，今天目標 20 題'));
-  else steps.push('第一輪刷題已完成 → 轉第二輪：回頭重做錯題，並做整卷模擬');
-  var nextEs=essays.filter(function(e){return e.dataset.lv==='A'&&!readSet[e.dataset.key]})[0];
-  if(weekend){
-    if(nextEs)steps.push('申論練習：讀 '+nextEs.dataset.yr+'年這題的作答架構');
-    var simDone=Object.keys(latest).length;
-    if(left<=30||!next)steps.push('做一份整卷模擬（45分鐘），目前已做 '+simDone+'／8 卷');
-  } else if(nextEs&&dow===3){ steps.push('申論：讀 '+nextEs.dataset.yr+'年這題的作答架構（10 分鐘）'); }
-  var phase=left>=31?'第一階段':(left>=15?'第二階段':(left>=8?'第三階段':'最後一週'));
-  $('today').innerHTML='<h3>今天做什麼（'+(weekend?'假日 6 小時':'平日 2 小時')+'）</h3><ol>'+steps.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol><div class="tg">'+phase+'・距離考試 '+left+' 天・建議依你的進度即時產生，作答紀錄只存在這個瀏覽器</div>';
-  // ---- card builder
-  function card(t,extra){
-    var a=document.createElement('a');a.className='card'+(t.old?' old':'');a.href=t.url;a.target='_blank';a.rel='noopener';
-    var bd=document.createElement('span');bd.className='bd';bd.textContent=t.n;
-    var nm=document.createElement('div');nm.className='nm';nm.textContent=t.name;
-    var ds=document.createElement('div');ds.className='ds';ds.textContent=t.desc;
-    a.appendChild(bd);a.appendChild(nm);a.appendChild(ds);
-    if(extra){var p=document.createElement('span');p.className='pg';p.textContent=extra;a.appendChild(p)}
-    return a;
-  }
-  // ---- 章節練習
-  var segbox=$('segbox');
-  ORDER.forEach(function(s,idx){
-    var p=prog[s];
-    var det=document.createElement('details');det.className='seg';if(idx===0)det.open=true;
-    var sm=document.createElement('summary');
-    var pct=p.total?Math.round(p.done/p.total*100):0;
-    sm.innerHTML='<span class="sn">'+SEGN[s]+'</span><span class="sm">近8年占比 '+SEGP[s]+'・'+p.total+' 題・已作答 '+p.done+'</span><span class="bar2"><i style="width:'+pct+'%"></i></span>';
-    det.appendChild(sm);
-    var gr=document.createElement('div');gr.className='grid';
-    TOOLS.filter(function(t){return t.seg===s}).sort(function(a,b){var o={drill:0,sel:1,full:2};return o[a.kind]-o[b.kind]}).forEach(function(t){
-      gr.appendChild(card(t,t.kind==='drill'?('已作答 '+p.done+'／'+p.total+(p.done?'・正確率 '+Math.round(p.ok/p.done*100)+'%・錯 '+p.wrong:'')):''));
-    });
-    det.appendChild(gr);segbox.appendChild(det);
-  });
-  // ---- 錯題本
-  var wt=$('wrongtb');
-  ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td><td><a href="'+p.url+'" target="_blank" rel="noopener">開啟（按「只看答錯」）</a></td>';wt.appendChild(tr)});
-  // ---- 整卷
-  var simT=TOOLS.filter(function(t){return t.kind==='sim'})[0];
-  $('simbox').appendChild(card(simT));
-  var st=$('simtb');
-  [107,108,109,110,111,112,113,114].forEach(function(y){var r=latest[y];var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+y+'年</td>'+(r?'<td>'+r.score+'</td><td>'+r.correct+'／25</td><td>'+['A','BC','D','E'].map(function(k){return r.segs[k]}).join('／')+'</td>':'<td colspan="3" class="part">尚未做</td>');st.appendChild(tr)});
-  // ---- 記憶
-  var mb=$('membox');
-  [['定義填空練習','fill'],['彩色重點速記','note'],['互動單字卡','vocab'],['總整理','sum']].forEach(function(g){
-    var hh=document.createElement('div');hh.className='group';hh.textContent=g[0];mb.appendChild(hh);
-    var gr=document.createElement('div');gr.className='grid';
-    TOOLS.filter(function(t){return t.kind===g[1]}).forEach(function(t){gr.appendChild(card(t))});mb.appendChild(gr);
-  });
-  // ---- 申論工具卡
-  var es=TOOLS.filter(function(t){return t.kind==='essay'})[0];
-  var eg=document.createElement('div');eg.className='grid';eg.appendChild(card(es));$('essaytool').appendChild(eg);
-  // ---- 進度
-  var pt=$('progtb');
-  ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td>'+(p.done?Math.round(p.ok/p.done*100)+'%':'—')+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td>';pt.appendChild(tr)});
-  var tot=0;ORDER.forEach(function(s){tot+=prog[s].total});
-  var trt=document.createElement('tr');trt.innerHTML='<th>合計</th><th>'+td+'／'+tot+'</th><th>'+(td?Math.round(tc/td*100)+'%':'—')+'</th><th>'+tw+'</th>';pt.appendChild(trt);
-  var simN=Object.keys(latest).length;
-  $('simsum').textContent=simN?('已做 '+simN+'／8 卷；最近一次 '+sim[sim.length-1].y+'年：'+sim[sim.length-1].score+' 分'):'尚未做整卷模擬';
-  $('phnow').innerHTML='<h3>目前階段</h3>'+phText;
-  // ---- essays
-  var curF='all';
-  function save(){try{localStorage.setItem('minfa_read',JSON.stringify(readSet))}catch(e){}}
-  function apply(){
-    var q=$('sq').value.trim().toLowerCase();var n=0;
-    essays.forEach(function(e){
-      var ok=true;
-      if(curF==='A'||curF==='B'||curF==='C') ok=e.dataset.lv===curF;
-      else if(curF==='unread') ok=!readSet[e.dataset.key];
-      if(ok&&q) ok=e.textContent.toLowerCase().indexOf(q)>-1;
-      e.style.display=ok?'':'none'; if(ok)n++;
-    });
-    var r=Object.keys(readSet).filter(function(k){return readSet[k]}).length;
-    $('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／32';
-    $('essum').textContent='已讀懂 '+r+'／32 題作答架構';
-  }
-  essays.forEach(function(e){
-    var cb=e.querySelector('.rd');var k=e.dataset.key;
-    if(readSet[k]){cb.checked=true;e.classList.add('read')}
-    cb.addEventListener('change',function(){readSet[k]=cb.checked;e.classList.toggle('read',cb.checked);save();apply()});
-  });
-  document.querySelectorAll('#fl button[data-f]').forEach(function(b){
-    b.addEventListener('click',function(){
-      curF=b.dataset.f;document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});apply();
-    });
-  });
-  $('sq').addEventListener('input',apply);
-  $('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});
-  $('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
-  apply();
-})();
+var TOOLS=[{"kind": "drill", "seg": "A", "name": "刷題練習 A篇 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A%E7%AF%87.html", "n": "107題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_a_v2", "total": 107}, {"kind": "drill", "seg": "B", "name": "刷題練習 B篇 債編總論", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B%E7%AF%87.html", "n": "85題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_b_v2", "total": 85}, {"kind": "drill", "seg": "C", "name": "刷題練習 C篇 債編分則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C%E7%AF%87.html", "n": "77題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_c_v2", "total": 77}, {"kind": "drill", "seg": "D", "name": "刷題練習 D篇 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D%E7%AF%87.html", "n": "134題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_d_v2", "total": 134}, {"kind": "drill", "seg": "E", "name": "刷題練習 E篇 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E%E7%AF%87.html", "n": "117題", "desc": "官方題＋官方答案、逐選項解析、可篩只看答錯", "ls": "civlaw_official_e_v2", "total": 117}, {"kind": "sim", "seg": "", "name": "歷屆整卷模擬（107–114年）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E6%A6%82%E8%A6%81_25%E9%A1%8C%E6%A8%A1%E6%93%AC%E6%B8%AC%E9%A9%97.html", "n": "8卷", "desc": "每年25題、45分鐘，選年份作答"}, {"kind": "sel", "seg": "A", "name": "精選考題小卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "B", "name": "精選考題小卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "20題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "D", "name": "精選考題小卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "sel", "seg": "E", "name": "精選考題小卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "18題", "desc": "高頻精選題翻卡"}, {"kind": "full", "seg": "A", "name": "完整考題小卡｜A 總則（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "52張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "B", "name": "完整考題小卡｜BC 債編（總則＋分則）（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "119張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "D", "name": "完整考題小卡｜D 物權（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "124張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "full", "seg": "E", "name": "完整考題小卡｜E 親屬繼承（概念複習）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%AE%8C%E6%95%B4%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html", "n": "127張", "desc": "只當概念複習，答案以刷題練習為準", "old": 1}, {"kind": "note", "seg": "", "name": "彩色重點速記｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "note", "seg": "", "name": "彩色重點速記｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html", "n": "速記頁", "desc": "彩色標記重點，刷題前先掃一遍", "grp": "彩色重點速記"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜A 總則", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95A_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜BC 債編（總則＋分則）", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95BC_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "38張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜D 物權", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95D_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "50張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "vocab", "seg": "", "name": "互動單字卡｜E 親屬繼承", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95E_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html", "n": "42張", "desc": "名詞／要件翻卡記憶", "grp": "互動單字卡"}, {"kind": "fill", "seg": "", "name": "定義填空練習", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E5%AE%9A%E7%BE%A9%E5%A1%AB%E7%A9%BA%E7%B7%B4%E7%BF%92.html", "n": "145張・10章", "desc": "定義／數字／要件挖空，點空格看答案、隨機測驗；條文皆已兩源核實", "grp": "定義填空練習"}, {"kind": "sum", "seg": "", "name": "法律效果總整理", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%B3%95%E5%BE%8B%E6%95%88%E6%9E%9C%E7%B8%BD%E6%95%B4%E7%90%86.html", "n": "10段", "desc": "無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡", "grp": "總整理"}, {"kind": "essay", "seg": "", "name": "申論題 五型答題模板", "url": "https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E4%BA%94%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html", "n": "32題", "desc": "五型判型＋依年度瀏覽"}];
+function lsG(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsS(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function ls(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+function $(id){return document.getElementById(id)}
+var ORDER=['D','E','A','B','C'];
+var SEGN={A:'A 總則',B:'B 債編總論',C:'C 債編分則',D:'D 物權',E:'E 親屬繼承'};
+var SEGP={A:'21.5%',B:'14.5%',C:'14%',D:'26%',E:'24%'};
+var SEGC={D:'s1',E:'s1',A:'s2',B:'s3',C:'s3'};
+function goTab(id){document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.toggle('active',b.dataset.tab===id)});document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.id===id)});window.scrollTo(0,0);lsS('mf_tab',id)}
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){goTab(b.dataset.tab)})});
+function setSeg(sg,s){sg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.s===s)});sg.parentElement.querySelectorAll(':scope > .sp').forEach(function(p){p.classList.toggle('on',p.id===s)});lsS('mf_seg_'+sg.dataset.g,s)}
+document.querySelectorAll('.seg').forEach(function(sg){sg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setSeg(sg,b.dataset.s)})});var v=lsG('mf_seg_'+sg.dataset.g);if(v&&document.getElementById(v))setSeg(sg,v)});
+document.querySelectorAll('[data-go="sim"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();goTab('pPrac');setSeg(document.querySelector('.seg[data-g="prac"]'),'s3')})});
+document.querySelectorAll('[data-go="ess"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();goTab('pEss')})});
+// theme
+var th=$('th');function isDark(){return document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)}
+function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?'淺色':'深色'}
+setTh();th.addEventListener('click',function(){var n=isDark()?'light':'dark';lsS('bx-theme',n);setTh(n)});
+// countdown
+var exam=new Date(2026,10,14),now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+var d=Math.round((exam-today)/86400000),left=Math.max(d,0);
+$('days').textContent=d>0?d:(d===0?'0':'0');
+var hrs=0;for(var i=0;i<left;i++){var dt=new Date(today.getFullYear(),today.getMonth(),today.getDate()+i);var w=dt.getDay();hrs+=(w===0||w===6)?6:2}
+var weeks=(left/7).toFixed(1);
+// progress
+var prog={},tw=0,td=0,tc=0;
+TOOLS.filter(function(t){return t.kind==='drill'}).forEach(function(t){var S=ls(t.ls)||{};var done=0,ok=0;Object.keys(S).forEach(function(k){if(S[k]){done++;if(S[k].ok)ok++}});prog[t.seg]={done:done,ok:ok,wrong:done-ok,total:t.total,url:t.url};td+=done;tc+=ok;tw+=done-ok});
+var sim=ls('bx_mock_civ_sim')||[];var latest={};sim.forEach(function(r){latest[r.y]=r});
+var essays=[].slice.call(document.querySelectorAll('.essay'));var readSet=ls('minfa_read')||{};
+// phases
+var phText='';document.querySelectorAll('#phases .ph').forEach(function(p){var mn=+p.dataset.min,mx=+p.dataset.max;if(left>=mn&&left<=mx){p.classList.add('cur');phText=p.innerHTML.replace(/<span class="tg">[^<]*<\/span>/,'')}});
+var phase=left>=31?'第一階段':(left>=15?'第二階段':(left>=8?'第三階段':'最後一週'));
+// today
+var dow=now.getDay(),weekend=(dow===0||dow===6);
+var next=null;ORDER.forEach(function(s){if(!next&&prog[s]&&prog[s].done<prog[s].total)next=s});
+var plan=[];
+if(tw>0)plan.push('先清錯題：共 '+tw+' 題（刷題頁按「只看答錯」，每題分型 A／B／C）');
+if(next)plan.push('速記＋單字卡 15 分鐘，再刷「'+SEGN[next]+'篇」（已 '+prog[next].done+'／'+prog[next].total+'）'+(weekend?'，今天目標 40 題以上':'，今天目標 20 題'));
+else plan.push('第一輪刷題已完成 → 轉第二輪：回頭重做錯題，並做整卷模擬');
+var nextEs=essays.filter(function(e){return e.dataset.lv==='A'&&!readSet[e.dataset.key]})[0];
+if(weekend){if(nextEs)plan.push('申論練習：讀 '+nextEs.dataset.yr+'年這題的作答架構');if(left<=30||!next)plan.push('做一份整卷模擬（45分鐘），目前已做 '+Object.keys(latest).length+'／8 卷')}
+else if(nextEs&&dow===3){plan.push('申論：讀 '+nextEs.dataset.yr+'年這題的作答架構（10 分鐘）')}
+$('homeSub').textContent='距考試 '+left+' 天（約 '+weeks+' 週，依平日 2h／假日 6h 推算可讀約 '+hrs+' 小時）・今天是'+(weekend?'假日（約 6 小時）':'平日（約 2 小時）');
+$('homeH').textContent='今日 '+plan.length+' 步（點圓圈打勾）';
+var key='mf_today_'+new Date().toISOString().slice(0,10),stt={};try{stt=JSON.parse(lsG(key)||'{}')}catch(e){}
+var box=$('steps');plan.forEach(function(t,i){var s=document.createElement('div');s.className='step'+(stt[i]?' d':'');s.innerHTML='<i></i><span></span>';s.querySelector('span').textContent=t;s.onclick=function(){stt[i]=!stt[i];s.classList.toggle('d',!!stt[i]);lsS(key,JSON.stringify(stt))};box.appendChild(s)});
+$('homeFocus').textContent=phase+'：建議依你的進度即時產生，作答紀錄只存在這個瀏覽器';
+var tot=0;ORDER.forEach(function(s){tot+=prog[s].total});
+$('stats').innerHTML='<div><b>'+td+'／'+tot+'</b><small>已作答</small></div><div><b class="good">'+(td?Math.round(tc/td*100)+'%':'—')+'</b><small>正確率</small></div><div><b class="bad">'+tw+'</b><small>錯題</small></div>';
+$('simSmall').textContent='每年 25 題・45 分鐘・已做 '+Object.keys(latest).length+'／8 卷';
+// card
+function card(t,extra){var a=document.createElement('a');a.className='card'+(t.old?' old':'');a.href=t.url;a.target='_blank';a.rel='noopener';var bd=document.createElement('span');bd.className='bd';bd.textContent=t.n;var nm=document.createElement('div');nm.className='nm';nm.textContent=t.name;var ds=document.createElement('div');ds.className='ds';ds.textContent=t.desc;a.appendChild(bd);a.appendChild(nm);a.appendChild(ds);if(extra){var p=document.createElement('span');p.className='pg';p.textContent=extra;a.appendChild(p)}return a}
+// 章節
+var segbox=$('segbox');
+ORDER.forEach(function(s,idx){var p=prog[s];var det=document.createElement('details');det.className='chap '+SEGC[s];if(idx===0)det.open=true;var sm=document.createElement('summary');var pct=p.total?Math.round(p.done/p.total*100):0;
+sm.innerHTML='<span class="sn">'+SEGN[s]+'</span><span class="pgb">'+p.total+' 題</span><span class="sm">近8年占比 '+SEGP[s]+'・已作答 '+p.done+'</span><span class="bar2"><i style="width:'+pct+'%"></i></span>';det.appendChild(sm);
+var gr=document.createElement('div');gr.className='grid';
+TOOLS.filter(function(t){return t.seg===s}).sort(function(a,b){var o={drill:0,sel:1,full:2};return o[a.kind]-o[b.kind]}).forEach(function(t){gr.appendChild(card(t,t.kind==='drill'?('已作答 '+p.done+'／'+p.total+(p.done?'・正確率 '+Math.round(p.ok/p.done*100)+'%・錯 '+p.wrong:'')):''))});
+det.appendChild(gr);segbox.appendChild(det)});
+// 錯題本
+var wt=$('wrongtb');ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td><td><a href="'+p.url+'" target="_blank" rel="noopener">開啟（按「只看答錯」）</a></td>';wt.appendChild(tr)});
+// 整卷
+var simT=TOOLS.filter(function(t){return t.kind==='sim'})[0];$('simbox').appendChild(card(simT));
+var st=$('simtb');[107,108,109,110,111,112,113,114].forEach(function(y){var r=latest[y];var tr=document.createElement('tr');tr.innerHTML='<td>'+y+'年</td>'+(r?'<td>'+r.score+'</td><td>'+r.correct+'／25</td><td>'+['A','BC','D','E'].map(function(k){return r.segs[k]}).join('／')+'</td>':'<td colspan="3" class="part">尚未做</td>');st.appendChild(tr)});
+// 複習 panes
+function byKind(k){return TOOLS.filter(function(t){return t.kind===k})}
+function chipLabel(t){var p=t.name.split('｜')[1]||t.name;return p.split(' ')[0]}
+function rvLink(n,name,desc,url,badge){return '<a class="rvst" href="'+url+'" target="_blank" rel="noopener"><i>'+n+'</i><div><b>'+name+'</b><small>'+desc+'</small></div>'+(badge?'<span class="rvb">'+badge+'</span>':'')+'</a>'}
+function rvChips(n,name,desc,kind){var h='<div class="rvst"><i>'+n+'</i><div><b>'+name+'</b><small>'+desc+'</small><div class="rvsub">';byKind(kind).forEach(function(t){h+='<span data-h="'+t.url+'">'+chipLabel(t)+'</span>'});return h+'</div></div></div>'}
+var fillT=byKind('fill')[0],sumT=byKind('sum')[0],essT=byKind('essay')[0];
+$('rvp1').innerHTML=''+rvChips(1,'彩色重點速記','彩色標記重點，刷題前先掃一遍','note')+rvChips(2,'互動單字卡','名詞／要件翻卡記憶','vocab')+rvLink(3,'定義填空練習','定義／數字／要件挖空，點空格看答案、隨機測驗',fillT.url,fillT.n);
+$('rvp2').innerHTML='<p class="rvq">想查陷阱、數字、修法時用</p>'+rvLink('效','法律效果總整理','無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡',sumT.url,sumT.n)+'<a class="rvst" href="#" data-go2="r2"><i>法</i><div><b>現行法</b><small>修法對照與申論核實修正表</small></div><span class="rvb hot">看表</span></a>';
+$('rvp3').innerHTML='<p class="rvq">知道考什麼、怎麼讀、怎麼寫</p>'+rvLink('論','申論題 五型答題模板','五型判型＋依年度瀏覽',essT.url,essT.n)+'<a class="rvst" href="#" data-go2="ess"><i>32</i><div><b>申論 32 題範文</b><small>四段式全文，可標記已讀</small></div><span class="rvb">開啟</span></a><a class="rvst" href="#" data-go2="prog"><i>攻</i><div><b>攻略</b><small>段落優先順序、五件套、時程、提示詞（在進度頁）</small></div><span class="rvb">開啟</span></a>';
+document.addEventListener('click',function(e){var x=e.target.closest('.rvsub span');if(x){e.preventDefault();e.stopPropagation();window.open(x.dataset.h,'_blank','noopener');return}var g=e.target.closest('[data-go2]');if(g){e.preventDefault();var k=g.dataset.go2;if(k==='r2'){goTab('pRev');setSeg(document.querySelector('.seg[data-g="rev"]'),'r2')}else if(k==='ess')goTab('pEss');else if(k==='prog')goTab('pProg')}},true);
+var seg=$('rvseg');function setRv(k){seg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false')});[1,2,3].forEach(function(i){$('rvp'+i).hidden=String(i)!==k});lsS('bx-rv-mf',k)}
+seg.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setRv(b.dataset.k)});var rk=lsG('bx-rv-mf')||'1';if(['1','2','3'].indexOf(rk)<0)rk='1';setRv(rk);
+// 申論
+var eg=document.createElement('div');eg.appendChild(card(essT));$('essaytool').appendChild(eg);
+var curF='all';function saveR(){lsS('minfa_read',JSON.stringify(readSet))}
+function apply(){var q=$('sq').value.trim().toLowerCase();var n=0;essays.forEach(function(e){var ok=true;if(curF==='A'||curF==='B'||curF==='C')ok=e.dataset.lv===curF;else if(curF==='unread')ok=!readSet[e.dataset.key];if(ok&&q)ok=e.textContent.toLowerCase().indexOf(q)>-1;e.style.display=ok?'':'none';if(ok)n++});var r=Object.keys(readSet).filter(function(k){return readSet[k]}).length;$('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／32';$('essum').textContent='已讀懂 '+r+'／32 題作答架構';$('essSmall').textContent='已讀 '+r+'／32・每週讀一題，A 級先、再 B 級'}
+essays.forEach(function(e){var cb=e.querySelector('.rd');var k=e.dataset.key;if(readSet[k]){cb.checked=true;e.classList.add('read')}cb.addEventListener('change',function(){readSet[k]=cb.checked;e.classList.toggle('read',cb.checked);saveR();apply()})});
+document.querySelectorAll('#fl button[data-f]').forEach(function(b){b.addEventListener('click',function(){curF=b.dataset.f;document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});apply()})});
+$('sq').addEventListener('input',apply);
+$('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});$('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
+apply();
+// 進度
+var pt=$('progtb');ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td>'+(p.done?Math.round(p.ok/p.done*100)+'%':'—')+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td>';pt.appendChild(tr)});
+var trt=document.createElement('tr');trt.innerHTML='<th>合計</th><th>'+td+'／'+tot+'</th><th>'+(td?Math.round(tc/td*100)+'%':'—')+'</th><th>'+tw+'</th>';pt.appendChild(trt);
+var simN=Object.keys(latest).length;$('simsum').textContent=simN?('已做 '+simN+'／8 卷；最近一次 '+sim[sim.length-1].y+'年：'+sim[sim.length-1].score+' 分'):'尚未做整卷模擬';
+$('phnow').innerHTML='<div class="note"><b>目前階段：</b>'+phText+'</div>';
+// table labels for phone cards
+document.querySelectorAll('table').forEach(function(t){var hs=[];var hr=t.querySelector('tr');if(hr)hr.querySelectorAll('th').forEach(function(h){hs.push(h.textContent.trim())});t.querySelectorAll('tr').forEach(function(r){r.querySelectorAll('td').forEach(function(c,i){c.setAttribute('data-label',i===0?'':(hs[i]||''))})})});
+var sv=lsG('mf_tab');if(sv&&document.getElementById(sv)&&sv!=='pHome')goTab(sv);
+
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+</style>
+<div id="bxfab"><button class="bx-up" id="upBtn" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
 <script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa"),l=document.getElementById("bxTodayLine");if(!b||!window.BXREP)return;var d=BXREP.today();if(l)l.textContent="今天已刷 "+d.q+" 題選擇題，卡片與填空操作 "+d.c+" 次。";b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bxm-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼到【總控】"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
 </body>
 </html>
