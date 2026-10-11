@@ -15,6 +15,7 @@ function g(id){return document.getElementById(id)}
 function ld(k,d){try{var v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 var DB=ld("bx-q2",{}),CONF=!!ld("bx-conf",0),TGT=ld("bx-tgt",{p:60,g:70}),STF="all";
+Object.keys(DB).forEach(function(i){var r=DB[i];if(r&&r.g&&!r.ok&&r.k==="B")r.k="C"});
 function save(){sv("bx-q2",DB)}
 var KN={A:"A 法條混淆",B:"B 粗心",C:"C 不熟"};
 var CHS=[];CARDS.forEach(function(c){if(CHS.indexOf(c.chName)<0)CHS.push(c.chName)});
@@ -46,7 +47,7 @@ function renderList(){bxBar();if(window.__bxMark)window.__bxMark();var list=g("l
   list.appendChild(makeCard(card,idx))});
  updateProg()}
 function histTxt(card){var r=DB[card.id];if(!r)return"";return r.ok?(r.g?"上次猜對":"上次答對"):("上次答錯"+(r.k?"・"+KN[r.k]:""))}
-function clsHtml(card){var r=DB[card.id]||{};return '<span class="cl">這題錯在</span>'+["A","B","C"].map(function(k){return '<button type="button" data-k="'+k+'" class="'+(r.k===k?"on":"")+'">'+KN[k]+"</button>"}).join("")}
+function clsHtml(card){var r=DB[card.id]||{};return '<span class="cl">這題錯在</span>'+["A","B","C"].filter(function(k){return!(r.g&&k==="B")}).map(function(k){return '<button type="button" data-k="'+k+'" class="'+(r.k===k?"on":"")+'">'+KN[k]+"</button>"}).join("")+(r.g?'<span class="cl">（你標了「猜的」，猜錯不算粗心）</span>':"")}
 function makeCard(card,idx){var a=ans[idx],ht=histTxt(card);var div=document.createElement("div");div.className="qcard"+(a?(a.ok?" answered-ok":" answered-ng"):"");div.id="c"+idx;
  div.innerHTML='<div class="qmeta"><span>【'+card.year+"年第"+card.num+"題】"+(ht?'<em class="hist">'+ht+"</em>":"")+'</span><span class="qtag">'+card.chName+'</span></div><div class="qtext">'+card.q+"</div>"+((CONF&&!a)?'<label class="gs"><input type="checkbox" data-g="'+idx+'"'+(gs[idx]?" checked":"")+'> 這題我是猜的</label>':"");
  var opts=document.createElement("div");opts.className="opts";
@@ -60,7 +61,7 @@ function makeCard(card,idx){var a=ans[idx],ht=histTxt(card);var div=document.cre
 function buildExp(card,chosen,ok){var h='<div style="margin-bottom:7px;"><span class="verdict '+(ok?"ok":"ng")+'">'+(ok?"答對了":"答錯了")+"</span></div>";
  ["A","B","C","D"].forEach(function(l,i){var ec=i===card.ans?"ok":(i===chosen&&!ok?"ng":"no");h+='<div class="ei"><span class="el '+ec+'">'+l+"</span><span>"+(card.exps[i]||"")+"</span></div>"});return h}
 function pick(idx,chosen){var card=CARDS[idx],ok=chosen===card.ans,gg=(CONF&&gs[idx])?1:0;ans[idx]={chosen:chosen,ok:ok,g:gg};
- var r=DB[card.id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=gg;r.k=ok?"":"";r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,gg]);if(r.h.length>10)r.h.shift();DB[card.id]=r;save();
+ var r=DB[card.id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=gg;r.k=(!ok&&gg)?"C":"";r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,gg]);if(r.h.length>10)r.h.shift();DB[card.id]=r;save();
  var div=g("c"+idx);div.className="qcard"+(ok?" answered-ok":" answered-ng");
  div.querySelectorAll(".opt").forEach(function(b,i){b.disabled=true;b.onclick=null;if(i===card.ans)b.classList.add("show-correct");if(i===chosen&&!ok)b.classList.add("ng")});
  var lb=div.querySelector(".gs");if(lb)lb.remove();
