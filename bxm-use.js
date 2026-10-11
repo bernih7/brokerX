@@ -54,6 +54,9 @@ function build(){
  "══ 一、選擇題題庫（刷題 A～E 五篇，共 "+total+" 題）══",
  "整體：已作答 "+done+"／"+total+"（達成 "+pc(done,total)+"%）｜答對 "+ok+"（確定 "+tot.sure+"、猜對 "+tot.gok+"）｜答錯 "+tot.wr+"｜正確率 "+(done?pc(ok,done)+"%":"-")+"｜及格線 "+TGT.p+"%・目標 "+TGT.g+"%","自上次回報新增：作答 "+fresh+" 題","","── 各篇 ──"];
  for(c in CH){var o=by[c];if(!o){L.push("民法刷題練習_"+c+"篇（"+CH[c][1]+"）：未作答（共 "+CH[c][2]+" 題）");continue}var d=o.sure+o.gok+o.wr;L.push("民法刷題練習_"+c+"篇（"+CH[c][1]+"）：已答 "+d+"／"+CH[c][2]+"｜答對 "+(o.sure+o.gok)+"（猜對 "+o.gok+"）答錯 "+o.wr+"｜"+pc(o.sure+o.gok,d)+"%｜達成 "+pc(d,CH[c][2])+"%")}
+ L.push("","── 各篇刷到哪些年份（年份＝作答題數；99–114 共 16 年）──");
+ for(c in CH){var yc={};ids.forEach(function(id){var q=id.split("-");if(q[0]===c)yc[q[1]]=(yc[q[1]]||0)+1});var ys=Object.keys(yc).sort(function(a,b){return b-a}),miss=[];for(i=99;i<=114;i++)if(!yc[i])miss.push(i);
+  L.push(c+" 篇："+(ys.length?ys.map(function(y){return y+"("+yc[y]+")"}).join("、"):"尚未作答")+(ys.length?"｜完全沒碰："+(miss.length?miss.join("、"):"無"):""))}
  L.push("","── 錯題原因（A/B/C 只計答錯；D 含猜對）──","A 法條混淆 "+cat.A+"｜B 粗心 "+cat.B+"｜C 不熟 "+cat.C+"｜D 猜的 "+cat.D+"｜未分類 "+cat.n);
  var wr=ids.filter(function(i){return!DB[i].ok}).sort(function(a,b){return(DB[b].w||0)-(DB[a].w||0)||DB[b].t-DB[a].t}).slice(0,40);
  L.push("","── 答錯題（錯得多的在前，最多 40 題；格式 篇-年-題）──");wr.forEach(function(i){var r=DB[i];L.push(i+"　錯 "+(r.w||1)+" 次"+(r.k?"・"+KN[r.k]:"・未分類"))});
