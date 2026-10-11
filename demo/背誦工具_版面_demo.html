@@ -1,7 +1,6 @@
 <!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>背誦工具版面 demo</title>
 <style>
-:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--g1:#2F5D50;--g2:#3E6B8C;--g3:#B8782E;--chipfg:#fff}
-@media(prefers-color-scheme:dark){:root{--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--onpri:#10201B;--tint:rgba(132,194,174,.12);--hot:#F0907A;--hotbg:rgba(240,144,122,.16);--numbg:rgba(224,176,112,.18);--numfg:#E0B070;--g1:#84C2AE;--g2:#8DB8E8;--g3:#E0B070;--chipfg:#10201B}}
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--g1:#2F5D50;--g2:#3E6B8C;--g3:#B8782E;--chipfg:#fff;color-scheme:light}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
 main{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}
@@ -36,10 +35,12 @@ details.g>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;
 .st{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
 .st i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--chipfg);font:700 13px/28px "Noto Sans TC";text-align:center}
 .st b{display:block}.st small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+.topseg{display:flex;background:var(--tint);border-radius:12px;padding:4px;gap:4px}.topseg button{flex:1;font:inherit;font-weight:700;padding:8px;border:0;border-radius:9px;background:transparent;color:var(--pri);cursor:pointer}.topseg button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.sublk{display:flex;gap:6px;margin-top:4px}.sublk span{font:700 12px "Noto Sans TC";border:1.5px solid var(--c);color:var(--c);border-radius:99px;padding:0 9px}
 .note{font-size:12.5px;color:var(--muted)}
 </style></head><body><main>
-<header><h1>背誦工具｜版面 demo</h1><p class="sub">把 10 個工具按「用途」重新分組、去掉 emoji、說明縮成一句。三案擇一，確認後才改指揮中心。</p></header>
-<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+<header><h1>背誦工具｜版面 demo</h1><p class="sub">把 11 個工具按「用途」重新分組、去掉 emoji、說明縮成一句。三案擇一，確認後才改指揮中心。</p></header>
+<div class="topseg" id="topseg"><button class="on" data-p="a">背誦工具</button><button data-p="b">現行法修正</button></div><div id="pb" hidden class="desc">現行法修正：維持原本的對照表（舊／錯誤 → 正確／現行），這次不改。</div><div id="pa" style="display:contents"><div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
 
 <!-- V1 -->
 <div class="v on" id="v1">
@@ -56,9 +57,10 @@ details.g>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;
 <a class="t r" href="#"><div><b>速查三表</b><small>期間數字＋減免總表＋三種計畫比較</small></div><span class="bd">3 表</span></a>
 <a class="t r" href="#"><div><b>優先購買權：物權與債權</b><small>§34-1／§104／§107／三七五§15</small></div><span class="bd hot">高頻</span></a>
 </div></details>
-<details class="g" data-g="3"><summary><span class="gn">析</span><span class="gt"><b>出題分析</b><small>知道考什麼、怎麼寫</small></span><span class="ar">▸</span></summary><div class="gb">
-<a class="t r" href="#"><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small></div><span class="bd">45 題</span></a>
+<details class="g" data-g="3" open><summary><span class="gn">析</span><span class="gt"><b>分析・攻略</b><small>知道考什麼、怎麼讀、怎麼寫</small></span><span class="ar">▸</span></summary><div class="gb">
+<a class="t r" href="#"><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small><span class="sublk"><span>官方 32</span><span>預測 13</span></span></div><span class="bd">45 題</span></a>
 <a class="t r" href="#"><div><b>分數・倍數・數字分析</b><small>考題類型、陷阱、對應填空卡</small></div><span class="bd">分析</span></a>
+<a class="t r" href="#"><div><b>讀書攻略與備考指南</b><small>章節優先序、鐵律、12 週時程</small></div><span class="bd">12 週</span></a>
 </div></details>
 </div>
 
@@ -75,15 +77,16 @@ details.g>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;
 <a class="t tile" href="#"><span class="big">3 表</span><b>稅制與取得方式</b><small>五稅並排</small></a>
 <a class="t tile" href="#"><span class="big">3 表</span><b>速查三表</b><small>期間・減免・計畫</small></a>
 <a class="t tile" href="#"><span class="big" style="color:var(--hot)">高頻</span><b>優先購買權</b><small>物權或債權</small></a></div></div>
-<div data-g="3"><p class="q"><b style="color:var(--c)">出題分析</b>　考什麼、怎麼寫</p><div class="tl">
-<a class="t tile" href="#"><span class="big">45 題</span><b>申論題分類</b><small>官方 32＋預測 13</small></a>
-<a class="t tile" href="#"><span class="big">分析</span><b>分數・倍數・數字</b><small>題型與陷阱</small></a></div></div>
+<div data-g="3"><p class="q"><b style="color:var(--c)">分析・攻略</b>　考什麼、怎麼讀、怎麼寫</p><div class="tl">
+<a class="t tile" href="#"><span class="big">45 題</span><b>申論題分類</b><small>官方 32＋預測 13（兩個入口）</small></a>
+<a class="t tile" href="#"><span class="big">分析</span><b>分數・倍數・數字</b><small>題型與陷阱</small></a>
+<a class="t tile wide" href="#"><span class="big">12 週</span><b>讀書攻略與備考指南</b><small>章節優先序、鐵律、時程</small></a></div></div>
 </div>
 
 <!-- V3 -->
 <div class="v" id="v3">
 <p class="desc"><b>方案 3：「我現在想…」情境切換</b>　先選目的（背／查／看趨勢），只顯示該組並標好建議順序 1→4；其他組不佔畫面。最少資訊、最像「今天該做什麼」。</p>
-<div class="seg" id="seg"><button style="--c:var(--g1)" aria-pressed="true" data-k="1">我要背</button><button style="--c:var(--g2)" aria-pressed="false" data-k="2">我要查</button><button style="--c:var(--g3)" aria-pressed="false" data-k="3">看出題</button></div>
+<div class="seg" id="seg"><button style="--c:var(--g1)" aria-pressed="true" data-k="1">我要背</button><button style="--c:var(--g2)" aria-pressed="false" data-k="2">我要查</button><button style="--c:var(--g3)" aria-pressed="false" data-k="3">看攻略</button></div>
 <div id="pane1" class="pane" data-g="1"><p class="q">建議順序：先看懂 → 再填空 → 再配對 → 最後罰則</p>
 <a class="t st" href="#"><i>1</i><div><b>彩色重點速記</b><small>22 章五色框，先看懂</small></div><span class="bd">22 章</span></a>
 <a class="t st" href="#" style="margin-top:6px"><i>2</i><div><b>定義填空練習</b><small>點空格看答案</small></div><span class="bd">150 題</span></a>
@@ -94,13 +97,15 @@ details.g>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;
 <a class="t st" href="#" style="margin-top:6px"><i>比</i><div><b>稅制與取得方式比較表</b><small>五稅並排；徵收、重劃、照價收買</small></div><span class="bd">3 表</span></a>
 <a class="t st" href="#" style="margin-top:6px"><i>數</i><div><b>速查三表</b><small>期間數字、減免、三種計畫</small></div><span class="bd">3 表</span></a>
 <a class="t st" href="#" style="margin-top:6px"><i>權</i><div><b>優先購買權：物權與債權</b><small>四條法條性質判斷</small></div><span class="bd hot">高頻</span></a></div>
-<div id="pane3" class="pane" data-g="3" hidden><p class="q">申論與選擇題的出題趨勢：</p>
-<a class="t st" href="#"><i>論</i><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small></div><span class="bd">45 題</span></a>
-<a class="t st" href="#" style="margin-top:6px"><i>數</i><div><b>分數・倍數・數字分析</b><small>題型分佈與陷阱</small></div><span class="bd">分析</span></a></div>
+<div id="pane3" class="pane" data-g="3" hidden><p class="q">出題趨勢與讀書方向：</p>
+<a class="t st" href="#"><i>論</i><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small><span class="sublk"><span>官方 32</span><span>預測 13</span></span></div><span class="bd">45 題</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>數</i><div><b>分數・倍數・數字分析</b><small>題型分佈與陷阱</small></div><span class="bd">分析</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>攻</i><div><b>讀書攻略與備考指南</b><small>章節優先序、鐵律、12 週時程</small></div><span class="bd">12 週</span></a></div>
 </div>
-<p class="note">共通：去掉所有 emoji；說明縮成一句；「速查三表」與「稅務總表」都有免徵／不課徵／減徵內容，建議之後合併或在說明標明差別。</p>
-</main>
+<p class="note">共通：實際共 11 個工具（前一版漏了「讀書攻略與備考指南」），並保留「現行法修正」分頁；申論題的「官方 32／預測 13」兩個入口收在申論題分類總覽裡。去掉所有 emoji；說明縮成一句；「速查三表」與「稅務總表」都有免徵／不課徵／減徵內容，建議之後合併或在說明標明差別。</p>
+</div></main>
 <script>
 document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.v').forEach(function(v){v.classList.toggle('on',v.id==='v'+b.dataset.v)});window.scrollTo(0,0)});
 document.getElementById('seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('#seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.pane').forEach(function(p){p.hidden=p.id!=='pane'+b.dataset.k})});
+document.getElementById('topseg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('#topseg button').forEach(function(x){x.classList.toggle('on',x===b)});document.getElementById('pa').style.display=b.dataset.p==='a'?'contents':'none';document.getElementById('pb').hidden=b.dataset.p==='a'});
 </script></body></html>
