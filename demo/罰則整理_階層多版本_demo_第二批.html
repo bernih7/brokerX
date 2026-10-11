@@ -1,0 +1,99 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>罰則總整理 階層多版本 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--mut:#6B7470;--pri:#2F5D50;--gold:#B8782E;--red:#A8402B;--line:#DDD6C3;--gbg:#FBF1D9;--p2:#EFE9D8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans TC",system-ui,sans-serif;padding:14px}
+.w{max-width:720px;margin:0 auto}button{font:inherit;color:inherit;cursor:pointer}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:6px 0 10px;z-index:5;flex-wrap:wrap}
+.vs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:3px 14px;font-size:.88rem}.vs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.desc{font-size:.82rem;color:var(--mut);margin:0 0 12px}
+mark{background:var(--gbg);color:#7A4B14;font-weight:700;padding:0 4px;border-radius:4px}
+.k{font-size:.78rem;font-weight:700;color:var(--gold);background:var(--gbg);border-radius:6px;padding:0 8px;white-space:nowrap;flex:none}
+.cnt{font-size:.74rem;color:var(--mut);background:var(--p2);border-radius:99px;padding:0 8px;flex:none}
+.no{margin-top:6px;padding:5px 10px;border-left:3px solid var(--red);background:var(--p2);font-size:.9rem}.no b{color:var(--red);font-size:.76rem;margin-right:6px}
+.dim{color:var(--mut);font-size:.82rem;margin:3px 0 0}.kou{margin:8px 0;padding:6px 10px;background:var(--gbg);border-radius:8px;font-size:.9rem}.kou b{color:var(--gold)}
+.row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:9px 0}
+.row .t{flex:1;min-width:0}.num{font-weight:700;color:var(--pri);flex:none;min-width:1.6em}
+.det{padding:0 0 10px;font-size:.92rem}.det p{margin:2px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.ch{margin-bottom:10px}.ch>.row{padding:13px 14px;font-weight:700;font-size:1.08rem}.ch>.row small{display:block;font-weight:400;font-size:.78rem;color:var(--mut)}
+.chev{flex:none;color:var(--mut);transition:transform .12s;width:1em}.open>.row .chev{transform:rotate(90deg)}
+.body{display:none;padding:0 14px 12px}.open>.body{display:block}
+.it{border-top:1px dashed var(--line)}.it .row{font-size:.93rem}.it .det{display:none;margin-left:2em}.it.open .det{display:block}
+
+.bar{display:flex;gap:8px;margin-bottom:10px}
+.bar button{border:1px solid var(--gold);color:var(--gold);background:none;border-radius:99px;padding:2px 14px;font-size:.85rem}
+/* E tree */
+.tr,.tr ul{list-style:none;margin:0;padding:0}.tr ul{margin-left:11px;padding-left:16px;border-left:1.5px solid var(--line);display:none}
+.tr li{position:relative}.tr ul>li::before{content:"";position:absolute;left:-16px;top:19px;width:12px;border-top:1.5px solid var(--line)}
+.tr li.open>ul{display:block}
+.tn{display:flex;gap:8px;align-items:center;width:100%;text-align:left;background:none;border:0;padding:7px 0}
+.tn .pm{flex:none;width:20px;height:20px;border:1.5px solid var(--pri);color:var(--pri);border-radius:5px;font-weight:700;line-height:17px;text-align:center;font-size:.9rem}
+.tn .pm::after{content:"+"}li.open>.tn .pm::after{content:"−"}
+.tn.l1{font-size:1.1rem;font-weight:700}.tn.l2{font-weight:700}.tn.l3{font-size:.93rem}
+.tn .num{color:var(--pri);font-weight:700}.tn .t{flex:1;min-width:0}.tn .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 6px}
+.lf{display:none;margin:0 0 6px;padding:6px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:.9rem}li.open>.lf{display:block}
+.lf p{margin:2px 0}
+/* F sticky */
+.fs{margin-bottom:10px}.fs .h1{position:sticky;top:44px;z-index:3;display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:var(--pri);color:#fff;border:0;border-radius:10px;padding:11px 14px;font-weight:700;font-size:1.05rem}
+.fs .h2{position:sticky;top:88px;z-index:2;display:flex;gap:8px;align-items:center;width:100%;text-align:left;background:var(--p2);border:0;border-bottom:1px solid var(--line);padding:8px 14px;font-weight:700}
+.fs .h2 .num{color:var(--pri)}.fs .c1,.fs .c2{display:none}.fs.open>.c1{display:block}.fs .s.open>.c2{display:block}
+.fs .c2{padding:0 14px}.fs .c1{background:var(--card);border:1px solid var(--line);border-radius:0 0 10px 10px;margin-top:-6px;padding-top:6px}
+.fs .it{border-top:1px dashed var(--line)}.it .row{font-size:.93rem}.it .det{display:none;margin-left:2em}.it.open .det{display:block}
+.ar{margin-left:auto;font-size:.8rem;opacity:.8}
+/* G carousel */
+.cs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -14px;padding:2px 14px 8px}
+.cs>.pg{flex:none;width:86%;scroll-snap-align:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.pg h4{margin:0 0 4px;font-size:.98rem;display:flex;gap:8px}.pg h4 .num{color:var(--pri)}
+.dots{display:flex;gap:6px;justify-content:center;margin:2px 0 4px}.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--pri)}
+/* H sheet */
+.gl{font-size:.74rem;color:var(--mut);letter-spacing:.06em;margin:12px 0 2px}.fl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.fl .row{border-top:1px solid var(--line);padding:11px 0}.fl .row:first-child{border-top:0}
+#sh{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:20}#sh.on{display:block}
+#sh .sheet{position:absolute;left:0;right:0;bottom:0;max-width:720px;margin:0 auto;background:var(--card);border-radius:16px 16px 0 0;padding:14px 16px 24px;max-height:75vh;overflow:auto}
+#sh .grip{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 10px}#sh h3{margin:0 0 6px;font-size:1.05rem}
+.crumb{font-size:.78rem;color:var(--mut);margin-bottom:4px}
+</style></head><body><div class="w">
+<div class="vs" id="vs"></div><p class="desc" id="desc"></p><div class="bar"><button id="ea">全部展開</button><button id="ec">全部收合</button></div><div id="app"></div></div><div id="sh"><div class="sheet" id="sheet"></div></div>
+<script>
+const DATA=[
+{n:"二",t:"土地法本法",s:"§73 罰鍰・§73-1 繼承時間軸・其他責任",subs:[
+ {n:"2.1",t:"逾期登記罰鍰（§73）",its:[
+  {n:"①",t:"一般權利變更登記逾期",k:"1個月",b:"權利變更後 <mark>1個月</mark> 內聲請；逾期每逾1個月得處登記費 <mark>1倍</mark>，最高 <mark>20倍</mark>。",d:"陷阱：107-1 改成 2倍；基數是登記費，不是公告地價。"},
+  {n:"②",t:"繼承登記逾期",k:"6個月",b:"自繼承開始 <mark>6個月</mark> 內聲請；罰法同上。",d:"不是1個月、3個月、1年（112-8A）。"}],kou:"一月登記、六月繼承、每月一倍、二十封頂"},
+ {n:"2.2",t:"繼承逾1年未辦：強制處分（§73-1）",its:[
+  {n:"1",t:"6個月內：先辦登記",k:"6個月",b:"繼承人向地政事務所申請繼承登記（§73）",no:"逾期每逾1個月得處登記費1倍，最高20倍"},
+  {n:"2",t:"逾1年：公告催辦",k:"3個月",b:"公告並書面通知；繼承人 <mark>3個月</mark> 內聲請。",no:"不聲請 → 進入列冊管理",d:"不可歸責事由遲延者扣除（§73-1 第1項）"},
+  {n:"3",t:"公告期滿：列冊管理",k:"15年",b:"列冊管理 <mark>15年</mark>。",no:"15年屆滿仍未聲請 → 進入標售"},
+  {n:"4",t:"列管屆滿：公開標售",k:"3個月",b:"移請 <mark>財政部國有財產署</mark> 標售；標售前公告 <mark>3個月</mark>。",d:"不是地政機關、縣市政府、行政執行署。"},
+  {n:"5",t:"標售時：優先購買",k:"",b:"順序：繼承人 → 合法使用人 → 其他共有人",no:"無合法使用權者喪失占有；租賃逾5年以 5年 為限"},
+  {n:"6",t:"成交後：價款分配",k:"10年",b:"價款依法定應繼分領取。",no:"逾 10年 無人領取 → 歸國庫"},
+  {n:"7",t:"無人應買：再標售",k:"",b:"再標售酌減不逾20%。",no:"五次不成 → 登記國有；10年內仍可請領價金"}],kou:"1年・3個月・15年・10年（1、3、15、10）"},
+ {n:"2.3",t:"其他登記相關處罰與責任",its:[
+  {n:"①",t:"總登記逾期不登記／不補件",k:"30日",b:"視為無主土地，公告 <mark>30日</mark> 無異議 → 國有（§57、§58）"},
+  {n:"②",t:"登記錯誤致人受損",k:"10%",b:"地政機關賠償；登記儲金 <mark>10%</mark>（§68、§70、§71）"},
+  {n:"③",t:"房屋租金超限",k:"10%",b:"年息 <mark>10%</mark> 上限，押金不得逾 <mark>2個月</mark>（§97、§99）"}]}]},
+{n:"三",t:"平均地權條例",s:"金額階梯與口訣「資報約金轉炒」",subs:[
+ {n:"3.1",t:"刑責與基礎罰鍰",its:[{n:"①",t:"（同樣格式）",k:"",b:""}]},{n:"3.2",t:"申報登錄與預售屋",its:[{n:"①",t:"（同樣格式）",k:"",b:""}]}]}];
+
+const V=[["E 樹狀大綱","像檔案總管：每層一行，+／− 方塊＋連接線，沒有卡片、沒有底色，純看階層。"],["F 吸頂標題","整頁是一條長捲軸，捲到哪裡，「章」與「小節」標題就吸在螢幕頂端告訴你現在在哪。"],["G 橫滑卡片","打開章後，每個小節是一張卡片，左右滑動切換，下方小點告訴你第幾張。"],["H 底部抽屜","畫面只有分組清單，點某項時，詳細內容從底部滑上來，不改變清單位置。"]];
+let cur=0,S={};
+const det=i=>`<div class="det"><p>${i.b||""}</p>${i.no?`<div class="no"><b>不做會怎樣</b>${i.no}</div>`:""}${i.d?`<p class="dim">${i.d}</p>`:""}</div>`;
+const item=i=>`<div class="it"><button class="row" data-t="it"><span class="chev">▸</span><span class="num">${i.n}</span><span class="t">${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}</button>${det(i)}</div>`;
+const items=s=>s.its.map(item).join("")+(s.kou?`<div class="kou"><b>口訣</b>　${s.kou}</div>`:"");
+const lf=i=>`<div class="lf"><p>${i.b||""}</p>${i.no?`<div class="no"><b>不做會怎樣</b>${i.no}</div>`:""}${i.d?`<p class="dim">${i.d}</p>`:""}</div>`;
+function E(){return `<ul class="tr">`+DATA.map(c=>`<li><button class="tn l1" data-li><span class="pm"></span><span class="num">${c.n}</span><span class="t">${c.t}</span></button><ul>`+c.subs.map(s=>`<li><button class="tn l2" data-li><span class="pm"></span><span class="num">${s.n}</span><span class="t">${s.t}</span><span class="cnt">${s.its.length}</span></button><ul>`+s.its.map(i=>`<li><button class="tn l3" data-li><span class="pm"></span><span class="num">${i.n}</span><span class="t">${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}</button>${lf(i)}</li>`).join("")+(s.kou?`<li><div class="kou" style="margin-left:0"><b>口訣</b>　${s.kou}</div></li>`:"")+`</ul></li>`).join("")+`</ul></li>`).join("")+`</ul>`}
+function F(){return DATA.map(c=>`<div class="fs"><button class="h1" data-li><span class="num" style="color:#fff">${c.n}</span>${c.t}<span class="ar">▾</span></button><div class="c1">`+c.subs.map(s=>`<div class="s"><button class="h2" data-s><span class="num">${s.n}</span>${s.t.replace(/（.*/,'')}<span class="cnt">${s.its.length}</span><span class="ar">▾</span></button><div class="c2">${items(s)}</div></div>`).join("")+`</div></div>`).join("")}
+function G(){return DATA.map((c,ci)=>`<div class="card ch ${S['c'+ci]?'open':''}"><button class="row" data-c="${ci}"><span class="chev">▸</span><span class="num">${c.n}</span><span class="t">${c.t}<small>${c.s}</small></span></button><div class="body"><div class="cs" data-cs>${c.subs.map(s=>`<div class="pg"><h4><span class="num">${s.n}</span>${s.t}</h4>${items(s)}</div>`).join("")}</div><div class="dots">${c.subs.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join("")}</div></div></div>`).join("")}
+function H(){return DATA.map((c,ci)=>`<div class="card ch ${S['c'+ci]?'open':''}"><button class="row" data-c="${ci}"><span class="chev">▸</span><span class="num">${c.n}</span><span class="t">${c.t}<small>${c.s}</small></span></button><div class="body">`+c.subs.map((s,si)=>`<div class="gl">${s.n}　${s.t.replace(/（.*/,'')}</div><div class="fl">${s.its.map((i,ii)=>`<button class="row" data-sh="${ci},${si},${ii}"><span class="num">${i.n}</span><span class="t">${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}<span class="chev">›</span></button>`).join("")}</div>`).join("")+`</div></div>`).join("")}
+function render(){vs.innerHTML=V.map((v,i)=>`<button class="${i==cur?'on':''}" data-v="${i}">${v[0]}</button>`).join("");desc.textContent=V[cur][1]+"　（預設全部收合）";app.innerHTML=[E,F,G,H][cur]();sh.classList.remove("on")}
+document.addEventListener("click",e=>{if(e.target===sh){sh.classList.remove("on");return}const b=e.target.closest("[data-v],[data-c],[data-t],[data-li],[data-s],[data-sh],#ea,#ec");if(!b)return;
+if(b.dataset.v!=null){cur=+b.dataset.v;S={};return render()}
+if(b.id=="ea"||b.id=="ec"){const on=b.id=="ea";document.querySelectorAll("li,.fs,.s,.ch,.it").forEach(x=>x.classList.toggle("open",on));return}
+if(b.dataset.c!=null){S['c'+b.dataset.c]=!S['c'+b.dataset.c];return render()}
+if(b.dataset.li!=null){b.parentElement.classList.toggle("open");return}
+if(b.dataset.s!=null){b.parentElement.classList.toggle("open");return}
+if(b.dataset.t){b.parentElement.classList.toggle("open");return}
+if(b.dataset.sh){const[c,s,i]=b.dataset.sh.split(",").map(Number);const S2=DATA[c].subs[s],I=S2.its[i];sheet.innerHTML=`<div class="grip"></div><div class="crumb">${DATA[c].n} ${DATA[c].t} › ${S2.n} ${S2.t.replace(/（.*/,'')}</div><h3>${I.n} ${I.t} ${I.k?`<span class="k">${I.k}</span>`:""}</h3>${det(I)}`;sh.classList.add("on")}});
+document.addEventListener("scroll",e=>{const c=e.target.closest&&e.target.closest("[data-cs]");if(!c)return;const i=Math.round(c.scrollLeft/(c.firstElementChild.offsetWidth+10));[...c.parentElement.querySelectorAll(".dots i")].forEach((d,k)=>d.classList.toggle("on",k==i))},true);
+render();
+</script></body></html>
