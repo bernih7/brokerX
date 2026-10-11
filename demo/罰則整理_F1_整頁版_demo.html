@@ -1,0 +1,91 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>罰則總整理 F1 整頁版 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--mut:#8A918C;--mut2:#6B7470;--pri:#2F5D50;--gold:#B8782E;--red:#A8402B;--line:#DDD6C3;--gbg:#FBF1D9;--p2:#EFE9D8;--tax:#B8782E;--land:#2F5D50;--ctl:#7A5A9A;--rev:#5B6770}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans TC",system-ui,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:0 14px 60px}button{font:inherit;color:inherit;cursor:pointer;text-align:left}
+h1{font-size:1.2rem;text-align:center;margin:14px 0 4px}.sub0{text-align:center;color:var(--mut2);font-size:.82rem;margin:0 0 10px}
+/* nav */
+#nav{position:sticky;top:0;z-index:30;background:var(--bg);margin:0 -14px;padding:8px 14px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;align-items:center;white-space:nowrap;scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+#nav .g{font-size:.7rem;font-weight:700;color:#fff;border-radius:5px;padding:0 6px;margin-left:6px;flex:none}#nav .g:first-child{margin-left:0}
+#nav a{flex:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:1px 11px;font-size:.84rem;color:var(--ink);text-decoration:none}
+#nav .sp{flex:none;width:1px;height:20px;background:var(--line);margin:0 4px}
+.tools{display:flex;gap:8px;margin:10px 0}.tools button{border:1px solid var(--gold);color:var(--gold);background:none;border-radius:99px;padding:2px 14px;font-size:.85rem}.tools button.on{background:var(--gold);color:#fff}
+/* group header */
+.gh{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-weight:700;font-size:.92rem}.gh i{flex:none;font-style:normal;color:#fff;border-radius:6px;padding:0 10px;font-size:.84rem;background:var(--gc)}
+.gh span{color:var(--mut2);font-weight:400;font-size:.78rem}.gh::after{content:"";flex:1;height:1px;background:var(--line)}
+.gh.ext{margin:10px 0 6px;font-size:.84rem;padding-left:14px}.gh.ext i{background:none;color:var(--gc);border:1px solid var(--gc)}
+.land{--gc:var(--land)}.tax{--gc:var(--tax)}.ctl{--gc:var(--ctl)}.rev{--gc:var(--rev)}
+/* chapter */
+.ch{margin-bottom:10px;scroll-margin-top:60px}
+.h1{position:sticky;top:46px;z-index:12;display:flex;gap:10px;align-items:center;width:100%;background:var(--gc);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:1.04rem}
+.h1 .num{color:#fff;opacity:.85}.h1 small{font-weight:400;font-size:.76rem;opacity:.9;margin-left:2px}
+.ar{margin-left:auto;font-size:.8rem;opacity:.75;transition:transform .12s;flex:none}.open>.hh>.ar{transform:rotate(180deg)}
+.c1,.c2{display:none}.open>.c1,.open>.c2{display:block}
+.chap{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 10px 10px;margin-top:-4px;padding-top:4px}
+.subs{border-bottom:1px solid var(--line)}.subs:last-child{border-bottom:0}
+.h2{position:sticky;top:92px;z-index:10;display:flex;gap:8px;align-items:center;width:100%;background:var(--p2);border:0;border-left:4px solid var(--gc);padding:8px 12px;font-weight:700;font-size:.96rem}
+.h2 .num{color:var(--gc)}
+.cnt{font-size:.74rem;color:var(--mut2);background:var(--card);border-radius:99px;padding:0 8px;flex:none}
+.num{font-weight:700;color:var(--gc,var(--pri));flex:none;min-width:1.6em}
+.it{border-top:1px dashed var(--line);padding:0 12px}.it:first-child{border-top:0}
+.ih{display:flex;gap:8px;align-items:center;width:100%;padding:9px 0;font-size:.95rem;font-weight:600;cursor:pointer}
+.k{margin-left:auto;font-size:.8rem;font-weight:700;color:#7A4B14;background:var(--gbg);border-radius:6px;padding:0 8px;white-space:nowrap;flex:none}
+.det{display:none;padding:0 0 10px}.it.open .det{display:block}
+/* slots: importance by colour */
+.sl{display:grid;grid-template-columns:3.4em 1fr;gap:5px 10px;font-size:.92rem}.sl dt{font-size:.76rem;padding-top:3px;font-weight:700;color:var(--mut)}.sl dd{margin:0;color:var(--mut);font-size:.84rem}
+.sl dt.key{color:var(--gc,var(--pri))}.sl dd.key{color:var(--ink);font-size:.95rem;font-weight:600}
+.sl dt.res{color:var(--red)}.sl dd.res{color:var(--ink);font-size:.93rem}
+.sl dd.res::before{content:"→ ";color:var(--red);font-weight:700}
+mark{background:var(--gbg);color:#7A4B14;font-weight:700;padding:0 4px;border-radius:4px}
+.kou{margin:8px 12px;padding:6px 10px;background:var(--gbg);border-radius:8px;font-size:.9rem}.kou b{color:var(--gold)}
+/* cover mode */
+body.cover mark{color:transparent;background:var(--line);cursor:pointer;user-select:none}body.cover mark.show{color:#7A4B14;background:var(--gbg)}
+</style></head><body><div class="w">
+<h1>土地法｜罰則總整理</h1><p class="sub0">依「對象／行為／處罰／條號」分類</p>
+<div id="nav"></div>
+<div class="tools"><button id="all">全部展開</button><button id="cv">遮答案練習</button></div><div id="app"></div></div>
+<script>
+const D2=[
+{n:"二",t:"土地法本法",tag:"必背",subs:[
+ {n:"2.1",t:"逾期登記罰鍰",art:"§73",its:[
+  {n:"①",t:"一般權利變更登記逾期",k:"1個月",art:"§73 第2項",b:"權利變更後 <mark>1個月</mark> 內聲請",no:"逾期每逾1個月得處登記費 <mark>1倍</mark>，最高 <mark>20倍</mark>",trap:"107-1 改成 2倍；基數是登記費，不是公告地價",ex:"99-10、107-1"},
+  {n:"②",t:"繼承登記逾期",k:"6個月",art:"§73 第2項後段",b:"繼承開始後 <mark>6個月</mark> 內聲請",no:"罰法同上（每逾1個月 1倍，最高 20倍）",trap:"不是1個月、3個月、1年（112-8A）",ex:"99-12、108-21、112-8"}],kou:"一月登記、六月繼承、每月一倍、二十封頂"},
+ {n:"2.2",t:"繼承標售（逾1年未辦）",art:"§73-1",its:[
+  {n:"1",t:"先辦繼承登記",k:"6個月",art:"§73",b:"繼承人向地政事務所申請繼承登記",no:"逾期每逾1個月得處登記費1倍，最高20倍",ex:"100-33"},
+  {n:"2",t:"公告催辦",k:"3個月",art:"§73-1 第1項",b:"逾1年，公告並書面通知；繼承人 <mark>3個月</mark> 內聲請",no:"不聲請 → 進入列冊管理",trap:"不可歸責事由遲延者扣除",ex:"108-21"},
+  {n:"3",t:"列冊管理",k:"15年",art:"§73-1",b:"列冊管理 <mark>15年</mark>",no:"15年屆滿仍未聲請 → 進入標售"},
+  {n:"4",t:"公開標售",k:"3個月",art:"§73-1",b:"移請 <mark>財政部國有財產署</mark> 標售；標售前公告 <mark>3個月</mark>",trap:"不是地政機關、縣市政府、行政執行署"},
+  {n:"5",t:"優先購買",art:"§73-1",b:"順序：繼承人 → 合法使用人 → 其他共有人",no:"無合法使用權者喪失占有；租賃逾5年以 5年 為限"},
+  {n:"6",t:"價款分配",k:"10年",art:"§73-1",b:"價款依法定應繼分領取",no:"逾 10年 無人領取 → 歸國庫",trap:"價款期是10年，不是15年（109-15C）",ex:"109-15、112-8"},
+  {n:"7",t:"再標售、登記國有",art:"§73-1",b:"無人應買 → 再標售（酌減不逾20%）",no:"五次不成 → 登記國有；10年內仍可請領價金"}],kou:"1年・3個月・15年・10年（1、3、15、10）"},
+ {n:"2.3",t:"其他責任",its:[
+  {n:"①",t:"總登記逾期不登記／不補件",k:"30日",art:"§57、§58",b:"視為無主土地，公告 <mark>30日</mark>",no:"無人異議 → 國有",trap:"「不得少於15日」是錯選項",ex:"112-7"},
+  {n:"②",t:"登記錯誤致人受損",k:"10%",art:"§68、§70、§71",b:"地政機關賠償；登記儲金 <mark>10%</mark>",trap:"重大過失才由人員償還",ex:"99-6、112-20"},
+  {n:"③",t:"房屋租金超限",k:"10%",art:"§97、§99",b:"年息 <mark>10%</mark> 上限；押金不得逾 <mark>2個月</mark>",no:"政府得強制減定",ex:"105-12、110-5"}]}]},
+{n:"三",t:"平均地權條例",tag:"必背",subs:[{n:"3.1",t:"刑責與基礎罰鍰",its:[{n:"①",t:"（同樣格式）",b:""}]},{n:"3.2",t:"申報登錄與預售屋",its:[{n:"①",t:"（同樣格式）",b:""}]}]}];
+
+// 章節分組：地／稅／稅延伸／管／複習
+const G=[
+ {id:"first",lab:"先看",cls:"land",chs:[{n:"一",t:"總覽：10 部法分三條線",tag:"先看",subs:[{n:"1.1",t:"三條線",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
+ {id:"land",lab:"地",sub:"登記・地權",cls:"land",chs:[D2[0],{n:"三",t:"平均地權條例",tag:"必背",subs:[{n:"3.1",t:"刑責與基礎罰鍰",its:[{n:"①",t:"（同樣格式）",b:""}]},{n:"3.2",t:"申報登錄與預售屋",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
+ {id:"tax",lab:"稅",sub:"土地稅法",cls:"tax",chs:[{n:"四",t:"土地稅法",tag:"必背",subs:[{n:"4.1",t:"加徵、罰鍰、追繳",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
+ {id:"taxx",lab:"稅法延伸",sub:"從稅法延伸出來，另外看",cls:"tax",ext:1,chs:[{n:"五",t:"房屋稅條例・契稅條例",tag:"常考",subs:[{n:"5.1",t:"房屋稅條例",its:[{n:"①",t:"（同樣格式）",b:""}]},{n:"5.2",t:"契稅條例",its:[{n:"①",t:"（同樣格式）",b:""}]}]},{n:"六",t:"所得稅法：房地合一",tag:"輔助",subs:[{n:"6.1",t:"申報罰則",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
+ {id:"ctl",lab:"管",sub:"使用管制",cls:"ctl",chs:[{n:"七",t:"使用管制",tag:"常考",subs:[{n:"7.1",t:"區域計畫法",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
+ {id:"rev",lab:"複習",cls:"rev",chs:[{n:"八",t:"考古題陷阱總整理",tag:"複習",subs:[{n:"8.1",t:"陷阱",its:[{n:"①",t:"（同樣格式）",b:""}]}]},{n:"九",t:"30 秒速背卡",tag:"複習",subs:[{n:"9.1",t:"速背",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]}];
+let cid=0;
+const slots=i=>`<dl class="sl">${i.art?`<dt>條文</dt><dd>${i.art}</dd>`:""}${i.b?`<dt class="key">重點</dt><dd class="key">${i.b}</dd>`:""}${i.no?`<dt class="res">後果</dt><dd class="res">${i.no}</dd>`:""}${i.trap?`<dt>陷阱</dt><dd>${i.trap}</dd>`:""}${i.ex?`<dt>考古題</dt><dd>${i.ex}</dd>`:""}</dl>`;
+const kou=s=>s.kou?`<div class="kou"><b>口訣</b>　${s.kou}</div>`:"";
+const item=i=>`<div class="it"><div class="ih" data-it><span class="num">${i.n}</span><span>${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}</div><div class="det">${slots(i)}</div></div>`;
+const chap=(c,gc)=>{const id="c"+(cid++);return `<div class="ch ${gc}" id="${id}"><button class="h1 hh" data-ch><span class="num">${c.n}</span>${c.t}<small>${c.tag||""}</small><span class="ar">▾</span></button><div class="c1"><div class="chap">`+c.subs.map(s=>`<div class="subs"><button class="h2 hh" data-sb><span class="num">${s.n}</span>${s.t}<span class="cnt">${s.its.length}</span><span class="ar">▾</span></button><div class="c2">${s.its.map(item).join("")+kou(s)}</div></div>`).join("")+`</div></div></div>`};
+app.innerHTML=G.map(g=>`<div class="gh ${g.cls} ${g.ext?'ext':''}" id="g_${g.id}"><i>${g.lab}</i><span>${g.sub||""}</span></div>`+g.chs.map(c=>chap(c,g.cls)).join("")).join("");
+nav.innerHTML=`<span class="g" style="background:var(--land)">地</span><a href="#c1">登記</a><a href="#c2">平均地權</a><span class="sp"></span><span class="g" style="background:var(--tax)">稅</span><a href="#c3">土地稅</a><span class="g" style="background:none;color:var(--tax);border:1px solid var(--tax)">延伸</span><a href="#c4">房屋‧契稅</a><a href="#c5">房地合一</a><span class="sp"></span><span class="g" style="background:var(--ctl)">管</span><a href="#c6">使用管制</a><span class="sp"></span><span class="g" style="background:var(--rev)">複習</span><a href="#c7">陷阱</a><a href="#c8">速背卡</a>`;
+let open=false;
+document.addEventListener("click",e=>{
+ const m=e.target.closest("mark");if(m&&document.body.classList.contains("cover")){m.classList.toggle("show");return}
+ const a=e.target.closest("#nav a");if(a){const t=document.querySelector(a.getAttribute("href"));t.classList.add("open");e.preventDefault();t.scrollIntoView();return}
+ const b=e.target.closest("[data-ch],[data-sb],[data-it],#all,#cv");if(!b)return;
+ if(b.id=="all"){open=!open;document.querySelectorAll(".ch,.subs,.it").forEach(x=>x.classList.toggle("open",open));b.textContent=open?"全部收合":"全部展開";return}
+ if(b.id=="cv"){document.body.classList.toggle("cover");b.classList.toggle("on");b.textContent=document.body.classList.contains("cover")?"結束遮答案":"遮答案練習";document.querySelectorAll("mark.show").forEach(x=>x.classList.remove("show"));return}
+ b.parentElement.classList.toggle("open")});
+</script></body></html>
