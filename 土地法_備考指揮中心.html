@@ -2,225 +2,189 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>土地法｜備考指揮中心</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
-    --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; background:var(--paper); color:var(--ink);
-    font-family:"Noto Sans TC",sans-serif; line-height:1.7;
-    padding-bottom:60px;
-  }
-  h1,h2,h3{font-family:"Noto Serif TC",serif;}
-  header{
-    background:linear-gradient(135deg,var(--vermillion),#8c3322);
-    color:#fff; padding:28px 20px 22px; text-align:center;
-    position:relative; overflow:hidden;
-  }
-  header::after{
-    content:""; position:absolute; inset:0;
-    background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,transparent 10px 20px);
-  }
-  header h1{font-size:1.6rem; margin:0 0 6px; font-weight:900; position:relative;}
-  header .sub{font-size:.9rem; opacity:.9; position:relative;}
-  #countdown{
-    margin-top:14px; display:inline-block; background:rgba(0,0,0,.18);
-    padding:10px 22px; border-radius:30px; font-size:1rem; font-weight:700;
-    position:relative; border:1px solid rgba(255,255,255,.25);
-  }
-  #countdown b{font-size:1.4rem; color:#FFE9C7;}
-  nav{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
-    position:sticky; top:0; z-index:10; background:var(--paper);
-    padding:12px 10px; border-bottom:2px solid var(--line);
-  }
-  nav button{
-    font-family:"Noto Serif TC",serif; font-weight:700; font-size:.92rem;
-    padding:10px 16px; border-radius:10px; border:1.5px solid var(--line);
-    background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
-  }
-  nav button:hover{border-color:var(--gold);}
-  nav button.active{
-    background:var(--vermillion); color:#fff; border-color:var(--vermillion);
-  }
-  main{max-width:880px; margin:0 auto; padding:24px 18px;}
-  .tab{display:none; animation:fade .25s ease;}
-  .tab.active{display:block;}
-  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
-  .card{
-    background:var(--paper2); border:1.5px solid var(--line); border-radius:14px;
-    padding:18px 20px; margin-bottom:14px; box-shadow:0 2px 6px rgba(0,0,0,.04);
-  }
-  .card h3{margin:0 0 6px; font-size:1.05rem; color:var(--vermillion);}
-  .section-title{
-    font-size:1.3rem; font-weight:900; margin:4px 0 16px; padding-bottom:8px;
-    border-bottom:3px solid var(--gold); color:var(--ink);
-  }
-  a.tool-link{
-    display:flex; justify-content:space-between; align-items:center;
-    text-decoration:none; color:var(--ink); background:var(--paper2);
-    border:1.5px solid var(--line); border-radius:12px; padding:14px 16px;
-    margin-bottom:10px; transition:.15s;
-  }
-  a.tool-link:hover{border-color:var(--vermillion); transform:translateX(3px); background:#fff;}
-  a.tool-link .name{font-weight:700; font-size:.98rem;}
-  a.tool-link .tag{font-size:.78rem; color:#7a7466;}
-  a.tool-link .badge{
-    background:var(--green); color:#fff; font-size:.78rem; font-weight:700;
-    padding:4px 10px; border-radius:20px; white-space:nowrap; margin-left:10px;
-  }
-  .badge.gold{background:var(--gold);}
-  .badge.red{background:var(--vermillion);}
-  .group-label{
-    font-weight:700; color:var(--vermillion); margin:20px 0 8px; font-size:.95rem;
-    display:flex; align-items:center; gap:6px;
-  }
-  table{width:100%; border-collapse:collapse; margin:10px 0 18px; font-size:.9rem;}
-  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left;}
-  th{background:var(--gold); color:#fff; font-family:"Noto Serif TC",serif;}
-  tr:nth-child(even){background:#f3ead9;}
-  .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0;}
-  .pill{
-    background:#efe6d2; border:1px solid var(--line); border-radius:20px;
-    padding:6px 14px; font-size:.85rem; font-weight:600;
-  }
-  .pill.done{background:var(--green); color:#fff; border-color:var(--green);}
-  .check{color:var(--green); font-weight:900;}
-  ul{padding-left:1.2em;}
-  li{margin-bottom:6px;}
-  .essay-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:8px; margin:12px 0;}
-  .essay-chip{
-    border-radius:10px; padding:10px 8px; text-align:center; font-size:.82rem;
-    font-weight:700; border:1.5px solid var(--line); background:var(--paper2);
-  }
-  .essay-chip.tierA{border-color:var(--vermillion); background:#f7e3dd;}
-  .essay-chip.tierB{border-color:var(--gold); background:#f8edd6;}
-  .essay-chip .star{color:var(--vermillion);}
-  .note{
-    background:#fdf6e3; border-left:4px solid var(--gold); padding:10px 14px;
-    font-size:.88rem; border-radius:0 8px 8px 0; margin:10px 0;
-  }
-  .warn{
-    background:#f8e3df; border-left:4px solid var(--vermillion); padding:10px 14px;
-    font-size:.88rem; border-radius:0 8px 8px 0; margin:10px 0;
-  }
-  footer{text-align:center; font-size:.78rem; color:#948c78; margin-top:30px;}
-  @media (max-width:480px){
-    header h1{font-size:1.3rem;} nav button{font-size:.8rem; padding:8px 11px;}
-  }
+/* 松煙綠：主色＝導覽／標題；金＝重點；綠＝完成／已核實；紅＝錯誤／陷阱／⚠️ */
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",sans-serif;line-height:1.7;padding-bottom:92px}
+h1,h2,h3,h4{font-family:"Noto Serif TC",serif}
+.top{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:10px 16px}
+.top h1{font-size:1.1rem;color:var(--pri);flex:1;margin:0}
+.cd{background:var(--pri);color:var(--on);border-radius:20px;padding:3px 12px;font-weight:700;font-size:.85rem;white-space:nowrap}.cd b{font-size:1.05rem}
+.th{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 9px;font-size:12px;font-family:inherit;cursor:pointer}
+main{max-width:760px;margin:0 auto;padding:14px 16px}
+.tab{display:none}.tab.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tab.active{animation:none}}
+.hero{background:linear-gradient(135deg,var(--pri),var(--pri2));color:var(--on);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.hero small{opacity:.88}.hero h2{font-size:1.15rem;margin:2px 0 8px}
+.step{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.15);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:.92rem;cursor:pointer}
+:root[data-theme="dark"] .step{background:rgba(0,0,0,.18)}
+.step i{width:22px;height:22px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:12px;flex:none}
+.step.d i{background:currentColor}.step.d i::after{content:"✓";color:var(--pri)}.step.d span{opacity:.7;text-decoration:line-through}
+.hs{font-size:.85rem;margin-top:8px;opacity:.95}
+.sec{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);margin:22px 0 8px;display:flex;justify-content:space-between;align-items:baseline}
+.sec small{font-family:"Noto Sans TC",sans-serif;font-weight:400;color:var(--sub);font-size:.78rem}
+.row{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin:8px 0;color:inherit;text-decoration:none}
+.row .n{flex:1;min-width:0}.row b{display:block;font-family:"Noto Serif TC",serif;font-size:.95rem}.row small{color:var(--sub);font-size:.8rem}
+.b{padding:2px 9px;border-radius:12px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.b.mid{background:var(--acc-soft);color:var(--acc-ink)}
+.abc{display:flex;gap:8px}.abc div{flex:1;text-align:center;border-radius:12px;padding:10px 4px;background:var(--surface);border:1px solid var(--line)}.abc b{display:block;font-size:1.4rem;font-family:"Noto Serif TC",serif}.abc small{color:var(--sub)}
+.seg{display:flex;background:var(--pri-soft);border-radius:12px;padding:3px;gap:2px;margin:2px 0 12px}
+.seg button{flex:1;border:0;background:transparent;color:var(--pri);padding:8px 2px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.seg button.on{background:var(--surface);box-shadow:var(--shadow)}
+.sp{display:none}.sp.on{display:block}
+.hint{font-size:.84rem;color:var(--sub);margin:0 0 10px}
+.section-title{font-family:"Noto Serif TC",serif;font-size:1.15rem;font-weight:900;margin:2px 0 8px;color:var(--pri)}
+a.tool-link{display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+a.tool-link:hover{border-color:var(--pri)}
+a.tool-link>div{min-width:0}
+a.tool-link .name{font-weight:700;font-size:.95rem}
+a.tool-link .tag{font-size:.78rem;color:var(--sub)}
+a.tool-link .badge{background:var(--pri-soft);color:var(--pri);font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.badge.gold{background:var(--acc-soft);color:var(--acc-ink)}
+a.tool-link .badge.red{background:var(--bad-soft);color:var(--bad)}
+.group-label{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);margin:20px 0 8px;font-size:.98rem}
+.table-wrap,table{width:100%}
+table{border-collapse:collapse;margin:10px 0 16px;font-size:.88rem;background:var(--surface);border-radius:10px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;word-break:break-word}
+th{background:var(--pri-soft);color:var(--pri);font-family:"Noto Serif TC",serif}
+ul{padding-left:1.2em}li{margin-bottom:6px}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);padding:10px 12px;font-size:.86rem;border-radius:0 10px 10px 0;margin:10px 0;color:var(--ink)}
+.warn{background:var(--warn);border-left:4px solid var(--bad);padding:10px 12px;font-size:.86rem;border-radius:0 10px 10px 0;margin:10px 0}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.filter-btn{font-family:inherit;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.filter-btn.active{background:var(--pri);color:var(--on);border-color:var(--pri)}
+details.essay-detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:2px 12px}
+details.essay-detail[open]{border-color:var(--pri)}
+details.essay-detail summary{cursor:pointer;padding:11px 2px;font-weight:700;font-family:"Noto Serif TC",serif;font-size:.94rem;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+details.essay-detail.tierA summary{color:var(--bad)}details.essay-detail.tierB summary{color:var(--acc-ink)}details.essay-detail.tierC summary{color:var(--ok)}
+.essay-num{background:var(--pri);color:var(--on);font-size:.72rem;padding:2px 8px;border-radius:10px;font-family:"Noto Sans TC",sans-serif;font-weight:700}
+.tier-badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:auto}
+.tier-badge.tierA{background:var(--bad-soft);color:var(--bad)}.tier-badge.tierB{background:var(--acc-soft);color:var(--acc-ink)}.tier-badge.tierC{background:var(--ok-soft);color:var(--ok)}
+.essay-body{padding:4px 4px 14px;border-top:1px dashed var(--line);margin-top:2px;color:var(--ink)}
+.essay-body p{margin:8px 0;font-size:.92rem}
+.essay-body h4{margin:14px 0 4px;font-size:1rem}
+.essay-question{background:var(--pri-soft);padding:10px 12px;border-radius:8px}
+.essay-warn,.inwarn{display:block;background:var(--warn);border-left:4px solid var(--bad);padding:6px 10px;border-radius:0 8px 8px 0;font-size:.84rem;margin-top:6px}
+.flagdot{font-size:.68rem;background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:2px 7px}
+.chk{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.chk input{margin-top:5px;accent-color:var(--pri)}
+.ctr{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.ctr div{flex:1;min-width:100px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:.85rem}
+.ctr button{font-size:1rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:2px 12px;margin:0 4px;cursor:pointer}
+.ctr b{font-size:1.3rem;display:block;font-family:"Noto Serif TC",serif}
+nav.bot{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+nav.bot button{flex:1;border:0;background:transparent;color:var(--sub);font-family:inherit;font-size:.72rem;padding:4px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;border-radius:12px}
+nav.bot button span{font-size:1.3rem;line-height:1.2}
+nav.bot button.active{color:var(--pri);font-weight:700}nav.bot button.active span{background:var(--pri-soft);border-radius:14px;padding:0 16px}
+.navfab{position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:35}
+.navfab button{display:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--pri);font-size:1rem;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer}
+.navfab button.on{display:block}
+footer{text-align:center;font-size:.76rem;color:var(--sub);margin:24px 0 0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (max-width:560px){
+ table,tbody,tr,td{display:block;width:100%}
+ table{background:transparent}
+ tr:has(th){display:none}
+ tr{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:6px 10px}
+ td{border:0;padding:3px 0}
+ td::before{content:attr(data-label);display:block;font-size:.72rem;color:var(--sub);font-weight:700;letter-spacing:.04em}
+ td[data-label=""]::before{display:none}
+ td:first-child{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri)}
+}
 
-  details.essay-detail{
-    background:var(--paper2); border:1.5px solid var(--line); border-radius:12px;
-    margin-bottom:10px; padding:4px 14px;
-  }
-  details.essay-detail[open]{ border-color: var(--gold); }
-  details.essay-detail summary{
-    cursor:pointer; padding:12px 4px; font-weight:700; font-family:"Noto Serif TC",serif;
-    font-size:.96rem; list-style:revert; display:flex; flex-wrap:wrap; align-items:center; gap:8px;
-  }
-  details.essay-detail.tierA summary{ color: var(--vermillion); }
-  details.essay-detail.tierB summary{ color: #8a6a1f; }
-  details.essay-detail.tierC summary{ color: var(--green); }
-  .essay-num{
-    background:var(--ink); color:#fff; font-size:.72rem; padding:2px 8px;
-    border-radius:10px; font-family:"Noto Sans TC",sans-serif; font-weight:700;
-  }
-  .tier-badge{ font-size:.7rem; padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto; }
-  .tier-badge.tierA{ background:#f7e3dd; color:var(--vermillion); }
-  .tier-badge.tierB{ background:#f8edd6; color:#8a6a1f; }
-  .tier-badge.tierC{ background:#e2ede6; color:var(--green); }
-  .essay-body{ padding:4px 6px 14px; border-top:1px dashed var(--line); margin-top:4px; }
-  .essay-body p{ margin:8px 0; font-size:.92rem; }
-  .essay-body h4{ margin:14px 0 4px; font-size:1rem; color:var(--ink); }
-  .essay-question{
-    background:#f3ead9; padding:10px 12px; border-radius:8px; font-style:normal;
-  }
-  .essay-warn{
-    background:#f8e3df; border-left:4px solid var(--vermillion); padding:8px 12px;
-    border-radius:0 8px 8px 0; font-size:.85rem;
-  }
-  .filter-row{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; }
-  .filter-btn{
-    font-family:"Noto Sans TC",sans-serif; font-size:.82rem; font-weight:700;
-    padding:6px 14px; border-radius:20px; border:1.5px solid var(--line);
-    background:var(--paper2); cursor:pointer;
-  }
-  .filter-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
-
-  .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.82rem;font-weight:700;margin:0 0 14px;}
-  .flow span{background:#efe6d2;border:1px solid var(--line);border-radius:16px;padding:4px 10px;}
-  .flow i{color:var(--gold);font-style:normal;}
-  .today{background:#fdf6e3;border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;margin-bottom:16px;}
-  .today b.t{font-family:"Noto Serif TC",serif;color:var(--vermillion);}
-  .flagdot{font-size:.68rem;background:#f8e3df;color:var(--vermillion);border-radius:10px;padding:2px 7px;margin-left:6px;}
-  .inwarn{display:block;background:#f8e3df;border-left:4px solid var(--vermillion);padding:6px 10px;border-radius:0 8px 8px 0;font-size:.82rem;margin-top:6px;}
-  .chk{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.92rem;}
-  .chk input{margin-top:5px;}
-  .ctr{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
-  .ctr div{flex:1;min-width:110px;background:var(--paper2);border:1.5px solid var(--line);border-radius:12px;padding:10px;text-align:center;}
-  .ctr button{font-size:1rem;border:1px solid var(--line);background:#fff;border-radius:8px;padding:2px 12px;margin:0 4px;cursor:pointer;}
-  .ctr b{font-size:1.3rem;display:block;}
-  nav{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;}
-  nav button{white-space:nowrap;flex:0 0 auto;}
-  @media (max-width:480px){nav{gap:4px;padding:8px 6px;} nav button{font-size:.74rem;padding:7px 9px;} main{padding:18px 12px;} table{font-size:.8rem;} th,td{padding:6px;}}
-  .navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
-  .navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--vermillion);font-size:1.05rem;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;display:none;}
-  .navfab button.on{display:block;}
 </style>
 </head>
 <body>
-<header>
-  <h1>🏞️ 土地法｜備考指揮中心 v1.3</h1>
-  <div class="sub">第三戰・絕對要過｜115年（2026）不動產經紀人考試｜土地法與土地相關稅法概要</div>
-  <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
-</header>
-<nav>
-  <button class="tab-btn active" data-tab="t1">📝 刷題</button>
-  <button class="tab-btn" data-tab="tMem">🧠 記憶</button>
-  <button class="tab-btn" data-tab="t4">✍️ 申論</button>
-  <button class="tab-btn" data-tab="t3">⚡ 現行法</button>
-  <button class="tab-btn" data-tab="t2">✅ 進度</button>
-  <button class="tab-btn" data-tab="t5">📖 攻略</button>
-</nav>
+<div class="top"><h1>🏞️ 土地法</h1><span class="cd">還有 <b id="days">--</b> 天</span><button class="th" id="th" aria-label="切換深淺色">深色</button></div>
 <main>
 
-<div class="flow"><b>建議流程</b><span>記憶</span><i>→</i><span>章節刷題</span><i>→</i><span>混合刷題＋錯題本</span><i>→</i><span>申論</span><i>→</i><span>現行法核對</span></div>
-<div class="today" id="today"></div>
+<section class="tab active" id="pHome">
+  <div class="hero"><small id="homeSub">今天</small><h2>今日 4 步（點圓圈打勾）</h2><div id="steps"></div><div class="hs" id="homeFocus"></div></div>
+  <div class="sec">待辦<small>未做／未提供解答</small></div>
+  <a class="row" data-go="mock" href="#"><div class="n"><b>來勝115模擬(一)｜土地法規概要</b><small>曾榮耀・可計時 90 分鐘・老師解答尚未提供</small></div><span class="b mid">去做</span></a>
+  <a class="row" data-go="mock" href="#"><div class="n"><b>來勝115模擬(一)｜土地稅法規概要</b><small>曾榮耀・可計時 90 分鐘・老師解答尚未提供</small></div><span class="b mid">去做</span></a>
+  <div class="sec">錯題本<small>A 法條混淆／B 粗心／C 真的不熟</small></div>
+  <div class="abc" id="abcHome"></div>
+  <div class="note">在「進度」分頁可加減錯題數；把模擬卷結果頁的分篇答對率貼回專案對話，由 Claude 更新追蹤表。</div>
+</section>
 
-<section class="tab active" id="t1">
-  <div class="section-title">📝 刷題（共 518 題＋2 題一律給分＝官方 520 題）</div>
-  <div class="group-label">📚 章節刷題（建議第一輪 A→B→C→D→E→FGHI；題數＝實際收錄）</div>
+<section class="tab" id="pPrac">
+  <div class="seg" data-g="prac"><button class="on" data-s="s1">章節</button><button data-s="s2">混合</button><button data-s="s3">小卡</button><button data-s="s4" id="mockBtn">模擬卷</button></div>
+  <div class="sp on" id="s1">
+  <div class="note">題數對帳：官方 520 題（99–106 年每年 40 題、107–114 年每年 25 題）。106 年第 1 題、111 年第 18 題官方<b>一律給分</b>，工具不收，所以工具為 518 題。章節頁每題都有逐選項解析（2026-10-08 全數逐題查核重寫）。</div>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A1A2_quiz.html" target="_blank" rel="noopener"><div><div class="name">A1 總則／A2 土地登記</div><div class="tag">A1 27・A2 54｜🔴 A2 為16年最高頻章節；預告登記效力、繼承登記</div></div><span class="badge red">81 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_A3A4A5_quiz.html" target="_blank" rel="noopener"><div><div class="name">A3 共有優先購買權／A4 基地耕地租賃／A5 公有土地</div><div class="tag">A3 20・A4 29・A5 13｜🔴 34-1 vs 104 條，要能交叉比較</div></div><span class="badge red">62 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_B_quiz.html" target="_blank" rel="noopener"><div><div class="name">B1 區域計畫法／B2 都市計畫法／B3 國土計畫法</div><div class="tag">B1 37・B2 40・B3 3｜🔴 B2 為申論第一主角；B1 只需架構</div></div><span class="badge red">80 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_C_quiz.html" target="_blank" rel="noopener"><div><div class="name">C1 規定地價／C2 市地重劃／C3 照價收買空地稅／C4 申報登錄預售屋</div><div class="tag">C1 9・C2 19・C3 15・C4 12｜🟡 C4 近年成長；C2 申論愛考程序</div></div><span class="badge gold">55 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_D_quiz.html" target="_blank" rel="noopener"><div><div class="name">D1 徵收程序／D2 補償／D3 區段徵收／D4 撤銷廢止收回權</div><div class="tag">D1 9・D2 27・D3 28・D4 14｜🟢 掌握流程、抵價地 50%/40% 與收回權</div></div><span class="badge ">78 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_E_quiz.html" target="_blank" rel="noopener"><div><div class="name">E1 地價稅／E2 土地增值稅</div><div class="tag">E1 37・E2 46｜🔴 選擇＋申論雙高頻</div></div><span class="badge red">83 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/LandLaw_FGHI_quiz.html" target="_blank" rel="noopener"><div><div class="name">F1 房屋稅／G1 契稅／H1 房地合一／I1 耕地三七五</div><div class="tag">F1 29・G1 29・H1 13・I1 8｜🟡 稅率與稅基；房地合一用2.0</div></div><span class="badge gold">79 題</span></a>
-  <div class="group-label">🔁 全篇混合與解析版（做完章節後；錯題本回頭查）</div>
+  </div>
+  <div class="sp" id="s2">
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E4%BA%92%E5%8B%95%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener"><div><div class="name">土地法互動練習（全篇快速勾選）</div><div class="tag">518 題全篇混合，考前整批重刷</div></div><span class="badge gold">518 題</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E8%A7%A3%E6%9E%90%E7%89%88%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener"><div><div class="name">土地法解析版練習（作答後顯示法條出處）</div><div class="tag">518 題，錯題回頭查法條</div></div><span class="badge gold">518 題</span></a>
-  <div class="group-label">🃏 翻卡複習（碎片時間；點選項即翻面看逐選項解析）</div>
+  </div>
+  <div class="sp" id="s3">
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank" rel="noopener"><div><div class="name">🃏 土地法 考題小卡（翻卡刷題）</div><div class="tag">22 章可篩選、只看待複習、掌握度自動記錄；每題逐選項解析</div></div><span class="badge gold">518 題</span></a>
-  <div class="group-label">📝 模擬考區</div>
+  </div>
+  <div class="sp" id="s4">
+    <div class="note">⚠️ 兩份卷的答案是 Claude 依現行法推導，老師解答尚未核對；有題目瑕疵或信心較低的題已逐題標註。</div>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E4%BE%86%E5%8B%9D%E6%A8%A1%E6%93%AC%E8%A9%A6%E9%A1%8C%E4%B8%80_%E5%9C%9F%E5%9C%B0%E6%B3%95%E8%A6%8F.html" target="_blank" rel="noopener"><div><div class="name">來勝115模擬試題(一)｜土地法規概要</div><div class="tag">曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘｜⚠️ 答案為 Claude 推導，老師解答未核對</div></div><span class="badge gold">25題</span></a>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E4%BE%86%E5%8B%9D%E6%A8%A1%E6%93%AC%E8%A9%A6%E9%A1%8C%E4%B8%80_%E5%9C%9F%E5%9C%B0%E7%A8%85%E6%B3%95.html" target="_blank" rel="noopener"><div><div class="name">來勝115模擬試題(一)｜土地稅法規概要</div><div class="tag">曾榮耀（永慶班）・單選25＋申論2・可計時90分鐘｜⚠️ 答案為 Claude 推導，老師解答未核對</div></div><span class="badge gold">25題</span></a>
   <div class="note">兩份卷有題目瑕疵或信心較低題已逐題標註；拿到老師解答後請回報，由 Claude 更新。</div>
-  <div class="note">題數對帳：官方 520 題（99–106 年每年 40 題、107–114 年每年 25 題）。106 年第 1 題、111 年第 18 題官方<b>一律給分</b>，工具不收，所以工具為 518 題。章節頁每題都有逐選項解析（2026-10-08 全數逐題查核重寫）。</div>
+  </div>
 </section>
 
-<section class="tab" id="tMem">
-  <div class="section-title">🧠 記憶</div>
+<section class="tab" id="pRev">
+  <div class="seg" data-g="rev"><button class="on" data-s="r1">背誦工具</button><button data-s="r2">現行法修正</button></div>
+  <div class="sp on" id="r1">
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E7%BD%B0%E5%89%87%E7%B8%BD%E6%95%B4%E7%90%86.html" target="_blank" rel="noopener"><div><div class="name">⚖️ 土地法 罰則總整理</div><div class="tag">罰鍰／刑責／加徵／登記處罰，九種口訣、遮答案練習、30 秒速背卡</div></div><span class="badge gold">開啟</span></a>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank" rel="noopener"><div><div class="name">🧠 土地法 互動單字卡</div><div class="tag">定義／數字配對／陷阱辨析；學習模式＋測驗模式</div></div><span class="badge gold">104 張</span></a><a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank" rel="noopener"><div><div class="name">🎨 土地法 彩色重點速記</div><div class="tag">22 章：定義／法條／易混淆／口訣／陷阱五色框</div></div><span class="badge gold">22 章</span></a>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%AE%9A%E7%BE%A9%E5%A1%AB%E7%A9%BA%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener"><div><div class="name">✍️ 土地法 定義填空練習</div><div class="tag">150 題・22 章；點空格看答案，章節瀏覽＋隨機測驗，附歷屆出題次數估計</div></div><span class="badge gold">150 題</span></a>
   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E7%A8%85%E5%88%B6%E8%88%87%E5%8F%96%E5%BE%97%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BC%83%E8%A1%A8.html" target="_blank" rel="noopener"><div><div class="name">📊 土地法 稅制與取得方式比較表</div><div class="tag">五稅並排・徵收／重劃／照價收買・優先購買權；含 ⚠／待核清單，手機可讀</div></div><span class="badge gold">3 表</span></a>
+  <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E8%AE%80%E6%9B%B8%E6%94%BB%E7%95%A5%E8%88%87%E5%82%99%E8%80%83%E6%8C%87%E5%8D%97.html" target="_blank" rel="noopener"><div><div class="name">土地法 讀書攻略與備考指南（獨立頁）</div><div class="tag">章節優先序／鐵律／12 週時程</div></div><span class="badge">開啟</span></a>
   <div class="note">碎片時間順序建議：罰則總整理（口訣）→ 互動單字卡（數字配對）→ 定義填空練習（遮答案默寫）→ 稅制與取得方式比較表（並排對照）→ 彩色速記（章節總覽）→ 考題小卡（翻卡刷題）。重點筆記在知識庫《土地法概要_重點筆記.md》；現行法對照見「現行法」分頁。</div>
+  </div>
+  <div class="sp" id="r2">
+  <p class="hint">原則：官方答案是「當年度標準」；與現行法不同者標⚠️，不硬改答案。</p>
+  <table><tr><th>主題</th><th>舊／錯誤</th><th>正確／現行</th></tr>
+  <tr><td>公設保留地仍為建築使用地價稅</td><td>10‰</td><td><b>6‰</b>，不累進（土稅§19）</td></tr>
+  <tr><td>空地稅</td><td>3–10 倍</td><td><b>2–5 倍</b>（基本稅額）</td></tr>
+  <tr><td>抵價地比例</td><td>不得少於／超過 50%</td><td><b>50% 為原則；經核准不得少於 40%</b>；曾農地重劃部分不得少於 45%</td></tr>
+  <tr><td>房地合一稅率（2.0）</td><td>1 年內 45／2 年內 35…（舊制）</td><td><b>2 年內 45／2–5 年 35／5–10 年 20／10 年以上 15</b></td></tr>
+  <tr><td>房地合一自住優惠戶籍</td><td>直系親屬</td><td><b>本人、配偶或未成年子女</b></td></tr>
+  <tr><td>房地合一重購退稅申請</td><td>2 年</td><td><b>重購移轉登記次日起 5 年內申請</b></td></tr>
+  <tr><td>預告登記排除效力例外</td><td>含繼承（或破產）</td><td><b>徵收、法院判決、強制執行</b>（土地法§79-1）</td></tr>
+  <tr><td>外國人不得取得土地（§17）</td><td>牧地</td><td><b>狩獵地</b>（林漁狩鹽礦水＋要塞、邊境）</td></tr>
+  <tr><td>繼承登記公告</td><td>6 個月／10 年</td><td><b>逾 1 年公告 3 個月；列冊 15 年；標售前公告 3 個月</b></td></tr>
+  <tr><td>重劃異議（分配結果）</td><td>調處不成→訴願</td><td><b>公告 30 日、書面異議、調處不成報請上級裁決</b>（§60-2）</td></tr>
+  <tr><td>重劃／區段徵收禁限建期間</td><td>—</td><td><b>不得超過 1 年 6 個月</b>（§53、§59）</td></tr>
+  <tr><td>區段徵收可建築土地標租</td><td>—</td><td><b>標租期限不得逾 99 年</b>（§55-2）</td></tr>
+  <tr><td>非都市容積率</td><td>丙種 60%／特目 120%</td><td><b>丙種 40/120、特目 60/180</b></td></tr>
+  <tr><td>開發社區／高爾夫</td><td>—</td><td><b>50 戶或 1 公頃→鄉村區；高爾夫 10 公頃；遊憩 5 公頃</b></td></tr>
+  <tr><td>房屋稅免徵／減半</td><td>平民住宅、工廠列免徵</td><td><b>§15 Ⅱ 減半 4 款：平民住宅、合法工廠、農會倉庫檢驗場、毀損 3–5 成</b>；毀損 5 成以上屬免徵</td></tr>
+  <tr><td>契稅免徵</td><td>標購公產、法院標購免徵</td><td><b>不免徵</b>（§11）；怠報金每逾 <b>3 日</b>加徵 1%</td></tr>
+  <tr><td>耕地終止租約補償</td><td>公告現值 1/3</td><td><b>公告現值扣除預計土增稅後餘額的 1/3</b></td></tr>
+  <tr><td>耕地租佃地租積欠</td><td>1 年</td><td><b>2 年</b></td></tr>
+  <tr><td>重測原因</td><td>含界址糾紛</td><td><b>界址糾紛不屬重測原因</b>（官方 99-13）</td></tr>
+  <tr><td>空地定義</td><td>—</td><td>土地法§87：改良物價值不及申報地價 <b>20%</b> 視為空地；課空地稅另以 <b>10%</b> 認定（勿混）</td></tr>
+  <tr><td>預售屋轉售</td><td>定金書面契據也有親屬例外</td><td><b>§47-3</b>（定金書面契據）買受人不得轉售，<b>無親屬例外</b>；<b>§47-4</b>（轉售契約）才有配偶／直系血親／二親等內旁系血親例外；「全國每二年一戶」只套公告＋核准那類</td></tr>
+  <tr><td>私法人購屋</td><td>§79-2</td><td><b>平均地權§79-1</b>：內政部許可、使用計畫、許可文件1年、登記後5年內不得移轉（強制執行、徵收、法院判決等除外）</td></tr>
+  <tr><td>撤銷／廢止徵收</td><td>—</td><td>土徵§49：撤銷＝作業錯誤；廢止＝工程變更設計等；§51 繳還價額（不少於6個月）；<b>§52 他項權利、耕地租約不予回復</b>（例外§42抵價地抵押權／典權）</td></tr>
+  <tr><td>信託土增稅原地價</td><td>§31</td><td><b>土稅§31-1</b>；不課徵五款見§28-3</td></tr>
+  <tr><td>市地重劃反對</td><td>反對達門檻即停止重劃</td><td>§56：所有權人半數以上＋面積超過半數反對→<b>調處、修訂計畫書、重行報核</b></td></tr>
+  <tr><td>收回權</td><td>§49</td><td><b>土徵§9</b>：公告日起20年內；補償完竣滿3年未使用／未依核准／使用後未滿5年停止</td></tr>
+  </table>
+  <div class="warn">⚠️ 仍待核對（官方答案與筆記／現行法有出入，或條號未能在官方條文確認）：①§104 優先購買權效力（條文：契約不得對抗優先購買權人→補習班口徑為「物權性質」；與官方 100-39「債權效力」答案不同，屬實務見解，考試依當年度答案）；②限期建築通知後租約處理的確切條號（範文30）；③114-二「§39 Ⅲ 本文」對應條文（範文32）；④實價登錄罰則「價格或面積不實」是否先限期改正；⑤信託土增稅表兩列對象。（⑥已核實：土徵§30 現行為徵收當期「市價」補償，舊官方答案為公告現值加成，兩者並存時依題目年度。）（已核實：§103 基地收回含「承租人違反租賃契約」；房屋稅醫院診所已併入3–5%；土稅法§4代繳事由四項。）已寫入進度檔，考前請對紙本條文。</div>
+  </div>
 </section>
 
 <section class="tab" id="t4">
   <div class="section-title">✍️ 申論（官方 32 題・四段式範文）</div>
-  <p style="font-size:.88rem;color:#7a7466;margin-top:-10px;">99–114 年每年 2 題，官方核實 32/32。節奏：每週讀一題的作答架構（先限時自寫，再對照）。範文 v1.3（2026-10-08）已更正 20 餘處；標「⚠️待核」的題含 1–2 個尚未在官方條文核到的條號，請以補習班講義或官方答案再核對。</p>
+  <p class="hint">99–114 年每年 2 題，官方核實 32/32。節奏：每週讀一題的作答架構（先限時自寫，再對照）。範文 v1.3（2026-10-11）已依官方條文更正；標「⚠️待核」的題含 1–2 個尚未在官方條文核到的條號，請以補習班講義或官方答案再核對。</p>
   <div class="filter-row" id="tierRow">
     <button class="filter-btn active" data-tier="all">全部 32</button>
     <button class="filter-btn" data-tier="A">🔴 A級 10</button>
@@ -488,42 +452,7 @@
   </div>
 </section>
 
-<section class="tab" id="t3">
-  <div class="section-title">⚡ 現行法（2026-10-08 兩輪查證後的修正）</div>
-  <p style="font-size:.84rem;color:#7a7466;margin-top:-10px;">原則：官方答案是「當年度標準」；與現行法不同者標⚠️，不硬改答案。</p>
-  <table><tr><th>主題</th><th>舊／錯誤</th><th>正確／現行</th></tr>
-  <tr><td>公設保留地仍為建築使用地價稅</td><td>10‰</td><td><b>6‰</b>，不累進（土稅§19）</td></tr>
-  <tr><td>空地稅</td><td>3–10 倍</td><td><b>2–5 倍</b>（基本稅額）</td></tr>
-  <tr><td>抵價地比例</td><td>不得少於／超過 50%</td><td><b>50% 為原則；經核准不得少於 40%</b>；曾農地重劃部分不得少於 45%</td></tr>
-  <tr><td>房地合一稅率（2.0）</td><td>1 年內 45／2 年內 35…（舊制）</td><td><b>2 年內 45／2–5 年 35／5–10 年 20／10 年以上 15</b></td></tr>
-  <tr><td>房地合一自住優惠戶籍</td><td>直系親屬</td><td><b>本人、配偶或未成年子女</b></td></tr>
-  <tr><td>房地合一重購退稅申請</td><td>2 年</td><td><b>重購移轉登記次日起 5 年內申請</b></td></tr>
-  <tr><td>預告登記排除效力例外</td><td>含繼承（或破產）</td><td><b>徵收、法院判決、強制執行</b>（土地法§79-1）</td></tr>
-  <tr><td>外國人不得取得土地（§17）</td><td>牧地</td><td><b>狩獵地</b>（林漁狩鹽礦水＋要塞、邊境）</td></tr>
-  <tr><td>繼承登記公告</td><td>6 個月／10 年</td><td><b>逾 1 年公告 3 個月；列冊 15 年；標售前公告 3 個月</b></td></tr>
-  <tr><td>重劃異議（分配結果）</td><td>調處不成→訴願</td><td><b>公告 30 日、書面異議、調處不成報請上級裁決</b>（§60-2）</td></tr>
-  <tr><td>重劃／區段徵收禁限建期間</td><td>—</td><td><b>不得超過 1 年 6 個月</b>（§53、§59）</td></tr>
-  <tr><td>區段徵收可建築土地標租</td><td>—</td><td><b>標租期限不得逾 99 年</b>（§55-2）</td></tr>
-  <tr><td>非都市容積率</td><td>丙種 60%／特目 120%</td><td><b>丙種 40/120、特目 60/180</b></td></tr>
-  <tr><td>開發社區／高爾夫</td><td>—</td><td><b>50 戶或 1 公頃→鄉村區；高爾夫 10 公頃；遊憩 5 公頃</b></td></tr>
-  <tr><td>房屋稅免徵／減半</td><td>平民住宅、工廠列免徵</td><td><b>§15 Ⅱ 減半 4 款：平民住宅、合法工廠、農會倉庫檢驗場、毀損 3–5 成</b>；毀損 5 成以上屬免徵</td></tr>
-  <tr><td>契稅免徵</td><td>標購公產、法院標購免徵</td><td><b>不免徵</b>（§11）；怠報金每逾 <b>3 日</b>加徵 1%</td></tr>
-  <tr><td>耕地終止租約補償</td><td>公告現值 1/3</td><td><b>公告現值扣除預計土增稅後餘額的 1/3</b></td></tr>
-  <tr><td>耕地租佃地租積欠</td><td>1 年</td><td><b>2 年</b></td></tr>
-  <tr><td>重測原因</td><td>含界址糾紛</td><td><b>界址糾紛不屬重測原因</b>（官方 99-13）</td></tr>
-  <tr><td>空地定義</td><td>—</td><td>土地法§87：改良物價值不及申報地價 <b>20%</b> 視為空地；課空地稅另以 <b>10%</b> 認定（勿混）</td></tr>
-  <tr><td>預售屋轉售</td><td>定金書面契據也有親屬例外</td><td><b>§47-3</b>（定金書面契據）買受人不得轉售，<b>無親屬例外</b>；<b>§47-4</b>（轉售契約）才有配偶／直系血親／二親等內旁系血親例外；「全國每二年一戶」只套公告＋核准那類</td></tr>
-  <tr><td>私法人購屋</td><td>§79-2</td><td><b>平均地權§79-1</b>：內政部許可、使用計畫、許可文件1年、登記後5年內不得移轉（強制執行、徵收、法院判決等除外）</td></tr>
-  <tr><td>撤銷／廢止徵收</td><td>—</td><td>土徵§49：撤銷＝作業錯誤；廢止＝工程變更設計等；§51 繳還價額（不少於6個月）；<b>§52 他項權利、耕地租約不予回復</b>（例外§42抵價地抵押權／典權）</td></tr>
-  <tr><td>信託土增稅原地價</td><td>§31</td><td><b>土稅§31-1</b>；不課徵五款見§28-3</td></tr>
-  <tr><td>市地重劃反對</td><td>反對達門檻即停止重劃</td><td>§56：所有權人半數以上＋面積超過半數反對→<b>調處、修訂計畫書、重行報核</b></td></tr>
-  <tr><td>收回權</td><td>§49</td><td><b>土徵§9</b>：公告日起20年內；補償完竣滿3年未使用／未依核准／使用後未滿5年停止</td></tr>
-  </table>
-  <div class="warn">⚠️ 仍待核對（官方答案與筆記／現行法有出入，或條號未能在官方條文確認）：①§104 優先購買權效力（條文：契約不得對抗優先購買權人→補習班口徑為「物權性質」；與官方 100-39「債權效力」答案不同，屬實務見解，考試依當年度答案）；②限期建築通知後租約處理的確切條號（範文30）；③114-二「§39 Ⅲ 本文」對應條文（範文32）；④實價登錄罰則「價格或面積不實」是否先限期改正；⑤信託土增稅表兩列對象。（⑥已核實：土徵§30 現行為徵收當期「市價」補償，舊官方答案為公告現值加成，兩者並存時依題目年度。）（已核實：§103 基地收回含「承租人違反租賃契約」；房屋稅醫院診所已併入3–5%；土稅法§4代繳事由四項。）已寫入進度檔，考前請對紙本條文。</div>
-</section>
-
-<section class="tab" id="t2">
-  <div class="section-title">✅ 進度</div>
+<section class="tab" id="pProg">
   <div class="group-label">📋 完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>
   <div class="group-label">🗂️ 錯題本統計（A 法條混淆／B 粗心／C 真的不熟）</div>
@@ -537,11 +466,7 @@
   <tr><td>定義填空練習（150題・22章）</td><td>✅ 2026-10-11 新增</td></tr>
   <tr><td>稅制與取得方式比較表（3表＋陷阱卡＋核對清單）</td><td>✅ 2026-10-11 新增</td></tr>
   <tr><td>模擬試題</td><td>✅ 來勝115模擬(一)土地法規＋土地稅法（老師解答待提供）</td></tr></table>
-</section>
-
-<section class="tab" id="t5">
-  <div class="section-title">📖 攻略（只放一份；完整版見獨立頁）</div>
-  <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E8%AE%80%E6%9B%B8%E6%94%BB%E7%95%A5%E8%88%87%E5%82%99%E8%80%83%E6%8C%87%E5%8D%97.html" target="_blank" rel="noopener"><div><div class="name">土地法 讀書攻略與備考指南（獨立頁）</div><div class="tag">章節優先序／鐵律／12 週時程</div></div><span class="badge">開啟</span></a>
+  <div class="group-label">考點優先序與時間分配</div>
   <div class="group-label">考點占比（官方 520 題，依 16 年考點分析）</div>
   <table><tr><th>優先</th><th>章節（題數）</th></tr>
   <tr><td>🔴 第一</td><td>A2 登記、B2 都市計畫、E1 地價稅、E2 土增稅、A3 共有優先購買</td></tr>
@@ -554,23 +479,37 @@
   <p style="font-size:.88rem">稅目 E（地價稅、土增稅）與 F/G/H 合計最多；B2 都市計畫・公設保留地是第一主角（112、114 連續以不動產說明書解說包裝）；每年至少一題與經紀實務相關。</p>
 </section>
 </main>
+<nav class="bot" id="nav">
+  <button class="tab-btn active" data-tab="pHome"><span>🏠</span>今日</button>
+  <button class="tab-btn" data-tab="pPrac"><span>📝</span>練習</button>
+  <button class="tab-btn" data-tab="pRev"><span>🧠</span>複習</button>
+  <button class="tab-btn" data-tab="t4"><span>✍️</span>申論</button>
+  <button class="tab-btn" data-tab="pProg"><span>📈</span>進度</button>
+</nav>
 <div class="navfab"><button id="upBtn" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button></div>
-<footer>BrokerX・土地法備考指揮中心 v1.3｜2026-10-11</footer>
 <script>
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.tab).classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
-  });
-});
+function lsG(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsS(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function goTab(id){document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.toggle('active',b.dataset.tab===id)});document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.id===id)});window.scrollTo(0,0);lsS('ll_tab',id)}
+document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){goTab(b.dataset.tab)})});
+document.querySelectorAll('.seg').forEach(function(sg){sg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){sg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});sg.parentElement.querySelectorAll(':scope > .sp').forEach(function(s){s.classList.toggle('on',s.id===b.dataset.s)});lsS('ll_seg_'+sg.dataset.g,b.dataset.s)})});var sv=lsG('ll_seg_'+sg.dataset.g);if(sv){var t=sg.querySelector('[data-s="'+sv+'"]');if(t)t.click()}});
+document.querySelectorAll('[data-go="mock"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();goTab('pPrac');document.getElementById('mockBtn').click()})});
+var th=document.getElementById('th');function setTh(m){if(m)document.documentElement.dataset.theme=m;var d=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches);th.textContent=d?'淺色':'深色'}
+setTh(lsG('ll_theme'));th.addEventListener('click',function(){var d=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches);var n=d?'light':'dark';lsS('ll_theme',n);setTh(n)});
 (function(){var exam=new Date('2026-11-14T00:00:00+08:00');var d=Math.max(0,Math.ceil((exam-new Date())/86400000));document.getElementById('days').textContent=d;
-var wd=new Date().getDay();var we=(wd===0||wd===6);
-var plan=we?'今天是假日（約 6 小時）：2 小時章節或混合刷題＋1.5 小時錯題本＋1 小時申論（本週一題）＋1 小時現行法／罰則。':'今天是平日（約 2 小時）：記憶 20 分（罰則總整理）＋章節刷題 1 小時＋錯題 40 分。';
-var wk=['E 地價稅土增稅','A 登記與優先購買','B 都市計畫','C 重劃與申報登錄','D 徵收','F/G/H 房屋稅契稅房地合一','A2 預告登記＋E 回頭錯題'];
-document.getElementById('today').innerHTML='<b class="t">今日建議</b>｜距考試 '+d+' 天。'+plan+' 本日主章節建議：<b>'+wk[wd]+'</b>。';})();
+var wd=new Date().getDay(),we=(wd===0||wd===6);
+var wk=['E 地價稅／土增稅','A 登記與優先購買','B 都市計畫','C 重劃與申報登錄','D 徵收','F/G/H 房屋稅契稅房地合一','A2 預告登記＋E 回頭錯題'];
+var plan=we?['章節或混合刷題 2 小時（主力：'+wk[wd]+'）','錯題本 1.5 小時（A/B/C 歸類）','申論讀一題作答架構 1 小時','現行法／罰則 1 小時']:['記憶 20 分（單字卡或填空）','章節刷題 1 小時（主力：'+wk[wd]+'）','錯題本 40 分（A/B/C 歸類）'];
+document.getElementById('homeSub').textContent='距考試 '+d+' 天・今天是'+(we?'假日（約 6 小時）':'平日（約 2 小時）');
+var key='ll_today_'+new Date().toISOString().slice(0,10),stt={};try{stt=JSON.parse(lsG(key)||'{}')}catch(e){}
+var box=document.getElementById('steps');
+plan.forEach(function(t,i){var s=document.createElement('div');s.className='step'+(stt[i]?' d':'');s.innerHTML='<i></i><span></span>';s.querySelector('span').textContent=t;s.onclick=function(){stt[i]=!stt[i];s.classList.toggle('d',!!stt[i]);lsS(key,JSON.stringify(stt))};box.appendChild(s)});
+var ps=null;try{ps=JSON.parse(lsG('ll_prog')||'{}')}catch(e){ps={}}
+var ab=document.getElementById('abcHome');[['A 混淆','e0','var(--bad)'],['B 粗心','e1','var(--acc-ink)'],['C 不熟','e2','var(--pri)']].forEach(function(x){var d=document.createElement('div');d.innerHTML='<b style="color:'+x[2]+'">'+((ps&&ps[x[1]])||0)+'</b><small>'+x[0]+'</small>';ab.appendChild(d)});
+})();
+var sv=lsG('ll_tab');if(sv&&document.getElementById(sv)&&sv!=='pHome')goTab(sv);
+document.querySelectorAll('table').forEach(function(t){var hs=[];var hr=t.querySelector('tr');if(hr)hr.querySelectorAll('th').forEach(function(h){hs.push(h.textContent.trim())});t.querySelectorAll('tr').forEach(function(r){r.querySelectorAll('td').forEach(function(c,i){c.setAttribute('data-label',i===0?'':(hs[i]||''))})})});
+
 var tierF='all',grpF='all';
 function applyF(){document.querySelectorAll('#essayList > details').forEach(function(x){x.style.display=((tierF==='all'||x.dataset.tier===tierF)&&(grpF==='all'||x.dataset.grp===grpF))?'':'none';});}
 document.querySelectorAll('#tierRow .filter-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#tierRow .filter-btn').forEach(function(x){x.classList.remove('active');});b.classList.add('active');tierF=b.dataset.tier;applyF();});});
