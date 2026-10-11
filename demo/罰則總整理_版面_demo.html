@@ -40,10 +40,26 @@ details.d>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;g
 .chip{font:700 12px "Noto Sans TC";border-radius:99px;padding:0 9px;border:1.5px solid var(--blue);color:var(--blue)}
 .pc details{border-top:1px dashed var(--line);padding-top:4px}.pc summary{cursor:pointer;color:var(--pri);font-weight:700;font-size:13px;list-style:none}.pc summary::-webkit-details-marker{display:none}
 .old{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px}.old .l{font-size:11px;font-weight:700;color:var(--muted);margin-top:6px}
+
+/* mix A: timeline + right number column */
+.ma{position:relative;padding-left:34px;display:flex;flex-direction:column;gap:10px}
+.ma::before{content:"";position:absolute;left:13px;top:8px;bottom:8px;width:3px;background:var(--line);border-radius:2px}
+.mc{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;display:grid;grid-template-columns:1fr auto}
+.mc::before{content:attr(data-n);position:absolute;left:-34px;top:9px;width:28px;height:28px;border-radius:50%;background:var(--c);color:#fff;font:700 13px/28px "Noto Sans TC";text-align:center}
+.mc .m{padding:8px 4px 9px 12px;min-width:0}.mc .m h4{margin:0 0 1px;font-size:15px;color:var(--c)}.mc .m p{margin:0;font-size:14px}.mc .m .cond{margin-top:2px}
+.mc .nn{display:flex;flex-direction:column;gap:4px;justify-content:center;align-items:flex-end;padding:8px 10px;border-left:1px dashed var(--line);min-width:5.2em}
+.mc .nn small{font-size:11px;color:var(--muted);line-height:1}
+/* mix B: colored stage column + connector */
+.mb{display:flex;flex-direction:column}
+.mr{display:grid;grid-template-columns:3.6em 1fr auto;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mr .st{background:var(--c);color:#fff;font-weight:800;font-size:13.5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 2px}.mr .st i{font-style:normal;font-size:11px;opacity:.85}
+.mr .m{padding:8px 10px;font-size:14px;min-width:0}.mr .m p{margin:0}
+.mr .nn{padding:8px 10px 8px 0;display:flex;flex-direction:column;gap:4px;align-items:flex-end;justify-content:center}
+.cn{display:flex;align-items:center;gap:8px;margin:0 0 0 1.55em;padding:3px 0;font-size:12px;color:var(--muted)}.cn::before{content:"";width:3px;height:16px;background:var(--line);border-radius:2px}
 .note{font-size:12.5px;color:var(--muted)}
 </style></head><body><main>
 <header><h1>罰則總整理｜版面 demo</h1><p class="sub">先示範「繼承登記逾 1 年未辦（§73-1）」那段，三案擇一；下方另有「罰則列」改法。確認後才改真頁（正式版會有淺色與深色）。</p></header>
-<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button><button aria-pressed="false" data-v="4">混合 A</button><button aria-pressed="false" data-v="5">混合 B</button></div>
 <h2>繼承登記逾 1 年未辦：不是罰鍰，是「強制處分」（§73-1）</h2>
 
 <!-- V1 -->
@@ -81,6 +97,29 @@ details.d>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;g
 <div class="st" style="--c:var(--blue)">優購</div><div><b>繼承人 → 合法使用人 → 其他共有人</b><br><span class="k">租賃超過 5 年，標售後以 5 年為限</span></div><div class="nm"><span class="num">5 年</span></div>
 <div class="arrowrow">標售後 ▼</div>
 <div class="st" style="--c:var(--green)">領款</div><div>價款存國庫專戶，繼承人依應繼分領；無人領歸國庫<br><span class="k">五次標售不成登記國有：登記後 10 年內仍可請領</span></div><div class="nm"><span class="num">10 年</span></div>
+</div></div>
+
+<div class="v" id="v4">
+<p class="desc"><b>混合 A：時間軸＋右側數字欄</b>　方案 1 的左線與編號圓點，加上方案 3 的「數字集中右欄」。每步＝標題＋一句話，右邊直排只放這步的數字。</p>
+<div class="ma">
+<div class="mc" style="--c:var(--gold)" data-n="1"><div class="m"><h4>公告</h4><p>逾 1 年未辦，地政機關查明後公告；繼承人聲請</p></div><div class="nn"><span class="num">1 年</span><span class="num">3 個月</span></div></div>
+<div class="mc" style="--c:var(--orange)" data-n="2"><div class="m"><h4>列管</h4><p>逾期未聲請，地政機關列冊管理</p></div><div class="nn"><span class="num">15 年</span></div></div>
+<div class="mc" style="--c:var(--red)" data-n="3"><div class="m"><h4>標售</h4><p>期滿仍未辦 → 財政部國有財產署公開標售</p><p style="margin-top:3px"><span class="trapb">不是地政機關、縣市政府、行政執行署</span></p></div><div class="nn"></div></div>
+<div class="mc" style="--c:var(--blue)" data-n="4"><div class="m"><h4>優購</h4><p><b>繼承人 → 合法使用人 → 其他共有人</b></p><p class="cond">租賃超過 5 年，標售後以 5 年為限；無合法使用權的占有人標售後喪失占有</p></div><div class="nn"><span class="num">5 年</span></div></div>
+<div class="mc" style="--c:var(--green)" data-n="5"><div class="m"><h4>領款</h4><p>價款存國庫專戶，繼承人依應繼分領取；無人領歸國庫</p><p class="cond">五次標售不成登記國有：登記完畢後 10 年內原權利人仍可請領</p></div><div class="nn"><span class="num">10 年</span><small>歸國庫</small><span class="num">10 年</span><small>仍可請領</small></div></div>
+</div></div>
+<div class="v" id="v5">
+<p class="desc"><b>混合 B：色塊階段欄＋連接線</b>　方案 3 的彩色階段欄（寫「第幾步＋名稱」），卡與卡之間用方案 1 的連接線與「逾期仍未聲請 ▼」條件文字；數字靠右。</p>
+<div class="mb">
+<div class="mr" style="--c:var(--gold)"><div class="st"><i>第 1 步</i>公告</div><div class="m"><p>逾 1 年未辦，地政機關查明後公告；繼承人聲請</p></div><div class="nn"><span class="num">1 年</span><span class="num">3 個月</span></div></div>
+<div class="cn">逾期仍未聲請</div>
+<div class="mr" style="--c:var(--orange)"><div class="st"><i>第 2 步</i>列管</div><div class="m"><p>地政機關列冊管理</p></div><div class="nn"><span class="num">15 年</span></div></div>
+<div class="cn">期滿仍未聲請</div>
+<div class="mr" style="--c:var(--red)"><div class="st"><i>第 3 步</i>標售</div><div class="m"><p>財政部國有財產署公開標售</p><p style="margin-top:3px"><span class="trapb">不是地政機關、縣市政府、行政執行署</span></p></div><div class="nn"></div></div>
+<div class="cn">標售時</div>
+<div class="mr" style="--c:var(--blue)"><div class="st"><i>第 4 步</i>優購</div><div class="m"><p><b>繼承人 → 合法使用人 → 其他共有人</b></p><p class="k" style="font-size:13px">租賃超過 5 年，標售後以 5 年為限</p></div><div class="nn"><span class="num">5 年</span></div></div>
+<div class="cn">標售後</div>
+<div class="mr" style="--c:var(--green)"><div class="st"><i>第 5 步</i>領款</div><div class="m"><p>價款存國庫專戶，繼承人依應繼分領；無人領歸國庫</p><p class="k" style="font-size:13px">五次標售不成登記國有：登記後 10 年內仍可請領</p></div><div class="nn"><span class="num">10 年</span></div></div>
 </div></div>
 
 <h2>另：全頁「罰則列」改法（以 §73 為例）</h2>
