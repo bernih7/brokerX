@@ -152,7 +152,8 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);
   </div>
   <div class="controls">
     <button class="btn icon" id="prevBtn">◂ 上一題</button>
-    <button class="btn primary" id="shuffleBtn">🔀 隨機</button>
+    <button class="btn" id="yearBtn">新→舊</button>
+    <button class="btn primary" id="shuffleBtn">隨機</button>
     <button class="btn icon" id="nextBtn">下一題 ▸</button>
   </div>
   <div class="quiz-stats">
@@ -271,6 +272,7 @@ function rebuildDeck(){
   if(!deck.length){
     if(reviewOnly){reviewOnly=false;document.getElementById('reviewOnlyBtn').classList.remove('active');alert('目前沒有標記「待複習」的題目');deck=CARDS.filter(c=>activeCats.has(c.group));}
   }
+  deck.sort(function(a,b){var x=/L(\d+)-(\d+)/.exec(a.id),y=/L(\d+)-(\d+)/.exec(b.id);return (+y[1])-(+x[1])||(+x[2])-(+y[2])});
   idx=0;render();
 }
 function render(){
@@ -341,6 +343,7 @@ function goNext(){idx=(idx+1)%deck.length;render();}
 function goPrev(){idx=(idx-1+deck.length)%deck.length;render();}
 document.getElementById('nextBtn').addEventListener('click',goNext);
 document.getElementById('prevBtn').addEventListener('click',goPrev);
+document.getElementById('yearBtn').addEventListener('click',()=>{rebuildDeck()});
 document.getElementById('shuffleBtn').addEventListener('click',()=>{
   for(let i=deck.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];

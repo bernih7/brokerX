@@ -239,7 +239,7 @@ document.getElementById('selectNoneBtn').onclick = () => { selectedChapters = ne
 document.getElementById('startBtn').onclick = () => {
   const pool = QUIZ_DATA.filter(q => selectedChapters.has(q.chapter));
   if (!pool.length) { alert('請至少選擇一個章節'); return; }
-  quizQueue = shuffle(pool).slice(0, Math.min(30, pool.length));
+  quizQueue = bxQueue(pool);
   quizIndex = 0;
   quizResults = [];
   setupScreen.classList.add('hidden');
@@ -248,6 +248,28 @@ document.getElementById('startBtn').onclick = () => {
   showQuestion();
 };
 
+
+/*bx-ord*/
+var BXO='new';try{BXO=localStorage.getItem('bx-ord')||'new'}catch(e){}
+function bxSeenGet(){try{return JSON.parse(localStorage.getItem('bx-seen')||'{}')}catch(e){return {}}}
+function bxSeenAdd(id){try{var s=bxSeenGet();s[id]=1;localStorage.setItem('bx-seen',JSON.stringify(s))}catch(e){}}
+function bxQueue(pool){
+  if(BXO==='rand')return shuffle(pool).slice(0,Math.min(30,pool.length));
+  var seen=bxSeenGet();
+  var sorted=pool.slice().sort(function(a,b){return (+b.year)-(+a.year)||(+a.num)-(+b.num)});
+  var fresh=sorted.filter(function(q){return !seen[q.id]});
+  if(!fresh.length)fresh=sorted;
+  return fresh.slice(0,Math.min(30,fresh.length));
+}
+function bxOrdUI(){var b=document.getElementById('startBtn');if(!b||document.getElementById('bxord'))return;
+ var h=document.createElement('div');h.id='bxord';h.className='controls-row';h.style.marginTop='14px';h.style.flexWrap='wrap';
+ h.innerHTML='<span style="font-size:.85rem;color:#6b6354">出題順序</span><button class="secondary" data-o="new">年份新→舊（接續上次）</button><button class="secondary" data-o="rand">隨機</button><button class="secondary" id="bxreset">從最新年份重來</button><div id="bxnote" style="flex-basis:100%;font-size:.78rem;color:#6b6354"></div>';
+ b.parentNode.parentNode.insertBefore(h,b.parentNode);
+ function mark(){[].forEach.call(h.querySelectorAll('button[data-o]'),function(x){var on=x.dataset.o===BXO;x.style.background=on?'var(--pri)':'';x.style.color=on?'var(--onpri,#fff)':'';x.style.borderColor=on?'var(--pri)':''});
+  var n=Object.keys(bxSeenGet()).length;h.querySelector('#bxnote').textContent=BXO==='new'?'從最新年份依序出題，已練過的題目會略過（目前已練 '+n+' 題）；每輪最多 30 題。':'隨機抽 30 題。';document.getElementById('bxreset').style.display=BXO==='new'?'':'none'}
+ [].forEach.call(h.querySelectorAll('button[data-o]'),function(x){x.onclick=function(){BXO=x.dataset.o;try{localStorage.setItem('bx-ord',BXO)}catch(e){}mark()}});
+ h.querySelector('#bxreset').onclick=function(){try{localStorage.removeItem('bx-seen')}catch(e){}mark()};mark()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bxOrdUI);else bxOrdUI();
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -259,7 +281,7 @@ function shuffle(arr) {
 
 function showQuestion() {
   currentAnswered = false;
-  const q = quizQueue[quizIndex];
+  const q = quizQueue[quizIndex];bxSeenAdd(q.id);
   document.getElementById('progressText').textContent = `${quizIndex+1} / ${quizQueue.length}`;
   document.getElementById('chapterTag').textContent = q.chapterName;
   document.getElementById('progressFill').style.width = `${(quizIndex/quizQueue.length)*100}%`;

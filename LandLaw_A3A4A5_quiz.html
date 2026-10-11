@@ -76,6 +76,11 @@ body[data-ex="C"] .done .opt:disabled,body[data-ex="D"] .done .opt:disabled{curs
 body[data-ex="C"] .done .expbox,body[data-ex="D"] .done .expbox{display:none!important}
 .tl{margin-top:8px}
 </style>
+<style>.ords{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0 4px;font-size:.78rem;color:#6b6354}
+.ords button{border:1px solid var(--line);background:#FFFEFA;color:var(--ink);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:.78rem;cursor:pointer}
+.ords button.on{background:var(--pri);color:var(--onpri,#fff);border-color:var(--pri)}.ords .sh{margin-left:auto}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ords button{background:var(--paper2,#1F2723)}}:root[data-theme="dark"] .ords button{background:var(--paper2,#1F2723)}
+.yr-header{font-family:"Noto Serif TC",serif;font-weight:700;font-size:.9rem;color:var(--pri);padding:10px 0 6px;border-bottom:2px solid var(--pri);margin:16px 0 10px}</style>
 </head>
 <body>
 <div class="app">
@@ -122,15 +127,25 @@ function renderPills(){
 function selAll(){Object.keys(sel).forEach(k=>sel[k]=1);renderPills();renderList();}
 function selNone(){Object.keys(sel).forEach(k=>sel[k]=0);renderPills();renderList();}
 function resetAll(){if(!confirm('確定要清除所有作答記錄？'))return;ans={};renderList();updateProg();}
+/*bx-ord*/
+var BXO='new';try{BXO=localStorage.getItem('bx-ord')||'new'}catch(e){}
+var BXR=new Map();function bxShuffle(){BXR=new Map();CARDS.forEach(function(c){BXR.set(c,Math.random())})}bxShuffle();
+function bxOrd(v){if(BXO==='new')return v.slice().sort(function(a,b){return (+b.year)-(+a.year)||(+a.num)-(+b.num)});
+ if(BXO==='rand')return v.slice().sort(function(a,b){return BXR.get(a)-BXR.get(b)});return v}
+function bxBar(){var L=document.getElementById('list');if(!L||document.getElementById('ords'))return;
+ L.insertAdjacentHTML('beforebegin','<div class="ords" id="ords">題目順序<button data-o="new">年份新→舊</button><button data-o="rand">隨機</button><button data-o="ch">章節順序</button><button class="sh" id="shuf">重新洗牌</button></div>');
+ function mark(){[].forEach.call(document.querySelectorAll('#ords button[data-o]'),function(b){b.className=b.dataset.o===BXO?'on':''});document.getElementById('shuf').style.display=BXO==='rand'?'':'none'}
+ [].forEach.call(document.querySelectorAll('#ords button[data-o]'),function(b){b.onclick=function(){BXO=b.dataset.o;try{localStorage.setItem('bx-ord',BXO)}catch(e){}if(BXO==='rand')bxShuffle();mark();renderList();window.scrollTo({top:0})}});
+ document.getElementById('shuf').onclick=function(){bxShuffle();renderList();window.scrollTo({top:0})};mark()}
 function renderList(){
+  bxBar();
   const list=g('list');list.innerHTML='';
-  const vis=CARDS.filter(c=>sel[c.chName]);
-  let lastCh='';
+  const vis=bxOrd(CARDS.filter(c=>sel[c.chName]));
+  let last='';
   vis.forEach(card=>{
     const idx=CARDS.indexOf(card);
-    if(card.chName!==lastCh){
-      const h=document.createElement('div');h.className='ch-header';h.textContent=card.chName;list.appendChild(h);lastCh=card.chName;
-    }
+    const hk=BXO==='rand'?'':(BXO==='ch'?card.chName:card.year+' 年');
+    if(hk&&hk!==last){const h=document.createElement('div');h.className=BXO==='ch'?'ch-header':'yr-header';h.textContent=hk;list.appendChild(h);last=hk}
     list.appendChild(makeCard(card,idx));
   });
   updateProg();
