@@ -322,9 +322,9 @@ const ITEMS=[{"id":"VA1_99_2","cat":"A1","year":"99年第2題","q":"客觀上具
 const CAT_LABELS={"A1":"A1 估價原則","A2":"A2 價格種類","A3":"A3 影響因素","A4":"A4 估價程序","B1":"B1 比較法","B2":"B2 比較法應用","C1":"C1 成本法基礎","C2":"C2 折舊計算","D1":"D1 收益法基礎","D2":"D2 資本化率","D3":"D3 DCF","E1":"E1 土地開發","F1":"F1 租金估計","G1":"G1 樓層效用比","H1":"H1 特殊宗地①","H2":"H2 特殊宗地②","H3":"H3 都更","I1":"I1 CAMA"};
 const LB=["A","B","C","D"];
 let MASTERY={};
-try{MASTERY=JSON.parse(localStorage.getItem("appraisal_card_mastery")||"{}");}catch(e){}
+try{MASTERY=JSON.parse(localStorage.getItem("bxe-card")||"{}");}catch(e){}
 let filtered=[...ITEMS],idx=0,order=[],shuffled=false,answered=false;
-function saveM(){try{localStorage.setItem("appraisal_card_mastery",JSON.stringify(MASTERY));}catch(e){}}
+function saveM(){try{localStorage.setItem("bxe-card",JSON.stringify(MASTERY));}catch(e){}}
 function cur(){return filtered[(order.length?order:filtered.map((_,i)=>i))[idx]];}
 function mIcon(id){const s=MASTERY[id];return s==="mastered"?"✅":s==="review"?"🔄":"🔲";}
 function toggleM(id){

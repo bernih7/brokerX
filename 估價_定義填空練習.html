@@ -882,6 +882,11 @@ function renderQuizCard() {
   if (quizIdx >= quizQueue.length) {
     prog.textContent = '';
     area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    // 存完成輪數
+    try{
+      var fc=parseInt(localStorage.getItem('bxe-fill')||'0')+1;
+      localStorage.setItem('bxe-fill',fc);
+    }catch(e){}
     return;
   }
   const c = quizQueue[quizIdx];
