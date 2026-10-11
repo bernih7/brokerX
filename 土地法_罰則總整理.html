@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#F8F3E9; --paper2:#FBF8F0; --paper-dark:#EFE7D4; --ink:#2A2722; --muted:#7a7466;
-  --vermillion:#A8402B; --gold:#BC8A2E; --green:#3F6B4C; --blue:#3A5A78; --purple:#6B4E8A; --orange:#B9722A;
-  --line:#DDD2BB;
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;
+  --paper:#F5F1E6; --paper2:#FAF8EF; --paper-dark:#ECE6D4; --ink:#25302C; --muted:#66706A;
+  --vermillion:#A8402B; --gold:#B8782E; --green:#35693F; --blue:#3A5A78; --purple:#6B4E8A; --orange:#B9722A;
+  --line:#DDD6C0;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -25,7 +25,7 @@ h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.65rem;margin:0 
 .toolbar a{font-size:.76rem;text-decoration:none;color:var(--ink);background:var(--paper-dark);border:1px solid var(--line);padding:3px 9px;border-radius:14px;font-weight:700}
 .toolbar button{font-size:.8rem;font-weight:700;border:1px solid var(--gold);background:#fff;color:var(--gold);padding:5px 12px;border-radius:14px;cursor:pointer;font-family:inherit}
 .toolbar button.on{background:var(--gold);color:#fff}
-h2{scroll-margin-top:100px;font-family:'Noto Serif TC',serif;font-size:1.2rem;margin:34px 0 4px;padding-left:10px;border-left:5px solid var(--vermillion);line-height:1.4}
+h2{scroll-margin-top:100px;font-family:'Noto Serif TC',serif;font-size:1.2rem;margin:34px 0 4px;padding-left:10px;border-left:5px solid var(--pri);line-height:1.4}
 h3{font-size:.98rem;margin:18px 0 6px}
 .lead{font-size:.85rem;color:var(--muted);margin:0 0 10px}
 .tw{border:1px solid var(--line);border-radius:10px;background:var(--paper2);margin:8px 0 12px;overflow:hidden}
@@ -37,13 +37,13 @@ tr:last-child td{border-bottom:none}
 .rt4 th:nth-child(1){width:30%} .rt4 th:nth-child(2){width:38%} .rt4 th:nth-child(3){width:13%} .rt4 th:nth-child(4){width:19%}
 .cmp th:nth-child(1){width:19%}
 .tier td{font-weight:700;color:#fff;border-bottom:none;font-size:.9rem}
-.tier.t1 td{background:var(--vermillion)} .tier.t2 td{background:var(--orange)} .tier.t3 td{background:var(--gold)} .tier.t4 td{background:var(--green)}
+.tier.t1 td{background:var(--pri)} .tier.t2 td{background:var(--orange)} .tier.t3 td{background:var(--gold)} .tier.t4 td{background:var(--green)}
 .tier.pr td{background:var(--blue)} .tier.pe td{background:var(--purple)} .tier.bk td{background:var(--ink)}
 .art{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--blue)}
 .exam{font-size:.74rem;color:var(--muted)}
-.big{font-weight:900;color:var(--vermillion)}
+.big{font-weight:900;color:var(--pri)}
 .pill{display:inline-block;font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 8px;background:var(--paper-dark);margin-right:4px}
-.pill.d{background:#f3d9d2;color:var(--vermillion)} .pill.f{background:#f5e6c4;color:#8a6414} .pill.q{background:#dfe7ee;color:var(--blue)}
+.pill.d{background:#f3d9d2;color:var(--pri)} .pill.f{background:#f5e6c4;color:#8a6414} .pill.q{background:#dfe7ee;color:var(--blue)}
 .box{border-radius:10px;padding:10px 13px;margin:10px 0;font-size:.89rem;border:1px solid var(--line);background:var(--paper2)}
 .box b.lab{display:inline-block;font-size:.72rem;color:#fff;border-radius:8px;padding:0 8px;margin-right:6px}
 .box.mnem{border-left:5px solid var(--purple)} .box.mnem b.lab{background:var(--purple)}
@@ -66,7 +66,7 @@ tr:last-child td{border-bottom:none}
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .three .c{border:1px solid var(--line);border-radius:10px;background:var(--paper2);padding:10px 12px;font-size:.86rem;min-width:0;overflow-wrap:anywhere}
 .three .c h4{margin:0 0 6px;font-size:.92rem}
-.three .c.a{border-top:5px solid var(--blue)} .three .c.b{border-top:5px solid var(--purple)} .three .c.c{border-top:5px solid var(--vermillion)}
+.three .c.a{border-top:5px solid var(--blue)} .three .c.b{border-top:5px solid var(--purple)} .three .c.c{border-top:5px solid var(--pri)}
 .card{border:1px solid var(--line);border-radius:10px;background:var(--paper2);padding:9px 12px;margin:8px 0;font-size:.88rem}
 @media(max-width:640px){
   h1{font-size:1.38rem}
@@ -90,7 +90,7 @@ body.cloze .ans{cursor:pointer}
 .foot{font-size:.76rem;color:var(--muted);margin-top:30px;border-top:1px solid var(--line);padding-top:10px;line-height:1.75}
 .foot ol{padding-left:18px;margin:6px 0}
 .xref{font-family:'Noto Sans TC',sans-serif;font-size:.74rem;font-weight:700;color:var(--blue);background:#e4ebf2;border-radius:8px;padding:1px 7px;text-decoration:none;white-space:nowrap;display:inline-block;margin-top:2px}
-body:not(.cloze) .ans{font-weight:900;color:var(--vermillion);background:#f8e3d0;border-radius:4px;padding:0 3px}
+body:not(.cloze) .ans{font-weight:900;color:var(--pri);background:#f8e3d0;border-radius:4px;padding:0 3px}
 .rt td:first-child,.rt4 td:first-child{font-weight:700}
 </style>
 </head>

@@ -7,12 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#F8F3E9;
-    --ink:#2A2722;
+  :root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;
+    --paper:#F5F1E6;
+    --ink:#25302C;
     --vermillion:#A8402B;
-    --gold:#BC8A2E;
-    --green:#5C7A4A;
+    --gold:#B8782E;
+    --green:#35693F;
     --blue:#3E6B8C;
   }
   *{box-sizing:border-box;}
@@ -33,7 +33,7 @@
   .eyebrow{
     font-size:13px;
     letter-spacing:.12em;
-    color:var(--vermillion);
+    color:var(--pri);
     font-weight:700;
     margin-bottom:10px;
   }
@@ -49,9 +49,9 @@
     position:absolute;
     top:0;right:0;
     width:64px;height:64px;
-    border:3px solid var(--vermillion);
+    border:3px solid var(--pri);
     border-radius:50%;
-    color:var(--vermillion);
+    color:var(--pri);
     display:flex;align-items:center;justify-content:center;
     font-family:'Noto Serif TC',serif;
     font-weight:900;
@@ -84,7 +84,7 @@
     width:100%;
     border-collapse:collapse;
     font-size:14px;
-    background:#fffdf8;
+    background:#FFFEFA;
     box-shadow:0 1px 0 rgba(0,0,0,.05);
   }
   th,td{
@@ -106,7 +106,7 @@
     white-space:nowrap;
     color:var(--blue);
   }
-  tr.row-red td{background:rgba(168,64,43,.05);}
+  tr.row-red td{background:color-mix(in srgb,var(--pri) 5%,transparent);}
   tr.row-yellow td{background:rgba(188,138,46,.06);}
   tr.row-green td{background:rgba(92,122,74,.05);}
   .tag{
@@ -136,11 +136,11 @@
   }
   .rule-title{font-weight:700;margin-bottom:4px;font-size:15.5px;}
   .rule-body{color:#454138;font-size:14.5px;}
-  .rule-body b{color:var(--vermillion);}
+  .rule-body b{color:var(--key);}
 
   /* 三、使用情境 */
   .usecase{
-    background:#fffdf8;
+    background:#FFFEFA;
     border-left:4px solid var(--green);
     padding:14px 18px;
     margin-bottom:12px;
@@ -183,10 +183,10 @@
     left:-27px;top:4px;
     width:11px;height:11px;
     border-radius:50%;
-    background:var(--vermillion);
+    background:var(--pri);
     border:2px solid var(--paper);
   }
-  .t-label{font-weight:700;color:var(--vermillion);font-size:14.5px;}
+  .t-label{font-weight:700;color:var(--pri);font-size:14.5px;}
   .t-item p{margin-top:4px;font-size:14.5px;}
 
   /* 五、五件套 */
@@ -198,7 +198,7 @@
   .kit-item{
     display:flex;
     gap:12px;
-    background:#fffdf8;
+    background:#FFFEFA;
     padding:12px 16px;
     border-radius:6px;
     border:1px solid #e4ddcc;
@@ -221,7 +221,7 @@
   }
   .tool-link{
     display:block;
-    background:#fffdf8;
+    background:#FFFEFA;
     border:1px solid #e4ddcc;
     border-left:4px solid var(--blue);
     border-radius:0 6px 6px 0;
@@ -244,15 +244,15 @@
     text-align:center;
   }
   .callout{
-    background:rgba(168,64,43,.07);
-    border:1px solid rgba(168,64,43,.25);
+    background:color-mix(in srgb,var(--pri) 7%,transparent);
+    border:1px solid color-mix(in srgb,var(--pri) 25%,transparent);
     border-radius:6px;
     padding:12px 16px;
     font-size:13.5px;
     margin-top:14px;
   }
 .navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
-.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#D8CDB8);background:var(--paper,#F8F3E9);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
+.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#DDD6C0);background:var(--paper,#F5F1E6);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
 .navfab .up{display:none;}
 .navfab .up.on{display:block;}
 

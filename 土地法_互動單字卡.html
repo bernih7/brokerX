@@ -7,22 +7,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#F8F3E9;
-  --paper-deep:#EFE6D5;
-  --ink:#2A2722;
-  --ink-soft:#7A7165;
-  --rule:#DED1B9;
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;
+  --paper:#F5F1E6;
+  --paper-deep:#ECE6D4;
+  --ink:#25302C;
+  --ink-soft:#66706A;
+  --rule:#DDD6C0;
   --stamp:#A8402B;
-  --gold:#BC8A2E;
-  --green:#5C7A4A;
+  --gold:#B8782E;
+  --green:#35693F;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   font-family:'Noto Sans TC',sans-serif;
   background:
     radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
-    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
+    radial-gradient(circle at 90% 95%, color-mix(in srgb,var(--pri) 5%,transparent), transparent 45%),
     var(--paper);
   color:var(--ink);
   min-height:100vh;
@@ -36,8 +36,8 @@ header{text-align:center;margin-bottom:14px;}
 .case-tag{
   display:inline-flex;align-items:center;gap:6px;
   font-family:'Noto Serif TC',serif;font-weight:700;font-size:12px;
-  letter-spacing:.12em;color:var(--stamp);
-  border:1px solid var(--stamp);border-radius:999px;
+  letter-spacing:.12em;color:var(--pri);
+  border:1px solid var(--pri);border-radius:999px;
   padding:3px 12px;margin-bottom:10px;
 }
 h1{
@@ -78,8 +78,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .status-row .chip{border-color:var(--gold);color:var(--gold);}
 .status-row .chip.active{background:var(--gold);color:#fff;}
-.status-row .chip.review{border-color:var(--stamp);color:var(--stamp);}
-.status-row .chip.review.active{background:var(--stamp);color:#fff;}
+.status-row .chip.review{border-color:var(--pri);color:var(--pri);}
+.status-row .chip.review.active{background:var(--pri);color:var(--onpri);}
 .status-row .chip.mastered{border-color:var(--green);color:var(--green);}
 .status-row .chip.mastered.active{background:var(--green);color:#fff;}
 
@@ -92,7 +92,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
   margin:0 auto 18px;max-width:200px;
 }
-.progress-fill{height:100%;background:var(--stamp);transition:width .25s ease;}
+.progress-fill{height:100%;background:var(--pri);transition:width .25s ease;}
 
 .scene{perspective:1400px;width:100%;}
 .card{
@@ -125,13 +125,13 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   font-size:18px;line-height:1.7;color:var(--ink);
 }
 .answer{font-size:14px;line-height:1.9;color:var(--ink);}
-.answer b{color:var(--stamp);}
+.answer b{color:var(--key);}
 .face-foot{
   text-align:center;font-size:11px;color:var(--ink-soft);
   letter-spacing:.15em;margin-top:14px;font-family:'Noto Serif TC',serif;
 }
 .face.back .face-foot{color:var(--gold);}
-.face.back{border-left:6px solid var(--cat-color,var(--stamp));}
+.face.back{border-left:6px solid var(--cat-color,var(--pri));}
 
 .controls{
   display:flex;align-items:center;justify-content:center;gap:10px;
@@ -144,8 +144,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   transition:all .15s ease;
 }
 .btn:hover{background:var(--ink);color:#fff;}
-.btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
-.btn.primary:hover{background:#8c3322;}
+.btn.primary{background:var(--pri);border-color:var(--pri);color:var(--onpri);}
+.btn.primary:hover{background:var(--pri2);}
 .btn.green{border-color:var(--green);color:var(--green);}
 .btn.green:hover{background:var(--green);color:#fff;}
 .btn.gold{border-color:var(--gold);color:var(--gold);}
@@ -159,7 +159,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 }
 .quiz-stats b{font-family:'Noto Serif TC',serif;}
 .quiz-stats .ok{color:var(--green);}
-.quiz-stats .ng{color:var(--stamp);}
+.quiz-stats .ng{color:var(--pri);}
 
 .breakdown{
   margin-top:14px;background:#fff;border:1px solid var(--rule);
@@ -557,7 +557,7 @@ document.getElementById('resetMastery').addEventListener('click',async ()=>{
 <!--NAVFAB-->
 <style>
 .navfab{position:fixed;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;z-index:50;}
-.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#D8CDB8);background:var(--paper,#F8F3E9);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
+.navfab a,.navfab button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line,#DDD6C0);background:var(--paper,#F5F1E6);color:var(--blue,#3A5A78);font-size:1.05rem;line-height:40px;text-align:center;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;padding:0;font-family:inherit;}
 .navfab .up{display:none;}
 .navfab .up.on{display:block;}
 </style>

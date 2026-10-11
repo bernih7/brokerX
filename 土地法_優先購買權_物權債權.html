@@ -1,23 +1,23 @@
 <!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>優先購買權：物權與債權</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>
-:root{--bg:#F8F3E9;--ink:#2A2722;--red:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;--card:#FFFDF8;--line:#E4DAC4;--muted:#7A6E5E;--blue:#1E3E6E;--surface2:#F0EBE0;--warn:#FFF1D6;--c0:#A8402B;--c1:#3E6B8C;--c2:#5C7A4A;--c3:#7B5C8C;--c4:#BC8A2E;color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1612;--ink:#F0E8D8;--red:#E05040;--gold:#D4A030;--green:#5AAA48;--card:#26201A;--line:#3C3028;--muted:#9A8C7C;--blue:#6090D8;--surface2:#302820;--warn:#3A2E14;--c0:#E05040;--c1:#6AA8D0;--c2:#5AAA48;--c3:#B08CC8;--c4:#D4A030;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1A1612;--ink:#F0E8D8;--red:#E05040;--gold:#D4A030;--green:#5AAA48;--card:#26201A;--line:#3C3028;--muted:#9A8C7C;--blue:#6090D8;--surface2:#302820;--warn:#3A2E14;--c0:#E05040;--c1:#6AA8D0;--c2:#5AAA48;--c3:#B08CC8;--c4:#D4A030;color-scheme:dark}
-:root[data-theme="light"]{--bg:#F8F3E9;--ink:#2A2722;--red:#A8402B;--gold:#BC8A2E;--green:#5C7A4A;--card:#FFFDF8;--line:#E4DAC4;--muted:#7A6E5E;--blue:#1E3E6E;--surface2:#F0EBE0;--warn:#FFF1D6;--c0:#A8402B;--c1:#3E6B8C;--c2:#5C7A4A;--c3:#7B5C8C;--c4:#BC8A2E;color-scheme:light}
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--blue:#1E3E6E;--surface2:#ECE6D4;--warn:#FFF1D6;--c0:#2F5D50;--c1:#3E6B8C;--c2:#35693F;--c3:#7B5C8C;--c4:#B8782E;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--pri2:#6FAE9A;--key:#E0B070;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--bg:#161C19;--ink:#E7ECE6;--red:#E05040;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--blue:#6090D8;--surface2:#27302B;--warn:#3A2E14;--c0:#84C2AE;--c1:#6AA8D0;--c2:#8FCB93;--c3:#B08CC8;--c4:#E0B070;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--pri2:#6FAE9A;--key:#E0B070;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--bg:#161C19;--ink:#E7ECE6;--red:#E05040;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--blue:#6090D8;--surface2:#27302B;--warn:#3A2E14;--c0:#84C2AE;--c1:#6AA8D0;--c2:#8FCB93;--c3:#B08CC8;--c4:#E0B070;color-scheme:dark}
+:root[data-theme="light"]{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--blue:#1E3E6E;--surface2:#ECE6D4;--warn:#FFF1D6;--c0:#2F5D50;--c1:#3E6B8C;--c2:#35693F;--c3:#7B5C8C;--c4:#B8782E;color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:56px}
 body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;padding-bottom:90px;overflow-x:hidden}
-header{background:linear-gradient(135deg,var(--red),#8c3322);color:#fff;padding:24px 16px 18px;text-align:center;position:relative}
+header{background:linear-gradient(135deg,var(--hbg1),var(--hbg2));color:#fff;padding:24px 16px 18px;text-align:center;position:relative}
 header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin-bottom:4px}
 header .sub{font-size:13px;opacity:.88}
 .theme{position:absolute;right:12px;top:12px;font:inherit;font-size:12px;border:1px solid rgba(255,255,255,.55);background:transparent;color:#fff;border-radius:99px;padding:3px 10px;cursor:pointer}
 nav{background:var(--card);border-bottom:1px solid var(--line);padding:8px 12px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10;justify-content:center}
 nav a{font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--muted);text-decoration:none;white-space:nowrap}
-nav a:hover{background:var(--red);color:#fff;border-color:var(--red)}
+nav a:hover{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
 main{max-width:1040px;margin:0 auto;padding:16px}
 .intro{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--muted);margin-bottom:6px}
 .intro b{color:var(--ink)}
 .sec{margin-top:34px}
-.sec h2{font-family:"Noto Serif TC",serif;font-size:17px;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+.sec h2{font-family:"Noto Serif TC",serif;font-size:17px;color:var(--pri);border-bottom:2px solid var(--line);padding-bottom:6px;margin-bottom:6px}
 .sec h2 .n{color:var(--gold);font-size:22px;margin-right:6px}
 .sec h3{font-family:"Noto Serif TC",serif;font-size:14px;margin:22px 0 8px}
 .lead{font-size:13px;color:var(--muted);margin-bottom:12px}
@@ -29,7 +29,7 @@ table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 .cmp thead th{font-family:"Noto Serif TC",serif;text-align:center;background:var(--surface2);font-size:13px;border-top:3px solid var(--muted)}
 .cmp thead th.c0{border-top-color:var(--c0);color:var(--c0)}.cmp thead th.c1{border-top-color:var(--c1);color:var(--c1)}.cmp thead th.c2{border-top-color:var(--c2);color:var(--c2)}.cmp thead th.c3{border-top-color:var(--c3);color:var(--c3)}.cmp thead th.c4{border-top-color:var(--c4);color:var(--c4)}
 .cmp th.rh{width:84px;background:var(--surface2);color:var(--muted);font-size:12px;text-align:center}
-.cmp td b{color:var(--red)}
+.cmp td b{color:var(--key)}
 .cmp ul{padding-left:1.1em}
 .w{color:#fff;background:var(--red);border-radius:4px;padding:0 4px;font-size:11px;font-weight:700;margin-right:2px}
 .p{display:inline-block;color:#6b4a00;background:#F6D98A;border-radius:4px;padding:0 5px;font-size:11px;font-weight:700}
@@ -41,7 +41,7 @@ table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 .hi{color:var(--red);font-weight:700}
 .pend{list-style:none;display:grid;gap:8px}
 .pend li{background:var(--warn);border:1px solid var(--gold);border-radius:8px;padding:9px 12px;font-size:13px}
-.pend li b{color:var(--red)}
+.pend li b{color:var(--key)}
 .foot{margin-top:28px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
 @media(max-width:760px){
  .cmpwrap{border:none;background:transparent}
@@ -62,7 +62,7 @@ table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 .nt{width:100%;border-collapse:collapse;table-layout:fixed;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .nt th,.nt td{border:1px solid var(--line);padding:8px 10px;font-size:13px;vertical-align:top;line-height:1.6;word-break:break-word}
 .nt th{background:var(--surface2);font-size:12px;color:var(--muted);text-align:left}
-.nt td.num{font-weight:700;color:var(--red);width:34%}
+.nt td.num{font-weight:700;color:var(--pri);width:34%}
 .nt td.law{width:22%;color:var(--muted);font-size:12px}
 .nt tr.hide{display:none}
 .grp{margin:22px 0 8px;font-family:"Noto Serif TC",serif;font-size:14px;font-weight:700;color:var(--blue)}
@@ -77,16 +77,16 @@ table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 .tbl th{background:var(--surface2);font-size:12px;color:var(--muted);text-align:left}
 .wrap{overflow-x:auto;border-radius:10px}
 .tag2{display:inline-block;white-space:nowrap;margin-bottom:2px;font-size:11px;font-weight:700;padding:0 8px;border-radius:99px;margin-right:4px}
-.t-real{background:var(--red);color:#fff}.t-oblig{background:var(--c1);color:#fff}.t-pend{background:#F6D98A;color:#6b4a00}
+.t-real{background:var(--pri);color:var(--onpri)}.t-oblig{background:var(--c1);color:#fff}.t-pend{background:#F6D98A;color:#6b4a00}
 .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px}
 .qa summary{cursor:pointer;font-weight:700;font-size:14px}
 .qa .ans{margin-top:8px;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
 .step{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:13px}
-.step b{color:var(--red)}
+.step b{color:var(--key)}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px}
 .box h4{font-family:"Noto Serif TC",serif;font-size:14px;margin-bottom:6px}
-.box.r h4{color:var(--red)}.box.o h4{color:var(--c1)}
+.box.r h4{color:var(--pri)}.box.o h4{color:var(--c1)}
 @media(max-width:760px){.wrap{overflow:visible}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}.tbl thead{display:none}.tbl{border:none;background:transparent}.tbl tr{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}.tbl td{border:none;border-top:1px dashed var(--line);padding:8px 12px}.tbl td:first-child{border-top:none;font-weight:700;background:var(--surface2)}.tbl td:first-child::before{display:none}.tbl td::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:1px}}
 @media(max-width:620px){.split{grid-template-columns:1fr}}
 </style></head><body><header><button class="theme" id="themeBtn" aria-label="切換深淺色">🌓</button><h1>優先購買權：物權與債權</h1><div class="sub">§34-1・§104・§107・三七五§15 的性質、字樣、期間｜核對日 2026-10-11</div></header><nav><a href="#s1">① 怎麼判斷</a><a href="#s2">② 對照表</a><a href="#s3">③ 效力差在哪</a><a href="#s4">④ 答題寫法</a><a href="#s5">⑤ 自我測驗</a></nav><main>
