@@ -1,0 +1,83 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>罰則總整理 階層多版本 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--mut:#6B7470;--pri:#2F5D50;--gold:#B8782E;--red:#A8402B;--line:#DDD6C3;--gbg:#FBF1D9;--p2:#EFE9D8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans TC",system-ui,sans-serif;padding:14px}
+.w{max-width:720px;margin:0 auto}button{font:inherit;color:inherit;cursor:pointer}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:6px 0 10px;z-index:5;flex-wrap:wrap}
+.vs button{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:3px 14px;font-size:.88rem}.vs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.desc{font-size:.82rem;color:var(--mut);margin:0 0 12px}
+mark{background:var(--gbg);color:#7A4B14;font-weight:700;padding:0 4px;border-radius:4px}
+.k{font-size:.78rem;font-weight:700;color:var(--gold);background:var(--gbg);border-radius:6px;padding:0 8px;white-space:nowrap;flex:none}
+.cnt{font-size:.74rem;color:var(--mut);background:var(--p2);border-radius:99px;padding:0 8px;flex:none}
+.no{margin-top:6px;padding:5px 10px;border-left:3px solid var(--red);background:var(--p2);font-size:.9rem}.no b{color:var(--red);font-size:.76rem;margin-right:6px}
+.dim{color:var(--mut);font-size:.82rem;margin:3px 0 0}.kou{margin:8px 0;padding:6px 10px;background:var(--gbg);border-radius:8px;font-size:.9rem}.kou b{color:var(--gold)}
+.row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:9px 0}
+.row .t{flex:1;min-width:0}.num{font-weight:700;color:var(--pri);flex:none;min-width:1.6em}
+.det{padding:0 0 10px;font-size:.92rem}.det p{margin:2px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.ch{margin-bottom:10px}.ch>.row{padding:13px 14px;font-weight:700;font-size:1.08rem}.ch>.row small{display:block;font-weight:400;font-size:.78rem;color:var(--mut)}
+.chev{flex:none;color:var(--mut);transition:transform .12s;width:1em}.open>.row .chev{transform:rotate(90deg)}
+.body{display:none;padding:0 14px 12px}.open>.body{display:block}
+.it{border-top:1px dashed var(--line)}.it .row{font-size:.93rem}.it .det{display:none;margin-left:2em}.it.open .det{display:block}
+/* A tabs */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin:0 -4px 8px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:8px 12px;font-weight:700;font-size:.9rem;color:var(--mut);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tabs button.on{color:var(--pri);border-color:var(--pri)}
+/* B tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.tile{border:1px solid var(--line);background:var(--p2);border-radius:10px;padding:8px;text-align:left;display:flex;flex-direction:column;gap:2px;font-size:.82rem;font-weight:700;line-height:1.35}
+.tile .n{font-size:1.2rem;color:var(--pri)}.tile.on{background:var(--pri);color:#fff;border-color:var(--pri)}.tile.on .n,.tile.on .cnt{color:#fff;background:none}
+.tile .cnt{align-self:flex-start;margin-top:auto}
+/* C drill */
+.hd{display:flex;align-items:center;gap:8px;padding:6px 0 10px;font-weight:700}.hd button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:2px 12px}
+.lst .row{padding:13px 14px;border-top:1px solid var(--line)}.lst .row:first-child{border-top:0}
+/* D table */
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:10px}th{font-size:.74rem;color:var(--mut);text-align:left;padding:2px 6px;font-weight:600}
+td{padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}tr.r{cursor:pointer}tr.d td{background:var(--p2);font-size:.88rem}tr.d{display:none}tr.d.open{display:table-row}
+.sh{font-weight:700;margin:12px 0 2px;display:flex;gap:8px;align-items:center}.sh .num{color:var(--pri)}
+.bar{display:flex;gap:8px;margin-bottom:10px}.bar button{border:1px solid var(--gold);color:var(--gold);background:none;border-radius:99px;padding:2px 14px;font-size:.85rem}
+</style></head><body><div class="w">
+<div class="vs" id="vs"></div><p class="desc" id="desc"></p><div id="app"></div></div>
+<script>
+const N=(t)=>t;
+const DATA=[
+{n:"二",t:"土地法本法",s:"§73 罰鍰・§73-1 繼承時間軸・其他責任",subs:[
+ {n:"2.1",t:"逾期登記罰鍰（§73）",its:[
+  {n:"①",t:"一般權利變更登記逾期",k:"1個月",b:"權利變更後 <mark>1個月</mark> 內聲請；逾期每逾1個月得處登記費 <mark>1倍</mark>，最高 <mark>20倍</mark>。",d:"陷阱：107-1 改成 2倍；基數是登記費，不是公告地價。"},
+  {n:"②",t:"繼承登記逾期",k:"6個月",b:"自繼承開始 <mark>6個月</mark> 內聲請；罰法同上。",d:"不是1個月、3個月、1年（112-8A）。"}],kou:"一月登記、六月繼承、每月一倍、二十封頂"},
+ {n:"2.2",t:"繼承逾1年未辦：強制處分（§73-1）",its:[
+  {n:"1",t:"6個月內：先辦登記",k:"6個月",b:"繼承人向地政事務所申請繼承登記（§73）",no:"逾期每逾1個月得處登記費1倍，最高20倍"},
+  {n:"2",t:"逾1年：公告催辦",k:"3個月",b:"公告並書面通知；繼承人 <mark>3個月</mark> 內聲請。",no:"不聲請 → 進入列冊管理",d:"不可歸責事由遲延者扣除（§73-1 第1項）"},
+  {n:"3",t:"公告期滿：列冊管理",k:"15年",b:"列冊管理 <mark>15年</mark>。",no:"15年屆滿仍未聲請 → 進入標售"},
+  {n:"4",t:"列管屆滿：公開標售",k:"3個月",b:"移請 <mark>財政部國有財產署</mark> 標售；標售前公告 <mark>3個月</mark>。",d:"不是地政機關、縣市政府、行政執行署。"},
+  {n:"5",t:"標售時：優先購買",k:"",b:"順序：繼承人 → 合法使用人 → 其他共有人",no:"無合法使用權者喪失占有；租賃逾5年以 5年 為限"},
+  {n:"6",t:"成交後：價款分配",k:"10年",b:"價款依法定應繼分領取。",no:"逾 10年 無人領取 → 歸國庫"},
+  {n:"7",t:"無人應買：再標售",k:"",b:"再標售酌減不逾20%。",no:"五次不成 → 登記國有；10年內仍可請領價金"}],kou:"1年・3個月・15年・10年（1、3、15、10）"},
+ {n:"2.3",t:"其他登記相關處罰與責任",its:[
+  {n:"①",t:"總登記逾期不登記／不補件",k:"30日",b:"視為無主土地，公告 <mark>30日</mark> 無異議 → 國有（§57、§58）"},
+  {n:"②",t:"登記錯誤致人受損",k:"10%",b:"地政機關賠償；登記儲金 <mark>10%</mark>（§68、§70、§71）"},
+  {n:"③",t:"房屋租金超限",k:"10%",b:"年息 <mark>10%</mark> 上限，押金不得逾 <mark>2個月</mark>（§97、§99）"}]}]},
+{n:"三",t:"平均地權條例",s:"金額階梯與口訣「資報約金轉炒」",subs:[
+ {n:"3.1",t:"刑責與基礎罰鍰",its:[{n:"①",t:"（同樣格式）",k:"",b:""}]},{n:"3.2",t:"申報登錄與預售屋",its:[{n:"①",t:"（同樣格式）",k:"",b:""}]}]}];
+const V=[["A 分頁籤","打開章後，小節變成上方的分頁籤，一次只看一個小節。"],["B 方塊目錄","打開章後先看到 3 個方塊（編號＋項數），點方塊才在下方展開那一小節。"],["C 逐層進入","像手機設定：點一下進入下一頁，用「返回」回上一層，永遠只看一層。"],["D 對照表","打開章後每個小節是一張表（項目｜關鍵數字），點列才展開細節。"]];
+let cur=0,S={};
+const det=i=>`<div class="det"><p>${i.b||""}</p>${i.no?`<div class="no"><b>不做會怎樣</b>${i.no}</div>`:""}${i.d?`<p class="dim">${i.d}</p>`:""}</div>`;
+const item=i=>`<div class="it"><button class="row" data-t="it"><span class="chev">▸</span><span class="num">${i.n}</span><span class="t">${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}</button>${det(i)}</div>`;
+const items=s=>s.its.map(item).join("")+(s.kou?`<div class="kou"><b>口訣</b>　${s.kou}</div>`:"");
+function A(){return DATA.map((c,ci)=>`<div class="card ch ${S['c'+ci]?'open':''}"><button class="row" data-c="${ci}"><span class="chev">▸</span><span class="num">${c.n}</span><span class="t">${c.t}<small>${c.s}</small></span></button><div class="body"><div class="tabs">${c.subs.map((s,si)=>`<button class="${(S['t'+ci]||0)==si?'on':''}" data-tab="${ci},${si}">${s.n} ${s.t.replace(/（.*/,'').replace(/：.*/,'')} <span class="cnt">${s.its.length}</span></button>`).join("")}</div>${items(c.subs[S['t'+ci]||0])}</div></div>`).join("")}
+function B(){return DATA.map((c,ci)=>`<div class="card ch ${S['c'+ci]?'open':''}"><button class="row" data-c="${ci}"><span class="chev">▸</span><span class="num">${c.n}</span><span class="t">${c.t}<small>${c.s}</small></span></button><div class="body"><div class="tiles">${c.subs.map((s,si)=>`<button class="tile ${S['t'+ci]===si?'on':''}" data-tab="${ci},${si}"><span class="n">${s.n}</span>${s.t.replace(/（.*/,'').replace(/：.*/,'')}<span class="cnt">${s.its.length} 項</span></button>`).join("")}</div>${S['t'+ci]!=null?items(c.subs[S['t'+ci]]):'<p class="dim">點上面的方塊看內容</p>'}</div></div>`).join("")}
+function C(){const p=S.p;if(!p)return`<div class="card lst">${DATA.map((c,ci)=>`<button class="row" data-go="${ci}"><span class="num">${c.n}</span><span class="t">${c.t}<br><small class="dim">${c.s}</small></span><span class="chev">›</span></button>`).join("")}</div>`;
+const c=DATA[p[0]];if(p.length==1)return`<div class="hd"><button data-back>‹ 返回</button>${c.n}　${c.t}</div><div class="card lst">${c.subs.map((s,si)=>`<button class="row" data-go="${p[0]},${si}"><span class="num">${s.n}</span><span class="t">${s.t}</span><span class="cnt">${s.its.length}</span><span class="chev">›</span></button>`).join("")}</div>`;
+const s=c.subs[p[1]];return`<div class="hd"><button data-back>‹ ${c.t}</button>${s.n}　${s.t.replace(/（.*/,'')}</div><div class="card" style="padding:4px 14px">${items(s)}</div>`}
+function D(){return DATA.map((c,ci)=>`<div class="card ch ${S['c'+ci]?'open':''}"><button class="row" data-c="${ci}"><span class="chev">▸</span><span class="num">${c.n}</span><span class="t">${c.t}<small>${c.s}</small></span></button><div class="body">${c.subs.map(s=>`<div class="sh"><span class="num">${s.n}</span>${s.t}<span class="cnt">${s.its.length}</span></div><table><tr><th></th><th>項目</th><th>關鍵</th></tr>${s.its.map((i,ii)=>`<tr class="r" data-r="${s.n}-${ii}"><td class="num">${i.n}</td><td>${i.t}</td><td>${i.k?`<span class="k">${i.k}</span>`:""}</td></tr><tr class="d ${S['r'+s.n+ii]?'open':''}"><td></td><td colspan="2">${i.b}${i.no?`<div class="no"><b>不做會怎樣</b>${i.no}</div>`:""}${i.d?`<p class="dim">${i.d}</p>`:""}</td></tr>`).join("")}</table>${s.kou?`<div class="kou"><b>口訣</b>　${s.kou}</div>`:""}`).join("")}</div></div>`).join("")}
+function render(){vs.innerHTML=V.map((v,i)=>`<button class="${i==cur?'on':''}" data-v="${i}">${v[0]}</button>`).join("");desc.textContent=V[cur][1]+"　（預設全部收合）";app.innerHTML=[A,B,C,D][cur]()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-v],[data-c],[data-tab],[data-t],[data-go],[data-back],[data-r]");if(!b)return;
+if(b.dataset.v!=null){cur=+b.dataset.v;S={};return render()}
+if(b.dataset.c!=null){S['c'+b.dataset.c]=!S['c'+b.dataset.c];return render()}
+if(b.dataset.tab){const[c,s]=b.dataset.tab.split(",");S['t'+c]=(cur==1&&S['t'+c]==+s)?null:+s;return render()}
+if(b.dataset.go!=null){S.p=b.dataset.go.split(",").map(Number);return render()}
+if(b.dataset.back!=null){S.p=S.p.length>1?[S.p[0]]:null;return render()}
+if(b.dataset.r){const[s,i]=b.dataset.r.split("-");const k='r'+s+i;S[k]=!S[k];b.nextElementSibling.classList.toggle("open");return}
+if(b.dataset.t){b.parentElement.classList.toggle("open")}});
+render();
+</script></body></html>
