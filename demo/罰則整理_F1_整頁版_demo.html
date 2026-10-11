@@ -41,10 +41,23 @@ mark{background:var(--gbg);color:#7A4B14;font-weight:700;padding:0 4px;border-ra
 .kou{margin:8px 12px;padding:6px 10px;background:var(--gbg);border-radius:8px;font-size:.9rem}.kou b{color:var(--gold)}
 /* cover mode */
 body.cover mark{color:transparent;background:var(--line);cursor:pointer;user-select:none}body.cover mark.show{color:#7A4B14;background:var(--gbg)}
+
+.top{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap;margin:10px 0 6px}.top h1{margin:0;font-size:1.05rem;text-align:left}.tools{margin:0}.tools button{padding:1px 12px;font-size:.8rem}
+.grp{display:grid;grid-template-columns:30px 1fr;gap:8px;margin-bottom:10px}
+.rail{writing-mode:vertical-rl;letter-spacing:.3em;font-weight:700;font-size:.86rem;color:#fff;background:var(--gc);border-radius:8px;text-align:center;padding:8px 0;align-self:stretch}
+.rail small{display:none}
+.grp>.cols{min-width:0}.ch{margin-bottom:6px}
+.xl{font-size:.74rem;color:var(--gc);border:1px solid var(--gc);border-radius:5px;padding:0 8px;margin:6px 0 4px;display:inline-block;font-weight:700}
+.h1{padding:7px 12px;font-size:.98rem;top:44px}.h2{top:84px;padding:6px 10px;font-size:.92rem}
+.ih{padding:7px 0;font-size:.93rem}.it{padding:0 10px}.det{padding:0 0 8px}
+.ln{margin:2px 0;font-size:.92rem}.ln.key{font-weight:600}.ln b{font-size:.74rem;margin-right:6px;font-weight:700}.ln.key b{color:var(--gc,var(--pri))}
+.ln.res{color:var(--ink)}.ln.res b{color:var(--red)}
+.meta{margin:3px 0 0;font-size:.78rem;color:var(--mut);line-height:1.5}.meta span+span::before{content:"・";margin:0 4px}
+.kou{margin:6px 10px;padding:4px 10px;font-size:.88rem}
+@media(min-width:700px){.grp{grid-template-columns:36px 1fr}}
 </style></head><body><div class="w">
-<h1>土地法｜罰則總整理</h1><p class="sub0">依「對象／行為／處罰／條號」分類</p>
 <div id="nav"></div>
-<div class="tools"><button id="all">全部展開</button><button id="cv">遮答案練習</button></div><div id="app"></div></div>
+<div class="top"><h1>土地法｜罰則總整理</h1><div class="tools"><button id="all">全部展開</button><button id="cv">遮答案練習</button></div></div><div id="app"></div></div>
 <script>
 const D2=[
 {n:"二",t:"土地法本法",tag:"必背",subs:[
@@ -74,11 +87,14 @@ const G=[
  {id:"ctl",lab:"管",sub:"使用管制",cls:"ctl",chs:[{n:"七",t:"使用管制",tag:"常考",subs:[{n:"7.1",t:"區域計畫法",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]},
  {id:"rev",lab:"複習",cls:"rev",chs:[{n:"八",t:"考古題陷阱總整理",tag:"複習",subs:[{n:"8.1",t:"陷阱",its:[{n:"①",t:"（同樣格式）",b:""}]}]},{n:"九",t:"30 秒速背卡",tag:"複習",subs:[{n:"9.1",t:"速背",its:[{n:"①",t:"（同樣格式）",b:""}]}]}]}];
 let cid=0;
-const slots=i=>`<dl class="sl">${i.art?`<dt>條文</dt><dd>${i.art}</dd>`:""}${i.b?`<dt class="key">重點</dt><dd class="key">${i.b}</dd>`:""}${i.no?`<dt class="res">後果</dt><dd class="res">${i.no}</dd>`:""}${i.trap?`<dt>陷阱</dt><dd>${i.trap}</dd>`:""}${i.ex?`<dt>考古題</dt><dd>${i.ex}</dd>`:""}</dl>`;
+const slots=i=>`${i.b?`<p class="ln key"><b>重點</b>${i.b}</p>`:""}${i.no?`<p class="ln res"><b>後果 →</b>${i.no}</p>`:""}<p class="meta">${[i.art&&`<span>${i.art}</span>`,i.trap&&`<span>陷阱：${i.trap}</span>`,i.ex&&`<span>考古題 ${i.ex}</span>`].filter(Boolean).join("")}</p>`;
 const kou=s=>s.kou?`<div class="kou"><b>口訣</b>　${s.kou}</div>`:"";
 const item=i=>`<div class="it"><div class="ih" data-it><span class="num">${i.n}</span><span>${i.t}</span>${i.k?`<span class="k">${i.k}</span>`:""}</div><div class="det">${slots(i)}</div></div>`;
 const chap=(c,gc)=>{const id="c"+(cid++);return `<div class="ch ${gc}" id="${id}"><button class="h1 hh" data-ch><span class="num">${c.n}</span>${c.t}<small>${c.tag||""}</small><span class="ar">▾</span></button><div class="c1"><div class="chap">`+c.subs.map(s=>`<div class="subs"><button class="h2 hh" data-sb><span class="num">${s.n}</span>${s.t}<span class="cnt">${s.its.length}</span><span class="ar">▾</span></button><div class="c2">${s.its.map(item).join("")+kou(s)}</div></div>`).join("")+`</div></div></div>`};
-app.innerHTML=G.map(g=>`<div class="gh ${g.cls} ${g.ext?'ext':''}" id="g_${g.id}"><i>${g.lab}</i><span>${g.sub||""}</span></div>`+g.chs.map(c=>chap(c,g.cls)).join("")).join("");
+app.innerHTML=G.map(g=>{const ext=g.ext;return ext?"":""}).join("")+(()=>{let out="",i=0;const L={first:"先看",land:"地",tax:"稅",ctl:"管",rev:"複習"};
+ const gs=G.filter(g=>g.id!="taxx");
+ return gs.map(g=>{let inner=g.chs.map(c=>chap(c,g.cls)).join("");if(g.id=="tax"){const x=G.find(y=>y.id=="taxx");inner+=`<div class="xl">稅法延伸・另外看</div>`+x.chs.map(c=>chap(c,"tax")).join("")}
+ return `<div class="grp ${g.cls}"><div class="rail">${g.lab}</div><div class="cols">${inner}</div></div>`}).join("")})();
 nav.innerHTML=`<span class="g" style="background:var(--land)">地</span><a href="#c1">登記</a><a href="#c2">平均地權</a><span class="sp"></span><span class="g" style="background:var(--tax)">稅</span><a href="#c3">土地稅</a><span class="g" style="background:none;color:var(--tax);border:1px solid var(--tax)">延伸</span><a href="#c4">房屋‧契稅</a><a href="#c5">房地合一</a><span class="sp"></span><span class="g" style="background:var(--ctl)">管</span><a href="#c6">使用管制</a><span class="sp"></span><span class="g" style="background:var(--rev)">複習</span><a href="#c7">陷阱</a><a href="#c8">速背卡</a>`;
 let open=false;
 document.addEventListener("click",e=>{
