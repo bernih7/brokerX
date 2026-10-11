@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>背誦工具版面 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--g1:#2F5D50;--g2:#3E6B8C;--g3:#B8782E;--chipfg:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--onpri:#10201B;--tint:rgba(132,194,174,.12);--hot:#F0907A;--hotbg:rgba(240,144,122,.16);--numbg:rgba(224,176,112,.18);--numfg:#E0B070;--g1:#84C2AE;--g2:#8DB8E8;--g3:#E0B070;--chipfg:#10201B}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
+main{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:30}
+.vs button{flex:1;font:inherit;font-weight:700;font-size:13.5px;padding:8px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.vs button[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13px;color:var(--muted);background:var(--tint);border-radius:10px;padding:8px 12px;margin:0}
+.v{display:none;flex-direction:column;gap:10px}.v.on{display:flex}
+[data-g="1"]{--c:var(--g1)}[data-g="2"]{--c:var(--g2)}[data-g="3"]{--c:var(--g3)}
+a.t{color:inherit;text-decoration:none}
+.bd{display:inline-block;font:700 12px "Noto Sans TC";padding:1px 9px;border-radius:99px;background:var(--numbg);color:var(--numfg);white-space:nowrap}
+.bd.hot{background:var(--hotbg);color:var(--hot)}
+/* group shell */
+details.g{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px}
+details.g>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;gap:10px;align-items:center}details.g>summary::-webkit-details-marker{display:none}
+.gn{flex:none;font:700 12px "Noto Sans TC";background:var(--c);color:var(--chipfg);border-radius:7px;padding:1px 9px}
+.gt{flex:1;min-width:0}.gt b{font:700 16px "Noto Serif TC",serif;color:var(--c)}.gt small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+.ar{color:var(--muted);transition:transform .15s}details[open]>summary .ar{transform:rotate(90deg)}
+.gb{padding:0 10px 10px;display:grid;gap:6px}
+/* v1 rows */
+.r{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.r b{font-size:15px}.r small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+/* v2 tiles */
+.tl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{border:1.5px solid var(--c);border-radius:12px;padding:9px 11px;background:var(--bg);display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile b{font-size:14.5px;line-height:1.35}.tile .big{font:800 20px/1.2 "Noto Serif TC",serif;color:var(--c)}.tile small{color:var(--muted);font-size:12px;line-height:1.4}
+.tile.wide{grid-column:1/-1}
+/* v3 flow */
+.seg{display:flex;gap:6px}.seg button{flex:1;font:inherit;font-weight:700;font-size:13.5px;padding:8px 4px;border-radius:99px;border:1.5px solid var(--c);background:var(--card);color:var(--c);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--c);color:var(--chipfg)}
+.q{font-size:13px;color:var(--muted);margin:0}
+.st{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 10px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.st i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--chipfg);font:700 13px/28px "Noto Sans TC";text-align:center}
+.st b{display:block}.st small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+.note{font-size:12.5px;color:var(--muted)}
+</style></head><body><main>
+<header><h1>背誦工具｜版面 demo</h1><p class="sub">把 10 個工具按「用途」重新分組、去掉 emoji、說明縮成一句。三案擇一，確認後才改指揮中心。</p></header>
+<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+
+<!-- V1 -->
+<div class="v on" id="v1">
+<p class="desc"><b>方案 1：三組收合列表</b>　依「背／查／分析」分三組，每組可收合，一列只有名稱＋一句話＋數字。最接近你現在的版面，改動最小。</p>
+<details class="g" data-g="1" open><summary><span class="gn">背</span><span class="gt"><b>背誦用</b><small>口訣、定義、遮答案練習</small></span><span class="ar">▸</span></summary><div class="gb">
+<a class="t r" href="#"><div><b>彩色重點速記</b><small>22 章，五色框：定義／法條／易混淆／口訣／陷阱</small></div><span class="bd">22 章</span></a>
+<a class="t r" href="#"><div><b>定義填空練習</b><small>點空格看答案，附出題次數</small></div><span class="bd">150 題</span></a>
+<a class="t r" href="#"><div><b>互動單字卡</b><small>定義、數字配對、陷阱辨析</small></div><span class="bd">104 張</span></a>
+<a class="t r" href="#"><div><b>罰則總整理</b><small>九種口訣、遮答案、30 秒速背</small></div><span class="bd">9 口訣</span></a>
+</div></details>
+<details class="g" data-g="2" open><summary><span class="gn">查</span><span class="gt"><b>對照查表</b><small>考前翻、比較兩件事的差別</small></span><span class="ar">▸</span></summary><div class="gb">
+<a class="t r" href="#"><div><b>稅務總表</b><small>用語區辨・義務人・罰則・各稅稅率</small></div><span class="bd">11 章</span></a>
+<a class="t r" href="#"><div><b>稅制與取得方式比較表</b><small>五稅並排；徵收／重劃／照價收買</small></div><span class="bd">3 表</span></a>
+<a class="t r" href="#"><div><b>速查三表</b><small>期間數字＋減免總表＋三種計畫比較</small></div><span class="bd">3 表</span></a>
+<a class="t r" href="#"><div><b>優先購買權：物權與債權</b><small>§34-1／§104／§107／三七五§15</small></div><span class="bd hot">高頻</span></a>
+</div></details>
+<details class="g" data-g="3"><summary><span class="gn">析</span><span class="gt"><b>出題分析</b><small>知道考什麼、怎麼寫</small></span><span class="ar">▸</span></summary><div class="gb">
+<a class="t r" href="#"><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small></div><span class="bd">45 題</span></a>
+<a class="t r" href="#"><div><b>分數・倍數・數字分析</b><small>考題類型、陷阱、對應填空卡</small></div><span class="bd">分析</span></a>
+</div></details>
+</div>
+
+<!-- V2 -->
+<div class="v" id="v2">
+<p class="desc"><b>方案 2：兩欄磚</b>　每個工具一塊，最大的字是「規模」（150 題、22 章），一眼看到量；同組同色框。畫面最短，但說明只剩一行。</p>
+<div data-g="1"><p class="q"><b style="color:var(--c)">背誦用</b>　口訣、定義、遮答案</p><div class="tl">
+<a class="t tile" href="#"><span class="big">22 章</span><b>彩色重點速記</b><small>五色框</small></a>
+<a class="t tile" href="#"><span class="big">150 題</span><b>定義填空練習</b><small>點空格看答案</small></a>
+<a class="t tile" href="#"><span class="big">104 張</span><b>互動單字卡</b><small>學習＋測驗</small></a>
+<a class="t tile" href="#"><span class="big">9 口訣</span><b>罰則總整理</b><small>30 秒速背</small></a></div></div>
+<div data-g="2"><p class="q"><b style="color:var(--c)">對照查表</b>　考前翻、比較差別</p><div class="tl">
+<a class="t tile" href="#"><span class="big">11 章</span><b>稅務總表</b><small>稅率・用語・罰則</small></a>
+<a class="t tile" href="#"><span class="big">3 表</span><b>稅制與取得方式</b><small>五稅並排</small></a>
+<a class="t tile" href="#"><span class="big">3 表</span><b>速查三表</b><small>期間・減免・計畫</small></a>
+<a class="t tile" href="#"><span class="big" style="color:var(--hot)">高頻</span><b>優先購買權</b><small>物權或債權</small></a></div></div>
+<div data-g="3"><p class="q"><b style="color:var(--c)">出題分析</b>　考什麼、怎麼寫</p><div class="tl">
+<a class="t tile" href="#"><span class="big">45 題</span><b>申論題分類</b><small>官方 32＋預測 13</small></a>
+<a class="t tile" href="#"><span class="big">分析</span><b>分數・倍數・數字</b><small>題型與陷阱</small></a></div></div>
+</div>
+
+<!-- V3 -->
+<div class="v" id="v3">
+<p class="desc"><b>方案 3：「我現在想…」情境切換</b>　先選目的（背／查／看趨勢），只顯示該組並標好建議順序 1→4；其他組不佔畫面。最少資訊、最像「今天該做什麼」。</p>
+<div class="seg" id="seg"><button style="--c:var(--g1)" aria-pressed="true" data-k="1">我要背</button><button style="--c:var(--g2)" aria-pressed="false" data-k="2">我要查</button><button style="--c:var(--g3)" aria-pressed="false" data-k="3">看出題</button></div>
+<div id="pane1" class="pane" data-g="1"><p class="q">建議順序：先看懂 → 再填空 → 再配對 → 最後罰則</p>
+<a class="t st" href="#"><i>1</i><div><b>彩色重點速記</b><small>22 章五色框，先看懂</small></div><span class="bd">22 章</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>2</i><div><b>定義填空練習</b><small>點空格看答案</small></div><span class="bd">150 題</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>3</i><div><b>互動單字卡</b><small>數字配對、陷阱辨析</small></div><span class="bd">104 張</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>4</i><div><b>罰則總整理</b><small>九種口訣、30 秒速背</small></div><span class="bd">9 口訣</span></a></div>
+<div id="pane2" class="pane" data-g="2" hidden><p class="q">依「想比什麼」挑：</p>
+<a class="t st" href="#"><i>稅</i><div><b>稅務總表</b><small>用語、義務人、罰則、各稅稅率</small></div><span class="bd">11 章</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>比</i><div><b>稅制與取得方式比較表</b><small>五稅並排；徵收、重劃、照價收買</small></div><span class="bd">3 表</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>數</i><div><b>速查三表</b><small>期間數字、減免、三種計畫</small></div><span class="bd">3 表</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>權</i><div><b>優先購買權：物權與債權</b><small>四條法條性質判斷</small></div><span class="bd hot">高頻</span></a></div>
+<div id="pane3" class="pane" data-g="3" hidden><p class="q">申論與選擇題的出題趨勢：</p>
+<a class="t st" href="#"><i>論</i><div><b>申論題分類總覽</b><small>官方 32 題＋預測 13 題</small></div><span class="bd">45 題</span></a>
+<a class="t st" href="#" style="margin-top:6px"><i>數</i><div><b>分數・倍數・數字分析</b><small>題型分佈與陷阱</small></div><span class="bd">分析</span></a></div>
+</div>
+<p class="note">共通：去掉所有 emoji；說明縮成一句；「速查三表」與「稅務總表」都有免徵／不課徵／減徵內容，建議之後合併或在說明標明差別。</p>
+</main>
+<script>
+document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.v').forEach(function(v){v.classList.toggle('on',v.id==='v'+b.dataset.v)});window.scrollTo(0,0)});
+document.getElementById('seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('#seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.pane').forEach(function(p){p.hidden=p.id!=='pane'+b.dataset.k})});
+</script></body></html>
