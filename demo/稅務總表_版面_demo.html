@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>稅務總表版面 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;
+--s1:#2F5D50;--s2:#3E6B8C;--s3:#35693F;--s4:#A8402B;--s5:#B8782E;--s6:#6B4E8A;--s7:#1B6B73;--s8:#8A5517;--s9:#5C8A2E;--s10:#9A5A3C;--s11:#7A4A6A;
+--t-free:#35693F;--t-half:#B8782E;--t-no:#3E6B8C;--t-late:#A8402B;--t-hide:#6B4E8A}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--onpri:#10201B;--tint:rgba(132,194,174,.12);--hot:#F0907A;--hotbg:rgba(240,144,122,.16);--numbg:rgba(224,176,112,.18);--numfg:#E0B070;
+--s1:#84C2AE;--s2:#8DB8E8;--s3:#8FD19A;--s4:#F0907A;--s5:#E0B070;--s6:#C0A4E0;--s7:#6FD0D8;--s8:#E0B070;--s9:#B5D98A;--s10:#E0A98A;--s11:#D9A4C8;
+--t-free:#8FD19A;--t-half:#E0B070;--t-no:#8DB8E8;--t-late:#F0907A;--t-hide:#C0A4E0}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
+main{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:30}
+.vs button{flex:1;font:inherit;font-weight:700;font-size:13.5px;padding:8px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.vs button[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13px;color:var(--muted);background:var(--tint);border-radius:10px;padding:8px 12px}
+.v{display:none;flex-direction:column;gap:12px}.v.on{display:flex}
+/* section shell */
+details.sec{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px}
+details.sec>summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
+details.sec>summary::-webkit-details-marker{display:none}
+.no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--c);color:var(--onpri);font:700 13px/26px "Noto Sans TC";text-align:center}
+:root:not([data-theme="dark"]) .no{color:#fff}
+.st{flex:1;min-width:0}.st b{display:block;font:700 16px/1.4 "Noto Serif TC",serif;color:var(--c)}.st small{display:block;color:var(--muted);font-size:12.5px;line-height:1.5;margin-top:2px}
+.ar{flex:none;color:var(--muted);transition:transform .15s;margin-top:2px}details[open]>summary .ar{transform:rotate(90deg)}
+.body{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px}
+[data-s="1"]{--c:var(--s1)}[data-s="2"]{--c:var(--s2)}[data-s="3"]{--c:var(--s3)}[data-s="4"]{--c:var(--s4)}[data-s="5"]{--c:var(--s5)}[data-s="6"]{--c:var(--s6)}[data-s="7"]{--c:var(--s7)}[data-s="8"]{--c:var(--s8)}[data-s="9"]{--c:var(--s9)}[data-s="10"]{--c:var(--s10)}[data-s="11"]{--c:var(--s11)}
+[data-t="free"]{--tc:var(--t-free)}[data-t="half"]{--tc:var(--t-half)}[data-t="no"]{--tc:var(--t-no)}[data-t="late"]{--tc:var(--t-late)}[data-t="hide"]{--tc:var(--t-hide)}
+.tg{display:inline-block;font-weight:800;color:var(--tc);border:1.5px solid var(--tc);border-radius:7px;padding:0 8px;white-space:nowrap}
+.hot{color:var(--hot);font-weight:800}.num{background:var(--numbg);color:var(--numfg);font-weight:800;border-radius:5px;padding:0 4px}
+.trapb{background:var(--hotbg);color:var(--hot);font-weight:700;border-radius:6px;padding:1px 6px}
+.ex{font-size:13px;color:var(--muted)}
+/* nav variants */
+.navg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.navg a{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:700;padding:7px 8px;border-radius:10px;border:1.5px solid var(--c);color:var(--c);background:var(--card);text-decoration:none;min-width:0}
+.navg a i{font-style:normal;flex:none;width:19px;height:19px;border-radius:6px;background:var(--c);color:#fff;font-size:11px;line-height:19px;text-align:center}
+:root[data-theme=dark] .navg a i,:root:not([data-theme="light"]) .navg a i{}
+.navg a span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details.dd{background:var(--card);border:1.5px solid var(--pri);border-radius:12px;position:sticky;top:50px;z-index:25}
+details.dd>summary{list-style:none;cursor:pointer;padding:9px 14px;font-weight:700;color:var(--pri);display:flex;justify-content:space-between}
+details.dd>summary::-webkit-details-marker{display:none}
+.ddl{display:grid;gap:2px;padding:0 8px 8px}.ddl a{display:flex;gap:10px;align-items:center;padding:7px 8px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:14px}
+.ddl a i{font-style:normal;width:22px;height:22px;border-radius:7px;background:var(--c);color:#fff;font:700 12px/22px "Noto Sans TC";text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips a{font-size:13px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--c);color:#fff;text-decoration:none}
+/* v1 cards */
+.cards{display:grid;gap:8px}.card{border:1px solid var(--line);border-left:5px solid var(--tc);border-radius:10px;padding:8px 12px;background:var(--bg)}
+.card h4{margin:0 0 4px;font-size:15px;display:flex;gap:8px;align-items:center}
+.card dl{margin:0;display:grid;grid-template-columns:4.2em 1fr;gap:2px 8px;font-size:13.5px}.card dt{color:var(--muted)}.card dd{margin:0}
+/* v2 accordion */
+details.row{border:1px solid var(--line);border-radius:10px;background:var(--bg)}details.row>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:5.2em 1fr auto;gap:8px;align-items:center}
+details.row>summary::-webkit-details-marker{display:none}details.row .rb{padding:0 12px 10px;font-size:13.5px;display:grid;gap:4px}
+.ctl{display:flex;gap:8px}.mini{font:inherit;font-size:12.5px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+/* v3 tiles */
+.fam{font:700 13px "Noto Sans TC";color:var(--muted);margin:4px 0 0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{border:1.5px solid var(--tc);border-radius:12px;padding:8px 10px;background:var(--bg);min-width:0}
+.tile .t{display:flex;justify-content:space-between;align-items:baseline;gap:6px}.tile .t b{color:var(--tc);font-size:16px}
+.tile .big{font:800 20px/1.3 "Noto Serif TC",serif;color:var(--ink);margin:2px 0}
+.tile p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.tile details{margin-top:4px}.tile summary{cursor:pointer;font-size:12px;color:var(--tc);font-weight:700;list-style:none}.tile summary::-webkit-details-marker{display:none}
+.tile details p{margin-top:4px;color:var(--ink)}
+.lg{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--muted)}
+</style></head><body><main>
+<header><h1>稅務總表｜版面 demo</h1><p class="sub">只示範「導覽列・用語區辨・整章收納・標題配色」，確認後才改真頁。三案都不需要橫向捲動。</p></header>
+<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+
+<!-- ============ V1 ============ -->
+<div class="v on" id="v1">
+<p class="desc"><b>方案 1：卡片式</b>　導覽＝3 欄彩色方塊（全部看得到）；每個用語一張卡，左邊色條＝類型；整章可收合，收合時留一句重點。</p>
+<div class="navg" data-nav></div>
+<details class="sec" data-s="1" open><summary><span class="no">1</span><span class="st"><b>用語區辨</b><small>免徵＝免掉、減徵＝打折、減半＝砍一半、不課徵＝先欠著</small></span><span class="ar">▸</span></summary><div class="body">
+<div class="cards">
+<div class="card" data-t="free"><h4><span class="tg">免徵</span>免掉</h4><dl><dt>白話</dt><dd>該課的稅，法律直接「免掉」</dd><dt>結果</dt><dd><span class="num">這次不用繳</span>，不留帳</dd><dt>例子</dt><dd class="ex">繼承土地免徵土增稅；被徵收土地；契稅§14 政府公務交換</dd></dl></div>
+<div class="card" data-t="half"><h4><span class="tg">減徵</span>打折</h4><dl><dt>白話</dt><dd>稅額照成數「打折」</dd><dt>結果</dt><dd>繳（原稅額 × 折扣）</dd><dt>例子</dt><dd class="ex">持有 20/30/40 年減徵 20/30/40%（只減超過第一級的部分）；重劃後第一次移轉減 40%</dd></dl></div>
+<div class="card" data-t="half"><h4><span class="tg">減半</span>砍一半</h4><dl><dt>白話</dt><dd>減徵的特例，固定「砍一半」</dd><dt>結果</dt><dd><span class="num">繳一半</span></dd><dt>例子</dt><dd class="ex">房屋稅§15 Ⅱ：平民住宅、合法工廠、農會倉庫；毀損 30%以上未達 50%</dd></dl></div>
+<div class="card" data-t="no"><h4><span class="tg">不課徵</span>先欠著</h4><dl><dt>白話</dt><dd>這次移轉「先不算稅」，日後再移轉才補算</dd><dt>結果</dt><dd>這次 0，但<span class="hot">帳記著、承續原地價</span></dd><dt>例子</dt><dd class="ex">農地移轉自然人；配偶相互贈與；信託成立</dd></dl></div>
+<div class="card" data-t="late"><h4><span class="tg">怠報金</span>慢申報</h4><dl><dt>結果</dt><dd>契稅每逾 <span class="num">3 日 1%</span>，上限 1.5 萬</dd><dt>條號</dt><dd class="ex">契稅§24</dd></dl></div>
+<div class="card" data-t="late"><h4><span class="tg">滯納金</span>慢繳錢</h4><dl><dt>結果</dt><dd>稅稽法§20 每逾 <span class="num">3 日 1%</span>，逾 <span class="num">30 日</span>移送執行</dd><dt>陷阱</dt><dd><span class="trapb">契稅§25 寫每逾 2 日，考題依所引法規</span></dd></dl></div>
+<div class="card" data-t="hide"><h4><span class="tg">匿報</span>沒申報</h4><dl><dt>結果</dt><dd>補稅＋罰鍰（契稅 <span class="num">1～3 倍</span>）</dd></dl></div>
+<div class="card" data-t="hide"><h4><span class="tg">短報</span>報太少</h4><dl><dt>結果</dt><dd>補稅＋罰鍰（同上）</dd></dl></div>
+</div><p class="ex"><span class="trapb">陷阱：不課徵≠免徵</span>，不課徵是「延後」。</p></div></details>
+<div data-more></div>
+</div>
+
+<!-- ============ V2 ============ -->
+<div class="v" id="v2">
+<p class="desc"><b>方案 2：手風琴列＋目錄下拉</b>　導覽＝一顆「目錄」按鈕（黏在上方，點開直向清單）；用語一行一個，點開才看結果／例子，最精簡。</p>
+<details class="dd"><summary><span>目錄：用語區辨</span><span>▾</span></summary><div class="ddl" data-nav2></div></details>
+<details class="sec" data-s="1" open><summary><span class="no">1</span><span class="st"><b>用語區辨</b><small>免＝免掉、減＝打折、半＝砍一半、不課＝先欠著</small></span><span class="ar">▸</span></summary><div class="body">
+<div class="ctl"><button class="mini" data-ra="1">全部展開</button><button class="mini" data-ra="0">全部收合</button></div>
+<details class="row" data-t="free"><summary><span class="tg">免徵</span><span>法律直接「免掉」</span><span class="num">不用繳</span></summary><div class="rb"><div>結果：這次不用繳，不留帳</div><div class="ex">例：繼承土地免徵土增稅；被徵收土地；契稅§14 政府公務交換</div></div></details>
+<details class="row" data-t="half"><summary><span class="tg">減徵</span><span>照成數「打折」</span><span class="num">× 折扣</span></summary><div class="rb"><div>結果：繳（原稅額 × 折扣）</div><div class="ex">例：持有 20/30/40 年減 20/30/40%；重劃後第一次移轉減 40%</div></div></details>
+<details class="row" data-t="half"><summary><span class="tg">減半</span><span>固定「砍一半」</span><span class="num">繳一半</span></summary><div class="rb"><div class="ex">例：房屋稅§15 Ⅱ 平民住宅、合法工廠、農會倉庫；毀損 30%以上未達 50%</div></div></details>
+<details class="row" data-t="no"><summary><span class="tg">不課徵</span><span>先不算稅，日後補</span><span class="hot">先欠著</span></summary><div class="rb"><div>結果：這次 0，但<span class="hot">帳記著、承續原地價</span></div><div class="ex">例：農地移轉自然人；配偶相互贈與；信託成立</div></div></details>
+<details class="row" data-t="late"><summary><span class="tg">怠報金</span><span>慢申報</span><span class="num">3日 1%</span></summary><div class="rb"><div>契稅§24：每逾 3 日加徵 1%，上限 1.5 萬</div></div></details>
+<details class="row" data-t="late"><summary><span class="tg">滯納金</span><span>慢繳錢</span><span class="num">3日 1%</span></summary><div class="rb"><div>稅稽法§20：每逾 3 日 1%，逾 30 日移送執行</div><div><span class="trapb">契稅§25 寫 2 日，依所引法規</span></div></div></details>
+<details class="row" data-t="hide"><summary><span class="tg">匿報</span><span>根本沒報</span><span class="num">1～3倍</span></summary><div class="rb"><div>補稅＋罰鍰（契稅 §26）</div></div></details>
+<details class="row" data-t="hide"><summary><span class="tg">短報</span><span>報了但報少</span><span class="num">同上</span></summary><div class="rb"><div>補稅＋罰鍰</div></div></details>
+<p class="ex"><span class="trapb">陷阱：不課徵≠免徵</span></p></div></details>
+<div data-more></div>
+</div>
+
+<!-- ============ V3 ============ -->
+<div class="v" id="v3">
+<p class="desc"><b>方案 3：分組磚＋章節色塊目錄</b>　導覽＝彩色膠囊（自動換行）；用語按「減免族／罰款族」分兩組，每塊最大的字就是答案（「不用繳」「繳一半」），例子點開才看。</p>
+<div class="chips" data-nav3></div>
+<details class="sec" data-s="1" open><summary><span class="no">1</span><span class="st"><b>用語區辨</b><small>減免族看「結果」，罰款族看「慢在哪」</small></span><span class="ar">▸</span></summary><div class="body">
+<p class="fam">減免族：這筆稅怎麼算</p>
+<div class="tiles">
+<div class="tile" data-t="free"><div class="t"><b>免徵</b><small>免掉</small></div><div class="big">不用繳</div><p>不留帳</p><details><summary>例子 ▾</summary><p>繼承土地、被徵收土地、契稅§14 公務交換</p></details></div>
+<div class="tile" data-t="half"><div class="t"><b>減徵</b><small>打折</small></div><div class="big">× 折扣</div><p>20/30/40 年減 20/30/40%</p><details><summary>例子 ▾</summary><p>重劃後第一次移轉減 40%（§39-1）</p></details></div>
+<div class="tile" data-t="half"><div class="t"><b>減半</b><small>砍一半</small></div><div class="big">繳一半</div><p>減徵的固定特例</p><details><summary>例子 ▾</summary><p>房屋稅§15 Ⅱ 平民住宅、合法工廠、農會倉庫</p></details></div>
+<div class="tile" data-t="no"><div class="t"><b>不課徵</b><small>先欠著</small></div><div class="big">這次 0</div><p class="hot">帳記著，承續原地價</p><details><summary>例子 ▾</summary><p>農地移轉自然人、配偶贈與、信託成立</p></details></div>
+</div>
+<p class="fam">罰款族：慢在哪一步</p>
+<div class="tiles">
+<div class="tile" data-t="late"><div class="t"><b>怠報金</b><small>慢申報</small></div><div class="big">3 日 1%</div><p>契稅§24，上限 1.5 萬</p></div>
+<div class="tile" data-t="late"><div class="t"><b>滯納金</b><small>慢繳錢</small></div><div class="big">3 日 1%</div><p>逾 30 日移送執行</p><details><summary>陷阱 ▾</summary><p><span class="trapb">契稅§25 寫 2 日</span></p></details></div>
+<div class="tile" data-t="hide"><div class="t"><b>匿報</b><small>沒申報</small></div><div class="big">補稅＋罰</div><p>契稅 1～3 倍</p></div>
+<div class="tile" data-t="hide"><div class="t"><b>短報</b><small>報太少</small></div><div class="big">補稅＋罰</div><p>同匿報</p></div>
+</div>
+<p class="ex"><span class="trapb">陷阱：不課徵≠免徵</span></p></div></details>
+<div data-more></div>
+</div>
+
+<div class="lg"><span><span class="tg" data-t="free">免徵</span> 綠</span><span><span class="tg" data-t="half">減徵半</span> 金</span><span><span class="tg" data-t="no">不課徵</span> 藍</span><span><span class="tg" data-t="late">罰</span> 紅</span><span><span class="tg" data-t="hide">匿短</span> 紫</span></div>
+</main>
+<script>
+var S=[["用語區辨","免徵・減徵・減半・不課徵"],["義務人・機關","誰繳、何時繳、向誰繳"],["減免條件","各稅免徵／減徵條件"],["罰則","滯納・怠報・匿報短報"],["考題分析","四大高頻 76%"],["一生一屋","自用住宅優惠"],["地價稅","10 起跳、最高 55"],["土地增值稅","20・30・40"],["房屋稅","自住 1.2、營業 3～5"],["契稅","買贈占六六六"],["房地合一","二四五、五三五"]];
+document.querySelectorAll('[data-nav]').forEach(function(n){n.innerHTML=S.map(function(s,i){return '<a href="#" data-s="'+(i+1)+'"><i>'+(i+1)+'</i><span>'+s[0]+'</span></a>'}).join('')});
+document.querySelectorAll('[data-nav2]').forEach(function(n){n.innerHTML=S.map(function(s,i){return '<a href="#" data-s="'+(i+1)+'"><i>'+(i+1)+'</i><span><b>'+s[0]+'</b>　<small style="color:var(--muted)">'+s[1]+'</small></span></a>'}).join('')});
+document.querySelectorAll('[data-nav3]').forEach(function(n){n.innerHTML=S.map(function(s,i){return '<a href="#" data-s="'+(i+1)+'">'+s[0]+'</a>'}).join('')});
+document.querySelectorAll('[data-more]').forEach(function(m){m.innerHTML=S.slice(1).map(function(s,i){return '<details class="sec" data-s="'+(i+2)+'" style="margin-bottom:10px"><summary><span class="no">'+(i+2)+'</span><span class="st"><b>'+s[0]+'</b><small>'+s[1]+'（收合時只留這行重點）</small></span><span class="ar">▸</span></summary><div class="body"><p class="ex">（展開後才是完整表格／卡片）</p></div></details>'}).join('')});
+document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.querySelectorAll('.v').forEach(function(v){v.classList.toggle('on',v.id==='v'+b.dataset.v)});window.scrollTo(0,0)});
+document.addEventListener('click',function(e){var ra=e.target.closest('[data-ra]');if(ra){document.querySelectorAll('#v2 details.row').forEach(function(d){d.open=ra.dataset.ra==='1'});return}
+var a=e.target.closest('[data-s]');if(a&&a.tagName==='A'){e.preventDefault();var v=a.closest('.v');var d=v.querySelector('details.sec[data-s="'+a.dataset.s+'"]');if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}var dd=a.closest('details.dd');if(dd)dd.open=false}});
+</script></body></html>
