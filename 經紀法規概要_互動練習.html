@@ -66,6 +66,7 @@ button:active{transform:scale(.97)}
 .footer-note{text-align:center;font-size:.7rem;color:var(--sub);margin-top:24px}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 </style>
+<script src="bxj-use.js"></script>
 </head>
 <body>
 <div class="app">
@@ -324,6 +325,7 @@ async function selectAnswer(q, label) {
   if (!masteryData[q.id]) masteryData[q.id] = {attempts:0, correct:0};
   masteryData[q.id].attempts++;
   const isCorrect = q.special ? true : (label === q.answer);
+  try{window.BXREP&&BXREP.rec(q,label,isCorrect)}catch(e){}
   if (isCorrect) {
     masteryData[q.id].correct++;
     delete errorTags[q.id];
@@ -338,6 +340,7 @@ document.getElementById('errorTagRow').addEventListener('click', async (e) => {
   if (!btn) return;
   const q = pool[current];
   errorTags[q.id] = btn.dataset.tag;
+  try{window.BXREP&&BXREP.tag(q,btn.dataset.tag)}catch(e){}
   await saveErrorTags();
   updateTagButtons(q.id);
 });

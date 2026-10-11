@@ -86,6 +86,7 @@ footer{text-align:center;font-size:.7rem;color:var(--sub);padding:20px 10px 10px
 .empty{text-align:center;color:var(--sub);padding:40px 0;font-size:.9rem}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 </style>
+<script src="bxj-use.js"></script>
 </head>
 <body>
 <header>
@@ -166,10 +167,10 @@ function makeCard(q){
   var tr=document.createElement('div');tr.className='errtag-row show';
   if(!s.correct){['A','B','C'].forEach(function(t){var tb=document.createElement('div');var lab=t==='A'?'A 法條混淆':(t==='B'?'B 粗心':'C 真的不熟');
    tb.className='etag'+(s.tag===t?' on-'+t:'');tb.textContent=lab;
-   tb.onclick=function(){s.tag=(s.tag===t)?null:t;saveState(state);[].forEach.call(tr.children,function(x,j){x.className='etag'+(s.tag===['A','B','C'][j]?' on-'+['A','B','C'][j]:'')})};tr.appendChild(tb)})}
+   tb.onclick=function(){s.tag=(s.tag===t)?null:t;saveState(state);try{window.BXREP&&BXREP.tag(q,s.tag||'')}catch(e){}[].forEach.call(tr.children,function(x,j){x.className='etag'+(s.tag===['A','B','C'][j]?' on-'+['A','B','C'][j]:'')})};tr.appendChild(tb)})}
   card.appendChild(tr)}
  return card}
-function answer(q,L){if(state[q.id])return;state[q.id]={chosen:L,correct:L===q.answer,tag:null};saveState(state);
+function answer(q,L){if(state[q.id])return;state[q.id]={chosen:L,correct:L===q.answer,tag:null};saveState(state);try{window.BXREP&&BXREP.rec(q,L,L===q.answer)}catch(e){}
  var old=document.getElementById('q'+q.id),nw=makeCard(q);old.replaceWith(nw);updateStats();
  setTimeout(function(){nw.scrollIntoView({behavior:'smooth',block:'nearest'})},30)}
 function renderList(){var list=document.getElementById('quizList');list.innerHTML='';

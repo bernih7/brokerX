@@ -200,6 +200,7 @@ button:active { transform: scale(.97); }
 .legend .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .footer-note { text-align: center; font-size: .68rem; color: #9a917a; margin-top: 22px; }
 </style>
+<script src="bxj-use.js"></script>
 </head>
 <body>
 <div class="app">
@@ -285,13 +286,13 @@ let mastery = {};
 
 async function loadMastery() {
   try {
-    const r = await window.storage.get('jingji_flashcard_mastery');
-    if (r && r.value) mastery = JSON.parse(r.value);
+    const raw = localStorage.getItem('jingji_flashcard_mastery');
+    if (raw) mastery = JSON.parse(raw);
   } catch(e) { mastery = {}; }
   renderSetup();
 }
 async function saveMastery() {
-  try { await window.storage.set('jingji_flashcard_mastery', JSON.stringify(mastery)); } catch(e) {}
+  try { localStorage.setItem('jingji_flashcard_mastery', JSON.stringify(mastery)); } catch(e) {}
 }
 
 function chapterToGroup(chapter) {

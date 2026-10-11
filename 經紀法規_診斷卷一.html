@@ -56,7 +56,8 @@ body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
 details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:13px;color:var(--bad);margin-top:8px}
 #tm{font-weight:700;color:var(--bad)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-</style></head><body>
+</style><script src="bxj-use.js"></script>
+</head><body>
 <header><div class="hrow"><h1>經紀法規診斷卷①</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">第一次基準線測驗：先知道哪一篇最弱。25 題單選｜配題依 107–114 年占比：A7／E6／G6／H5／D1｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟</div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
 
@@ -69,8 +70,9 @@ function setEx(m){EX=m;document.body.dataset.ex=m;try{localStorage.setItem("bx-e
 var L="ABCD",st={},cl={},cur=0,tmr=null,left=5400,qHost=document.createElement("div");
 var NAMES={A:"A 經紀業管理條例",E:"E 公寓大廈",G:"G 公平交易法",H:"H 消保法",D:"D 定型化契約"};
 function $(i){return document.getElementById(i)}
+var ID="diag1";
 function save(){try{var a=0,c=0;for(var k in st){a++;if(st[k])c++}
- localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}))}catch(e){}}
+ localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}));var er={};D.Q.forEach(function(q){if(st[q.n]===false)er[q.n]=(typeof cl!=="undefined"&&cl[q.n])||"N"});localStorage.setItem("bx_mockerr_"+ID,JSON.stringify(er))}catch(e){}}
 function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  qHost.querySelector("#sc").textContent="已答 "+a+"/"+D.Q.length+"｜答對 "+c+"｜選擇題 "+(c*2)+"/"+(D.Q.length*2);save()}
 function mm(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
@@ -98,7 +100,7 @@ function mkQ(host){
   var bs=c.querySelector(".bs");
   [["A","A 法條混淆"],["B","B 粗心"],["C","C 真的不熟"]].forEach(function(t){
    var b=document.createElement("button");b.textContent=t[1];
-   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
+   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;try{save()}catch(e){}cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
    bs.appendChild(b)});
   host.appendChild(c)});
  [].forEach.call(host.querySelectorAll(".exs button[data-m]"),function(bb){bb.onclick=function(){setEx(bb.dataset.m)}});

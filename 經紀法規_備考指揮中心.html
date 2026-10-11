@@ -135,6 +135,7 @@ a.tool-link.cnwrap{position:relative;margin-top:16px}
 .mk{font-weight:700}
 
 </style>
+<script src="bxj-use.js"></script>
 </head>
 <body>
 <div class="top"><h1>經紀法規</h1><span class="cd">還有 <b id="days">--</b> 天</span><button class="th" id="th" aria-label="切換深淺色">深色</button></div>
@@ -856,6 +857,11 @@ a.tool-link.cnwrap{position:relative;margin-top:16px}
 </section>
 
 <section class="tab" id="pProg">
+  <div class="group-label">回報給專案對話（全站一份）</div>
+  <p class="note">涵蓋十二個章節題庫頁、互動練習、模擬卷、單字卡、填空、申論模板、各頁開啟次數。按一下複製，貼回專案對話。</p>
+  <button id="bxRepBtn" class="seg-btn" style="padding:8px 16px;border-radius:99px;border:1px solid var(--pri);background:var(--pri);color:var(--on,#fff);font-size:.9rem;cursor:pointer">複製全站回報</button>
+  <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:.78rem;box-sizing:border-box;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px"></textarea>
+  <script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa");if(!b)return;b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bxj-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼回專案對話"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
   <div class="group-label">完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>
   <div class="group-label">錯題本統計（A 法條混淆／B 粗心／C 真的不熟）</div>
