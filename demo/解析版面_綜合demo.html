@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>解析版面綜合 Demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--okbg:#E3EFE4;--ok:#35693F;--badbg:#F7E2DC;--bad:#A8402B;--gold:#B8782E;--trapbg:#FBF0DC;--tint:rgba(47,93,80,.09)}
+:root[data-theme=dark]{--bg:#161C19;--card:#1F2723;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--onpri:#10201B;--okbg:#22352A;--ok:#8FCB93;--badbg:#3A2420;--bad:#E58B73;--gold:#E0B070;--trapbg:#3A2E14;--tint:rgba(132,194,174,.12);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Noto Sans TC",system-ui,sans-serif;padding:14px 16px 80px}
+main{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font-size:18px;margin:0;color:var(--pri)}.sub{font-size:12.5px;color:var(--muted);margin:0}
+.vt{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
+.vt button,.mini{font:inherit;font-size:13px;font-weight:700;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 13px;white-space:nowrap;cursor:pointer}
+.vt button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13px;background:var(--tint);border-left:3px solid var(--pri);padding:8px 12px;border-radius:0 8px 8px 0}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;font-size:12px}.chip{background:var(--pri);color:var(--onpri);border-radius:99px;padding:1px 10px;font-weight:700}.chip.g{background:var(--gold);color:#fff}
+.qt{font-weight:700;margin:0 0 10px}
+.opt{border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;background:var(--card);cursor:pointer;display:block;width:100%;text-align:left;font:inherit;color:inherit}
+.opt .row{display:flex;gap:8px;align-items:flex-start}.opt .L{font-weight:700;color:var(--pri);flex:none}.opt .tx{flex:1;min-width:0}
+.opt.ans{background:var(--okbg);border-color:var(--ok)}
+.opt.pick{border-color:var(--bad);box-shadow:0 0 0 2px var(--badbg)}
+.bd{font-size:11px;font-weight:700;border-radius:99px;padding:0 8px;flex:none;align-self:center}
+.bd.a{background:var(--ok);color:#fff}.bd.p{background:var(--bad);color:#fff}
+:root[data-theme=dark] .bd.a{color:#10201B}:root[data-theme=dark] .bd.p{color:#1a0f0c}
+.tr{font-size:12px;color:var(--muted);margin-top:2px}.tr b{color:var(--ink)}
+.ex{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:13.5px}
+.law{display:inline-block;font-size:12px;font-weight:700;color:var(--key,#8A5517);background:var(--trapbg);border-radius:6px;padding:0 7px;margin-right:6px}
+.trap{background:var(--trapbg);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 8px 8px 0;font-size:13.5px;margin-top:8px}
+.res{padding:8px 12px;border-radius:10px;font-weight:700;margin-bottom:10px}.res.ok{background:var(--okbg);color:var(--ok)}.res.no{background:var(--badbg);color:var(--bad)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center;font-size:13px}
+.hid{display:none}.card2{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:10px}
+.card2 h4{margin:0 0 6px;font-size:14px;color:var(--pri)}.ir{padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}.ir:last-child{border:0}
+.arr{margin-left:auto;color:var(--muted);transition:transform .15s}.open .arr{transform:rotate(180deg)}
+#tb{position:fixed;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;z-index:9}
+</style></head><body><button id="tb" onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme=='dark'?'light':'dark'">◐</button>
+<main><div><h1>解析版面：綜合方案 Demo</h1><p class="sub">題目是土地法第 1 題（問「錯誤」者）。點任一選項作答，再切換上方四個方案比較。</p></div>
+<div class="vt" id="vt"></div><div class="desc" id="desc"></div><div id="stage"></div>
+<div><button class="mini" onclick="reset()">重新作答</button></div></main>
+<script>
+const Q={n:'第1題',ch:'A1 總則',kind:'問錯誤',t:'依土地法關於土地權利及公有土地之規定，下列敘述何者錯誤？',ask:'wrong',
+O:[
+{L:'A',s:'私有土地所有權移轉如妨害基本國策，中央地政機關得報請行政院制止之',ok:true,law:'土地法總則：移轉制止',plain:'私有地一賣掉若會傷到基本國策，中央可請行政院擋下。'},
+{L:'B',s:'直轄市政府將所管公有土地為超過十年期間之租賃，原則上須經該管區內民意機關同意並經行政院核准',ok:true,law:'土地法§25',plain:'公有地租超過10年，要民意機關同意＋行政院核准。'},
+{L:'C',s:'各級政府機關需用公有土地時，應商同該管直轄市或縣（市）政府，層請行政院核准撥用',ok:true,law:'土地法§26',plain:'機關要用公有地，商同地方政府，層請行政院核准撥用。'},
+{L:'D',s:'外國人因繼承取得依法不得移轉於外國人之土地者，應於被繼承人死亡之日起三年內出售與本國人',ok:false,law:'土地法§17',plain:'外國人因繼承取得不得移轉予外國人的土地，是自「登記完畢之日」起3年內出售，不是「被繼承人死亡之日」。'}],
+ans:'D',trap:'起算點陷阱：外國人繼承 →「登記完畢之日」起 3 年（不是死亡日）。'};
+let pick=null,cur=0,tag=null;
+const V=[
+['A 內嵌式','每個選項底下直接接解釋（像土地法版），但「顏色＝作答結果」、「敘述對錯」改成灰色小字，不再混淆。'],
+['B 分離式','選項乾淨，作答後下方出現「逐選項解析」卡（像估價版），每項補上條號＋白話。最適合手機一屏看一塊。'],
+['C 摺疊式','選項乾淨；作答後只自動展開「你選的」和「正解」，其他選項點一下才展開。最省捲動。'],
+['D 結論優先','作答後最上方先給結論條（答對／答錯、正解、考試陷阱），選項下只留一行判定＋條號，點開才看白話。']];
+const vt=document.getElementById('vt');V.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v[0];b.onclick=()=>{cur=i;draw()};vt.appendChild(b)});
+function reset(){pick=null;tag=null;draw()}
+function opt(o,mode){const done=pick!==null;let c='opt';if(done&&o.L==Q.ans)c+=' ans';if(done&&o.L==pick&&pick!=Q.ans)c+=' pick';
+ const bd=done?(o.L==Q.ans?'<span class="bd a">正解</span>':(o.L==pick?'<span class="bd p">你選的</span>':'')):'';
+ const tr=done?`<div class="tr">敘述：<b>${o.ok?'正確 ✓':'錯誤 ✗'}</b>　<span class="law">${o.law}</span></div>`:'';
+ return {c,bd,tr}}
+function tagsHtml(){return `<div class="tags">錯題歸類：${['A 法條混淆','B 粗心','C 真的不熟'].map((t,i)=>`<button class="mini" onclick="tag=${i};draw()" style="${tag===i?'background:var(--pri);color:var(--onpri)':''}">${t}</button>`).join('')}</div>`}
+function result(){const r=pick==Q.ans;return `<div class="res ${r?'ok':'no'}">${r?'答對了':'答錯了'}　正解 ${Q.ans}${r?'':'（你選 '+pick+'）'}</div>`}
+function draw(){[...vt.children].forEach((b,i)=>b.classList.toggle('on',i==cur));document.getElementById('desc').textContent=V[cur][1];
+ const done=pick!==null;let h=`<div class="q"><div class="meta"><span class="chip">${Q.ch}</span><span class="chip g">${Q.kind}</span><span>${Q.n}</span></div><p class="qt">${Q.t}</p>`;
+ if(cur==3&&done)h+=result()+`<div class="trap" style="margin:0 0 10px">🎯 考試陷阱｜${Q.trap}</div>`;
+ Q.O.forEach(o=>{const x=opt(o);
+  if(cur==0){h+=`<button class="${x.c}" onclick="pick='${o.L}';draw()"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}</div>${done?x.tr+`<div class="ex"><span class="law">${o.law}</span>${o.plain}</div>`:''}</button>`}
+  else if(cur==1){h+=`<button class="${x.c}" onclick="pick='${o.L}';draw()"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}</div></button>`}
+  else{const open=cur==2?(done&&(o.L==Q.ans||o.L==pick)):(window['o'+o.L]);
+   h+=`<button class="${x.c}${open?' open':''}" onclick="${done?`window.o${o.L}=!window.o${o.L};draw()`:`pick='${o.L}';draw()`}"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}${done?'<span class="arr">▾</span>':''}</div>${done?x.tr:''}${done&&(cur==2?(open||window['o'+o.L]):window['o'+o.L])?`<div class="ex">${o.plain}</div>`:''}</button>`}});
+ if(cur==1&&done)h+=`<div class="card2">${result().replace('class="res','class="res')}<h4>逐選項解析</h4>${Q.O.map(o=>`<div class="ir"><b>(${o.L})</b> 敘述${o.ok?'正確 ✓':'錯誤 ✗'}　<span class="law">${o.law}</span><br>${o.plain}</div>`).join('')}<div class="trap">🎯 考試陷阱｜${Q.trap}</div></div>`;
+ if((cur==0||cur==2)&&done)h+=result()+`<div class="trap">🎯 考試陷阱｜${Q.trap}</div>`;
+ if(done)h+=tagsHtml();h+='</div>';document.getElementById('stage').innerHTML=h}
+draw();
+</script></body></html>
