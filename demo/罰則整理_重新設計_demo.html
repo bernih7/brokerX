@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>罰則整理重新設計 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--blue:#3A5A78;--t1:#6E8B3D;--t2:#B8782E;--t3:#B9722A;--t4:#A8402B;--t5:#6B4E8A;--t6:#25302C;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
+main{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}h2{font:700 17px "Noto Serif TC",serif;margin:6px 0 0;color:var(--pri)}.sub{color:var(--muted);font-size:13.5px;margin:2px 0 0}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:30}
+.vs button{flex:1;font:inherit;font-weight:700;font-size:14px;padding:8px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.vs button[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13.5px;color:var(--muted);background:var(--tint);border-radius:10px;padding:8px 12px;margin:0}
+.v{display:none;flex-direction:column;gap:8px}.v.on{display:flex}
+.amt{font:800 17px/1.2 "Noto Serif TC",serif;color:var(--numfg);background:var(--numbg);border-radius:8px;padding:2px 9px;white-space:nowrap}
+.trapb{background:var(--hotbg);color:var(--hot);font-weight:700;border-radius:8px;padding:3px 9px;font-size:14px;display:block}
+.k{color:var(--muted);font-size:13.5px}
+details.r{background:var(--card);border:1px solid var(--line);border-radius:12px;border-left:6px solid var(--c)}
+details.r>summary{list-style:none;cursor:pointer;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}details.r>summary::-webkit-details-marker{display:none}
+details.r .tt{font-weight:700;font-size:16px;line-height:1.45}details.r .ss{font-size:13.5px;color:var(--muted);line-height:1.45}
+.dt{padding:0 12px 11px;display:grid;gap:6px;font-size:15px}.dt .art{font:700 14px "Noto Serif TC",serif;color:var(--blue)}
+.tier{font-weight:800;font-size:15px;color:#fff;border-radius:10px;padding:5px 12px;margin-top:6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}.tier small{font-weight:500;font-size:12.5px;opacity:.9}
+/* v1 ladder */
+.lad{display:flex;flex-direction:column;gap:5px;margin:2px 0 4px}.lb{display:grid;grid-template-columns:5.6em 1fr;gap:8px;align-items:center;font-size:13px}.lb b{text-align:right;font-variant-numeric:tabular-nums}.lb .tr{height:18px;background:rgba(0,0,0,.06);border-radius:6px;position:relative}.lb i{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--c)}
+/* v2 two-col */
+.tc{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tc details{border-bottom:1px solid var(--line);border-left:6px solid var(--c)}.tc details:last-child{border-bottom:0}
+.tc summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr 6.4em;gap:8px;padding:9px 10px 9px 10px;align-items:center}.tc summary::-webkit-details-marker{display:none}
+.tc summary .am{font:800 16px/1.25 "Noto Serif TC",serif;color:var(--numfg);text-align:right}
+.tc .dt{padding:0 10px 10px}
+/* v3 chips */
+.mn{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px}.mn .l{font-size:12.5px;color:var(--muted)}.mn .row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.fc{font:700 14px "Noto Sans TC";padding:3px 11px;border-radius:99px;border:1.5px solid var(--c);color:var(--c);background:var(--card);cursor:pointer}.fc[aria-pressed=true]{background:var(--c);color:#fff}
+.note{font-size:13px;color:var(--muted)}
+</style></head><body><main>
+<header><h1>罰則整理｜重新設計 demo</h1><p class="sub">用「平均地權條例」那一節的真實內容示範。三案共通：每筆先看「行為＋金額」，條號、考古題、提醒點開才看；金額是唯一的高亮，不再每個數字都上色。</p></header>
+<div class="vs" id="vs"><button aria-pressed="true" data-v="1">方案 1</button><button aria-pressed="false" data-v="2">方案 2</button><button aria-pressed="false" data-v="3">方案 3</button></div>
+<h2>平均地權條例：刑責、罰鍰、加徵</h2>
+<div id="mount"></div>
+<p class="note">正式版仍保留：淺深色、章節可收合、遮答案練習（金額會被遮住讓你默寫）。</p>
+</main>
+<script>
+var T=[
+{g:1,n:'刑責與基礎罰鍰',c:'#6E8B3D',range:'刑／罰',items:[
+ ['土地壟斷、投機','3年以下徒刑','得併科 7千元以下罰金','§83（土地壟斷、投機之刑責）','103-29、110-11','不是 1年、5千、8千、1萬；「以下」且「得」併科'],
+ ['承買人：未辦竣登記再轉售','登記費 20倍以下','罰鍰','§81','106-36','對象是「承買人」；同一行為土稅§54 另罰移轉現值 2%'],
+ ['受贈免稅土地的財團法人違規','2倍','追補土增稅，並處應納土增稅額 2倍罰鍰','§81-1','100-6、110-8','三種情形：未按目的使用／違反設立宗旨／收益未全用於該事業；「未辦理用地變更」是干擾']]},
+{g:2,n:'3萬–15萬',c:'#B8782E',range:'3–15萬',lo:3,hi:15,items:[
+ ['買賣已辦竣登記，仍未共同申報登錄','3–15萬','先令限期申報；屆期未申報 → 3–15萬＋限期改正，未改按次罰','§81-2、§47 第2項','113-2、101-6','舊筆記寫 6–30萬是錯的，以 113-2 的 3–15萬為準；期限：簽約或辦竣登記後 30日'],
+ ['預售屋：未依限申報登錄','3–15萬','按戶（棟）罰；委託經紀業代銷者由經紀業申報','§81-2、§47-3 第2項','110-9C、111-25B、112-10','期限是簽約日起 30日（不是 10／15／45日）'],
+ ['預售屋銷售前未報請備查','3–15萬','','§81-2、§47-3 第1項','111-25A','']]},
+{g:3,n:'6萬–30萬',c:'#B9722A',range:'6–30萬',lo:6,hi:30,items:[
+ ['預售屋定型化契約不符規定','6–30萬','按戶（棟）處罰','§81-2、§47-3 第1項','—','舊筆記把「轉售」誤寫成 6–30萬；轉售是 15–100萬'],
+ ['拒絕「讓與轉售、炒作」之查核','6–30萬','並令限期改正','§81-3 第4項','—','與 §81-2 的 3–15萬不同']]},
+{g:4,n:'15萬–100萬',c:'#A8402B',range:'15–100萬',lo:15,hi:100,items:[
+ ['預售屋收受定金未立書面契據','15–100萬','按戶（棟）','§81-2、§47-3 第5項','111-25C',''],
+ ['買受人將定金書面契據轉售第三人','15–100萬','按戶（棟）','§81-2、§47-3 第6項','110-10','干擾：3–15、6–30、30–100；111-25D「得轉售」是錯的']]},
+{g:5,n:'50萬–300萬',c:'#6B4E8A',range:'50–300萬',lo:50,hi:300,items:[
+ ['簽約後讓與、轉售契約或刊登轉售廣告','50–300萬','按戶（棟）','§81-3 第1項、§47-4','112-9、113-1','例外：配偶、直系血親、二親等內旁系血親（不是姻親）；經核准者每 2年1戶（不是每1年）']]}];
+function det(it,c){var h='<div class="dt"><div class="art">'+it[3]+'</div>'+(it[2]?'<div>'+it[2]+'</div>':'')+(it[5]?'<span class="trapb">'+it[5]+'</span>':'')+'<div class="k">考古題　'+it[4]+'</div></div>';return h}
+function r1(){var h='<p class="desc"><b>方案 1：金額階梯</b>　最上面一張「金額階梯圖」，看出誰最輕、誰最重；下面依階梯分組，每筆＝名稱＋金額，點開看細節。</p><div class="lad">';
+ T.filter(function(t){return t.hi}).forEach(function(t){var l=Math.log10(t.lo)/Math.log10(300)*100,w=(Math.log10(t.hi)-Math.log10(t.lo))/Math.log10(300)*100;h+='<div class="lb" style="--c:'+t.c+'"><b>'+t.range+'</b><div class="tr"><i style="left:'+l+'%;width:'+Math.max(w,3)+'%"></i></div></div>'});
+ h+='</div><p class="k" style="margin:0">橫軸為對數刻度（3萬到300萬）；100萬–5000萬的炒作最重，不在圖內。</p>';
+ T.forEach(function(t){h+='<div class="tier" style="background:'+t.c+'">'+t.n+'<small>'+t.items.length+' 項</small></div>';t.items.forEach(function(it){h+='<details class="r" style="--c:'+t.c+'"><summary><div><div class="tt">'+it[0]+'</div></div><span class="amt">'+it[1]+'</span></summary>'+det(it)+'</details>'})});return h}
+function r2(){var h='<p class="desc"><b>方案 2：雙欄速背表</b>　左邊行為、右邊金額，像一張清單；左側色條表示階梯。最緊湊，最適合遮住右欄默寫。</p><div class="tc">';
+ T.forEach(function(t){t.items.forEach(function(it){h+='<details style="--c:'+t.c+'"><summary><div><div class="tt" style="font-weight:700">'+it[0]+'</div><div class="ss">'+t.n+'</div></div><div class="am">'+it[1]+'</div></summary>'+det(it)+'</details>'})});return h+'</div>'}
+var cur='';
+function r3(){var h='<p class="desc"><b>方案 3：口訣優先＋篩選</b>　最上面是金額口訣，每個數字可以點，下面只顯示該階梯的項目；預設看全部。</p><div class="mn"><div class="l">口訣：3–15・6–30・15–100・50–300・100–5000（炒作）</div><div class="row">';
+ h+='<button class="fc" style="--c:#25302C" aria-pressed="'+(cur===''?'true':'false')+'" data-f="">全部</button>';
+ T.forEach(function(t){h+='<button class="fc" style="--c:'+t.c+'" aria-pressed="'+(cur===String(t.g)?'true':'false')+'" data-f="'+t.g+'">'+t.range+'</button>'});
+ h+='</div></div>';
+ T.forEach(function(t){if(cur&&cur!==String(t.g))return;t.items.forEach(function(it){h+='<details class="r" style="--c:'+t.c+'"><summary><div><div class="tt">'+it[0]+'</div><div class="ss">'+t.n+'</div></div><span class="amt">'+it[1]+'</span></summary>'+det(it)+'</details>'})});return h}
+var V=1;function draw(){document.getElementById('mount').innerHTML=V===1?r1():V===2?r2():r3()}
+document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;V=+b.dataset.v;cur='';document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});draw()});
+document.getElementById('mount').addEventListener('click',function(e){var b=e.target.closest('.fc');if(b){cur=b.dataset.f;draw()}});
+draw();
+</script></body></html>

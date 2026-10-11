@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>稅務總表定義與各稅減免 demo</title>
+<style>
+:root{--bg:#F5F1E6;--card:#FFFEFA;--ink:#25302C;--muted:#66706A;--line:#DDD6C0;--pri:#2F5D50;--onpri:#fff;--tint:rgba(47,93,80,.10);--hot:#A8402B;--hotbg:#F8E4DD;--numbg:#FBF1D9;--numfg:#8A5517;--free:#35693F;--half:#B8782E;--nolevy:#3E6B8C;--bad:#A8402B;--s1:#2F5D50;--s3:#35693F;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:16px 80px}
+main{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{font:700 21px/1.3 "Noto Serif TC",serif;margin:0;color:var(--pri)}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}
+.sec{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sec h2{margin:0;font:700 18px/1.4 "Noto Serif TC",serif;color:var(--c)}.sec .k{color:var(--muted);font-size:13px;margin:-4px 0 0}
+.tg{display:inline-block;font-weight:800;color:var(--tc);border:1.5px solid var(--tc);border-radius:7px;padding:0 8px;white-space:nowrap}
+[data-t=free]{--tc:var(--free)}[data-t=half]{--tc:var(--half)}[data-t=nolevy]{--tc:var(--nolevy)}[data-t=bad]{--tc:var(--bad)}[data-t=late]{--tc:#A8402B}[data-t=hide]{--tc:#6B4E8A}
+.num{background:var(--numbg);color:var(--numfg);font-weight:800;border-radius:5px;padding:0 4px}.trapb{background:var(--hotbg);color:var(--hot);font-weight:700;border-radius:6px;padding:1px 7px;font-size:13.5px}
+.mut{color:var(--muted);font-size:13px}
+/* definition rows */
+details.row{border:1px solid var(--line);border-radius:10px;background:var(--bg)}details.row>summary{list-style:none;cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}details.row>summary::-webkit-details-marker{display:none}
+details.row .rb{padding:0 12px 10px;font-size:14px;display:grid;gap:4px}.rb .l{color:var(--muted)}
+/* tax chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font:700 14px "Noto Sans TC";padding:4px 12px;border-radius:99px;border:1.5px solid var(--c);color:var(--c);background:var(--card);cursor:pointer}.chip[aria-pressed=true]{background:var(--c);color:#fff}
+.grp{border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.grp .gh{padding:5px 12px;display:flex;gap:8px;align-items:baseline;border-bottom:1px solid var(--line);background:var(--card)}.grp .gh small{color:var(--muted)}
+.it{padding:7px 12px;border-bottom:1px dashed var(--line);display:grid;gap:1px}.it:last-child{border-bottom:0}.it .a{font:700 12.5px "Noto Serif TC",serif;color:#3A5A78}
+.empty{padding:7px 12px;color:var(--muted);font-size:13.5px}
+/* accordion per tax */
+details.tx{border:1px solid var(--line);border-radius:12px;background:var(--bg)}details.tx>summary{list-style:none;cursor:pointer;padding:9px 12px;display:flex;justify-content:space-between;gap:8px;align-items:center}details.tx>summary::-webkit-details-marker{display:none}
+details.tx .tb{padding:0 10px 10px;display:grid;gap:8px}.cnt{display:flex;gap:4px;flex-wrap:wrap}.cnt span{font:700 12px "Noto Sans TC";padding:0 7px;border-radius:99px;border:1.5px solid var(--tc);color:var(--tc)}
+.vs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:30}.vs button{flex:1;font:inherit;font-weight:700;font-size:13.5px;padding:8px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}.vs button[aria-pressed=true]{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.desc{font-size:13px;color:var(--muted);background:var(--tint);border-radius:10px;padding:8px 12px;margin:0}
+</style></head><body><main>
+<header><h1>稅務總表｜定義與各稅減免 demo</h1><p class="sub">依你的圈選：① 用語區辨改成「以定義為主軸」；② 減免條件改成「先選哪一種稅，再看它有哪幾種減免」。契稅例子已核對條文。</p></header>
+
+<section class="sec" style="--c:var(--s1)"><h2>用語定義</h2><p class="k">標題縮短；每列先講「它是什麼」，再看結果與例子</p>
+<details class="row" data-t="free" open><summary><span class="tg">免徵</span><span><b>法律直接規定「免掉」的稅</b></span></summary><div class="rb"><div><span class="l">結果　</span>這次不用繳，不留帳</div><div><span class="l">例　</span>繼承土地免徵土增稅；被徵收土地；契稅§14 政府公務交換</div><div><span class="l">易混　</span><span class="trapb">不課徵≠免徵：免徵不留帳</span></div></div></details>
+<details class="row" data-t="half"><summary><span class="tg">減徵</span><span><b>稅額照成數「打折」</b></span></summary><div class="rb"><div><span class="l">結果　</span>繳（原稅額 × 折扣）</div><div><span class="l">例　</span>持有 20/30/40 年減徵 20/30/40%；重劃後第一次移轉減 40%</div></div></details>
+<details class="row" data-t="half"><summary><span class="tg">減半</span><span><b>減徵的特例，固定「砍一半」</b></span></summary><div class="rb"><div><span class="l">結果　</span>繳一半</div><div><span class="l">例　</span>房屋稅§15 Ⅱ：平民住宅、合法工廠、農會倉庫</div></div></details>
+<details class="row" data-t="nolevy"><summary><span class="tg">不課徵</span><span><b>這次移轉先不算稅，日後再移轉才補算</b></span></summary><div class="rb"><div><span class="l">結果　</span>這次 0，但<b>帳記著、承續原地價</b></div><div><span class="l">例　</span>農地移轉自然人；配偶相互贈與；信託成立</div></div></details>
+<details class="row" data-t="late"><summary><span class="tg">怠報金</span><span><b>慢申報：逾期申報的加徵</b></span></summary><div class="rb"><div><span class="l">結果　</span>契稅每逾 <span class="num">3 日 1%</span>，上限應納稅額且不超過 1.5 萬（§24）</div></div></details>
+<details class="row" data-t="late"><summary><span class="tg">滯納金</span><span><b>慢繳錢：逾期繳納的加徵</b></span></summary><div class="rb"><div><span class="l">結果　</span>稅稽法§20 每逾 <span class="num">3 日 1%</span>，逾 <span class="num">30 日</span>移送執行</div><div><span class="trapb">契稅§25 仍寫每逾 2 日，考題依所引法規</span></div></div></details>
+<details class="row" data-t="hide"><summary><span class="tg">匿報</span><span><b>根本沒報</b></span></summary><div class="rb"><div><span class="l">結果　</span>補稅＋罰鍰（契稅 §26：1～3 倍）</div></div></details>
+<details class="row" data-t="hide"><summary><span class="tg">短報</span><span><b>報了但報少</b></span></summary><div class="rb"><div><span class="l">結果　</span>補稅＋罰鍰（同上）</div></div></details>
+</section>
+
+<div class="vs" id="vs"><button aria-pressed="true" data-v="A">減免 方案 A</button><button aria-pressed="false" data-v="B">減免 方案 B</button></div>
+<section class="sec" style="--c:var(--s3)"><h2>各稅減免條件</h2><p class="k">先選稅別，再看它有哪幾種減免（免徵／減徵／減半／不課徵／不免）</p><p class="desc" id="desc"></p><div id="mount"></div></section>
+<p class="mut">契稅資料來源：契稅條例§2 但書、§11、§12、§14、§14-1、§15、§30（第二手轉載整理，⚠️ 考前請對官方條文）。查無「減徵」規定。</p>
+</main>
+<script>
+var D=[
+{k:'地價稅',c:'#1B6B73',g:{free:[['公有土地供公共使用','土稅（免徵條文）'],['古蹟、歷史建築定著土地',''],['公共設施保留地未使用且與使用中土地隔離',''],['政府機關、合法立案私立學校用地','']]},note:'起徵點：每戶 100 元以下免課'},
+{k:'土地增值稅',c:'#8A5517',g:{free:[['繼承移轉','§28'],['被徵收土地','§28'],['政府出售或贈與之公有土地','§28'],['公共設施保留地徵收前移轉','§39']],half:[['持有 20 年以上減 20%、30 年以上減 30%、40 年以上減 40%（只減超過第一級稅率的部分）','§33'],['重劃後第一次移轉減徵 40%','§39-1 Ⅰ（抵價地、都更條號 ⚠️待核）']],nolevy:[['農業用地移轉自然人（須申請）','§39-2'],['配偶相互贈與','§28-2'],['抵價地不足最小建築單位領現金','§39-2'],['私人捐贈社福或私校使用','§28-3']]}},
+{k:'房屋稅',c:'#5C8A2E',g:{free:[['司法保護事業房屋；無償供政府機關公用等（私有房屋）','§15 Ⅰ'],['各級政府機關辦公房屋與員工宿舍、軍事機關、監獄、公立學校醫院、名勝古蹟祠廟、政府配供貧民居住之房屋等（公有房屋）','§14']],half:[['平民住宅','§15 Ⅱ'],['合法登記工廠直接生產自有房屋','§15 Ⅱ'],['農會倉庫','§15 Ⅱ'],['毀損 30% 以上未達 50%','§15 Ⅱ']]}},
+{k:'契稅',c:'#9A5A3C',g:{free:[['在開徵土地增值稅區域之「土地」免徵契稅（房屋仍課）','§2 但書'],['各級政府機關、地方自治團體、公立學校因公使用取得之不動產（供營業用不適用）','§14 Ⅰ①'],['政府經營之郵政事業，因業務使用取得之不動產','§14 Ⅰ②'],['政府因公務需要以公有不動產交換，或因土地重劃交換取得所有權','§14 Ⅰ③'],['建築物建造完成前變更起造人名義（但依§12 Ⅱ 應申報納稅者除外）','§14 Ⅰ④'],['建造中工程讓與他人繼續建造，以受讓人名義取得使用執照','§14 Ⅰ⑤']],nolevy:[['信託行為成立時，委託人與受託人之間','§14-1 ①'],['信託存續中受託人變更時，原受託人與新受託人之間','§14-1 ②'],['信託契約明定受益人為委託人者，信託消滅時，受託人與受益人之間','§14-1 ③'],['因遺囑成立之信託，信託消滅時，受託人與受益人之間','§14-1 ④'],['信託行為不成立、無效、解除或撤銷時，委託人與受託人之間','§14-1 ⑤']],bad:[['依法領買或標購公產；向法院標購拍賣之不動產：仍要繳','§11']]},note:'無「減徵」規定；因不可抗力不能如期申報或繳納，於原因消滅後 10 日內聲明，可免加徵怠報金、滯納金（§30）；免稅須申請免稅證明書（§15）'},
+{k:'房地合一',c:'#7A4A6A',g:{free:[['自住：本人、配偶或未成年子女辦竣戶籍，持有並居住連續 6 年；400 萬以下免稅，超過部分 10%','所得稅法 §4-5、§14-4']]}}];
+var TN={free:'免徵',half:'減徵／減半',nolevy:'不課徵',bad:'不免（陷阱）'},ORD=['free','half','nolevy','bad'];
+function label(t,k){return t==='half'&&k==='房屋稅'?'減半':t==='half'?'減徵':TN[t]}
+function grp(d,t){var a=d.g[t];if(!a)return'';var h='<div class="grp" data-t="'+t+'"><div class="gh"><span class="tg">'+label(t,d.k)+'</span><small>'+a.length+' 項</small></div>';a.forEach(function(x){h+='<div class="it"><div>'+x[0]+'</div>'+(x[1]?'<div class="a">'+x[1]+'</div>':'')+'</div>'});return h+'</div>'}
+function body(d){var h='';ORD.forEach(function(t){h+=grp(d,t)});if(!d.g.half&&d.k!=='房地合一')h+='<div class="grp"><div class="empty">沒有「減徵／減半」規定</div></div>';if(d.note)h+='<p class="mut" style="margin:0">'+d.note+'</p>';return h}
+var V='A',cur='契稅';
+function drawA(){var h='<div class="chips">';D.forEach(function(d){h+='<button class="chip" style="--c:'+d.c+'" aria-pressed="'+(d.k===cur)+'" data-k="'+d.k+'">'+d.k+'</button>'});h+='</div><div style="display:grid;gap:8px;margin-top:8px">'+body(D.filter(function(d){return d.k===cur})[0])+'</div>';return h}
+function drawB(){var h='<div style="display:grid;gap:8px">';D.forEach(function(d){var n=Object.keys(d.g).map(function(t){return '<span data-t="'+t+'">'+label(t,d.k)+' '+d.g[t].length+'</span>'}).join('');h+='<details class="tx" style="border-left:6px solid '+d.c+'"'+(d.k==='契稅'?' open':'')+'><summary><b style="color:'+d.c+';font-size:16px">'+d.k+'</b><span class="cnt">'+n+'</span></summary><div class="tb">'+body(d)+'</div></details>'});return h+'</div>'}
+function draw(){document.getElementById('desc').textContent=V==='A'?'方案 A：稅別晶片切換，一次只看一種稅，同種減免歸成一組；預設停在契稅。':'方案 B：五種稅各一條可收合列，列上直接顯示它有幾種減免（免徵 6、不課徵 5…）。';document.getElementById('mount').innerHTML=V==='A'?drawA():drawB()}
+document.getElementById('vs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;V=b.dataset.v;document.querySelectorAll('.vs button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});draw()});
+document.getElementById('mount').addEventListener('click',function(e){var b=e.target.closest('.chip');if(b){cur=b.dataset.k;draw()}});
+draw();
+</script></body></html>
