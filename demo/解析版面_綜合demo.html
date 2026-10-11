@@ -30,8 +30,8 @@ h1{font-size:18px;margin:0;color:var(--pri)}.sub{font-size:12.5px;color:var(--mu
 .arr{margin-left:auto;color:var(--muted);transition:transform .15s}.open .arr{transform:rotate(180deg)}
 #tb{position:fixed;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;z-index:9}
 </style></head><body><button id="tb" onclick="var r=document.documentElement;r.dataset.theme=r.dataset.theme=='dark'?'light':'dark'">◐</button>
-<main><div><h1>解析版面：綜合方案 Demo</h1><p class="sub">題目是土地法第 1 題（問「錯誤」者）。點任一選項作答，再切換上方四個方案比較。</p></div>
-<div class="vt" id="vt"></div><div class="desc" id="desc"></div><div id="stage"></div>
+<main><div><h1>解析樣式：三種並存 Demo</h1><p class="sub">題目是土地法第 1 題（問「錯誤」者）。點任一選項作答，上方「解析樣式」可切換三種，系統會記住你上次的選擇。</p></div>
+<div class="vt" id="vt"><span style="align-self:center;font-size:12.5px;color:var(--muted);flex:none">解析樣式</span></div><div class="desc" id="desc"></div><div id="stage"></div>
 <div><button class="mini" onclick="reset()">重新作答</button></div></main>
 <script>
 const Q={n:'第1題',ch:'A1 總則',kind:'問錯誤',t:'依土地法關於土地權利及公有土地之規定，下列敘述何者錯誤？',ask:'wrong',
@@ -41,13 +41,12 @@ O:[
 {L:'C',s:'各級政府機關需用公有土地時，應商同該管直轄市或縣（市）政府，層請行政院核准撥用',ok:true,law:'土地法§26',plain:'機關要用公有地，商同地方政府，層請行政院核准撥用。'},
 {L:'D',s:'外國人因繼承取得依法不得移轉於外國人之土地者，應於被繼承人死亡之日起三年內出售與本國人',ok:false,law:'土地法§17',plain:'外國人因繼承取得不得移轉予外國人的土地，是自「登記完畢之日」起3年內出售，不是「被繼承人死亡之日」。'}],
 ans:'D',trap:'起算點陷阱：外國人繼承 →「登記完畢之日」起 3 年（不是死亡日）。'};
-let pick=null,cur=0,tag=null;
+let pick=null,cur=2,tag=null;try{const m=localStorage.getItem('bx-ex');if(m!==null)cur=+m}catch(e){}
 const V=[
-['A 內嵌式','每個選項底下直接接解釋（像土地法版），但「顏色＝作答結果」、「敘述對錯」改成灰色小字，不再混淆。'],
-['B 分離式','選項乾淨，作答後下方出現「逐選項解析」卡（像估價版），每項補上條號＋白話。最適合手機一屏看一塊。'],
-['C 摺疊式','選項乾淨；作答後只自動展開「你選的」和「正解」，其他選項點一下才展開。最省捲動。'],
-['D 結論優先','作答後最上方先給結論條（答對／答錯、正解、考試陷阱），選項下只留一行判定＋條號，點開才看白話。']];
-const vt=document.getElementById('vt');V.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v[0];b.onclick=()=>{cur=i;draw()};vt.appendChild(b)});
+['分離式','選項乾淨，作答後下方出現「逐選項解析」卡（像估價版），每項補上條號＋白話。最適合手機一屏看一塊。'],
+['摺疊式','選項乾淨；作答後只自動展開「你選的」和「正解」，其他選項點一下才展開。最省捲動。'],
+['結論優先','作答後最上方先給結論條（答對／答錯、正解、考試陷阱），選項下只留一行判定＋條號，點開才看白話。']];
+const vt=document.getElementById('vt');V.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v[0];b.onclick=()=>{cur=i;try{localStorage.setItem('bx-ex',i)}catch(e){};draw()};vt.appendChild(b)});
 function reset(){pick=null;tag=null;draw()}
 function opt(o,mode){const done=pick!==null;let c='opt';if(done&&o.L==Q.ans)c+=' ans';if(done&&o.L==pick&&pick!=Q.ans)c+=' pick';
  const bd=done?(o.L==Q.ans?'<span class="bd a">正解</span>':(o.L==pick?'<span class="bd p">你選的</span>':'')):'';
@@ -55,16 +54,15 @@ function opt(o,mode){const done=pick!==null;let c='opt';if(done&&o.L==Q.ans)c+='
  return {c,bd,tr}}
 function tagsHtml(){return `<div class="tags">錯題歸類：${['A 法條混淆','B 粗心','C 真的不熟'].map((t,i)=>`<button class="mini" onclick="tag=${i};draw()" style="${tag===i?'background:var(--pri);color:var(--onpri)':''}">${t}</button>`).join('')}</div>`}
 function result(){const r=pick==Q.ans;return `<div class="res ${r?'ok':'no'}">${r?'答對了':'答錯了'}　正解 ${Q.ans}${r?'':'（你選 '+pick+'）'}</div>`}
-function draw(){[...vt.children].forEach((b,i)=>b.classList.toggle('on',i==cur));document.getElementById('desc').textContent=V[cur][1];
+function draw(){[...vt.querySelectorAll('button')].forEach((b,i)=>b.classList.toggle('on',i==cur));document.getElementById('desc').textContent=V[cur][1];
  const done=pick!==null;let h=`<div class="q"><div class="meta"><span class="chip">${Q.ch}</span><span class="chip g">${Q.kind}</span><span>${Q.n}</span></div><p class="qt">${Q.t}</p>`;
- if(cur==3&&done)h+=result()+`<div class="trap" style="margin:0 0 10px">🎯 考試陷阱｜${Q.trap}</div>`;
+ if(cur==2&&done)h+=result()+`<div class="trap" style="margin:0 0 10px">🎯 考試陷阱｜${Q.trap}</div>`;
  Q.O.forEach(o=>{const x=opt(o);
-  if(cur==0){h+=`<button class="${x.c}" onclick="pick='${o.L}';draw()"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}</div>${done?x.tr+`<div class="ex"><span class="law">${o.law}</span>${o.plain}</div>`:''}</button>`}
-  else if(cur==1){h+=`<button class="${x.c}" onclick="pick='${o.L}';draw()"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}</div></button>`}
-  else{const open=cur==2?(done&&(o.L==Q.ans||o.L==pick)):(window['o'+o.L]);
-   h+=`<button class="${x.c}${open?' open':''}" onclick="${done?`window.o${o.L}=!window.o${o.L};draw()`:`pick='${o.L}';draw()`}"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}${done?'<span class="arr">▾</span>':''}</div>${done?x.tr:''}${done&&(cur==2?(open||window['o'+o.L]):window['o'+o.L])?`<div class="ex">${o.plain}</div>`:''}</button>`}});
- if(cur==1&&done)h+=`<div class="card2">${result().replace('class="res','class="res')}<h4>逐選項解析</h4>${Q.O.map(o=>`<div class="ir"><b>(${o.L})</b> 敘述${o.ok?'正確 ✓':'錯誤 ✗'}　<span class="law">${o.law}</span><br>${o.plain}</div>`).join('')}<div class="trap">🎯 考試陷阱｜${Q.trap}</div></div>`;
- if((cur==0||cur==2)&&done)h+=result()+`<div class="trap">🎯 考試陷阱｜${Q.trap}</div>`;
+  if(cur==0){h+=`<button class="${x.c}" onclick="pick='${o.L}';draw()"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}</div></button>`}
+  else{const open=cur==1?(done&&(o.L==Q.ans||o.L==pick)):(window['o'+o.L]);
+   h+=`<button class="${x.c}${open?' open':''}" onclick="${done?`window.o${o.L}=!window.o${o.L};draw()`:`pick='${o.L}';draw()`}"><div class="row"><span class="L">(${o.L})</span><span class="tx">${o.s}</span>${x.bd}${done?'<span class="arr">▾</span>':''}</div>${done?x.tr:''}${done&&(cur==1?(open||window['o'+o.L]):window['o'+o.L])?`<div class="ex">${o.plain}</div>`:''}</button>`}});
+ if(cur==0&&done)h+=`<div class="card2">${result().replace('class="res','class="res')}<h4>逐選項解析</h4>${Q.O.map(o=>`<div class="ir"><b>(${o.L})</b> 敘述${o.ok?'正確 ✓':'錯誤 ✗'}　<span class="law">${o.law}</span><br>${o.plain}</div>`).join('')}<div class="trap">🎯 考試陷阱｜${Q.trap}</div></div>`;
+ if(cur==1&&done)h+=result()+`<div class="trap">🎯 考試陷阱｜${Q.trap}</div>`;
  if(done)h+=tagsHtml();h+='</div>';document.getElementById('stage').innerHTML=h}
 draw();
 </script></body></html>
