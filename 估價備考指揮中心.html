@@ -1,529 +1,399 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>估價備考指揮中心</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ── 松煙綠 Token System ── */
 :root{
-  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
-  --green:#3F6B4C; --blue:#2B5082; --line:#DDD2BB; --paper2:#FBF8F0;
-  --muted:#8A7F6E; --shadow:rgba(42,39,34,0.08);
+  --bg:#F5F1E6; --paper:#FFFEFA; --paper2:#F0EDE0;
+  --fg:#25302C; --primary:#2F5D50; --line:#DDD6C3;
+  --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
+  --accent-r:#A84030; --accent-g:#2F6B45; --accent-b:#1E6B8C;
+  --accent-gold:#B8782E;
+  color-scheme: light;
 }
-*{box-sizing:border-box; margin:0; padding:0;}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+    --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+    --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+    --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+    --accent-gold:#D09848;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+  --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+  --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+  --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+  --accent-gold:#D09848;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
 body{
-  font-family:"Noto Sans TC",sans-serif; background:var(--paper); color:var(--ink);
-  min-height:100vh; font-size:15px; line-height:1.7; padding-bottom:60px;
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg); color:var(--fg);
+  min-height:100vh; font-size:15px; line-height:1.7;
+  padding-bottom:80px;
 }
 h1,h2,h3{font-family:"Noto Serif TC",serif;}
-/* HEADER */
+
+/* ── Header ── */
 header{
-  background:linear-gradient(135deg,var(--vermillion),#8c3322);
-  color:#fff; padding:28px 20px 22px; text-align:center;
-  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,var(--primary),#1e3d32);
+  color:#fff; padding:28px 20px 22px; text-align:center; position:relative; overflow:hidden;
 }
 header::after{
   content:""; position:absolute; inset:0;
-  background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 10px,transparent 10px 20px);
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px);
 }
-header h1{font-size:1.6rem; margin:0 0 6px; font-weight:900; position:relative;}
-header .sub{font-size:.9rem; opacity:.9; position:relative;}
+header h1{font-size:1.5rem;margin:0 0 6px;font-weight:900;position:relative;}
+header .sub{font-size:.88rem;opacity:.85;position:relative;}
 #countdown{
-  margin-top:14px; display:inline-block; background:rgba(0,0,0,.18);
-  padding:10px 22px; border-radius:30px; font-size:1rem; font-weight:700;
-  position:relative; border:1px solid rgba(255,255,255,.25);
+  margin-top:14px;display:inline-block;background:rgba(0,0,0,.22);
+  padding:9px 22px;border-radius:30px;font-size:.95rem;font-weight:700;
+  position:relative;border:1px solid rgba(255,255,255,.2);
 }
-#countdown b{font-size:1.4rem; color:#FFE9C7;}
+#countdown b{font-size:1.35rem;color:#C8F0D8;}
 
-/* SUGGEST FLOW */
-/* TABS */
+/* theme toggle */
+.theme-btn{
+  position:absolute;top:14px;right:14px;z-index:5;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  color:#fff;border-radius:20px;padding:5px 12px;font-size:.78rem;
+  cursor:pointer;transition:background .15s;
+}
+.theme-btn:hover{background:rgba(255,255,255,.25);}
+
+/* ── Flow bar ── */
+.flow-bar{
+  background:var(--primary);color:#fff;
+  padding:10px 16px;display:flex;align-items:center;
+  gap:6px;flex-wrap:wrap;font-size:.78rem;overflow-x:auto;scrollbar-width:none;
+}
+.flow-bar::-webkit-scrollbar{display:none;}
+.flow-label{font-weight:700;color:#C8F0D8;white-space:nowrap;flex-shrink:0;margin-right:4px;}
+.flow-step{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  border-radius:20px;padding:3px 10px;white-space:nowrap;flex-shrink:0;
+  cursor:pointer;transition:background .15s;
+}
+.flow-step:hover{background:rgba(255,255,255,.22);}
+.flow-arrow{color:rgba(255,255,255,.5);font-size:.7rem;flex-shrink:0;}
+
+/* ── Tabs ── */
 nav{
-  display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
-  position:sticky; top:0; z-index:10; background:var(--paper);
-  padding:12px 10px; border-bottom:2px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  position:sticky;top:0;z-index:10;background:var(--bg);
+  padding:12px 10px;border-bottom:2px solid var(--line);
 }
 .tab-btn{
-  font-family:"Noto Serif TC",serif; font-weight:700; font-size:.92rem;
-  padding:10px 16px; border-radius:10px; border:1.5px solid var(--line);
-  background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:.88rem;
+  padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);
+  background:var(--paper);color:var(--fg);cursor:pointer;transition:.15s;
 }
-.tab-btn:hover{border-color:var(--gold);}
-.tab-btn.active{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+.tab-btn:hover{border-color:var(--primary);}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 
-/* PANELS */
-.panel { display: none; padding: 18px 16px 48px; max-width: 900px; margin: 0 auto; }
-.panel.active { display: block; }
+/* ── Panels ── */
+.panel{display:none;padding:18px 16px 48px;max-width:900px;margin:0 auto;}
+.panel.active{display:block;}
 
-/* SEC TITLE */
-.sec-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--vermillion);
-  border-bottom: 2px solid var(--line);
-  padding-bottom: 6px;
-  margin: 22px 0 12px;
+/* ── Sec title ── */
+.sec-title{
+  font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:700;
+  color:var(--primary);border-bottom:2px solid var(--line);
+  padding-bottom:6px;margin:22px 0 12px;
 }
-.sec-title:first-child { margin-top: 4px; }
+.sec-title:first-child{margin-top:4px;}
 
-/* TODAY CARD */
-.today-card {
-  background: var(--ink);
-  color: var(--paper);
-  border-radius: 10px;
-  padding: 16px 18px;
-  margin-bottom: 16px;
+/* ── Today card ── */
+.today-card{
+  background:var(--fg);color:var(--bg);
+  border-radius:10px;padding:16px 18px;margin-bottom:16px;
 }
-.today-card h3 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 10px;
+.today-card h3{
+  font-family:"Noto Serif TC",serif;font-size:.95rem;font-weight:700;
+  color:var(--accent-gold);margin-bottom:10px;
 }
-.today-steps { display: flex; flex-direction: column; gap: 6px; }
-.today-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: .85rem;
-  line-height: 1.5;
-  color: #D8CEBC;
-}
-.step-num {
-  background: var(--vermillion);
-  color: #fff;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .72rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.step-num.gold { background: var(--gold); }
-
-/* SUB TABS */
-.sub-tabs {
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--line);
-  margin-bottom: 16px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.sub-tabs::-webkit-scrollbar { display: none; }
-.sub-btn {
-  flex: 0 0 auto;
-  padding: 8px 16px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  cursor: pointer;
-  font-size: .82rem;
-  font-weight: 500;
-  color: var(--muted);
-  white-space: nowrap;
-  transition: color .15s;
-}
-.sub-btn.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
-.sub-btn:hover:not(.active) { color: var(--ink); }
-
-.sub-panel { display: none; }
-.sub-panel.active { display: block; }
-
-/* QUIZ GRID */
-.quiz-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.quiz-card {
-  background: var(--paper2);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 14px;
-  text-decoration: none;
-  color: var(--ink);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  transition: border-color .15s, box-shadow .15s, transform .1s;
-}
-.quiz-card:hover { border-color: var(--gold); box-shadow: 0 3px 10px var(--shadow); transform: translateY(-2px); }
-.card-label {
-  font-family: 'Noto Serif TC', serif;
-  font-size: .72rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: .06em;
-}
-.card-title {
-  font-size: .88rem;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.4;
-}
-.card-meta {
-  font-size: .75rem;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.badge {
-  background: var(--vermillion);
-  color: #fff;
-  border-radius: 20px;
-  padding: 1px 7px;
-  font-size: .7rem;
-  font-weight: 700;
-}
-.badge.green { background: var(--green); }
-.badge.gold  { background: var(--gold); color: var(--ink); }
-.badge.blue  { background: var(--blue); }
-
-/* GROUP COLLAPSIBLE */
-.group-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--paper2);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 14px;
-  cursor: pointer;
-  margin-bottom: 6px;
-  user-select: none;
-  transition: border-color .15s;
-}
-.group-header:hover { border-color: var(--gold); }
-.group-header.open { border-color: var(--gold); border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; }
-.group-header-left { display: flex; align-items: center; gap: 10px; }
-.group-name {
-  font-family: 'Noto Serif TC', serif;
-  font-size: .92rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-.group-pct {
-  font-size: .75rem;
-  color: var(--muted);
-}
-.group-arrow { color: var(--muted); font-size: .75rem; transition: transform .2s; }
-.group-header.open .group-arrow { transform: rotate(180deg); }
-.group-body {
-  display: none;
-  border: 1.5px solid var(--gold);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-  background: var(--paper2);
-  padding: 10px 12px;
-  margin-bottom: 6px;
-}
-.group-body.open { display: block; }
-
-/* TOOL BUTTONS */
-.tool-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-.tool-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--paper2);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 14px;
-  text-decoration: none;
-  color: var(--ink);
-  font-size: .85rem;
-  font-weight: 500;
-  transition: border-color .15s, box-shadow .15s;
-  cursor: pointer;
-}
-.tool-btn:hover { border-color: var(--gold); box-shadow: 0 2px 8px var(--shadow); }
-.tool-btn .icon { font-size: 1.05rem; }
-
-/* ESSAY TABLE */
-.essay-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .82rem;
-  background: var(--paper2);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1.5px solid var(--line);
-  margin-bottom: 14px;
-}
-.essay-table th {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 9px 12px;
-  text-align: left;
-  font-family: 'Noto Serif TC', serif;
-  font-weight: 600;
-  font-size: .78rem;
-}
-.essay-table td {
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-  line-height: 1.5;
-}
-.essay-table tr:last-child td { border-bottom: none; }
-.essay-table tr:nth-child(even) td { background: var(--paper); }
-.pri-a { color: #C0392B; font-weight: 700; }
-.pri-b { color: var(--gold); font-weight: 700; }
-.pri-c { color: var(--green); font-weight: 700; }
-
-/* PRIORITY FILTER */
-.priority-filter {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-.pri-btn {
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1.5px solid var(--line);
-  background: var(--paper2);
-  cursor: pointer;
-  font-size: .78rem;
-  font-weight: 500;
-  transition: all .15s;
-  color: var(--muted);
-}
-.pri-btn.active { background: var(--vermillion); color: #fff; border-color: var(--vermillion); }
-
-/* CHECKLIST */
-.checklist { display: flex; flex-direction: column; gap: 8px; }
-.chk-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  background: var(--paper2);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 14px;
-}
-.chk-status {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .8rem;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.chk-status.done  { background: var(--green); color: #fff; }
-.chk-status.todo  { background: #E8E0D0; color: var(--muted); }
-.chk-body { flex: 1; }
-.chk-title { font-weight: 700; font-size: .88rem; margin-bottom: 3px; }
-.chk-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-.chk-item.done-item { border-left: 3px solid var(--green); }
-.chk-item.todo-item { border-left: 3px solid #D4C8B0; }
-
-/* LAW TABLE */
-.law-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .82rem;
-  background: var(--paper2);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1.5px solid var(--line);
-}
-.law-table th {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 9px 12px;
-  text-align: left;
-  font-family: 'Noto Serif TC', serif;
-  font-weight: 600;
-  font-size: .78rem;
-}
-.law-table td {
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-  line-height: 1.5;
-}
-.law-table tr:last-child td { border-bottom: none; }
-.law-table tr:nth-child(even) td { background: var(--paper); }
-.tag-warn { color: var(--vermillion); font-weight: 700; }
-.tag-ok   { color: var(--green); font-weight: 700; }
-
-/* STAT TABLE */
-.stat-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .82rem;
-  background: var(--paper2);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1.5px solid var(--line);
-  margin-bottom: 14px;
-}
-.stat-table th {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 9px 12px;
-  text-align: left;
-  font-family: 'Noto Serif TC', serif;
-  font-size: .78rem;
-}
-.stat-table td {
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-  line-height: 1.5;
-}
-.stat-table tr:last-child td { border-bottom: none; }
-.stat-table tr:nth-child(even) td { background: var(--paper); }
-.rank-1 { color: #C0392B; font-weight: 700; }
-.rank-2 { color: var(--gold); font-weight: 700; }
-.rank-3 { color: var(--green); font-weight: 700; }
-
-/* NOTICE BOX */
-.notice-box {
-  background: #FEF3CD;
-  border: 1.5px solid #F0C86A;
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: .85rem;
-  color: #7A5C0A;
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-.warn-box {
-  background: #FDF0EE;
-  border: 1.5px solid var(--vermillion);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: .85rem;
-  color: var(--vermillion);
-  line-height: 1.6;
-  margin-bottom: 12px;
+.today-steps{display:flex;flex-direction:column;gap:6px;}
+.today-step{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;line-height:1.5;}
+.step-num{
+  background:var(--primary);color:#fff;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;flex-shrink:0;margin-top:2px;
 }
 
-/* PROGRESS BAR */
-.prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.prog-label { font-size: .78rem; font-weight: 600; min-width: 120px; flex-shrink: 0; }
-.prog-bar { flex: 1; background: var(--line); border-radius: 99px; height: 8px; overflow: hidden; }
-.prog-fill { height: 100%; border-radius: 99px; background: var(--vermillion); }
-.prog-fill.green { background: var(--green); }
-.prog-pct { font-size: .75rem; color: var(--muted); min-width: 32px; text-align: right; }
+/* ── Sub tabs ── */
+.sub-tabs{
+  display:flex;gap:0;border-bottom:2px solid var(--line);
+  margin-bottom:16px;overflow-x:auto;scrollbar-width:none;
+}
+.sub-tabs::-webkit-scrollbar{display:none;}
+.sub-btn{
+  flex:0 0 auto;padding:8px 16px;background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  cursor:pointer;font-size:.82rem;font-weight:500;color:var(--muted);white-space:nowrap;transition:color .15s;
+}
+.sub-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+.sub-btn:hover:not(.active){color:var(--fg);}
+.sub-panel{display:none;}
+.sub-panel.active{display:block;}
 
-/* MOCK TABLE */
-.mock-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--paper2);
-  border: 1.5px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 6px;
+/* ── Quiz grid + cards ── */
+.quiz-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:10px;margin-bottom:6px;
 }
-.mock-name { font-size: .85rem; font-weight: 600; }
-.mock-status { font-size: .78rem; }
-.mk-score { font-size: .85rem; font-weight: 700; color: var(--vermillion); }
+.quiz-card{
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  padding:13px 14px;text-decoration:none;color:var(--fg);
+  display:flex;flex-direction:column;gap:5px;
+  transition:border-color .15s,box-shadow .15s,transform .1s;
+  position:relative;
+}
+.quiz-card:hover{border-color:var(--primary);box-shadow:0 3px 10px var(--shadow);transform:translateY(-2px);}
+.card-label{font-size:.7rem;font-weight:700;color:var(--primary);letter-spacing:.06em;font-family:"Noto Serif TC",serif;}
+.card-title{font-size:.86rem;font-weight:700;color:var(--fg);line-height:1.4;}
+.card-meta{font-size:.74rem;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.badge{background:var(--accent-r);color:#fff;border-radius:20px;padding:1px 7px;font-size:.68rem;font-weight:700;}
+.badge.green{background:var(--accent-g);}
+.badge.gold{background:var(--accent-gold);}
+.badge.blue{background:var(--accent-b);}
 
-/* SUGGEST FLOW BAR */
-.flow-bar {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  font-size: .78rem;
-  overflow-x: auto;
-  scrollbar-width: none;
+/* ── 閱讀進度勾選 ── */
+.read-check{
+  display:flex;align-items:center;gap:6px;
+  margin-top:8px;padding-top:8px;border-top:1px solid var(--line);
 }
-.flow-bar::-webkit-scrollbar { display: none; }
-.flow-label { font-weight: 700; color: var(--gold); white-space: nowrap; flex-shrink: 0; margin-right: 4px; }
-.flow-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 20px;
-  padding: 3px 10px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: background .15s;
+.read-check label{font-size:.75rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;}
+.read-check input[type=checkbox]{
+  width:15px;height:15px;cursor:pointer;accent-color:var(--accent-g);
 }
-.flow-step:hover { background: rgba(188,138,46,.35); }
-.flow-arrow { color: var(--gold); font-size: .7rem; flex-shrink: 0; }
+.read-done .read-check label{color:var(--accent-g);font-weight:600;}
+.read-done{border-color:var(--accent-g) !important;}
+.read-stamp{
+  font-size:.68rem;color:var(--accent-g);margin-left:auto;
+  font-weight:600;opacity:0;transition:opacity .2s;
+}
+.read-done .read-stamp{opacity:1;}
 
-/* ESSAY SUB TABS */
-.essay-sub-tabs {
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--line);
-  margin-bottom: 16px;
+/* ── Group collapsible ── */
+.group-header{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  padding:12px 14px;cursor:pointer;margin-bottom:6px;
+  user-select:none;transition:border-color .15s;
 }
-.essay-sub-btn {
-  padding: 8px 18px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  cursor: pointer;
-  font-size: .85rem;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
-  transition: color .15s;
-  font-family: 'Noto Serif TC', serif;
+.group-header:hover{border-color:var(--primary);}
+.group-header.open{border-color:var(--primary);border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:none;}
+.group-header-left{display:flex;align-items:center;gap:10px;}
+.group-name{font-family:"Noto Serif TC",serif;font-size:.9rem;font-weight:700;color:var(--fg);}
+.group-pct{font-size:.74rem;color:var(--muted);}
+.group-arrow{color:var(--muted);font-size:.72rem;transition:transform .2s;}
+.group-header.open .group-arrow{transform:rotate(180deg);}
+.group-body{
+  display:none;border:1.5px solid var(--primary);border-top:none;
+  border-radius:0 0 10px 10px;background:var(--paper2);
+  padding:12px 12px;margin-bottom:6px;
 }
-.essay-sub-btn.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
-.essay-sub-btn:hover:not(.active) { color: var(--ink); }
-.essay-sub-panel { display: none; }
-.essay-sub-panel.active { display: block; }
+.group-body.open{display:block;}
 
-/* FOOTER */
-.site-footer {
-  text-align: center;
-  padding: 24px 16px;
-  font-size: .72rem;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-  margin-top: 20px;
+/* group read bar */
+.group-read-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 0 0;font-size:.74rem;color:var(--muted);
+}
+.g-bar{flex:1;background:var(--line);border-radius:99px;height:5px;overflow:hidden;}
+.g-fill{height:100%;border-radius:99px;background:var(--accent-g);transition:width .3s;}
+
+/* ── Tool btns ── */
+.tool-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.tool-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  padding:10px 14px;text-decoration:none;color:var(--fg);
+  font-size:.84rem;font-weight:500;transition:border-color .15s,box-shadow .15s;cursor:pointer;
+}
+.tool-btn:hover{border-color:var(--primary);box-shadow:0 2px 8px var(--shadow);}
+.tool-btn .icon{font-size:1rem;}
+
+/* ── Essay table ── */
+.essay-table,.law-table,.stat-table{
+  width:100%;border-collapse:collapse;font-size:.82rem;
+  background:var(--paper);border-radius:10px;overflow:hidden;
+  border:1.5px solid var(--line);margin-bottom:14px;
+}
+.essay-table th,.law-table th,.stat-table th{
+  background:var(--fg);color:var(--bg);padding:9px 12px;
+  text-align:left;font-family:"Noto Serif TC",serif;font-weight:600;font-size:.78rem;
+}
+.essay-table td,.law-table td,.stat-table td{
+  padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5;
+}
+.essay-table tr:last-child td,.law-table tr:last-child td,.stat-table tr:last-child td{border-bottom:none;}
+.essay-table tr:nth-child(even) td,.law-table tr:nth-child(even) td,.stat-table tr:nth-child(even) td{background:var(--paper2);}
+.pri-a{color:var(--accent-r);font-weight:700;}
+.pri-b{color:var(--accent-gold);font-weight:700;}
+.pri-c{color:var(--accent-g);font-weight:700;}
+.tag-warn{color:var(--accent-r);font-weight:700;}
+.tag-ok{color:var(--accent-g);font-weight:700;}
+.rank-1{color:var(--accent-r);font-weight:700;}
+.rank-2{color:var(--accent-gold);font-weight:700;}
+.rank-3{color:var(--accent-g);font-weight:700;}
+
+/* ── Priority filter ── */
+.priority-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.pri-btn{
+  padding:5px 12px;border-radius:20px;border:1.5px solid var(--line);
+  background:var(--paper2);cursor:pointer;font-size:.78rem;font-weight:500;
+  transition:all .15s;color:var(--muted);
+}
+.pri-btn.active{background:var(--accent-r);color:#fff;border-color:var(--accent-r);}
+
+/* ── Checklist ── */
+.checklist{display:flex;flex-direction:column;gap:8px;}
+.chk-item{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--paper);border:1.5px solid var(--line);
+  border-radius:10px;padding:12px 14px;
+}
+.chk-status{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;flex-shrink:0;margin-top:1px;
+}
+.chk-status.done{background:var(--accent-g);color:#fff;}
+.chk-status.todo{background:var(--paper2);color:var(--muted);border:1.5px solid var(--line);}
+.chk-body{flex:1;}
+.chk-title{font-weight:700;font-size:.87rem;margin-bottom:3px;}
+.chk-desc{font-size:.77rem;color:var(--muted);line-height:1.5;}
+.chk-item.done-item{border-left:3px solid var(--accent-g);}
+.chk-item.todo-item{border-left:3px solid var(--line);}
+
+/* ── Notice / warn box ── */
+.notice-box{
+  background:var(--paper2);border:1.5px solid var(--accent-gold);
+  border-radius:10px;padding:12px 14px;font-size:.84rem;color:var(--fg);line-height:1.6;margin-bottom:12px;
+}
+.warn-box{
+  background:var(--paper2);border:1.5px solid var(--accent-r);
+  border-radius:10px;padding:12px 14px;font-size:.84rem;color:var(--accent-r);line-height:1.6;margin-bottom:12px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  header h1{font-size:1.3rem;}
-  .quiz-grid { grid-template-columns: 1fr; }
-  .tab-btn { font-size:.8rem; padding:8px 11px; }
-  .today-card { padding: 14px 14px; }
+/* ── Progress bar ── */
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.prog-label{font-size:.78rem;font-weight:600;min-width:80px;flex-shrink:0;color:var(--fg);}
+.prog-bar{flex:1;background:var(--line);border-radius:99px;height:7px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:var(--accent-r);transition:width .4s;}
+.prog-fill.green{background:var(--accent-g);}
+.prog-fill.blue{background:var(--accent-b);}
+.prog-pct{font-size:.74rem;color:var(--muted);min-width:36px;text-align:right;}
+
+/* ── Mock table ── */
+.mock-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--paper);border:1.5px solid var(--line);
+  border-radius:10px;padding:10px 14px;margin-bottom:6px;
+}
+.mock-name{font-size:.85rem;font-weight:600;}
+.mk-score{font-size:.85rem;font-weight:700;color:var(--accent-r);}
+.mk-none{font-size:.78rem;color:var(--muted);}
+
+/* ── Essay sub tabs ── */
+.essay-sub-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:16px;}
+.essay-sub-btn{
+  padding:8px 18px;background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  cursor:pointer;font-size:.84rem;font-weight:600;color:var(--muted);
+  white-space:nowrap;transition:color .15s;font-family:"Noto Serif TC",serif;
+}
+.essay-sub-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+.essay-sub-btn:hover:not(.active){color:var(--fg);}
+.essay-sub-panel{display:none;}
+.essay-sub-panel.active{display:block;}
+
+/* ── 閱讀進度匯報區 ── */
+.report-box{
+  background:var(--paper);border:1.5px solid var(--primary);
+  border-radius:10px;padding:14px 16px;margin-bottom:14px;
+}
+.report-box h4{
+  font-family:"Noto Serif TC",serif;font-size:.9rem;font-weight:700;
+  color:var(--primary);margin-bottom:8px;
+}
+.report-preview{
+  font-size:.8rem;color:var(--muted);background:var(--paper2);
+  border-radius:6px;padding:10px 12px;white-space:pre-line;
+  line-height:1.8;margin-bottom:10px;min-height:60px;font-family:monospace;
+}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--primary);color:#fff;border:none;border-radius:8px;
+  padding:8px 16px;font-size:.84rem;font-weight:600;cursor:pointer;transition:opacity .15s;
+}
+.copy-btn:hover{opacity:.85;}
+.copy-ok{color:var(--accent-g);font-size:.8rem;margin-left:10px;opacity:0;transition:opacity .3s;}
+
+/* ── Chapter read summary grid ── */
+.chap-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:8px;margin-bottom:14px;
+}
+.chap-tile{
+  background:var(--paper2);border:1.5px solid var(--line);
+  border-radius:8px;padding:8px 10px;text-align:center;
+  font-size:.78rem;font-weight:600;color:var(--muted);
+  transition:border-color .2s,background .2s;
+}
+.chap-tile.done{
+  background:color-mix(in srgb,var(--accent-g) 12%,var(--paper));
+  border-color:var(--accent-g);color:var(--accent-g);
+}
+.chap-tile span{display:block;font-size:.68rem;font-weight:400;color:var(--muted);margin-top:2px;}
+
+/* ── Floating btns ── */
+.fab-group{
+  position:fixed;bottom:24px;right:18px;
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:100;
+}
+.fab{
+  width:44px;height:44px;border-radius:50%;border:none;
+  cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 12px var(--shadow);transition:transform .15s,opacity .15s;
+}
+.fab:hover{transform:scale(1.08);}
+.fab-top{background:var(--paper);color:var(--fg);border:1.5px solid var(--line);}
+.fab-home{background:var(--primary);color:#fff;}
+
+/* ── Footer ── */
+.site-footer{
+  text-align:center;padding:24px 16px;font-size:.72rem;color:var(--muted);
+  border-top:1px solid var(--line);margin-top:20px;
+}
+
+/* ── Responsive ── */
+@media(max-width:480px){
+  header h1{font-size:1.25rem;}
+  .quiz-grid{grid-template-columns:1fr;}
+  .tab-btn{font-size:.8rem;padding:8px 10px;}
+  .chap-grid{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
 <body>
 
 <header>
+  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀ 淺色</button>
   <h1>📐 不動產估價備考指揮中心</h1>
   <div class="sub">99–114年 520題選擇題＋32題申論｜依讀書流程編排</div>
   <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
@@ -531,17 +401,13 @@ nav{
 
 <div class="flow-bar">
   <span class="flow-label">建議流程：</span>
-  <span class="flow-step" onclick="showTab('mem',document.querySelector('.tab-btn:nth-child(2)'))">🧠 記憶速記</span>
+  <span class="flow-step" onclick="showTab('mem',document.querySelectorAll('.tab-btn')[1])">🧠 記憶速記</span>
   <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('drill',document.querySelector('.tab-btn:nth-child(1)'))">📝 章節刷題</span>
+  <span class="flow-step" onclick="showTab('drill',document.querySelectorAll('.tab-btn')[0])">📝 章節刷題</span>
   <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('drill',document.querySelector('.tab-btn:nth-child(1)'))">🔀 混合+錯題本</span>
+  <span class="flow-step" onclick="showTab('essay',document.querySelectorAll('.tab-btn')[2])">✍️ 申論練習</span>
   <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('essay',document.querySelector('.tab-btn:nth-child(3)'))">✍️ 申論練習</span>
-  <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('law',document.querySelector('.tab-btn:nth-child(4)'))">⚡ 現行法核對</span>
-  <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('drill',document.querySelector('.tab-btn:nth-child(1)'))">🎯 模擬卷（假日）</span>
+  <span class="flow-step" onclick="showTab('progress',document.querySelectorAll('.tab-btn')[4])">✅ 確認進度</span>
 </div>
 
 <nav role="tablist">
@@ -558,9 +424,7 @@ nav{
 
   <div class="today-card">
     <h3>今天做什麼</h3>
-    <div class="today-steps" id="today-steps">
-      <!-- JS 動態填入 -->
-    </div>
+    <div class="today-steps" id="today-steps"></div>
   </div>
 
   <div class="sub-tabs">
@@ -571,9 +435,9 @@ nav{
 
   <!-- 章節練習 -->
   <div id="sub-drill-ch" class="sub-panel active">
-    <div class="notice-box">依 16 年出題頻率由高到低排列（括號內為歷屆出題數）。點▼展開各組後直接開啟工具。</div>
+    <div class="notice-box">依 16 年出題頻率由高到低排列（括號內為歷屆出題數）。展開後可 ✓ 標記本章閱讀完成。</div>
 
-    <!-- G1 成本法 -->
+    <!-- C 成本法 -->
     <div class="group-header" onclick="toggleGroup(this)">
       <div class="group-header-left">
         <span class="badge">最高頻</span>
@@ -584,20 +448,33 @@ nav{
     </div>
     <div class="group-body">
       <div class="quiz-grid">
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C1.html" target="_blank">
+        <a class="quiz-card" id="card-C1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C1.html" target="_blank">
           <div class="card-label">C1 · 成本法</div>
           <div class="card-title">重建成本與資本利息</div>
           <div class="card-meta"><span class="badge">57題</span> 重置成本｜建物比率｜資本利息綜合利率</div>
+          <div class="read-check">
+            <label><input type="checkbox" data-key="bxr-C1" onchange="markRead('C1',this)"> 本章閱讀完成</label>
+            <span class="read-stamp" id="stamp-C1">✓ 已讀</span>
+          </div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C2.html" target="_blank">
+        <a class="quiz-card" id="card-C2" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_C2.html" target="_blank">
           <div class="card-label">C2 · 成本法</div>
           <div class="card-title">折舊計算（定額／定率／償債基金）</div>
           <div class="card-meta"><span class="badge">40題</span> 三種方法｜殘餘率≤10%｜三條路徑</div>
+          <div class="read-check">
+            <label><input type="checkbox" data-key="bxr-C2" onchange="markRead('C2',this)"> 本章閱讀完成</label>
+            <span class="read-stamp" id="stamp-C2">✓ 已讀</span>
+          </div>
         </a>
+      </div>
+      <div class="group-read-bar" id="bar-C">
+        <span>C章進度</span>
+        <div class="g-bar"><div class="g-fill" id="gfill-C" style="width:0%"></div></div>
+        <span id="gpct-C">0/2</span>
       </div>
     </div>
 
-    <!-- G2 收益法 -->
+    <!-- D 收益法 -->
     <div class="group-header" onclick="toggleGroup(this)">
       <div class="group-header-left">
         <span class="badge">最高頻</span>
@@ -608,25 +485,33 @@ nav{
     </div>
     <div class="group-body">
       <div class="quiz-grid">
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1.html" target="_blank">
+        <a class="quiz-card" id="card-D1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D1.html" target="_blank">
           <div class="card-label">D1 · 收益法</div>
           <div class="card-title">直接資本化法</div>
           <div class="card-meta"><span class="badge">42題</span> NOI公式｜潛在毛收入</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-D1" onchange="markRead('D1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-D1">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D2.html" target="_blank">
+        <a class="quiz-card" id="card-D2" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D2.html" target="_blank">
           <div class="card-label">D2 · 收益法</div>
           <div class="card-title">資本化率五種決定法</div>
           <div class="card-meta"><span class="badge">29題</span> 市場萃取｜加權平均｜DSCR</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-D2" onchange="markRead('D2',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-D2">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D3.html" target="_blank">
+        <a class="quiz-card" id="card-D3" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_D3.html" target="_blank">
           <div class="card-label">D3 · 收益法</div>
           <div class="card-title">DCF 折現現金流法</div>
           <div class="card-meta"><span class="badge">13題</span> 折現率｜期末處分價值</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-D3" onchange="markRead('D3',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-D3">✓ 已讀</span></div>
         </a>
+      </div>
+      <div class="group-read-bar">
+        <span>D章進度</span>
+        <div class="g-bar"><div class="g-fill" id="gfill-D" style="width:0%"></div></div>
+        <span id="gpct-D">0/3</span>
       </div>
     </div>
 
-    <!-- G3 比較法 -->
+    <!-- B 比較法 -->
     <div class="group-header" onclick="toggleGroup(this)">
       <div class="group-header-left">
         <span class="badge gold">高頻</span>
@@ -637,49 +522,64 @@ nav{
     </div>
     <div class="group-body">
       <div class="quiz-grid">
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B.html" target="_blank">
+        <a class="quiz-card" id="card-B" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_B.html" target="_blank">
           <div class="card-label">B1+B2 · 比較法</div>
           <div class="card-title">調整流程＋排除規則＋合併增值法</div>
           <div class="card-meta"><span class="badge">65題</span> 15%/30%/20%三關｜區域個別因素</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-B" onchange="markRead('B',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-B">✓ 已讀</span></div>
         </a>
+      </div>
+      <div class="group-read-bar">
+        <span>B章進度</span>
+        <div class="g-bar"><div class="g-fill" id="gfill-B" style="width:0%"></div></div>
+        <span id="gpct-B">0/1</span>
       </div>
     </div>
 
-    <!-- G4 估價原則+因素+程序 -->
+    <!-- A 估價原則 -->
     <div class="group-header" onclick="toggleGroup(this)">
       <div class="group-header-left">
         <span class="badge gold">高頻</span>
         <span class="group-name">A 估價原則、價格種類、影響因素、程序</span>
-        <span class="group-pct">A1–A4合計 163題｜31.4%</span>
+        <span class="group-pct">A1–A4 合計 163題｜31.4%</span>
       </div>
       <span class="group-arrow">▼</span>
     </div>
     <div class="group-body">
       <div class="quiz-grid">
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1.html" target="_blank">
+        <a class="quiz-card" id="card-A1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A1.html" target="_blank">
           <div class="card-label">A1 · 估價原則</div>
           <div class="card-title">最有效使用、貢獻、均衡等原則</div>
           <div class="card-meta"><span class="badge">44題</span> 情境辨識為主</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-A1" onchange="markRead('A1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-A1">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A2.html" target="_blank">
+        <a class="quiz-card" id="card-A2" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A2.html" target="_blank">
           <div class="card-label">A2 · 價格種類</div>
           <div class="card-title">正常、限定、特定、特殊價格</div>
           <div class="card-meta"><span class="badge">31題</span> 四種辨析</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-A2" onchange="markRead('A2',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-A2">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A3.html" target="_blank">
+        <a class="quiz-card" id="card-A3" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A3.html" target="_blank">
           <div class="card-label">A3 · 影響因素</div>
           <div class="card-title">一般、區域、個別、特殊因素分類</div>
           <div class="card-meta"><span class="badge">44題</span> 情境辨識</div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-A3" onchange="markRead('A3',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-A3">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A4.html" target="_blank">
+        <a class="quiz-card" id="card-A4" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_A4.html" target="_blank">
           <div class="card-label">A4 · 估價程序</div>
           <div class="card-title">8步驟、比較實例4原則、委託書</div>
           <div class="card-meta"><span class="badge">44題</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-A4" onchange="markRead('A4',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-A4">✓ 已讀</span></div>
         </a>
+      </div>
+      <div class="group-read-bar">
+        <span>A章進度</span>
+        <div class="g-bar"><div class="g-fill" id="gfill-A" style="width:0%"></div></div>
+        <span id="gpct-A">0/4</span>
       </div>
     </div>
 
-    <!-- G5 其他 -->
+    <!-- E–I 中低頻 -->
     <div class="group-header" onclick="toggleGroup(this)">
       <div class="group-header-left">
         <span class="badge green">中低頻</span>
@@ -690,33 +590,44 @@ nav{
     </div>
     <div class="group-body">
       <div class="quiz-grid">
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1.html" target="_blank">
+        <a class="quiz-card" id="card-E1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_E1.html" target="_blank">
           <div class="card-label">E1 · 土地開發分析法</div>
           <div class="card-title">V公式＋資本利息綜合利率</div>
-          <div class="card-meta"><span class="badge">24題</span> <span class="badge gold">申論高頻</span></div>
+          <div class="card-meta"><span class="badge">24題</span><span class="badge gold">申論高頻</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-E1" onchange="markRead('E1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-E1">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_F1.html" target="_blank">
+        <a class="quiz-card" id="card-F1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_F1.html" target="_blank">
           <div class="card-label">F1 · 租金估計</div>
           <div class="card-title">實質租金、差額分配法</div>
           <div class="card-meta"><span class="badge">33題</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-F1" onchange="markRead('F1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-F1">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_G1.html" target="_blank">
+        <a class="quiz-card" id="card-G1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_G1.html" target="_blank">
           <div class="card-label">G1 · 樓層別效用比</div>
           <div class="card-title">地價分配計算</div>
           <div class="card-meta"><span class="badge">15題</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-G1" onchange="markRead('G1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-G1">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H1H2.html" target="_blank">
+        <a class="quiz-card" id="card-H1H2" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H1H2.html" target="_blank">
           <div class="card-label">H1H2 · 權利＋特殊宗地</div>
           <div class="card-title">地上權、抵押權、農場、鹽田</div>
           <div class="card-meta"><span class="badge">21題</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-H1H2" onchange="markRead('H1H2',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-H1H2">✓ 已讀</span></div>
         </a>
-        <a class="quiz-card" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H3I1.html" target="_blank">
+        <a class="quiz-card" id="card-H3I1" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%88%B7%E9%A1%8C%E7%B7%B4%E7%BF%92_H3I1.html" target="_blank">
           <div class="card-label">H3I1 · 都更＋CAMA</div>
           <div class="card-title">權利變換、計量模型分析法</div>
           <div class="card-meta"><span class="badge">17題</span></div>
+          <div class="read-check"><label><input type="checkbox" data-key="bxr-H3I1" onchange="markRead('H3I1',this)"> 本章閱讀完成</label><span class="read-stamp" id="stamp-H3I1">✓ 已讀</span></div>
         </a>
       </div>
+      <div class="group-read-bar">
+        <span>E–I章進度</span>
+        <div class="g-bar"><div class="g-fill" id="gfill-EI" style="width:0%"></div></div>
+        <span id="gpct-EI">0/5</span>
+      </div>
     </div>
+
   </div><!-- /sub-drill-ch -->
 
   <!-- 混合・錯題本 -->
@@ -726,41 +637,31 @@ nav{
     <div class="checklist">
       <div class="chk-item todo-item">
         <div class="chk-status todo">A</div>
-        <div class="chk-body">
-          <div class="chk-title">A型 — 法條混淆</div>
-          <div class="chk-desc">技術規則條號混淆、排除規則數字記錯（15%/30%/20%）、折舊三法計算方向弄反</div>
-        </div>
+        <div class="chk-body"><div class="chk-title">A型 — 法條混淆</div><div class="chk-desc">技術規則條號混淆、排除規則數字記錯（15%/30%/20%）、折舊三法計算方向弄反</div></div>
       </div>
       <div class="chk-item todo-item">
         <div class="chk-status todo">B</div>
-        <div class="chk-body">
-          <div class="chk-title">B型 — 粗心</div>
-          <div class="chk-desc">計算題加減乘除失誤、題目看漏條件（殘餘率、年數、建蔽率）</div>
-        </div>
+        <div class="chk-body"><div class="chk-title">B型 — 粗心</div><div class="chk-desc">計算題加減乘除失誤、題目看漏條件（殘餘率、年數、建蔽率）</div></div>
       </div>
       <div class="chk-item todo-item">
         <div class="chk-status todo">C</div>
-        <div class="chk-body">
-          <div class="chk-title">C型 — 真的不熟</div>
-          <div class="chk-desc">概念尚未釐清，需重讀重點筆記或找補習班教材對照</div>
-        </div>
+        <div class="chk-body"><div class="chk-title">C型 — 真的不熟</div><div class="chk-desc">概念尚未釐清，需重讀重點筆記或找補習班教材對照</div></div>
       </div>
     </div>
-  </div><!-- /sub-drill-mix -->
+  </div>
 
   <!-- 模擬試題 -->
   <div id="sub-drill-mock" class="sub-panel">
-    <div class="notice-box">估價模擬卷尚未製作。如有補習班模擬卷，請依《備考_模擬試題_整理分析與出題提示詞.md》提示詞 M1 整理。</div>
+    <div class="notice-box">估價模擬卷②③④尚未製作。如有補習班模擬卷，請依《備考_模擬試題_整理分析與出題提示詞.md》提示詞 M1 整理。</div>
     <div class="sec-title">模擬卷成績追蹤</div>
-    <div id="mock-table">
-      <!-- JS 動態填入 -->
-    </div>
+    <div id="mock-table"></div>
     <div style="margin-top:12px;">
       <div class="tool-row">
-        <a class="tool-btn" href="#" style="opacity:.5;pointer-events:none;cursor:default;"><span class="icon">📝</span> 診斷卷①（待製作）</a>
+        <a class="tool-btn" href="估價_診斷卷一.html" target="_blank"><span class="icon">📝</span> 診斷卷① — 開始作答</a>
+        <a class="tool-btn" style="opacity:.5;pointer-events:none;cursor:default;"><span class="icon">📝</span> 高頻考點卷②（待製作）</a>
       </div>
     </div>
-  </div><!-- /sub-drill-mock -->
+  </div>
 
 </div><!-- /tab-drill -->
 
@@ -768,142 +669,75 @@ nav{
 <div id="tab-mem" class="panel">
   <div class="sec-title">速記工具</div>
   <div class="tool-row">
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">
-      <span class="icon">🎨</span> 彩色重點速記（A1–I1全科）
-    </a>
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">
-      <span class="icon">🃏</span> 互動單字卡（核心定義 65張）
-    </a>
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">
-      <span class="icon">🗂️</span> 歷屆考題小卡（519題・番卡翻翻模式）
-    </a>
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank"><span class="icon">🎨</span> 彩色重點速記（A1–I1全科）</a>
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank"><span class="icon">🃏</span> 互動單字卡（核心定義 65張）</a>
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank"><span class="icon">🗂️</span> 歷屆考題小卡（519題・番卡翻翻模式）</a>
   </div>
 
   <div class="sec-title">定義練習</div>
   <div class="tool-row">
-    <a class="tool-btn" href="%E4%BC%B0%E5%83%B9_%E5%AE%9A%E7%BE%A9%E5%A1%AB%E7%A9%BA%E7%B7%B4%E7%BF%92.html" target="_blank" style="border-color:var(--gold);background:linear-gradient(135deg,#FEFBF3,var(--paper2));">
-      <span class="icon">✏️</span> 定義填空練習（A1–I・所有章節）
-    </a>
-    <a class="tool-btn" href="%E4%BC%B0%E5%83%B9_%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E8%A8%98%E6%86%B6%E5%9C%96.html" target="_blank" style="border-color:#6B4C8A;background:linear-gradient(135deg,#F3EEF8,var(--paper2));">
-      <span class="icon">🗺</span> 程序流程記憶圖（§8-16・8步驟展開・§16報告書15項諧音）
-    </a>
-    <a class="tool-btn" href="%E4%BC%B0%E5%83%B9_%E5%85%AB%E5%A4%A7%E7%A8%8B%E5%BA%8F%E9%80%9F%E8%A6%BD%E8%A1%A8.html" target="_blank" style="border-color:var(--red);background:linear-gradient(135deg,#FDF2F2,var(--paper2));">
-      <span class="icon">📋</span> 八大程序速覽表（基計蒐狀整估決書・口訣＋全子項・可截圖列印）
-    </a>
+    <a class="tool-btn" href="估價_定義填空練習.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">✏️</span> 定義填空練習（A1–I・所有章節）</a>
+    <a class="tool-btn" href="估價_程序流程記憶圖.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">🗺</span> 程序流程記憶圖（§8-16・8步驟）</a>
+    <a class="tool-btn" href="估價_八大程序速覽表.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📋</span> 八大程序速覽表（基計蒐狀整估決書）</a>
   </div>
 
   <div class="sec-title">系統攻略</div>
   <div class="tool-row">
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank" style="border-color:var(--vermillion); background:linear-gradient(135deg,#FDF0EE,var(--paper2));">
-      <span class="icon">📐</span> 估價四大方法系統攻略（成本／比較／收益／土地開發）
-    </a>
-    <a class="tool-btn" href="估價_四大方法比較表.html" target="_blank" style="border-color:var(--blue); background:linear-gradient(135deg,#EAF0F5,var(--paper2));">
-      <span class="icon">📊</span> 四大方法比較表（全維度對比 × 考試陷阱12張）
-    </a>
-    <a class="tool-btn" href="估價_易混淆概念並排.html" target="_blank" style="border-color:var(--green); background:linear-gradient(135deg,#EEF3EB,var(--paper2));">
-      <span class="icon">🔀</span> 易混淆概念並排記憶（折舊/資本化率/租金/價格種類等8組）
-    </a>
-    <a class="tool-btn" href="估價_易混淆概念補充卷.html" target="_blank" style="border-color:var(--gold); background:linear-gradient(135deg,#FBF6EA,var(--paper2));">
-      <span class="icon">⚡</span> 易混淆概念補充卷（折舊三法/排除門檻/四種價格/三種租金等8題）
-    </a>
-    <a class="tool-btn" href="估價_計算題攻略.html" target="_blank" style="border-color:var(--gold); background:linear-gradient(135deg,#FBF6EA,var(--paper2));">
-      <span class="icon">🧮</span> 計算題攻略專欄（16年×11種題型 × 高危未出現考點）
-    </a>
+    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📐</span> 估價四大方法系統攻略</a>
+    <a class="tool-btn" href="估價_四大方法比較表.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">📊</span> 四大方法比較表（全維度對比 × 陷阱12張）</a>
+    <a class="tool-btn" href="估價_易混淆概念並排.html" target="_blank" style="border-color:var(--accent-g)"><span class="icon">🔀</span> 易混淆概念並排記憶（8組）</a>
+    <a class="tool-btn" href="估價_易混淆概念補充卷.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">⚡</span> 易混淆概念補充卷（8題）</a>
+    <a class="tool-btn" href="估價_計算題攻略.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">🧮</span> 計算題攻略專欄（16年×11種題型）</a>
   </div>
 
   <div class="sec-title">核心公式速查</div>
-  <div class="notice-box">以下公式為 16年鐵律考點，必須能默寫並計算：</div>
   <table class="law-table">
     <thead><tr><th>公式名稱</th><th>核心算式</th><th>重要條件</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>折舊定額法（第46條）</strong></td>
-        <td>Dn = C × (1－s) / N × n</td>
-        <td>殘餘率 s ≤ 10%；以<strong>經濟耐用年數</strong>為主</td>
-      </tr>
-      <tr>
-        <td><strong>比較法三道排除關卡（第22條）</strong></td>
-        <td>單項調整率｜總調整率｜試算差距</td>
-        <td><span class="tag-warn">15% / 30% / 20%</span>（三個數字必背）</td>
-      </tr>
-      <tr>
-        <td><strong>土地開發分析法 V 公式（第29條）</strong></td>
-        <td>V = [S÷(1+r)÷(1+i)] − (C+M)</td>
-        <td>r=利潤率；i=資本利息綜合利率</td>
-      </tr>
-      <tr>
-        <td><strong>資本利息綜合利率（第29條）</strong></td>
-        <td>i = 土地比率×r_地 + 建物比率×r_建 × 1/2</td>
-        <td>建物成本×1/2（因逐期投入）</td>
-      </tr>
-      <tr>
-        <td><strong>樓層別效用比（第55條）</strong></td>
-        <td>分配地價 = 土地總價 × (各樓效用比 ÷ 效用比總和)</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><strong>直接資本化法（第32條）</strong></td>
-        <td>價格 = 純收益 ÷ 資本化率</td>
-        <td>純收益 = 潛在毛收入 − 空置損失 − 營運費用</td>
-      </tr>
+      <tr><td><strong>折舊定額法（§46）</strong></td><td>Dn = C × (1－s) / N × n</td><td>殘餘率 s ≤ 10%；以<strong>經濟耐用年數</strong>為主</td></tr>
+      <tr><td><strong>比較法三道排除關卡（§22）</strong></td><td>單項調整率｜總調整率｜試算差距</td><td><span class="tag-warn">15% / 30% / 20%</span>（三個數字必背）</td></tr>
+      <tr><td><strong>土地開發分析法 V 公式（§29）</strong></td><td>V = [S÷(1+r)÷(1+i)] − (C+M)</td><td>r=利潤率；i=資本利息綜合利率</td></tr>
+      <tr><td><strong>資本利息綜合利率（§29）</strong></td><td>i = 土地比率×r_地 + 建物比率×r_建×1/2</td><td>建物成本×1/2（因逐期投入）</td></tr>
+      <tr><td><strong>樓層別效用比（§55）</strong></td><td>分配地價 = 土地總價 × (各樓效用比÷效用比總和)</td><td></td></tr>
+      <tr><td><strong>直接資本化法（§32）</strong></td><td>價格 = 純收益 ÷ 資本化率</td><td>純收益 = 潛在毛收入 − 空置損失 − 營運費用</td></tr>
     </tbody>
   </table>
 </div><!-- /tab-mem -->
 
 <!-- ③ 申論 -->
 <div id="tab-essay" class="panel">
-
   <div class="essay-sub-tabs">
     <button class="essay-sub-btn active" onclick="showEssaySub('plan',this)">📋 攻略表</button>
     <button class="essay-sub-btn" onclick="showEssaySub('full',this)">📄 範文全文</button>
   </div>
 
-  <!-- 子分頁：攻略表 -->
   <div id="essaysub-plan" class="essay-sub-panel active">
-    <div class="notice-box">
-      99–114年共 <strong>32題</strong>（每年2題，16年連續），官方PDF逐題核實通過（2026-06-20）。<br>
-      計算題密度遠高於民法、土地法：至少一半申論題需列式計算。
-    </div>
-
-    <div class="sec-title">優先等級篩選</div>
+    <div class="notice-box">99–114年共 <strong>32題</strong>（每年2題，16年連續），官方PDF逐題核實通過（2026-06-20）。<br>計算題密度遠高於民法、土地法：至少一半申論題需列式計算。</div>
     <div class="priority-filter">
       <button class="pri-btn active" onclick="filterEssay('all',this)">全部（32題）</button>
       <button class="pri-btn" onclick="filterEssay('A',this)">🔴 A級 必練</button>
       <button class="pri-btn" onclick="filterEssay('B',this)">🟡 B級 了解</button>
       <button class="pri-btn" onclick="filterEssay('C',this)">🟢 C級 略讀</button>
     </div>
-
     <table class="essay-table" id="essay-table">
-      <thead>
-        <tr><th>年度-題</th><th>核心主題</th><th>難度</th><th>等級</th></tr>
-      </thead>
-      <tbody id="essay-tbody">
-        <!-- JS 動態填入 -->
-      </tbody>
+      <thead><tr><th>年度-題</th><th>核心主題</th><th>難度</th><th>等級</th></tr></thead>
+      <tbody id="essay-tbody"></tbody>
     </table>
-
     <div class="sec-title">估價申論答題架構（計算題版）</div>
     <div class="notice-box">
-      <strong>計算題版四段式</strong>（估價申論多為計算題，架構調整如下）：<br>
+      <strong>計算題版四段式</strong>：<br>
       ① <strong>定義</strong>：說明所用估價方法的定義與適用情境（技術規則條號）<br>
       ② <strong>公式</strong>：列出完整計算公式，標示各變數意義<br>
       ③ <strong>代入計算</strong>：逐步代入題目給定數值，單位必須標註<br>
       ④ <strong>結論</strong>：寫出最終估價結論，並說明合理性
     </div>
-  </div><!-- /essaysub-plan -->
+  </div>
 
-  <!-- 子分頁：範文全文 -->
   <div id="essaysub-full" class="essay-sub-panel">
-    <div class="notice-box">
-      申論題實戰範文（計算型四段式）為獨立互動工具，收錄 32題完整範文。<br>
-      🔴A級（必練）：直接練習計算流程；🟡B/🟢C級：讀懂架構邏輯即可。
-    </div>
+    <div class="notice-box">申論題實戰範文（計算型四段式）為獨立互動工具，收錄 32題完整範文。</div>
     <div class="tool-row" style="margin-bottom:16px;">
-      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--vermillion); background:linear-gradient(135deg,#FDF0EE,var(--paper2));">
-        <span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）
-      </a>
+      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）</a>
     </div>
-
     <div class="sec-title">主題群分布（申論32題）</div>
     <table class="law-table">
       <thead><tr><th>主題群</th><th>題數</th><th>🔴A級題目（必練）</th></tr></thead>
@@ -918,8 +752,7 @@ nav{
         <tr><td>其他（原則/因素/種類/特殊宗地等）</td><td>11</td><td>🟡B/🟢C級，閱讀架構</td></tr>
       </tbody>
     </table>
-  </div><!-- /essaysub-full -->
-
+  </div>
 </div><!-- /tab-essay -->
 
 <!-- ④ 現行法 -->
@@ -928,21 +761,9 @@ nav{
   <table class="law-table">
     <thead><tr><th>法規名稱</th><th>現行版本</th><th>狀態</th></tr></thead>
     <tbody>
-      <tr>
-        <td>不動產估價技術規則</td>
-        <td>107.09.17 修正</td>
-        <td><span class="tag-ok">✓ 已確認</span></td>
-      </tr>
-      <tr>
-        <td>不動產估價師法</td>
-        <td>113.08.07 修正</td>
-        <td><span class="tag-ok">✓ 已確認</span></td>
-      </tr>
-      <tr>
-        <td>不動產估價師法施行細則</td>
-        <td>101.01.11 發布</td>
-        <td><span class="tag-ok">✓ §17跨地懲戒累計：跨縣市處分應合併累計（2026-10-08核實，來源：6laws.net）</span></td>
-      </tr>
+      <tr><td>不動產估價技術規則</td><td>107.09.17 修正</td><td><span class="tag-ok">✓ 已確認</span></td></tr>
+      <tr><td>不動產估價師法</td><td>113.08.07 修正</td><td><span class="tag-ok">✓ 已確認</span></td></tr>
+      <tr><td>不動產估價師法施行細則</td><td>101.01.11 發布</td><td><span class="tag-ok">✓ §17跨地懲戒累計：跨縣市處分應合併累計（2026-10-08核實）</span></td></tr>
     </tbody>
   </table>
 
@@ -950,48 +771,13 @@ nav{
   <table class="law-table">
     <thead><tr><th>考點</th><th>正確數字</th><th>常見誤填</th><th>條號</th></tr></thead>
     <tbody>
-      <tr>
-        <td>折舊定額法殘餘率上限</td>
-        <td><span class="tag-warn">10%</span></td>
-        <td>20%</td>
-        <td>§46</td>
-      </tr>
-      <tr>
-        <td>比較法單項調整率上限</td>
-        <td><span class="tag-warn">15%</span></td>
-        <td>20%</td>
-        <td>§22</td>
-      </tr>
-      <tr>
-        <td>比較法總調整率上限</td>
-        <td><span class="tag-warn">30%</span></td>
-        <td>40%</td>
-        <td>§22</td>
-      </tr>
-      <tr>
-        <td>比較法試算差距上限</td>
-        <td><span class="tag-warn">20%</span></td>
-        <td>30%</td>
-        <td>§23</td>
-      </tr>
-      <tr>
-        <td>CAMA 樣本數</td>
-        <td><span class="tag-warn">≥ 自變數個數×5</span></td>
-        <td>≥ 30個</td>
-        <td>§68</td>
-      </tr>
-      <tr>
-        <td>CAMA 判定係數</td>
-        <td><span class="tag-warn">R² ≥ 0.7</span></td>
-        <td>0.5</td>
-        <td>§68</td>
-      </tr>
-      <tr>
-        <td>CAMA 顯著機率</td>
-        <td><span class="tag-warn">p &lt; 5%</span></td>
-        <td>5%（含）</td>
-        <td>§68</td>
-      </tr>
+      <tr><td>折舊定額法殘餘率上限</td><td><span class="tag-warn">10%</span></td><td>20%</td><td>§46</td></tr>
+      <tr><td>比較法單項調整率上限</td><td><span class="tag-warn">15%</span></td><td>20%</td><td>§22</td></tr>
+      <tr><td>比較法總調整率上限</td><td><span class="tag-warn">30%</span></td><td>40%</td><td>§22</td></tr>
+      <tr><td>比較法試算差距上限</td><td><span class="tag-warn">20%</span></td><td>30%</td><td>§23</td></tr>
+      <tr><td>CAMA 樣本數</td><td><span class="tag-warn">≥ 自變數個數×5</span></td><td>≥ 30個</td><td>§68</td></tr>
+      <tr><td>CAMA 判定係數</td><td><span class="tag-warn">R² ≥ 0.7</span></td><td>0.5</td><td>§68</td></tr>
+      <tr><td>CAMA 顯著機率</td><td><span class="tag-warn">p &lt; 5%</span></td><td>5%（含）</td><td>§68</td></tr>
     </tbody>
   </table>
 
@@ -1000,23 +786,21 @@ nav{
     <thead><tr><th>類別</th><th>易混考點</th><th>記憶錨點</th></tr></thead>
     <tbody>
       <tr>
-        <td><span class="tag-warn" style="background:#E8F0FB;color:#2B5082;border:1px solid #2B5082;">區域因素</span></td>
-        <td><strong style="color:#2B5082;">道路寬度與連接性</strong><br><span style="font-size:.82rem;color:#555">→ 外面那條路有多寬、通哪裡、幹道或巷弄</span></td>
+        <td><span style="background:color-mix(in srgb,var(--accent-b) 15%,var(--paper));color:var(--accent-b);border:1px solid var(--accent-b);padding:2px 6px;border-radius:4px;font-weight:700;">區域因素</span></td>
+        <td><strong style="color:var(--accent-b)">道路寬度與連接性</strong><br><span style="font-size:.82rem;color:var(--muted)">外面那條路有多寬、通哪裡、幹道或巷弄</span></td>
         <td style="font-size:.82rem">看「<strong>路</strong>」本身：路寬、幹道、公設、商圈</td>
       </tr>
       <tr>
-        <td><span class="tag-warn" style="background:#FEF0EB;color:#A8402B;border:1px solid #A8402B;">個別因素</span></td>
-        <td><strong style="color:#A8402B;">臨街寬度</strong><br><span style="font-size:.82rem;color:#555">→ 這筆地面對馬路那一面有多寬（門面）</span></td>
+        <td><span style="background:color-mix(in srgb,var(--accent-r) 15%,var(--paper));color:var(--accent-r);border:1px solid var(--accent-r);padding:2px 6px;border-radius:4px;font-weight:700;">個別因素</span></td>
+        <td><strong style="color:var(--accent-r)">臨街寬度</strong><br><span style="font-size:.82rem;color:var(--muted)">這筆地面對馬路那一面有多寬（門面）</span></td>
         <td style="font-size:.82rem">看「<strong>地</strong>」本身：臨街面、面積、形狀、屋齡</td>
       </tr>
     </tbody>
   </table>
-  <div class="warn-box" style="margin-top:-4px">
-    ⚠️ <strong>記法：</strong>家門口那條路多寬 → <strong style="color:#2B5082;">區域</strong>；你家門面多寬 → <strong style="color:#A8402B;">個別</strong>
-  </div>
+  <div class="warn-box">⚠️ <strong>記法：</strong>家門口那條路多寬 → <strong style="color:var(--accent-b)">區域</strong>；你家門面多寬 → <strong style="color:var(--accent-r)">個別</strong></div>
 
   <div class="sec-title">計算落差題目（誠實標記）</div>
-  <div class="notice-box">以下題目計算結果與官方答案有落差，已在刷題工具中標記，考試時以官方答案為準：</div>
+  <div class="notice-box">以下題目計算結果與官方答案有落差，考試時以官方答案為準：</div>
   <table class="law-table">
     <thead><tr><th>題目</th><th>我的計算</th><th>官方答案</th><th>備注</th></tr></thead>
     <tbody>
@@ -1031,82 +815,47 @@ nav{
 
 <!-- ⑤ 進度 -->
 <div id="tab-progress" class="panel">
-  <div class="sec-title">五件套完成狀態</div>
-  <div class="checklist">
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">16年考點分析（選擇520題＋申論32題）</div>
-        <div class="chk-desc">99–114年逐題分析，章節占比、趨勢轉變、115年優先清單</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">重點筆記（A1–I1全科）</div>
-        <div class="chk-desc">含★高頻/★陷阱標記，表格化比較公式</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">題庫（99–114年520題，含官方答案）</div>
-        <div class="chk-desc">部分計算題有誠實標記（落差題目，見④現行法頁）</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">申論題攻略表（32題，🔴🟡🟢三級）</div>
-        <div class="chk-desc">攻略表已通過官方PDF核實（2026-06-20）</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">申論題實戰範文（32題計算型四段式）</div>
-        <div class="chk-desc">主題層級已核實；完整範文逐句核實尚未執行</div>
-      </div>
-    </div>
+
+  <!-- 閱讀進度匯報 -->
+  <div class="sec-title">📤 閱讀進度匯報</div>
+  <div class="report-box">
+    <h4>複製後貼給 Claude → 更新記憶</h4>
+    <div class="report-preview" id="report-preview">（載入中⋯）</div>
+    <button class="copy-btn" onclick="copyReport()">📋 複製回報文字</button>
+    <span class="copy-ok" id="copy-ok">✓ 已複製！</span>
   </div>
 
-  <div class="sec-title">HTML工具清單（21個）</div>
-  <div class="prog-row"><div class="prog-label">刷題練習</div><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="prog-pct">15個✓</div></div>
-  <div class="prog-row"><div class="prog-label">記憶工具</div><div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div><div class="prog-pct">4個✓</div></div>
-  <div class="prog-row"><div class="prog-label">申論工具</div><div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div><div class="prog-pct">2個✓</div></div>
+  <!-- 章節進度一覽 -->
+  <div class="sec-title">章節閱讀一覽</div>
+  <div class="chap-grid" id="chap-grid"></div>
+
+  <div class="sec-title">五件套完成狀態</div>
+  <div class="checklist">
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">16年考點分析（選擇520題＋申論32題）</div><div class="chk-desc">99–114年逐題分析，章節占比、趨勢轉變、115年優先清單</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">重點筆記（A1–I1全科）</div><div class="chk-desc">含★高頻/★陷阱標記，表格化比較公式</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">題庫（99–114年520題，含官方答案）</div><div class="chk-desc">部分計算題有誠實標記（落差題目，見④現行法頁）</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題攻略表（32題，🔴🟡🟢三級）</div><div class="chk-desc">攻略表已通過官方PDF核實（2026-06-20）</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題實戰範文（32題計算型四段式）</div><div class="chk-desc">主題層級已核實；完整範文逐句核實尚未執行</div></div></div>
+  </div>
 
   <div class="sec-title">模擬卷成績</div>
   <div id="mock-progress-table"></div>
 
+  <div class="sec-title">整體刷題進度</div>
+  <div class="prog-row"><div class="prog-label">刷題練習</div><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="prog-pct">15個✓</div></div>
+  <div class="prog-row"><div class="prog-label">記憶工具</div><div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div><div class="prog-pct">4個✓</div></div>
+  <div class="prog-row"><div class="prog-label">申論工具</div><div class="prog-bar"><div class="prog-fill blue" style="width:100%"></div></div><div class="prog-pct">2個✓</div></div>
+
   <div class="sec-title">待辦事項</div>
   <div class="checklist">
-    <div class="chk-item todo-item">
-      <div class="chk-status todo">!</div>
-      <div class="chk-body">
-        <div class="chk-title">上傳 GitHub</div>
-        <div class="chk-desc">估價備考指揮中心.html（覆蓋）＋不動產估價概要_申論題實戰範文.html（新增）＋全部🏠按鈕更新（15個子頁面覆蓋）＋LandLaw_A1A2_quiz.html（空白解析修正覆蓋）</div>
-      </div>
-    </div>
-    <div class="chk-item todo-item">
-      <div class="chk-status todo">!</div>
-      <div class="chk-body">
-        <div class="chk-title">申論範文逐句核實</div>
-        <div class="chk-desc">需上傳官方PDF（Appraisa_Law_Exams_merged.pdf），依防呆提示詞逐句比對32題</div>
-      </div>
-    </div>
-    <div class="chk-item done-item">
-      <div class="chk-status done">✓</div>
-      <div class="chk-body">
-        <div class="chk-title">施行細則§17跨地懲戒累計 — 已核實</div>
-        <div class="chk-desc">§17：各直轄市或縣（市）懲戒處分應合併累計；依§18：申誡累計3次或停業累計滿3年，提送懲戒委員會另行決定停業或除名（2026-10-08，來源：6laws.net轉載）</div>
-      </div>
-    </div>
+    <div class="chk-item todo-item"><div class="chk-status todo">!</div><div class="chk-body"><div class="chk-title">申論範文逐句核實</div><div class="chk-desc">需上傳官方PDF，依防呆提示詞逐句比對32題</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">施行細則§17跨地懲戒累計 — 已核實</div><div class="chk-desc">§17：各直轄市或縣（市）懲戒處分應合併累計；依§18：申誡累計3次或停業累計滿3年，提送懲戒委員會另行決定停業或除名（2026-10-08）</div></div></div>
   </div>
 </div><!-- /tab-progress -->
 
 <!-- ⑥ 攻略 -->
 <div id="tab-strategy" class="panel">
-  <div class="sec-title">16年章節占比（單一數據來源：考點分析MD）</div>
+  <div class="sec-title">16年章節占比</div>
   <table class="stat-table">
     <thead><tr><th>優先</th><th>章節</th><th>題數</th><th>策略</th></tr></thead>
     <tbody>
@@ -1116,145 +865,228 @@ nav{
       <tr><td class="rank-1">🔴</td><td>估價原則（A1）</td><td>44</td><td>情境辨識，近年加入時事包裝</td></tr>
       <tr><td class="rank-1">🔴</td><td>影響因素（A3）</td><td>44</td><td>一般/區域/個別/特殊四分類</td></tr>
       <tr><td class="rank-1">🔴</td><td>估價程序（A4）</td><td>44</td><td>8步驟順序、比較實例4原則</td></tr>
-      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>估價方法綜合應用</td><td>41</td><td>獨立/部分估價辨析、容積違建處理</td></tr>
+      <tr><td class="rank-2">🟡</td><td>估價方法綜合應用</td><td>41</td><td>獨立/部分估價辨析、容積違建處理</td></tr>
       <tr><td class="rank-2">🟡</td><td>租金估計（F1）</td><td>33</td><td>實質租金公式、差額分配法</td></tr>
-      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>價格種類（A2）</td><td>31</td><td>正常/限定/特定/特殊四種辨析</td></tr>
-      <tr><td class="rank-2">🟡</td><td>估價程序（A4）</td><td>27</td><td>蒐集比較實例4原則</td></tr>
-      <tr style="background:var(--paper)"><td class="rank-2">🟡</td><td>土地開發分析法（E1）</td><td>24</td><td>V公式計算，申論題申論高頻</td></tr>
+      <tr><td class="rank-2">🟡</td><td>價格種類（A2）</td><td>31</td><td>正常/限定/特定/特殊四種辨析</td></tr>
+      <tr><td class="rank-2">🟡</td><td>土地開發分析法（E1）</td><td>24</td><td>V公式計算，申論題申論高頻</td></tr>
       <tr><td class="rank-3">🟢</td><td>特殊宗地（H1+H2）</td><td>21</td><td>農場/鹽田比較法、污染宗地成本法</td></tr>
-      <tr style="background:var(--paper)"><td class="rank-3">🟢</td><td>樓層別效用比（G1）</td><td>15</td><td>公式土地分配價格=總價×(效用比÷總和)</td></tr>
+      <tr><td class="rank-3">🟢</td><td>樓層別效用比（G1）</td><td>15</td><td>公式：分配地價=總價×(效用比÷總和)</td></tr>
       <tr><td class="rank-3">🟢</td><td>CAMA（I1）</td><td>12</td><td>樣本數≥5倍、R²≥0.7、p&lt;5%</td></tr>
-      <tr style="background:var(--paper)"><td class="rank-3">🟢</td><td>都市更新（H3）</td><td>5</td><td>基地價值比率計算</td></tr>
-    </tbody>
-  </table>
-
-  <div class="sec-title">申論32題主題分布</div>
-  <table class="stat-table">
-    <thead><tr><th>主題群</th><th>題數</th><th>🔴A級題目（必練）</th></tr></thead>
-    <tbody>
-      <tr><td>成本法折舊（C1+C2）</td><td>4</td><td>105-一、107-一、111-一、112-二</td></tr>
-      <tr><td>收益法資本化率（D2）</td><td>1</td><td>99-一</td></tr>
-      <tr><td>土地開發分析法（E1）</td><td>5</td><td>100-一、102-二、105-二、109-二、113-二</td></tr>
-      <tr><td>比較法（B）</td><td>5</td><td>99-二、102-一、103-一、108-一、110-一</td></tr>
-      <tr><td>估價方法綜合說明</td><td>2</td><td>101-一（三大方法程序）、114-二（方法選取原則）</td></tr>
-      <tr><td>租金估計（F1）</td><td>3</td><td>101-二（計算）、110-二（租金建議）、114-一（實質租金）</td></tr>
-      <tr><td>DCF（D3）</td><td>1</td><td>113-一</td></tr>
-      <tr><td>其他（原則/因素/種類/特殊）</td><td>11</td><td>🟡B/🟢C級，閱讀架構</td></tr>
+      <tr><td class="rank-3">🟢</td><td>都市更新（H3）</td><td>5</td><td>基地價值比率計算</td></tr>
     </tbody>
   </table>
 
   <div class="sec-title">讀書時間建議</div>
   <div class="notice-box">
-    <strong>平日（2小時）</strong>：記憶15分鐘（彩色速記/單字卡）→ 章節刷題1.5小時（依占比輪流，成本法/收益法優先）<br>
+    <strong>平日（2小時）</strong>：記憶15分鐘（彩色速記/單字卡）→ 章節刷題1.5小時（成本法/收益法優先）<br>
     <strong>假日（6小時）</strong>：章節刷題3h → 混合刷題+錯題本2h → 申論練習（讀架構20分）<br>
     <strong>每週一題申論練習</strong>：週一選定、週三讀架構一次、週六對照範文
   </div>
 </div><!-- /tab-strategy -->
 
 <footer class="site-footer">
-  📐 不動產估價備考指揮中心 v2.2｜2026-10-08（提示詞C編排＋§17施行細則跨地懲戒累計核實完成）<br>
-  法規來源：不動產估價技術規則（107.09.17）、不動產估價師法（113.08.07）｜<a href="https://bernih7.github.io/brokerX/" style="color:var(--gold)">🏠 BrokerX 首頁</a>
+  📐 不動產估價備考指揮中心 v3.0｜2026-10-12（松煙綠 v3 改版＋閱讀進度回報）<br>
+  法規來源：不動產估價技術規則（107.09.17）、不動產估價師法（113.08.07）
 </footer>
+
+<!-- Floating btns -->
+<div class="fab-group">
+  <button class="fab fab-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回頂端">↑</button>
+  <a class="fab fab-home" href="https://bernih7.github.io/brokerX/" title="BrokerX首頁">🏠</a>
+</div>
 
 <script>
 // ── 倒數 ──
 (function(){
-  var exam = new Date('2026-11-14T09:00:00+08:00');
-  function update(){
-    var diff = Math.ceil((exam - new Date()) / 86400000);
-    var el = document.getElementById('days');
-    if(el) el.textContent = diff > 0 ? diff : '已考試';
-  }
-  update();
-  setInterval(update, 60000);
+  var exam=new Date('2026-11-14T09:00:00+08:00');
+  function upd(){var d=Math.ceil((exam-new Date())/86400000);var el=document.getElementById('days');if(el)el.textContent=d>0?d:'已考試';}
+  upd();setInterval(upd,60000);
 })();
 
-// ── 主分頁切換 ──
-function showTab(id, btn){
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-  var panel = document.getElementById('tab-'+id);
-  if(panel) panel.classList.add('active');
-  if(btn) btn.classList.add('active');
+// ── 主分頁 ──
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  var p=document.getElementById('tab-'+id);if(p)p.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function showSub(par,id,btn){
+  var pre='sub-'+par+'-';
+  document.querySelectorAll('[id^="'+pre+'"]').forEach(function(p){p.classList.remove('active');});
+  var p=document.getElementById(pre+id);if(p)p.classList.add('active');
+  var pp=document.getElementById('tab-'+par);
+  if(pp)pp.querySelectorAll('.sub-btn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+}
+function showEssaySub(id,btn){
+  document.querySelectorAll('.essay-sub-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.essay-sub-btn').forEach(function(b){b.classList.remove('active');});
+  var p=document.getElementById('essaysub-'+id);if(p)p.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function toggleGroup(h){
+  h.classList.toggle('open');
+  var b=h.nextElementSibling;if(b)b.classList.toggle('open');
 }
 
-// ── 申論子分頁切換 ──
-function showEssaySub(id, btn){
-  document.querySelectorAll('.essay-sub-panel').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.essay-sub-btn').forEach(function(b){ b.classList.remove('active'); });
-  var panel = document.getElementById('essaysub-'+id);
-  if(panel) panel.classList.add('active');
-  if(btn) btn.classList.add('active');
+// ── 主題切換 ──
+function toggleTheme(){
+  var h=document.documentElement;
+  var cur=h.getAttribute('data-theme');
+  var next=cur==='dark'?'light':'dark';
+  h.setAttribute('data-theme',next);
+  document.getElementById('theme-btn').textContent=next==='dark'?'🌙 深色':'☀ 淺色';
+  try{localStorage.setItem('bx-theme',next);}catch(e){}
 }
-
-// ── 子分頁切換 ──
-function showSub(parent, id, btn){
-  var prefix = 'sub-'+parent+'-';
-  document.querySelectorAll('[id^="'+prefix+'"]').forEach(function(p){ p.classList.remove('active'); });
-  var panel = document.getElementById(prefix+id);
-  if(panel) panel.classList.add('active');
-  var parentPanel = document.getElementById('tab-'+parent);
-  if(parentPanel){
-    parentPanel.querySelectorAll('.sub-btn').forEach(function(b){ b.classList.remove('active'); });
-  }
-  if(btn) btn.classList.add('active');
-}
-
-// ── 群組折疊 ──
-function toggleGroup(header){
-  header.classList.toggle('open');
-  var body = header.nextElementSibling;
-  if(body) body.classList.toggle('open');
-}
+(function(){
+  var t; try{t=localStorage.getItem('bx-theme');}catch(e){}
+  if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'🌙 深色':'☀ 淺色';}
+})();
 
 // ── 今日建議 ──
 (function(){
-  var day = new Date().getDay(); // 0=日,6=六
-  var isWeekend = (day === 0 || day === 6);
-  var steps = isWeekend ? [
-    { num:'①', text:'記憶15分鐘：彩色重點速記或互動單字卡' },
-    { num:'②', text:'章節刷題90分鐘：今日重點章節（成本法/收益法/比較法輪流）' },
-    { num:'③', text:'混合刷題+錯題本60分鐘' },
-    { num:'④', text:'申論練習（週六）：讀本週指定題架構15分鐘' },
-  ] : [
-    { num:'①', text:'記憶15分鐘：彩色重點速記或互動單字卡' },
-    { num:'②', text:'章節刷題90分鐘：今日重點章節（依占比輪流）' },
+  var day=new Date().getDay();
+  var we=(day===0||day===6);
+  var steps=we?[
+    {n:'①',t:'記憶15分鐘：彩色重點速記或互動單字卡'},
+    {n:'②',t:'章節刷題3小時：今日重點章節（成本法/收益法優先）'},
+    {n:'③',t:'混合刷題＋錯題本2小時'},
+    {n:'④',t:'申論練習：讀本週指定題架構15–20分鐘'},
+  ]:[
+    {n:'①',t:'記憶15分鐘：彩色重點速記或互動單字卡'},
+    {n:'②',t:'章節刷題90分鐘：今日重點章節（依占比輪流）'},
   ];
-  var container = document.getElementById('today-steps');
-  if(!container) return;
+  var c=document.getElementById('today-steps');if(!c)return;
   steps.forEach(function(s){
-    var div = document.createElement('div');
-    div.className = 'today-step';
-    div.innerHTML = '<div class="step-num">' + s.num + '</div><div>' + s.text + '</div>';
-    container.appendChild(div);
+    var d=document.createElement('div');d.className='today-step';
+    d.innerHTML='<div class="step-num">'+s.n+'</div><div>'+s.t+'</div>';
+    c.appendChild(d);
   });
 })();
 
-// ── 模擬卷成績（從 localStorage 讀取） ──
+// ── 閱讀進度 ──
+var CHAPTERS=[
+  {key:'A1',label:'A1 估價原則',group:'A',total:4},
+  {key:'A2',label:'A2 價格種類',group:'A',total:4},
+  {key:'A3',label:'A3 影響因素',group:'A',total:4},
+  {key:'A4',label:'A4 估價程序',group:'A',total:4},
+  {key:'B',label:'B 比較法',group:'B',total:1},
+  {key:'C1',label:'C1 重建成本',group:'C',total:2},
+  {key:'C2',label:'C2 折舊計算',group:'C',total:2},
+  {key:'D1',label:'D1 直接資本化',group:'D',total:3},
+  {key:'D2',label:'D2 資本化率',group:'D',total:3},
+  {key:'D3',label:'D3 DCF',group:'D',total:3},
+  {key:'E1',label:'E1 土地開發',group:'EI',total:5},
+  {key:'F1',label:'F1 租金估計',group:'EI',total:5},
+  {key:'G1',label:'G1 樓層效用',group:'EI',total:5},
+  {key:'H1H2',label:'H1H2 特殊宗地',group:'EI',total:5},
+  {key:'H3I1',label:'H3I1 都更CAMA',group:'EI',total:5},
+];
+
+function getRead(key){
+  try{return localStorage.getItem('bxr-'+key)==='1';}catch(e){return false;}
+}
+function setRead(key,val){
+  try{localStorage.setItem('bxr-'+key,val?'1':'');}catch(e){}
+}
+
+function markRead(key,cb){
+  var val=cb.checked;
+  setRead(key,val);
+  var card=document.getElementById('card-'+key);
+  if(card){val?card.classList.add('read-done'):card.classList.remove('read-done');}
+  updateGroupBars();
+  updateChapGrid();
+  updateReport();
+}
+
+function updateGroupBars(){
+  var groups={A:{keys:['A1','A2','A3','A4'],tot:4},B:{keys:['B'],tot:1},C:{keys:['C1','C2'],tot:2},D:{keys:['D1','D2','D3'],tot:3},EI:{keys:['E1','F1','G1','H1H2','H3I1'],tot:5}};
+  Object.keys(groups).forEach(function(g){
+    var gr=groups[g];
+    var done=gr.keys.filter(function(k){return getRead(k);}).length;
+    var pct=Math.round(done/gr.tot*100);
+    var fill=document.getElementById('gfill-'+g);
+    var pctEl=document.getElementById('gpct-'+g);
+    if(fill)fill.style.width=pct+'%';
+    if(pctEl)pctEl.textContent=done+'/'+gr.tot;
+  });
+}
+
+function updateChapGrid(){
+  var grid=document.getElementById('chap-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  CHAPTERS.forEach(function(ch){
+    var done=getRead(ch.key);
+    var tile=document.createElement('div');
+    tile.className='chap-tile'+(done?' done':'');
+    tile.textContent=ch.label;
+    grid.appendChild(tile);
+  });
+}
+
+function updateReport(){
+  var today=new Date();
+  var dateStr=today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2,'0')+'-'+today.getDate().toString().padStart(2,'0');
+  var done=CHAPTERS.filter(function(c){return getRead(c.key);});
+  var notDone=CHAPTERS.filter(function(c){return !getRead(c.key);});
+  var lines=['📊 估價刷題閱讀進度回報 '+dateStr,''];
+  if(done.length>0){
+    lines.push('✓ 已完成（'+done.length+'/'+CHAPTERS.length+'）：');
+    lines.push(done.map(function(c){return c.label;}).join('、'));
+  } else {
+    lines.push('✓ 已完成：（尚無）');
+  }
+  lines.push('');
+  if(notDone.length>0){
+    lines.push('✗ 尚未完成：');
+    lines.push(notDone.map(function(c){return c.label;}).join('、'));
+  } else {
+    lines.push('✓ 全部章節已完成！');
+  }
+  var el=document.getElementById('report-preview');
+  if(el)el.textContent=lines.join('\n');
+}
+
+function copyReport(){
+  var text=document.getElementById('report-preview').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var ok=document.getElementById('copy-ok');
+    ok.style.opacity='1';
+    setTimeout(function(){ok.style.opacity='0';},2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var ok=document.getElementById('copy-ok');ok.style.opacity='1';setTimeout(function(){ok.style.opacity='0';},2000);
+  });
+}
+
+// 初始化：從 localStorage 恢復狀態
 (function(){
-  var mocks = [
-    { id:'1', name:'診斷卷①' },
-    { id:'2', name:'高頻考點卷②' },
-    { id:'3', name:'混淆對比卷③' },
-    { id:'4', name:'全真模擬卷④' },
-  ];
-  function renderMocks(containerId){
-    var c = document.getElementById(containerId);
-    if(!c) return;
+  CHAPTERS.forEach(function(ch){
+    if(getRead(ch.key)){
+      var card=document.getElementById('card-'+ch.key);
+      if(card)card.classList.add('read-done');
+      var cb=card?card.querySelector('input[type=checkbox]'):null;
+      if(cb)cb.checked=true;
+    }
+  });
+  updateGroupBars();
+  updateChapGrid();
+  updateReport();
+})();
+
+// ── 模擬卷成績 ──
+(function(){
+  var mocks=[{id:'1',name:'診斷卷①'},{id:'2',name:'高頻考點卷②'},{id:'3',name:'混淆對比卷③'},{id:'4',name:'全真模擬卷④'}];
+  function renderMocks(cid){
+    var c=document.getElementById(cid);if(!c)return;
     mocks.forEach(function(m){
-      var key = 'bx_mock_'+m.id;
-      var stored;
-      try { stored = JSON.parse(localStorage.getItem(key)); } catch(e){}
-      var row = document.createElement('div');
-      row.className = 'mock-row';
-      var nameEl = '<div class="mock-name">' + m.name + '</div>';
-      var statusEl;
-      if(stored && stored.score !== undefined){
-        statusEl = '<div class="mk-score">' + stored.score + ' / 25</div>';
-      } else {
-        statusEl = '<div class="mock-status" style="color:var(--muted)">尚未作答</div>';
-      }
-      row.innerHTML = nameEl + statusEl;
+      var key='bx_mock_'+m.id;var stored;
+      try{stored=JSON.parse(localStorage.getItem(key));}catch(e){}
+      var row=document.createElement('div');row.className='mock-row';
+      var score=stored&&stored.score!==undefined?'<div class="mk-score">'+stored.score+' / 25</div>':'<div class="mk-none">尚未作答</div>';
+      row.innerHTML='<div class="mock-name">'+m.name+'</div>'+score;
       c.appendChild(row);
     });
   }
@@ -1262,62 +1094,56 @@ function toggleGroup(header){
   renderMocks('mock-progress-table');
 })();
 
-// ── 申論題資料 ──
-var essayData = [
-  { yr:'99-一', topic:'收益資本化率/折現率風險因素＋加權平均資金成本法計算', hard:'計算', pri:'A' },
-  { yr:'99-二', topic:'比較法情況/價格日期/區域/個別因素調整重點', hard:'說明', pri:'A' },
-  { yr:'100-一', topic:'土地開發分析法利潤率及資本利息綜合利率', hard:'計算', pri:'A' },
-  { yr:'100-二', topic:'替代原則於三大估價法運用之考量', hard:'說明', pri:'B' },
-  { yr:'101-一', topic:'三大估價方法（比較/成本/收益）及其估價程序', hard:'說明', pri:'B' },
-  { yr:'101-二', topic:'經濟/實質/支付租金定義及計算', hard:'計算', pri:'A' },
-  { yr:'102-一', topic:'比較法應排除情況（無法量化調整）', hard:'說明', pri:'A' },
-  { yr:'102-二', topic:'土地開發分析法完整計算（含資本利息綜合利率）', hard:'計算', pri:'A' },
-  { yr:'103-一', topic:'影響不動產價格因素＋比較法估價程序及關聯性', hard:'說明', pri:'B' },
-  { yr:'103-二', topic:'不動產價格種類＋地上權設定土地估價方式', hard:'說明', pri:'B' },
-  { yr:'104-一', topic:'不景氣現象對應之估價原則＋估價原則綜述', hard:'說明', pri:'B' },
-  { yr:'104-二', topic:'收益法建物折舊提存費計算＋成本法營造施工費估計', hard:'計算', pri:'A' },
-  { yr:'105-一', topic:'成本法折舊路徑種類＋定額法計算並繪製示意圖', hard:'計算', pri:'A' },
-  { yr:'105-二', topic:'土地開發分析法資本利息綜合利率公式＋計算', hard:'計算', pri:'A' },
-  { yr:'106-一', topic:'都市計畫住宅區可立即開發建地之估價方法及運用程序', hard:'說明', pri:'B' },
-  { yr:'106-二', topic:'不動產估價應蒐集之資料＋蒐集比較實例之原則', hard:'說明', pri:'B' },
-  { yr:'107-一', topic:'成本法定率法折舊公式＋計算題', hard:'計算', pri:'A' },
-  { yr:'107-二', topic:'同一供需圈/近鄰地區/類似地區定義及三者關係', hard:'說明', pri:'C' },
-  { yr:'108-一', topic:'比較法蒐集比較實例分析（土地使用分區不同是否恰當）', hard:'說明', pri:'B' },
-  { yr:'108-二', topic:'數筆土地合併開發利用之估價方法', hard:'說明', pri:'B' },
-  { yr:'109-一', topic:'估價工作應留意之法則＋現場勘查應到場事項及處理方式', hard:'說明', pri:'C' },
-  { yr:'109-二', topic:'土地開發分析法計算（V公式完整列式）', hard:'計算', pri:'A' },
-  { yr:'110-一', topic:'比較法中應不予採用（無法掌握量化調整）之情況', hard:'說明', pri:'A' },
-  { yr:'110-二', topic:'不動產經紀人對租戶之租金估計建議', hard:'說明', pri:'B' },
-  { yr:'111-一', topic:'建物折舊額及累積折舊額計算方式', hard:'計算', pri:'A' },
-  { yr:'111-二', topic:'重建成本/重置成本定義＋成本法決定價格之程序與所需資料', hard:'說明', pri:'B' },
-  { yr:'112-一', topic:'凶宅（梯廳曾發生命案）屬何種影響因素＋是否影響該層價格', hard:'說明', pri:'B' },
-  { yr:'112-二', topic:'屋齡10年建物等速折舊計算＋專業觀點分析價格合理性', hard:'計算', pri:'A' },
-  { yr:'113-一', topic:'折現現金流量分析法定義＋與直接資本化法之差異', hard:'說明', pri:'B' },
-  { yr:'113-二', topic:'土地開發分析法計算公式＋成本項目內容說明', hard:'計算', pri:'A' },
-  { yr:'114-一', topic:'實質租金定義＋不動產租金估計應考慮之因素', hard:'說明', pri:'B' },
-  { yr:'114-二', topic:'不動產估價方法選取原則＋比較法/收益法/成本法適用時機', hard:'說明', pri:'A' },
+// ── 申論資料 ──
+var essayData=[
+  {yr:'99-一',topic:'收益資本化率/折現率風險因素＋加權平均資金成本法計算',hard:'計算',pri:'A'},
+  {yr:'99-二',topic:'比較法情況/價格日期/區域/個別因素調整重點',hard:'說明',pri:'A'},
+  {yr:'100-一',topic:'土地開發分析法利潤率及資本利息綜合利率',hard:'計算',pri:'A'},
+  {yr:'100-二',topic:'替代原則於三大估價法運用之考量',hard:'說明',pri:'B'},
+  {yr:'101-一',topic:'三大估價方法（比較/成本/收益）及其估價程序',hard:'說明',pri:'B'},
+  {yr:'101-二',topic:'經濟/實質/支付租金定義及計算',hard:'計算',pri:'A'},
+  {yr:'102-一',topic:'比較法應排除情況（無法量化調整）',hard:'說明',pri:'A'},
+  {yr:'102-二',topic:'土地開發分析法完整計算（含資本利息綜合利率）',hard:'計算',pri:'A'},
+  {yr:'103-一',topic:'影響不動產價格因素＋比較法估價程序及關聯性',hard:'說明',pri:'B'},
+  {yr:'103-二',topic:'不動產價格種類＋地上權設定土地估價方式',hard:'說明',pri:'B'},
+  {yr:'104-一',topic:'不景氣現象對應之估價原則＋估價原則綜述',hard:'說明',pri:'B'},
+  {yr:'104-二',topic:'收益法建物折舊提存費計算＋成本法營造施工費估計',hard:'計算',pri:'A'},
+  {yr:'105-一',topic:'成本法折舊路徑種類＋定額法計算並繪製示意圖',hard:'計算',pri:'A'},
+  {yr:'105-二',topic:'土地開發分析法資本利息綜合利率公式＋計算',hard:'計算',pri:'A'},
+  {yr:'106-一',topic:'都市計畫住宅區可立即開發建地之估價方法及運用程序',hard:'說明',pri:'B'},
+  {yr:'106-二',topic:'不動產估價應蒐集之資料＋蒐集比較實例之原則',hard:'說明',pri:'B'},
+  {yr:'107-一',topic:'成本法定率法折舊公式＋計算題',hard:'計算',pri:'A'},
+  {yr:'107-二',topic:'同一供需圈/近鄰地區/類似地區定義及三者關係',hard:'說明',pri:'C'},
+  {yr:'108-一',topic:'比較法蒐集比較實例分析（土地使用分區不同是否恰當）',hard:'說明',pri:'B'},
+  {yr:'108-二',topic:'數筆土地合併開發利用之估價方法',hard:'說明',pri:'B'},
+  {yr:'109-一',topic:'估價工作應留意之法則＋現場勘查應到場事項及處理方式',hard:'說明',pri:'C'},
+  {yr:'109-二',topic:'土地開發分析法計算（V公式完整列式）',hard:'計算',pri:'A'},
+  {yr:'110-一',topic:'比較法中應不予採用（無法掌握量化調整）之情況',hard:'說明',pri:'A'},
+  {yr:'110-二',topic:'不動產經紀人對租戶之租金估計建議',hard:'說明',pri:'B'},
+  {yr:'111-一',topic:'建物折舊額及累積折舊額計算方式',hard:'計算',pri:'A'},
+  {yr:'111-二',topic:'重建成本/重置成本定義＋成本法決定價格之程序與所需資料',hard:'說明',pri:'B'},
+  {yr:'112-一',topic:'凶宅（梯廳曾發生命案）屬何種影響因素＋是否影響該層價格',hard:'說明',pri:'B'},
+  {yr:'112-二',topic:'屋齡10年建物等速折舊計算＋專業觀點分析價格合理性',hard:'計算',pri:'A'},
+  {yr:'113-一',topic:'折現現金流量分析法定義＋與直接資本化法之差異',hard:'說明',pri:'B'},
+  {yr:'113-二',topic:'土地開發分析法計算公式＋成本項目內容說明',hard:'計算',pri:'A'},
+  {yr:'114-一',topic:'實質租金定義＋不動產租金估計應考慮之因素',hard:'說明',pri:'B'},
+  {yr:'114-二',topic:'不動產估價方法選取原則＋比較法/收益法/成本法適用時機',hard:'說明',pri:'A'},
 ];
-
 function renderEssay(filter){
-  var tbody = document.getElementById('essay-tbody');
-  if(!tbody) return;
-  tbody.innerHTML = '';
-  essayData.forEach(function(row){
-    if(filter !== 'all' && row.pri !== filter) return;
-    var tr = document.createElement('tr');
-    var priText = row.pri === 'A' ? '<span class="pri-a">🔴 A</span>' :
-                  row.pri === 'B' ? '<span class="pri-b">🟡 B</span>' :
-                                    '<span class="pri-c">🟢 C</span>';
-    tr.innerHTML = '<td>' + row.yr + '</td><td>' + row.topic + '</td><td>' + row.hard + '</td><td>' + priText + '</td>';
-    tbody.appendChild(tr);
+  var tb=document.getElementById('essay-tbody');if(!tb)return;tb.innerHTML='';
+  essayData.forEach(function(r){
+    if(filter!=='all'&&r.pri!==filter)return;
+    var tr=document.createElement('tr');
+    var p=r.pri==='A'?'<span class="pri-a">🔴 A</span>':r.pri==='B'?'<span class="pri-b">🟡 B</span>':'<span class="pri-c">🟢 C</span>';
+    tr.innerHTML='<td>'+r.yr+'</td><td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td>';
+    tb.appendChild(tr);
   });
 }
 renderEssay('all');
-
-function filterEssay(filter, btn){
-  document.querySelectorAll('.pri-btn').forEach(function(b){ b.classList.remove('active'); });
-  if(btn) btn.classList.add('active');
-  renderEssay(filter);
+function filterEssay(f,btn){
+  document.querySelectorAll('.pri-btn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  renderEssay(f);
 }
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
