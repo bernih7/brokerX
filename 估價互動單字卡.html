@@ -8,23 +8,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F8F3E9;
-  --paper-deep:#EFE6D5;
-  --ink:#2A2722;
-  --ink-soft:#7A7165;
-  --rule:#DED1B9;
-  --stamp:#A8402B;
-  --gold:#BC8A2E;
-  --green:#5C7A4A;
+  --bg:#F5F1E6; --paper:#FFFEFA; --paper-deep:#F0EDE0;
+  --fg:#25302C; --ink:#25302C; --ink-soft:#7A8C84;
+  --primary:#2F5D50;
+  --line:#DDD6C3; --rule:#DDD6C3;
+  --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
+  --stamp:#A84030; --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C;
+  --orange:#B8782E; --purple:#7B5C8C; --red:#A84030;
+  color-scheme: light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1F1D; --paper:#222926; --paper-deep:#1E2420;
+    --fg:#E8EDE6; --ink:#E8EDE6; --ink-soft:#7A9488;
+    --primary:#5A9E88;
+    --line:#2E3A34; --rule:#2E3A34;
+    --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+    --stamp:#C05A42; --gold:#D09848; --green:#4A9060; --blue:#3A8CAC;
+    --orange:#D09848; --purple:#9A7CB0; --red:#C05A42;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1F1D; --paper:#222926; --paper-deep:#1E2420;
+  --fg:#E8EDE6; --ink:#E8EDE6; --ink-soft:#7A9488;
+  --primary:#5A9E88;
+  --line:#2E3A34; --rule:#2E3A34;
+  --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+  --stamp:#C05A42; --gold:#D09848; --green:#4A9060; --blue:#3A8CAC;
+  --orange:#D09848; --purple:#9A7CB0; --red:#C05A42;
+  color-scheme: dark;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   font-family:'Noto Sans TC',sans-serif;
-  background:
-    radial-gradient(circle at 12% 8%, rgba(188,138,46,0.06), transparent 40%),
-    radial-gradient(circle at 90% 95%, rgba(168,64,43,0.05), transparent 45%),
-    var(--paper);
-  color:var(--ink);
+  background:var(--bg);
+  color:var(--fg);
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -48,7 +67,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   letter-spacing:.08em;margin-top:4px;font-family:'Noto Sans TC',sans-serif;}
 
 .mode-tabs{
-  display:flex;gap:8px;margin:18px 0 12px;background:#fff;
+  display:flex;gap:8px;margin:18px 0 12px;background:var(--paper);
   border:1.5px solid var(--ink);border-radius:12px;padding:4px;
 }
 .mode-tab{
@@ -65,14 +84,14 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 }
 .chip{
   font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
-  border:1.5px solid var(--rule);background:#fff;color:var(--ink-soft);
+  border:1.5px solid var(--rule);background:var(--paper);color:var(--ink-soft);
   cursor:pointer;user-select:none;transition:all .15s ease;
   white-space:nowrap;
 }
 .chip.active{color:#fff;border-color:transparent;}
 
 .filter-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
-.filter-row .chip{border-color:var(--ink);color:var(--ink);font-weight:700;}
+.filter-row .chip{border-color:var(--fg);color:var(--fg);font-weight:700;}
 .filter-row .chip.active{background:var(--ink);color:#fff;}
 
 .status-row{display:flex;justify-content:center;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
@@ -87,7 +106,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
   font-size:13px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px;
 }
-.progress b{color:var(--ink);font-size:15px;}
+.progress b{color:var(--fg);font-size:15px;}
 .progress-bar{
   height:3px;background:var(--rule);border-radius:2px;overflow:hidden;
   margin:0 auto 18px;max-width:200px;
@@ -104,7 +123,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .face{
   position:absolute;inset:0;backface-visibility:hidden;
   border-radius:14px;border:1.5px solid var(--rule);
-  background:#fff;
+  background:var(--paper);
   display:flex;flex-direction:column;
   padding:26px 24px;
   box-shadow:0 4px 18px rgba(42,39,34,0.07);
@@ -120,7 +139,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .freq-badge{
   font-size:10px;font-weight:700;
   padding:3px 9px;border-radius:999px;letter-spacing:.04em;
-  background:rgba(0,0,0,.08);color:var(--ink);
+  background:rgba(0,0,0,.08);color:var(--fg);
   font-family:'Noto Serif TC',serif;white-space:nowrap;
 }
 .mastery-badge{
@@ -129,9 +148,9 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .face-body{flex:1;display:flex;align-items:center;}
 .term{
   font-family:'Noto Serif TC',serif;font-weight:700;
-  font-size:18px;line-height:1.7;color:var(--ink);
+  font-size:18px;line-height:1.7;color:var(--fg);
 }
-.answer{font-size:14px;line-height:2.1;color:var(--ink);}
+.answer{font-size:14px;line-height:2.1;color:var(--fg);}
 .answer b{color:var(--stamp);}
 .answer .trap{
   display:inline-block;margin-top:10px;
@@ -164,7 +183,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 }
 .btn{
   font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;
-  border:1.5px solid var(--ink);background:#fff;color:var(--ink);
+  border:1.5px solid var(--ink);background:var(--paper);color:var(--fg);
   border-radius:10px;padding:10px 16px;cursor:pointer;
   transition:all .15s ease;
 }
@@ -187,7 +206,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .quiz-stats .ng{color:var(--stamp);}
 
 .breakdown{
-  margin-top:14px;background:#fff;border:1px solid var(--rule);
+  margin-top:14px;background:var(--paper);border:1px solid var(--rule);
   border-radius:10px;padding:14px;font-size:13px;
 }
 .breakdown table{width:100%;border-collapse:collapse;}
