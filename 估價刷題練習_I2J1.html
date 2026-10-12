@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜整批刷題練習・I2+J1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1E6; --paper:#FFFEFA; --paper2:#F0EDE0;
+  --fg:#25302C; --primary:#2F5D50; --line:#DDD6C3;
+  --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
+  --accent-r:#A84030; --accent-g:#2F6B45; --accent-b:#1E6B8C;
+  --accent-gold:#B8782E;
+  color-scheme: light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+    --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+    --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+    --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+    --accent-gold:#D09848;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+  --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+  --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+  --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+  --accent-gold:#D09848;
+  color-scheme: dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg); color:var(--fg);
+  min-height:100vh; font-size:15px; line-height:1.7;
+  padding:24px 16px 80px;
+}
+h1,h2,h3{font-family:"Noto Serif TC",serif;}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--accent-r);border:1px solid var(--accent-r);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;letter-spacing:.04em;color:var(--fg);}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:4px;font-family:"Noto Sans TC",sans-serif;}
+.version-tag{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.05em;font-family:"Noto Serif TC",serif;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--muted);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:13px;color:var(--muted);
+}
+.statbar b{color:var(--fg);font-size:16px;}
+.statbar .ok{color:var(--accent-g);}
+.statbar .ng{color:var(--accent-r);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--fg);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--fg);color:var(--bg);}
+.btn.primary{background:var(--accent-r);border-color:var(--accent-r);color:#fff;}
+.btn.primary:hover{opacity:.85;}
+.btn.green{border-color:var(--accent-g);color:var(--accent-g);}
+.btn.green:hover{background:var(--accent-g);color:#fff;}
+
+.qcard{
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px var(--shadow);
+}
+.qcard.answered.correct{border-left:5px solid var(--accent-g);}
+.qcard.answered.wrong{border-left:5px solid var(--accent-r);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;background:var(--accent-b);padding:3px 10px;border-radius:999px;font-family:"Noto Serif TC",serif;}
+.qbadge.i2{background:#2F6B45;}
+.qbadge.j1{background:#8C4A1E;}
+.qyear{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-family:"Noto Serif TC",serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;color:var(--fg);}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);
+  background:var(--paper);font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;color:var(--fg);
+}
+.opt:hover{border-color:var(--accent-gold);}
+.opt.selected{border-color:var(--accent-r);background:color-mix(in srgb,var(--accent-r) 10%,var(--paper));}
+.opt.correct-answer{border-color:var(--accent-g);background:color-mix(in srgb,var(--accent-g) 10%,var(--paper));}
+.opt.wrong-selected{border-color:var(--accent-r);background:color-mix(in srgb,var(--accent-r) 10%,var(--paper));}
+.opt .letter{
+  font-family:"Noto Serif TC",serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--fg);
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--fg);
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--accent-gold);background:color-mix(in srgb,var(--accent-gold) 8%,var(--paper));color:var(--muted);}
+.note-box b{color:var(--accent-gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper2);border:1px solid var(--line);}
+.explain-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;color:var(--accent-b);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:var(--paper);border:1.5px solid var(--line);margin-bottom:6px;color:var(--fg);}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--accent-g);background:color-mix(in srgb,var(--accent-g) 8%,var(--paper));}
+.explain-letter{font-family:"Noto Serif TC",serif;font-weight:900;flex-shrink:0;color:var(--accent-r);}
+.explain-item.right .explain-letter{color:var(--accent-g);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;
+}
+.error-tag.active-a{background:var(--accent-r);border-color:var(--accent-r);color:#fff;}
+.error-tag.active-b{background:var(--accent-gold);border-color:var(--accent-gold);color:#fff;}
+.error-tag.active-c{background:var(--accent-b);border-color:var(--accent-b);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+
+.home-fab{
+  position:fixed; bottom:18px; right:18px; z-index:999;
+  background:var(--primary); color:#fff;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem; text-decoration:none;
+  box-shadow:0 3px 12px var(--shadow);
+  transition:transform .15s,box-shadow .15s;
+}
+.home-fab:hover{transform:scale(1.1); box-shadow:0 5px 18px rgba(0,0,0,.3);}
+
+.theme-toggle{
+  position:fixed;top:14px;right:14px;z-index:999;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--paper);
+  color:var(--fg);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px var(--shadow);
+  transition:all .2s ease;
+}
+.theme-toggle:hover{background:var(--fg);color:var(--bg);}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・整批刷題練習</div>
+    <h1>整批刷題練習・I2＋J1
+      <span class="sub">土地改良物（§107-113）＋宗地通則（§83-89）含逐選項解析・共 22 題</span>
+    </h1>
+    <div class="version-tag">📅 最新編輯時間：2026-10-12　｜　版本 v1.0</div>
+  </header>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/22</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜土地改良物與宗地通則補強專練<br>
+    📅 2026-10-12　版本 v1.0<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<a class="home-fab" href="index.html" title="回首頁">🏠</a>
+
+<script>
+const ITEMS = [
+// ===== I2 土地改良物 §107-113 =====
+{id:"VI2_01", cat:"I2", year:"觀念題", q:"依不動產估價技術規則，土地改良物包含哪些種類？", opts:["建物、農作改良物、林木竹木、水產養殖物、土壤改良物", "建物、農作改良物、林木竹木、礦產資源、土壤改良物", "建物、農作改良物、林木竹木、水產養殖物、地下管線", "建物、植栽改良物、林木竹木、水產養殖物、土壤改良物"], explains:["技術規則明定土地改良物包含：建物、農作改良物（含農作物及農作物設施）、林木竹木、水產養殖物、土壤改良物，共五大類，本選項完全正確。", "礦產資源並非技術規則明定之土地改良物種類，礦產屬於自然資源而非人工改良物。", "地下管線屬於設施限制（§88）之範疇，並非土地改良物之種類。", "規則用語為「農作改良物」，非「植栽改良物」，用詞有誤。"], correct:0, note:"五大類：建物/農作改良物/林木竹木/水產養殖物/土壤改良物。口訣：建農林水土。"},
+{id:"VI2_02", cat:"I2", year:"觀念題", q:"依不動產估價技術規則，建物之估價方法以何者為原則？", opts:["比較法", "成本法", "收益法", "直接資本化法"], explains:["比較法是土地比較標的選取之原則，建物估價並非以比較法為原則。", "技術規則明定建物之估價以成本法（重建或重置成本扣除折舊）為原則，本選項正確。", "收益法適用於具收益性之不動產，但建物本身通常以成本法估算價值，再配合房地整體收益法估算。", "直接資本化法屬於收益法之一種，非建物估價之原則方法。"], correct:1, note:"建物→成本法為原則（重建成本或重置成本減折舊）。"},
+{id:"VI2_03", cat:"I2", year:"觀念題", q:"農作改良物應單獨估算的情況，下列何者正確？", opts:["土地及農作改良物所有人不同時", "農作改良物成熟可採收時", "農作改良物種植未滿一年時", "土地所有人要求時"], explains:["技術規則明定，當土地及農作改良物所有人不同時（如佃農在地主土地上種植農作物），或因徵收等需單獨評估損失時，應單獨估算農作改良物之價格，本選項正確。", "農作改良物是否成熟可採收與應否單獨估算無關，技術規則並無此項規定。", "種植年限長短與應否單獨估算無關，技術規則並無此項規定。", "單獨估算之條件由技術規則規定，非由土地所有人之主觀要求決定。"], correct:0, note:"農作改良物單獨估算的兩種情形：①所有人不同 ②因徵收等需單獨評估損失。"},
+{id:"VI2_04", cat:"I2", year:"觀念題", q:"林木之估算，成熟林（達採收期）與未成熟林分別適用何種方式？", opts:["成熟林用成本法；未成熟林用市場法", "成熟林用市場銷售價值法；未成熟林用成本法", "成熟林與未成熟林均用成本法", "成熟林與未成熟林均用市場法"], explains:["成熟林應採市場販售價值法（估算木材市場價值減採伐運送費），未成熟林才採成本法（估算投入費用），本選項顛倒了兩者適用方式。", "技術規則精神：成熟林以市場販售價值減除採伐運送費用；未成熟林以成本法（投入費用加生長年數折算），本選項正確。", "並非兩者均用成本法，成熟林應採市場販售價值法較合理。", "並非兩者均用市場法，未成熟林市場資料不足，應採成本法。"], correct:1, note:"成熟林→市場銷售價值法（售價-採伐費）；未成熟林→成本法（投入費用折算）。"},
+{id:"VI2_05", cat:"I2", year:"觀念題", q:"土壤改良物估價以何種方式為主？需考慮哪些因素？", opts:["成本法，考慮改良費用現值及效益殘存年限", "比較法，考慮同區域農地改良後成交價", "收益法，考慮改良後農業收益增加額", "市場法，考慮同類改良物市場交易價格"], explains:["技術規則明定土壤改良物以成本法為主，估計已投入之改良費用現值（含施肥、改良材料、人工），並需考量改良效益是否仍存在（即效益殘存年限）及投資報酬率合理性，本選項正確。", "比較法適用於有可比較市場交易案例者，土壤改良程度差異大，難以直接比較。", "收益法雖可補充計算，但規則以成本法為主要方式。", "土壤改良物難有標準化市場交易，市場法較不適用為主要估算方式。"], correct:0, note:"土壤改良物→成本法為主。考慮：①改良費用現值 ②效益殘存年限 ③投資報酬率合理性。"},
+{id:"VI2_06", cat:"I2", year:"觀念題", q:"依技術規則，建物估價時「重建成本」與「重置成本」的差異為何？", opts:["重建成本是估計重新建造之成本；重置成本是估計維修現有建物之成本", "重建成本是以原材料重新建造；重置成本是以現代替代材料建造", "重建成本較重置成本為高，因原材料更昂貴", "重置成本是指建物殘值，重建成本是指總造價"], explains:["重建成本並非維修成本，而是指以相同或極類似建材重新複製原建物之成本。", "技術規則明定：重建成本是以相同或極類似建材標準重新複製之成本（原則）；重置成本是當建材已無生產或施工方法改變時，以現代替代建材標準建造之成本（例外適用）。本選項正確。", "兩者成本高低需視個案情況，並無必然高低關係。", "重置成本並非殘值之概念，而是以現代材料替代的新建成本。"], correct:1, note:"重建=原材料複製（原則）；重置=現代替代材料（例外，當原材料已無生產時）。"},
+{id:"VI2_07", cat:"I2", year:"觀念題", q:"建物折舊之計算，技術規則明定可採何種方法？", opts:["僅定額法（直線法）", "定額法或定率法，由估價師自由選擇", "耐用年數法（定額法為主）、觀察折舊法及分解法", "市場萃取法，以市場成交數據推算折舊率"], explains:["僅規定定額法過於限縮，技術規則另有觀察折舊法等選項。", "技術規則非單純由估價師自由選擇，而是有規定可用方法。", "技術規則明定建物折舊計算方法包括：①耐用年數法（含定額法為主）、②觀察折舊法、③分解法，本選項正確。", "市場萃取法是推算資本化率的方式，非折舊計算方法。"], correct:2, note:"建物折舊計算三法：①耐用年數法（定額法）②觀察折舊法③分解法。"},
+{id:"VI2_08", cat:"I2", year:"觀念題", q:"水產養殖物之估算原則為何？", opts:["以飼養成本估算", "以市場銷售價值估算（扣除採收成本）", "以收益法，以年漁獲量折現估算", "以比較法，比較同類養殖場成交價"], explains:["飼養成本是成本法之應用，水產養殖物可類比農作改良物，若具市場性應以市場法為優先，若未達採收期則以成本法。", "水產養殖物若已達採收期，應以市場銷售價值估算，並扣除採收、運輸等必要成本，本選項最符合技術規則精神。", "年漁獲量折現屬收益法，較適用於整體養殖事業估算，而非單純養殖物估算。", "比較法需有可比較案例，水產養殖物種類繁多，以市場銷售價值法更直接。"], correct:1, note:"水產養殖物（如成熟魚蝦貝類）→市場銷售價值法，扣除採收運輸成本。"},
+// ===== J1 宗地通則 §83-89 =====
+{id:"VJ1_01", cat:"J1", year:"觀念題", q:"依不動產估價技術規則，宗地合併後，各原始宗地之分配價格如何計算？", opts:["以合併後宗地面積平均分配", "依各宗地合併前價值比例分配合併後總價格（或增值）", "以各宗地地目類別決定分配比例", "由估價師依估價目的自由決定"], explains:["面積平均分配未考量各宗地原有價值差異，不符合技術規則原則。", "技術規則明定宗地合併時，應先計算各宗地合併前之正常價格，再依各宗地合併前價值之比例分配合併後之總增值（或總價格），以出具限定價格，本選項正確。", "地目類別雖影響價值，但分配比例應以各宗地之實際市場價值（正常價格）為基礎，非單純以地目決定。", "估價師需依法定規則計算，不可完全自由決定分配比例。"], correct:1, note:"合併→依合併前各宗地正常價格之比例分配增值→出具限定價格（同時附正常價格）。"},
+{id:"VJ1_02", cat:"J1", year:"觀念題", q:"宗地合併或分割之估價，應出具何種價格種類？", opts:["僅出具正常價格", "僅出具限定價格", "同時出具正常價格及限定價格", "出具特定價格"], explains:["僅出具正常價格無法呈現合併或分割之特殊增減值效果，不符合技術規則要求。", "技術規則明定，合併或分割估價雖主要目的為出具限定價格，但應同時出具正常價格，以供比較參考。僅出具限定價格不完整。", "技術規則明定合併或分割時，應同時出具「正常價格」及「限定價格」，本選項正確。", "特定價格適用於特定條件（如預期用途變更）之情形，非合併分割之主要適用種類。"], correct:2, note:"高頻考點：合併/分割估價必須「同時」出具正常價格和限定價格兩種。"},
+{id:"VJ1_03", cat:"J1", year:"觀念題", q:"多用途宗地（土地具有多種不同使用目的）之估價方式？", opts:["取各種用途估價結果之平均值", "以面積最大之使用部分之單位價格估算全部", "分別估計各部分之價格，再合計為總價格", "以最高價值之使用目的估算全部"], explains:["取各種用途之平均值，無法反映不同使用目的之實際價值差異，不符合估價原則。", "以面積最大部分之單位價格估算全部，可能嚴重低估或高估其他用途部分之價值。", "技術規則明定多用途宗地應按不同用途分別估計各部分土地價格，再合計為宗地總價格，本選項正確。", "以最高價值用途估算全部屬於最有效使用假設，但並非多用途宗地之估算方式，多用途應分別估算後合計。"], correct:2, note:"多用途宗地：分別估計各用途部分→合計總價格（非取平均，非取最高）。"},
+{id:"VJ1_04", cat:"J1", year:"觀念題", q:"宗地上有建物時，「獨立估價」與「部分估價」之差異為何？", opts:["獨立估價考量建物對地價之影響；部分估價不考量", "獨立估價不考量建物影響（視為素地）；部分估價考量建物影響", "獨立估價指土地與建物分開估價；部分估價指房地合一估價", "獨立估價只估土地；部分估價只估建物"], explains:["正好與定義相反，獨立估價才是不考量建物影響者。", "技術規則明定：獨立估價指將宗地視為素地（不考量建物對地價之影響）；部分估價則考量建物對宗地價格之影響，本選項正確。", "雖接近，但並非房地合一與分開的概念，主要差別在是否「考量建物影響」。", "兩種方式均是針對土地的估價，而非限定只估建物。"], correct:1, note:"獨立估價=視為素地（不考量建物）；部分估價=考量建物對地價的影響。"},
+{id:"VJ1_05", cat:"J1", year:"觀念題", q:"依技術規則§88，宗地受架空線路或地下埋設管線等設施限制時，其估價程序為何？", opts:["直接以成本法估算設施修建成本", "先估計無設施限制之正常價格，再扣除設施限制造成之減損金額", "以受限制之宗地直接比較附近無限制地之交易案例", "由相關主管機關公告補償標準，直接適用"], explains:["設施限制估價並非採成本法估算設施修建成本，而是評估設施對土地價值之減損影響。", "技術規則明定設施限制宗地估價程序：①先估計無設施限制時之正常價格；②再估計設施限制造成之減損金額（以損失比率法或相鄰交易比較）；③正常價格－減損金額，本選項正確。", "雖然比較法是基礎，但需有「無限制」之正常價格作為比較基準，再扣除減損，非直接以受限宗地與無限宗地直接比較了事。", "主管機關公告補償標準可作參考，但技術規則規定的估價程序仍需依法定步驟進行。"], correct:1, note:"§88設施限制：①求正常價格→②減損金額（比率法或比較）→③正常價格-減損=設施限制地價格。"},
+{id:"VJ1_06", cat:"J1", year:"觀念題", q:"依技術規則§89，污染宗地之估價採用何種估價方法？", opts:["比較法（以附近相似污染地為比較標的）", "收益法（以污染後之預期收益折現）", "成本法（正常價格減整治成本等相關損失）", "殘餘法（以未受污染時之價值回推）"], explains:["比較法需有可比較之污染宗地交易案例，但污染宗地市場案例稀少，難以適用比較法。", "收益法需有穩定的預期收益，污染宗地通常難以正常使用產生收益，適用有限。", "技術規則明定污染宗地採成本法：正常價格 減去 污染整治成本現值 及 污染損害賠償額（含交易意願折損、法律責任等），本選項正確。", "殘餘法是推算未知部分價值之技術，非污染宗地之規定估價方法。"], correct:2, note:"§89污染宗地→成本法：正常價格－整治成本現值－污染損害賠償額。"},
+{id:"VJ1_07", cat:"J1", year:"觀念題", q:"下列有關宗地分割之敘述，何者正確？", opts:["分割通常增加各分割後宗地之總價值", "分割前應確認是否違反最有效使用原則", "違反經濟合理性之分割，分割後各宗地應出具正常價格", "技術規則不規範宗地分割之估價程序"], explains:["宗地分割通常因違反最有效使用原則（如畸零地形成）而造成價值損失，而非增加，本選項有誤。", "技術規則明定宗地分割估價時，需判斷是否為「違反經濟合理性之分割」（即§5第13款之情況排除類型），此為正確之估價考量，本選項正確。", "技術規則明定分割後各宗地應同時出具正常價格及限定價格，並非僅出具正常價格。", "技術規則§83-89明確規範宗地通則估價程序，本選項有誤。"], correct:1, note:"宗地分割→分割通常造成損失→應出具正常價格+限定價格。"},
+{id:"VJ1_08", cat:"J1", year:"觀念題", q:"有關設施限制宗地（§88）與污染宗地（§89）估價方式，下列比較何者正確？", opts:["兩者均採成本法估算", "設施限制採成本法；污染宗地採比較法", "設施限制採正常價格扣減損率；污染宗地採成本法（正常價格扣整治成本等）", "兩者均採比較法"], explains:["並非兩者均採成本法；設施限制是以正常價格扣減損金額（非典型成本法），污染才是採成本法概念。", "設施限制採正常價格減損，污染採成本法，本選項顛倒了兩者的方式。", "技術規則明定：設施限制宗地→先求正常價格再扣減損金額（損率比較法）；污染宗地→成本法概念（正常價格扣整治成本現值及損害賠償），本選項正確。", "並非兩者均採比較法，污染宗地規定採成本法。"], correct:2, note:"§88設施限制→正常價格-減損金額；§89污染→成本法（正常價格-整治成本-損害賠償）。"},
+{id:"VJ1_09", cat:"J1", year:"觀念題", q:"§84規定宗地分割後，面積較小之分割地如無法獨立使用，其估價應如何處理？", opts:["以其面積比例分配分割前宗地之正常價格", "出具限定價格，以與相鄰土地合併使用為前提估算其價值", "以特殊價格估算，反映其不具市場性", "由主管機關公告土地價格", explains:["面積比例分配未反映小地塊因無法獨立使用而產生之價值損失。", "技術規則規定，分割後無法獨立使用之小塊土地，應出具限定價格，以與相鄰土地合併使用為前提（即限定用途）估算其價值，並同時出具正常價格，本選項最符合規則精神。", "特殊價格適用於不具市場性之情形，此類土地雖難以獨立交易，但在特定合併目的下仍具市場性，故非特殊價格。", "土地估價為估價師之職責，非由主管機關公告個別土地價格。"], correct:1, note:"分割後無法獨立使用的小地→限定價格（以與相鄰地合併使用為前提）+同時出具正常價格。"},
+{id:"VJ1_10", cat:"J1", year:"觀念題", q:"依技術規則，違章建築應如何處理於估價過程中？", opts:["違章建築部分以重建成本×50%估算，反映其法律風險", "違章建築部分一律不予評估；如委託人要求，則就合法建物及違章建築分別標示價格", "違章建築影響地價，應自土地估價中扣除拆除費用", "違章建築需取得主管機關同意後，方可估算其價值"], explains:["以重建成本×50%估算並非技術規則之規定，無此種比例折算規定。", "技術規則明定：違章建築部分不予評估；若委託人要求評估，應就合法建物及違章建築部分分別標示價格（非合併計算），本選項正確。", "拆除費用之考量應反映於建物部分，而非直接自土地估價中扣除（土地以素地或含建物考量之正常方式估算）。", "估價師估算違章建築不需取得主管機關同意，是否估算及如何呈現由技術規則規定。"], correct:1, note:"違章建築→不予評估（原則）；委託人要求時→合法建物與違章建築分別標示，不可合併。"},
+{id:"VI2_J1_综合1", cat:"I2", year:"綜合題", q:"依不動產估價技術規則，下列有關土地改良物之敘述，何者有誤？", opts:["土地改良物包括建物、農作改良物、林木竹木、水產養殖物及土壤改良物", "建物估價以成本法為原則，惟得採收益法或比較法", "農作改良物在土地及農作改良物所有人不同時，應單獨估算", "土壤改良物之估價以收益法為主，考量改良後農業收益增加額"], explains:["此為正確敘述，土地改良物共五大類，本選項正確，非本題答案。", "建物估價以成本法為原則，得採其他方法，此為正確敘述，非本題答案。", "農作改良物在所有人不同時應單獨估算，此為正確敘述，非本題答案。", "技術規則規定土壤改良物之估價以「成本法」（估計已投入之改良費用現值）為主，非以收益法為主，本選項有誤，即本題正解。"], correct:3, note:"土壤改良物→成本法（非收益法）。考慮：改良費用現值、效益殘存年限。"},
+{id:"VI2_J1_综合2", cat:"J1", year:"綜合題", q:"甲所有A地（正常地價500萬）與乙所有B地（正常地價300萬）合併後，總價值共900萬元（合併增值100萬）。請問甲之A地合併後應分配之限定價格為何？", opts:["500萬元", "450萬元", "562.5萬元", "600萬元"], explains:["500萬元為A地合併前之正常地價，未反映合併後之增值分配，不符合限定價格計算結果。", "合併後增值=900-(500+300)=100萬元；甲（A地）應分配之比例=500/(500+300)=5/8；甲分配之增值=100×5/8=62.5萬元；A地限定價格=500+62.5=562.5萬元。本選項計算有誤（450不符合正確計算）。", "按合併前價值比例分配增值：甲分配比例=500/800=5/8；甲分配增值=100×5/8=62.5萬；A地限定價格=500+62.5=562.5萬元，本選項正確。", "600萬元可能是乙的計算（300+37.5≠600），計算有誤。"], correct:2, note:"合併增值100萬；甲比例=500/800=5/8；甲分得增值=62.5萬；A地限定價格=500+62.5=562.5萬。"}
+];
+const CAT_NAMES = {"I2": "I2 土地改良物§107-113", "J1": "J1 宗地通則§83-89"};
+
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let answers = {};
+let errorTags = {};
+let viewFilter = 'all';
+
+const qlistEl = document.getElementById('qlist');
+const chipsEl = document.getElementById('chips');
+
+const SK_ANSWERS = 'val_prac_i2j1_v1_answers';
+const SK_TAGS = 'val_prac_i2j1_v1_errortags';
+
+async function loadData(){
+  try{ const r=await window.storage.get(SK_ANSWERS); if(r&&r.value) answers=JSON.parse(r.value); }catch(e){}
+  try{ const r=await window.storage.get(SK_TAGS); if(r&&r.value) errorTags=JSON.parse(r.value); }catch(e){}
+}
+async function saveAnswers(){
+  try{ await window.storage.set(SK_ANSWERS, JSON.stringify(answers)); }catch(e){}
+}
+async function saveErrorTags(){
+  try{ await window.storage.set(SK_TAGS, JSON.stringify(errorTags)); }catch(e){}
+}
+
+Object.keys(CAT_NAMES).forEach(cat=>{
+  const chip = document.createElement('div');
+  chip.className = 'chip active';
+  chip.textContent = CAT_NAMES[cat];
+  chip.dataset.cat = cat;
+  chip.addEventListener('click', ()=>{
+    if(activeCats.has(cat)){
+      if(activeCats.size===1) return;
+      activeCats.delete(cat); chip.classList.remove('active');
+    } else {
+      activeCats.add(cat); chip.classList.add('active');
+    }
+    renderList();
+  });
+  chipsEl.appendChild(chip);
+});
+
+function updateStatbar(){
+  let answered=0, ok=0, ng=0;
+  Object.values(answers).forEach(a=>{ answered++; if(a.correct) ok++; else ng++; });
+  document.getElementById('answeredCount').textContent = answered;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('accRate').textContent = answered ? Math.round(ok/answered*100)+'%' : '—';
+}
+
+function renderList(){
+  let list = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') list = list.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') list = list.filter(it=>answers[it.id]&&!answers[it.id].correct);
+  qlistEl.innerHTML='';
+  if(!list.length){ qlistEl.innerHTML='<p style="text-align:center;color:var(--muted);padding:40px 0;">沒有符合條件的題目</p>'; return; }
+  list.forEach(it=>{ qlistEl.appendChild(buildCard(it)); });
+  updateStatbar();
+}
+
+function buildCard(it){
+  const ans = answers[it.id];
+  const tag = errorTags[it.id];
+  const div = document.createElement('div');
+  div.className = 'qcard'+(ans ? (ans.correct?' answered correct':' answered wrong') : '');
+  div.id = 'qcard_'+it.id;
+
+  const catClass = it.cat==='I2'?'i2':it.cat==='J1'?'j1':'';
+  div.innerHTML = `
+    <div class="qhead">
+      <span class="qbadge ${catClass}">${it.cat}</span>
+      <span class="qyear">${it.year}</span>
+    </div>
+    <div class="qtext">${it.q}</div>
+    <div class="opt-list">
+      ${it.opts.map((o,i)=>`<div class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}">
+        <span class="letter">${'ABCD'[i]}</span><span>${o}</span>
+      </div>`).join('')}
+    </div>
+    ${it.note?`<div class="note-box">${it.note}</div>`:''}
+    ${ans?`<div class="explain-box">
+      <div class="explain-title">▸ 逐選項解析</div>
+      ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}">
+        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${ex}</span>
+      </div>`).join('')}
+    </div>`:''}
+    <div class="error-tag-row">
+      <span class="error-tag${tag==='A'?' active-a':''}" data-type="A">A型 法條混淆</span>
+      <span class="error-tag${tag==='B'?' active-b':''}" data-type="B">B型 粗心</span>
+      <span class="error-tag${tag==='C'?' active-c':''}" data-type="C">C型 真不熟</span>
+    </div>`;
+
+  if(!ans){
+    div.querySelectorAll('.opt').forEach(optEl=>{
+      optEl.addEventListener('click', async ()=>{
+        const sel = parseInt(optEl.dataset.i);
+        const correct = sel === it.correct;
+        answers[it.id] = {selected:sel, correct};
+        await saveAnswers();
+        renderList();
+      });
+    });
+  }
+  div.querySelectorAll('.error-tag').forEach(et=>{
+    et.addEventListener('click', async ()=>{
+      const t = et.dataset.type;
+      if(errorTags[it.id]===t) delete errorTags[it.id];
+      else errorTags[it.id]=t;
+      await saveErrorTags();
+      const card = document.getElementById('qcard_'+it.id);
+      if(card){ card.querySelectorAll('.error-tag').forEach(e=>{
+        e.className='error-tag'+(errorTags[it.id]===e.dataset.type?
+          (e.dataset.type==='A'?' active-a':e.dataset.type==='B'?' active-b':' active-c'):'');
+      }); }
+    });
+  });
+  return div;
+}
+
+document.getElementById('filterAll').addEventListener('click',()=>{ viewFilter='all'; renderList(); });
+document.getElementById('filterUnanswered').addEventListener('click',()=>{ viewFilter='unanswered'; renderList(); });
+document.getElementById('filterWrong').addEventListener('click',()=>{ viewFilter='wrong'; renderList(); });
+document.getElementById('resetAllBtn').addEventListener('click',async()=>{
+  if(!confirm('確定清除所有作答紀錄？')) return;
+  answers={};
+  await window.storage.set(SK_ANSWERS, '{}');
+  renderList();
+});
+document.getElementById('resetMastery').addEventListener('click',async()=>{
+  if(!confirm('確定清除所有作答與標記紀錄？')) return;
+  answers={}; errorTags={};
+  await window.storage.set(SK_ANSWERS,'{}');
+  await window.storage.set(SK_TAGS,'{}');
+  renderList();
+});
+
+const themeToggle = document.getElementById('themeToggle');
+let currentTheme = null;
+function applyTheme(t){
+  currentTheme=t;
+  document.documentElement.setAttribute('data-theme',t);
+  themeToggle.textContent = t==='dark'?'☀️':'🌙';
+  try{ localStorage.setItem('theme_i2j1',t); }catch(e){}
+}
+themeToggle.addEventListener('click',()=>{ applyTheme(currentTheme==='dark'?'light':'dark'); });
+try{ const s=localStorage.getItem('theme_i2j1'); if(s) applyTheme(s); }catch(e){}
+
+loadData().then(()=>renderList());
+</script>
+</body>
+</html>
