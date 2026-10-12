@@ -117,6 +117,7 @@ footer{text-align:center;font-size:.75rem;color:#8A7B66;padding:18px;border-top:
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
 </style>
+<script src="/bxv-use.js"></script>
 </head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
@@ -685,7 +686,7 @@ function showRes(){
   });
   document.getElementById('bOther').textContent=ot?oc+'/'+ot:'—';
   // 存分數供備考指揮中心讀取
-  try{localStorage.setItem('bx_mock_1',JSON.stringify({score:S.ok,ok:S.ok,total:25,pct:p,ts:Date.now()}));}catch(e){}
+  try{var _md={score:S.ok,ok:S.ok,total:25,pct:p,ts:Date.now()};localStorage.setItem('bx_mock_1',JSON.stringify(_md));localStorage.setItem('bxv-mock:diag1',JSON.stringify(_md));}catch(e){}
   var rp=document.getElementById('rPanel');
   rp.classList.add('show');
   rp.scrollIntoView({behavior:'smooth',block:'start'});

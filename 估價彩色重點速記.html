@@ -217,8 +217,37 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
 </style>
+<style>
+#bxv-readctr{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;
+  display:flex;align-items:center;gap:.4rem;
+  background:var(--paper,#fff);border:1.5px solid var(--line,#ccc);
+  border-radius:2rem;padding:.35rem .7rem;box-shadow:0 2px 8px rgba(0,0,0,.12);
+  font-size:.85rem;color:var(--fg,#333);user-select:none;}
+#bxv-readctr button{background:none;border:none;cursor:pointer;font-size:1rem;
+  color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
+#bxv-readctr .bxv-cnt{font-weight:700;min-width:1.4em;text-align:center;}
+</style><script src="/bxv-use.js"></script>
 </head>
 <body>
+<div id="bxv-readctr" title="閱讀次數">
+  📖 <span style="font-size:.78rem;opacity:.7">彩色重點速記</span>
+  <button onclick="bxvDec()" title="減一">－</button>
+  <span class="bxv-cnt" id="bxv-n">0</span>
+  <button onclick="bxvInc()" title="加一">＋</button>
+</div>
+<script>
+(function(){
+  var RID='color';
+  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  document.addEventListener('DOMContentLoaded',function(){
+    // wait a tick for bxv-use.js to init
+    setTimeout(upd, 50);
+  });
+})();
+</script>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 <div class="wrap">
   <header>

@@ -160,6 +160,25 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 </style>
 
 <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">深色</button>
+<div id="bxv-readctr" title="閱讀次數">
+  📖 <span style="font-size:.78rem;opacity:.7">四大方法比較表</span>
+  <button onclick="bxvDec()" title="減一">－</button>
+  <span class="bxv-cnt" id="bxv-n">0</span>
+  <button onclick="bxvInc()" title="加一">＋</button>
+</div>
+<script>
+(function(){
+  var RID='method';
+  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  document.addEventListener('DOMContentLoaded',function(){
+    // wait a tick for bxv-use.js to init
+    setTimeout(upd, 50);
+  });
+})();
+</script>
 <div class="fab-wrap">
   <button class="fab fab-top" id="fab-top" title="回頂端">
     <svg viewBox="0 0 46 46"><circle class="progress-ring" cx="23" cy="23" r="21" id="pring"/></svg>↑

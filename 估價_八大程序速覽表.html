@@ -155,7 +155,26 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
 
 <header>
   <h1>不動產估價概要｜八大程序速覽</h1>
-  <div class="mnemonic-badge">
+  <div id="bxv-readctr" title="閱讀次數">
+  📖 <span style="font-size:.78rem;opacity:.7">八大程序速覽</span>
+  <button onclick="bxvDec()" title="減一">－</button>
+  <span class="bxv-cnt" id="bxv-n">0</span>
+  <button onclick="bxvInc()" title="加一">＋</button>
+</div>
+<script>
+(function(){
+  var RID='proc';
+  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  document.addEventListener('DOMContentLoaded',function(){
+    // wait a tick for bxv-use.js to init
+    setTimeout(upd, 50);
+  });
+})();
+</script>
+<div class="mnemonic-badge">
     <span style="background:var(--s1-bg);color:var(--s1)">基</span>
     <span style="background:var(--s2-bg);color:var(--s2)">計</span>
     <span style="background:var(--s3-bg);color:var(--s3)">蒐</span>
