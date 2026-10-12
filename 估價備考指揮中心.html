@@ -361,6 +361,20 @@ nav{
 }
 .chap-tile span{display:block;font-size:.68rem;font-weight:400;color:var(--muted);margin-top:2px;}
 
+/* ── Category progress section ── */
+.cat-prog-section{margin-bottom:20px;}
+.cat-title{font-size:.8rem;font-weight:700;color:var(--primary);margin-bottom:8px;letter-spacing:.04em;}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;margin-bottom:8px;}
+.cat-tile{background:var(--paper2);border:1.5px solid var(--line);border-radius:8px;padding:7px 9px;text-align:center;font-size:.74rem;font-weight:600;color:var(--muted);transition:border-color .2s,background .2s;}
+.cat-tile.done{background:color-mix(in srgb,var(--accent-g) 12%,var(--paper));border-color:var(--accent-g);color:var(--accent-g);}
+
+/* ── Read-check on tool-btn ── */
+.tool-read-wrap{display:flex;flex-direction:column;gap:4px;flex:1 1 auto;}
+.tool-read-wrap .tool-btn{width:100%;}
+.read-check-inline{display:flex;align-items:center;gap:5px;padding:3px 6px;font-size:.72rem;color:var(--muted);cursor:pointer;}
+.read-check-inline input[type=checkbox]{width:13px;height:13px;accent-color:var(--accent-g);}
+.read-check-inline.is-done{color:var(--accent-g);font-weight:600;}
+
 /* ── Floating btns ── */
 .fab-group{
   position:fixed;bottom:24px;right:18px;
@@ -667,27 +681,70 @@ nav{
 
 <!-- ② 記憶 -->
 <div id="tab-mem" class="panel">
+  <div class="notice-box">每完成一個工具的閱讀，勾選下方 checkbox → 進度分頁會自動更新並可複製回報給 Claude。</div>
+
   <div class="sec-title">速記工具</div>
   <div class="tool-row">
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank"><span class="icon">🎨</span> 彩色重點速記（A1–I1全科）</a>
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank"><span class="icon">🃏</span> 互動單字卡（核心定義 65張）</a>
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank"><span class="icon">🗂️</span> 歷屆考題小卡（519題・番卡翻翻模式）</a>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank"><span class="icon">🎨</span> 彩色重點速記（A1–I1全科）</a>
+      <label class="read-check-inline" id="rci-mem-color" onclick="toggleMemRead('mem-color',this)"><input type="checkbox" id="cb-mem-color"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank"><span class="icon">🃏</span> 互動單字卡（核心定義 65張）</a>
+      <label class="read-check-inline" id="rci-mem-card" onclick="toggleMemRead('mem-card',this)"><input type="checkbox" id="cb-mem-card"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank"><span class="icon">🗂️</span> 歷屆考題小卡（519題・番卡翻翻模式）</a>
+      <label class="read-check-inline" id="rci-mem-kcard" onclick="toggleMemRead('mem-kcard',this)"><input type="checkbox" id="cb-mem-kcard"> 已閱讀完成</label>
+    </div>
   </div>
 
   <div class="sec-title">定義練習</div>
   <div class="tool-row">
-    <a class="tool-btn" href="估價_定義填空練習.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">✏️</span> 定義填空練習（A1–I・所有章節）</a>
-    <a class="tool-btn" href="估價_程序流程記憶圖.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">🗺</span> 程序流程記憶圖（§8-16・8步驟）</a>
-    <a class="tool-btn" href="估價_八大程序速覽表.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📋</span> 八大程序速覽表（基計蒐狀整估決書）</a>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_定義填空練習.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">✏️</span> 定義填空練習（A1–I・所有章節）</a>
+      <label class="read-check-inline" id="rci-mem-fill" onclick="toggleMemRead('mem-fill',this)"><input type="checkbox" id="cb-mem-fill"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_程序流程記憶圖.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">🗺</span> 程序流程記憶圖（§8-16・8步驟）</a>
+      <label class="read-check-inline" id="rci-mem-flow" onclick="toggleMemRead('mem-flow',this)"><input type="checkbox" id="cb-mem-flow"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_八大程序速覽表.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📋</span> 八大程序速覽表（基計蒐狀整估決書）</a>
+      <label class="read-check-inline" id="rci-mem-proc" onclick="toggleMemRead('mem-proc',this)"><input type="checkbox" id="cb-mem-proc"> 已閱讀完成</label>
+    </div>
   </div>
 
   <div class="sec-title">系統攻略</div>
   <div class="tool-row">
-    <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📐</span> 估價四大方法系統攻略</a>
-    <a class="tool-btn" href="估價_四大方法比較表.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">📊</span> 四大方法比較表（全維度對比 × 陷阱12張）</a>
-    <a class="tool-btn" href="估價_易混淆概念並排.html" target="_blank" style="border-color:var(--accent-g)"><span class="icon">🔀</span> 易混淆概念並排記憶（8組）</a>
-    <a class="tool-btn" href="估價_易混淆概念補充卷.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">⚡</span> 易混淆概念補充卷（8題）</a>
-    <a class="tool-btn" href="估價_計算題攻略.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">🧮</span> 計算題攻略專欄（16年×11種題型）</a>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_四大方法比較表.html" target="_blank" style="border-color:var(--accent-b)"><span class="icon">📊</span> 四大方法比較表（全維度對比 × 陷阱12張）</a>
+      <label class="read-check-inline" id="rci-mem-method" onclick="toggleMemRead('mem-method',this)"><input type="checkbox" id="cb-mem-method"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_易混淆概念並排.html" target="_blank" style="border-color:var(--accent-g)"><span class="icon">🔀</span> 易混淆概念並排記憶（8組）</a>
+      <label class="read-check-inline" id="rci-mem-mix1" onclick="toggleMemRead('mem-mix1',this)"><input type="checkbox" id="cb-mem-mix1"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_易混淆概念補充卷.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">⚡</span> 易混淆概念補充卷（8題）</a>
+      <label class="read-check-inline" id="rci-mem-mix2" onclick="toggleMemRead('mem-mix2',this)"><input type="checkbox" id="cb-mem-mix2"> 已閱讀完成</label>
+    </div>
+  </div>
+
+  <div class="sec-title">計算題攻略（現行法分頁）</div>
+  <div class="tool-row">
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_計算題攻略.html" target="_blank" style="border-color:var(--accent-gold)"><span class="icon">🧮</span> 計算題攻略專欄（16年×11種題型）</a>
+      <label class="read-check-inline" id="rci-law-calc" onclick="toggleMemRead('law-calc',this)"><input type="checkbox" id="cb-law-calc"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="估價_診斷卷一.html" target="_blank"><span class="icon">📝</span> 診斷卷① — 開始作答</a>
+      <label class="read-check-inline" id="rci-law-diag" onclick="toggleMemRead('law-diag',this)"><input type="checkbox" id="cb-law-diag"> 已閱讀完成</label>
+    </div>
+    <div class="tool-read-wrap">
+      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📐</span> 估價四大方法系統攻略</a>
+      <label class="read-check-inline" id="rci-essay-sys" onclick="toggleMemRead('essay-sys',this)"><input type="checkbox" id="cb-essay-sys"> 已閱讀完成</label>
+    </div>
   </div>
 
   <div class="sec-title">核心公式速查</div>
@@ -735,8 +792,11 @@ nav{
 
   <div id="essaysub-full" class="essay-sub-panel">
     <div class="notice-box">申論題實戰範文（計算型四段式）為獨立互動工具，收錄 32題完整範文。</div>
-    <div class="tool-row" style="margin-bottom:16px;">
-      <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）</a>
+    <div class="tool-row" style="margin-bottom:8px;">
+      <div class="tool-read-wrap">
+        <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）</a>
+        <label class="read-check-inline" id="rci-essay-full" onclick="toggleMemRead('essay-full',this)"><input type="checkbox" id="cb-essay-full"> 已閱讀完成</label>
+      </div>
     </div>
     <div class="sec-title">主題群分布（申論32題）</div>
     <table class="law-table">
@@ -825,9 +885,32 @@ nav{
     <span class="copy-ok" id="copy-ok">✓ 已複製！</span>
   </div>
 
-  <!-- 章節進度一覽 -->
-  <div class="sec-title">章節閱讀一覽</div>
-  <div class="chap-grid" id="chap-grid"></div>
+  <!-- 四類進度總覽 -->
+  <div class="sec-title">四類閱讀進度一覽</div>
+
+  <div class="cat-prog-section">
+    <div class="cat-title">📝 刷題練習（15個章節）</div>
+    <div class="prog-row"><div class="prog-label">總進度</div><div class="prog-bar"><div class="prog-fill" id="total-drill-fill" style="width:0%"></div></div><div class="prog-pct" id="total-drill-pct">0/15</div></div>
+    <div class="cat-grid" id="cat-drill-grid"></div>
+  </div>
+
+  <div class="cat-prog-section">
+    <div class="cat-title">🧠 記憶工具（9個）</div>
+    <div class="prog-row"><div class="prog-label">總進度</div><div class="prog-bar"><div class="prog-fill green" id="total-mem-fill" style="width:0%"></div></div><div class="prog-pct" id="total-mem-pct">0/9</div></div>
+    <div class="cat-grid" id="cat-mem-grid"></div>
+  </div>
+
+  <div class="cat-prog-section">
+    <div class="cat-title">✍️ 申論工具（2個）</div>
+    <div class="prog-row"><div class="prog-label">總進度</div><div class="prog-bar"><div class="prog-fill blue" id="total-essay-fill" style="width:0%"></div></div><div class="prog-pct" id="total-essay-pct">0/2</div></div>
+    <div class="cat-grid" id="cat-essay-grid"></div>
+  </div>
+
+  <div class="cat-prog-section">
+    <div class="cat-title">⚡ 計算題＋診斷工具（2個）</div>
+    <div class="prog-row"><div class="prog-label">總進度</div><div class="prog-bar"><div class="prog-fill" id="total-law-fill" style="width:0%;background:var(--accent-gold)"></div></div><div class="prog-pct" id="total-law-pct">0/2</div></div>
+    <div class="cat-grid" id="cat-law-grid"></div>
+  </div>
 
   <div class="sec-title">五件套完成狀態</div>
   <div class="checklist">
@@ -840,11 +923,6 @@ nav{
 
   <div class="sec-title">模擬卷成績</div>
   <div id="mock-progress-table"></div>
-
-  <div class="sec-title">整體刷題進度</div>
-  <div class="prog-row"><div class="prog-label">刷題練習</div><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><div class="prog-pct">15個✓</div></div>
-  <div class="prog-row"><div class="prog-label">記憶工具</div><div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div><div class="prog-pct">4個✓</div></div>
-  <div class="prog-row"><div class="prog-label">申論工具</div><div class="prog-bar"><div class="prog-fill blue" style="width:100%"></div></div><div class="prog-pct">2個✓</div></div>
 
   <div class="sec-title">待辦事項</div>
   <div class="checklist">
@@ -982,6 +1060,25 @@ var CHAPTERS=[
   {key:'H1H2',label:'H1H2 特殊宗地',group:'EI',total:5},
   {key:'H3I1',label:'H3I1 都更CAMA',group:'EI',total:5},
 ];
+var MEMORY_TOOLS=[
+  {key:'mem-color',label:'彩色重點速記'},
+  {key:'mem-card',label:'互動單字卡'},
+  {key:'mem-kcard',label:'考題小卡'},
+  {key:'mem-fill',label:'定義填空練習'},
+  {key:'mem-flow',label:'程序流程記憶圖'},
+  {key:'mem-proc',label:'八大程序速覽表'},
+  {key:'mem-method',label:'四大方法比較表'},
+  {key:'mem-mix1',label:'易混淆概念並排'},
+  {key:'mem-mix2',label:'易混淆概念補充卷'},
+];
+var ESSAY_TOOLS=[
+  {key:'essay-sys',label:'四大方法系統攻略'},
+  {key:'essay-full',label:'申論題實戰範文'},
+];
+var LAW_TOOLS=[
+  {key:'law-calc',label:'計算題攻略'},
+  {key:'law-diag',label:'診斷卷①'},
+];
 
 function getRead(key){
   try{return localStorage.getItem('bxr-'+key)==='1';}catch(e){return false;}
@@ -996,7 +1093,17 @@ function markRead(key,cb){
   var card=document.getElementById('card-'+key);
   if(card){val?card.classList.add('read-done'):card.classList.remove('read-done');}
   updateGroupBars();
-  updateChapGrid();
+  updateAllCatGrids();
+  updateReport();
+}
+
+function toggleMemRead(key,labelEl){
+  var cb=document.getElementById('cb-'+key);
+  if(!cb)return;
+  var val=cb.checked;
+  try{localStorage.setItem('bxr-'+key,val?'1':'');}catch(e){}
+  if(labelEl)labelEl.classList.toggle('is-done',val);
+  updateAllCatGrids();
   updateReport();
 }
 
@@ -1013,38 +1120,68 @@ function updateGroupBars(){
   });
 }
 
-function updateChapGrid(){
-  var grid=document.getElementById('chap-grid');
+function updateCatGrid(gridId,items){
+  var grid=document.getElementById(gridId);
   if(!grid)return;
   grid.innerHTML='';
-  CHAPTERS.forEach(function(ch){
-    var done=getRead(ch.key);
+  items.forEach(function(it){
+    var done=getRead(it.key);
     var tile=document.createElement('div');
-    tile.className='chap-tile'+(done?' done':'');
-    tile.textContent=ch.label;
+    tile.className='cat-tile'+(done?' done':'');
+    tile.textContent=it.label;
     grid.appendChild(tile);
   });
 }
 
+function updateCatBar(fillId,pctId,items){
+  var done=items.filter(function(it){return getRead(it.key);}).length;
+  var tot=items.length;
+  var pct=tot?Math.round(done/tot*100):0;
+  var fill=document.getElementById(fillId);
+  var pctEl=document.getElementById(pctId);
+  if(fill)fill.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=done+'/'+tot;
+}
+
+function updateAllCatGrids(){
+  // 刷題 15
+  updateCatGrid('cat-drill-grid',CHAPTERS);
+  updateCatBar('total-drill-fill','total-drill-pct',CHAPTERS);
+  // 記憶 9
+  updateCatGrid('cat-mem-grid',MEMORY_TOOLS);
+  updateCatBar('total-mem-fill','total-mem-pct',MEMORY_TOOLS);
+  // 申論 2
+  updateCatGrid('cat-essay-grid',ESSAY_TOOLS);
+  updateCatBar('total-essay-fill','total-essay-pct',ESSAY_TOOLS);
+  // 計算/診斷 2
+  updateCatGrid('cat-law-grid',LAW_TOOLS);
+  updateCatBar('total-law-fill','total-law-pct',LAW_TOOLS);
+}
+
+// kept for backwards compat (called by markRead)
+function updateChapGrid(){updateAllCatGrids();}
+
 function updateReport(){
   var today=new Date();
   var dateStr=today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2,'0')+'-'+today.getDate().toString().padStart(2,'0');
-  var done=CHAPTERS.filter(function(c){return getRead(c.key);});
-  var notDone=CHAPTERS.filter(function(c){return !getRead(c.key);});
-  var lines=['📊 估價刷題閱讀進度回報 '+dateStr,''];
-  if(done.length>0){
-    lines.push('✓ 已完成（'+done.length+'/'+CHAPTERS.length+'）：');
-    lines.push(done.map(function(c){return c.label;}).join('、'));
-  } else {
-    lines.push('✓ 已完成：（尚無）');
-  }
+  var allItems=CHAPTERS.concat(MEMORY_TOOLS).concat(ESSAY_TOOLS).concat(LAW_TOOLS);
+  var drillDone=CHAPTERS.filter(function(c){return getRead(c.key);});
+  var memDone=MEMORY_TOOLS.filter(function(c){return getRead(c.key);});
+  var essayDone=ESSAY_TOOLS.filter(function(c){return getRead(c.key);});
+  var lawDone=LAW_TOOLS.filter(function(c){return getRead(c.key);});
+  var totalDone=drillDone.length+memDone.length+essayDone.length+lawDone.length;
+  var lines=['📊 估價備考閱讀進度回報 '+dateStr,'總完成：'+totalDone+'/'+allItems.length,''];
+  lines.push('📝 刷題練習（'+drillDone.length+'/15）：');
+  lines.push(drillDone.length>0?drillDone.map(function(c){return c.label;}).join('、'):'（尚無）');
   lines.push('');
-  if(notDone.length>0){
-    lines.push('✗ 尚未完成：');
-    lines.push(notDone.map(function(c){return c.label;}).join('、'));
-  } else {
-    lines.push('✓ 全部章節已完成！');
-  }
+  lines.push('🧠 記憶工具（'+memDone.length+'/9）：');
+  lines.push(memDone.length>0?memDone.map(function(c){return c.label;}).join('、'):'（尚無）');
+  lines.push('');
+  lines.push('✍️ 申論工具（'+essayDone.length+'/2）：');
+  lines.push(essayDone.length>0?essayDone.map(function(c){return c.label;}).join('、'):'（尚無）');
+  lines.push('');
+  lines.push('⚡ 計算題＋診斷（'+lawDone.length+'/2）：');
+  lines.push(lawDone.length>0?lawDone.map(function(c){return c.label;}).join('、'):'（尚無）');
   var el=document.getElementById('report-preview');
   if(el)el.textContent=lines.join('\n');
 }
@@ -1061,8 +1198,9 @@ function copyReport(){
   });
 }
 
-// 初始化：從 localStorage 恢復狀態
+// 初始化：從 localStorage 恢復所有28項狀態
 (function(){
+  // 刷題 15章
   CHAPTERS.forEach(function(ch){
     if(getRead(ch.key)){
       var card=document.getElementById('card-'+ch.key);
@@ -1071,8 +1209,35 @@ function copyReport(){
       if(cb)cb.checked=true;
     }
   });
+  // 記憶 9工具
+  MEMORY_TOOLS.forEach(function(it){
+    if(getRead(it.key)){
+      var cb=document.getElementById('cb-'+it.key);
+      if(cb)cb.checked=true;
+      var lbl=cb?cb.closest('.read-check-inline'):null;
+      if(lbl)lbl.classList.add('is-done');
+    }
+  });
+  // 申論 2工具
+  ESSAY_TOOLS.forEach(function(it){
+    if(getRead(it.key)){
+      var cb=document.getElementById('cb-'+it.key);
+      if(cb)cb.checked=true;
+      var lbl=cb?cb.closest('.read-check-inline'):null;
+      if(lbl)lbl.classList.add('is-done');
+    }
+  });
+  // 計算/診斷 2工具
+  LAW_TOOLS.forEach(function(it){
+    if(getRead(it.key)){
+      var cb=document.getElementById('cb-'+it.key);
+      if(cb)cb.checked=true;
+      var lbl=cb?cb.closest('.read-check-inline'):null;
+      if(lbl)lbl.classList.add('is-done');
+    }
+  });
   updateGroupBars();
-  updateChapGrid();
+  updateAllCatGrids();
   updateReport();
 })();
 
