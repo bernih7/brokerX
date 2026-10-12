@@ -101,7 +101,8 @@ h1{
 .card{
   width:100%;min-height:480px;position:relative;
   transform-style:preserve-3d;
-  transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  transition:transform .45s cubic-bezier(.4,.2,.2,1);
+  will-change:transform;
 }
 .card.flipped{transform:rotateY(180deg);}
 .face{
@@ -199,7 +200,10 @@ h1{
   background:var(--paper2);color:var(--ink-soft);
   cursor:pointer;font-size:12px;font-weight:700;
   font-family:"Noto Serif TC",serif;letter-spacing:.06em;
-  transition:background .15s;margin-top:auto;
+  transition:background .15s;
+  position:sticky;bottom:0;
+  margin-top:16px;
+  box-shadow:0 -2px 8px var(--shadow);
 }
 .back-btn:hover{background:var(--paper);border-color:var(--gold);}
 
@@ -443,6 +447,11 @@ function pick(chosen){
 document.getElementById("mBtn1").addEventListener("click",()=>toggleM(cur().id));
 document.getElementById("mBtn2").addEventListener("click",()=>toggleM(cur().id));
 document.getElementById("backBtn").addEventListener("click",()=>document.getElementById("card").classList.remove("flipped"));
+// Click anywhere on back face (except interactive elements) to flip back
+document.querySelector(".face.back").addEventListener("click",(e)=>{
+  if(e.target.closest("button,a,input,.opt,.m-btn")) return;
+  document.getElementById("card").classList.remove("flipped");
+});
 document.getElementById("prevBtn").addEventListener("click",()=>{if(idx>0){idx--;render();}});
 document.getElementById("nextBtn").addEventListener("click",()=>{if(idx<filtered.length-1){idx++;render();}});
 document.getElementById("shuffleBtn").addEventListener("click",()=>{
