@@ -9,6 +9,17 @@
   --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
   --stamp:#A84030; --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C;
   --orange:#B8782E; --purple:#7B5C8C; --red:#A84030;
+  /* 步驟色（淺色模式）*/
+  --s1:#B83A28;--s1-bg:rgba(184,58,40,.10);
+  --s2:#8B5E10;--s2-bg:rgba(139,94,16,.09);
+  --s3:#2A6B32;--s3-bg:rgba(42,107,50,.09);
+  --s4:#1A5A88;--s4-bg:rgba(26,90,136,.09);
+  --s5:#6A3A90;--s5-bg:rgba(106,58,144,.09);
+  --s6:#945020;--s6-bg:rgba(148,80,32,.09);
+  --s7:#186868;--s7-bg:rgba(24,104,104,.09);
+  --s8:#784028;--s8-bg:rgba(120,64,40,.09);
+  --hi-red:#B83A28;--hi-gold:#8B5E10;--hi-grn:#2A6B32;
+  --paper2:#F0EDE0;
   color-scheme: light;
 }
 @media(prefers-color-scheme:dark){
@@ -214,11 +225,12 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
   </div>
   <div class="proc-body">
     <div class="items">
-      <span class="item-tag c3">標示・權利・用途・管制</span>
-      <span class="item-tag c3">一般・區域・個別因素</span>
-      <span class="item-tag c3">交易・收益・成本資料</span>
+      <span class="item-tag c3">🏷 <b>標</b>＝標的資料：標示・權利・用途・管制</span>
+      <span class="item-tag c3">📊 <b>因</b>＝因素資料：一般・區域・個別因素</span>
+      <span class="item-tag c3">🔁 <b>比</b>＝比較實例：交易・收益・成本資料</span>
     </div>
-    <div class="note">比較實例4原則（§12）：① 正常價格可調整 ② 同一供需圈近鄰或類似地區 ③ 用途或管制相近 ④ 價格形成日期接近</div>
+    <div class="note">💡「比」不是「比較」這個動作，而是蒐集<b>比較實例的交易資料</b>（選案時用到的那批成交資料）</div>
+    <div class="note">比較實例選取4原則（§12）：① 正常價格可調整 ② 同一供需圈近鄰或類似地區 ③ 用途或管制相近 ④ 價格形成日期接近</div>
   </div>
 </div>
 
@@ -258,11 +270,44 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
   <div class="proc-body">
     <div class="items">
       <span class="item-tag c5">比較標的整理</span>
-      <span class="item-tag c5">§23 排除13款情形</span>
-      <span class="item-tag c5">§25 單項&gt;15%或總&gt;30%排除</span>
-      <span class="item-tag c5">§26 差距≥20%排除試算價格</span>
+      <span class="item-tag c5" style="cursor:pointer" onclick="toggle23(this)">§23 排除13款情形 ▼</span>
+      <span class="item-tag c5">§25 單項調整率&gt;15% 或 總調整率&gt;30% → 排除</span>
+      <span class="item-tag c5">§26 試算價格差距率≥20% → 排除最高/最低</span>
     </div>
-    <div class="note">例外：情況特殊不能採二種以上 → 於報告書敘明理由</div>
+    <!-- §23 展開 -->
+    <div id="box23" style="display:none;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--s5-bg);border:1px solid var(--s5)">
+      <div style="font-size:10px;font-weight:900;color:var(--s5);margin-bottom:6px">§23 比較標的排除13款（背口訣：價正案因契位面時空用役限他）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;font-size:10px;line-height:1.5">
+        <div>① 成交價格有明顯瑕疵</div>
+        <div>② 非屬正常市場</div>
+        <div>③ 案例已逾5年（建物3年）</div>
+        <div>④ 影響因素差距過大</div>
+        <div>⑤ 契約特殊</div>
+        <div>⑥ 非整筆交易</div>
+        <div>⑦ 面積差距過大</div>
+        <div>⑧ 時間調整超3年</div>
+        <div>⑨ 供需圈不同</div>
+        <div>⑩ 用途或管制不相近</div>
+        <div>⑪ 役權設定</div>
+        <div>⑫ 受法令限制</div>
+        <div>⑬ 其他不宜</div>
+      </div>
+      <div style="font-size:9.5px;color:var(--muted);margin-top:5px">⚠ 考題常問「何者可作為比較標的」→ 排除13款即可推導</div>
+    </div>
+    <!-- §25/§26 白話例 -->
+    <div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--paper2);border:1px dashed var(--s5)">
+      <div style="font-size:10px;font-weight:700;color:var(--s5);margin-bottom:5px">📏 §25/§26 白話記憶</div>
+      <div style="font-size:10.5px;line-height:1.8">
+        <b>§25 個別項調整率：</b>某比較案例「路寬」比標的窄，要調整 +18% → 超過15%上限 → 整筆排除<br>
+        &emsp;→ 口訣：<b>「單項超過一個巴掌（15%），砍掉不用」</b><br>
+        <b>§25 合計調整率：</b>同一案例各項加總後 = 32% → 超過30%上限 → 排除<br>
+        &emsp;→ 口訣：<b>「東調西調超過三成，已失代表性」</b><br>
+        <b>§26 差距排除：</b>三件試算：A=100萬、B=123萬、C=111萬<br>
+        &emsp;差距率 = (123–100)÷111 = 20.7% ≥ 20% → 排除最高B（或最低A？優先排外離最大者）<br>
+        &emsp;→ 口訣：<b>「三件中最高最低差超過兩成，先刷最離群那個」</b>
+      </div>
+    </div>
+    <div class="note">例外：情況特殊不能採二種以上方法 → 於報告書敘明理由</div>
   </div>
 </div>
 
@@ -284,7 +329,21 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
       <span class="item-tag c6">收益法 → 收益價格</span>
       <span class="item-tag c6">土地開發分析法 → V值</span>
     </div>
-    <div class="note">比較法調整順序：情況調整 → 價格日期調整 → 區域因素調整 → 個別因素調整</div>
+    <div class="note">比較法調整順序（§21）：<b>情</b>況調整 → <b>價</b>格日期調整 → <b>區</b>域因素調整 → <b>個</b>別因素調整（口訣：情・價・區・個）</div>
+    <!-- §70 定義快查 -->
+    <div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--s6-bg);border:1px solid var(--s6)">
+      <div style="font-size:10px;font-weight:900;color:var(--s6);margin-bottom:5px">§70 關鍵定義（宗地通則）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:10px;line-height:1.6">
+        <div><b>正常價格</b>：公開市場、無特殊動機之合理價格</div>
+        <div><b>限定價格</b>：條件或對象受限下之特殊價格</div>
+        <div><b>特定價格</b>：特殊條件（投資、清算）下的價格</div>
+        <div><b>特殊價格</b>：公共使用或非市場流通之不動產</div>
+        <div><b>比較價格</b>：由比較法推算所得</div>
+        <div><b>收益價格</b>：由收益法推算所得</div>
+        <div><b>成本價格</b>：由成本法推算所得</div>
+        <div><b>勘估標的價格</b>：最終決定之完整估價結果</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -350,6 +409,12 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
 </div>
 
 <script>
+function toggle23(el){
+  var box=document.getElementById('box23');
+  var open=box.style.display!=='none';
+  box.style.display=open?'none':'block';
+  el.textContent=open?'§23 排除13款情形 ▼':'§23 排除13款情形 ▲';
+}
 function toggleTheme(){
   var h=document.documentElement;
   var cur=h.getAttribute('data-theme');
