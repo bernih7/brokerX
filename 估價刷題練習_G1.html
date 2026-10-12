@@ -141,9 +141,23 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);backgr
   transition:transform .15s,box-shadow .15s;
 }
 .home-fab:hover{transform:scale(1.1); box-shadow:0 5px 18px rgba(0,0,0,.3);}
+
+/* 主題切換按鈕 */
+.theme-toggle{
+  position:fixed;top:14px;right:14px;z-index:999;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--paper);
+  color:var(--fg);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px var(--shadow);
+  transition:all .2s ease;
+}
+.theme-toggle:hover{background:var(--fg);color:var(--bg);}
+
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 <div class="wrap">
   <header>
     <div class="case-tag">不動產估價概要・整批刷題練習</div>
@@ -371,5 +385,27 @@ async function resetAll(){
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>
+// 主題切換
+(function(){
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('bxr-theme');
+  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
+  function updateIcon(){
+    const t = document.documentElement.getAttribute('data-theme');
+    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  updateIcon();
+  btn.addEventListener('click', function(){
+    const cur = document.documentElement.getAttribute('data-theme');
+    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('bxr-theme', next);
+    updateIcon();
+  });
+})();
+</script>
 </body>
 </html>

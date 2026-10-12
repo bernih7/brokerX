@@ -152,9 +152,23 @@ header p{font-size:11px;color:var(--muted);margin-top:4px}
   .compare.cols-3{grid-template-columns:1fr 1fr 1fr!important}
   @page{margin:8mm}
 }
+
+/* 主題切換按鈕 */
+.theme-toggle{
+  position:fixed;top:14px;right:14px;z-index:999;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--paper);
+  color:var(--fg);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px var(--shadow);
+  transition:all .2s ease;
+}
+.theme-toggle:hover{background:var(--fg);color:var(--bg);}
+
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 <button id="theme-btn" onclick="toggleTheme()">☀️</button>
 
 <header>
@@ -455,6 +469,28 @@ function toggleTheme(){
   try{const s=localStorage.getItem('bx-theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'🌙':'☀️'}}catch(e){}
 })();
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+</script>
+<script>
+// 主題切換
+(function(){
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('bxr-theme');
+  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
+  function updateIcon(){
+    const t = document.documentElement.getAttribute('data-theme');
+    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  updateIcon();
+  btn.addEventListener('click', function(){
+    const cur = document.documentElement.getAttribute('data-theme');
+    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('bxr-theme', next);
+    updateIcon();
+  });
+})();
 </script>
 </body>
 </html>
