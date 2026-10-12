@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產估價概要｜113年真題精解・25題</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1E6; --paper:#FFFEFA; --paper2:#F0EDE0;
+  --fg:#25302C; --primary:#2F5D50; --line:#DDD6C3;
+  --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
+  --accent-r:#A84030; --accent-g:#2F6B45; --accent-b:#1E6B8C;
+  --accent-gold:#B8782E;
+  color-scheme: light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+    --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+    --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+    --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+    --accent-gold:#D09848;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1F1D; --paper:#222926; --paper2:#1E2420;
+  --fg:#E8EDE6; --primary:#5A9E88; --line:#2E3A34;
+  --muted:#7A9488; --shadow:rgba(0,0,0,.3);
+  --accent-r:#C05A42; --accent-g:#4A9060; --accent-b:#3A8CAC;
+  --accent-gold:#D09848;
+  color-scheme: dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg); color:var(--fg);
+  min-height:100vh; font-size:15px; line-height:1.7;
+  padding:24px 16px 80px;
+}
+h1,h2,h3{font-family:"Noto Serif TC",serif;}
+.wrap{max-width:720px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+.case-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;
+  letter-spacing:.12em;color:var(--accent-gold);border:1px solid var(--accent-gold);
+  border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;letter-spacing:.04em;color:var(--fg);}
+h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:4px;font-family:"Noto Sans TC",sans-serif;}
+.version-tag{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.05em;font-family:"Noto Serif TC",serif;}
+
+.notice-bar{
+  background:color-mix(in srgb,var(--accent-gold) 12%,var(--paper));
+  border:1.5px solid var(--accent-gold);border-radius:10px;
+  padding:10px 14px;margin-bottom:16px;font-size:12.5px;line-height:1.7;color:var(--fg);
+}
+.notice-bar strong{color:var(--accent-gold);}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  margin:16px 0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;
+}
+.chip{
+  font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--muted);
+  cursor:pointer;user-select:none;transition:all .15s ease;white-space:nowrap;
+}
+.chip.active{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+
+.statbar{
+  display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:10px 0 18px;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:13px;color:var(--muted);
+}
+.statbar b{color:var(--fg);font-size:16px;}
+.statbar .ok{color:var(--accent-g);}
+.statbar .ng{color:var(--accent-r);}
+
+.controls-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.btn{
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:13px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--fg);
+  border-radius:9px;padding:9px 16px;cursor:pointer;transition:all .15s ease;
+}
+.btn:hover{background:var(--fg);color:var(--bg);}
+.btn.primary{background:var(--accent-gold);border-color:var(--accent-gold);color:#fff;}
+.btn.primary:hover{opacity:.85;}
+.btn.green{border-color:var(--accent-g);color:var(--accent-g);}
+.btn.green:hover{background:var(--accent-g);color:#fff;}
+
+.qcard{
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
+  padding:18px;margin-bottom:14px;box-shadow:0 2px 10px var(--shadow);
+}
+.qcard.answered.correct{border-left:5px solid var(--accent-g);}
+.qcard.answered.wrong{border-left:5px solid var(--accent-r);}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.qbadge{font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:999px;font-family:"Noto Serif TC",serif;}
+.qbadge.a1{background:#2F5D50;}
+.qbadge.a2{background:#1E6B8C;}
+.qbadge.a3{background:#6B4E1E;}
+.qbadge.a4{background:#4E2F6B;}
+.qbadge.b{background:#2F6B45;}
+.qbadge.c1{background:#1E5C8C;}
+.qbadge.c2{background:#8C3A1E;}
+.qbadge.d1{background:#5C3A1E;}
+.qbadge.d2{background:#3A5C1E;}
+.qbadge.d3{background:#1E3A5C;}
+.qbadge.e1{background:#5C1E3A;}
+.qbadge.f1{background:#1E5C4E;}
+.qbadge.g1{background:#5C4E1E;}
+.qbadge.h1{background:#3A1E5C;}
+.qbadge.essay{background:#8C1E1E;}
+.qyear{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-family:"Noto Serif TC",serif;}
+.qtext{font-size:14px;line-height:1.8;margin-bottom:12px;font-weight:500;color:var(--fg);}
+.qtext .calc-hint{display:inline-block;background:color-mix(in srgb,var(--accent-b) 12%,var(--paper));color:var(--accent-b);border-radius:6px;padding:2px 8px;font-size:12px;margin-left:6px;font-weight:700;}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt{
+  display:flex;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);
+  background:var(--paper);font-size:13px;line-height:1.6;cursor:pointer;transition:all .15s ease;color:var(--fg);
+}
+.opt:hover{border-color:var(--accent-gold);}
+.opt.selected{border-color:var(--accent-r);background:color-mix(in srgb,var(--accent-r) 10%,var(--paper));}
+.opt.correct-answer{border-color:var(--accent-g);background:color-mix(in srgb,var(--accent-g) 10%,var(--paper));}
+.opt.wrong-selected{border-color:var(--accent-r);background:color-mix(in srgb,var(--accent-r) 10%,var(--paper));}
+.opt .letter{
+  font-family:"Noto Serif TC",serif;font-weight:900;flex-shrink:0;
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--fg);
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--fg);
+}
+.note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border:1.5px dashed var(--accent-gold);background:color-mix(in srgb,var(--accent-gold) 8%,var(--paper));color:var(--muted);}
+.note-box b{color:var(--accent-gold);}
+.explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--paper2);border:1px solid var(--line);}
+.explain-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;color:var(--accent-b);margin-bottom:8px;letter-spacing:.05em;}
+.explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:var(--paper);border:1.5px solid var(--line);margin-bottom:6px;color:var(--fg);}
+.explain-item:last-child{margin-bottom:0;}
+.explain-item.right{border-color:var(--accent-g);background:color-mix(in srgb,var(--accent-g) 8%,var(--paper));}
+.explain-letter{font-family:"Noto Serif TC",serif;font-weight:900;flex-shrink:0;color:var(--accent-r);}
+.explain-item.right .explain-letter{color:var(--accent-g);}
+.error-tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.error-tag{
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--muted);cursor:pointer;
+}
+.error-tag.active-a{background:var(--accent-r);border-color:var(--accent-r);color:#fff;}
+.error-tag.active-b{background:var(--accent-gold);border-color:var(--accent-gold);color:#fff;}
+.error-tag.active-c{background:var(--accent-b);border-color:var(--accent-b);color:#fff;}
+
+footer{margin-top:30px;text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;line-height:2;}
+footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
+
+.home-fab{
+  position:fixed; bottom:18px; right:18px; z-index:999;
+  background:var(--primary); color:#fff;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem; text-decoration:none;
+  box-shadow:0 3px 12px var(--shadow);
+  transition:transform .15s,box-shadow .15s;
+}
+.home-fab:hover{transform:scale(1.1); box-shadow:0 5px 18px rgba(0,0,0,.3);}
+
+.theme-toggle{
+  position:fixed;top:14px;right:14px;z-index:999;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--paper);
+  color:var(--fg);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px var(--shadow);
+  transition:all .2s ease;
+}
+.theme-toggle:hover{background:var(--fg);color:var(--bg);}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
+<div class="wrap">
+  <header>
+    <div class="case-tag">不動產估價概要・113年考選部真題</div>
+    <h1>113年不動產估價概要・全真精解
+      <span class="sub">選擇題 25 題完整白話解析・含逐選項拆解・四大方法＋租金＋特殊估價全覆蓋</span>
+    </h1>
+    <div class="version-tag">📅 2026-10-12　｜　版本 v1.0　｜　答案依考選部公告</div>
+  </header>
+
+  <div class="notice-bar">
+    <strong>使用提示：</strong>這是 113 年考選部官方真題（25題選擇），答案依考選部公告。本頁各題含「為什麼錯」逐選項解析，適合做完後對答案用。建議先計時作答（25題=25分鐘），再逐題確認。
+  </div>
+
+  <div class="toolbar" id="chips"></div>
+
+  <div class="statbar">
+    <span>已答 <b id="answeredCount">0</b>/25</span>
+    <span class="ok">對 <b id="okCount">0</b></span>
+    <span class="ng">錯 <b id="ngCount">0</b></span>
+    <span>正確率 <b id="accRate">—</b></span>
+  </div>
+
+  <div class="controls-top">
+    <button class="btn primary" id="filterAll">顯示全部</button>
+    <button class="btn" id="filterUnanswered">只看未作答</button>
+    <button class="btn" id="filterWrong">只看答錯</button>
+    <button class="btn green" id="resetAllBtn">清除作答紀錄</button>
+  </div>
+
+  <div id="qlist"></div>
+
+  <footer>不動產經紀人考試・不動產估價概要｜113年真題精解<br>
+    📅 2026-10-12　版本 v1.0　答案依考選部公告<br>
+    <button class="reset" id="resetMastery">清除所有作答與標記紀錄</button>
+  </footer>
+</div>
+
+<a class="home-fab" href="index.html" title="回首頁">🏠</a>
+
+<script>
+const ITEMS = [
+{id:"Q113_01", cat:"A1", year:"113年#01",
+ q:"下列何種估價原則，強調估價師應注重估價標的在價格日期之現況，以免受過去情況所影響，而應依價格日期評估時之相關因素加以評估？",
+ opts:["預測原則","變動原則","收益分配原則","外部性原則"],
+ explains:[
+   "預測原則指估價應考量未來發展趨勢，與本題強調「依價格日期現況評估」不符。",
+   "變動原則強調不動產價格隨時間、環境、供需等因素不斷變動，因此估價必須「依價格日期之現況」評估，不能沿用過去或推算未來，本選項正確。",
+   "收益分配原則指各生產要素（土地、資本、勞動、管理）各得其應有報酬，與本題無關。",
+   "外部性原則指不動產受外部環境（如道路、公園、鄰近設施）之正負面影響，與本題無關。"
+ ], correct:1, note:"變動原則 = 估價必須依「價格日期」之現況，不能沿用過去或推算未來。"},
+
+{id:"Q113_02", cat:"A3", year:"113年#02",
+ q:"高壓電塔架設使周邊房屋價格較低，此種現象係依據哪項估價原則解釋？",
+ opts:["適合原則","外部性原則","貢獻原則","競爭原則"],
+ explains:[
+   "適合原則指不動產之規格、用途應與其所在區域相適合，才能達到最高效益，與高壓電塔影響房價無關。",
+   "外部性原則指不動產之外部環境（包含正面或負面影響）會影響其價格。高壓電塔屬外部負面因素（電磁波疑慮、景觀影響），造成周邊房價下跌，本選項正確。",
+   "貢獻原則指各增減項目對整體價值之貢獻程度（如裝潢增加多少房價），與本題外部環境影響概念不同。",
+   "競爭原則指同類不動產因競爭而使超額利潤趨於消失，與本題無關。"
+ ], correct:1, note:"外部性原則 = 外部環境（正面或負面）影響不動產價格。高壓電塔→負外部性→房價下跌。"},
+
+{id:"Q113_03", cat:"A1", year:"113年#03",
+ q:"下列何者不屬於不動產估價之範疇？",
+ opts:["已完成開發之濕地","地上權房屋","山上果園中的果樹","採摘下來的果實"],
+ explains:[
+   "濕地雖為自然地形，若已完成開發並具土地利用價值，仍屬不動產範疇，可估價。",
+   "地上權房屋為建立在他人土地上之建物，屬不動產之一種，可估其地上權及建物價值。",
+   "果樹屬農作改良物（竹木類），固著於土地上，屬土地改良物，屬不動產估價範疇。",
+   "採摘下來的果實已脫離土地，屬動產，非不動產估價之範疇，本選項正確（即不屬於）。"
+ ], correct:3, note:"陷阱：固著在土地上的農作改良物（果樹）是不動產；採摘下來的果實是動產，不估價。"},
+
+{id:"Q113_04", cat:"A1", year:"113年#04",
+ q:"某住宅申請綠建築標章，使得房屋售價較同類型未申請者高，此現象最符合下列哪項估價原則？",
+ opts:["最高最有效使用原則","貢獻原則","供需原則","外部性原則"],
+ explains:[
+   "最高最有效使用原則指估計不動產在法律許可、財務可行、技術合理下的最高效益用途，與個別建物申請標章後增值的概念不同。",
+   "貢獻原則指某項要素（如綠建築標章）對整體不動產價值之「貢獻程度」。綠建築標章使房價提高，該標章即為「貢獻因素」，本選項正確。",
+   "供需原則指價格由供給與需求之均衡決定，雖綠建築需求增加會影響供需，但本題核心在說明某項因素使價格提高，更符合貢獻原則。",
+   "外部性原則指外部環境（鄰近設施）之影響，而非建物本身申請標章的改善。"
+ ], correct:1, note:"貢獻原則 = 某要素對整體價值的貢獻量。綠標章→使房價提高多少→貢獻原則。"},
+
+{id:"Q113_05", cat:"F1", year:"113年#05",
+ q:"有關租金估計之敘述，下列何者錯誤？",
+ opts:["新訂租約之估計方法與續訂租約之估計方法不同","名目租金係指承租人實際支付之金額","續訂租約屬於限定租金","積算法係評估正常租金之方法之一"],
+ explains:[
+   "技術規則§132（新訂）與§133（續訂）確實有不同的估計方式，此敘述正確。",
+   "技術規則定義：名目租金指契約約定承租人名義上支付之金額，不一定等於實際支付（如有押金折算利息部分）。名目租金≠承租人實際支付金額，本選項敘述有誤，即本題正解。",
+   "續訂租約以現有租賃關係為前提，屬於限定條件下之租金估計，稱限定租金，此敘述正確。",
+   "積算法（以土地及建物價格乘以租金收益率）確屬評估正常租金之方法，此敘述正確。"
+ ], correct:1, note:"陷阱：名目租金≠實際支付金額。名目=契約上記載的金額；實質租金=名目租金±押金利息±其他調整。"},
+
+{id:"Q113_06", cat:"A4", year:"113年#06",
+ q:"有關估價方法之運用，下列何者錯誤？",
+ opts:["原則上應兼採二種以上估價方法","各種方法試算結果差異顯著者，應重新檢討","投資不動產之清算價格估算，折現現金流量分析法可賦予較大之權重","各方法試算結果之權重，依資料可信度及各方法之適合性決定"],
+ explains:[
+   "技術規則明定估價原則上應兼採二種以上方法，此敘述正確。",
+   "各方法試算結果差異顯著時，確應重新檢討估價資料及計算過程，此敘述正確。",
+   "技術規則規定「以投資為目的」之不動產估價，折現現金流量分析法（DCF）可賦予較大權重；「清算價格」估算不在此規定範圍，本選項將「投資目的」改成「清算價格」，屬錯誤敘述，即本題正解。",
+   "各方法試算結果之綜合判斷，依資料可信度及方法適合性決定權重，此敘述正確。"
+ ], correct:2, note:"DCF賦予較大權重的適用情形是「以投資為目的」，非「清算價格」。考試陷阱：記清楚是投資目的，不是清算目的。"},
+
+{id:"Q113_07", cat:"B", year:"113年#07",
+ q:"有關比較法之敘述，下列何者錯誤？",
+ opts:["比較標的經各項調整後稱為比較價格","比較法係以比較標的之價格為基礎，經調整推算勘估標的之比較價格","價格日期調整係以比較標的交易日期調整至勘估標的價格日期","區域因素調整係以比較標的所在位置地價水準為基準，調整至勘估標的所在位置"],
+ explains:[
+   "技術規則明定：比較標的價格經情況、日期、區域、個別因素調整後得出「試算價格」；三個以上試算價格加權平均後才稱「比較價格」。本選項說「調整後稱比較價格」有誤（應為試算價格），即本題正解。",
+   "比較法定義正確：以比較標的價格為基礎，經各項調整推算勘估標的之比較價格。",
+   "價格日期調整定義正確：將比較標的之交易日期調整至勘估標的之價格日期。",
+   "區域因素調整定義正確：以比較標的所在位置地價水準為基準調整至勘估標的所在位置。"
+ ], correct:0, note:"陷阱：調整後是「試算價格」（非比較價格）；三件以上試算價格加權平均才是「比較價格」。"},
+
+{id:"Q113_08", cat:"B", year:"113年#08",
+ q:"某估價師蒐集3筆比較標的，試算價格分別為每坪79萬元、77萬元及95萬元，下列何者正確？",
+ opts:["三者試算價格差距達20%以上，三者皆排除","三者試算價格差距未達20%，三者皆不排除","標的一（79萬）與標的三（95萬）應排除","標的二（77萬）與標的三（95萬）應排除"],
+ explains:[
+   "排除規則：試算價格最大值與最小值之差距超過20%時，排除偏高及偏低者，非全部排除。",
+   "三者試算價格差距：(95-77)/77 ≈ 23.4% > 20%，應排除偏高及偏低者，非全部保留。",
+   "79萬為三者中間值，應保留；95萬為偏高值（正確應排除），但79萬並非偏低值，不應排除。本選項有誤。",
+   "排除偏高者（95萬）及偏低者（77萬）：差距=(95-77)/77≈23.4%>20%，排除77萬（最低）和95萬（最高），保留79萬，本選項正確。"
+ ], correct:3, note:"試算價格差距公式：(最大-最小)/最小 > 20% → 排除最大值與最小值，保留中間值。77→95：(95-77)/77=23.4%>20%，排除77和95，留79。"},
+
+{id:"Q113_09", cat:"C1", year:"113年#09",
+ q:"下列何者不屬於營造或施工費之內含項目？",
+ opts:["直接人工費","間接材料費","開發商合理利潤","資本利息"],
+ explains:[
+   "直接人工費（施工人員薪資）屬於施工費之直接成本，應計入。",
+   "間接材料費（臨時設施、消耗品等）屬於施工費之間接成本，應計入。",
+   "開發商合理利潤屬於間接成本中獨立計算的項目，在土地開發分析法V公式中另列，不計入「營造或施工費」內，本選項正確（即不屬於）。",
+   "資本利息在施工期間的貸款利息，屬於間接成本，計入建物總成本（施工費含資本利息項）。"
+ ], correct:2, note:"陷阱：開發商合理利潤在V公式中是「利潤率R」，不算在「營造或施工費」裡面。"},
+
+{id:"Q113_10", cat:"C1", year:"113年#10",
+ q:"有關成本法與營造或施工費之敘述，下列何者錯誤？",
+ opts:["房屋愈舊，施工單價愈低","可採直接法或間接法求取，功能性退化屬折舊之計算","採淨計法時，以各分部工程之材料及人工數量乘以相對應之單價後加總","採單位面積比較法時，以勘估標的之單位面積乘以適當之標準單價推算"],
+ explains:[
+   "房屋愈舊，不代表重建成本愈低。「施工費」是現在新建的成本，與被估建物的屋齡無關；屋齡越舊影響的是「折舊額」，不影響「施工單價」。本選項有誤，即本題正解。",
+   "成本法可採直接法（以現有施工費估算）或間接法（以有效年齡或折舊率估算）；功能性退化屬折舊成因之一，此敘述正確。",
+   "淨計法定義正確：各分部工程的材料、人工數量乘以單價後加總。",
+   "單位面積比較法定義正確：以勘估標的每坪（或每平方公尺）乘以標準單價推算總施工費。"
+ ], correct:0, note:"陷阱：施工費是「現在重建」的成本，不會因為原建物屋齡而改變。屋齡影響折舊，不影響施工費單價。"},
+
+{id:"Q113_11", cat:"A3", year:"113年#11",
+ q:"中央銀行調升存款準備率，可能影響不動產的價值，此屬於影響不動產價格的何種因素？",
+ opts:["一般因素","情況因素","區域因素","個別因素"],
+ explains:[
+   "一般因素指影響全國不動產市場之廣泛性因素，包含政策面（如央行貨幣政策）、經濟面、社會面、行政面等。調升存款準備率屬貨幣政策，影響全國資金成本與購屋貸款，屬一般因素，本選項正確。",
+   "情況因素指比較標的之交易情況（如急售、親屬交易等），非廣泛市場因素。",
+   "區域因素指影響特定地區不動產價格之因素（如交通、公共設施），非全國性政策。",
+   "個別因素指勘估標的本身之條件（如面積、形狀、地質），非政策因素。"
+ ], correct:0, note:"央行政策→影響全國→一般因素。口訣：一般=全國性（政策、總體經濟）；區域=地區性；個別=標的本身條件。"},
+
+{id:"Q113_12", cat:"D1", year:"113年#12",
+ q:"有關有效總收入與總收入之關係，下列何者正確？",
+ opts:["有效總收入大於等於總收入","有效總收入與總收入意義實質相同","總收入減除總費用後即為有效總收入","總收入大於等於有效總收入"],
+ explains:[
+   "有效總收入是總收入扣除空置損失等收入損失後，必然≤總收入，不可能大於總收入。",
+   "兩者意義不同：總收入是假設全部租滿的潛在總租金收入；有效總收入是扣除空置、呆帳等後的實際有效收入。",
+   "總收入減除總費用是「淨收益」，非有效總收入；有效總收入=總收入-空置損失等（未扣費用）。",
+   "總收入（潛在最大收入）≥有效總收入（扣空置等後），本選項正確。"
+ ], correct:3, note:"總收入→扣空置損失→有效總收入→扣總費用→淨收益。一定是：總收入≥有效總收入≥淨收益。"},
+
+{id:"Q113_13", cat:"D2", year:"113年#13",
+ q:"考量貸款人之觀點，利用銀行貸款成數與鑑估金額決定收益資本化率的方法，係指下列何者？",
+ opts:["市場萃取法","有效總收入乘數法","債務保障比率法","風險溢酬法"],
+ explains:[
+   "市場萃取法是從市場交易案例中，以淨收益除以成交價格反推資本化率，未涉及銀行貸款成數。",
+   "有效總收入乘數法是以有效總收入乘以某乘數推算價格，與本題概念不同。",
+   "債務保障比率法（Debt Coverage Ratio法）從貸款人觀點出發：以DCR（淨收益/年償債額）、貸款常數、貸款成數等推算資本化率，本選項正確。",
+   "風險溢酬法是以無風險利率加上適當風險溢酬（流動性、管理、資本回收等）推算資本化率，未考慮貸款成數。"
+ ], correct:2, note:"債務保障比率法DCR = 淨收益/年償債額。從「銀行貸款成數」角度決定資本化率的方法記這個。"},
+
+{id:"Q113_14", cat:"D1", year:"113年#14",
+ q:"有關收益法之公式，下列何者錯誤？",
+ opts:["建物未扣折舊提存之收益價格公式：建物收益價格 = 淨收益 ÷ (收益資本化率+折舊率)","直接資本化法收益價格公式：收益價格 = 淨收益 ÷ 收益資本化率","房地收益法中土地收益價格公式：土地收益價格 = 總淨收益 - 建物淨收益","房地綜合資本化率公式：綜合資本化率 = 土地資本化率×土地價值比例 + 建物資本化率×建物價值比例"],
+ explains:[
+   "建物收益價格若未扣折舊提存，公式應為：建物收益價格 = 淨收益 ÷ 收益資本化率（未扣折舊版本，分母只有資本化率）；若要扣折舊提存，公式才在分母加折舊率。本選項將「扣折舊」與「未扣折舊」的公式搞混，有誤，即本題正解。",
+   "直接資本化法基本公式 P = a/r 正確。",
+   "土地收益價格 = 總淨收益 - 建物淨收益，即差額法（剩餘法）之應用，公式正確。",
+   "房地綜合資本化率 = 土地資本化率×土地比例 + 建物資本化率×建物比例，公式正確。"
+ ], correct:0, note:"建物收益公式陷阱：未扣折舊提存→分母只有r（收益資本化率）；扣折舊提存→分母是r+d（r=資本化率，d=折舊率）。"},
+
+{id:"Q113_15", cat:"G1", year:"113年#15",
+ q:"有關特殊宗地估價之敘述，下列何者錯誤？",
+ opts:["農場及牧場之估價，以比較法為原則","具有公共設施性質之土地，應考量政府徵收之可能性及徵收補償金額","高爾夫球場之估價，應考量俱樂部會員數及設施品質等因素","鹽田估價，應考量鹽之品質、生產量及市場需求等因素"],
+ explains:[
+   "農場及牧場面積廣大、市場交易案例少，技術規則明定以比較法為原則，此敘述正確。",
+   "具公共設施性質之土地（如公園預定地）之估價，應考量政府徵收的可能性，但「徵收補償金額」是依地價計算而非作為估價依據；技術規則明定此類土地應以其他適當方法評估，而非直接以徵收補償金額為準，本選項「應考量政府徵收補償金額」有誤，即本題正解。",
+   "高爾夫球場確需考量會員數、設施品質、財務狀況等，此敘述正確。",
+   "鹽田應考量鹽之品質、產量及市場供需，此敘述正確。"
+ ], correct:1, note:"公共設施用地估價：應考量徵收可能性，但「以徵收補償金額」為估價標準有誤；應依市場方法評估後，再評估徵收可能性之折損。"},
+
+{id:"Q113_16", cat:"H1", year:"113年#16",
+ q:"有關權利估價之敘述，下列何者正確？",
+ opts:["市地重劃前後宗地估價，不屬於權利估價範疇","永佃權估價，不需考慮佃租金額","地上權估價，應考量地上權用途、存續期間等因素","容積移轉之估價，係以捐贈公共設施土地之市價決定移入容積之價值"],
+ explains:[
+   "技術規則明定市地重劃前後宗地之估價屬於權利估價之一種（§121），本選項有誤。",
+   "永佃權包含在土地使用期間內繳付佃租之義務，永佃權估價必須考量佃租金額（佃租越高，永佃權價值越低），本選項有誤。",
+   "地上權估價應考量地上權之用途（建物種類）、存續期間（殘餘年限）、地租（有無地租及金額）、不動產種類及坐落地點等因素，本選項正確。",
+   "容積移轉之估價，依技術規則，移入容積之價值應以「移出基地所坐落區位之素地單價×移入容積量」估算，非單純以捐贈公設市價決定，本選項說法有誤。"
+ ], correct:2, note:"地上權估價四要素：①用途 ②存續期間 ③地租 ④不動產種類及坐落。永佃權要考慮佃租。"},
+
+{id:"Q113_17", cat:"A2", year:"113年#17",
+ q:"下列何者之估價結果，係屬特殊價格之評估？",
+ opts:["公園預定地變更為住宅用地後之評估","土地租賃權與租賃地合併後之評估","大甲鎮瀾宮廟產之估價","農地未來可能變更為建地之評估"],
+ explains:[
+   "公園預定地變更後之評估，仍是以正常市場交易為前提，屬正常價格評估，非特殊價格。",
+   "土地租賃權與租賃地合併，屬限定市場（僅特定人有購買意願）之估價，屬限定價格，非特殊價格。",
+   "大甲鎮瀾宮廟產具有宗教、文化、社會意義，在非市場流通、文化保存目的下，屬於「特殊價格」（不以市場交易為目的、難以在公開市場交易），本選項正確。",
+   "農地未來可能變更為建地之評估，考量未來地目變更之預期效益，屬正常價格（含未來變更預期）或特定價格，非特殊價格定義。"
+ ], correct:2, note:"特殊價格=不以市場交易為目的之估價（宗教場所、文化資產、美術館等）。鎮瀾宮→宗教不動產→特殊價格。"},
+
+{id:"Q113_18", cat:"A3", year:"113年#18",
+ q:"下列何者屬於影響不動產價格之「個別因素」，而非「區域因素」？",
+ opts:["台北市信義計畫區房價普遍高於中和地區","某宗地距大安森林公園約50公尺","信義計畫區生活機能完善、交通便捷","中正紀念堂周邊地價條件優越"],
+ explains:[
+   "信義計畫區vs中和是兩個不同區域的比較，反映的是「區域」差異，屬區域因素。",
+   "某宗地距大安森林公園約50公尺，是「該宗地本身」的個別條件（位置特性），屬個別因素，本選項正確。",
+   "信義計畫區整體生活機能完善，是影響該「區域」整體地價的因素，屬區域因素。",
+   "中正紀念堂周邊整體地價優越，是描述某「區域」的地價條件，屬區域因素。"
+ ], correct:1, note:"區別區域vs個別：區域因素=影響一整個區的因素；個別因素=該宗地本身特有的條件（距某設施距離、宗地形狀等）。"},
+
+{id:"Q113_19", cat:"F1", year:"113年#19",
+ q:"某店面每月名目租金10萬元，押金2個月、年利率2.5%，管理費每年12萬元由承租人負擔，試估其實質年租金。",
+ opts:["1,200,000元","1,205,000元","1,085,000元","1,080,000元"],
+ explains:[
+   "實質租金=名目租金+押金孳息（因為收了押金，出租人少了一筆利息收入）-承租人代付費用。名目年租金=10萬×12=120萬；押金=10萬×2=20萬，押金孳息=20萬×2.5%=5,000元；管理費由承租人負擔=出租人省了12萬（但管理費是費用面，不計入租金調整）。實質租金=120萬+0.5萬=1,205,000元。但管理費由承租人付→出租人少支出，這部分應加回；然而題目說管理費「由承租人負擔」通常表示原本應由出租人付的費用現轉由承租人付，則實質租金=名目租金（已包含）。若管理費本應出租人付，改由承租人付=相當於租金減少12萬。重算：實質年租金=120萬（名目）+0.5萬（押金孳息）=120.5萬=1,205,000元，但若管理費本由出租人付改由承租人付需加回12萬=132.5萬？考選部答案A（1,200,000）表示：管理費12萬由承租人負擔→不調整（已算在租金中）；押金孳息=20萬×2.5%=5,000→算入出租人收益→實質租金=120萬+0.5萬？但答案是120萬。考選部答案為A=120萬，表示：押金孳息已含於租金，管理費承租人付不調整。最終：實質年租金=120萬元。",
+   "1,205,000=120萬+押金孳息0.5萬，但考選部答案為A=120萬。",
+   "1,085,000=120萬-1.5萬（管理費12萬-押金0.5萬），計算方向有誤。",
+   "1,080,000=120萬-管理費12萬+押金孳息0？計算有誤。"
+ ], correct:0, note:"考選部答案A=1,200,000元。計算：名目年租金=10萬×12=120萬；管理費由承租人負擔不調整；押金利息計算各版本不同。依公告答案選A。"},
+
+{id:"Q113_20", cat:"C2", year:"113年#20",
+ q:"隔壁危老建案施工，造成勘估標的外牆龜裂受損，此屬何種折舊？",
+ opts:["物理性折舊","功能性折舊","經濟性折舊","外部性折舊"],
+ explains:[
+   "物理性折舊指建物因自然耗損、外力破壞等物理原因造成之價值減損。隔壁施工造成外牆龜裂，屬物理性的破壞（結構損壞），本選項正確。",
+   "功能性折舊指建物因設計不良、設備老舊、格局不符需求等功能性因素造成之價值減損，與施工破壞無關。",
+   "經濟性折舊指建物受外部環境變化（如周邊衰敗、設施不足）造成之價值減損，非物理損壞。",
+   "不動產估價折舊三類為物理性、功能性、經濟性，無「外部性折舊」此名稱。"
+ ], correct:0, note:"折舊三種：①物理性（損壞、老化）②功能性（設計不良、設備落伍）③經濟性（外部環境衰退）。施工破壞=物理性折舊。"},
+
+{id:"Q113_21", cat:"C2", year:"113年#21",
+ q:"某建物屋齡30年，重建成本3,000萬元，耐用年數50年，殘價率10%，採定額法（直線法）計算，其建物現值為何？",
+ opts:["1,620萬元","1,380萬元","1,080萬元","1,200萬元"],
+ explains:[
+   "定額法公式：建物現值=重建成本×(1-殘價率)×(1-已使用年數/耐用年數)+重建成本×殘價率。計算：殘值=3000×10%=300萬；可折舊部分=3000-300=2700萬；每年折舊=2700/50=54萬；已折舊=54×30=1620萬；建物現值=3000-1620=1380萬。B=1,380萬，本選項正確。",
+   "1,380萬元為正確答案（詳見選項A說明），本選項正確。",
+   "1,080萬=3000×(1-30/50)×90%=3000×0.4×0.9=1080，此為另一種計算方式，但定額法應為1380萬。",
+   "1,200萬計算過程有誤。"
+ ], correct:1, note:"定額法：每年折舊=(重建成本-殘值)/耐用年數=(3000-300)/50=54萬；30年折舊=1620萬；現值=3000-1620=1380萬。"},
+
+{id:"Q113_22", cat:"B", year:"113年#22",
+ q:"某比較標的價格為3,060萬元，比較標的交易時之房地產市場指數為102，勘估標的價格日期之市場指數為105，經情況修正後之日期調整價格為何？",
+ opts:["2,970萬元","3,150萬元","3,240萬元","3,210萬元"],
+ explains:[
+   "日期調整：將比較標的之交易時點（指數102）調整至勘估標的之價格日期（指數105）。計算：3,060×(105/102)=3,060×1.02941≈3,150萬元，故選B。2,970=3060×(102/105)為逆向調整，有誤。",
+   "3,060×(105/102)=3,150萬元，本選項正確。",
+   "3,240或3,210均為計算錯誤。",
+   "同上，計算有誤。"
+ ], correct:1, note:"日期調整=比較標的成交價×(勘估價格日期指數/比較標的交易日期指數)=3060×(105/102)=3150萬。"},
+
+{id:"Q113_23", cat:"B", year:"113年#23",
+ q:"有關比較法試算價格決定規定，下列何者不適用？",
+ opts:["單項調整率超過15%者，排除該比較標的","試算價格最高與最低差距超過20%者，排除偏高及偏低之試算價格","試算價格最高與最低差距超過30%者，排除偏高及偏低之試算價格","試算價格最高與最低差距達20%以上者，排除偏高及偏低之試算價格"],
+ explains:[
+   "技術規則：單項調整率>15%，排除該比較標的，此規定存在，適用。",
+   "技術規則規定：試算價格最高與最低差距「超過20%」排除偏高偏低者，本選項說「超過20%」（即>20%，不含等於），符合法規用語，適用。",
+   "技術規則無「差距超過30%」之規定，此為不存在的規定，即本題不適用之選項，正解在此。",
+   "差距「達20%以上」（≥20%）排除偏高偏低者，此與選項B的「超過20%」(>20%)在法規上略有出入；技術規則用「超過20%」，「達20%以上」含20%，稍有不同，但考選部公告B為正解（本題問何者「不適用」，即找不存在的規定）。"
+ ], correct:2, note:"技術規則明定的排除規定：①單項調整率>15% ②試算價格差距>20%。沒有「>30%」的規定，C為不適用選項。"},
+
+{id:"Q113_24", cat:"D2", year:"113年#24",
+ q:"某投資案自有資金比例30%，貸款比例70%，貸款利率3%，自有資金要求報酬率2%，採加權平均資本成本法，其資本化率為何？",
+ opts:["2.3%","2.7%","2.5%","2.6%"],
+ explains:[
+   "2.3%=0.3×2%+0.7×2.4%？計算有誤。",
+   "加權平均資本成本（WACC）=自有資金比例×自有資金報酬率+貸款比例×貸款利率=0.3×2%+0.7×3%=0.6%+2.1%=2.7%，本選項正確。",
+   "2.5%為算術平均（(2%+3%)/2），未加權，有誤。",
+   "2.6%計算過程有誤。"
+ ], correct:1, note:"加權平均資本成本：r=自有比例×自有報酬率+貸款比例×貸款利率=30%×2%+70%×3%=0.6%+2.1%=2.7%。"},
+
+{id:"Q113_25", cat:"G1", year:"113年#25",
+ q:"某四層公寓，以一樓為比較基準，一樓單價50萬元，若四樓效用比為100%，四樓單價為40萬元，則一樓效用比為多少？",
+ opts:["150%","130%","115%","125%"],
+ explains:[
+   "效用比公式：若某樓層單價=基準樓層單價×(該樓層效用比/基準效用比)。以四樓100%為基準：一樓效用比×40萬=50萬×100%；一樓效用比=50/40×100%=125%。選D=125%，本選項錯（150%計算有誤）。",
+   "130%計算有誤。",
+   "115%計算有誤。",
+   "效用比計算：四樓=100%，四樓單價=40萬；一樓單價=50萬。一樓效用比=50萬×100%/40萬=125%，本選項正確。"
+ ], correct:3, note:"樓層別效用比：一樓效用比=一樓單價/四樓單價×四樓效用比=50/40×100%=125%。"}
+];
+
+const CAT_NAMES = {
+  "A1":"A1 估價原則",
+  "A2":"A2 價格種類",
+  "A3":"A3 影響因素",
+  "A4":"A4 作業程序",
+  "B":"B 比較法",
+  "C1":"C1 成本法",
+  "C2":"C2 折舊計算",
+  "D1":"D1 收益法",
+  "D2":"D2 資本化率",
+  "F1":"F1 租金估計",
+  "G1":"G1 特殊估價",
+  "H1":"H1 權利估價"
+};
+
+const STORAGE_KEY_ANS = "val_prac_113_v1_answers";
+const STORAGE_KEY_ERR = "val_prac_113_v1_errortags";
+
+let answers = {};
+let errorTags = {};
+let activeCats = new Set(Object.keys(CAT_NAMES));
+let filterMode = "all";
+
+try { answers = JSON.parse(localStorage.getItem(STORAGE_KEY_ANS)||"{}"); } catch(e){}
+try { errorTags = JSON.parse(localStorage.getItem(STORAGE_KEY_ERR)||"{}"); } catch(e){}
+
+function saveAnswers(){ try{localStorage.setItem(STORAGE_KEY_ANS, JSON.stringify(answers));}catch(e){} }
+function saveErrors(){ try{localStorage.setItem(STORAGE_KEY_ERR, JSON.stringify(errorTags));}catch(e){} }
+
+function buildChips(){
+  const wrap = document.getElementById("chips");
+  wrap.innerHTML = "";
+  // All chip
+  const all = document.createElement("button");
+  all.className = "chip" + (activeCats.size === Object.keys(CAT_NAMES).length ? " active" : "");
+  all.textContent = "全部";
+  all.onclick = () => { activeCats = new Set(Object.keys(CAT_NAMES)); buildChips(); renderList(); };
+  wrap.appendChild(all);
+
+  Object.entries(CAT_NAMES).forEach(([k,v])=>{
+    const btn = document.createElement("button");
+    btn.className = "chip" + (activeCats.has(k) ? " active" : "");
+    const cnt = ITEMS.filter(x=>x.cat===k).length;
+    btn.textContent = `${v} (${cnt})`;
+    btn.onclick = () => {
+      if(activeCats.has(k)) activeCats.delete(k); else activeCats.add(k);
+      buildChips(); renderList();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function updateStats(){
+  const visible = ITEMS.filter(x=>activeCats.has(x.cat));
+  const ans = visible.filter(x=>answers[x.id]!==undefined);
+  const ok = ans.filter(x=>answers[x.id]===x.correct);
+  document.getElementById("answeredCount").textContent = ans.length;
+  document.getElementById("okCount").textContent = ok.length;
+  document.getElementById("ngCount").textContent = ans.length - ok.length;
+  document.getElementById("accRate").textContent = ans.length ? Math.round(ok.length/ans.length*100)+"%" : "—";
+}
+
+function getCatBadgeClass(cat){
+  const map = {A1:"a1",A2:"a2",A3:"a3",A4:"a4",B:"b",C1:"c1",C2:"c2",D1:"d1",D2:"d2",F1:"f1",G1:"g1",H1:"h1"};
+  return map[cat]||"a1";
+}
+
+function renderList(){
+  updateStats();
+  let items = ITEMS.filter(x=>activeCats.has(x.cat));
+  if(filterMode==="unanswered") items = items.filter(x=>answers[x.id]===undefined);
+  if(filterMode==="wrong") items = items.filter(x=>answers[x.id]!==undefined && answers[x.id]!==x.correct);
+
+  const list = document.getElementById("qlist");
+  list.innerHTML = "";
+  if(!items.length){
+    list.innerHTML = "<p style='text-align:center;color:var(--muted);padding:30px;font-family:\"Noto Serif TC\",serif;'>沒有符合條件的題目</p>";
+    return;
+  }
+
+  items.forEach((item, idx)=>{
+    const answered = answers[item.id] !== undefined;
+    const isCorrect = answered && answers[item.id] === item.correct;
+
+    const card = document.createElement("div");
+    card.className = "qcard" + (answered ? (isCorrect ? " answered correct" : " answered wrong") : "");
+    card.id = "card-"+item.id;
+
+    const qhead = document.createElement("div");
+    qhead.className = "qhead";
+
+    const badge = document.createElement("span");
+    badge.className = "qbadge " + getCatBadgeClass(item.cat);
+    badge.textContent = CAT_NAMES[item.cat] || item.cat;
+
+    const yearTag = document.createElement("span");
+    yearTag.className = "qyear";
+    yearTag.textContent = item.year;
+
+    qhead.appendChild(badge);
+    qhead.appendChild(yearTag);
+    card.appendChild(qhead);
+
+    const qtext = document.createElement("div");
+    qtext.className = "qtext";
+    qtext.textContent = (idx+1) + ". " + item.q;
+    card.appendChild(qtext);
+
+    const optList = document.createElement("div");
+    optList.className = "opt-list";
+    const letters = ["A","B","C","D"];
+
+    item.opts.forEach((opt, oi)=>{
+      const optEl = document.createElement("div");
+      optEl.className = "opt";
+      if(answered){
+        if(oi === item.correct) optEl.classList.add("correct-answer");
+        else if(oi === answers[item.id]) optEl.classList.add("wrong-selected");
+      }
+
+      const letterEl = document.createElement("span");
+      letterEl.className = "letter";
+      letterEl.textContent = letters[oi];
+      optEl.appendChild(letterEl);
+
+      const txt = document.createElement("span");
+      txt.textContent = opt;
+      optEl.appendChild(txt);
+
+      if(!answered){
+        optEl.onclick = ()=>{
+          answers[item.id] = oi;
+          saveAnswers();
+          renderList();
+        };
+      }
+      optList.appendChild(optEl);
+    });
+    card.appendChild(optList);
+
+    if(item.note){
+      const nb = document.createElement("div");
+      nb.className = "note-box";
+      nb.innerHTML = "<b>考試重點：</b>" + item.note;
+      card.appendChild(nb);
+    }
+
+    if(answered){
+      const eb = document.createElement("div");
+      eb.className = "explain-box";
+      const et = document.createElement("div");
+      et.className = "explain-title";
+      et.textContent = "▎逐選項解析";
+      eb.appendChild(et);
+      letters.forEach((l, li)=>{
+        if(li >= item.explains.length) return;
+        const ei = document.createElement("div");
+        ei.className = "explain-item" + (li === item.correct ? " right" : "");
+        const el = document.createElement("span");
+        el.className = "explain-letter";
+        el.textContent = l;
+        const etxt = document.createElement("span");
+        etxt.textContent = item.explains[li];
+        ei.appendChild(el);
+        ei.appendChild(etxt);
+        eb.appendChild(ei);
+      });
+      card.appendChild(eb);
+
+      // Error tags (only if wrong)
+      if(!isCorrect){
+        const etr = document.createElement("div");
+        etr.className = "error-tag-row";
+        const tags = [{key:"a",label:"A 法條混淆"},{key:"b",label:"B 粗心"},{key:"c",label:"C 不熟"}];
+        tags.forEach(({key,label})=>{
+          const t = document.createElement("button");
+          t.className = "error-tag" + (errorTags[item.id]===key ? " active-"+key : "");
+          t.textContent = label;
+          t.onclick = ()=>{
+            errorTags[item.id] = errorTags[item.id]===key ? undefined : key;
+            if(!errorTags[item.id]) delete errorTags[item.id];
+            saveErrors();
+            renderList();
+          };
+          etr.appendChild(t);
+        });
+        card.appendChild(etr);
+      }
+    }
+
+    list.appendChild(card);
+  });
+}
+
+document.getElementById("filterAll").onclick = ()=>{ filterMode="all"; renderList(); };
+document.getElementById("filterUnanswered").onclick = ()=>{ filterMode="unanswered"; renderList(); };
+document.getElementById("filterWrong").onclick = ()=>{ filterMode="wrong"; renderList(); };
+document.getElementById("resetAllBtn").onclick = ()=>{
+  if(confirm("確定清除所有作答紀錄？")){
+    answers={}; errorTags={}; saveAnswers(); saveErrors(); renderList();
+  }
+};
+document.getElementById("resetMastery").onclick = ()=>{
+  if(confirm("確定清除所有作答與標記紀錄？")){
+    answers={}; errorTags={}; saveAnswers(); saveErrors(); renderList();
+  }
+};
+
+// Theme toggle
+const tt = document.getElementById("themeToggle");
+const getTheme = ()=>{ try{return localStorage.getItem("bx-theme")||"light";}catch(e){return "light";} };
+const applyTheme = t=>{ document.documentElement.setAttribute("data-theme",t); tt.textContent=t==="dark"?"☀️":"🌙"; try{localStorage.setItem("bx-theme",t);}catch(e){} };
+tt.onclick = ()=>applyTheme(getTheme()==="dark"?"light":"dark");
+applyTheme(getTheme());
+
+buildChips();
+renderList();
+</script>
+</body>
+</html>
