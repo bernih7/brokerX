@@ -126,6 +126,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-t
 .error-tag.active-a{background:var(--accent-r);border-color:var(--accent-r);color:#fff;}
 .error-tag.active-b{background:var(--accent-gold);border-color:var(--accent-gold);color:#fff;}
 .error-tag.active-c{background:var(--accent-b);border-color:var(--accent-b);color:#fff;}
+.error-tag.active-d{background:var(--primary);border-color:var(--primary);color:#fff;}
 
 footer{margin-top:30px;text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;line-height:2;}
 footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
@@ -155,6 +156,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);backgr
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
 </style>
+<script src="/bxv-use.js"></script>
 </head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
@@ -318,6 +320,7 @@ function renderList(){
         <span class="error-tag${tag==='A'?' active-a':''}" data-tag="A">A 法條混淆</span>
         <span class="error-tag${tag==='B'?' active-b':''}" data-tag="B">B 粗心</span>
         <span class="error-tag${tag==='C'?' active-c':''}" data-tag="C">C 真的不熟</span>
+        <span class="error-tag${tag==='D'?' active-d':''}" data-tag="D">D 猜的</span>
       </div>`;
     }
 
@@ -340,6 +343,7 @@ function renderList(){
           const correct = (idx === it.correct);
           answers[it.id] = {selected: idx, correct: correct};
           saveAnswers();
+          if(typeof BXREP!=='undefined') BXREP.rec(it, idx, correct);
           updateStatbar();
           renderList();
         });
@@ -350,6 +354,7 @@ function renderList(){
           const tag = tagEl.dataset.tag;
           errorTags[it.id] = (errorTags[it.id]===tag) ? null : tag;
           saveErrorTags();
+          if(typeof BXREP!=='undefined') BXREP.tag(it, errorTags[it.id]||'');
           renderList();
         });
       });
@@ -378,6 +383,7 @@ async function resetAll(){
   if(!confirm('確定要清除所有作答紀錄與錯題標記嗎？此動作無法復原。')) return;
   answers = {};
   errorTags = {};
+  if(typeof BXREP!=='undefined') BXREP.drop('H1H2');
   await saveAnswers();
   await saveErrorTags();
   updateStatbar();
@@ -386,6 +392,13 @@ async function resetAll(){
 
 (async function init(){
   await loadData();
+  if(typeof BXREP!=='undefined'){
+    try{
+      const _sa=JSON.parse(localStorage.getItem('bxv-st:valuation_practice_h1h2_v2_answers')||'{}');
+      const _se=JSON.parse(localStorage.getItem('bxv-st:valuation_practice_h1h2_v2_errortags')||'{}');
+      BXREP.sync('H1H2', ITEMS, Object.assign({}, ...ITEMS.map(q=>{var a=_sa[q.id];return a?{[q.id]:{selected:a.selected,ok:a.correct?1:0,et:_se[q.id]?_se[q.id].toLowerCase():''}}:{}})), k=>k);
+    }catch(e){}
+  }
   updateStatbar();
   renderList();
 })();

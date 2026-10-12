@@ -149,6 +149,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-t
 .error-tag.active-a{background:var(--accent-r);border-color:var(--accent-r);color:#fff;}
 .error-tag.active-b{background:var(--accent-gold);border-color:var(--accent-gold);color:#fff;}
 .error-tag.active-c{background:var(--accent-b);border-color:var(--accent-b);color:#fff;}
+.error-tag.active-d{background:var(--primary);border-color:var(--primary);color:#fff;}
 
 footer{margin-top:30px;text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;line-height:2;}
 footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);background:none;border:none;font-size:11px;letter-spacing:.1em;font-family:inherit;}
@@ -175,6 +176,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--muted);backgr
 }
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 </style>
+<script src="/bxv-use.js"></script>
 </head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
@@ -493,11 +495,23 @@ let errorTags = {};
 let activeCats = new Set(Object.keys(CAT_NAMES));
 let filterMode = "all";
 
-try { answers = JSON.parse(localStorage.getItem(STORAGE_KEY_ANS)||"{}"); } catch(e){}
-try { errorTags = JSON.parse(localStorage.getItem(STORAGE_KEY_ERR)||"{}"); } catch(e){}
+/* 初始讀取：優先 window.storage（由 bxv-use.js 補上），回退到 localStorage */
+(function(){
+  var ak="bxv-st:"+STORAGE_KEY_ANS, ek="bxv-st:"+STORAGE_KEY_ERR;
+  try{ var v=localStorage.getItem(ak)||localStorage.getItem(STORAGE_KEY_ANS); if(v) answers=JSON.parse(v); }catch(e){}
+  try{ var v2=localStorage.getItem(ek)||localStorage.getItem(STORAGE_KEY_ERR); if(v2) errorTags=JSON.parse(v2); }catch(e){}
+})();
 
-function saveAnswers(){ try{localStorage.setItem(STORAGE_KEY_ANS, JSON.stringify(answers));}catch(e){} }
-function saveErrors(){ try{localStorage.setItem(STORAGE_KEY_ERR, JSON.stringify(errorTags));}catch(e){} }
+function saveAnswers(){
+  var v=JSON.stringify(answers);
+  try{localStorage.setItem("bxv-st:"+STORAGE_KEY_ANS,v);}catch(e){}
+  if(typeof window.storage!=='undefined') window.storage.set(STORAGE_KEY_ANS,v).catch(function(){});
+}
+function saveErrors(){
+  var v=JSON.stringify(errorTags);
+  try{localStorage.setItem("bxv-st:"+STORAGE_KEY_ERR,v);}catch(e){}
+  if(typeof window.storage!=='undefined') window.storage.set(STORAGE_KEY_ERR,v).catch(function(){});
+}
 
 function buildChips(){
   const wrap = document.getElementById("chips");
@@ -601,8 +615,10 @@ function renderList(){
 
       if(!answered){
         optEl.onclick = ()=>{
+          const _correct = (oi === item.correct);
           answers[item.id] = oi;
           saveAnswers();
+          if(typeof BXREP!=='undefined') BXREP.rec(item, oi, _correct);
           renderList();
         };
       }
@@ -643,7 +659,7 @@ function renderList(){
       if(!isCorrect){
         const etr = document.createElement("div");
         etr.className = "error-tag-row";
-        const tags = [{key:"a",label:"A 法條混淆"},{key:"b",label:"B 粗心"},{key:"c",label:"C 不熟"}];
+        const tags = [{key:"a",label:"A 法條混淆"},{key:"b",label:"B 粗心"},{key:"c",label:"C 不熟"},{key:"d",label:"D 猜的"}];
         tags.forEach(({key,label})=>{
           const t = document.createElement("button");
           t.className = "error-tag" + (errorTags[item.id]===key ? " active-"+key : "");
@@ -652,6 +668,7 @@ function renderList(){
             errorTags[item.id] = errorTags[item.id]===key ? undefined : key;
             if(!errorTags[item.id]) delete errorTags[item.id];
             saveErrors();
+            if(typeof BXREP!=='undefined') BXREP.tag(item, (errorTags[item.id]||'').toUpperCase());
             renderList();
           };
           etr.appendChild(t);
@@ -669,12 +686,16 @@ document.getElementById("filterUnanswered").onclick = ()=>{ filterMode="unanswer
 document.getElementById("filterWrong").onclick = ()=>{ filterMode="wrong"; renderList(); };
 document.getElementById("resetAllBtn").onclick = ()=>{
   if(confirm("確定清除所有作答紀錄？")){
-    answers={}; errorTags={}; saveAnswers(); saveErrors(); renderList();
+    answers={}; errorTags={};
+    if(typeof BXREP!=='undefined') BXREP.drop('113');
+    saveAnswers(); saveErrors(); renderList();
   }
 };
 document.getElementById("resetMastery").onclick = ()=>{
   if(confirm("確定清除所有作答與標記紀錄？")){
-    answers={}; errorTags={}; saveAnswers(); saveErrors(); renderList();
+    answers={}; errorTags={};
+    if(typeof BXREP!=='undefined') BXREP.drop('113');
+    saveAnswers(); saveErrors(); renderList();
   }
 };
 
@@ -687,6 +708,15 @@ applyTheme(getTheme());
 
 buildChips();
 renderList();
+
+/* 把既有113作答補進 bxv-q2 */
+if(typeof BXREP!=='undefined'){
+  try{
+    BXREP.sync('113', ITEMS,
+      Object.fromEntries(Object.entries(answers).map(([id,oi])=>[id,{selected:oi,ok:oi===ITEMS.find(q=>q.id===id)?.correct?1:0,et:errorTags[id]||''}])),
+      k=>k);
+  }catch(e){}
+}
 </script>
 </body>
 </html>
