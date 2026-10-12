@@ -151,22 +151,24 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   font-size:18px;line-height:1.7;color:var(--fg);
 }
 .answer{font-size:14px;line-height:2.1;color:var(--fg);}
+/* 覆蓋 data 裡的 inline style 硬碼色 */
+.answer small[style]{color:var(--muted)!important;}
 .answer b{color:var(--stamp);}
 .answer .trap{
   display:inline-block;margin-top:10px;
-  background:color-mix(in srgb,var(--stamp) 12%,var(--paper));border-left:3px solid #A8402B;
+  background:color-mix(in srgb,var(--stamp) 12%,var(--paper));border-left:3px solid var(--stamp);
   color:var(--stamp);font-size:12.5px;padding:5px 10px;border-radius:0 6px 6px 0;
   line-height:1.6;width:100%;box-sizing:border-box;
 }
 .answer .def{
   display:inline-block;margin-bottom:4px;
-  background:color-mix(in srgb,var(--green) 12%,var(--paper));border-left:3px solid #5C7A4A;
+  background:color-mix(in srgb,var(--green) 12%,var(--paper));border-left:3px solid var(--green);
   color:var(--green);font-size:12.5px;padding:5px 10px;border-radius:0 6px 6px 0;
   line-height:1.6;width:100%;box-sizing:border-box;
 }
 .answer .formula{
   display:inline-block;margin:6px 0;
-  background:color-mix(in srgb,var(--blue) 10%,var(--paper));border-left:3px solid #3E6B8C;
+  background:color-mix(in srgb,var(--blue) 10%,var(--paper));border-left:3px solid var(--blue);
   color:var(--blue);font-size:12.5px;padding:6px 10px;border-radius:0 6px 6px 0;
   line-height:1.8;width:100%;box-sizing:border-box;font-family:"Noto Serif TC",serif;
 }
@@ -189,7 +191,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 }
 .btn:hover{background:var(--ink);color:#fff;}
 .btn.primary{background:var(--stamp);border-color:var(--stamp);color:#fff;}
-.btn.primary:hover{background:#8c3322;}
+.btn.primary:hover{background:color-mix(in srgb,var(--stamp) 75%,#000);}
 .btn.green{border-color:var(--green);color:var(--green);}
 .btn.green:hover{background:var(--green);color:#fff;}
 .btn.gold{border-color:var(--gold);color:var(--gold);}
@@ -374,18 +376,25 @@ const CARDS = [
 {id:"V65", cat:"特殊估價綜合", front:"CAMA常見的兩個錯誤敘述陷阱？", back:"<span class='trap'>⚠️ ①「判定係數越低代表解釋能力越好」→ <b>錯</b>，應越高越好<br>②「自變數間應具高度共線性」→ <b>錯</b>，應<b>避免</b>高度共線性</span>"}
 ];
 
-const CAT_COLORS = {
-  "估價原則": "#A8402B",
-  "價格種類": "#BC8A2E",
-  "影響因素": "#5C7A4A",
-  "估價程序": "#3E6B8C",
-  "比較法": "#C17A2E",
-  "成本法": "#7B5C8C",
-  "收益法": "#A8402B",
-  "土地開發分析法": "#BC8A2E",
-  "租金估計": "#5C7A4A",
-  "特殊估價綜合": "#3E6B8C"
+// 使用 CSS token 對應色，在執行時動態讀取，支援深/淺色主題切換
+const CAT_COLOR_VARS = {
+  "估價原則":       "--stamp",
+  "價格種類":       "--gold",
+  "影響因素":       "--green",
+  "估價程序":       "--blue",
+  "比較法":         "--gold",
+  "成本法":         "--purple",
+  "收益法":         "--stamp",
+  "土地開發分析法": "--gold",
+  "租金估計":       "--green",
+  "特殊估價綜合":   "--blue"
 };
+function getCatColor(cat){
+  const v = CAT_COLOR_VARS[cat];
+  if(!v) return '#888';
+  return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+}
+const CAT_COLORS = Object.fromEntries(Object.keys(CAT_COLOR_VARS).map(k=>[k,null]));
 
 // 16年考點頻率（99–114年資料）
 const CAT_FREQ = {
@@ -455,8 +464,8 @@ Object.keys(CAT_COLORS).forEach(cat=>{
   const count = CARDS.filter(c=>c.cat===cat).length;
   const chip = document.createElement('div');
   chip.className='chip active';
-  chip.style.background=CAT_COLORS[cat];
-  chip.style.borderColor=CAT_COLORS[cat];
+  chip.style.background=getCatColor(cat);
+  chip.style.borderColor=getCatColor(cat);
   chip.style.color='#fff';
   const f = CAT_FREQ[cat];
   chip.textContent=`${cat} ${f?f.stars:''} (${count})`;
@@ -469,7 +478,7 @@ Object.keys(CAT_COLORS).forEach(cat=>{
       document.querySelectorAll('.chip[data-cat]').forEach(c=>{
         const cc=c.dataset.cat;
         c.classList.add('active');
-        c.style.background=CAT_COLORS[cc];
+        c.style.background=getCatColor(cc);
         c.style.color='#fff';
       });
     } else {
@@ -478,13 +487,13 @@ Object.keys(CAT_COLORS).forEach(cat=>{
       document.querySelectorAll('.chip[data-cat]').forEach(c=>{
         if(c.dataset.cat===cat){
           c.classList.add('active');
-          c.style.background=CAT_COLORS[cat];
+          c.style.background=getCatColor(cat);
           c.style.color='#fff';
         } else {
           c.classList.remove('active');
           c.style.background='transparent';
-          c.style.color=CAT_COLORS[c.dataset.cat];
-          c.style.border=`1.5px solid ${CAT_COLORS[c.dataset.cat]}`;
+          c.style.color=getCatColor(c.dataset.cat);
+          c.style.border=`1.5px solid ${getCatColor(c.dataset.cat)}`;
         }
       });
     }
@@ -498,7 +507,7 @@ resetBtn.addEventListener('click',()=>{
   document.querySelectorAll('.chip[data-cat]').forEach(chip=>{
     const cat=chip.dataset.cat;
     chip.classList.add('active');
-    chip.style.background=CAT_COLORS[cat];
+    chip.style.background=getCatColor(cat);
     chip.style.color='#fff';
   });
   rebuildDeck();
@@ -553,7 +562,7 @@ function switchMode(m){
 
 function render(){
   const c = deck[idx];
-  const color = CAT_COLORS[c.cat];
+  const color = getCatColor(c.cat);
   flipped = (mode==='quiz') ? revealed : false;
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
@@ -692,7 +701,7 @@ function renderBreakdown(){
     const s = quizStats.perCat[cat];
     const pct = Math.round(s.ok/s.total*100);
     html += `<tr><td style="white-space:nowrap;font-weight:700;">${cat}</td>
-      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]||'var(--green)'}"></span></span></td>
+      <td style="width:100%;"><span class="bar"><span class="bar-fill" style="width:${pct}%;background:${getCatColor(cat)||'var(--green)'}"></span></span></td>
       <td style="white-space:nowrap;text-align:right;">${s.ok}/${s.total}（${pct}%）</td></tr>`;
   });
   html += '</table>';
