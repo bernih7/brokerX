@@ -151,6 +151,13 @@ footer .reset-btn{text-decoration:underline;cursor:pointer;color:var(--ink-soft)
     <div class="chip" id="reviewOnlyBtn">🔄 只看待複習</div>
     <div class="chip" id="chapToggle">📂 章節篩選 ▾</div>
   </div>
+  <div class="filter-row" id="groupBtns" style="justify-content:center;gap:6px;margin-top:4px">
+    <div class="chip" data-grp="basic">基礎概念</div>
+    <div class="chip" data-grp="method">三大方法</div>
+    <div class="chip" data-grp="dev">開發收益</div>
+    <div class="chip" data-grp="special">特殊宗地</div>
+    <div class="chip" data-grp="adv">進階</div>
+  </div>
   <div class="chips" id="chips" style="display:none"></div>
   <div class="progress"><b id="curNum">1</b> / <span id="totalNum">532</span>　<span id="catName"></span></div>
   <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
@@ -264,6 +271,28 @@ function updateOverallStats(){
   document.getElementById('masteredCount').textContent=mastered;
   document.getElementById('totalCards').textContent=CARDS.length;
 }
+// 預設分類群組對應
+const PRESET_GROUPS={
+  basic:['A1','A2','A3','A4'],
+  method:['B1','B2','C1','C2','D1','D2','D3'],
+  dev:['E1','F1','G1'],
+  special:['H0','H1','H2','H3'],
+  adv:['I1','I2','J1']
+};
+function syncChipUI(){
+  document.querySelectorAll('.chip[data-group]').forEach(chip=>{
+    const g=chip.dataset.group;
+    if(activeCats.has(g)){chip.classList.add('active');chip.style.background=GROUP_COLORS[g];chip.style.color='#fff';}
+    else{chip.classList.remove('active');chip.style.background='transparent';chip.style.color=GROUP_COLORS[g];}
+  });
+  // 群組按鈕亮燈：全部在 activeCats 才亮
+  document.querySelectorAll('.chip[data-grp]').forEach(btn=>{
+    const grp=PRESET_GROUPS[btn.dataset.grp];
+    btn.classList.toggle('active',grp.every(g=>activeCats.has(g)));
+  });
+  // 全部章節亮燈
+  resetBtn.classList.toggle('active',activeCats.size===GROUP_ORDER.length);
+}
 // Build chapter chips
 GROUP_ORDER.forEach(group=>{
   const count=CARDS.filter(c=>c.group===group).length;
@@ -276,28 +305,29 @@ GROUP_ORDER.forEach(group=>{
   chip.textContent=`${displayName}(${count})`;
   chip.dataset.group=group;
   chip.addEventListener('click',()=>{
-    if(activeCats.has(group)){
-      if(activeCats.size===1)return;
-      activeCats.delete(group);
-      chip.classList.remove('active');
-      chip.style.background='#fff';
-      chip.style.color=GROUP_COLORS[group];
+    // 單點=只看這章；若已是唯一選中=全部恢復
+    if(activeCats.size===1 && activeCats.has(group)){
+      activeCats=new Set(GROUP_ORDER);
     }else{
-      activeCats.add(group);
-      chip.classList.add('active');
-      chip.style.background=GROUP_COLORS[group];
-      chip.style.color='#fff';
+      activeCats=new Set([group]);
     }
+    syncChipUI();
     rebuildDeck();
   });
   chipsEl.appendChild(chip);
 });
+// 群組按鈕
+document.querySelectorAll('.chip[data-grp]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const grp=PRESET_GROUPS[btn.dataset.grp];
+    activeCats=new Set(grp);
+    syncChipUI();
+    rebuildDeck();
+  });
+});
 resetBtn.addEventListener('click',()=>{
   activeCats=new Set(GROUP_ORDER);
-  document.querySelectorAll('.chip[data-group]').forEach(chip=>{
-    const g=chip.dataset.group;chip.classList.add('active');
-    chip.style.background=GROUP_COLORS[g];chip.style.color='#fff';
-  });
+  syncChipUI();
   rebuildDeck();
 });
 document.getElementById('chapToggle').addEventListener('click',function(){
