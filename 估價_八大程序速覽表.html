@@ -76,9 +76,9 @@
 body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--fg);
   font-size:13px;line-height:1.55;padding:14px 14px 72px;max-width:680px;margin:0 auto}
 
-/* ── 主題切換 ── */
 /* ── 頁首 ── */
-header{text-align:center;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--line)}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:20px 0 14px;border-bottom:2px solid var(--line);margin-bottom:16px}
+.page-header .titles{flex:1;min-width:0}
 header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
   color:var(--primary);letter-spacing:1.5px;margin-bottom:6px}
 .mnemonic-main{font-size:17px;font-weight:900;letter-spacing:6px;color:var(--fg);margin:6px 0 4px}
@@ -102,9 +102,12 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
   border:1.5px solid;white-space:nowrap;letter-spacing:1px;flex-shrink:0}
 
 .proc-body{padding:10px 14px 12px;background:var(--paper)}
-.items{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.item-tag{font-size:11px;padding:3px 9px;border-radius:99px;border:1.5px solid;
-  white-space:nowrap;line-height:1.4;font-weight:500}
+.items{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;align-items:baseline}
+.item-tag{font-size:12px;line-height:1.8;font-weight:500;color:var(--fg);white-space:nowrap}
+.item-tag::before{content:"·  ";font-weight:900;opacity:.5}
+/* 報告書15項保留序號框 */
+.report-items .item-tag{font-size:11px;padding:2px 8px;border-radius:6px;border:1.5px solid;white-space:nowrap;line-height:1.5}
+.report-items .item-tag::before{content:none}
 .note{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.55;font-style:italic;
   padding-top:6px;border-top:1px dashed var(--line)}
 .warn{font-size:10.5px;font-weight:700;margin-top:6px;line-height:1.55;padding:5px 9px;
@@ -149,20 +152,35 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 </style>
 
-<header>
-  <h1>不動產估價概要｜八大程序速覽</h1>
-<div class="mnemonic-badge">
-    <span style="background:var(--s1-bg);color:var(--s1)">基</span>
-    <span style="background:var(--s2-bg);color:var(--s2)">計</span>
-    <span style="background:var(--s3-bg);color:var(--s3)">蒐</span>
-    <span style="background:var(--s4-bg);color:var(--s4)">狀</span>
-    <span style="background:var(--s5-bg);color:var(--s5)">整</span>
-    <span style="background:var(--s6-bg);color:var(--s6)">估</span>
-    <span style="background:var(--s7-bg);color:var(--s7)">決</span>
-    <span style="background:var(--s8-bg);color:var(--s8)">書</span>
+<div class="page-header">
+  <div class="titles">
+    <h1>不動產估價概要｜八大程序速覽</h1>
+    <div class="mnemonic-badge">
+      <span style="background:var(--s1-bg);color:var(--s1)">基</span>
+      <span style="background:var(--s2-bg);color:var(--s2)">計</span>
+      <span style="background:var(--s3-bg);color:var(--s3)">蒐</span>
+      <span style="background:var(--s4-bg);color:var(--s4)">狀</span>
+      <span style="background:var(--s5-bg);color:var(--s5)">整</span>
+      <span style="background:var(--s6-bg);color:var(--s6)">估</span>
+      <span style="background:var(--s7-bg);color:var(--s7)">決</span>
+      <span style="background:var(--s8-bg);color:var(--s8)">書</span>
+    </div>
+    <div class="mnemonic-sub">技術規則 §8 ｜ 順序不可顛倒，考題常考「哪個步驟第幾」</div>
   </div>
-  <div class="mnemonic-sub">技術規則 §8 ｜ 順序不可顛倒，考題常考「哪個步驟第幾」</div>
-</header>
+  <div class="hdr-controls">
+    <div class="ctrl-pill">
+      <button class="theme-btn-pill" id="theme-btn" onclick="toggleTheme()">深色</button>
+      <div class="vsep"></div>
+      <div class="bxv-mini">
+        <button onclick="bxvDec()" title="減一">－</button>
+        <div class="sep"></div>
+        <div class="cnt" id="bxv-n">0</div>
+        <div class="sep"></div>
+        <button onclick="bxvInc()" title="加一">＋</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ① 基 -->
 <div class="proc-card">
@@ -190,7 +208,16 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
 <div class="proc-card">
   <div class="proc-head">
     <div class="proc-num" style="background:var(--s2)">②</div>
-    <div class="proc-key" style="color:var(--s2</div> c2">所需人力</span>
+    <div class="proc-key" style="color:var(--s2)">計</div>
+    <div class="proc-title">
+      <div class="proc-name">擬訂估價計畫</div>
+      <div class="proc-law">技術規則 §10</div>
+    </div>
+    <span class="mnem-pill c2">人・費・表</span>
+  </div>
+  <div class="proc-body">
+    <div class="items">
+      <span class="item-tag c2">所需人力</span>
       <span class="item-tag c2">作業經費</span>
       <span class="item-tag c2">作業進度表</span>
     </div>
@@ -402,17 +429,6 @@ function toggle23(el){
 }
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
 
-// ── 計數器 ──
-(function(){
-  var RID='proc';
-  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
-  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
-  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
-  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
-  setTimeout(upd,100);
-})();
-// ── 主題切換 ──
-(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
 // ── 計數器 ──
 (function(){
   var RID='proc';
