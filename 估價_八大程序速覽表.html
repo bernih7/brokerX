@@ -164,7 +164,7 @@ header h1{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700;
 <script>
 (function(){
   var RID='proc';
-  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID):0;}
+  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID).n||0;}
   function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
   window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}

@@ -238,7 +238,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 <script>
 (function(){
   var RID='color';
-  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID):0;}
+  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID).n||0;}
   function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
   window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
