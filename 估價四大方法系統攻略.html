@@ -426,58 +426,7 @@ li { margin: 3px 0; }
 hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
 
 /* 主題切換按鈕 */
-.theme-toggle{
-  position:fixed;top:14px;right:14px;z-index:999;
-  width:36px;height:36px;border-radius:50%;
-  border:1.5px solid var(--line);background:var(--paper);
-  color:var(--fg);font-size:16px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px var(--shadow);
-  transition:all .2s ease;
-}
-.theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
-
-/* ── AD 棕金計數器 ── */
-#bxv-readctr{
-  display:flex;align-items:center;gap:10px;
-  background:var(--card,#FFFEFA);border:1.5px solid var(--line,#DDD6C0);
-  border-radius:12px;padding:10px 12px 10px 10px;
-  box-shadow:0 1px 5px rgba(0,0,0,.07);
-  margin-bottom:6px;
-}
-#bxv-readctr .bxv-badge{
-  width:44px;height:44px;border-radius:9px;flex-shrink:0;
-  background:var(--key,#8A5517);color:#fff;
-  display:grid;place-items:center;
-  font-size:1.35rem;font-weight:800;font-variant-numeric:tabular-nums;
-  box-shadow:0 2px 8px rgba(138,85,23,.22);
-  transition:transform .1s;
-  user-select:none;cursor:default;
-}
-#bxv-readctr .bxv-badge:active{transform:scale(.92)}
-#bxv-readctr .bxv-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-#bxv-readctr .bxv-lbl{
-  font-size:.58rem;color:var(--sub,#5F6B63);letter-spacing:.07em;
-  font-weight:600;text-transform:uppercase;
-}
-#bxv-readctr .bxv-sub{
-  font-size:.74rem;color:var(--ink,#25302C);opacity:.8;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  font-weight:500;
-}
-#bxv-readctr .bxv-pill{
-  display:flex;align-items:center;
-  border:1.5px solid var(--line,#DDD6C0);border-radius:999px;overflow:hidden;
-  background:var(--bg,#F5F1E6);flex-shrink:0;
-}
-#bxv-readctr .bxv-pill button{
-  all:unset;cursor:pointer;
-  width:30px;height:30px;display:grid;place-items:center;
-  font-size:1.05rem;line-height:1;color:var(--sub,#5F6B63);
-  transition:background .12s,color .12s;
-}
-#bxv-readctr .bxv-pill button:hover{background:var(--line,#DDD6C0);color:var(--key,#8A5517)}
 #bxv-readctr .bxv-sep{width:1px;height:16px;background:var(--line,#DDD6C0)}
 
 </style>
@@ -512,11 +461,14 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
   function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
   window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
-  setTimeout(upd, 100);
+  setTimeout(upd,100);
+  // 主題切換
+  function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+  function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+  window.toggleTheme=function(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+  try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}
 })();
 </script>
-<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
-
 <header>
   <h1>四大估價方法系統攻略</h1>
 </header>
@@ -547,16 +499,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
       </div>
     </div>
     <div class="method-card comp">
-      <h3 style="color:var(--comp)">比較法 <span>★★★ 61題｜申論5次</span></h3>
-      <div class="essence">「找出附近最近成交的類似房子，調整差異後得出價格」</div>
-      <div class="pill-row">
-        <span class="pill pill-comp">交易觀點</span>
-        <span class="pill pill-comp">市場比較</span>
-        <span class="pill pill-comp">替代原則</span>
-      </div>
-    </div>
-    <div class="method-card income">
-      <h3 style="color:var(--income)">收益法 <span>★★★ 78題｜申論5次</span></h3>
+      <h3 style="color:var(--comp)">比較法 <span>★★★ 61題｜申論5次</span></h3></div>h3>
       <div class="essence">「未來每年能賺多少租金，按投資報酬率折算成今天的價值」</div>
       <div class="pill-row">
         <span class="pill pill-income">投資觀點</span>
@@ -1391,27 +1334,6 @@ document.querySelectorAll('.scenario').forEach(sc=>{
 });
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
-<script>
-// 主題切換
-(function(){
-  const btn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('bxr-theme');
-  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
-  function updateIcon(){
-    const t = document.documentElement.getAttribute('data-theme');
-    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    btn.textContent = isDark ? '☀️' : '🌙';
-  }
-  updateIcon();
-  btn.addEventListener('click', function(){
-    const cur = document.documentElement.getAttribute('data-theme');
-    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    const next = isDark ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('bxr-theme', next);
-    updateIcon();
-  });
-})();
-</script>
+
 </body>
 </html>
