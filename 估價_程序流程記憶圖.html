@@ -40,15 +40,7 @@ body{
 }
 
 /* ── 主題切換按鈕 ── */
-#theme-btn{
-  position:fixed;top:14px;right:14px;z-index:100;
-  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);
-  background:var(--surface);color:var(--fg);
-  font-size:18px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.18);
-  transition:background .2s,border-color .2s;
-}
+
 #theme-btn:hover{background:var(--surface2)}
 
 /* ── Header ── */
@@ -409,11 +401,7 @@ section{margin-bottom:36px}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 </style>
 <style>
-#bxv-readctr{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;
-  display:flex;align-items:center;gap:.4rem;
-  background:var(--paper,#fff);border:1.5px solid var(--line,#ccc);
-  border-radius:2rem;padding:.35rem .7rem;box-shadow:0 2px 8px rgba(0,0,0,.12);
-  font-size:.85rem;color:var(--fg,#333);user-select:none;}
+
   color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
 </style><script src="/bxv-use.js"></script>
 </head>
@@ -827,7 +815,22 @@ function toggleTheme(){
 }
 </script>
 
-<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+// ── 計數器 ──
+(function(){
+  var RID='flow';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+// ── 主題切換 ──
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+</script>
 
 </body>
 </html>

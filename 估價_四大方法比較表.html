@@ -121,9 +121,9 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 .app-dash{color:var(--muted)}
 /* 陷阱卡 v3 */
 .trap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:24px}
-.trap-card{background:var(--paper);border-radius:10px;padding:0;border:1.5px solid var(--hi-red);box-shadow:0 1px 4px var(--shadow);overflow:hidden}
-.trap-header{background:var(--hi-red);padding:6px 14px}
-.trap-label{font-size:11px;font-weight:700;color:#fff;letter-spacing:.04em}
+.trap-card{background:var(--paper);border-radius:10px;padding:0;border:1px solid var(--line);box-shadow:0 1px 3px var(--shadow);overflow:hidden}
+.trap-header{background:transparent;border-bottom:1px solid var(--line);padding:6px 14px}
+.trap-label{font-size:11px;font-weight:700;color:var(--hi-red);letter-spacing:.04em}
 .trap-body{padding:12px 14px}
 .trap-q{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:8px;line-height:1.5}
 .trap-a{font-size:12.5px;color:var(--fg);line-height:1.7}
@@ -172,11 +172,24 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 <div class="page-header">
   <div class="titles">
     <h1>四大估價方法比較表<span class="tag tag-must">必背</span></h1>
-    <div class="subtitle">比較法・成本法・收益法・土地開發分析法｜技術規則§9–§103</div>
   </div>
   <div class="hdr-controls">
     <div class="ctrl-pill">
       <button class="theme-btn-pill" id="theme-btn" onclick="toggleTheme()">深色</button>
+      <div class="vsep"></div>
+      <div class="bxv-mini">
+        <button onclick="bxvDec()" title="減一">－</button>
+        <div class="sep"></div>
+        <div class="cnt" id="bxv-n">0</div>
+        <div class="sep"></div>
+        <button onclick="bxvInc()" title="加一">＋</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="hdr-controls">
+    <div class="ctrl-pill">
+      
       <div class="vsep"></div>
       <div class="bxv-mini">
         <button onclick="bxvDec()" title="減一">－</button>
@@ -213,7 +226,15 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 <div class="def-grid">
   <div class="def-card dc-comp">
     <h3>比較法</h3>
-    <p>以<strong>比較標的之交易價格</strong>為基礎，比較分析後推算勘估標的之<sp</div>iv class="def-card dc-inc">
+    <p>以<strong>比較標的之交易價格</strong>為基礎，比較分析後推算勘估標的之<span class="c-blu">比較價格</span>之方法。</p>
+    <div class="def-law">技術規則§20｜原則：<span class="c-grn">替代原則（交易觀點）</span></div>
+  </div>
+  <div class="def-card dc-cost">
+    <h3>成本法</h3>
+    <p>以估計<strong>重建成本或重置成本</strong>，扣減折舊後，推算勘估標的之<span class="c-red">成本價格</span>之方法。</p>
+    <div class="def-law">技術規則§46｜原則：<span class="c-grn">替代原則（重置觀點）</span></div>
+  </div>
+  <div class="def-card dc-inc">
     <h3>收益法</h3>
     <p>以估計<strong>未來所能產生之收益</strong>，經折現或資本化，推算勘估標的之<span class="c-gold">收益價格</span>之方法。</p>
     <div class="def-law">技術規則§67｜原則：<span class="c-grn">替代原則（投資觀點）</span></div>
@@ -624,6 +645,17 @@ document.getElementById('fab-top').addEventListener('click',function(){
 });
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
 
+// ── 計數器 ──
+(function(){
+  var RID='method';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+// ── 主題切換 ──
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
 // ── 計數器 ──
 (function(){
   var RID='method';

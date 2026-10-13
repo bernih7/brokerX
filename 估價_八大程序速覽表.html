@@ -412,6 +412,17 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js"
   setTimeout(upd,100);
 })();
 // ── 主題切換 ──
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+// ── 計數器 ──
+(function(){
+  var RID='proc';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+// ── 主題切換 ──
 function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
 function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
 function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}

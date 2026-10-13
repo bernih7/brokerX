@@ -36,8 +36,7 @@ body {
   padding: 0 0 120px;
 }
 
-/* HEADER */
-.page-header {
+.page-header {display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
   background: var(--ink);
   color: var(--paper);
   padding: 32px 24px 28px;
@@ -465,6 +464,23 @@ body {
 }
 
 /* 主題切換按鈕 */
+.theme-toggle{
+  position:fixed;top:14px;right:14px;z-index:999;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--paper);
+  color:var(--fg);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px var(--shadow);
+  transition:all .2s ease;
+}
+.theme-toggle:hover{background:var(--fg);color:var(--bg);}
+
+
+
+
+
+
+
 
 
 /* ── 整合控制膠囊（主題＋計數）── */
@@ -481,19 +497,27 @@ body {
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 </style>
 <style>
-#bxv-readctr{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;
-  display:flex;align-items:center;gap:.4rem;
-  background:var(--paper,#fff);border:1.5px solid var(--line,#ccc);
-  border-radius:2rem;padding:.35rem .7rem;box-shadow:0 2px 8px rgba(0,0,0,.12);
-  font-size:.85rem;color:var(--fg,#333);user-select:none;}
-  color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
+
+
+
 </style><script src="/bxv-use.js"></script>
 </head>
 <body>
+<script>
+(function(){
+  var RID='calc';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd, 100);
+})();
+</script>
+
+
 <div class="page-header">
   <div class="titles">
     
-
   </div>
   <div class="hdr-controls">
     <div class="ctrl-pill">
@@ -507,8 +531,6 @@ body {
         <button onclick="bxvInc()" title="加一">＋</button>
       </div>
     </div>
-  </div>
-</div>
   </div>
 </div>
   <h1>計算題攻略專欄</h1>
@@ -549,7 +571,20 @@ body {
           <th style="text-align:left;min-width:160px">計算題型</th>
           <th>所屬方法</th>
           <th>選擇題<br>出現年</th>
-          <th>申論題<br>出現次<</div>"risk-A">🔴 A級</td>
+          <th>申論題<br>出現次</th>
+          <th>合計</th>
+          <th>風險等級</th>
+          <th>115年預測</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>成本法折舊計算<br><span style="font-size:11px;color:var(--ink-soft)">定額/定率/償債基金</span></td>
+          <td>成本法</td>
+          <td>14</td>
+          <td>6</td>
+          <td><strong>20</strong></td>
+          <td class="risk-A">🔴 A級</td>
           <td><span class="tag tag-hot">必考</span></td>
         </tr>
         <tr>
@@ -1078,6 +1113,41 @@ body {
 <a href="估價備考指揮中心.html" class="fab" title="回到估價備考指揮中心">🏠</a>
 
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
-
+<script>
+// 主題切換
+(function(){
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('bxr-theme');
+  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
+  function updateIcon(){
+    const t = document.documentElement.getAttribute('data-theme');
+    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  updateIcon();
+  btn.addEventListener('click', function(){
+    const cur = document.documentElement.getAttribute('data-theme');
+    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('bxr-theme', next);
+    updateIcon();
+  });
+})();
+// ── 計數器 ──
+(function(){
+  var RID='calc';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+// ── 主題切換 ──
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+</script>
 </body>
 </html>

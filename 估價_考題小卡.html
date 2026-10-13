@@ -101,12 +101,16 @@ footer{margin-top:28px;text-align:center;font-size:11px;color:var(--ink-soft);le
 footer .reset-btn{text-decoration:underline;cursor:pointer;color:var(--ink-soft);
   background:none;border:none;font-size:11px;letter-spacing:.12em;font-family:inherit;}
 /* bxv counter */
-#bxv-readctr{position:fixed;top:10px;right:10px;z-index:200;
-  background:#fff;border:1px solid var(--rule);border-radius:8px;
-  padding:4px 8px;font-size:12px;display:flex;align-items:center;gap:4px;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);}
+
+
 .bxv-cnt{font-weight:700;min-width:20px;text-align:center;font-family:'Noto Serif TC',serif;}
 @media(max-width:480px){body{padding:20px 10px 80px}.card{min-height:640px}.q-text{font-size:14px;}}
+
+
+
+
+
+
 
 
 /* ── 整合控制膠囊（主題＋計數）── */
@@ -125,6 +129,16 @@ footer .reset-btn{text-decoration:underline;cursor:pointer;color:var(--ink-soft)
 </head>
 <body>
 <!-- BX read counter -->
+<script>
+(function(){
+  var RID='kcard';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd, 100);
+})();
+</script>
 <div class="wrap">
   <header>
     <div class="case-tag">不動產估價概要・99–114年完整版</div>
@@ -143,7 +157,15 @@ footer .reset-btn{text-decoration:underline;cursor:pointer;color:var(--ink-soft)
   <div class="scene">
     <div class="card" id="card">
       <div class="face front">
-        <div class="top-row</div>
+        <div class="top-row">
+          <span class="cat-badge" id="badgeFront"></span>
+          <span class="year-badge" id="yearFront"></span>
+          <span class="mastery-badge" id="badgeMasteryFront"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="opt-list" id="optList"></div>
+        <div class="hint">點選一個選項　看詳解 ▸</div>
+      </div>
       <div class="face back">
         <div class="top-row">
           <span class="cat-badge" id="badgeBack"></span>
@@ -429,6 +451,21 @@ document.getElementById('resetMastery').addEventListener('click',async()=>{
 <div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
-<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+// ── 計數器 ──
+(function(){
+  var RID='kcard';
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+// ── 主題切換 ──
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+</script>
 </body>
 </html>
