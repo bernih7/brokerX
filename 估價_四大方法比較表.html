@@ -159,6 +159,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 
 </style>
 
+<script src="bxv-use.js"></script>
 <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">深色</button>
 <div id="bxv-readctr" title="閱讀次數">
   📖 <span style="font-size:.78rem;opacity:.7">四大方法比較表</span>
@@ -173,10 +174,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
   function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
   window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
-  document.addEventListener('DOMContentLoaded',function(){
-    // wait a tick for bxv-use.js to init
-    setTimeout(upd, 50);
-  });
+  setTimeout(upd, 100);
 })();
 </script>
 <div class="fab-wrap">
@@ -632,20 +630,30 @@ window.addEventListener('scroll',function(){
 document.getElementById('fab-top').addEventListener('click',function(){
   window.scrollTo({top:0,behavior:'smooth'});
 });
-function toggleTheme(){
+function isDark(){
+  var t=document.documentElement.getAttribute('data-theme');
+  if(t==='dark')return true;
+  if(t==='light')return false;
+  return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
+}
+function applyTheme(dark){
   var root=document.documentElement;
   var btn=document.getElementById('theme-btn');
-  if(root.getAttribute('data-theme')==='dark'){
-    root.removeAttribute('data-theme');btn.textContent='深色';
-    try{localStorage.setItem('bx-theme','light')}catch(e){}
-  }else{
-    root.setAttribute('data-theme','dark');btn.textContent='淺色';
-    try{localStorage.setItem('bx-theme','dark')}catch(e){}
-  }
+  if(dark){root.setAttribute('data-theme','dark');btn.textContent='淺色';}
+  else{root.setAttribute('data-theme','light');btn.textContent='深色';}
+}
+function toggleTheme(){
+  var next=!isDark();
+  applyTheme(next);
+  try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}
 }
 (function(){
-  try{var t=localStorage.getItem('bx-theme');
-    if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('theme-btn').textContent='淺色';}}catch(e){}
+  try{
+    var t=localStorage.getItem('bx-theme');
+    if(t==='dark')applyTheme(true);
+    else if(t==='light')applyTheme(false);
+    else applyTheme(isDark()); // 跟 OS 走，同步按鈕文字
+  }catch(e){applyTheme(isDark());}
 })();
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
 </script>
