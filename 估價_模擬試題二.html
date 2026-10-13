@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>不動產估價概要｜模擬試題二</title>
+<style>
+:root{
+  --pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;
+  --paper:#F5F1E6;--paper-deep:#ECE6D4;--ink:#25302C;--ink-soft:#66706A;
+  --rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;
+  --rad:10px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
+  --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
+  --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Serif TC","Noto Sans TC",serif;line-height:1.7;padding:0 0 120px;}
+header{background:var(--pri);color:var(--onpri);text-align:center;padding:20px 16px 18px;}
+.case-tag{font-size:.75rem;letter-spacing:.12em;opacity:.8;margin-bottom:6px;text-transform:uppercase;}
+header h1{font-size:1.35rem;font-weight:700;line-height:1.3;}
+header .sub{display:block;font-size:.8rem;opacity:.75;margin-top:4px;font-weight:400;}
+
+.score-bar{background:var(--paper-deep);border-bottom:1px solid var(--rule);padding:10px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.score-bar span{font-size:.85rem;color:var(--ink-soft);}
+.score-bar strong{color:var(--pri);font-weight:700;}
+.btn-reset{margin-left:auto;background:transparent;border:1px solid var(--rule);color:var(--ink-soft);padding:4px 12px;border-radius:20px;cursor:pointer;font-size:.8rem;}
+.btn-reset:hover{border-color:var(--pri);color:var(--pri);}
+
+.section{max-width:760px;margin:0 auto;padding:24px 16px 8px;}
+.section-label{font-size:.7rem;letter-spacing:.15em;color:var(--key);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.section-title{font-size:1.1rem;font-weight:700;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:6px;margin-bottom:16px;}
+
+/* 申論題 */
+.essay-card{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:20px;margin-bottom:16px;}
+.essay-num{font-size:.75rem;color:var(--key);font-weight:700;letter-spacing:.1em;margin-bottom:6px;}
+.essay-q{font-size:1rem;line-height:1.75;color:var(--ink);margin-bottom:14px;}
+.essay-toggle{background:var(--pri);color:var(--onpri);border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-size:.85rem;font-family:inherit;}
+.essay-toggle:hover{background:var(--pri2);}
+.essay-ans{display:none;margin-top:14px;border-top:1px solid var(--rule);padding-top:14px;}
+.essay-ans.open{display:block;}
+.ans-block{margin-bottom:12px;}
+.ans-block h4{font-size:.85rem;color:var(--key);font-weight:700;margin-bottom:4px;}
+.ans-block p,.ans-block li{font-size:.9rem;color:var(--ink);line-height:1.8;}
+.ans-block ul,.ans-block ol{padding-left:1.4em;}
+.formula-box{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;font-family:monospace;font-size:.9rem;color:var(--stamp);margin:8px 0;}
+.calc-step{background:var(--paper);border-left:3px solid var(--pri);padding:8px 12px;margin:6px 0;font-size:.88rem;border-radius:0 6px 6px 0;}
+
+/* 選擇題 */
+.q-card{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:20px;margin-bottom:14px;transition:border-color .2s;}
+.q-card.correct{border-color:var(--green);}
+.q-card.wrong{border-color:var(--stamp);}
+.q-num{font-size:.7rem;color:var(--ink-soft);margin-bottom:6px;letter-spacing:.05em;}
+.q-text{font-size:.95rem;line-height:1.75;margin-bottom:14px;color:var(--ink);}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1.5px solid var(--rule);border-radius:8px;cursor:pointer;transition:all .15s;font-size:.9rem;background:var(--paper);}
+.opt:hover:not(.disabled){border-color:var(--pri);background:color-mix(in srgb,var(--pri) 8%,var(--paper));}
+.opt.selected{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--paper));}
+.opt.correct-ans{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--paper));}
+.opt.wrong-ans{border-color:var(--stamp);background:color-mix(in srgb,var(--stamp) 10%,var(--paper));}
+.opt.disabled{cursor:default;}
+.letter{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opt.correct-ans .letter{background:var(--green);border-color:var(--green);color:#fff;}
+.opt.wrong-ans .letter{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.opt-text{flex:1;line-height:1.6;}
+.result-badge{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle;}
+.result-badge.ok{background:color-mix(in srgb,var(--green) 15%,transparent);color:var(--green);}
+.result-badge.ng{background:color-mix(in srgb,var(--stamp) 15%,transparent);color:var(--stamp);}
+
+/* 解析 */
+.explanation{margin-top:12px;display:none;border-top:1px solid var(--rule);padding-top:12px;}
+.explanation.open{display:block;}
+.exp-title{font-size:.75rem;font-weight:700;color:var(--key);letter-spacing:.08em;margin-bottom:8px;}
+.exp-item{font-size:.85rem;line-height:1.7;padding:6px 10px;border-radius:6px;margin-bottom:4px;border-left:3px solid transparent;}
+.exp-item.right{border-left-color:var(--green);background:color-mix(in srgb,var(--green) 8%,var(--paper));}
+.exp-item.wrong{border-left-color:var(--rule);}
+.exp-mark{font-weight:700;margin-right:4px;}
+
+/* FAB */
+.bxfab{position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--paper-deep);border-top:1px solid var(--rule);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));}
+.fab-score{font-size:.85rem;color:var(--ink-soft);}
+.fab-score strong{color:var(--pri);font-size:1rem;}
+.fab-home{background:var(--pri);color:var(--onpri);border:none;border-radius:8px;padding:8px 18px;font-size:.85rem;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.fab-home:hover{background:var(--pri2);}
+.fab-submit{background:var(--key);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:.85rem;font-family:inherit;cursor:pointer;}
+.fab-submit:hover{opacity:.9;}
+</style>
+</head>
+<body>
+<header>
+  <div class="case-tag">不動產估價概要・模擬試題二</div>
+  <h1>不動產估價概要 模擬試題二
+    <span class="sub">申論 2 題（各 25 分）＋選擇 25 題（各 2 分）・作答時間 90 分鐘</span>
+  </h1>
+</header>
+
+<div class="score-bar">
+  <span>選擇作答：<strong id="answeredCount">0</strong>/25</span>
+  <span>答對：<strong id="correctCount" style="color:var(--green)">0</strong></span>
+  <span>答錯：<strong id="wrongCount" style="color:var(--stamp)">0</strong></span>
+  <button class="btn-reset" onclick="resetAll()">↺ 重置</button>
+</div>
+
+<!-- 申論題 -->
+<div class="section">
+  <div class="section-label">第一部分</div>
+  <div class="section-title">申論題（每題25分，共50分）</div>
+
+  <div class="essay-card">
+    <div class="essay-num">申論一（25分）</div>
+    <div class="essay-q">一、試說明成本法估價之意義、應用時機及估價程序。並依「不動產估價技術規則」，說明折舊之定義，以及定率遞減法（定率法）之計算公式，試以一棟建物為例：建物重建成本為 800 萬元，耐用年數 50 年，殘值率 10%，已使用 20 年，請以定率遞減法求算折舊後之建物現值。（25分）</div>
+    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button>
+    <div class="essay-ans">
+      <div class="ans-block">
+        <h4>一、成本法之意義</h4>
+        <p>成本法係以估計勘估標的之重建成本或重置成本，減除折舊所得之建物現值，加計土地價格，以求取勘估標的價格之估價方法。（技術規則§52）</p>
+      </div>
+      <div class="ans-block">
+        <h4>二、應用時機</h4>
+        <ul>
+          <li>無市場交易案例或案例缺乏可比性（如特殊工業廠房、寺廟）</li>
+          <li>新建建物或完工不久之建物</li>
+          <li>公益性設施估價（學校、圖書館）</li>
+          <li>保險金額之估算、徵收補償</li>
+        </ul>
+      </div>
+      <div class="ans-block">
+        <h4>三、估價程序</h4>
+        <ol>
+          <li>調查勘估標的之建物現況</li>
+          <li>估算建物重建成本（或重置成本）</li>
+          <li>計算折舊額（選定折舊方法）</li>
+          <li>求算建物現值 ＝ 重建成本 ─ 折舊額</li>
+          <li>加計土地價格，求算勘估標的總價</li>
+        </ol>
+      </div>
+      <div class="ans-block">
+        <h4>四、折舊定義（技術規則§57）</h4>
+        <p>折舊係指建物因物理性損壞、機能性損壞及經濟性損壞，致建物發生的減價。</p>
+      </div>
+      <div class="ans-block">
+        <h4>五、定率遞減法公式（技術規則§62）</h4>
+        <div class="formula-box">殘值率 = (1 − 年折舊率)^耐用年數<br>∴ 年折舊率 r = 1 − (殘值率)^(1/耐用年數)</div>
+        <p>殘值率 10% = 0.1；耐用年數 N = 50</p>
+        <div class="formula-box">r = 1 − (0.1)^(1/50) = 1 − 0.1^0.02</div>
+        <div class="calc-step">0.1^0.02 = e^(0.02 × ln0.1) = e^(0.02 × (−2.3026)) = e^(−0.046052) ≈ 0.9550</div>
+        <div class="calc-step">∴ r ≈ 1 − 0.9550 = 0.0450（年折舊率約 4.50%）</div>
+        <div class="calc-step">已使用20年 → 成數 = (1 − r)^20 = (0.9550)^20</div>
+        <div class="calc-step">(0.9550)^20 = e^(20 × ln0.9550) = e^(20 × (−0.046052)) = e^(−0.9210) ≈ 0.3981</div>
+        <div class="calc-step">建物現值 = 800 × 0.3981 ≈ <strong>318.5 萬元</strong></div>
+        <p style="font-size:.82rem;color:var(--ink-soft);margin-top:6px;">（若考試給定 r=4.5%，則 0.955^20≈0.398，建物現值≈318萬，依題目給定值為準）</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-num">申論二（25分）</div>
+    <div class="essay-q">二、試說明比較法估價之意義、應用時機及估價程序。並依「不動產估價技術規則」，說明比較法中「情況調整」之意義及其相關規定，以及「區域因素調整」與「個別因素調整」之意義與差異。（25分）</div>
+    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button>
+    <div class="essay-ans">
+      <div class="ans-block">
+        <h4>一、比較法之意義</h4>
+        <p>比較法係蒐集與勘估標的相同或相似不動產之交易事例，就其與勘估標的比較，進行情況調整、價格日期調整及不動產因素調整，以推算勘估標的價格之估價方法。（技術規則§23）</p>
+      </div>
+      <div class="ans-block">
+        <h4>二、應用時機</h4>
+        <ul>
+          <li>市場交易活絡、比較案例充足之一般住宅、商業不動產</li>
+          <li>土地或建物之正常價格估算</li>
+          <li>做為收益法、成本法之輔助驗證</li>
+        </ul>
+      </div>
+      <div class="ans-block">
+        <h4>三、估價程序</h4>
+        <ol>
+          <li>蒐集比較標的資料（至少三件）</li>
+          <li>比較標的之選擇（同供需圈、交易類型相近）</li>
+          <li>情況調整（排除非正常成交因素）</li>
+          <li>價格日期調整（調整至估價基準日）</li>
+          <li>不動產因素調整（區域因素 + 個別因素）</li>
+          <li>試算比準價格，決定最終比較價值</li>
+        </ol>
+      </div>
+      <div class="ans-block">
+        <h4>四、情況調整（技術規則§26、§27）</h4>
+        <p><strong>意義：</strong>將比較標的之成交價格，調整排除非屬正常交易情況之影響，使其反映正常市場下之交易價格。</p>
+        <p><strong>相關規定：</strong></p>
+        <ul>
+          <li>情況調整最高以 30% 為限（§27I）</li>
+          <li>情況調整超過 30% 或無法進行情況調整者，<strong>不得採用</strong>為比較標的（§27II）</li>
+          <li>比較標的為公有土地標售或公開標售者，需進行情況調整</li>
+        </ul>
+      </div>
+      <div class="ans-block">
+        <h4>五、區域因素調整 vs. 個別因素調整</h4>
+        <ul>
+          <li><strong>區域因素調整：</strong>調整比較標的與勘估標的所在「地區」間之差異，如商業繁榮度、交通便利性、公共設施完善度等（§30）</li>
+          <li><strong>個別因素調整：</strong>調整比較標的與勘估標的「個體條件」間之差異，如面積、形狀、臨路寬度、地勢、建物年齡等（§31）</li>
+          <li><strong>差異：</strong>區域因素針對「宏觀地區環境」；個別因素針對「微觀個體特性」</li>
+          <li>合計調整幅度：區域因素 ±20%；個別因素 ±30%（技術規則 §30、§31）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 選擇題 -->
+<div class="section">
+  <div class="section-label">第二部分</div>
+  <div class="section-title">選擇題（每題2分，共25題50分）</div>
+  <div id="quizContainer"></div>
+</div>
+
+<div class="bxfab">
+  <div class="fab-score">已作答 <strong id="fabAnswered">0</strong>/25 ｜得分 <strong id="fabScore">0</strong>/50</div>
+  <a class="fab-home" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠 回備考中心</a>
+</div>
+
+<script>
+const QUESTIONS=[
+{id:1,text:"依「不動產估價技術規則」，成本法中建物「重建成本」之意義，下列敘述何者正確？",
+opts:["A.以現行市場上相同功能但使用現代材料與工法重建所需費用","B.以建造與勘估標的完全相同之建物所需費用","C.建物取得時之歷史成本扣除折舊後之餘額","D.建物現況如欲繼續使用所需之維修費用"],
+ans:1,
+exps:["A. 此為「重置成本」之定義——以現代材料與工法達相同功能；非重建成本","B. ✓ 正解。重建成本係以建造與勘估標的完全相同（材料、設計、工法）之建物所需費用（技術規則§53）","C. 此為帳面價值或歷史成本概念，非技術規則定義","D. 維修費用係修繕成本，非重建成本之範疇"]},
+
+{id:2,text:"採用定額法（直線法）估算折舊時，下列何者為其特點？",
+opts:["A.每年折舊額隨時間遞減，前期折舊較多","B.每年折舊額固定相同，計算簡便","C.折舊率等於1減去殘值率的（1/N）次方","D.反映建物實際老化速度，前期損耗較快"],
+ans:1,
+exps:["A. 此為定率遞減法之特點（前期多、後期少），非定額法","B. ✓ 正解。定額法每年提列固定金額折舊，計算最為簡便（技術規則§60）","C. 此為定率遞減法之年折舊率公式（r = 1－殘值率^(1/N)）","D. 反映前期損耗較快是定率法邏輯；定額法不考慮時間加速因素"]},
+
+{id:3,text:"某建物以觀察折舊法判斷其有效年齡，下列何者為觀察折舊法之主要特點？",
+opts:["A.以建物實際已使用年數為折舊計算基礎","B.依建物目前物理及功能狀況，由估價師直接判斷折舊比率","C.以市場銷售資料反推建物折舊率","D.以建物耐用年數線性遞減折舊至殘值"],
+ans:1,
+exps:["A. 以實際已使用年數為基礎屬定額法或定率法之做法","B. ✓ 正解。觀察折舊法由估價師實地勘查，依建物物理性及機能性狀況直接判斷折舊程度（技術規則§63）","C. 以市場資料反推折舊率屬「市場抽取法」，非觀察法","D. 線性遞減至殘值屬定額法"]},
+
+{id:4,text:"下列關於「機能性折舊」之敘述，何者正確？",
+opts:["A.因自然損壞、腐蝕等物理因素造成建物價值減損","B.因建物設計落伍、設備過時、空間配置不符需求造成之減損","C.因建物周邊環境惡化或供需失衡造成之減損","D.因建物屋頂漏水、壁面龜裂等維護不良造成之減損"],
+ans:1,
+exps:["A. 描述「物理性折舊」，係因自然損壞、老化等有形損壞","B. ✓ 正解。機能性折舊（功能性過時）係因設計、設備或空間無法滿足現代需求所致之減損","C. 描述「經濟性折舊（外在折舊）」，外部環境因素所致","D. 仍屬物理性損壞之範疇"]},
+
+{id:5,text:"依「不動產估價技術規則」，比較法中情況調整之規定，下列何者正確？",
+opts:["A.情況調整超過20%者不得採用為比較標的","B.情況調整超過30%者不得採用為比較標的","C.情況調整無上限，但需說明調整理由","D.情況調整最高以15%為限"],
+ans:1,
+exps:["A. 20%為個別因素之單項調整參考值，非情況調整上限","B. ✓ 正解。情況調整以30%為限，超過者或無法調整者不得採用（技術規則§27）","C. 技術規則明定30%上限，並非無上限","D. 15%無對應法條規定"]},
+
+{id:6,text:"比較法中，「區域因素調整」主要調整下列何者？",
+opts:["A.勘估標的與比較標的之土地面積差異","B.勘估標的與比較標的所在地區環境條件之差異","C.勘估標的與比較標的之建物層數差異","D.勘估標的與比較標的之臨路寬度差異"],
+ans:1,
+exps:["A. 面積差異屬個別因素調整範疇","B. ✓ 正解。區域因素調整係就勘估標的與比較標的所處地區（商業環境、交通、公共設施等）差異進行調整（技術規則§30）","C. 建物層數屬個別因素之建物條件","D. 臨路寬度屬個別因素之土地條件"]},
+
+{id:7,text:"依「不動產估價技術規則」，收益法中「有效總收入」之計算公式，下列何者正確？",
+opts:["A.有效總收入 ＝ 可能總收入 ＋ 空租損失","B.有效總收入 ＝ 可能總收入 － 空租損失及欠租損失","C.有效總收入 ＝ 淨收益 ＋ 各項費用","D.有效總收入 ＝ 總收入 ／ 綜合資本化率"],
+ans:1,
+exps:["A. 空租損失應為減項，非加項","B. ✓ 正解。有效總收入 ＝ 可能總收入 ─ 空租損失 ─ 欠租損失（技術規則§34）","C. 此為淨收益反推有效總收入之算式，邏輯上成立但非技術規則之計算定義","D. 此為資本化法之逆算，非有效總收入之計算"]},
+
+{id:8,text:"某不動產年淨收益為120萬元，土地價格占整體不動產60%，建物價格占40%，土地資本化率4%，建物資本化率8%，則房地綜合資本化率為何？",
+opts:["A.5.2%","B.5.6%","C.6.0%","D.6.4%"],
+ans:1,
+exps:["A. 若為4%×0.5+8%×0.5=6%，比例分配有誤","B. ✓ 正解。綜合資本化率＝4%×60%＋8%×40%＝2.4%＋3.2%＝5.6%","C. 6.0%為50：50之平均，題目給定比例非五五分","D. 6.4%為4%×40%+8%×60%，土建比例互換之錯誤"]},
+
+{id:9,text:"折現現金流量分析法（DCF法）適用時機，下列何者最為正確？",
+opts:["A.主要適用於土地素地之估價","B.適用於收益型態不規則或持有期間有明確終值之不動產","C.僅適用於住宅類不動產","D.適用於市場交易活絡且可找到充足比較案例之不動產"],
+ans:1,
+exps:["A. 素地估價較適用比較法或土地開發分析法","B. ✓ 正解。DCF法適用於收益流不規則（如辦公商場之收益變動大）或有明確持有期間及終值估算之收益型不動產（技術規則§46）","C. DCF法不限住宅，尤適用商辦、購物中心","D. 此為比較法之適用時機"]},
+
+{id:10,text:"依「不動產估價技術規則」，土地開發分析法中，開發完成後之預期收益，係指下列何者？",
+opts:["A.開發後之土地公告現值","B.開發完成後可能取得之不動產正常銷售總價格","C.開發完成後土地之申報地價","D.開發完成後建物之重建成本"],
+ans:1,
+exps:["A. 公告現值為政府公告地價，非市場估算之預期收益","B. ✓ 正解。開發分析法中之預期收益，係開發完成後以正常銷售方式可取得之銷售總收入（技術規則§49）","C. 申報地價為地價稅計算基準，非估價之預期收益","D. 重建成本為成本法概念"]},
+
+{id:11,text:"下列關於「最有效使用原則」之敘述，何者有誤？",
+opts:["A.最有效使用必須符合法令規定","B.最有效使用應為物理上可能之使用","C.最有效使用必須是目前正在進行之使用方式","D.最有效使用須使不動產產生最高價值"],
+ans:2,
+exps:["A. 正確。最有效使用需符合法令（如使用分區、建蔽率容積率等）","B. 正確。物理上可能指考慮基地形狀、地質等實際限制","C. ✗ 錯誤。最有效使用不一定是目前之使用方式，可能是「潛在最佳使用」；若目前使用並非最有效，可能存在轉換機會","D. 正確。最有效使用以產生最高不動產價值為標準"]},
+
+{id:12,text:"某收益性不動產年有效總收入500萬，年費用180萬，資本化率5%，則以直接資本化法求算之不動產價值為何？",
+opts:["A.6,400萬","B.6,200萬","C.6,000萬","D.5,800萬"],
+ans:0,
+exps:["A. ✓ 正解。年淨收益＝500─180＝320萬；不動產價值＝320÷5%＝6,400萬","B. 6,200萬÷5%×5%≠320萬；不符","C. 6,000萬對應淨收益300萬，計算有誤","D. 5,800萬對應淨收益290萬，計算有誤"]},
+
+{id:13,text:"依「不動產估價技術規則」，以成本法估算土地價格時，應採下列何種方式？",
+opts:["A.以土地重建成本扣除折舊","B.土地不進行折舊，以比較法或其他方法求算土地價格","C.以土地取得成本加計利息","D.以土地公告現值加計適當修正"],
+ans:1,
+exps:["A. 土地依法不適用折舊（土地永久使用，不發生物理性或機能性折舊）","B. ✓ 正解。成本法中土地部分應另以比較法、土地開發分析法等方法另行求算，建物部分才進行重建成本減折舊（技術規則§52條解釋）","C. 土地取得成本加利息非技術規則之標準做法","D. 公告現值加修正非標準估價程序"]},
+
+{id:14,text:"關於「殘餘法」在不動產估價之應用，下列敘述何者正確？",
+opts:["A.建物殘餘法：先估土地總收益，扣除土地應得報酬後，餘額資本化求建物價值","B.土地殘餘法：先估建物總收益，扣除建物應得報酬後，餘額資本化求土地價值","C.殘餘法只能用於土地估價，不適用建物","D.殘餘法中，土地與建物均須先取得對方之收益"],
+ans:1,
+exps:["A. 描述順序有誤：建物殘餘法應先求房地總淨收益，扣除土地應得報酬，餘額歸屬建物再資本化","B. ✓ 正解。土地殘餘法：房地年淨收益─建物年淨收益（建物價值×建物資本化率）＝土地年淨收益，再以土地資本化率資本化求土地價格","C. 殘餘法同樣適用建物估價（建物殘餘法）","D. 殘餘法係已知其中一方之價值，求算另一方，並非兩方均未知"]},
+
+{id:15,text:"下列何者屬於比較法中「個別因素調整」之項目？",
+opts:["A.比較標的所在商圈之商業繁榮程度","B.比較標的所在地區之公共設施完善度","C.勘估標的土地之形狀與臨路條件","D.比較標的所在地區之交通便利性"],
+ans:2,
+exps:["A. 商業繁榮程度屬地區整體環境，為區域因素","B. 公共設施完善度屬地區條件，為區域因素","C. ✓ 正解。土地形狀、臨路條件屬個體特性，為個別因素調整項目（技術規則§31）","D. 地區交通便利性屬區域整體條件，為區域因素"]},
+
+{id:16,text:"不動產估價師進行估價時，若兩種估價方法所得價格差異超過多少，應重新檢討各方法之合理性？",
+opts:["A.5%","B.10%","C.20%","D.30%"],
+ans:2,
+exps:["A. 5%差異過小，實務上一般不視為需重新檢討之程度","B. 10%為部分教材參考值，但技術規則之標準非此","C. ✓ 正解。依技術規則，若各估價方法所得價格差異超過20%，應重新檢討（技術規則§17條精神）","D. 30%差異過大，已達情況調整之上限意義，非估價方法差異之界定"]},
+
+{id:17,text:"依「不動產估價技術規則」，估計建物重建成本之方法，不包含下列何者？",
+opts:["A.比較單位法","B.分項加總法","C.指數調整法","D.殘餘法"],
+ans:3,
+exps:["A. 比較單位法（如每平方公尺造價×面積）為重建成本估算方法之一（技術規則§54）","B. 分項加總法（各工程細項逐一估算加總）為重建成本估算方法之一","C. 指數調整法（以歷史成本乘以物價指數調整）為重建成本估算方法之一","D. ✓ 正解。殘餘法為收益法之變形，用於求算土地或建物收益資本值，非重建成本估算方法"]},
+
+{id:18,text:"某公寓大廈各樓層之樓層別效用比如下：1樓100、2樓75、3樓65、4樓60、5樓70，若已知整棟建物（5層）總價為1,500萬元，則3樓之合理價格為何？",
+opts:["A.约256萬","B.约261萬","C.约270萬","D.约290萬"],
+ans:1,
+exps:["A. 256萬對應比例64/370，需驗算：65/370×1500≈263萬，非256萬","B. ✓ 正解。各樓層效用比合計：100+75+65+60+70＝370；3樓比例：65÷370；3樓價格：65/370×1,500≈263.5萬（選項取最近者B≈261萬）","C. 270萬對應比例270/1500=18%，即66.6/370，略高於65","D. 290萬對應比例過高，非3樓合理值"]},
+
+{id:19,text:"依「不動產估價技術規則」，正常價格之定義，下列何者有誤？",
+opts:["A.係指在公開市場上，於買賣雙方均有充分資訊下成交之合理價格","B.係在交易雙方主觀上均無特殊動機下之客觀合理價格","C.係指強制拍賣情況下之市場成交價格","D.係假設勘估標的在充分行銷期間後成交之價格"],
+ans:2,
+exps:["A. 正確描述正常價格之部分要件（充分資訊、公開市場）","B. 正確，交易雙方無特殊動機（非強迫、急售）","C. ✗ 錯誤。強制拍賣情況並非正常市場條件，其價格屬「特定價格」之適用情境，非正常價格","D. 正確，充分行銷期間為正常價格之要件之一（技術規則§4）"]},
+
+{id:20,text:"下列何種情況下，估價結果應採用「特定價格」？",
+opts:["A.一般住宅買賣之市場估價","B.強制拍賣程序中之估價","C.銀行抵押貸款擔保品估價","D.公司購置辦公室之估價參考"],
+ans:1,
+exps:["A. 一般住宅市場買賣估正常價格","B. ✓ 正解。強制拍賣因拍賣條件限制（時間壓力、強迫出售），與正常市場不同，應採特定價格（技術規則§5）","C. 銀行擔保品估價通常估正常價格或抵押擔保價值","D. 公司購置辦公室估正常價格作為參考"]},
+
+{id:21,text:"比較法估算「價格日期調整」之目的為何？",
+opts:["A.調整比較標的地區與勘估標的地區之差異","B.調整比較標的成交時點之市場條件至估價基準日","C.調整比較標的個別條件之差異","D.排除比較標的非正常成交之特殊因素"],
+ans:1,
+exps:["A. 調整地區差異屬「區域因素調整」","B. ✓ 正解。價格日期調整係將比較標的之成交價格，依市場變動（如地價指數、房價走勢）調整至估價基準日（技術規則§29）","C. 調整個別條件差異屬「個別因素調整」","D. 排除非正常成交因素屬「情況調整」"]},
+
+{id:22,text:"依「不動產估價技術規則」，收益法中「綜合資本化率」之求取，下列何者為正確方式？",
+opts:["A.綜合資本化率 ＝ 土地資本化率 × 土地價值比 ＋ 建物資本化率 × 建物價值比","B.綜合資本化率 ＝（土地資本化率 ＋ 建物資本化率）÷ 2","C.綜合資本化率 ＝ 年淨收益 ÷ 不動產市場價格","D.A 與 C 均正確"],
+ans:3,
+exps:["A. 正確。此為加權平均法求綜合資本化率（技術規則§37：依土建價值比加權）","B. 簡單平均僅在土建比例各50%時才與A相同，一般情況下不適用","C. 正確。此為市場反推法（市場抽取法），以已知案例之淨收益除以市場價格求資本化率","D. ✓ 正解。A（加權平均法）與C（市場抽取法）均為技術規則認可之資本化率求取方式"]},
+
+{id:23,text:"下列關於不動產「供給彈性」之描述，何者正確？",
+opts:["A.土地供給彈性大，因土地可透過重劃增加供給","B.土地供給彈性小，因地理位置固定且總量有限","C.建物供給彈性小，因興建時間長無法快速調整","D.建物供給彈性大，且短期內可快速增加供給"],
+ans:1,
+exps:["A. 土地雖可透過重劃利用，但地理位置固定，整體供給彈性仍小","B. ✓ 正解。土地之地理位置固定、總量有限，短期供給幾乎無彈性，此為不動產市場特性之一","C. 建物雖需建設時間，但長期供給具有彈性（可新建），短期彈性小是正確的","D. 建物短期供給無法快速增加（建設期需1–3年），供給彈性偏低"]},
+
+{id:24,text:"依「不動產估價技術規則」，估價報告書之有效期間，下列何者正確？",
+opts:["A.估價報告書之有效期間最長為1年","B.估價報告書之有效期間最長為6個月","C.估價報告書之有效期間最長為3個月","D.估價報告書無明定有效期間"],
+ans:0,
+exps:["A. ✓ 正解。依技術規則，估價報告書之有效期間原則上自估價基準日起算，一般不得超過1年（技術規則§13）","B. 6個月非法定上限","C. 3個月過短，非技術規則規定","D. 技術規則有相關規定，非無限定"]},
+
+{id:25,text:"下列何者不屬於「不動產估價技術規則」所列舉之估價方法？",
+opts:["A.比較法","B.收益法","C.成本法","D.效益法"],
+ans:3,
+exps:["A. 比較法為技術規則明定三大基本估價方法之一","B. 收益法為技術規則明定三大基本估價方法之一","C. 成本法為技術規則明定三大基本估價方法之一（另有土地開發分析法、DCF法等特殊方法）","D. ✓ 正解。「效益法」非技術規則之估價方法，此為混淆選項"]}
+];
+
+const state={};
+let answered=0,correct=0,wrong=0;
+
+function init(){
+  const c=document.getElementById('quizContainer');
+  QUESTIONS.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='q-card';
+    div.id='q'+q.id;
+    div.innerHTML=`
+      <div class="q-num">第 ${i+1} 題</div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">${q.opts.map((o,oi)=>`
+        <div class="opt" data-qid="${q.id}" data-oi="${oi}" onclick="selectOpt(this,${q.id},${oi})">
+          <div class="letter">${['A','B','C','D'][oi]}</div>
+          <div class="opt-text">${o}</div>
+        </div>`).join('')}
+      </div>
+      <div class="explanation" id="exp${q.id}">
+        <div class="exp-title">各選項解析</div>
+        ${q.exps.map((e,ei)=>`<div class="exp-item ${ei===q.ans?'right':'wrong'}"><span class="exp-mark">${['A','B','C','D'][ei]}. ${ei===q.ans?'✓ 正解':'✗'}</span>${e.replace(/^[A-D]\. [✓✗] ?正解?/,'').replace(/^[A-D]\. ✗/,'')}</div>`).join('')}
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function selectOpt(el,qid,oi){
+  if(state[qid]!==undefined)return;
+  state[qid]=oi;
+  const q=QUESTIONS.find(x=>x.id===qid);
+  const card=document.getElementById('q'+qid);
+  const opts=card.querySelectorAll('.opt');
+  opts.forEach(o=>{o.classList.add('disabled');});
+  opts[q.ans].classList.add('correct-ans');
+  if(oi!==q.ans){opts[oi].classList.add('wrong-ans');}
+  const isRight=(oi===q.ans);
+  card.classList.add(isRight?'correct':'wrong');
+  // show result badge
+  const qText=card.querySelector('.q-text');
+  const badge=document.createElement('span');
+  badge.className='result-badge '+(isRight?'ok':'ng');
+  badge.textContent=isRight?'✓ 答對':'✗ 答錯';
+  qText.appendChild(badge);
+  // show explanation
+  document.getElementById('exp'+qid).classList.add('open');
+  answered++;
+  if(isRight)correct++;else wrong++;
+  updateScore();
+}
+
+function updateScore(){
+  document.getElementById('answeredCount').textContent=answered;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=wrong;
+  document.getElementById('fabAnswered').textContent=answered;
+  document.getElementById('fabScore').textContent=correct*2;
+}
+
+function toggleEssay(btn){
+  const ans=btn.nextElementSibling;
+  const open=ans.classList.toggle('open');
+  btn.textContent=open?'▲ 收起擬答架構':'▼ 顯示擬答架構';
+}
+
+function resetAll(){
+  if(!confirm('確定要重置所有作答紀錄？'))return;
+  Object.keys(state).forEach(k=>delete state[k]);
+  answered=0;correct=0;wrong=0;
+  updateScore();
+  document.getElementById('quizContainer').innerHTML='';
+  init();
+}
+
+init();
+</script>
+</body>
+</html>
