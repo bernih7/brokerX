@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>估價租金估計攻略表</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#fff;--bg:#F5F1E6;--card:#FFFEFA;--line:#DDD6C0;--ink:#25302C;--sub:#5F6B63;--red:#A8402B;--gold:#B8782E;--green:#35693F;--tip:#FBF1D9;--okbg:#E4F0E4;--badbg:#F8E8E4}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b17;--card:#272420;--line:#3d3830;--ink:#ece6d8;--sub:#a79f8c;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--tip:#3a3220;--okbg:#26382a;--badbg:#42261f;color-scheme:dark}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;padding:0 0 80px}
+header{background:var(--pri);color:var(--onpri);padding:18px 20px 16px;text-align:center}
+.htag{font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:6px}
+header h1{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700}
+header .sub{font-size:12px;opacity:.75;margin-top:4px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px}
+.sec-label{font-size:10px;letter-spacing:.18em;color:var(--key);font-weight:700;margin-bottom:4px;text-transform:uppercase}
+.sec-title{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:5px;margin-bottom:14px}
+
+/* 定義卡片區 */
+.def-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:24px}
+.def-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.def-name{font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;color:var(--pri);margin-bottom:6px}
+.def-badge{display:inline-block;font-size:10px;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px;color:#fff}
+.def-badge.high{background:var(--red)}
+.def-badge.med{background:var(--gold)}
+.def-badge.low{background:var(--sub)}
+.def-body{font-size:13px;color:var(--ink);line-height:1.7}
+.def-trap{margin-top:8px;font-size:12px;padding:6px 10px;border-left:3px solid var(--gold);background:var(--tip);border-radius:0 6px 6px 0;color:var(--sub)}
+.def-trap b{color:var(--key)}
+
+/* 公式區 */
+.formula-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:24px}
+.formula-box{font-family:monospace;font-size:14px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 14px;color:var(--red);margin:8px 0;white-space:pre-wrap}
+.formula-note{font-size:13px;color:var(--sub);margin-top:6px}
+.step-row{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--line);font-size:13px}
+.step-row:last-child{border:0}
+.step-n{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--pri);width:20px;flex-shrink:0}
+
+/* 比較表 */
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px}
+.compare-table th{background:var(--pri);color:var(--onpri);padding:8px 10px;text-align:left;font-family:'Noto Serif TC',serif;font-weight:700}
+.compare-table td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--card))}
+.badge-key{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:99px;background:var(--red);color:#fff;margin-right:4px}
+.badge-ok{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:99px;background:var(--green);color:#fff;margin-right:4px}
+
+/* 歷屆題型速查 */
+.type-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:24px}
+.type-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.type-head{font-family:'Noto Serif TC',serif;font-weight:700;font-size:13px;color:var(--key);margin-bottom:6px}
+.type-body{font-size:12px;color:var(--ink);line-height:1.8}
+.type-body li{margin-left:16px;margin-bottom:2px}
+
+/* 陷阱區 */
+.trap-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.trap-item{background:var(--card);border:1.5px solid var(--gold);border-radius:10px;padding:12px 14px}
+.trap-head{font-weight:700;font-size:13px;color:var(--key);margin-bottom:4px}
+.trap-body{font-size:12.5px;color:var(--ink);line-height:1.75}
+.trap-body .ok{color:var(--green);font-weight:700}
+.trap-body .ng{color:var(--red);font-weight:700}
+
+/* 計算練習 */
+.calc-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.calc-q{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.calc-toggle{background:var(--pri);color:var(--onpri);border:none;border-radius:6px;padding:5px 14px;cursor:pointer;font-size:12px;font-family:inherit}
+.calc-toggle:hover{background:var(--pri2)}
+.calc-ans{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.calc-ans.open{display:block}
+.calc-step{font-size:13px;line-height:1.8;padding:6px 10px;background:var(--bg);border-left:3px solid var(--pri);border-radius:0 6px 6px 0;margin-bottom:6px;font-family:monospace}
+
+/* FAB */
+#hub{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:22px;text-align:center;line-height:46px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+</style>
+</head>
+<body>
+<header>
+  <div class="htag">不動產估價概要・F1章節</div>
+  <h1>租金估計　考試攻略表</h1>
+  <div class="sub">定義｜公式｜新訂vs續訂｜差額分配法｜歷屆陷阱</div>
+</header>
+
+<div class="wrap">
+
+<!-- 一、租金種類定義 -->
+<div class="sec-label">一</div>
+<div class="sec-title">租金種類定義 ★★★極高頻</div>
+<div class="def-grid">
+  <div class="def-card">
+    <div class="def-name">實質租金 <span class="def-badge high">最重要</span></div>
+    <div class="def-body">承租人每期支付予出租人之租金，<b>加計</b>押金或保證金、權利金及其他相關運用收益之總數。<br><br>💡 <b>估計以「實質租金」為原則</b>（極高頻考點）</div>
+    <div class="def-trap"><b>⚠ 陷阱：</b>不要把「實質租金」誤說成「淨租金」，規則用語是「實質租金」</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">支付租金 <span class="def-badge med">常考</span></div>
+    <div class="def-body">承租人每期<b>實際支付</b>予出租人之租金本身。<br><br>❌ <b>不含</b>押金運用收益<br>❌ <b>不含</b>保證金、權利金之運用收益</div>
+    <div class="def-trap"><b>⚠ 陷阱：</b>支付租金 ≠ 實質租金，差別在有沒有「加計押金等運用收益」</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">經濟租金 <span class="def-badge med">常考</span></div>
+    <div class="def-body">不動產於市場上以<b>最有效利用</b>方式利用所能產生的收益（反映市場真實經濟價值）。<br><br>💡 也叫「市場租金」，是差額分配法的「基準」</div>
+    <div class="def-trap"><b>⚠ 陷阱：</b>經濟租金 ≠ 實質租金。經濟租金是「最有效使用」的市場概念；實質租金是「加計押金」的計算概念</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">契約租金 <span class="def-badge low">偶考</span></div>
+    <div class="def-body">依租賃契約<b>約定</b>之租金。<br><br>💡 不動產證券化目的採DCF法時，各期淨收益以<b>契約租金</b>為原則（110年考）</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">正常租金 <span class="def-badge low">偶考</span></div>
+    <div class="def-body">具市場性，反映<b>經濟租金水準</b>者（與正常價格對應）。<br><br>💡 新訂租約通常屬於正常租金</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">限定租金 <span class="def-badge high">高頻</span></div>
+    <div class="def-body">基於<b>續訂租約</b>或<b>不動產合併</b>為目的形成之租賃價值。<br><br>💡 與限定價格對應，非正常市場條件</div>
+    <div class="def-trap"><b>⚠ 陷阱：</b>捷運地下街向鄰店擴租 → 限定租金；學校出租校舍續約 → 限定租金；便利商店合併兩間相鄰店面 → 限定租金</div>
+  </div>
+</div>
+
+<!-- 二、實質租金計算公式 -->
+<div class="sec-label">二</div>
+<div class="sec-title">實質租金計算公式 ★★★必考計算</div>
+<div class="formula-card">
+  <div class="formula-box">實質租金 ＝ 支付租金（月租×12）
+         ＋ 押金（或保證金）運用收益
+         ＋ 權利金運用收益
+         ＋ 其他相關運用收益
+
+押金運用收益 ＝ 押金金額（月租×押金月數）× 年利率</div>
+  <div class="formula-note">⚠ 「押金N個月」→ 先算押金金額：月租 × N，再 × 年利率<br>
+  ⚠ 管理費若由承租人額外支付（非出租人收益），<b>不計入</b>實質租金<br>
+  ⚠ 租賃所得稅屬於費用項目，<b>不計入</b>實質租金估計之「加計」項目</div>
+</div>
+
+<!-- 三、新訂 vs 續訂 -->
+<div class="sec-label">三</div>
+<div class="sec-title">新訂租約 vs 續訂租約　估計方式對照</div>
+<table class="compare-table">
+  <tr><th>項目</th><th>新訂租約</th><th>續訂租約</th></tr>
+  <tr>
+    <td><b>價格種類</b></td>
+    <td>正常租金</td>
+    <td><b>限定租金</b></td>
+  </tr>
+  <tr>
+    <td><b>估計方式①</b></td>
+    <td>以新訂租約之租賃實例為標的，運用<b>收益法</b>估計</td>
+    <td>以續訂租約之租賃實例為標的，運用<b>收益法</b>估計</td>
+  </tr>
+  <tr>
+    <td><b>估計方式②</b></td>
+    <td>勘估標的價格 × 租金收益率 → 估計淨收益，再加計必要費用</td>
+    <td>以勘估標的<b>原契約租金</b>之淨收益，依租金變動趨勢調整後，再加計必要費用</td>
+  </tr>
+  <tr>
+    <td><b>估計方式③</b></td>
+    <td>分析企業經營之<b>總收入</b>，據以估計淨收益，再加計必要費用</td>
+    <td>（無此方式）</td>
+  </tr>
+  <tr>
+    <td><b>差額分配法</b></td>
+    <td>❌ 不適用</td>
+    <td><b>✓ 適用</b>（專屬於續訂租約）</td>
+  </tr>
+</table>
+<div style="background:var(--tip);border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:24px">
+  <b style="color:var(--key)">⚠ 高頻陷阱：</b>「分析企業經營總收入」、「勘估標的價格×租金收益率」這兩種方式只適用<b>新訂租約</b>，不適用續訂租約！考題常把它們誤植到續訂租約選項中。
+</div>
+
+<!-- 四、差額分配法 -->
+<div class="sec-label">四</div>
+<div class="sec-title">差額分配法（續訂租約專用）★★★</div>
+<div class="formula-card">
+  <div class="formula-box">差額 ＝ 市場經濟租金 － 原契約租金
+出租人應分得之差額 ＝ 差額 × (1 － 承租人應有貢獻比例)
+續租合理租金 ＝ 原契約租金 ＋ 出租人應分得之差額</div>
+  <div class="formula-note">差額分配法：把「現在市場行情」與「舊契約租金」的差距，按雙方對租金上漲的貢獻比例來分配</div>
+</div>
+<div style="background:var(--tip);border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:24px">
+  <b style="color:var(--key)">⚠ 差額的定義：</b>差額分配法的「差額」是「<b>市場經濟租金 vs 原契約租金</b>」之差，不是「原實質租金 vs 市場租金」，也不是「契約租金 vs 正常租金」。常見考法：(A)市場經濟租金與原契約租金之差額✓ (B)原實質租金與市場經濟租金之差額✗
+</div>
+
+<!-- 五、計算練習 -->
+<div class="sec-label">五</div>
+<div class="sec-title">計算練習（歷屆真題）</div>
+
+<div class="calc-card">
+  <div class="calc-q">【計算①｜100年】林乙向王甲承租房屋，每月支付的實質租金為10,000元，此棟房屋如於市場上重新出租，合理租金為16,000元。假設王甲、林乙對租金增加的貢獻各半，請問合理的續租租金應調整為多少？</div>
+  <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
+  <div class="calc-ans">
+    <div class="calc-step">差額 ＝ 16,000 － 10,000 ＝ 6,000元</div>
+    <div class="calc-step">各半分配 → 出租人分得：6,000 × 50% ＝ 3,000元</div>
+    <div class="calc-step">續租合理租金 ＝ 10,000 ＋ 3,000 ＝ <b>13,000元</b>　✓</div>
+  </div>
+</div>
+
+<div class="calc-card">
+  <div class="calc-q">【計算②｜106年】西門町某店面3年前出租，當年契約租金每年200萬元，目前市場經濟租金每年250萬元，分析此租金上漲有60%歸功於承租經營者，在必要費用不增加情況下，合理續租年租金多少？</div>
+  <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
+  <div class="calc-ans">
+    <div class="calc-step">差額 ＝ 250 － 200 ＝ 50萬元</div>
+    <div class="calc-step">出租人應分得 ＝ 50 × (1 － 60%) ＝ 50 × 40% ＝ 20萬元</div>
+    <div class="calc-step">續租租金 ＝ 200 ＋ 20 ＝ <b>220萬元</b>　✓</div>
+  </div>
+</div>
+
+<div class="calc-card">
+  <div class="calc-q">【計算③｜113年】A把忠孝東路五段鄰近市政府店面出租給連鎖咖啡店，每月租金100,000元，押金2個月，假設年利率2.5%，約定每年管理費120,000元由咖啡店支付，請問一年支付之實質租金為多少元？</div>
+  <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
+  <div class="calc-ans">
+    <div class="calc-step">支付租金 ＝ 100,000 × 12 ＝ 1,200,000元</div>
+    <div class="calc-step">押金金額 ＝ 100,000 × 2 ＝ 200,000元</div>
+    <div class="calc-step">押金運用收益 ＝ 200,000 × 2.5% ＝ 5,000元</div>
+    <div class="calc-step">管理費由承租人支付 → <b>不計入</b>出租人實質租金</div>
+    <div class="calc-step">實質租金 ＝ 1,200,000 ＋ 5,000 ＝ <b>1,205,000元</b>　✓</div>
+  </div>
+</div>
+
+<div class="calc-card">
+  <div class="calc-q">【計算④｜110年】勘估標的丙之市場價格1,000萬元，當地同類型不動產之租金收益率5%，必要費用20萬元/年，租賃所得稅約2萬元。若丙為新訂租約，估計之年租金為？</div>
+  <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
+  <div class="calc-ans">
+    <div class="calc-step">淨收益 ＝ 1,000萬 × 5% ＝ 50萬元</div>
+    <div class="calc-step">租金 ＝ 淨收益 ＋ 必要費用 ＝ 50 ＋ 20 ＝ <b>70萬元</b>　✓</div>
+    <div class="calc-step">⚠ 租賃所得稅 → <b>不加計</b>（非必要費用項目）</div>
+  </div>
+</div>
+
+<!-- 六、高頻陷阱彙整 -->
+<div class="sec-label">六</div>
+<div class="sec-title">高頻陷阱一覽</div>
+<div class="trap-list">
+  <div class="trap-item">
+    <div class="trap-head">① 估計以何種租金為原則？</div>
+    <div class="trap-body"><span class="ok">✓ 實質租金</span>（正確）<br><span class="ng">✗ 支付租金 / 契約租金 / 押租金</span>（錯誤，但常出現在選項）</div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">② 實質租金 vs 名目租金（113年真題）</div>
+    <div class="trap-body">「承租人每期支付予出租人之租金，加計押金或保證金、權利金及其他相關運用收益之總數」→ <span class="ok">✓ 實質租金</span><br><span class="ng">✗ 名目租金</span>（規則無此用語，若題目說「名目租金」指此定義→錯誤）</div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">③ 差額的定義（110年真題）</div>
+    <div class="trap-body">差額分配法中「差額」＝ <span class="ok">✓ 市場經濟租金 與 原契約租金 之差額</span><br><span class="ng">✗ 原實質租金與市場經濟租金之差額</span><br><span class="ng">✗ 契約租金與正常租金之差額</span></div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">④ 「分析企業總收入」只用於新訂，不用於續訂</div>
+    <div class="trap-body">考題常把新訂估計方式放進「續訂租約之估計」選項：<br><span class="ng">✗「分析企業經營之總收入，據以估計淨收益...」→ 此為新訂方式，不適用續訂</span></div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">⑤ 租金估計應考慮vs不考慮</div>
+    <div class="trap-body"><span class="ok">✓ 應考慮：</span>使用目的、租期長短、租金支付方式、稅費負擔、使用情形<br><span class="ng">✗ 不考慮：</span>「出租人數」（104年考點，常入陷阱）</div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">⑥ 不動產證券化（DCF法）的淨收益</div>
+    <div class="trap-body">以不動產證券化為目的採DCF法時，各期淨收益以 <span class="ok">✓ 契約租金</span> 計算為原則（不是實質租金、不是經濟租金）</div>
+  </div>
+  <div class="trap-item">
+    <div class="trap-head">⑦ 限定租金的觸發情境</div>
+    <div class="trap-body"><span class="ok">✓ 限定租金情境：</span>捷運地下街向鄰店擴租、便利商店合併兩鄰店、學校出租校舍續約、不動產合併目的之出租<br><span class="ng">✗ 不是限定租金：</span>一般新承租（這是正常租金）</div>
+  </div>
+</div>
+
+<!-- 七、考點頻率速查 -->
+<div class="sec-label">七</div>
+<div class="sec-title">歷屆題型統計（99–114年）</div>
+<div class="type-grid">
+  <div class="type-card">
+    <div class="type-head">🔥 最高頻：實質租金計算</div>
+    <div class="type-body"><ul>
+      <li>100、103、104、105、113、114年</li>
+      <li>公式：支付租金＋押金運用收益</li>
+      <li>注意押金「N個月」先換算</li>
+    </ul></div>
+  </div>
+  <div class="type-card">
+    <div class="type-head">🔥 最高頻：估計以何種租金為原則</div>
+    <div class="type-body"><ul>
+      <li>103、105、112、113、114年</li>
+      <li>答案永遠是「實質租金」</li>
+    </ul></div>
+  </div>
+  <div class="type-card">
+    <div class="type-head">🔥 高頻：差額分配法計算</div>
+    <div class="type-body"><ul>
+      <li>100、102、106年（計算）</li>
+      <li>110年（差額定義辨析）</li>
+      <li>公式：原契約租金＋出租人分得差額</li>
+    </ul></div>
+  </div>
+  <div class="type-card">
+    <div class="type-head">🔥 高頻：限定租金辨識</div>
+    <div class="type-body"><ul>
+      <li>99、106、107年情境辨識</li>
+      <li>關鍵字：續訂、合併、擴租</li>
+    </ul></div>
+  </div>
+  <div class="type-card">
+    <div class="type-head">中頻：新訂vs續訂估計方式</div>
+    <div class="type-body"><ul>
+      <li>101、104、105年</li>
+      <li>企業總收入法→只適用新訂</li>
+    </ul></div>
+  </div>
+  <div class="type-card">
+    <div class="type-head">中頻：DCF法的淨收益基準</div>
+    <div class="type-body"><ul>
+      <li>110年考「以契約租金計算」</li>
+      <li>注意：是「契約租金」非「實質租金」</li>
+    </ul></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠</a>
+
+<script>
+(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();
+</script>
+</body>
+</html>
