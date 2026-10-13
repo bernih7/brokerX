@@ -186,12 +186,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   font-size:12px;color:var(--muted);text-align:center;letter-spacing:.3px}
 .qc-exam-stat.show{display:block}
 .qc-exam-stat strong{color:var(--ink)}
-/* 主題切換按鈕 */
-#theme-btn{position:fixed;top:10px;right:10px;z-index:50;
-  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);
-  background:var(--paper);color:var(--fg);font-size:16px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 6px rgba(0,0,0,.15)}
+/* #theme-btn removed — using .theme-toggle only */
 .quiz-progress{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px}
 .quiz-done-banner{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px}
 .quiz-done-banner .big{font-size:48px;margin-bottom:8px}
@@ -214,7 +209,6 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 
-<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
 <header>
   <h1>估價概要｜定義填空練習</h1>
   <div class="sub">章節練習 + 隨機測驗模式｜全科 81 題</div>
@@ -1150,47 +1144,33 @@ function prevQuiz() {
   }
 }
 
-// ===主題切換===
-function updateThemeBtn(theme) {
-  const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = theme === 'dark' ? '🌙' : '☀️';
-}
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme') || 'light';
-  const next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  updateThemeBtn(next);
-  try { localStorage.setItem('bx-theme', next); } catch(e) {}
-}
-(function(){
-  try {
-    const saved = localStorage.getItem('bx-theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-    updateThemeBtn(saved || 'light');
-  } catch(e) {}
-})();
+// theme handled by themeToggle block below
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script>
-// 主題切換
+// 主題切換（統一使用 bx-theme key）
 (function(){
-  const btn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('bxr-theme');
-  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
-  function updateIcon(){
-    const t = document.documentElement.getAttribute('data-theme');
-    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    btn.textContent = isDark ? '☀️' : '🌙';
+  var btn = document.getElementById('themeToggle');
+  function isDark(){
+    var t = document.documentElement.getAttribute('data-theme');
+    if(t==='dark') return true;
+    if(t==='light') return false;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
   }
-  updateIcon();
-  btn.addEventListener('click', function(){
-    const cur = document.documentElement.getAttribute('data-theme');
-    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    const next = isDark ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('bxr-theme', next);
-    updateIcon();
+  function apply(dark){
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if(btn) btn.textContent = dark ? '☀️' : '🌙';
+  }
+  // 初始化：先讀 bx-theme，fallback bxr-theme，再 fallback OS
+  try {
+    var saved = localStorage.getItem('bx-theme') || localStorage.getItem('bxr-theme');
+    if(saved) apply(saved === 'dark');
+    else apply(isDark());
+  } catch(e){ apply(isDark()); }
+  if(btn) btn.addEventListener('click', function(){
+    var next = !isDark();
+    apply(next);
+    try { localStorage.setItem('bx-theme', next ? 'dark' : 'light'); } catch(e){}
   });
 })();
 </script>
