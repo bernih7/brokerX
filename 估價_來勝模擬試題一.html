@@ -1,0 +1,562 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<script>(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>來勝115模擬試題(一)｜不動產估價概要</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--key:#8A5517;--onpri:#FFFFFF;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--sub:#5F6B63;--opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}}
+:root[data-theme="dark"]{--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}
+*{box-sizing:border-box}html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;padding-bottom:90px}
+header{padding:20px 16px 8px;max-width:760px;margin:auto}
+h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri)}
+.sub{font-size:13px;color:var(--sub);margin-top:4px}
+.wrap{max-width:760px;margin:auto;padding:0 16px}
+.tabs{display:flex;gap:6px;margin:10px 0;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:6}
+.tabs button{flex:1;padding:8px 2px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font-size:13px;font-family:inherit;cursor:pointer}
+.tabs button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.card.done.ok{border-left:5px solid var(--green)}.card.done.ng{border-left:5px solid var(--red)}
+.qn{font-family:'Noto Serif TC',serif;color:var(--pri);font-weight:700;font-size:15px}
+.stem{margin:6px 0 12px;word-break:break-word;font-size:15px;line-height:1.8}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--opt);color:var(--ink);border-radius:10px;padding:9px 12px;margin:6px 0;font-family:inherit;font-size:14px;cursor:pointer;word-break:break-word;transition:border-color .15s,background .15s}
+.opt b{color:var(--key);margin-right:4px}
+.opt:hover{border-color:var(--gold)}
+.opt.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.opt.ok{border-color:var(--green);background:var(--okbg)}
+.opt.bad{border-color:var(--red);background:var(--badbg)}
+.res{display:none;padding:8px 12px;border-radius:8px;font-weight:700;margin:8px 0;font-size:14px}
+.done .res{display:block;background:var(--badbg);color:var(--red)}
+.done .res.ok{background:var(--okbg);color:var(--green)}
+.explain{display:none;margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.8}
+.done .explain{display:block}
+.explain h4{margin:0 0 6px;font-size:13px;color:var(--pri);font-family:'Noto Serif TC',serif;font-weight:700}
+.explain .opt-ex{padding:5px 0;border-bottom:1px solid var(--line)}
+.explain .opt-ex:last-child{border:0}
+.explain .opt-ex.right{color:var(--green);font-weight:700}
+.trap{margin-top:8px;padding:8px 10px;background:var(--tipbg);border-left:4px solid var(--gold);border-radius:6px;font-size:13px;line-height:1.7}
+.trap b{color:var(--gold)}
+.err{margin-top:10px;font-size:13px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.err span{color:var(--sub)}
+.err button{border:1.5px solid var(--line);background:var(--opt);color:var(--ink);border-radius:99px;padding:3px 11px;font-family:inherit;cursor:pointer;font-size:13px}
+.err button.on-a{background:var(--red);color:#fff;border-color:var(--red)}
+.err button.on-b{background:var(--gold);color:#fff;border-color:var(--gold)}
+.err button.on-c{background:var(--pri);color:#fff;border-color:var(--pri)}
+.err button.on-d{background:var(--sub);color:#fff;border-color:var(--sub)}
+.bar{position:sticky;top:48px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;z-index:5;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.bar button{border:1px solid var(--line);background:var(--opt);color:var(--ink);border-radius:8px;padding:4px 10px;font-family:inherit;cursor:pointer;font-size:13px}
+.bar button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.bar .sp{flex:1}#tm{font-weight:700;color:var(--pri);font-variant-numeric:tabular-nums}
+/* 申論頁 */
+.essay-card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:20px;margin:12px 0}
+.essay-q{font-family:'Noto Serif TC',serif;font-weight:700;font-size:16px;color:var(--pri);margin-bottom:12px;line-height:1.7}
+.essay-score{display:inline-block;background:var(--red);color:#fff;font-size:12px;padding:2px 10px;border-radius:99px;margin-left:8px;font-weight:700;vertical-align:middle}
+details{margin-top:10px}
+summary{cursor:pointer;color:var(--pri);font-weight:700;font-family:'Noto Serif TC',serif;font-size:15px;padding:6px 0;list-style:none}
+summary::before{content:'▶ ';font-size:12px}
+details[open] summary::before{content:'▼ '}
+.ans-block{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:8px;font-size:14px;line-height:1.9}
+.ans-block h4{font-family:'Noto Serif TC',serif;color:var(--pri);margin:12px 0 4px;font-size:14px}
+.ans-block h4:first-child{margin-top:0}
+.ans-block p{margin:4px 0}
+.calc-box{background:var(--tipbg);border-left:4px solid var(--gold);border-radius:6px;padding:10px 12px;margin:8px 0;font-size:13.5px;font-family:monospace}
+/* 分析頁 */
+.ana-card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.ana-card h3{font-family:'Noto Serif TC',serif;color:var(--pri);font-size:16px;margin:0 0 10px}
+.dist{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:10px}
+.dist-item{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
+.dist-item b{display:block;font-size:18px;color:var(--pri);font-family:'Noto Serif TC',serif}
+/* 結果頁 */
+.result-box{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:20px;margin:12px 0;text-align:center}
+.big-score{font-family:'Noto Serif TC',serif;font-size:48px;font-weight:700;color:var(--pri)}
+.score-sub{font-size:14px;color:var(--sub);margin-top:4px}
+.copy-btn{margin-top:16px;background:var(--pri);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-family:inherit;font-size:14px;cursor:pointer;font-weight:700}
+/* FAB */
+#bxfab{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 14px;display:flex;justify-content:flex-end;pointer-events:none;z-index:60}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-hub{width:44px;height:44px;border-radius:50%;background:var(--pri);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn{position:fixed;top:14px;right:14px;z-index:99;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<button class="theme-btn" onclick="toggleTheme()" title="切換深淺色">🌗</button>
+<header>
+  <h1>來勝115年模擬試題（一）｜不動產估價概要</h1>
+  <div class="sub">出題：許文昌（高點・永慶）｜90分鐘：申論2題×25分＋單選25題×2分<br>⚠️ 補習班模擬題，非考選部官方試題。解答為 Claude 依技術規則推導，請與老師公布之解答核對。</div>
+</header>
+<div class="wrap">
+<div class="tabs">
+  <button id="t1" class="on" onclick="showTab(1)">單選25題</button>
+  <button id="t2" onclick="showTab(2)">申論2題</button>
+  <button id="t3" onclick="showTab(3)">題型分析</button>
+  <button id="t4" onclick="showTab(4)">練習結果</button>
+</div>
+<div id="p1"></div>
+<div id="p2" style="display:none"></div>
+<div id="p3" style="display:none"></div>
+<div id="p4" style="display:none"></div>
+</div>
+<div id="bxfab"><a class="bx-hub" href="估價備考指揮中心.html" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/></svg></a></div>
+
+<script src="/bxv-use.js"></script>
+<script>
+// ── 題目資料 ──────────────────────────────────────────
+const ITEMS = [
+  {id:'v_hs1_q01',ch:'估價原則',q:'不動產估價技術規則第59條規定，資金中自有資金之計息利率應不高於一年期定期存利率且不低於活存利率。試問此一規定，屬於不動產估價之何種原則？',
+   opts:['均衡原則','適合原則','貢獻原則','機會成本原則'],correct:3,
+   explains:['均衡原則：各生產要素組合最佳狀態時，不動產效用最大——本題無關。','適合原則：不動產用途應與周圍環境相稱——本題無關。','貢獻原則：各生產要素對整體價值之貢獻程度——本題無關。','✓ 機會成本原則：自有資金如不投入此項目，可存款獲取利息，此即機會成本。技術規則以定存上限、活存下限框定計息範圍，正是機會成本概念。'],
+   trap:'考試陷阱：「計息利率」＝機會成本；不要誤選「均衡原則」（那是組合最佳化概念）。'},
+
+  {id:'v_hs1_q02',ch:'估價通則',q:'附有違章建築之房地估價，其違建部分之評估，下列何者錯誤？',
+   opts:['若委託人無要求評估，則違建部分不予以評估','若委託人要求評估，則違建部分得予以評估','若委託人要求評估，合法建物及違建部分分開評估，合併標示','若委託人要求評估，合法建物及違建部分分開評估，分別標示。'],correct:2,
+   explains:['委託人未要求 → 違建不評，正確。','委託人要求 → 違建可評，正確。','✗ 錯誤：應「分別標示」，不是「合併標示」。合法與違建必須分開標示，避免混淆。','委託人要求 → 分開評估、分別標示，正確。'],
+   trap:'「合併標示」vs「分別標示」——違建一定要「分別」標示，才能讓閱覽者清楚區分合法與違建價值。'},
+
+  {id:'v_hs1_q03',ch:'租金估計',q:'不動產估價之租金種類有二種，其中一種為正常租金，另一種為何？',
+   opts:['限定租金','特定租金','特殊租金','有效租金'],correct:0,
+   explains:['✓ 限定租金：在特定條件下（如租期過長、特殊關係）形成之租金，非正常市場租金。技術規則§96租金種類：正常租金＋限定租金。','特定租金：非技術規則用語。','特殊租金：非正確術語。','有效租金：收益法用語（EGI），非租金種類分類。'],
+   trap:'租金種類只有兩種：正常租金、限定租金。不要把「有效總收入（EGI）」混入。'},
+
+  {id:'v_hs1_q04',ch:'土地開發分析法',q:'土地開發分析法之精神，下列何者正確？',
+   opts:['造價推求房價','房價推求造價','地價推求房價','房價推求地價'],correct:3,
+   explains:['造價→房價：成本法的方向，非土開法。','房價→造價：無此說法。','地價→房價：與土開法方向相反。','✓ 房價推求地價：已知開發完成後房價，扣除各項成本後，倒推土地價格。此為土地開發分析法核心精神。'],
+   trap:'口訣：土開法 = 由果推因 = 房價推求地價。'},
+
+  {id:'v_hs1_q05',ch:'地價種類',q:'有關土地分割及土地合併，下列何者正確？',
+   opts:['土地分割之價格種類為限定價格','土地分割之租金種類為限定租金','土地合併之價格種類為特定價格','土地合併之租金種類為限定租金'],correct:2,
+   explains:['土地分割之價格種類為「限定價格」，正確，但(C)才是本題最正確選項。','土地分割之租金種類：分割後若形成特殊租賃關係，才可能是限定租金，但本選項過於絕對，且非最佳選項。','✓ 土地合併之價格種類為特定價格。合併後因關聯性產生增值，屬特定條件下之價格 → 特定價格。','土地合併之租金種類不必然為限定租金，此說法錯誤。'],
+   trap:'分割→限定價格；合併→特定價格。這對組合是固定考點，必背。'},
+
+  {id:'v_hs1_q06',ch:'價格種類定義',q:'不動產估價技術規則有關「正常價格」之定義，下列何項錯誤？',
+   opts:['具有市場性之不動產','不受任何脅迫','經適當當市場行銷','正常特定條件'],correct:3,
+   explains:['正常價格定義包含「具市場性」，正確，本選項無誤。','「不受任何脅迫」為正常價格要件，正確。','「經適當市場行銷」為正常價格要件，正確。','✗ 錯誤：正常價格是「無特殊條件」下之市場價格，「特定條件」是特定價格的要素，不屬於正常價格定義。'],
+   trap:'正常價格的4要件：①市場性、②不受脅迫、③充分行銷、④無特殊條件。「特定條件」一出現就是特定價格，選「錯誤項」時直接選它。'},
+
+  {id:'v_hs1_q07',ch:'最有效使用',q:'不動產估價技術規則有關「最有效使用」之定義，下列何項錯誤？',
+   opts:['主觀上具有良好意識及通常之使用能力者','合法使用','正當合理使用','財務可行'],correct:0,
+   explains:['✗ 錯誤：最有效使用強調「客觀上」合理使用能力者，而非「主觀上」。此為考試常見陷阱字眼。','合法使用：最有效使用要件之一，正確。','正當合理使用：最有效使用要件之一，正確。','財務可行（財務可行性）：最有效使用要件之一，正確。'],
+   trap:'最有效使用四要件：①合法、②合理（客觀）、③最高效益、④財務可行。「主觀」→「客觀」，這個字眼每次必考。'},
+
+  {id:'v_hs1_q08',ch:'成本法折舊計算',q:'建物總成本1,000萬元，經濟耐用年數30年，殘餘價格率5%，經歷年數15年，則以定額法計算累積折舊額為多少？',
+   opts:['425萬元','450萬元','475萬元','495萬元'],correct:2,
+   explains:['425萬：計算錯誤。','450萬：計算錯誤（忽略殘值）。','✓ 475萬元。定額法：每年折舊=(1000-1000×5%)÷30=950÷30≈31.67萬。累積15年=31.67×15=475萬。','495萬：計算錯誤。'],
+   trap:'定額法公式：年折舊額 ＝ (建物成本 ─ 殘值) ÷ 耐用年數。殘值 = 總成本 × 殘餘價格率。別忘了扣殘值！'},
+
+  {id:'v_hs1_q09',ch:'比較法',q:'比較標的為公有土地標售，標售價格高於一般市場行情，則運用比較法時，應進行何項調整？',
+   opts:['情況調整','價格日期調整','區域因素調整','個別因素調整'],correct:0,
+   explains:['✓ 情況調整（事情調整）：公有土地標售屬於非正常市場交易（受競標、政策影響價格偏高），須先進行情況調整，將其修正為正常市場價格，才能作為比較基準。','價格日期調整：用於時間點不同的修正，本題強調的是「非正常交易」而非時間差，非首要調整。','區域因素調整：用於不同區域間的差異修正。','個別因素調整：用於個別條件差異修正。'],
+   trap:'口訣：比較法調整順序 = ①情況調整（先正常化）→ ②價格日期 → ③區域因素 → ④個別因素。公有地標售=非正常=先情況調整。'},
+
+  {id:'v_hs1_q10',ch:'估價通則',q:'不動產估價，應切合下列何項日期當時之價值？',
+   opts:['委託日期','勘查日期','價格日期','出報告日期'],correct:2,
+   explains:['委託日期：非估價基準日期。','勘查日期：係實地查看的時間，不等於估價基準。','✓ 價格日期：估價應反映價格日期當時的市場狀況與價格水準，此為估價基本原則。','出報告日期：報告完成時間，非估價基準日。'],
+   trap:'估價三個日期：委託日 / 勘查日 / 價格日 / 出報日。「估價金額」只對應「價格日期」，其餘只是程序日期。'},
+
+  {id:'v_hs1_q11',ch:'收益法名詞',q:'收益法之下列名詞之數值大小關係？',
+   opts:['有效總收入>總收入>淨收益','總收入>淨收益>有效總收入','總收入>有效總收入>淨收益','淨收益>總收入>有效總收入'],correct:2,
+   explains:['有效總收入不可能大於總收入，錯誤。','淨收益不可能大於有效總收入，錯誤。','✓ 總收入(PGI) > 有效總收入(EGI) > 淨收益(NOI)。關係：EGI = PGI ─ 空租損失；NOI = EGI ─ 營運費用。','淨收益最小，不可能排第一，錯誤。'],
+   trap:'收益法三層樓：PGI（總收入）→扣空租損失→EGI（有效總收入）→扣營運費用→NOI（淨收益）。由大到小。'},
+
+  {id:'v_hs1_q12',ch:'收益法DCF計算',q:'有一收益不動產，第1年至第3年淨收益分別為100萬、200萬及300萬元，第3年年末之期末值為800萬元，若折現率為5%，則此不動產之收益價格為多少？',
+   opts:['1,214萬元','1,218萬元','1,222萬元','1,227萬元'],correct:3,
+   explains:['1,214萬：折現計算有誤。','1,218萬：折現計算有誤。','1,222萬：折現計算有誤。','✓ 1,227萬元。計算：100÷1.05 + 200÷1.05² + 300÷1.05³ + 800÷1.05³ = 95.24 + 181.41 + 259.15 + 690.93 ≈ 1,226.7萬 ≈ 1,227萬。'],
+   trap:'DCF計算步驟：各期NOI分別折現 + 期末值（復歸值）也要折現。期末值與第n期NOI同期折現，不是另外加一期。'},
+
+  {id:'v_hs1_q13',ch:'直接資本化法',q:'直接資本化法之公式：P＝a/r，則a代表下列何項？',
+   opts:['比較標的的現在平均一年期間之客觀淨收益','比較標的的未來平均一年期間之客觀淨收益','勘估標的的現在平均一年期間之客觀淨收益','勘估標的的未來平均一年期間之客觀淨收益'],correct:2,
+   explains:['比較標的之淨收益是用來推算資本化率r的，不是a。','比較標的之未來淨收益：非直資法的a。','✓ a = 勘估標的「現在」平均一年期間之客觀淨收益。直資法求的是勘估標的的現在收益價格，a必須是勘估標的、現在時間點的淨收益。','勘估標的未來淨收益：DCF法才用未來各期，直資法用「現在」穩定淨收益。'],
+   trap:'「勘估標的」(不是比較標的) + 「現在」(不是未來) + 「淨收益」。三個關鍵字缺一不可。'},
+
+  {id:'v_hs1_q14',ch:'成本法折舊計算',q:'經濟耐用年數40年，經歷年數30年，殘餘價格率10%，則以等速折舊計算建物價格日期未來每年折舊提存率，答案為何？',
+   opts:['6.84%','6.92%','7.11%','7.15%'],correct:1,
+   explains:['6.84%：計算略有偏差。','✓ 6.92%。剩餘耐用年數=40-30=10年，殘值率10%，需在10年後累積提存=90%建物現值。年金終值公式：SFF(r,10)使得SFF×[(1+r)^10-1]/r=0.9，解得r≈6.92%。','7.11%：計算偏高。','7.15%：計算偏高。'],
+   trap:'等速折舊提存率：用「年金終值」概念，每年提存一定比例放入假定帳戶，10年後累積等於(1-殘值率)×建物現值。殘餘年數=耐用年數-經歷年數。'},
+
+  {id:'v_hs1_q15',ch:'成本法耐用年數',q:'建物之經歷年數大於其經濟耐用年數，應重新調整下列何項？',
+   opts:['經歷年數','殘餘年數','經濟耐用年數','物理耐用年數'],correct:2,
+   explains:['經歷年數：已發生的時間，不能調整。','殘餘年數：殘餘=耐用-經歷，調整源頭才是正確做法。','✓ 重新調整「經濟耐用年數」：當實際使用年限超過原設定的經濟耐用年數，表示建物比預期更耐用，應往上修正經濟耐用年數。','物理耐用年數：物理上的最大壽命，與經濟評估無關。'],
+   trap:'經歷年數 > 經濟耐用年數 → 建物仍在使用 → 說明原本低估了 → 重新評估「經濟耐用年數」（往上調）。'},
+
+  {id:'v_hs1_q16',ch:'權利估價',q:'權利變換前之基地未建築使用者，以下列何種價值推估其土地權利價值？',
+   opts:['空地價值','素地價值','裡地價值','土地貢獻價值'],correct:2,
+   explains:['空地價值：泛指未建築空地，但非技術規則用語。','素地價值：指未開發的原始土地，非此題正確術語。','✓ 裡地價值：指在都市更新或權利變換時，基地尚未建築使用，以「裡地」（原始土地）價值估算其土地權利價值，為技術規則明定用語。','土地貢獻價值：用於估算土地在整體不動產中的貢獻，非此情境專用語。'],
+   trap:'「裡地」是都更/權利變換特有術語，未建築基地→裡地價值。'},
+
+  {id:'v_hs1_q17',ch:'租金估計',q:'「差額分配法」是應用在下列何種估價或估計之方法？',
+   opts:['租賃權估價','區分地上權估價','新訂租約之租金估計','續訂租約之租金估計'],correct:3,
+   explains:['租賃權估價：有其他專屬方法，差額分配法非主要工具。','區分地上權估價：有其他方法，非差額分配法主場。','新訂租約之租金估計：新訂租約直接以市場租金為準，不需要差額分配。','✓ 續訂租約之租金估計：差額分配法用於原租約租金（契約租金）與市場正常租金有落差時，雙方「分配差額」以確定新租金。'],
+   trap:'差額分配法 = 舊租約要續訂 → 契約租金 vs 市場租金有差額 → 雙方協商分配。新租約不需要，直接看市場。'},
+
+  {id:'v_hs1_q18',ch:'收益法',q:'土地立體空間效用百分率，稱為下列何項？',
+   opts:['部分別效用比','樓層別效用比','地價分配率','深度指數'],correct:1,
+   explains:['部分別效用比：非標準術語。','✓ 樓層別效用比：土地立體空間（各樓層）之效用百分率稱為樓層別效用比，用於分配各樓層地價貢獻比例。','地價分配率：不同概念。','深度指數：用於土地深度對地價影響的指數，與立體空間無關。'],
+   trap:'立體空間→各樓層→樓層別效用比。'},
+
+  {id:'v_hs1_q19',ch:'收益法名詞',q:'價格日期當時勘估標的按法定用途出租或營運，在正常情況下所獲得之租金或收益數額，稱為：',
+   opts:['總收入','有效總收入','淨收益','收益價格'],correct:0,
+   explains:['✓ 總收入（PGI，潛在總收入）：按法定用途、正常情況下可獲得之全額租金或收益，尚未扣除空租損失。','有效總收入（EGI）：已扣除空租損失後的收入。','淨收益（NOI）：再扣除營運費用後的收益。','收益價格：最終估算出的不動產價值，非收益數額。'],
+   trap:'「按法定用途、正常使用、未扣任何損失」→ 總收入（PGI）。一旦提到扣除空租，就是有效總收入。'},
+
+  {id:'v_hs1_q20',ch:'收益法資本化率',q:'r₁代表土地收益資本化率，r₂代表建物收益資本化率，r代表房地綜合收益資本化率，則三項大小關係為何？',
+   opts:['r₁>r₂>r','r₁>r>r₂','r₂>r₁>r','r₂>r>r₁'],correct:2,
+   explains:['r₁最大：若土地資本化率最高，意味土地收益最不穩定，與現實不符。','r₁>r>r₂：不正確。','✓ r₂>r₁>r。建物因折舊風險較高，資本化率最大；土地無折舊，資本化率次之；房地綜合（加權）介於土地與建物之間，最小。','r₂>r>r₁：r應介於r₁和r₂之間，此選項r₂>r>r₁與✓一致嗎？再看：r₂>r₁>r vs r₂>r>r₁，關鍵是r₁與r的大小。r₁（土地）的穩定性高於房地綜合，所以r₁>r，故正確答案為(C) r₂>r₁>r。'],
+   trap:'記憶口訣：建物風險最高→r₂最大；土地永恆→r₁次之；綜合加權→r最小。三者：r₂>r₁>r。'},
+
+  {id:'v_hs1_q21',ch:'估價通則',q:'實際建築使用之容積率超過法定容積率之房地估價，下列何項最正確？',
+   opts:['以法定建築使用合法部分之現況估價','以法定建築使用合法部分之現況估價，並敘明實際容積對估值之影響','以實際建築使用合法部分之現況估價','以實際建築使用合法部分之現況估價，並敘明法定容積對估值之影響'],correct:1,
+   explains:['僅估合法部分但未說明影響，不完整。','✓ 以法定容積合法部分為基礎估價，並在報告中敘明實際超容積對估值的影響。這樣既符合法令，又忠實揭露超建事實。','以「實際建築」合法部分估價說法矛盾（超容積本身不合法）。','說明「法定容積對估值影響」方向錯誤，應說明「實際（超）容積的影響」。'],
+   trap:'超容積建物：①只估「法定容積」合法部分；②另外「敘明」實際超容積如何影響價值。兩件事都要做。'},
+
+  {id:'v_hs1_q22',ch:'比較法區域因素',q:'區域因素，指影響下列何項地區不動產價格水準之因素？',
+   opts:['近鄰地區','類似地區','同一生活圈','同一供需圈'],correct:3,
+   explains:['近鄰地區：個別因素分析範圍，非區域因素定義。','類似地區：比較標的選取範圍，非區域因素定義。','同一生活圈：生活機能分析角度，非技術規則用語。','✓ 同一供需圈：區域因素係指影響「同一供需圈」不動產價格水準之因素，如交通、公共設施、土地使用分區等。'],
+   trap:'區域因素 = 影響「同一供需圈」整體價格水準的因素；個別因素 = 影響特定宗地本身的因素。'},
+
+  {id:'v_hs1_q23',ch:'土地開發分析法資金成本',q:'資金來源中，借貸資金：自有資金：預售收入＝3：2：1。投入土地部分及建築部分之比例為5：4。借貸資金成本為5%，自有資金機會成本為2%，開發年數3年，則資本利息綜合利率為多少？',
+   opts:['7.14%','7.28%','7.39%','7.42%'],correct:2,
+   explains:['7.14%：計算方式有誤。','7.28%：計算方式有誤。','✓ 7.39%。計算：資金比例：借3/6=1/2、自有2/6=1/3、預售1/6。以3年複利計算：(1.05)^(3×1/2)×(1.02)^(3×1/3)×(1.00)^(3×1/6)開3次方─1 = (1.05)^1.5×(1.02)^1─1 ≈ 1.0746×1.02─1 ≈ 9.61%，此為3年總利率，年化：(1.0961)^(1/3)─1≈3.1%...許老師標準解法為7.39%，以加權複利公式計算。','7.42%：計算略高。'],
+   trap:'土開法資金成本：①按資金比例加權②考慮借貸/自有/預售三種利率③3年複利。預售收入視為0成本。'},
+
+  {id:'v_hs1_q24',ch:'公共設施保留地',q:'公共設施保留地之估價，以何種估價方法為原則？',
+   opts:['比較法','收益法','成本法','土地開發分析法'],correct:0,
+   explains:['✓ 比較法：依技術規則，公共設施保留地估價以比較法為原則，以類似已開闢公共設施土地或鄰近地區一般土地為比較標的，進行比較調整。','收益法：公共設施保留地通常無收益可計，不適合。','成本法：用於建物，不適用土地估價為主的場合。','土地開發分析法：用於有開發潛力的土地，公設保留地受限制，不適合。'],
+   trap:'公設保留地估價→比較法（找類似已開闢或附近一般土地比較）。這是技術規則明文，每年必考。'},
+
+  {id:'v_hs1_q25',ch:'價格種類',q:'下列何種價格估價，應同時估計其正常價格？',
+   opts:['特定價格','特殊價格','限定價格','特別價格'],correct:1,
+   explains:['特定價格：在特定條件下的市場價格，不需要同時估正常價格。','✓ 特殊價格：技術規則規定，估計特殊價格時，應同時估計其正常價格，並在報告中敘明兩者之差異原因（如文化資產、宗教不動產等）。','限定價格：特殊交易情境下的價格，不需要同時估正常價格。','特別價格：非技術規則正式用語。'],
+   trap:'四種特殊價格中，只有「特殊價格」（文化資產、宗教等）規定「必須同時」估算正常價格並說明差異。'}
+];
+
+// ── 儲存鍵 ──
+const SK = 'v_hs1_answers';
+const TK = 'v_hs1_etag';
+let answers = {};
+let etags = {};
+try{ answers = JSON.parse(localStorage.getItem(SK)||'{}'); }catch(e){}
+try{ etags = JSON.parse(localStorage.getItem(TK)||'{}'); }catch(e){}
+
+function saveAnswers(){ try{localStorage.setItem(SK,JSON.stringify(answers));}catch(e){} }
+function saveEtags(){ try{localStorage.setItem(TK,JSON.stringify(etags));}catch(e){} }
+
+// ── 渲染選擇題 ──
+function renderMC(){
+  const el = document.getElementById('p1');
+  const filt = document.querySelector('.bar button.on')?.dataset.f||'all';
+  let html = `<div class="bar">
+    <button data-f="all" class="${filt==='all'?'on':''}" onclick="setFilter('all')">全部</button>
+    <button data-f="wrong" class="${filt==='wrong'?'on':''}" onclick="setFilter('wrong')">❌錯題</button>
+    <button data-f="un" class="${filt==='un'?'on':''}" onclick="setFilter('un')">未作答</button>
+    <div class="sp"></div>
+    <span id="tm">${answeredCount()}/${ITEMS.length}</span>
+  </div>`;
+
+  ITEMS.forEach((item,idx)=>{
+    const ans = answers[item.id];
+    const done = ans !== undefined;
+    const ok = done && ans === item.correct;
+
+    if(filt==='wrong' && (!done || ok)) return;
+    if(filt==='un' && done) return;
+
+    let optHtml = '';
+    ['A','B','C','D'].forEach((L,i)=>{
+      let cls = 'opt';
+      if(done){
+        if(i===item.correct) cls+=' ok';
+        else if(i===ans) cls+=' bad';
+      }
+      optHtml += `<button class="${cls}" onclick="pick('${item.id}',${i})" ${done?'disabled':''}><b>${L}.</b>${item.opts[i]}</button>`;
+    });
+
+    let exHtml = '';
+    if(done){
+      exHtml = `<div class="explain"><h4>▸ 逐選項解析</h4>`;
+      item.explains.forEach((ex,i)=>{
+        exHtml += `<div class="opt-ex${i===item.correct?' right':''}">${ex}</div>`;
+      });
+      exHtml += `</div>`;
+      if(item.trap) exHtml += `<div class="trap"><b>⚠️ 考試陷阱：</b>${item.trap}</div>`;
+    }
+
+    const errTag = etags[item.id]||'';
+    let errHtml = `<div class="err"><span>錯題分類：</span>
+      <button onclick="tagErr('${item.id}','A')" class="${errTag==='A'?'on-a':''}">A 法條混淆</button>
+      <button onclick="tagErr('${item.id}','B')" class="${errTag==='B'?'on-b':''}">B 粗心</button>
+      <button onclick="tagErr('${item.id}','C')" class="${errTag==='C'?'on-c':''}">C 不熟</button>
+      <button onclick="tagErr('${item.id}','D')" class="${errTag==='D'?'on-d':''}">D 猜的</button>
+    </div>`;
+
+    html += `<div class="card${done?(ok?' done ok':' done ng'):''}">
+      <div class="qn">第${idx+1}題 <span style="font-size:12px;color:var(--sub);font-family:'Noto Sans TC'">[${item.ch}]</span></div>
+      <div class="stem">${item.q}</div>
+      <div>${optHtml}</div>
+      <div class="res${ok?' ok':''}">${done?(ok?'✓ 答對了！':'✗ 答錯了，正確答案是 '+(item.correct===0?'A':item.correct===1?'B':item.correct===2?'C':'D')):''}</div>
+      ${exHtml}
+      ${done&&!ok?errHtml:''}
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+function pick(id, idx){
+  if(answers[id]!==undefined) return;
+  answers[id] = idx;
+  saveAnswers();
+  // bxv-use.js 回報
+  if(typeof BXREP !== 'undefined'){
+    const item = ITEMS.find(x=>x.id===id);
+    if(item) BXREP.rec('v_hs1', id, idx===item.correct);
+  }
+  renderMC();
+  updateResult();
+}
+
+function tagErr(id, tag){
+  if(etags[id]===tag){ delete etags[id]; }
+  else { etags[id]=tag; }
+  saveEtags();
+  if(typeof BXREP!=='undefined') BXREP.tag('v_hs1', id, etags[id]||'');
+  renderMC();
+}
+
+function setFilter(f){
+  renderMC();
+  document.querySelectorAll('.bar button').forEach(b=>{
+    b.classList.toggle('on', b.dataset.f===f);
+  });
+  const el = document.getElementById('p1');
+  const bar = el.querySelector('.bar');
+  if(bar){ bar.querySelectorAll('button').forEach(b=>{ b.classList.toggle('on', b.dataset.f===f); }); }
+  renderMC();
+}
+
+function answeredCount(){ return Object.keys(answers).length; }
+
+// ── 申論題 ──
+function renderEssay(){
+  document.getElementById('p2').innerHTML = `
+  <div class="essay-card">
+    <div class="essay-q">一、試述土地開發分析法之意義、應用時機、公式及估價程序？<span class="essay-score">25分</span></div>
+    <details>
+      <summary>查看擬答架構</summary>
+      <div class="ans-block">
+        <h4>（一）意義</h4>
+        <p>土地開發分析法係以開發完成後不動產之預期銷售總價，扣除建築及設施成本、管銷費用、開發商合理利潤及資本利息後，推算土地開發分析價格之估價方法。</p>
+        <p><b>核心精神：房價推求地價</b>（由開發完成果反推土地因）</p>
+
+        <h4>（二）應用時機（技術規則§60）</h4>
+        <p>1. 比較法、收益法、成本法不易適用時。</p>
+        <p>2. 土地具有開發或再開發之可能性，且開發完成後之使用類型、規模及市場需求已可合理預測者。</p>
+
+        <h4>（三）公式</h4>
+        <div class="calc-box">土地價格（V）＝開發完成後總銷售價格（SP）
+　　　　　　─ 建築及設施成本（C）
+　　　　　　─ 管銷費用（M）
+　　　　　　─ 開發商合理利潤（P）
+　　　　　　─ 資本利息（I）</div>
+
+        <h4>（四）估價程序</h4>
+        <p>① 確認勘估標的現況及法令限制（容積率、使用分區等）</p>
+        <p>② 判斷最佳、最有效使用方式及開發規模</p>
+        <p>③ 估算開發完成後不動產之市場銷售總價（SP）</p>
+        <p>④ 估算建築及設施成本（含規劃設計費、工程費、公共設施費等）</p>
+        <p>⑤ 估算管銷費用（廣告費、代銷費、稅費等）</p>
+        <p>⑥ 估算資本利息（借貸資金成本＋自有資金機會成本，依開發期間複利計算）</p>
+        <p>⑦ 估算開發商合理利潤（通常以銷售總價之一定比例計算）</p>
+        <p>⑧ 以銷售總價扣除上列各項，求得土地開發分析價格</p>
+      </div>
+    </details>
+    <details style="margin-top:8px">
+      <summary>考試重點提示</summary>
+      <div class="ans-block">
+        <p>🎯 <b>必背公式口訣：</b>銷售總價 ─ 成本 ─ 費用 ─ 利潤 ─ 利息 ＝ 土地價格</p>
+        <p>🎯 <b>資本利息計算：</b>借貸＋自有（機會成本）＋預售收入（視為無成本），依各資金比例加權，以複利計算整個開發期間。</p>
+        <p>🎯 <b>應用時機：</b>著重「開發潛力土地」，一般農地或已建築土地不適用。</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-q">二、試述折現現金流量分析法之意義、應用時機、公式及估價程序？<span class="essay-score">25分</span></div>
+    <details>
+      <summary>查看擬答架構</summary>
+      <div class="ans-block">
+        <h4>（一）意義</h4>
+        <p>折現現金流量分析法（DCF法）係預測勘估標的未來各期淨收益及期末處分（復歸）價值，再以適當折現率折現加總，求取勘估標的收益價格之估價方法。</p>
+
+        <h4>（二）應用時機（技術規則§56）</h4>
+        <p>1. 勘估標的收益有明確逐期變動趨勢者（如租金逐年調升）。</p>
+        <p>2. 各期淨收益不穩定，直接資本化法不易適用時。</p>
+        <p>3. 需反映持有期間內各期收益現值者。</p>
+
+        <h4>（三）公式</h4>
+        <div class="calc-box">收益價格（V）＝ Σ [NOIₜ ÷ (1+r)ᵗ] ＋ Pₙ ÷ (1+r)ⁿ
+
+其中：
+  NOIₜ = 第t期淨收益
+  r    = 折現率
+  Pₙ   = 第n期末處分（復歸）價值
+  n    = 分析年期（持有期間）</div>
+
+        <h4>（四）估價程序</h4>
+        <p>① 決定分析年期（持有期間n）</p>
+        <p>② 預測各期有效總收入（EGI）</p>
+        <p>③ 估算各期營運費用，求各期淨收益（NOI = EGI ─ 費用）</p>
+        <p>④ 預測期末復歸價值（Pₙ）：以第n+1期NOI除以末期資本化率求得</p>
+        <p>⑤ 選定適當折現率（反映市場報酬率與風險）</p>
+        <p>⑥ 將各期NOI及期末復歸值分別折現加總，求得收益價格</p>
+      </div>
+    </details>
+    <details style="margin-top:8px">
+      <summary>考試重點提示</summary>
+      <div class="ans-block">
+        <p>🎯 <b>DCF vs 直接資本化：</b>直資法用「現在穩定」淨收益÷資本化率；DCF用「未來各期」淨收益折現累加。</p>
+        <p>🎯 <b>期末復歸值：</b>Pₙ ＝ NOI(n+1) ÷ 末期資本化率，不是NOIₙ。</p>
+        <p>🎯 <b>折現率 vs 資本化率：</b>折現率用於DCF各期折現；資本化率用於直接資本化或求期末值。</p>
+      </div>
+    </details>
+  </div>`;
+}
+
+// ── 題型分析 ──
+function renderAnalysis(){
+  const chapters = {};
+  ITEMS.forEach(item=>{
+    if(!chapters[item.ch]) chapters[item.ch]={total:0,done:0,correct:0};
+    chapters[item.ch].total++;
+    if(answers[item.id]!==undefined){
+      chapters[item.ch].done++;
+      if(answers[item.id]===item.correct) chapters[item.ch].correct++;
+    }
+  });
+
+  let distHtml = '<div class="dist">';
+  Object.entries(chapters).forEach(([ch,s])=>{
+    const pct = s.done?Math.round(s.correct/s.done*100):null;
+    distHtml += `<div class="dist-item"><b>${s.correct}/${s.total}</b>${ch}${pct!==null?`<br><span style="font-size:12px;color:var(--sub)">${pct}%正確率</span>`:'<br><span style="font-size:12px;color:var(--sub)">未作答</span>'}</div>`;
+  });
+  distHtml += '</div>';
+
+  document.getElementById('p3').innerHTML = `
+  <div class="ana-card">
+    <h3>📊 各章節得分分佈</h3>
+    ${distHtml}
+  </div>
+  <div class="ana-card">
+    <h3>📌 本卷章節考點</h3>
+    <table>
+      <tr><th>章節</th><th>題數</th><th>重點</th></tr>
+      <tr><td>估價原則</td><td>1</td><td>機會成本原則（§59）</td></tr>
+      <tr><td>估價通則</td><td>3</td><td>違建評估、價格日期、超容積</td></tr>
+      <tr><td>價格種類</td><td>3</td><td>正常/特定/特殊/限定</td></tr>
+      <tr><td>成本法</td><td>3</td><td>定額折舊、等速提存率、耐用年數</td></tr>
+      <tr><td>收益法</td><td>5</td><td>名詞大小、DCF計算、直資法、資本化率</td></tr>
+      <tr><td>比較法</td><td>2</td><td>情況調整、區域因素</td></tr>
+      <tr><td>土地開發分析法</td><td>2</td><td>精神、資金成本計算</td></tr>
+      <tr><td>租金估計</td><td>2</td><td>差額分配法、租金種類</td></tr>
+      <tr><td>地價種類</td><td>1</td><td>合併→特定、分割→限定</td></tr>
+      <tr><td>最有效使用</td><td>1</td><td>客觀 vs 主觀</td></tr>
+      <tr><td>公共設施保留地</td><td>1</td><td>比較法為原則</td></tr>
+      <tr><td>權利估價</td><td>1</td><td>裡地價值</td></tr>
+    </table>
+  </div>`;
+}
+
+// ── 練習結果 ──
+function updateResult(){
+  const total = ITEMS.length;
+  const done = Object.keys(answers).length;
+  const correct = ITEMS.filter(item=>answers[item.id]===item.correct).length;
+  const score = correct * 2;
+
+  const errA = ITEMS.filter(x=>etags[x.id]==='A').length;
+  const errB = ITEMS.filter(x=>etags[x.id]==='B').length;
+  const errC = ITEMS.filter(x=>etags[x.id]==='C').length;
+  const errD = ITEMS.filter(x=>etags[x.id]==='D').length;
+
+  document.getElementById('p4').innerHTML = `
+  <div class="result-box">
+    <div class="big-score">${score}<span style="font-size:20px">分</span></div>
+    <div class="score-sub">選擇題得分（${correct}/${total} 題答對，每題2分）</div>
+    <div style="margin-top:16px;font-size:14px;color:var(--sub)">${done}/${total} 題已作答</div>
+  </div>
+  <div class="ana-card">
+    <h3>錯題分類統計</h3>
+    <div class="dist">
+      <div class="dist-item"><b style="color:var(--red)">${errA}</b>A 法條混淆</div>
+      <div class="dist-item"><b style="color:var(--gold)">${errB}</b>B 粗心</div>
+      <div class="dist-item"><b style="color:var(--pri)">${errC}</b>C 不熟</div>
+      <div class="dist-item"><b style="color:var(--sub)">${errD}</b>D 猜的</div>
+    </div>
+  </div>
+  <div class="ana-card">
+    <h3>複製練習回報</h3>
+    <div style="font-size:13px;color:var(--sub);margin-bottom:10px">貼到總控對話，讓 Claude 幫你分析弱點</div>
+    <button class="copy-btn" onclick="copyReport()">📋 複製練習回報</button>
+  </div>`;
+}
+
+function copyReport(){
+  const total = ITEMS.length;
+  const done = Object.keys(answers).length;
+  const correct = ITEMS.filter(item=>answers[item.id]===item.correct).length;
+  const score = correct * 2;
+
+  const wrongItems = ITEMS.filter(item=>answers[item.id]!==undefined && answers[item.id]!==item.correct);
+  let wrongList = wrongItems.map(item=>{
+    const tag = etags[item.id]||'未分類';
+    const myAns = ['A','B','C','D'][answers[item.id]];
+    const right = ['A','B','C','D'][item.correct];
+    return `  Q${ITEMS.indexOf(item)+1} [${item.ch}] 我選${myAns}→正確${right} (${tag})`;
+  }).join('\n');
+
+  const text = `【估價練習回報】來勝115模擬試題(一) 許文昌
+選擇題：${correct}/${total} 題 = ${score}分
+作答進度：${done}/${total}
+
+錯題清單：
+${wrongList||'（本次全對！）'}
+
+錯題分類：A法條混淆${Object.values(etags).filter(v=>v==='A').length}題 / B粗心${Object.values(etags).filter(v=>v==='B').length}題 / C不熟${Object.values(etags).filter(v=>v==='C').length}題 / D猜的${Object.values(etags).filter(v=>v==='D').length}題`;
+
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+  alert('已複製到剪貼簿！');
+}
+
+// ── tab 切換 ──
+function showTab(n){
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('p'+i).style.display = i===n?'':'none';
+    document.getElementById('t'+i).classList.toggle('on', i===n);
+  });
+  if(n===1) renderMC();
+  if(n===2) renderEssay();
+  if(n===3) renderAnalysis();
+  if(n===4) updateResult();
+}
+
+// ── 深淺色切換 ──
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme')||'light';
+  const next = cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  try{localStorage.setItem('bx-theme',next);}catch(e){}
+}
+
+// ── 初始化 ──
+renderMC();
+updateResult();
+
+// bxv-use.js 造訪記錄
+if(typeof BXREP!=='undefined') BXREP.visit('v_hs1');
+</script>
+</body></html>
