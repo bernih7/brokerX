@@ -361,6 +361,14 @@ nav{
 }
 .chap-tile span{display:block;font-size:.68rem;font-weight:400;color:var(--muted);margin-top:2px;}
 
+/* ── 刷題進度迷你條（quiz card 上）── */
+.drill-mini{margin:7px 0 4px;}
+.drill-mini-bar{display:flex;height:7px;border-radius:4px;background:var(--line);overflow:hidden;margin-bottom:3px;}
+.drill-mini-bar .dm-s{background:#2F6B45;}
+.drill-mini-bar .dm-g{background:#B8782E;}
+.drill-mini-bar .dm-n{background:#A84030;}
+.drill-mini-txt{font-size:.68rem;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;}
+.drill-mini-txt b{font-weight:700;color:var(--fg);}
 /* ── Category progress section ── */
 .cat-prog-section{margin-bottom:20px;}
 .cat-title{font-size:.8rem;font-weight:700;color:var(--primary);margin-bottom:8px;letter-spacing:.04em;}
@@ -1340,6 +1348,55 @@ function copyReport(){
   });
 }
 
+// ── 刷題答題統計（讀 bxv-q2）──
+var BXV_CH_TOTAL={
+  "A1":44,"A2":31,"A3":44,"A4":44,"B":65,
+  "C1":57,"C2":40,"D1":42,"D2":29,"D3":13,
+  "E1":24,"F1":33,"G1":15,"H1H2":21,"H3I1":17,
+  "I2J1":20,"113":25
+};
+function injectDrillStats(){
+  var raw;
+  try{raw=JSON.parse(localStorage.getItem('bxv-q2')||'{}');}catch(e){return;}
+  // bxv-q2 structure: {chKey: {qid: {sel,ok,et}}}
+  Object.keys(BXV_CH_TOTAL).forEach(function(ch){
+    var card=document.getElementById('card-'+ch);
+    if(!card) return;
+    // 避免重複注入
+    if(card.querySelector('.drill-mini')) return;
+    var chData=raw[ch]||{};
+    var total=BXV_CH_TOTAL[ch];
+    var sure=0,gok=0,ng=0;
+    Object.values(chData).forEach(function(r){
+      if(r.ok===1){
+        if((r.et||'')==='d') gok++; else sure++;
+      } else if(r.ok===0) ng++;
+    });
+    var done=sure+gok+ng;
+    if(!done){return;} // 未作答不顯示
+    var T=total||1;
+    var sw=Math.round(sure/T*100),gw=Math.round(gok/T*100),nw=Math.round(ng/T*100);
+    var acc=Math.round((sure+gok)/done*100);
+    var pct=Math.round(done/T*100);
+    var div=document.createElement('div');
+    div.className='drill-mini';
+    div.innerHTML='<div class="drill-mini-bar">'
+      +'<div class="dm-s" style="width:'+sw+'%"></div>'
+      +'<div class="dm-g" style="width:'+gw+'%"></div>'
+      +'<div class="dm-n" style="width:'+nw+'%"></div>'
+      +'</div>'
+      +'<div class="drill-mini-txt">'
+      +'<span>已答 <b>'+done+'</b>/'+total+'（'+pct+'%）</span>'
+      +'<span>正確率 <b>'+acc+'%</b></span>'
+      +(ng?'<span style="color:#A84030">答錯 '+ng+'</span>':'')
+      +'</div>';
+    // 插入到 read-check 前
+    var rc=card.querySelector('.read-check');
+    if(rc) card.insertBefore(div,rc);
+    else card.appendChild(div);
+  });
+}
+
 // 初始化：從 localStorage 恢復所有28項狀態
 (function(){
   // 刷題 15章
@@ -1381,6 +1438,7 @@ function copyReport(){
   updateGroupBars();
   updateAllCatGrids();
   updateReport();
+  injectDrillStats();
 })();
 
 // ── 模擬卷成績 ──
