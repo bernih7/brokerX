@@ -421,7 +421,9 @@ function stats(){
 }
 function render(){
   const it=cur();if(!it)return;
-  document.getElementById("card").classList.remove("flipped");
+  const cardEl=document.getElementById("card");
+  cardEl.classList.remove("flipped");
+  cardEl.style.minHeight='480px';
   answered=false;
   document.getElementById("cBadge").textContent=CAT_LABELS[it.cat]||it.cat;
   document.getElementById("cBadge2").textContent=CAT_LABELS[it.cat]||it.cat;
@@ -464,15 +466,28 @@ function pick(chosen){
   const b=document.getElementById("ansBanner");
   if(chosen===it.correct){b.className="ans-banner ok";b.textContent="✓ 答對！正確答案是 "+LB[it.correct];}
   else{b.className="ans-banner ng";b.textContent="✗ 答錯。正確答案是 "+LB[it.correct];}
-  setTimeout(()=>document.getElementById("card").classList.add("flipped"),350);
+  setTimeout(()=>{
+    const cardEl=document.getElementById("card");
+    cardEl.classList.add("flipped");
+    // 動態撐高：讓卡片能容納背面全部內容
+    const bk=document.querySelector(".face.back");
+    cardEl.style.minHeight='';
+    cardEl.style.minHeight=Math.max(480, bk.scrollHeight+4)+'px';
+  },350);
 }
 document.getElementById("mBtn1").addEventListener("click",()=>toggleM(cur().id));
 document.getElementById("mBtn2").addEventListener("click",()=>toggleM(cur().id));
-document.getElementById("backBtn").addEventListener("click",()=>document.getElementById("card").classList.remove("flipped"));
+document.getElementById("backBtn").addEventListener("click",()=>{
+  const cardEl=document.getElementById("card");
+  cardEl.classList.remove("flipped");
+  cardEl.style.minHeight='480px';
+});
 // Click anywhere on back face (except interactive elements) to flip back
 document.querySelector(".face.back").addEventListener("click",(e)=>{
   if(e.target.closest("button,a,input,.opt,.m-btn")) return;
-  document.getElementById("card").classList.remove("flipped");
+  const cardEl=document.getElementById("card");
+  cardEl.classList.remove("flipped");
+  cardEl.style.minHeight='480px';
 });
 document.getElementById("prevBtn").addEventListener("click",()=>{if(idx>0){idx--;render();}});
 document.getElementById("nextBtn").addEventListener("click",()=>{if(idx<filtered.length-1){idx++;render();}});
@@ -515,13 +530,23 @@ document.querySelectorAll("#chapChips .chip[data-cat]").forEach(chip=>{
     chip.classList.add("active");
     currentCat=chip.dataset.cat;
     document.getElementById("fLabel").textContent=CAT_LABELS[currentCat]||currentCat;
+    // 選完自動關抽屜
+    const c=document.getElementById("chapChips");
+    c.style.display="none";
+    document.getElementById("chapToggle").textContent="📂 章節篩選 ▾";
     rebuildDeck();
   });
 });
 document.addEventListener("keydown",e=>{
   if(e.key==="ArrowRight"||e.key==="l"){if(idx<filtered.length-1){idx++;render();}}
   if(e.key==="ArrowLeft"||e.key==="h"){if(idx>0){idx--;render();}}
-  if(e.key===" "){e.preventDefault();document.getElementById("card").classList.toggle("flipped");}
+  if(e.key===" "){e.preventDefault();
+    const cardEl=document.getElementById("card");
+    const willFlip=!cardEl.classList.contains("flipped");
+    cardEl.classList.toggle("flipped");
+    if(willFlip){const bk=document.querySelector(".face.back");cardEl.style.minHeight='';cardEl.style.minHeight=Math.max(480,bk.scrollHeight+4)+'px';}
+    else{cardEl.style.minHeight='480px';}
+  }
   if(e.key==="m")toggleM(cur().id);
 });
 render();
