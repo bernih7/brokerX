@@ -131,6 +131,36 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
 }
 
 
+/* ── 速答版 / 完整版 切換 ── */
+.ver-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;background:#f0ece0;
+  border-radius:10px;margin-bottom:14px;
+  font-size:.8rem;font-weight:700;color:var(--muted);
+}
+.ver-bar .ver-label{margin-right:4px;}
+.ver-btn{
+  all:unset;cursor:pointer;padding:4px 13px;border-radius:16px;
+  font-size:.78rem;font-weight:700;border:1.5px solid var(--line);
+  background:var(--paper2);color:var(--ink);transition:.12s;
+}
+.ver-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+/* 速答版 = .quick-mode on essay-card */
+.quick-ans{display:none;}
+.essay-card.quick-mode .quick-ans{display:block;}
+.essay-card.quick-mode .detail-content{display:none;}
+.quick-ans{
+  background:#1e2820;color:#d4f5c8;
+  border-radius:10px;padding:16px 18px;
+  font-size:.88rem;line-height:1.9;
+  font-family:monospace;white-space:pre-wrap;
+  margin-bottom:4px;
+}
+.quick-ans .qa-hd{
+  font-family:"Noto Serif TC",serif;font-size:.85rem;
+  color:#7effc4;font-weight:700;margin-bottom:8px;
+  border-bottom:1px solid #3a5c40;padding-bottom:6px;
+}
 /* ── 整合控制膠囊（主題＋計數）── */
 .page-header .titles{flex:1;min-width:0}
 .hdr-controls{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;padding-top:4px}
@@ -172,11 +202,45 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
   </ul>
 </div>
 
-<!-- ======</div>">公式：Dn = C×(1-s)/N×n</span></div>
+<!-- A1: 105年第一題 -->
+<div class="essay-card" id="e105-1" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year">🔴 A級｜105年第一題</span></div>
+      <div class="card-title">成本法折舊路徑種類＋定額法計算並繪製示意圖</div>
+      <div class="card-meta"><span class="tag">公式：Dn = C×(1-s)/N×n</span></div>
     </div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜折舊路徑＋定額法計算（12分鐘版）</div>
+【定義】折舊路徑：建物價值隨時間減少的速率變化型態。
+技術規則第15條規定三種：
+① 等速折舊（定額法）  ② 初期加速折舊（定率法）  ③ 初期減速折舊（償債基金法）
+
+【公式】定額法（等速折舊）：
+  每年折舊額 = C×(1-s)/N
+  Dn = C×(1-s)/N × n
+
+【代入】C=200萬、s=5%、N=50年
+  每年折舊額 = 200×0.95÷50 = 3.8 萬元/年
+  n=10 → 現值=200-38=162萬
+  n=25 → 現值=200-95=105萬
+  n=50 → 現值=200-190=10萬（殘值）
+
+【示意圖】橫軸=年數(0→50)，縱軸=建物現值(200→10萬)
+  直線斜率固定，均勻遞減。
+
+【結論】三種折舊路徑中，定額法呈等速直線遞減，計算最簡單、最常考。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 建物累積折舊額之計算，應視建物特性及市場動態，選擇適合的折舊方法。依不動產估價技術規則的規定，有那些路徑的折舊方法？請詳述說明之。假設有一價值200萬元的建物，耐用年數50年，殘價率5%，試繪製示意圖說明之。（25分）
     </div>
@@ -205,11 +269,12 @@ C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
     <p>示意圖：橫軸為年數（0→50），縱軸為建物現值（200→10萬），圖形為斜率固定之直線，與其他兩種路徑（曲線）明顯不同。</p>
     <div class="conclusion"><strong>四、結論</strong><br>
     依技術規則，折舊路徑分等速、初期加速、初期減速三種。本題採定額法（等速），每年折舊3.8萬元，50年末殘值10萬元，呈現一條均勻遞減之直線折舊圖形。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- A2: 107年第一題 -->
-<div class="essay-card" data-pri="A">
+<div class="essay-card" id="e107-1" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜107年第一題</span></div>
@@ -219,6 +284,35 @@ C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜折現現金流量法（12分鐘版）</div>
+【定義】折現現金流量分析法（DCF）：
+  將標的不動產在持有期間內預期產生之各期淨收益，
+  以適當折現率折算為現值合計，加上期末處分價值之現值，
+  合計即為評估價值。（技術規則第60條）
+
+【公式】
+  V = Σ[NOI_t / (1+r)^t] + P_n/(1+r)^n
+  NOI=各期淨收益、r=折現率、n=持有期間、P_n=期末處分價值
+
+【應用時機】
+  ① 有明確租約且各期收益不均等
+  ② 商業不動產（飯店、百貨）
+  ③ 投資評估需敏感度分析時
+
+【程序】
+  1.決定持有期間 → 2.預測各期NOI → 3.決定折現率
+  → 4.預測期末處分價值 → 5.折現加總
+
+【陷阱】折現率≠資本化率；DCF適合收益不穩定案例。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 請列式說明定率法的折舊公式。如果一個1000萬元的建築物，以每年減損2%的速度折舊，請問第5年年末，該建築物的現值為多少？（25分）
     </div>
@@ -245,11 +339,12 @@ n = 經歷年數</div>
     </table>
     <div class="conclusion"><strong>四、結論</strong><br>
     依定率法，折舊率固定但基礎逐年縮小，故折舊金額逐年遞減，屬初期加速折舊路徑。本題建物第5年末現值約為903.9萬元，較定額法之同期現值為高（定額法：1000×0.95÷50×5=95萬折舊，現值905萬，兩法差異極小，但折舊曲線形態截然不同）。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- A3: 111年第一題 -->
-<div class="essay-card" data-pri="A">
+<div class="essay-card" id="e111-1" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜111年第一題</span></div>
@@ -259,6 +354,37 @@ n = 經歷年數</div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜土地開發分析法（12分鐘版）</div>
+【定義】土地開發分析法：
+  以開發完成後不動產總銷售價格，扣除建築及各項費用成本，
+  再折現求取土地價格。（技術規則第73條）
+
+【公式】
+  V_L = [Σ(P_i/(1+r)^i) - Σ(C_j/(1+r)^j)] × K
+  P_i=各期銷售收入、C_j=各期開發成本、r=折現率、K=土地比例
+
+  簡易版：
+  土地價格 = 總銷收入現值 - 建築費用現值 - 管銷費用現值 - 利潤現值
+
+【應用時機】
+  ① 待開發素地估價
+  ② 地目變更前後價值評估
+  ③ 容積移轉評估
+
+【程序】
+  1.規劃可開發總量 → 2.預測開發後銷售收入
+  → 3.估計各項費用 → 4.選定折現率 → 5.折現求地價
+
+【陷阱】與DCF差異：土地開發法求的是「土地價值」，DCF求的是「整體不動產價值」。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 試說明成本法中建物折舊計算方式，包含定額法、定率法及償債基金法之計算方式及各方法之折舊特性。（25分）
     </div>
@@ -285,11 +411,12 @@ i = 折舊基金之積累利率</div>
     <div class="note">⚠️ 陷阱：償債基金法「每年存入的金額是固定的」，但累積折舊是越來越快，這兩件事同時為真，不要搞混。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     三種折舊方法各對應不同折舊路徑，估價師應依建物市場特性及使用狀況選擇適當方法，以真實反映建物價值隨時間之變動趨勢。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- A4: 112年第二題 -->
-<div class="essay-card" data-pri="A">
+<div class="essay-card" id="e112-2" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜112年第二題</span></div>
@@ -299,6 +426,38 @@ i = 折舊基金之積累利率</div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜收益資本化法（12分鐘版）</div>
+【定義】收益資本化法：
+  以不動產未來可獲得之純收益，除以資本化率求得收益價格。
+  （技術規則第46條）
+
+【公式】
+  直接資本化：V = NOI / R
+  NOI=每年淨收益、R=資本化率
+
+  年金現值（有限期）：V = NOI × [1-(1+R)^-n]/R + V_n/(1+R)^n
+
+【應用時機】
+  ① 出租中商業不動產
+  ② 各期收益穩定之物件
+  ③ 市場存在可比較資本化率
+
+【收益計算步驟】
+  1.推估總收益（含應有租金）
+  2.扣除空置損失
+  3.扣除維修、稅費、管理費等運營費用
+  = 淨營業收益NOI
+
+【陷阱】資本化率≠折現率；純收益需用「應有租金」非「實際租金」。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 某建物重建成本500萬元，耐用年數40年，殘餘價格率為10%，目前已使用20年，請問：（一）依定額法計算建物現值。（二）假設市場上同類建物折舊率普遍為每年2%，請評論此折舊率是否合理？（25分）
     </div>
@@ -316,11 +475,12 @@ i = 折舊基金之積累利率</div>
     <div class="note">⚠️ 合理性判斷的答題邏輯：先算出技術規則的數字→再與市場數字比較→說明差異大小及方向→結論是否採用。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     本題建物現值為275萬元。市場折舊率2%略低於依技術規則計算之2.25%，差異尚在可接受範圍，估價師應蒐集足夠市場資料，必要時調整折舊率，並於估價報告書中完整說明理由及依據。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- A5: 99年第一題 -->
-<div class="essay-card" data-pri="A">
+<div class="essay-card" id="e99-1" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜99年第一題</span></div>
@@ -330,6 +490,38 @@ i = 折舊基金之積累利率</div>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜比較法意義與程序（12分鐘版）</div>
+【定義】比較法：
+  蒐集與勘估標的相同或相似之近期交易案例，
+  並加以比較分析，求取勘估標的價格。（技術規則第17條）
+
+【應用時機】
+  ① 交易活絡、比較案例充足之地區
+  ② 住宅、商業不動產
+
+【程序】（技術規則第18條）
+  1.蒐集比較案例（3個以上）
+  2.確認交易條件正常性
+  3.情況調整（非正常交易修正）
+  4.價格日期調整（時間修正）
+  5.區域因素調整（地區條件差異）
+  6.個別因素調整（個別條件差異）
+  7.比準價格求定
+
+【公式】
+  比準價格 = 成交價格 × 情況調整 × 價格日期調整 × 區域因素調整 × 個別因素調整
+
+【陷阱】情況調整在前（去除非正常因素），其餘調整在後；
+  區域因素調整≠個別因素調整（前者地段、後者物件特性）。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 收益法中，資本化率（capitalization rate）之計算方法有那些？試說明加權平均資本成本法（WACC）之計算方式，並舉例說明之。（25分）
     </div>
@@ -363,11 +555,12 @@ WACC ＝ 60% × 6.72% + 40% × 8%
     <div class="note">⚠️ 陷阱：Rm是「抵押貸款常數」（年還款額/貸款額），不是貸款利率本身。這是WACC最常算錯的地方。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     WACC法（帶狀投資法）透過貸款與自有資金之加權，合理反映不動產投資之整體融資成本。上例計算結果資本化率為7.23%，意即每100元投資標的，年淨收益應達7.23元方符合市場報酬要求。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- A6: 104年第二題 -->
-<div class="essay-card" data-pri="A">
+<div class="essay-card" id="e104-2" data-pri="A">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜104年第二題</span></div>
@@ -377,6 +570,42 @@ WACC ＝ 60% × 6.72% + 40% × 8%
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-hd">⚡ 速答版｜成本法意義與程序（12分鐘版）</div>
+【定義】成本法：
+  以估計勘估標的之重建成本或重置成本，
+  扣減折舊後加計土地價格，求取勘估標的價格。（技術規則第13條）
+
+【公式】
+  不動產價格 = 土地價格 + (重建成本 - 折舊額)
+  折舊額 = Σ各折舊方法計算結果
+
+【應用時機】
+  ① 無交易案例之特殊不動產（廟宇、政府建物）
+  ② 保險評估、徵收補償
+  ③ 新建物估價
+
+【程序】
+  1.估算土地價格（用比較法）
+  2.估算重建成本或重置成本
+  3.計算折舊額（定額/定率/償債基金法）
+  4.求取建物現值 = 重建成本 - 折舊額
+  5.合計土地＋建物現值
+
+【三種折舊法比較】
+  定額法：均等折舊，適一般建物
+  定率法：初期快後期慢，適機器設備
+  償債基金法：初期慢後期快，適公共建設
+
+【陷阱】重建成本≠重置成本（前者相同材料重建、後者現行同功能建物）。
+    </div>
+    <div class="detail-content">
+
     <div class="q-box">
       <strong>【原題】</strong> 試說明成本法估價中，建物折舊提存費之意義，並說明如何求取建物現值？請以一具體例子說明計算過程。（25分）
     </div>
@@ -399,13 +628,14 @@ WACC ＝ 60% × 6.72% + 40% × 8%
     <div class="note">⚠️ 注意：「折舊提存費」在成本法估價中是「現值 = 重建成本 - 折舊額」，而「折舊提存費」在收益法（淨收益計算）中則是「淨收益要扣除的費用項目」，兩種脈絡意義不同，不要混用。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     成本法中折舊提存費代表建物之實際耗損，應依建物物理、功能及經濟折舊之實際情形選擇適當折舊方法計算。本例定額法計算15年累積折舊216萬元，建物現值為584萬元，合理反映該建物之現況價值。</div>
+      </div><!-- /detail-content -->
   </div>
 </div>
 
 <!-- ===================== B級 13題 ===================== -->
 
 <!-- B1: 100年第一題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e100-1" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜100年第一題</span></div>
@@ -440,7 +670,7 @@ WACC ＝ 60% × 6.72% + 40% × 8%
 </div>
 
 <!-- B2: 102年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e102-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜102年第二題</span></div>
@@ -477,7 +707,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B3: 105年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e105-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜105年第二題</span></div>
@@ -506,7 +736,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B4: 109年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e109-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜109年第二題</span></div>
@@ -548,7 +778,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B5: 113年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e113-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜113年第二題</span></div>
@@ -586,7 +816,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B6: 99年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e99-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜99年第二題</span></div>
@@ -618,7 +848,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B7: 102年第一題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e102-1" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜102年第一題</span></div>
@@ -648,7 +878,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B8: 110年第一題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e110-1" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜110年第一題</span></div>
@@ -677,7 +907,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B9: 101年第二題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e101-2" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜101年第二題</span></div>
@@ -707,7 +937,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B10: 114年第一題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e114-1" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜114年第一題</span></div>
@@ -737,7 +967,7 @@ V ＝ SR－BC－Fees－CI－Profit</div>
 </div>
 
 <!-- B11: 113年第一題 -->
-<div class="essay-card" data-pri="B">
+<div class="essay-card" id="e113-1" data-pri="B">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-b">🟡 B級｜113年第一題</span></div>
@@ -792,7 +1022,7 @@ t = 各年度，r = 折現率，n = 持有期間
 <!-- ===================== C級 13題 ===================== -->
 
 <!-- C1: 100年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e100-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜100年第二題</span></div>
@@ -818,7 +1048,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C2: 101年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e101-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜101年第一題</span></div>
@@ -851,7 +1081,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C3: 103年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e103-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜103年第一題</span></div>
@@ -883,7 +1113,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C4: 103年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e103-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜103年第二題</span></div>
@@ -912,7 +1142,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C5: 104年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e104-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜104年第一題</span></div>
@@ -943,7 +1173,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C6: 106年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e106-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜106年第一題</span></div>
@@ -970,7 +1200,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C7: 106年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e106-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜106年第二題</span></div>
@@ -1003,7 +1233,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C8: 107年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e107-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜107年第二題</span></div>
@@ -1030,7 +1260,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C9: 108年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e108-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜108年第一題</span></div>
@@ -1057,7 +1287,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C10: 108年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e108-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜108年第二題</span></div>
@@ -1083,7 +1313,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C11: 109年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e109-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜109年第一題</span></div>
@@ -1111,7 +1341,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C12: 110年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e110-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜110年第二題</span></div>
@@ -1137,7 +1367,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C13: 112年第一題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e112-1" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜112年第一題</span></div>
@@ -1166,7 +1396,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C14: 111年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e111-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜111年第二題</span></div>
@@ -1199,7 +1429,7 @@ t = 各年度，r = 折現率，n = 持有期間
 </div>
 
 <!-- C15: 114年第二題 -->
-<div class="essay-card" data-pri="C">
+<div class="essay-card" id="e114-2" data-pri="C">
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜114年第二題</span></div>
@@ -1452,6 +1682,39 @@ function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t
 function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
 function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
 (function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+</script>
+<script>
+// 速答版 / 完整版 切換
+function setVer(card, mode){
+  if(mode==='quick') card.classList.add('quick-mode');
+  else card.classList.remove('quick-mode');
+  var btns=card.querySelectorAll('.ver-btn');
+  btns.forEach(function(b){
+    b.classList.toggle('active', b.dataset.ver===mode);
+  });
+}
+</script>
+<script>
+// Hash navigation: auto-open and scroll to card when URL has #eYY-Q
+(function(){
+  function jumpToHash(){
+    var h = location.hash.replace('#','');
+    if(!h) return;
+    var el = document.getElementById(h);
+    if(!el) return;
+    if(!el.classList.contains('open')){
+      var hdr = el.querySelector('.card-header');
+      if(hdr) hdr.click();
+    }
+    setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 180);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', jumpToHash);
+  } else {
+    jumpToHash();
+  }
+  window.addEventListener('hashchange', jumpToHash);
+})();
 </script>
 </body>
 </html>

@@ -918,10 +918,15 @@ nav{
       <button class="pri-btn" onclick="filterEssay('C',this)">🟢 C級 略讀</button>
     </div>
     <table class="essay-table" id="essay-table">
-      <thead><tr><th>年度-題</th><th>核心主題</th><th>難度</th><th>等級</th></tr></thead>
+      <thead><tr><th>年度-題</th><th>核心主題</th><th>難度</th><th>等級</th><th>範文</th></tr></thead>
       <tbody id="essay-tbody"></tbody>
     </table>
-    <div class="sec-title">估價申論答題架構（計算題版）</div>
+    <div class="sec-title" style="margin-top:20px;">📝 模擬題申論（補充練習）</div>
+    <table class="essay-table">
+      <thead><tr><th>來源</th><th>題序</th><th>核心主題</th><th>難度</th><th>連結</th></tr></thead>
+      <tbody id="sim-tbody"></tbody>
+    </table>
+    <div class="sec-title" style="margin-top:20px;">估價申論答題架構（計算題版）</div>
     <div class="notice-box">
       <strong>計算題版四段式</strong>：<br>
       ① <strong>定義</strong>：說明所用估價方法的定義與適用情境（技術規則條號）<br>
@@ -1494,13 +1499,22 @@ var essayData=[
   {yr:'114-一',topic:'實質租金定義＋不動產租金估計應考慮之因素',hard:'說明',pri:'B'},
   {yr:'114-二',topic:'不動產估價方法選取原則＋比較法/收益法/成本法適用時機',hard:'說明',pri:'A'},
 ];
+function yrToAnchor(yr){
+  // "99-一" → "e99-1", "114-二" → "e114-2"
+  var m=yr.match(/^(\d+)-(一|二)$/);
+  if(!m)return null;
+  return 'e'+m[1]+'-'+(m[2]==='一'?'1':'2');
+}
+var ESSAY_URL='https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html';
 function renderEssay(filter){
   var tb=document.getElementById('essay-tbody');if(!tb)return;tb.innerHTML='';
   essayData.forEach(function(r){
     if(filter!=='all'&&r.pri!==filter)return;
     var tr=document.createElement('tr');
     var p=r.pri==='A'?'<span class="pri-a">🔴 A</span>':r.pri==='B'?'<span class="pri-b">🟡 B</span>':'<span class="pri-c">🟢 C</span>';
-    tr.innerHTML='<td>'+r.yr+'</td><td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td>';
+    var anc=yrToAnchor(r.yr);
+    var lnk=anc?'<a href="'+ESSAY_URL+'#'+anc+'" target="_blank" style="font-size:.78rem;color:var(--accent-g);text-decoration:none;white-space:nowrap;">📄 範文</a>':'-';
+    tr.innerHTML='<td>'+r.yr+'</td><td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td><td>'+lnk+'</td>';
     tb.appendChild(tr);
   });
 }
@@ -1510,6 +1524,25 @@ function filterEssay(f,btn){
   if(btn)btn.classList.add('active');
   renderEssay(f);
 }
+
+// ── 模擬題 ──
+var simData=[
+  {src:'模擬試題一', q:'申論一', topic:'土地開發分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_模擬試題一.html'},
+  {src:'模擬試題一', q:'申論二', topic:'折現現金流量分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_模擬試題一.html'},
+  {src:'模擬試題二', q:'申論一', topic:'成本法意義/程序＋定率遞減法公式及計算（重建成本800萬、50年、殘值率10%、已使用20年）', hard:'計算', href:'估價_模擬試題二.html'},
+  {src:'模擬試題二', q:'申論二', topic:'比較法意義/程序＋情況調整意義及區域/個別因素調整差異', hard:'說明', href:'估價_模擬試題二.html'},
+  {src:'模擬試題三', q:'申論一', topic:'（詳見試題三）', hard:'計算', href:'估價_模擬試題三.html'},
+  {src:'模擬試題三', q:'申論二', topic:'（詳見試題三）', hard:'說明', href:'估價_模擬試題三.html'},
+];
+(function(){
+  var tb=document.getElementById('sim-tbody');if(!tb)return;
+  simData.forEach(function(r){
+    var tr=document.createElement('tr');
+    var lnk='<a href="https://bernih7.github.io/brokerX/'+encodeURIComponent(r.href)+'" target="_blank" style="font-size:.78rem;color:var(--accent-g);text-decoration:none;white-space:nowrap;">📝 試題</a>';
+    tr.innerHTML='<td>'+r.src+'</td><td>'+r.q+'</td><td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+lnk+'</td>';
+    tb.appendChild(tr);
+  });
+})();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script>
