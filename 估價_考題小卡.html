@@ -370,6 +370,34 @@ function hlKey(txt){
   s=s.replace(/\+\+(.+?)\+\+/g,'<span style="color:var(--green);font-weight:700">$1</span>');
   // 底線高亮 ==text==
   s=s.replace(/==(.+?)==/g,'<mark style="background:rgba(184,120,46,.18);padding:0 2px;border-radius:3px;font-weight:700">$1</mark>');
+  // ── 自動術語高亮（估價學核心概念）──
+  // 主幹法條／規則名稱 → 金色粗體
+  const lawTerms=['不動產估價技術規則','估價技術規則','平均地權條例','土地法','都市計畫法',
+    '地政士法','不動產經紀業管理條例','內政部','地價稅','土地增值稅','房屋稅'];
+  lawTerms.forEach(t=>{
+    s=s.replace(new RegExp('(?<![>\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w<])','g'),
+      `<span style="color:var(--gold);font-weight:700">${t}</span>`);
+  });
+  // 估價方法核心詞 → 主色（松煙綠）粗體
+  const methodTerms=['比較法','成本法','收益法','開發法','直接資本化','折現現金流量','DCF',
+    'WACC','加權平均資金成本','資本化率','折現率','最有效使用','定額法','定率法','償債基金法',
+    '重建成本法','重置成本法','殘餘法','地價','路線價','估價報告書','估價師'];
+  methodTerms.forEach(t=>{
+    s=s.replace(new RegExp('(?<![>\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w<])','g'),
+      `<strong style="color:var(--pri)">${t}</strong>`);
+  });
+  // 正確答案關鍵詞（與題目相符等） → 綠色粗體
+  const correctMarkers=['與題目敘述相符','與題目所述相符','完全相符','與題目描述相符'];
+  correctMarkers.forEach(t=>{
+    s=s.replace(new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g'),
+      `<span style="color:var(--green);font-weight:700">${t}</span>`);
+  });
+  // 錯誤/陷阱提示 → 紅色粗體
+  const wrongMarkers=['無關','不符','不同','並非','非技術規則','並無','誤以為','常見錯誤'];
+  wrongMarkers.forEach(t=>{
+    s=s.replace(new RegExp('(?<![>\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w<])','g'),
+      `<span style="color:var(--stamp);font-weight:700">${t}</span>`);
+  });
   return s;
 }
 
