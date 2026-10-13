@@ -9,10 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F8F3E9; --ink:#2A2722; --vermillion:#A8402B; --gold:#BC8A2E;
-  --green:#3F6B4C; --line:#DDD2BB; --paper2:#FBF8F0; --muted:#8A7F6E;
-  /* 四大方法色系 */
-  --cost:#7B5C8C; --comp:#C17A2E; --income:#A8402B; --land:#3E6B8C;
+  /* 松煙綠 BrokerX 設計語言 */
+  --paper:#F5F1E6; --paper2:#FFFEFA; --ink:#25302C; --muted:#66706A;
+  --primary:#2F5D50; --pri2:#3E7566; --key:#8A5517;
+  --gold:#B8782E; --green:#2F6B45; --stamp:#A84030; --land:#1E6B8C;
+  --line:#DDD6C0;
+  /* 四大方法色系（對應松煙綠系）*/
+  --cost:#7B5C8C; --comp:#B8782E; --income:#A84030; --inc2:#1E6B8C;
+  /* backward compat aliases */
+  --vermillion:#A84030;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
@@ -21,7 +26,7 @@ body{
 }
 h1,h2,h3,h4{font-family:"Noto Serif TC",serif;}
 header{
-  background:linear-gradient(135deg,var(--vermillion),#8c3322);
+  background:linear-gradient(135deg,var(--primary),#1e4038);
   color:#fff; padding:28px 20px 22px; text-align:center;
   position:relative; overflow:hidden;
 }
@@ -44,7 +49,7 @@ header .sub{font-size:.88rem; opacity:.9; position:relative;}
   background:var(--paper2); color:var(--ink); cursor:pointer; transition:.15s;
 }
 .f-btn:hover{border-color:var(--gold);}
-.f-btn.active{background:var(--vermillion); color:#fff; border-color:var(--vermillion);}
+.f-btn.active{background:var(--primary); color:#fff; border-color:var(--primary);}
 
 main{max-width:860px; margin:0 auto; padding:20px 16px;}
 
@@ -61,7 +66,7 @@ main{max-width:860px; margin:0 auto; padding:20px 16px;}
 .card-header:hover{background:#f0e8d8;}
 .card-header-left{flex:1;}
 .card-year{
-  font-size:.75rem; font-weight:700; color:#fff; background:var(--vermillion);
+  font-size:.75rem; font-weight:700; color:#fff; background:var(--stamp);
   padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:6px;
 }
 .card-year.tier-b{background:var(--gold);}
@@ -78,11 +83,11 @@ main{max-width:860px; margin:0 auto; padding:20px 16px;}
 .essay-card.open .card-body{display:block;}
 
 .q-box{
-  background:#f8e3df; border-left:4px solid var(--vermillion);
+  background:#e8eeec; border-left:4px solid var(--primary);
   padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:20px;
   font-size:.88rem; line-height:1.7;
 }
-.q-box strong{color:var(--vermillion);}
+.q-box strong{color:var(--primary);}
 .section-h{
   font-family:"Noto Serif TC",serif; font-size:.95rem; font-weight:700;
   color:var(--ink); margin:18px 0 8px; padding-bottom:5px;
@@ -115,7 +120,7 @@ li{margin-bottom:6px; font-size:.93rem;}
   background:var(--paper2); border:1.5px solid var(--line); border-radius:12px;
   padding:18px 20px; margin-bottom:20px;
 }
-.usage-box h3{font-size:.95rem; color:var(--vermillion); margin-bottom:10px;}
+.usage-box h3{font-size:.95rem; color:var(--primary); margin-bottom:10px;}
 .usage-box li{font-size:.88rem;}
 
 footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;}
@@ -139,21 +144,18 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 </style>
-<style>
-
-  color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
-</style><script src="/bxv-use.js"></script>
+<script src="/bxv-use.js"></script>
 </head>
 <body>
 <header>
   <h1>📝 不動產估價｜申論題實戰範文</h1>
-  <div class="sub">32題完整版（A/B/C三級）· 四段式架構（定義→法條→計算→結論）· 99–114年</div>
+  <div class="sub">32題完整版＋2題延伸模擬（A/B/C三級）· 四段式架構（定義→法條→計算→結論）· 99–114年</div>
 </header>
 
 <div class="filter-bar">
   <span class="filter-label">篩選：</span>
-  <button class="f-btn active" onclick="filterCards('all',this)">全部（32題）</button>
-  <button class="f-btn" onclick="filterCards('A',this)">🔴 A級必練（6題）</button>
+  <button class="f-btn active" onclick="filterCards('all',this)">全部（34題）</button>
+  <button class="f-btn" onclick="filterCards('A',this)">🔴 A級必練（8題）</button>
   <button class="f-btn" onclick="filterCards('B',this)">🟡 B級了解（13題）</button>
   <button class="f-btn" onclick="filterCards('C',this)">🟢 C級略讀（13題）</button>
 </div>
@@ -1224,10 +1226,196 @@ t = 各年度，r = 折現率，n = 持有期間
   </div>
 </div>
 
+<!-- ===== 延伸模擬題 ===== -->
+<div class="usage-box" style="border-left:4px solid var(--key);background:var(--paper);">
+  <h3 style="color:var(--key);">🔴 延伸模擬題（A級必練）</h3>
+  <ul>
+    <li>以下為依 A級考點出題比例延伸的新模擬題，附標準版與強化版兩種作答範本</li>
+    <li>建議：計時12分鐘先自行作答，再對照範文核對公式與邏輯</li>
+  </ul>
+</div>
+
+<!-- 模擬題① 成本法折舊 -->
+<div class="essay-card" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year">🔴 A級必練</span>
+      <div class="card-title">【延伸模擬①】成本法折舊三路徑計算（定額、定率、償債基金法）</div>
+      <div class="card-meta">
+        <span class="tag">成本法</span>
+        <span class="tag">折舊計算</span>
+        <span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【模擬題】</strong> 依不動產估價技術規則之規定，試述建物折舊的三種路徑方法，並舉例說明其異同。假設某建物重建成本為1,200萬元，耐用年數40年，殘餘價格率10%，屋齡8年，年利率2%，試分別以定額法、定率法及償債基金法計算該建物之折舊額及現值。（25分）
+    </div>
+
+    <div class="section-h">▍版本A — 標準作答</div>
+
+    <div class="section-h">一、折舊三路徑之定義與適用</div>
+    <ol>
+      <li><strong>等速折舊（定額法）</strong>：每年折舊金額固定不變，呈直線遞減。適用一般建物。</li>
+      <li><strong>初期加速折舊（定率法）</strong>：初期折舊快、後期漸緩，曲線呈凹型。適用機器、設備等折舊較快之建物。</li>
+      <li><strong>初期減速折舊（償債基金法）</strong>：初期折舊慢、後期加速，曲線呈凸型。適用耐久性高、後期需大量維修之建物。</li>
+    </ol>
+    <div class="note">⚠️ 考試陷阱：三種路徑名稱不可混淆——定額＝等速、定率＝初期加速、償債基金＝初期減速。</div>
+
+    <div class="section-h">二、定額法計算</div>
+    <div class="formula-box">每年折舊額 ＝ C × (1 － s) ÷ N
+＝ 1,200 × (1 － 10%) ÷ 40
+＝ 1,200 × 0.9 ÷ 40
+＝ <strong>27 萬元/年</strong>
+
+8年累積折舊額 ＝ 27 × 8 ＝ 216 萬元
+建物現值 ＝ 1,200 － 216 ＝ <strong>984 萬元</strong>
+
+C=重建成本(1200萬)、s=殘餘價格率(10%)、N=耐用年數(40年)</div>
+
+    <div class="section-h">三、定率法計算</div>
+    <div class="formula-box">定率法折舊率 r ＝ 1 － (s)^(1/N)
+＝ 1 － (0.1)^(1/40)
+＝ 1 － 0.9442 ＝ 約 <strong>5.59%</strong>
+
+第1年折舊 ＝ 1,200 × 0.0559 ≈ 67.1 萬
+第2年折舊 ＝ (1,200 － 67.1) × 0.0559 ≈ 63.3 萬
+…（每年以剩餘現值為基礎計算）
+
+8年後建物現值 ＝ C × s^(n/N)
+＝ 1,200 × (0.1)^(8/40)
+＝ 1,200 × (0.1)^0.2
+≈ 1,200 × 0.6310 ≈ <strong>757.2 萬元</strong>
+折舊總額 ＝ 1,200 － 757.2 ≈ <strong>442.8 萬元</strong></div>
+
+    <div class="section-h">四、償債基金法計算</div>
+    <div class="formula-box">每年折舊攤提額（存入基金）:
+d ＝ C × (1 － s) × i ÷ [(1＋i)^N － 1]
+＝ 1,200 × 0.9 × 0.02 ÷ [(1.02)^40 － 1]
+＝ 1,080 × 0.02 ÷ [2.2080 － 1]
+＝ 21.6 ÷ 1.2080 ≈ <strong>17.88 萬元/年</strong>
+
+8年累積基金 ＝ 17.88 × [(1.02)^8 － 1] ÷ 0.02
+≈ 17.88 × 8.5830 ≈ <strong>153.5 萬元</strong>（複利累積）
+建物現值 ＝ 1,200 － 153.5 ≈ <strong>1,046.5 萬元</strong>
+
+i=年利率(2%)、n=屋齡(8年)</div>
+
+    <div class="section-h">五、三種方法比較</div>
+    <table>
+      <tr><th>方法</th><th>8年折舊額</th><th>建物現值</th><th>折舊路徑</th></tr>
+      <tr><td>定額法</td><td>216.0 萬</td><td>984.0 萬</td><td>等速直線</td></tr>
+      <tr><td>定率法</td><td>442.8 萬</td><td>757.2 萬</td><td>初期加速</td></tr>
+      <tr><td>償債基金法</td><td>153.5 萬</td><td>1,046.5 萬</td><td>初期減速</td></tr>
+    </table>
+
+    <div class="conclusion"><strong>結論：</strong>三種方法因折舊速度不同，導致同一建物之現值差異甚大（最多相差約290萬元）。估價師應依建物性質、市場習慣及估價目的，選擇最能反映市場實際折舊行為之方法。</div>
+
+    <div class="section-h" style="margin-top:24px;">▍版本B — 強化版（多加陷阱分析）</div>
+    <div class="note" style="background:#e8eeec;border-color:var(--primary);">
+      <strong style="color:var(--primary);">💡 版本B與版本A的差異：</strong>在版本A基礎上，增加「考試常見錯誤分析」與「出題角度預測」，適合最後衝刺。
+    </div>
+
+    <div class="section-h">補充一：為什麼三種方法折舊金額差這麼多？</div>
+    <p>關鍵在於「折舊認列的時間分佈」不同：</p>
+    <ul>
+      <li><strong>定額法</strong>：每年認列相同金額，前8年共認列全期20%（8/40）的折舊，符合一般直覺。</li>
+      <li><strong>定率法</strong>：前8年已認列高達36.9%的折舊（442.8/1200），大幅超過直線比例，反映建物初期折舊快速的市場現實。</li>
+      <li><strong>償債基金法</strong>：前8年僅認列12.8%的折舊（153.5/1200），遠低於直線比例，因為它假設每年提存的款項在未來能以複利增值，故初期提存較少。</li>
+    </ul>
+
+    <div class="section-h">補充二：考題常挖的三個坑</div>
+    <ol>
+      <li>❌ 把「定率法」誤稱為「等速折舊」——等速才是定額法，要記清楚。</li>
+      <li>❌ 償債基金法的計算忘記乘「年金終值係數」，直接用年提存額乘以年數，會嚴重低估基金累積額。</li>
+      <li>❌ 定率法公式套錯——現值應為 C × s^(n/N)，不是 C × (1 - r)^n（後者是近似式，數值有落差）。</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 模擬題② 收益法資本化率 -->
+<div class="essay-card" data-pri="A">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year">🔴 A級必練</span>
+      <div class="card-title">【延伸模擬②】收益法資本化率決定方法（WACC加權平均資金成本法）</div>
+      <div class="card-meta">
+        <span class="tag">收益法</span>
+        <span class="tag">資本化率</span>
+        <span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span>
+      </div>
+    </div>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="q-box">
+      <strong>【模擬題】</strong> 試說明不動產估價技術規則中，收益法之資本化率決定方法有哪些？並以下列條件計算某辦公室之資本化率：自有資金佔30%、年報酬率7%；借款資金佔70%、年利率2.5%；估計之年淨收益為60萬元。以加權平均資金成本法（WACC）求出資本化率，並計算該不動產之收益價格。（25分）
+    </div>
+
+    <div class="section-h">▍版本A — 標準作答</div>
+
+    <div class="section-h">一、資本化率決定方法（技術規則第48條）</div>
+    <ol>
+      <li><strong>加權平均資金成本法（WACC）</strong>：依自有資金報酬率與借款利率之加權平均計算。</li>
+      <li><strong>市場萃取法（比較法）</strong>：從近期相似不動產交易中，反推資本化率之市場水準。</li>
+      <li><strong>累加法（建置法）</strong>：以無風險利率為基礎，累加各項風險溢酬（流動性風險、管理風險、資本回收風險等）。</li>
+    </ol>
+    <div class="note">⚠️ 考試重點：至少要能背出三種方法名稱，並能說明WACC的計算邏輯。</div>
+
+    <div class="section-h">二、WACC計算資本化率</div>
+    <div class="formula-box">資本化率 r ＝ 自有資金比例 × 自有資金報酬率 ＋ 借款比例 × 借款利率
+
+r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
+  ＝ 2.1% ＋ 1.75%
+  ＝ <strong>3.85%</strong></div>
+
+    <div class="section-h">三、計算收益價格</div>
+    <div class="formula-box">收益價格 ＝ 年淨收益 ÷ 資本化率
+         ＝ 60 萬元 ÷ 3.85%
+         ＝ 60 ÷ 0.0385
+         ≈ <strong>1,558.4 萬元</strong></div>
+
+    <div class="conclusion"><strong>結論：</strong>以WACC法計算之資本化率為3.85%，據以推算該辦公室之收益價格約為1,558萬元。在實務中，估價師應再以市場萃取法核驗此一資本化率是否符合市場現況，確保估價結果之合理性。</div>
+
+    <div class="section-h" style="margin-top:24px;">▍版本B — 強化版（加市場萃取法比較）</div>
+    <div class="note" style="background:#e8eeec;border-color:var(--primary);">
+      <strong style="color:var(--primary);">💡 版本B加分亮點：</strong>在標準作答之外，主動說明「資本化率合理性驗核」，展現多方法並用能力。
+    </div>
+
+    <div class="section-h">補充一：市場萃取法（補充驗核）</div>
+    <div class="formula-box">若已知近期成交案例：
+  成交價 = 1,500 萬元，年淨收益 = 57 萬元
+  市場萃取資本化率 ＝ 57 ÷ 1,500 ＝ 3.80%
+
+與 WACC 計算值 3.85% 相近，差異約 0.05%，
+在可接受範圍內（一般±0.5%），可相互佐證採用 3.85%。</div>
+
+    <div class="section-h">補充二：累加法說明</div>
+    <table>
+      <tr><th>構成項目</th><th>加計利率</th><th>說明</th></tr>
+      <tr><td>無風險利率（10年期公債）</td><td>1.50%</td><td>資金最低機會成本</td></tr>
+      <tr><td>流動性風險溢酬</td><td>0.80%</td><td>不動產變現能力較弱</td></tr>
+      <tr><td>管理風險溢酬</td><td>0.60%</td><td>租賃管理成本</td></tr>
+      <tr><td>資本回收率</td><td>1.00%</td><td>建物折舊補償（耐用100年→1%）</td></tr>
+      <tr><td><strong>合計（累加法資本化率）</strong></td><td><strong>3.90%</strong></td><td></td></tr>
+    </table>
+    <div class="note">三種方法結果：WACC=3.85%、市場萃取=3.80%、累加法=3.90%，三者均接近，可採用 <strong>3.85%</strong> 作為最終資本化率，收益價格約 <strong>1,558 萬元</strong>。</div>
+
+    <div class="section-h">補充三：常見考題陷阱</div>
+    <ol>
+      <li>❌ 混淆「資本化率」與「折現率」——兩者都用在收益法，但資本化率用於直接法（無限期），折現率用於DCF法（有限期）。</li>
+      <li>❌ WACC計算時忘記乘以各自的比例，直接相加7%+2.5%=9.5%，嚴重高估資本化率。</li>
+      <li>❌ 收益價格公式顛倒，誤用「年淨收益 × 資本化率」，結果只有2.3萬，明顯不合理。</li>
+    </ol>
+  </div>
+</div>
+
 </main>
 
 <footer>
-  不動產估價概要｜申論題實戰範文 32題完整版（99–114年）· BrokerX 115年備考
+  不動產估價概要｜申論題實戰範文 32題完整版＋延伸模擬（99–114年）· BrokerX 115年備考
 </footer>
 
 <script>
