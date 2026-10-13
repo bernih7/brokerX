@@ -150,6 +150,35 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 }
 .theme-toggle:hover{background:var(--ink);color:var(--bg);}
 
+
+/* ===== 進度條面板 ===== */
+.prog-panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px;}
+.pbar{position:relative;display:flex;height:12px;background:var(--line);border-radius:6px;margin:6px 0 26px;}
+.pbar .s{display:block;height:100%;}
+.pbar .s:first-child{border-radius:6px 0 0 6px;}
+.s.sure{background:var(--green);}
+.s.gok{background:var(--gold);}
+.s.ng{background:var(--red);}
+.pbar .ln{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);transform:translateX(-1px);}
+.pbar .ln::after{content:attr(data-v) "%";position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:.64rem;font-weight:700;color:var(--ink);margin-top:3px;white-space:nowrap;}
+.pbar .ln.goal{background:var(--gold);}
+.pbar .ln.goal::after{color:var(--key);}
+.ptxt{color:var(--ink);font-size:.8rem;line-height:1.7;}
+.ptxt b{font-weight:900;}
+.pgoal{margin-top:2px;color:var(--sub);font-size:.78rem;}
+.pleg{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:.7rem;color:var(--sub);}
+.pleg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:3px;vertical-align:-1px;}
+.pcat{margin-top:6px;font-size:.75rem;color:var(--ink);}
+.ptools{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.bxm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:80;align-items:center;justify-content:center;padding:16px;}
+.bxm.on{display:flex;}
+.bxb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;width:100%;max-width:540px;}
+.bxt{font-weight:700;font-size:.9rem;margin-bottom:8px;color:var(--ink);}
+.bxb textarea{width:100%;font-family:inherit;font-size:.78rem;border:1px solid var(--line);border-radius:8px;padding:8px;color:var(--ink);background:var(--opt);resize:vertical;}
+.bxmsg{font-size:.78rem;color:var(--green);min-height:1.2em;margin-top:6px;}
+.bxa{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.btn.rep{border-color:var(--gold);color:var(--gold);}
+.btn.rep:hover{background:var(--gold);color:#fff;}
 </style>
 <script src="/bxv-use.js"></script>
 </head>
@@ -166,11 +195,27 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 
   <div class="toolbar" id="chips"></div>
 
-  <div class="statbar">
-    <span>已答 <b id="answeredCount">0</b>/33</span>
-    <span class="ok">對 <b id="okCount">0</b></span>
-    <span class="ng">錯 <b id="ngCount">0</b></span>
-    <span>正確率 <b id="accRate">—</b></span>
+    <!-- 進度條面板 -->
+  <div class="prog-panel" id="progPanel">
+    <div class="pbar">
+      <span class="s sure" id="pbS" style="width:0%"></span>
+      <span class="s gok"  id="pbG" style="width:0%"></span>
+      <span class="s ng"   id="pbN" style="width:0%"></span>
+      <span class="ln"      id="lnP" data-v="60" style="left:60%"></span>
+      <span class="ln goal" id="lnG" data-v="70" style="left:70%"></span>
+    </div>
+    <div class="pleg">
+      <span><i style="background:var(--green)"></i>確定答對</span>
+      <span><i style="background:var(--gold)"></i>猜對（D）</span>
+      <span><i style="background:var(--red)"></i>答錯</span>
+      <span><i style="background:var(--line)"></i>未作答</span>
+    </div>
+    <div class="ptxt" id="ptxt">尚未作答</div>
+    <div class="pcat" id="pcat"></div>
+    <div class="ptools">
+      <button class="btn rep" id="bRep">複製練習回報</button>
+      <button class="btn" id="bImp">匯入紀錄</button>
+    </div>
   </div>
 
   <div class="controls-top">
@@ -269,10 +314,36 @@ Object.keys(CAT_NAMES).forEach(cat=>{
 });
 
 function updateStatbar(){
-  let answeredCount=0, ok=0, ng=0;
-  Object.values(answers).forEach(a=>{
-    answeredCount++;
-    if(a.correct) ok++; else ng++;
+    let sure=0, gok=0, ng=0;
+    const total = ITEMS.length;
+    ITEMS.forEach(it=>{
+      const a = answers[it.id];
+      if(!a) return;
+      if(a.correct){
+        if((errorTags[it.id]||'')=== 'D') gok++; else sure++;
+      } else ng++;
+    });
+    const done=sure+gok+ng, ok=sure+gok;
+    const T = total||1;
+    document.getElementById('pbS').style.width = (sure/T*100)+'%';
+    document.getElementById('pbG').style.width = (gok/T*100)+'%';
+    document.getElementById('pbN').style.width = (ng/T*100)+'%';
+    const acc = done ? Math.round(ok/done*100) : null;
+    const need = p => Math.max(0, Math.ceil(total*p/100)-ok);
+    document.getElementById('ptxt').innerHTML =
+      '累積 <b>'+done+'</b>/<b>'+total+'</b> 題・目前正確率 <b>'+(acc!=null?acc+'%':'—')+'</b>'+
+      (done ? '（答對 '+ok+'，其中猜對 '+gok+'；答錯 '+ng+'）' : '')+
+      '<div class="pgoal">及格線 60%：'+(need(60)?'還差 <b>'+need(60)+'</b> 題答對':'已達')+
+      '　目標 70%：'+(need(70)?'還差 <b>'+need(70)+'</b> 題答對':'已達')+'</div>';
+    let catA=0,catB=0,catC=0,catD=0,catN=0;
+    ITEMS.forEach(it=>{
+      const a=answers[it.id]; if(!a) return;
+      const k=errorTags[it.id]||'';
+      if(k==='D') catD++;
+      else if(!a.correct){ if(k==='A')catA++; else if(k==='B')catB++; else if(k==='C')catC++; else catN++; }
+    });
+    document.getElementById('pcat').textContent =
+      (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
   });
   document.getElementById('answeredCount').textContent = answeredCount;
   document.getElementById('okCount').textContent = ok;
@@ -384,6 +455,53 @@ function setActiveFilterBtn(id){
   });
 }
 
+  // 對話框
+  function modal(title, content, okLabel, onOk){
+    document.getElementById('bxmt').textContent = title;
+    document.getElementById('bxta').value = content;
+    document.getElementById('bxmsg').textContent = '';
+    const okBtn = document.getElementById('bxok');
+    if(okLabel){ okBtn.style.display=''; okBtn.textContent=okLabel; okBtn._cb=onOk; }
+    else okBtn.style.display='none';
+    document.getElementById('bxm').classList.add('on');
+  }
+  document.getElementById('bxcl').addEventListener('click', ()=>{ document.getElementById('bxm').classList.remove('on'); });
+  document.getElementById('bxok').addEventListener('click', function(){ if(this._cb) this._cb(); });
+
+  document.getElementById('bRep').addEventListener('click', ()=>{
+    const t = (typeof BXREP!=='undefined') ? BXREP.build() : '（bxv-use.js 未載入）';
+    modal('複製練習回報', t, null, null);
+    if(navigator.clipboard&&navigator.clipboard.writeText)
+      navigator.clipboard.writeText(t).then(()=>{ document.getElementById('bxmsg').textContent='✅ 已複製到剪貼簿，貼到【備考指揮中心】對話裡即可'; }).catch(()=>{});
+    else document.getElementById('bxmsg').textContent='請手動選取並複製上方文字';
+  });
+
+  document.getElementById('bImp').addEventListener('click', ()=>{
+    modal('匯入練習紀錄', '', '確認匯入', async ()=>{
+      const txt = document.getElementById('bxta').value.trim();
+      const m = txt.match(/BXDATA1:([A-Za-z0-9+/=]+)/);
+      if(!m){ document.getElementById('bxmsg').textContent='❌ 找不到有效的 BXDATA1 資料'; return; }
+      try{
+        const obj = JSON.parse(atob(m[1]));
+        const CH_KEY = ITEMS[0] && ITEMS[0].cat ? ITEMS[0].cat : '';
+        const chData = obj.chapters && (obj.chapters[CH_KEY] || Object.values(obj.chapters||{})[0]);
+        if(!chData){ document.getElementById('bxmsg').textContent='❌ 此回報不含本章節資料'; return; }
+        let cnt=0;
+        Object.entries(chData).forEach(([id,r])=>{
+          const it = ITEMS.find(q=>q.id===id);
+          if(!it) return;
+          answers[id]={selected:r.sel,correct:r.ok===1};
+          if(r.et) errorTags[id]=r.et.toUpperCase();
+          cnt++;
+        });
+        await saveAnswers(); await saveErrorTags();
+        if(typeof BXREP!=='undefined') BXREP.sync(CH_KEY,ITEMS,Object.assign({},...ITEMS.map(q=>{var a=answers[q.id];return a?{[q.id]:{selected:a.selected,ok:a.correct?1:0,et:(errorTags[q.id]||'').toLowerCase()}}:{}})),k=>k);
+        updateStatbar(); renderList();
+        document.getElementById('bxmsg').textContent='✅ 匯入完成，共 '+cnt+' 題';
+        document.getElementById('bxm').classList.remove('on');
+      }catch(e){ document.getElementById('bxmsg').textContent='❌ 解析失敗：'+e.message; }
+    });
+  });
 document.getElementById('resetAllBtn').addEventListener('click', resetAll);
 document.getElementById('resetMastery').addEventListener('click', resetAll);
 async function resetAll(){
@@ -433,5 +551,17 @@ async function resetAll(){
   });
 })();
 </script>
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
