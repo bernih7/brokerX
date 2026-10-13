@@ -476,6 +476,49 @@ body {
 }
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
+
+/* ── AD 棕金計數器 ── */
+#bxv-readctr{
+  display:flex;align-items:center;gap:10px;
+  background:var(--card,#FFFEFA);border:1.5px solid var(--line,#DDD6C0);
+  border-radius:12px;padding:10px 12px 10px 10px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+  margin-bottom:6px;
+}
+#bxv-readctr .bxv-badge{
+  width:44px;height:44px;border-radius:9px;flex-shrink:0;
+  background:var(--key,#8A5517);color:#fff;
+  display:grid;place-items:center;
+  font-size:1.35rem;font-weight:800;font-variant-numeric:tabular-nums;
+  box-shadow:0 2px 8px rgba(138,85,23,.22);
+  transition:transform .1s;
+  user-select:none;cursor:default;
+}
+#bxv-readctr .bxv-badge:active{transform:scale(.92)}
+#bxv-readctr .bxv-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#bxv-readctr .bxv-lbl{
+  font-size:.58rem;color:var(--sub,#5F6B63);letter-spacing:.07em;
+  font-weight:600;text-transform:uppercase;
+}
+#bxv-readctr .bxv-sub{
+  font-size:.74rem;color:var(--ink,#25302C);opacity:.8;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-weight:500;
+}
+#bxv-readctr .bxv-pill{
+  display:flex;align-items:center;
+  border:1.5px solid var(--line,#DDD6C0);border-radius:999px;overflow:hidden;
+  background:var(--bg,#F5F1E6);flex-shrink:0;
+}
+#bxv-readctr .bxv-pill button{
+  all:unset;cursor:pointer;
+  width:30px;height:30px;display:grid;place-items:center;
+  font-size:1.05rem;line-height:1;color:var(--sub,#5F6B63);
+  transition:background .12s,color .12s;
+}
+#bxv-readctr .bxv-pill button:hover{background:var(--line,#DDD6C0);color:var(--key,#8A5517)}
+#bxv-readctr .bxv-sep{width:1px;height:16px;background:var(--line,#DDD6C0)}
+
 </style>
 <style>
 #bxv-readctr{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;
@@ -489,23 +532,26 @@ body {
 </style><script src="/bxv-use.js"></script>
 </head>
 <body>
-<div id="bxv-readctr" title="閱讀次數">
-  📖 <span style="font-size:.78rem;opacity:.7">計算題攻略</span>
-  <button onclick="bxvDec()" title="減一">－</button>
-  <span class="bxv-cnt" id="bxv-n">0</span>
-  <button onclick="bxvInc()" title="加一">＋</button>
+<div id="bxv-readctr">
+  <div class="bxv-badge" id="bxv-n">0</div>
+  <div class="bxv-info">
+    <span class="bxv-lbl">已閱讀次數</span>
+    <span class="bxv-sub">計算題攻略</span>
+  </div>
+  <div class="bxv-pill">
+    <button onclick="bxvDec()" title="減一">－</button>
+    <div class="bxv-sep"></div>
+    <button onclick="bxvInc()" title="加一">＋</button>
+  </div>
 </div>
 <script>
 (function(){
   var RID='calc';
-  function get(){return(typeof BXREP!=='undefined')?BXREP.readGet(RID).n||0;}
+  function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
   function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
   window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
-  document.addEventListener('DOMContentLoaded',function(){
-    // wait a tick for bxv-use.js to init
-    setTimeout(upd, 50);
-  });
+  setTimeout(upd, 100);
 })();
 </script>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
