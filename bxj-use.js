@@ -39,7 +39,7 @@ function build(){
   L.push(m[1]+"：已答 "+r.a+"／"+r.n+"｜答對 "+r.c+"｜"+pc(r.c,r.a)+"%｜"+new Date(r.t).toLocaleString("zh-TW",{hour12:false})+(es?"｜錯題原因 "+es:""))});
  L.push("","══ 三、記憶工具 ══");
  var cnt=function(key,tt,yes,no){var m=ld(key,{}),n=0,r=0,t=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);t++;if(s===yes)n++;else if(s===no)r++});return"已掌握 "+n+"｜待加強 "+r+"｜其他已標記 "+(t-n-r)+"｜未標記 "+Math.max(0,tt-t)};
- L.push("互動單字卡（共 102 張；掌握／不熟／普通）："+cnt("jingji_flashcard_mastery",102,"yes","no"));var em=ld("brokerlaw_essay_template_mastery_v1",{}),e1=0,e2=0;Object.keys(em).forEach(function(k){if(em[k]==="mastered")e1++;else e2++});L.push("申論答題模板：已掌握 "+e1+" 題範例｜僅讀過 "+e2+" 題範例");
+ L.push("互動單字卡（共 113 張；掌握／不熟／普通）："+cnt("jingji_flashcard_mastery",113,"yes","no"));var em=ld("brokerlaw_essay_template_mastery_v2",{}),e1=0,e2=0;Object.keys(em).forEach(function(k){if(em[k]==="mastered")e1++;else e2++});L.push("申論答題模板：已掌握 "+e1+" 題範例｜僅讀過 "+e2+" 題範例");
  var ff=ld("bxj-fill",{}),fc={},fk=Object.keys(ff).length;Object.keys(ff).forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
  L.push("定義填空練習（共 95 張）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
  var U=ld("bxj-use",{}),hr=[],nv=[];
