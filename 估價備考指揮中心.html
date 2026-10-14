@@ -72,36 +72,51 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 }
 .theme-btn:hover{background:rgba(255,255,255,.25);}
 
-/* ── Flow bar ── */
+/* ── Flow bar → V2 進度點 ── */
 .flow-bar{
   background:var(--primary);color:#fff;
-  padding:10px 16px;display:flex;align-items:center;
-  gap:6px;flex-wrap:wrap;font-size:.78rem;overflow-x:auto;scrollbar-width:none;
+  padding:10px 16px 12px;
 }
-.flow-bar::-webkit-scrollbar{display:none;}
-.flow-label{font-weight:700;color:#C8F0D8;white-space:nowrap;flex-shrink:0;margin-right:4px;}
-.flow-step{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
-  border-radius:20px;padding:3px 10px;white-space:nowrap;flex-shrink:0;
-  cursor:pointer;transition:background .15s;
+.flow-label{font-size:.68rem;font-weight:700;color:#C8F0D8;display:block;margin-bottom:8px;letter-spacing:.06em;}
+.flow-steps{display:flex;align-items:flex-start;position:relative;}
+.flow-steps::before{
+  content:"";position:absolute;top:14px;left:calc(12.5% - 1px);right:calc(12.5% - 1px);
+  height:2px;background:rgba(255,255,255,.22);z-index:0;
 }
-.flow-step:hover{background:rgba(255,255,255,.22);}
-.flow-arrow{color:rgba(255,255,255,.5);font-size:.7rem;flex-shrink:0;}
+.flow-dot-wrap{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  position:relative;z-index:1;cursor:pointer;
+}
+.flow-dot{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.28);
+  display:flex;align-items:center;justify-content:center;font-size:.88rem;
+  transition:background .15s,border-color .15s;
+}
+.flow-dot.cur{background:#fff;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.2);}
+.flow-dot-lbl{font-size:.6rem;color:rgba(255,255,255,.78);font-weight:700;text-align:center;line-height:1.2;}
+.flow-dot-wrap.cur .flow-dot-lbl{color:#fff;}
 
-/* ── Tabs ── */
+/* ── Tabs → Pill segment ── */
 nav{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
   position:sticky;top:0;z-index:10;background:var(--bg);
-  padding:12px 10px;border-bottom:2px solid var(--line);
+  padding:10px 14px;border-bottom:1.5px solid var(--line);
+  overflow-x:auto;scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+.tab-seg{
+  display:inline-flex;background:var(--paper2);border-radius:999px;
+  padding:3px;gap:2px;min-width:100%;
 }
 .tab-btn{
-  font-family:"Noto Serif TC",serif;font-weight:700;font-size:.88rem;
-  padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);
-  background:var(--paper);color:var(--fg);cursor:pointer;transition:.15s;
+  font-family:"Noto Serif TC",serif;font-weight:700;font-size:.78rem;
+  padding:7px 12px;border-radius:999px;border:none;
+  background:transparent;color:var(--muted);cursor:pointer;
+  white-space:nowrap;flex:1;text-align:center;
+  transition:background .15s,color .15s,box-shadow .15s;
 }
-.tab-btn:hover{border-color:var(--primary);}
-.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.tab-btn:hover{color:var(--fg);}
+.tab-btn.active{background:var(--paper);color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.12);}
 
 /* ── Panels ── */
 .panel{display:none;padding:18px 16px 48px;max-width:900px;margin:0 auto;}
@@ -481,23 +496,36 @@ nav{
 </header>
 
 <div class="flow-bar">
-  <span class="flow-label">建議流程：</span>
-  <span class="flow-step" onclick="showTab('tools',document.querySelectorAll('.tab-btn')[1])">🧰 備考工具庫</span>
-  <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('drill',document.querySelectorAll('.tab-btn')[0])">📝 章節刷題</span>
-  <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('essay',document.querySelectorAll('.tab-btn')[2])">✍️ 申論練習</span>
-  <span class="flow-arrow">→</span>
-  <span class="flow-step" onclick="showTab('progress',document.querySelectorAll('.tab-btn')[4])">✅ 確認進度</span>
+  <span class="flow-label">今日建議流程</span>
+  <div class="flow-steps">
+    <div class="flow-dot-wrap" onclick="showTab('tools',document.querySelectorAll('.tab-btn')[1])">
+      <div class="flow-dot">🧰</div>
+      <div class="flow-dot-lbl">工具庫</div>
+    </div>
+    <div class="flow-dot-wrap cur" onclick="showTab('drill',document.querySelectorAll('.tab-btn')[0])">
+      <div class="flow-dot cur">📝</div>
+      <div class="flow-dot-lbl">刷題</div>
+    </div>
+    <div class="flow-dot-wrap" onclick="showTab('essay',document.querySelectorAll('.tab-btn')[2])">
+      <div class="flow-dot">✍️</div>
+      <div class="flow-dot-lbl">申論</div>
+    </div>
+    <div class="flow-dot-wrap" onclick="showTab('progress',document.querySelectorAll('.tab-btn')[4])">
+      <div class="flow-dot">✅</div>
+      <div class="flow-dot-lbl">確認進度</div>
+    </div>
+  </div>
 </div>
 
 <nav role="tablist">
-  <button class="tab-btn active" onclick="showTab('drill',this)" role="tab">📝 刷題工具</button>
-  <button class="tab-btn" onclick="showTab('tools',this)" role="tab">🧰 備考工具庫</button>
-  <button class="tab-btn" onclick="showTab('essay',this)" role="tab">✍️ 申論32題</button>
-  <button class="tab-btn" onclick="showTab('law',this)" role="tab">⚡ 現行法小抄</button>
-  <button class="tab-btn" onclick="showTab('progress',this)" role="tab">✅ 完成清單</button>
-  <button class="tab-btn" onclick="showTab('strategy',this)" role="tab">📖 讀書攻略</button>
+  <div class="tab-seg">
+    <button class="tab-btn active" onclick="showTab('drill',this)" role="tab">📝 刷題</button>
+    <button class="tab-btn" onclick="showTab('tools',this)" role="tab">🧰 工具</button>
+    <button class="tab-btn" onclick="showTab('essay',this)" role="tab">✍️ 申論</button>
+    <button class="tab-btn" onclick="showTab('law',this)" role="tab">⚡ 法條</button>
+    <button class="tab-btn" onclick="showTab('progress',this)" role="tab">✅ 清單</button>
+    <button class="tab-btn" onclick="showTab('strategy',this)" role="tab">📖 攻略</button>
+  </div>
 </nav>
 
 <!-- ① 刷題 -->
@@ -1109,7 +1137,7 @@ nav{
 </div><!-- /tab-strategy -->
 
 <footer class="site-footer">
-  📐 不動產估價備考指揮中心 v3.0｜2026-10-12（松煙綠 v3 改版＋閱讀進度回報）<br>
+  📐 不動產估價備考指揮中心 v3.1｜2026-10-14（V2 導覽區：進度點＋Pill 分頁）<br>
   法規來源：不動產估價技術規則（107.09.17）、不動產估價師法（113.08.07）
 </footer>
 
