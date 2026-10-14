@@ -256,6 +256,22 @@
 .navfab .up{display:none;}
 .navfab .up.on{display:block;}
 
+
+/*v77 fold*/
+.tn{font-weight:800;color:var(--a,var(--vermillion));background:color-mix(in srgb,var(--a,var(--vermillion)) 15%,transparent);border-radius:4px;padding:0 4px;white-space:nowrap}
+.tools{display:flex;gap:8px;margin:10px 0}
+.tools button{font:inherit;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:99px;border:1.5px solid var(--pri);background:#fff;color:var(--pri);cursor:pointer}
+.tools button.on{background:var(--pri);color:#fff}
+details.fold{border:1px solid var(--line);border-left:6px solid var(--a);border-radius:10px;background:#fff;overflow:hidden;margin:12px 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--a) 10%,#fff)}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"›";margin-left:auto;color:var(--muted,#6b6354);transition:transform .15s;font-size:18px}
+details.fold[open]>summary::after{transform:rotate(90deg)}
+details.fold[open]>summary{border-bottom:1px solid var(--line)}
+details.fold>.fb{padding:12px 16px}
+
+details.fold.section{padding:0;margin-bottom:16px}details.fold.section>summary .section-head{margin:0}details.fold.section>.fb{padding:14px 18px 8px}
+details.fold>summary h2{font-size:18px}
 </style>
 </head>
 <body>
@@ -266,7 +282,7 @@
     <div class="eyebrow">BrokerX Project・弱點順序第三科</div>
     <h1>土地法與土地相關稅法概要</h1>
     <p class="sub">讀書攻略與備考指南｜第三次應考，115年11月14–15日｜這個對話窗保留完整脈絡，直接接續使用</p>
-  </header>
+  </header><div class="tools"><button id="allBtn" type="button">全部展開</button></div>
 
   <!-- 一、讀書攻略 -->
   <div class="section">
@@ -537,5 +553,12 @@
 <script>(function(){var b=document.getElementById('navUp');function f(){b.classList.toggle('on',window.scrollY>400);}window.addEventListener('scroll',f,{passive:true});f();})();</script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script src="bx-use.js"></script>
+<script>(function(){function hl(root,skip){var re=/(\d+(?:\.\d+)?\s*(?:%|‰|個月|年|日|天|倍|成|萬元|元|公畝|公頃|坪|㎡|平方公尺)|\d+\/\d+|[一二三四五六七八九十]分之[一二三四五六七八九十]+|[一二三四五六七八九十]成)/g;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),a=[],n;while(n=w.nextNode())a.push(n);
+a.forEach(function(t){var p=t.parentNode;if(!p||p.closest(skip))return;var v=t.nodeValue;re.lastIndex=0;if(!re.test(v))return;re.lastIndex=0;
+var sp=document.createElement("span");sp.innerHTML=v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(re,'<span class="tn">$1</span>');p.replaceChild(sp,t)})}function fold(items,titleSel,cols){items.forEach(function(el,i){var t=el.querySelector(titleSel);if(!t)return;var d=document.createElement("details");d.className="fold "+(el.className||"");d.style.setProperty("--a","var("+cols[i%cols.length]+")");if(el.id)d.id=el.id;
+var s=document.createElement("summary");s.appendChild(t);var b=document.createElement("div");b.className="fb";while(el.firstChild)b.appendChild(el.firstChild);d.appendChild(s);d.appendChild(b);el.parentNode.replaceChild(d,el)})}
+document.addEventListener("click",function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var x=document.getElementById(a.getAttribute("href").slice(1));if(x&&x.tagName==="DETAILS")x.open=true});
+if(location.hash){var hx=document.getElementById(location.hash.slice(1));if(hx&&hx.tagName==="DETAILS")hx.open=true}var SEL="details.fold";fold(Array.from(document.querySelectorAll(".wrap>.section")),".section-head",["--vermillion","--gold","--green","--blue","--pri"]);hl(document.querySelector(".wrap"),"script,style,button,summary,.stamp,.code,.pri,.eyebrow,header");var ab=document.getElementById("allBtn"),all=false;if(ab)ab.onclick=function(){all=!all;document.querySelectorAll(SEL).forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開";ab.classList.toggle("on",all)};})();</script>
 </body>
 </html>

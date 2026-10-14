@@ -89,7 +89,22 @@ table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 .box.r h4{color:var(--pri)}.box.o h4{color:var(--c1)}
 @media(max-width:760px){.wrap{overflow:visible}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}.tbl thead{display:none}.tbl{border:none;background:transparent}.tbl tr{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}.tbl td{border:none;border-top:1px dashed var(--line);padding:8px 12px}.tbl td:first-child{border-top:none;font-weight:700;background:var(--surface2)}.tbl td:first-child::before{display:none}.tbl td::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:1px}}
 @media(max-width:620px){.split{grid-template-columns:1fr}}
-</style></head><body><header><button class="theme" id="themeBtn" aria-label="切換深淺色">🌓</button><h1>優先購買權：物權與債權</h1><div class="sub">§34-1・§104・§107・三七五§15 的性質、字樣、期間｜核對日 2026-10-11</div></header><nav><a href="#s1">① 怎麼判斷</a><a href="#s2">② 對照表</a><a href="#s3">③ 效力差在哪</a><a href="#s4">④ 答題寫法</a><a href="#s5">⑤ 自我測驗</a></nav><main>
+
+/*v77 fold*/
+.tn{font-weight:800;color:var(--a,var(--red));background:color-mix(in srgb,var(--a,var(--red)) 15%,transparent);border-radius:4px;padding:0 4px;white-space:nowrap}
+.tools{display:flex;gap:8px;margin:10px 0}
+.tools button{font:inherit;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:99px;border:1.5px solid var(--pri);background:var(--card);color:var(--pri);cursor:pointer}
+.tools button.on{background:var(--pri);color:var(--onpri)}
+details.fold{border:1px solid var(--line);border-left:6px solid var(--a);border-radius:10px;background:var(--card);overflow:hidden;margin:12px 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--a) 10%,var(--card))}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"›";margin-left:auto;color:var(--muted,#6b6354);transition:transform .15s;font-size:18px}
+details.fold[open]>summary::after{transform:rotate(90deg)}
+details.fold[open]>summary{border-bottom:1px solid var(--line)}
+details.fold>.fb{padding:12px 16px}
+
+details.fold.sec{margin:14px 0;padding:0}details.fold.sec>summary h2{border:none;margin:0;padding:0}details.fold.sec>.fb{padding:12px 14px}
+</style></head><body><header><button class="theme" id="themeBtn" aria-label="切換深淺色">🌓</button><h1>優先購買權：物權與債權</h1><div class="sub">§34-1・§104・§107・三七五§15 的性質、字樣、期間｜核對日 2026-10-11</div></header><nav><a href="#s1">① 怎麼判斷</a><a href="#s2">② 對照表</a><a href="#s3">③ 效力差在哪</a><a href="#s4">④ 答題寫法</a><a href="#s5">⑤ 自我測驗</a></nav><main><div class="tools"><button id="allBtn" type="button">全部展開</button></div>
 <div class="intro"><b>先講清楚：</b>「物權／債權」是補習班與實務的歸類口徑，法條本文多半沒有明寫性質；考選部的標準答案以各年度官方答案為準。標「待核」的列，是我沒能在官方條文逐字核對的，請以補習班講義為準。</div>
 <section class="sec" id="s1"><h2><span class="n">①</span>怎麼判斷：看條文有沒有「不得對抗」</h2><p class="lead">補習班的判斷步驟（口徑，非考選部答案）：</p>
 <div class="step"><b>步驟 1</b>：翻條文，找「契約（或移轉）不得對抗優先購買權人」這類字樣。</div>
@@ -141,4 +156,11 @@ if(btn)btn.addEventListener("click",function(){
 <script>function ub(t){var b=document.getElementById("theme-btn");if(b)b.textContent=t==="dark"?"🌙":"☀️"}function toggleTheme(){var h=document.documentElement,c=h.getAttribute("data-theme")||"light",n=c==="dark"?"light":"dark";h.setAttribute("data-theme",n);ub(n);try{localStorage.setItem("bx-theme",n)}catch(e){}}ub(document.documentElement.getAttribute("data-theme")||"light");</script>
 <!--/bxtheme-->
 <script src="bx-use.js"></script>
+<script>(function(){function hl(root,skip){var re=/(\d+(?:\.\d+)?\s*(?:%|‰|個月|年|日|天|倍|成|萬元|元|公畝|公頃|坪|㎡|平方公尺)|\d+\/\d+|[一二三四五六七八九十]分之[一二三四五六七八九十]+|[一二三四五六七八九十]成)/g;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),a=[],n;while(n=w.nextNode())a.push(n);
+a.forEach(function(t){var p=t.parentNode;if(!p||p.closest(skip))return;var v=t.nodeValue;re.lastIndex=0;if(!re.test(v))return;re.lastIndex=0;
+var sp=document.createElement("span");sp.innerHTML=v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(re,'<span class="tn">$1</span>');p.replaceChild(sp,t)})}function fold(items,titleSel,cols){items.forEach(function(el,i){var t=el.querySelector(titleSel);if(!t)return;var d=document.createElement("details");d.className="fold "+(el.className||"");d.style.setProperty("--a","var("+cols[i%cols.length]+")");if(el.id)d.id=el.id;
+var s=document.createElement("summary");s.appendChild(t);var b=document.createElement("div");b.className="fb";while(el.firstChild)b.appendChild(el.firstChild);d.appendChild(s);d.appendChild(b);el.parentNode.replaceChild(d,el)})}
+document.addEventListener("click",function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var x=document.getElementById(a.getAttribute("href").slice(1));if(x&&x.tagName==="DETAILS")x.open=true});
+if(location.hash){var hx=document.getElementById(location.hash.slice(1));if(hx&&hx.tagName==="DETAILS")hx.open=true}var SEL="details.fold,details.qa";fold(Array.from(document.querySelectorAll("main>section.sec")),"h2",["--c0","--c1","--c2","--c3","--c4"]);hl(document.querySelector("main"),"script,style,button,summary,.tag2,.n,th,.intro");var ab=document.getElementById("allBtn"),all=false;if(ab)ab.onclick=function(){all=!all;document.querySelectorAll(SEL).forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開";ab.classList.toggle("on",all)};})();</script>
 </body></html>

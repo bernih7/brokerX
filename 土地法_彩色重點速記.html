@@ -158,12 +158,27 @@ b, strong { color: var(--key); }
 @media(max-width:480px){.nav-tabs{position:static}}
 .box p{white-space:normal}
 .box table{display:block;overflow-x:auto}
+
+/*v77 fold*/
+.tn{font-weight:800;color:var(--a,var(--vermillion));background:color-mix(in srgb,var(--a,var(--vermillion)) 15%,transparent);border-radius:4px;padding:0 4px;white-space:nowrap}
+.tools{display:flex;gap:8px;margin:10px 0}
+.tools button{font:inherit;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:99px;border:1.5px solid var(--pri,#2F5D50);background:#fff;color:var(--pri,#2F5D50);cursor:pointer}
+.tools button.on{background:var(--pri,#2F5D50);color:#fff}
+details.fold{border:1px solid var(--line);border-left:6px solid var(--a);border-radius:10px;background:#fff;overflow:hidden;margin:12px 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--a) 10%,#fff)}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"›";margin-left:auto;color:var(--muted,#6b6354);transition:transform .15s;font-size:18px}
+details.fold[open]>summary::after{transform:rotate(90deg)}
+details.fold[open]>summary{border-bottom:1px solid var(--line)}
+details.fold>.fb{padding:12px 16px}
+
+details.fold.chapter-block{padding:0}details.fold.chapter-block>summary .chapter-title{margin:0}details.fold.chapter-block>.fb{padding:14px 18px 6px}
 </style>
 </head>
 <body>
 <div class="app">
   <h1>土地法概要｜彩色重點速記</h1>
-  <div class="subtitle">依《重點筆記》22章整理（A1–I1）・已依考選部官方答案與現行法核對（2026-10-08）</div>
+  <div class="subtitle">依《重點筆記》22章整理（A1–I1）・已依考選部官方答案與現行法核對（2026-10-08）</div><div class="tools"><button id="allBtn" type="button">全部展開</button></div>
 
   <div class="nav-tabs"><a class="nav-tab" href="#bookA">第一篇 土地法</a><a class="nav-tab" href="#bookB">第二篇 土地使用計畫法規</a><a class="nav-tab" href="#bookC">第三篇 平均地權條例</a><a class="nav-tab" href="#bookD">第四篇 土地徵收條例</a><a class="nav-tab" href="#bookE">第五篇 土地稅法</a><a class="nav-tab" href="#bookF">第六～九篇 房屋稅・契稅・房地合一・三七五</a></div>
 <div class="book-section" id="bookA"><div class="book-title">第一篇　土地法</div>
@@ -318,5 +333,12 @@ b, strong { color: var(--key); }
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
 <script src="bx-use.js"></script>
+<script>(function(){function hl(root,skip){var re=/(\d+(?:\.\d+)?\s*(?:%|‰|個月|年|日|天|倍|成|萬元|元|公畝|公頃|坪|㎡|平方公尺)|\d+\/\d+|[一二三四五六七八九十]分之[一二三四五六七八九十]+|[一二三四五六七八九十]成)/g;
+var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),a=[],n;while(n=w.nextNode())a.push(n);
+a.forEach(function(t){var p=t.parentNode;if(!p||p.closest(skip))return;var v=t.nodeValue;re.lastIndex=0;if(!re.test(v))return;re.lastIndex=0;
+var sp=document.createElement("span");sp.innerHTML=v.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(re,'<span class="tn">$1</span>');p.replaceChild(sp,t)})}function fold(items,titleSel,cols){items.forEach(function(el,i){var t=el.querySelector(titleSel);if(!t)return;var d=document.createElement("details");d.className="fold "+(el.className||"");d.style.setProperty("--a","var("+cols[i%cols.length]+")");if(el.id)d.id=el.id;
+var s=document.createElement("summary");s.appendChild(t);var b=document.createElement("div");b.className="fb";while(el.firstChild)b.appendChild(el.firstChild);d.appendChild(s);d.appendChild(b);el.parentNode.replaceChild(d,el)})}
+document.addEventListener("click",function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var x=document.getElementById(a.getAttribute("href").slice(1));if(x&&x.tagName==="DETAILS")x.open=true});
+if(location.hash){var hx=document.getElementById(location.hash.slice(1));if(hx&&hx.tagName==="DETAILS")hx.open=true}var SEL="details.fold";fold(Array.from(document.querySelectorAll(".chapter-block")),".chapter-title",["--vermillion","--gold","--green","--blue","--orange","--purple"]);hl(document.body,"script,style,button,summary,.stamp,.box-label,.code");var ab=document.getElementById("allBtn"),all=false;if(ab)ab.onclick=function(){all=!all;document.querySelectorAll(SEL).forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開";ab.classList.toggle("on",all)};})();</script>
 </body>
 </html>
