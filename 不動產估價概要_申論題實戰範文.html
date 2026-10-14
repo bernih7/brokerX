@@ -132,34 +132,48 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
 
 
 /* ── 速答版 / 完整版 切換 ── */
-.ver-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 14px;background:#f0ece0;
-  border-radius:10px;margin-bottom:14px;
-  font-size:.8rem;font-weight:700;color:var(--muted);
-}
-.ver-bar .ver-label{margin-right:4px;}
+/* ── 版本切換（D款 iOS segment）── */
+.ver-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.ver-bar .ver-label{font-size:.78rem;font-weight:700;color:var(--muted);margin-right:2px;}
+.seg-wrap{display:inline-flex;background:#e6e0d2;border-radius:999px;padding:3px;gap:2px;}
 .ver-btn{
-  all:unset;cursor:pointer;padding:4px 13px;border-radius:16px;
-  font-size:.78rem;font-weight:700;border:1.5px solid var(--line);
-  background:var(--paper2);color:var(--ink);transition:.12s;
+  all:unset;cursor:pointer;font-size:.78rem;font-weight:700;
+  padding:5px 16px;border-radius:999px;background:transparent;
+  color:var(--muted);transition:.15s;white-space:nowrap;
 }
-.ver-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.ver-btn.active{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.12);}
 /* 速答版 = .quick-mode on essay-card */
 .quick-ans{display:none;}
 .essay-card.quick-mode .quick-ans{display:block;}
 .essay-card.quick-mode .detail-content{display:none;}
+/* X2：白底分色區塊 */
 .quick-ans{
-  background:#1e2820;color:#d4f5c8;
-  border-radius:10px;padding:16px 18px;
-  font-size:.88rem;line-height:1.9;
-  font-family:monospace;white-space:pre-wrap;
-  margin-bottom:4px;
+  background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;overflow:hidden;
+  font-size:.85rem;line-height:1.8;margin-bottom:4px;
 }
-.quick-ans .qa-hd{
-  font-family:"Noto Serif TC",serif;font-size:.85rem;
-  color:#7effc4;font-weight:700;margin-bottom:8px;
-  border-bottom:1px solid #3a5c40;padding-bottom:6px;
+.quick-ans .qa-blk{
+  padding:10px 14px 10px 16px;
+  border-left:4px solid transparent;
+  border-bottom:1px solid #f0ece0;
+}
+.quick-ans .qa-blk:last-child{border-bottom:none;}
+.quick-ans .qa-blk.qa-def{border-color:var(--primary);}
+.quick-ans .qa-blk.qa-form{border-color:var(--gold);background:#fffaf2;}
+.quick-ans .qa-blk.qa-calc{border-color:#4a8c6a;background:#f3faf5;}
+.quick-ans .qa-blk.qa-trap{border-color:var(--stamp);background:#fff5f3;}
+.quick-ans .qa-label{
+  font-size:.68rem;font-weight:800;letter-spacing:.1em;margin-bottom:5px;
+}
+.quick-ans .qa-blk.qa-def .qa-label{color:var(--primary);}
+.quick-ans .qa-blk.qa-form .qa-label{color:var(--gold);}
+.quick-ans .qa-blk.qa-calc .qa-label{color:#2e7a50;}
+.quick-ans .qa-blk.qa-trap .qa-label{color:var(--stamp);}
+.qa-kw{font-weight:700;}
+.qa-code{
+  background:#2a2410;color:#ffe98a;
+  padding:1px 8px;border-radius:4px;
+  font-family:monospace;font-size:.82rem;
 }
 /* ── 整合控制膠囊（主題＋計數）── */
 .page-header .titles{flex:1;min-width:0}
@@ -215,29 +229,24 @@ footer{text-align:center; font-size:.78rem; color:var(--muted); margin-top:30px;
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜折舊路徑＋定額法計算（12分鐘版）</div>
-【定義】折舊路徑：建物價值隨時間減少的速率變化型態。
-技術規則第15條規定三種：
-① 等速折舊（定額法）  ② 初期加速折舊（定率法）  ③ 初期減速折舊（償債基金法）
-
-【公式】定額法（等速折舊）：
-  每年折舊額 = C×(1-s)/N
-  Dn = C×(1-s)/N × n
-
-【代入】C=200萬、s=5%、N=50年
-  每年折舊額 = 200×0.95÷50 = 3.8 萬元/年
-  n=10 → 現值=200-38=162萬
-  n=25 → 現值=200-95=105萬
-  n=50 → 現值=200-190=10萬（殘值）
-
-【示意圖】橫軸=年數(0→50)，縱軸=建物現值(200→10萬)
-  直線斜率固定，均勻遞減。
-
-【結論】三種折舊路徑中，定額法呈等速直線遞減，計算最簡單、最常考。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 三種折舊路徑</div>
+        <span class="qa-kw">① 等速折舊</span>（定額法）　<span class="qa-kw">② 初期加速</span>（定率法）　<span class="qa-kw">③ 初期減速</span>（償債基金法）
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 定額法公式</div>
+        <code class="qa-code">Dn = C × (1-s) / N × n</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 代入計算（C=200萬、s=5%、N=50）</div>
+        200 × 0.95 ÷ 50 = <span class="qa-kw">3.8萬元/年</span>　50年末殘值 <span class="qa-kw">10萬元</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        只有三種路徑，<span class="qa-kw">沒有「後期加速」</span>這種說法，考題常用選項混淆
+      </div>
     </div>
     <div class="detail-content">
 
@@ -286,30 +295,24 @@ C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜折現現金流量法（12分鐘版）</div>
-【定義】折現現金流量分析法（DCF）：
-  將標的不動產在持有期間內預期產生之各期淨收益，
-  以適當折現率折算為現值合計，加上期末處分價值之現值，
-  合計即為評估價值。（技術規則第60條）
-
-【公式】
-  V = Σ[NOI_t / (1+r)^t] + P_n/(1+r)^n
-  NOI=各期淨收益、r=折現率、n=持有期間、P_n=期末處分價值
-
-【應用時機】
-  ① 有明確租約且各期收益不均等
-  ② 商業不動產（飯店、百貨）
-  ③ 投資評估需敏感度分析時
-
-【程序】
-  1.決定持有期間 → 2.預測各期NOI → 3.決定折現率
-  → 4.預測期末處分價值 → 5.折現加總
-
-【陷阱】折現率≠資本化率；DCF適合收益不穩定案例。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ DCF定義（技術規則第60條）</div>
+        將<span class="qa-kw">各期淨收益（NOI）</span>以折現率折現，加上<span class="qa-kw">期末處分價值現值</span>，合計為收益價格
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 公式</div>
+        <code class="qa-code">V = Σ[NOI_t/(1+r)^t] + P_n/(1+r)^n</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 應用時機</div>
+        ①有明確租約且各期收益<span class="qa-kw">不均等</span>　②商業不動產（飯店、百貨）　③需敏感度分析
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        <span class="qa-kw">折現率 ≠ 資本化率</span>；DCF適合收益不穩定案例，直接法適合均等收益
+      </div>
     </div>
     <div class="detail-content">
 
@@ -356,32 +359,24 @@ n = 經歷年數</div>
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜土地開發分析法（12分鐘版）</div>
-【定義】土地開發分析法：
-  以開發完成後不動產總銷售價格，扣除建築及各項費用成本，
-  再折現求取土地價格。（技術規則第73條）
-
-【公式】
-  V_L = [Σ(P_i/(1+r)^i) - Σ(C_j/(1+r)^j)] × K
-  P_i=各期銷售收入、C_j=各期開發成本、r=折現率、K=土地比例
-
-  簡易版：
-  土地價格 = 總銷收入現值 - 建築費用現值 - 管銷費用現值 - 利潤現值
-
-【應用時機】
-  ① 待開發素地估價
-  ② 地目變更前後價值評估
-  ③ 容積移轉評估
-
-【程序】
-  1.規劃可開發總量 → 2.預測開發後銷售收入
-  → 3.估計各項費用 → 4.選定折現率 → 5.折現求地價
-
-【陷阱】與DCF差異：土地開發法求的是「土地價值」，DCF求的是「整體不動產價值」。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 土地開發分析法定義（技術規則第73條）</div>
+        以開發完成後<span class="qa-kw">總銷售收入</span>，扣除建築費用、管銷、利潤等，折現求取<span class="qa-kw">土地價格</span>
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 公式（簡易版）</div>
+        <code class="qa-code">土地價格 = 總銷現值 − 建築費現值 − 管銷現值 − 利潤現值</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 應用時機</div>
+        ①<span class="qa-kw">待開發素地</span>估價　②地目變更前後評估　③容積移轉評估
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        與DCF差異：土地開發法求<span class="qa-kw">土地價值</span>，DCF求<span class="qa-kw">整體不動產價值</span>
+      </div>
     </div>
     <div class="detail-content">
 
@@ -428,33 +423,24 @@ i = 折舊基金之積累利率</div>
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜收益資本化法（12分鐘版）</div>
-【定義】收益資本化法：
-  以不動產未來可獲得之純收益，除以資本化率求得收益價格。
-  （技術規則第46條）
-
-【公式】
-  直接資本化：V = NOI / R
-  NOI=每年淨收益、R=資本化率
-
-  年金現值（有限期）：V = NOI × [1-(1+R)^-n]/R + V_n/(1+R)^n
-
-【應用時機】
-  ① 出租中商業不動產
-  ② 各期收益穩定之物件
-  ③ 市場存在可比較資本化率
-
-【收益計算步驟】
-  1.推估總收益（含應有租金）
-  2.扣除空置損失
-  3.扣除維修、稅費、管理費等運營費用
-  = 淨營業收益NOI
-
-【陷阱】資本化率≠折現率；純收益需用「應有租金」非「實際租金」。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 收益資本化法定義（技術規則第46條）</div>
+        以不動產未來可獲得之<span class="qa-kw">純收益（NOI）</span>除以<span class="qa-kw">資本化率</span>求得收益價格
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 公式</div>
+        <code class="qa-code">V = NOI / R</code>　（直接資本化，均等收益適用）
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ NOI計算步驟</div>
+        總收益（應有租金）→ 扣空置損失 → 扣<span class="qa-kw">維修、稅費、管理費</span> = <span class="qa-kw">NOI</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        用<span class="qa-kw">應有租金</span>非實際租金；<span class="qa-kw">資本化率 ≠ 折現率</span>
+      </div>
     </div>
     <div class="detail-content">
 
@@ -492,33 +478,24 @@ i = 折舊基金之積累利率</div>
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜比較法意義與程序（12分鐘版）</div>
-【定義】比較法：
-  蒐集與勘估標的相同或相似之近期交易案例，
-  並加以比較分析，求取勘估標的價格。（技術規則第17條）
-
-【應用時機】
-  ① 交易活絡、比較案例充足之地區
-  ② 住宅、商業不動產
-
-【程序】（技術規則第18條）
-  1.蒐集比較案例（3個以上）
-  2.確認交易條件正常性
-  3.情況調整（非正常交易修正）
-  4.價格日期調整（時間修正）
-  5.區域因素調整（地區條件差異）
-  6.個別因素調整（個別條件差異）
-  7.比準價格求定
-
-【公式】
-  比準價格 = 成交價格 × 情況調整 × 價格日期調整 × 區域因素調整 × 個別因素調整
-
-【陷阱】情況調整在前（去除非正常因素），其餘調整在後；
-  區域因素調整≠個別因素調整（前者地段、後者物件特性）。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 比較法定義（技術規則第17條）</div>
+        蒐集與標的<span class="qa-kw">相同或相似之近期交易案例</span>，比較分析後求取勘估標的價格
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 比準價格公式</div>
+        <code class="qa-code">比準價格 = 成交價 × 情況調整 × 日期調整 × 區域調整 × 個別調整</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 程序（技術規則第18條）</div>
+        蒐集案例（<span class="qa-kw">3個以上</span>）→ 確認正常性 → 情況→日期→區域→個別 → 比準價格求定
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        <span class="qa-kw">情況調整在最前</span>（去除非正常因素）；區域因素≠個別因素（前者地段、後者物件特性）
+      </div>
     </div>
     <div class="detail-content">
 
@@ -572,37 +549,24 @@ WACC ＝ 60% × 6.72% + 40% × 8%
   <div class="card-body">
     <div class="ver-bar">
       <span class="ver-label">模式：</span>
-      <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
-      <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
     </div>
-    <div class="quick-ans">
-      <div class="qa-hd">⚡ 速答版｜成本法意義與程序（12分鐘版）</div>
-【定義】成本法：
-  以估計勘估標的之重建成本或重置成本，
-  扣減折舊後加計土地價格，求取勘估標的價格。（技術規則第13條）
-
-【公式】
-  不動產價格 = 土地價格 + (重建成本 - 折舊額)
-  折舊額 = Σ各折舊方法計算結果
-
-【應用時機】
-  ① 無交易案例之特殊不動產（廟宇、政府建物）
-  ② 保險評估、徵收補償
-  ③ 新建物估價
-
-【程序】
-  1.估算土地價格（用比較法）
-  2.估算重建成本或重置成本
-  3.計算折舊額（定額/定率/償債基金法）
-  4.求取建物現值 = 重建成本 - 折舊額
-  5.合計土地＋建物現值
-
-【三種折舊法比較】
-  定額法：均等折舊，適一般建物
-  定率法：初期快後期慢，適機器設備
-  償債基金法：初期慢後期快，適公共建設
-
-【陷阱】重建成本≠重置成本（前者相同材料重建、後者現行同功能建物）。
+        <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 成本法定義（技術規則第13條）</div>
+        估計<span class="qa-kw">重建成本或重置成本</span>，扣減折舊後加計土地價格，求取不動產價格
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 公式</div>
+        <code class="qa-code">不動產價格 = 土地價格 + (重建成本 − 折舊額)</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 應用時機</div>
+        ①<span class="qa-kw">無交易案例之特殊不動產</span>（廟宇、政府建物）　②保險評估　③新建物估價
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        <span class="qa-kw">重建成本 ≠ 重置成本</span>（前者相同材料重建、後者現行同功能建物）
+      </div>
     </div>
     <div class="detail-content">
 
