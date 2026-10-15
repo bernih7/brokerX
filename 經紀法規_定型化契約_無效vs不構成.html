@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>經紀法規｜定型化契約：無效 vs 不構成</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--onc:#fff;--paper:#F5F1E6;--paper2:#FAF8EF;--paper-dark:#ECE6D4;--ink:#25302C;--muted:#66706A;--vermillion:#A8402B;--gold:#B8782E;--green:#35693F;--blue:#3A5A78;--purple:#6B4E8A;--orange:#B9722A;--line:#DDD6C0;--numbg:#FBF1D9;--numfg:#8A5517;--hotbg:#F8E4DD;--hot:#A8402B;--tbg:rgba(245,241,230,.97);--chipbg:#e4ebf2}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--paper:#161C19;--paper2:#1F2723;--paper-dark:#26312C;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--vermillion:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#7FAAD6;--purple:#B79BDA;--orange:#D9955A;--onc:#10201B;--numbg:rgba(224,176,112,.18);--numfg:#E0B070;--hotbg:rgba(240,144,122,.16);--hot:#F0907A;--tbg:rgba(22,28,25,.97);--chipbg:rgba(141,184,232,.16)}}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#161C19;--paper2:#1F2723;--paper-dark:#26312C;--ink:#E7ECE6;--muted:#9AA79F;--line:#34403A;--pri:#84C2AE;--vermillion:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#7FAAD6;--purple:#B79BDA;--orange:#D9955A;--onc:#10201B;--numbg:rgba(224,176,112,.18);--numfg:#E0B070;--hotbg:rgba(240,144,122,.16);--hot:#F0907A;--tbg:rgba(22,28,25,.97);--chipbg:rgba(141,184,232,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;font-size:15px;overflow-x:hidden}
+.wrap{max-width:980px;margin:0 auto;padding:0 14px 70px}
+header{text-align:center;padding:28px 0 12px}
+h1{font-family:'Noto Serif TC',serif;font-weight:900;font-size:1.65rem;margin:0 0 6px;line-height:1.35}
+.sub{color:var(--muted);font-size:.86rem}
+.toolbar{position:sticky;top:0;z-index:10;background:var(--tbg);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:12px}
+.toolbar .row{display:flex;gap:5px;flex-wrap:wrap;align-items:center;padding-right:46px}
+.toolbar a{font-size:.76rem;text-decoration:none;color:var(--ink);background:var(--paper-dark);border:1px solid var(--line);padding:3px 9px;border-radius:14px;font-weight:700}
+.toolbar button{font-size:.8rem;font-weight:700;border:1px solid var(--gold);background:var(--paper2);color:var(--gold);padding:5px 12px;border-radius:14px;cursor:pointer;font-family:inherit}
+.toolbar button.on{background:var(--gold);color:var(--onc)}
+@media(max-width:640px){.toolbar .row{gap:4px}.toolbar a{font-size:.7rem;padding:2px 7px}.toolbar button{font-size:.72rem;padding:3px 9px}h1{font-size:1.38rem}}
+#theme-btn{position:fixed;top:10px;right:10px;z-index:50;min-width:38px;height:38px;padding:0 8px;border-radius:19px;border:1px solid var(--line);background:var(--paper2);color:var(--ink);font:700 12px "Noto Sans TC",sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.lgn{font-size:.74rem;color:var(--muted);margin:6px 0 0}
+h2{font-family:'Noto Serif TC',serif;font-size:1.2rem;margin:0;line-height:1.4}
+h3{font-size:.98rem;margin:16px 0 6px}
+.lead{font-size:.85rem;color:var(--muted);margin:2px 0 10px}
+.art{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--blue)}
+.exam{font-size:.74rem;color:var(--muted)}
+.mn{font-family:'Noto Serif TC',serif;font-weight:900;color:var(--purple)}
+body:not(.cloze) .ans{font-weight:800;color:var(--numfg);background:var(--numbg);border-radius:4px;padding:0 3px}
+body.cloze .ans:not(.show){color:transparent!important;background:var(--line);border-radius:4px;user-select:none;text-shadow:none}
+body.cloze .ans{cursor:pointer}
+.box{border-radius:10px;padding:10px 13px;margin:10px 0;font-size:.89rem;border:1px solid var(--line);background:var(--paper2)}
+.box b.lab{display:inline-block;font-size:.72rem;color:var(--onc);border-radius:8px;padding:0 8px;margin-right:6px}
+.box.trap{border-left:5px solid var(--vermillion)}.box.trap b.lab{background:var(--vermillion)}
+.box.story{border-left:5px solid var(--green)}.box.story b.lab{background:var(--green)}
+.box.rule{border-left:5px solid var(--gold)}.box.rule b.lab{background:var(--gold)}
+.kou{background:var(--numbg);color:var(--numfg);border-radius:10px;padding:8px 12px;margin:10px 0 8px;font-size:.85rem}.kou b{display:block;font-size:.95rem;letter-spacing:.04em;line-height:1.5}.kou span{display:block;margin-top:3px;font-size:.78rem;color:var(--ink)}
+.grp2{font-size:.74rem;letter-spacing:.12em;color:var(--muted);margin:16px 2px 4px;font-weight:700}
+details.sc{--c:var(--pri);margin:10px 0}details.sc.must{--c:var(--vermillion)}details.sc.often{--c:var(--gold)}details.sc.rev{--c:var(--green)}details.sc.aux{--c:var(--muted)}
+details.sc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;scroll-margin-top:100px;background:var(--paper2);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;padding:9px 12px}
+details.sc>summary::-webkit-details-marker{display:none}
+details.sc>summary .n2{font-family:"Noto Serif TC",serif;font-weight:800;font-size:1.05rem;color:var(--c);flex:none;width:1.4em}
+details.sc>summary .t2{flex:1;min-width:0}details.sc>summary .t2 h2{font-size:.98rem}details.sc>summary .t2 small{display:block;color:var(--muted);font-size:.76rem}
+details.sc>summary .t2 .dat{display:block;color:var(--numfg);font-size:.72rem;margin-top:1px}
+.tg2{flex:none;font-size:.7rem;font-weight:700;border-radius:99px;padding:1px 9px;color:var(--onc);background:var(--c)}
+details.sc>summary .ar{flex:none;color:var(--muted);transition:transform .15s}details.sc[open]>summary .ar{transform:rotate(90deg)}
+.sb{padding-top:6px}
+.tierh{font-weight:800;font-size:.9rem;color:var(--onc);border-radius:10px;padding:5px 12px;margin:14px 0 8px}
+.tierh.t1{background:var(--pri)}.tierh.t2{background:var(--orange)}.tierh.t3{background:var(--gold)}.tierh.t4{background:var(--green)}.t5{background:var(--vermillion)}.tierh.pr{background:var(--blue)}.tierh.pe{background:var(--purple)}.tierh.bk{background:var(--ink)}
+.pcs{display:flex;flex-direction:column;gap:7px}
+details.r{background:var(--paper2);border:1px solid var(--line);border-radius:12px;border-left:6px solid var(--line)}
+details.r.t1{border-left-color:var(--pri)}details.r.t2{border-left-color:var(--orange)}details.r.t3{border-left-color:var(--gold)}details.r.t4{border-left-color:var(--green)}details.r.pe{border-left-color:var(--purple)}details.r.pr{border-left-color:var(--blue)}details.r.bk{border-left-color:var(--ink)}
+details.r>summary{list-style:none;cursor:pointer;padding:9px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between}details.r>summary::-webkit-details-marker{display:none}
+details.r .tt{font-weight:700;font-size:.94rem;line-height:1.5;min-width:0}
+details.r .amt{font-family:"Noto Serif TC",serif;font-weight:800;font-size:.9rem;border-radius:8px;padding:1px 9px;flex:none;max-width:46%;background:var(--numbg);color:var(--numfg);text-align:center}
+details.r .dt{padding:0 12px 11px;display:flex;flex-direction:column;gap:6px;font-size:.9rem;overflow-wrap:anywhere}
+details.r .dt .art{font-size:.84rem}
+.tp{font-size:.84rem;background:var(--hotbg);color:var(--hot);border-radius:8px;padding:3px 9px}
+.lad{display:flex;flex-direction:column;gap:7px;margin:8px 0 2px}.lb{display:grid;grid-template-columns:6.2em 1fr;gap:8px;align-items:center;font-size:.76rem}.lb b{text-align:right}.lb .tr{height:16px;background:var(--paper-dark);border-radius:6px;position:relative}.lb i{position:absolute;top:0;bottom:0;border-radius:6px}
+.lb i.t1{background:var(--pri)}.lb i.t2{background:var(--orange)}.lb i.t3{background:var(--gold)}.lb i.t4{background:var(--green)}.lb i.bk{background:var(--ink)}
+.lb em{grid-column:2;font-style:normal;color:var(--muted);font-size:.74rem;margin-top:-3px}
+.tlw{position:relative;padding-left:36px;display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.tlw::before{content:"";position:absolute;left:14px;top:10px;bottom:10px;width:3px;background:var(--line);border-radius:2px}
+.ts{position:relative;background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:9px 13px}
+.ts::before{content:attr(data-n);position:absolute;left:-36px;top:9px;width:29px;height:29px;border-radius:50%;background:var(--c);color:var(--onc);font:700 13px/29px "Noto Sans TC";text-align:center}
+.ts h4{margin:0 0 2px;font-size:1rem;color:var(--c)}.ts p{margin:2px 0 0;font-size:.9rem}.ts .cond{font-size:.82rem;color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.three .c{border:1px solid var(--line);border-radius:10px;background:var(--paper2);padding:10px 12px;font-size:.86rem;min-width:0;overflow-wrap:anywhere}
+.three .c h4{margin:0 0 6px;font-size:.92rem}
+.three .c.a{border-top:5px solid var(--blue)}.three .c.b{border-top:5px solid var(--purple)}.three .c.c{border-top:5px solid var(--vermillion)}
+.pc{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:9px 13px;display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere}
+.pc .q{font-size:.9rem;font-weight:700}.pc .a{font-size:.9rem}.pc .al{display:inline-block;font-size:.72rem;font-weight:800;background:var(--green);color:var(--onc);border-radius:6px;padding:0 7px;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:.86rem;table-layout:fixed}
+.tw{border:1px solid var(--line);border-radius:10px;background:var(--paper2);margin:8px 0 12px;overflow:hidden}
+th,td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word}
+th{background:var(--paper-dark);font-size:.78rem}tr:last-child td{border-bottom:none}
+.rt th:nth-child(1){width:17%}.rt td:first-child{font-weight:700}
+@media(max-width:640px){
+ .three{grid-template-columns:1fr}
+ table.rt,table.rt tbody,table.rt tr,table.rt td{display:block;width:100%}
+ table.rt thead,table.rt tr.hd{display:none}
+ table.rt tr{border-bottom:2px solid var(--line);padding:6px 0}
+ table.rt td{border:none;padding:3px 10px}
+ table.rt td::before{content:attr(data-l);display:block;font-size:.66rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-top:2px}
+ table.rt td:first-child::before{display:none}
+ table.rt td:first-child{padding-top:6px}
+}
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+details.r.bk{border-left-color:var(--ink)}.lb i.t5{background:var(--vermillion)}.lb i.t6{background:var(--blue)}.lb i.t7{background:var(--purple)}
+.stale td:nth-child(3){color:var(--hot);font-weight:700}
+@media(max-width:640px){table.rt td:empty{display:none}}
+</style>
+<script>(function(){try{var t=localStorage.getItem("bx-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}})()</script><script src="bxj-use.js"></script>
+</head>
+<body>
+<button id="theme-btn" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">深色</button>
+<div class="wrap">
+<header>
+  <h1>定型化契約：無效 vs 不構成</h1>
+  <div class="sub">消保法 §11-1、§12、§13、§15、§16、§17 一張表分清楚</div>
+  <div class="sub">考古題欄：113-19＝113年第19題</div>
+</header>
+<div class="toolbar"><div class="row">
+  <a href="#t0">對照表</a><a href="#t1">速背卡</a>
+  <button id="allBtn" type="button">全部展開</button><button id="clozeBtn" type="button">遮答案練習</button>
+</div></div>
+<div class="grp2">必背</div><details class="sc must" id="t0"><summary><span class="n2">一</span><div class="t2"><h2>無效 vs 不構成契約內容</h2><small>對照表、流程、陷阱</small><span class="dat">考古題約 14 題</span></div><span class="tg2">必背</span><span class="ar">▸</span></summary><div class="sb"><p class="lead">先分「這個條款本身壞掉（無效）」還是「這個條款根本沒進契約（不構成）」。</p><div class="tw"><table class="rt"><tr class="hd"><th></th><th>無效</th><th>不構成契約內容</th></tr><tr><td>效果</td><td data-l="無效">條款自始無效，企業與消費者都不能主張它有效</td><td data-l="不構成契約內容">條款沒進入契約。審閱期那一種，消費者可反過來主張它仍構成契約內容</td></tr><tr><td>口訣</td><td data-l="無效"><span class="mn">公商項期</span></td><td data-l="不構成契約內容"><span class="mn">未刷期</span></td></tr><tr><td>公</td><td data-l="無效">顯失公平：違反誠信原則且對消費者顯失公平，§12Ⅰ。違反平等互惠等為推定顯失公平，§12Ⅱ</td><td data-l="不構成契約內容"></td></tr><tr><td>商</td><td data-l="無效">牴觸個別磋商：牴觸的部分無效，§15</td><td data-l="不構成契約內容"></td></tr><tr><td>項</td><td data-l="無效">違反公告的不得記載事項：該條款無效，§17Ⅳ（應記載事項沒寫，則仍構成契約內容，§17Ⅴ）</td><td data-l="不構成契約內容"></td></tr><tr><td>期（審閱期）</td><td data-l="無效">約定排除或拋棄審閱期：<span class="ans">無效</span>，§11-1Ⅱ</td><td data-l="不構成契約內容">沒給審閱期：<span class="ans">不構成契約內容</span>，但消費者得主張仍構成，§11-1Ⅲ</td></tr><tr><td>未</td><td data-l="無效"></td><td data-l="不構成契約內容">未明示：企業須明示條款內容；明示有困難者以顯著方式公告並經消費者同意，該條款才是契約內容，§13Ⅰ</td></tr><tr><td>刷</td><td data-l="無效"></td><td data-l="不構成契約內容">待核：我原以為是 §14 字體印刷，查證後 §14 是「條款未記載於契約，且依情形顯非消費者所得預見」→不構成契約內容。「刷」若指字體印刷難辨識，本次在消保法本文查不到對應項，請對照老師講義</td></tr></table></div><div class="kou"><b>公商項期無效；未刷期不構成〔自編〕</b><span>無效：公平、個別磋商、不得記載事項、拋棄審閱期；不構成：未明示、刷（待核）、沒給審閱期。</span></div><div class="tlw"><div class="ts" data-n="1" style="--c:var(--orange)"><h4>先看有沒有給審閱期</h4><p>契約寫「已審閱、放棄審閱期」→ 這句<span class="ans">無效</span>；企業根本沒給審閱期 → 條款<span class="ans">不構成契約內容</span>，消費者得主張仍構成。</p><p class="cond">§11-1Ⅰ～Ⅲ（審閱期 30 日以內合理期間）</p></div><div class="ts" data-n="2" style="--c:var(--vermillion)"><h4>無效不等於整份契約無效</h4><p>除去無效或不構成的部分，契約仍可成立 → 其餘<span class="ans">仍有效</span>；但對一方<span class="ans">顯失公平</span> → 契約<span class="ans">全部無效</span>。</p><p class="cond">§16</p></div><div class="ts" data-n="3" style="--c:var(--blue)"><h4>公告的應記載、不得記載事項</h4><p>違反<b>不得記載</b>：該條款無效；<b>應記載</b>沒寫：仍構成契約內容。</p><p class="cond">§17Ⅳ、Ⅴ</p></div></div><div class="box trap"><b class="lab">陷阱</b>①113-19：契約寫「無須審閱期」→ <b>無效</b>，不是「不構成」，也不是「效力未定」。②110-17、111-12：<b>沒給審閱期</b> → 不構成契約內容，但消費者得主張仍構成。③牴觸個別磋商 → 只有<b>牴觸的部分</b>無效（§15）。④應記載事項沒寫 → 不是無效，是「仍構成契約內容」。⑤「無效」與「不構成」中間不要加「可撤銷」「效力未定」，這兩個都不是消保法的說法。</div><div class="pcs"><div class="pc"><div class="q">考古題對照</div><div class="a">審閱期：99-17、105-25、106-30、110-17、111-12、113-19｜牴觸個別磋商：99-19、106-32、108-14｜顯失公平：99-18、101-22、106-26、113-21</div></div></div></div></details><div class="grp2">複習</div><details class="sc rev" id="t1"><summary><span class="n2">二</span><div class="t2"><h2>30 秒速背卡</h2><small>考前最後一遍</small></div><span class="tg2">複習</span><span class="ar">▸</span></summary><div class="sb"><div class="kou"><b>效力口訣〔自編〕</b><span><span class="mn">公商項期＝無效</span>｜<span class="mn">未刷期＝不構成</span></span></div><div class="kou"><b>三個關鍵〔自編〕</b><span><span class="mn">放棄審閱期＝無效；沒給審閱期＝不構成（消費者可主張仍構成）</span>｜<span class="mn">部分無效，其餘有效；顯失公平則全部無效</span>｜<span class="mn">應記載沒寫仍構成；不得記載寫了無效</span></span></div></div></details>
+</div>
+<script>(function(){
+var secs=function(){return document.querySelectorAll("details.sc")};
+function cur(){return document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+function ub(){var b=document.getElementById("theme-btn");if(b)b.textContent=cur()==="dark"?"淺色":"深色"}
+window.toggleTheme=function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);ub();try{localStorage.setItem("bx-theme",n)}catch(e){}};
+ub();
+function op(id){var d=id&&document.getElementById(id);if(d&&d.tagName==="DETAILS"){d.open=true;setTimeout(function(){d.scrollIntoView({behavior:"smooth",block:"start"})},40)}}
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".toolbar a");if(a&&a.getAttribute("href").charAt(0)==="#"){e.preventDefault();op(a.getAttribute("href").slice(1))}});
+window.addEventListener("hashchange",function(){op(location.hash.slice(1))});if(location.hash)op(location.hash.slice(1));
+var ab=document.getElementById("allBtn"),all=false;
+ab.addEventListener("click",function(){all=!all;secs().forEach(function(d){d.open=all});ab.textContent=all?"全部收合":"全部展開"});
+var cb=document.getElementById("clozeBtn");
+cb.addEventListener("click",function(){var on=document.body.classList.toggle("cloze");cb.classList.toggle("on",on);cb.textContent=on?"顯示答案":"遮答案練習";if(on){all=true;secs().forEach(function(d){d.open=true});document.querySelectorAll("details.r").forEach(function(d){d.open=true});ab.textContent="全部收合"}else{document.querySelectorAll(".ans.show").forEach(function(e){e.classList.remove("show")})}});
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".ans");if(a&&document.body.classList.contains("cloze")){e.preventDefault();a.classList.toggle("show")}});
+})();</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+</body>
+</html>
