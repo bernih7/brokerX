@@ -74,6 +74,17 @@ body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--hotc:#F0907A;--keyc:#E0B070;--numfg2:#E0B070;--numbg2:rgba(224,176,112,.18)}}
 :root[data-theme="dark"]{--hotc:#F0907A;--keyc:#E0B070;--numfg2:#E0B070;--numbg2:rgba(224,176,112,.18)}
 :root[data-theme="light"]{--hotc:#A8402B;--keyc:#8A5517;--numfg2:#8A5517;--numbg2:#FBF1D9}
+
+:root{--b-def:#35693F;--b-law:#3A5A78;--b-app:#B8782E;--b-con:#A8402B}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--b-def:#8fb67c;--b-law:#8DB0D0;--b-app:#d9b058;--b-con:#e0806a}}
+:root[data-theme="dark"]{--b-def:#8fb67c;--b-law:#8DB0D0;--b-app:#d9b058;--b-con:#e0806a}
+:root[data-theme="light"]{--b-def:#35693F;--b-law:#3A5A78;--b-app:#B8782E;--b-con:#A8402B}
+.pbox{--bc:var(--b-def);border-radius:10px;padding:10px 12px;margin:10px 0;background:color-mix(in srgb,var(--bc) 10%,var(--card));border:1px solid color-mix(in srgb,var(--bc) 28%,var(--line));border-left:5px solid var(--bc);word-break:break-word}
+.pbox.law{--bc:var(--b-law)}.pbox.app{--bc:var(--b-app)}.pbox.con{--bc:var(--b-con);background:color-mix(in srgb,var(--bc) 13%,var(--card))}
+.pbox .ph{color:var(--bc);font-size:13.5px;margin:0 0 4px;font-weight:800}
+.pbox .pl{margin:3px 0}
+.pbox .pl.sb2{background:color-mix(in srgb,var(--card) 80%,transparent);border-radius:7px;padding:5px 9px;margin:6px 0}
+.pbox .pl.note{background:var(--tipbg);border-radius:7px;padding:5px 9px;margin:6px 0;font-size:13.5px}
 </style></head><body>
 <header><h1>來勝115年模擬試題（一）｜土地稅法規概要</h1><div class="sub">出題：曾榮耀（永慶班）｜90分鐘：申論2×25＋單選25×2<br>※補習班模擬題，非考選部官方試題。解答為 Claude 依現行法推導（老師解答尚未提供），標⚠️者信心較低，請與老師解答核對。</div></header>
 <div class="wrap"><div class="tabs"><button id="t1" class="on">單選25題</button><button id="t2">申論2題</button><button id="t3">配題分析</button><button id="t4">結果</button></div>
@@ -168,7 +179,8 @@ function build(){
   c.querySelector(".qn").textContent=x.t;c.querySelector(".stem").innerHTML=HL(x.q,x.kw,1);
   var a=c.querySelector(".ans"),nt=c.querySelector(".vnote");
   var NT={short:"快寫版：時間不夠或只想抓得分骨架時用，約10分鐘可寫完。",std:"標準版：四段式完整參考解答。",adv:"進階版：補立法目的、比較表、陷阱與經紀人實務，適合讀懂後加深。"};
-  function render(v){var parts=v==="short"?x.short:v==="adv"?x.adv:x.parts;a.innerHTML="";nt.innerHTML=NT[v]+' <span class="hlg"><span class="kw">紅粗體＝關鍵詞</span><span class="lw">棕粗體＝條號</span><span class="nm">金底＝數字期間</span></span>';parts.forEach(function(pp){var h=document.createElement("div");h.className="ph";h.textContent=pp[0];var b=document.createElement("div");b.className="pb";b.innerHTML=HL(pp[1],x.kw);a.appendChild(h);a.appendChild(b)});c.querySelectorAll(".vt button").forEach(function(bt){bt.classList.toggle("on",bt.dataset.v===v)})}
+  function render(v){var parts=v==="short"?x.short:v==="adv"?x.adv:x.parts;a.innerHTML="";nt.innerHTML=NT[v]+' <span class="hlg"><span class="kw">紅粗體＝關鍵詞</span><span class="lw">棕粗體＝條號</span><span class="nm">金底＝數字期間</span></span>';parts.forEach(function(pp){var k=/定義/.test(pp[0])?"def":/法條/.test(pp[0])?"law":/涵攝/.test(pp[0])?"app":"con";var bx=document.createElement("div");bx.className="pbox "+k;var h=document.createElement("div");h.className="ph";h.textContent=pp[0];bx.appendChild(h);
+   pp[1].split("\n").forEach(function(ln){if(!ln.trim())return;var d=document.createElement("div");d.className="pl"+(/^[（(][一二三四五六七八九十]+[)）]|^[①②③④⑤⑥⑦⑧⑨⑩]/.test(ln)?" sb2":"")+(/^(⚠️|經紀人實務|延伸|作答陷阱|〔)/.test(ln)?" note":"");d.innerHTML=HL(ln,x.kw);bx.appendChild(d)});a.appendChild(bx)});c.querySelectorAll(".vt button").forEach(function(bt){bt.classList.toggle("on",bt.dataset.v===v)})}
   c.querySelectorAll(".vt button").forEach(function(bt){bt.onclick=function(){render(bt.dataset.v);c.querySelector("details").open=true}});
   render("std");
   c.querySelector(".warn").textContent="⚠️ "+x.warn;e.appendChild(c)});
