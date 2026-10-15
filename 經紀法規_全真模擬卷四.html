@@ -63,6 +63,8 @@ body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
 .kouf{border-left:5px solid var(--ok);background:var(--ok-soft);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:14px}.kouf b{color:var(--ok)}
 .tipf{border-left:5px solid var(--acc);background:var(--acc-soft);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px;color:var(--acc-ink)}
 .lg{font-size:12px;color:var(--sub);margin-top:6px}
+.fr>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}.fr>summary::-webkit-details-marker{display:none}.fr>summary::before{content:"▸";font-size:.9em}.fr[open]>summary::before{content:"▾"}.fr[open]>summary{margin-bottom:4px}
+.vt .vx{margin-left:auto;border-style:dashed}
 .vn{font-size:12px;color:var(--sub);margin-top:6px}
 details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:13px;color:var(--bad);margin-top:8px}
 #tm{font-weight:700;color:var(--bad)}
@@ -135,12 +137,18 @@ function hl(t,kw){var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\
  ap(t.slice(last));return out}
 function renderVers(a,x){
  var vs=[{n:"完整四段式",parts:x.parts}].concat(x.v||[]);
- var tb=document.createElement("div");tb.className="vt";var body=document.createElement("div");
- function show(i){[].forEach.call(tb.children,function(b,j){b.className=j===i?"on":""});body.innerHTML="";
-  vs[i].parts.forEach(function(p,k){var f=document.createElement("div");var c=p[2]==="ok"?"f3":p[2]==="bad"?"f4":"f"+(k%4+1);f.className="fr "+c;
-   var h=document.createElement("div");h.className="ph";h.textContent=p[0];var b=document.createElement("div");b.className="pb";b.innerHTML=hl(p[1],x.kw);f.appendChild(h);f.appendChild(b);body.appendChild(f)})}
- vs.forEach(function(v,i){var b=document.createElement("button");b.textContent=v.n;b.onclick=function(){show(i)};tb.appendChild(b)});
- var n=document.createElement("div");n.className="vn";n.textContent="三種擬答對照：完整版＝寫滿時用；速寫版＝時間不夠時的骨架；關鍵詞＝閱卷抓分點。";var lg=document.createElement("div");lg.className="lg";lg.innerHTML='標色：<span class="xk">紅粗體＝關鍵詞</span>　<span class="xa">棕粗體＝條號</span>　<span class="xn">金底＝數字／期間／金額</span>　綠框＝口訣　黃框＝提示';var kf=document.createElement("div");kf.className="kouf";kf.innerHTML="<b>口訣〔自編〕</b>　"+hl(x.m,x.kw).replace(/&amp;/g,"&");
+ var tb=document.createElement("div");tb.className="vt";var body=document.createElement("div");var allopen=false;
+ var xb=document.createElement("button");xb.className="vx";xb.textContent="全部展開";
+ function setAll(){[].forEach.call(body.querySelectorAll("details.fr"),function(d){d.open=allopen});xb.textContent=allopen?"全部收合":"全部展開"}
+ xb.onclick=function(){allopen=!allopen;setAll()};
+ function show(i){[].forEach.call(tb.querySelectorAll("button:not(.vx)"),function(b,j){b.className=j===i?"on":""});body.innerHTML="";
+  if(vs[i].src){var sn=document.createElement("div");sn.className="vn";sn.textContent=vs[i].src;body.appendChild(sn)}
+  vs[i].parts.forEach(function(p,k){var f=document.createElement("details");var c=p[2]==="ok"?"f3":p[2]==="bad"?"f4":"f"+(k%4+1);f.className="fr "+c;
+   var h=document.createElement("summary");h.className="ph";h.textContent=p[0];var b=document.createElement("div");b.className="pb";b.innerHTML=hl(p[1],x.kw);f.appendChild(h);f.appendChild(b);body.appendChild(f)});setAll()}
+ vs.forEach(function(v,i){var b=document.createElement("button");b.textContent=v.n;b.onclick=function(){show(i)};tb.appendChild(b)});tb.appendChild(xb);
+ var n=document.createElement("div");n.className="vn";n.textContent="版本：完整版＝寫滿時用；速寫版＝時間不夠時的骨架；關鍵詞＝閱卷抓分點；老師版＝補習班老師解答。點各段標題可收合／展開。";
+ var lg=document.createElement("div");lg.className="lg";lg.innerHTML='標色：<span class="xk">紅粗體＝關鍵詞</span>　<span class="xa">棕粗體＝條號</span>　<span class="xn">金底＝數字／期間／金額</span>　綠框＝口訣　黃框＝提示';
+ var kf=document.createElement("div");kf.className="kouf";kf.innerHTML="<b>口訣〔自編〕</b>　"+hl(x.m,x.kw);
  a.appendChild(tb);a.appendChild(body);a.appendChild(kf);a.appendChild(n);a.appendChild(lg);show(0)}
 function mkE(host){
  host.innerHTML='<div class="note">申論兩題共 50 分。建議先自己寫在紙上，再展開擬答（3 個版本）對照。</div>';
