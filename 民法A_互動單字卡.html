@@ -212,7 +212,7 @@ footer .reset{
 
   <div class="status-row" id="statusRow"></div>
 
-  <div class="progress"><b id="curNum">1</b> / <span id="totalNum">42</span>　<span id="catName"></span></div>
+  <div class="progress">已完成 <b id="curNum">0</b> / <span id="totalNum">42</span>　<span id="catName"></span></div>
   <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 
   <div class="scene">
@@ -326,6 +326,7 @@ const CAT_COLORS = {
 let activeCats = new Set(Object.keys(CAT_COLORS));
 let statusFilter = 'all'; // all | review | mastered
 let mode = 'study'; // study | quiz
+let seen = {}; // id -> true（看過解析或已評分＝完成）
 let mastery = {}; // id -> 'mastered' | 'review'
 let deck = [...CARDS];
 let idx = 0;
@@ -360,6 +361,12 @@ const quizNg = document.getElementById('quizNg');
 const breakdownPanel = document.getElementById('breakdownPanel');
 
 // ---- persistent storage ----
+async function loadSeen(){
+  try{ const r=await window.storage.get('mastery_data_a_seen'); if(r&&r.value) seen=JSON.parse(r.value); }catch(e){ seen={}; }
+}
+async function saveSeen(){ try{ await window.storage.set('mastery_data_a_seen', JSON.stringify(seen)); }catch(e){} }
+function isDone(c){ return !!seen[c.id] || !!mastery[c.id]; }
+function markSeen(c){ if(!seen[c.id]){ seen[c.id]=true; saveSeen(); } }
 async function loadMastery(){
   try{
     const res = await window.storage.get('mastery_data_a');
@@ -482,14 +489,15 @@ function render(){
   const icon = m==='mastered' ? '✅' : '';
   badgeMasteryFront.textContent = icon;
   badgeMasteryBack.textContent = icon;
-  curNum.textContent = idx+1;
+  if(flipped) markSeen(c);
+  curNum.textContent = deck.filter(isDone).length;
   totalNum.textContent = deck.length;
   catName.textContent = '・' + c.cat;
-  progFill.style.width = ((idx+1)/deck.length*100)+'%';
+  progFill.style.width = (deck.filter(isDone).length/deck.length*100)+'%';
 
   if(mode==='study'){
-    footFront.textContent = '點擊卡片　看解析 ▸';
-    footBack.textContent = '◂ 點擊卡片　回題目';
+    footFront.textContent = '左鍵翻面看解析 ▸　右鍵＝下一張';
+    footBack.textContent = '◂ 左鍵回題目　右鍵＝下一張';
   } else {
     footFront.textContent = '點擊卡片 或「顯示答案」▸';
     footBack.textContent = '看完後請點　答對／答錯';
@@ -510,10 +518,13 @@ cardEl.addEventListener('click',()=>{
   if(mode==='study'){
     flipped=!flipped;
     cardEl.classList.toggle('flipped',flipped);
+    if(flipped){ markSeen(deck[idx]); curNum.textContent=deck.filter(isDone).length; progFill.style.width=(deck.filter(isDone).length/deck.length*100)+'%'; }
   } else {
     if(!revealed){ revealed=true; render(); }
   }
 });
+
+cardEl.addEventListener('contextmenu',(e)=>{ e.preventDefault(); goNext(); });
 
 // ---- navigation ----
 function goNext(){
@@ -629,7 +640,7 @@ document.getElementById('resetQuiz').addEventListener('click',()=>{
 
 document.getElementById('resetMastery').addEventListener('click',async ()=>{
   if(!confirm('確定要清除所有「已掌握」標記嗎？此動作無法復原。')) return;
-  mastery = {};
+  mastery = {}; seen = {}; saveSeen();
   await saveMastery();
   rebuildDeck();
 });
@@ -637,6 +648,7 @@ document.getElementById('resetMastery').addEventListener('click',async ()=>{
 // ---- init ----
 (async function init(){
   await loadMastery();
+  await loadSeen();
   renderStatusRow();
   rebuildDeck();
 })();
