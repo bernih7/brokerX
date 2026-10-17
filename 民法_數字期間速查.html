@@ -43,14 +43,14 @@ details>summary:before{content:"▸";color:var(--pri);font-size:13px}details[ope
 .vb{flex:0 0 auto;min-width:54px;text-align:center;font-weight:700;font-size:13.5px}
 .mt{font-size:12px;color:var(--mu);margin-top:1px}.mt .tg{margin-right:6px}.mt a.lw{color:var(--ac);font-weight:600}
 .nt{color:var(--mu);font-size:12px;margin-top:2px}
-body.mask .msk:not(.show),body.mask .it .nm:not(.show){color:transparent!important;background:var(--sf2)!important;border-radius:4px;cursor:pointer;user-select:none}
+body.mask #b2 .msk:not(.show),body.mask #b2 .it .nm:not(.show),body.mask #b3 .nm:not(.show){color:transparent!important;background:var(--sf2)!important;border-radius:4px;cursor:pointer;user-select:none}
 .bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.bar button{border:1px solid var(--bd);background:var(--sf);color:var(--tx);border-radius:14px;padding:4px 11px;font-size:13px}.bar button.on{background:var(--pri);color:var(--bg)}
 .cf td:first-child{font-size:13px}
 </style>
 </head><body>
 <header><div><h1>民法概要｜數字・期間速查</h1><div class="sub">110 項・條號可點，開全國法規資料庫核對</div></div><button id="th">🌓</button></header>
 <nav><a href="#s1">依期間</a><a href="#s2">依主題</a><a href="#s3">易混淆</a></nav>
-<div class="tools"><input id="q" placeholder="搜尋：條號、關鍵字（例：§127、租金、6個月）"><div class="bar"><button id="ex">全部展開</button><button id="co">全部收合</button><button id="mk">遮住數字自測（點被遮的數字看答案）</button></div><div id="cnt"></div></div>
+<div class="tools"><input id="q" placeholder="搜尋：條號、關鍵字（例：§127、租金、6個月）"><div class="bar"><button id="ex">全部展開</button><button id="co">全部收合</button><button id="mk">遮住數字自測（依主題、易混淆）</button></div><div id="cnt"></div></div>
 <section id="s1"><h2>① 依期間（單位 → 數字 → 內容）</h2><div id="b1"></div></section>
 <section id="s2"><h2>② 依主題（主題 → 單位 → 內容）</h2><div id="b2"></div></section>
 <section id="s3"><h2>③ 易混淆整理</h2><div id="b3"></div></section>
@@ -81,7 +81,7 @@ $("q").oninput=function(){qs=this.value.trim().toLowerCase();render()};
 $("ex").onclick=function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.open=true})};
 $("co").onclick=function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.open=false})};
 $("mk").onclick=function(){document.body.classList.toggle("mask");this.classList.toggle("on",document.body.classList.contains("mask"));[].forEach.call(document.querySelectorAll(".show"),function(x){x.classList.remove("show")})};
-document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest(".msk,.it .nm");if(v&&document.body.classList.contains("mask")){e.preventDefault();v.classList.toggle("show")}},true);
+document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest("#b2 .msk,#b2 .it .nm,#b3 .nm");if(v&&document.body.classList.contains("mask")){e.preventDefault();v.classList.toggle("show")}},true);
 $("th").onclick=function(){var n=document.documentElement.getAttribute("data-theme")=="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("bx-theme",n)}catch(e){}};
 $("b3").innerHTML=C.map(function(c){return '<details class="gc"><summary><span class="gt">'+c[0]+'</span>'+(c[2]?'<span class="gh">'+c[2]+'</span>':'')+'</summary><div class="gb"><div class="cf" style="border:0;margin:0;padding:0"><table>'+c[1].map(function(r){return '<tr><td>'+r[0]+'</td><td class="ct">'+r[1]+(r[2]?'<div class="nt">'+r[2]+'</div>':'')+'</td></tr>'}).join("")+'</table></div></div></details>'}).join("");
 [].forEach.call($("b3").querySelectorAll(".ct"),function(c){BXF.hi(c,KEY)});BXF.link($("b3"));
