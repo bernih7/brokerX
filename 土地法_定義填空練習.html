@@ -221,6 +221,7 @@ nav{padding:8px 16px;display:block}
 .ch-panel,.quiz-filter.fold{display:none;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);flex-wrap:wrap;gap:6px;max-height:55vh;overflow-y:auto}
 .ch-panel.open,.quiz-filter.fold.open{display:flex}
 .quiz-wrap{margin-bottom:14px}
+.lawlk{color:var(--blue);text-decoration:underline;text-underline-offset:2px;font-weight:600}
 </style>
 </head>
 <body>
@@ -942,7 +943,7 @@ const DATA = [
     "term": "區域計畫公告後之程序",
     "blank": "區域計畫公告後，主管機關應製定非都市土地___並編定各種使用地；擬定機關接核定公文之日起___日內公告實施。",
     "answer": "區域計畫公告後，主管機關應製定非都市土地<span class=\"key\">使用分區圖</span>並編定各種使用地；擬定機關接核定公文之日起<span class=\"key\">40</span>日內公告實施。",
-    "src": "區域計畫法",
+    "src": "區域計畫法§10",
     "mc": 3,
     "essay": 0,
     "mcx": [
@@ -3154,6 +3155,10 @@ const DATA = [
  }
 ];
 function ansExtra(c){var a=String(c.answer).replace(/<[^>]+>/g,''),pos=0,ps=String(c.blank).split('___');for(var i=0;i<ps.length;i++){var k=a.indexOf(ps[i],pos);if(k<0)return true;pos=k+ps[i].length}return false}
+const LAWPC={'土地法':'D0060001','平均地權條例':'D0060009','土地徵收條例':'D0060058','三七五減租條例':'D0060008','三七五':'D0060008','都市計畫法':'D0070001','都計法':'D0070001','區域計畫法':'D0070030','區計':'D0070030','土地稅法':'G0340096','土稅':'G0340096','房屋稅條例':'G0340102','契稅條例':'G0340105','所得稅法':'G0340003','民法':'B0000001'};
+const LAWKEYS=Object.keys(LAWPC).sort(function(a,b){return b.length-a.length});
+function srcHtml(t){var cur=null;return String(t).replace(/([一-龥]*)§(\d+(?:-\d+)?)/g,function(m,nm,no){if(nm){cur=null;for(var i=0;i<LAWKEYS.length;i++){if(nm.slice(-LAWKEYS[i].length)===LAWKEYS[i]){cur=LAWPC[LAWKEYS[i]];break}}}
+if(!cur)return m;return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+'">§'+no+'</a>'})}
 function mnoHtml(t){return String(t).replace(/〔[^〕]*〕/g,function(x){return '<span class="mt">'+x+'</span>'}).replace(/（[^）]*）/g,function(x){return '<span class="mx">'+x+'</span>'})}
 function examStat(c){
   const rows=[];
@@ -3266,7 +3271,7 @@ DATA.forEach((ch,ci)=>{
         ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
-        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${srcHtml(c.src)}</div>
       </div>`;
     div.appendChild(card);
   });
@@ -3446,7 +3451,7 @@ function renderQuizCard() {
         ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
-        <div class="src">📌 ${c.src}</div>
+        <div class="src">📌 ${srcHtml(c.src)}</div>
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
     </div>`;
