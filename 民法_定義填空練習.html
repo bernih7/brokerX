@@ -201,11 +201,20 @@ details.qf-wrap .quiz-filter{margin-top:8px}
 #quiz-mode.active{padding-bottom:24px}
 .qc-btns{position:static;display:flex;margin:14px 0 4px;padding:0;gap:6px;flex-wrap:wrap}
 .qc-btns .qc-btn{flex:1 1 120px;min-width:0;padding:10px 6px;font-size:14px;white-space:nowrap}
-/* 章節分類收納、隱藏進度條 */
-.ch-title{border-bottom:0!important;padding-bottom:0!important;margin-bottom:10px!important}
-nav{flex-direction:column;gap:6px;padding:8px 16px}
-#navTog{font:inherit;font-size:13px;font-weight:700;text-align:left;padding:6px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-#navChips{display:none;flex-wrap:wrap;gap:8px;padding-top:2px}#navChips.open{display:flex}
+/* 章節瀏覽：各章改為收合清單 */
+#nav{display:none!important}
+.chapter,.chapter.active{display:block!important}
+.ch-title{border-bottom:0!important}
+.chtools{display:flex;gap:8px;margin:0 0 12px}
+.chtools button{font:inherit;font-size:13px;font-weight:700;padding:6px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+details.chd{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:12px;margin:0 0 10px}
+details.chd>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px;scroll-margin-top:12px}
+details.chd>summary::-webkit-details-marker{display:none}
+details.chd>summary::after{content:"›";margin-left:auto;color:var(--muted);font-size:20px;transition:transform .15s}
+details.chd[open]>summary::after{transform:rotate(90deg)}
+.chn{font-family:"Noto Serif TC",serif;font-weight:700;font-size:15px;color:var(--red)}
+.chp{font-size:12px;color:var(--muted);white-space:nowrap}
+.chb{padding:0 14px 6px}
 </style>
 <script src="bxm-use.js"></script>
 </head>
@@ -237,7 +246,6 @@ nav{flex-direction:column;gap:6px;padding:8px 16px}
 <p>※「選擇 N 次／申論 N 次」＝ 520 題選擇題的題幹與解析、32 題申論的〈相關法條依據〉中，引用該條號的題數（依條號比對，非人工分類）；「尚無歷屆引用紀錄」代表比對不到，不等於不會考。</p>
 <p>※ 特留分：兄弟姊妹特留分的刪除（115.7.28 三讀、115.8.17 公布、116.2.17 施行）已兩源核實；本頁依現行條文出題。</p>
 </div>
-<a id="hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" title="回備考指揮中心">🏠</a>
 
 <script>
 /*ESMAP*/const ESMAP={"114-一": {"t": "共有屋頂平台：默示分管＋對後手效力"}, "110-一": {"t": "共有物分割：抵押權按比例續存"}, "106-一": {"t": "共有出租＋共同借款是否連帶"}, "105-二": {"t": "區分所有頂樓加蓋：使用權源＋買賣效力"}, "103-二": {"t": "分割共有物：抵押權移存＋補償金保障"}, "102-一": {"t": "共有物出租vs修繕：管理行為與保存行為"}, "100-二": {"t": "分別共有vs公同共有比較"}, "114-二": {"t": "抵押權＋地上權＋所有權讓與：物權優先順序"}, "109-二": {"t": "時效取得地上權（§772準用§769）"}, "108-二": {"t": "最高限額抵押權：擔保範圍＋物上代位"}, "104-二": {"t": "抵押權與地上權併存（§866）"}, "102-二": {"t": "未辦繼承登記能否實行抵押權（§759）"}, "111-一": {"t": "以自己名義出租他人之屋：返還＋§952抗辯"}, "110-二": {"t": "通謀虛偽＋繼承人善意取得（類推）"}, "109-一": {"t": "夫妻財產制＋登記推定＋無權處分"}, "108-一": {"t": "借名登記＋無權處分（丙為登記名義人）"}, "99-一": {"t": "第三人詐欺撤銷＋抵押權善意取得"}, "113-一": {"t": "買賣瑕疵擔保（§354vs§360）＋精神慰撫金"}, "113-二": {"t": "委託銷售：居間報酬＋定金退還（兩爭點）"}, "112-一": {"t": "靈骨塔永久使用權：債權效力vs強制執行"}, "112-二": {"t": "居間報酬：成立時點，事後解除不影響"}, "104-一": {"t": "居間報酬：成立時點＋服務費計算"}, "101-二": {"t": "出典＋買賣＋押租金歸屬"}, "107-一": {"t": "債權人代位權（§242）"}, "106-二": {"t": "行為能力（成年）＋瑕疵擔保（海砂屋）"}, "103-一": {"t": "詐欺撤銷：債權行為／物權行為、詐欺vs脅迫"}, "101-一": {"t": "拋棄債權／抵押權／繼承權效力比較"}, "100-一": {"t": "信賴利益之定義與損害賠償"}, "111-二": {"t": "相鄰關係：鄰地使用＋越界建築"}, "107-二": {"t": "消滅時效vs除斥期間＋已登記不動產（釋字107）"}, "105-一": {"t": "消滅時效＋抵押權塗銷（§880）"}, "99-二": {"t": "同時死亡＋代位繼承＋拋棄繼承"}, "預01": {"t": "抵押權：法定地上權與併付拍賣"}, "預02": {"t": "共有物分割：抵押權移存與補償金抵押權"}, "預03": {"t": "共有物管理：過半數決與分管登記對受讓人效力"}, "預04": {"t": "遺囑與特留分：扣減遺贈"}, "預05": {"t": "通謀虛偽＋善意第三人：登記公信力"}, "預06": {"t": "剩餘財產分配：計算、追加與返還"}, "預07": {"t": "最高限額抵押權：確定與債權讓與"}, "預08": {"t": "居間報酬：停止條件與違反義務"}, "預09": {"t": "消滅時效：請求不起訴與抵押權消滅"}, "預10": {"t": "買賣瑕疵擔保：免責特約與故意不告知"}, "預11": {"t": "買賣不破租賃：公證與五年門檻"}, "預12": {"t": "區分所有：規約專用約定與不得分離"}, "預13": {"t": "居間報酬：未約定報酬額與雙方負擔"}, "預14": {"t": "居間人義務：顯無履行能力、第571條要件與費用"}, "預15": {"t": "不完全給付：瑕疵給付與加害給付（§227）"}};/*END*/
@@ -2486,9 +2494,32 @@ function toggleTheme() {
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
-<script>(function(){var nav=document.getElementById('nav'),btns=[].slice.call(nav.querySelectorAll('.nav-btn'));if(!btns.length)return;var wrap=document.createElement('div');wrap.id='navChips';btns.forEach(function(b){wrap.appendChild(b)});var tog=document.createElement('button');tog.id='navTog';nav.appendChild(tog);nav.appendChild(wrap);
-function lab(){var on=nav.querySelector('.nav-btn.on');tog.textContent='章節：'+(on?on.textContent:'')+'　▾'}
-tog.onclick=function(){wrap.classList.toggle('open')};
-nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(function(){lab();wrap.classList.remove('open')},0)});lab()})();</script>
+<script>(function(){var main=document.getElementById('main');
+[].slice.call(main.querySelectorAll('.chapter')).forEach(function(c){var t=c.querySelector('.ch-title');if(!t)return;var id=c.id.replace('ch-','');
+var d=document.createElement('details');d.className='chd';d.id='chd-'+id;var sm=document.createElement('summary');sm.innerHTML='<span class="chn"></span><span class="chp"></span>';sm.firstChild.textContent=t.textContent;d.appendChild(sm);
+var body=document.createElement('div');body.className='chb';[].slice.call(c.children).forEach(function(x){if(x!==t)body.appendChild(x)});t.remove();d.appendChild(body);c.appendChild(d);
+var pt=document.getElementById('pt-'+id),chp=sm.querySelector('.chp');function up(){chp.textContent=pt?'已確認 '+pt.textContent.replace(/\s/g,''):''}up();if(pt)new MutationObserver(up).observe(pt,{childList:true,characterData:true,subtree:true})});
+var bar=document.createElement('div');bar.className='chtools';bar.innerHTML='<button type="button" id="chAll">全部展開</button><button type="button" id="chNone">全部收合</button>';main.insertBefore(bar,main.firstChild);
+function all(o){[].forEach.call(document.querySelectorAll('details.chd'),function(d){d.open=o})}
+document.getElementById('chAll').onclick=function(){all(true)};document.getElementById('chNone').onclick=function(){all(false)};
+window.switchCh=function(id){var d=document.getElementById('chd-'+id);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}}})();</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
 </body>
 </html>
