@@ -197,7 +197,9 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .quiz-done-banner .big{font-size:48px;margin-bottom:8px}
 
 /* 口訣 */
-.mnemo{margin-top:8px;padding:7px 12px;border-radius:8px;background:var(--tint3);border-left:3px solid var(--gold);font-size:13.5px;color:var(--key);font-weight:700}
+.mnemo{margin-top:8px;padding:7px 12px;border-radius:8px;background:var(--tint3);border-left:3px solid var(--gold);font-size:14px;color:var(--green);font-weight:700}
+.mnemo .mx{color:var(--ink);font-weight:400;font-size:12.5px}
+.mnemo .mt{color:var(--muted);font-weight:400;font-size:11.5px}
 .tbx-wrap{margin-top:10px;overflow-x:auto}
 .tbx{border-collapse:collapse;width:100%;font-size:13px;line-height:1.5;background:var(--card,var(--bg))}
 .tbx th{background:var(--tint3);color:var(--muted);font-weight:700;text-align:left;padding:6px 9px;border:1px solid var(--line);white-space:nowrap}
@@ -282,7 +284,7 @@ const DATA = [
      "102-29",
      "100-35"
     ],
-    "mnemonic": "建・生・交・其（建築・直接生產・交通水利・其他）〔自編〕"
+    "mnemonic": "建・直・交・其（建築・直接生產・交通水利・其他）"
    },
    {
     "term": "不得私有之土地（§14）",
@@ -313,7 +315,7 @@ const DATA = [
     "src": "土地法§17",
     "mc": 3,
     "essay": 1,
-    "mnemonic": "林漁狩鹽礦水",
+    "mnemonic": "林漁狩鹽礦要水（林・漁・狩獵・鹽・礦・要塞軍備邊境・水源）",
     "mcx": [
      "109-17",
      "106-14",
@@ -3029,6 +3031,8 @@ const DATA = [
   ]
  }
 ];
+function ansExtra(c){var a=String(c.answer).replace(/<[^>]+>/g,''),pos=0,ps=String(c.blank).split('___');for(var i=0;i<ps.length;i++){var k=a.indexOf(ps[i],pos);if(k<0)return true;pos=k+ps[i].length}return false}
+function mnoHtml(t){return String(t).replace(/〔[^〕]*〕/g,function(x){return '<span class="mt">'+x+'</span>'}).replace(/（[^）]*）/g,function(x){return '<span class="mx">'+x+'</span>'})}
 function examStat(c){
   const rows=[];
   if((c.mc||0)>0){
@@ -3135,8 +3139,8 @@ DATA.forEach((ch,ci)=>{
       </div>
       <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
       <div class="answer-note" id="ans-${key}">
-        <div class="key-note">${c.answer}</div>
-        ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
+        ${ansExtra(c)?`<div class="key-note">${c.answer}</div>`:''}
+        ${c.mnemonic?`<div class="mnemo"><b>口訣</b>${mnoHtml(c.mnemonic)}</div>`:''}
         ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
@@ -3315,8 +3319,8 @@ function renderQuizCard() {
         <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
       </div>
       <div class="qc-answer" id="qans-${qid}">
-        <div>${c.answer}</div>
-        ${c.mnemonic?`<div class="mnemo"><b>🎵 口訣</b>${c.mnemonic}</div>`:''}
+        ${ansExtra(c)?`<div>${c.answer}</div>`:''}
+        ${c.mnemonic?`<div class="mnemo"><b>口訣</b>${mnoHtml(c.mnemonic)}</div>`:''}
         ${c.plain?`<div class="plain"><b>💡 白話</b>${c.plain}</div>`:''}
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
