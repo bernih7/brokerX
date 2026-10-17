@@ -152,6 +152,7 @@ a.card.old{opacity:.88}
 .filters .sub{font-size:.78rem;color:var(--sub);width:100%}
 details.essay{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:2px 12px}
 details.essay[open]{border-color:var(--pri)}
+details.essay.hl{box-shadow:0 0 0 3px var(--pri)}
 details.essay>summary{cursor:pointer;padding:10px 2px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;list-style:none}
 details.essay>summary::-webkit-details-marker{display:none}
 details.essay .ek{background:var(--pri);color:var(--on);font-size:.72rem;padding:2px 8px;border-radius:10px;font-weight:700}
@@ -554,6 +555,9 @@ document.querySelectorAll('#fl button[data-f]').forEach(function(b){b.addEventLi
 $('sq').addEventListener('input',apply);$('elist').addEventListener('click',function(ev){var b=ev.target.closest('.vt button');if(!b)return;var box=b.closest('.ebody');box.querySelectorAll('.vt button').forEach(function(x){x.classList.toggle('on',x===b)});box.querySelectorAll('.vp').forEach(function(p){p.hidden=p.dataset.v!==b.dataset.v})});
 $('ex').addEventListener('click',function(){essays.forEach(function(e){if(e.style.display!=='none')e.open=true})});$('co').addEventListener('click',function(){essays.forEach(function(e){e.open=false})});
 apply();
+function openEss(k){var e=essays.filter(function(x){return x.dataset.key===k})[0];if(!e)return;curF='all';$('sq').value='';document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x.dataset.f==='all')});apply();goTab('pEss');e.open=true;setTimeout(function(){e.scrollIntoView({block:'start'});e.classList.add('hl');setTimeout(function(){e.classList.remove('hl')},2200)},60)}
+function hashEss(){var m=location.hash.match(/essay=([^&]+)/);if(m)openEss(decodeURIComponent(m[1]))}
+window.addEventListener('hashchange',hashEss);hashEss();
 // 進度
 var pt=$('progtb');ORDER.forEach(function(s){var p=prog[s];var tr=document.createElement('tr');tr.innerHTML='<td>'+SEGN[s]+'</td><td>'+p.done+'／'+p.total+'</td><td>'+(p.done?Math.round(p.ok/p.done*100)+'%':'—')+'</td><td class="'+(p.wrong?'no':'ok')+'">'+p.wrong+'</td>';pt.appendChild(tr)});
 var trt=document.createElement('tr');trt.innerHTML='<th>合計</th><th>'+td+'／'+tot+'</th><th>'+(td?Math.round(tc/td*100)+'%':'—')+'</th><th>'+tw+'</th>';pt.appendChild(trt);
