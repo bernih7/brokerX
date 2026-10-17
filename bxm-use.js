@@ -2,7 +2,7 @@
 (function(){
 var SUBJ="民法";
 var CH={"A":["A","A 民法總則",107],"B":["B","B 債編總論",85],"C":["C","C 債編分則",77],"D":["D","D 物權",134],"E":["E","E 親屬與繼承",117]};
-var PAGES=[["民法刷題練習_A篇","刷題 A 篇"],["民法刷題練習_B篇","刷題 B 篇"],["民法刷題練習_C篇","刷題 C 篇"],["民法刷題練習_D篇","刷題 D 篇"],["民法刷題練習_E篇","刷題 E 篇"],["民法概要_25題模擬測驗","25題模擬測驗"],["民法A_考題小卡","A 精選小卡"],["民法BC_考題小卡","BC 精選小卡"],["民法D_考題小卡","D 精選小卡"],["民法E_考題小卡","E 精選小卡"],["民法A_完整考題小卡","A 完整小卡"],["民法BC_完整考題小卡","BC 完整小卡"],["民法D_完整考題小卡","D 完整小卡"],["民法E_完整考題小卡","E 完整小卡"],["民法A_互動單字卡","A 單字卡"],["民法BC_互動單字卡","BC 單字卡"],["民法D_互動單字卡","D 單字卡"],["民法E_互動單字卡","E 單字卡"],["民法A_彩色重點速記","A 彩色速記"],["民法BC_彩色重點速記","BC 彩色速記"],["民法D_彩色重點速記","D 彩色速記"],["民法E_彩色重點速記","E 彩色速記"],["民法_定義填空練習","定義填空練習"],["民法_法律效果總整理","法律效果總整理"],["民法申論題_五型答題模板","申論五型模板"],["民法_備考指揮中心","備考指揮中心"]];
+var PAGES=[["民法刷題練習_A篇","刷題 A 篇"],["民法刷題練習_B篇","刷題 B 篇"],["民法刷題練習_C篇","刷題 C 篇"],["民法刷題練習_D篇","刷題 D 篇"],["民法刷題練習_E篇","刷題 E 篇"],["民法概要_25題模擬測驗","25題模擬測驗"],["民法A_考題小卡","A 精選小卡"],["民法BC_考題小卡","BC 精選小卡"],["民法D_考題小卡","D 精選小卡"],["民法E_考題小卡","E 精選小卡"],["民法A_完整考題小卡","A 完整小卡"],["民法BC_完整考題小卡","BC 完整小卡"],["民法D_完整考題小卡","D 完整小卡"],["民法E_完整考題小卡","E 完整小卡"],["民法A_互動單字卡","A 單字卡"],["民法BC_互動單字卡","BC 單字卡"],["民法D_互動單字卡","D 單字卡"],["民法E_互動單字卡","E 單字卡"],["民法A_彩色重點速記","A 彩色速記"],["民法BC_彩色重點速記","BC 彩色速記"],["民法D_彩色重點速記","D 彩色速記"],["民法E_彩色重點速記","E 彩色速記"],["民法_定義填空練習","定義填空練習"],["民法_模擬試題一","自擬模擬卷①"],["民法_模擬試題二","自擬模擬卷②"],["民法_法律效果總整理","法律效果總整理"],["民法申論題_五型答題模板","申論五型模板"],["民法_備考指揮中心","備考指揮中心"]];
 var TOT={fill:145,sel:74,full:520,word:172};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -63,6 +63,7 @@ function build(){
  var gu=ids.filter(function(i){return DB[i].ok&&DB[i].k==="D"}).slice(0,40);if(gu.length)L.push("","── 猜對（待加強）──",gu.join("、"));
  L.push("","══ 二、25題模擬測驗 ══");
  var H=ld("bx_mock_civ_sim",[]);if(!H.length)L.push("尚未作答");else{L.push("共 "+H.length+" 次；最近 "+Math.min(5,H.length)+" 次（新→舊）：");H.slice(-5).reverse().forEach(function(r){L.push("民國 "+r.y+" 年卷｜選擇題 "+r.correct+"／25 對｜"+r.score+" 分"+(r.total!=null?"｜含申論合計 "+r.total:"")+"｜"+new Date(r.t).toLocaleString("zh-TW",{hour12:false}))})}
+ ["civ1","civ2"].forEach(function(id,i){var r=ld("bx_mock_"+id,null);L.push("自擬模擬卷"+(i+1)+"："+(r&&r.n?"最近已答 "+r.a+"／"+r.n+"，答對 "+r.c+"（選擇題 "+(r.c*2)+"／50）":"尚未作答"))});
  L.push("","══ 三、記憶工具 ══");
  var cnt=function(keys,tt){var n=0,r=0;keys.forEach(function(key){var m=st(key);Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++})});return"已掌握 "+n+"｜待複習 "+r+"｜未標記 "+Math.max(0,tt-n-r)+"（共 "+tt+"）"};
  L.push("精選考題小卡：",cnt(["exam_mastery_data","exam_mastery_data_a","exam_mastery_data_d","exam_mastery_data_e"],TOT.sel));

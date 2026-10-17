@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>民法全真模擬卷①（自擬・限時 90 分鐘）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;padding-bottom:84px}
+header{padding:14px 16px 6px;max-width:760px;margin:auto}
+.hrow{display:flex;align-items:center;gap:10px}
+h1{font-family:'Noto Serif TC',serif;font-size:1.2rem;margin:0;color:var(--pri);flex:1}
+.th{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 9px;font-size:12px;font-family:inherit;cursor:pointer;flex:none}
+.sub{font-size:13px;color:var(--sub)}
+.wrap{max-width:760px;margin:auto;padding:0 16px}
+.tabs{display:flex;gap:8px;margin:10px 0;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+.tabs button{flex:1;padding:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer}
+.tabs button.on{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;box-shadow:var(--shadow)}
+.card.done{border-left:4px solid var(--ok)}.card.done.wrong{border-left:4px solid var(--bad)}
+.qn{font-family:'Noto Serif TC',serif;color:var(--pri);font-weight:700}
+.stem{white-space:pre-wrap;margin:4px 0 10px;font-family:'Noto Serif TC',serif}
+.tag{display:inline-block;background:var(--acc);color:#fff;font-size:12px;padding:0 8px;border-radius:8px;margin-left:6px;font-family:'Noto Sans TC',sans-serif;font-weight:500}
+.opt{display:flex;gap:8px;align-items:flex-start;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 10px;margin:6px 0;font-family:inherit;font-size:15px;cursor:pointer;color:var(--ink)}
+.opt>b{color:var(--pri);flex:none}
+.ob{flex:1;min-width:0}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bg{display:none;font-size:.65rem;font-weight:700;border-radius:99px;padding:0 8px;margin-left:6px;color:#fff;vertical-align:middle}
+.opt.ok .bg.a{display:inline-block;background:var(--ok)}.opt.bad .bg.p{display:inline-block;background:var(--bad)}
+.nt{display:none;font-size:13px;color:var(--ink);margin-top:4px;border-top:1px dashed var(--line);padding-top:4px}
+.arr{display:none;float:right;margin-left:6px;color:var(--sub);transition:transform .15s}
+body[data-ex="C"] .done .arr,body[data-ex="D"] .done .arr{display:inline-block}
+.done .opt.open .arr,body.allopen .done .arr{transform:rotate(180deg)}
+body[data-ex="B"] .done .opt .nt,body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt,body.allopen .done .opt .nt{display:block}
+body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
+.res{display:none}
+.done .res{display:block;padding:7px 12px;border-radius:8px;font-weight:700;font-size:.86rem;margin:0 0 8px;background:var(--bad-soft);color:var(--bad)}
+.done .res.ok{background:var(--ok-soft);color:var(--ok)}
+.hn{display:none;font-size:.72rem;color:var(--sub);margin:-4px 0 8px}
+body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
+.exs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.78rem;color:var(--sub);margin:8px 0}
+.exs button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:.78rem;cursor:pointer}
+.exs button.on{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
+.trap,.src,.cls{display:none;margin-top:8px;padding:8px 10px;font-size:14px;border-radius:6px}
+.trap{background:var(--warn);border-left:4px solid var(--acc)}.src{font-size:12px;color:var(--sub);padding:0 2px}
+.done .trap,.done .src{display:block}.wrong.done .cls{display:block;background:var(--bad-soft)}
+.cls button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 8px;margin:2px;font-family:inherit;font-size:13px;cursor:pointer}
+.cls button.sel{background:var(--bad);color:#fff;border-color:var(--bad)}
+.score{position:sticky;top:50px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.score button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:4px 10px;font-family:inherit}
+.bar{height:14px;background:var(--pri-soft);border-radius:7px;overflow:hidden;margin:4px 0 10px}.bar i{display:block;height:100%;background:var(--ok)}.bar i.lo{background:var(--bad)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:14px}.note{font-size:13px;color:var(--sub)}
+.ph{font-family:'Noto Serif TC',serif;color:var(--pri);font-weight:700;margin-top:10px}.pb{white-space:pre-wrap}
+.fr{border-left:5px solid var(--pri);background:var(--pri-soft);border-radius:8px;padding:8px 12px;margin-top:10px}
+.fr .ph{margin-top:0}.fr.f2{border-color:var(--acc);background:var(--acc-soft)}.fr.f2 .ph{color:var(--acc-ink)}
+.fr.f3{border-color:var(--ok);background:var(--ok-soft)}.fr.f3 .ph{color:var(--ok)}
+.fr.f4{border-color:var(--bad);background:var(--bad-soft)}.fr.f4 .ph{color:var(--bad)}
+.vt{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}.vt button{font:inherit;font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--sub);cursor:pointer}
+.vt button.on{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:700}
+.xk{color:var(--bad);font-weight:700}.xa{color:var(--acc-ink);font-weight:700}.xn{background:var(--acc-soft);color:var(--acc-ink);font-weight:700;padding:0 3px;border-radius:3px}
+.kouf{border-left:5px solid var(--ok);background:var(--ok-soft);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:14px}.kouf b{color:var(--ok)}
+.tipf{border-left:5px solid var(--acc);background:var(--acc-soft);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px;color:var(--acc-ink)}
+.lg{font-size:12px;color:var(--sub);margin-top:6px}
+.fr>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}.fr>summary::-webkit-details-marker{display:none}.fr>summary::before{content:"▸";font-size:.9em}.fr[open]>summary::before{content:"▾"}.fr[open]>summary{margin-bottom:4px}
+.vt .vx{margin-left:auto;border-style:dashed}
+.vn{font-size:12px;color:var(--sub);margin-top:6px}
+details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:13px;color:var(--bad);margin-top:8px}
+#tm{font-weight:700;color:var(--bad)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+</style><script src="bxm-use.js"></script>
+</head><body>
+<header><div class="hrow"><h1>民法全真模擬卷①（自擬・限時 90 分鐘）</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">自擬模擬卷（非官方考題）：單選 25 題（每題 2 分）＋申論 2 題（每題 25 分）。按「開始計時」後 90 分鐘內作答；先做單選，再寫申論，最後對照參考解答。配題依近 8 年占比 A5／B4／C3／D7／E6；申論參照 112–114 年出法（甲乙丙情境、兩小題、跨章節）：通謀虛偽／善意第三人＋居間報酬｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟</div></div></header>
+<div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
+
+<script>
+var D={"Q":[{"n":1,"ch":"A","sec":"A 行為能力","stem":"甲（17 歲）未得法定代理人允許，將自己所有之機車賣與乙，乙訂約時明知甲未成年。下列敘述何者正確？","opts":["該買賣契約當然無效","乙於承認前得撤回其意思表示","乙得定一個月以上之期限催告甲之法定代理人確答是否承認；逾期不為確答，視為拒絕承認","乙定相當期限催告後，法定代理人逾期未答，視為承認"],"ans":"C","notes":["❌ 限制行為能力人未得允許所訂契約是「效力未定」（§79），不是當然無效。","❌ §82 但書：訂立契約時知其未得允許者不得撤回；乙明知，故不得撤回。","✅ §79 契約須經法定代理人承認始生效力；§80 相對人得定一個月以上期限催告，逾期不確答視為拒絕承認。","❌ §80Ⅱ 逾期不確答是「視為拒絕承認」。"],"trap":"效力未定＋催告（一個月以上、逾期＝拒絕）＋撤回權（善意相對人才有）。","src":"§13、§79、§80、§82；歷屆 106-二（行為能力）；本卷自擬","neg":false},{"n":2,"ch":"A","sec":"A 意思表示瑕疵","stem":"下列有關意思表示瑕疵之敘述，何者錯誤？","opts":["通謀虛偽意思表示無效，且得以其無效對抗善意第三人","被詐欺而為之意思表示，其撤銷不得以之對抗善意第三人","因錯誤而得撤銷之意思表示，其撤銷權自意思表示後經過一年而消滅","第三人所為詐欺，以相對人明知其事實或可得而知者為限，始得撤銷"],"ans":"A","notes":["✅ 此敘述錯誤（本題答案）：§87Ⅰ 但書：不得以其無效對抗善意第三人，本選項與條文相反。","❌ 此敘述正確，不選：§92Ⅱ 規定如此，敘述正確。","❌ 此敘述正確，不選：§90 規定一年，敘述正確。","❌ 此敘述正確，不選：§92Ⅰ 但書，敘述正確。"],"trap":"§87 善意第三人受保護；§92 詐欺撤銷不得對抗善意第三人；§90 一年、§93 發見後一年／十年。","src":"§87、§90、§92、§93；歷屆 110-二、99-一","neg":true},{"n":3,"ch":"A","sec":"A 消滅時效","stem":"甲出租房屋與乙，約定每月租金 2 萬元，乙積欠租金多年未付。下列敘述何者正確？","opts":["租金請求權之消滅時效為 15 年","甲以存證信函請求乙清償後，於七個月後才起訴，時效仍因該請求而中斷","乙於時效完成後承認該債務，仍得請求返還已給付之租金","乙得以時效完成為由拒絕給付；但乙於時效完成後仍為履行之給付者，不得以不知時效為理由請求返還"],"ans":"D","notes":["❌ §126 租金等一年或不及一年之定期給付債權，各期給付請求權 5 年消滅，不是 15 年。","❌ §130：請求後六個月內不起訴，視為不中斷；七個月才起訴已逾期。","❌ §144Ⅱ：以契約承認該債務或提出擔保者亦同，不得返還。","✅ §144：時效完成後債務人得拒絕給付；已為履行不得以不知時效請求返還。"],"trap":"租金 5 年（§126）≠ 一般請求權 15 年（§125）；請求中斷後六個月內要起訴（§130）。","src":"§125、§126、§130、§144；歷屆 105-一（時效）","neg":false},{"n":4,"ch":"A","sec":"A 無權代理","stem":"無代理權人以他人代理人名義所為之法律行為，下列敘述何者正確？","opts":["對本人當然無效","相對人於本人未承認前得撤回之，但為法律行為時明知其無代理權者不在此限","相對人定期催告本人確答，本人逾期未答視為承認","無代理權人對惡意相對人亦負損害賠償責任"],"ans":"B","notes":["❌ §170Ⅰ：非經本人承認，對本人「不生效力」，屬效力未定，本人承認後即生效。","✅ §171 原文。","❌ §170Ⅱ：逾期未確答視為「拒絕」承認。","❌ §110：僅對「善意」之相對人負損害賠償責任。"],"trap":"無權代理：本人承認前相對人撤回權（善意）；催告逾期＝拒絕；§110 只對善意相對人負責。","src":"§110、§170、§171；歷屆 111-一（代理區辨）","neg":false},{"n":5,"ch":"A","sec":"A 物與孳息","stem":"下列關於「物」與「孳息」之敘述：\n①不動產之出產物尚未分離者，為該不動產之部分\n②主物之處分及於從物\n③租金屬於天然孳息\n④有收取法定孳息權利之人，按其權利存續期間內之日數取得其孳息\n⑤從物須與主物同屬於一人\n何者組合正確？","opts":["①②③④","①②④⑤","②③④⑤","①③④⑤"],"ans":"B","notes":["❌ ③ 錯：租金是「法定孳息」（§69Ⅱ），不是天然孳息。","✅ ①（§66Ⅱ）②（§68Ⅱ）④（§70Ⅱ）⑤（§68Ⅰ「同屬於一人」）均正確，③錯誤。","❌ 含③，且漏①。","❌ 含③，且漏②。"],"trap":"天然孳息＝果實、動物產物；法定孳息＝利息、租金；從物要與主物同屬一人。","src":"§66、§68、§69、§70；本卷自擬","neg":false},{"n":6,"ch":"B","sec":"B 風險負擔","stem":"甲將房屋出賣予乙，乙已付清全部價金，房屋尚未交付亦未移轉登記，嗣因地震全毀（雙方均無可歸責事由）。下列敘述何者正確？","opts":["甲仍應移轉房屋所有權，並依 §226 賠償損害","買賣標的物之危險自訂約時起即由買受人承擔","乙不得請求返還價金，因價金已完成給付","甲免給付義務；乙免對待給付義務，已為對待給付者得依不當得利規定請求返還"],"ans":"D","notes":["❌ §226 須「可歸責於債務人」，本題雙方皆無可歸責。","❌ §373：利益與危險自「交付時」起由買受人承擔；本題尚未交付。","❌ §266Ⅱ 已為給付者得依不當得利規定請求返還。","✅ §225Ⅰ 給付不能免給付義務；§266 雙方均無可歸責，他方免對待給付，已給付者依不當得利返還。"],"trap":"買賣危險移轉＝交付時；雙方皆無可歸責的給付不能＝雙方都免給付（§266）。","src":"§225、§226、§266、§373；本卷自擬","neg":false},{"n":7,"ch":"B","sec":"B 連帶債務","stem":"甲、乙、丙對丁負連帶債務 300 萬元，內部約定平均分擔。丁對甲免除債務，但無消滅全部債務之意思。下列敘述何者正確？","opts":["乙、丙全部免責","乙、丙仍須各負 300 萬元之連帶責任","乙、丙就剩餘 200 萬元仍負連帶責任","丁對甲免除，對乙、丙完全不生效力（§279）"],"ans":"C","notes":["❌ 免除若無消滅全部債務之意思，只免甲應分擔之部分。","❌ 甲應分擔之 100 萬已被免除，他債務人於該部分免責。","✅ §276Ⅰ：除該債務人應分擔部分（100 萬）外，他債務人仍不免責任。","❌ §276 為 §279 所稱「前五條規定」之例外，免除對他人有一定效力。"],"trap":"連帶債務：清償、抵銷、提存、混同＝絕對效力；免除、時效完成＝只扣掉該人應分擔額（§276）；其餘相對效力（§279）。","src":"§272~§281；歷屆 106-一","neg":false},{"n":8,"ch":"B","sec":"B 債權讓與","stem":"甲將對乙之 100 萬元借款債權讓與丙。下列敘述何者正確？","opts":["乙受讓與通知時，對甲有清償期先於或同時屆至之債權者，得向丙主張抵銷","讓與非經通知乙，讓與契約無效","該債權之擔保及其他從屬之權利，不隨同移轉","當事人特約不得讓與，不得對抗任何第三人"],"ans":"A","notes":["✅ §299Ⅱ 原文。","❌ §297Ⅰ：非經通知，是「對債務人不生效力」，不是契約無效。","❌ §295Ⅰ：從屬權利隨同移轉（與讓人有不可分離關係者除外）。","❌ §294Ⅱ：僅「不得對抗善意第三人」。"],"trap":"通知＝對債務人生效要件；債務人抗辯與抵銷可對抗受讓人；禁止讓與特約不得對抗善意第三人。","src":"§294、§295、§297、§299；本卷自擬","neg":false},{"n":9,"ch":"B","sec":"B 定金","stem":"甲乙訂立房屋買賣契約，乙交付定金 50 萬元予甲。嗣因可歸責於甲之事由致契約不能履行，當事人無另有訂定。下列敘述何者正確？","opts":["乙不得請求返還定金","甲應加倍返還所受之定金","定金視為因不履行而生損害之賠償總額","契約因不可歸責雙方而不能履行時，甲得沒收定金"],"ans":"B","notes":["❌ 那是可歸責於付定金當事人（乙）時的效果（§249②）。","✅ §249③：可歸責於受定金當事人者，該當事人應加倍返還其所受之定金。","❌ 那是違約金的推定規定（§250Ⅱ）。","❌ §249④：不可歸責於雙方，定金應返還。"],"trap":"定金四款：履行（返還或充給付）／乙過失（不得請求返還）／甲過失（加倍返還）／雙方無過失（返還）。","src":"§248、§249、§250；歷屆 113-二","neg":false},{"n":10,"ch":"C","sec":"C 買賣瑕疵擔保","stem":"關於買賣標的物之瑕疵擔保，下列敘述何者正確？","opts":["買受人於契約成立時知其物有瑕疵者，出賣人仍負擔保責任","出賣人故意不告知瑕疵者，六個月期間仍適用","買受人因重大過失不知有瑕疵，出賣人縱故意不告知亦不負擔保責任","買受人之解除權或請求權，自物之交付時起經過五年而消滅"],"ans":"D","notes":["❌ §355Ⅰ：買受人知悉者，出賣人不負擔保之責。","❌ §365Ⅱ：故意不告知瑕疵者，六個月期間不適用（五年仍適用）。","❌ §355Ⅱ 但書：故意不告知者仍須負責。","✅ §365Ⅰ 後段。"],"trap":"瑕疵擔保期間：通知後 6 個月／交付後 5 年；故意不告知＝6 個月不適用；知悉＝免責；重大過失＋未保證＝免責（但故意不告知例外）。","src":"§355、§356、§365；歷屆 113-一、106-二","neg":false},{"n":11,"ch":"C","sec":"C 買賣不破租賃","stem":"甲將房屋出租與乙，書面約定租期 3 年（未公證），房屋已交付乙居住。其後甲將房屋出賣並移轉登記予丙。下列敘述何者正確？","opts":["租賃契約對丙不存在，丙得請求乙返還房屋","該租賃契約對丙繼續存在，丙不得請求乙返還房屋","租賃契約須經公證，始得對抗受讓人丙","丙受讓後，租賃契約僅於出租人甲與乙間繼續存在"],"ans":"B","notes":["❌ §425Ⅱ 排除的是「未公證且逾五年或未定期限」；3 年不在排除之列。","✅ §425Ⅰ；本題租期 3 年未逾 5 年，不受 §425Ⅱ 排除。","❌ 公證只與期限逾五年有關；租期 3 年不需公證。","❌ §425Ⅰ「對於受讓人仍繼續存在」，丙承受出租人地位。"],"trap":"買賣不破租賃三要件：已交付、承租人占有中、未被排除（未公證且逾5年或未定期）。","src":"§422、§425；歷屆 101-二","neg":false},{"n":12,"ch":"C","sec":"C 居間","stem":"甲委託乙居間出售房屋，約定成交後給付報酬。下列敘述何者正確？","opts":["買賣契約附停止條件，條件成就前乙已得請求報酬","乙為居間所支出之費用，縱未約定亦得向甲請求償還","居間人違反其對於委託人之義務，而為利於委託人之相對人之行為，由相對人收受利益者，不得向委託人請求報酬及償還費用","約定報酬過高時，法院不得酌減"],"ans":"C","notes":["❌ §568Ⅱ：條件成就前居間人不得請求報酬。","❌ §569Ⅰ：非經約定不得請求償還費用。","✅ §571 原文。","❌ §572：報酬過鉅失其公平者，法院得因給付義務人之請求酌減。"],"trap":"居間：成立要件（因其報告或媒介而成立）／附停止條件不得先請求／費用非經約定不得請／違反義務且對方給好處＝沒報酬／過高可酌減。","src":"§565~§573；歷屆 104-一、112-二、113-二","neg":false},{"n":13,"ch":"D","sec":"D 動產善意取得","stem":"甲將其所有之名畫寄放於乙處，乙擅自將該畫以市價出賣並交付予善意且無重大過失之丙。下列敘述何者正確？","opts":["丙善意受讓動產占有，受法律保護，取得所有權","乙為無權處分，非經甲承認不生效力，丙不得取得所有權","若該畫為遺失物，甲得於喪失占有後十年內請求丙返還","丙須先償還價金，甲始得請求回復（寄放物亦同）"],"ans":"A","notes":["✅ §801、§948 動產善意受讓：受讓人善意受現實交付，縱讓與人無處分權，仍取得所有權。","❌ 動產有善意取得制度，不適用「須待承認」的結論。","❌ §949：盜贓、遺失物，原占有人自喪失占有時起「二年」內得請求回復。","❌ §950 償還價金限於「盜贓、遺失物」由公開交易場所或商人善意買得者；本題為寄放物，不適用。"],"trap":"動產＝交付善意取得（§801、§948）；盜贓遺失物例外（§949 二年、§950 償還價金）。","src":"§801、§948、§949、§950；歷屆 108-一（善意取得）","neg":false},{"n":14,"ch":"D","sec":"D 不動產繼承登記","stem":"甲因繼承取得 A 地，尚未辦理繼承登記，即與乙訂立買賣契約欲將 A 地所有權移轉予乙。下列敘述何者正確？","opts":["甲須辦理繼承登記後始取得 A 地所有權","不動產物權變動採意思主義，買賣合意即生移轉效力","甲得免辦繼承登記，直接移轉登記予乙","甲於繼承開始時即取得 A 地所有權，但非經登記不得處分其物權"],"ans":"D","notes":["❌ 繼承是非因法律行為取得，繼承開始時即取得，登記只影響「處分」。","❌ §758：依法律行為變動，非經登記不生效力。","❌ §759 要求先辦繼承登記再處分。","✅ §759：因繼承於登記前已取得不動產物權者，應經登記，始得處分其物權。"],"trap":"§758（法律行為→登記生效）vs §759（非因法律行為→先取得，但處分前要先登記）。","src":"§758、§759；歷屆 102-二（未辦繼承登記）","neg":false},{"n":15,"ch":"D","sec":"D 共有物管理","stem":"甲、乙、丙共有 A 屋，應有部分甲 3/4、乙 1/8、丙 1/8，無特約。甲欲將 A 屋出租於丁，乙、丙均不同意。下列敘述何者正確？","opts":["出租為處分行為，須全體共有人同意","管理決定有故意或重大過失致共有人受損害，甲不負賠償責任","甲之應有部分逾 2/3，其人數不予計算，甲得依 §820Ⅰ 決定出租","乙、丙對甲之決定顯失公平者，仍無任何救濟"],"ans":"C","notes":["❌ 出租屬「管理」行為，適用 §820Ⅰ；處分、變更、設定負擔才須全體同意（§819Ⅱ）。","❌ §820Ⅳ：對不同意之共有人連帶負賠償責任。","✅ §820Ⅰ 但書：應有部分合計逾三分之二者，其人數不予計算。","❌ §820Ⅱ：顯失公平者，不同意之共有人得聲請法院以裁定變更。"],"trap":"§820 修法後：人數過半＋應有部分過半；應有部分逾 2/3 人數不計；顯失公平可聲請法院；保存行為可單獨。","src":"§819、§820；歷屆 102-一、106-一、114-一","neg":false},{"n":16,"ch":"D","sec":"D 共有物分割","stem":"共有人不能協議分割方法，訴請法院裁判分割共有物。下列敘述何者正確？","opts":["法院僅得判決變賣共有物，不得以原物分配","以原物為分配時，如共有人中有未受分配或不能按其應有部分受分配者，得以金錢補償之","變賣共有物時，共有人無優先承買權","分割後各共有人對他共有人因分割而得之物，不負擔保責任"],"ans":"B","notes":["❌ §824Ⅱ 以原物分配為優先（但書另有規定）。","✅ §824Ⅲ 原文。","❌ §824Ⅶ：除買受人為共有人外，共有人有依相同條件優先承買之權。","❌ §825：按應有部分，負與出賣人同一之擔保責任。"],"trap":"分割：協議→裁判（原物→變賣）；金錢補償；變賣優先承買；分割後互負擔保。","src":"§823~§825；歷屆 103-二、110-一","neg":false},{"n":17,"ch":"D","sec":"D 抵押權效力","stem":"下列有關普通抵押權之敘述：\n①抵押權所擔保者為原債權、利息、遲延利息、違約金及實行抵押權之費用，但契約另有約定者從其約定\n②抵押權之效力及於抵押物之從物與從權利\n③抵押人設定抵押權後讓與抵押物，抵押權不受影響\n④抵押權得由債權分離而單獨讓與\n何者組合正確？","opts":["①②③","①②④","②③④","①③④"],"ans":"A","notes":["✅ ①（§861Ⅰ）②（§862Ⅰ）③（§867）均正確，④錯誤。","❌ ④ 錯：抵押權不得由債權分離而為讓與（§870）。","❌ 含④，且漏①。","❌ 含④，且漏②。"],"trap":"抵押權具從屬性：不得與債權分離（§870）；追及力：讓與抵押物不影響（§867）。","src":"§861、§862、§867、§870；歷屆 99-一、105-一","neg":false},{"n":18,"ch":"D","sec":"D 抵押權消滅","stem":"甲對乙有 500 萬元借款債權，乙以 A 地設定抵押權擔保；該債權請求權時效已完成。甲在時效完成後 5 年內都未實行抵押權。下列敘述何者正確？","opts":["請求權時效完成，抵押權亦同時當然消滅","抵押權永遠不因時效而消滅","乙若在時效完成後清償一部，得以不知時效為由請求返還","甲之抵押權因 5 年間不實行而消滅"],"ans":"D","notes":["❌ §145Ⅰ 抵押權擔保之請求權雖經時效消滅，仍得就抵押物取償；須再加 §880 的 5 年。","❌ §880 明定 5 年消滅。","❌ §144Ⅱ：不得請求返還。","✅ §880：擔保債權請求權已因時效而消滅，抵押權人於時效完成後 5 年間不實行抵押權者，抵押權消滅。"],"trap":"請求權時效完成後：抵押權還可實行（§145），但 5 年內不實行即消滅（§880）。","src":"§144、§145、§880；歷屆 105-一","neg":false},{"n":19,"ch":"D","sec":"D 地上權","stem":"甲在乙地上設定普通地上權，約定有地租。下列敘述何者正確？","opts":["地上權人積欠地租一年，土地所有人即得逕行終止","地上權人積欠地租達二年之總額，除另有習慣外，土地所有人得定相當期限催告支付，逾期不為支付，得終止地上權","地上權因建築物之滅失而當然消滅","地上權人得不經土地所有人同意，單獨將地上權與建築物分離讓與"],"ans":"B","notes":["❌ §836 要件是「達二年之總額」且須先催告。","✅ §836Ⅰ 原文（並應通知抵押權人）。","❌ §841：地上權不因建築物或其他工作物之滅失而消滅。","❌ §838Ⅲ：地上權與其建築物不得分離而為讓與或設定其他權利。"],"trap":"§836：積欠二年總額＋催告＋終止（向地上權人為意思表示）；§841 不因建物滅失消滅；§838Ⅲ 地上權與建物不得分離。","src":"§832、§836、§838、§841；歷屆 104-二、109-二","neg":false},{"n":20,"ch":"E","sec":"E 剩餘財產分配","stem":"甲乙為夫妻，未約定財產制，嗣離婚。甲婚後財產現存 800 萬元（含繼承所得 200 萬元），無負債；乙婚後財產現存 100 萬元，無負債。依 §1030-1，乙得向甲請求分配之金額為何？","opts":["100 萬元","300 萬元","250 萬元","350 萬元"],"ans":"C","notes":["❌ 100 萬是乙自己的婚後財產，不是分配金額。","❌ 300 萬＝600÷2，忘了扣乙自己的 100 萬（應先算差額）。","✅ 甲：800−200（繼承不列入）＝600；乙：100；差額 500，平均分配 250 萬。","❌ 350 萬＝(800−100)÷2，誤把繼承所得 200 萬也算入。"],"trap":"剩餘財產分配＝(雙方各自婚後財產扣除繼承／無償取得／慰撫金後)的「差額」÷ 2。","src":"§1030-1、§1030-4；歷屆 109-一","neg":false},{"n":21,"ch":"E","sec":"E 法定繼承與代位","stem":"甲死亡，遺有配偶乙、長子丙（已先於甲死亡，遺有子丁）及次子戊，遺產 1,200 萬元。下列敘述何者正確？","opts":["乙、戊、丁各得 400 萬元","乙得 600 萬元，戊得 600 萬元","乙得 600 萬元（遺產二分之一），戊、丁各得 300 萬元","乙、戊各得 400 萬元，丁因代位僅得繼承遺產而無應繼分"],"ans":"A","notes":["✅ 配偶與第一順序同為繼承，應繼分平均（§1144①）；丙之應繼分由丁代位（§1140）。三人平均各 400 萬。","❌ 忘了丙有直系血親卑親屬丁可代位繼承。","❌ 配偶與第一順序同為繼承是「平均」，二分之一是與第二、三順序同為繼承時（§1144②）。","❌ 代位繼承人取得被代位人之應繼分（§1140），丁得 400 萬。"],"trap":"§1144：配偶＋第一順序＝平均；＋第二、三順序＝1/2；＋第四順序＝2/3。代位繼承只限第一順序（§1140）。","src":"§1138、§1140、§1141、§1144；歷屆 99-二","neg":false},{"n":22,"ch":"E","sec":"E 拋棄繼承","stem":"下列有關拋棄繼承之敘述，何者正確？","opts":["拋棄繼承自向法院表示時起發生效力","第一順序繼承人中有拋棄繼承者，其應繼分歸屬國庫","因他人拋棄繼承而應為繼承之人，應於知悉其得繼承之日起六個月內拋棄","拋棄繼承應於知悉其得繼承之時起三個月內，以書面向法院為之"],"ans":"D","notes":["❌ §1175：溯及於繼承開始時發生效力。","❌ §1176Ⅰ：應繼分歸屬於其他同為繼承之人。","❌ §1176Ⅶ：三個月，不是六個月。","✅ §1174Ⅱ 原文。"],"trap":"拋棄＝三個月／書面／向法院／溯及繼承開始；次順位後手也是三個月。","src":"§1174、§1175、§1176；歷屆 99-二、101-一","neg":false},{"n":23,"ch":"E","sec":"E 遺囑","stem":"下列有關遺囑之敘述，何者正確？","opts":["限制行為能力人為遺囑，一律須經法定代理人允許","未滿十六歲者，不得為遺囑","繼承人之配偶得為遺囑見證人","口授遺囑自遺囑人能依其他方式為遺囑之時起，經過六個月失其效力"],"ans":"B","notes":["❌ §1186Ⅱ：限制行為能力人無須經法定代理人允許，得為遺囑（但未滿十六歲不得）。","✅ §1186Ⅱ 但書。","❌ §1198③：繼承人及其配偶或其直系血親不得為見證人。","❌ §1196：三個月。"],"trap":"遺囑能力：16 歲、不需法代允許；見證人排除：繼承人／受遺贈人及其配偶直系血親；口授失效 3 個月。","src":"§1186、§1196、§1198；本卷自擬","neg":false},{"n":24,"ch":"E","sec":"E 特留分扣減","stem":"甲死亡，遺有配偶乙及子丙、丁，遺產 1,200 萬元；甲以遺囑將全部遺產遺贈予戊。丙得向戊主張扣減之金額為何？","opts":["400 萬元","100 萬元","200 萬元","0 元，遺囑自由處分不受限制"],"ans":"C","notes":["❌ 400 萬是應繼分，不是特留分。","❌ 把特留分算成應繼分的 1/4 了；子女特留分是 1/2。","✅ 乙丙丁平均應繼分各 400 萬；子女特留分為應繼分 1/2＝200 萬；全被遺贈，不足 200 萬，得按不足數扣減（§1225）。","❌ §1187：遺囑人須於「不違反特留分規定」之範圍內自由處分。"],"trap":"步驟：先算應繼分→乘特留分比例→比較遺贈後實得→不足數向受遺贈人扣減（§1225）。","src":"§1144、§1187、§1223、§1225；本卷自擬；⚠️ §1223 於 115.8.17 有修正，115 年考試適用修正前舊法，考前對照修法表","neg":false},{"n":25,"ch":"E","sec":"E 夫妻財產制","stem":"下列有關法定財產制之敘述，何者錯誤？","opts":["不能證明為婚前或婚後財產者，推定為夫妻共有","夫或妻婚前財產於婚姻關係存續中所生之孳息，視為婚後財產","夫或妻各自管理、使用、收益及處分其財產","夫妻之一方以自己財產清償他方之債務時，雖於婚姻關係存續中，亦得請求償還"],"ans":"A","notes":["✅ 此敘述錯誤（本題答案）：§1017Ⅰ：不能證明為婚前或婚後財產者，推定為「婚後財產」；不能證明為夫或妻所有者，才推定夫妻共有。","❌ 此敘述正確，不選：§1017Ⅱ 原文，敘述正確。","❌ 此敘述正確，不選：§1018，敘述正確。","❌ 此敘述正確，不選：§1023Ⅱ，敘述正確。"],"trap":"§1017 兩個推定：婚前/婚後不明→婚後財產；夫/妻所有不明→共有。","src":"§1017、§1018、§1023；歷屆 109-一","neg":true}],"E":[{"t":"申論題一（25分）","q":"甲為避免債權人丙對其唯一不動產 A 屋強制執行，與乙通謀，虛偽訂立買賣契約並辦理所有權移轉登記予乙；實際上價金未交付，A 屋亦仍由甲居住。其後乙未經甲同意，將 A 屋以市價出售並辦理移轉登記予丁，丁不知甲乙通謀情事。試問：（一）甲乙間買賣契約及移轉登記之效力為何？（二）甲得否請求丁返還 A 屋或塗銷登記？甲對乙得主張何種權利？","parts":[["一、定義","『通謀虛偽意思表示』指表意人與相對人互相故意為非真意之表示，且雙方均知其非真意。『善意第三人』指不知該通謀情事而與相對人為交易之人。『登記公信力』指信賴不動產登記而為物權變動登記之善意第三人，其變動效力不受原登記不實影響。"],["二、法條","① 第87條第1項：表意人與相對人通謀而為虛偽意思表示者，其意思表示無效。但不得以其無效對抗善意第三人。② 第758條第1項：不動產物權依法律行為變動，非經登記不生效力。③ 第759條之1第2項：因信賴不動產登記之善意第三人，已依法律行為為物權變動之登記者，其變動之效力，不因原登記物權之不實而受影響。④ 第184條第1項前段、第179條：侵權行為損害賠償；不當得利。"],["三、涵攝分析","（一）甲乙間買賣契約（債權行為）與所有權移轉登記（物權行為），雙方均知非真意，依第87條第1項本文均屬無效；乙僅為登記名義人，未取得 A 屋所有權，甲仍為所有權人。（二）乙再出售並移轉登記予丁，因甲未承認，乙屬無權處分；惟丁不知通謀情事（善意）、基於買賣有償取得並已完成移轉登記，依第87條第1項但書及第759條之1第2項，丁取得 A 屋所有權，其變動不因原登記不實而受影響，甲不得請求丁返還或塗銷登記。甲雖喪失所有權，仍得對乙主張：① 乙故意不法侵害甲之所有權，依第184條第1項前段請求損害賠償（A 屋價值）；② 乙取得出售價金，無法律上原因，亦得依第179條請求返還所受利益；二者請求權競合，擇一行使。"],["四、結論","甲乙間買賣及移轉登記均無效；惟丁為善意第三人，受第87條第1項但書及第759條之1第2項保護，取得 A 屋所有權，甲不得向丁請求；甲得向乙依侵權行為或不當得利請求賠償或返還價金。"],["考試陷阱","甲乙之間無效，是『當事人間』的效果；對『善意第三人』不能主張，是兩個層次。"]],"warn":"自擬模擬題（非官方考題）。丁之善意是否須「無過失」，學說實務見解不一；考場以題幹『不知情』認定善意，並點出『善意』為保護前提即可。","v":[{"n":"考場速寫版","parts":[["一、定義","通謀虛偽＝雙方均知非真意；善意第三人＝不知其情而交易者。"],["二、法條","§87Ⅰ無效但不得對抗善意第三人；§759-1Ⅱ登記公信力；§184Ⅰ前段／§179。"],["三、涵攝","甲乙買賣＋移轉登記皆無效，甲仍所有人；乙無權處分，丁善意已登記→取得所有權；甲對乙請求賠償／返還價金。"],["四、結論","甲乙無效；丁受保護取得所有權；甲向乙求償。"]]},{"n":"得分關鍵與失分點","parts":[["得分關鍵詞","通謀虛偽｜無效｜不得對抗善意第三人｜善意第三人｜登記公信力｜第759條之1｜無權處分｜損害賠償","ok"],["常見失分點","① 只寫『無效』，漏掉『不得對抗善意第三人』的但書\n② 債權行為與物權行為混在一起，未分開說明皆無效\n③ 結論只處理丁，漏寫甲對乙的救濟（侵權／不當得利）","bad"]]}],"m":"通謀無效、善意擋住；登記有公信、丁贏甲找乙","kw":["通謀虛偽","無效","不得對抗善意第三人","善意第三人","登記公信力","第759條之1","無權處分","損害賠償","不當得利"]},{"t":"申論題二（25分）","q":"甲委託房屋仲介業乙出售 A 屋，約定：『成交時，甲給付成交價 2% 為報酬』。乙介紹丙為買方，甲丙簽訂買賣契約，成交價 2,000 萬元，惟該契約約定『丙取得貸款核准』為停止條件。於議價過程中，乙明知丙願意出價 2,300 萬元，卻向甲謊稱『丙最高只出得起 2,000 萬元』，並私下向丙收取 10 萬元謝禮。試問：（一）貸款尚未核准前，乙得否向甲請求報酬 40 萬元？（二）乙上述行為對其向甲請求報酬及費用有何影響？","parts":[["一、定義","『居間』指當事人約定，一方為他方報告訂約機會或為訂約媒介，他方給付報酬之契約。居間人之報酬請求權，以契約因其報告或媒介而成立為前提。『停止條件』指條件成就時，法律行為始發生效力。"],["二、法條","① 第565條：居間之定義。② 第568條：居間人以契約因其報告或媒介而成立者為限，得請求報酬；契約附有停止條件者，於該條件成就前，居間人不得請求報酬。③ 第567條第1項：居間人應就訂約事項，據實報告於各當事人。④ 第571條：居間人違反其對於委託人之義務，而為利於委託人之相對人之行為，或違反誠實及信用方法，由相對人收受利益者，不得向委託人請求報酬及償還費用。⑤ 第227條：不完全給付之損害賠償。"],["三、涵攝分析","（一）甲乙成立居間契約，甲丙買賣契約因乙之媒介而成立，原則上符合第568條第1項；惟買賣契約附『貸款核准』停止條件，依第568條第2項，於條件成就前乙不得請求報酬，故目前不得請求 40 萬元，須待貸款核准後始得請求。（二）乙明知丙願出價 2,300 萬元，卻向甲謊報出價上限，違反對委託人甲之據實報告義務（第567條第1項）及誠實信用方法；其行為利於相對人丙，且乙已收受丙所給付之 10 萬元謝禮，符合第571條三項要件，乙不得向甲請求報酬及償還費用，縱貸款核准、條件成就，亦同。甲另得依債務不履行（第227條）請求乙賠償其因低價成交所受之損害。"],["四、結論","（一）貸款核准前，乙不得請求報酬；（二）乙違反義務、利於相對人並由其收受利益，依第571條不得向甲請求報酬及費用，甲並得請求損害賠償。"],["考試陷阱","居間人原則上只負報告或媒介，報酬時點是『契約成立』（附停止條件則為條件成就），不是履行完畢。"]],"warn":"自擬模擬題（非官方考題）。第571條要件為：違反對委託人義務（或違反誠信）＋利於相對人＋由相對人收受利益，答題逐項涵攝。條文版本已與核實表（第571條）對照。","v":[{"n":"考場速寫版","parts":[["一、定義","居間＝報告訂約機會或媒介；報酬以契約成立為前提。"],["二、法條","§568Ⅰ契約成立才有報酬；§568Ⅱ停止條件成就前不得請求；§571違反義務不得請求；§567Ⅰ據實報告。"],["三、涵攝","（一）附停止條件，成就前乙不得請求；（二）乙謊報、利於丙、收丙10萬→§571不得請求報酬及費用；甲另得請求賠償。"],["四、結論","目前不得請求；縱條件成就亦因§571不得請求；甲得請求賠償。"]]},{"n":"得分關鍵與失分點","parts":[["得分關鍵詞","居間｜契約成立｜停止條件｜條件成就前｜據實報告｜違反誠實及信用方法｜相對人收受利益｜不得請求報酬","ok"],["常見失分點","① 只寫『契約成立即有報酬』，漏掉第568條第2項的停止條件\n② 第571條只寫結論，未逐項涵攝三個要件\n③ 漏寫甲另得依債務不履行請求損害賠償","bad"]]}],"m":"成立有報酬，附條件要等；背著委託拿相對人好處，報酬費用全沒有","kw":["居間","契約成立","停止條件","條件成就前","據實報告","違反誠實及信用方法","相對人收受利益","不得請求報酬","損害賠償"]}],"timer":true},ID="civ1";
+var EX="D";try{EX=localStorage.getItem("bx-ex2")||"D"}catch(e){}if(["B","C","D"].indexOf(EX)<0)EX="D";
+function cl2(s){return String(s||"").replace(/✅/g,"✓").replace(/❌/g,"✗")}
+function applyOpen(cc){[].forEach.call(cc.querySelectorAll(".opt"),function(o){o.classList.toggle("open",EX==="C"&&(o.classList.contains("ok")||o.classList.contains("bad")))})}
+function setEx(m){EX=m;document.body.dataset.ex=m;try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".card.done"),applyOpen);[].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.className=b.dataset.m===m?"on":""})}
+var L="ABCD",st={},cl={},cur=0,tmr=null,left=5400,qHost=document.createElement("div");
+var NAMES={A:"A 民法總則",B:"B 債編總論",C:"C 債編分則",D:"D 物權",E:"E 親屬與繼承"};
+function $(i){return document.getElementById(i)}
+var ID="civ1";
+function save(){try{var a=0,c=0;for(var k in st){a++;if(st[k])c++}
+ localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}));var er={};D.Q.forEach(function(q){if(st[q.n]===false)er[q.n]=(typeof cl!=="undefined"&&cl[q.n])||"N"});localStorage.setItem("bx_mockerr_"+ID,JSON.stringify(er))}catch(e){}}
+function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
+ qHost.querySelector("#sc").textContent="已答 "+a+"/"+D.Q.length+"｜答對 "+c+"｜選擇題 "+(c*2)+"/"+(D.Q.length*2);save()}
+function mm(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+function mkQ(host){
+ var top='<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">全部展開</button></div><div class="score"><span id="sc"></span>'+(D.timer?'<span id="tm">90:00</span><button id="tb">開始計時</button>':'')+'<button id="rs">重做</button></div>';
+ host.innerHTML=top;
+ D.Q.forEach(function(q){
+  var c=document.createElement("div");c.className="card";
+  c.innerHTML='<div class="qn">第'+q.n+'題<span class="tag">'+q.sec+'</span>'+(q.neg?'<span class="tag" style="background:var(--red)">問錯誤</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="hn">點每個選項可展開／收合說明；上方「全部展開」一次看完</div><div class="os"></div><div class="trap"></div><div class="src"></div><div class="cls">這題為何答錯？<span class="bs"></span></div>';
+  c.querySelector(".stem").textContent=q.stem;
+  var os=c.querySelector(".os");
+  q.opts.forEach(function(t,i){
+   var b=document.createElement("button");b.className="opt";
+   b.innerHTML='<b>('+L[i]+')</b><span class="ob"><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div></span>';
+   b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=cl2(q.notes[i]);
+   b.onclick=(function(qq,ii,cc){return function(){
+     if(cc.classList.contains("done")){if(EX!=="B")this.classList.toggle("open");return}
+     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");
+     cc.querySelectorAll(".opt").forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
+     cc.querySelector(".res").className="res"+(ok?" ok":"");cc.querySelector(".res").textContent=(ok?"答對了":"答錯了")+"　正解 "+qq.ans+(ok?"":"（你選 "+L[ii]+"）");applyOpen(cc);
+     upd();}})(q,i,c);
+   os.appendChild(b)});
+  c.querySelector(".trap").textContent="考試陷阱（正解 "+q.ans+"）："+q.trap;
+  c.querySelector(".src").textContent="來源："+q.src;
+  var bs=c.querySelector(".bs");
+  [["A","A 法條混淆"],["B","B 粗心"],["C","C 真的不熟"]].forEach(function(t){
+   var b=document.createElement("button");b.textContent=t[1];
+   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;try{save()}catch(e){}cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
+   bs.appendChild(b)});
+  host.appendChild(c)});
+ [].forEach.call(host.querySelectorAll(".exs button[data-m]"),function(bb){bb.onclick=function(){setEx(bb.dataset.m)}});
+ host.querySelector("#ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX);
+ qHost.querySelector("#rs").onclick=function(){st={};cl={};if(tmr){clearInterval(tmr);tmr=null}left=5400;mkQ(qHost);go(0)};
+ if(D.timer){qHost.querySelector("#tb").onclick=function(){
+   if(tmr){clearInterval(tmr);tmr=null;qHost.querySelector("#tb").textContent="繼續計時";return}
+   qHost.querySelector("#tb").textContent="暫停";tmr=setInterval(function(){left--;qHost.querySelector("#tm").textContent=mm(Math.max(left,0));
+    if(left<=0){clearInterval(tmr);tmr=null;qHost.querySelector("#tm").textContent="時間到";qHost.querySelector("#tb").textContent="已結束"}},1000)}}
+ upd()}
+var NRE=/(第\s?\d+(?:-\d+)?\s?條|§\s?\d+(?:-\d+)?(?:[Ⅰ-Ⅹ]+)?|[0-9][0-9,.]*(?:\s?[–-]\s?[0-9][0-9,.]*)?\s?(?:萬元|萬|個月|工作日|年|日|%|倍|款|類)|[一二三四五六七八九十]+款|六類|三款)/;
+function hl(t,kw){var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")};
+ var ks=(kw||[]).slice().sort(function(a,b){return b.length-a.length}).map(esc).join("|");
+ var re=new RegExp(NRE.source+(ks?"|("+ks+")":""),"g");var out="",last=0,m;
+ function ap(s){out+=s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+ while((m=re.exec(t))){ap(t.slice(last,m.index));var s=m[0];
+  if(m[2]!==undefined)out+='<span class="xk">'+s.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</span>';
+  else if(/^(§|第)/.test(s))out+='<span class="xa">'+s.replace(/&/g,"&amp;")+'</span>';
+  else out+='<span class="xn">'+s.replace(/&/g,"&amp;")+'</span>';
+  last=m.index+s.length}
+ ap(t.slice(last));return out}
+function renderVers(a,x){
+ var vs=[{n:"完整四段式",parts:x.parts}].concat(x.v||[]);
+ var tb=document.createElement("div");tb.className="vt";var body=document.createElement("div");var allopen=false;
+ var xb=document.createElement("button");xb.className="vx";xb.textContent="全部展開";
+ function setAll(){[].forEach.call(body.querySelectorAll("details.fr"),function(d){d.open=allopen});xb.textContent=allopen?"全部收合":"全部展開"}
+ xb.onclick=function(){allopen=!allopen;setAll()};
+ function show(i){[].forEach.call(tb.querySelectorAll("button:not(.vx)"),function(b,j){b.className=j===i?"on":""});body.innerHTML="";
+  if(vs[i].src){var sn=document.createElement("div");sn.className="vn";sn.textContent=vs[i].src;body.appendChild(sn)}
+  vs[i].parts.forEach(function(p,k){var f=document.createElement("details");var c=p[2]==="ok"?"f3":p[2]==="bad"?"f4":"f"+(k%4+1);f.className="fr "+c;
+   var h=document.createElement("summary");h.className="ph";h.textContent=p[0];var b=document.createElement("div");b.className="pb";b.innerHTML=hl(p[1],x.kw);f.appendChild(h);f.appendChild(b);body.appendChild(f)});setAll()}
+ vs.forEach(function(v,i){var b=document.createElement("button");b.textContent=v.n;b.onclick=function(){show(i)};tb.appendChild(b)});tb.appendChild(xb);
+ var n=document.createElement("div");n.className="vn";n.textContent="版本：完整版＝寫滿時用；速寫版＝時間不夠時的骨架；關鍵詞＝閱卷抓分點；老師版＝補習班老師解答。點各段標題可收合／展開。";
+ var lg=document.createElement("div");lg.className="lg";lg.innerHTML='標色：<span class="xk">紅粗體＝關鍵詞</span>　<span class="xa">棕粗體＝條號</span>　<span class="xn">金底＝數字／期間／金額</span>　綠框＝口訣　黃框＝提示';
+ var kf=document.createElement("div");kf.className="kouf";kf.innerHTML="<b>口訣〔自編〕</b>　"+hl(x.m,x.kw);
+ a.appendChild(tb);a.appendChild(body);a.appendChild(kf);a.appendChild(n);a.appendChild(lg);show(0)}
+function mkE(host){
+ host.innerHTML='<div class="note">申論兩題共 50 分。建議先自己寫在紙上，再展開擬答（3 個版本）對照。</div>';
+ D.E.forEach(function(x){
+  var c=document.createElement("div");c.className="card";
+  c.innerHTML='<div class="qn"></div><div class="stem"></div><details><summary>展開擬答（3 個版本）</summary><div class="ans"></div></details><div class="warn"></div>';
+  c.querySelector(".qn").textContent=x.t;c.querySelector(".stem").textContent=x.q;
+  var a=c.querySelector(".ans");
+  renderVers(a,x);
+  var wn=c.querySelector(".warn");wn.className="tipf";wn.textContent="💡 提示｜"+x.warn;host.appendChild(c)})}
+function mkR(host){
+ host.innerHTML="";var N=D.Q.length;
+ var tot={},ok={},n=0;
+ D.Q.forEach(function(q){tot[q.ch]=(tot[q.ch]||0)+1;if(st[q.n]!==undefined)n++;if(st[q.n])ok[q.ch]=(ok[q.ch]||0)+1});
+ var c=document.createElement("div");c.className="card";
+ var h='<div class="qn">分篇答對率</div>';
+ if(n<N)h+='<div class="note">尚有 '+(N-n)+' 題未作答，結果僅供參考。</div>';
+ Object.keys(NAMES).forEach(function(k){if(!tot[k])return;var t=tot[k],o=ok[k]||0,p=Math.round(o*100/t);
+  h+='<div class="row"><span>'+NAMES[k]+'</span><span>'+o+'/'+t+'（'+p+'%）</span></div><div class="bar"><i class="'+(p<70?'lo':'')+'" style="width:'+p+'%"></i></div>'});
+ c.innerHTML=h;host.appendChild(c);
+ var wr=D.Q.filter(function(q){return st[q.n]===false});
+ var cnt={A:0,B:0,C:0,N:0};wr.forEach(function(q){cnt[cl[q.n]||"N"]++});
+ var d=document.createElement("div");d.className="card";
+ d.innerHTML='<div class="qn">錯題歸類</div><div class="note">A 法條混淆 '+cnt.A+'｜B 粗心 '+cnt.B+'｜C 真的不熟 '+cnt.C+'｜未歸類 '+cnt.N+'</div><div class="ls"></div>';
+ var ls=d.querySelector(".ls");
+ if(!wr.length){ls.textContent=n?"目前沒有答錯的題目。":"尚未作答。"}
+ wr.forEach(function(q){var p=document.createElement("div");p.className="row";p.style.margin="6px 0";
+  p.textContent="第"+q.n+"題｜"+q.sec+"｜"+(cl[q.n]?cl[q.n]+"型":"未歸類");ls.appendChild(p)});
+ host.appendChild(d);
+ var e=document.createElement("div");e.className="card";
+ e.innerHTML='<div class="qn">怎麼讀這份結果</div><div class="note">單一篇低於 70%（紅條）＝優先補強；A 型多＝做混淆對比表；C 型多＝回重點筆記重讀；B 型多＝放慢題幹審題。把結果貼回專案對話，我據此調整後續卷。</div>';
+ host.appendChild(e)}
+var TABS=["作答"].concat(D.E?["申論"]:[]).concat(["結果"]);
+function go(i){cur=i;[].forEach.call($("tabs").children,function(b,j){b.className=(j===i)?"on":""});
+ var p=$("pg");p.innerHTML="";
+ if(TABS[i]==="作答"){p.appendChild(qHost)}
+ else{var h=document.createElement("div");p.appendChild(h);if(TABS[i]==="申論")mkE(h);else mkR(h)}}
+TABS.forEach(function(t,i){var b=document.createElement("button");b.textContent=t;b.onclick=(function(ii){return function(){go(ii)}})(i);$("tabs").appendChild(b)});
+var th=document.getElementById("th");function isDark(){var x=document.documentElement.dataset.theme;return x==="dark"||(!x&&window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)}
+function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?"淺色":"深色"}
+var sv0=null;try{sv0=localStorage.getItem("bx-theme")}catch(e){}setTh(sv0||"light");th.onclick=function(){var n=isDark()?"light":"dark";try{localStorage.setItem("bx-theme",n)}catch(e){}setTh(n)};
+mkQ(qHost);go(0);
+</script><!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body></html>
