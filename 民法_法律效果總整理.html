@@ -225,8 +225,8 @@ function viewC(){
   if(!body2)return;h+='<details class="lg"><summary>'+num(d)+'　'+(SH[d.id]||title(d))+'<small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
  vx.innerHTML=h;
 }
-function viewD(id){
- if(!id){vx.innerHTML='<div class="ecards">'+GR.map(function(g,i){return'<button class="ec" data-g="'+i+'" style="--c:'+g[2]+'"><b>'+g[0]+'</b><span>'+g[1]+'</span></button>'}).join("")+'</div>';return}
+function viewD(id){id=(id===undefined||id===null)?null:id;
+ if(id===null){vx.innerHTML='<div class="ecards">'+GR.map(function(g,i){return'<button class="ec" data-g="'+i+'" style="--c:'+g[2]+'"><b>'+g[0]+'</b><span>'+g[1]+'</span></button>'}).join("")+'</div>';return}
  var g=GR[id];vx.innerHTML='<button class="eback">‹ 回四大入口</button><div class="vcap"><b>'+g[0]+'</b><small>'+g[1]+'</small></div>';
  g[3].forEach(function(s){sec(s).classList.add("cur")});
 
