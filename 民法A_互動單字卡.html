@@ -7,6 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+.exam-line{margin-top:10px}
+.exam-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid currentColor;letter-spacing:.04em;line-height:1.5}
+.exam-badge.t-必{color:var(--stamp)}.exam-badge.t-該{color:var(--gold)}.exam-badge.t-選{color:var(--green)}.exam-badge.t-無{color:var(--ink-soft)}
+.exam-ex{font-size:11px;color:var(--ink-soft);margin-top:4px}
+
 :root{--paper:#F5F1E6;--paper-deep:#EAE6D6;--ink:#25302C;--ink-soft:#66726B;--rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;--blue:#3A5A7A;--orange:#B8782E;--purple:#7A4F8A;--red:#A8402B;--surf:#FFFEFA;--onc:#FFFFFF;--t-red:var(--t-red);--t-green:#E9F1E6;--t-gold:#FAF0DC;--t-blue:#E8EEF4;--t-zebra:#FAF7EE;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}
@@ -216,12 +221,14 @@ footer .reset{
         <div class="cat-badge" id="badgeFront"></div>
         <div class="mastery-badge" id="badgeMasteryFront"></div>
         <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="exam-line" id="examFront"></div>
         <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
       </div>
       <div class="face back">
         <div class="cat-badge" id="badgeBack"></div>
         <div class="mastery-badge" id="badgeMasteryBack"></div>
         <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="exam-line" id="examBack"></div>
         <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
       </div>
     </div>
@@ -255,6 +262,7 @@ footer .reset{
   <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
 
   <footer>不動產經紀人考試・民法概要複習｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <span style="font-size:11px;opacity:.8">「歷屆考過」為以條號＋關鍵詞比對 99–114 年 520 題選擇題與 32 題申論的估計值，非逐題人工分類。</span><br>
     <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
   </footer>
 </div>
@@ -452,6 +460,9 @@ function switchMode(m){
   render();
 }
 
+const EXAM={"A20":{"t":"必","mc":10,"es":1,"ex":["114-2","114-5","111-23"]},"A27":{"t":"必","mc":6,"es":2,"ex":["107-12","106-11","104-3"]},"A22":{"t":"該","mc":5,"es":0,"ex":["114-2","112-3","108-2"]},"A40":{"t":"該","mc":3,"es":1,"ex":["112-15","108-17","104-13"]},"A04":{"t":"必","mc":10,"es":0,"ex":["114-2","114-5","113-2"]},"A10":{"t":"該","mc":3,"es":0,"ex":["107-15","102-24","101-4"]},"A35":{"t":"必","mc":9,"es":0,"ex":["114-9","113-3","110-5"]},"A16":{"t":"必","mc":10,"es":2,"ex":["112-2","112-11","110-15"]},"A29":{"t":"必","mc":6,"es":0,"ex":["107-2","106-27","105-14"]},"A31":{"t":"該","mc":3,"es":1,"ex":["114-9","108-14","99-4"]},"A38":{"t":"該","mc":5,"es":2,"ex":["109-2","106-7","104-27"]},"A01":{"t":"該","mc":5,"es":0,"ex":["114-2","110-2","104-37"]},"A15":{"t":"該","mc":4,"es":0,"ex":["114-6","112-2","112-11"]},"A28":{"t":"選","mc":2,"es":0,"ex":["108-3","101-2"]},"A37":{"t":"選","mc":2,"es":0,"ex":["114-9","111-8"]},"A23":{"t":"該","mc":3,"es":3,"ex":["107-8","102-26","99-20"]},"A06":{"t":"選","mc":1,"es":1,"ex":["104-38"]},"A24":{"t":"選","mc":2,"es":0,"ex":["111-25","108-13"]},"A07":{"t":"該","mc":3,"es":0,"ex":["113-19","111-10","99-6"]},"A08":{"t":"該","mc":5,"es":0,"ex":["112-1","107-15","106-40"]},"A13":{"t":"該","mc":3,"es":0,"ex":["112-2","108-1","102-23"]},"A32":{"t":"選","mc":2,"es":0,"ex":["108-14","100-19"]},"A02":{"t":"必","mc":7,"es":1,"ex":["114-2","111-10","110-4"]},"A41":{"t":"必","mc":10,"es":5,"ex":["113-6","113-16","110-18"]},"A14":{"t":"該","mc":3,"es":0,"ex":["112-2","109-1","106-2"]},"A30":{"t":"選","mc":2,"es":1,"ex":["114-7","106-5"]},"A25":{"t":"該","mc":4,"es":1,"ex":["110-7","104-1","102-9"]},"A18":{"t":"必","mc":6,"es":0,"ex":["105-7","105-12","105-37"]},"A11":{"t":"必","mc":10,"es":0,"ex":["114-3","111-9","111-24"]},"A34":{"t":"選","mc":1,"es":0,"ex":["103-14"]},"A36":{"t":"選","mc":2,"es":1,"ex":["113-3","102-22"]},"A19":{"t":"該","mc":5,"es":0,"ex":["112-4","111-11","110-13"]},"A09":{"t":"該","mc":4,"es":0,"ex":["114-4","101-1","101-24"]},"A21":{"t":"該","mc":4,"es":1,"ex":["111-23","107-13","102-38"]},"A26":{"t":"該","mc":5,"es":1,"ex":["114-7","113-10","106-5"]},"A17":{"t":"選","mc":2,"es":1,"ex":["106-27","104-3"]},"A05":{"t":"選","mc":2,"es":0,"ex":["114-1","110-3"]},"A03":{"t":"該","mc":3,"es":0,"ex":["114-2","114-5","99-5"]},"A12":{"t":"選","mc":1,"es":0,"ex":["100-16"]},"A42":{"t":"該","mc":3,"es":1,"ex":["113-16","110-18","101-18"]},"A39":{"t":"選","mc":1,"es":1,"ex":["112-15"]},"A33":{"t":"選","mc":2,"es":0,"ex":["103-14","99-12"]}};
+const TL={必:'考古題常見',該:'考古題有出',選:'偶爾考',無:'題庫較少・補充'};
+function examBadge(c,withEx){const e=EXAM[c.id];if(!e)return'';return '<span class="exam-badge t-'+e.t+'">'+TL[e.t]+'｜選擇約'+e.mc+'題・申論約'+e.es+'題</span>'+(withEx&&e.ex.length?'<div class="exam-ex">例：'+e.ex.join('、')+'</div>':'')}
 // ---- render ----
 function render(){
   const c = deck[idx];
@@ -460,6 +471,8 @@ function render(){
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
   answerText.innerHTML = c.back;
+  document.getElementById('examFront').innerHTML = examBadge(c,false);
+  document.getElementById('examBack').innerHTML = examBadge(c,true);
   badgeFront.textContent = c.cat;
   badgeFront.style.background = color;
   badgeBack.textContent = c.cat;

@@ -7,6 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+.exam-line{margin-top:10px}
+.exam-badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid currentColor;letter-spacing:.04em;line-height:1.5}
+.exam-badge.t-必{color:var(--stamp)}.exam-badge.t-該{color:var(--gold)}.exam-badge.t-選{color:var(--green)}.exam-badge.t-無{color:var(--ink-soft)}
+.exam-ex{font-size:11px;color:var(--ink-soft);margin-top:4px}
+
 :root{--paper:#F5F1E6;--paper-deep:#EAE6D6;--ink:#25302C;--ink-soft:#66726B;--rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;--blue:#3A5A7A;--orange:#B8782E;--purple:#7A4F8A;--red:#A8402B;--surf:#FFFEFA;--onc:#FFFFFF;--t-red:var(--t-red);--t-green:#E9F1E6;--t-gold:#FAF0DC;--t-blue:#E8EEF4;--t-zebra:#FAF7EE;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}
@@ -216,12 +221,14 @@ footer .reset{
         <div class="cat-badge" id="badgeFront"></div>
         <div class="mastery-badge" id="badgeMasteryFront"></div>
         <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="exam-line" id="examFront"></div>
         <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
       </div>
       <div class="face back">
         <div class="cat-badge" id="badgeBack"></div>
         <div class="mastery-badge" id="badgeMasteryBack"></div>
         <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="exam-line" id="examBack"></div>
         <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
       </div>
     </div>
@@ -255,6 +262,7 @@ footer .reset{
   <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
 
   <footer>不動產經紀人考試・民法概要複習｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+    <span style="font-size:11px;opacity:.8">「歷屆考過」為以條號＋關鍵詞比對 99–114 年 520 題選擇題與 32 題申論的估計值，非逐題人工分類。</span><br>
     <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
   </footer>
 </div>
@@ -452,6 +460,9 @@ function switchMode(m){
   render();
 }
 
+const EXAM={"E03":{"t":"該","mc":3,"es":0,"ex":["106-19","104-33","100-34"]},"E02":{"t":"該","mc":3,"es":0,"ex":["108-20","104-33","102-34"]},"E12":{"t":"選","mc":1,"es":0,"ex":["100-32"]},"E35":{"t":"必","mc":6,"es":2,"ex":["112-25","111-15","110-23"]},"E37":{"t":"該","mc":3,"es":0,"ex":["105-40","104-39","100-39"]},"E13":{"t":"該","mc":3,"es":0,"ex":["109-25","102-6","100-31"]},"E21":{"t":"必","mc":6,"es":0,"ex":["113-22","112-23","111-3"]},"E09":{"t":"選","mc":1,"es":0,"ex":["104-34"]},"E11":{"t":"該","mc":3,"es":0,"ex":["110-4","106-19","102-33"]},"E18":{"t":"選","mc":2,"es":0,"ex":["106-32","100-31"]},"E29":{"t":"必","mc":13,"es":1,"ex":["114-20","113-20","113-21"]},"E36":{"t":"選","mc":2,"es":1,"ex":["113-25","112-25"]},"E19":{"t":"必","mc":9,"es":0,"ex":["113-22","112-23","111-3"]},"E25":{"t":"該","mc":5,"es":0,"ex":["113-21","109-20","107-9"]},"E10":{"t":"選","mc":1,"es":0,"ex":["100-32"]},"E32":{"t":"必","mc":17,"es":0,"ex":["114-25","113-23","113-25"]},"E41":{"t":"必","mc":6,"es":0,"ex":["113-24","112-23","109-25"]},"E31":{"t":"必","mc":12,"es":1,"ex":["114-21","114-25","112-23"]},"E08":{"t":"該","mc":4,"es":0,"ex":["111-2","105-31","100-32"]},"E40":{"t":"該","mc":5,"es":0,"ex":["114-23","104-39","102-37"]},"E30":{"t":"必","mc":6,"es":0,"ex":["114-20","110-21","105-35"]},"E23":{"t":"必","mc":8,"es":1,"ex":["111-2","110-6","108-25"]},"E17":{"t":"選","mc":2,"es":0,"ex":["106-32","100-31"]},"E20":{"t":"該","mc":4,"es":0,"ex":["113-22","105-36","105-38"]},"E26":{"t":"該","mc":5,"es":0,"ex":["113-21","110-19","109-20"]},"E06":{"t":"必","mc":15,"es":1,"ex":["114-21","114-22","113-24"]},"E15":{"t":"該","mc":3,"es":0,"ex":["107-17","106-32","100-31"]},"E33":{"t":"該","mc":3,"es":1,"ex":["109-23","108-22","107-25"]},"E22":{"t":"必","mc":8,"es":0,"ex":["113-22","112-12","112-23"]},"E05":{"t":"必","mc":6,"es":0,"ex":["114-21","108-20","106-19"]},"E38":{"t":"該","mc":4,"es":0,"ex":["114-3","108-23","106-13"]},"E28":{"t":"該","mc":4,"es":0,"ex":["114-20","112-21","111-17"]},"E07":{"t":"該","mc":3,"es":0,"ex":["110-4","102-33","100-34"]},"E16":{"t":"選","mc":1,"es":0,"ex":["104-35"]},"E01":{"t":"必","mc":9,"es":1,"ex":["114-22","113-24","112-23"]},"E34":{"t":"必","mc":10,"es":2,"ex":["114-22","111-16","109-24"]},"E14":{"t":"該","mc":3,"es":0,"ex":["107-17","106-32","100-31"]},"E39":{"t":"該","mc":3,"es":0,"ex":["108-23","106-13","100-39"]},"E24":{"t":"該","mc":4,"es":0,"ex":["110-6","108-25","103-37"]},"E42":{"t":"必","mc":7,"es":0,"ex":["113-24","112-23","109-25"]},"E27":{"t":"必","mc":9,"es":1,"ex":["114-20","112-21","111-17"]},"E04":{"t":"選","mc":2,"es":0,"ex":["108-20","104-33"]}};
+const TL={必:'考古題常見',該:'考古題有出',選:'偶爾考',無:'題庫較少・補充'};
+function examBadge(c,withEx){const e=EXAM[c.id];if(!e)return'';return '<span class="exam-badge t-'+e.t+'">'+TL[e.t]+'｜選擇約'+e.mc+'題・申論約'+e.es+'題</span>'+(withEx&&e.ex.length?'<div class="exam-ex">例：'+e.ex.join('、')+'</div>':'')}
 // ---- render ----
 function render(){
   const c = deck[idx];
@@ -460,6 +471,8 @@ function render(){
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
   answerText.innerHTML = c.back;
+  document.getElementById('examFront').innerHTML = examBadge(c,false);
+  document.getElementById('examBack').innerHTML = examBadge(c,true);
   badgeFront.textContent = c.cat;
   badgeFront.style.background = color;
   badgeBack.textContent = c.cat;
