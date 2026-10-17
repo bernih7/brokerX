@@ -27,6 +27,8 @@ h3{font-size:15px;margin:14px 0 6px;color:var(--ac)}
 .cf td{border-top:1px solid var(--bd);padding:5px 4px;vertical-align:top}.cf td:first-child{white-space:nowrap;font-weight:700;color:var(--ac);padding-right:8px}
 .kou{margin-top:6px;background:var(--sf2);border-radius:8px;padding:5px 8px;font-size:13.5px}
 .foot{padding:20px 16px;font-size:12px;color:var(--mu)}#cnt{font-size:12px;color:var(--mu);margin-top:6px}
+details.sx>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px}details.sx>summary::-webkit-details-marker{display:none}
+details.sx>summary h2{flex:1;margin:12px 0 8px}details.sx>summary::after{content:"›";color:var(--mu);font-size:20px;transition:transform .15s}details.sx[open]>summary::after{transform:rotate(90deg)}
 </style><style>
 details.gc{background:var(--sf);border:1px solid var(--bd);border-left:4px solid var(--pri);border-radius:10px;margin:8px 0}
 details.gc>summary{cursor:pointer;list-style:none;padding:11px 12px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
@@ -73,11 +75,11 @@ var KEYS={0:/視為/g,1:/推定/g,2:/不得/g,3:/無效|得撤銷|效力未定|�
 [].forEach.call(document.querySelectorAll('#b1 details.gc'),function(d,i){var b=d.querySelector('.gb');if(i<5){BXF.effect(b)}BXF.hi(b,KEYS[i]||null)});
 [].forEach.call(document.querySelectorAll('#b2 details.gc .gb'),function(b){BXF.hi(b,null)});
 [].forEach.call(document.querySelectorAll('details.gc .gb'),function(b){BXF.link(b)});
-function filt(){var q=$('q').value.trim().toLowerCase().replace('§','§'),n=0;[].forEach.call(document.querySelectorAll('details.gc'),function(d){var hit=!q||d.textContent.toLowerCase().indexOf(q)>-1;d.style.display=hit?'':'none';if(hit)n++;if(q&&hit)d.open=true});
+function filt(){var q=$('q').value.trim().toLowerCase().replace('§','§'),n=0;[].forEach.call(document.querySelectorAll('details.gc'),function(d){var hit=!q||d.textContent.toLowerCase().indexOf(q)>-1;d.style.display=hit?'':'none';if(hit)n++;if(q&&hit){d.open=true;var sx=d.closest(".sx");if(sx)sx.open=true}});
 [].forEach.call(document.querySelectorAll('details.gc .it,details.gc .lv,details.gc .eb'),function(x){x.style.display=(!q||x.textContent.toLowerCase().indexOf(q)>-1)?'':'none'});$('cnt').textContent=q?('符合 '+n+' 組'):''}
 $('q').oninput=filt;
-$('ex').onclick=function(){[].forEach.call(document.querySelectorAll('details.gc'),function(d){if(d.style.display!=='none')d.open=true})};
-$('co').onclick=function(){[].forEach.call(document.querySelectorAll('details.gc'),function(d){d.open=false})};
+$('ex').onclick=function(){[].forEach.call(document.querySelectorAll('details.sx'),function(d){d.open=true});[].forEach.call(document.querySelectorAll('details.gc'),function(d){if(d.style.display!=='none')d.open=true})};
+$('co').onclick=function(){[].forEach.call(document.querySelectorAll('details.sx'),function(d){d.open=false});[].forEach.call(document.querySelectorAll('details.gc'),function(d){d.open=false})};
 $('mk').onclick=function(){document.body.classList.toggle('mask');[].forEach.call(document.querySelectorAll('.show'),function(x){x.classList.remove('show')});this.classList.toggle('on',document.body.classList.contains('mask'))};
 document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('.gb .k,.gb .nm');if(v&&document.body.classList.contains('mask'))v.classList.toggle('show')});
 $('th').onclick=function(){var n=document.documentElement.getAttribute('data-theme')=='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}};
@@ -98,7 +100,10 @@ $('th').onclick=function(){var n=document.documentElement.getAttribute('data-the
 #bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style>
 <div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
-<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();
+[].forEach.call(document.querySelectorAll('section'),function(sec){var h=sec.querySelector('h2'),d=document.createElement('details');d.className='sx';var sm=document.createElement('summary');sm.appendChild(h);d.appendChild(sm);while(sec.firstChild)d.appendChild(sec.firstChild);sec.appendChild(d)});
+document.querySelector('nav').addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;var t=document.querySelector(a.getAttribute('href')+' .sx');if(t){t.open=true;setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'})},30)}e.preventDefault()});
+</script>
 <!--/bxfab-->
 
 </body></html>
