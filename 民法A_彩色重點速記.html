@@ -7,20 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#F8F3E9;
-  --paper-deep:#F1E8D8;
-  --ink:#2A2722;
-  --ink-soft:#7A7165;
-  --rule:#DED1B9;
-  --stamp:#A8402B;
-  --gold:#BC8A2E;
-  --green:#5C7A4A;
-  --blue:#3E6B8C;
-  --orange:#C17A2E;
-  --purple:#7B5C8C;
-  --red:#A8402B;
-}
+:root{--paper:#F5F1E6;--paper-deep:#EAE6D6;--ink:#25302C;--ink-soft:#66726B;--rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;--blue:#3A5A7A;--orange:#B8782E;--purple:#7A4F8A;--red:#A8402B;--surf:#FFFEFA;--onc:#FFFFFF;--t-red:var(--t-red);--t-green:#E9F1E6;--t-gold:#FAF0DC;--t-blue:#E8EEF4;--t-zebra:#FAF7EE;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#161C19;--paper-deep:#1F2723;--ink:#E7ECE6;--ink-soft:#A5B1A8;--rule:#34403A;--stamp:#E8806A;--gold:#D9A863;--green:#7FC18A;--blue:#8DB0CE;--orange:#D9A863;--purple:#C3A0D4;--red:#E8806A;--surf:#1F2723;--onc:#10201B;--t-red:#3A2420;--t-green:#1F3326;--t-gold:#3A2F1C;--t-blue:#1E2D3A;--t-zebra:#1B221E;color-scheme:dark}
+#bxth{position:fixed;top:10px;right:12px;z-index:70;padding:4px 12px;border-radius:14px;border:1px solid var(--rule);background:var(--surf);color:var(--ink);font-size:12px;cursor:pointer;font-family:inherit;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{
@@ -56,7 +47,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 }
 .legend-chip{
   display:flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:700;background:#fff;
+  font-size:12px;font-weight:700;background:var(--surf);
   border:1px solid var(--rule);border-radius:999px;padding:5px 12px;
 }
 .legend-chip .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -91,7 +82,7 @@ h3{
 
 .note{
   border-radius:0 8px 8px 8px;border-left:5px solid var(--ink);
-  background:#fff;padding:12px 16px;margin:10px 0;
+  background:var(--surf);padding:12px 16px;margin:10px 0;
   box-shadow:0 1px 6px rgba(42,39,34,0.05);
   position:relative;
 }
@@ -141,15 +132,15 @@ h3{
 .flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
 .flow.vertical{display:flex;flex-direction:column;align-items:center;gap:10px;}
 .flow-box{
-  background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  background:var(--surf);border:1.5px solid var(--ink);border-radius:8px;
   padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
   font-family:'Noto Serif TC',serif;min-width:100px;
 }
 .flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
   font-family:'Noto Sans TC',sans-serif;margin-top:3px;}
-.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
-.flow-box.result{border-color:var(--green);background:#EFF4EC;}
-.flow-box.danger{border-color:var(--stamp);background:#FBEAE6;color:var(--stamp);}
+.flow-box.highlight{border-color:var(--gold);background:var(--t-gold);}
+.flow-box.result{border-color:var(--green);background:var(--t-green);}
+.flow-box.danger{border-color:var(--stamp);background:var(--t-red);color:var(--stamp);}
 .flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;text-align:center;white-space:nowrap;}
 .flow-arrow small{display:block;font-size:10px;font-weight:400;}
 .flow-arrow.down{display:flex;flex-direction:column;align-items:center;}
@@ -159,26 +150,26 @@ h3{
 }
 @media(min-width:520px){.grid5{grid-template-columns:repeat(3,1fr);}}
 .grid5 .item{
-  background:#fff;border:1.5px solid var(--green);border-radius:8px;
+  background:var(--surf);border:1.5px solid var(--green);border-radius:8px;
   padding:12px;text-align:center;
 }
 .grid5 .item .name{font-family:'Noto Serif TC',serif;font-weight:900;font-size:15px;color:var(--green);}
 .grid5 .item .desc{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
 
 .tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
-table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;min-width:560px;}
+table{width:100%;border-collapse:collapse;background:var(--surf);font-size:13px;min-width:560px;}
 th{
-  background:var(--orange);color:#fff;font-family:'Noto Serif TC',serif;
+  background:var(--orange);color:var(--onc);font-family:'Noto Serif TC',serif;
   font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;
   white-space:nowrap;
 }
 td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
 tr:last-child td{border-bottom:none;}
-tr:nth-child(even) td{background:#FBF8F1;}
+tr:nth-child(even) td{background:var(--t-zebra);}
 td b{color:var(--orange);}
 
 .mine-wrap{
-  background:#fff;border:2px solid var(--stamp);border-radius:12px;
+  background:var(--surf);border:2px solid var(--stamp);border-radius:12px;
   padding:22px;margin:18px 0;
 }
 .mine-list{list-style:none;display:flex;flex-direction:column;gap:14px;}
@@ -192,6 +183,7 @@ footer{
 }
 </style>
 <script src="bxm-use.js"></script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
 </head>
 <body>
 <div class="wrap">
@@ -546,7 +538,27 @@ footer{
 
   <footer>不動產經紀人考試・民法概要複習｜A 總則編基礎</footer>
 </div>
-<a href="https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" class="bx-home" title="回備考指揮中心" aria-label="回備考指揮中心" style="position:fixed;right:14px;bottom:14px;z-index:9999;width:44px;height:44px;border-radius:50%;background:#A8402B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25)">🏠</a>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+
+<button id="bxth" type="button" aria-label="切換深淺色"></button>
+<script>(function(){var b=document.getElementById("bxth");function sync(){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()}})()</script>
 </body>
 </html>
