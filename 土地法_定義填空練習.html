@@ -178,6 +178,13 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
   background:var(--surface2);border:1px solid var(--line);border-radius:8px;
   font-size:12px;color:var(--muted);text-align:center;letter-spacing:.3px}
 .qc-exam-stat.show{display:block}
+.qc-exam-stat{text-align:left}
+.es-row{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;line-height:1.7}
+.es-row+.es-row{margin-top:4px}
+.es-k{font-weight:700;color:var(--ink)}
+.es-ex{flex-basis:100%;font-size:12.5px;opacity:.85}
+.es-lk{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
 .qc-exam-stat strong{color:var(--ink)}
 /* 主題切換按鈕 */
 #theme-btn{position:fixed;top:10px;right:10px;z-index:50;
@@ -270,7 +277,12 @@ const DATA = [
     "answer": "土地依使用分為<span class=\"key\">建築用地</span>、<span class=\"key\">直接生產用地</span>、<span class=\"key\">交通水利用地</span>、<span class=\"key\">其他土地</span>四大類。",
     "src": "土地法§2",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "102-29",
+     "100-35"
+    ],
+    "mnemonic": "建・生・交・其（建築・直接生產・交通水利・其他）〔自編〕"
    },
    {
     "term": "不得私有之土地（§14）",
@@ -278,7 +290,14 @@ const DATA = [
     "answer": "不得私有之土地（如礦泉地、瀑布地、名勝古蹟）若已成為私有，應<span class=\"key\">依法徵收</span>；私有土地所有權消滅者，歸屬<span class=\"key\">國有</span>（§10）。",
     "src": "土地法§10、§14",
     "mc": 2,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "105-一"
+    ],
+    "mcx": [
+     "107-2",
+     "101-1"
+    ]
    },
    {
     "term": "外國人不得取得之土地（§17）★陷阱",
@@ -287,7 +306,12 @@ const DATA = [
     "src": "土地法§17",
     "mc": 3,
     "essay": 0,
-    "mnemonic": "林漁狩鹽礦水"
+    "mnemonic": "林漁狩鹽礦水",
+    "mcx": [
+     "109-17",
+     "106-14",
+     "100-30"
+    ]
    },
    {
     "term": "外國人繼承取得（§17）",
@@ -303,7 +327,11 @@ const DATA = [
     "answer": "外國人取得土地，一般應向土地所在地<span class=\"key\">直轄市或縣（市）政府</span>申請核准；為重大建設、整體經濟或農牧經營之投資者，應先經<span class=\"key\">中央目的事業主管機關</span>同意。",
     "src": "土地法§20",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "106-14",
+     "99-7"
+    ]
    },
    {
     "term": "登記損害賠償（§68～71）",
@@ -333,7 +361,13 @@ const DATA = [
     "answer": "免納登記費：<span class=\"key\">總登記</span>、<span class=\"key\">更正登記</span>、<span class=\"key\">限制登記</span>（含預告）、<span class=\"key\">消滅登記</span>、滅失登記、住址變更登記、書狀換給補給、<span class=\"key\">土地重劃變更登記</span>。",
     "src": "土地法§78",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "106-3",
+     "105-17",
+     "104-4",
+     "100-32"
+    ]
    },
    {
     "term": "繼承登記與登記費★陷阱",
@@ -341,7 +375,13 @@ const DATA = [
     "answer": "<span class=\"key\">繼承登記</span>與<span class=\"key\">共有物分割登記</span>不免登記費；一般權利變更登記按申報地價或權利價值<span class=\"key\">千分之一</span>繳納。",
     "src": "土地法規定",
     "mc": 6,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "110-4",
+     "108-16",
+     "105-17",
+     "100-32"
+    ]
    },
    {
     "term": "預告登記可保全之請求權（§79-1）",
@@ -349,7 +389,14 @@ const DATA = [
     "answer": "預告登記保全：土地權利<span class=\"key\">移轉或使其消滅</span>之請求權、權利<span class=\"key\">內容或次序變更</span>之請求權、<span class=\"key\">附條件或期限</span>之請求權；由請求權人檢附登記名義人<span class=\"key\">同意書</span>單獨申請，<span class=\"key\">免納</span>登記費。",
     "src": "土地法§79-1",
     "mc": 10,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-2",
+     "109-16",
+     "105-19",
+     "104-4"
+    ],
+    "mnemonic": "移・變・附（移轉消滅・內容次序變更・附條件期限）〔自編〕"
    },
    {
     "term": "預告登記之排除效力（§79-1）★高頻",
@@ -358,7 +405,14 @@ const DATA = [
     "src": "土地法§79-1",
     "mc": 10,
     "essay": 0,
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>§79-1</th><th>內容</th></tr></thead><tbody><tr><td>保全的請求權（三類）</td><td>①土地權利<b>移轉或使其消滅</b>　②權利<b>內容或次序變更</b>　③<b>附條件或期限</b></td></tr><tr><td>怎麼申請</td><td>請求權人檢附<b>登記名義人同意書</b></td></tr><tr><td>效力</td><td>未塗銷前，登記名義人的處分<b>妨礙所登記請求權者無效</b></td></tr><tr><td>例外（無排除效力）</td><td>因<b>徵收、法院判決、強制執行</b>而為新登記</td></tr><tr><td>登記費</td><td>限制登記免繳（§78⑧）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>§79-1</th><th>內容</th></tr></thead><tbody><tr><td>保全的請求權（三類）</td><td>①土地權利<b>移轉或使其消滅</b>　②權利<b>內容或次序變更</b>　③<b>附條件或期限</b></td></tr><tr><td>怎麼申請</td><td>請求權人檢附<b>登記名義人同意書</b></td></tr><tr><td>效力</td><td>未塗銷前，登記名義人的處分<b>妨礙所登記請求權者無效</b></td></tr><tr><td>例外（無排除效力）</td><td>因<b>徵收、法院判決、強制執行</b>而為新登記</td></tr><tr><td>登記費</td><td>限制登記免繳（§78⑧）</td></tr></tbody></table></div>",
+    "mcx": [
+     "109-16",
+     "108-8",
+     "102-31",
+     "99-38"
+    ],
+    "mnemonic": "徵・判・執，三種無排除效力〔自編〕"
    },
    {
     "term": "逾期未辦繼承登記（§73-1）",
@@ -366,7 +420,14 @@ const DATA = [
     "answer": "繼承開始<span class=\"key\">逾1年</span>未辦→公告<span class=\"key\">3個月</span>→逾期列冊管理<span class=\"key\">15</span>年→移請<span class=\"key\">財政部國有財產署</span>公開標售；價款逾<span class=\"key\">10</span>年無人領取歸屬國庫。",
     "src": "土地法§73-1",
     "mc": 11,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-16",
+     "112-8",
+     "108-21",
+     "106-29"
+    ],
+    "mnemonic": "一年逾期→三月公告→十五年列冊→標售；價款十年歸庫〔自編〕"
    },
    {
     "term": "標售之優先購買順序（§73-1）",
@@ -374,7 +435,14 @@ const DATA = [
     "answer": "繼承登記標售，標售前公告<span class=\"key\">3個月</span>，決標後<span class=\"key\">30</span>日內，依序有優先購買權者：<span class=\"key\">繼承人</span>、<span class=\"key\">合法使用人</span>、<span class=\"key\">其他共有人</span>。",
     "src": "土地法§73-1",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-16",
+     "113-10",
+     "109-15",
+     "105-35"
+    ],
+    "mnemonic": "繼・合・共（繼承人→合法使用人→其他共有人）〔自編〕"
    },
    {
     "term": "地籍重測★陷阱",
@@ -382,7 +450,13 @@ const DATA = [
     "answer": "重測原因為地籍原圖<span class=\"key\">破損</span>、<span class=\"key\">滅失</span>、<span class=\"key\">比例尺變更</span>；<span class=\"key\">界址糾紛</span>不是重測原因；重測結果公告<span class=\"key\">30</span>日；界址爭議調處不服者，應於接到通知後<span class=\"key\">15</span>日內向司法機關起訴。",
     "src": "土地法§46-1、§59",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "110-2",
+     "106-28",
+     "105-21",
+     "99-13"
+    ]
    },
    {
     "term": "限制登記種類（土登§136）★預告登記為其一",
@@ -392,7 +466,16 @@ const DATA = [
     "mc": 10,
     "essay": 1,
     "mnemonic": "預查假假破（預告・查封・假扣押・假處分・破產）",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>#</th><th>限制登記種類</th><th>口訣字</th></tr></thead><tbody><tr><td>1</td><td>預告登記</td><td>預</td></tr><tr><td>2</td><td>查封</td><td>查</td></tr><tr><td>3</td><td>假扣押</td><td>假</td></tr><tr><td>4</td><td>假處分</td><td>假</td></tr><tr><td>5</td><td>破產登記</td><td>破</td></tr><tr><td>6</td><td>其他依法律所為禁止處分之登記</td><td>（兜底）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>#</th><th>限制登記種類</th><th>口訣字</th></tr></thead><tbody><tr><td>1</td><td>預告登記</td><td>預</td></tr><tr><td>2</td><td>查封</td><td>查</td></tr><tr><td>3</td><td>假扣押</td><td>假</td></tr><tr><td>4</td><td>假處分</td><td>假</td></tr><tr><td>5</td><td>破產登記</td><td>破</td></tr><tr><td>6</td><td>其他依法律所為禁止處分之登記</td><td>（兜底）</td></tr></tbody></table></div>",
+    "esx": [
+     "103-一"
+    ],
+    "mcx": [
+     "114-10",
+     "111-20",
+     "105-17",
+     "99-36"
+    ]
    }
   ]
  },
@@ -406,7 +489,17 @@ const DATA = [
     "answer": "共有人處分、變更及設定地上權、農育權、不動產役權、典權，應以<span class=\"key\">共有人過半數</span>及其<span class=\"key\">應有部分合計過半數</span>同意；或<span class=\"key\">應有部分合計逾三分之二</span>者，其人數不予計算。",
     "src": "土地法§34-1",
     "mc": 10,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "101-一"
+    ],
+    "mcx": [
+     "114-7",
+     "111-13",
+     "111-2",
+     "99-4"
+    ],
+    "mnemonic": "人過半加份過半；或份逾三分之二，人數免算〔自編〕"
    },
    {
     "term": "34-1不適用多數決之情形",
@@ -414,7 +507,12 @@ const DATA = [
     "answer": "設定<span class=\"key\">抵押權</span>不適用§34-1多數決，須<span class=\"key\">全體</span>共有人同意；處分前應以<span class=\"key\">書面通知</span>他共有人，不能通知者應<span class=\"key\">公告（公示催告）</span>。",
     "src": "土地法§34-1",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-2",
+     "101-2",
+     "99-4"
+    ]
    },
    {
     "term": "34-1優先購買權：期間與效力",
@@ -422,7 +520,16 @@ const DATA = [
     "answer": "共有人出賣應有部分，他共有人得以同一價格優先承購；不表示視為放棄之期間為<span class=\"key\">15</span>日；性質為<span class=\"key\">債權</span>效力。",
     "src": "土地法§34-1",
     "mc": 4,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "111-一"
+    ],
+    "mcx": [
+     "114-13",
+     "105-35",
+     "103-20",
+     "101-3"
+    ]
    },
    {
     "term": "104條基地、房屋優先購買權",
@@ -430,7 +537,13 @@ const DATA = [
     "answer": "基地出賣：<span class=\"key\">地上權人</span>、<span class=\"key\">典權人</span>、<span class=\"key\">承租人</span>有優先購買權；房屋出賣：<span class=\"key\">基地所有權人</span>有優先購買權；<span class=\"key\">10</span>日內不表示視為放棄；<span class=\"key\">抵押權人</span>無此權利。",
     "src": "土地法§104",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "101-一"
+    ],
+    "mcx": [
+     "114-13"
+    ]
    },
    {
     "term": "34-1 與 104/107 條期間比較★陷阱",
@@ -438,7 +551,12 @@ const DATA = [
     "answer": "共有人優購期間<span class=\"key\">15</span>日；基地房屋§104、耕地§107優購期間均為<span class=\"key\">10</span>日。",
     "src": "土地法§34-1、§104、§107",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-13",
+     "104-5"
+    ],
+    "mnemonic": "共有十五，基耕十〔自編〕"
    },
    {
     "term": "耕地優先購買權（§107 vs 三七五§15）",
@@ -454,7 +572,10 @@ const DATA = [
     "answer": "區分所有建物專有部分連同其基地應有部分<span class=\"key\">一併移轉</span>同一人時，<span class=\"key\">不適用</span>§34-1優先購買規定。",
     "src": "土地法§34-1",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-24"
+    ]
    }
   ]
  },
@@ -468,7 +589,12 @@ const DATA = [
     "answer": "城市地方房屋租金，以不超過土地及建築物<span class=\"key\">申報總價</span><span class=\"key\">年息10%</span>為限，超過者得強制減定。",
     "src": "土地法§97",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "110-5",
+     "100-34"
+    ],
+    "mnemonic": "年息一成（10%），超過強制減〔自編〕"
    },
    {
     "term": "租賃擔保金上限（§99）",
@@ -476,7 +602,12 @@ const DATA = [
     "answer": "以現金為租賃擔保者，視為租金之一部，金額不得超過<span class=\"key\">2</span>個月租金總額。",
     "src": "土地法§99",
     "mc": 6,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "110-5",
+     "99-26"
+    ],
+    "mnemonic": "押金兩個月，利息當租金〔自編〕"
    },
    {
     "term": "房屋出租人收回事由（§100）",
@@ -484,7 +615,14 @@ const DATA = [
     "answer": "出租人收回房屋事由：①收回<span class=\"key\">自住</span>或重新建築；②承租人<span class=\"key\">違反租賃契約</span>；③積欠租金達<span class=\"key\">2個月</span>；④供違法使用；⑤損壞房屋不為賠償；⑥<span class=\"key\">轉租</span>。",
     "src": "土地法§100",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "111-16",
+     "109-14",
+     "106-30",
+     "106-6"
+    ],
+    "mnemonic": "自・約・欠・違・損・轉〔自編〕"
    },
    {
     "term": "基地出租人收回事由（§103）",
@@ -492,7 +630,14 @@ const DATA = [
     "answer": "出租人非因：年限<span class=\"key\">屆滿</span>、供<span class=\"key\">違法使用</span>、<span class=\"key\">轉租</span>、積欠租金達<span class=\"key\">2年</span>總額、承租人<span class=\"key\">違反租賃契約</span>（共五款），不得收回基地。",
     "src": "土地法§103",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "111-16",
+     "107-9",
+     "106-30",
+     "100-36"
+    ],
+    "mnemonic": "滿・違・轉・欠・約（欠租看2年）〔自編〕"
    },
    {
     "term": "租用基地建築房屋之登記（§102）",
@@ -500,7 +645,11 @@ const DATA = [
     "answer": "租用基地建築房屋者，應由出租人與承租人於契約訂立後<span class=\"key\">2個月</span>內，會同聲請地政機關為<span class=\"key\">地上權</span>登記。",
     "src": "土地法§102",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "107-8",
+     "104-28"
+    ]
    },
    {
     "term": "不可抗力與租金（§106）",
@@ -522,7 +671,12 @@ const DATA = [
     "answer": "政府對所管公有土地，非經該管區內<span class=\"key\">民意機關</span>同意，並經<span class=\"key\">行政院</span>核准，不得處分、設定負擔或為超過<span class=\"key\">10</span>年之租賃。",
     "src": "土地法§25",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-15",
+     "103-32",
+     "102-5"
+    ]
    },
    {
     "term": "不受§25限制之土地",
@@ -530,7 +684,10 @@ const DATA = [
     "answer": "依法以<span class=\"key\">照價收買</span>、<span class=\"key\">區段徵收</span>、<span class=\"key\">一般徵收</span>取得之土地，得隨時公開出售，不受§25限制。",
     "src": "平均地權條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "102-28"
+    ]
    },
    {
     "term": "公有土地撥用",
@@ -538,7 +695,13 @@ const DATA = [
     "answer": "各級政府機關需用公有土地，應商同該管<span class=\"key\">直轄市或縣（市）政府</span>，層請<span class=\"key\">行政院</span>核准撥用。",
     "src": "土地法",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-8",
+     "106-9",
+     "105-15",
+     "102-5"
+    ]
    },
    {
     "term": "公有土地與國有土地關係",
@@ -546,7 +709,10 @@ const DATA = [
     "answer": "公有土地<span class=\"key\">包含</span>國有、直轄市有、縣（市）有、鄉（鎮、市）有土地，故公有土地範圍<span class=\"key\">大於</span>國有土地。",
     "src": "土地法§4",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "100-38"
+    ]
    },
    {
     "term": "台糖公司土地★陷阱",
@@ -554,7 +720,12 @@ const DATA = [
     "answer": "台灣糖業股份有限公司（公司化之公營事業）所有土地屬於<span class=\"key\">私有</span>土地，不是公有土地。",
     "src": "土地法§4",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "108-18",
+     "103-35"
+    ],
+    "mnemonic": "台糖是公司，土地算私有〔自編〕"
    }
   ]
  },
@@ -568,7 +739,10 @@ const DATA = [
     "answer": "區域計畫法目的：促進土地及天然資源之<span class=\"key\">保育利用</span>、<span class=\"key\">人口及產業活動</span>之合理分布；「促進市鎮鄉街有計畫之<span class=\"key\">均衡發展</span>」則是<span class=\"key\">都市計畫法</span>目的。",
     "src": "區域計畫法§1",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-11"
+    ]
    },
    {
     "term": "非都市土地分區與使用地數量",
@@ -578,7 +752,11 @@ const DATA = [
     "mc": 2,
     "essay": 0,
     "mnemonic": "分區：農二工鄉、森坡風國、河海專（11）｜使用地：甲乙丙丁、農林養鹽礦窯、交水遊古生國殯、海特（4+6+7+2=19）〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>§2 使用分區（11）</th><th>§3 使用地（19）</th></tr></thead><tbody><tr><td>特定農業、一般農業（農二）</td><td>甲種、乙種、丙種、丁種建築（4）</td></tr><tr><td>工業、鄉村</td><td>農牧、林業、養殖、鹽業、礦業、窯業（6）</td></tr><tr><td>森林、山坡地保育、風景、國家公園</td><td>交通、水利、遊憩、古蹟保存、生態保護、國土保安、殯葬（7）</td></tr><tr><td>河川、<b>海域</b>、特定專用</td><td><b>海域</b>、特定目的事業（2）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>§2 使用分區（11）</th><th>§3 使用地（19）</th></tr></thead><tbody><tr><td>特定農業、一般農業（農二）</td><td>甲種、乙種、丙種、丁種建築（4）</td></tr><tr><td>工業、鄉村</td><td>農牧、林業、養殖、鹽業、礦業、窯業（6）</td></tr><tr><td>森林、山坡地保育、風景、國家公園</td><td>交通、水利、遊憩、古蹟保存、生態保護、國土保安、殯葬（7）</td></tr><tr><td>河川、<b>海域</b>、特定專用</td><td><b>海域</b>、特定目的事業（2）</td></tr></tbody></table></div>",
+    "mcx": [
+     "104-21",
+     "103-21"
+    ]
    },
    {
     "term": "山坡地未編定使用地→林業用地管制★高頻",
@@ -587,7 +765,13 @@ const DATA = [
     "src": "非都市土地使用管制規則§7",
     "mc": 5,
     "essay": 0,
-    "mnemonic": "森・保・風 → 林（三區進林業，國家公園不算）〔自編〕"
+    "mnemonic": "森・保・風 → 林（三區進林業，國家公園不算）〔自編〕",
+    "mcx": [
+     "107-17",
+     "106-35",
+     "102-15",
+     "99-17"
+    ]
    },
    {
     "term": "建蔽率與容積率（非都市）★數字",
@@ -597,7 +781,13 @@ const DATA = [
     "mc": 4,
     "essay": 0,
     "mnemonic": "丙交遊殯＝40/120（四個一樣）｜甲乙＝60/240｜丁＝70/300最高｜窯60/120、特目60/180〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>款</th><th>使用地</th><th>建蔽率</th><th>容積率</th></tr></thead><tbody><tr><td>一</td><td>甲種建築</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">240%</span></td></tr><tr><td>二</td><td>乙種建築</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">240%</span></td></tr><tr><td>三</td><td>丙種建築</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>四</td><td>丁種建築</td><td><span class=\"key\">70%</span></td><td><span class=\"key\">300%</span></td></tr><tr><td>五</td><td>窯業</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>六</td><td>交通</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>七</td><td>遊憩</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>八</td><td>殯葬</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>九</td><td>特定目的事業</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">180%</span></td></tr></tbody></table></div><div class=\"tbx-note\">其他使用地（農牧、林業、生態保護、國土保安→農業部；養殖→漁業署；鹽業、礦業、水利→經濟部；古蹟保存→文化部）由各中央主管機關會同訂定（§9Ⅴ）。特目用地依工廠管理輔導法§28-10 變更者，建蔽率不得超過 70%（§9Ⅲ）。</div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>款</th><th>使用地</th><th>建蔽率</th><th>容積率</th></tr></thead><tbody><tr><td>一</td><td>甲種建築</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">240%</span></td></tr><tr><td>二</td><td>乙種建築</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">240%</span></td></tr><tr><td>三</td><td>丙種建築</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>四</td><td>丁種建築</td><td><span class=\"key\">70%</span></td><td><span class=\"key\">300%</span></td></tr><tr><td>五</td><td>窯業</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>六</td><td>交通</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>七</td><td>遊憩</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>八</td><td>殯葬</td><td><span class=\"key\">40%</span></td><td><span class=\"key\">120%</span></td></tr><tr><td>九</td><td>特定目的事業</td><td><span class=\"key\">60%</span></td><td><span class=\"key\">180%</span></td></tr></tbody></table></div><div class=\"tbx-note\">其他使用地（農牧、林業、生態保護、國土保安→農業部；養殖→漁業署；鹽業、礦業、水利→經濟部；古蹟保存→文化部）由各中央主管機關會同訂定（§9Ⅴ）。特目用地依工廠管理輔導法§28-10 變更者，建蔽率不得超過 70%（§9Ⅲ）。</div>",
+    "mcx": [
+     "111-8",
+     "102-1",
+     "101-38",
+     "101-16"
+    ]
    },
    {
     "term": "開發規模門檻",
@@ -607,7 +797,13 @@ const DATA = [
     "mc": 5,
     "essay": 0,
     "mnemonic": "51（50戶/1公頃）鄉村｜工10（產創5）｜遊5・校10・球10・墓5・殯2・其他2→特專〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>款</th><th>開發內容</th><th>門檻</th><th>應變更為</th></tr></thead><tbody><tr><td>一</td><td>社區</td><td>50戶或1公頃</td><td>鄉村區</td></tr><tr><td>二</td><td>工業使用</td><td>10公頃（產創條例5公頃）</td><td>工業區</td></tr><tr><td>三</td><td>遊憩設施</td><td>5公頃</td><td>特定專用區</td></tr><tr><td>四</td><td>學校</td><td>10公頃</td><td>特定專用區</td></tr><tr><td>五</td><td>高爾夫球場</td><td>10公頃</td><td>特定專用區</td></tr><tr><td>六</td><td>公墓5公頃／其他殯葬2公頃</td><td>5／2公頃</td><td>特定專用區</td></tr><tr><td>七</td><td>前六款以外</td><td>2公頃</td><td>特定專用區</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>款</th><th>開發內容</th><th>門檻</th><th>應變更為</th></tr></thead><tbody><tr><td>一</td><td>社區</td><td>50戶或1公頃</td><td>鄉村區</td></tr><tr><td>二</td><td>工業使用</td><td>10公頃（產創條例5公頃）</td><td>工業區</td></tr><tr><td>三</td><td>遊憩設施</td><td>5公頃</td><td>特定專用區</td></tr><tr><td>四</td><td>學校</td><td>10公頃</td><td>特定專用區</td></tr><tr><td>五</td><td>高爾夫球場</td><td>10公頃</td><td>特定專用區</td></tr><tr><td>六</td><td>公墓5公頃／其他殯葬2公頃</td><td>5／2公頃</td><td>特定專用區</td></tr><tr><td>七</td><td>前六款以外</td><td>2公頃</td><td>特定專用區</td></tr></tbody></table></div>",
+    "mcx": [
+     "108-20",
+     "104-19",
+     "103-1",
+     "100-27"
+    ]
    },
    {
     "term": "違反使用管制之處罰（§21、§22）",
@@ -615,7 +811,12 @@ const DATA = [
     "answer": "違規使用處<span class=\"key\">6萬</span>以上<span class=\"key\">30萬</span>以下罰鍰，得限期變更、停止使用或拆除，可<span class=\"key\">按次</span>處罰；不依限變更者（§22）另得處<span class=\"key\">6個月</span>以下有期徒刑或拘役。",
     "src": "區域計畫法§21、§22",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "106-24",
+     "102-3",
+     "100-21"
+    ]
    },
    {
     "term": "區域計畫公告後之程序",
@@ -623,7 +824,12 @@ const DATA = [
     "answer": "區域計畫公告後，主管機關應製定非都市土地<span class=\"key\">使用分區圖</span>並編定各種使用地；擬定機關接核定公文之日起<span class=\"key\">40</span>日內公告實施。",
     "src": "區域計畫法",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-21",
+     "103-2",
+     "100-22"
+    ]
    }
   ]
  },
@@ -637,7 +843,11 @@ const DATA = [
     "answer": "市鎮計畫：人口集居達<span class=\"key\">3,000</span>人，且工商業人口占就業總人口<span class=\"key\">50%</span>以上之地區。",
     "src": "都市計畫法",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-23"
+    ],
+    "mnemonic": "三千人・五成工商〔自編〕"
    },
    {
     "term": "主要計畫核定程序",
@@ -645,7 +855,13 @@ const DATA = [
     "answer": "主要計畫：委員會審議→公開展覽<span class=\"key\">30</span>天並舉行說明會→核定；直轄市、縣政府所在地、縣轄市由<span class=\"key\">內政部</span>核定；鎮、鄉街由<span class=\"key\">縣政府</span>核定；接核定公文<span class=\"key\">30</span>日內發布。",
     "src": "都市計畫法",
     "mc": 6,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "99-一"
+    ],
+    "mcx": [
+     "106-8"
+    ]
    },
    {
     "term": "主要計畫實施進度",
@@ -653,7 +869,15 @@ const DATA = [
     "answer": "主要計畫實施進度以<span class=\"key\">5</span>年為一期，最長不得超過<span class=\"key\">25</span>年；通盤檢討每<span class=\"key\">3年或5年</span>至少一次。",
     "src": "都市計畫法",
     "mc": 2,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "99-一"
+    ],
+    "mcx": [
+     "114-18",
+     "101-20"
+    ],
+    "mnemonic": "五年一期，最長二十五；通檢三或五〔自編〕"
    },
    {
     "term": "第一期發展地區★陷阱",
@@ -661,7 +885,10 @@ const DATA = [
     "answer": "第一期發展地區：主要計畫發布後最多<span class=\"key\">2</span>年內完成細部計畫；細部計畫發布後最多<span class=\"key\">5</span>年內完成公共設施建設。",
     "src": "都市計畫法",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "111-12"
+    ]
    },
    {
     "term": "計畫圖比例尺",
@@ -669,7 +896,12 @@ const DATA = [
     "answer": "主要計畫圖比例尺不得小於<span class=\"key\">萬分之一</span>；細部計畫圖比例尺不得小於<span class=\"key\">1,200分之1</span>。",
     "src": "都市計畫法",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-18",
+     "112-22"
+    ],
+    "mnemonic": "主要萬分一，細部一千二百分一（都不得更小）〔自編〕"
    },
    {
     "term": "公共設施用地設置標準",
@@ -677,7 +909,12 @@ const DATA = [
     "answer": "公園、體育場所、綠地、廣場、兒童遊樂場占用土地總面積不得少於全部計畫面積<span class=\"key\">10%</span>。",
     "src": "都市計畫法",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-13",
+     "108-12",
+     "106-26"
+    ]
    },
    {
     "term": "公共設施保留地之補償與稅",
@@ -686,7 +923,13 @@ const DATA = [
     "src": "都市計畫法、土地稅法§19",
     "mc": 1,
     "essay": 1,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "99-二"
+    ],
+    "mcx": [
+     "99-25"
+    ]
    },
    {
     "term": "保留地之稅捐優惠",
@@ -695,7 +938,12 @@ const DATA = [
     "src": "土地稅法",
     "mc": 0,
     "essay": 3,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "99-二",
+     "106-二",
+     "114-一"
+    ]
    },
    {
     "term": "容積移轉不適用情形★陷阱",
@@ -703,7 +951,10 @@ const DATA = [
     "answer": "容積移轉適用：保留地取得、<span class=\"key\">公共開放空間</span>提供、<span class=\"key\">歷史建築</span>保存；「<span class=\"key\">農業用地</span>之保護」不屬之。",
     "src": "都市計畫法§83-1",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "99-14"
+    ]
    },
    {
     "term": "迅行變更事由★陷阱",
@@ -711,7 +962,10 @@ const DATA = [
     "answer": "迅行變更：重大事變<span class=\"key\">毀損</span>、避免重大<span class=\"key\">災害</span>、適應<span class=\"key\">國防或經濟發展</span>需要、配合重大設施；「土地權利人權利遭受<span class=\"key\">重大損失</span>」不是事由。",
     "src": "都市計畫法",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-21"
+    ]
    },
    {
     "term": "都市更新三種方式",
@@ -719,7 +973,10 @@ const DATA = [
     "answer": "都更：<span class=\"key\">重建</span>（拆除重新建築）、<span class=\"key\">整建</span>（保持良好狀況）、<span class=\"key\">維護</span>（強制修建）；不願參加權利變換領現金者減徵土增稅<span class=\"key\">40%</span>。",
     "src": "都市更新條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-20"
+    ]
    }
   ]
  },
@@ -733,7 +990,12 @@ const DATA = [
     "answer": "國土功能分區四大類：<span class=\"key\">國土保育地區</span>、<span class=\"key\">海洋資源地區</span>、<span class=\"key\">農業發展地區</span>、<span class=\"key\">城鄉發展地區</span>。",
     "src": "國土計畫法§15",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-19",
+     "109-25"
+    ],
+    "mnemonic": "保・海・農・城〔自編〕"
    },
    {
     "term": "國土計畫主管機關",
@@ -741,7 +1003,11 @@ const DATA = [
     "answer": "國土計畫中央主管機關為<span class=\"key\">內政部</span>；直轄市、縣市主管機關辦理轄區國土計畫之擬訂、公告、變更及執行。",
     "src": "國土計畫法§4",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-19",
+     "109-25"
+    ]
    },
    {
     "term": "使用許可之核定（中央）",
@@ -749,7 +1015,10 @@ const DATA = [
     "answer": "<span class=\"key\">國土保育地區</span>、<span class=\"key\">海洋資源地區</span>使用許可、許可變更及廢止之核定，由<span class=\"key\">中央</span>主管機關辦理。",
     "src": "國土計畫法§21",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-19"
+    ]
    },
    {
     "term": "使用許可之核定（地方）",
@@ -757,7 +1026,10 @@ const DATA = [
     "answer": "<span class=\"key\">農業發展地區</span>、<span class=\"key\">城鄉發展地區</span>使用許可、許可變更及廢止之核定，由<span class=\"key\">直轄市、縣市</span>主管機關辦理。",
     "src": "國土計畫法§21",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-19"
+    ]
    },
    {
     "term": "國土功能分區圖公告期限",
@@ -765,7 +1037,10 @@ const DATA = [
     "answer": "縣市國土計畫公告實施後<span class=\"key\">1</span>年內，依中央指定日期公告<span class=\"key\">國土功能分區圖</span>。",
     "src": "國土計畫法§45",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-25"
+    ]
    }
   ]
  },
@@ -779,7 +1054,13 @@ const DATA = [
     "answer": "分區調查最近<span class=\"key\">1</span>年土地買賣價格或收益價格→評議委員會評定→公告地價並接受申報，公告期間<span class=\"key\">30</span>日；每<span class=\"key\">2</span>年重新規定地價一次。",
     "src": "平均地權條例",
     "mc": 9,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-8",
+     "108-24",
+     "106-13",
+     "105-9"
+    ]
    },
    {
     "term": "申報地價範圍",
@@ -787,7 +1068,13 @@ const DATA = [
     "answer": "申報地價在公告地價<span class=\"key\">80%</span>～<span class=\"key\">120%</span>範圍內；超過120%按<span class=\"key\">120%</span>；未滿80%得<span class=\"key\">照價收買</span>或按80%。",
     "src": "平均地權條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-8",
+     "108-24",
+     "105-1"
+    ],
+    "mnemonic": "八折到一二折；逾120按120〔自編〕"
    },
    {
     "term": "未申報地價之處理",
@@ -795,7 +1082,12 @@ const DATA = [
     "answer": "未於公告期間申報地價者，以公告地價<span class=\"key\">80%</span>為其申報地價。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-8",
+     "108-24",
+     "104-6"
+    ]
    },
    {
     "term": "公告地價與公告土地現值",
@@ -803,7 +1095,11 @@ const DATA = [
     "answer": "公告地價為課<span class=\"key\">地價稅</span>之依據，配合<span class=\"key\">2</span>年重新規定；公告土地現值為課<span class=\"key\">土地增值稅</span>之依據，每年<span class=\"key\">1</span>次（<span class=\"key\">1月1日</span>）公告。",
     "src": "平均地權條例",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-9",
+     "99-22"
+    ]
    },
    {
     "term": "累進起點地價",
@@ -812,7 +1108,14 @@ const DATA = [
     "src": "土地稅法",
     "mc": 1,
     "essay": 2,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "105-二",
+     "108-二"
+    ],
+    "mcx": [
+     "105-7"
+    ]
    }
   ]
  },
@@ -828,7 +1131,13 @@ const DATA = [
     "mc": 4,
     "essay": 0,
     "mnemonic": "路溝・兒鄰廣綠・小中・停市（道路、溝渠｜兒童遊樂場、鄰里公園、廣場、綠地｜國小、國中｜停車場、零售市場）〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>類別</th><th>十項用地（2+4+2+2）</th></tr></thead><tbody><tr><td>交通水利</td><td>道路、溝渠</td></tr><tr><td>公園綠地</td><td>兒童遊樂場、鄰里公園、廣場、綠地</td></tr><tr><td>學校</td><td>國民小學、國民中學</td></tr><tr><td>停車營業</td><td>停車場、零售市場</td></tr></tbody></table></div><div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>抵充項目（4項）</th><th>不足部分</th></tr></thead><tbody><tr><td>原公有道路、溝渠、河川、未登記地（官方111-23）</td><td>不足土地及工程費用、重劃費用、貸款利息→由參加重劃土地所有權人按受益比例共同負擔，以未建築土地折價抵付</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>類別</th><th>十項用地（2+4+2+2）</th></tr></thead><tbody><tr><td>交通水利</td><td>道路、溝渠</td></tr><tr><td>公園綠地</td><td>兒童遊樂場、鄰里公園、廣場、綠地</td></tr><tr><td>學校</td><td>國民小學、國民中學</td></tr><tr><td>停車營業</td><td>停車場、零售市場</td></tr></tbody></table></div><div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>抵充項目（4項）</th><th>不足部分</th></tr></thead><tbody><tr><td>原公有道路、溝渠、河川、未登記地（官方111-23）</td><td>不足土地及工程費用、重劃費用、貸款利息→由參加重劃土地所有權人按受益比例共同負擔，以未建築土地折價抵付</td></tr></tbody></table></div>",
+    "mcx": [
+     "113-13",
+     "111-23",
+     "104-8",
+     "102-10"
+    ]
    },
    {
     "term": "不屬十項之用地★陷阱",
@@ -836,7 +1145,11 @@ const DATA = [
     "answer": "<span class=\"key\">機關用地</span>、<span class=\"key\">體育場</span>、<span class=\"key\">國民住宅用地</span>不屬於法定共同負擔十項用地。",
     "src": "平均地權條例§60 Ⅰ（官方102-10 體育場、104-8 機關用地；國民住宅用地為條文未列）",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-8",
+     "102-10"
+    ]
    },
    {
     "term": "抵費地",
@@ -844,7 +1157,12 @@ const DATA = [
     "answer": "抵費地為抵付重劃負擔保留之土地，出售<span class=\"key\">不計徵</span>土地增值稅；直轄市有之抵費地得由市府<span class=\"key\">自行公開標售</span>。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-18",
+     "109-5",
+     "102-33"
+    ]
    },
    {
     "term": "重劃禁限期間",
@@ -852,7 +1170,13 @@ const DATA = [
     "answer": "重劃地區選定後公告禁止移轉、分割、新建等，禁止期間最長不得超過<span class=\"key\">1年6個月</span>；已領建照並開工者得<span class=\"key\">繼續施工</span>。",
     "src": "平均地權條例",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "107-一"
+    ],
+    "mcx": [
+     "100-17"
+    ]
    },
    {
     "term": "重劃分配異議處理",
@@ -860,7 +1184,13 @@ const DATA = [
     "answer": "對分配結果異議：先由主管機關<span class=\"key\">調處</span>；調處不成報請<span class=\"key\">上級主管機關</span><span class=\"key\">裁決</span>（§60-2），不服循<span class=\"key\">行政救濟</span>。",
     "src": "平均地權條例§60-2",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "113-一"
+    ],
+    "mcx": [
+     "104-11"
+    ]
    },
    {
     "term": "自辦市地重劃同意門檻",
@@ -868,7 +1198,11 @@ const DATA = [
     "answer": "自辦市地重劃須私有土地所有權人<span class=\"key\">半數以上</span>，且其土地面積超過私有總面積<span class=\"key\">半數</span>以上之同意，經主管機關核准。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-20",
+     "99-27"
+    ]
    },
    {
     "term": "出租耕地因重劃之補償",
@@ -878,7 +1212,11 @@ const DATA = [
     "mc": 2,
     "essay": 0,
     "mnemonic": "重劃 1/3 不扣稅；三七五§17 終止才「減除土增稅」〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>平均地權§63 情形</th><th>補償</th></tr></thead><tbody><tr><td>重劃後分配土地</td><td>承租人向出租人請求：公告當期公告土地現值 <span class=\"key\">1/3</span></td></tr><tr><td>重劃後未受分配土地</td><td>補償地價：出租人領 <span class=\"key\">2/3</span>、承租人領 <span class=\"key\">1/3</span></td></tr><tr><td>抵充公設用地之公有出租農業用地</td><td>縣市政府逕註銷租約，補償承租人公告土地現值 <span class=\"key\">1/3</span>（列重劃共同負擔）</td></tr><tr><td>耕地以外出租土地（官方107-11）</td><td>承租人得終止租約，向出租人請求相當 <span class=\"key\">一年租金</span></td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>平均地權§63 情形</th><th>補償</th></tr></thead><tbody><tr><td>重劃後分配土地</td><td>承租人向出租人請求：公告當期公告土地現值 <span class=\"key\">1/3</span></td></tr><tr><td>重劃後未受分配土地</td><td>補償地價：出租人領 <span class=\"key\">2/3</span>、承租人領 <span class=\"key\">1/3</span></td></tr><tr><td>抵充公設用地之公有出租農業用地</td><td>縣市政府逕註銷租約，補償承租人公告土地現值 <span class=\"key\">1/3</span>（列重劃共同負擔）</td></tr><tr><td>耕地以外出租土地（官方107-11）</td><td>承租人得終止租約，向出租人請求相當 <span class=\"key\">一年租金</span></td></tr></tbody></table></div>",
+    "mcx": [
+     "108-14",
+     "107-11"
+    ]
    },
    {
     "term": "重劃土增稅優惠",
@@ -886,7 +1224,12 @@ const DATA = [
     "answer": "重劃後<span class=\"key\">第一次移轉</span>，減徵土地增值稅<span class=\"key\">40%</span>。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-11",
+     "105-8",
+     "101-28"
+    ]
    },
    {
     "term": "重劃後不能分配改領現金（§53 Ⅰ）",
@@ -928,7 +1271,16 @@ const DATA = [
     "src": "平均地權條例",
     "mc": 3,
     "essay": 1,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "113-二"
+    ],
+    "mcx": [
+     "112-21",
+     "106-39",
+     "100-8"
+    ],
+    "mnemonic": "空二到五，荒一到三（倍）〔自編〕"
    },
    {
     "term": "荒地照價收買",
@@ -936,7 +1288,13 @@ const DATA = [
     "answer": "荒地加徵荒地稅滿<span class=\"key\">3</span>年仍不使用者，得照價收買，收買地價以收買當期之<span class=\"key\">公告土地現值</span>為準。",
     "src": "平均地權條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-21",
+     "105-1",
+     "104-7"
+    ],
+    "mnemonic": "荒地稅滿三年仍荒，照價收買〔自編〕"
    },
    {
     "term": "空地之認定",
@@ -944,7 +1302,11 @@ const DATA = [
     "answer": "空地稅之空地：建築改良物價值不及所占基地申報地價<span class=\"key\">10%</span>；土地法§87則為不及<span class=\"key\">20%</span>視為空地，兩者不同。",
     "src": "平均地權條例、土地法§87",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-21",
+     "106-39"
+    ]
    },
    {
     "term": "照價收買之時機",
@@ -952,7 +1314,13 @@ const DATA = [
     "answer": "照價收買時機：申報地價逾<span class=\"key\">±20%</span>、空地逾期未建、荒地稅滿<span class=\"key\">3</span>年仍閒置、超過最高面積限額逾期未出售、依限期建築通知協議不成。",
     "src": "平均地權條例",
     "mc": 9,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-21",
+     "108-13",
+     "105-38",
+     "105-1"
+    ]
    },
    {
     "term": "照價收買後之權屬",
@@ -960,7 +1328,10 @@ const DATA = [
     "answer": "照價收買後之土地，歸屬<span class=\"key\">直轄市、縣（市）</span>有。",
     "src": "平均地權條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "108-3"
+    ]
    }
   ]
  },
@@ -974,7 +1345,12 @@ const DATA = [
     "answer": "委託經紀業代銷預售屋者，應於簽訂買賣契約之日起<span class=\"key\">30</span>日內申報登錄。",
     "src": "平均地權條例§47-3",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-10",
+     "111-25",
+     "103-16"
+    ]
    },
    {
     "term": "申報登錄罰則",
@@ -982,7 +1358,11 @@ const DATA = [
     "answer": "申報價格或面積資訊不實或未依限申報：先<span class=\"key\">限期改正</span>，屆期未改正處<span class=\"key\">6千</span>以上<span class=\"key\">3萬</span>以下罰鍰並得按次處罰；已辦竣移轉登記仍未申報（§81-2）處<span class=\"key\">3萬</span>至<span class=\"key\">15萬</span>。",
     "src": "平均地權條例§81-2",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-2",
+     "110-9"
+    ]
    },
    {
     "term": "登錄資訊與課稅（不當然）★陷阱",
@@ -992,7 +1372,10 @@ const DATA = [
     "mc": 1,
     "essay": 0,
     "mnemonic": "登錄不等於課稅：配套立法完才算〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>「不當然」</td><td>不是「登錄了就自動拿來課稅」；要等配套措施建立、完成立法才可以。目前不能直接當課稅依據</td></tr><tr><td>現行課稅基礎（舉例）</td><td>契稅＝契價（不動產評價委員會評定標準價格，官方107-23）；土增稅＝漲價總數額（官方106-12）；房屋稅＝房屋現值（評價委員會評定）；登記費／地價稅＝申報地價</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>「不當然」</td><td>不是「登錄了就自動拿來課稅」；要等配套措施建立、完成立法才可以。目前不能直接當課稅依據</td></tr><tr><td>現行課稅基礎（舉例）</td><td>契稅＝契價（不動產評價委員會評定標準價格，官方107-23）；土增稅＝漲價總數額（官方106-12）；房屋稅＝房屋現值（評價委員會評定）；登記費／地價稅＝申報地價</td></tr></tbody></table></div>",
+    "mcx": [
+     "102-27"
+    ]
    },
    {
     "term": "預售屋轉售限制（§47-4）",
@@ -1000,7 +1383,13 @@ const DATA = [
     "answer": "預售屋買受人簽約後<span class=\"key\">不得</span>將契約讓與或轉售；例外：<span class=\"key\">配偶</span>、<span class=\"key\">直系血親</span>、<span class=\"key\">二親等內旁系血親</span>；經公告核准者全國每<span class=\"key\">2</span>年以<span class=\"key\">1</span>戶（棟）為限。",
     "src": "平均地權條例§47-4",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-1",
+     "112-9",
+     "111-25",
+     "110-10"
+    ]
    },
    {
     "term": "預售屋違規處罰",
@@ -1008,7 +1397,11 @@ const DATA = [
     "answer": "買受人違規讓與或轉售契約（§81-3）處<span class=\"key\">50萬</span>以上<span class=\"key\">300萬</span>以下罰鍰；定型化契約應於<span class=\"key\">銷售前</span>報主管機關備查。",
     "src": "平均地權條例§81-3",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "111-25",
+     "110-10"
+    ]
    },
    {
     "term": "私法人買受住宅",
@@ -1016,7 +1409,10 @@ const DATA = [
     "answer": "私法人買受供住宅使用房屋應經<span class=\"key\">中央主管機關</span>許可（合議制）；許可有效期限<span class=\"key\">1</span>年；登記後<span class=\"key\">5</span>年內不得預告登記、移轉、讓與、預售。",
     "src": "平均地權條例§79-1",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-3"
+    ]
    }
   ]
  },
@@ -1030,7 +1426,14 @@ const DATA = [
     "answer": "徵收須符合公益性、必要性及<span class=\"key\">比例原則</span>；評估應考量：<span class=\"key\">社會</span>、<span class=\"key\">經濟</span>、<span class=\"key\">文化及生態</span>、<span class=\"key\">永續發展</span>因素（<span class=\"key\">地價因素</span>不在內）。",
     "src": "土地徵收條例",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "108-一"
+    ],
+    "mcx": [
+     "102-2"
+    ],
+    "mnemonic": "公必比：公益・必要・比例；社經文生永（社會・經濟・文化生態・永續），沒有地價〔自編〕"
    },
    {
     "term": "協議價購（§11）",
@@ -1038,7 +1441,12 @@ const DATA = [
     "answer": "徵收前需用土地人應先與所有權人<span class=\"key\">協議價購</span>，價格以<span class=\"key\">市場正常交易價格</span>為基準；他人之<span class=\"key\">優先購買權</span>於協議價購時不適用。",
     "src": "土地徵收條例§11",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-8",
+     "101-9",
+     "100-12"
+    ]
    },
    {
     "term": "特定農業區徵收限制",
@@ -1046,7 +1454,13 @@ const DATA = [
     "answer": "特定農業區農牧用地原則<span class=\"key\">不得徵收</span>；例外：<span class=\"key\">國防所必須</span>或經<span class=\"key\">行政院核定之重大建設</span>。",
     "src": "土地徵收條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-3",
+     "113-8",
+     "107-12",
+     "103-15"
+    ]
    },
    {
     "term": "聽證與公聽會",
@@ -1054,7 +1468,13 @@ const DATA = [
     "answer": "一般徵收案件舉辦<span class=\"key\">公聽會</span>；行政院核定重大建設徵收特定農業區，所有權人有爭議者依行政程序法舉辦<span class=\"key\">聽證</span>。",
     "src": "土地徵收條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-3",
+     "113-8",
+     "107-12",
+     "100-12"
+    ]
    },
    {
     "term": "徵收審議機關",
@@ -1062,7 +1482,10 @@ const DATA = [
     "answer": "徵收案由<span class=\"key\">內政部</span>審議，採<span class=\"key\">合議制</span>，遴聘專家學者及民間團體代表不得少於<span class=\"key\">二分之一</span>。",
     "src": "土地徵收條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-7"
+    ]
    },
    {
     "term": "徵用逾期之處理",
@@ -1084,7 +1507,13 @@ const DATA = [
     "answer": "徵收土地按當期<span class=\"key\">公告土地現值</span>補償，必要時依地價評議委員會評定之<span class=\"key\">市價變動幅度</span>加成補償（一般土地<span class=\"key\">無</span>40%上限）。",
     "src": "土地徵收條例§30",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "103-6",
+     "102-8",
+     "100-13",
+     "99-25"
+    ]
    },
    {
     "term": "公共設施保留地補償",
@@ -1092,7 +1521,17 @@ const DATA = [
     "answer": "公共設施保留地按毗鄰非保留地之<span class=\"key\">平均公告土地現值</span>補償，必要時加成，最高不超過<span class=\"key\">40%</span>。",
     "src": "土地徵收條例、都計法",
     "mc": 6,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "99-二"
+    ],
+    "mcx": [
+     "103-18",
+     "102-8",
+     "100-13",
+     "99-25"
+    ],
+    "mnemonic": "毗鄰平均現值，加成不逾四成〔自編〕"
    },
    {
     "term": "建築改良物補償",
@@ -1100,7 +1539,13 @@ const DATA = [
     "answer": "建築改良物按徵收當時之<span class=\"key\">重建價格</span>估定。",
     "src": "土地徵收條例",
     "mc": 6,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-6",
+     "110-13",
+     "109-12",
+     "100-11"
+    ]
    },
    {
     "term": "農作改良物補償",
@@ -1108,7 +1553,13 @@ const DATA = [
     "answer": "農作改良物與孳息成熟時間相距<span class=\"key\">1年以內</span>按<span class=\"key\">成熟時之孳息</span>估定；逾1年按<span class=\"key\">種植及培育費用</span>並參酌現值。",
     "src": "土地徵收條例",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-6",
+     "109-12",
+     "103-18",
+     "100-13"
+    ]
    },
    {
     "term": "地價動態調查",
@@ -1116,7 +1567,10 @@ const DATA = [
     "answer": "各直轄市縣市主管機關每<span class=\"key\">6個月</span>調查地價動態，提交地價評議委員會評定<span class=\"key\">市價變動幅度</span>。",
     "src": "土地徵收條例§30",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "103-6"
+    ]
    },
    {
     "term": "先行使用之例外（公共安全急需）",
@@ -1132,7 +1586,14 @@ const DATA = [
     "answer": "補償費受領遲延等，應於期限屆滿次日起<span class=\"key\">3個月</span>內存入國庫專戶，視同<span class=\"key\">補償完竣</span>；逾<span class=\"key\">15</span>年未領歸屬國庫。",
     "src": "土地徵收條例§26",
     "mc": 6,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-7",
+     "112-13",
+     "110-12",
+     "99-21"
+    ],
+    "mnemonic": "三個月存專戶，十五年歸國庫〔自編〕"
    },
    {
     "term": "權利義務終止時點",
@@ -1140,7 +1601,12 @@ const DATA = [
     "answer": "被徵收土地所有權人之權利義務，於受補償<span class=\"key\">費發給完竣時</span>終止。",
     "src": "土地徵收條例",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-13",
+     "104-15",
+     "99-18"
+    ]
    }
   ]
  },
@@ -1155,7 +1621,17 @@ const DATA = [
     "src": "土地徵收條例",
     "mc": 5,
     "essay": 1,
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>抵價地是什麼</td><td>區段徵收時，地主不領現金，改領「開發後的可建築土地」</td></tr><tr><td>比例怎麼算</td><td>抵價地總面積＝徵收總面積 × 比例</td></tr><tr><td>例：徵收 10 公頃</td><td>原則 <span class=\"key\">5 公頃</span>（50%）；特殊核准最少 <span class=\"key\">4 公頃</span>（40%）；曾農地重劃的那部分至少 <span class=\"key\">45%</span></td></tr><tr><td>陷阱</td><td>45% 只管「曾農地重劃的那一部分」；別和市地重劃抵付上限 45%（§60 Ⅲ）搞混</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>抵價地是什麼</td><td>區段徵收時，地主不領現金，改領「開發後的可建築土地」</td></tr><tr><td>比例怎麼算</td><td>抵價地總面積＝徵收總面積 × 比例</td></tr><tr><td>例：徵收 10 公頃</td><td>原則 <span class=\"key\">5 公頃</span>（50%）；特殊核准最少 <span class=\"key\">4 公頃</span>（40%）；曾農地重劃的那部分至少 <span class=\"key\">45%</span></td></tr><tr><td>陷阱</td><td>45% 只管「曾農地重劃的那一部分」；別和市地重劃抵付上限 45%（§60 Ⅲ）搞混</td></tr></tbody></table></div>",
+    "esx": [
+     "109-一"
+    ],
+    "mcx": [
+     "108-23",
+     "106-2",
+     "104-18",
+     "103-19"
+    ],
+    "mnemonic": "五十為原則；四十是下限；農重四十五〔自編〕"
    },
    {
     "term": "申請發給抵價地期限",
@@ -1163,7 +1639,11 @@ const DATA = [
     "answer": "原所有權人不願領現金補償者，應於<span class=\"key\">徵收公告期間內</span>，以書面申請發給抵價地。",
     "src": "土地徵收條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "107-15",
+     "102-7"
+    ]
    },
    {
     "term": "抵價地第一次移轉之原地價★陷阱",
@@ -1171,7 +1651,13 @@ const DATA = [
     "answer": "計算漲價總數額之原地價，為原所有權人<span class=\"key\">實際領回抵價地之地價</span>（不是被徵收當期公告現值）。",
     "src": "土地稅法",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "106-4",
+     "104-34",
+     "103-19",
+     "102-17"
+    ]
    },
    {
     "term": "區段徵收土增稅優惠",
@@ -1179,7 +1665,14 @@ const DATA = [
     "answer": "區段徵收以<span class=\"key\">現金</span>補償地價者<span class=\"key\">免徵</span>土增稅；領回抵價地後<span class=\"key\">第一次移轉</span>減徵<span class=\"key\">40%</span>。",
     "src": "土地稅法§39-1（官方摘要：現金補償免徵；抵價地免徵，領回後第一次移轉以領回地價為原地價計算漲價）；「減徵40%」之條號 ⚠️待核",
     "mc": 5,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-8",
+     "103-37",
+     "103-19",
+     "101-28"
+    ],
+    "mnemonic": "領現金免徵；領抵價地第一次移轉減40%〔自編〕"
    },
    {
     "term": "申請抵價地者之權利義務終止",
@@ -1187,7 +1680,10 @@ const DATA = [
     "answer": "申請發給抵價地者，於抵價地<span class=\"key\">點交接管</span>時，原所有權人權利義務終止（舊官方答案；⚠️現行§40為接到核定發給抵價地通知時）。",
     "src": "土地徵收條例",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "107-15"
+    ]
    },
    {
     "term": "區段徵收整理後土地之處理",
@@ -1195,7 +1691,12 @@ const DATA = [
     "answer": "抵價地<span class=\"key\">發還</span>原所有權人；國宅、安置原住戶用地得<span class=\"key\">讓售</span>；道路、公園、綠地等公共設施用地<span class=\"key\">無償登記</span>為地方政府所有；其餘可<span class=\"key\">標售、標租或設定地上權</span>，標租不得逾<span class=\"key\">99</span>年。",
     "src": "土地徵收條例、平均地權條例§55-2",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-18",
+     "111-17",
+     "104-17"
+    ]
    }
   ]
  },
@@ -1209,7 +1710,14 @@ const DATA = [
     "answer": "撤銷徵收適用於徵收<span class=\"key\">本身有瑕疵</span>（如<span class=\"key\">作業錯誤</span>致土地不在工程用地範圍）；由<span class=\"key\">需用土地人</span>向中央主管機關申請。",
     "src": "土地徵收條例",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-5",
+     "111-19",
+     "108-17",
+     "103-7"
+    ],
+    "mnemonic": "撤＝一開始就錯（徵收本身有瑕疵）〔自編〕"
    },
    {
     "term": "廢止徵收",
@@ -1217,7 +1725,14 @@ const DATA = [
     "answer": "廢止徵收為徵收後<span class=\"key\">情事變更</span>：開始使用前事業改變、計畫註銷；已使用但尚未完成使用，因情事變更已無徵收<span class=\"key\">必要</span>。",
     "src": "土地徵收條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-14",
+     "108-17",
+     "106-23",
+     "103-7"
+    ],
+    "mnemonic": "廢＝後來變了（情事變更）〔自編〕"
    },
    {
     "term": "原所有權人收回權（§9）",
@@ -1227,7 +1742,13 @@ const DATA = [
     "mc": 6,
     "essay": 0,
     "mnemonic": "二十・三・五・六：20年內申請、3年沒動工、5年內不用、6個月還錢；三種情形＝沒動工／用錯／用不到5年〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>內容</th></tr></thead><tbody><tr><td>白話</td><td>政府把你的地徵收了，卻「徵了不用」或「用得不像話」，你可以照當年領的錢把地買回來</td></tr><tr><td>申請期限</td><td><span class=\"key\">徵收公告之日起 20 年內</span>（從公告日算，不是從領錢那天算）</td></tr><tr><td>情形①</td><td>補償費發給完竣滿 <span class=\"key\">3 年</span>，還沒開始使用（「開始使用」＝主體工程動工）</td></tr><tr><td>情形②</td><td>沒照核准的興辦事業使用（用錯）</td></tr><tr><td>情形③</td><td>開始使用後 <span class=\"key\">未滿 5 年</span>就不繼續使用</td></tr><tr><td>向誰申請</td><td>直轄市／縣（市）主管機關受理，報原核准機關核准</td></tr><tr><td>不適用</td><td>區段徵收；情形①若因不可歸責於需用土地人也不得收回（§9 Ⅲ）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>內容</th></tr></thead><tbody><tr><td>白話</td><td>政府把你的地徵收了，卻「徵了不用」或「用得不像話」，你可以照當年領的錢把地買回來</td></tr><tr><td>申請期限</td><td><span class=\"key\">徵收公告之日起 20 年內</span>（從公告日算，不是從領錢那天算）</td></tr><tr><td>情形①</td><td>補償費發給完竣滿 <span class=\"key\">3 年</span>，還沒開始使用（「開始使用」＝主體工程動工）</td></tr><tr><td>情形②</td><td>沒照核准的興辦事業使用（用錯）</td></tr><tr><td>情形③</td><td>開始使用後 <span class=\"key\">未滿 5 年</span>就不繼續使用</td></tr><tr><td>向誰申請</td><td>直轄市／縣（市）主管機關受理，報原核准機關核准</td></tr><tr><td>不適用</td><td>區段徵收；情形①若因不可歸責於需用土地人也不得收回（§9 Ⅲ）</td></tr></tbody></table></div>",
+    "mcx": [
+     "109-11",
+     "106-22",
+     "103-8",
+     "99-28"
+    ]
    },
    {
     "term": "收回權之繳還與適用",
@@ -1237,7 +1758,10 @@ const DATA = [
     "mc": 1,
     "essay": 0,
     "mnemonic": "還錢六個月（不是三個月）〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>內容</th></tr></thead><tbody><tr><td>核准後還錢</td><td><span class=\"key\">6 個月</span>內繳還原領的補償地價＋地價加成補償</td></tr><tr><td>逾期</td><td>視為放棄收回權</td></tr><tr><td>易錯</td><td>官方 109-11 把「三個月」當錯誤選項；舊土地法§219 的 3 個月不適用</td></tr><tr><td>和廢止徵收不同</td><td>廢止徵收（§51）是「不少於 6 個月」繳清補償地價＋加成＋遷移費，逾期不發還、也不得再收回</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>內容</th></tr></thead><tbody><tr><td>核准後還錢</td><td><span class=\"key\">6 個月</span>內繳還原領的補償地價＋地價加成補償</td></tr><tr><td>逾期</td><td>視為放棄收回權</td></tr><tr><td>易錯</td><td>官方 109-11 把「三個月」當錯誤選項；舊土地法§219 的 3 個月不適用</td></tr><tr><td>和廢止徵收不同</td><td>廢止徵收（§51）是「不少於 6 個月」繳清補償地價＋加成＋遷移費，逾期不發還、也不得再收回</td></tr></tbody></table></div>",
+    "mcx": [
+     "109-11"
+    ]
    },
    {
     "term": "徵收後變更使用標售（§59）",
@@ -1259,7 +1783,18 @@ const DATA = [
     "answer": "一般土地：<span class=\"key\">所有權人</span>；設有典權：<span class=\"key\">典權人</span>（非出典人）；承領土地：<span class=\"key\">承領人</span>；承墾土地：<span class=\"key\">耕作權人</span>；信託存續中：<span class=\"key\">受託人</span>。",
     "src": "土地稅法§3",
     "mc": 8,
-    "essay": 2
+    "essay": 2,
+    "esx": [
+     "102-二",
+     "109-二"
+    ],
+    "mcx": [
+     "108-11",
+     "107-19",
+     "100-5",
+     "99-29"
+    ],
+    "mnemonic": "所・典・承・耕・託（所有人・典權人・承領人・耕作權人・受託人）〔自編〕"
    },
    {
     "term": "地價稅代繳",
@@ -1267,7 +1802,13 @@ const DATA = [
     "answer": "權屬不明、納稅義務人行蹤不明、<span class=\"key\">無人管理</span>、所有權人申請由占有人代繳者，稽徵機關指定土地<span class=\"key\">使用人</span>代繳；前三款代繳人得抵付使用期間應付之地租或向納稅義務人<span class=\"key\">求償</span>（第四款占有人經所有權人申請代繳，<span class=\"key\">不得求償</span>）。",
     "src": "土地稅法§4",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "109-二"
+    ],
+    "mcx": [
+     "112-24"
+    ]
    },
    {
     "term": "地價稅稅率級距★高頻",
@@ -1278,7 +1819,17 @@ const DATA = [
     "essay": 2,
     "mnemonic": "15→25→35→45→55（第一級後每級 +10）",
     "table": "<div class=\"tbx-wrap\"><table class=\"tbx \"><thead><tr><th>地價（累進起點地價倍數）</th><th>稅率</th></tr></thead><tbody><tr><td>未超過累進起點地價</td><td><span class=\"key\">10‰</span></td></tr><tr><td>超過未達5倍</td><td><span class=\"key\">15‰</span></td></tr><tr><td>5倍～未達10倍</td><td><span class=\"key\">25‰</span></td></tr><tr><td>10倍～未達15倍</td><td><span class=\"key\">35‰</span></td></tr><tr><td>15倍～未達20倍</td><td><span class=\"key\">45‰</span></td></tr><tr><td>20倍以上</td><td><span class=\"key\">55‰</span></td></tr></tbody></table></div>",
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "105-二",
+     "108-二"
+    ],
+    "mcx": [
+     "112-5",
+     "108-7",
+     "103-33",
+     "102-23"
+    ]
    },
    {
     "term": "累進起點地價",
@@ -1287,7 +1838,15 @@ const DATA = [
     "src": "土地稅法",
     "mc": 9,
     "essay": 2,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "esx": [
+     "105-二",
+     "108-二"
+    ],
+    "mcx": [
+     "113-21",
+     "105-7"
+    ]
    },
    {
     "term": "自用住宅用地稅率（2‰）",
@@ -1296,7 +1855,13 @@ const DATA = [
     "src": "土地稅法",
     "mc": 11,
     "essay": 0,
-    "rate": "selfuse"
+    "rate": "selfuse",
+    "mcx": [
+     "114-24",
+     "110-19",
+     "107-22",
+     "106-10"
+    ]
    },
    {
     "term": "保留地與事業用地稅率",
@@ -1305,7 +1870,13 @@ const DATA = [
     "src": "土地稅法§19",
     "mc": 13,
     "essay": 0,
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "mcx": [
+     "109-4",
+     "106-34",
+     "103-27",
+     "103-13"
+    ]
    },
    {
     "term": "地價稅免徵情形",
@@ -1313,7 +1884,13 @@ const DATA = [
     "answer": "免徵：<span class=\"key\">公有土地供公共使用</span>；古蹟、歷史建築所定著土地；公共設施保留地<span class=\"key\">未使用且與使用中土地隔離</span>；政府機關、地方自治機關及合法立案私立學校用地。",
     "src": "土地稅法",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-4",
+     "103-22",
+     "103-13",
+     "102-18"
+    ]
    },
    {
     "term": "信託與地價稅",
@@ -1321,7 +1898,13 @@ const DATA = [
     "answer": "信託關係存續中納稅義務人為<span class=\"key\">受託人</span>；受益人為委託人者，應與委託人同一縣市其他土地<span class=\"key\">合併計算地價總額</span>。",
     "src": "土地稅法",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "109-19",
+     "107-20",
+     "103-12",
+     "101-24"
+    ]
    },
    {
     "term": "地價稅起徵點",
@@ -1355,7 +1938,16 @@ const DATA = [
     "src": "土地稅法§33",
     "mc": 10,
     "essay": 1,
-    "rate": "zeng"
+    "rate": "zeng",
+    "esx": [
+     "107-二"
+    ],
+    "mcx": [
+     "110-19",
+     "106-40",
+     "104-34"
+    ],
+    "mnemonic": "100%一刀切三段：20・30・40〔自編〕"
    },
    {
     "term": "長期持有減徵",
@@ -1364,7 +1956,14 @@ const DATA = [
     "src": "土地稅法§33",
     "mc": 7,
     "essay": 1,
-    "rate": "zeng"
+    "rate": "zeng",
+    "esx": [
+     "103-二"
+    ],
+    "mcx": [
+     "101-40"
+    ],
+    "mnemonic": "持有幾年減幾成：20→20%、30→30%、40→40%〔自編〕"
    },
    {
     "term": "自用住宅10%：一生一次",
@@ -1373,7 +1972,13 @@ const DATA = [
     "src": "土地稅法",
     "mc": 8,
     "essay": 0,
-    "rate": "selfuse"
+    "rate": "selfuse",
+    "mcx": [
+     "112-2",
+     "110-19",
+     "107-22",
+     "106-10"
+    ]
    },
    {
     "term": "自用住宅10%：一生一屋",
@@ -1382,7 +1987,11 @@ const DATA = [
     "src": "土地稅法",
     "mc": 2,
     "essay": 0,
-    "rate": "selfuse"
+    "rate": "selfuse",
+    "mcx": [
+     "103-10",
+     "100-4"
+    ]
    },
    {
     "term": "不課徵土增稅（須申請）",
@@ -1390,7 +1999,17 @@ const DATA = [
     "answer": "不課徵：<span class=\"key\">農業用地</span>移轉自然人；<span class=\"key\">配偶相互贈與</span>之土地；區段徵收領回抵價地不足最小建築單位而領現金者；私人捐贈社福或私校使用之土地。",
     "src": "土地稅法",
     "mc": 9,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "110-一"
+    ],
+    "mcx": [
+     "105-8",
+     "103-37",
+     "101-28",
+     "99-24"
+    ],
+    "mnemonic": "農・配・小・捐（農地移自然人・配偶贈與・不足最小建築單位領現金・捐贈社福私校）〔自編〕"
    },
    {
     "term": "免徵土增稅",
@@ -1398,7 +2017,17 @@ const DATA = [
     "answer": "免徵：<span class=\"key\">繼承</span>移轉之土地；<span class=\"key\">被徵收</span>之土地；政府出售或贈與之公有土地；公共設施保留地<span class=\"key\">徵收前</span>之移轉。",
     "src": "土地稅法",
     "mc": 10,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "114-二"
+    ],
+    "mcx": [
+     "114-25",
+     "110-20",
+     "105-11",
+     "99-24"
+    ],
+    "mnemonic": "繼・徵・公・保（繼承・被徵收・公有地出售贈與・保留地徵收前移轉）〔自編〕"
    },
    {
     "term": "信託土增稅",
@@ -1406,7 +2035,13 @@ const DATA = [
     "answer": "信託成立（委託人→受託人）、受託人變更：<span class=\"key\">不課徵</span>；受託人<span class=\"key\">有償移轉</span>：以受託人為納稅義務人；移轉給<span class=\"key\">委託人以外之歸屬權利人</span>：應課徵。",
     "src": "土地稅法",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "111-6",
+     "103-26",
+     "102-19",
+     "99-20"
+    ]
    },
    {
     "term": "土增稅納稅義務人",
@@ -1414,7 +2049,13 @@ const DATA = [
     "answer": "有償移轉：<span class=\"key\">原所有權人</span>；無償移轉：<span class=\"key\">取得所有權人（受贈人）</span>；設定典權：<span class=\"key\">出典人</span>預繳，回贖時<span class=\"key\">無息</span>退還。",
     "src": "土地稅法",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "112-3",
+     "103-9",
+     "101-28",
+     "100-5"
+    ]
    },
    {
     "term": "申報移轉現值審核標準（§30）★高頻",
@@ -1424,7 +2065,16 @@ const DATA = [
     "mc": 6,
     "essay": 1,
     "mnemonic": "訂約日・收件日・死亡日・起訴日・拍定日：都是「權利原因發生那天」或「申報那天」〔自編〕",
-    "plain": "打官司可能拖好幾年，這期間公告土地現值一直在漲。如果以判決日算，拖越久稅越高，而且拖延的人可以左右稅額。法律改成以「起訴那天」為準，就像起訴時先把當時行情「拍照存檔」，之後不管拖多久都用那張照片計算。遺贈用「死亡日」也是同一道理：用權利原因發生當下的價格，而不是事後辦理的日期。考試陷阱：不是判決日、不是確定日，也不是申報日。（⚠️ 這是幫助理解的白話解釋，不是立法理由原文；條文就是起訴日。）"
+    "plain": "打官司可能拖好幾年，這期間公告土地現值一直在漲。如果以判決日算，拖越久稅越高，而且拖延的人可以左右稅額。法律改成以「起訴那天」為準，就像起訴時先把當時行情「拍照存檔」，之後不管拖多久都用那張照片計算。遺贈用「死亡日」也是同一道理：用權利原因發生當下的價格，而不是事後辦理的日期。考試陷阱：不是判決日、不是確定日，也不是申報日。（⚠️ 這是幫助理解的白話解釋，不是立法理由原文；條文就是起訴日。）",
+    "esx": [
+     "106-一"
+    ],
+    "mcx": [
+     "111-22",
+     "108-22",
+     "108-6",
+     "101-39"
+    ]
    },
    {
     "term": "申報與核定期限",
@@ -1432,7 +2082,14 @@ const DATA = [
     "answer": "權利人與義務人應於訂約日起<span class=\"key\">30</span>日內共同申報；稽徵機關應於收件日起<span class=\"key\">7</span>日內核定（自用住宅案件延長為<span class=\"key\">20</span>日）；繳款書收到後<span class=\"key\">30</span>日內繳納。",
     "src": "土地稅法",
     "mc": 10,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-16",
+     "109-10",
+     "101-29",
+     "99-32"
+    ],
+    "mnemonic": "三七三：30日申報、7日核定、30日繳納；自用核定20日〔自編〕"
    },
    {
     "term": "重購退稅",
@@ -1441,7 +2098,13 @@ const DATA = [
     "src": "土地稅法",
     "mc": 1,
     "essay": 1,
-    "rate": "selfuse"
+    "rate": "selfuse",
+    "esx": [
+     "106-一"
+    ],
+    "mcx": [
+     "110-24"
+    ]
    },
    {
     "term": "土增稅減徵40%三情形",
@@ -1450,7 +2113,14 @@ const DATA = [
     "src": "重劃：土地稅法§39-1 Ⅰ（官方核對）；抵價地、都更減徵之條號 ⚠️待核（§39-1 官方摘要僅見「領回抵價地第一次移轉，以實際領回之地價為原地價課徵」，未見減徵40%字樣，考前對條文）",
     "mc": 4,
     "essay": 0,
-    "rate": "zeng"
+    "rate": "zeng",
+    "mcx": [
+     "105-11",
+     "105-8",
+     "104-20",
+     "101-28"
+    ],
+    "mnemonic": "重・區・更（重劃・區段徵收抵價地・都更領現金）〔自編〕"
    },
    {
     "term": "免徵・減徵・不課徵・減半徵收怎麼分",
@@ -1484,7 +2154,17 @@ const DATA = [
     "answer": "一般房屋：<span class=\"key\">所有人</span>；設有典權：<span class=\"key\">典權人</span>；信託存續中：<span class=\"key\">受託人</span>；未辦保存登記、無人可徵者：使用執照／建造執照起造人，最後為<span class=\"key\">現住人或管理人</span>。",
     "src": "房屋稅條例",
     "mc": 9,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "102-二"
+    ],
+    "mcx": [
+     "114-5",
+     "111-4",
+     "105-6",
+     "104-39"
+    ],
+    "mnemonic": "所・典・託；無人則起造人→現住人〔自編〕"
    },
    {
     "term": "房屋標準價格評定",
@@ -1493,7 +2173,16 @@ const DATA = [
     "src": "房屋稅條例§11（官方條文核對）",
     "mc": 5,
     "essay": 1,
-    "mnemonic": "三年一評：材・耐・街，地價不算（建造材料・耐用年數折舊・街道村里地段）〔自編〕"
+    "mnemonic": "三年一評：材・耐・街，地價不算（建造材料・耐用年數折舊・街道村里地段）〔自編〕",
+    "esx": [
+     "112-二"
+    ],
+    "mcx": [
+     "107-23",
+     "105-5",
+     "104-38",
+     "99-33"
+    ]
    },
    {
     "term": "房屋稅稅率：住家用",
@@ -1502,7 +2191,16 @@ const DATA = [
     "src": "房屋稅條例§5",
     "mc": 8,
     "essay": 1,
-    "rate": "house"
+    "rate": "house",
+    "esx": [
+     "112-二"
+    ],
+    "mcx": [
+     "113-24",
+     "103-11",
+     "103-5",
+     "99-31"
+    ]
    },
    {
     "term": "房屋稅稅率：非住家用",
@@ -1511,7 +2209,12 @@ const DATA = [
     "src": "房屋稅條例§5",
     "mc": 3,
     "essay": 0,
-    "rate": "house"
+    "rate": "house",
+    "mcx": [
+     "103-5",
+     "101-35",
+     "99-31"
+    ]
    },
    {
     "term": "房屋稅免徵與減半★陷阱",
@@ -1519,7 +2222,16 @@ const DATA = [
     "answer": "免徵（§15 Ⅰ）含<span class=\"key\">司法保護事業</span>房屋、<span class=\"key\">無償供政府機關公用</span>；減半（§15 Ⅱ）含<span class=\"key\">政府平價配售之平民住宅</span>、<span class=\"key\">合法登記工廠</span>直接生產自有房屋、農會倉庫、毀損30%以上未達50%。",
     "src": "房屋稅條例§15",
     "mc": 10,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "104-二"
+    ],
+    "mcx": [
+     "114-15",
+     "102-20",
+     "101-32",
+     "100-10"
+    ]
    },
    {
     "term": "房屋稅申報與異議",
@@ -1527,7 +2239,15 @@ const DATA = [
     "answer": "房屋稅籍變更應於變更之日起<span class=\"key\">30</span>日內申報；現值有異議者，於接到通知書<span class=\"key\">30</span>日內申請重行核計；房屋稅每年徵收<span class=\"key\">1</span>次。",
     "src": "房屋稅條例",
     "mc": 3,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "104-二"
+    ],
+    "mcx": [
+     "101-36",
+     "100-31"
+    ],
+    "mnemonic": "申報30日、異議30日，每年徵一次〔自編〕"
    },
    {
     "term": "房屋稅住家用稅率規律（1.2 的倍數）",
@@ -1573,7 +2293,13 @@ const DATA = [
     "mc": 13,
     "essay": 0,
     "rate": "deed",
-    "mnemonic": "買贈占六六六，典四，換分二（買・贈・占＝6%；典＝4%；交換・分割＝2%）〔自編〕"
+    "mnemonic": "買贈占六六六，典四，換分二（買・贈・占＝6%；典＝4%；交換・分割＝2%）〔自編〕",
+    "mcx": [
+     "111-7",
+     "109-2",
+     "101-31",
+     "100-9"
+    ]
    },
    {
     "term": "契稅納稅義務人★與直覺相反",
@@ -1581,7 +2307,14 @@ const DATA = [
     "answer": "買賣：<span class=\"key\">買受人</span>；贈與：<span class=\"key\">受贈人</span>；典權：<span class=\"key\">典權人</span>；分割：<span class=\"key\">分割人</span>；占有：<span class=\"key\">占有人</span>。",
     "src": "契稅條例",
     "mc": 7,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-23",
+     "112-12",
+     "104-36",
+     "103-9"
+    ],
+    "mnemonic": "買・贈・典・分・占（買受人・受贈人・典權人・分割人・占有人）〔自編〕"
    },
    {
     "term": "契價與契稅範圍",
@@ -1589,7 +2322,16 @@ const DATA = [
     "answer": "契稅課稅基礎為當地<span class=\"key\">不動產評價委員會</span>評定之<span class=\"key\">標準價格</span>；已開徵土增稅之<span class=\"key\">土地</span>免徵契稅（<span class=\"key\">房屋</span>仍課）。",
     "src": "契稅條例",
     "mc": 11,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "111-二"
+    ],
+    "mcx": [
+     "107-23",
+     "106-32",
+     "106-11",
+     "104-36"
+    ]
    },
    {
     "term": "契稅申報期限與查定",
@@ -1597,7 +2339,12 @@ const DATA = [
     "answer": "應於移轉、設典、占有發生後<span class=\"key\">30</span>日內申報；稽徵機關收到申報案件應於<span class=\"key\">15</span>日內查定應納稅額。",
     "src": "契稅條例",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-37",
+     "99-32"
+    ],
+    "mnemonic": "30日申報、15日查定〔自編〕"
    },
    {
     "term": "契稅申報起算日",
@@ -1605,7 +2352,13 @@ const DATA = [
     "answer": "一般買賣自<span class=\"key\">訂約日</span>；起造人名義變更自核發<span class=\"key\">使用執照</span>日；標購公產自核發<span class=\"key\">產權移轉證明書</span>日；法院拍賣自發給<span class=\"key\">權利移轉證明書</span>日；糾紛自<span class=\"key\">法院判決確定</span>日。",
     "src": "契稅條例",
     "mc": 4,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "113-20",
+     "106-16",
+     "105-2",
+     "104-37"
+    ]
    },
    {
     "term": "契稅罰則",
@@ -1613,7 +2366,13 @@ const DATA = [
     "answer": "逾期申報每逾<span class=\"key\">3</span>日加徵<span class=\"key\">1%</span>怠報金（上限應納稅額且不超過1.5萬）；匿報、短報處應納稅額<span class=\"key\">1</span>倍至<span class=\"key\">3</span>倍罰鍰。",
     "src": "契稅條例§24",
     "mc": 3,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "114-16",
+     "103-4",
+     "101-37"
+    ],
+    "mnemonic": "逾3日加1%；匿短報1到3倍〔自編〕"
    },
    {
     "term": "契稅免徵之陷阱",
@@ -1624,7 +2383,11 @@ const DATA = [
     "essay": 0,
     "mnemonic": "標公產、拍法拍，照繳；公務換、重劃換，才免〔自編〕",
     "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情形</th><th>契稅</th><th>條號</th></tr></thead><tbody><tr><td>領買、標購公產</td><td><span class=\"key\">不免徵</span></td><td>§11</td></tr><tr><td>向法院標購拍賣之不動產</td><td><span class=\"key\">不免徵</span></td><td>§11</td></tr><tr><td>政府機關、地方自治團體、公立學校因公使用取得（供營業者除外）</td><td><span class=\"key\">免徵</span></td><td>§14 Ⅰ</td></tr><tr><td>政府因公務需要以公有不動產交換，或因土地重劃交換取得</td><td><span class=\"key\">免徵</span></td><td>§14 Ⅲ</td></tr><tr><td>開徵土地增值稅區域之土地</td><td><span class=\"key\">免徵契稅</span>（只課房屋）</td><td>§2</td></tr></tbody></table></div>",
-    "rate": "deed"
+    "rate": "deed",
+    "mcx": [
+     "106-11",
+     "105-2"
+    ]
    },
    {
     "term": "匿報・短報・怠報・滯納區辨",
@@ -1661,7 +2424,13 @@ const DATA = [
     "mc": 1,
     "essay": 1,
     "rate": "hehe",
-    "mnemonic": "「二四五、五三五、十二十、過十一五」＝2年45、5年35、10年20、過10年15；營利只三級「二四五、五三五、過五二十」〔自編〕"
+    "mnemonic": "「二四五、五三五、十二十、過十一五」＝2年45、5年35、10年20、過10年15；營利只三級「二四五、五三五、過五二十」〔自編〕",
+    "esx": [
+     "107-二"
+    ],
+    "mcx": [
+     "106-7"
+    ]
    },
    {
     "term": "課稅範圍與稅基",
@@ -1669,7 +2438,13 @@ const DATA = [
     "answer": "適用<span class=\"key\">105年1月1日</span>以後取得之房屋、土地；所得額＝成交價額－成本－費用－依土地稅法計算之<span class=\"key\">土地漲價總數額</span>；與綜合所得稅<span class=\"key\">分開</span>計算。",
     "src": "所得稅法",
     "mc": 1,
-    "essay": 1
+    "essay": 1,
+    "esx": [
+     "107-二"
+    ],
+    "mcx": [
+     "105-26"
+    ]
    },
    {
     "term": "未提示證明之費用",
@@ -1685,7 +2460,10 @@ const DATA = [
     "answer": "個人、配偶或<span class=\"key\">未成年子女</span>辦竣戶籍，持有並居住連續滿<span class=\"key\">6</span>年；所得<span class=\"key\">400萬元</span>以下免稅，超過部分按<span class=\"key\">10%</span>課徵。",
     "src": "所得稅法",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "107-25"
+    ]
    },
    {
     "term": "重購退稅",
@@ -1694,7 +2472,10 @@ const DATA = [
     "src": "所得稅法§14-8",
     "mc": 1,
     "essay": 0,
-    "rate": "selfuse"
+    "rate": "selfuse",
+    "mcx": [
+     "110-24"
+    ]
    },
    {
     "term": "交易損失與特殊20%",
@@ -1703,7 +2484,10 @@ const DATA = [
     "src": "所得稅法",
     "mc": 1,
     "essay": 0,
-    "rate": "hehe"
+    "rate": "hehe",
+    "mcx": [
+     "112-23"
+    ]
    },
    {
     "term": "房地合一申報期限與機關（§14-5）",
@@ -1728,7 +2512,10 @@ const DATA = [
     "answer": "耕地租期不得少於<span class=\"key\">6</span>年；租期屆滿承租人繼續耕作，出租人不即表示反對者，視為<span class=\"key\">續訂</span>租約。",
     "src": "三七五減租條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "105-31"
+    ]
    },
    {
     "term": "終止租約事由",
@@ -1736,7 +2523,10 @@ const DATA = [
     "answer": "承租人<span class=\"key\">繼續一年以上不為耕作</span>、<span class=\"key\">轉租</span>、地租積欠達<span class=\"key\">兩年</span>總額、耕地依法變更為建地且出租人收回自建或出售，出租人得終止租約。",
     "src": "三七五減租條例§17",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-5"
+    ]
    },
    {
     "term": "優先承買權之效力",
@@ -1761,7 +2551,10 @@ const DATA = [
     "answer": "租佃爭議：公所耕地租佃委員會<span class=\"key\">調解</span>→縣市政府租佃委員會<span class=\"key\">調處</span>；非經調解、調處<span class=\"key\">不得起訴</span>；訴訟<span class=\"key\">免收裁判費</span>。",
     "src": "三七五減租條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-30"
+    ]
    },
    {
     "term": "調解調處成立之執行",
@@ -1769,7 +2562,10 @@ const DATA = [
     "answer": "調解、調處成立，一方不履行義務，他方得逕向<span class=\"key\">司法機關</span>聲請<span class=\"key\">強制執行</span>。",
     "src": "三七五減租條例",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "104-30"
+    ]
    }
   ]
  },
@@ -1785,7 +2581,13 @@ const DATA = [
     "mc": 4,
     "essay": 0,
     "mnemonic": "人份雙過半；份逾三分之二，人不用算〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情形</th><th>門檻</th></tr></thead><tbody><tr><td>一般</td><td>共有人過半數 ＋ 應有部分合計過半數</td></tr><tr><td>大持分</td><td>應有部分合計「逾」2/3 → 人數不計</td></tr><tr><td>設定抵押權</td><td>不適用多數決，須全體共有人同意（官方101-2、104-2）</td></tr><tr><td>計算題</td><td>102-39：持分 1/3、4/9、1/9、1/9；甲＋乙 = 1/3+4/9 = 7/9 > 2/3 → 甲乙同意即可</td></tr><tr><td>陷阱</td><td>共有人不得為§34-1 的受讓人（官方113-17）；分割不適用多數決（官方107-4）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情形</th><th>門檻</th></tr></thead><tbody><tr><td>一般</td><td>共有人過半數 ＋ 應有部分合計過半數</td></tr><tr><td>大持分</td><td>應有部分合計「逾」2/3 → 人數不計</td></tr><tr><td>設定抵押權</td><td>不適用多數決，須全體共有人同意（官方101-2、104-2）</td></tr><tr><td>計算題</td><td>102-39：持分 1/3、4/9、1/9、1/9；甲＋乙 = 1/3+4/9 = 7/9 > 2/3 → 甲乙同意即可</td></tr><tr><td>陷阱</td><td>共有人不得為§34-1 的受讓人（官方113-17）；分割不適用多數決（官方107-4）</td></tr></tbody></table></div>",
+    "mcx": [
+     "114-7",
+     "111-13",
+     "111-2",
+     "99-4"
+    ]
    },
    {
     "term": "土地徵收審議代表比例",
@@ -1793,7 +2595,10 @@ const DATA = [
     "answer": "中央主管機關審議徵收案件，應遴聘（派）專家學者、民間團體及相關機關代表以合議制辦理；專家學者及民間團體代表不得少於<span class=\"key\">二分之一</span>。",
     "src": "土地徵收條例（官方101-7；條號待核）",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "101-7"
+    ]
    },
    {
     "term": "半數類門檻總表（市地重劃）",
@@ -1803,7 +2608,12 @@ const DATA = [
     "mc": 3,
     "essay": 0,
     "mnemonic": "重劃同意＝人半數＋面積半數，抵付上限 45%〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情境</th><th>門檻</th><th>出處</th></tr></thead><tbody><tr><td>申請核准優先實施市地重劃</td><td>私有土地所有權人 <span class=\"key\">半數以上</span>，且面積超過私有總面積 <span class=\"key\">半數</span></td><td>官方99-27</td></tr><tr><td>重劃區內土地所有權人共同請求</td><td>所有權人過半數，且面積（除公有地）超過一半</td><td>官方103-34</td></tr><tr><td>重劃會辦理自辦市地重劃</td><td>私有土地所有權人半數以上 ＋ 面積超過私有總面積半數以上，並經主管機關核准</td><td>官方114-20</td></tr><tr><td>折價抵付共同負擔上限</td><td>45%，但同意（人半數＋面積半數）者不在此限</td><td>§60 Ⅲ</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>情境</th><th>門檻</th><th>出處</th></tr></thead><tbody><tr><td>申請核准優先實施市地重劃</td><td>私有土地所有權人 <span class=\"key\">半數以上</span>，且面積超過私有總面積 <span class=\"key\">半數</span></td><td>官方99-27</td></tr><tr><td>重劃區內土地所有權人共同請求</td><td>所有權人過半數，且面積（除公有地）超過一半</td><td>官方103-34</td></tr><tr><td>重劃會辦理自辦市地重劃</td><td>私有土地所有權人半數以上 ＋ 面積超過私有總面積半數以上，並經主管機關核准</td><td>官方114-20</td></tr><tr><td>折價抵付共同負擔上限</td><td>45%，但同意（人半數＋面積半數）者不在此限</td><td>§60 Ⅲ</td></tr></tbody></table></div>",
+    "mcx": [
+     "114-20",
+     "108-23",
+     "99-27"
+    ]
    },
    {
     "term": "放棄分配改領現金（最小分配面積）",
@@ -1812,7 +2622,10 @@ const DATA = [
     "src": "平均地權條例§53 Ⅱ（官方條文核對；官方112-11）",
     "mc": 1,
     "essay": 0,
-    "mnemonic": "已達半：先分再放棄；算「應分配」面積、「分配位置」、「重劃後」地價〔自編〕"
+    "mnemonic": "已達半：先分再放棄；算「應分配」面積、「分配位置」、「重劃後」地價〔自編〕",
+    "mcx": [
+     "112-11"
+    ]
    },
    {
     "term": "三分之一對照：重劃 vs 三七五",
@@ -1822,7 +2635,12 @@ const DATA = [
     "mc": 3,
     "essay": 0,
     "mnemonic": "有分給房東，租客拿一份（1/3）；沒分給房東，東二客一（2/3、1/3）；三七五扣完稅才 1/3〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th></th><th>平均地權§63（重劃）</th><th>三七五§17（終止）</th></tr></thead><tbody><tr><td>基礎</td><td>公告土地現值</td><td>公告土地現值，減除土地增值稅後餘額</td></tr><tr><td>比例</td><td><span class=\"key\">1/3</span></td><td><span class=\"key\">1/3</span></td></tr><tr><td>誰補償</td><td>出租人（分配）；縣市政府（公有出租）</td><td>出租人</td></tr><tr><td>另外補償</td><td>—</td><td>改良土地費用（未失效能部分）、尚未收穫農作物價額</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th></th><th>平均地權§63（重劃）</th><th>三七五§17（終止）</th></tr></thead><tbody><tr><td>基礎</td><td>公告土地現值</td><td>公告土地現值，減除土地增值稅後餘額</td></tr><tr><td>比例</td><td><span class=\"key\">1/3</span></td><td><span class=\"key\">1/3</span></td></tr><tr><td>誰補償</td><td>出租人（分配）；縣市政府（公有出租）</td><td>出租人</td></tr><tr><td>另外補償</td><td>—</td><td>改良土地費用（未失效能部分）、尚未收穫農作物價額</td></tr></tbody></table></div>",
+    "mcx": [
+     "109-13",
+     "108-14",
+     "107-11"
+    ]
    },
    {
     "term": "房屋稅災害毀損成數（五成・三成）",
@@ -1832,7 +2650,13 @@ const DATA = [
     "mc": 5,
     "essay": 0,
     "mnemonic": "五成以上免徵；三到五成減半〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>毀損面積</th><th>房屋稅</th></tr></thead><tbody><tr><td>整棟 5 成以上，必須修復始能使用</td><td><span class=\"key\">免徵</span></td></tr><tr><td>3 成以上不及 5 成</td><td><span class=\"key\">減半徵收</span></td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>毀損面積</th><th>房屋稅</th></tr></thead><tbody><tr><td>整棟 5 成以上，必須修復始能使用</td><td><span class=\"key\">免徵</span></td></tr><tr><td>3 成以上不及 5 成</td><td><span class=\"key\">減半徵收</span></td></tr></tbody></table></div>",
+    "mcx": [
+     "114-15",
+     "107-24",
+     "101-34",
+     "101-32"
+    ]
    },
    {
     "term": "公共設施保留地加成上限（四成）",
@@ -1840,7 +2664,10 @@ const DATA = [
     "answer": "徵收公共設施保留地，以徵收當期毗鄰非公共設施保留地之平均公告土地現值補償，必要時得加成補償；加成最高不超過<span class=\"key\">四</span>成。",
     "src": "都市計畫法（官方99-25，選項 40%）；條號待核",
     "mc": 1,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "99-25"
+    ]
    }
   ]
  },
@@ -1856,7 +2683,11 @@ const DATA = [
     "mc": 2,
     "essay": 0,
     "mnemonic": "空地二到五，不建就收買〔自編〕",
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "mcx": [
+     "112-21",
+     "100-8"
+    ]
    },
    {
     "term": "登記逾期罰鍰倍數",
@@ -1865,7 +2696,11 @@ const DATA = [
     "src": "土地法§73 Ⅱ（條號待核；官方107-1、108-21）；期限：變更登記1個月、繼承6個月（官方99-10、99-12）",
     "mc": 2,
     "essay": 0,
-    "mnemonic": "逾一月罰一倍，頂多二十倍〔自編〕"
+    "mnemonic": "逾一月罰一倍，頂多二十倍〔自編〕",
+    "mcx": [
+     "107-1",
+     "99-10"
+    ]
    },
    {
     "term": "買賣未辦竣再行出售之罰鍰",
@@ -1875,7 +2710,12 @@ const DATA = [
     "mc": 3,
     "essay": 0,
     "mnemonic": "平均地權二十倍；土稅法百分之二〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>法規</th><th>罰則</th></tr></thead><tbody><tr><td>平均地權條例</td><td>應納登記費 <span class=\"key\">20 倍</span>以下罰鍰</td></tr><tr><td>土地稅法</td><td>再行出售移轉現值 <span class=\"key\">2%</span> 罰鍰（官方99-35）</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>法規</th><th>罰則</th></tr></thead><tbody><tr><td>平均地權條例</td><td>應納登記費 <span class=\"key\">20 倍</span>以下罰鍰</td></tr><tr><td>土地稅法</td><td>再行出售移轉現值 <span class=\"key\">2%</span> 罰鍰（官方99-35）</td></tr></tbody></table></div>",
+    "mcx": [
+     "114-17",
+     "106-36",
+     "99-35"
+    ]
    },
    {
     "term": "捐贈社福土地違規罰鍰",
@@ -1883,7 +2723,11 @@ const DATA = [
     "answer": "私人捐贈財團法人供社會福利事業使用之土地免徵土增稅；有未按捐贈目的使用等情形，除追補應納土增稅外，並處應納土增稅額<span class=\"key\">二</span>倍罰鍰。",
     "src": "平均地權條例§35-1（官方100-6、110-8）。三種情形：未按捐贈目的使用、違反設立宗旨、土地收益未全部用於該事業；「未辦理用地變更」不是（110-8）",
     "mc": 2,
-    "essay": 0
+    "essay": 0,
+    "mcx": [
+     "110-8",
+     "100-6"
+    ]
    },
    {
     "term": "契稅・土稅罰鍰倍數",
@@ -1893,7 +2737,12 @@ const DATA = [
     "mc": 3,
     "essay": 0,
     "mnemonic": "契稅一到三倍；土稅三倍以下〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>稅目</th><th>情形</th><th>倍數</th></tr></thead><tbody><tr><td>契稅</td><td>匿報／短報</td><td><span class=\"key\">1～3 倍</span>罰鍰（加補繳）</td></tr><tr><td>土地稅法</td><td>逃稅或減輕稅賦（含藉變更、隱匿地目等則）</td><td>短匿稅額 <span class=\"key\">3 倍以下</span>（加追補）</td></tr><tr><td>平均地權§35-1</td><td>捐贈社福土地違規</td><td><span class=\"key\">2 倍</span>土增稅額</td></tr><tr><td>空地稅</td><td>逾期未建築</td><td><span class=\"key\">2～5 倍</span>地價稅基本稅額</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>稅目</th><th>情形</th><th>倍數</th></tr></thead><tbody><tr><td>契稅</td><td>匿報／短報</td><td><span class=\"key\">1～3 倍</span>罰鍰（加補繳）</td></tr><tr><td>土地稅法</td><td>逃稅或減輕稅賦（含藉變更、隱匿地目等則）</td><td>短匿稅額 <span class=\"key\">3 倍以下</span>（加追補）</td></tr><tr><td>平均地權§35-1</td><td>捐贈社福土地違規</td><td><span class=\"key\">2 倍</span>土增稅額</td></tr><tr><td>空地稅</td><td>逾期未建築</td><td><span class=\"key\">2～5 倍</span>地價稅基本稅額</td></tr></tbody></table></div>",
+    "mcx": [
+     "114-17",
+     "103-4",
+     "101-37"
+    ]
    },
    {
     "term": "荒地稅倍數與收買（§26-1）",
@@ -1904,7 +2753,12 @@ const DATA = [
     "essay": 0,
     "mnemonic": "荒地稅一到三，滿三年收買；空地稅二到五〔自編〕",
     "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th></th><th>荒地稅（§26-1）</th><th>空地稅</th></tr></thead><tbody><tr><td>對象</td><td>農業用地閒置不用</td><td>私有空地逾期未建築</td></tr><tr><td>計算基礎</td><td>應納「田賦」</td><td>該宗土地應納「地價稅基本稅額」</td></tr><tr><td>倍數</td><td><span class=\"key\">1～3 倍</span></td><td><span class=\"key\">2～5 倍</span></td></tr><tr><td>滿三年仍不使用</td><td>得照價收買（公告土地現值，官方104-7）</td><td>逾期未建築得照價收買</td></tr><tr><td>核准機關</td><td>內政部</td><td>—</td></tr></tbody></table></div>",
-    "rate": "landvalue"
+    "rate": "landvalue",
+    "mcx": [
+     "106-39",
+     "105-1",
+     "104-7"
+    ]
    },
    {
     "term": "契稅逾期：怠報金・滯納金",
@@ -1916,7 +2770,11 @@ const DATA = [
     "mnemonic": "怠報三天、滯納兩天，都是百分之一〔自編〕",
     "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>契稅條例</th><th>內容</th><th>出處</th></tr></thead><tbody><tr><td>申報期限</td><td>契約成立之日起 <span class=\"key\">30 日</span></td><td>§16</td></tr><tr><td>查定</td><td>收件後 <span class=\"key\">15 日</span> 內查定；補正通知 7 日（鏡像）</td><td>§18／官方101-37 A</td></tr><tr><td>繳納期限</td><td>收到核定繳款書後 <span class=\"key\">30 日</span></td><td>§19／官方114-16 A</td></tr><tr><td>怠報金（逾期申報）</td><td>每逾 <span class=\"key\">3 日</span> 加徵 1%，上限應納稅額且 ≤1.5 萬</td><td>§24</td></tr><tr><td>滯納金（逾期繳納）</td><td>每逾 <span class=\"key\">2 日</span> 加徵 1%；逾 30 日移送強制執行</td><td>§25（官方核對）</td></tr><tr><td>匿報短報罰鍰</td><td>補稅＋<span class=\"key\">1～3 倍</span></td><td>§26／官方101-37 C</td></tr><tr><td>檢舉獎金</td><td>罰鍰 20%（官方103-3）</td><td>§28? ⚠️待核</td></tr></tbody></table></div>",
     "rate": "deed",
-    "plain": "怠報＝晚「申報」（慢交申報書），每逾3日加徵1%，頂多應納稅額且不超過1萬5。滯納＝晚「繳錢」，每逾2日加徵1%，逾30日移送強制執行。匿報＝根本沒報；短報＝報了但報少，查到要補稅再罰1～3倍。"
+    "plain": "怠報＝晚「申報」（慢交申報書），每逾3日加徵1%，頂多應納稅額且不超過1萬5。滯納＝晚「繳錢」，每逾2日加徵1%，逾30日移送強制執行。匿報＝根本沒報；短報＝報了但報少，查到要補稅再罰1～3倍。",
+    "mcx": [
+     "114-16",
+     "101-37"
+    ]
    }
   ]
  },
@@ -1932,7 +2790,13 @@ const DATA = [
     "mc": 5,
     "essay": 0,
     "mnemonic": "登記費看「申報」、千分之一；限制登記免繳〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>正確</th><th>易錯選項</th></tr></thead><tbody><tr><td>計算基礎</td><td>申報地價（或權利價值）</td><td>公告現值／公告地價／成交價</td></tr><tr><td>費率</td><td><span class=\"key\">1‰</span></td><td>2‰</td></tr><tr><td>繳納人</td><td>權利人</td><td>雙方共同／義務人</td></tr><tr><td>免繳</td><td>限制登記（預告、查封…）</td><td>塗銷、信託、繼承要繳</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>項目</th><th>正確</th><th>易錯選項</th></tr></thead><tbody><tr><td>計算基礎</td><td>申報地價（或權利價值）</td><td>公告現值／公告地價／成交價</td></tr><tr><td>費率</td><td><span class=\"key\">1‰</span></td><td>2‰</td></tr><tr><td>繳納人</td><td>權利人</td><td>雙方共同／義務人</td></tr><tr><td>免繳</td><td>限制登記（預告、查封…）</td><td>塗銷、信託、繼承要繳</td></tr></tbody></table></div>",
+    "mcx": [
+     "105-17",
+     "103-36",
+     "100-37",
+     "100-32"
+    ]
    },
    {
     "term": "抵價地比例（五十・四十・四十五）",
@@ -1942,7 +2806,13 @@ const DATA = [
     "mc": 5,
     "essay": 0,
     "mnemonic": "50 為準，40 打底；農重劃 45〔自編〕",
-    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>抵價地是什麼</td><td>區段徵收時，地主不領現金，改領「開發後的可建築土地」</td></tr><tr><td>比例怎麼算</td><td>抵價地總面積＝徵收總面積 × 比例</td></tr><tr><td>例：徵收 10 公頃</td><td>原則 <span class=\"key\">5 公頃</span>（50%）；特殊核准最少 <span class=\"key\">4 公頃</span>（40%）；曾農地重劃的那部分至少 <span class=\"key\">45%</span></td></tr><tr><td>陷阱</td><td>45% 只管「曾農地重劃的那一部分」；別和市地重劃抵付上限 45%（§60 Ⅲ）搞混</td></tr></tbody></table></div>"
+    "table": "<div class=\"tbx-wrap\"><table class=\"tbx\"><thead><tr><th>白話</th><th>說明</th></tr></thead><tbody><tr><td>抵價地是什麼</td><td>區段徵收時，地主不領現金，改領「開發後的可建築土地」</td></tr><tr><td>比例怎麼算</td><td>抵價地總面積＝徵收總面積 × 比例</td></tr><tr><td>例：徵收 10 公頃</td><td>原則 <span class=\"key\">5 公頃</span>（50%）；特殊核准最少 <span class=\"key\">4 公頃</span>（40%）；曾農地重劃的那部分至少 <span class=\"key\">45%</span></td></tr><tr><td>陷阱</td><td>45% 只管「曾農地重劃的那一部分」；別和市地重劃抵付上限 45%（§60 Ⅲ）搞混</td></tr></tbody></table></div>",
+    "mcx": [
+     "114-9",
+     "108-23",
+     "104-18",
+     "103-19"
+    ]
    },
    {
     "term": "空地認定三個百分比（20・10・50）",
@@ -1951,7 +2821,11 @@ const DATA = [
     "src": "官方106-39（土地法20%／平均地權10%）、112-21 C（50%）；條號待核",
     "mc": 2,
     "essay": 0,
-    "mnemonic": "土地法二十、平均地權十、不發建照五十〔自編〕"
+    "mnemonic": "土地法二十、平均地權十、不發建照五十〔自編〕",
+    "mcx": [
+     "112-21",
+     "106-39"
+    ]
    },
    {
     "term": "超額建築用地（十公畝・二年）",
@@ -1960,7 +2834,13 @@ const DATA = [
     "src": "平均地權條例（官方99-3、105-38、107-10、108-13）；條號待核",
     "mc": 4,
     "essay": 0,
-    "mnemonic": "十畝（公畝）二年，不然收買〔自編〕"
+    "mnemonic": "十畝（公畝）二年，不然收買〔自編〕",
+    "mcx": [
+     "108-13",
+     "107-10",
+     "105-38",
+     "99-3"
+    ]
    },
    {
     "term": "規定地價週期與期限",
@@ -1969,11 +2849,29 @@ const DATA = [
     "src": "平均地權條例（官方104-6、106-13、108-24、109-8）；條號待核",
     "mc": 4,
     "essay": 0,
-    "mnemonic": "二年一重定，查一年價，三十日，八折〔自編〕"
+    "mnemonic": "二年一重定，查一年價，三十日，八折〔自編〕",
+    "mcx": [
+     "109-8",
+     "108-24",
+     "106-13"
+    ]
    }
   ]
  }
 ];
+function examStat(c){
+  const rows=[];
+  if((c.mc||0)>0){
+    const ex=(c.mcx&&c.mcx.length)?'<div class="es-ex">例：'+c.mcx.map(x=>{const [y,n]=x.split('-');return y+'年第'+n+'題';}).join('、')+'</div>':'';
+    rows.push('<div class="es-row"><span class="es-k">選擇</span><span>歷屆約 <strong>'+c.mc+'</strong> 題（關鍵詞比對）</span>'+ex+'</div>');
+  }
+  if((c.essay||0)>0){
+    const lk=(c.esx||[]).map(id=>{const [y,q]=id.split('-');return '<a class="es-lk" target="_blank" rel="noopener" href="土地法_申論題分類總覽.html#q-'+id+'">'+y+'年申論第'+q+'題 &#8599;</a>';}).join('、');
+    rows.push('<div class="es-row"><span class="es-k">申論</span><span>考過 <strong>'+c.essay+'</strong> 次：'+lk+'</span></div>');
+  }
+  return rows.length?rows.join(''):'尚無歷屆出題紀錄';
+}
+
 
 // ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
 // blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
@@ -2054,10 +2952,7 @@ DATA.forEach((ch,ci)=>{
     const card = document.createElement('div');
     card.className = 'card';
     card.id = 'card-'+key;
-    const statParts = [];
-    if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
-    if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
-    const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+    const statHtml = examStat(c);
     card.innerHTML = `
       <div class="term">${c.term}</div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
@@ -2230,10 +3125,7 @@ function renderQuizCard() {
     return `<span class="blank" data-ans="${ans.replace(/"/g,'&quot;')}" data-qid="${qid}" onclick="toggleQBlank(this)"><span class="blank-mask">${underlines}</span><span class="blank-val" style="display:none">${ans}</span></span>`;
   });
 
-  const statParts = [];
-  if (c.mc > 0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
-  if (c.essay > 0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
-  const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+  const statHtml = examStat(c);
 
   area.innerHTML = `
     <div class="quiz-card">
