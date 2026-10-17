@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v135';
+const CACHE = 'brokerx-v136';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -7,6 +7,7 @@ const FILES = [
   '/bx-use.js',
   '/bxj-use.js',
   '/bxm-use.js',
+  '/bxm-fmt.js',
   '/bxv-use.js',
   '/LandLaw_A1A2_quiz.html',
   '/LandLaw_A3A4A5_quiz.html',
