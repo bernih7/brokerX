@@ -954,6 +954,12 @@ nav::-webkit-scrollbar{display:none;}
       <thead><tr><th>來源</th><th>題序</th><th>核心主題</th><th>難度</th><th>連結</th></tr></thead>
       <tbody id="sim-tbody"></tbody>
     </table>
+    <div class="sec-title" style="margin-top:20px;">🔮 預測申論題（6題・115年高機率補充）</div>
+    <div class="notice-box" style="font-size:.82rem;">以下為歷年從未出現、但技術規則明訂且具高考出率的缺口題型。建議至少讀懂 A 級架構。</div>
+    <table class="essay-table">
+      <thead><tr><th>預測主題</th><th>難度</th><th>等級</th><th>備考重點提示</th></tr></thead>
+      <tbody id="pred-tbody"></tbody>
+    </table>
     <div class="sec-title" style="margin-top:20px;">估價申論答題架構（計算題版）</div>
     <div class="notice-box">
       <strong>計算題版四段式</strong>：<br>
@@ -965,7 +971,7 @@ nav::-webkit-scrollbar{display:none;}
   </div>
 
   <div id="essaysub-full" class="essay-sub-panel">
-    <div class="notice-box">申論題實戰範文（計算型四段式）為獨立互動工具，收錄 32題完整範文。</div>
+    <div class="notice-box">申論題實戰範文（計算型四段式）為獨立互動工具，收錄官方 32 題完整範文。<br>預測 6 題範文尚未建立，請先熟悉攻略表備考重點提示。</div>
     <div class="tool-row" style="margin-bottom:8px;">
       <div class="tool-read-wrap">
         <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）</a>
@@ -1091,7 +1097,7 @@ nav::-webkit-scrollbar{display:none;}
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">16年考點分析（選擇520題＋申論32題）</div><div class="chk-desc">99–114年逐題分析，章節占比、趨勢轉變、115年優先清單</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">重點筆記（A1–I1全科）</div><div class="chk-desc">含★高頻/★陷阱標記，表格化比較公式</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">題庫（99–114年520題，含官方答案）</div><div class="chk-desc">部分計算題有誠實標記（落差題目，見④現行法頁）</div></div></div>
-    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題攻略表（32題，🔴🟡🟢三級）</div><div class="chk-desc">攻略表已通過官方PDF核實（2026-06-20）</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題攻略表（官方32題＋預測6題，🔴🟡🟢三級）</div><div class="chk-desc">官方題攻略表已通過官方PDF核實（2026-06-20）；預測題補充完成（2026-10-18）</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題實戰範文（32題計算型四段式）</div><div class="chk-desc">主題層級已核實；完整範文逐句核實尚未執行</div></div></div>
   </div>
 
@@ -1559,8 +1565,8 @@ var simData=[
   {src:'模擬試題一', q:'申論二', topic:'折現現金流量分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_模擬試題一.html'},
   {src:'模擬試題二', q:'申論一', topic:'成本法意義/程序＋定率遞減法公式及計算（重建成本800萬、50年、殘值率10%、已使用20年）', hard:'計算', href:'估價_模擬試題二.html'},
   {src:'模擬試題二', q:'申論二', topic:'比較法意義/程序＋情況調整意義及區域/個別因素調整差異', hard:'說明', href:'估價_模擬試題二.html'},
-  {src:'模擬試題三', q:'申論一', topic:'（詳見試題三）', hard:'計算', href:'估價_模擬試題三.html'},
-  {src:'模擬試題三', q:'申論二', topic:'（詳見試題三）', hard:'說明', href:'估價_模擬試題三.html'},
+  {src:'模擬試題三', q:'申論一', topic:'收益法（直接資本化法）意義/應用時機/程序＋淨收益計算（題目含資本化率）', hard:'計算', href:'估價_模擬試題三.html'},
+  {src:'模擬試題三', q:'申論二', topic:'估價師執行估價之程序步驟＋估價基準日意義及重要性＋估價報告書應記載事項', hard:'說明', href:'估價_模擬試題三.html'},
 ];
 (function(){
   var tb=document.getElementById('sim-tbody');if(!tb)return;
@@ -1568,6 +1574,31 @@ var simData=[
     var tr=document.createElement('tr');
     var lnk='<a href="https://bernih7.github.io/brokerX/'+encodeURIComponent(r.href)+'" target="_blank" style="font-size:.78rem;color:var(--accent-g);text-decoration:none;white-space:nowrap;">📝 試題</a>';
     tr.innerHTML='<td>'+r.src+'</td><td>'+r.q+'</td><td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+lnk+'</td>';
+    tb.appendChild(tr);
+  });
+})();
+
+// ── 預測申論題 ──
+var predData=[
+  {topic:'§132新訂租約 vs §133續訂租約：估計方式完整對比（差額分配法）', hard:'說明', pri:'A',
+   note:'§132新訂用市場比較法；§133續訂用差額資本化法；差額=新訂租金-在付租金，分配比例按剩餘年限'},
+  {topic:'樓層別效用比計算：各樓層效用比設定原則及特殊樓層（地下室、頂樓）調整', hard:'計算', pri:'A',
+   note:'技術規則§18規定；需計算標準樓（1F）效用比=1.00，其他樓層依市場調查設定；加權平均確認'},
+  {topic:'成本法折舊三法完整比較：定額法、定率法、償債基金法公式及計算差異', hard:'計算', pri:'A',
+   note:'定額法§57；定率法§58；償債基金法§59；三法歷年只出過定額和定率，償債基金法為缺口'},
+  {topic:'比較法調整比率上限整合申論：±15%、±30%、±20%各自適用情形及超限處理', hard:'說明', pri:'B',
+   note:'個別因素調整±15%（§30）；每筆比較實例調整±30%（§29）；情況調整±20%（§27）；超限不得採用'},
+  {topic:'CAMA計量模型（複迴歸）基本原理、適用條件、信賴區間及其估價限制', hard:'說明', pri:'B',
+   note:'大量估價法（§139–§143）；迴歸係數代表價格影響因素；R²判定係數；模型需通過統計顯著性檢定'},
+  {topic:'估價師法懲戒流程：懲戒種類、移付機關、申訴程序及懲戒效果', hard:'說明', pri:'C',
+   note:'不動產估價師法§32–§38；懲戒種類：警告/申誡/停業/廢止執照；由主管機關移付懲戒委員會'},
+];
+(function(){
+  var tb=document.getElementById('pred-tbody');if(!tb)return;
+  predData.forEach(function(r){
+    var p=r.pri==='A'?'<span class="pri-a">🔴 A</span>':r.pri==='B'?'<span class="pri-b">🟡 B</span>':'<span class="pri-c">🟢 C</span>';
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td><td style="font-size:.78rem;color:var(--fg60);">'+r.note+'</td>';
     tb.appendChild(tr);
   });
 })();
