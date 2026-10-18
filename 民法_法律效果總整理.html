@@ -182,6 +182,9 @@ table.lct{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 4px}
 .lct tr.ddr td{background:var(--paper2);padding:2px 10px 10px}
 .lct .bt-dt{font-size:.84rem;color:var(--muted);gap:4px}.lct .bt-dt p{margin:0}.lct .bt-dt p.k{color:var(--pri);font-weight:600}
 .lg[open]{padding-bottom:0;overflow:hidden}
+</style><style>
+.lct td.b .ans.num,.lct td.b .num{background:none;color:inherit;font-weight:inherit;padding:0;border-radius:0}
+.lct td.b .amtl{font-weight:500;font-size:.8rem;color:var(--key);margin-top:3px;line-height:1.45}
 </style></head><body>
 <button id="theme-btn" type="button" aria-label="切換深淺色" title="切換深淺色"></button>
 <div class="wrap">
@@ -275,7 +278,7 @@ function lightRows(d){return [].slice.call(d.querySelectorAll(".lt")).map(functi
 var lens="e";
 function viewC(){
  var h='<div class="lens">'+[["e","看效果"],["p","看期間"],["a","看條號"]].map(function(x){return'<button data-l="'+x[0]+'"'+(x[0]===lens?' class="on"':'')+'>'+x[1]+'</button>'}).join("")+'</div>';
- secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var th=lens==="e"?"法律效果":lens==="p"?"期間":"條號";var body2=rs.map(function(x){var v=lens==="e"?(x.e||x.a):lens==="p"?x.a:(x.dt.match(/<span class="art">[\s\S]*?<\/span>/g)||[x.arts.join("　")]).join("");if(!v)return"";return'<tr class="lr"><td class="a">'+x.t+'</td><td class="b">'+v+'</td>'+'</tr><tr class="ddr" hidden><td colspan="'+2+'"><div class="bt-dt">'+x.dt.replace(lens==="e"?/^<h3>[\s\S]*?<\/h3><p>[\s\S]*?<\/p>/:/<h3>[\s\S]*?<\/h3>/,"")+'</div></td></tr>'}).join("");if(body2)body2='<table class="lct"><thead><tr><th>情形</th><th>'+th+'</th>'+'</tr></thead><tbody>'+body2+'</tbody></table>';
+ secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var th=lens==="e"?"法律效果":lens==="p"?"期間":"條號";var body2=rs.map(function(x){var v=lens==="e"?((x.e||x.a)+(x.e&&x.a&&x.e.indexOf(x.a)<0?'<div class="amtl">'+x.a+'</div>':'')):lens==="p"?x.a:(x.dt.match(/<span class="art">[\s\S]*?<\/span>/g)||[x.arts.join("　")]).join("");if(!v)return"";return'<tr class="lr"><td class="a">'+x.t+'</td><td class="b">'+v+'</td>'+'</tr><tr class="ddr" hidden><td colspan="'+2+'"><div class="bt-dt">'+x.dt.replace(lens==="e"?/^<h3>[\s\S]*?<\/h3><p>[\s\S]*?<\/p>/:/<h3>[\s\S]*?<\/h3>/,"")+'</div></td></tr>'}).join("");if(body2)body2='<table class="lct"><thead><tr><th>情形</th><th>'+th+'</th>'+'</tr></thead><tbody>'+body2+'</tbody></table>';
   if(!body2)return;h+='<details class="lg"><summary><span class="lgn">'+num(d)+'</span><span class="lgt"><b>'+(SH[d.id]||title(d))+'</b><em>'+sm(d)+'</em></span><small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
  vx.innerHTML=h;
 }
