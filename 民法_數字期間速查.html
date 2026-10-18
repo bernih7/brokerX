@@ -67,9 +67,14 @@ details.gc.l2 .gb{padding:0}
 .gb>.it .nt{grid-column:2/4;grid-row:2;margin-top:3px}
 .gb>.th{display:grid;grid-template-columns:64px 1fr 66px;column-gap:8px;padding:5px 10px;background:var(--sf2);color:var(--mu);font-size:12px;font-weight:700;border-bottom:1px solid var(--bd)}
 </style><style>
-.l2>.gb>.it,.l2>.gb>.th{grid-template-columns:1fr 66px}
-.l2>.gb>.th span:first-child{display:none}
-.l2>.gb>.it .ct{grid-column:1}.l2>.gb>.it .mt{grid-column:2}.l2>.gb>.it .nt{grid-column:1/3}
+</style><style>
+details.sx>summary:before,details.gc>summary:before{content:none!important}
+details.gc>summary{align-items:baseline}
+details.gc>summary::after{content:"›";order:1;margin-left:auto;color:var(--mu);font-size:20px;line-height:1;transition:transform .15s}
+details.gc[open]>summary::after{transform:rotate(90deg)}
+details.gc>summary .gh{order:2;padding-left:0}
+details.gc>summary .gt,details.gc>summary .gn{order:0}
+details.gc.l2>summary::after{font-size:18px}
 </style></head><body>
 <header><div><h1>民法概要｜數字・期間速查</h1><div class="sub">110 項・條號可點，開全國法規資料庫核對</div></div><button id="th">🌓</button></header>
 <nav><a href="#s1">依期間</a><a href="#s2">依主題</a><a href="#s3">易混淆</a></nav>
@@ -133,6 +138,7 @@ document.querySelector('nav').addEventListener('click',function(e){var a=e.targe
 <!--/bxfab-->
 
 <script>
-(function(){function th(){[].forEach.call(document.querySelectorAll('.gb'),function(g){if(g.querySelector(':scope>.th'))return;var f=g.querySelector(':scope>.it');if(!f)return;var h=document.createElement('div');h.className='th';h.innerHTML='<span>數字</span><span>內容</span><span>條號</span>';g.insertBefore(h,g.firstChild)})}
+(function(){function flat(){[].forEach.call(document.querySelectorAll('#b1 .gb'),function(g){[].slice.call(g.children).forEach(function(l){if(!(l.matches&&l.matches('details.gc.l2')))return;var num=(l.querySelector('.gt')||{}).textContent||'';var gb=l.querySelector('.gb');[].slice.call(gb.querySelectorAll(':scope>.it')).forEach(function(it){if(!it.querySelector(':scope>.vb')){var v=document.createElement('span');v.className='vb nm';v.textContent=num;it.insertBefore(v,it.firstChild)}g.insertBefore(it,l)});l.remove()})})}
+function th(){flat();[].forEach.call(document.querySelectorAll('.gb'),function(g){if(g.querySelector(':scope>.th'))return;var f=g.querySelector(':scope>.it');if(!f)return;var h=document.createElement('div');h.className='th';h.innerHTML='<span>數字</span><span>內容</span><span>條號</span>';g.insertBefore(h,g.firstChild)})}
 th();setTimeout(th,300);var o=new MutationObserver(th);o.observe(document.body,{childList:true,subtree:true})})();
 </script></body></html>
