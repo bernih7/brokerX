@@ -130,6 +130,19 @@ table.bt tr.x td{background:var(--paper);padding:2px 10px 10px}
 .ec b{display:block;font-family:'Noto Serif TC',serif;font-size:1.05rem}.ec span{font-size:.76rem;color:var(--muted)}
 .eback{font:700 .8rem inherit;font-family:inherit;border:1px solid var(--line);background:var(--paper2);color:var(--ink);border-radius:14px;padding:3px 12px;cursor:pointer;margin-bottom:6px}
 .lc .none{color:var(--muted)}
+
+/* v203：章標題與章內細項分開（章＝實心色帶；細項＝縮排、細左線、無外框） */
+.lg{margin:12px 0}
+.lg>summary{background:var(--pri);color:var(--onc);border:0;border-radius:12px;padding:10px 14px;font-size:1.02rem;letter-spacing:.04em}
+.lg>summary::after{color:var(--onc)}
+.lg>summary small{color:var(--onc);opacity:.8;background:rgba(255,255,255,.18);border-radius:10px;padding:0 8px;margin-left:4px}
+.lg[open]>summary{border-radius:12px 12px 0 0}
+.lg[open]{border:1px solid var(--pri);border-radius:12px;padding-bottom:6px;background:var(--paper)}
+.lg .lc{border:0;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:transparent;margin:0 10px 0 14px;padding:8px 10px;border-bottom:1px dashed var(--line);font-size:.9rem}
+.lg .lc:last-child{border-bottom:0}
+.lg .lc:hover{background:var(--paper2)}
+.lg .lc .h b{font-weight:600}
+.lg .lc .h .v{font-weight:700;color:var(--ink)}
 </style>
 </head><body>
 <button id="theme-btn" type="button" aria-label="切換深淺色" title="切換深淺色"></button>
@@ -218,10 +231,13 @@ function viewB(id){
   t.addEventListener("click",function(e){if(e.target.closest("a,.ans"))return;var tr=e.target.closest("tr.m");if(!tr)return;var nx=tr.nextElementSibling;if(nx&&nx.classList.contains("x")){nx.remove();return}
    var x=document.createElement("tr");x.className="x";x.innerHTML='<td colspan="2"><div class="bt-dt">'+inf[tr.dataset.i].dt+'</div></td>';tr.after(x)})}
 }
+function lightRows(d){return [].slice.call(d.querySelectorAll(".lt")).map(function(l){var h3=l.querySelector("h3"),p=l.querySelector("p"),k=l.querySelector(".k"),txt=l.textContent,m=txt.match(/§\d+(?:-\d+)?/g)||[];
+ var ar=[];m.forEach(function(x){if(ar.indexOf(x)<0)ar.push(x)});
+ return{t:h3?h3.textContent:"",a:k?k.textContent:"",e:p?p.innerHTML:"",arts:ar,dt:l.innerHTML}})}
 var lens="e";
 function viewC(){
  var h='<div class="lens">'+[["e","看效果"],["p","看期間"],["a","看條號"]].map(function(x){return'<button data-l="'+x[0]+'"'+(x[0]===lens?' class="on"':'')+'>'+x[1]+'</button>'}).join("")+'</div>';
- secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)return;var body2=rs.map(function(x){var v=lens==="e"?(x.e||x.a):lens==="p"?x.a:x.arts.join("　");if(!v)return"";return'<div class="lc"><div class="h"><b>'+x.t+'</b><span class="v">'+v+'</span></div><div class="dd" hidden><div class="bt-dt">'+x.dt+'</div></div></div>'}).join("");
+ secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var body2=rs.map(function(x){var v=lens==="e"?(x.e||x.a):lens==="p"?x.a:x.arts.join("　");if(!v)return"";return'<div class="lc"><div class="h"><b>'+x.t+'</b><span class="v">'+v+'</span></div><div class="dd" hidden><div class="bt-dt">'+x.dt+'</div></div></div>'}).join("");
   if(!body2)return;h+='<details class="lg"><summary>'+num(d)+'　'+(SH[d.id]||title(d))+'<small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
  vx.innerHTML=h;
 }
