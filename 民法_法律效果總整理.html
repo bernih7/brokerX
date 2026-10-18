@@ -144,7 +144,17 @@ table.bt tr.x td{background:var(--paper);padding:2px 10px 10px}
 .lg .lc .h b{font-weight:600}
 .lg .lc .h .v{font-weight:700;color:var(--ink)}
 </style>
-</head><body>
+<style>
+.wrap{max-width:780px}
+.lg>summary{background:var(--paper2);color:var(--ink);border:1px solid var(--line);border-left:5px solid var(--pri);padding:9px 12px;letter-spacing:0}
+.lg>summary::after{color:var(--muted)}
+.lg>summary small{color:var(--muted);opacity:1;background:var(--paper);border:1px solid var(--line);margin-left:auto}
+.lg>summary::after{margin-left:6px}
+.lg .lgn{flex:none;width:1.6em;text-align:center;font-weight:800;color:var(--pri)}
+.lg .lgt{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.lg .lgt b{font-size:1.02rem}.lg .lgt em{font-style:normal;font-weight:400;font-size:.76rem;color:var(--muted)}
+.lg[open]>summary{border-radius:12px 12px 0 0;border-bottom-color:var(--line)}
+</style></head><body>
 <button id="theme-btn" type="button" aria-label="切換深淺色" title="切換深淺色"></button>
 <div class="wrap">
 <header><h1>民法｜法律效果總整理</h1><div class="sub">民法沒有罰則，改整理「無效／得撤銷／效力未定／解除／時效與除斥期間」。條號附白話。</div><div class="sub">考古題欄＝條號出現於官方題目或選項的年度-題號</div></header>
@@ -238,7 +248,7 @@ var lens="e";
 function viewC(){
  var h='<div class="lens">'+[["e","看效果"],["p","看期間"],["a","看條號"]].map(function(x){return'<button data-l="'+x[0]+'"'+(x[0]===lens?' class="on"':'')+'>'+x[1]+'</button>'}).join("")+'</div>';
  secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var body2=rs.map(function(x){var v=lens==="e"?(x.e||x.a):lens==="p"?x.a:x.arts.join("　");if(!v)return"";return'<div class="lc"><div class="h"><b>'+x.t+'</b><span class="v">'+v+'</span></div><div class="dd" hidden><div class="bt-dt">'+x.dt+'</div></div></div>'}).join("");
-  if(!body2)return;h+='<details class="lg"><summary>'+num(d)+'　'+(SH[d.id]||title(d))+'<small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
+  if(!body2)return;h+='<details class="lg"><summary><span class="lgn">'+num(d)+'</span><span class="lgt"><b>'+(SH[d.id]||title(d))+'</b><em>'+sm(d)+'</em></span><small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
  vx.innerHTML=h;
 }
 function viewD(id){id=(id===undefined||id===null)?null:id;
