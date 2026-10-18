@@ -186,7 +186,7 @@ pre.pr{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
 
 </style>
 <style id="essx">
-#emap{margin:8px 0 14px}#emap>summary{cursor:pointer;font-weight:700;font-family:"Noto Serif TC",serif;padding:8px 2px;font-size:1rem}.emc{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 12px;margin:8px 0}.emh{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.emh b{font-family:"Noto Serif TC",serif;font-size:.98rem}.emh .pr{font-size:.72rem;font-weight:700;border-radius:10px;padding:1px 9px;background:color-mix(in srgb,var(--pri) 14%,var(--surface));color:var(--pri)}.emh .pr.hi{background:color-mix(in srgb,var(--bad) 14%,var(--surface));color:var(--bad)}.emh .n{margin-left:auto;font-size:.76rem;color:var(--sub)}.emw{font-size:.82rem;color:var(--sub);margin:4px 0}.emr{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 0}.emr .l{font-size:.72rem;font-weight:700;color:var(--sub);min-width:3.6em}.emr a.lw{font-size:.8rem;font-weight:700;color:var(--pri);text-decoration:none;border-bottom:1.5px solid color-mix(in srgb,var(--pri) 45%,transparent)}.emr button.jp{font:inherit;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}.emr button.jp.p{border-style:dashed}.emr button.jp.a{border-color:var(--bad)}.emr button.jp.b{border-color:var(--acc-ink,var(--gold))}.emr button.jp:active{background:var(--surface2,var(--line))}
+.gpr{font-size:.7rem;font-weight:700;border-radius:10px;padding:1px 9px;font-family:"Noto Sans TC",sans-serif;background:color-mix(in srgb,var(--pri) 14%,var(--surface));color:var(--pri)}.gpr.hi{background:color-mix(in srgb,var(--bad) 13%,var(--surface));color:var(--bad)}.ginfo{margin:2px 0 10px;padding:9px 12px;border-radius:10px;background:color-mix(in srgb,var(--pri) 7%,var(--surface));font-size:.86rem;line-height:1.6}.ginfo .gw{color:var(--ink)}.ginfo .gr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:5px}.ginfo .gl{font-size:.72rem;font-weight:700;color:var(--sub)}.ginfo a.lw{font-weight:700;color:var(--pri);text-decoration:none;border-bottom:1.5px solid color-mix(in srgb,var(--pri) 45%,transparent)}.ginfo button.jp{font:inherit;font-size:.78rem;padding:2px 10px;border-radius:14px;border:1px dashed var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
 #pEss .ebody a.lw{color:var(--pri);text-decoration:none;border-bottom:1.5px solid color-mix(in srgb,var(--pri) 45%,transparent);font-weight:700;border-radius:3px;padding:0 1px}#pEss .ebody a.lw:hover{background:color-mix(in srgb,var(--pri) 12%,transparent)}
 .ebody .must{list-style:none;margin:6px 0;padding:0}.ebody .must li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;margin:5px 0;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;background:var(--surface);font-size:.92rem}.ebody .must li:before{content:"☐";color:var(--muted)}.ebody .must .mt{flex:none;font-size:.7rem;font-weight:700;color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--surface));border-radius:10px;padding:1px 8px;margin-top:2px}.ebody .must li.b1{--c:var(--b1)}.ebody .must li.b2{--c:var(--b2)}.ebody .must li.b3{--c:var(--b3)}.ebody .must li.b4{--c:var(--b4)}.ebody .mc,.ebody .mtrap{margin:8px 0;padding:8px 12px;border-radius:8px;font-size:.92rem}.ebody .mc{background:color-mix(in srgb,var(--pri) 10%,var(--surface))}.ebody .mtrap{background:color-mix(in srgb,var(--bad) 9%,var(--surface))}.ebody .mc b,.ebody .mtrap b{margin-right:8px}
 @media(min-width:900px){main:has(#pEss.active){max-width:1180px}#pEss .essay-detail{padding:2px 20px}}
@@ -603,29 +603,22 @@ while(m=re.exec(s)){if(m.index>i)f.appendChild(document.createTextNode(s.slice(i
 if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));n.parentNode.replaceChild(f,n)})})})();</script>
 <script>(function(){
 var L='https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=B0000001&flno=';
-var CAT=[
-{g:'g1',n:'① 共有・分管・區分所有',pr:'最高',hi:1,y:'100・102・103・105・106・110・114',w:'分管契約對後手效力、共有物出租與修繕、分割與抵押權移存、區分所有頂樓加蓋',law:['820','821','824-1','826-1','799','799-1'],pre:['預03','預02','預12']},
-{g:'g2',n:'② 抵押權・地上權・物權順序',pr:'中高',y:'102・104・108・109・114',w:'物權先後順序與 §866 除去、最高限額抵押權與物上代位、時效取得地上權',law:['758','860','866','867','881','881-1','832','772'],pre:['預01','預07','預09']},
-{g:'g3',n:'③ 無權處分・善意取得・登記公信',pr:'高（常當第二爭點）',hi:1,y:'99・108・109・110・111',w:'§118 效力未定、§759-1 善意取得，常搭配借名登記、夫妻財產、繼承人',law:['118','759-1','758','87','767','179'],pre:['預05']},
-{g:'g4',n:'④ 居間・委任・買賣契約',pr:'高（近4年必考）',hi:1,y:'101・104・112×2・113×2',w:'居間報酬於契約成立時確定、受任人注意義務、定金效力、瑕疵擔保與損害賠償',law:['565','568','535','249','354','360','195'],pre:['預08','預13','預14','預10','預11']},
-{g:'g5',n:'⑤ 意思表示・行為能力・撤銷・代位',pr:'中',y:'100・101・103・106・107',w:'詐欺脅迫撤銷與善意第三人、拋棄與撤銷比較、債權人代位與撤銷權',law:['92','87','242','244','343','751','1174'],pre:['預05','預15']},
-{g:'g6',n:'⑥ 時效・相鄰・繼承',pr:'中',y:'99・105・107・111',w:'消滅時效與抵押權消滅、已登記不動產不適用時效、同時遇難繼承計算、相鄰關係',law:['125','144','880','11','1138','1141','792','796'],pre:['預04','預06','預09']}];
+var CAT={
+g1:{pr:'考頻最高',hi:1,w:'分管契約對後手效力、共有物出租與修繕、分割與抵押權移存、區分所有頂樓加蓋',law:['820','821','824-1','826-1','799','799-1'],pre:['預03','預02','預12']},
+g2:{pr:'考頻中高',w:'物權先後順序與 §866 除去、最高限額抵押權與物上代位、時效取得地上權',law:['758','860','866','867','881','881-1','832','772'],pre:['預01','預07','預09']},
+g3:{pr:'考頻高',hi:1,w:'§118 效力未定、§759-1 善意取得；常當第二爭點，搭配借名登記、夫妻財產、繼承人',law:['118','759-1','758','87','767','179'],pre:['預05']},
+g4:{pr:'考頻高・近4年必考',hi:1,w:'居間報酬於契約成立時確定、受任人注意義務、定金效力、瑕疵擔保與損害賠償',law:['565','568','535','249','354','360','195'],pre:['預08','預13','預14','預10','預11']},
+g5:{pr:'考頻中',w:'詐欺脅迫撤銷與善意第三人、拋棄與撤銷比較、債權人代位與撤銷權',law:['92','87','242','244','343','751','1174'],pre:['預05','預15']},
+g6:{pr:'考頻中',w:'消滅時效與抵押權消滅、已登記不動產不適用時效、同時遇難繼承計算、相鄰關係',law:['125','144','880','11','1138','1141','792','796'],pre:['預04','預06','預09']}};
 var by={};document.querySelectorAll('#elist .essay').forEach(function(e){by[e.dataset.key]=e});
-function mk(t,c,k){var b=document.createElement('button');b.type='button';b.className='jp '+(c||'');b.textContent=t;b.dataset.k=k;return b}
-var root=document.createElement('details');root.id='emap';root.open=true;root.innerHTML='<summary>考點地圖：六大類＋範文入口</summary><p class="gnote" style="margin:0 2px 4px">16 年 32 題歸成六大類。點「年度鈕」直接打開該題完整範文；虛線＝預測題（自擬非官方）；條號可連到全國法規資料庫。</p>';
-CAT.forEach(function(c){
- var ks=[].filter.call(document.querySelectorAll('#elist .essay[data-g="'+c.g+'"]'),function(e){return e.dataset.lv!=='P'});
- var d=document.createElement('div');d.className='emc';
- d.innerHTML='<div class="emh"><b>'+c.n+'</b><span class="pr'+(c.hi?' hi':'')+'">考頻：'+c.pr+'</span><span class="n">官方 '+ks.length+' 題</span></div><div class="emw">'+c.w+'</div>';
- var r1=document.createElement('div');r1.className='emr';r1.innerHTML='<span class="l">考過</span>';
- ks.forEach(function(e){var t=e.dataset.yr+'-'+e.dataset.key.split('-')[1];r1.appendChild(mk(t,e.dataset.lv==='A'?'a':(e.dataset.lv==='B'?'b':''),e.dataset.key))});
- d.appendChild(r1);
- var r2=document.createElement('div');r2.className='emr';r2.innerHTML='<span class="l">必背條</span>'+c.law.map(function(n){return '<a class="lw" target="_blank" rel="noopener" href="'+L+n+'" title="民法第'+n.replace('-','之')+'條">§'+n+'</a>'}).join('');d.appendChild(r2);
+Object.keys(CAT).forEach(function(g){var c=CAT[g],d=document.querySelector('#elist details.gdet[data-g="'+g+'"]');if(!d)return;
+ var sm=d.querySelector('.grp .sub');if(sm){var t=document.createElement('span');t.className='gpr'+(c.hi?' hi':'');t.textContent=c.pr;sm.parentNode.insertBefore(t,sm)}
+ var i=document.createElement('div');i.className='ginfo';
+ var h='<div class="gw"><b>常考：</b>'+c.w+'</div><div class="gr"><span class="gl">必背條</span>'+c.law.map(function(n){return '<a class="lw" target="_blank" rel="noopener" href="'+L+n+'" title="民法第'+n.replace('-','之')+'條">§'+n+'</a>'}).join('')+'</div>';
  var pk=c.pre.filter(function(k){return by[k]});
- if(pk.length){var r3=document.createElement('div');r3.className='emr';r3.innerHTML='<span class="l">預測範文</span>';pk.forEach(function(k){var e=by[k];r3.appendChild(mk(e.querySelector('.et').textContent.split('：')[0],'p',k))});d.appendChild(r3)}
- root.appendChild(d)});
-var at=document.getElementById('essaytool');at.parentNode.insertBefore(root,at);
-root.addEventListener('click',function(ev){var b=ev.target.closest('button.jp');if(!b)return;var e=by[b.dataset.k];if(!e)return;
+ if(pk.length)h+='<div class="gr"><span class="gl">預測範文</span>'+pk.map(function(k){return '<button type="button" class="jp" data-k="'+k+'">'+by[k].querySelector('.et').textContent.replace(/（§.*$/,'')+'</button>'}).join('')+'</div>';
+ i.innerHTML=h;var b=d.querySelector('.gbody');b.insertBefore(i,b.firstChild)});
+document.getElementById('elist').addEventListener('click',function(ev){var b=ev.target.closest('button.jp');if(!b)return;var e=by[b.dataset.k];if(!e)return;
  var all=document.querySelector('#pEss button[data-f="all"]');if(all&&!all.classList.contains('on'))all.click();var q=document.getElementById('sq');if(q&&q.value){q.value='';q.dispatchEvent(new Event('input'))}
  var g=e.closest('details.gdet');if(g)g.open=true;e.open=true;setTimeout(function(){e.scrollIntoView({behavior:'smooth',block:'start'})},60)});
 })();</script>
