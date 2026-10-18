@@ -185,7 +185,24 @@ table.lct{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 4px}
 </style><style>
 .lct td.b .ans.num,.lct td.b .num{background:none;color:inherit;font-weight:inherit;padding:0;border-radius:0}
 .lct td.b .amtl{font-weight:500;font-size:.8rem;color:var(--key);margin-top:3px;line-height:1.45}
-</style></head><body>
+</style><style>
+.artl{font-size:.78rem;font-weight:500;color:var(--muted);line-height:1.5;margin-top:4px}
+.artl b{color:var(--blue);font-weight:700}.artl .sep{color:var(--line)}
+details.r>summary{flex-wrap:wrap}
+details.r>summary::after{order:4}
+details.r>summary>.artl{order:5;flex-basis:100%;margin-top:0}
+.lct td.b .artl{margin-top:5px}
+</style><style>
+details.r>summary{justify-content:flex-start;align-items:flex-start;row-gap:6px}
+details.r>summary>.tt{flex:1;min-width:0;order:1}
+details.r>summary::after{order:2;margin-left:auto}
+details.r>summary>.amt{order:3;flex:1 1 100%;max-width:none!important;text-align:left!important;font-size:.96rem;line-height:1.55}
+details.r>summary>.artl{order:5}
+</style><style>
+:root{--vermillion:#9A5B2A}
+:root[data-theme="dark"]{--vermillion:#D9A06A}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--vermillion:#D9A06A}}
+</style><style>.lct .al{font-weight:600;line-height:1.5;margin:1px 0}.lct .al b{color:var(--blue)}</style></head><body>
 <button id="theme-btn" type="button" aria-label="切換深淺色" title="切換深淺色"></button>
 <div class="wrap">
 <header><h1>民法｜法律效果總整理</h1><div class="sub">民法沒有罰則，改整理「無效／得撤銷／效力未定／解除／時效與除斥期間」。條號附白話。</div><div class="sub">考古題欄＝條號出現於官方題目或選項的年度-題號</div></header>
@@ -237,6 +254,8 @@ document.addEventListener("click",function(e){var a=e.target.closest(".ans");if(
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
 <script>(function(){
+var ARTN={"71": "違反強制或禁止規定", "72": "違反公序良俗", "73": "不依法定方式", "74": "暴利行為", "75": "無行為能力人之意思表示", "76": "法定代理人代為意思表示", "78": "限制行為能力人之單獨行為", "79": "限制行為能力人之契約", "80": "催告法定代理人", "81": "成年後自行承認", "82": "相對人撤回權", "83": "限制行為能力人用詐術", "87": "通謀虛偽", "88": "錯誤之撤銷", "89": "傳達不實", "90": "錯誤撤銷期間", "91": "撤銷後之賠償", "92": "詐欺脅迫之撤銷", "93": "詐欺脅迫撤銷期間", "95": "意思表示之生效與撤回", "111": "一部無效", "112": "無效行為之轉換", "113": "無效行為之後果", "114": "撤銷之效果", "118": "無權處分", "125": "一般請求權時效15年", "126": "5年短期時效", "127": "2年短期時效", "128": "時效起算", "129": "時效中斷事由", "130": "請求後不起訴", "131": "撤回起訴視為不中斷", "137": "中斷後重行起算", "139": "時效不完成", "144": "時效完成之效果", "169": "表見代理", "170": "無權代理之承認", "171": "無權代理相對人撤回", "197": "侵權行為請求權時效", "244": "詐害債權之撤銷", "245": "撤銷權期間", "246": "不能之給付", "249": "定金", "250": "違約金", "252": "違約金酌減", "254": "遲延給付之解除", "255": "定期行為之解除", "256": "給付不能之解除", "257": "解除權消滅", "258": "解除之行使", "259": "解除後回復原狀", "260": "解除後損害賠償", "263": "終止準用解除規定", "264": "同時履行抗辯", "265": "不安抗辯", "349": "權利瑕疵擔保", "354": "物之瑕疵擔保", "356": "檢查通知義務", "359": "解除或減價", "360": "不履行之損害賠償", "365": "瑕疵請求權期間", "408": "贈與之撤銷", "416": "受贈人忘恩之撤銷", "417": "繼承人撤銷贈與", "419": "贈與撤銷之方式與效果", "425": "買賣不破租賃", "425-1": "推定租賃", "440": "欠租之終止", "449": "租賃期限", "758": "不動產物權變動須登記", "759": "非因法律行為取得須登記", "759-1": "登記之公信力", "761": "動產物權讓與", "768": "動產時效取得10年", "768-1": "動產時效取得5年", "769": "不動產時效取得20年", "770": "不動產時效取得10年", "801": "動產善意取得", "836": "地上權欠租之終止", "838-1": "法定地上權（強制執行拍賣）", "873-1": "流抵約定", "876": "法定地上權（抵押拍賣）", "880": "抵押權之時效", "881-4": "最高限額抵押權確定期日", "881-5": "請求確定最高限額抵押權", "948": "動產善意受讓", "949": "盜贓遺失物之回復", "950": "商人買得之回復", "980": "結婚年齡", "982": "結婚方式", "983": "近親禁婚", "985": "重婚禁止", "988": "結婚無效", "989": "婚齡之撤銷", "997": "詐欺脅迫結婚之撤銷", "1030-1": "剩餘財產分配", "1030-3": "追加計算與第三人返還", "1050": "兩願離婚方式", "1052": "裁判離婚事由", "1053": "離婚請求權消滅（重婚、合意性交）", "1054": "離婚請求權消滅（意圖殺害、判刑）", "1063": "婚生推定與否認", "1065": "非婚生子女之認領", "1138": "法定繼承順序", "1144": "配偶應繼分", "1145": "喪失繼承權", "1163": "隱匿遺產", "1174": "拋棄繼承", "1175": "拋棄繼承之溯及", "1186": "遺囑能力", "1196": "口授遺囑之失效", "1198": "遺囑見證人欠格", "1223": "特留分比例", "1225": "特留分之扣減"};function artl(arr){var o=[];(arr||[]).forEach(function(a){var n=ARTN[a.replace("§","")];o.push("<b>"+a+"</b>"+(n?" "+n:""))});return o.length?'<div class="artl">'+o.join("<span class=\"sep\"> ｜ </span>")+"</div>":""}
+[].forEach.call(document.querySelectorAll("details.r"),function(r){var arr=[];r.querySelectorAll(".dt .art b").forEach(function(b){if(arr.indexOf(b.textContent)<0)arr.push(b.textContent)});var h=artl(arr);if(h)r.querySelector("summary").insertAdjacentHTML("beforeend",h)});
 var KEY="bx-le-view",body=document.body,vx=document.getElementById("vx");
 var secs=[].slice.call(document.querySelectorAll("details.sc"));
 var SH={s1:"三態",s8:"親繼",s7:"契物",s5:"撤回解除",s3:"撤銷",s6:"時效",s2:"無效",s4:"未定",s9:"陷阱",s10:"速背"};
@@ -278,7 +297,7 @@ function lightRows(d){return [].slice.call(d.querySelectorAll(".lt")).map(functi
 var lens="e";
 function viewC(){
  var h='<div class="lens">'+[["e","看效果"],["p","看期間"],["a","看條號"]].map(function(x){return'<button data-l="'+x[0]+'"'+(x[0]===lens?' class="on"':'')+'>'+x[1]+'</button>'}).join("")+'</div>';
- secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var th=lens==="e"?"法律效果":lens==="p"?"期間":"條號";var body2=rs.map(function(x){var v=lens==="e"?((x.e||x.a)+(x.e&&x.a&&x.e.indexOf(x.a)<0?'<div class="amtl">'+x.a+'</div>':'')):lens==="p"?x.a:(x.dt.match(/<span class="art">[\s\S]*?<\/span>/g)||[x.arts.join("　")]).join("");if(!v)return"";return'<tr class="lr"><td class="a">'+x.t+'</td><td class="b">'+v+'</td>'+'</tr><tr class="ddr" hidden><td colspan="'+2+'"><div class="bt-dt">'+x.dt.replace(lens==="e"?/^<h3>[\s\S]*?<\/h3><p>[\s\S]*?<\/p>/:/<h3>[\s\S]*?<\/h3>/,"")+'</div></td></tr>'}).join("");if(body2)body2='<table class="lct"><thead><tr><th>情形</th><th>'+th+'</th>'+'</tr></thead><tbody>'+body2+'</tbody></table>';
+ secs.forEach(function(d){var rs=rowsOf(d,lens==="e");if(!rs.length)rs=lightRows(d);if(!rs.length)return;var th=lens==="e"?"法律效果":lens==="p"?"期間":"條號";var body2=rs.map(function(x){var v=lens==="e"?((x.e||x.a)+(x.e&&x.a&&x.e.indexOf(x.a)<0?'<div class="amtl">'+x.a+'</div>':'')):lens==="p"?x.a:x.arts.map(function(a){var n=ARTN[a.replace("§","")];return'<div class="al"><b>'+a+"</b>"+(n?" "+n:"")+"</div>"}).join("");if(!v)return"";return'<tr class="lr"><td class="a">'+x.t+'</td><td class="b">'+v+(lens==="a"?"":artl(x.arts))+'</td>'+'</tr><tr class="ddr" hidden><td colspan="'+2+'"><div class="bt-dt">'+x.dt.replace(lens==="e"?/^<h3>[\s\S]*?<\/h3><p>[\s\S]*?<\/p>/:/<h3>[\s\S]*?<\/h3>/,"")+'</div></td></tr>'}).join("");if(body2)body2='<table class="lct"><thead><tr><th>情形</th><th>'+th+'</th>'+'</tr></thead><tbody>'+body2+'</tbody></table>';
   if(!body2)return;h+='<details class="lg"><summary><span class="lgn">'+num(d)+'</span><span class="lgt"><b>'+(SH[d.id]||title(d))+'</b><em>'+sm(d)+'</em></span><small>'+rs.length+' 列</small></summary>'+body2+'</details>'});
  vx.innerHTML=h;
 }
