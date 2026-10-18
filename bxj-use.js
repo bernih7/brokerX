@@ -35,7 +35,7 @@ function build(){
  L.push("","── 答錯題（錯得多的在前，最多 40 題）──");wr.forEach(function(i){var r=DB[i];L.push(i+"　錯 "+(r.w||1)+" 次"+(r.k?"・"+KN[r.k]:"・未分類"))});
  var gu=ids.filter(function(i){return DB[i].ok&&DB[i].k==="D"}).slice(0,40);if(gu.length)L.push("","── 猜對（待加強）──",gu.join("、"));
  L.push("","══ 二、模擬卷／診斷卷 ══");
- [["diag1","診斷卷一"],["hi2","高頻考點卷二"],["cf3","混淆對比卷三"],["full4","全真模擬卷四"],["tch1","來勝模擬(一)"]].forEach(function(m){var r=ld("bx_mock_"+m[0],null),er=ld("bx_mockerr_"+m[0],{});if(!r){L.push(m[1]+"：尚未作答");return}var ec={};Object.keys(er).forEach(function(k){ec[er[k]]=(ec[er[k]]||0)+1});var es=Object.keys(ec).sort().map(function(k){return k+" "+ec[k]}).join("・");
+ [["diag1","診斷卷一"],["hi2","高頻考點卷二"],["cf3","混淆對比卷三"],["full4","全真模擬卷四"],["full5","缺口補強卷五"],["tch1","來勝模擬(一)"]].forEach(function(m){var r=ld("bx_mock_"+m[0],null),er=ld("bx_mockerr_"+m[0],{});if(!r){L.push(m[1]+"：尚未作答");return}var ec={};Object.keys(er).forEach(function(k){ec[er[k]]=(ec[er[k]]||0)+1});var es=Object.keys(ec).sort().map(function(k){return k+" "+ec[k]}).join("・");
   L.push(m[1]+"：已答 "+r.a+"／"+r.n+"｜答對 "+r.c+"｜"+pc(r.c,r.a)+"%｜"+new Date(r.t).toLocaleString("zh-TW",{hour12:false})+(es?"｜錯題原因 "+es:""))});
  L.push("","══ 三、記憶工具 ══");
  var cnt=function(key,tt,yes,no){var m=ld(key,{}),n=0,r=0,t=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);t++;if(s===yes)n++;else if(s===no)r++});return"已掌握 "+n+"｜待加強 "+r+"｜其他已標記 "+(t-n-r)+"｜未標記 "+Math.max(0,tt-t)};
