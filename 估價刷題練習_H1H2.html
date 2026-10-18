@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VH1_99_6", cat:"H1", year:"99年第6題", q:"以擔保債務為目的，於債務人或第三人之不動產上所設定之他項權利，並於不履行債務時得就該不動產賣得價金優先受償者，稱為：", opts:["抵押權", "地上權", "永佃權", "不動產役權"], explains:["技術規則明定抵押權係以擔保債務為目的，於債務人或第三人不動產上設定之他項權利，不履行債務時得就該不動產賣得價金優先受償，與題目相符。", "地上權是以在他人土地上設定建物或工作物為目的，非擔保債務。", "永佃權是以在他人土地上為耕作或牧畜為目的，非擔保債務。", "不動產役權是以他人不動產供自己不動產便宜之用，非擔保債務。"], correct:0, note:null},
@@ -332,11 +344,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -540,17 +547,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

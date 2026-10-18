@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VD1_99_31", cat:"D1", year:"99年第31題", q:"應用收益法進行不動產估價時，勘估標的總費用之計算，不包括下列何種項目？", opts:["地價稅", "房屋稅", "所得稅", "建物之折舊提存費"], explains:["地價稅是技術規則明定總費用應包括之成本項目之一，非本題答案（本題問「不包括」之項目）。", "房屋稅是技術規則明定總費用應包括之成本項目之一。", "所得稅是收益取得後之稅務負擔，並非經營不動產所需投入之客觀成本，技術規則明定總費用「不包括」所得稅，即本題正解。", "建物之折舊提存費是技術規則明定總費用應包括之成本項目之一（反映建物隨時間損耗之經濟成本）。"], correct:2, note:null},
@@ -353,11 +365,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -561,17 +568,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

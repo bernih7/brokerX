@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VB1_99_1", cat:"B1", year:"99年第1題", q:"勘估標的選取比較標的價格經情況調整、價格日期調整，並比較分析區域因素及個別因素之差異後計算勘估標的之價格，稱為：", opts:["比較價格", "成本價格", "收益價格", "試算價格"], explains:["比較價格是試算價格經重新檢討確認適當合理後的最終結果，不是「經情況、價格日期、區域、個別因素調整後」這個調整過程本身得出的價格。", "成本價格是成本法的產物（重建/重置成本扣除折舊），與比較法的調整流程無關。", "收益價格是收益法的產物（淨收益除以資本化率），與比較法的調整流程無關。", "技術規則第21條第2項明定：試算價格＝比較標的價格經情況、價格日期、區域因素及個別因素四項調整後所得之價格。題目描述的正是這個定義。"], correct:3, note:null},
@@ -376,11 +388,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -584,17 +591,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

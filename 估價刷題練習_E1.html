@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VE1_99_10", cat:"E1", year:"99年第10題", q:"根據土地法定用途、使用強度進行開發與改良所導致土地效益之變化，估算開發或建築後總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得之土地價格，此估價方法是依據那一種方式呢？", opts:["比較法", "直接資本化法", "土地開發分析法", "現金流量分析法"], explains:["比較法是以比較標的之交易價格為基礎，與題目所述「依開發內容估算總銷售金額並扣除成本利潤」之操作邏輯不同。", "直接資本化法是以淨收益除以資本化率求取價格，與題目所述土地開發成本利潤計算邏輯不同。", "技術規則明定土地開發分析法係依土地法定用途、使用強度進行開發及改良所導致土地效益之變化，預計開發或建築後總銷售金額，扣除開發或建築所需之直接成本、間接成本、資本利息及利潤後，求得勘估標的之土地價格，與題目敘述完全相符。", "現金流量分析法（DCF）是收益法之延伸應用，著重於多期現金流量折現，與題目所述土地開發成本利潤計算邏輯不同。"], correct:2, note:null},
@@ -335,11 +347,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -543,17 +550,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

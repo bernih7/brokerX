@@ -235,6 +235,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 
 <a class="home-fab" href="index.html" title="回首頁">🏠</a>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 // ===== I2 土地改良物 §107-113 =====
@@ -255,7 +267,7 @@ const ITEMS = [
 {id:"VJ1_06", cat:"J1", year:"觀念題", q:"依技術規則§89，污染宗地之估價採用何種估價方法？", opts:["比較法（以附近相似污染地為比較標的）", "收益法（以污染後之預期收益折現）", "成本法（正常價格減整治成本等相關損失）", "殘餘法（以未受污染時之價值回推）"], explains:["比較法需有可比較之污染宗地交易案例，但污染宗地市場案例稀少，難以適用比較法。", "收益法需有穩定的預期收益，污染宗地通常難以正常使用產生收益，適用有限。", "技術規則明定污染宗地採成本法：正常價格 減去 污染整治成本現值 及 污染損害賠償額（含交易意願折損、法律責任等），本選項正確。", "殘餘法是推算未知部分價值之技術，非污染宗地之規定估價方法。"], correct:2, note:"§89污染宗地→成本法：正常價格－整治成本現值－污染損害賠償額。"},
 {id:"VJ1_07", cat:"J1", year:"觀念題", q:"下列有關宗地分割之敘述，何者正確？", opts:["分割通常增加各分割後宗地之總價值", "分割前應確認是否違反最有效使用原則", "違反經濟合理性之分割，分割後各宗地應出具正常價格", "技術規則不規範宗地分割之估價程序"], explains:["宗地分割通常因違反最有效使用原則（如畸零地形成）而造成價值損失，而非增加，本選項有誤。", "技術規則明定宗地分割估價時，需判斷是否為「違反經濟合理性之分割」（即§5第13款之情況排除類型），此為正確之估價考量，本選項正確。", "技術規則明定分割後各宗地應同時出具正常價格及限定價格，並非僅出具正常價格。", "技術規則§83-89明確規範宗地通則估價程序，本選項有誤。"], correct:1, note:"宗地分割→分割通常造成損失→應出具正常價格+限定價格。"},
 {id:"VJ1_08", cat:"J1", year:"觀念題", q:"有關設施限制宗地（§88）與污染宗地（§89）估價方式，下列比較何者正確？", opts:["兩者均採成本法估算", "設施限制採成本法；污染宗地採比較法", "設施限制採正常價格扣減損率；污染宗地採成本法（正常價格扣整治成本等）", "兩者均採比較法"], explains:["並非兩者均採成本法；設施限制是以正常價格扣減損金額（非典型成本法），污染才是採成本法概念。", "設施限制採正常價格減損，污染採成本法，本選項顛倒了兩者的方式。", "技術規則明定：設施限制宗地→先求正常價格再扣減損金額（損率比較法）；污染宗地→成本法概念（正常價格扣整治成本現值及損害賠償），本選項正確。", "並非兩者均採比較法，污染宗地規定採成本法。"], correct:2, note:"§88設施限制→正常價格-減損金額；§89污染→成本法（正常價格-整治成本-損害賠償）。"},
-{id:"VJ1_09", cat:"J1", year:"觀念題", q:"§84規定宗地分割後，面積較小之分割地如無法獨立使用，其估價應如何處理？", opts:["以其面積比例分配分割前宗地之正常價格", "出具限定價格，以與相鄰土地合併使用為前提估算其價值", "以特殊價格估算，反映其不具市場性", "由主管機關公告土地價格", explains:["面積比例分配未反映小地塊因無法獨立使用而產生之價值損失。", "技術規則規定，分割後無法獨立使用之小塊土地，應出具限定價格，以與相鄰土地合併使用為前提（即限定用途）估算其價值，並同時出具正常價格，本選項最符合規則精神。", "特殊價格適用於不具市場性之情形，此類土地雖難以獨立交易，但在特定合併目的下仍具市場性，故非特殊價格。", "土地估價為估價師之職責，非由主管機關公告個別土地價格。"], correct:1, note:"分割後無法獨立使用的小地→限定價格（以與相鄰地合併使用為前提）+同時出具正常價格。"},
+{id:"VJ1_09", cat:"J1", year:"觀念題", q:"§84規定宗地分割後，面積較小之分割地如無法獨立使用，其估價應如何處理？", opts:["以其面積比例分配分割前宗地之正常價格", "出具限定價格，以與相鄰土地合併使用為前提估算其價值", "以特殊價格估算，反映其不具市場性", "由主管機關公告土地價格"], explains:["面積比例分配未反映小地塊因無法獨立使用而產生之價值損失。", "技術規則規定，分割後無法獨立使用之小塊土地，應出具限定價格，以與相鄰土地合併使用為前提（即限定用途）估算其價值，並同時出具正常價格，本選項最符合規則精神。", "特殊價格適用於不具市場性之情形，此類土地雖難以獨立交易，但在特定合併目的下仍具市場性，故非特殊價格。", "土地估價為估價師之職責，非由主管機關公告個別土地價格。"], correct:1, note:"分割後無法獨立使用的小地→限定價格（以與相鄰地合併使用為前提）+同時出具正常價格。"},
 {id:"VJ1_10", cat:"J1", year:"觀念題", q:"依技術規則，違章建築應如何處理於估價過程中？", opts:["違章建築部分以重建成本×50%估算，反映其法律風險", "違章建築部分一律不予評估；如委託人要求，則就合法建物及違章建築分別標示價格", "違章建築影響地價，應自土地估價中扣除拆除費用", "違章建築需取得主管機關同意後，方可估算其價值"], explains:["以重建成本×50%估算並非技術規則之規定，無此種比例折算規定。", "技術規則明定：違章建築部分不予評估；若委託人要求評估，應就合法建物及違章建築部分分別標示價格（非合併計算），本選項正確。", "拆除費用之考量應反映於建物部分，而非直接自土地估價中扣除（土地以素地或含建物考量之正常方式估算）。", "估價師估算違章建築不需取得主管機關同意，是否估算及如何呈現由技術規則規定。"], correct:1, note:"違章建築→不予評估（原則）；委託人要求時→合法建物與違章建築分別標示，不可合併。"},
 {id:"VI2_J1_综合1", cat:"I2", year:"綜合題", q:"依不動產估價技術規則，下列有關土地改良物之敘述，何者有誤？", opts:["土地改良物包括建物、農作改良物、林木竹木、水產養殖物及土壤改良物", "建物估價以成本法為原則，惟得採收益法或比較法", "農作改良物在土地及農作改良物所有人不同時，應單獨估算", "土壤改良物之估價以收益法為主，考量改良後農業收益增加額"], explains:["此為正確敘述，土地改良物共五大類，本選項正確，非本題答案。", "建物估價以成本法為原則，得採其他方法，此為正確敘述，非本題答案。", "農作改良物在所有人不同時應單獨估算，此為正確敘述，非本題答案。", "技術規則規定土壤改良物之估價以「成本法」（估計已投入之改良費用現值）為主，非以收益法為主，本選項有誤，即本題正解。"], correct:3, note:"土壤改良物→成本法（非收益法）。考慮：改良費用現值、效益殘存年限。"},
 {id:"VI2_J1_综合2", cat:"J1", year:"綜合題", q:"甲所有A地（正常地價500萬）與乙所有B地（正常地價300萬）合併後，總價值共900萬元（合併增值100萬）。請問甲之A地合併後應分配之限定價格為何？", opts:["500萬元", "450萬元", "562.5萬元", "600萬元"], explains:["500萬元為A地合併前之正常地價，未反映合併後之增值分配，不符合限定價格計算結果。", "合併後增值=900-(500+300)=100萬元；甲（A地）應分配之比例=500/(500+300)=5/8；甲分配之增值=100×5/8=62.5萬元；A地限定價格=500+62.5=562.5萬元。本選項計算有誤（450不符合正確計算）。", "按合併前價值比例分配增值：甲分配比例=500/800=5/8；甲分配增值=100×5/8=62.5萬；A地限定價格=500+62.5=562.5萬元，本選項正確。", "600萬元可能是乙的計算（300+37.5≠600），計算有誤。"], correct:2, note:"合併增值100萬；甲比例=500/800=5/8；甲分得增值=62.5萬；A地限定價格=500+62.5=562.5萬。"}
@@ -332,6 +344,60 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
+}
+
+function renderList(){
+  let list = ITEMS.filter(it=>activeCats.has(it.cat));
+  if(viewFilter==='unanswered') list = list.filter(it=>!answers[it.id]);
+  if(viewFilter==='wrong') list = list.filter(it=>answers[it.id]&&!answers[it.id].correct);
+  qlistEl.innerHTML='';
+  if(!list.length){ qlistEl.innerHTML='<p style="text-align:center;color:var(--muted);padding:40px 0;">沒有符合條件的題目</p>'; return; }
+  list.forEach(it=>{ qlistEl.appendChild(buildCard(it)); });
+  updateStatbar();
+}
+
+function buildCard(it){
+  const ans = answers[it.id];
+  const tag = errorTags[it.id];
+  const div = document.createElement('div');
+  div.className = 'qcard'+(ans ? (ans.correct?' answered correct':' answered wrong') : '');
+  div.id = 'qcard_'+it.id;
+
+  const catClass = it.cat==='I2'?'i2':it.cat==='J1'?'j1':'';
+  div.innerHTML = `
+    <div class="qhead">
+      <span class="qbadge ${catClass}">${it.cat}</span>
+      <span class="qyear">${it.year}</span>
+    </div>
+    <div class="qtext">${it.q}</div>
+    <div class="opt-list">
+      ${it.opts.map((o,i)=>`<button class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}"><b>${'ABCD'[i]}.</b>${o}</button>`).join('')}
+    </div>
+    ${it.note?`<div class="note-box">${it.note}</div>`:''}
+    ${ans?`<div class="explain-box">
+      <div class="explain-title">▸ 逐選項解析</div>
+      ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}">
+        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${ex}</span>
+      </div>`).join('')}
+    </div>`:''}
+    <div class="error-tag-row">
+      <span class="error-tag${tag==='A'?' active-a':''}" data-type="A">A型 法條混淆</span>
+      <span class="error-tag${tag==='B'?' active-b':''}" data-type="B">B型 粗心</span>
+      <span class="error-tag${tag==='C'?' active-c':''}" data-type="C">C型 真不熟</span>
+      <span class="error-tag${tag==='D'?' active-c':''}" data-type="D">D 猜的</span>
+    </div>`;
+
+  if(!ans){
+    div.querySelectorAll('.opt').forEach(optEl=>{
+      optEl.addEventListener('click', async ()=>{
+        const sel = parseInt(optEl.dataset.i);
+        const correct = sel === it.correct;
+        answers[it.id] = {selected:sel, correct};
+        await saveAnswers();
+        if(typeof BXREP!=='undefined') BXREP.rec(it, sel, correct);
+        renderList();
+      });
+    });
   }
   div.querySelectorAll('.error-tag').forEach(et=>{
     et.addEventListener('click', async ()=>{
@@ -437,17 +503,5 @@ loadData().then(()=>{
   renderList();
 });
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VA2_99_25", cat:"A2", year:"99年第25題", q:"對都市邊緣未來有可能變更為建地之農地進行估價，其價格種類為何？", opts:["正常價格", "限定價格", "特定價格", "特殊價格"], explains:["正常價格須具備不受特定條件影響、經適當市場行銷形成之一般市場價值，農地以「未來可能變更為建地」此特定前提估價，已附加特定條件，不符正常價格定義。", "限定價格係基於①權利與所有權合併②不動產合併③違反經濟合理性之分割三種限定條件之一形成，與「以未來可能變更用途之特定條件估價」之情境不符。", "技術規則第2條第3款明定：特定價格係具市場性之不動產，基於特定條件下形成之價值。農地以「未來有可能變更為建地」此一特定條件進行估價，正是特定價格之典型情境。", "特殊價格指對不具市場性之不動產所估計之價值，農地本身具有市場性，不適用特殊價格。"], correct:2, note:null},
@@ -342,11 +354,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -549,17 +556,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

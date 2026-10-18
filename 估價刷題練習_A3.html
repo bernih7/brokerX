@@ -233,6 +233,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"VA3_99_4", cat:"A3", year:"99年第4題", q:"直轄市或縣市政府對轄區內之土地，應經常調查其地價動態，繪製地價區段圖並估計區段地價，提經地價評議委員會評議之後，於每年1月1日公告，此乃何種價格？", opts:["公告現值", "公告地價", "拍賣地價", "收購地價"], explains:["公告現值是地價稅與土地增值稅課徵基準，每年1月1日公告，但題目描述的是「經常調查地價動態、繪製區段地價」之程序，此程序屬於公告地價的查估作業（公告現值另有獨立查估程序）。", "依平均地權條例規定，直轄市或縣市政府應經常調查轄區地價動態，繪製地價區段圖並估計區段地價，提經地價評議委員會評定後，於每年1月1日公告，此即公告地價，與題目敘述完全相符。", "拍賣地價是法院拍賣程序中決定之價格，與政府例行性地價動態調查公告無關。", "收購地價是政府收購土地時議定之價格，與例行性地價動態調查公告程序不同。"], correct:1, note:null},
@@ -355,11 +367,6 @@ function updateStatbar(){
     });
     document.getElementById('pcat').textContent =
       (ng||catD) ? '原因　A 混淆 '+catA+'・B 粗心 '+catB+'・C 不熟 '+catC+'・D 猜的 '+catD+(catN?'・未分類 '+catN:'') : '';
-  });
-  document.getElementById('answeredCount').textContent = answeredCount;
-  document.getElementById('okCount').textContent = ok;
-  document.getElementById('ngCount').textContent = ng;
-  document.getElementById('accRate').textContent = answeredCount ? Math.round(ok/answeredCount*100)+'%' : '—';
 }
 
 function renderList(){
@@ -563,17 +570,5 @@ async function resetAll(){
   });
 })();
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

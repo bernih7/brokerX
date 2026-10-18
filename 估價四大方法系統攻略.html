@@ -1357,6 +1357,7 @@ document.querySelectorAll('.scenario').forEach(sc=>{
   const btn = document.getElementById('themeToggle');
   const saved = localStorage.getItem('bxr-theme');
   if(saved) { document.documentElement.setAttribute('data-theme', saved); }
+  if(!btn) return;
   function updateIcon(){
     const t = document.documentElement.getAttribute('data-theme');
     const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);

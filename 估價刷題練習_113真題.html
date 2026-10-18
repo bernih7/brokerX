@@ -239,6 +239,18 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 
 <a class="home-fab" href="index.html" title="回首頁">🏠</a>
 
+  <!-- 對話框 -->
+  <div class="bxm" id="bxm">
+    <div class="bxb">
+      <div class="bxt" id="bxmt"></div>
+      <textarea id="bxta" rows="10"></textarea>
+      <div class="bxmsg" id="bxmsg"></div>
+      <div class="bxa">
+        <button class="btn" id="bxok" style="display:none"></button>
+        <button class="btn" id="bxcl">關閉</button>
+      </div>
+    </div>
+  </div>
 <script>
 const ITEMS = [
 {id:"Q113_01", cat:"A1", year:"113年#01",
@@ -560,10 +572,10 @@ function updateStats(){
   const visible = ITEMS.filter(x=>activeCats.has(x.cat));
   const ans = visible.filter(x=>answers[x.id]!==undefined);
   const ok = ans.filter(x=>answers[x.id]===x.correct);
-  document.getElementById("answeredCount").textContent = ans.length;
-  document.getElementById("okCount").textContent = ok.length;
-  document.getElementById("ngCount").textContent = ans.length - ok.length;
-  document.getElementById("accRate").textContent = ans.length ? Math.round(ok.length/ans.length*100)+"%" : "—";
+  {const _e=document.getElementById("answeredCount"); if(_e) _e.textContent = ans.length;}
+  {const _e=document.getElementById("okCount"); if(_e) _e.textContent = ok.length;}
+  {const _e=document.getElementById("ngCount"); if(_e) _e.textContent = ans.length - ok.length;}
+  {const _e=document.getElementById("accRate"); if(_e) _e.textContent = ans.length ? Math.round(ok.length/ans.length*100)+"%" : "—";}
 }
 
 function getCatBadgeClass(cat){
@@ -809,17 +821,5 @@ if(typeof BXREP!=='undefined'){
   }catch(e){}
 }
 </script>
-  <!-- 對話框 -->
-  <div class="bxm" id="bxm">
-    <div class="bxb">
-      <div class="bxt" id="bxmt"></div>
-      <textarea id="bxta" rows="10"></textarea>
-      <div class="bxmsg" id="bxmsg"></div>
-      <div class="bxa">
-        <button class="btn" id="bxok" style="display:none"></button>
-        <button class="btn" id="bxcl">關閉</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
