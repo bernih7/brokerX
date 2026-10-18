@@ -147,10 +147,16 @@ NUMS = '一二三四五六七八九十'
 def split_ham(p):
     txt = p.strip()
     txt = re.sub(r'^<p>|</p>$', '', txt)
-    if '</p><p>' in txt:
-        if all(x.startswith('（') for x in txt.split('</p><p>')): txt = txt.replace('</p><p>', '')
-        else: return p
-    parts = re.split(r'(?=（[一二三四五六七八九十]）)', txt)
+    paras = [x.strip() for x in re.split(r'</p>\s*<p>', txt)]
+    if len(paras) > 1:
+        if not any(re.match(r'（[一二三四五六七八九十]）', x) for x in paras): return p
+        parts = ['']
+        for x in paras:
+            if re.match(r'（[一二三四五六七八九十]）', x): parts.append(x)
+            elif len(parts) == 1: parts[0] += x
+            else: parts[-1] += '<br>' + x
+    else:
+        parts = re.split(r'(?<![第依])(?=（[一二三四五六七八九十]）)', txt)
     if len(parts) == 1:
         segs = re.split(r'(?<=。)(?=就)', txt)
         if len(segs) > 1:
@@ -165,7 +171,7 @@ def split_ham(p):
         body = m.group(2).strip()
         plain = re.sub(r'<[^>]+>', '', body)
         fs = re.split(r'(?<=[。；])', plain, maxsplit=1)[0]
-        head = re.match(r'([^：:。（]{2,34})[：:]', plain) or re.match(r'就(.{2,16}?)(?:而言|部分)', plain)
+        head = re.match(r'([^：:。]{2,40}?)[：:]', plain) or re.match(r'就(.{2,16}?)(?:而言|部分)', plain)
         hd = head.group(1) if head else ''
         if head and fs.startswith(head.group(0)): fs = fs[len(head.group(0)):]
         fs = re.sub(r'^[，,]', '', fs)
