@@ -9,7 +9,7 @@ function wrap(root,re,mk){textNodes(root).forEach(function(n){if(inSkip(n,root))
 function link(root,skipSel){
  wrap0(root,skipSel)}
 function wrap0(root,skipSel){
- var re=/§(\d+(?:-\d+)?)/g;
+ var re=/§(\d+(?:-\d+)?)((?:[、,]?[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][①-⑳]?|但書|前段|後段|本文)*)/g;
  textNodes(root).forEach(function(n){
   for(var p=n.parentNode;p&&p!==root;p=p.parentNode){if(p.tagName==='A'||(skipSel&&p.matches&&p.matches(skipSel)))return}
   var s=n.nodeValue;re.lastIndex=0;if(!re.test(s))return;re.lastIndex=0;
