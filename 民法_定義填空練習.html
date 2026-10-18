@@ -216,6 +216,8 @@ details.chd[open]>summary::after{transform:rotate(90deg)}
 .chp{font-size:12px;color:var(--pri);background:var(--surface2);border-radius:99px;padding:2px 9px;white-space:nowrap}.chp:empty{display:none}
 .chb{padding:0 8px 6px}
 #main{max-width:560px}
+.qc-exam-stat a.stl{color:var(--pri);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.qc-exam-stat a.stl strong{color:inherit}
 /* 響應式：手機單欄；平板加寬；電腦兩欄（寬螢幕三欄） */
 @media(min-width:700px){#main{max-width:760px}#quiz-mode{max-width:760px}}
 @media(min-width:1100px){
@@ -2195,10 +2197,17 @@ function esRow(c){
   return '<details class="es-row"><summary>相關申論 '+n+' 題（歷屆 '+a+'・預測 '+b+'）▾</summary><div class="es-links">'+
     c.es.map(k=>'<a class="'+(k.indexOf('預')===0?'pred':'')+'" href="'+HUB+'#essay='+encodeURIComponent(k)+'">'+esLabel(k)+'</a>').join('')+'</div></details>';
 }
+function openEs(a){const box=a.closest('.card,.quiz-card');const d=box&&box.querySelector('details.es-row');if(d){d.open=true;d.scrollIntoView({block:'center',behavior:'smooth'});}}
 function statHtmlOf(c){
   const [a,b]=esCount(c);const parts=[];
   if((c.mc||0)>0) parts.push('選擇 <strong>'+c.mc+'</strong> 次');
-  if(a+b>0) parts.push('申論 歷屆 <strong>'+a+'</strong>・預測 <strong>'+b+'</strong>');
+  if(a+b>0){
+    const lk=(lab,n,ks)=>{ if(!n) return lab+' <strong>0</strong>';
+      const h=(ks.length===1)?'href="'+HUB+'#essay='+encodeURIComponent(ks[0])+'"':'href="#" onclick="openEs(this);return false"';
+      return '<a class="stl" '+h+'>'+lab+' <strong>'+n+'</strong> ↗</a>'; };
+    const es=c.es||[];
+    parts.push('申論 '+lk('歷屆',a,es.filter(k=>k.indexOf('預')!==0))+'・'+lk('預測',b,es.filter(k=>k.indexOf('預')===0)));
+  }
   return parts.length?parts.join('　｜　'):'尚無歷屆出題紀錄';
 }
 
