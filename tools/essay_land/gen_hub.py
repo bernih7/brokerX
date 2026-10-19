@@ -12,8 +12,8 @@ for m in re.finditer(r'<details class="grp" id="cat-(\w)" data-g="\w"><summary><
     g = m.group(1)
     st = m.end(); en = s.find('<details class="grp"', st)
     body = s[st:en if en > 0 else len(s)]
-    cards = re.findall(r'<details class="es[^"]*" id="([^"]+)" data-k="(off|pred)" data-pr="(\d)" data-lv="([^"]*)"', body)
-    titles = dict(re.findall(r'id="([^"]+)" data-k="[^"]+" data-pr="\d" data-lv="[^"]*"[^>]*><summary><span class="eh"><span class="rk"[^>]*>✓</span><b class="et">(.*?)</b>', body))
+    cards = re.findall(r'<details class="es[^"]*" id="([^"]+)" data-k="(off|pred)"(?: data-mk="1")? data-pr="(\d)" data-lv="([^"]*)"', body)
+    titles = dict(re.findall(r'id="([^"]+)" data-k="[^"]+"(?: data-mk="1")? data-pr="\d" data-lv="[^"]*"[^>]*><summary><span class="eh"><span class="rk"[^>]*>✓</span><b class="et">(.*?)</b>', body))
     eks = dict(re.findall(r'id="([^"]+)" data-k[^>]*>.*?<span class="ek">(.*?)</span>', body))
     G.append(dict(g=g, name=html.unescape(m.group(2)), tot=int(m.group(3)), r5=int(m.group(4)), p=m.group(5),
                   off=[c[0] for c in cards if c[1] == 'off'], pred=[c[0] for c in cards if c[1] == 'pred'],
@@ -26,16 +26,17 @@ data = json.dumps([dict(g=x['g'], off=x['off'], pred=x['pred']) for x in G], ens
 cards = json.dumps([c for x in G for c in x['cards']], ensure_ascii=False)
 rows = ''.join(
     f'<a class="esr" href="{URL}#cat-{x["g"]}" target="_blank" rel="noopener" data-g="{x["g"]}">'
-    f'<span class="esg">{x["g"]}</span><span class="esn"><b>{html.escape(x["name"])}</b><small class="esread">官方 {len(x["off"])}・預測 {len(x["pred"])}</small></span>'
+    f'<span class="esg">{x["g"]}</span><span class="esn"><b>{html.escape(x["name"])}</b><small class="esread">官方 {len(x["off"])}・預測／模擬 {len(x["pred"])}</small></span>'
     f'<span class="esv">{x["tot"]}</span><span class="esv">{x["r5"]}</span><span class="esv p{x["p"]}">{x["p"]}</span></a>'
     for x in G)
 sec = f'''<section class="tab" id="t4">
-   <div class="section-title">申論（官方 {NOFF} 題＋預測 {NPRE} 題）</div>
-   <p class="hint">四段式：定義→法條→涵攝→結論。7 個主題依 16 年出題數排序；預測題（自擬或網路來源，不是考選部試題）放在各主題內。點主題直接開到該組。</p>
+   <div class="section-title">申論（官方 {NOFF} 題＋預測／模擬 {NPRE} 題）</div>
+   <p class="hint">四段式：定義→法條→涵攝→結論。7 個主題依 16 年出題數排序；預測題與補習班模擬卷（都不是考選部試題）放在各主題內。點主題直接開到該組。</p>
    <div class="esnow" id="esNow"></div>
    <div class="esprg"><div class="esbar"><i id="esBar"></i></div><small id="esPrg"></small></div>
    <div class="eshead"><span></span><span>主題（點開進入）</span><span>16年考</span><span>近5年</span><span>115預測</span></div>
    <div class="eslist">{rows}</div>
+   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95_%E7%94%B3%E8%AB%96115%E5%87%BA%E9%A1%8C%E9%A0%90%E6%B8%AC.html" target="_blank" rel="noopener"><div><div class="name">申論 115 出題預測</div><div class="tag">歷屆分布、輪替、修法熱點、各章範文覆蓋檢查；先讀「高」</div></div><span class="badge gold">開啟</span></a>
    <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E5%85%AD%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html" target="_blank" rel="noopener"><div><div class="name">申論六型答題模板</div><div class="tag">先判型再下筆：情境解說／爭議判斷／比較／稅制結構／要件效果／程序，每型附官方範例的涵攝骨架</div></div><span class="badge">開啟</span></a>
    <a class="tool-link" href="{URL}" target="_blank" rel="noopener"><div><div class="name">申論總覽（全部 {NOFF + NPRE} 題）</div><div class="tag">搜尋・熱度地圖・篩選官方／預測／未讀・每題必提重點與條文全文</div></div><span class="badge gold">開啟</span></a>
    <style>
@@ -54,9 +55,9 @@ sec = f'''<section class="tab" id="t4">
    #t4 .eshead{{grid-template-columns:28px 1fr 2.9em 2.9em 3.6em;gap:4px 8px;padding:0 12px 4px}}
    </style>
    <script>(function(){{var D={data},C={cards},U="{URL}",R={{}};try{{R=JSON.parse(localStorage.getItem("bx-es-read")||"{{}}")||{{}}}}catch(e){{}}
-   var to=0,ro=0,tp=0,rp=0,ta=0,ra=0;D.forEach(function(g){{var o=g.off.filter(function(i){{return R[i]}}).length,p=g.pred.filter(function(i){{return R[i]}}).length;to+=g.off.length;ro+=o;tp+=g.pred.length;rp+=p;var el=document.querySelector('#t4 .esr[data-g="'+g.g+'"] .esread');if(el)el.textContent="已讀 官方 "+o+"/"+g.off.length+"・預測 "+p+"/"+g.pred.length}});
+   var to=0,ro=0,tp=0,rp=0,ta=0,ra=0;D.forEach(function(g){{var o=g.off.filter(function(i){{return R[i]}}).length,p=g.pred.filter(function(i){{return R[i]}}).length;to+=g.off.length;ro+=o;tp+=g.pred.length;rp+=p;var el=document.querySelector('#t4 .esr[data-g="'+g.g+'"] .esread');if(el)el.textContent="已讀 官方 "+o+"/"+g.off.length+"・預測／模擬 "+p+"/"+g.pred.length}});
    C.forEach(function(c){{if(c.lv==="A"){{ta++;if(R[c.id])ra++}}}});
-   document.getElementById("esBar").style.width=(ta?ra/ta*100:0)+"%";document.getElementById("esPrg").textContent="必考 "+ra+"／"+ta+"　官方 "+ro+"／"+to+"　預測 "+rp+"／"+tp;
+   document.getElementById("esBar").style.width=(ta?ra/ta*100:0)+"%";document.getElementById("esPrg").textContent="必考 "+ra+"／"+ta+"　官方 "+ro+"／"+to+"　預測／模擬 "+rp+"／"+tp;
    var ord=[["off",3],["off",2],["off",1],["pred",3],["pred",2],["pred",1]],f=null;for(var i=0;i<ord.length&&!f;i++)f=C.filter(function(c){{return c.k===ord[i][0]&&c.pr===ord[i][1]&&!R[c.id]}})[0];
    var n=document.getElementById("esNow");n.innerHTML=f?"<small>本週這題（每週一題，官方必考→高機率→參考→預測）</small><b>"+f.ek+"　"+f.t+"</b><a href=\\""+U+"#"+encodeURIComponent(f.id)+"\\" target=\\"_blank\\" rel=\\"noopener\\">去讀這題</a>":"<small>下一題</small><b>全部題目都讀過了</b>"}})();</script>
  </section>'''

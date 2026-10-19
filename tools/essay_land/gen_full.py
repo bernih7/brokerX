@@ -73,7 +73,7 @@ predb = top_items('predlist'); topb = top_items('toplist')
 def nm_of(b): return re.search(r'<span class="nm">(.*?)</span>', b).group(1)
 pmap = {}
 for r in E:
-    if r['kind'] == 'pred':
+    if r['kind'] in ('pred', 'mock'):
         cand = [b for b in predb if html.unescape(re.sub('<[^>]+>', '', nm_of(b))).startswith(r['nm'][:20])]
         assert len(cand) == 1, (r['key'], len(cand))
         pmap[r['key']] = cand[0]
@@ -82,7 +82,7 @@ for r in E:
         assert len(cand) == 1, (r['key'], len(cand))
         pmap[r['key']] = cand[0]
 
-CAT = dict(P01='A', P02='E', P03='D', P04='D', P06='C', P07='E', P08='D', P09='D', P10='G', P11='B', P12='B', P13='G', P14='G', P15='G', P16='G', P17='G', P18='D', P19='D', P20='D', P21='G', P22='F', P23='D', P24='C', P25='C', P26='D', P27='F', P28='G', P29='E', P30='F', P31='A', P32='F', P33='G', X1='B', X2='B', X3='B', P34='A')
+CAT = dict(P01='A', P02='E', P03='D', P04='D', P06='C', P07='E', P08='D', P09='D', P10='G', P11='B', P12='B', P13='G', P14='G', P15='G', P16='G', P17='G', P18='D', P19='D', P20='D', P21='G', P22='F', P23='D', P24='C', P25='C', P26='D', P27='F', P28='G', P29='E', P30='F', P31='A', P32='F', P33='G', X1='B', X2='B', X3='B', P34='A', K1='D', K2='B', K3='E', K4='F')
 rows = []
 for r in E:
     if r['key'] == 'P05': continue
@@ -186,7 +186,7 @@ def split_ham(p):
                 f'<span class="more">看全文</span></summary><div class="full2"><p>{body}</p></div></details>')
     return out
 
-LVL = {'A': ('必考', 'lA', 3), 'B': ('高機率', 'lB', 2), 'C': ('參考', 'lC', 1), '高': ('預測・高', 'pH', 3), '中': ('預測・中', 'pM', 2), '低': ('預測・低', 'pL', 1), '': ('自編專題', 'pM', 2)}
+LVL = {'A': ('必考', 'lA', 3), 'B': ('高機率', 'lB', 2), 'C': ('參考', 'lC', 1), '高': ('預測・高', 'pH', 3), '中': ('預測・中', 'pM', 2), '低': ('預測・低', 'pL', 1), '': ('自編專題', 'pM', 2), '模': ('模擬試題', 'pM', 2)}
 TAGC = {'定義': 'm1', '法條': 'm2', '涵攝': 'm3', '結論': 'm4'}
 
 def clean_tx(x): return re.sub(r'\s+', '', html.unescape(re.sub(r'<[^>]+>', '', x))).lower()
@@ -206,6 +206,8 @@ def card(r):
     lab, lc, pr = LVL[r['lv']]
     if kind == 'off':
         y, n = key.split('-'); ek = f'{y}年 第{n}題'
+    elif kind == 'mock':
+        ek = '補習班模擬卷'
     elif kind == 'pred':
         ek = '模擬題・網路來源' if d['src'] else '預測題・自擬'
     else:
@@ -217,7 +219,7 @@ def card(r):
     v1 = d['v1'].replace('速寫版由上方完整範文濃縮，未新增法條事實；⚠️待核處同完整版。', '速寫版由上方完整範文濃縮；⚠️待核處同完整版。' if hasw else '速寫版由上方完整範文濃縮。')
     tx = clean_tx(d['nm'] + ' '.join(d['chips']) + key + d['oq'] + ' '.join(cite) + ' '.join(x for _, x in m['must']))
     oq = d['oq']
-    return (f'<details class="es{" pred" if kind != "off" else ""}" id="{r["id"]}" data-k="{"off" if kind == "off" else "pred"}" data-pr="{pr}" data-lv="{r["lv"]}" data-tx="{html.escape(tx)}">'
+    return (f'<details class="es{" pred" if kind != "off" else ""}" id="{r["id"]}" data-k="{"off" if kind == "off" else "pred"}"{" data-mk=\"1\"" if kind == "mock" else ""} data-pr="{pr}" data-lv="{r["lv"]}" data-tx="{html.escape(tx)}">'
             f'<summary><span class="eh"><span class="rk" aria-hidden="true">✓</span><b class="et">{d["nm"]}</b></span>'
             f'<span class="em"><span class="lvp {lc}">{lab}</span><span class="ek">{ek}</span></span>'
             f'<span class="chips">{"".join(f"<i>{c}</i>" for c in d["chips"][:5])}</span></summary>'
@@ -231,6 +233,8 @@ def card(r):
 def sortkey(r):
     if r['kind'] == 'off':
         return (0, 'ABC'.index(r['lv']), -int(r['key'].split('-')[0]), r['key'])
+    if r['kind'] == 'mock':
+        return (1, -1, int(r['key'][1:]), '')
     if r['kind'] == 'pred':
         return (1, '高中低'.index(r['lv']), int(r['key'][1:]), '')
     return (2, 0, int(r['key'][1:]), '')
@@ -241,50 +245,52 @@ TOPIC_TABLE = TOPIC_TABLE.replace('<div class="pn">', '<div class="topic" id="to
 groups = ''
 for g in ORDER:
     gr = sorted([r for r in rows if r['cat'] == g], key=sortkey)
-    off = [r for r in gr if r['kind'] == 'off']; pre = [r for r in gr if r['kind'] == 'pred']; top = [r for r in gr if r['kind'] == 'topic']
+    off = [r for r in gr if r['kind'] == 'off']; mk = [r for r in gr if r['kind'] == 'mock']; pre = [r for r in gr if r['kind'] == 'pred']; top = [r for r in gr if r['kind'] == 'topic']
     arts = OrderedDict()
     for r in gr:
         for a in r['m']['cite']:
-            arts.setdefault(a, []).append(r['key'] if r['kind'] == 'off' else ('預' + r['key'] if r['kind'] == 'pred' else '專' + r['key']))
-    al = sorted(arts, key=lambda a: (-offc[a], -sum(1 for k in arts[a] if not k.startswith(('預', '專'))), -len(arts[a]), a))
+            arts.setdefault(a, []).append(r['key'] if r['kind'] == 'off' else ('預' + r['key'] if r['kind'] == 'pred' else '模' + r['key'] if r['kind'] == 'mock' else '專' + r['key']))
+    al = sorted(arts, key=lambda a: (-offc[a], -sum(1 for k in arts[a] if not k.startswith(('預', '專', '模'))), -len(arts[a]), a))
     h = GH[g]
     ptag = P115[g]
     body = (f'<div class="gnote"><p>{h["rule"]}</p><p class="how"><b>答法</b>{h["how"]}</p></div>'
             f'<details class="btg"><summary>本組要背的條文（{len(al)} 條）<small>依官方申論引用次數排序・點條文看全文</small></summary>'
             f'<div class="btgb"><p class="btl">★★★＝官方申論引用 3 次以上　★★＝2 次　★＝1 次　預＝只出現在預測題。</p>{"".join(lawdet(a, arts[a]) for a in al)}</div></details>')
     body += f'<h5 class="sec">官方歷屆（{len(off)} 題）<small>{h["ys"].replace("出現：", "")}</small></h5>' + ''.join(card(r) for r in off)
+    if mk:
+        body += f'<h5 class="sec">補習班模擬卷（{len(mk)} 題）<small>非考選部；本站依現行條文撰寫範文</small></h5>' + ''.join(card(r) for r in mk)
     if pre:
         body += f'<h5 class="sec">預測題（自擬或網路來源・非考選部）{len(pre)} 題</h5>' + ''.join(card(r) for r in pre)
     if top:
         body += f'<h5 class="sec">自編專題：撤銷・廢止・收回（{len(top)} 題）</h5>' + TOPIC_TABLE + ''.join(card(r) for r in top)
     groups += (f'<details class="grp" id="cat-{g}" data-g="{g}"><summary><span class="gl">{g}</span><span class="gname">{h["name"]}</span>'
                f'<span class="gnum"><span><b>{TOT[g]}</b>16年考</span><span><b>{R5[g]}</b>近5年</span><span><b class="p{ptag}">{ptag}</b>115預測</span></span>'
-               f'<span class="gread">官方 {len(off)}・預測 {len(pre) + len(top)}</span></summary><div class="gbody">{body}</div></details>')
+               f'<span class="gread">官方 {len(off)}・預測 {len(pre) + len(top)}{"・模擬 " + str(len(mk)) if mk else ""}</span></summary><div class="gbody">{body}</div></details>')
 
 # heat map: reuse old
 HM = re.search(r'(<details class="pn hmd">.*?</details>)', s, re.S).group(1)
 HM = HM.replace('虛線格＝預測會考見「預測」分頁', '預測題放在各主題內，虛線框卡片')
 HM = HM.replace('<details class="pn hmd">', '<details class="hmd">')
 
-NOFF = sum(1 for r in rows if r['kind'] == 'off'); NPRE = sum(1 for r in rows if r['kind'] == 'pred'); NTOP = sum(1 for r in rows if r['kind'] == 'topic')
+NOFF = sum(1 for r in rows if r['kind'] == 'off'); NPRE = sum(1 for r in rows if r['kind'] == 'pred'); NTOP = sum(1 for r in rows if r['kind'] == 'topic'); NMK = sum(1 for r in rows if r['kind'] == 'mock')
 NA = sum(1 for r in rows if r['lv'] == 'A'); NB = sum(1 for r in rows if r['lv'] == 'B'); NC = sum(1 for r in rows if r['lv'] == 'C')
-tg = ''.join(f'<button type="button" data-g="{g}"><b>{g}　{SHORT[g]}</b><em>官方 {TOT[g]}・預測 {sum(1 for r in rows if r["cat"] == g and r["kind"] != "off")}</em><small>{GSUB[g]}</small></button>' for g in ORDER)
+tg = ''.join(f'<button type="button" data-g="{g}"><b>{g}　{SHORT[g]}</b><em>官方 {TOT[g]}・預測 {sum(1 for r in rows if r["cat"] == g and r["kind"] in ("pred", "topic"))}{"・模擬 " + str(sum(1 for r in rows if r["cat"] == g and r["kind"] == "mock")) if any(r["cat"] == g and r["kind"] == "mock" for r in rows) else ""}</em><small>{GSUB[g]}</small></button>' for g in ORDER)
 
 css = open(os.path.join(os.path.dirname(__file__), 'full.css'), encoding='utf-8').read()
 js = open(os.path.join(os.path.dirname(__file__), 'full.js'), encoding='utf-8').read()
 head = s[:s.index('<style>')]
 FAB = s[s.index('<!--bxfab-->'):s.index('<!--/bxfab-->') + len('<!--/bxfab-->')]
 page = (head + '<style>' + css + '</style></head><body><button id="theme-btn" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀️</button><main>'
-        f'<header><h1>土地法｜申論題</h1><p class="sub">官方 {NOFF} 題＋預測 {NPRE} 題＋自編專題 {NTOP} 題，依 7 大主題分組（依 16 年出題數排序）；每題四段式、速寫、失分點、必提重點與條文全文　<a href="土地法申論題_六型答題模板.html">先判型：六型答題模板 ›</a></p></header>'
+        f'<header><h1>土地法｜申論題</h1><p class="sub">官方 {NOFF} 題＋補習班模擬卷 {NMK} 題＋預測 {NPRE} 題＋自編專題 {NTOP} 題，依 7 大主題分組（依 16 年出題數排序）；每題四段式、速寫、失分點、必提重點與條文全文　<a href="土地法申論題_六型答題模板.html">先判型：六型答題模板 ›</a>　<a href="土地法_申論115出題預測.html">115 出題預測 ›</a></p></header>'
         f'<div id="start"><input id="esq" class="esq" type="search" placeholder="搜尋：預告登記、累進起點、§34-1、說明書" aria-label="搜尋申論題"><div class="now" id="now"></div>'
         f'<div class="prg"><div class="prgb"><i id="prgi"></i></div><small id="prgt"></small></div></div>'
-        f'<div class="fbar" id="fbar"><div class="fl" id="fk"><button class="fc" aria-pressed="true" data-f="">全部 {len(rows)}</button><button class="fc" aria-pressed="false" data-f="off">官方 {NOFF}</button><button class="fc" aria-pressed="false" data-f="pred">預測 {NPRE + NTOP}</button><button class="fc" aria-pressed="false" data-f="unread">未讀</button></div>'
+        f'<div class="fbar" id="fbar"><div class="fl" id="fk"><button class="fc" aria-pressed="true" data-f="">全部 {len(rows)}</button><button class="fc" aria-pressed="false" data-f="off">官方 {NOFF}</button><button class="fc" aria-pressed="false" data-f="mock">模擬卷 {NMK}</button><button class="fc" aria-pressed="false" data-f="pred">預測 {NPRE + NTOP}</button><button class="fc" aria-pressed="false" data-f="unread">未讀</button></div>'
         f'<div class="fl" id="fp"><button class="fc" aria-pressed="true" data-f="">所有級別</button><button class="fc" aria-pressed="false" data-f="3">必考／預測高</button><button class="fc" aria-pressed="false" data-f="2">高機率／預測中</button><button class="fc" aria-pressed="false" data-f="1">參考／預測低</button></div></div>'
         f'<p class="l2">依主題進入</p><div class="tg" id="tg">{tg}</div>'
         + HM +
         '<div class="ctl"><button class="mini" data-all="open">全部主題展開</button><button class="mini" data-all="close">全部收合</button><span class="cnt" id="cnt"></span></div>'
         f'<div id="glist">{groups}</div><p class="noresult" id="nores" hidden>沒有符合的題目。</p>'
-        '<p class="note warn">四段式是我依官方答案與現行條文寫的範文，不是考選部標準答案；預測題與自編專題皆為自擬。條文全文取自 6laws／LawPlayer／臺北市法規查詢逐字引文，考前仍以紙本法條為準。</p>'
+        '<p class="note warn">四段式是我依官方答案與現行條文寫的範文，不是考選部標準答案；補習班模擬卷為補習班題目、範文由本站撰寫；預測題與自編專題皆為自擬。條文全文取自 6laws／LawPlayer／臺北市法規查詢逐字引文，考前仍以紙本法條為準。</p>'
         '</main><script>' + js + '</script>' + FAB + '\n<script src="bx-use.js"></script>\n</body></html>')
 open(OUT, 'w', encoding='utf-8').write(page)
 missing = sorted(set(a for r in rows for a in r['m']['cite'] if not (LAW.get(a) and LAW[a].get('p'))))

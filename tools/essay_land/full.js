@@ -11,10 +11,10 @@ ES.forEach(function(es){var c=es.querySelector(".rd");c.checked=!!R[es.id];es.cl
  c.addEventListener("change",function(){if(c.checked)R[es.id]=1;else delete R[es.id];save();es.classList.toggle("read",c.checked);upd();if(F.k==="unread")apply()})});
 function cnt(list){var o=0,oa=0,p=0,pa=0;list.forEach(function(es){var r=!!R[es.id];if(es.dataset.k==="pred"){pa++;if(r)p++}else{oa++;if(r)o++}});return{o:o,oa:oa,p:p,pa:pa}}
 function pick(){var o=[["off","3"],["off","2"],["off","1"],["pred","3"],["pred","2"],["pred","1"]];for(var i=0;i<o.length;i++){var f=ES.filter(function(d){return d.dataset.k===o[i][0]&&d.dataset.pr===o[i][1]&&!R[d.id]})[0];if(f)return f}return null}
-function upd(){G.forEach(function(g){var c=cnt([].slice.call(g.querySelectorAll(".es")));g.querySelector(".gread").textContent="已讀　官方 "+c.o+"／"+c.oa+(c.pa?"　預測 "+c.p+"／"+c.pa:"")});
+function upd(){G.forEach(function(g){var c=cnt([].slice.call(g.querySelectorAll(".es")));g.querySelector(".gread").textContent="已讀　官方 "+c.o+"／"+c.oa+(c.pa?"　預測／模擬 "+c.p+"／"+c.pa:"")});
  var A=ES.filter(function(d){return d.dataset.lv==="A"}),a=A.filter(function(d){return R[d.id]}).length,c=cnt(ES);
  document.getElementById("prgi").style.width=(A.length?a/A.length*100:0)+"%";
- document.getElementById("prgt").textContent="必考 "+a+"／"+A.length+"　官方 "+c.o+"／"+c.oa+"　預測 "+c.p+"／"+c.pa;
+ document.getElementById("prgt").textContent="必考 "+a+"／"+A.length+"　官方 "+c.o+"／"+c.oa+"　預測／模擬 "+c.p+"／"+c.pa;
  var f=pick(),n=document.getElementById("now");
  if(!f){n.innerHTML="<small>下一題</small><b>全部題目都讀過了</b><small>可取消勾選重讀。</small>";return}
  var lv=f.querySelector(".lvp").textContent,ek=f.querySelector(".ek").textContent;
@@ -22,7 +22,7 @@ function upd(){G.forEach(function(g){var c=cnt([].slice.call(g.querySelectorAll(
 // filters
 function press(id,v){document.querySelectorAll("#"+id+" .fc").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.f===v?"true":"false")})}
 function apply(){press("fk",F.k);press("fp",F.p);var vis=0;
- ES.forEach(function(es){var h=(F.k==="off"&&es.dataset.k!=="off")||(F.k==="pred"&&es.dataset.k!=="pred")||(F.k==="unread"&&!!R[es.id])||(F.p&&es.dataset.pr!==F.p)||(F.s&&es.dataset.tx.indexOf(F.s)<0);es.hidden=h;if(!h)vis++});
+ ES.forEach(function(es){var h=(F.k==="off"&&es.dataset.k!=="off")||(F.k==="pred"&&(es.dataset.k!=="pred"||es.dataset.mk))||(F.k==="mock"&&!es.dataset.mk)||(F.k==="unread"&&!!R[es.id])||(F.p&&es.dataset.pr!==F.p)||(F.s&&es.dataset.tx.indexOf(F.s)<0);es.hidden=h;if(!h)vis++});
  var act=!!(F.k||F.p||F.s);
  G.forEach(function(g){var any=!!g.querySelector(".es:not([hidden])");g.hidden=!any;
   g.querySelectorAll(".sec").forEach(function(sc){var n=sc.nextElementSibling,ok=false;while(n&&!n.classList.contains("sec")){if(n.classList.contains("es")&&!n.hidden){ok=true;break}n=n.nextElementSibling}sc.hidden=!ok});
@@ -41,7 +41,7 @@ document.addEventListener("click",function(e){
  var t=e.target.closest("#tg button");if(t){var g=document.getElementById("cat-"+t.dataset.g);if(g.hidden)reset();go(g,false);return}
  var a=e.target.closest("[data-all]");if(a){var op=a.dataset.all==="open";G.forEach(function(g){g.open=op});if(!op)ES.forEach(function(d){d.open=false})}});
 function gh(){var h=(location.hash||"").slice(1);if(!h)return;try{h=decodeURIComponent(h)}catch(e){}
- if(h==="off"||h==="pred"){F.k=h;apply();return}
+ if(h==="off"||h==="pred"||h==="mock"){F.k=h;apply();return}
  if(h==="topic"){reset();go(document.getElementById("topic"),false);return}
  var d=document.getElementById(h);if(!d)return;if(d.hidden)reset();go(d,d.tagName==="DETAILS")}
 upd();apply();gh();window.addEventListener("hashchange",gh);
