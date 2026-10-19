@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v268';
+const CACHE = 'brokerx-v269';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -102,6 +102,7 @@ const FILES = [
   '/經紀法規_備考指揮中心.html',
   '/經紀法規_全真模擬卷四.html',
   '/經紀法規_缺口補強卷五.html',
+  '/經紀法規_申論專練卷.html',
   '/估價_租金估計攻略表.html',
   '/估價_模擬試題三.html',
   '/估價_模擬試題二.html',
