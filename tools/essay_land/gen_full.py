@@ -275,7 +275,7 @@ js = open(os.path.join(os.path.dirname(__file__), 'full.js'), encoding='utf-8').
 head = s[:s.index('<style>')]
 FAB = s[s.index('<!--bxfab-->'):s.index('<!--/bxfab-->') + len('<!--/bxfab-->')]
 page = (head + '<style>' + css + '</style></head><body><button id="theme-btn" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀️</button><main>'
-        f'<header><h1>土地法｜申論題</h1><p class="sub">官方 {NOFF} 題＋預測 {NPRE} 題＋自編專題 {NTOP} 題，依 7 大主題分組（依 16 年出題數排序）；每題四段式、速寫、失分點、必提重點與條文全文</p></header>'
+        f'<header><h1>土地法｜申論題</h1><p class="sub">官方 {NOFF} 題＋預測 {NPRE} 題＋自編專題 {NTOP} 題，依 7 大主題分組（依 16 年出題數排序）；每題四段式、速寫、失分點、必提重點與條文全文　<a href="土地法申論題_六型答題模板.html">先判型：六型答題模板 ›</a></p></header>'
         f'<div id="start"><input id="esq" class="esq" type="search" placeholder="搜尋：預告登記、累進起點、§34-1、說明書" aria-label="搜尋申論題"><div class="now" id="now"></div>'
         f'<div class="prg"><div class="prgb"><i id="prgi"></i></div><small id="prgt"></small></div></div>'
         f'<div class="fbar" id="fbar"><div class="fl" id="fk"><button class="fc" aria-pressed="true" data-f="">全部 {len(rows)}</button><button class="fc" aria-pressed="false" data-f="off">官方 {NOFF}</button><button class="fc" aria-pressed="false" data-f="pred">預測 {NPRE + NTOP}</button><button class="fc" aria-pressed="false" data-f="unread">未讀</button></div>'

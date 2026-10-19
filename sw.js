@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v253';
+const CACHE = 'brokerx-v254';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -63,6 +63,7 @@ const FILES = [
   '/土地法_一生一次一生一屋分析.html',
   '/土地法_土增稅申報時間點.html',
   '/土地法_申論題分類總覽.html',
+  '/土地法申論題_六型答題模板.html',
   '/土地法_優先購買權_物權債權.html',
   '/土地法_診斷卷一.html',
   '/土地法_罰則總整理.html',

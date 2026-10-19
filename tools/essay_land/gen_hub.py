@@ -36,6 +36,7 @@ sec = f'''<section class="tab" id="t4">
    <div class="esprg"><div class="esbar"><i id="esBar"></i></div><small id="esPrg"></small></div>
    <div class="eshead"><span></span><span>主題（點開進入）</span><span>16年考</span><span>近5年</span><span>115預測</span></div>
    <div class="eslist">{rows}</div>
+   <a class="tool-link" href="https://bernih7.github.io/brokerX/%E5%9C%9F%E5%9C%B0%E6%B3%95%E7%94%B3%E8%AB%96%E9%A1%8C_%E5%85%AD%E5%9E%8B%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html" target="_blank" rel="noopener"><div><div class="name">申論六型答題模板</div><div class="tag">先判型再下筆：情境解說／爭議判斷／比較／稅制結構／要件效果／程序，每型附官方範例的涵攝骨架</div></div><span class="badge">開啟</span></a>
    <a class="tool-link" href="{URL}" target="_blank" rel="noopener"><div><div class="name">申論總覽（全部 {NOFF + NPRE} 題）</div><div class="tag">搜尋・熱度地圖・篩選官方／預測／未讀・每題必提重點與條文全文</div></div><span class="badge gold">開啟</span></a>
    <style>
    #t4 .esnow{{background:var(--pri);color:var(--on,#fff);border-radius:14px;padding:12px 14px;margin:6px 0 8px}}
