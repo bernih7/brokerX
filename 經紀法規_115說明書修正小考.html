@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經紀法規刷題練習｜115說明書修正小考(C5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--warn:#3A3220;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",sans-serif;line-height:1.65;padding-bottom:84px}
+header{padding:12px 16px 10px;border-bottom:1px solid var(--line);background:var(--bg);}
+.hrow{display:flex;align-items:center;gap:10px}
+h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:1.05rem;margin:0;color:var(--pri);flex:1;min-width:0}
+.th{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 9px;font-size:12px;font-family:inherit;cursor:pointer;flex:none}
+.sub{font-size:.76rem;color:var(--sub);margin-top:2px}
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;font-size:.76rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:3px 9px;color:var(--sub)}
+.stat b{color:var(--pri)}
+.controls{max-width:760px;margin:12px auto 0;padding:0 16px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fbtn{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 13px;border-radius:20px;font-size:.82rem;cursor:pointer;font-family:inherit}
+.fbtn.active{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.fbtn.danger{border-color:var(--bad);color:var(--bad)}
+.fbtn.danger.active{background:var(--bad);color:#fff}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--sub);padding:4px 11px;border-radius:14px;font-size:.75rem;cursor:pointer}
+.chip.active{background:var(--pri-soft);color:var(--pri);border-color:var(--pri);font-weight:700}
+.ords,.exs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.78rem;color:var(--sub);margin:6px 0}
+.ords button,.exs button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:3px 12px;font-family:inherit;font-size:.78rem;cursor:pointer}
+.ords button.on,.exs button.on{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.ords .sh{margin-left:auto}
+.exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
+main{max-width:760px;margin:0 auto;padding:6px 16px 40px}
+.yr-header,.ch-header{font-family:"Noto Serif TC",serif;font-weight:700;font-size:.92rem;color:var(--pri);padding:10px 0 6px;border-bottom:2px solid var(--pri);margin:16px 0 10px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;margin-bottom:12px;box-shadow:var(--shadow)}
+.qcard.answered-ok{border-left:4px solid var(--ok)}
+.qcard.answered-ng{border-left:4px solid var(--bad)}
+.qmeta{font-size:.72rem;color:var(--sub);margin-bottom:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.badge{display:inline-block;font-size:.68rem;padding:1px 7px;border-radius:8px;border:1px solid var(--line);color:var(--sub)}
+.badge.ok{border-color:var(--ok);color:var(--ok)}
+.badge.wrong{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+.stem{font-family:"Noto Serif TC",serif;font-size:.98rem;font-weight:500;margin:4px 0 10px;line-height:1.75}
+.res{display:none}
+.done .res{display:block;padding:7px 12px;border-radius:8px;font-weight:700;font-size:.86rem;margin:0 0 8px;background:var(--bad-soft);color:var(--bad)}
+.done .res.ok{background:var(--ok-soft);color:var(--ok)}
+.hn{display:none;font-size:.72rem;color:var(--sub);margin:-4px 0 8px}
+body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
+.opt{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:9px 12px;margin-bottom:7px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer;font-size:.9rem;color:var(--ink);font-family:inherit;line-height:1.55}
+.opt:hover{border-color:var(--pri)}
+.ltr{flex-shrink:0;width:22px;height:22px;line-height:20px;text-align:center;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-weight:700;font-size:.76rem}
+.ob{flex:1;min-width:0}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.correct .ltr{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.chosen-wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.chosen-wrong .ltr{background:var(--bad);color:#fff;border-color:var(--bad)}
+.opt.disabled{cursor:default}
+.bg{display:none;font-size:.65rem;font-weight:700;border-radius:99px;padding:0 8px;margin-left:6px;color:#fff;vertical-align:middle}
+.opt.correct .bg.a{display:inline-block;background:var(--ok)}
+.opt.chosen-wrong .bg.p{display:inline-block;background:var(--bad)}
+.nt{display:none;font-size:.8rem;line-height:1.6;margin-top:5px;border-top:1px dashed var(--line);padding-top:4px;color:var(--ink);font-weight:400}
+.arr{display:none;float:right;margin-left:6px;color:var(--sub);transition:transform .15s}
+body[data-ex="C"] .done .arr,body[data-ex="D"] .done .arr{display:inline-block}
+.done .opt.open .arr,body.allopen .done .arr{transform:rotate(180deg)}
+body[data-ex="C"] .done .opt.open .nt,body[data-ex="D"] .done .opt.open .nt,body.allopen .done .opt .nt{display:block}
+body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
+.explain-box{display:none;margin-top:10px;padding:10px 12px;background:var(--pri-soft);border:1px solid var(--line);border-radius:8px;font-size:.82rem}
+body[data-ex="B"] .done .explain-box{display:block}
+.ei{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid var(--line);line-height:1.6}
+.ei:last-child{border-bottom:none}
+.el{flex-shrink:0;width:18px;height:18px;line-height:18px;text-align:center;border-radius:50%;font-weight:700;font-size:.7rem;margin-top:2px;color:#fff}
+.el.ok{background:var(--ok)}.el.no{background:var(--sub)}.el.ng{background:var(--bad)}
+.ref{margin-top:8px;font-size:.76rem;color:var(--sub)}
+.errtag-row{margin-top:10px;display:none;gap:6px;flex-wrap:wrap}
+.errtag-row.show{display:flex}
+.etag{font-size:.72rem;padding:3px 9px;border-radius:12px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--sub)}
+.etag.on-A{background:var(--bad);color:#fff;border-color:var(--bad)}
+.etag.on-B{background:var(--acc);color:#fff;border-color:var(--acc)}
+.etag.on-C{background:var(--pri);color:var(--on);border-color:var(--pri)}
+footer{text-align:center;font-size:.7rem;color:var(--sub);padding:20px 10px 10px}
+.empty{text-align:center;color:var(--sub);padding:40px 0;font-size:.9rem}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+</style>
+<script src="bxj-use.js"></script>
+</head>
+<body>
+<header>
+  <div class="hrow"><h1>不動產經紀相關法規概要｜115說明書修正小考</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div>
+  <div class="sub">C5 內政部115.1.13令（115.4.1生效）「光・能・氯」｜自編10題（非考選部官方題）｜逐選項解析＋A/B/C 錯題歸類</div>
+  <div class="stats">
+    <span class="stat">總題數：<b id="statTotal">0</b></span>
+    <span class="stat">已作答：<b id="statDone">0</b></span>
+    <span class="stat">答對：<b id="statCorrect">0</b></span>
+    <span class="stat">答錯：<b id="statWrong">0</b></span>
+    <span class="stat">正確率：<b id="statRate">--</b></span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="filter-row">
+    <button class="fbtn active" data-filter="all">顯示全部</button>
+    <button class="fbtn" data-filter="unanswered">只看未作答</button>
+    <button class="fbtn danger" data-filter="wrong">只看答錯</button>
+    <button class="fbtn danger" id="resetBtn">清除作答紀錄</button>
+  </div>
+  <div class="chip-row" id="chapterChips"></div>
+  <div class="ords" id="ords">題目順序<button data-o="new">年份新→舊</button><button data-o="rand">隨機</button><button data-o="ch">章節順序</button><button class="sh" id="shuf">重新洗牌</button></div>
+  <div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">全部展開</button></div>
+</div>
+
+<main id="quizList"></main>
+
+<footer>
+  最新編輯時間：2026-10-19｜版本 v1.0（依內政部115.1.13令自編；非考選部官方題）<br>
+  不動產經紀相關法規概要・C5 115說明書修正　共10題｜BrokerX Project
+</footer>
+
+<script>
+const QUESTIONS = [{"chapter": "C5", "year": 115, "qnum": 1, "stem": "內政部115年1月13日令修正「不動產說明書應記載及不得記載事項」，下列關於修正內容之敘述，何者正確？", "options": ["共修正三處：太陽光電發電設備、建築能效、預售屋氯離子檢測報告名稱用字", "新增最近5年基地周邊300公尺範圍水災淹水救助紀錄，成屋與預售屋皆須記載", "成屋與預售屋皆須新增建築能效標示", "預售屋氯離子檢測報告改為「新拌混凝土氯離子含量檢測報告單」"], "answer": "A", "explains": {"A": "正確。口訣「光・能・氯」：光電（成屋＋預售屋）、能效（僅成屋）、氯離子（僅預售屋，用字調整）。", "B": "錯誤。水災淹水救助紀錄只在預售屋，104年版就有（104-40、105-8已考），不是115新增，成屋也沒有。", "C": "錯誤。建築能效只列於成屋第2點(一)6，預售屋第3點全文沒有。", "D": "錯誤。「新拌」是修正前的舊字，現行是「建築物混凝土氯離子含量檢測報告」。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 1}, {"chapter": "C5", "year": 115, "qnum": 2, "stem": "關於「建築能效」之記載，下列何者正確？", "options": ["成屋與預售屋說明書均應記載有無取得建築能效標示", "僅預售屋說明書應記載", "僅成屋說明書應記載有無取得建築能效標示", "土地（素地）說明書亦應記載"], "answer": "C", "explains": {"A": "錯誤。預售屋沒有。這是最容易踩的陷阱。", "B": "錯誤。方向相反，預售屋第3點全文沒有建築能效。", "C": "正確。僅成屋第2點(一)6：有無取得建築能效標示？", "D": "錯誤。土地（素地）說明書沒有。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 2}, {"chapter": "C5", "year": 115, "qnum": 3, "stem": "預售屋說明書「建物瑕疵擔保」，交屋時應檢附之文件，依115年修正後之現行用語，下列何者正確？", "options": ["施工中建築物新拌混凝土氯離子含量檢測報告單及無輻射污染證明", "施工中建築物新拌混凝土氯離子含量檢測報告單及無放射性污染證明", "建築物混凝土氯離子含量檢測報告及無輻射污染證明", "建築物混凝土氯離子含量檢測報告及施工中建築物出具無放射性污染證明"], "answer": "D", "explains": {"A": "錯誤。這是修正前的舊用語（新拌＋輻射）。", "B": "錯誤。報告用了舊字「新拌」，證明用了新字，新舊混用。", "C": "錯誤。報告用了新字，證明卻用了舊字「輻射」，新舊混用。", "D": "正確。現行為「建築物混凝土氯離子含量檢測報告」＋「施工中建築物出具無放射性污染證明」；未檢附者應敘明原因。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 3}, {"chapter": "C5", "year": 115, "qnum": 4, "stem": "「最近5年內基地周邊300公尺範圍水災淹水救助紀錄」，下列敘述何者正確？", "options": ["為115年新增，成屋與預售屋皆須記載", "為115年新增，僅成屋須記載", "土地（素地）、成屋、預售屋皆須記載", "僅預售屋須記載，104年版即已列入，非115年新增"], "answer": "D", "explains": {"A": "錯誤。不是115新增，成屋也沒有。", "B": "錯誤。成屋沒有，也不是新增。", "C": "錯誤。土地素地與成屋都沒有。", "D": "正確。預售屋「其他重要事項」的舊項目（104-40、105-8考過）。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 4}, {"chapter": "C5", "year": 115, "qnum": 5, "stem": "依115年修正後之說明書，標的有設置太陽光電發電設備時，應如何記載？", "options": ["僅成屋須記載有無設置，預售屋免記載", "成屋與預售屋均須記載有無設置，有設置者並應敘明其設置位置", "成屋與預售屋均須記載發電量與併聯日期", "僅預售屋須記載，並敘明設置位置"], "answer": "B", "explains": {"A": "錯誤。預售屋第3點(一)9(2)也有。", "B": "正確。成屋第2點(一)5(18)、預售屋第3點(一)9(2)：有無設置？有則敘明設置位置。", "C": "錯誤。公告要求敘明的是設置位置，不是發電量或併聯日期。", "D": "錯誤。成屋也要記載。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 5}, {"chapter": "C5", "year": 115, "qnum": 6, "stem": "下列何者「不是」115年說明書修正的內容？", "options": ["成屋增列建築能效標示", "預售屋增列太陽光電發電設備", "預售屋增列水災淹水救助紀錄", "預售屋氯離子檢測報告名稱用字調整"], "answer": "C", "explains": {"A": "是修正內容（成屋第2點(一)6）。", "B": "是修正內容（預售屋第3點(一)9(2)）。", "C": "正確答案。水災紀錄是預售屋舊項目，不是115新增。", "D": "是修正內容（預售屋第3點(一)10）。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 6}, {"chapter": "C5", "year": 115, "qnum": 7, "stem": "關於115年修正中的「氯離子」，下列敘述何者正確？", "options": ["成屋與預售屋相關文字均已修正", "僅預售屋第3點(一)10之報告與證明名稱用字調整，成屋第2點相關項目未在修正之列", "僅成屋相關文字修正", "刪除預售屋交屋時檢附氯離子檢測報告之要求"], "answer": "B", "explains": {"A": "錯誤。成屋「有無混凝土中水溶性氯離子含量及輻射檢測？」這一項未修正（所以成屋現行字仍有「輻射」，不要和預售屋混在一起）。", "B": "正確。修正理由：混凝土結構設計規範修正，檢測標準改以硬固混凝土，及施工中建築物混凝土氯離子含量管理實施要點修正。", "C": "錯誤。修正的是預售屋。", "D": "錯誤。沒有刪除，仍須檢附，只是名稱用字調整；若無，應敘明原因。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 7}, {"chapter": "C5", "year": 115, "qnum": 8, "stem": "115年說明書修正令，自何時起生效？", "options": ["115年1月13日（令發布當日）", "115年4月1日", "115年7月1日", "116年1月1日"], "answer": "B", "explains": {"A": "錯誤。1月13日是令的發布日，不是生效日。", "B": "正確。令115.1.13發布，115.4.1生效，比115年11月考試早約7個月。", "C": "錯誤。", "D": "錯誤。"}, "ref": "不動產說明書應記載及不得記載事項（內政部115.1.13令，台內地字第1140267470號，115.4.1生效）", "id": 8}, {"chapter": "C5", "year": 115, "qnum": 9, "stem": "不動產說明書應記載及不得記載事項，由何機關依何規定公告？", "options": ["直轄市政府，依管理條例施行細則", "中央主管機關，依不動產經紀業管理條例第22條第3項", "全國聯合會，依其章程", "公平交易委員會，依公平交易法"], "answer": "B", "explains": {"A": "錯誤。公告機關是中央主管機關。", "B": "正確。條例§22Ⅲ：第一項第五款（不動產說明書）應記載及不得記載事項，由中央主管機關定之。", "C": "錯誤。全國聯合會管營業保證基金，不定說明書公告。", "D": "錯誤。公平會管不實廣告，不定說明書公告。"}, "ref": "不動產經紀業管理條例第22條第3項", "id": 9}, {"chapter": "C5", "year": 115, "qnum": 10, "stem": "下列何者為預售屋說明書應記載，但成屋說明書「不」應記載的事項？", "options": ["各期價金之履約保證機制方式及其受託或提供擔保者", "太陽光電發電設備", "建築能效標示", "產權持有期間是否曾發生非自然死亡情形"], "answer": "A", "explains": {"A": "正確。履約保證機制針對分期付款的預售屋（105-3官方答案）。", "B": "錯誤。光電成屋、預售屋都有。", "C": "錯誤。能效是成屋有、預售屋沒有，方向相反。", "D": "錯誤。這是成屋的應記載事項，不是預售屋特有。"}, "ref": "不動產說明書應記載及不得記載事項；考選部105年第3題", "id": 10}];
+const STORAGE_KEY = "brokerlaw_c5_quiz_v1";
+function lsG(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsS(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function loadState(){try{var raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):{}}catch(e){return {}}}
+function saveState(st){lsS(STORAGE_KEY,JSON.stringify(st))}
+var state=loadState(),currentFilter="all",currentChapter="ALL";
+var BXO=lsG('bx-ord')||'new',EX=lsG('bx-ex2')||'D';
+if(['new','rand','ch'].indexOf(BXO)<0)BXO='new';if(['B','C','D'].indexOf(EX)<0)EX='D';
+var BXR=new Map();function bxShuffle(){BXR=new Map();QUESTIONS.forEach(function(q){BXR.set(q,Math.random())})}bxShuffle();
+var LB=['A','B','C','D'];
+function getChapters(){return Array.from(new Set(QUESTIONS.map(function(q){return q.chapter})))}
+function renderChips(){var wrap=document.getElementById('chapterChips');wrap.innerHTML='';var cs=['ALL'].concat(getChapters());
+ cs.forEach(function(c){var el=document.createElement('div');el.className='chip'+(currentChapter===c?' active':'');el.textContent=c==='ALL'?'全部章節':c;el.onclick=function(){currentChapter=c;renderChips();renderList()};wrap.appendChild(el)})}
+function matchesFilter(q){var s=state[q.id];if(currentChapter!=='ALL'&&q.chapter!==currentChapter)return false;if(currentFilter==='unanswered')return !s;if(currentFilter==='wrong')return s&&s.correct===false;return true}
+function bxOrd(v){if(BXO==='new')return v.slice().sort(function(a,b){return (+b.year)-(+a.year)||(+a.qnum)-(+b.qnum)});
+ if(BXO==='rand')return v.slice().sort(function(a,b){return BXR.get(a)-BXR.get(b)});return v}
+function updateStats(){var done=0,cor=0,wr=0;QUESTIONS.forEach(function(q){var s=state[q.id];if(s){done++;if(s.correct)cor++;else wr++}});
+ document.getElementById('statTotal').textContent=QUESTIONS.length;document.getElementById('statDone').textContent=done;document.getElementById('statCorrect').textContent=cor;document.getElementById('statWrong').textContent=wr;document.getElementById('statRate').textContent=done?Math.round(cor/done*100)+'%':'--'}
+function applyOpen(card){[].forEach.call(card.querySelectorAll('.opt'),function(o){o.classList.toggle('open',EX==='C'&&(o.classList.contains('correct')||o.classList.contains('chosen-wrong')))})}
+function makeCard(q){
+ var s=state[q.id],card=document.createElement('div');card.id='q'+q.id;
+ card.className='qcard'+(s?(s.correct?' answered-ok done':' answered-ng done'):'');
+ var meta=document.createElement('div');meta.className='qmeta';
+ meta.innerHTML='<span class="badge">'+'115預擬 第'+q.qnum+'題</span><span class="badge">'+q.chapter+'</span>'+(s?(s.correct?'<span class="badge ok">已答對</span>':'<span class="badge wrong">已答錯</span>'):'');
+ card.appendChild(meta);
+ var stem=document.createElement('div');stem.className='stem';stem.textContent=q.stem;card.appendChild(stem);
+ if(s){var r=document.createElement('div');r.className='res'+(s.correct?' ok':'');r.textContent=(s.correct?'答對了':'答錯了')+'　正解 '+q.answer+(s.correct?'':'（你選 '+s.chosen+'）');card.appendChild(r);
+  var hn=document.createElement('div');hn.className='hn';hn.textContent='點每個選項可展開／收合說明；上方「全部展開」一次看完';card.appendChild(hn)}
+ LB.forEach(function(L,i){var b=document.createElement('button');b.className='opt';
+  b.innerHTML='<span class="ltr">'+L+'</span><span class="ob"><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div></span>';
+  b.querySelector('.tx').textContent=q.options[i];
+  if(s){b.classList.add('disabled');b.querySelector('.nt').textContent=(q.explains&&q.explains[L])||'';
+   if(L===q.answer)b.classList.add('correct');else if(L===s.chosen)b.classList.add('chosen-wrong');
+   b.onclick=function(){if(EX==='C'||EX==='D')b.classList.toggle('open')}}
+  else b.onclick=function(){answer(q,L)};
+  card.appendChild(b)});
+ if(s){applyOpen(card);
+  var ex=document.createElement('div');ex.className='explain-box';
+  var v='<div style="margin-bottom:6px"><b>'+(s.correct?'答對了':'答錯了')+'</b></div>';
+  LB.forEach(function(L){var ec=L===q.answer?'ok':(L===s.chosen?'ng':'no');v+='<div class="ei"><span class="el '+ec+'">'+L+'</span><span class="eh"></span></div>'});
+  ex.innerHTML=v;[].forEach.call(ex.querySelectorAll('.eh'),function(e,i){e.textContent=(q.explains&&q.explains[LB[i]])||''});card.appendChild(ex);
+  var ref=document.createElement('div');ref.className='ref';ref.textContent='法規依據：'+q.ref;card.appendChild(ref);
+  var tr=document.createElement('div');tr.className='errtag-row show';
+  if(!s.correct){['A','B','C'].forEach(function(t){var tb=document.createElement('div');var lab=t==='A'?'A 法條混淆':(t==='B'?'B 粗心':'C 真的不熟');
+   tb.className='etag'+(s.tag===t?' on-'+t:'');tb.textContent=lab;
+   tb.onclick=function(){s.tag=(s.tag===t)?null:t;saveState(state);try{window.BXREP&&BXREP.tag(q,s.tag||'')}catch(e){}[].forEach.call(tr.children,function(x,j){x.className='etag'+(s.tag===['A','B','C'][j]?' on-'+['A','B','C'][j]:'')})};tr.appendChild(tb)})}
+  card.appendChild(tr)}
+ return card}
+function answer(q,L){if(state[q.id])return;state[q.id]={chosen:L,correct:L===q.answer,tag:null};saveState(state);try{window.BXREP&&BXREP.rec(q,L,L===q.answer)}catch(e){}
+ var old=document.getElementById('q'+q.id),nw=makeCard(q);old.replaceWith(nw);updateStats();
+ setTimeout(function(){nw.scrollIntoView({behavior:'smooth',block:'nearest'})},30)}
+function renderList(){var list=document.getElementById('quizList');list.innerHTML='';
+ var items=bxOrd(QUESTIONS.filter(matchesFilter));
+ if(!items.length){list.innerHTML='<div class="empty">目前篩選條件下沒有題目。</div>';updateStats();return}
+ var last='';items.forEach(function(q){var hk=BXO==='rand'?'':(BXO==='ch'?q.chapter:'115 預擬');
+  if(hk&&hk!==last){var h=document.createElement('div');h.className=BXO==='ch'?'ch-header':'yr-header';h.textContent=hk;list.appendChild(h);last=hk}
+  list.appendChild(makeCard(q))});updateStats()}
+[].forEach.call(document.querySelectorAll('.fbtn[data-filter]'),function(b){b.onclick=function(){[].forEach.call(document.querySelectorAll('.fbtn[data-filter]'),function(x){x.classList.remove('active')});b.classList.add('active');currentFilter=b.dataset.filter;renderList()}});
+document.getElementById('resetBtn').onclick=function(){if(confirm('確定要清除所有作答紀錄嗎？此動作無法復原。')){state={};saveState(state);renderList()}};
+function markOrd(){[].forEach.call(document.querySelectorAll('#ords button[data-o]'),function(b){b.className=b.dataset.o===BXO?'on':''});document.getElementById('shuf').style.display=BXO==='rand'?'':'none'}
+[].forEach.call(document.querySelectorAll('#ords button[data-o]'),function(b){b.onclick=function(){BXO=b.dataset.o;lsS('bx-ord',BXO);if(BXO==='rand')bxShuffle();markOrd();renderList();window.scrollTo({top:0})}});
+document.getElementById('shuf').onclick=function(){bxShuffle();renderList();window.scrollTo({top:0})};
+function setEx(m){EX=m;document.body.dataset.ex=m;lsS('bx-ex2',m);[].forEach.call(document.querySelectorAll('.qcard.done'),applyOpen);[].forEach.call(document.querySelectorAll('.exs button[data-m]'),function(b){b.className=b.dataset.m===m?'on':''})}
+[].forEach.call(document.querySelectorAll('.exs button[data-m]'),function(b){b.onclick=function(){setEx(b.dataset.m)}});
+document.getElementById('ea').onclick=function(){var on=document.body.classList.toggle('allopen');this.textContent=on?'全部收合':'全部展開'};
+var th=document.getElementById('th');function isDark(){var t=document.documentElement.dataset.theme;return t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)}
+function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?'淺色':'深色'}
+setTh(lsG('bx-theme')||'light');th.onclick=function(){var n=isDark()?'light':'dark';lsS('bx-theme',n);setTh(n)};
+markOrd();setEx(EX);renderChips();renderList();
+</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
