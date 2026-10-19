@@ -337,6 +337,48 @@ nav::-webkit-scrollbar{display:none;}
 .essay-sub-panel{display:none;}
 .essay-sub-panel.active{display:block;}
 
+/* ── 申論導覽：統計列 ── */
+.essay-stats{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.es-chip{
+  flex:1 1 70px;background:var(--paper);border:1.5px solid var(--line);
+  border-radius:10px;padding:10px 6px;text-align:center;
+  display:flex;flex-direction:column;gap:2px;
+}
+.es-n{font-family:"Noto Serif TC",serif;font-size:1.3rem;font-weight:900;color:var(--primary);line-height:1.1;}
+.es-l{font-size:.68rem;color:var(--muted);font-weight:600;letter-spacing:.04em;}
+.es-chip.pred .es-n{color:var(--accent-b);}
+.es-chip.read .es-n{color:var(--accent-g);}
+
+/* ── 申論導覽：大入口 ── */
+.essay-hero{
+  display:flex;align-items:center;gap:13px;
+  background:linear-gradient(135deg,var(--primary),#3A5038);
+  color:#fff;border-radius:12px;padding:17px 16px;
+  text-decoration:none;margin-bottom:8px;
+  box-shadow:0 3px 12px var(--shadow);
+  transition:transform .12s,box-shadow .15s;
+}
+.essay-hero:hover{transform:translateY(-2px);box-shadow:0 6px 18px var(--shadow);}
+.eh-ico{font-size:1.65rem;flex-shrink:0;}
+.eh-body{flex:1;min-width:0;}
+.eh-title{font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:900;margin-bottom:3px;}
+.eh-sub{font-size:.73rem;opacity:.86;line-height:1.5;}
+.eh-arrow{font-size:1.2rem;opacity:.8;flex-shrink:0;}
+
+/* 入口下方進度 */
+.eh-prog{
+  display:flex;align-items:center;gap:9px;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  padding:9px 14px;margin-bottom:18px;font-size:.76rem;color:var(--muted);
+}
+.ehp-bar{flex:1;background:var(--line);border-radius:99px;height:6px;overflow:hidden;}
+.ehp-fill{height:100%;border-radius:99px;background:var(--accent-g);transition:width .4s;}
+.ehp-num{font-weight:700;color:var(--accent-g);white-space:nowrap;}
+
+/* 預測表「範文」欄 */
+.pv-yes{color:var(--accent-g);font-weight:700;font-size:.74rem;white-space:nowrap;}
+.pv-no{color:var(--muted);font-size:.74rem;white-space:nowrap;}
+
 /* ── 閱讀進度匯報區 ── */
 .report-box{
   background:var(--paper);border:1.5px solid var(--primary);
@@ -932,12 +974,32 @@ nav::-webkit-scrollbar{display:none;}
 
 <!-- ③ 申論 -->
 <div id="tab-essay" class="panel">
-  <div class="essay-sub-tabs">
-    <button class="essay-sub-btn active" onclick="showEssaySub('plan',this)">📋 攻略表</button>
-    <button class="essay-sub-btn" onclick="showEssaySub('full',this)">📄 範文全文</button>
+
+  <!-- 統計列 -->
+  <div class="essay-stats">
+    <div class="es-chip"><span class="es-n">37</span><span class="es-l">總題數</span></div>
+    <div class="es-chip"><span class="es-n">32</span><span class="es-l">官方</span></div>
+    <div class="es-chip pred"><span class="es-n">5</span><span class="es-l">預測</span></div>
+    <div class="es-chip read"><span class="es-n" id="es-read">0</span><span class="es-l">已讀</span></div>
+  </div>
+
+  <!-- 大入口 -->
+  <a class="essay-hero" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank">
+    <div class="eh-ico">📄</div>
+    <div class="eh-body">
+      <div class="eh-title">申論題實戰範文</div>
+      <div class="eh-sub">37題完整版（32官方＋5預測）· 四段式架構 · 優先度×類別雙篩選 · 分組收合 · 已讀追蹤</div>
+    </div>
+    <div class="eh-arrow">→</div>
+  </a>
+  <div class="eh-prog">
+    <span>閱讀進度</span>
+    <div class="ehp-bar"><div class="ehp-fill" id="ehp-fill" style="width:0%"></div></div>
+    <span class="ehp-num" id="ehp-num">0／37</span>
   </div>
 
   <div id="essaysub-plan" class="essay-sub-panel active">
+    <div class="sec-title">📋 官方申論攻略表（速查）</div>
     <div class="notice-box">99–114年共 <strong>32題</strong>（每年2題，16年連續），官方PDF逐題核實通過（2026-06-20）。<br>計算題密度遠高於民法、土地法：至少一半申論題需列式計算。</div>
     <div class="priority-filter">
       <button class="pri-btn active" onclick="filterEssay('all',this)">全部（32題）</button>
@@ -954,10 +1016,10 @@ nav::-webkit-scrollbar{display:none;}
       <thead><tr><th>來源</th><th>題序</th><th>核心主題</th><th>難度</th><th>連結</th></tr></thead>
       <tbody id="sim-tbody"></tbody>
     </table>
-    <div class="sec-title" style="margin-top:20px;">🔮 預測申論題（6題・115年高機率補充）</div>
-    <div class="notice-box" style="font-size:.82rem;">以下為歷年從未出現、但技術規則明訂且具高考出率的缺口題型。建議至少讀懂 A 級架構。</div>
+    <div class="sec-title" style="margin-top:20px;">🔮 預測申論題（8題・115年高機率補充）</div>
+    <div class="notice-box" style="font-size:.82rem;">歷年從未出現、但技術規則明訂且具高出題率的缺口題型。<br><strong>前5題已寫完整範文</strong>（在範文頁標示 🔮115預測①–⑤，含預測依據）；後3題目前僅列備考重點提示。</div>
     <table class="essay-table">
-      <thead><tr><th>預測主題</th><th>難度</th><th>等級</th><th>備考重點提示</th></tr></thead>
+      <thead><tr><th>預測主題</th><th>難度</th><th>等級</th><th>範文</th><th>備考重點提示</th></tr></thead>
       <tbody id="pred-tbody"></tbody>
     </table>
     <div class="sec-title" style="margin-top:20px;">估價申論答題架構（計算題版）</div>
@@ -970,15 +1032,7 @@ nav::-webkit-scrollbar{display:none;}
     </div>
   </div>
 
-  <div id="essaysub-full" class="essay-sub-panel">
-    <div class="notice-box">申論題實戰範文（計算型四段式）為獨立互動工具，收錄官方 32 題完整範文。<br>預測 6 題範文尚未建立，請先熟悉攻略表備考重點提示。</div>
-    <div class="tool-row" style="margin-bottom:8px;">
-      <div class="tool-read-wrap">
-        <a class="tool-btn" href="https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html" target="_blank" style="border-color:var(--accent-r)"><span class="icon">📄</span> 開啟申論題實戰範文（32題・計算型四段式）</a>
-        <label class="read-check-inline" id="rci-essay-full" onclick="toggleMemRead('essay-full',this)"><input type="checkbox" id="cb-essay-full"> 已閱讀完成</label>
-      </div>
-    </div>
-    <div class="sec-title">主題群分布（申論32題）</div>
+    <div class="sec-title" style="margin-top:20px;">📊 主題群分布（官方32題）</div>
     <table class="law-table">
       <thead><tr><th>主題群</th><th>題數</th><th>🔴A級題目（必練）</th></tr></thead>
       <tbody>
@@ -1580,27 +1634,48 @@ var simData=[
 
 // ── 預測申論題 ──
 var predData=[
-  {topic:'§132新訂租約 vs §133續訂租約：估計方式完整對比（差額分配法）', hard:'說明', pri:'A',
-   note:'§132新訂用市場比較法；§133續訂用差額資本化法；差額=新訂租金-在付租金，分配比例按剩餘年限'},
-  {topic:'樓層別效用比計算：各樓層效用比設定原則及特殊樓層（地下室、頂樓）調整', hard:'計算', pri:'A',
+  {topic:'【預測①】成本法折舊三路徑：定額法、定率法、償債基金法公式及計算差異', hard:'計算', pri:'A', vol:1,
+   note:'定額法§57／定率法§58／償債基金法§59。折舊為16年最高頻主題（7次入題），但三法並排計算從未同題出現，112年僅考等速折舊單法，已空缺3年'},
+  {topic:'【預測②】收益法資本化率決定方法（WACC加權平均資金成本法）', hard:'計算', pri:'A', vol:1,
+   note:'99年首考收益法時僅要求WACC一種；113年剛考DCF與直接資本化概念辨析，依輪動規律下一輪回到計算型，且資本化率決定方法從未要求完整列舉＋計算'},
+  {topic:'【預測③】土地開發分析法完整計算（含資本利息綜合利率加權）', hard:'計算', pri:'B', vol:1,
+   note:'土開法於100、102、105、109、113年五度入題，密度最高；113年考公式說明型，純數字計算型自102年後已空缺12年'},
+  {topic:'【預測④】比較法：質的排除（非正常交易）＋量的調整三關卡', hard:'說明', pri:'B', vol:1,
+   note:'§29七種排除情形＋§30三關卡（情況/區域個別調整15%、30%、20%）。113、114連兩年比較法申論空缺，且質＋量合併出題尚未出現過'},
+  {topic:'【預測⑤】支付／實質／經濟租金計算＋§132新訂、§133續訂租約', hard:'計算', pri:'B', vol:1,
+   note:'租金估計101、110、114年三度入題，平均3–4年回歸；114年剛考定義型，下輪最可能轉回計算型（101年題型）。§133續訂差額分配法從未以申論完整呈現'},
+  {topic:'樓層別效用比計算：各樓層效用比設定原則及特殊樓層（地下室、頂樓）調整', hard:'計算', pri:'A', vol:0,
    note:'技術規則§18規定；需計算標準樓（1F）效用比=1.00，其他樓層依市場調查設定；加權平均確認'},
-  {topic:'成本法折舊三法完整比較：定額法、定率法、償債基金法公式及計算差異', hard:'計算', pri:'A',
-   note:'定額法§57；定率法§58；償債基金法§59；三法歷年只出過定額和定率，償債基金法為缺口'},
-  {topic:'比較法調整比率上限整合申論：±15%、±30%、±20%各自適用情形及超限處理', hard:'說明', pri:'B',
-   note:'個別因素調整±15%（§30）；每筆比較實例調整±30%（§29）；情況調整±20%（§27）；超限不得採用'},
-  {topic:'CAMA計量模型（複迴歸）基本原理、適用條件、信賴區間及其估價限制', hard:'說明', pri:'B',
+  {topic:'CAMA計量模型（複迴歸）基本原理、適用條件、信賴區間及其估價限制', hard:'說明', pri:'B', vol:0,
    note:'大量估價法（§139–§143）；迴歸係數代表價格影響因素；R²判定係數；模型需通過統計顯著性檢定'},
-  {topic:'估價師法懲戒流程：懲戒種類、移付機關、申訴程序及懲戒效果', hard:'說明', pri:'C',
+  {topic:'估價師法懲戒流程：懲戒種類、移付機關、申訴程序及懲戒效果', hard:'說明', pri:'C', vol:0,
    note:'不動產估價師法§32–§38；懲戒種類：警告/申誡/停業/廢止執照；由主管機關移付懲戒委員會'},
 ];
 (function(){
   var tb=document.getElementById('pred-tbody');if(!tb)return;
   predData.forEach(function(r){
     var p=r.pri==='A'?'<span class="pri-a">🔴 A</span>':r.pri==='B'?'<span class="pri-b">🟡 B</span>':'<span class="pri-c">🟢 C</span>';
+    var v=r.vol?'<span class="pv-yes">✓ 已建</span>':'<span class="pv-no">僅提示</span>';
     var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td><td style="font-size:.78rem;color:var(--fg60);">'+r.note+'</td>';
+    tr.innerHTML='<td>'+r.topic+'</td><td>'+r.hard+'</td><td>'+p+'</td><td>'+v+'</td><td style="font-size:.78rem;color:var(--muted);">'+r.note+'</td>';
     tb.appendChild(tr);
   });
+})();
+
+// ── 申論閱讀進度（讀範文頁的 bx-essay-read，同網域共用）──
+(function(){
+  var TOTAL=37;
+  function read(){try{return JSON.parse(localStorage.getItem('bx-essay-read')||'[]');}catch(e){return [];}}
+  function paint(){
+    var n=read().length; if(n>TOTAL)n=TOTAL;
+    var pct=Math.round(n/TOTAL*100);
+    var a=document.getElementById('es-read'); if(a)a.textContent=n;
+    var f=document.getElementById('ehp-fill'); if(f)f.style.width=pct+'%';
+    var t=document.getElementById('ehp-num'); if(t)t.textContent=n+'／'+TOTAL+'（'+pct+'%）';
+  }
+  paint();
+  window.addEventListener('focus',paint);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)paint();});
 })();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
