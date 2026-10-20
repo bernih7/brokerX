@@ -549,6 +549,8 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 .tl-tx{display:flex;flex-direction:column;min-width:0;}
 .tl-nm{font-weight:700;font-size:.9rem;line-height:1.35;}
 .tl-ds{font-size:.72rem;color:var(--muted);}
+.tl-rd{margin-left:auto;flex-shrink:0;font-size:.66rem;font-weight:800;color:#fff;background:var(--key,#8A5517);padding:2px 7px;border-radius:5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tl-rd+.tl-ch{margin-left:6px}
 .tl-ch{margin-left:auto;flex-shrink:0;font-size:.66rem;font-weight:700;color:var(--primary);background:var(--paper2);padding:2px 7px;border-radius:5px;white-space:nowrap;}
 .tl-scroll{overflow-x:auto;margin-bottom:6px;}
 .tl-trap{font-size:.78rem;color:var(--accent-gold);}
@@ -1682,6 +1684,23 @@ var predData=[
     localStorage.setItem('bxr-theme', next);
     updateIcon();
   });
+})();
+</script>
+<script>
+// ── 工具頁「讀 N」記錄：讀各頁計數器（bxv-read）──
+(function(){
+  var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color'};
+  function R(){try{return JSON.parse(localStorage.getItem('bxv-read')||'{}');}catch(e){return {};}}
+  function paint(){
+    var r=R();
+    document.querySelectorAll('.tl-row').forEach(function(a){
+      var m=(a.getAttribute('href')||'').match(/^([^.]+)\.html/);var id=m&&M[decodeURIComponent(m[1])];if(!id)return;
+      var n=(r[id]&&r[id].n)||0,b=a.querySelector('.tl-rd');
+      if(!b){b=document.createElement('span');b.className='tl-rd';var ch=a.querySelector('.tl-ch');ch?a.insertBefore(b,ch):a.appendChild(b);}
+      b.textContent='讀 '+n;b.style.opacity=n?1:.45;
+    });
+  }
+  paint();window.addEventListener('focus',paint);document.addEventListener('visibilitychange',function(){if(!document.hidden)paint();});
 })();
 </script>
 </body>
