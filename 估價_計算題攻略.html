@@ -642,7 +642,7 @@ body {
           <td><span class="tag tag-mid">備考</span></td>
         </tr>
         <tr>
-          <td>WACC加權平均資金成本<br><span style="font-size:11px;color:var(--ink-soft)">自有×比例＋借款×比例×(1-稅率)</span></td>
+          <td>WACC加權平均資金成本<br><span style="font-size:11px;color:var(--ink-soft)">自有×比例＋借款×比例（§43 ΣWiKi）</span></td>
           <td>收益法</td>
           <td>5</td>
           <td>2</td>
@@ -699,7 +699,7 @@ body {
       <div class="calc-card-body">
         <div class="formula-box">
           <div class="formula-line">Dₙ = C × (1－s) ÷ N × n</div>
-          <div>殘餘價格率 = 1 − [(1－s)/N × n]</div>
+          <div>現值率（現值÷重建成本）= 1 − [(1－s)/N × n]</div>
         </div>
         <div class="formula-note">
           <strong>各符號：</strong><br>
@@ -733,7 +733,7 @@ body {
       </div>
       <div class="calc-card-body">
         <div class="formula-box">
-          <div class="formula-line">殘餘價格率 = (1－d)ⁿ</div>
+          <div class="formula-line">現值率（現值÷重建成本）= (1－d)ⁿ</div>
           <div>每年折舊額 = 期初帳面價值 × d</div>
         </div>
         <div class="formula-note">
@@ -743,7 +743,7 @@ body {
           帳面價值逐年遞減（初期折舊額大，後期小）
         </div>
         <ul class="card-steps">
-          <li>求殘餘價格率：(1-d)ⁿ</li>
+          <li>求現值率：(1-d)ⁿ</li>
           <li>殘餘價值 = 重建成本 × (1-d)ⁿ</li>
           <li>累積折舊 = 重建成本 × [1－(1-d)ⁿ]</li>
         </ul>
@@ -840,10 +840,10 @@ body {
       </div>
       <div class="calc-card-body">
         <div class="formula-box">
-          <div class="formula-line">① 單項調整率 ≤ 15%</div>
-          <div class="formula-line" style="margin-top:6px">② 各項調整率絕對值總和 ≤ 30%</div>
-          <div class="formula-line" style="margin-top:6px">③ 試算價格差距 ≤ 20%</div>
-          <div style="margin-top:8px;font-size:12px">差距計算：｜最高–最低｜÷ 最低比較實例試算價格</div>
+          <div class="formula-line">① 單項調整率 大於 15% → 排除（§25）</div>
+          <div class="formula-line" style="margin-top:6px">② 總調整率 大於 30% → 排除（§25）</div>
+          <div class="formula-line" style="margin-top:6px">③ 試算價格差距 達 20% 以上 → 排除（§26）</div>
+          <div style="margin-top:8px;font-size:12px">差距計算（§26Ⅱ）：（最高－最低）÷ 最高與最低之平均值</div>
         </div>
         <ul class="card-steps">
           <li>逐項列出各比較條件調整率（情況/日期/區域/個別）</li>
@@ -853,7 +853,7 @@ body {
         </ul>
         <div class="trap-note">
           <strong>⚠ 計算陷阱</strong>
-          第③關差距分母是「最低試算價格」，不是「最高」或「平均」。且三關任一不符合就要排除該比較實例，排除後再重算其餘試算價格的差距（§23規定三關卡）。
+          第③關差距分母是「最高與最低試算價格的平均值」（§26Ⅱ），不是最低、也不是最高。關卡①②在§25（排除比較標的）、關卡③在§26（排除試算價格）；剛好15%、30%仍可採用，但差距「達」20%即排除。
         </div>
         <div class="calc-history">
           <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
@@ -873,13 +873,13 @@ body {
         <div class="formula-box">
           <div class="formula-line">① 風險溢酬法：r = 無風險率 + 各項風險溢酬</div>
           <div class="formula-line" style="margin-top:4px">② 市場萃取法：r = 淨收益 ÷ 成交價格（直接比較）</div>
-          <div class="formula-line" style="margin-top:4px">③ WACC：r = 自有×比例 + 借款×比例×(1-稅率)</div>
-          <div class="formula-line" style="margin-top:4px">④ 有效總收入乘數法：r = 1 ÷ GIM（乘數倒數）</div>
+          <div class="formula-line" style="margin-top:4px">③ WACC：r = ΣWiKi ＝ 自有比例×自有報酬率 ＋ 借款比例×借款利率（§43）</div>
+          <div class="formula-line" style="margin-top:4px">④ 有效總收入乘數法：r = 淨收益率 ÷ GIM（淨收益率＝1－營運費用率，§43）</div>
           <div class="formula-line" style="margin-top:4px">⑤ 債務保障比率法：r = DCR × 借款常數 × LTV</div>
         </div>
         <div class="formula-note">
           <strong>口訣：</strong>「溢萃加乘債」<br>
-          WACC中：借款成本 × (1-所得稅率)，因利息可抵稅<br>
+          WACC（§43：r＝ΣWiKi）：技術規則公式未列稅後調整；只有題目明示給稅率或要求稅後成本時，才將借款成本×(1-所得稅率)<br>
           GIM（有效總收入乘數）= 成交價格 ÷ 年有效總收入
         </div>
         <div class="trap-note">
@@ -1049,7 +1049,7 @@ body {
       <h4>⚡ 定率法申論完整計算題</h4>
       <div class="reason">
         定率法折舊計算107年曾在申論出現，但那次題目相對簡單（只問公式與1年計算）。16年來從未出現「定率法連續多年折舊金額＋建物現值全列式」的完整申論計算題型。<br><br>
-        近年選擇題持續考定率法（108、110、113年），且技術規則§88已明確定義三種折舊路徑，命題人有充分理由在申論要求完整展示定率法計算過程。
+        近年選擇題持續考定率法（108、110、113年），且技術規則§68已明確定義三種折舊路徑，命題人有充分理由在申論要求完整展示定率法計算過程。
       </div>
       <div class="risk-level">🔴 命中機率：高（115年申論首次完整版計算機率 70%）</div>
     </div>
@@ -1067,7 +1067,7 @@ body {
       <h4>⚡ DCF折現現金流量完整計算申論</h4>
       <div class="reason">
         113年申論考「DCF定義與和直接資本化法的差異」，但沒有要求計算。選擇題近兩年開始出現DCF計算題（112、113年選擇）。<br><br>
-        DCF是收益法中最難的計算題型，且§92明確規定DCF為正式估價方法之一，命題人補上「完整DCF計算申論」的可能性在115年顯著提高。
+        DCF是收益法中最難的計算題型，且§28、§31～§32明確規定DCF為收益法之正式方法之一，命題人補上「完整DCF計算申論」的可能性在115年顯著提高。
         <br><br>
         <strong>應備公式：</strong>V = Σ[NOI_t ÷ (1+r)ᵗ] + [復歸價值 ÷ (1+r)ⁿ]
       </div>
@@ -1089,7 +1089,7 @@ body {
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">②</span> 折舊題確認耐用年數類型</h4>
-      <p>看到折舊計算，第一件事確認題目給的是「物理耐用年數」還是「經濟耐用年數」。估價規則§88規定折舊以「經濟耐用年數」為準，若題目給物理年數必須辨別是否要換算。</p>
+      <p>看到折舊計算，第一件事確認題目給的是「物理耐用年數」還是「經濟耐用年數」。技術規則§65規定折舊以「經濟耐用年數」為主，若題目給物理年數必須辨別是否要換算。</p>
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">③</span> 比較法三關卡順序</h4>
@@ -1101,11 +1101,11 @@ body {
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">⑤</span> WACC稅後成本</h4>
-      <p>WACC公式中，借款利率要乘以「(1-所得稅率)」。因為利息費用可以抵所得稅，所以實際借款成本是稅後的。自有資金報酬率不做稅後調整（已是稅後報酬）。</p>
+      <p>§43 WACC 公式為 r＝ΣWiKi（Wi：各資金來源比例；Ki：各資金來源之利率或要求報酬率），條文並未要求稅後調整。題目若明示給稅率或「稅後」，才把借款利率乘以(1-所得稅率)；否則直接用給定利率。自有資金報酬率不做稅後調整。</p>
     </div>
     <div class="tip-card">
-      <h4><span class="tip-num">⑥</span> 差距分母用最低</h4>
-      <p>比較法試算價格差距公式：差距 = ｜最高－最低｜÷ 最低試算價格。分母不是「平均值」，不是「最高值」，是「各比較實例中最低的那個試算價格」，記法：法規原文寫「以最低者為分母」。</p>
+      <h4><span class="tip-num">⑥</span> 差距分母用平均值</h4>
+      <p>比較法試算價格差距（§26Ⅱ）：差距 ＝（最高－最低）÷ 高低價格之平均值，達20%以上者排除。分母是「平均值」，不是最低、不是最高。</p>
     </div>
   </div>
 </div>
