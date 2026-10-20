@@ -132,10 +132,15 @@ header .sub{font-size:12px;opacity:.75;margin-top:4px}
 .st-y{font-size:12px;font-weight:700;padding:1px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--ink)}
 .st-yl{font-size:11px;color:var(--sub)}
 .st-tip{font-size:12.5px;color:var(--sub);margin-top:7px;line-height:1.7}
+#rdc{z-index:5;position:absolute;top:12px;right:14px;display:flex;align-items:center;border:1.5px solid rgba(255,255,255,.6);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.18);height:28px}
+#rdc button{all:unset;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;color:#fff;font-size:.9rem}
+#rdc .cnt{min-width:24px;padding:0 5px;height:28px;background:#8A5517;color:#fff;display:grid;place-items:center;font-size:.75rem;font-weight:800}
+header{position:relative}
 </style>
 </head>
 <body>
 <header>
+  <div id="rdc"><button onclick="rdInc(-1)" title="減一">－</button><div class="cnt" id="rdn">0</div><button onclick="rdInc(1)" title="加一">＋</button></div>
   <div class="htag">不動產估價概要・F1章節</div>
   <h1>租金估計　考試攻略表</h1>
   <div class="sub">定義｜公式｜新訂vs續訂｜差額分配法｜歷屆陷阱</div>
@@ -358,6 +363,12 @@ header .sub{font-size:12px;opacity:.75;margin-top:4px}
 
 <a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠</a>
 
+<script src="bxv-use.js"></script>
+<script>
+function rdUpd(){var e=document.getElementById('rdn');if(e&&window.BXREP)e.textContent=BXREP.readGet('rent').n||0;}
+function rdInc(d){if(window.BXREP){BXREP.readInc('rent',d);rdUpd();}}
+setTimeout(rdUpd,100);
+</script>
 <script>
 (function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();
 </script>

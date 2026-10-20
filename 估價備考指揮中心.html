@@ -1687,17 +1687,24 @@ var predData=[
 })();
 </script>
 <script>
-// ── 工具頁「讀 N」記錄：讀各頁計數器（bxv-read）──
+// ── 工具頁右側記錄：讀次數／作答進度 ──
 (function(){
-  var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color'};
-  function R(){try{return JSON.parse(localStorage.getItem('bxv-read')||'{}');}catch(e){return {};}}
+  var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color','估價_租金估計攻略表':'rent'};
+  function J(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+  function lab(name){
+    if(M[name]){var r=J('bxv-read',{}),n=(r[M[name]]&&r[M[name]].n)||0;return ['讀 '+n,n];}
+    if(name==='估價_定義填空練習'){var n=parseInt(localStorage.getItem('bxe-fill')||'0')||0;return ['填 '+n,n];}
+    if(name==='估價_土開計算題組'){var n=(J('bx-e1dev-done',[])||[]).length;return ['對 '+n+'/8',n];}
+    if(name==='估價_DCF計算題組'){var n=(J('bx-dcfcalc-done',[])||[]).length;return ['對 '+n+'/8',n];}
+    if(name==='估價_診斷卷一'){var m=J('bxv-mock:diag1',null);return m?[(m.score!=null?m.score:m.ok)+'/'+(m.total||25),1]:['未做',0];}
+    return null;
+  }
   function paint(){
-    var r=R();
     document.querySelectorAll('.tl-row').forEach(function(a){
-      var m=(a.getAttribute('href')||'').match(/^([^.]+)\.html/);var id=m&&M[decodeURIComponent(m[1])];if(!id)return;
-      var n=(r[id]&&r[id].n)||0,b=a.querySelector('.tl-rd');
+      var m=(a.getAttribute('href')||'').match(/^([^.]+)\.html/);var L=m&&lab(decodeURIComponent(m[1]));if(!L)return;
+      var b=a.querySelector('.tl-rd');
       if(!b){b=document.createElement('span');b.className='tl-rd';var ch=a.querySelector('.tl-ch');ch?a.insertBefore(b,ch):a.appendChild(b);}
-      b.textContent='讀 '+n;b.style.opacity=n?1:.45;
+      b.textContent=L[0];b.style.opacity=L[1]?1:.45;
     });
   }
   paint();window.addEventListener('focus',paint);document.addEventListener('visibilitychange',function(){if(!document.hidden)paint();});
