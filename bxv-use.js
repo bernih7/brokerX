@@ -237,3 +237,32 @@ function build(){
 
 window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
+
+/* ── 浮動鈕：回頂端＋回備考指揮中心（頁面自己已有的不重複加）── */
+(function(){
+ if(/備考指揮中心/.test(decodeURIComponent(location.pathname)))return;
+ function sig(e){var t=[e.id,e.className&&e.className.baseVal!==undefined?e.className.baseVal:e.className,e.title,e.getAttribute("href"),e.textContent&&e.textContent.slice(0,12)];
+  e.querySelectorAll("*").forEach(function(c){t.push(c.id,c.className&&c.className.baseVal!==undefined?"":c.className,c.title,c.getAttribute&&c.getAttribute("href"))});return t.join(" ")}
+ function run(){
+  try{
+   var found=[],hasHome=false,hasTop=false,all=document.body.getElementsByTagName("*");
+   for(var i=0;i<all.length;i++){var e=all[i];if(e.id==="bxv-fab")continue;
+    if(getComputedStyle(e).position!=="fixed")continue;
+    var r=e.getBoundingClientRect();
+    if(r.width>0&&r.width<=70&&r.height<=140&&innerWidth-r.right<130&&innerHeight-r.bottom<160){
+     found.push(r);var g=sig(e);
+     if(/hub|home|指揮中心|⌂|🏠/i.test(g))hasHome=true;
+     if(/top|回頂|↑|⇧|▲|up/i.test(g))hasTop=true}}
+   if(hasTop&&hasHome)return;
+   var base=22;if(found.length){var t=Math.min.apply(null,found.map(function(r){return r.top}));base=Math.max(22,innerHeight-t+10)}
+   var st=document.createElement("style");
+   st.textContent="#bxv-fab{position:fixed;right:16px;bottom:calc("+base+"px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:90;align-items:center}#bxv-fab a,#bxv-fab button{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25);font-family:inherit}#bxv-fab .t{background:var(--paper,var(--card,#FFFEFA));color:var(--primary,var(--pri,#2F5D50));border:2px solid var(--primary,var(--pri,#2F5D50))}#bxv-fab .h{background:var(--primary,var(--pri,#2F5D50));color:#fff;border:2px solid var(--primary,var(--pri,#2F5D50))}";
+   document.head.appendChild(st);
+   var w=document.createElement("div");w.id="bxv-fab";
+   if(!hasTop){var b=document.createElement("button");b.className="t";b.title="回頂端";b.textContent="↑";b.onclick=function(){scrollTo({top:0,behavior:"smooth"})};w.appendChild(b)}
+   if(!hasHome){var a=document.createElement("a");a.className="h";a.title="回備考指揮中心";a.href="估價備考指揮中心.html";a.textContent="⌂";w.appendChild(a)}
+   document.body.appendChild(w);
+  }catch(e){}
+ }
+ if(document.readyState==="complete")setTimeout(run,300);else addEventListener("load",function(){setTimeout(run,500)});
+})();
