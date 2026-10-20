@@ -457,6 +457,27 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
 .ctrl-pill .bxv-mini .sep{width:1px;height:14px;background:var(--line);flex-shrink:0}
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
+
+/* v284 成本法公式 */
+.cf{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:4px 14px;margin:10px 0}
+.cf-step{display:flex;gap:10px;padding:12px 0;border-bottom:1px dashed var(--rule)}
+.cf-step:last-of-type{border-bottom:0}
+.cf-n{flex:0 0 24px;height:24px;border-radius:50%;background:var(--cost);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cf-b{min-width:0;flex:1}
+.cf-name{font-size:12.5px;color:var(--ink-2);font-weight:700;margin-bottom:6px;line-height:1.6}
+.cf-eq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14.5px}
+.cf-g{display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.cf-op{color:var(--ink-2);font-weight:700}
+.cf-t{display:inline-block;padding:3px 10px;border-radius:7px;font-weight:700;background:var(--paper-2);border:1px solid var(--rule);color:var(--ink)}
+.cf-t.res{background:var(--cost);color:#fff;border-color:var(--cost)}
+.cf-t.bad{background:var(--trap-bg);color:var(--trap);border-color:var(--trap)}
+.cf-six{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cf-six div{background:var(--cost-bg);border:1px solid var(--rule);border-radius:8px;padding:6px 9px;font-size:13.5px;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.cf-six b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--cost);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.cf-plus{margin-top:8px;font-size:13px;color:var(--ink-2)}
+.cf-ex{font-size:12px;color:var(--ink-2);margin-top:6px}
+.cf-mn{background:var(--warn-bg);border:1px solid var(--warn);border-radius:10px;padding:10px 12px;margin:6px 0 12px;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.cf-mn b{color:var(--trap)}
 </style>
 <style>
 
@@ -676,12 +697,29 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
 
   <div class="section-title">核心公式 <span class="badge" style="background:var(--cost)">必背</span></div>
 
-  <div class="formula-block">
-    <b>建物成本價格（現值）＝ 重建成本（C） − 折舊額（Dn）</b><br>
-    <small>
-      重建成本C＝營造或施工費＋規劃設計費＋廣告費銷售費＋管理費＋稅捐＋資本利息（＋開發利潤）<br>
-      房地成本價格＝土地總成本＋建物成本價格（即土地總成本加上已扣折舊的建物現值）
-    </small>
+  <div class="cf">
+    <div class="cf-step"><span class="cf-n">1</span><div class="cf-b">
+      <div class="cf-name">建物現值 ＝ 今天重蓋要多少，扣掉老舊</div>
+      <div class="cf-eq"><span class="cf-t res">建物成本價格（現值）</span><span class="cf-g"><span class="cf-op">＝</span><span class="cf-t">重建成本 C</span></span><span class="cf-g"><span class="cf-op">－</span><span class="cf-t bad">折舊額 Dn</span></span></div>
+    </div></div>
+    <div class="cf-step"><span class="cf-n">2</span><div class="cf-b">
+      <div class="cf-name">重建成本 C ＝ 下面 6 項加總（直排好背）</div>
+      <div class="cf-six">
+        <div><b>施</b>營造或施工費</div>
+        <div><b>設</b>規劃設計費</div>
+        <div><b>廣</b>廣告費、銷售費</div>
+        <div><b>管</b>管理費</div>
+        <div><b>稅</b>稅捐</div>
+        <div><b>息</b>資本利息</div>
+      </div>
+      <div class="cf-plus"><span class="cf-op">＋</span> 開發利潤（題目要求「含利潤」才加）</div>
+    </div></div>
+    <div class="cf-step"><span class="cf-n">3</span><div class="cf-b">
+      <div class="cf-name">房地成本價格 ＝ 土地＋建物</div>
+      <div class="cf-eq"><span class="cf-t res">房地成本價格</span><span class="cf-g"><span class="cf-op">＝</span><span class="cf-t">土地總成本</span></span><span class="cf-g"><span class="cf-op">＋</span><span class="cf-t">建物成本價格</span></span></div>
+      <div class="cf-ex">建物那一塊是「已扣折舊」的現值，不是全新造價。</div>
+    </div></div>
+    <div class="cf-mn">🎵 口訣：<b>施設廣管稅息</b>（施工、設計、廣告、管理、稅、利息），要利潤再加一項。<br>白話：蓋房子的順序——先<b>施</b>工、<b>設</b>計，再<b>廣</b>告賣、<b>管</b>理，最後<b>稅</b>和貸款<b>息</b>。</div>
   </div>
 
   <div class="section-title">折舊計算三方法 <span class="badge" style="background:var(--cost)">申論計算必考</span></div>
