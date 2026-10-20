@@ -48,10 +48,13 @@ header .sub{font-size:13px;opacity:.85}
 /* nav */
 html,body{overflow-x:hidden;max-width:100%}
 .answer-note,.qc-answer,.card{overflow-wrap:anywhere;max-width:100%;box-sizing:border-box}
-nav{max-width:100%;box-sizing:border-box;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:10}
-nav::-webkit-scrollbar{display:none}
+nav{max-width:100%;box-sizing:border-box;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:none;gap:8px;flex-wrap:wrap;justify-content:center}
+nav.open{display:flex}
+#navbar{background:var(--paper);border-bottom:1px solid var(--line);padding:8px 16px;display:flex;justify-content:center;position:sticky;top:0;z-index:10}
+#navtog{font:inherit;font-size:13.5px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer}
+#navtog b{color:var(--ink)}
 nav .nav-btn{flex:0 0 auto}
-;@media(max-height:760px),(max-width:760px){nav{position:static}}
+
 .nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
 .nav-btn.on{background:var(--redbg);color:#fff;border-color:var(--redbg)}
 .nav-btn.h1{background:color-mix(in srgb,var(--gold) 30%,transparent);border-color:var(--gold);color:var(--ink)}
@@ -60,8 +63,6 @@ nav .nav-btn{flex:0 0 auto}
 .nav-btn.on{background:var(--redbg)!important;color:#fff!important;border-color:var(--redbg)!important;opacity:1}
 .nav-btn small{font-size:10px;margin-left:5px;font-weight:800;color:var(--gold);letter-spacing:.5px}
 .nav-btn.on small{color:#fff}
-.card.h1{background:color-mix(in srgb,var(--gold) 13%,var(--paper))}
-.card.h2{background:color-mix(in srgb,var(--gold) 6%,var(--paper))}
 .heat{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:5px;margin-left:8px;vertical-align:middle;letter-spacing:.5px}
 .heat.h1{background:var(--gold);color:#fff}
 .heat.h2{background:color-mix(in srgb,var(--gold) 22%,transparent);color:var(--gold)}
@@ -70,7 +71,7 @@ nav .nav-btn{flex:0 0 auto}
 
 
 /* main */
-main{max-width:980px;margin:0 auto;padding:20px 16px}
+main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .chapter{display:none}
 .chapter.active{display:block}
 .ch-title{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:18px}
@@ -139,7 +140,7 @@ main{max-width:980px;margin:0 auto;padding:20px 16px}
 .mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
 
 /* 測驗模式 */
-#quiz-mode{display:none;max-width:980px;margin:0 auto;padding:20px 16px 80px}
+#quiz-mode{display:none;max-width:1240px;margin:0 auto;padding:20px 16px 80px}
 #quiz-mode.active{display:block}
 
 /* 章節過濾 */
@@ -1192,6 +1193,10 @@ function prevQuiz() {
   });
 })();
 </script>
-<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('nav .nav-btn');if(b)setTimeout(function(){var n=b.parentNode;n.scrollTo?n.scrollTo({left:b.offsetLeft-n.clientWidth/2+b.offsetWidth/2,behavior:'smooth'}):0},30)});</script>
+<script>(function(){var nav=document.getElementById('nav');if(!nav)return;var bar=document.createElement('div');bar.id='navbar';var t=document.createElement('button');t.id='navtog';bar.appendChild(t);nav.parentNode.insertBefore(bar,nav);
+function lab(){var on=nav.querySelector('.nav-btn.on');t.innerHTML='📑 章節：<b>'+(on?on.textContent.replace(/[★☆\s]+$/,''):'')+'</b> '+(nav.classList.contains('open')?'▴':'▾');}
+t.onclick=function(){nav.classList.toggle('open');lab();};
+nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(function(){nav.classList.remove('open');lab();window.scrollTo({top:bar.offsetTop,behavior:'smooth'});},30);});
+setTimeout(lab,200);})();</script>
 </body>
 </html>
