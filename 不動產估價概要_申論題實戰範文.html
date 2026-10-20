@@ -126,6 +126,11 @@ main{max-width:860px; margin:0 auto; padding:20px 16px;}
   border-bottom:2px solid var(--gold);
 }
 p{margin-bottom:10px; font-size:.93rem;}
+.calc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0;}
+.calc-row .cc{padding:6px 12px;border-radius:8px;color:#fff;font-weight:700;font-variant-numeric:tabular-nums;font-size:15px;}
+.calc-row .cc.c1{background:var(--gold);}.calc-row .cc.c2{background:var(--land);}.calc-row .cc.c3{background:#4a6a8a;}.calc-row .cc.c4{background:var(--stamp);}.calc-row .cc.c5{background:var(--green);}
+.calc-row .op{font-weight:700;opacity:.7;}
+.calc-note{font-size:13px;opacity:.85;margin:2px 0 8px;}
 .formula-box{
   background:#2A2722; color:#FFE9C7; border-radius:8px;
   padding:12px 16px; font-family:monospace; font-size:.88rem;
@@ -671,9 +676,9 @@ n = 經歷年數</div>
 建物現值 ＝ C － Dn
 （C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數）</div>
     <div class="section-h">二、代入本題數字計算</div>
-    <div class="formula-box">累積折舊額 Dn ＝ 800 × (0.95 ÷ 50) × 10
-　　　　　　＝ 800 × 0.019 × 10 ＝ 152萬元
-建物現值 ＝ 800 － 152 ＝ 648萬元</div>
+    <div class="calc-row"><span class="cc c1">800萬</span><span class="op">×</span><span class="cc c2">(1－5%)</span><span class="op">÷</span><span class="cc c3">50年</span><span class="op">×</span><span class="cc c4">10年</span></div>
+    <div class="calc-note">（重建成本 C × 折舊比率 (1－s) ÷ 耐用年數 N × 經歷年數 n）每年折舊 15.2 萬 → 累積折舊額 Dn ＝ <strong>152萬元</strong></div>
+    <div class="calc-row"><span class="cc c1">800</span><span class="op">－</span><span class="cc c4">152</span><span class="op">＝</span><span class="cc c5">648萬</span></div>
     <p>故依等速折舊路徑計算，本案建物現在價值為 <strong>648萬元</strong>。</p>
     <div class="section-h">三、專業觀點之合理性分析</div>
     <p>648萬元僅是成本法下「建物單獨」的現值，其合理性可從下列面向判斷：</p>
