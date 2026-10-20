@@ -1140,7 +1140,9 @@ function renderQuizCard() {
       <div class="qc-btns">
         <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
         <button class="qc-btn qc-btn-all" id="qbtn-all-${qid}" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
-        <span class="qc-nav"><button class="qc-ic" id="qbtn-prev-${qid}" onclick="prevQuiz()" aria-label="上一題" ${quizIdx === 0 ? 'disabled' : ''}>‹</button><button class="qc-ic" onclick="nextQuiz()" aria-label="下一題">›</button></span>
+        <button class="qc-btn qc-btn-next qc-after" id="qbtn-nx-${qid}" style="display:none" onclick="nextQuiz()">下一題 →</button>
+        <button class="qc-btn qc-btn-prev qc-after" id="qbtn-pv-${qid}" style="display:none" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
+        <span class="qc-nav" id="qnav-${qid}"><button class="qc-ic" id="qbtn-prev-${qid}" onclick="prevQuiz()" aria-label="上一題" ${quizIdx === 0 ? 'disabled' : ''}>‹</button><button class="qc-ic" onclick="nextQuiz()" aria-label="下一題">›</button></span>
       </div>
       <div class="qc-answer" id="qans-${qid}">
         <div class="key-note">${fmtAns(c.answer)}</div>
@@ -1192,6 +1194,8 @@ function revealAllQuizBlanks(qid) {
   const ans = document.getElementById('qans-' + qid);
   if (ans) ans.classList.add('show');
   const rb = document.getElementById('qbtn-reveal-' + qid); if (rb) rb.style.display='none'; const ab=document.getElementById('qbtn-all-' + qid); if (ab) ab.style.display='none';
+  ['qbtn-nx-','qbtn-pv-'].forEach(p=>{const e=document.getElementById(p+qid);if(e)e.style.display='';});
+  const qn=document.getElementById('qnav-' + qid); if(qn) qn.style.display='none';
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
 }
