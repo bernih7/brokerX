@@ -139,7 +139,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   font-family:"Noto Serif TC",serif;
 }
 .freq-badge{
-  font-size:10px;font-weight:700;
+  font-size:11px;font-weight:700;
   padding:3px 9px;border-radius:999px;letter-spacing:.04em;
   background:color-mix(in srgb,var(--fg) 8%,var(--paper));color:var(--fg);
   font-family:"Noto Serif TC",serif;white-space:nowrap;
@@ -182,6 +182,25 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
   font-size:12px;padding:5px 10px;border-radius:0 6px 6px 0;
   line-height:1.6;width:100%;box-sizing:border-box;
 }
+.ask-chip{
+  align-self:flex-start;margin-top:10px;
+  font-size:12px;font-weight:700;color:var(--gold);
+  background:color-mix(in srgb,var(--gold) 12%,var(--paper));
+  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);
+  padding:3px 11px;border-radius:999px;font-family:"Noto Serif TC",serif;
+}
+.q-echo{
+  font-size:12.5px;line-height:1.6;color:var(--ink-soft);
+  border-left:3px solid var(--gold);padding:2px 0 2px 10px;margin:-6px 0 12px;
+  font-family:"Noto Serif TC",serif;
+}
+.q-echo b{color:var(--gold);margin-right:5px;}
+.exam-line{
+  margin-top:12px;padding-top:9px;border-top:1px dashed var(--rule);
+  font-size:11.5px;line-height:1.7;color:var(--ink-soft);
+}
+.exam-line b{color:var(--fg);}
+.exam-line .zero{color:var(--muted);}
 .face-foot{
   text-align:center;font-size:11px;color:var(--ink-soft);
   letter-spacing:.15em;margin-top:14px;font-family:"Noto Serif TC",serif;
@@ -285,7 +304,7 @@ footer .reset{
     <div class="titles">
       <div class="case-tag">不動產估價概要・核心概念精選</div>
       <h1>不動產估價概要 互動單字卡
-        <span class="sub">核心定義・公式・陷阱辨析・共 84 張</span>
+        <span class="sub">核心定義・公式・陷阱辨析・共 87 張</span>
       </h1>
       <div style="font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:.05em;">📅 最新編輯時間：2026-06-30　｜　版本 v1.0</div>
     </div>
@@ -328,6 +347,7 @@ footer .reset{
         </div>
         <div class="mastery-badge" id="badgeMasteryFront"></div>
         <div class="face-body"><div class="term" id="termText"></div></div>
+        <div class="ask-chip" id="askChip"></div>
         <div class="face-foot" id="footFront">點擊卡片　看解析 ▸</div>
       </div>
       <div class="face back">
@@ -336,7 +356,9 @@ footer .reset{
           <div class="freq-badge" id="freqBadgeBack"></div>
         </div>
         <div class="mastery-badge" id="badgeMasteryBack"></div>
+        <div class="q-echo" id="qEcho"></div>
         <div class="face-body"><div class="answer" id="answerText"></div></div>
+        <div class="exam-line" id="examLine"></div>
         <div class="face-foot" id="footBack">◂ 點擊卡片　回題目</div>
       </div>
     </div>
@@ -366,7 +388,8 @@ footer .reset{
   </div>
   <div class="breakdown" id="breakdownPanel" style="display:none;"></div>
 
-  <footer>不動產經紀人考試・不動產估價概要｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計<br>
+  <footer>不動產經紀人考試・不動產估價概要｜學習模式：標記掌握度（自動儲存）｜測驗模式：自評答對/答錯並統計（可來回翻看題目）<br>
+  徽章「選N・申M」＝99–114年 519 題官方選擇題＋32 題官方申論中，題幹或正確選項涉及該卡概念的題數（關鍵字比對，約略值，用來判斷重要性）<br>
     <button class="reset" id="resetMastery">清除所有「已掌握」標記</button>
   </footer>
 </div>
@@ -376,10 +399,10 @@ const CARDS = [
 {id:"V01", cat:"估價原則", front:"最有效使用原則的完整定義？", back:"<span class='def'>客觀上具有<b>良好意識及通常使用能力者</b>，<br>在<b>合法、實質可能、正當合理、財務可行</b>前提下，<br>得以獲致<b>最高利益</b>之使用</span><span class='trap'>⚠️ 是「<b>客觀上</b>」——非消費者主觀效用認知</span>"},
 {id:"V02", cat:"估價原則", front:"替代原則在估價上的意義？", back:"<span class='def'>審慎消費者<b>不會支付高於</b>相同滿意度替代財貨之代價</span><b>比較法、成本法、收益法三大方法之共同基礎</b><br><small style='color:#7A7165;'>（交易觀點 / 重置觀點 / 投資觀點）</small>"},
 {id:"V03", cat:"估價原則", front:"貢獻原則 vs 均衡原則，如何區分？", back:"<b>貢獻原則</b>：<b>局部</b>對<b>整體</b>價值之貢獻<br><small style='color:#7A7165;'>（如加裝電梯使整體價值提升）</small><br><b>均衡原則</b>：<b>生產要素間</b>達最適配置才能創造最高價值<span class='trap'>⚠️ 老舊公寓飆漲 ≠ 均衡原則（均衡 = 要素配置，與單純漲價無關）</span>"},
-{id:"V04", cat:"估價原則", front:"外部性原則的關鍵字？", back:"<b>周邊環境設施</b>（非標的本身）對價格之影響。例：鄰近公園/捷運（加值）、殯儀館/高壓電塔/垃圾掩埋場（減損）。<span class='trap'>⚠️ 貢獻 vs 外部性辨別口訣：<b>自己的改良→貢獻原則</b>（加裝電梯、取得綠建築標章）；<b>別人的設施→外部性原則</b>（附近有公園、圖書館、殯儀館）</span>"},
-{id:"V05", cat:"估價原則", front:"變動原則為何重要？", back:"不動產價格<b>隨時間變動</b>，故估價報告書須訂明<b>價格日期</b>及<b>有效期間</b>。<span class='trap'>⚠️ 變動 vs 預期辨別：<b>變動原則</b>=已發生的價格隨時間改變（如三年前35萬→現今50萬）；<b>預期原則</b>=現在反映對未來的預期（如航空城開發案帶動周邊漲價）</span>"},
+{id:"V04", cat:"估價原則", front:"外部性原則是什麼？怎麼和貢獻原則區分？", back:"<b>周邊環境設施</b>（非標的本身）對價格之影響。例：鄰近公園/捷運（加值）、殯儀館/高壓電塔/垃圾掩埋場（減損）。<span class='trap'>⚠️ 貢獻 vs 外部性辨別口訣：<b>自己的改良→貢獻原則</b>（加裝電梯、取得綠建築標章）；<b>別人的設施→外部性原則</b>（附近有公園、圖書館、殯儀館）</span>"},
+{id:"V05", cat:"估價原則", front:"變動原則對估價報告書有什麼影響？（和預期原則怎麼分？）", back:"不動產價格<b>隨時間變動</b>，故估價報告書須訂明<b>價格日期</b>及<b>有效期間</b>。<span class='trap'>⚠️ 變動 vs 預期辨別：<b>變動原則</b>=已發生的價格隨時間改變（如三年前35萬→現今50萬）；<b>預期原則</b>=現在反映對未來的預期（如航空城開發案帶動周邊漲價）</span>"},
 {id:"V06", cat:"估價原則", front:"不動產市場的四大特性？", back:"產品<b>異質性</b>高　／　<b>人為干預多</b><br><b>交易成本高</b>　／　<b>資訊不完全</b><span class='trap'>⚠️ → 是<b>非完全競爭市場</b>（選「完全競爭市場」即錯）</span><span class='tip'>口訣：異質干預、成高資缺 → 異質性高、人為干預多、交易成本高、資訊不完全</span>"},
-{id:"V07", cat:"價格種類", front:"四種價格種類的市場性分類？", back:"<b>正常價格</b>：具市場性，正常交易<br><b>限定價格</b>：具市場性，因<b>合併/分割</b>形成<br><b>特定價格</b>：具市場性，因<b>特定條件</b>（如變更）形成<br><b>特殊價格</b>：<b>不具市場性</b>之不動產所估計之價值<span class='tip'>只有「特殊價格」不具市場性，其餘三種均具市場性</span>"},
+{id:"V07", cat:"價格種類", front:"正常、限定、特定、特殊四種價格，哪些具市場性？各是怎麼來的？", back:"<b>正常價格</b>：具市場性，正常交易<br><b>限定價格</b>：具市場性，因<b>合併/分割</b>形成<br><b>特定價格</b>：具市場性，因<b>特定條件</b>（如變更）形成<br><b>特殊價格</b>：<b>不具市場性</b>之不動產所估計之價值<span class='tip'>只有「特殊價格」不具市場性，其餘三種均具市場性</span>"},
 {id:"V08", cat:"價格種類", front:"限定價格的三種形成條件？", back:"① 其他<b>權利與所有權合併</b>為目的<br><small style='color:#7A7165;'>（如地上權人購買設定地上權之土地）</small><br>② <b>不動產合併</b>為目的<br><small style='color:#7A7165;'>（相鄰土地合併開發）</small><br>③ 違反經濟合理性之不動產<b>分割</b>為前提<span class='tip'>「一合一合一分」→ 權利合併、地合、地分</span>"},
 {id:"V09", cat:"價格種類", front:"評估限定價格時，還須做什麼？", back:"應<b>同時估計其正常價格</b><span class='trap'>⚠️ 規則明文規定，高頻考點——限定價格必附正常價格</span>"},
 {id:"V10", cat:"價格種類", front:"特殊價格的常見例子？", back:"總統府、孔廟、媽祖廟<br>龜山島、太平島、東沙島、釣魚台<br>→ <b>不具市場性</b><span class='trap'>⚠️ 但估價時<b>仍須以貨幣金額表示</b>（並非無法表示）</span>"},
@@ -391,9 +414,9 @@ const CARDS = [
 {id:"V16", cat:"估價程序", front:"確定估價基本事項應包含哪些？不含什麼？", back:"應含：委託人、估價目的、<b>價格日期</b>、價格種類及條件、勘估標的內容。<b>不含</b>估價方法、不含勘察日期。"},
 {id:"V17", cat:"估價程序", front:"價格日期 vs 勘察日期？", back:"<b>價格日期</b>：勘估標的<b>價格之基準日期</b>。<b>勘察日期</b>：至勘估標的<b>現場調查</b>之日期。兩者先後關係<b>不一定</b>。"},
 {id:"V18", cat:"估價程序", front:"獨立估價 vs 部分估價？", back:"<b>獨立估價</b>：土地上有建物，估價時將土地<b>視為素地</b>（不考慮建物影響）。<b>部分估價</b>：附有建物之宗地估價，<b>考慮</b>建物對宗地價格之影響。"},
-{id:"V19", cat:"估價程序", front:"違章建築如何處理？", back:"違建部分<b>不予評估</b>；委託人要求評估者，應就合法建物及違建部分<b>分別標示</b>價格（非合併計算）。"},
+{id:"V19", cat:"估價程序", front:"估價時，違章建築要如何處理？", back:"違建部分<b>不予評估</b>；委託人要求評估者，應就合法建物及違建部分<b>分別標示</b>價格（非合併計算）。"},
 {id:"V20", cat:"比較法", front:"比較法調整流程的正確順序？", back:"<span class='formula'>情況調整 → 價格日期調整 → 區域因素調整 → 個別因素調整</span><span class='trap'>⚠️ 調整對象是<b>比較標的</b>價格（不是勘估標的）</span><span class='tip'>口訣：情日區個（情況→日期→區域→個別）</span>"},
-{id:"V21", cat:"比較法", front:"比較法三道排除規則的數字？", back:"<span class='formula'>單項調整率 ≤ <b>15%</b><br>總調整率（四項合計）≤ <b>30%</b><br>試算價格差距率 ≤ <b>20%</b>（超過需排除）</span><span class='tip'>記法：1530二十 → 單項15%、合計30%、差距20%</span>"},
+{id:"V21", cat:"比較法", front:"比較法三道排除規則（單項調整率／總調整率／試算價格差距），數字各是多少？", back:"<span class='formula'>單項調整率 ≤ <b>15%</b><br>總調整率（四項合計）≤ <b>30%</b><br>試算價格差距率 ≤ <b>20%</b>（超過需排除）</span><span class='tip'>記法：1530二十 → 單項15%、合計30%、差距20%</span>"},
 {id:"V22", cat:"比較法", front:"試算價格差距率怎麼算？", back:"差距率 ＝ (較高試算價格－較低試算價格) ÷ <b>試算價格平均值</b>。達20%以上者排除該試算價格。"},
 {id:"V23", cat:"比較法", front:"比較標的原則上應採用幾件以上？", back:"<b>三件以上</b><span class='trap'>⚠️ 常考陷阱：誤植為「五件以上」</span>"},
 {id:"V24", cat:"比較法", front:"比較標的、試算價格、比較價格的差異？", back:"<b>比較標的</b>：原始選定之交易實例。<b>試算價格</b>：比較標的價格經各項調整後初步得出之價格。<b>比較價格</b>：試算價格經重新檢討確認適當合理後的最終價格。"},
@@ -405,7 +428,7 @@ const CARDS = [
 {id:"V30", cat:"成本法", front:"營造施工費的直接法兩種？", back:"<b>淨計法</b>：逐一材料人工數量×單價及工資（最精細，較少用）。<b>單位工程法</b>：建築細部工程各項目單價×施工數量（實務上最常用）。"},
 {id:"V31", cat:"成本法", front:"營造施工費的間接法兩種？", back:"<b>工程造價比較法</b>：按工程概算項目逐項比較調整。<b>單位面積（體積）比較法</b>：以比較標的單位面積營造費為基礎調整。"},
 {id:"V32", cat:"成本法", front:"規劃設計費的計算基礎是什麼？", back:"按<b>營造施工費</b>之2%至3%推估（注意：不是按總成本，這與廣告費/管理費/稅捐不同）。"},
-{id:"V33", cat:"成本法", front:"全聯會公告項目有哪些？不含什麼？", back:"含：建物經濟耐用年數表、營造施工費標準表、廣告費銷售費管理費及稅捐相關費率、開發或建築利潤率。<b>不含</b>「建築改良物標準單價表」「建造執照工程造價表」。<span class='tip'>全聯會公告「耐施廣利」→ 耐用年數表、施工費標準、廣告費率、開發利潤率</span>"},
+{id:"V33", cat:"成本法", front:"成本法裡，哪些項目由全聯會公告？哪些不是？", back:"含：建物經濟耐用年數表、營造施工費標準表、廣告費銷售費管理費及稅捐相關費率、開發或建築利潤率。<b>不含</b>「建築改良物標準單價表」「建造執照工程造價表」。<span class='tip'>全聯會公告「耐施廣利」→ 耐用年數表、施工費標準、廣告費率、開發利潤率</span>"},
 {id:"V34", cat:"成本法", front:"房地成本價格怎麼算？", back:"房地成本價格 ＝ 土地總成本 ＋ <b>建物成本價格</b>（已扣除折舊的建物現值）。不是土地+建物未扣折舊的總成本。"},
 {id:"V35", cat:"成本法", front:"三種折舊路徑及對應方法？", back:"<b>等速折舊</b> → 定額法（直線）<br><b>初期加速折舊</b> → 定率法（凹型）<br><b>初期減速折舊</b> → 償債基金法（凸型）<span class='trap'>⚠️ 無「後期減速折舊」選項——此選項必錯</span><span class='tip'>直凹凸 → 定額直線、定率凹型（先快後慢）、償債凸型（先慢後快）</span>"},
 {id:"V36", cat:"成本法", front:"定額法折舊計算公式？", back:"<span class='formula'>年折舊額 ＝ C × (1－s) ÷ N<br>累積折舊額Dn ＝ 年折舊額 × n<br>建物現值 ＝ C － Dn</span><small style='color:#7A7165;'>C＝重建成本　s＝殘餘價格率　N＝耐用年數　n＝經歷年數</small>"},
@@ -418,7 +441,7 @@ const CARDS = [
 {id:"V43", cat:"收益法", front:"收益法估價程序的順序？", back:"①蒐集總收入總費用資本化率等資料 → ②推算有效總收入 → ③推算總費用 → ④計算淨收益 → ⑤決定收益資本化率 → ⑥計算收益價格。應蒐集最近<b>3年</b>資料。<span class='tip'>步驟口訣：蒐→有→費→淨→率→算（蒐資料→有效總收入→費用→淨收益→資本化率→算價格）</span>"},
 {id:"V44", cat:"收益法", front:"折舊前 vs 折舊後淨收益，如何還原價格？", back:"折舊<b>前</b>淨收益：以「資本化率＋<b>折舊提存率</b>」（房地綜合收益資本化率）還原。折舊<b>後</b>淨收益：僅以資本化率還原即可。"},
 {id:"V45", cat:"收益法", front:"五種收益資本化率決定方法？", back:"① <b>風險溢酬法</b>（一般性財貨基準＋風險加計）② <b>市場萃取法</b>（淨收益÷價格）③ <b>WACC加權平均資金成本法</b> ④ <b>有效總收入乘數法</b> ⑤ <b>債務保障比率法</b>。<span class='tip'>口訣：風市加有債 → 風險溢酬、市場萃取、加權平均WACC、有效總收入乘數、債務保障比率</span>"},
-{id:"V46", cat:"收益法", front:"資本化率與不動產特性的關係？", back:"流通性高 → 較<b>低</b><br>風險性高 → 較<b>高</b><br>增值性高 → 較<b>低</b><br>管理難度高 → 較<b>高</b><span class='trap'>⚠️ 增值性高→較低（方向與風險性相反，常考陷阱）</span><span class='tip'>流增→低（流通好/增值高，投資人願接受低回報）；風管→高（風險/管理難，需高回報補償）</span>"},
+{id:"V46", cat:"收益法", front:"不動產的流通性、增值性、風險性、管理難度，各讓資本化率偏高還是偏低？", back:"流通性高 → 較<b>低</b><br>風險性高 → 較<b>高</b><br>增值性高 → 較<b>低</b><br>管理難度高 → 較<b>高</b><span class='trap'>⚠️ 增值性高→較低（方向與風險性相反，常考陷阱）</span><span class='tip'>流增→低（流通好/增值高，投資人願接受低回報）；風管→高（風險/管理難，需高回報補償）</span>"},
 {id:"V47", cat:"收益法", front:"綜合資本化率怎麼算？", back:"綜合資本化率 ＝ 土地資本化率×(土地價值÷總價值) ＋ 建物資本化率×(建物價值÷總價值)。一般而言<b>建物資本化率高於土地</b>（建物有折舊耗損風險）。"},
 {id:"V48", cat:"收益法", front:"DCF折現現金流量分析法 vs 直接資本化法？", back:"DCF：<b>多期</b>現金流量、<b>須加計期末處分價值</b>並折現、適用<b>以投資為目的</b>之評估。直接資本化法：未來平均<b>1年</b>淨收益、不考慮期末處分價值。"},
 {id:"V49", cat:"收益法", front:"不動產證券化DCF評估的特殊規則？", back:"各期淨收益以<b>契約租金</b>計算為原則（契約租金未知者以<b>經濟租金</b>推估）；以契約約定租金作信託利益分配基礎者，DCF收益價格應賦予<b>較大權重</b>。"},
@@ -462,7 +485,7 @@ const CARDS = [
 {id:"VJ108", cat:"權利估價各論", front:"都市更新時的權利估價原則（§125）？", back:"更新前各所有人之權利價值，以<b>更新前現況</b>估計；更新後應分配權利價值以<b>基地價值比率</b>計算。<span class='tip'>更新前=現況估價；更新後=按比例分配</span>"},
 {id:"VC01", cat:"成本法精要", front:"重建成本 vs 重置成本的差異？何時用哪個？", back:"<b>重建成本</b>（原則）：以<b>相同或極類似</b>建材標準重新複製之成本，適用建材仍存在之情形。<b>重置成本</b>（例外）：建材已無生產或施工方法改變，改以<b>現代同功能</b>建材替代之成本。<span class='trap'>⚠️ 原則用重建，例外才用重置。考題若無說明，預設用重建成本</span><span class='tip'>重建＝複製原來的；重置＝替換成現代的</span>"},
 {id:"VC02", cat:"成本法精要", front:"四種施工費（單位成本）求法？", back:"① <b>淨計法</b>：用建物<b>不含停車位</b>之單位面積成本直接算（最常用）<br>② <b>單位工程費法</b>：依各工程分項計算（結構/機電/裝修分別計費）<br>③ <b>工程造價法</b>：以建造執照核准之工程造價為基礎<br>④ <b>單位面積法</b>：按全棟含停車位之總面積計算<span class='trap'>⚠️ 最容易混淆：①淨計法「不含」停車位；④單位面積法「含」停車位</span><span class='tip'>口訣：淨不含、單面積含</span>"},
-{id:"VC03", cat:"成本法精要", front:"折舊三法的曲線形狀口訣？", back:"<b>定額法</b>（等速）→ <b>直線</b>下降，每年折舊相同<br><b>定率法</b>（加速）→ <b>凹型</b>曲線，初期折舊大<br><b>償債基金法</b>（減速）→ <b>凸型</b>曲線，初期折舊小<span class='trap'>⚠️ 陷阱選項「後期減速折舊」→ 不存在！考題常用來混淆</span><span class='tip'>等速直線、加速凹、減速凸</span>"}
+{id:"VC03", cat:"成本法精要", front:"定額法、定率法、償債基金法的折舊曲線，各是什麼形狀？", back:"<b>定額法</b>（等速）→ <b>直線</b>下降，每年折舊相同<br><b>定率法</b>（加速）→ <b>凹型</b>曲線，初期折舊大<br><b>償債基金法</b>（減速）→ <b>凸型</b>曲線，初期折舊小<span class='trap'>⚠️ 陷阱選項「後期減速折舊」→ 不存在！考題常用來混淆</span><span class='tip'>等速直線、加速凹、減速凸</span>"}
 ];
 
 // 使用 CSS token 對應色，在執行時動態讀取，支援深/淺色主題切換
@@ -507,6 +530,10 @@ const CAT_FREQ = {
   "成本法精要":    {stars:"★★★", count:88},
 };
 
+// 歷屆考過統計：99–114 年 519 題官方選擇題＋32 題官方申論，
+// 題幹或「正確選項」涉及該卡概念者（關鍵字比對，約略值）。m=選擇題數 y=年份 e=申論題數 l=申論題號
+const EXAM = {"V01":{"m":7,"y":[111,106,105,102,99],"e":0,"l":[]},"V02":{"m":4,"y":[106,105,102,100],"e":1,"l":["100-二"]},"V03":{"m":13,"y":[114,113,112,110,109,103,101,100,99],"e":0,"l":[]},"V04":{"m":6,"y":[113,110,108,106,103,101],"e":0,"l":[]},"V05":{"m":6,"y":[113,111,109,107,100,99],"e":0,"l":[]},"V06":{"m":1,"y":[103],"e":0,"l":[]},"V07":{"m":39,"y":[114,113,112,111,110,109,108,107,106,105,104,103,102,101,100,99],"e":0,"l":[]},"V08":{"m":14,"y":[111,110,108,107,105,103,102,101,100],"e":0,"l":[]},"V09":{"m":3,"y":[105,101,100],"e":0,"l":[]},"V10":{"m":10,"y":[114,113,112,111,110,109,106,105,102,101],"e":0,"l":[]},"V11":{"m":8,"y":[111,109,107,105,101,100,99],"e":0,"l":[]},"V12":{"m":56,"y":[114,113,112,111,110,109,108,107,105,104,103,102,101,100,99],"e":0,"l":[]},"V13":{"m":5,"y":[110,104,103,99],"e":1,"l":["107-二"]},"V14":{"m":4,"y":[110,105,104],"e":0,"l":[]},"V15":{"m":12,"y":[111,107,106,105,104,103,102,99],"e":3,"l":["111-二","101-一","103-一"]},"V16":{"m":7,"y":[114,111,105,104,103,101,99],"e":0,"l":[]},"V17":{"m":8,"y":[111,110,109,106,102,101],"e":0,"l":[]},"V18":{"m":9,"y":[110,107,106,104,103,102,101,100,99],"e":0,"l":[]},"V19":{"m":3,"y":[111,107,99],"e":0,"l":[]},"V20":{"m":24,"y":[114,113,112,111,110,109,108,107,106,105,104,103,102,101,99],"e":0,"l":[]},"V21":{"m":17,"y":[113,111,108,107,106,105,104,103,102,100,99],"e":0,"l":[]},"V22":{"m":14,"y":[113,111,108,107,106,105,104,103,102,100],"e":0,"l":[]},"V23":{"m":2,"y":[113,107],"e":0,"l":[]},"V24":{"m":23,"y":[113,112,111,109,108,107,106,105,104,103,102,100,99],"e":0,"l":[]},"V25":{"m":16,"y":[114,113,112,111,110,109,108,107,106,104,103,102,99],"e":0,"l":[]},"V26":{"m":12,"y":[113,112,111,110,109,108,107,106,103,100],"e":1,"l":["108-二"]},"V27":{"m":3,"y":[114,106,103],"e":0,"l":[]},"V28":{"m":3,"y":[108,107,102],"e":1,"l":["106-二"]},"V29":{"m":16,"y":[114,113,111,109,108,107,106,105,104,103,102,100],"e":2,"l":["111-二","112-二"]},"V30":{"m":10,"y":[114,112,109,108,106,104,102,101,99],"e":0,"l":[]},"V31":{"m":7,"y":[114,111,110,109,101,99],"e":0,"l":[]},"V32":{"m":3,"y":[104,103,102],"e":0,"l":[]},"V33":{"m":5,"y":[105,103,102],"e":0,"l":[]},"V34":{"m":7,"y":[112,111,108,106,103,102,101],"e":0,"l":[]},"V35":{"m":18,"y":[114,113,111,109,108,106,105,103,102,101,99],"e":4,"l":["105-一","107-一","111-一","112-二"]},"V36":{"m":21,"y":[114,113,111,110,109,108,107,106,105,103,102,101,99],"e":3,"l":["105-一","111-一","112-二"]},"V37":{"m":27,"y":[114,113,111,110,109,108,106,105,104,103,102,101,100,99],"e":2,"l":["105-一","112-二"]},"V38":{"m":22,"y":[114,113,112,111,110,109,106,105,104,103,102,101],"e":2,"l":["105-一","112-二"]},"V39":{"m":2,"y":[113,104],"e":0,"l":[]},"V40":{"m":29,"y":[114,113,112,111,110,109,108,107,106,105,104,102,100],"e":1,"l":["113-一"]},"V41":{"m":15,"y":[113,110,109,108,107,104,102,101,100],"e":0,"l":[]},"V42":{"m":19,"y":[112,110,109,108,107,106,105,104,103,102,101,100,99],"e":0,"l":[]},"V43":{"m":3,"y":[107,104,102],"e":1,"l":["101-一"]},"V44":{"m":5,"y":[113,107,102,101,100],"e":0,"l":[]},"V45":{"m":38,"y":[114,113,112,111,110,109,108,107,106,105,104,102],"e":0,"l":[]},"V46":{"m":4,"y":[114,107,106,102],"e":0,"l":[]},"V47":{"m":1,"y":[100],"e":0,"l":[]},"V48":{"m":26,"y":[114,113,112,111,110,109,108,107,105,104,103,102,101],"e":1,"l":["113-一"]},"V49":{"m":10,"y":[113,111,110,109,108,105,104,102],"e":0,"l":[]},"V50":{"m":21,"y":[114,112,111,109,107,106,105,104,102,101,99],"e":5,"l":["100-一","102-二","105-二","109-二","113-二"]},"V51":{"m":22,"y":[114,112,111,109,108,107,106,105,104,102,99],"e":2,"l":["100-一","105-二"]},"V52":{"m":0,"y":[],"e":1,"l":["109-二"]},"V53":{"m":1,"y":[104],"e":0,"l":[]},"V54":{"m":25,"y":[114,113,112,110,107,106,105,104,103,102,101,100],"e":3,"l":["101-二","110-二","114-一"]},"V55":{"m":20,"y":[114,113,112,110,107,106,105,104,103,102,101,100],"e":2,"l":["101-二","114-一"]},"V56":{"m":12,"y":[114,113,112,110,107,105,104,103,100],"e":2,"l":["101-二","114-一"]},"V57":{"m":6,"y":[110,106,105,104,100],"e":0,"l":[]},"V58":{"m":5,"y":[110,105,104,101],"e":0,"l":[]},"V59":{"m":14,"y":[113,112,111,110,109,108,107,106,105,103,101,100,99],"e":0,"l":[]},"V60":{"m":14,"y":[113,112,111,110,109,108,107,106,105,103,101,100,99],"e":0,"l":[]},"V61":{"m":9,"y":[113,106,103,102,101,99],"e":1,"l":["103-二"]},"V62":{"m":3,"y":[113,112,110],"e":0,"l":[]},"V63":{"m":6,"y":[114,109,107,104,103],"e":0,"l":[]},"V64":{"m":12,"y":[112,111,109,108,107,106,104,102,100,99],"e":0,"l":[]},"V65":{"m":12,"y":[112,111,109,108,107,106,104,102,100,99],"e":0,"l":[]},"VG01":{"m":3,"y":[108,107,100],"e":0,"l":[]},"VG02":{"m":0,"y":[],"e":0,"l":[]},"VG03":{"m":0,"y":[],"e":0,"l":[]},"VG04":{"m":2,"y":[106,103],"e":0,"l":[]},"VG05":{"m":0,"y":[],"e":0,"l":[]},"VG06":{"m":1,"y":[106],"e":0,"l":[]},"VI201":{"m":0,"y":[],"e":0,"l":[]},"VI202":{"m":9,"y":[109,107,105,104,103,102,101,99],"e":0,"l":[]},"VI203":{"m":1,"y":[99],"e":0,"l":[]},"VI204":{"m":1,"y":[113],"e":0,"l":[]},"VI205":{"m":3,"y":[114,107,105],"e":0,"l":[]},"VJ101":{"m":4,"y":[113,102,101],"e":1,"l":["103-二"]},"VJ102":{"m":0,"y":[],"e":0,"l":[]},"VJ103":{"m":0,"y":[],"e":0,"l":[]},"VJ104":{"m":0,"y":[],"e":0,"l":[]},"VJ105":{"m":3,"y":[113,102,99],"e":0,"l":[]},"VJ106":{"m":3,"y":[101,100],"e":0,"l":[]},"VJ107":{"m":7,"y":[110,106,105,104,102,99],"e":0,"l":[]},"VJ108":{"m":5,"y":[110,109,103,102,100],"e":0,"l":[]},"VC01":{"m":16,"y":[114,113,111,109,108,107,106,105,104,103,102,100],"e":2,"l":["111-二","112-二"]},"VC02":{"m":12,"y":[114,112,109,106,104,103,102,101,99],"e":0,"l":[]},"VC03":{"m":18,"y":[114,113,111,109,108,106,105,103,102,101,99],"e":4,"l":["105-一","107-一","111-一","112-二"]}};
+
 let activeCats = new Set(Object.keys(CAT_COLORS));
 let statusFilter = 'all';
 let mode = 'study';
@@ -531,6 +558,9 @@ const badgeMasteryFront = document.getElementById('badgeMasteryFront');
 const badgeMasteryBack = document.getElementById('badgeMasteryBack');
 const footFront = document.getElementById('footFront');
 const footBack = document.getElementById('footBack');
+const askChip = document.getElementById('askChip');
+const qEcho = document.getElementById('qEcho');
+const examLine = document.getElementById('examLine');
 const curNum = document.getElementById('curNum');
 const totalNum = document.getElementById('totalNum');
 const catName = document.getElementById('catName');
@@ -657,10 +687,44 @@ function switchMode(m){
   render();
 }
 
+// 題型提示：依題目面的問法，告訴自己「這題要答什麼形式」
+function askType(f){
+  if(/vs|差異|區分|差別|分別/.test(f)) return '⚖️ 比較：說出兩者差在哪';
+  if(/公式|怎麼算|計算/.test(f))       return '🧮 寫出公式或算法';
+  if(/順序|步驟/.test(f))              return '🔀 依序說出步驟';
+  if(/幾件|多少|上限|數字|各是多少/.test(f)) return '🔢 答出數字';
+  if(/哪些|幾種|兩種|三種|四種|五種|六種|四大|五大|三大|例子|情境|包含|不含|類型|各是/.test(f)) return '📋 列舉項目';
+  if(/判斷|關鍵/.test(f))              return '🔍 說出判斷關鍵';
+  if(/為何|為什麼|何時|意義|定義|是什麼|什麼|關係|影響/.test(f)) return '📖 說明意思';
+  if(/如何|方式|原則|程序/.test(f))    return '🛠 說明做法';
+  return '💬 簡答';
+}
+function examBadgeText(id){
+  const x = EXAM[id]; if(!x) return '';
+  return (x.m||x.e) ? `選${x.m}・申${x.e}` : '歷屆未考';
+}
+function examLineHTML(id){
+  const x = EXAM[id]; if(!x) return '';
+  if(!x.m && !x.e) return '📊 歷屆：<span class="zero">選擇、申論都<b>未考過</b>（99–114年）</span>';
+  const ys = x.y.length>8 ? x.y.slice(0,8).join('、')+'…' : x.y.join('、');
+  const mc = x.m ? `選擇 <b>${x.m}</b> 題（${ys}年）` : '選擇 <span class="zero">0 題</span>';
+  const es = x.e ? `申論 <b>${x.e}</b> 題（${x.l.join('、')}）` : '申論 <span class="zero">0 題</span>';
+  return `📊 歷屆：${mc}　${es}`;
+}
+
+// 卡片高度自動配合較長的那一面，避免答案被擠在卡內捲動
+function fitCard(){
+  cardEl.style.minHeight = '320px';
+  const h = Math.max(320, ...Array.from(cardEl.querySelectorAll('.face')).map(f=>f.scrollHeight));
+  cardEl.style.minHeight = h + 'px';
+}
+window.addEventListener('resize', fitCard);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitCard);
+
 function render(){
   const c = deck[idx];
   const color = getCatColor(c.cat);
-  flipped = (mode==='quiz') ? revealed : false;
+  if(mode!=='quiz') flipped = false;   // 測驗模式：翻面由使用者自己控制，可來回翻
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
   answerText.innerHTML = c.back;
@@ -668,10 +732,13 @@ function render(){
   badgeFront.style.background = color;
   badgeBack.textContent = c.cat;
   badgeBack.style.background = color;
-  const freq = CAT_FREQ[c.cat];
-  const freqLabel = freq ? `${freq.stars} ${freq.count}題` : '';
+  const freqLabel = examBadgeText(c.id);
+  askChip.textContent = askType(c.front);
+  qEcho.innerHTML = '<b>Q</b>' + c.front.replace(/</g,'&lt;');
+  examLine.innerHTML = examLineHTML(c.id);
   freqBadgeFront.textContent = freqLabel;
   freqBadgeBack.textContent = freqLabel;
+  freqBadgeFront.title = freqBadgeBack.title = '99–114年官方題中，題幹或正解涉及此概念的題數（選擇／申論），約略值';
   document.querySelector('.face.back').style.borderLeftColor = color;
   const m = mastery[c.id];
   const icon = m==='mastered' ? '✅' : '';
@@ -687,11 +754,13 @@ function render(){
     footBack.textContent = '◂ 點擊卡片　回題目';
   } else {
     footFront.textContent = '點擊卡片 或「顯示答案」▸';
-    footBack.textContent = '看完後請點　答對／答錯';
-    revealBtn.style.display = revealed ? 'none' : '';
+    footBack.textContent = '◂ 可再點卡片回題目　／　看完請按 答對・答錯';
+    revealBtn.style.display = '';
+    revealBtn.textContent = flipped ? '↩ 回題目' : (revealed ? '👀 再看答案' : '👀 顯示答案');
     quizRight.style.display = revealed ? '' : 'none';
     quizWrong.style.display = revealed ? '' : 'none';
   }
+  fitCard();
 }
 
 cardEl.addEventListener('click',()=>{
@@ -699,7 +768,9 @@ cardEl.addEventListener('click',()=>{
     flipped=!flipped;
     cardEl.classList.toggle('flipped',flipped);
   } else {
-    if(!revealed){ revealed=true; render(); }
+    flipped = !flipped;
+    if(flipped) revealed = true;
+    render();
   }
 });
 
@@ -758,7 +829,7 @@ function setMastery(status){
 
 quizRight.addEventListener('click',()=>recordAnswer(true));
 quizWrong.addEventListener('click',()=>recordAnswer(false));
-revealBtn.addEventListener('click',()=>{ revealed=true; render(); });
+revealBtn.addEventListener('click',()=>{ flipped = !flipped; if(flipped) revealed = true; render(); });
 
 function recordAnswer(correct){
   const c = deck[idx];
