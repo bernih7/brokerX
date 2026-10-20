@@ -416,8 +416,8 @@ header::after{pointer-events:none;}
     <div class="section-h">一、折舊路徑之種類（共三種）</div>
     <ol>
       <li><strong>等速折舊</strong>：每年折舊金額固定不變，呈直線遞減，以定額法計算。</li>
-      <li><strong>初期加速折舊</strong>：初期折舊快、後期漸緩，曲線呈凹型，以定率法計算。</li>
-      <li><strong>初期減速折舊</strong>：初期折舊慢、後期加速，曲線呈凸型，以償債基金法計算。</li>
+      <li><strong>初期加速折舊</strong>：初期折舊快、後期漸緩，曲線在直線下方（先陡後緩），以定率法計算。</li>
+      <li><strong>初期減速折舊</strong>：初期折舊慢、後期加速，曲線在直線上方（先緩後陡），以償債基金法計算。</li>
     </ol>
     <div class="note">⚠️ 陷阱：只有三種路徑，絕對沒有「後期加速折舊」這個說法，考題常用選項混淆。</div>
     <div class="section-h">二、定額法公式</div>
@@ -550,18 +550,18 @@ n年累積折舊 ＝ C × (1－s) ÷ N × n</div>
     <div class="section-h">二、定率法（初期加速折舊）</div>
     <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n
 折舊率r之求法：r ＝ 1 － (s)^(1/N)</div>
-    <p>特性：每年依餘值×固定率計算折舊，初期折舊大、後期遞減，呈凹型曲線，反映建物前期使用強度較高之特性。</p>
+    <p>特性：每年依餘值×固定率計算折舊，初期折舊大、後期遞減，曲線在直線下方（先陡後緩），反映建物前期使用強度較高之特性。</p>
     <div class="section-h">三、償債基金法（初期減速折舊）</div>
     <div class="formula-box">每年存入折舊基金額 ＝ C×(1－s) × i ÷ [(1+i)^N－1]
 n年累積折舊 ＝ 上述金額 × [(1+i)^n－1] ÷ i
 
 i = 折舊基金之積累利率</div>
-    <p>特性：每年存入固定金額，加計複利積累，初期累積折舊較小、後期加速，呈凸型曲線。</p>
+    <p>特性：每年存入固定金額，加計複利積累，初期累積折舊較小、後期加速，曲線在直線上方（先緩後陡）。</p>
     <table>
       <tr><th>方法</th><th>折舊路徑</th><th>每年金額</th><th>適用情形</th></tr>
       <tr><td>定額法</td><td>等速（直線）</td><td>固定</td><td>一般建物</td></tr>
-      <tr><td>定率法</td><td>初期加速（凹）</td><td>遞減</td><td>初期使用密集</td></tr>
-      <tr><td>償債基金法</td><td>初期減速（凸）</td><td>固定（但含利息）</td><td>後期老化加速</td></tr>
+      <tr><td>定率法</td><td>初期加速（直線下方）</td><td>遞減</td><td>初期使用密集</td></tr>
+      <tr><td>償債基金法</td><td>初期減速（直線上方）</td><td>固定（但含利息）</td><td>後期老化加速</td></tr>
     </table>
     <div class="note">⚠️ 陷阱：償債基金法「每年存入的金額是固定的」，但累積折舊是越來越快，這兩件事同時為真，不要搞混。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
@@ -607,8 +607,8 @@ i = 折舊基金之積累利率</div>
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year">🔴 A級｜112年第二題</span></div>
-      <div class="card-title">等速折舊計算＋折舊率合理性判斷</div>
-      <div class="card-meta"><span class="tag">計算＋判斷題</span></div>
+      <div class="card-title">屋齡10年建物等速折舊計算＋合理性分析</div>
+      <div class="card-meta"><span class="tag">計算＋分析題</span></div>
     </div>
     <button class="read-btn" id="rbtn-e112-2" onclick="event.stopPropagation();toggleRead('e112-2')">☐ 已讀</button>
     <span class="card-arrow">▼</span>
@@ -622,38 +622,47 @@ i = 折舊基金之積累利率</div>
       </div>
     </div>
         <div class="quick-ans">
-      <div class="qa-blk qa-def"><div class="qa-label">▌ 收益資本化法定義（技術規則第46條）</div>
-        以不動產未來可獲得之<span class="qa-kw">純收益（NOI）</span>除以<span class="qa-kw">資本化率</span>求得收益價格
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 等速折舊＝定額法</div>
+        每年折舊額相同，圖上是<span class="qa-kw">直線</span>；現值＝重建成本 − 累積折舊額
       </div>
       <div class="qa-blk qa-form"><div class="qa-label">▌ 公式</div>
-        <code class="qa-code">V = NOI / R</code>　（直接資本化，均等收益適用）
+        <code class="qa-code">Dn = C × (1−s) ÷ N × n</code>　（N 用經濟耐用年數）
       </div>
-      <div class="qa-blk qa-calc"><div class="qa-label">▌ NOI計算步驟</div>
-        總收益（應有租金）→ 扣空置損失 → 扣<span class="qa-kw">維修、稅費、管理費</span> = <span class="qa-kw">NOI</span>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題計算</div>
+        800 × 0.95 ÷ 50 × 10 = <span class="qa-kw">152萬</span>；現值 800 − 152 = <span class="qa-kw">648萬</span>
       </div>
       <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
-        用<span class="qa-kw">應有租金</span>非實際租金；<span class="qa-kw">資本化率 ≠ 折現率</span>
+        計算只拿一半分，<span class="qa-kw">合理性分析</span>才是重點：成本法只反映成本、不含土地、要與比較法／收益法交叉驗證
       </div>
     </div>
     <div class="detail-content">
 
     <div class="q-box">
-      <strong>【原題】</strong> 某建物重建成本500萬元，耐用年數40年，殘餘價格率為10%，目前已使用20年，請問：（一）依定額法計算建物現值。（二）假設市場上同類建物折舊率普遍為每年2%，請評論此折舊率是否合理？（25分）
+      <strong>【原題】</strong> 有一屋齡10年的中古住宅，於建物重新建造成本800萬元、耐用年數50年、殘餘價格率5%的條件下，依不動產估價技術規則的等速折舊路徑計算，建物的現在價值是多少？另請以專業人士的觀點，分析這個價格的合理性。（25分）
     </div>
-    <div class="section-h">一、定額法計算建物現值</div>
-    <div class="formula-box">每年折舊率 ＝ (1－10%) ÷ 40年 ＝ 2.25%/年
-20年累積折舊 ＝ 500 × 2.25% × 20 ＝ 225萬元
-建物現值 ＝ 500 － 225 ＝ 275萬元</div>
-    <div class="section-h">二、評論市場折舊率2%之合理性</div>
-    <p>本題依技術規則計算之年折舊率為2.25%，市場普遍折舊率為2%，兩者比較如下：</p>
+    <div class="section-h">一、等速折舊計算公式</div>
+    <p>依不動產估價技術規則規定，建物採等速折舊路徑者，以定額法計算累積折舊額：</p>
+    <div class="formula-box">Dn ＝ C × [(1－s) ÷ N] × n
+建物現值 ＝ C － Dn
+（C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數）</div>
+    <div class="section-h">二、代入本題數字計算</div>
+    <div class="formula-box">累積折舊額 Dn ＝ 800 × (0.95 ÷ 50) × 10
+　　　　　　＝ 800 × 0.019 × 10 ＝ 152萬元
+建物現值 ＝ 800 － 152 ＝ 648萬元</div>
+    <p>故依等速折舊路徑計算，本案建物現在價值為 <strong>648萬元</strong>。</p>
+    <div class="section-h">三、專業觀點之合理性分析</div>
+    <p>648萬元僅是成本法下「建物單獨」的現值，其合理性可從下列面向判斷：</p>
     <ol>
-      <li>技術規則計算之折舊率（2.25%）>市場普遍折舊率（2%），表示市場對此類建物之折舊認知較為保守（認為建物保值性較佳）。</li>
-      <li>估價師應以技術規則計算結果為基礎，惟應同步蒐集市場資料加以印證。</li>
-      <li>若市場實際反映之建物折舊程度確為每年2%，則估價師可適度調整，但需充分說明理由（依技術規則第五十條規定，折舊提存率應視建物之耐用程度、市場狀況等因素適當調整）。</li>
+      <li><strong>路徑選用是否合理</strong>：等速（定額法）的現值居中；初期加速（定率法）現值較低、初期減速（償債基金法）現值較高。屋齡10年的自用住宅，使用狀況穩定、折舊不集中在前期或後期，採等速折舊合理，648萬元落在另兩種路徑結果之間。（描述曲線用位置：加速在直線下方、減速在直線上方。）</li>
+      <li><strong>參數是否符合規定</strong>：殘餘價格率5%，未超過技術規則「以不超過10%為原則」的上限（殘餘價格率由不動產估價師公會全國聯合會公告）；計算應以經濟耐用年數為主。</li>
+      <li><strong>成本法本身之侷限性</strong>：成本法反映「重建成本扣除折舊」，不是市場上買方願意支付的價格。若所在地段房價上漲、土地稀缺性提高，市場成交價可能高於成本法結果。</li>
+      <li><strong>尚未計入土地價值與區域因素</strong>：648萬元只是建物部分，房地總價須再加土地價格，而土地價格受區域發展、交通、生活機能影響甚大。</li>
+      <li><strong>須以比較法、收益法交叉驗證</strong>：依替代原則，理性買方不會支付高於替代財貨之代價，應參酌附近類似中古住宅的比較實例價格與出租收益，三者綜合比較。</li>
+      <li><strong>折舊速度與實際耗損未必一致</strong>：估價人員應實地勘查屋況與維護情形，必要時調整經歷年數、耐用年數或折舊路徑。</li>
     </ol>
-    <div class="note">⚠️ 合理性判斷的答題邏輯：先算出技術規則的數字→再與市場數字比較→說明差異大小及方向→結論是否採用。</div>
+    <div class="note">⚠️ 「合理性」不能只寫「合理」，要說出為何選等速、為何不選另外兩種，並指出成本法的侷限。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
-    本題建物現值為275萬元。市場折舊率2%略低於依技術規則計算之2.25%，差異尚在可接受範圍，估價師應蒐集足夠市場資料，必要時調整折舊率，並於估價報告書中完整說明理由及依據。</div>
+    本案建物依等速折舊路徑計算之現在價值為648萬元，路徑選用與參數符合規定、結果合理；惟此數值僅反映建物成本價格，未涵蓋土地價值與市場供需，實務上仍須搭配比較法及收益法綜合決定房地價格，單以648萬元作為市場價值尚有侷限，須以專業判斷補充說明。</div>
       </div><!-- /detail-content -->
   </div>
 </div>
@@ -743,8 +752,8 @@ i = 折舊基金之積累利率</div>
     <div class="section-h">一、折舊三路徑之定義與適用</div>
     <ol>
       <li><strong>等速折舊（定額法）</strong>：每年折舊金額固定不變，呈直線遞減。適用一般建物。</li>
-      <li><strong>初期加速折舊（定率法）</strong>：初期折舊快、後期漸緩，曲線呈凹型。適用機器、設備等折舊較快之建物。</li>
-      <li><strong>初期減速折舊（償債基金法）</strong>：初期折舊慢、後期加速，曲線呈凸型。適用耐久性高、後期需大量維修之建物。</li>
+      <li><strong>初期加速折舊（定率法）</strong>：初期折舊快、後期漸緩，曲線在直線下方（先陡後緩）。適用機器、設備等折舊較快之建物。</li>
+      <li><strong>初期減速折舊（償債基金法）</strong>：初期折舊慢、後期加速，曲線在直線上方（先緩後陡）。適用耐久性高、後期需大量維修之建物。</li>
     </ol>
     <div class="note">⚠️ 考試陷阱：三種路徑名稱不可混淆——定額＝等速、定率＝初期加速、償債基金＝初期減速。</div>
 
@@ -1891,28 +1900,30 @@ r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
   <div class="card-header" onclick="toggleCard(this)">
     <div class="card-header-left">
       <div><span class="card-year tier-c">🟢 C級｜112年第一題</span></div>
-      <div class="card-title">凶宅影響不動產價格之因素</div>
-      <div class="card-meta"><span class="tag">特殊標的估價</span></div>
+      <div class="card-title">凶殺事件屬影響價格因素之那一類＋是否影響價格</div>
+      <div class="card-meta"><span class="tag">價格因素分類</span></div>
     </div>
     <button class="read-btn" id="rbtn-e112-1" onclick="event.stopPropagation();toggleRead('e112-1')">☐ 已讀</button>
     <span class="card-arrow">▼</span>
   </div>
   <div class="card-body">
     <div class="q-box">
-      <strong>【原題】</strong> 試說明凶宅對不動產價格之影響，及估價時應考量之因素。（25分）
+      <strong>【原題】</strong> 一棟12層大樓的第10層擬出售，該樓層在前一年於梯廳位置曾發生過凶殺死案，請問該事件屬於影響不動產價格因素的那一類？是否會影響該層樓之價格？
     </div>
-    <div class="section-h">一、凶宅對價格之影響</div>
-    <p>凶宅係指曾發生自殺、他殺等非自然死亡事件之不動產，因其心理層面之負面效應，造成市場接受度下降，通常以「嫌惡設施」或「外部因素折減」方式處理其價值減損。</p>
-    <div class="section-h">二、估價時應考量之因素</div>
+    <div class="section-h">一、該事件屬「個別因素」</div>
+    <p>影響不動產價格之因素分三類：</p>
     <ol>
-      <li><strong>事件嚴重程度</strong>：死亡方式（自殺/他殺）、媒體曝光程度</li>
-      <li><strong>發生時間</strong>：事件發生距今之時間，時間越久，影響遞減</li>
-      <li><strong>市場接受度</strong>：不同區域、不同買方族群對凶宅之接受程度有異</li>
-      <li><strong>建物類型</strong>：獨棟透天或公寓大樓之影響程度不同</li>
-      <li><strong>折減比率</strong>：依市場資料估算合理折減比率（市場資料顯示通常10-30%）</li>
+      <li><strong>一般因素</strong>：對不動產市場及其價格水準發生全面影響之自然、政治、社會、經濟等共同因素。</li>
+      <li><strong>區域因素</strong>：影響近鄰地區不動產價格水準之因素。</li>
+      <li><strong>個別因素</strong>：不動產因受本身條件之影響，而產生價格差異之因素。</li>
     </ol>
-    <div class="note">⚠️ 法律面：揭露義務問題，不動產經紀業管理條例要求告知義務，但估價本身以市場價值為準。</div>
-    <div class="conclusion"><strong>最需記住的一件事：</strong>凶宅估價以「市場折減比率法」為主，折減幅度依事件嚴重性、時間距離及市場接受度判斷，需有市場成交案例支持。</div>
+    <p>凶殺事件發生在該樓層（標的本身）的梯廳，只影響這一層的條件，不是全國性、也不是整個近鄰地區的問題，故屬<strong>個別因素</strong>。</p>
+    <div class="section-h">二、會影響該層樓之價格</div>
+    <p><strong>（一）比較法</strong>：個別因素調整，是以比較標的之價格為基礎，就比較標的與勘估標的因個別因素不同所產生的價格差異，逐項分析並以百分率或金額調整。因事件影響，該層樓之個別因素劣於比較標的，故比較價格應<strong>向下修正</strong>。</p>
+    <p><strong>（二）收益法</strong>：因該事件之影響，乏人問津承租，租金下降，客觀淨收益下降。收益價格＝客觀淨收益 ÷ 收益資本化率，故收益價格<strong>下降</strong>。</p>
+    <div class="note">⚠️ 陷阱：事件發生在「該樓層」，不是整棟或整個地區，所以是個別因素、不是區域因素；答「是否影響」要用比較法、收益法兩條路各說一次。影響幅度多少，須依市場資料判斷，不能憑空寫固定折減比率。</div>
+    <div class="conclusion"><strong>三、結論</strong><br>
+    該事件屬影響不動產價格因素中之個別因素，會使該層樓比較價格向下修正、收益價格下降，故會影響該層樓之價格。</div>
   </div>
 </div>
 <!-- C15: 114年第二題 -->
