@@ -13,7 +13,7 @@
   --primary:#2F5D50;
   --line:#DDD6C3; --rule:#DDD6C3;
   --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
-  --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C; --ansbg:#9CCBF0; --ansline:#1E6B8C;
+  --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C; --mn:#1E5FA8; --ansbg:#9CCBF0; --ansline:#1E6B8C;
   --orange:#B8782E; --purple:#7B5C8C; --red:#2F5D50; --redbg:#2F5D50; --stamp:#2F5D50;
   color-scheme: light;
 }
@@ -24,7 +24,7 @@
     --primary:#5A9E88;
     --line:#2E3A34; --rule:#2E3A34;
     --muted:#7A9488; --shadow:rgba(0,0,0,.3);
-    --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
+    --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --mn:#7CC8EE; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
     --orange:#D09848; --purple:#9A7CB0; --red:#8CCFB8; --redbg:#3D7A66; --stamp:#8CCFB8;
     color-scheme: dark;
   }
@@ -35,7 +35,7 @@
   --primary:#5A9E88;
   --line:#2E3A34; --rule:#2E3A34;
   --muted:#7A9488; --shadow:rgba(0,0,0,.3);
-  --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
+  --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --mn:#7CC8EE; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
   --orange:#D09848; --purple:#9A7CB0; --red:#8CCFB8; --redbg:#3D7A66; --stamp:#8CCFB8;
   color-scheme: dark;
 }
@@ -915,12 +915,12 @@ DATA.forEach((ch,ci)=>{
       <div class="term">${c.term}<span class="heat h${c._t}">${HEAT_CARD[c._t]}</span></div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
       <div class="card-btns">
+        <button class="reveal-btn" onclick="revealOne('${key}','${ch.id}',${total})">顯示一個</button>
         <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
-        <button class="reveal-all-btn" id="rb-${key}" onclick="markDone('${key}','${ch.id}',${total})">已確認 ✓</button>
       </div>
       <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
       <div class="answer-note" id="ans-${key}">
-        <div class="key-note">${c.answer}</div>
+        <div class="key-note">${fmtAns(c.answer)}</div>
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;
     div.appendChild(card);
@@ -929,8 +929,34 @@ DATA.forEach((ch,ci)=>{
   main.appendChild(div);
 });
 
+function fmtAns(h){
+  const C='①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';let nx=1;
+  if(/[②]/.test(h.replace(/<[^>]+>/g,''))){
+    h=h.replace(/(^|[\s\u3000→>）。；])([①-⑳])/g,(m,pre,ch)=>{
+      if(C.indexOf(ch)===nx){nx++;return (pre==='→'||/\s|\u3000/.test(pre)?'':pre)+'<br>'+ch;}
+      return m;});
+    h=h.replace(/^<br>/,'');
+  }
+  h=h.replace(/\u3000(?=[二三四五六七八九十]、)/g,'<br>');
+  return h;
+}
+function tintMnemonic(root){
+  root.querySelectorAll('[style*="letter-spacing"]').forEach(e=>{e.style.color='var(--mn)';});
+  root.querySelectorAll('span,strong').forEach(e=>{ if(/^口訣/.test(e.textContent.trim())&&e.querySelector('b,*')==null||/口訣[（：]/.test(e.textContent)&&e.children.length<=1&&e.textContent.length<30){e.style.color='var(--mn)';e.querySelectorAll('b').forEach(b=>b.style.color='var(--mn)');} });
+}
+document.querySelectorAll('.key-note').forEach(tintMnemonic);
+function cardAllRevealed(key){return ![...document.querySelectorAll('.blank[data-key="'+key+'"]')].some(e=>!e.classList.contains('revealed'));}
 function toggleBlank(el) {
   el.classList.toggle('revealed');
+  const key=el.dataset.key, m=key.match(/^(.*)-\d+$/);
+  if(el.classList.contains('revealed')&&cardAllRevealed(key)&&m){
+    const ch=DATA.find(c=>c.id===m[1]);revealAllBlanks(key,m[1],ch?ch.cards.length:1);
+  }
+}
+function revealOne(key,chId,total){
+  const nx=[...document.querySelectorAll('.blank[data-key="'+key+'"]')].find(e=>!e.classList.contains('revealed'));
+  if(nx) nx.classList.add('revealed');
+  if(cardAllRevealed(key)) revealAllBlanks(key,chId,total);
 }
 
 function revealAllBlanks(key, chId, total) {
@@ -949,8 +975,6 @@ function revealAllBlanks(key, chId, total) {
 function markDone(key, chId, total) {
   if(cardDone[key]) return;
   cardDone[key] = true;
-  const btn = document.getElementById('rb-'+key);
-  if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
   const note = document.getElementById('ans-'+key);
   if(note) note.classList.add('show');
   // 更新進度
