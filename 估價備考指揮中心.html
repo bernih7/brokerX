@@ -530,6 +530,32 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 }
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
+
+/* ── 工具分頁 v282：工具頁／數字・公式 ── */
+.tl-seg{display:flex;background:var(--paper2);border-radius:10px;padding:3px;margin-bottom:14px;}
+.tl-seg-btn{flex:1;border:0;background:transparent;font:inherit;font-size:.86rem;font-weight:700;padding:8px;border-radius:8px;color:var(--muted);cursor:pointer;}
+.tl-seg-btn.active{background:var(--paper);color:var(--fg);box-shadow:0 1px 3px var(--shadow);}
+.tl-sub{display:none;}.tl-sub.active{display:block;}
+.tl-lead{font-size:.8rem;color:var(--muted);margin-bottom:14px;}
+.tl-grp{margin-bottom:20px;}
+.tl-hd{display:flex;align-items:baseline;gap:8px;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:8px;}
+.tl-hd b{font-family:"Noto Serif TC",serif;font-size:1rem;}
+.tl-hd span{font-size:.72rem;color:var(--muted);}
+.tl-list{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.tl-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;}
+.tl-row:last-child{border-bottom:none;}
+.tl-row:hover{background:var(--paper2);}
+.tl-ic{font-size:1.15rem;width:24px;text-align:center;flex-shrink:0;}
+.tl-tx{display:flex;flex-direction:column;min-width:0;}
+.tl-nm{font-weight:700;font-size:.9rem;line-height:1.35;}
+.tl-ds{font-size:.72rem;color:var(--muted);}
+.tl-ch{margin-left:auto;flex-shrink:0;font-size:.66rem;font-weight:700;color:var(--primary);background:var(--paper2);padding:2px 7px;border-radius:5px;white-space:nowrap;}
+.tl-scroll{overflow-x:auto;margin-bottom:6px;}
+.tl-trap{font-size:.78rem;color:var(--accent-gold);}
+.tl-art{color:#8B5A2B;font-weight:700;white-space:nowrap;}
+:root[data-theme="dark"] .tl-art{color:#D0A070;}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .tl-art{color:#D0A070;}}
+.tl-note{font-size:.78rem;color:var(--muted);background:var(--paper2);border-radius:8px;padding:8px 10px;margin:4px 0 8px;}
 </style>
 <script src="/bxv-use.js"></script>
 </head>
@@ -543,27 +569,6 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
 </header>
 
-<div class="flow-bar">
-  <span class="flow-label">今日建議流程</span>
-  <div class="flow-steps">
-    <div class="flow-dot-wrap" onclick="showTab('tools',document.querySelectorAll('.tab-btn')[1])">
-      <div class="flow-dot">🧰</div>
-      <div class="flow-dot-lbl">工具庫</div>
-    </div>
-    <div class="flow-dot-wrap cur" onclick="showTab('drill',document.querySelectorAll('.tab-btn')[0])">
-      <div class="flow-dot cur">📝</div>
-      <div class="flow-dot-lbl">刷題</div>
-    </div>
-    <div class="flow-dot-wrap" onclick="showTab('essay',document.querySelectorAll('.tab-btn')[2])">
-      <div class="flow-dot">✍️</div>
-      <div class="flow-dot-lbl">申論</div>
-    </div>
-    <div class="flow-dot-wrap" onclick="showTab('progress',document.querySelectorAll('.tab-btn')[4])">
-      <div class="flow-dot">✅</div>
-      <div class="flow-dot-lbl">確認進度</div>
-    </div>
-  </div>
-</div>
 
 <nav class="botnav" role="tablist" aria-label="估價備考指揮中心分頁">
   <button class="tab-btn active" onclick="showTab('drill',this)" role="tab">
@@ -577,10 +582,6 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   <button class="tab-btn" onclick="showTab('essay',this)" role="tab">
     <span class="nav-iw"><svg viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/></svg></span>
     <span class="nav-label">申論</span>
-  </button>
-  <button class="tab-btn" onclick="showTab('law',this)" role="tab">
-    <span class="nav-iw"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
-    <span class="nav-label">法條</span>
   </button>
   <button class="tab-btn" onclick="showTab('progress',this)" role="tab">
     <span class="nav-iw"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 7-7M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1h9"/></svg></span>
@@ -906,97 +907,95 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 
 <!-- ② 備考工具庫 -->
 <div id="tab-tools" class="panel">
-  <div class="notice-box">每完成一個工具的閱讀，勾選下方 checkbox → 進度分頁會自動更新並可複製回報給 Claude。</div>
-
-  <!-- 全科通用 -->
-  <div class="tools-section">
-    <div class="tools-sec-hd">🌐 全科通用工具</div>
-    <div class="tools-grid">
-      <a class="tools-card t-global" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%BD%A9%E8%89%B2%E9%87%8D%E9%BB%9E%E9%80%9F%E8%A8%98.html" target="_blank">
-        <div class="tc-icon">🎨</div>
-        <div><div class="tc-name">彩色重點速記</div><div class="tc-desc">A1–I1 全科・考前快掃</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E4%BA%92%E5%8B%95%E5%96%AE%E5%AD%97%E5%8D%A1.html" target="_blank">
-        <div class="tc-icon">🃏</div>
-        <div><div class="tc-name">互動單字卡</div><div class="tc-desc">核心定義 65 張・番卡翻翻</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E8%80%83%E9%A1%8C%E5%B0%8F%E5%8D%A1.html" target="_blank">
-        <div class="tc-icon">🗂️</div>
-        <div><div class="tc-name">歷屆考題小卡</div><div class="tc-desc">519 題・逐選項解析</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="估價_定義填空練習.html" target="_blank">
-        <div class="tc-icon">✏️</div>
-        <div><div class="tc-name">定義填空練習</div><div class="tc-desc">A1–I 所有章節</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="估價_四大方法比較表.html" target="_blank">
-        <div class="tc-icon">📊</div>
-        <div><div class="tc-name">四大方法比較表</div><div class="tc-desc">全維度對比 × 陷阱 12 張</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="估價_易混淆概念並排.html" target="_blank">
-        <div class="tc-icon">🔀</div>
-        <div><div class="tc-name">易混淆概念並排</div><div class="tc-desc">8 組高混淆定義並排</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
-      <a class="tools-card t-global" href="估價_易混淆概念補充卷.html" target="_blank">
-        <div class="tc-icon">⚡</div>
-        <div><div class="tc-name">易混淆補充卷</div><div class="tc-desc">8 題・C型錯題強化</div><span class="tc-tag tct-g">全科</span></div>
-      </a>
+  <div class="tl-seg" role="tablist">
+    <button class="tl-seg-btn active" onclick="toolSub('pages',this)">📚 工具頁</button>
+    <button class="tl-seg-btn" onclick="toolSub('ref',this)">⚡ 數字・公式</button>
+  </div>
+  <div id="tl-pages" class="tl-sub active">
+  <div class="tl-lead">這裡放「跨章節」的整理頁，依用途分三組。各章專屬工具在「刷題」該章裡。</div>
+  <div class="tl-grp"><div class="tl-hd"><b>📖 讀懂</b><span>第一次學、建立架構</span></div>
+    <div class="tl-list">
+      <a class="tl-row" href="估價四大方法系統攻略.html" target="_blank"><span class="tl-ic">📐</span><span class="tl-tx"><span class="tl-nm">四大方法系統攻略</span><span class="tl-ds">比較法／收益法／成本法・完整申論框架</span></span><span class="tl-ch">B C D</span></a>
+      <a class="tl-row" href="估價_四大方法比較表.html" target="_blank"><span class="tl-ic">📊</span><span class="tl-tx"><span class="tl-nm">四大方法比較表</span><span class="tl-ds">全維度對比＋陷阱 12 張</span></span><span class="tl-ch">B C D E</span></a>
+      <a class="tl-row" href="估價_程序流程記憶圖.html" target="_blank"><span class="tl-ic">🗺</span><span class="tl-tx"><span class="tl-nm">估價程序流程記憶圖</span><span class="tl-ds">八步驟視覺圖</span></span><span class="tl-ch">A4</span></a>
+      <a class="tl-row" href="估價_八大程序速覽表.html" target="_blank"><span class="tl-ic">📋</span><span class="tl-tx"><span class="tl-nm">八大程序速覽表</span><span class="tl-ds">基計蒐狀整估決書・速查版</span></span><span class="tl-ch">A4</span></a>
+      <a class="tl-row" href="估價_租金估計攻略表.html" target="_blank"><span class="tl-ic">🏠</span><span class="tl-tx"><span class="tl-nm">租金估計攻略表</span><span class="tl-ds">6 種定義・差額分配法・陷阱</span></span><span class="tl-ch">F1</span></a>
+      <a class="tl-row" href="估價_計算題攻略.html" target="_blank"><span class="tl-ic">🧮</span><span class="tl-tx"><span class="tl-nm">計算題攻略專欄</span><span class="tl-ds">16 年 × 11 種題型</span></span><span class="tl-ch">計算</span></a>
     </div>
   </div>
-
-  <!-- 章節專屬攻略 -->
-  <div class="tools-section">
-    <div class="tools-sec-hd">📌 章節專屬攻略</div>
-    <div class="tools-grid">
-      <a class="tools-card t-chap" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E7%A7%9F%E9%87%91%E4%BC%B0%E8%A8%88%E6%94%BB%E7%95%A5%E8%A1%A8.html" target="_blank">
-        <div class="tc-icon">📋</div>
-        <div><div class="tc-name">租金估計攻略表</div><div class="tc-desc">F1・6種定義・差額分配法・陷阱</div><span class="tc-tag tct-c">F1</span></div>
-      </a>
-      <a class="tools-card t-chap" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank">
-        <div class="tc-icon">📐</div>
-        <div><div class="tc-name">四大方法系統攻略</div><div class="tc-desc">C/D/B/A 完整申論框架</div><span class="tc-tag tct-c">C D B A</span></div>
-      </a>
-      <a class="tools-card t-chap" href="估價_程序流程記憶圖.html" target="_blank">
-        <div class="tc-icon">🗺</div>
-        <div><div class="tc-name">程序流程記憶圖</div><div class="tc-desc">A4・§8–16・八步驟視覺圖</div><span class="tc-tag tct-c">A4</span></div>
-      </a>
-      <a class="tools-card t-chap" href="估價_八大程序速覽表.html" target="_blank">
-        <div class="tc-icon">📋</div>
-        <div><div class="tc-name">八大程序速覽表</div><div class="tc-desc">基計蒐狀整估決書・速查版</div><span class="tc-tag tct-c">A4</span></div>
-      </a>
+  <div class="tl-grp"><div class="tl-hd"><b>🧠 背熟</b><span>考前反覆看</span></div>
+    <div class="tl-list">
+      <a class="tl-row" href="估價彩色重點速記.html" target="_blank"><span class="tl-ic">🎨</span><span class="tl-tx"><span class="tl-nm">彩色重點速記</span><span class="tl-ds">A1–I1 全科快掃</span></span><span class="tl-ch">全科</span></a>
+      <a class="tl-row" href="估價互動單字卡.html" target="_blank"><span class="tl-ic">🃏</span><span class="tl-tx"><span class="tl-nm">互動單字卡</span><span class="tl-ds">87 張・每張標歷屆考過幾題</span></span><span class="tl-ch">全科</span></a>
+      <a class="tl-row" href="估價_易混淆概念並排.html" target="_blank"><span class="tl-ic">🔀</span><span class="tl-tx"><span class="tl-nm">易混淆概念並排</span><span class="tl-ds">8 組高混淆定義並排</span></span><span class="tl-ch">全科</span></a>
+      <a class="tl-row" href="估價_定義填空練習.html" target="_blank"><span class="tl-ic">✏️</span><span class="tl-tx"><span class="tl-nm">定義填空練習</span><span class="tl-ds">A1–I 所有章節</span></span><span class="tl-ch">全科</span></a>
     </div>
   </div>
-
-  <!-- 計算題工具 -->
-  <div class="tools-section">
-    <div class="tools-sec-hd">🧮 計算題工具</div>
-    <div class="tools-grid">
-      <a class="tools-card t-calc" href="估價_計算題攻略.html" target="_blank">
-        <div class="tc-icon">🧮</div>
-        <div><div class="tc-name">計算題攻略專欄</div><div class="tc-desc">16年 × 11種題型・全覆蓋</div><span class="tc-tag tct-b">計算</span></div>
-      </a>
-      <a class="tools-card t-calc" href="估價_土開計算題組.html" target="_blank">
-        <div class="tc-icon">📐</div>
-        <div><div class="tc-name">土開計算題組</div><div class="tc-desc">E1・8題換條件・含兩版公式辨析</div><span class="tc-tag tct-c">新</span></div>
-      </a>
-      <a class="tools-card t-calc" href="估價_診斷卷一.html" target="_blank">
-        <div class="tc-icon">📝</div>
-        <div><div class="tc-name">診斷卷①</div><div class="tc-desc">自我評量・含計分</div><span class="tc-tag tct-b">測驗</span></div>
-      </a>
+  <div class="tl-grp"><div class="tl-hd"><b>✍️ 自我檢測</b><span>做題確認會不會</span></div>
+    <div class="tl-list">
+      <a class="tl-row" href="估價_考題小卡.html" target="_blank"><span class="tl-ic">🗂️</span><span class="tl-tx"><span class="tl-nm">歷屆考題小卡</span><span class="tl-ds">519 題・逐選項解析</span></span><span class="tl-ch">全科</span></a>
+      <a class="tl-row" href="估價_易混淆概念補充卷.html" target="_blank"><span class="tl-ic">⚡</span><span class="tl-tx"><span class="tl-nm">易混淆補充卷</span><span class="tl-ds">8 題・C 型錯題強化</span></span><span class="tl-ch">全科</span></a>
+      <a class="tl-row" href="估價_土開計算題組.html" target="_blank"><span class="tl-ic">📐</span><span class="tl-tx"><span class="tl-nm">土開計算題組</span><span class="tl-ds">8 題換條件・含兩版公式辨析</span></span><span class="tl-ch">E1</span></a>
+      <a class="tl-row" href="估價_診斷卷一.html" target="_blank"><span class="tl-ic">📝</span><span class="tl-tx"><span class="tl-nm">診斷卷①</span><span class="tl-ds">自我評量・含計分</span></span><span class="tl-ch">全科</span></a>
     </div>
   </div>
-
-  <div class="sec-title">核心公式速查</div>
-  <table class="law-table">
-    <thead><tr><th>公式名稱</th><th>核心算式</th><th>重要條件</th></tr></thead>
+  </div>
+  <div id="tl-ref" class="tl-sub">
+  <div class="tl-lead">數字、公式、條號只放這一頁。依《不動產估價技術規則》現行條文（102.12.20 修正）。</div>
+  <div class="sec-title">① 必背數字</div>
+  <div class="tl-scroll"><table class="law-table">
+    <thead><tr><th>考點</th><th>正確</th><th>陷阱</th><th>條號</th></tr></thead>
     <tbody>
-      <tr><td><strong>折舊定額法（§46）</strong></td><td>Dn = C × (1－s) / N × n</td><td>殘餘率 s ≤ 10%；以<strong>經濟耐用年數</strong>為主</td></tr>
-      <tr><td><strong>比較法三道排除關卡（§22）</strong></td><td>單項調整率｜總調整率｜試算差距</td><td><span class="tag-warn">15% / 30% / 20%</span>（三個數字必背）</td></tr>
-      <tr><td><strong>土地開發分析法 V 公式</strong></td><td>V = S ÷ (1+R) ÷ (1+i) − (C+M)</td><td>R=利潤率；i=資本利息綜合利率；C=直接成本；M=間接成本</td></tr>
-      <tr><td><strong>資本利息綜合利率</strong></td><td>i = 資本利息年利率 ×（土地價值比率 ＋ 建物價值比率×½）× 開發年數</td><td class="tag-warn">只有建物乘½，土地乘1；別漏乘開發年數</td></tr>
-      <tr><td><strong>樓層別效用比（§55）</strong></td><td>分配地價 = 土地總價 × (各樓效用比÷效用比總和)</td><td></td></tr>
-      <tr><td><strong>直接資本化法（§32）</strong></td><td>價格 = 純收益 ÷ 資本化率</td><td>純收益 = 潛在毛收入 − 空置損失 − 營運費用</td></tr>
+      <tr><td>比較法 單項調整率</td><td><span class="tag-warn">大於 15% 排除</span></td><td class="tl-trap">條文寫「大於」：剛好 15% 不排除</td><td class="tl-art">§25</td></tr>
+      <tr><td>比較法 總調整率</td><td><span class="tag-warn">大於 30% 排除</span></td><td class="tl-trap">剛好 30% 不排除</td><td class="tl-art">§25</td></tr>
+      <tr><td>試算價格差距</td><td><span class="tag-warn">達 20% 以上排除</span></td><td class="tl-trap">「達…以上」：剛好 20% 就排除；差距＝高低價差 ÷ 高低價平均</td><td class="tl-art">§26</td></tr>
+      <tr><td>殘餘價格率</td><td><span class="tag-warn">不超過 10% 為原則</span></td><td class="tl-trap">由全聯會公告；舊條文為「不得超過 10%」</td><td class="tl-art">§67</td></tr>
+      <tr><td>計量模型 樣本數</td><td><span class="tag-warn">自變數個數 5 倍以上</span></td><td class="tl-trap">不是固定 30 個</td><td class="tl-art">§20</td></tr>
+      <tr><td>計量模型 判定係數</td><td><span class="tag-warn">調整後 ≥ 0.7</span></td><td class="tl-trap">條文是「調整後判定係數不得低於 0.7」</td><td class="tl-art">§20</td></tr>
+      <tr><td>計量模型 顯著機率</td><td><span class="tag-warn">不得大於 5%</span></td><td class="tl-trap">剛好 5% 仍符合</td><td class="tl-art">§20</td></tr>
     </tbody>
-  </table>
+  </table></div>
+  <div class="sec-title">② 核心公式</div>
+  <div class="tl-scroll"><table class="law-table">
+    <thead><tr><th>公式</th><th>算式</th><th>注意</th><th>條號</th></tr></thead>
+    <tbody>
+      <tr><td><strong>直接資本化法</strong></td><td>收益價格 ＝ 淨收益 ÷ 收益資本化率</td><td>淨收益＝有效總收入 − 總費用</td><td class="tl-art">§30</td></tr>
+      <tr><td><strong>土開 V 公式</strong></td><td>V ＝ S ÷ (1+R) ÷ (1+i) − (C+M)</td><td>R＝利潤率；i＝資本利息綜合利率；C＝直接成本；M＝間接成本</td><td class="tl-art">§81</td></tr>
+      <tr><td><strong>資本利息綜合利率</strong></td><td>i ＝ 年利率 ×（土地比率 ＋ 建物比率 × ½）× 開發年數</td><td><span class="tag-warn">只有建物乘 ½，別漏乘年數</span></td><td class="tl-art">§79</td></tr>
+      <tr><td><strong>折舊（定額法）</strong></td><td>累積折舊 ＝ 成本 ×（1 − 殘餘率）÷ 耐用年數 × 經歷年數</td><td>以經濟耐用年數為主；現行§68 只列三種折舊路徑</td><td class="tl-art">§65–§68</td></tr>
+      <tr><td><strong>樓層別效用比</strong></td><td>依各樓層效用比分配基地價格</td><td>地價分配率、土地價值比率兩種算法</td><td class="tl-art">§98–§101</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tl-note">⚠️ 土開兩條（§79、§81）是現行條號；部分考古題題幹引「第58條、第59條」，條號對不起來，考前請對紙本。</div>
+  <div class="sec-title">③ 易混淆概念：區域因素 vs 個別因素（A3）</div>
+  <div class="tl-scroll"><table class="law-table">
+    <thead><tr><th>類別</th><th>易混考點</th><th>記憶錨點</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--accent-b)">區域因素</strong></td><td>道路寬度與連接性：外面那條路多寬、通哪裡</td><td>看「路」本身：路寬、幹道、公設、商圈</td></tr>
+      <tr><td><strong style="color:var(--accent-r)">個別因素</strong></td><td>臨街寬度：這筆地面對馬路那面多寬（門面）</td><td>看「地」本身：臨街面、面積、形狀、屋齡</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sec-title">④ 官方答案與本站計算不一致（考試依官方答案）</div>
+    <div class="tl-scroll"><table class="law-table">
+    <thead><tr><th>題目</th><th>我的計算</th><th>官方答案</th><th>備注</th></tr></thead>
+    <tbody>
+      <tr><td>106年D2第29題</td><td>623萬</td><td>1,256萬</td><td>債務保障比率法邏輯有出入</td></tr>
+      <tr><td>99年D2第9題</td><td>280萬</td><td>130萬</td><td>房地分離法，無法重現</td></tr>
+      <tr><td>106年E1第19題</td><td>27,492萬</td><td>12,492萬</td><td>V公式差距，原因不明</td></tr>
+      <tr><td>106年H2第13題</td><td>應為B</td><td>D</td><td>與技術規則§90矛盾，疑似誤標</td></tr>
+      <tr><td>104年E1第23題</td><td>B (×1/2版)</td><td>D (×1/4版)</td><td>不同公式版本，建議核實</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sec-title">⑤ 現行法版本</div>
+  <div class="tl-scroll"><table class="law-table">
+    <thead><tr><th>法規</th><th>現行版本</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>不動產估價技術規則</td><td>102.12.20 修正</td><td>植根法律網、6laws 均顯示此版（本站原寫 107.09.17，查無出處，已更正）</td></tr>
+      <tr><td>不動產估價師法</td><td>113.08.07 修正</td><td>—</td></tr>
+      <tr><td>不動產估價師法施行細則</td><td>101.01.11 發布</td><td>§17 跨縣市處分應合併累計</td></tr>
+    </tbody>
+  </table></div>
+  </div>
 </div><!-- /tab-tools -->
 
 <!-- ③ 申論 -->
@@ -1077,62 +1076,6 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 </div><!-- /tab-essay -->
 
 <!-- ④ 現行法 -->
-<div id="tab-law" class="panel">
-  <div class="sec-title">現行法版本</div>
-  <table class="law-table">
-    <thead><tr><th>法規名稱</th><th>現行版本</th><th>狀態</th></tr></thead>
-    <tbody>
-      <tr><td>不動產估價技術規則</td><td>107.09.17 修正</td><td><span class="tag-ok">✓ 已確認</span></td></tr>
-      <tr><td>不動產估價師法</td><td>113.08.07 修正</td><td><span class="tag-ok">✓ 已確認</span></td></tr>
-      <tr><td>不動產估價師法施行細則</td><td>101.01.11 發布</td><td><span class="tag-ok">✓ §17跨地懲戒累計：跨縣市處分應合併累計（2026-10-08核實）</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="sec-title">易混淆核心數字（技術規則）</div>
-  <table class="law-table">
-    <thead><tr><th>考點</th><th>正確數字</th><th>常見誤填</th><th>條號</th></tr></thead>
-    <tbody>
-      <tr><td>折舊定額法殘餘率上限</td><td><span class="tag-warn">10%</span></td><td>20%</td><td>§46</td></tr>
-      <tr><td>比較法單項調整率上限</td><td><span class="tag-warn">15%</span></td><td>20%</td><td>§22</td></tr>
-      <tr><td>比較法總調整率上限</td><td><span class="tag-warn">30%</span></td><td>40%</td><td>§22</td></tr>
-      <tr><td>比較法試算差距上限</td><td><span class="tag-warn">20%</span></td><td>30%</td><td>§23</td></tr>
-      <tr><td>CAMA 樣本數</td><td><span class="tag-warn">≥ 自變數個數×5</span></td><td>≥ 30個</td><td>§68</td></tr>
-      <tr><td>CAMA 判定係數</td><td><span class="tag-warn">R² ≥ 0.7</span></td><td>0.5</td><td>§68</td></tr>
-      <tr><td>CAMA 顯著機率</td><td><span class="tag-warn">p &lt; 5%</span></td><td>5%（含）</td><td>§68</td></tr>
-    </tbody>
-  </table>
-
-  <div class="sec-title">易混淆概念：區域因素 vs 個別因素（A3）</div>
-  <table class="law-table">
-    <thead><tr><th>類別</th><th>易混考點</th><th>記憶錨點</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span style="background:color-mix(in srgb,var(--accent-b) 15%,var(--paper));color:var(--accent-b);border:1px solid var(--accent-b);padding:2px 6px;border-radius:4px;font-weight:700;">區域因素</span></td>
-        <td><strong style="color:var(--accent-b)">道路寬度與連接性</strong><br><span style="font-size:.82rem;color:var(--muted)">外面那條路有多寬、通哪裡、幹道或巷弄</span></td>
-        <td style="font-size:.82rem">看「<strong>路</strong>」本身：路寬、幹道、公設、商圈</td>
-      </tr>
-      <tr>
-        <td><span style="background:color-mix(in srgb,var(--accent-r) 15%,var(--paper));color:var(--accent-r);border:1px solid var(--accent-r);padding:2px 6px;border-radius:4px;font-weight:700;">個別因素</span></td>
-        <td><strong style="color:var(--accent-r)">臨街寬度</strong><br><span style="font-size:.82rem;color:var(--muted)">這筆地面對馬路那一面有多寬（門面）</span></td>
-        <td style="font-size:.82rem">看「<strong>地</strong>」本身：臨街面、面積、形狀、屋齡</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="warn-box">⚠️ <strong>記法：</strong>家門口那條路多寬 → <strong style="color:var(--accent-b)">區域</strong>；你家門面多寬 → <strong style="color:var(--accent-r)">個別</strong></div>
-
-  <div class="sec-title">計算落差題目（誠實標記）</div>
-  <div class="notice-box">以下題目計算結果與官方答案有落差，考試時以官方答案為準：</div>
-  <table class="law-table">
-    <thead><tr><th>題目</th><th>我的計算</th><th>官方答案</th><th>備注</th></tr></thead>
-    <tbody>
-      <tr><td>106年D2第29題</td><td>623萬</td><td>1,256萬</td><td>債務保障比率法邏輯有出入</td></tr>
-      <tr><td>99年D2第9題</td><td>280萬</td><td>130萬</td><td>房地分離法，無法重現</td></tr>
-      <tr><td>106年E1第19題</td><td>27,492萬</td><td>12,492萬</td><td>V公式差距，原因不明</td></tr>
-      <tr><td>106年H2第13題</td><td>應為B</td><td>D</td><td>與技術規則§90矛盾，疑似誤標</td></tr>
-      <tr><td>104年E1第23題</td><td>B (×1/2版)</td><td>D (×1/4版)</td><td>不同公式版本，建議核實</td></tr>
-    </tbody>
-  </table>
-</div><!-- /tab-law -->
 
 <!-- ⑤ 進度 -->
 <div id="tab-progress" class="panel">
@@ -1177,7 +1120,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   <div class="checklist">
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">16年考點分析（選擇520題＋申論32題）</div><div class="chk-desc">99–114年逐題分析，章節占比、趨勢轉變、115年優先清單</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">重點筆記（A1–I1全科）</div><div class="chk-desc">含★高頻/★陷阱標記，表格化比較公式</div></div></div>
-    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">題庫（99–114年520題，含官方答案）</div><div class="chk-desc">部分計算題有誠實標記（落差題目，見④現行法頁）</div></div></div>
+    <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">題庫（99–114年520題，含官方答案）</div><div class="chk-desc">部分計算題有誠實標記（落差題目，見工具→數字・公式④）</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題攻略表（官方32題＋預測6題，🔴🟡🟢三級）</div><div class="chk-desc">官方題攻略表已通過官方PDF核實（2026-06-20）；預測題補充完成（2026-10-18）</div></div></div>
     <div class="chk-item done-item"><div class="chk-status done">✓</div><div class="chk-body"><div class="chk-title">申論題實戰範文（32題計算型四段式）</div><div class="chk-desc">主題層級已核實；完整範文逐句核實尚未執行</div></div></div>
   </div>
@@ -1210,7 +1153,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
       <tr><td class="rank-2">🟡</td><td>土地開發分析法（E1）</td><td>24</td><td>V公式計算，申論題申論高頻</td></tr>
       <tr><td class="rank-3">🟢</td><td>特殊宗地（H1+H2）</td><td>21</td><td>農場/鹽田比較法、污染宗地成本法</td></tr>
       <tr><td class="rank-3">🟢</td><td>樓層別效用比（G1）</td><td>15</td><td>公式：分配地價=總價×(效用比÷總和)</td></tr>
-      <tr><td class="rank-3">🟢</td><td>CAMA（I1）</td><td>12</td><td>樣本數≥5倍、R²≥0.7、p&lt;5%</td></tr>
+      <tr><td class="rank-3">🟢</td><td>CAMA（I1）</td><td>12</td><td>樣本數≥自變數5倍、調整後R²≥0.7、顯著機率≤5%（§20）</td></tr>
       <tr><td class="rank-3">🟢</td><td>都市更新（H3）</td><td>5</td><td>基地價值比率計算</td></tr>
     </tbody>
   </table>
@@ -1225,7 +1168,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 
 <footer class="site-footer">
   📐 不動產估價備考指揮中心 v3.1｜2026-10-14（V2 導覽區：進度點＋Pill 分頁）<br>
-  法規來源：不動產估價技術規則（107.09.17）、不動產估價師法（113.08.07）
+  法規來源：不動產估價技術規則（102.12.20）、不動產估價師法（113.08.07）
 </footer>
 
 <!-- Floating btns -->
@@ -1247,11 +1190,17 @@ function showTab(id,btn){
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   var p=document.getElementById('tab-'+id);if(p)p.classList.add('active');
   // 由底欄或流程點切換時，btn 可能不是底欄按鈕，統一依 id 找回對應底欄鈕
-  var TABS=['drill','tools','essay','law','progress','strategy'];
+  var TABS=['drill','tools','essay','progress','strategy'];
   var i=TABS.indexOf(id), all=document.querySelectorAll('.botnav .tab-btn');
   if(i>=0&&all[i]) all[i].classList.add('active');
   else if(btn) btn.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+function toolSub(id,btn){
+  document.querySelectorAll('.tl-sub').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tl-seg-btn').forEach(function(b){b.classList.remove('active');});
+  var p=document.getElementById('tl-'+id);if(p)p.classList.add('active');
+  if(btn)btn.classList.add('active');
 }
 function showSub(par,id,btn){
   var pre='sub-'+par+'-';
