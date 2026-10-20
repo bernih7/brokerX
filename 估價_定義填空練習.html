@@ -46,7 +46,10 @@ header h1{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margi
 header .sub{font-size:13px;opacity:.85}
 
 /* nav */
-nav{background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+html,body{overflow-x:hidden;max-width:100%}
+.answer-note,.qc-answer,.card{overflow-wrap:anywhere;max-width:100%;box-sizing:border-box}
+nav{max-width:100%;box-sizing:border-box;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10;max-height:40vh;overflow-y:auto}
+;@media(max-height:760px),(max-width:760px){nav{position:static;max-height:none}}
 .nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
 .nav-btn.on{background:var(--redbg);color:#fff;border-color:var(--redbg)}
 .nav-btn.h1{background:color-mix(in srgb,var(--gold) 30%,transparent);border-color:var(--gold);color:var(--ink)}
