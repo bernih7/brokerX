@@ -1093,7 +1093,7 @@ function renderQuizCard() {
 
   let ki = 0;
   const qid = 'q' + quizIdx;
-  const builtBlank = c.blank.replace(/___/g, () => {
+  const builtBlank = fmtAns(c.blank,true).replace(/___/g, () => {
     const ans = keyMatches[ki] || '？';
     const plainAns = ans.replace(/<[^>]+>/g, '');
     const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
@@ -1117,15 +1117,16 @@ function renderQuizCard() {
       <div class="qc-btns">
         <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
         <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
-        <button class="qc-btn qc-btn-all" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
+        <button class="qc-btn qc-btn-all" id="qbtn-all-${qid}" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
         <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
       </div>
       <div class="qc-answer" id="qans-${qid}">
-        <div>${c.answer}</div>
+        <div class="key-note">${fmtAns(c.answer)}</div>
         <div class="src">📌 ${c.src}</div>
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
     </div>`;
+  tintMnemonic(area);
 }
 
 function toggleQBlank(el) {
@@ -1137,6 +1138,7 @@ function toggleQBlank(el) {
   } else {
     val.style.display = ''; mask.style.display = 'none';
     el.classList.add('revealed');
+    const q=el.dataset.qid;if(!document.querySelector('#qblank-'+q+' .blank:not(.revealed)'))revealAllQuizBlanks(q);
   }
 }
 
@@ -1155,11 +1157,7 @@ function revealOneQuizBlank(qid) {
   if (remaining.length === 0) {
     revealAllQuizBlanks(qid);
     const revBtn = document.getElementById('qbtn-reveal-' + qid);
-    if (revBtn) {
-      revBtn.textContent = '下一題 →';
-      revBtn.className = 'qc-btn qc-btn-next';
-      revBtn.onclick = () => nextQuiz();
-    }
+    if (revBtn) revBtn.style.display = 'none';
   }
 }
 
@@ -1171,6 +1169,7 @@ function revealAllQuizBlanks(qid) {
   });
   const ans = document.getElementById('qans-' + qid);
   if (ans) ans.classList.add('show');
+  const rb = document.getElementById('qbtn-reveal-' + qid); if (rb) rb.style.display='none'; const ab=document.getElementById('qbtn-all-' + qid); if (ab) ab.style.display='none';
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
 }
