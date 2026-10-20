@@ -13,7 +13,7 @@
   --primary:#2F5D50;
   --line:#DDD6C3; --rule:#DDD6C3;
   --muted:#7A8C84; --shadow:rgba(37,48,44,.09);
-  --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C; --ansbg:#CFE6D2; --ansline:#2F6B45;
+  --gold:#B8782E; --green:#2F6B45; --blue:#1E6B8C; --ansbg:#9CCBF0; --ansline:#1E6B8C;
   --orange:#B8782E; --purple:#7B5C8C; --red:#2F5D50; --redbg:#2F5D50; --stamp:#2F5D50;
   color-scheme: light;
 }
@@ -24,7 +24,7 @@
     --primary:#5A9E88;
     --line:#2E3A34; --rule:#2E3A34;
     --muted:#7A9488; --shadow:rgba(0,0,0,.3);
-    --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 34%,var(--paper)); --ansline:#4FB0DC;
+    --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
     --orange:#D09848; --purple:#9A7CB0; --red:#8CCFB8; --redbg:#3D7A66; --stamp:#8CCFB8;
     color-scheme: dark;
   }
@@ -35,7 +35,7 @@
   --primary:#5A9E88;
   --line:#2E3A34; --rule:#2E3A34;
   --muted:#7A9488; --shadow:rgba(0,0,0,.3);
-  --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 34%,var(--paper)); --ansline:#4FB0DC;
+  --gold:#D09848; --green:#4A9060; --blue:#4FB0DC; --ansbg:color-mix(in srgb,#4FB0DC 48%,var(--paper)); --ansline:#7CC8EE;
   --orange:#D09848; --purple:#9A7CB0; --red:#8CCFB8; --redbg:#3D7A66; --stamp:#8CCFB8;
   color-scheme: dark;
 }
@@ -103,7 +103,7 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .blank.revealed{
   color:var(--ink);
   background:var(--ansbg);
-  border-bottom-color:transparent;box-shadow:none;margin:0 3px;
+  border-bottom-color:var(--ansline);margin:0 3px;
 }
 .blank .blank-mask{display:inline}
 .blank.revealed .blank-mask{display:none}
@@ -120,7 +120,7 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
 .section-hint{font-size:11px;color:#AAA09A;margin-bottom:14px;letter-spacing:.3px}
 
-.answer-note{display:none;margin-top:10px;padding:10px 12px;background:color-mix(in srgb,#E58FA8 24%,var(--paper));border-left:3px solid #D9708C;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
+.answer-note{display:none;margin-top:10px;padding:10px 12px;background:color-mix(in srgb,#F2C94C 22%,var(--paper));border-left:3px solid #D9A81E;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.85;color:var(--ink)}
 .answer-note.show{display:block}
 .answer-note .key{color:var(--ink);font-weight:800;background:var(--ansbg);padding:0 4px;border-radius:3px}
 .answer-note .src{margin-top:6px;font-size:12px;color:var(--muted)}
@@ -139,7 +139,7 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .mode-tab{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 0;
   border:none;background:transparent;color:var(--muted);cursor:pointer;
   border-bottom:3px solid transparent;transition:all .15s}
-.mode-tab.on{color:var(--red);border-bottom-color:var(--red);background:transparent}
+.mode-tab.on{color:var(--red);border-bottom:3px solid var(--red);background:transparent}
 
 /* 測驗模式 */
 #quiz-mode{display:none;max-width:1240px;margin:0 auto;padding:20px 16px 80px}
@@ -171,7 +171,7 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
   transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
 .qc-blank .blank:hover{background:color-mix(in srgb,var(--primary) 22%,transparent)}
 .qc-blank .blank.revealed{color:var(--ink);background:var(--ansbg);
-  border-bottom-color:transparent}
+  border-bottom-color:var(--ansline)}
 .qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
   border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
@@ -1198,7 +1198,7 @@ function prevQuiz() {
 <script>(function(){var nav=document.getElementById('nav');if(!nav)return;var bar=document.createElement('div');bar.id='navbar';var t=document.createElement('button');t.id='navtog';bar.appendChild(t);nav.parentNode.insertBefore(bar,nav);
 function lab(){var on=nav.querySelector('.nav-btn.on');t.innerHTML='📑 章節：<b>'+(on?on.textContent.replace(/[★☆\s]+$/,''):'')+'</b> '+(nav.classList.contains('open')?'▴':'▾');}
 t.onclick=function(){nav.classList.toggle('open');lab();};
-nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(function(){nav.classList.remove('open');lab();window.scrollTo({top:bar.offsetTop,behavior:'smooth'});},30);});
+nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(lab,30);});
 setTimeout(lab,200);})();</script>
 </body>
 </html>
