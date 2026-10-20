@@ -145,7 +145,10 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 #quiz-mode.active{display:block}
 
 /* 章節過濾 */
-.quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.quiz-filter{display:none;flex-wrap:wrap;gap:6px;margin-bottom:16px;justify-content:center}
+.quiz-filter.open{display:flex}
+.navtog{font:inherit;font-size:13.5px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer}
+.navtog b{color:var(--ink)}
 .qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
   border-radius:99px;border:1.5px solid var(--line);background:transparent;
   color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -1003,7 +1006,7 @@ function switchCh(id){
 let quizPool = [];        // 所有題目扁平化
 let quizQueue = [];       // 本輪隨機排列
 let quizIdx = 0;
-let quizFilter = 'ALL';   // 'ALL' 或 chapter id
+let quizFilter = new Set();   // 空＝全部章節；否則為章節 id 集合
 
 function setMode(mode) {
   const browse = document.getElementById('main');
@@ -1013,10 +1016,12 @@ function setMode(mode) {
   const tabQ = document.getElementById('tab-quiz');
   if (mode === 'browse') {
     browse.style.display = ''; nav.style.display = '';
+    const nb=document.getElementById('navbar');if(nb)nb.style.display='';
     quizEl.classList.remove('active');
     tabB.classList.add('on'); tabQ.classList.remove('on');
   } else {
     browse.style.display = 'none'; nav.style.display = 'none';
+    const nb=document.getElementById('navbar');if(nb)nb.style.display='none';
     quizEl.classList.add('active');
     tabB.classList.remove('on'); tabQ.classList.add('on');
     initQuiz();
@@ -1040,27 +1045,42 @@ function initQuiz() {
     allBtn.className = 'qf-btn qf-all on';
     allBtn.textContent = '全部章節';
     allBtn.onclick = () => setQuizFilter('ALL', allBtn);
+    allBtn.dataset.q='ALL';
     filterEl.appendChild(allBtn);
     DATA.forEach(ch => {
       const btn = document.createElement('button');
       btn.className = 'qf-btn';
       btn.textContent = ch.label;
       btn.onclick = () => setQuizFilter(ch.id, btn);
+      btn.dataset.q=ch.id;
       filterEl.appendChild(btn);
     });
+  }
+  if(!document.getElementById('qftog')){
+    const t=document.createElement('button');t.id='qftog';t.className='navtog';
+    t.onclick=()=>{filterEl.classList.toggle('open');t.innerHTML='📑 章節：<b>'+quizFilterLabel()+'</b> '+(filterEl.classList.contains('open')?'▴':'▾');};
+    const w=document.createElement('div');w.style.cssText='display:flex;justify-content:center;margin-bottom:10px';w.appendChild(t);filterEl.parentNode.insertBefore(w,filterEl);
+    t.innerHTML='📑 章節：<b>全部章節</b> ▾';
   }
   startQuizRound();
 }
 
+function quizFilterLabel(){
+  if(!quizFilter.size)return '全部章節';
+  const n=[...quizFilter].map(id=>{const c=DATA.find(x=>x.id===id);return c?c.label.split(' ')[0]:id;});
+  return n.length<=3?n.join('、'):n.slice(0,3).join('、')+' 等'+n.length+'章';
+}
 function setQuizFilter(id, btn) {
-  quizFilter = id;
-  document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
+  if(id==='ALL') quizFilter.clear();
+  else if(quizFilter.has(id)) quizFilter.delete(id); else quizFilter.add(id);
+  document.querySelectorAll('.qf-btn').forEach(b=>{
+    const q=b.dataset.q;b.classList.toggle('on',q==='ALL'?quizFilter.size===0:quizFilter.has(q));
+  });
+  const t=document.getElementById('qftog');if(t)t.innerHTML='📑 章節：<b>'+quizFilterLabel()+'</b> '+(document.getElementById('quiz-filter').classList.contains('open')?'▴':'▾');
   startQuizRound();
 }
-
 function startQuizRound() {
-  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  const pool = quizFilter.size === 0 ? quizPool : quizPool.filter(c => quizFilter.has(c.chId));
   // Fisher-Yates shuffle
   quizQueue = [...pool];
   for (let i = quizQueue.length - 1; i > 0; i--) {
