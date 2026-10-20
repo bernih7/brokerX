@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>估價｜折現現金流量分析法 計算題組</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1E6;--card:#FFFEFA;--line:#DDD6C0;
+  --ink:#25302C;--sub:#5F6B63;--pri:#2F5D50;
+  --key:#8A5517;--red:#A8402B;--gold:#B8782E;--green:#35693F;
+  --opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1d1b17;--card:#272420;--line:#3d3830;
+    --ink:#ece6d8;--sub:#a79f8c;--pri:#6E9C8C;
+    --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
+    --opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1d1b17;--card:#272420;--line:#3d3830;
+  --ink:#ece6d8;--sub:#a79f8c;--pri:#6E9C8C;
+  --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
+  --opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg);color:var(--ink);
+  min-height:100vh;font-size:15px;line-height:1.7;
+  padding:0 0 90px;overflow-x:hidden;
+}
+h1,h2,h3{font-family:"Noto Serif TC",serif;}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px;}
+
+/* header */
+header{
+  background:linear-gradient(135deg,var(--pri),#1F4034);
+  color:#fff;padding:26px 16px 22px;text-align:center;position:relative;overflow:hidden;
+  padding-top:calc(26px + env(safe-area-inset-top,0px));
+}
+header::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px);
+}
+header h1{font-size:1.32rem;font-weight:900;margin-bottom:6px;position:relative;z-index:1;}
+header .sub{font-size:.82rem;opacity:.88;position:relative;z-index:1;line-height:1.6;}
+.theme-btn{
+  position:absolute;top:14px;right:14px;z-index:5;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);
+  color:#fff;border-radius:20px;padding:5px 12px;font-size:.76rem;cursor:pointer;
+}
+.back-link{
+  position:absolute;top:14px;left:14px;z-index:5;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);
+  color:#fff;border-radius:20px;padding:5px 12px;font-size:.76rem;text-decoration:none;
+}
+
+/* 進度 */
+.prog-wrap{
+  display:flex;align-items:center;gap:10px;
+  background:var(--card);border:1.5px solid var(--line);border-radius:10px;
+  padding:10px 14px;margin:16px 0;font-size:.8rem;color:var(--sub);
+}
+.pbar{flex:1;background:var(--line);border-radius:99px;height:7px;overflow:hidden;}
+.pfill{height:100%;background:var(--green);border-radius:99px;transition:width .35s;}
+.pnum{font-weight:700;color:var(--green);white-space:nowrap;}
+
+/* 公式卡 */
+.formula-card{
+  background:var(--card);border:2px solid var(--pri);border-radius:12px;
+  padding:16px 16px 14px;margin-bottom:14px;
+}
+.fc-title{font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:900;color:var(--pri);margin-bottom:10px;}
+.fml{
+  background:var(--tipbg);border-left:4px solid var(--gold);
+  padding:10px 13px;border-radius:0 8px 8px 0;margin-bottom:9px;
+  font-size:.95rem;font-weight:700;line-height:1.8;overflow-x:auto;
+}
+.fml small{display:block;font-weight:400;font-size:.78rem;color:var(--sub);margin-top:5px;line-height:1.6;}
+.hl{color:var(--red);font-weight:900;}
+.sym{font-size:.8rem;color:var(--sub);line-height:1.8;}
+.sym b{color:var(--ink);}
+
+/* 兩版辨析 */
+.warn-card{
+  background:var(--badbg);border:1.5px solid var(--red);border-radius:12px;
+  padding:14px 16px;margin-bottom:18px;font-size:.84rem;line-height:1.75;
+}
+.warn-card h3{font-size:.92rem;color:var(--red);margin-bottom:8px;}
+.warn-card table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.8rem;}
+.warn-card th,.warn-card td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;background:var(--card);}
+.warn-card th{background:var(--opt);font-weight:700;font-size:.78rem;}
+
+/* 題卡 */
+.q-card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:12px;
+  padding:16px;margin-bottom:14px;
+}
+.q-card.done{border-color:var(--green);}
+.q-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.q-no{
+  background:var(--pri);color:#fff;border-radius:8px;
+  min-width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;font-family:"Noto Serif TC",serif;
+}
+.q-tag{
+  font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--tipbg);color:var(--key);white-space:nowrap;align-self:center;
+}
+.q-tag.trap{background:var(--badbg);color:var(--red);}
+.q-title{font-weight:700;font-size:.92rem;flex:1;min-width:0;line-height:1.5;}
+.q-body{font-size:.88rem;line-height:1.8;margin-bottom:12px;}
+.given{
+  background:var(--opt);border:1px dashed var(--line);border-radius:8px;
+  padding:9px 12px;margin-top:8px;font-size:.84rem;
+}
+.given b{color:var(--key);}
+
+/* 作答 */
+.ans-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+.ans-row label{font-size:.82rem;color:var(--sub);font-weight:600;}
+.ans-row input{
+  flex:1 1 130px;min-width:110px;padding:8px 11px;font-size:.92rem;
+  border:1.5px solid var(--line);border-radius:8px;background:var(--opt);color:var(--ink);
+  font-family:inherit;
+}
+.ans-row input:focus{outline:none;border-color:var(--pri);}
+.btn{
+  padding:8px 15px;border-radius:8px;border:none;cursor:pointer;
+  font-size:.84rem;font-weight:700;font-family:inherit;transition:opacity .15s;
+}
+.btn:hover{opacity:.85;}
+.btn-chk{background:var(--pri);color:#fff;}
+.btn-sol{background:var(--opt);color:var(--ink);border:1.5px solid var(--line);}
+.fb{font-size:.84rem;font-weight:700;padding:8px 12px;border-radius:8px;margin-top:4px;display:none;}
+.fb.ok{display:block;background:var(--okbg);color:var(--green);}
+.fb.bad{display:block;background:var(--badbg);color:var(--red);}
+
+/* 詳解 */
+.sol{display:none;margin-top:11px;border-top:1.5px dashed var(--line);padding-top:11px;}
+.sol.open{display:block;}
+.sol h4{font-size:.85rem;color:var(--pri);margin:9px 0 5px;font-family:"Noto Serif TC",serif;}
+.sol h4:first-child{margin-top:0;}
+.step{
+  background:var(--opt);border-left:3px solid var(--pri);
+  padding:8px 12px;border-radius:0 7px 7px 0;margin-bottom:7px;
+  font-size:.85rem;line-height:1.8;overflow-x:auto;
+}
+.step .eq{font-weight:700;color:var(--key);}
+.res{
+  background:var(--okbg);border:1.5px solid var(--green);border-radius:8px;
+  padding:9px 12px;font-size:.9rem;font-weight:700;color:var(--green);margin-top:4px;
+}
+.trap-box{
+  background:var(--badbg);border-left:3px solid var(--red);
+  padding:8px 12px;border-radius:0 7px 7px 0;margin-top:9px;
+  font-size:.82rem;line-height:1.75;color:var(--ink);
+}
+.trap-box b{color:var(--red);}
+
+.foot{text-align:center;padding:22px 16px;font-size:.72rem;color:var(--sub);border-top:1px solid var(--line);margin-top:18px;}
+.reset-btn{
+  background:none;border:1px solid var(--line);color:var(--sub);
+  border-radius:8px;padding:6px 14px;font-size:.76rem;cursor:pointer;font-family:inherit;margin-top:8px;
+}
+@media(max-width:430px){
+  header h1{font-size:1.12rem;}
+  .q-head{flex-wrap:wrap;}
+}
+</style>
+<script src="/bxv-use.js"></script>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="/brokerX/%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">← 指揮中心</a>
+  <button class="theme-btn" id="themeBtn">🌙 深色</button>
+  <h1>📈 折現現金流量分析法（DCF）計算題組</h1>
+  <div class="sub">8 題換條件練習｜§31 定義・§32 公式・§33 契約租金<br>113 年申論考 DCF 定義；選擇題近年開始出現算數，115 年可能補上計算</div>
+</header>
+
+<div class="wrap">
+
+  <div class="prog-wrap">
+    <span>答對進度</span>
+    <div class="pbar"><div class="pfill" id="pfill" style="width:0%"></div></div>
+    <span class="pnum" id="pnum">0／8</span>
+  </div>
+
+  <!-- 公式卡 -->
+  <div class="formula-card">
+    <div class="fc-title">📐 本題組使用的公式（技術規則§31、§32）</div>
+    <div class="fml">
+      P ＝ Σ CFₖ ÷ (1＋Y)ᵏ ＋ Pₙ' ÷ (1＋Y)ⁿ'
+      <small>P＝收益價格　CFₖ＝第 k 期淨收益　Y＝折現率　n'＝折現現金流量分析期間　k＝各年期　Pₙ'＝期末價值<br>各期淨收益與期末價值，<b>都</b>要用折現率折回價格日期，再加總。</small>
+    </div>
+    <div class="fml">
+      淨收益 ＝ 有效總收入 － 總費用　　有效總收入 ＝ 總收入 －（空置等損失）
+      <small>§42：淨收益＝有效總收入－總費用（營運性不動產另須扣除非不動產所生收益）。§38 總費用含地價稅或地租、房屋稅、保險費、管理費、維修費等；包含建物者另須加計折舊提存費。</small>
+    </div>
+    <div class="sym">
+      期末價值常見作法〔教材作法，條文只稱「期末價值」〕：期末價值 ＝ 第 n＋1 期淨收益 ÷ 期末（最終）資本化率。<br>
+      證券化目的採 DCF：各期淨收益<b>原則以契約租金計算</b>；契約租金未知者，以市場經濟租金推估（§33Ⅱ、Ⅲ）。
+    </div>
+  </div>
+
+  <div class="warn-card">
+    <h3>⚠️ DCF 三大易錯點</h3>
+    ①<b>期末價值也要折現</b>，折現期數＝分析期間末（第 n 期），不是 n－1 或 n＋1。②<b>折現率 Y 越高，價格越低</b>（第4題驗證）。③DCF 與直接資本化法的差別：直接資本化法用「未來平均一年」淨收益 ÷ 資本化率（§29、§30）；DCF 用「分析期間各期」淨收益與期末價值折現（§31）。
+  </div>
+
+  <div id="qs"></div>
+
+  <div class="foot">
+    估價｜折現現金流量分析法計算題組 v1.0<br>
+    公式依不動產估價技術規則§31、§32、§33；期末價值求法為教材作法；本頁題目為依考點自編之練習題，非考選部官方試題。<br>
+    <button class="reset-btn" id="resetBtn">清除本頁作答紀錄</button>
+  </div>
+</div>
+
+<script>
+var QS=[
+{
+ no:1,tag:'基本折現',trap:false,
+ title:'三期淨收益＋期末價值',
+ body:'某出租店面採折現現金流量分析法估價。分析期間 <b>3 年</b>，各年淨收益依序為 <b>100、120、140 萬元</b>，第 3 年末預估期末價值 <b>2,000 萬元</b>，折現率 <b>5%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2053, tol:2,
+ hint:'答案填萬元，例如 2053',
+ sol:[
+  ['各期淨收益折現','100÷1.05 ＝ 95.24<br>120÷1.05² ＝ 108.84<br>140÷1.05³ ＝ 120.94<br>合計 ＝ <span class="eq">325.02 萬元</span>'],
+  ['期末價值折現（第 3 期）','2,000 ÷ 1.05³ ＝ <span class="eq">1,727.68 萬元</span>'],
+  ['加總','325.02 ＋ 1,727.68']
+ ],
+ res:'P ＝ <b>2,052.69 ≈ 2,053 萬元</b>',
+ trapNote:'期末價值落在<b>第 3 年末</b>，與第 3 年淨收益同期，所以也除以 1.05³。若誤用 1.05² 會得 2,139 萬、誤用 1.05⁴ 會得 1,970 萬（第7題）。'
+},
+{
+ no:2,tag:'期末價值求法',trap:false,
+ title:'期末價值由資本化率求得',
+ body:'分析期間 <b>5 年</b>，各年淨收益依序為 <b>80、84、88、92、96 萬元</b>。第 6 年預估淨收益 <b>100 萬元</b>，期末（最終）資本化率 <b>4%</b>，折現率 <b>6%</b>。期末價值以第 6 年淨收益除以期末資本化率求得，並於第 5 年末發生。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2237, tol:3,
+ hint:'答案填萬元，例如 2237',
+ sol:[
+  ['五年淨收益折現','80÷1.06 ＝ 75.47；84÷1.06² ＝ 74.76；88÷1.06³ ＝ 73.89<br>92÷1.06⁴ ＝ 72.87；96÷1.06⁵ ＝ 71.74<br>合計 ＝ <span class="eq">368.73 萬元</span>'],
+  ['求期末價值','100 ÷ 4% ＝ <span class="eq">2,500 萬元</span>（發生在第 5 年末）'],
+  ['期末價值折現','2,500 ÷ 1.06⁵ ＝ <span class="eq">1,868.15 萬元</span>'],
+  ['加總','368.73 ＋ 1,868.15']
+ ],
+ res:'P ＝ <b>2,236.87 ≈ 2,237 萬元</b>',
+ trapNote:'兩個資本化／折現率<b>不能混用</b>：折現各期現金流用 Y（6%），求期末價值用期末資本化率（4%）。期末價值用「第 n＋1 期」淨收益，但折現只折 n 期。'
+},
+{
+ no:3,tag:'等額年金＋期末價值',trap:false,
+ title:'每年淨收益相同時的年金折現',
+ body:'某不動產每年淨收益固定為 <b>60 萬元</b>，分析期間 <b>10 年</b>，第 10 年末期末價值 <b>1,200 萬元</b>，折現率 <b>4%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:1297, tol:2,
+ hint:'答案填萬元，例如 1297',
+ sol:[
+  ['年金現值','60 × [1－1.04⁻¹⁰] ÷ 0.04 ＝ 60 × 8.1109 ＝ <span class="eq">486.65 萬元</span>'],
+  ['期末價值折現','1,200 ÷ 1.04¹⁰ ＝ 1,200 × 0.6756 ＝ <span class="eq">810.68 萬元</span>'],
+  ['加總','486.65 ＋ 810.68']
+ ],
+ res:'P ＝ <b>1,297.33 ≈ 1,297 萬元</b>',
+ trapNote:'各期相同時用年金現值係數 [1－(1＋Y)⁻ⁿ]÷Y，省去逐年折現；但<b>期末價值不屬於年金</b>，要另外折現一次。'
+},
+{
+ no:4,tag:'折現率敏感度',trap:false,
+ title:'折現率從 5% 降到 4%，價格差多少',
+ body:'沿用第1題的現金流量（淨收益 100、120、140 萬元；第 3 年末期末價值 2,000 萬元）。委託人改以折現率 <b>4%</b> 估價。',
+ ask:'折現率 4% 時的收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2110, tol:2,
+ hint:'答案填萬元，例如 2110',
+ sol:[
+  ['各期淨收益折現','100÷1.04 ＝ 96.15；120÷1.04² ＝ 110.95；140÷1.04³ ＝ 124.46<br>合計 ＝ <span class="eq">331.56 萬元</span>'],
+  ['期末價值折現','2,000 ÷ 1.04³ ＝ <span class="eq">1,777.99 萬元</span>'],
+  ['加總與比較','331.56 ＋ 1,777.99 ＝ 2,109.55<br>對照第1題 5%：2,052.69，高出約 56.9 萬元；若升至 6% 則為 1,997.92 萬元']
+ ],
+ res:'P ＝ <b>2,109.55 ≈ 2,110 萬元</b>（折現率低 → 價格高）',
+ trapNote:'折現率與價格<b>反向變動</b>。折現率反映風險：風險高、折現率高、價格低。選擇題常考這個方向，不必算也能判斷。'
+},
+{
+ no:5,tag:'契約租金・證券化',trap:false,
+ title:'以契約租金推各期淨收益（§33）',
+ body:'某商辦大樓為不動產證券化標的，採 DCF 估價。未來 5 年契約租金（年）依序為 <b>500、500、520、520、540 萬元</b>，各年總費用為契約租金之 <b>20%</b>。第 5 年末期末價值 <b>9,000 萬元</b>，折現率 <b>4.5%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:9031, tol:3,
+ hint:'答案填萬元，例如 9031',
+ sol:[
+  ['各期淨收益＝契約租金×(1－20%)','400、400、416、416、432 萬元'],
+  ['淨收益折現','400÷1.045 ＝ 382.78；400÷1.045² ＝ 366.29；416÷1.045³ ＝ 364.54<br>416÷1.045⁴ ＝ 348.84；432÷1.045⁵ ＝ 346.66<br>合計 ＝ <span class="eq">1,809.11 萬元</span>'],
+  ['期末價值折現','9,000 ÷ 1.045⁵ ＝ <span class="eq">7,222.06 萬元</span>'],
+  ['加總','1,809.11 ＋ 7,222.06']
+ ],
+ res:'P ＝ <b>9,031.17 ≈ 9,031 萬元</b>',
+ trapNote:'§33Ⅱ：<b>證券化目的</b>採 DCF，各期淨收益原則以<b>契約租金</b>計算；若改用「市場經濟租金」是契約租金未知（§33Ⅲ）或情況特殊並於報告書敘明時才可以。'
+},
+{
+ no:6,tag:'由總收入推淨收益',trap:false,
+ title:'潛在總收入→有效總收入→淨收益→DCF',
+ body:'某收益性不動產第 1 年潛在總收入 <b>1,000 萬元</b>，空置損失率 <b>5%</b>，總費用 <b>250 萬元</b>；第 1 年淨收益起每年成長 <b>2%</b>。分析期間 <b>3 年</b>，期末價值以第 4 年淨收益除以期末資本化率 <b>5%</b> 求得，折現率 <b>7%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:14000, tol:5,
+ hint:'答案填萬元，例如 14000',
+ sol:[
+  ['第 1 年淨收益','有效總收入 ＝ 1,000 ×(1－5%) ＝ 950<br>淨收益 ＝ 950 － 250 ＝ <span class="eq">700 萬元</span>'],
+  ['各期淨收益','第1年 700、第2年 714、第3年 728.28、第4年 742.85'],
+  ['各期折現','700÷1.07 ＝ 654.21；714÷1.07² ＝ 623.64；728.28÷1.07³ ＝ 594.49<br>合計 ＝ <span class="eq">1,872.33 萬元</span>'],
+  ['期末價值折現','742.85÷5% ＝ 14,856.91；÷1.07³ ＝ <span class="eq">12,127.67 萬元</span>'],
+  ['加總','1,872.33 ＋ 12,127.67 ＝ 14,000.00']
+ ],
+ res:'P ≈ <b>14,000 萬元</b>',
+ trapNote:'自我驗算：淨收益永續成長 g＝2%、折現率 7% 時，P＝700÷(7%－2%)＝14,000，與本題一致（期末資本化率＝Y－g＝5%）。<b>期末資本化率＝折現率－成長率</b>是 DCF 與直接資本化法接軌的關鍵。'
+},
+{
+ no:7,tag:'陷阱・期數錯誤',trap:true,
+ title:'期末價值折現期數錯誤會差多少',
+ body:'沿用第1題現金流量與折現率 5%（淨收益 100、120、140 萬元；第 3 年末期末價值 2,000 萬元）。某生把期末價值折現到<b>第 2 期</b>（誤以為期末價值少折一期）。',
+ ask:'該生算出的價格是多少（萬元，四捨五入至整數）？與正確答案差多少？',
+ unit:'萬元（填算出的價格）', ans:2139, tol:2,
+ hint:'答案填該生算出的價格，例如 2139',
+ sol:[
+  ['淨收益折現（同第1題）','325.02 萬元'],
+  ['期末價值誤折 2 期','2,000 ÷ 1.05² ＝ <span class="eq">1,814.06 萬元</span>'],
+  ['誤算結果','325.02 ＋ 1,814.06 ＝ 2,139.08<br>正確答案 2,052.69，高估 <span class="eq">86.39 萬元</span>']
+ ],
+ res:'誤算 ≈ <b>2,139 萬元</b>，高估約 <b>86 萬元</b>（若多折一期成 4 期則低估 82 萬元）',
+ trapNote:'檢查法：<b>期末價值折現期數＝最後一期淨收益的期數</b>。看到期末價值的折現次方數與最後一年淨收益不同，就是錯了。'
+},
+{
+ no:8,tag:'反推期末價值',trap:false,
+ title:'已知收益價格，反推期末價值',
+ body:'某不動產採 DCF 估得收益價格 <b>2,800 萬元</b>。分析期間 <b>3 年</b>，每年淨收益均為 <b>150 萬元</b>，折現率 <b>5%</b>。',
+ ask:'試求第 3 年末的期末價值（萬元，四捨五入至小數第 1 位）。',
+ unit:'萬元', ans:2768.5, tol:1.5,
+ hint:'答案填萬元，例如 2768.5',
+ sol:[
+  ['三年淨收益現值','150 × [1－1.05⁻³] ÷ 0.05 ＝ 150 × 2.7232 ＝ <span class="eq">408.49 萬元</span>'],
+  ['期末價值現值','2,800 － 408.49 ＝ <span class="eq">2,391.51 萬元</span>'],
+  ['還原為第 3 年末價值','2,391.51 × 1.05³ ＝ 2,391.51 × 1.157625']
+ ],
+ res:'期末價值 ≈ <b>2,768.5 萬元</b>',
+ trapNote:'反推要把「期末價值現值」<b>乘回</b> (1＋Y)ⁿ，不是直接拿 2,391.51 當期末價值。方向記法：折現是除，還原是乘。'
+}
+];
+
+var KEY='bx-dcfcalc-done';
+function getDone(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+function setDone(a){try{localStorage.setItem(KEY,JSON.stringify(a));}catch(e){}}
+
+function render(){
+  var box=document.getElementById('qs'),h='';
+  QS.forEach(function(q){
+    h+='<div class="q-card" id="qc'+q.no+'">'
+      +'<div class="q-head"><div class="q-no">'+q.no+'</div>'
+      +'<div class="q-title">'+q.title+'</div>'
+      +'<span class="q-tag'+(q.trap?' trap':'')+'">'+q.tag+'</span></div>'
+      +'<div class="q-body">'+q.body
+      +'<div class="given"><b>求：</b>'+q.ask+'</div></div>'
+      +'<div class="ans-row"><label for="in'+q.no+'">我的答案</label>'
+      +'<input type="text" inputmode="decimal" id="in'+q.no+'" placeholder="'+q.hint+'">'
+      +'<span style="font-size:.82rem;color:var(--sub);">'+q.unit+'</span>'
+      +'<button class="btn btn-chk" data-chk="'+q.no+'">核對</button>'
+      +'<button class="btn btn-sol" data-sol="'+q.no+'">看詳解</button></div>'
+      +'<div class="fb" id="fb'+q.no+'"></div>'
+      +'<div class="sol" id="sol'+q.no+'">';
+    q.sol.forEach(function(s,k){
+      h+='<h4>'+(k+1)+'. '+s[0]+'</h4><div class="step">'+s[1]+'</div>';
+    });
+    h+='<div class="res">✓ '+q.res+'</div>'
+      +'<div class="trap-box"><b>⚠ 考試陷阱：</b>'+q.trapNote+'</div>'
+      +'</div></div>';
+  });
+  box.innerHTML=h;
+  paint();
+}
+
+function paint(){
+  var d=getDone();
+  QS.forEach(function(q){
+    var c=document.getElementById('qc'+q.no);
+    if(c) c.classList.toggle('done',d.indexOf(q.no)>=0);
+  });
+  var n=d.length,p=Math.round(n/QS.length*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('pnum').textContent=n+'／'+QS.length;
+}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-chk]');
+  if(b){
+    var no=+b.getAttribute('data-chk'),q=QS[no-1];
+    var raw=(document.getElementById('in'+no).value||'').replace(/[%,，\s]/g,'');
+    var fb=document.getElementById('fb'+no);
+    var v=parseFloat(raw);
+    if(raw===''||isNaN(v)){fb.className='fb bad';fb.textContent='請先填入數字再核對。';return;}
+    if(Math.abs(v-q.ans)<=q.tol){
+      fb.className='fb ok';fb.textContent='✓ 答對了（標準答案 '+q.ans+' '+q.unit+'）。展開詳解確認列式寫法。';
+      var d=getDone(); if(d.indexOf(no)<0){d.push(no);setDone(d);paint();}
+      document.getElementById('sol'+no).classList.add('open');
+    }else{
+      fb.className='fb bad';fb.textContent='✗ 不對。再檢查一次：每期折現次方數、期末價值是否也折現（期數＝最後一期）、折現率與資本化率有沒有混用。';
+    }
+    return;
+  }
+  var s=e.target.closest('[data-sol]');
+  if(s){
+    var el=document.getElementById('sol'+s.getAttribute('data-sol'));
+    el.classList.toggle('open');
+    s.textContent=el.classList.contains('open')?'收合詳解':'看詳解';
+  }
+});
+
+document.getElementById('resetBtn').addEventListener('click',function(){
+  setDone([]);paint();
+  QS.forEach(function(q){
+    var i=document.getElementById('in'+q.no); if(i)i.value='';
+    var f=document.getElementById('fb'+q.no); if(f){f.className='fb';f.textContent='';}
+    var o=document.getElementById('sol'+q.no); if(o)o.classList.remove('open');
+  });
+  document.querySelectorAll('[data-sol]').forEach(function(b){b.textContent='看詳解';});
+});
+
+// 主題
+(function(){
+  var b=document.getElementById('themeBtn');
+  try{var sv=localStorage.getItem('bxr-theme'); if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  function lbl(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var dark = cur==='dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    b.textContent = dark ? '☀ 淺色' : '🌙 深色';
+  }
+  b.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var dark = cur==='dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
+    var nx = dark?'light':'dark';
+    document.documentElement.setAttribute('data-theme',nx);
+    try{localStorage.setItem('bxr-theme',nx);}catch(e){}
+    lbl();
+  });
+  lbl();
+})();
+
+render();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
