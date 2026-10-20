@@ -902,7 +902,7 @@ DATA.forEach((ch,ci)=>{
     const key = ch.id+'-'+i;
     cardDone[key] = false;
     const blankCount = (c.blank.match(/___/g)||[]).length;
-    const builtBlank = buildBlankLine(c.blank, c.answer, key);
+    const builtBlank = buildBlankLine(fmtAns(c.blank,true), c.answer, key);
 
     const card = document.createElement('div');
     card.className = 'card h'+c._t;
@@ -929,11 +929,13 @@ DATA.forEach((ch,ci)=>{
   main.appendChild(div);
 });
 
-function fmtAns(h){
+function fmtAns(h,pair){
   const C='①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';let nx=1;
+  const pl=h.replace(/<[^>]+>/g,'').length,cnt=(h.match(/[①-⑳]/g)||[]).length;
+  const two=pair&&cnt>=4&&pl/cnt<16;
   if(/[②]/.test(h.replace(/<[^>]+>/g,''))){
     h=h.replace(/(^|[\s\u3000→>）。；])([①-⑳])/g,(m,pre,ch)=>{
-      if(C.indexOf(ch)===nx){nx++;return (pre==='→'||/\s|\u3000/.test(pre)?'':pre)+'<br>'+ch;}
+      if(C.indexOf(ch)===nx){const i=nx;nx++;if(two&&i%2===1)return m;return (pre==='→'||/\s|\u3000/.test(pre)?'':pre)+'<br>'+ch;}
       return m;});
     h=h.replace(/^<br>/,'');
   }
