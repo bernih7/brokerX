@@ -228,6 +228,19 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 .eg{border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-bottom:10px;overflow:hidden}
 .eg>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px}
 .eg>summary::-webkit-details-marker{display:none}
+
+.eg-head,.eg>summary.eg-sum{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1.7fr) 52px 52px 60px;gap:10px;align-items:center}
+.eg-head{padding:4px 14px;font-size:.72rem;color:var(--muted,#7a8379);margin-bottom:6px}
+.eg-head span:nth-child(n+3){text-align:right}
+.eg-sum .eg-nm b{font-family:"Noto Serif TC",serif;font-size:.98rem;display:block;line-height:1.35}
+.eg-sum .eg-nm small{font-size:.72rem;color:var(--muted,#7a8379)}
+.eg-sum .eg-ds{font-size:.78rem;color:var(--muted,#7a8379);line-height:1.5}
+.eg-sum .eg-num{text-align:right;font-weight:800;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.eg-sum .eg-num.pv{color:var(--accent-g)}
+.eg-sum .eg-num.hot{color:var(--key,#8A5517)}
+.eg-rd{font-size:.7rem;font-weight:800;color:var(--accent-g);margin-left:4px}
+.eg-pv{font-size:.66rem;font-weight:800;padding:1px 6px;border-radius:5px;background:var(--paper2);color:var(--accent-g)}
+@media(max-width:640px){.eg-head{display:none}.eg>summary.eg-sum{grid-template-columns:minmax(0,1fr) 40px 40px 48px}.eg-sum .eg-ds{grid-column:1/-1;order:5}}
 .eg-n{font-family:"Noto Serif TC",serif;font-weight:700;font-size:.98rem;flex:1;min-width:0}
 .eg-s{font-size:.72rem;color:var(--muted,#7a8379);white-space:nowrap}
 .eg-a{font-size:.7rem;font-weight:800;color:#fff;background:var(--accent-r);padding:2px 8px;border-radius:99px;white-space:nowrap}
@@ -1580,40 +1593,61 @@ function yrToAnchor(yr){
 }
 var ESSAY_URL='https://bernih7.github.io/brokerX/%E4%B8%8D%E5%8B%95%E7%94%A2%E4%BC%B0%E5%83%B9%E6%A6%82%E8%A6%81_%E7%94%B3%E8%AB%96%E9%A1%8C%E5%AF%A6%E6%88%B0%E7%AF%84%E6%96%87.html';
 var ESSAY_GROUPS=[
- ['成本法與折舊','折舊公式（定額／定率）＋路徑，16年最穩的計算題',['104-二','105-一','107-一','111-一','111-二','112-二']],
- ['土地開發分析法','V 公式、資本利息綜合利率；近年又回到計算型',['100-一','102-二','105-二','106-一','108-二','109-二','113-二']],
- ['比較法','調整四項、排除情況（質）、三關卡（量）',['99-二','102-一','103-一','106-二','108-一','110-一']],
- ['租金估計','三種租金計算、差額分配法、考慮因素',['101-二','110-二','114-一']],
- ['收益法（資本化率・DCF）','WACC 計算、DCF 與直接資本化差異',['99-一','113-一']],
- ['方法總論與替代原則','三大方法程序、適用時機、替代原則',['101-一','100-二','114-二']],
- ['基本概念與其他','價格種類、估價原則、地區概念、工作法則、因素分類',['103-二','104-一','107-二','109-一','112-一']]
+ {n:'成本法與折舊',d:'折舊定額／定率＋三路徑、重建與重置成本、成本法程序',off:['104-二','105-一','107-一','111-一','111-二','112-二'],pred:['pred-1']},
+ {n:'土地開發分析法',d:'V 公式、資本利息綜合利率（預售不計息）、成本項目、合併開發',off:['100-一','102-二','105-二','106-一','108-二','109-二','113-二'],pred:['pred-3']},
+ {n:'比較法',d:'四項調整、排除情況（質）、三關卡 15%／30%／20%、蒐集比較實例',off:['99-二','102-一','103-一','106-二','108-一','110-一'],pred:['pred-4']},
+ {n:'租金估計',d:'經濟／實質／支付租金、差額分配法、估計應考慮因素',off:['101-二','110-二','114-一'],pred:['pred-5']},
+ {n:'收益法（資本化率・DCF）',d:'WACC 計算、資本化率決定方法、DCF 與直接資本化差異',off:['99-一','113-一'],pred:['pred-2']},
+ {n:'方法總論與替代原則',d:'三大方法程序、適用時機、替代原則',off:['101-一','100-二','114-二'],pred:[]},
+ {n:'基本概念與其他',d:'價格種類、估價原則、地區概念、工作法則、因素分類；樓層別效用比、CAMA、估價師懲戒',off:['103-二','104-一','107-二','109-一','112-一'],pred:['pred-6','pred-7','pred-8']}
 ];
+var PRED_NAME={'pred-1':'折舊三法計算','pred-2':'WACC／資本化率','pred-3':'土開完整計算','pred-4':'比較法質＋量排除','pred-5':'三種租金計算','pred-6':'樓層別效用比','pred-7':'CAMA（§20）','pred-8':'估價師懲戒'};
+function essayRead(){try{return JSON.parse(localStorage.getItem('bx-essay-read')||'[]');}catch(e){return [];}}
 function renderEssay(filter){
   var box=document.getElementById('essay-groups');if(!box)return;box.innerHTML='';
   var by={};essayData.forEach(function(r){by[r.yr]=r;});
-  var used={};
-  ESSAY_GROUPS.forEach(function(g,gi){
-    var rows=g[2].map(function(y){used[y]=1;return by[y];}).filter(Boolean);
+  var rd=essayRead(),isR=function(id){return rd.indexOf(id)>=0;};
+  var G=ESSAY_GROUPS.map(function(g){
+    var rows=g.off.map(function(y){return by[y];}).filter(Boolean);
     rows.sort(function(a,b){return parseInt(b.yr)-parseInt(a.yr)||(b.yr>a.yr?1:-1);});
-    var all=rows.length,aN=rows.filter(function(r){return r.pri==='A';}).length;
-    var show=rows.filter(function(r){return filter==='all'||r.pri===filter;});
+    var n5=rows.filter(function(r){return parseInt(r.yr)>=110;}).length;
+    return {g:g,rows:rows,n16:rows.length,n5:n5,w:0.6*rows.length/32+0.4*n5/10};
+  });
+  var tw=G.reduce(function(x,y){return x+y.w;},0)||1;
+  G.forEach(function(x){x.pv=2*x.w/tw;});
+  G.sort(function(a,b){return b.pv-a.pv;});
+  var head=document.createElement('div');head.className='eg-head';
+  head.innerHTML='<span>點開看各類題目</span><span>常考考點</span><span>16年考</span><span>近5年</span><span>115預測</span>';
+  box.appendChild(head);
+  G.forEach(function(x,gi){
+    var g=x.g;
+    var show=x.rows.filter(function(r){return filter==='all'||r.pri===filter;});
     if(!show.length)return;
-    var last=Math.max.apply(null,rows.map(function(r){return parseInt(r.yr);}));
-    var d=document.createElement('details');d.className='eg';if(filter!=='all'||gi<3)d.open=true;
-    var h='<summary><span class="eg-n">'+g[0]+'</span>'+(aN?'<span class="eg-a">A '+aN+'</span>':'')+'<span class="eg-c">'+all+' 題</span><span class="eg-s">最近 '+last+'</span></summary><div class="eg-tip">'+g[1]+'</div>';
+    var offRead=x.rows.filter(function(r){var a=yrToAnchor(r.yr);return a&&isR(a);}).length;
+    var prRead=g.pred.filter(isR).length;
+    var d=document.createElement('details');d.className='eg';if(filter!=='all'||gi<2)d.open=true;
+    var h='<summary class="eg-sum"><div class="eg-nm"><b>'+g.n+'</b><small>已讀 官方 '+offRead+'／'+x.rows.length+(g.pred.length?'　預測 '+prRead+'／'+g.pred.length:'')+'</small></div><div class="eg-ds">'+g.d+'</div><div class="eg-num">'+x.n16+'</div><div class="eg-num">'+x.n5+'</div><div class="eg-num pv'+(x.pv>=0.4?' hot':'')+'">'+x.pv.toFixed(2)+'</div></summary>';
     show.forEach(function(r){
       var anc=yrToAnchor(r.yr);
       var lnk=anc?'<a href="'+ESSAY_URL+'#'+anc+'" target="_blank" style="font-size:.76rem;color:var(--accent-g);text-decoration:none;white-space:nowrap;">範文</a>':'';
       var p=r.pri==='A'?'<span class="eg-p pri-a">A</span>':r.pri==='B'?'<span class="eg-p pri-b">B</span>':'<span class="eg-p pri-c">C</span>';
-      h+='<div class="eg-r"><span class="eg-y">'+r.yr+'</span><span class="eg-t">'+r.topic+'</span><span class="eg-h">'+r.hard+'</span>'+p+lnk+'</div>';
+      var ck=(anc&&isR(anc))?'<span class="eg-rd">✓</span>':'';
+      h+='<div class="eg-r"><span class="eg-y">'+r.yr+ck+'</span><span class="eg-t">'+r.topic+'</span><span class="eg-h">'+r.hard+'</span>'+p+lnk+'</div>';
+    });
+    if(filter==='all')g.pred.forEach(function(id){
+      var ck=isR(id)?'<span class="eg-rd">✓</span>':'';
+      h+='<div class="eg-r"><span class="eg-y"><span class="eg-pv">預測</span>'+ck+'</span><span class="eg-t">'+PRED_NAME[id]+'（115 預測範文）</span><a href="'+ESSAY_URL+'#'+id+'" target="_blank" style="font-size:.76rem;color:var(--accent-g);text-decoration:none;white-space:nowrap;">範文</a></div>';
     });
     d.innerHTML=h;box.appendChild(d);
   });
-  var miss=essayData.filter(function(r){return !used[r.yr];});
-  if(miss.length&&window.console)console.warn('未分組申論題',miss.map(function(r){return r.yr;}));
+  var nt=document.createElement('div');nt.className='eg-tip';nt.style.borderRadius='8px';
+  nt.innerHTML='數字說明：16年考＝99–114 年官方 32 題中該組題數；近5年＝110–114 年題數；115預測＝兩題申論的期望分配，由「16年占比×0.6＋近5年占比×0.4」正規化後乘 2（合計 2.0，為排序參考，非官方機率）。組內題目新到舊。';
+  box.appendChild(nt);
 }
+window.addEventListener('focus',function(){renderEssay(window.__essayF||'all');});
 renderEssay('all');
 function filterEssay(f,btn){
+  window.__essayF=f;
   document.querySelectorAll('.pri-btn').forEach(function(b){b.classList.remove('active');});
   if(btn)btn.classList.add('active');
   renderEssay(f);
