@@ -170,7 +170,7 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
   transition:color .18s,background .18s;font-weight:700;font-size:13.5px}
 .qc-blank .blank:hover{background:color-mix(in srgb,var(--primary) 22%,transparent)}
 .qc-blank .blank.revealed{color:var(--red);font-weight:800;border-bottom-color:var(--red)}
-.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qc-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
 .qc-btn{font:inherit;font-size:13px;font-weight:700;padding:7px 18px;
   border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .15s}
 .qc-btn-reveal{border-color:var(--red);color:var(--red);background:transparent}
@@ -179,6 +179,9 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .qc-btn-all:hover{background:var(--green);color:#fff}
 .qc-btn-next{border-color:var(--blue);color:var(--blue);background:transparent}
 .qc-btn-next:hover{background:var(--blue);color:#fff}
+.qc-nav{margin-left:auto;display:flex;gap:6px}
+.qc-ic{font:inherit;font-size:20px;line-height:1;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--blue);background:transparent;color:var(--blue);cursor:pointer}
+.qc-ic:disabled{opacity:.3;cursor:default}
 .qc-btn-prev{border-color:var(--muted);color:var(--muted);background:transparent}
 .qc-btn-prev:hover{background:var(--muted);color:#fff}
 .qc-btn-prev:disabled{opacity:.3;cursor:default}
@@ -1115,10 +1118,9 @@ function renderQuizCard() {
       <div class="qc-term">${c.term}</div>
       <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
       <div class="qc-btns">
-        <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
         <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
         <button class="qc-btn qc-btn-all" id="qbtn-all-${qid}" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
-        <button class="qc-btn qc-btn-next" onclick="nextQuiz()">下一題 →</button>
+        <span class="qc-nav"><button class="qc-ic" id="qbtn-prev-${qid}" onclick="prevQuiz()" aria-label="上一題" ${quizIdx === 0 ? 'disabled' : ''}>‹</button><button class="qc-ic" onclick="nextQuiz()" aria-label="下一題">›</button></span>
       </div>
       <div class="qc-answer" id="qans-${qid}">
         <div class="key-note">${fmtAns(c.answer)}</div>
