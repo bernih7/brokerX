@@ -61,6 +61,20 @@ header .sub{font-size:13px;opacity:.85}
 nav{background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
 .nav-btn{font:inherit;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
 .nav-btn.on{background:var(--red);color:#fff;border-color:var(--red)}
+.nav-btn.h1{background:color-mix(in srgb,var(--gold) 30%,transparent);border-color:var(--gold);color:var(--ink)}
+.nav-btn.h2{background:color-mix(in srgb,var(--gold) 14%,transparent);border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+.nav-btn.h4{opacity:.72}
+.nav-btn.on{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important;opacity:1}
+.nav-btn small{font-size:10px;margin-left:5px;font-weight:800;color:var(--gold);letter-spacing:.5px}
+.nav-btn.on small{color:#fff}
+.card.h1{background:color-mix(in srgb,var(--gold) 13%,var(--paper))}
+.card.h2{background:color-mix(in srgb,var(--gold) 6%,var(--paper))}
+.heat{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:5px;margin-left:8px;vertical-align:middle;letter-spacing:.5px}
+.heat.h1{background:var(--gold);color:#fff}
+.heat.h2{background:color-mix(in srgb,var(--gold) 22%,transparent);color:var(--gold)}
+.heat.h3{background:var(--line);color:var(--muted)}
+.ch-heat{font-size:12px;color:var(--muted);margin:-8px 0 14px}
+
 
 /* main */
 main{max-width:720px;margin:0 auto;padding:20px 16px}
@@ -845,6 +859,15 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
   return html;
 }
 
+// ── 依歷屆考頻重排：章節與每張卡都「高→低」；分數＝選擇題次數＋申論×2 ──
+DATA.forEach(ch=>{
+  ch.cards.forEach(c=>{c._s=(c.mc||0)+2*(c.essay||0);c._t=c._s>=12?1:(c._s>=6?2:3);});
+  ch.cards.sort((a,b)=>b._s-a._s);
+  ch._mc=ch.cards.reduce((x,c)=>x+(c.mc||0),0);ch._es=ch.cards.reduce((x,c)=>x+(c.essay||0),0);
+  ch._s=ch._mc+2*ch._es;ch._t=ch._s>=60?1:(ch._s>=35?2:(ch._s>=20?3:4));
+});
+DATA.sort((a,b)=>b._s-a._s);
+const HEAT_CH={1:'★★★',2:'★★',3:'★',4:''},HEAT_CARD={1:'高頻',2:'常考',3:'一般'};
 // build nav
 const nav = document.getElementById('nav');
 const main = document.getElementById('main');
@@ -861,8 +884,9 @@ nav.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
   const btn = document.createElement('button');
-  btn.className = 'nav-btn' + (ci===0?' on':'');
-  btn.textContent = ch.label;
+  btn.className = 'nav-btn h'+ch._t + (ci===0?' on':'');
+  btn.dataset.ch = ch.id;
+  btn.innerHTML = ch.label + (HEAT_CH[ch._t]?'<small>'+HEAT_CH[ch._t]+'</small>':'');
   btn.onclick = ()=> switchCh(ch.id);
   nav.appendChild(btn);
 
@@ -872,6 +896,7 @@ DATA.forEach((ch,ci)=>{
 
   const total = ch.cards.length;
   div.innerHTML = `<div class="ch-title">${ch.label}</div>
+    <div class="ch-heat">歷屆：選擇 ${ch._mc} 題・申論 ${ch._es} 題（本頁已依考頻由高到低排列）</div>
     <div class="prog">
       <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
       <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
@@ -886,14 +911,14 @@ DATA.forEach((ch,ci)=>{
     const builtBlank = buildBlankLine(c.blank, c.answer, key);
 
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card h'+c._t;
     card.id = 'card-'+key;
     const statParts = [];
     if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
     if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
     const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
     card.innerHTML = `
-      <div class="term">${c.term}</div>
+      <div class="term">${c.term}<span class="heat h${c._t}">${HEAT_CARD[c._t]}</span></div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
       <div class="card-btns">
         <button class="reveal-btn" onclick="revealAllBlanks('${key}','${ch.id}',${total})">全部顯示</button>
@@ -947,7 +972,7 @@ function switchCh(id){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('ch-'+id).classList.add('active');
-  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  document.querySelector('.nav-btn[data-ch="'+id+'"]').classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
