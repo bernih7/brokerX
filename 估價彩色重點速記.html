@@ -184,6 +184,14 @@ tr:nth-child(even) td{background:#FBF8F1;}
 td b{color:var(--orange);}
 /* 第二欄的 b 標籤改藍色，與標題欄呼應 */
 td:nth-child(2) b{color:var(--blue);}
+/* 全聯會公告表：項目名稱用深色字（不用橘），「不是公告」表整張改紅色系以區隔 */
+table.tbl-pub td b, table.tbl-pub td:nth-child(2) b{color:var(--ink);}
+table.tbl-pub th:nth-child(1){background:var(--green);}
+table.tbl-pub th:nth-child(2){background:var(--blue);}
+table.tbl-pub th:nth-child(3){background:var(--blue);}
+table.tbl-not th, table.tbl-not th:nth-child(n){background:var(--red);}
+table.tbl-not td, table.tbl-not tr:nth-child(even) td{background:color-mix(in srgb,var(--red) 9%,var(--paper));}
+table.tbl-not td b, table.tbl-not td:nth-child(2) b{color:var(--red);}
 
 .formula-box{
   background:var(--paper);border:2px solid var(--blue);border-radius:10px;
@@ -884,7 +892,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 
   <h3>不動產估價師公會全國聯合會公告之項目（高頻列舉題）</h3>
   <div class="tbl-wrap">
-    <table>
+    <table class="tbl-pub">
       <tr><th>全聯會公告（7項）</th><th>條文</th><th>考古</th></tr>
       <tr><td><b>營造或施工費標準表</b>（按主體構造種類及地區）</td><td>§56Ⅲ</td><td>105-22、105-31</td></tr>
       <tr><td><b>廣告費、銷售費、管理費、稅捐之相關費率</b>（按<b>總成本</b>乘以費率）</td><td>§61</td><td>103-17</td></tr>
@@ -900,8 +908,8 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <p><b>施・費・利・進・耐・殘・樓</b>：施工費標準表、費率（廣銷管稅）、利潤率、進度費用比例表、耐用年數表、殘餘價格率、樓層別效用比。舊口訣「耐施廣利」只有4項，<b>漏了進度比例表、殘餘價格率</b>——考古最常錯在這裡。</p>
   </div>
   <div class="tbl-wrap">
-    <table>
-      <tr><th>看起來像、但<b>不是</b>全聯會公告</th><th>實際是誰／在哪</th><th>考古</th></tr>
+    <table class="tbl-not">
+      <tr><th>✖ 看起來像、但不是全聯會公告</th><th>實際是誰／在哪</th><th>考古</th></tr>
       <tr><td><b>建築改良物標準單價表</b></td><td>直轄市、縣（市）政府發布的地價調查用標準單價表；§56Ⅲ 施工費標準表<b>未公告前</b>才依它</td><td>105-22、105-31（答案）</td></tr>
       <tr><td><b>建造執照工程造價表</b></td><td>縣市政府的表；§57 規劃設計費兩種算法之一是依建築師酬金標準表及工程造價表</td><td>105-31（答案）</td></tr>
       <tr><td><b>規劃設計費「率」</b></td><td>§57：按<b>營造或施工費</b>之2%～3%推估，不是全聯會公告費率</td><td>103-33（D 錯）</td></tr>
