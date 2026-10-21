@@ -210,6 +210,13 @@ header{position:relative}
 .rm-line{width:2px;height:12px;background:var(--red);margin:0 auto 4px;opacity:.6}
 .rm-res{margin-top:5px;border-radius:9px;padding:7px 4px;background:var(--pri);color:var(--onpri);font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700}
 .rm-res small{display:block;font-family:'Noto Sans TC',sans-serif;font-size:10px;font-weight:500;opacity:.85}
+.rm-seg.exp{background:color-mix(in srgb,var(--gold) 70%,var(--card));color:var(--onpri)}
+.rm-calc{margin-top:18px;font-size:12px;line-height:1.75;color:var(--ink)}
+.rm-two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.rm-in,.rm-out{border-radius:8px;padding:7px 9px;font-size:11.5px;line-height:1.65;color:var(--ink)}
+.rm-in{background:var(--okbg)}.rm-out{background:var(--badbg)}
+.rm-in b:first-child,.rm-out b:first-child{display:block;font-size:11.5px}
+.rm-in b:first-child{color:var(--green)}.rm-out b:first-child{color:var(--red)}
 </style>
 </head>
 <body>
@@ -248,7 +255,23 @@ header{position:relative}
   </div>
 
   <div class="rm-g">
-    <div class="rm-gt"><span class="rm-gi">C</span>依「跟市場比」看<small>學理</small></div>
+    <div class="rm-gt"><span class="rm-gi">C</span>實質租金扣掉成本看「淨賺多少」<small>學理</small></div>
+    <div class="rm-bar">
+      <div class="rm-seg pay" style="flex:3">淨租金（純租金）<small>出租人真正淨賺</small></div>
+      <div class="rm-seg exp" style="flex:2">必要費用<small>維持出租要花的錢</small></div>
+    </div>
+    <div class="rm-brace"><span>實質租金</span></div>
+    <div class="rm-calc">
+      <div><b>估租金時倒過來算：</b>價格 × 租金收益率 ＝ <span class="c-grn">淨收益（淨租金）</span> → <b>＋必要費用</b> ＝ 租金</div>
+      <div class="rm-two">
+        <div class="rm-in"><b>✓ 必要費用</b>折舊費、維修費、管理費、稅捐（地價稅、房屋稅）、保險費、空置及欠租損失準備</div>
+        <div class="rm-out"><b>✕ 不算</b>租賃<b>所得稅</b>（110-22）；承租人自己另外付的管理費</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rm-g">
+    <div class="rm-gt"><span class="rm-gi">D</span>依「跟市場比」看<small>學理</small></div>
     <div class="rm-cmp">
       <div class="rm-pill mkt">經濟租金<small>最有效使用時應有的租金</small></div>
       <div class="rm-op">－</div>
@@ -277,6 +300,11 @@ header{position:relative}
     <div class="def-name">經濟租金 <small style="font-weight:400;color:var(--sub)">〔學理用語，§2未定義〕</small> <span class="def-badge med">常考</span></div>
     <div class="def-body">不動產於市場上以<span class="c-grn">最有效利用</span>方式利用所能產生的收益（反映<b>市場真實經濟價值</b>）。<br><br>💡 也叫「<span class="c-blu">市場租金</span>」，是差額分配法的<span class="hl-gold">「基準」</span></div>
     <div class="def-trap"><b>⚠ 陷阱：</b><span class="c-red">經濟租金 ≠ 實質租金</span><br>經濟租金：「<span class="c-grn">最有效使用</span>」市場概念<br>實質租金：「<span class="c-gold">加計押金</span>」計算概念</div>
+  </div>
+  <div class="def-card">
+    <div class="def-name">淨租金（純租金） <small style="font-weight:400;color:var(--sub)">〔學理用語，§2未定義〕</small> <span class="def-badge med">常考</span></div>
+    <div class="def-body">實質租金扣除<span class="c-gold">必要費用</span>後，出租人真正淨得的部分。<br><span class="c-grn">實質租金 ＝ 淨租金 ＋ 必要費用</span><br><br>💡 §132、§133 寫的「估計<b>淨收益</b>，再加計必要費用」，那個淨收益就是淨租金（101-20 答「淨收益」）。</div>
+    <div class="def-trap"><b>⚠ 陷阱：</b>「加計押金、權利金運用收益之總數」是<span class="c-grn">實質租金</span>，不是淨租金或純租金（100-40、105-20、107-25）。<br>租賃所得稅不是必要費用，不加（110-22）。</div>
   </div>
   <div class="def-card">
     <div class="def-name">契約租金 <small style="font-weight:400;color:var(--sub)">〔學理用語，§2未定義〕</small> <span class="def-badge low">偶考</span></div>
