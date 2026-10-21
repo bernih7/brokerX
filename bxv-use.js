@@ -238,30 +238,80 @@ function build(){
 window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
 
-/* ── 浮動鈕：回頂端＋回備考指揮中心（頁面自己已有的不重複加）── */
+/* ── 浮動鈕（全站標準 #bxfab）：左下回頂端（進度環）＋右下回備考指揮中心；沒有深淺色切換鈕的頁面補 🌙 ── */
 (function(){
- if(/備考指揮中心/.test(decodeURIComponent(location.pathname)))return;
- function sig(e){var t=[e.id,e.className&&e.className.baseVal!==undefined?e.className.baseVal:e.className,e.title,e.getAttribute("href"),e.textContent&&e.textContent.slice(0,12)];
-  e.querySelectorAll("*").forEach(function(c){t.push(c.id,c.className&&c.className.baseVal!==undefined?"":c.className,c.title,c.getAttribute&&c.getAttribute("href"))});return t.join(" ")}
+ var HUB=/備考指揮中心/.test(decodeURIComponent(location.pathname));
+ var HUBURL="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html";
+ var RE_TOP=/回頂|回到頂|回到最上|頂端|↑|⇧|▲|totop|to-top|backtop|back-top|fab-top|scrolltop|scroll-top|gotop|go-top|\btop\b|upbtn|navup/i;
+ var RE_HOME=/hub|home|指揮中心|備考中心|回首頁|⌂|🏠/i;
+ var RE_THEME=/深色|淺色|亮\/暗|深淺|🌙|☀|theme/i;
+ function sig(e){var t=[e.id,typeof e.className==="string"?e.className:"",e.title,e.getAttribute("aria-label"),e.getAttribute("href"),e.getAttribute("onclick"),(e.textContent||"").trim().slice(0,12)];
+  var k=e.querySelectorAll("[id],[class],[title],[href]");for(var i=0;i<k.length&&i<12;i++){var c=k[i];t.push(c.id,typeof c.className==="string"?c.className:"",c.title,c.getAttribute("href"))}return t.join(" ")}
+ function vis(e){return e.getClientRects().length>0&&getComputedStyle(e).visibility!=="hidden"}
+ function isTheme(e){var g=[e.id,typeof e.className==="string"?e.className:"",e.title,e.getAttribute("aria-label"),(e.textContent||"").trim().slice(0,8)].join(" ");return RE_THEME.test(g)}
+ function css(){
+  var st=document.createElement("style");st.id="bxv-fab-css";
+  st.textContent=
+   ".bxv-hide{display:none!important}"+
+   "#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}"+
+   "#bxfab>*{pointer-events:auto}"+
+   "#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}"+
+   "#bxfab .bx-up.act{opacity:1}#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}#bxfab .bx-up .rg circle{fill:none;stroke-width:3}"+
+   "#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}"+
+   "#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}"+
+   "#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}"+
+   "#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}"+
+   "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}"+
+   ":root[data-theme=\"dark\"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}"+
+   "#bxv-theme{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));z-index:999;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line,var(--rule,#DDD6C0));background:var(--paper,var(--card,#FFFEFA));color:var(--ink,var(--fg,#25302C));font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);padding:0;font-family:inherit}";
+  document.head.appendChild(st)}
+ function build(){
+  var w=document.createElement("div");w.id="bxfab";
+  w.innerHTML='<button class="bx-up" aria-label="回到最上方" title="回到最上方"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>'+
+   (HUB?'':'<a class="bx-hub" href="'+HUBURL+'" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></a>');
+  document.body.appendChild(w);
+  var b=w.querySelector(".bx-up"),p=b.querySelector(".p");
+  b.onclick=function(){scrollTo({top:0,behavior:"smooth"})};
+  function f(){var h=document.documentElement,m=h.scrollHeight-innerHeight,y=scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}
+  addEventListener("scroll",f,{passive:true});addEventListener("resize",f);f();
+  var vv=window.visualViewport;function z(){if(!vv)return;var s=vv.scale;if(s<=1.02){w.style.transform="";return}var lh=document.documentElement.clientHeight;w.style.transformOrigin="left bottom";w.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}
+  if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z)}
+  return w}
+ function themeBtn(){
+  var c=document.querySelectorAll("button,a,[role=button],[onclick]");
+  for(var i=0;i<c.length;i++){if(isTheme(c[i])&&vis(c[i]))return}
+  var root=document.documentElement;
+  function dark(){var t=root.getAttribute("data-theme");return t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches)}
+  try{var s=localStorage.getItem("bx-theme")||localStorage.getItem("bxr-theme");if(s&&!root.getAttribute("data-theme"))root.setAttribute("data-theme",s)}catch(e){}
+  var t=document.createElement("button");t.id="bxv-theme";t.title="切換深淺色";t.setAttribute("aria-label","切換深淺色");
+  function ic(){t.textContent=dark()?"☀️":"🌙"}ic();
+  t.onclick=function(){var n=dark()?"light":"dark";root.setAttribute("data-theme",n);try{localStorage.setItem("bx-theme",n);localStorage.setItem("bxr-theme",n)}catch(e){}
+   var pb=document.getElementById("theme-btn");if(pb&&!/[🌙☀]/.test(pb.textContent))pb.textContent=n==="dark"?"淺色":"深色";ic()};
+  document.body.appendChild(t)}
  function run(){
   try{
-   var found=[],hasHome=false,hasTop=false,all=document.body.getElementsByTagName("*");
-   for(var i=0;i<all.length;i++){var e=all[i];if(e.id==="bxv-fab")continue;
-    if(getComputedStyle(e).position!=="fixed")continue;
-    var r=e.getBoundingClientRect();
-    if(r.width>0&&r.width<=70&&r.height<=140&&innerWidth-r.right<130&&innerHeight-r.bottom<160){
-     found.push(r);var g=sig(e);
-     if(/hub|home|指揮中心|⌂|🏠/i.test(g))hasHome=true;
-     if(/top|回頂|↑|⇧|▲|up/i.test(g))hasTop=true}}
-   if(hasTop&&hasHome)return;
-   var base=22;if(found.length){var t=Math.min.apply(null,found.map(function(r){return r.top}));base=Math.max(22,innerHeight-t+10)}
-   var st=document.createElement("style");
-   st.textContent="#bxv-fab{position:fixed;right:16px;bottom:calc("+base+"px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:90;align-items:center}#bxv-fab a,#bxv-fab button{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.25);font-family:inherit}#bxv-fab .t{background:var(--paper,var(--card,#FFFEFA));color:var(--primary,var(--pri,#2F5D50));border:2px solid var(--primary,var(--pri,#2F5D50))}#bxv-fab .h{background:var(--primary,var(--pri,#2F5D50));color:#fff;border:2px solid var(--primary,var(--pri,#2F5D50))}";
-   document.head.appendChild(st);
-   var w=document.createElement("div");w.id="bxv-fab";
-   if(!hasTop){var b=document.createElement("button");b.className="t";b.title="回頂端";b.textContent="↑";b.onclick=function(){scrollTo({top:0,behavior:"smooth"})};w.appendChild(b)}
-   if(!hasHome){var a=document.createElement("a");a.className="h";a.title="回備考指揮中心";a.href="估價備考指揮中心.html";a.textContent="⌂";w.appendChild(a)}
-   document.body.appendChild(w);
+   css();
+   var w=document.getElementById("bxfab")||build();
+   if(HUB){var hh=w.querySelector(".bx-hub");if(hh)hh.classList.add("bxv-hide")}
+   /* 收掉頁面自帶的舊版回頂／回中心鈕，只留 #bxfab */
+   var all=document.body.getElementsByTagName("*"),barTop=innerHeight,leftTop=innerHeight;
+   for(var i=0;i<all.length;i++){var e=all[i];
+    if(e===w||w.contains(e)||e.id==="bxv-theme")continue;
+    var cs=getComputedStyle(e);if(cs.position!=="fixed")continue;
+    if(e.parentElement&&e.parentElement.closest&&e.parentElement.closest(".bxv-hide"))continue;
+    var r=e.getBoundingClientRect(),v=vis(e);
+    if(v&&r.width>innerWidth*0.8){if(r.bottom>=innerHeight-6)barTop=Math.min(barTop,r.top);continue}
+    if(isTheme(e))continue;
+    var small=v?(r.width<=130&&r.height<=170):((e.textContent||"").trim().length<=16);
+    if(!small)continue;
+    var g=sig(e);
+    if(RE_TOP.test(g)||RE_HOME.test(g)){e.classList.add("bxv-hide");continue}
+    if(v&&r.left+r.width/2<innerWidth/2&&r.bottom>innerHeight-220)leftTop=Math.min(leftTop,r.top)}
+   /* 底部有固定列（導覽列、計分列）就把按鈕墊到列的上方 */
+   if(barTop<innerHeight)w.style.bottom="calc("+Math.round(innerHeight-barTop+10)+"px)";
+   var up=w.querySelector(".bx-up"),wb=w.getBoundingClientRect().bottom;
+   if(leftTop<innerHeight&&up)up.style.marginBottom=Math.max(0,Math.round(wb-leftTop+10))+"px";
+   themeBtn();
   }catch(e){}
  }
  if(document.readyState==="complete")setTimeout(run,300);else addEventListener("load",function(){setTimeout(run,500)});

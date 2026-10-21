@@ -36,7 +36,13 @@
   --warn-bg:#FBF4E8;
 
   --r: 10px;
+
+  --line:#E4DAC4;--on:#fff;
 }
+/* 深色模式 */
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1F1D;--paper:#232A27;--paper-2:#2A322E;--ink:#E8EDE6;--ink-2:#A9B5AE;--rule:#34403A;--cost:#B09BC8;--comp:#D9A85A;--income:#E07A66;--land:#6AA8D0;--cost-bg:#2C2434;--comp-bg:#33291A;--income-bg:#3A2420;--land-bg:#1C2C38;--trap:#E07A66;--trap-bg:#3A2420;--note:#8FCB93;--note-bg:#1E3125;--formula:#6AA8D0;--formula-bg:#1C2C38;--warn:#D9A85A;--warn-bg:#33291A;--line:#34403A;--on:#161B19;color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#1A1F1D;--paper:#232A27;--paper-2:#2A322E;--ink:#E8EDE6;--ink-2:#A9B5AE;--rule:#34403A;--cost:#B09BC8;--comp:#D9A85A;--income:#E07A66;--land:#6AA8D0;--cost-bg:#2C2434;--comp-bg:#33291A;--income-bg:#3A2420;--land-bg:#1C2C38;--trap:#E07A66;--trap-bg:#3A2420;--note:#8FCB93;--note-bg:#1E3125;--formula:#6AA8D0;--formula-bg:#1C2C38;--warn:#D9A85A;--warn-bg:#33291A;--line:#34403A;--on:#161B19;color-scheme:dark;}
+
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -93,7 +99,7 @@ header h1 {
   white-space: nowrap;
 }
 .tab.active {
-  color: #fff;
+  color: var(--on);
 }
 .tab[data-tab="overview"].active { background: var(--ink); }
 .tab[data-tab="cost"].active    { background: var(--cost); }
@@ -121,7 +127,7 @@ header h1 {
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 999px;
-  color: #fff;
+  color: var(--on);
   margin-left: 8px;
   vertical-align: middle;
   font-family: 'Noto Sans TC', sans-serif;
@@ -331,7 +337,7 @@ header h1 {
   min-width: 24px; height: 24px;
   border-radius: 50%;
   background: var(--ink);
-  color: #fff;
+  color: var(--on);
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -384,7 +390,7 @@ header h1 {
   font-size: 11px;
   font-weight: 400;
   background: var(--ink);
-  color: #fff;
+  color: var(--on);
   padding: 1px 6px;
   border-radius: 4px;
   margin-right: 6px;
@@ -462,18 +468,18 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
 .cf{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:4px 14px;margin:10px 0}
 .cf-step{display:flex;gap:10px;padding:12px 0;border-bottom:1px dashed var(--rule)}
 .cf-step:last-of-type{border-bottom:0}
-.cf-n{flex:0 0 24px;height:24px;border-radius:50%;background:var(--cost);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cf-n{flex:0 0 24px;height:24px;border-radius:50%;background:var(--cost);color:var(--on);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
 .cf-b{min-width:0;flex:1}
 .cf-name{font-size:12.5px;color:var(--ink-2);font-weight:700;margin-bottom:6px;line-height:1.6}
 .cf-eq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14.5px}
 .cf-g{display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
 .cf-op{color:var(--ink-2);font-weight:700}
 .cf-t{display:inline-block;padding:3px 10px;border-radius:7px;font-weight:700;background:var(--paper-2);border:1px solid var(--rule);color:var(--ink)}
-.cf-t.res{background:var(--cost);color:#fff;border-color:var(--cost)}
+.cf-t.res{background:var(--cost);color:var(--on);border-color:var(--cost)}
 .cf-t.bad{background:var(--trap-bg);color:var(--trap);border-color:var(--trap)}
 .cf-six{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .cf-six div{background:var(--cost-bg);border:1px solid var(--rule);border-radius:8px;padding:6px 9px;font-size:13.5px;display:flex;align-items:center;gap:8px;color:var(--ink)}
-.cf-six b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--cost);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.cf-six b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--cost);color:var(--on);font-size:12px;display:flex;align-items:center;justify-content:center}
 .cf-plus{margin-top:8px;font-size:13px;color:var(--ink-2)}
 .cf-ex{font-size:12px;color:var(--ink-2);margin-top:6px}
 .cf-mn{background:var(--warn-bg);border:1px solid var(--warn);border-radius:10px;padding:10px 12px;margin:6px 0 12px;font-size:13.5px;line-height:1.85;color:var(--ink)}
@@ -1194,10 +1200,10 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
   </div>
 
   <div class="section-title">收益法估價程序（6步驟）</div>
-  <div style="background:linear-gradient(135deg,#FDF0EE,#FBF8F0);border:2px solid var(--income);border-radius:10px;padding:12px 16px;margin-bottom:12px;">
+  <div style="background:var(--income-bg);border:2px solid var(--income);border-radius:10px;padding:12px 16px;margin-bottom:12px;">
     <div style="font-size:.8rem;color:var(--income);font-weight:700;letter-spacing:.05em;margin-bottom:6px;">🔑 口訣</div>
-    <div style="font-size:1.2rem;font-weight:900;font-family:"Noto Serif TC",serif;color:#2A2722;letter-spacing:.1em;">「蒐→有→費→淨→率→價」</div>
-    <div style="font-size:.82rem;color:#5A504A;margin-top:6px;">蒐集資料 → 有效總收入 → 推算費用 → 計淨收益 → 決定資本化率 → 算出價格</div>
+    <div style="font-size:1.2rem;font-weight:900;font-family:"Noto Serif TC",serif;color:var(--ink);letter-spacing:.1em;">「蒐→有→費→淨→率→價」</div>
+    <div style="font-size:.82rem;color:var(--ink-2);margin-top:6px;">蒐集資料 → 有效總收入 → 推算費用 → 計淨收益 → 決定資本化率 → 算出價格</div>
   </div>
   <ol class="steps">
     <li><div>蒐集總收入、總費用及資本化率等資料（<b>最近3年</b>）</div></li>
