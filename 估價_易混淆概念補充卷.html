@@ -6,456 +6,133 @@
 <title>估價易混淆概念並排補充</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700&display=swap">
 <style>
-:root {
-  --bg:#F7F2E8; --card:#FFFDF7; --ink:#2A2520; --ink2:#4A4238;
-  --muted:#8A7E6E; --line:#E0D8C4; --surface2:#EEE8D8;
-  --red:#A8402B; --red-bg:rgba(168,64,43,.08);
-  --gold:#B8861E; --gold-bg:rgba(184,134,30,.09);
-  --green:#4E7040; --green-bg:rgba(78,112,64,.08);
-  --blue:#1E3A6A; --blue-bg:rgba(30,58,106,.08);
-  --purple:#5A2E7A; --purple-bg:rgba(90,46,122,.08);
-  --orange:#C06020; --orange-bg:rgba(192,96,32,.09);
-  --teal:#1E6868; --teal-bg:rgba(30,104,104,.08);
-  --brown:#7A4428; --brown-bg:rgba(122,68,40,.08);
-  color-scheme:light;
-}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#181410; --card:#231E18; --ink:#F0E8D8; --ink2:#C8BCA8;
-  --muted:#7A6E60; --line:#3A3228; --surface2:#2C2620;
-  --red:#E05040; --red-bg:rgba(224,80,64,.13);
-  --gold:#D4A030; --gold-bg:rgba(212,160,48,.12);
-  --green:#5AAA48; --green-bg:rgba(90,170,72,.10);
-  --blue:#5888D0; --blue-bg:rgba(88,136,208,.11);
-  --purple:#9060C0; --purple-bg:rgba(144,96,192,.11);
-  --orange:#E07040; --orange-bg:rgba(224,112,64,.12);
-  --teal:#40A8A8; --teal-bg:rgba(64,168,168,.10);
-  --brown:#C07050; --brown-bg:rgba(192,112,80,.11);
-  color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#181410; --card:#231E18; --ink:#F0E8D8; --ink2:#C8BCA8;
-  --muted:#7A6E60; --line:#3A3228; --surface2:#2C2620;
-  --red:#E05040; --red-bg:rgba(224,80,64,.13);
-  --gold:#D4A030; --gold-bg:rgba(212,160,48,.12);
-  --green:#5AAA48; --green-bg:rgba(90,170,72,.10);
-  --blue:#5888D0; --blue-bg:rgba(88,136,208,.11);
-  --purple:#9060C0; --purple-bg:rgba(144,96,192,.11);
-  --orange:#E07040; --orange-bg:rgba(224,112,64,.12);
-  --teal:#40A8A8; --teal-bg:rgba(64,168,168,.10);
-  --brown:#C07050; --brown-bg:rgba(192,112,80,.11);
-  color-scheme:dark;
-}
+:root{--bg:#F2F0EC;--paper:#FFFEFB;--paper2:#EAE6DA;--ink:#2B2F29;--ink2:#4A5047;--muted:#6F7A69;--line:#CCCAB8;--primary:#5C7A5A;--slate:#3A7A8C;--ochre:#B8782E;--clay:#8B5A2B;--mark:rgba(184,120,46,.28);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1C201A;--paper:#242820;--paper2:#2C3128;--ink:#E8EDE4;--ink2:#C4CCBE;--muted:#9AA690;--line:#3A4234;--primary:#8AAE88;--slate:#4A9AAC;--ochre:#D09848;--clay:#C89868;--mark:rgba(208,152,72,.30);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1C201A;--paper:#242820;--paper2:#2C3128;--ink:#E8EDE4;--ink2:#C4CCBE;--muted:#9AA690;--line:#3A4234;--primary:#8AAE88;--slate:#4A9AAC;--ochre:#D09848;--clay:#C89868;--mark:rgba(208,152,72,.30);color-scheme:dark}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--fg);font-size:13px;line-height:1.6;padding:12px 14px 72px}
-
-/* theme btn */
-/* header */
-header{text-align:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--line)}
-header h1{font-family:"Noto Serif TC",serif;font-size:17px;font-weight:700;color:var(--red);letter-spacing:1px}
-header p{font-size:11px;color:var(--muted);margin-top:4px}
-
-/* TOC chips */
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;justify-content:center}
-.toc a{font-size:11px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);
-  background:var(--paper);color:var(--ink2);text-decoration:none;white-space:nowrap}
-.toc a:hover{background:var(--surface2)}
-
-/* section */
-.sec{margin-bottom:20px}
-.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;
-  padding:7px 12px;border-radius:8px;border-left:5px solid;
-  /* override: use the actual accent as background at higher opacity */}
-/* sec-head color variants — stronger background for clear section differentiation */
-.sec-head.c-red   {background:rgba(168,64,43,.16);border-left-color:var(--red)}
-.sec-head.c-gold  {background:rgba(184,134,30,.16);border-left-color:var(--gold)}
-.sec-head.c-green {background:rgba(78,112,64,.15);border-left-color:var(--green)}
-.sec-head.c-blue  {background:rgba(30,58,106,.13);border-left-color:var(--blue)}
-.sec-head.c-purple{background:rgba(90,46,122,.14);border-left-color:var(--purple)}
-.sec-head.c-orange{background:rgba(192,96,32,.15);border-left-color:var(--orange)}
-.sec-head.c-teal  {background:rgba(30,104,104,.14);border-left-color:var(--teal)}
-.sec-head.c-brown {background:rgba(122,68,40,.14);border-left-color:var(--brown)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  .sec-head.c-red   {background:rgba(224,80,64,.22)}
-  .sec-head.c-gold  {background:rgba(212,160,48,.20)}
-  .sec-head.c-green {background:rgba(90,170,72,.18)}
-  .sec-head.c-blue  {background:rgba(88,136,208,.18)}
-  .sec-head.c-purple{background:rgba(144,96,192,.18)}
-  .sec-head.c-orange{background:rgba(224,112,64,.20)}
-  .sec-head.c-teal  {background:rgba(64,168,168,.18)}
-  .sec-head.c-brown {background:rgba(192,112,80,.18)}
-}}
-:root[data-theme="dark"]{
-  .sec-head.c-red   {background:rgba(224,80,64,.22)}
-  .sec-head.c-gold  {background:rgba(212,160,48,.20)}
-  .sec-head.c-green {background:rgba(90,170,72,.18)}
-  .sec-head.c-blue  {background:rgba(88,136,208,.18)}
-  .sec-head.c-purple{background:rgba(144,96,192,.18)}
-  .sec-head.c-orange{background:rgba(224,112,64,.20)}
-  .sec-head.c-teal  {background:rgba(64,168,168,.18)}
-  .sec-head.c-brown {background:rgba(192,112,80,.18)}
-}
-.sec-head .num{font-size:11px;font-weight:900;opacity:.75}
-.sec-head .title{font-size:14px;font-weight:700}
-.sec-head .law{font-size:11px;color:var(--muted);margin-left:auto}
-
-/* compare grid */
-.compare{display:grid;gap:8px}
-.compare.cols-2{grid-template-columns:1fr 1fr}
-.compare.cols-3{grid-template-columns:1fr 1fr 1fr}
-@media(max-width:600px){.compare.cols-2,.compare.cols-3{grid-template-columns:1fr}}
-
-.box{border-radius:8px;border:1.5px solid;padding:10px 12px}
-.box-title{font-size:12px;font-weight:900;letter-spacing:.5px;margin-bottom:6px}
-.box-sub{font-size:11px;color:var(--muted);margin-bottom:8px;font-style:italic}
-.row{display:flex;gap:6px;margin-bottom:4px;align-items:baseline}
-.row .label{font-size:10.5px;color:var(--muted);white-space:nowrap;flex-shrink:0;min-width:48px}
-.row .val{font-size:12px;line-height:1.5}
-
-/* trap / note / key */
-.trap{font-size:11px;color:var(--red);background:var(--red-bg);border-radius:6px;
-  padding:5px 9px;margin-top:8px;line-height:1.6}
-.note{font-size:11px;color:var(--muted);background:var(--paper-deep);border-radius:6px;
-  padding:5px 9px;margin-top:8px;line-height:1.6;font-style:italic}
-.key{color:var(--red);font-weight:700}
-.badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:99px;
-  border:1px solid;margin:1px;white-space:nowrap;line-height:1.6}
-
-/* full-width compare table */
-.full-table{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;
-  border:1px solid var(--line);margin-bottom:8px}
-.full-table th{font-size:11.5px;font-weight:700;padding:7px 10px;text-align:left;
-  background:var(--paper-deep);border-bottom:1px solid var(--line)}
-.full-table td{font-size:11.5px;padding:6px 10px;border-bottom:1px solid var(--line);
-  vertical-align:top;line-height:1.6}
-.full-table tr:last-child td{border-bottom:none}
-.full-table .rowhead{font-weight:700;color:var(--ink2);white-space:nowrap;font-size:11px;
-  background:var(--paper);border-right:1px solid var(--line)}
-
-/* color helpers */
-.c-red{color:var(--red);border-color:var(--red);background:var(--red-bg)}
-.c-gold{color:var(--gold);border-color:var(--gold);background:var(--gold-bg)}
-.c-green{color:var(--green);border-color:var(--green);background:var(--green-bg)}
-.c-blue{color:var(--blue);border-color:var(--blue);background:var(--blue-bg)}
-.c-purple{color:var(--purple);border-color:var(--purple);background:var(--purple-bg)}
-.c-orange{color:var(--orange);border-color:var(--orange);background:var(--orange-bg)}
-.c-teal{color:var(--teal);border-color:var(--teal);background:var(--teal-bg)}
-.c-brown{color:var(--brown);border-color:var(--brown);background:var(--brown-bg)}
-
-@media print{
-  body{padding:6px;font-size:11px}
-  #theme-btn,a[style*="fixed"]{display:none}
-  .compare.cols-2{grid-template-columns:1fr 1fr!important}
-  .compare.cols-3{grid-template-columns:1fr 1fr 1fr!important}
-  @page{margin:8mm}
-}
-
-/* 主題切換按鈕 */
-
-
-/* ── 整合控制膠囊（主題＋計數）── */
-.page-header .titles{flex:1;min-width:0}
-.hdr-controls{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0;padding-top:4px}
-.ctrl-pill{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper,var(--card,#FFFEFA));height:26px}
-.ctrl-pill .vsep{width:1px;height:14px;background:var(--line);flex-shrink:0}
-.ctrl-pill .theme-btn-pill{all:unset;cursor:pointer;padding:0 10px;height:26px;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--sub,#5F6B63);letter-spacing:.03em;font-family:inherit;white-space:nowrap;transition:background .1s,color .1s}
-.ctrl-pill .theme-btn-pill:hover{background:var(--line);color:var(--primary,var(--pri,#2F5D50))}
-.ctrl-pill .bxv-mini{display:flex;align-items:center;height:26px}
-.ctrl-pill .bxv-mini .cnt{min-width:22px;padding:0 4px;height:26px;background:var(--key,#8A5517);color:#fff;display:grid;place-items:center;font-size:.72rem;font-weight:800;font-variant-numeric:tabular-nums}
-.ctrl-pill .bxv-mini .sep{width:1px;height:14px;background:var(--line);flex-shrink:0}
-.ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
-.ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.7;padding:14px 16px 80px;max-width:900px;margin:0 auto}
+header{text-align:center;padding-right:44px;padding-left:44px;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--line)}
+header h1{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--ink)}
+header p{font-size:12px;color:var(--muted);margin-top:4px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;justify-content:center}
+.toc a{font-size:12px;padding:4px 11px;border-radius:99px;border:1px solid var(--line);background:var(--paper);color:var(--ink2);text-decoration:none;white-space:nowrap}
+.sec{margin-bottom:24px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sec-head .num{font-weight:900;color:var(--primary);font-size:15px}
+.sec-head .title{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:700}
+.sec-head .law{font-size:11.5px;color:var(--clay);margin-left:auto;font-weight:700}
+.compare{display:grid;gap:10px}
+.cols-2{grid-template-columns:1fr 1fr}.cols-3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:640px){.cols-2,.cols-3{grid-template-columns:1fr}}
+.box{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--primary);border-radius:10px;padding:11px 13px;min-width:0}
+.t-sage{border-top-color:var(--primary)}.t-slate{border-top-color:var(--slate)}.t-ochre{border-top-color:var(--ochre)}.t-clay{border-top-color:var(--clay)}
+.box-title{font-weight:800;font-size:14px;margin-bottom:2px}
+.box-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.row{display:flex;gap:8px;margin-bottom:5px;align-items:baseline}
+.row .label{font-size:11.5px;color:var(--muted);white-space:nowrap;flex:0 0 auto;min-width:40px;font-weight:700}
+.row .val{font-size:13px;line-height:1.65;min-width:0}
+.key{font-weight:800;background:linear-gradient(transparent 58%,var(--mark) 0);padding:0 1px}
+.mini{margin-top:8px;font-size:12px;background:var(--paper2);border-radius:6px;padding:6px 9px;line-height:1.6;color:var(--ink2)}
+.note{font-size:12.5px;color:var(--ink2);background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:7px 11px;margin-top:9px;line-height:1.7}
+.trap{font-size:12.5px;background:var(--paper2);border-left:4px solid var(--ochre);border-radius:6px;padding:7px 11px;margin-top:8px;line-height:1.7}
+.trap b{color:var(--clay)}
 </style>
-<style>
-
-  color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
-</style><script src="bxv-use.js"></script>
+<script src="bxv-use.js"></script>
 </head>
 <body>
 <header>
   <h1>不動產估價概要｜易混淆概念並排補充</h1>
-  <p>8組高頻考點 × 條文核實 × 陷阱標注｜技術規則§2‧§16‧§18-27‧§28-47‧§48-82‧§129-133</p>
+  <p>8 組高頻考點・依技術規則現行條文核對</p>
 </header>
-
-<div class="toc">
-  <a href="#s1">①折舊三法</a>
-  <a href="#s2">②比較法三道排除</a>
-  <a href="#s3">③四種價格</a>
-  <a href="#s4">④三種租金</a>
-  <a href="#s5">⑤地區三概念</a>
-  <a href="#s6">⑥重建vs重置成本</a>
-  <a href="#s7">⑦直接資本化vsDCF</a>
-  <a href="#s8">⑧獨立vs部分估價</a>
+<div class="toc"><a href="#s1">①折舊三法</a><a href="#s2">②比較法三道排除</a><a href="#s3">③四種價格</a><a href="#s4">④租金種類</a><a href="#s5">⑤地區三概念</a><a href="#s6">⑥重建vs重置</a><a href="#s7">⑦直接資本化vsDCF</a><a href="#s8">⑧素地估價</a></div>
+<div class="sec" id="s1"><div class="sec-head"><span class="num">①</span><span class="title">折舊計算三種方法</span><span class="law">§65–§68　§40-1　§41</span></div>
+<div class="compare cols-3">
+<div class="box t-sage"><div class="box-title">定額法（直線法）</div><div class="box-sub">等速折舊路徑</div><div class="row"><span class="label">公式</span><span class="val">年折舊額＝C×(1－s)÷N；Dn＝年折舊額×n</span></div><div class="row"><span class="label">特性</span><span class="val">每年折舊額<span class="key">固定相等</span>（對原始成本算）</span></div><div class="row"><span class="label">考頻</span><span class="val">16 年多次計算題</span></div></div>
+<div class="box t-slate"><div class="box-title">定率法（餘額遞減）</div><div class="box-sub">初期加速折舊路徑（曲線在直線下方）</div><div class="row"><span class="label">公式</span><span class="val">第 n 年末現值＝C×(1－r)^n；r＝1－s^(1/N)（教材）</span></div><div class="row"><span class="label">特性</span><span class="val">每年對<span class="key">前一年餘值</span>乘固定比率，折舊額逐年遞減</span></div><div class="row"><span class="label">陷阱</span><span class="val">不是「固定金額」，是「固定比率」</span></div></div>
+<div class="box t-ochre"><div class="box-title">償債基金法</div><div class="box-sub">初期減速折舊路徑（曲線在直線上方）</div><div class="row"><span class="label">公式</span><span class="val">年提存額＝C×(1－s)×i÷[(1+i)^N－1]（§40-1）</span></div><div class="row"><span class="label">特性</span><span class="val">每年提存固定金額，<span class="key">複利</span>累積；初期折舊小、後期大</span></div><div class="row"><span class="label">用途</span><span class="val">收益法折舊提存費、折舊提存率（§40-1、§41）</span></div></div>
+</div>
+<div class="note">C＝重建（重置）成本　s＝殘餘價格率（不超過 10% 為原則，§67）　N＝經濟耐用年數　n＝經歷年數　i＝利率　r＝定率法折舊率</div>
+<div class="trap"><b>注意</b>　折舊路徑只有三種：等速／初期加速／初期減速，<span class="key">「後期減速」不存在</span>，是常設陷阱。</div>
+<div class="trap"><b>注意</b>　折舊額以<span class="key">經濟耐用年數</span>為主，必要時才得以物理耐用年數計算；經歷年數大於經濟耐用年數須重新調整（§65～§68）。</div>
+<div class="trap"><b>注意</b>　劃一＝定額，比率＝定率，複利＝償債基金（101-27）。</div>
+</div>
+<div class="sec" id="s2"><div class="sec-head"><span class="num">②</span><span class="title">比較法三道排除規則</span><span class="law">§25　§26　§27</span></div>
+<div class="compare cols-3">
+<div class="box t-sage"><div class="box-title">第一道｜單項調整率</div><div class="box-sub">§25</div><div class="row"><span class="label">對象</span><span class="val"><span class="key">區域因素、個別因素</span>調整，或其內任一單獨項目</span></div><div class="row"><span class="label">門檻</span><span class="val">調整率<span class="key">大於 15%</span></span></div><div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div><div class="row"><span class="label">例外</span><span class="val">勘估標的性質或區位特殊、缺乏交易資料，並於報告書敘明</span></div><div class="mini">情況調整、價格日期調整沒有單項 15% 規定</div></div>
+<div class="box t-slate"><div class="box-title">第二道｜總調整率</div><div class="box-sub">§25</div><div class="row"><span class="label">對象</span><span class="val">情況＋價格日期＋區域＋個別，<span class="key">四項總調整率</span></span></div><div class="row"><span class="label">門檻</span><span class="val"><span class="key">大於 30%</span></span></div><div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div><div class="row"><span class="label">例外</span><span class="val">同上</span></div></div>
+<div class="box t-ochre"><div class="box-title">第三道｜試算價格差距</div><div class="box-sub">§26</div><div class="row"><span class="label">對象</span><span class="val">各試算價格之間（高低價之差÷高低價平均）</span></div><div class="row"><span class="label">門檻</span><span class="val"><span class="key">達 20% 以上</span></span></div><div class="row"><span class="label">後果</span><span class="val">先重新檢討；檢討後仍達 20% 以上，排除該<span class="key">試算價格</span></span></div><div class="row"><span class="label">公式</span><span class="val">（最高－最低）÷ 高低價平均值</span></div></div>
+</div>
+<div class="trap"><b>注意</b>　數字最常互換：單項→<span class="key">15%</span>、總調整率→<span class="key">30%</span>、試算差距→<span class="key">20%</span>。前兩道寫「大於」（剛好不排除），第三道寫「達…以上」（剛好就算）。</div>
+<div class="trap"><b>注意</b>　排除對象不同：第一、二道排除<span class="key">比較標的</span>；第三道排除<span class="key">試算價格</span>。</div>
+<div class="trap"><b>注意</b>　比較法應採用<span class="key">三件以上</span>比較標的（§27）。</div>
+</div>
+<div class="sec" id="s3"><div class="sec-head"><span class="num">③</span><span class="title">不動產價格四種類</span><span class="law">§2 第1–4款　§6Ⅱ</span></div>
+<div class="compare cols-2">
+<div class="box t-sage"><div class="box-title">正常價格</div><div class="box-sub">具市場性</div><div class="row"><span class="label">成立</span><span class="val">有意願買賣雙方、依專業知識謹慎行動、不受脅迫，經適當市場行銷、正常交易條件形成之合理價值</span></div><div class="row"><span class="label">例</span><span class="val">一般買賣、徵收補償市價查估</span></div></div>
+<div class="box t-slate"><div class="box-title">限定價格</div><div class="box-sub">具市場性</div><div class="row"><span class="label">成立</span><span class="val">①所有權以外之權利與所有權<span class="key">合併</span>　②不動產<span class="key">合併</span>　③違反經濟合理性之<span class="key">分割</span></span></div><div class="row"><span class="label">例</span><span class="val">地上權人購買設定地上權之土地；相鄰土地合併開發；學校購買鄰地擴校</span></div><div class="mini">限定價格不須同時估正常價格（§6Ⅱ 只規定特定價格）</div></div>
+<div class="box t-ochre"><div class="box-title">特定價格</div><div class="box-sub">具市場性</div><div class="row"><span class="label">成立</span><span class="val">基於<span class="key">特定條件</span>形成之價值（如預期容積或都市計畫變更）</span></div><div class="row"><span class="label">例</span><span class="val">都市邊緣農地以未來變更為建地為前提估價</span></div><div class="mini">只有特定價格須敘明估價條件並同時估計正常價格（§6Ⅱ）</div></div>
+<div class="box t-clay"><div class="box-title">特殊價格</div><div class="box-sub">**不具**市場性</div><div class="row"><span class="label">成立</span><span class="val">對不具市場性之不動產所估計之價值，<span class="key">仍以貨幣金額表示</span></span></div><div class="row"><span class="label">例</span><span class="val">總統府、孔廟、媽祖廟、龜山島、太平島、東沙島、釣魚台</span></div></div>
+</div>
+<div class="trap"><b>注意</b>　特殊價格不是「無法以貨幣表示」，是<span class="key">標的不具市場性</span>。</div>
+<div class="trap"><b>注意</b>　合併、分割→<span class="key">限定</span>；特定條件→<span class="key">特定</span>；不具市場性→<span class="key">特殊</span>。</div>
+</div>
+<div class="sec" id="s4"><div class="sec-head"><span class="num">④</span><span class="title">租金的種類</span><span class="law">§2 第5–6款　§130</span></div>
+<div class="compare cols-2">
+<div class="box t-sage"><div class="box-title">實質租金</div><div class="box-sub">§130　估計租金的原則</div><div class="row"><span class="label">定義</span><span class="val">承租人每期<span class="key">支付</span>之租金，加計押金或保證金、權利金及其他相關<span class="key">運用收益</span>之總數</span></div><div class="row"><span class="label">算式</span><span class="val">月租×12＋押金×利率（＋權利金運用收益）</span></div></div>
+<div class="box t-slate"><div class="box-title">支付租金</div><div class="box-sub">承租人每期實際支付的租金本身</div><div class="row"><span class="label">特性</span><span class="val">不含押金運用收益，也不是合理租金（103-38）</span></div><div class="row"><span class="label">算式</span><span class="val">月租×12</span></div></div>
+<div class="box t-ochre"><div class="box-title">經濟租金</div><div class="box-sub">不動產於市場上以最有效利用方式所能產生的收益</div><div class="row"><span class="label">特性</span><span class="val">反映租賃不動產的經濟價值（100-33、101-32）</span></div><div class="row"><span class="label">大小</span><span class="val">與支付租金、實質租金的大小關係<span class="key">不一定</span>（114-24）</span></div></div>
+<div class="box t-clay"><div class="box-title">契約租金</div><div class="box-sub">依租賃契約約定之租金</div><div class="row"><span class="label">用途</span><span class="val">證券化 DCF 各期淨收益以它為原則；契約租金未知者以經濟租金推估（110-13）</span></div></div>
+<div class="box t-sage"><div class="box-title">正常租金</div><div class="box-sub">對應正常價格之租賃合理價值</div><div class="row"><span class="label">地位</span><span class="val">租金種類只有<span class="key">正常租金</span>與<span class="key">限定租金</span>兩種（113-5）</span></div></div>
+<div class="box t-slate"><div class="box-title">限定租金</div><div class="box-sub">基於**續訂租約**或不動產**合併**為目的形成之租賃價值</div><div class="row"><span class="label">例</span><span class="val">隔壁店家不續租、你一併承租擴大經營（106-4）；私校續約（106-24）；兩間相鄰店面打通（107-1）</span></div></div>
+</div>
+<div class="note">實質租金算例：月租 3 萬、押金 60 萬、年利率 2%，實質月租金＝30,000＋60萬×2%÷12＝<span class="key">31,000 元</span>；一年實質租金＝360,000＋12,000＝372,000 元。</div>
+<div class="note">差額分配法（§133④）：續訂租約，分析原契約租金與市場經濟租金之差額，取應歸出租人之適當部分，加計契約租金。</div>
+<div class="trap"><b>注意</b>　押金、保證金、權利金的運用收益都要加進實質租金（99-5：「不可將權利金之收益列入」是錯的）。</div>
+<div class="trap"><b>注意</b>　名目租金、純租金、淨租金、差額租金不是規則的定義用語（105-20、113-5）。</div>
+</div>
+<div class="sec" id="s5"><div class="sec-head"><span class="num">⑤</span><span class="title">地區三概念</span><span class="law">§2 第11–13款　§12</span></div>
+<div class="compare cols-3">
+<div class="box t-sage"><div class="box-title">近鄰地區</div><div class="box-sub">範圍最小、同質性最高</div><div class="row"><span class="label">定義</span><span class="val">勘估標的或比較標的周圍，供相同或類似用途之不動產，形成同質性較高之地區</span></div></div>
+<div class="box t-slate"><div class="box-title">類似地區</div><div class="box-sub">範圍中間</div><div class="row"><span class="label">定義</span><span class="val">同一供需圈內，近鄰地區<span class="key">以外</span>，使用性質相近之地區</span></div></div>
+<div class="box t-ochre"><div class="box-title">同一供需圈</div><div class="box-sub">範圍最大</div><div class="row"><span class="label">定義</span><span class="val">比較標的與勘估標的能成立<span class="key">替代關係</span>，且價格互為影響之最適範圍</span></div><div class="row"><span class="label">關係</span><span class="val">＝近鄰地區＋類似地區</span></div></div>
+</div>
+<div class="note">近鄰地區與類似地區互不重疊，兩者合起來就是同一供需圈。</div>
+<div class="trap"><b>注意</b>　供需圈的關鍵字是<span class="key">替代關係</span>，不是貢獻關係。</div>
+<div class="trap"><b>注意</b>　§12 第2款：比較標的位於<span class="key">同一供需圈之近鄰地區或類似地區</span>（整個供需圈都可以）。</div>
+<div class="trap"><b>注意</b>　107 年申論考過三者定義與關係。</div>
+</div>
+<div class="sec" id="s6"><div class="sec-head"><span class="num">⑥</span><span class="title">重建成本 vs 重置成本</span><span class="law">§48</span></div>
+<div class="compare cols-2">
+<div class="box t-sage"><div class="box-title">重建成本（原則）</div><div class="row"><span class="label">定義</span><span class="val">使用相同或極類似建材標準、設計、配置、施工品質，於價格日期<span class="key">重新複製</span>所需成本</span></div><div class="row"><span class="label">關鍵字</span><span class="val">複製、相同、原樣</span></div></div>
+<div class="box t-slate"><div class="box-title">重置成本（例外）</div><div class="row"><span class="label">定義</span><span class="val">以<span class="key">現代</span>建材標準、設計及配置，建造<span class="key">相同效用</span>建物所需成本</span></div><div class="row"><span class="label">時機</span><span class="val">建材已無生產或施工方法已改變者</span></div></div>
+</div>
+<div class="trap"><b>注意</b>　原則重建、例外重置，順序記反是最常見誤答。</div>
+<div class="trap"><b>注意</b>　111 年申論考過兩者定義辨析。</div>
+</div>
+<div class="sec" id="s7"><div class="sec-head"><span class="num">⑦</span><span class="title">直接資本化法 vs DCF</span><span class="law">§28–§32　§15</span></div>
+<div class="compare cols-2">
+<div class="box t-sage"><div class="box-title">直接資本化法</div><div class="box-sub">§29–§30</div><div class="row"><span class="label">公式</span><span class="val">收益價格＝未來平均一年之客觀淨收益÷收益資本化率</span></div><div class="row"><span class="label">期間</span><span class="val">未來<span class="key">平均一年</span></span></div><div class="row"><span class="label">期末</span><span class="val">不另計期末價值</span></div><div class="mini">資本化率決定五法（§43）：風險溢酬、市場萃取、WACC、債務保障比率、有效總收入乘數</div></div>
+<div class="box t-slate"><div class="box-title">折現現金流量分析法（DCF）</div><div class="box-sub">§31–§32</div><div class="row"><span class="label">公式</span><span class="val">P＝Σ[CFk÷(1＋Y)^k]＋Pn′÷(1＋Y)^n′</span></div><div class="row"><span class="label">期間</span><span class="val">分析期間內<span class="key">各期</span>淨收益，加<span class="key">期末價值</span></span></div><div class="row"><span class="label">適用</span><span class="val">得適用於投資為目的之不動產投資評估</span></div><div class="mini">P＝收益價格；CFk＝第 k 期淨收益；Y＝折現率；n′＝分析期間；Pn′＝期末價值</div></div>
+</div>
+<div class="trap"><b>注意</b>　證券化以契約約定租金為信託利益分配基礎者，DCF 收益價格應賦予<span class="key">相對較大權重</span>；標的清算時不適用（§15）。</div>
+<div class="trap"><b>注意</b>　資本化率與折現率：概念不同，數值高低關係<span class="key">不一定</span>。</div>
+<div class="trap"><b>注意</b>　113 年申論考過兩者差異。</div>
+</div>
+<div class="sec" id="s8"><div class="sec-head"><span class="num">⑧</span><span class="title">獨立估價 vs 部分估價（素地）</span><span class="law">§86　§102–§106</span></div>
+<div class="compare cols-2">
+<div class="box t-sage"><div class="box-title">素地估價</div><div class="box-sub">§86 但書</div><div class="row"><span class="label">情境</span><span class="val">土地上有建物，但以<span class="key">素地</span>為前提估價</span></div><div class="row"><span class="label">條件</span><span class="val">敘明素地前提</span></div></div>
+<div class="box t-slate"><div class="box-title">考慮建物影響</div><div class="box-sub">§86 本文</div><div class="row"><span class="label">情境</span><span class="val">附有建物之宗地，應考慮<span class="key">建物對地價之影響</span></span></div><div class="row"><span class="label">原則</span><span class="val">未以素地為前提時</span></div></div>
+</div>
+<div class="note">建物不具使用價值（§106）：得將基地視為<span class="key">素地</span>估價，但應考量<span class="key">拆除成本</span>調整。</div>
+<div class="note">未達最有效使用（§104）：先求最有效使用狀態之正常價格，再依低度使用情況調整。</div>
+<div class="note">容積超過法定（§102）：以<span class="key">實際建築使用合法部分</span>之現況估價，並敘明法定容積對估值之影響。</div>
+<div class="note">違章建築（§103）：違建部分<span class="key">不予評估</span>；委託人要求時可分別標示合法及違建部分價格。</div>
+<div class="trap"><b>注意</b>　素地估價是「忽略建物存在」；建物不具使用價值是「建物真的沒用」，後者須扣拆除成本。</div>
 </div>
 
-<!-- ①折舊三法 -->
-<div class="sec" id="s1">
-  <div class="sec-head c-red">
-    <span class="num">①</span>
-    <span class="title">折舊計算三種方法</span>
-    <span class="law">§65–68‧§40–41</span>
-  </div>
-  <div class="compare cols-3">
-    <div class="box c-blue">
-      <div class="box-title">定額法（直線法）</div>
-      <div class="box-sub">等速折舊路徑</div>
-      <div class="row"><span class="label">公式</span><span class="val">Dn＝C×(1－s)/N×n</span></div>
-      <div class="row"><span class="label">特性</span><span class="val">每年折舊額<span class="key">固定相等</span></span></div>
-      <div class="row"><span class="label">適用</span><span class="val">一般估價<span class="key">最常用</span></span></div>
-      <div class="row"><span class="label">考頻</span><span class="val">★★★ 16年多次計算題</span></div>
-    </div>
-    <div class="box c-red">
-      <div class="box-title">定率法（餘額遞減法）</div>
-      <div class="box-sub">初期加速折舊路徑</div>
-      <div class="row"><span class="label">公式</span><span class="val">每年以固定比率×剩餘帳面價值</span></div>
-      <div class="row"><span class="label">特性</span><span class="val"><span class="key">初期</div>row"><span class="label">公式</span><span class="val">C×(1-s)×[i÷((1+i)^N-1)]</span></div>
-      <div class="row"><span class="label">特性</span><span class="val"><span class="key">初期折舊額小</span>，逐年增加</span></div>
-      <div class="row"><span class="label">適用</span><span class="val">收益法折舊提存費（§40-41）</span></div>
-      <div class="row"><span class="label">考頻</span><span class="val">★★ 選擇題辨認</span></div>
-    </div>
-  </div>
-  <div class="note">C＝重建（重置）成本 ｜ s＝殘餘價格率（原則≤10%，§67）｜ N＝<span class="key">經濟</span>耐用年數 ｜ n＝經歷年數 ｜ i＝利率</div>
-  <div class="trap">⚠️ 折舊路徑只有三種：等速／初期加速／初期減速。<span class="key">「後期減速」不存在</span>，是常設陷阱。｜累積折舊計算以<span class="key">經濟</span>耐用年數為主（非物理耐用年數）。</div>
-</div>
-
-<!-- ②比較法三道排除規則 -->
-<div class="sec" id="s2">
-  <div class="sec-head c-gold">
-    <span class="num">②</span>
-    <span class="title">比較法三道排除規則</span>
-    <span class="law">§25–26</span>
-  </div>
-  <div class="compare cols-3">
-    <div class="box c-red">
-      <div class="box-title">第一道｜單項調整率</div>
-      <div class="box-sub">§25 第1款</div>
-      <div class="row"><span class="label">對象</span><span class="val">區域因素或個別因素內<span class="key">任一單獨項目</span></span></div>
-      <div class="row"><span class="label">門檻</span><span class="val">調整率 <span class="key">&gt;15%</span></span></div>
-      <div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div>
-      <div class="row"><span class="label">例外</span><span class="val">勘估標的性質或區位特殊，缺乏交易資料並於報告書敘明者</span></div>
-    </div>
-    <div class="box c-purple">
-      <div class="box-title">第二道｜總調整率</div>
-      <div class="box-sub">§25 第2款</div>
-      <div class="row"><span class="label">對象</span><span class="val">情況＋價格日期＋區域＋個別因素<span class="key">四項合計</span></span></div>
-      <div class="row"><span class="label">門檻</span><span class="val">總調整率 <span class="key">&gt;30%</span></span></div>
-      <div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">比較標的</span></span></div>
-      <div class="row"><span class="label">例外</span><span class="val">同上（性質或區位特殊）</span></div>
-    </div>
-    <div class="box c-teal">
-      <div class="box-title">第三道｜試算價格差距</div>
-      <div class="box-sub">§26</div>
-      <div class="row"><span class="label">對象</span><span class="val">各比較標的調整後<span class="key">試算價格之間</span></span></div>
-      <div class="row"><span class="label">門檻</span><span class="val">差距 <span class="key">≥20%</span></span></div>
-      <div class="row"><span class="label">後果</span><span class="val">排除該<span class="key">試算價格</span>（非比較標的）</span></div>
-      <div class="row"><span class="label">公式</span><span class="val">（最高－最低）÷ 高低平均值</span></div>
-    </div>
-  </div>
-  <div class="trap">⚠️ 數字最常互換出題：單項→<span class="key">15%</span>、總調整率→<span class="key">30%</span>、試算差距→<span class="key">≥20%</span>（注意第三道是「達20%以上」，前兩道是「大於」）。<br>⚠️ 排除對象不同：第一、二道排除的是<span class="key">比較標的</span>；第三道排除的是<span class="key">試算價格</span>。<br>⚠️ 比較法至少須採用<span class="key">3件以上</span>比較標的（§27）。</div>
-</div>
-
-<!-- ③四種價格 -->
-<div class="sec" id="s3">
-  <div class="sec-head c-green">
-    <span class="num">③</span>
-    <span class="title">不動產價格四種類</span>
-    <span class="law">§2 第1–4款</span>
-  </div>
-  <div class="compare cols-2">
-    <div class="box c-green">
-      <div class="box-title">正常價格</div>
-      <div class="row"><span class="label">市場性</span><span class="val"><span class="key">具有</span>市場性</span></div>
-      <div class="row"><span class="label">成立條件</span><span class="val">有意願買賣雙方、依專業知識謹慎行動、不受脅迫、適當市場行銷、正常交易條件</span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">一般買賣、實價登錄正常交易</span></div>
-    </div>
-    <div class="box c-blue">
-      <div class="box-title">限定價格</div>
-      <div class="row"><span class="label">市場性</span><span class="val"><span class="key">具有</span>市場性</span></div>
-      <div class="row"><span class="label">成立條件</span><span class="val">①所有權以外其他權利與所有權<span class="key">合併</span>　②不動產<span class="key">合併</span>　③違反經濟合理性之<span class="key">分割</span></span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">地上權人購回設定土地、相鄰土地合併開發、違反合理性之分割</span></div>
-      <div class="trap" style="margin-top:6px">⚠️ 限定價格<span class="key">不須</span>同時估計正常價格（§6Ⅱ 僅特定價格須）</div>
-    </div>
-    <div class="box c-orange">
-      <div class="box-title">特定價格</div>
-      <div class="row"><span class="label">市場性</span><span class="val"><span class="key">具有</span>市場性</span></div>
-      <div class="row"><span class="label">成立條件</span><span class="val">基於<span class="key">特定條件</span>（受託估價目的之特殊條件）形成之價值</span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">都市更新權利變換中對應分配價值之估價</span></div>
-      <div class="trap" style="margin-top:6px">⚠️ <span class="key">只有特定價格</span>須敘明估價條件並同時估計正常價格（§6Ⅱ）</div>
-    </div>
-    <div class="box c-purple">
-      <div class="box-title">特殊價格</div>
-      <div class="row"><span class="label">市場性</span><span class="val"><span class="key">不具</span>市場性</span></div>
-      <div class="row"><span class="label">成立條件</span><span class="val">無法以一般市場行為交易之不動產</span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">總統府、孔廟、媽祖廟、軍事用地（東沙島、釣魚台、龜山島等）</span></div>
-    </div>
-  </div>
-  <div class="trap">⚠️ 常混淆：「特定」vs「特殊」— 特定<span class="key">有市場性</span>只是條件特殊；特殊<span class="key">無市場性</span>根本無法交易。<br>⚠️ 「限定」vs「特定」— 限定有三種固定情境（合併/分割）；特定是特殊目的/條件。</div>
-</div>
-
-<!-- ④三種租金 -->
-<div class="sec" id="s4">
-  <div class="sec-head c-teal">
-    <span class="num">④</span>
-    <span class="title">租金三種類</span>
-    <span class="law">§2第5–6款‧§129–133</span>
-  </div>
-  <div class="compare cols-3">
-    <div class="box c-orange">
-      <div class="box-title">實質租金</div>
-      <div class="box-sub">§130★鐵打必考</div>
-      <div class="row"><span class="label">定義</span><span class="val">承租人每期支付租金＋押金保證金權利金等<span class="key">運用收益</span>之總數</span></div>
-      <div class="row"><span class="label">計算</span><span class="val">實質租金 ＝ 支付租金 ＋ 押金×利率</span></div>
-      <div class="row"><span class="label">估計原則</span><span class="val">租金估計以估<span class="key">實質租金</span>為原則</span></div>
-    </div>
-    <div class="box c-green">
-      <div class="box-title">經濟租金（市場租金）</div>
-      <div class="box-sub">參照§2‧§132</div>
-      <div class="row"><span class="label">定義</span><span class="val">依最有效使用、正常市場條件下之<span class="key">合理租金水準</span></span></div>
-      <div class="row"><span class="label">計算</span><span class="val">以正常價格×租金收益率估計，或比較法推算</span></div>
-      <div class="row"><span class="label">說明</span><span class="val">排除契約關係影響，反映「應有水準」</span></div>
-    </div>
-    <div class="box c-purple">
-      <div class="box-title">支付租金（契約租金）</div>
-      <div class="box-sub">參照§130‧§133</div>
-      <div class="row"><span class="label">定義</span><span class="val">承租人<span class="key">實際每期支付</span>給出租人之金額</span></div>
-      <div class="row"><span class="label">計算</span><span class="val">實質租金 ＝ 支付租金 ＋ 押金運用收益</span></div>
-      <div class="row"><span class="label">說明</span><span class="val">常低於或高於市場水準，受契約約束</span></div>
-    </div>
-  </div>
-  <div class="note">
-    <b>差額分配法（§133第4款）</b>：續訂租約時，分析原契約租金與市場經濟租金之差額，決定應歸屬出租人之適當部分，加計契約租金後作為續約租金估計。<br>
-    <b>不動產證券化（§33）</b>：原則以<span class="key">契約租金</span>計算各期淨收益；契約租金未知者以市場經濟租金推估。
-  </div>
-  <div class="trap">⚠️ 計算實質租金：押金×利率＝押金運用收益，須加回去。例：月租3萬，押金60萬，年利率2%→實質月租金＝30,000＋60,000×2%÷12＝30,000＋1,000＝<span class="key">31,000元</span>。</div>
-</div>
-
-<!-- ⑤地區三概念 -->
-<div class="sec" id="s5">
-  <div class="sec-head c-blue">
-    <span class="num">⑤</span>
-    <span class="title">地區三概念（近鄰／類似／同一供需圈）</span>
-    <span class="law">§2 第10–13款</span>
-  </div>
-  <div class="compare cols-3">
-    <div class="box c-blue">
-      <div class="box-title">同一供需圈</div>
-      <div class="row"><span class="label">範圍</span><span class="val"><span class="key">最大</span>（近鄰＋類似）</span></div>
-      <div class="row"><span class="label">定義</span><span class="val">比較標的與勘估標的能成立<span class="key">替代關係</span>，且價格<span class="key">互為影響</span>之最適範圍</span></div>
-      <div class="row"><span class="label">關係</span><span class="val">包含近鄰地區＋類似地區</span></div>
-    </div>
-    <div class="box c-green">
-      <div class="box-title">近鄰地區</div>
-      <div class="row"><span class="label">範圍</span><span class="val"><span class="key">最小</span>（最靠近）</span></div>
-      <div class="row"><span class="label">定義</span><span class="val">勘估標的或比較標的周圍，供<span class="key">相同或類似用途</span>，形成<span class="key">同質性較高</span>之地區</span></div>
-      <div class="row"><span class="label">關係</span><span class="val">在同一供需圈內，屬最直接影響圈</span></div>
-    </div>
-    <div class="box c-purple">
-      <div class="box-title">類似地區</div>
-      <div class="row"><span class="label">範圍</span><span class="val"><span class="key">中間</span></span></div>
-      <div class="row"><span class="label">定義</span><span class="val">同一供需圈內，<span class="key">近鄰地區以外</span>而使用性質相近之地區</span></div>
-      <div class="row"><span class="label">關係</span><span class="val">在同一供需圈內但非近鄰</span></div>
-    </div>
-  </div>
-  <div class="note">從屬關係：近鄰地區 ⊂ 同一供需圈；類似地區 ⊂ 同一供需圈；近鄰地區 ∩ 類似地區 ＝ ∅（互不重疊）</div>
-  <div class="trap">⚠️ 比較實例原則（§12）：應位於同一供需圈之<span class="key">近鄰地區或類似地區</span>。也就是整個供需圈都可以，不限定只能在近鄰地區。<br>⚠️ 107年申論題：同一供需圈/近鄰地區/類似地區三者定義及關係，務必能書面論述。</div>
-</div>
-
-<!-- ⑥重建成本vs重置成本 -->
-<div class="sec" id="s6">
-  <div class="sec-head c-orange">
-    <span class="num">⑥</span>
-    <span class="title">重建成本 vs 重置成本</span>
-    <span class="law">§48</span>
-  </div>
-  <div class="compare cols-2">
-    <div class="box c-gold">
-      <div class="box-title">重建成本（原則）</div>
-      <div class="row"><span class="label">定義</span><span class="val">使用<span class="key">相同或極類似</span>建材標準、設計、配置、施工品質，<span class="key">重新複製</span>所需成本</span></div>
-      <div class="row"><span class="label">關鍵字</span><span class="val">複製、相同、原樣</span></div>
-      <div class="row"><span class="label">適用時機</span><span class="val"><span class="key">原則採用</span>（建材及施工方法尚存在）</span></div>
-    </div>
-    <div class="box c-orange">
-      <div class="box-title">重置成本（例外）</div>
-      <div class="row"><span class="label">定義</span><span class="val">以<span class="key">現代</span>建材標準、設計及配置，建造<span class="key">相同效用</span>建物所需成本</span></div>
-      <div class="row"><span class="label">關鍵字</span><span class="val">現代、相同效用（不一定相同外觀）</span></div>
-      <div class="row"><span class="label">適用時機</span><span class="val">建材已無生產或施工方法已改變者</span></div>
-    </div>
-  </div>
-  <div class="trap">⚠️ 核心差異：重建＝<span class="key">原樣複製</span>；重置＝<span class="key">效用相同但用現代材料</span>。<br>⚠️ 重建成本為原則，重置成本為例外（須有「建材已無生產或施工方法已改變」的條件）。<br>⚠️ 111年申論題即考此兩者定義辨析。</div>
-</div>
-
-<!-- ⑦直接資本化法vsDCF -->
-<div class="sec" id="s7">
-  <div class="sec-head c-purple">
-    <span class="num">⑦</span>
-    <span class="title">直接資本化法 vs 折現現金流量分析法（DCF）</span>
-    <span class="law">§28–32‧§15</span>
-  </div>
-  <div class="compare cols-2">
-    <div class="box c-teal">
-      <div class="box-title">直接資本化法</div>
-      <div class="box-sub">§29–30</div>
-      <div class="row"><span class="label">公式</span><span class="val"><span class="key">收益價格 ＝ 未來平均1年客觀淨收益 ÷ 收益資本化率</span></span></div>
-      <div class="row"><span class="label">收益期間</span><span class="val"><span class="key">未來平均1年</span>（穩定假設）</span></div>
-      <div class="row"><span class="label">折現方式</span><span class="val">除以資本化率（一次性）</span></div>
-      <div class="row"><span class="label">適用條件</span><span class="val">收益<span class="key">穩定</span>、可預期之不動產</span></div>
-      <div class="row"><span class="label">資本化率</span><span class="val">五種決定方法（§43）：風險溢酬法、市場萃取法、WACC法、債務保障比率法、有效總收入乘數法</span></div>
-    </div>
-    <div class="box c-purple">
-      <div class="box-title">折現現金流量分析法（DCF）</div>
-      <div class="box-sub">§31–32</div>
-      <div class="row"><span class="label">公式</span><span class="val">P＝Σ[CFk÷(1＋Y)^k]＋Pn'÷(1＋Y)^n'</span></div>
-      <div class="row"><span class="label">收益期間</span><span class="val"><span class="key">未來各期</span>分別列計（逐期預測）</span></div>
-      <div class="row"><span class="label">折現方式</span><span class="val">各期以折現率折回現值後加總＋期末價值現值</span></div>
-      <div class="row"><span class="label">適用條件</span><span class="val">收益<span class="key">不穩定</span>、投資評估、大型商業不動產</span></div>
-      <div class="row"><span class="label">折現率Y</span><span class="val">考量資金時間價值及投資風險</span></div>
-    </div>
-  </div>
-  <div class="trap">⚠️ 不動產證券化以<span class="key">契約租金</span>為分配基礎者，DCF法所求得之收益價格應賦予<span class="key">相對較大權重</span>（§15）；清算時不適用此規定。<br>⚠️ 113年申論題直接考兩者定義差異，是確實高頻考點。<br>⚠️ P＝收益價格，CFk＝第k期淨收益，Y＝折現率，n'＝折現現金流量分析期間，Pn'＝期末價值。</div>
-</div>
-
-<!-- ⑧獨立估價vs部分估價 -->
-<div class="sec" id="s8">
-  <div class="sec-head c-brown">
-    <span class="num">⑧</span>
-    <span class="title">獨立估價 vs 部分估價（含素地概念）</span>
-    <span class="law">§86‧§102–106</span>
-  </div>
-  <div class="compare cols-2">
-    <div class="box c-green">
-      <div class="box-title">獨立估價（素地估價）</div>
-      <div class="box-sub">§86但書</div>
-      <div class="row"><span class="label">情境</span><span class="val">土地上有建物，但<span class="key">以素地前提估價</span>（排除建物影響）</span></div>
-      <div class="row"><span class="label">做法</span><span class="val">將土地視為<span class="key">空地（素地）</span>估計地價</span></div>
-      <div class="row"><span class="label">條件</span><span class="val">委託人明確要求以素地為前提，並於報告書<span class="key">敘明</span></span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">土地登記、徵收補償、銀行抵押</span></div>
-    </div>
-    <div class="box c-orange">
-      <div class="box-title">部分估價（含建物影響）</div>
-      <div class="box-sub">§86本文</div>
-      <div class="row"><span class="label">情境</span><span class="val">附有建物之宗地，<span class="key">考量建物對地價的影響</span></span></div>
-      <div class="row"><span class="label">做法</span><span class="val">估計地上有建物狀態下之地價（可能增減）</span></div>
-      <div class="row"><span class="label">條件</span><span class="val"><span class="key">一般原則</span>（未特別要求素地前提時）</span></div>
-      <div class="row"><span class="label">典型例</span><span class="val">附有老舊建物但位置佳之土地估價</span></div>
-    </div>
-  </div>
-  <div class="note">
-    <b>相關特殊情形：</b><br>
-    • <b>建物不具使用價值（§106）</b>：得將基地視為<span class="key">素地</span>估價，但應考量<span class="key">拆除成本</span>調整（拆除成本會使地價降低）。<br>
-    • <b>未達最有效使用（§104）</b>：先求最有效使用狀態之正常價格，再依<span class="key">低度使用情況</span>調整（通常向下修正）。<br>
-    • <b>容積超過法定（§102）</b>：以<span class="key">實際建築使用合法部分</span>之現況估價，並敘明法定容積對估值之影響。<br>
-    • <b>違章建築（§103）</b>：違建部分<span class="key">原則不予評估</span>；委託人要求時可分別標示合法及違建部分價格。
-  </div>
-  <div class="trap">⚠️ 素地估價≠建物不具使用價值：素地估價是<span class="key">忽略建物存在</span>；建物不具使用價值是<span class="key">建物真的沒用</span>，後者須扣拆除成本。</div>
-</div>
-
-<a href="估價備考指揮中心.html" style="position:fixed;right:14px;bottom:14px;width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;font-size:22px;text-align:center;line-height:48px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20">🏠</a>
-
+<a href="估價備考指揮中心.html" title="回指揮中心" style="position:fixed;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--primary);color:#fff;font-size:21px;text-align:center;line-height:46px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20">🏠</a>
 <script>
-(function(){
-  try{const s=localStorage.getItem('bx-theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'🌙':'☀️'}}catch(e){}
-})();
-if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
-// ── 計數器 ──
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"}).catch(function(){});
 (function(){
   var RID='mix2';
   function get(){return(typeof BXREP!=='undefined')?(BXREP.readGet(RID).n||0):0;}
@@ -464,12 +141,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js"
   window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
   setTimeout(upd,100);
 })();
-// ── 主題切換 ──
-function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
-function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
-function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
-(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}})();
 </script>
-
 </body>
 </html>
