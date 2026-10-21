@@ -1281,10 +1281,44 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <span class="label">計算公式（高頻計算題）</span>
     某樓層之土地分配價格 ＝ 土地總價 × (該樓層效用比 ÷ 各樓層效用比總和)
   </div>
-  <div class="formula-box">
-    <span class="label">基地單價公式</span>
-    該區分所有建物之基地權利價格 ＝ 該區分所有建物房地價格 － 該區分所有建物之建物成本價格<br>
-    該區分所有建物之基地權利單價 ＝ 基地權利價格 ÷ 基地持分面積
+  <h3>區分所有建物基地權利價格（§100）</h3>
+  <style>
+    .kf{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+    .kf-step{border:1px solid var(--rule);border-radius:10px;background:var(--paper);padding:10px 12px;min-width:0}
+    .kf-t{font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:8px}
+    .kf-t b{display:inline-block;background:var(--primary);color:#fff;border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center;margin-right:6px;font-size:12px}
+    .kf-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+    .kf-c{border-radius:8px;padding:5px 10px;font-weight:700;font-size:14px;color:#fff;line-height:1.4}
+    .kf-c small{display:block;font-weight:400;font-size:11px;opacity:.92}
+    .kf-op{font-size:20px;font-weight:700;color:var(--ink);padding:0 2px}
+    .kf-a{background:var(--blue)} .kf-b{background:var(--orange)} .kf-r{background:var(--green)} .kf-p{background:var(--purple)}
+    .kf-r.res,.kf-p.res{outline:2px solid var(--ink);outline-offset:1px}
+    .kf-ex{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6}
+  </style>
+  <div class="kf">
+    <div class="kf-step">
+      <div class="kf-t"><b>1</b>先扣掉建物，剩下就是基地權利價格</div>
+      <div class="kf-eq">
+        <span class="kf-c kf-a">房地價格<small>整戶價</small></span><span class="kf-op">－</span>
+        <span class="kf-c kf-b">建物成本價格<small>成本法算的建物</small></span><span class="kf-op">＝</span>
+        <span class="kf-c kf-r res">基地權利價格<small>土地那一塊</small></span>
+      </div>
+      <div class="kf-ex">例：房地 2,000 萬，建物成本價格 1,200 萬 → 基地權利價格 800 萬</div>
+    </div>
+    <div class="kf-step">
+      <div class="kf-t"><b>2</b>再除以持分面積，得基地權利單價</div>
+      <div class="kf-eq">
+        <span class="kf-c kf-r">基地權利價格</span><span class="kf-op">÷</span>
+        <span class="kf-c kf-p">基地持分面積<small>分到的土地坪數</small></span><span class="kf-op">＝</span>
+        <span class="kf-c kf-p res">基地權利單價<small>每坪（㎡）</small></span>
+      </div>
+      <div class="kf-ex">例：800 萬 ÷ 10 坪 → 80 萬／坪</div>
+    </div>
+  </div>
+  <div class="note note-purple">
+    <span class="tag">🟣 口訣</span>
+    <p><b>「房地減建物，除持分」</b>：整戶價先<b>減建物成本</b>得權利價格，再<b>除以持分面積</b>得單價。<br>
+    <b>陷阱</b>：減的是<b>建物成本價格</b>（不是建物現值、不是土地價格）；除的是<b>基地持分面積</b>（不是建物登記面積）。</p>
   </div>
 
   <h3>H1　權利估價</h3>
