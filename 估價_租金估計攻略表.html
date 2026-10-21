@@ -217,6 +217,8 @@ header{position:relative}
 .rm-in{background:var(--okbg)}.rm-out{background:var(--badbg)}
 .rm-in b:first-child,.rm-out b:first-child{display:block;font-size:11.5px}
 .rm-in b:first-child{color:var(--green)}.rm-out b:first-child{color:var(--red)}
+.rm-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;line-height:1.4;margin-bottom:7px}
+.rm-ex{font-size:12px;line-height:1.7;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin:2px 0 4px}
 </style>
 </head>
 <body>
@@ -262,7 +264,9 @@ header{position:relative}
     </div>
     <div class="rm-brace"><span>實質租金</span></div>
     <div class="rm-calc">
-      <div><b>估租金時倒過來算：</b>價格 × 租金收益率 ＝ <span class="c-grn">淨收益（淨租金）</span> → <b>＋必要費用</b> ＝ 租金</div>
+      <div class="rm-eq"><span class="t res">淨租金</span><span class="g"><span class="op">＝</span><span class="t neu">勘估標的價格</span></span><span class="g"><span class="op">×</span><span class="t mkt">租金收益率</span></span></div>
+      <div class="rm-eq"><span class="t res">租金</span><span class="g"><span class="op">＝</span><span class="t neu">淨租金</span></span><span class="g"><span class="op">＋</span><span class="t old">必要費用</span></span></div>
+      <div class="rm-ex"><b>110-22 代入：</b>1,000萬 × 5% ＝ <b>50萬</b>（淨租金）→ 50 ＋ 20 ＝ <b class="c-grn">70萬</b>；所得稅 2萬 <span class="c-red">不加</span></div>
       <div class="rm-two">
         <div class="rm-in"><b>✓ 必要費用</b>折舊費、維修費、管理費、稅捐（地價稅、房屋稅）、保險費、空置及欠租損失準備</div>
         <div class="rm-out"><b>✕ 不算</b>租賃<b>所得稅</b>（110-22）；承租人自己另外付的管理費</div>
