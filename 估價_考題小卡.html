@@ -533,6 +533,7 @@ document.getElementById('resetMastery').addEventListener('click',async()=>{
 });
 (async function init(){
   await loadMastery();rebuildDeck();updateOverallStats();
+  try{const h=decodeURIComponent(location.hash.slice(1));if(h){const k=CARDS.findIndex(c=>c.id===h);if(k>=0){let j=deck.findIndex(c=>c.id===h);if(j<0){deck=[...CARDS];j=k;}idx=j;render();}}}catch(e){}
 })();
 </script>
 <!--bxfab-->
