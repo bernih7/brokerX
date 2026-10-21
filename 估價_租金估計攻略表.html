@@ -142,6 +142,29 @@ header .sub{font-size:12px;opacity:.75;margin-top:4px}
 #rdc button{all:unset;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;color:var(--onpri);font-size:.9rem}
 #rdc .cnt{min-width:24px;padding:0 5px;height:28px;background:var(--key);color:var(--onpri);display:grid;place-items:center;font-size:.75rem;font-weight:800}
 header{position:relative}
+
+/* 新訂 vs 續訂 對照表 */
+.nr-wrap{overflow-x:auto;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.nr{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.65;min-width:340px}
+.nr th,.nr td{padding:9px 10px;vertical-align:top;text-align:left;border-bottom:1px solid var(--line)}
+.nr tbody tr:last-child th,.nr tbody tr:last-child td{border-bottom:0}
+.nr td+td,.nr th+td,.nr thead th+th{border-left:1px solid var(--line)}
+.nr thead th{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700;padding:10px}
+.nr thead small{display:block;font-family:'Noto Sans TC',sans-serif;font-size:10.5px;font-weight:500;opacity:.8;margin-top:1px}
+.nr thead .nr-n{background:color-mix(in srgb,var(--blu) 13%,var(--card));color:var(--blu);width:43%}
+.nr thead .nr-r{background:color-mix(in srgb,var(--gold) 15%,var(--card));color:var(--gold);width:43%}
+.nr .nr-k{width:76px;font-size:11.5px;font-weight:700;color:var(--sub);background:var(--bg);white-space:nowrap}
+.nr thead .nr-k{background:var(--bg)}
+.nr-i{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:10px;margin-right:4px;vertical-align:1px}
+.nr-kind td{font-size:13.5px}
+.nr-kind td:nth-child(2) b{color:var(--blu)}.nr-kind td:nth-child(3) b{color:var(--gold)}
+.nr-only{background:color-mix(in srgb,var(--gold) 7%,var(--card))}
+.nr-none{color:var(--sub);text-align:center!important;vertical-align:middle!important}
+.nr-plus{display:inline-block;font-size:11px;font-weight:700;color:var(--green);background:var(--okbg);border-radius:4px;padding:0 5px;margin-left:3px;white-space:nowrap}
+.nr-tag{display:block;width:max-content;margin-top:5px;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:99px}
+.nr-tag.n{background:color-mix(in srgb,var(--blu) 15%,var(--card));color:var(--blu)}
+.nr-tag.r{background:color-mix(in srgb,var(--gold) 18%,var(--card));color:var(--gold)}
+.nr-legend{font-size:12px;color:var(--sub);line-height:1.8;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -234,28 +257,17 @@ header{position:relative}
 
 <!-- 三、新訂 vs 續訂 -->
 <div class="sec-title">新訂租約 vs 續訂租約　估計方式對照</div>
-<div class="cmp">
-  <div class="cmp-card"><div class="cmp-h">價格種類</div>
-    <div class="cmp-l"><span class="cmp-tag n">新訂</span><span class="">正常租金</span></div>
-    <div class="cmp-l"><span class="cmp-tag r">續訂</span><span class=""><b>限定租金</b></span></div>
-  </div>
-  <div class="cmp-card"><div class="cmp-h">估計方式①</div>
-    <div class="cmp-l"><span class="cmp-tag n">新訂</span><span class="">以新訂租約之租賃實例為比較標的，運用<b>比較法</b>估計（§132①）</span></div>
-    <div class="cmp-l"><span class="cmp-tag r">續訂</span><span class="">以續訂租約之租賃實例為比較標的，運用<b>比較法</b>估計（§133①）</span></div>
-  </div>
-  <div class="cmp-card"><div class="cmp-h">估計方式②</div>
-    <div class="cmp-l"><span class="cmp-tag n">新訂</span><span class="">勘估標的價格 × 租金收益率 → 估計淨收益，再加計必要費用（§132②）</span></div>
-    <div class="cmp-l"><span class="cmp-tag r">續訂</span><span class="">勘估標的價格日期當時<b>正常價格</b> × <b>續租之租金收益率</b> → 淨收益，再加計必要費用（§133②）</span></div>
-  </div>
-  <div class="cmp-card"><div class="cmp-h">估計方式③</div>
-    <div class="cmp-l"><span class="cmp-tag n">新訂</span><span class="">分析企業經營之<b>總收入</b>，據以估計淨收益，再加計必要費用（§132③）</span></div>
-    <div class="cmp-l"><span class="cmp-tag r">續訂</span><span class="">以<b>原契約租金</b>之淨收益，就租金變動趨勢調整後，再加計必要費用（§133③）</span></div>
-  </div>
-  <div class="cmp-card"><div class="cmp-h">差額分配法</div>
-    <div class="cmp-l"><span class="cmp-tag n">新訂</span><span class="no">❌ 不適用</span></div>
-    <div class="cmp-l"><span class="cmp-tag r">續訂</span><span class=""><b>✓ 適用</b>（§133④，專屬於續訂租約；規則條文未稱「差額分配法」，是學理名稱）</span></div>
-  </div>
-</div>
+<div class="nr-wrap"><table class="nr">
+  <thead><tr><th class="nr-k"></th><th class="nr-n">新訂租約<small>§132・3 種</small></th><th class="nr-r">續訂租約<small>§133・4 種</small></th></tr></thead>
+  <tbody>
+    <tr class="nr-kind"><th class="nr-k">價格種類</th><td><b>正常租金</b></td><td><b>限定租金</b></td></tr>
+    <tr><th class="nr-k"><span class="nr-i">1</span>比較法</th><td>以<b>新訂</b>租約之租賃實例為比較標的</td><td>以<b>續訂</b>租約之租賃實例為比較標的</td></tr>
+    <tr><th class="nr-k"><span class="nr-i">2</span>價格×收益率</th><td>勘估標的價格 × <b>租金收益率</b> → 淨收益<span class="nr-plus">＋必要費用</span></td><td>價格日期當時<b>正常價格</b> × <b>續租之</b>租金收益率 → 淨收益<span class="nr-plus">＋必要費用</span></td></tr>
+    <tr><th class="nr-k"><span class="nr-i">3</span>各自專屬</th><td class="nr-only">分析<b>企業經營之總收入</b> → 淨收益<span class="nr-plus">＋必要費用</span><span class="nr-tag n">新訂專屬</span></td><td class="nr-only">以<b>原契約租金</b>之淨收益，依租金變動趨勢調整<span class="nr-plus">＋必要費用</span><span class="nr-tag r">續訂專屬</span></td></tr>
+    <tr><th class="nr-k"><span class="nr-i">4</span>差額分配法</th><td class="nr-none">✕ 不適用</td><td class="nr-only">原契約租金與<b>市場經濟租金之差額</b>中，歸屬出租人的部分<span class="nr-plus">＋契約租金</span><span class="nr-tag r">續訂專屬</span></td></tr>
+  </tbody>
+</table></div>
+<div class="nr-legend"><span class="nr-plus">＋必要費用</span> 收益率、企業總收入、原契約淨收益這三種算出來的都是<b>淨收益</b>，最後要再加必要費用才是租金。差額分配法例外：最後加的是<b>契約租金</b>。</div>
 <div style="background:var(--tip);border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:24px">
   <b style="color:var(--key)">⚠ 高頻陷阱：</b>新訂租約3種（§132）：比較法、價格×租金收益率、<b>分析企業經營總收入</b>；續訂租約4種（§133）：比較法、正常價格×續租租金收益率、原契約租金淨收益調整、差額歸屬出租人。<b>只有「分析企業經營總收入」是新訂專屬</b>；「差額歸屬出租人」「原契約租金調整」是續訂專屬。租金收益率兩邊都有（續訂用「續租之租金收益率」）。
 </div>
