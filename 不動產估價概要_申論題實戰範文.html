@@ -45,6 +45,12 @@ header .sub{font-size:.88rem; opacity:.9; position:relative;}
   position:relative; margin-top:8px;
 }
 /* ===== BOTTOM NAV ===== */
+/* nav 收合 */
+html.nav-hidden nav.botnav{display:none}
+html.nav-hidden body{padding-bottom:24px}
+#navtog{position:fixed;left:10px;bottom:calc(66px + env(safe-area-inset-bottom,0px));z-index:60;border:1px solid var(--line);background:var(--paper2);color:var(--muted);font:inherit;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.15)}
+html.nav-hidden #navtog{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+
 nav.botnav{
   position:fixed; left:0; right:0; bottom:0; z-index:50;
   background:var(--paper2); border-top:1px solid var(--line);
@@ -318,16 +324,16 @@ header::after{pointer-events:none;}
 <body>
 <header>
   <h1>📝 不動產估價｜申論題實戰範文</h1>
-  <div class="sub">32題完整版＋5題預測（A/B/C三級）· 四段式架構（定義→法條→涵攝→結論）· 99–114年</div>
+  <div class="sub">32題完整版＋14題預測（A/B/C三級）· 四段式架構（定義→法條→涵攝→結論）· 99–114年</div>
   <div class="hdr-row"><span class="countdown-badge" id="cdBadge">—</span><button class="theme-btn" id="theme-btn" onclick="toggleTheme()">深色</button></div>
 </header>
 
 <main>
 
 <div class="stats-bar">
-  <span class="stat-chip">總題數 <strong>40</strong></span>
+  <span class="stat-chip">總題數 <strong>46</strong></span>
   <span class="stat-chip">官方 <strong>32</strong></span>
-  <span class="stat-chip stat-pred">預測 <strong>8</strong></span>
+  <span class="stat-chip stat-pred">預測 <strong>14</strong></span>
   <span class="stat-chip">已讀 <strong id="s-read">0</strong>／<strong id="s-pct">0%</strong></span>
 </div>
 
@@ -347,12 +353,12 @@ header::after{pointer-events:none;}
     <span class="filter-lb">類別</span>
     <div class="chip-row" id="type-chips">
       <button class="chip" data-type="all" aria-pressed="true" onclick="setChip(this,'type')">全部</button>
-      <button class="chip m-cost" data-type="cost" aria-pressed="false" onclick="setChip(this,'type')">成本法（7）</button>
-      <button class="chip m-land" data-type="land" aria-pressed="false" onclick="setChip(this,'type')">土地開發（7）</button>
+      <button class="chip m-cost" data-type="cost" aria-pressed="false" onclick="setChip(this,'type')">成本法（10）</button>
+      <button class="chip m-land" data-type="land" aria-pressed="false" onclick="setChip(this,'type')">土地開發（8）</button>
       <button class="chip m-comp" data-type="comp" aria-pressed="false" onclick="setChip(this,'type')">比較法（8）</button>
-      <button class="chip m-income" data-type="income" aria-pressed="false" onclick="setChip(this,'type')">收益法（3）</button>
+      <button class="chip m-income" data-type="income" aria-pressed="false" onclick="setChip(this,'type')">收益法（4）</button>
       <button class="chip m-rent" data-type="rent" aria-pressed="false" onclick="setChip(this,'type')">租金估計（4）</button>
-      <button class="chip m-foundation" data-type="foundation" aria-pressed="false" onclick="setChip(this,'type')">A篇概念（9）</button>
+      <button class="chip m-foundation" data-type="foundation" aria-pressed="false" onclick="setChip(this,'type')">A篇概念（10）</button>
       <button class="chip m-principle" data-type="principle" aria-pressed="false" onclick="setChip(this,'type')">估價原則（2）</button>
     </div>
   </div>
@@ -376,7 +382,7 @@ header::after{pointer-events:none;}
       <div class="g-title">成本法</div>
       <div class="g-sub">折舊三路徑・重建/重置成本・營造施工費</div>
     </div>
-    <span class="g-count"><span class="g-vis" data-total="7">7題（含預測1）</span>｜已讀 <span class="g-read" id="gr-cost">0</span></span>
+    <span class="g-count"><span class="g-vis" data-total="10">10題（含預測4）</span>｜已讀 <span class="g-read" id="gr-cost">0</span></span>
   </summary>
   <div class="g-body">
     <div class="g-laws"><div class="g-laws-t">📌 要背重點</div>折舊三路徑：等速＝定額、初期加速＝定率、初期減速＝償債基金；殘餘價格率上限10%；定額法 Dn＝C×(1−s)÷N×n</div>
@@ -912,6 +918,208 @@ i=年利率(2%)、n=屋齡(8年)</div>
     </div>
   </div>
 </div>
+<div class="essay-card" id="pred-9" data-pri="A" data-type="cost">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑨｜A級</span>
+      <div class="card-title">【115預測⑨】成本法完整計算：由總成本到房地成本價格（§48、§49、§52、§69）</div>
+      <div class="card-meta"><span class="tag">§48</span><span class="tag">§52</span><span class="tag">§69</span><span class="tag">計算</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-9" onclick="event.stopPropagation();toggleRead('pred-9')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 公式（§69）</div>
+        <code class="qa-code">房地成本價格＝土地價格＋建物成本價格；建物成本價格＝建物總成本−累積折舊額</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題（單位：萬元）</div>
+        設計費72＋其他費用192→小計2,664；資本利息26.64；利潤269.06；建物總成本≈<span class="qa-kw">2,959.70</span>；折舊562.34；建物成本價格≈2,397.36；房地成本價格≈<span class="qa-kw">8,397.36</span>
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 程序（§49）</div>
+        蒐集資料→現況勘察→整理成本資料→推算營造施工費→推算其他費用及利潤→計算總成本→計算累積折舊額→計算成本價格
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        土地不折舊，只有建物扣折舊；折舊以建物總成本為基礎；利息、利潤的基礎依題目（本題為假設）；預售收入之資金不計息（§59）
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>成本法是16年申論最常出現的方法（折舊5題、成本法程序／重建重置2題，共7題），但歷屆都是「折舊單項」或「定義＋程序」，從未要求把土地成本、建物總成本、折舊串成一個房地成本價格；折舊題連考後，補「完整串接計算」的機率高。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> 某房地採成本法估價：土地總成本6,000萬元；建物營造施工費2,400萬元；規劃設計費按營造施工費3%；廣告銷售費、管理費、稅捐三項合計為營造施工費8%；資本利息以上述費用小計×年利率2%×施工期1年之½（假設各費用於施工期間均勻投入）；利潤為上述各項（含資本利息）合計之10%；建物經濟耐用年數50年、殘餘價格率5%、已使用10年，採定額法。試求該房地之成本價格。（25分）
+    </div>
+
+    <div class="section-h">一、定義與公式</div>
+    <p><strong>成本法（§48）</strong>：求取勘估標的於價格日期之重建成本或重置成本，扣減累積折舊額或其他應扣除部分，推算勘估標的價格之方法；所得為<strong>成本價格</strong>。</p>
+    <div class="formula-box">土地價格 ＝ 土地總成本
+建物成本價格 ＝ 建物總成本 － 建物累積折舊額
+房地成本價格 ＝ 土地價格 ＋ 建物成本價格　（§69）</div>
+    <div class="section-h">二、法條與程序</div>
+    <ol>
+      <li><strong>§49 八步驟</strong>：蒐集資料→現況勘察→整理比較分析成本費用資料→選擇方法推算營造施工費→推算其他費用及利潤→計算總成本→計算建物累積折舊額→計算成本價格。</li>
+      <li><strong>§52 總成本七項</strong>：營造或施工費、規劃設計費、廣告費銷售費、管理費、稅捐及其他負擔、資本利息、開發或建築利潤（含土地者另加土地價格）。</li>
+      <li><strong>§57</strong>：規劃設計費得按營造施工費2%至3%推估；<strong>§58、§59</strong>：資本利息依分期投入資本額與使用年數計息，預售收入之資金不計息；利潤率、廣告銷售管理稅捐費率由全聯會公告。</li>
+      <li><strong>折舊（§65～§68）</strong>：以經濟耐用年數為主；殘餘價格率由全聯會公告，以不超過10%為原則（§67）；定額法 Dn＝C×(1−s)÷N×n。</li>
+    </ol>
+    <div class="note">⚠️ 本題的「資本利息×½」「利潤基礎」「其他費用8%」是題目給的假設；考場以題目條件為準，並於答案寫明基礎。</div>
+    <div class="section-h">三、涵攝（代入）</div>
+    <table>
+      <tr><th>步驟</th><th>計算</th><th>金額（萬元）</th></tr>
+      <tr><td>營造施工費</td><td>題目給定</td><td>2,400</td></tr>
+      <tr><td>規劃設計費</td><td>2,400×3%</td><td>72</td></tr>
+      <tr><td>廣告銷售＋管理＋稅捐</td><td>2,400×8%</td><td>192</td></tr>
+      <tr><td>小計</td><td>2,400＋72＋192</td><td>2,664</td></tr>
+      <tr><td>資本利息</td><td>2,664×2%×½</td><td>26.64</td></tr>
+      <tr><td>利潤</td><td>(2,664＋26.64)×10%</td><td>269.06</td></tr>
+      <tr><td><strong>建物總成本 C</strong></td><td>2,664＋26.64＋269.06</td><td><strong>2,959.70</strong></td></tr>
+      <tr><td>累積折舊額</td><td>2,959.70×(1−5%)÷50×10</td><td>562.34</td></tr>
+      <tr><td>建物成本價格</td><td>2,959.70−562.34</td><td>2,397.36</td></tr>
+      <tr><td><strong>房地成本價格</strong></td><td>6,000＋2,397.36</td><td><strong>8,397.36</strong></td></tr>
+    </table>
+    <div class="note">⚠️ 陷阱：①折舊只扣建物，土地總成本全額計入；②折舊基礎是建物<strong>總成本</strong>（含設計、利息、利潤），不是只有營造施工費；③殘餘價格率5%要用 (1−s)＝0.95；④答案要列出「步驟→金額」，只寫結果會漏分。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    依§69，房地成本價格＝土地價格＋建物成本價格。本題建物總成本約2,959.70萬，扣累積折舊562.34萬後為2,397.36萬，加土地6,000萬，房地成本價格約<strong>8,397.36萬元</strong>。實務上仍應與比較法、收益法交叉檢驗（§14、§15）。</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="essay-card" id="pred-10" data-pri="B" data-type="cost">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑩｜B級</span>
+      <div class="card-title">【115預測⑩】營造或施工費之求取方法與總成本各項費用（§52～§62）</div>
+      <div class="card-meta"><span class="tag">§52</span><span class="tag">§54～§56</span><span class="tag">§57</span><span class="tag">§58</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-10" onclick="event.stopPropagation();toggleRead('pred-10')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 總成本七項（§52）</div>
+        營造施工費、規劃設計費、廣告銷售費、管理費、稅捐及其他負擔、資本利息、開發或建築利潤（含土地者另加土地價格）
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 營造施工費四法（§54～§56）</div>
+        直接法：<span class="qa-kw">淨計法、單位工程法</span>；間接法：<span class="qa-kw">工程造價比較法、單位面積（體積）比較法</span>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題</div>
+        8×1.05×300＝<span class="qa-kw">2,520萬</span>；規劃設計費＝營造施工費2%～3%＝<span class="qa-kw">50.4萬～75.6萬</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        資本利息依自有、借貸資金比例分別計息，自有資金利率不高於一年期定存、不低於活存；<span class="qa-kw">預售收入之資金不計息</span>（§59）；利潤率、廣告管理稅捐費率由全聯會公告
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>成本法申論中，營造施工費只在104年與「折舊提存費」併考一次，且是方法列舉；總成本各項費用（設計、利息、利潤）從未單獨成題。方法名稱（直接法兩種、間接法兩種）與費用基礎容易混淆，適合考「列舉＋小計算」。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> 依不動產估價技術規則，(一)成本法總成本包括哪些項目？(二)營造或施工費之求取方法有哪些？(三)某標準建物營造施工費單價每坪8萬元，勘估標的施工條件較佳，調整率1.05，總面積300坪，試以單位面積比較法求營造施工費，並依規定估計規劃設計費之範圍；(四)資本利息應如何計息？（25分）
+    </div>
+
+    <div class="section-h">一、總成本之構成（§52）</div>
+    <p>成本法總成本包括：①營造或施工費 ②規劃設計費 ③廣告費、銷售費 ④管理費 ⑤稅捐及其他負擔 ⑥資本利息 ⑦開發或建築利潤；土地或包含土地者，另加計土地價格。</p>
+    <div class="section-h">二、營造或施工費之求取（§53～§56）</div>
+    <p>營造或施工費（§53）含直接材料、直接人工、間接材料、間接人工、管理費、稅捐、資本利息、營造或施工利潤。求取方法分直接法與間接法：</p>
+    <table>
+      <tr><th>類型</th><th>方法</th><th>內容</th></tr>
+      <tr><td rowspan="2">直接法（§55）</td><td>淨計法</td><td>逐項計算材料、人工數量，乘以價格日期單價，再加計管理費、稅捐、資本利息及利潤</td></tr>
+      <tr><td>單位工程法</td><td>以細部工程各項目單價乘以施工數量，合計之</td></tr>
+      <tr><td rowspan="2">間接法（§56）</td><td>工程造價比較法</td><td>按工程概算項目逐項比較勘估標的與比較標的（標準建物）差異，依價格及數量比率調整</td></tr>
+      <tr><td>單位面積（體積）比較法</td><td>以標準建物單位面積（體積）單價為基礎，調整後乘以總面積（體積）</td></tr>
+    </table>
+    <div class="section-h">三、其他費用之估計</div>
+    <ol>
+      <li><strong>規劃設計費（§57）</strong>：按建築師酬金標準表及建造執照工程造價表計算，或按營造施工費<strong>2%至3%</strong>推估。</li>
+      <li><strong>資本利息（§58、§59）</strong>：依分期投入資本數額及使用年數，自有資金與借貸資金分別計息；自有資金利率不高於一年期定存利率、不低於活存利率；借款依銀行短期放款利率；<strong>預售收入之資金不計息</strong>。</li>
+      <li><strong>利潤、廣告銷售、管理、稅捐（§60～§62）</strong>：費率由全聯會公告，依規定基礎計算；視性質得不予計入。</li>
+    </ol>
+    <div class="section-h">四、涵攝（本題代入）</div>
+    <div class="formula-box">營造施工費 ＝ 8萬 × 1.05 × 300坪 ＝ <strong>2,520 萬元</strong>
+規劃設計費 ＝ 2,520 × 2% ～ 2,520 × 3% ＝ <strong>50.4 萬 ～ 75.6 萬元</strong></div>
+    <div class="note">⚠️ 陷阱：①直接法兩種（淨計、單位工程）、間接法兩種（工程造價比較、單位面積比較）別互換；②單位面積比較法的調整率乘在「標準建物單價」上；③設計費基礎是營造施工費，不是總銷售金額或總成本；④預售收入不計息；⑤費率數字（利潤、廣告、管理）以全聯會公告為準，不憑記憶寫固定百分比。</div>
+    <div class="conclusion"><strong>五、結論</strong><br>
+    總成本含營造施工費等七項（土地另加）；營造施工費可採直接法（淨計法、單位工程法）或間接法（工程造價比較法、單位面積比較法）。本題單位面積比較法求得營造施工費2,520萬元，規劃設計費約50.4萬至75.6萬元；資本利息分自有、借貸資金計息，預售收入不計息。</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="essay-card" id="pred-14" data-pri="A" data-type="cost">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑭｜A級</span>
+      <div class="card-title">【115預測⑭】建物折舊參數之判斷（耐用年數、殘餘價格率）與定額法計算（§65～§68）</div>
+      <div class="card-meta"><span class="tag">§65～§68</span><span class="tag">§67</span><span class="tag">折舊</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-14" onclick="event.stopPropagation();toggleRead('pred-14')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 耐用年數</div>
+        折舊額以<span class="qa-kw">經濟耐用年數</span>為主，必要時得以物理耐用年數；經濟＝功能或效益衰退至不值得使用；物理＝自然耗損或外力破壞至結構不堪使用
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 經歷年數與殘價率</div>
+        經歷年數大於經濟耐用年數→<span class="qa-kw">重新調整經濟耐用年數</span>；殘餘價格率由全聯會公告，以<span class="qa-kw">不超過10%</span>為原則；確實無殘餘價格者不予提列
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題（定額法）</div>
+        s＝10%：Dn＝1,000×0.9÷40×12＝<span class="qa-kw">270萬</span>，現值<span class="qa-kw">730萬</span>；無殘餘（s＝0）：Dn＝1,000÷40×12＝<span class="qa-kw">300萬</span>，現值<span class="qa-kw">700萬</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        不是「以物理耐用年數為主」；10%是上限原則，不是固定值；確無殘餘價格是不提列（s＝0），不是仍用10%
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>折舊是16年申論最高頻主題（105、107、111、112共4題，另104收益法折舊提存），但歷屆都問「路徑／公式／單題計算」，沒有考「參數怎麼決定」：以哪種耐用年數為主、經歷年數超過耐用年數怎麼辦、殘餘價格率上限與無殘餘價格時怎麼算。這些是條文明定、容易出成「說明＋小計算」的組合題。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> 依不動產估價技術規則，(一)計算建物折舊額，應以何種耐用年數為主？經濟耐用年數與物理耐用年數有何不同？(二)建物經歷年數大於經濟耐用年數時，應如何處理？(三)殘餘價格率如何決定？確實無殘餘價格者，計算折舊時如何處理？(四)某建物重建成本1,000萬元，經濟耐用年數40年，已經歷12年，採定額法，試分別計算殘餘價格率10%及確實無殘餘價格兩種情況之累積折舊額與建物現值。（25分）
+    </div>
+
+    <div class="section-h">一、定義：兩種耐用年數</div>
+    <table>
+      <tr><th>名詞</th><th>意義</th></tr>
+      <tr><td>經濟耐用年數</td><td>因功能或效益衰退至不值得使用之年數</td></tr>
+      <tr><td>物理耐用年數</td><td>因自然耗損或外力破壞至結構脆弱不堪使用之年數</td></tr>
+    </table>
+    <div class="section-h">二、法條（§65～§68）</div>
+    <ol>
+      <li><strong>耐用年數</strong>：建物折舊額之計算，以<strong>經濟耐用年數為主</strong>，必要時得以物理耐用年數計算。</li>
+      <li><strong>經歷年數大於經濟耐用年數</strong>：應重新調整經濟耐用年數（條文未給固定公式，依建物實際狀況判斷並於報告書敘明）。</li>
+      <li><strong>殘餘價格率（§67）</strong>：由全聯會公告，以<strong>不超過10%為原則</strong>；確實無殘餘價格者，計算折舊時不予提列。</li>
+      <li><strong>路徑（§68）</strong>：等速折舊、初期加速折舊、初期減速折舊三種。</li>
+    </ol>
+    <div class="section-h">三、涵攝（定額法）</div>
+    <div class="formula-box">Dn ＝ C × (1－s) ÷ N × n
+情況一（s＝10%）：1,000 × 0.9 ÷ 40 × 12 ＝ <strong>270 萬</strong>　現值 ＝ 1,000－270 ＝ <strong>730 萬</strong>
+情況二（確實無殘餘價格，s＝0）：1,000 ÷ 40 × 12 ＝ <strong>300 萬</strong>　現值 ＝ 1,000－300 ＝ <strong>700 萬</strong></div>
+    <div class="note">⚠️ 陷阱：①「以經濟耐用年數為主」不是物理；②殘餘價格率「不超過10%為原則」，由全聯會公告，不可寫成固定10%；③確實無殘餘價格是<strong>不提列</strong>（相當 s＝0），差異30萬就在這裡；④折舊三路徑沒有「後期減速」。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    折舊額以經濟耐用年數為主，經歷年數大於經濟耐用年數應重新調整；殘餘價格率依全聯會公告、以不超過10%為原則，確無殘餘價格者不予提列。本題殘餘價格率10%時累積折舊270萬、現值730萬；無殘餘價格時累積折舊300萬、現值700萬。</div>
+
+    </div>
+  </div>
+</div>
+
   </div>
 </details>
 
@@ -922,7 +1130,7 @@ i=年利率(2%)、n=屋齡(8年)</div>
       <div class="g-title">土地開發分析法</div>
       <div class="g-sub">V公式・資本利息綜合利率・應蒐集資料</div>
     </div>
-    <span class="g-count"><span class="g-vis" data-total="7">7題（含預測2）</span>｜已讀 <span class="g-read" id="gr-land">0</span></span>
+    <span class="g-count"><span class="g-vis" data-total="8">8題（含預測3）</span>｜已讀 <span class="g-read" id="gr-land">0</span></span>
   </summary>
   <div class="g-body">
     <div class="g-laws"><div class="g-laws-t">📌 要背重點</div>V＝S÷(1＋R)÷(1＋i)－(C＋M)（§81）；資本利息綜合利率＝年利率×（土地比率＋建物比率×½）×開發年數（§79）；預售收入不計息（§59）</div>
@@ -1326,6 +1534,72 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
     </div>
   </div>
 </div>
+<div class="essay-card" id="pred-13" data-pri="A" data-type="land">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑬｜A級</span>
+      <div class="card-title">【115預測⑬】都市更新基地價值比率與「由房地價格拆出土地、建物價格」（§125、§99、§101-1）</div>
+      <div class="card-meta"><span class="tag">§125</span><span class="tag">§99</span><span class="tag">§101-1</span><span class="tag">計算</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-13" onclick="event.stopPropagation();toggleRead('pred-13')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-form"><div class="qa-label">▌ §125 基地價值比率</div>
+        <code class="qa-code">(素地單價×基地面積)÷[素地單價×基地面積＋營造施工費單價×(1−累積折舊率)×全棟建物面積]</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題</div>
+        土地20,000萬；建物10×0.8×1,000＝8,000萬；比率＝20,000÷28,000＝<span class="qa-kw">71.43%</span>（建物比率28.57%）；某戶：土地約2,142.9萬、建物約857.1萬、基地權利單價約267.9萬/坪
+      </div>
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 兩種拆法（§99、§101-1）</div>
+        已知<span class="qa-kw">建物成本價格</span>→基地價格＝房地價格−建物成本價格；已知<span class="qa-kw">價值比率</span>→基地價格＝房地價格×土地價值比率，建物價格＝房地價格×建物價值比率
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        分母是土地價值＋<span class="qa-kw">折舊後</span>建物價值；建物比率＝1−基地比率；題目給哪種條件就用哪種算法，兩種結果不同，不可混用
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>「房地價格怎麼拆成土地與建物」是計算題常見核心（選擇題99-32、103-36、109-8、110-14考過），§125基地價值比率公式更被標為高頻計算題；申論16年沒有直接考，112年二只考建物現值。預測⑥已涵蓋樓層別效用比，這題補「價值比率本身怎麼算、怎麼用」。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> 某都市更新權利變換案，基地總面積400坪，素地單價每坪50萬元；建物營造施工費單價每坪10萬元，累積折舊率20%，全棟建物面積1,000坪。(一)依技術規則求基地價值比率；(二)某戶房地價格3,000萬元，基地持分面積8坪，試依價值比率求其土地價格、建物價格及基地權利單價；(三)說明本題做法與「房地價格－建物成本價格」直接相減有何不同。（25分）
+    </div>
+
+    <div class="section-h">一、定義與公式</div>
+    <p><strong>基地價值比率（§125，都市更新權利變換）</strong>：基地價值占「基地價值＋建物價值」之比率。</p>
+    <div class="formula-box">基地價值比率 ＝ （素地單價 × 基地總面積）
+　　　　　÷ [素地單價 × 基地總面積 ＋ 營造施工費單價 ×（1－累積折舊率）× 全棟建物面積]</div>
+    <div class="section-h">二、法條：由房地價格推估基地價格</div>
+    <ol>
+      <li><strong>§99</strong>：已知建物成本價格時，基地價格＝房地價格－建物成本價格；已知土地價值比率時，基地價格＝房地價格×土地價值比率。</li>
+      <li><strong>§101-1</strong>：已知土地或建物價值比率時，建物價格＝房地價格×建物價值比率（基地則為房地價格×土地價值比率）。</li>
+      <li><strong>§101</strong>：區分所有建物已知土地價值比率者，基地權利價格＝房地價格×土地價值比率，再依持分面積求單價。</li>
+    </ol>
+    <div class="note">📌 條文內容依專案知識庫整理，§125 公式未逐字對全國法規資料庫，考前請對一次原文。</div>
+    <div class="section-h">三、涵攝（代入）</div>
+    <div class="formula-box">(一) 素地總價值 ＝ 50萬 × 400坪 ＝ 20,000 萬
+　　建物價值 ＝ 10萬 × (1－20%) × 1,000坪 ＝ 8,000 萬
+　　基地價值比率 ＝ 20,000 ÷ (20,000＋8,000) ＝ <strong>71.43%</strong>　建物價值比率 ＝ 28.57%
+
+(二) 土地價格 ＝ 3,000 × 71.43% ≈ <strong>2,142.9 萬</strong>
+　　建物價格 ＝ 3,000 × 28.57% ≈ <strong>857.1 萬</strong>
+　　基地權利單價 ＝ 2,142.9 ÷ 8坪 ≈ <strong>267.9 萬/坪</strong></div>
+    <p>(三) 若題目改給「建物成本價格1,000萬元」，則依§99直接相減：基地價格＝3,000－1,000＝2,000萬元。兩種條件下數字不同，因為價值比率法按整個基地建物的價值比例拆分，直接相減則以個案建物成本價格為準。</p>
+    <div class="note">⚠️ 陷阱：①分母必須是「基地價值＋<strong>扣折舊後</strong>的建物價值」；②建物營造施工費要乘 (1－累積折舊率)；③建物比率＝1－基地比率；④題目給建物成本價格→相減（§99），給價值比率→相乘（§101-1）；⑤基地權利單價用「持分面積」。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    依§125，本案基地價值比率約71.43%；某戶房地價格3,000萬元，依價值比率拆得土地價格約2,142.9萬元、建物價格約857.1萬元，基地權利單價約267.9萬元/坪。若題目給的是建物成本價格，則依§99相減，須依題目條件擇一，不可混用。</div>
+
+    </div>
+  </div>
+</div>
+
   </div>
 </details>
 
@@ -1821,7 +2095,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <div class="g-title">收益法</div>
       <div class="g-sub">直接資本化・資本化率・DCF</div>
     </div>
-    <span class="g-count"><span class="g-vis" data-total="3">3題（含預測1）</span>｜已讀 <span class="g-read" id="gr-income">0</span></span>
+    <span class="g-count"><span class="g-vis" data-total="4">4題（含預測2）</span>｜已讀 <span class="g-read" id="gr-income">0</span></span>
   </summary>
   <div class="g-body">
     <div class="g-laws"><div class="g-laws-t">📌 要背重點</div>收益價格＝年淨收益÷資本化率；WACC＝Σ(資金比例×利率)；DCF＝逐年淨收益折現加總（有限期）vs 直接資本化（單年）</div>
@@ -2058,6 +2332,72 @@ r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
     </div>
   </div>
 </div>
+<div class="essay-card" id="pred-11" data-pri="B" data-type="income">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑪｜B級</span>
+      <div class="card-title">【115預測⑪】折現現金流量分析法（DCF）之計算（§31、§32）</div>
+      <div class="card-meta"><span class="tag">§31</span><span class="tag">§32</span><span class="tag">§33</span><span class="tag">計算</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-11" onclick="event.stopPropagation();toggleRead('pred-11')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ DCF（§31）</div>
+        分析期間各期淨收益及期末價值，以適當折現率折現後加總；得適用於以投資為目的之不動產投資評估
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 公式（§32）</div>
+        <code class="qa-code">P＝ΣCFk÷(1+Y)^k＋Pn’÷(1+Y)^n’</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題</div>
+        96.15＋101.70＋106.68＋期末價值2,133.59＝<span class="qa-kw">約2,438.1萬</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        期末價值也要折現（折n’年，本題3年）；折現率≠資本化率；證券化以契約租金為基礎者，DCF價格應賦予較大權重（§15Ⅱ）
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>收益法申論僅99年（資本化率WACC）與113年（DCF與直接資本化概念差異）兩題；113年考的是概念，DCF「逐年折現＋期末價值」的計算從未入題，選擇題已有DCF計算題組，申論為空缺，列為補缺計算題。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> 某辦公室未來三年各年淨收益預估為100萬、110萬、120萬元，第三年底之期末價值估計為2,400萬元，折現率4%。試依不動產估價技術規則以折現現金流量分析法求其收益價格，並說明DCF與直接資本化法在換算工具上的差異。（25分）
+    </div>
+
+    <div class="section-h">一、定義與公式</div>
+    <p><strong>折現現金流量分析法（§31）</strong>：勘估標的未來折現現金流量分析期間之各期淨收益及期末價值，以適當折現率折現後加總，推算價格之方法；所求得之價格為<strong>收益價格</strong>（§28）。</p>
+    <div class="formula-box">P ＝ Σ CFk ÷ (1＋Y)^k ＋ Pn' ÷ (1＋Y)^n'　（§32）
+P＝收益價格　CFk＝各期淨收益　Y＝折現率
+n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
+    <div class="section-h">二、法條</div>
+    <ol>
+      <li><strong>§33</strong>：淨收益以勘估標的最有效使用之客觀淨收益為基準；證券化案件原則以契約租金計算各期淨收益。</li>
+      <li><strong>§34</strong>：收益法程序六步（蒐集資料→有效總收入→總費用→淨收益→決定折現率→計算價格）。</li>
+      <li><strong>§15Ⅱ</strong>：以契約約定租金為信託利益分配基礎者，DCF收益價格賦予相對較大權重（清算時除外）。</li>
+    </ol>
+    <div class="section-h">三、涵攝（折現率4%）</div>
+    <table>
+      <tr><th>年期 k</th><th>現金流量</th><th>折現算式</th><th>現值（萬元）</th></tr>
+      <tr><td>1</td><td>淨收益100</td><td>100÷1.04</td><td>96.15</td></tr>
+      <tr><td>2</td><td>淨收益110</td><td>110÷1.04²</td><td>101.70</td></tr>
+      <tr><td>3</td><td>淨收益120</td><td>120÷1.04³</td><td>106.68</td></tr>
+      <tr><td>3</td><td>期末價值2,400</td><td>2,400÷1.04³</td><td>2,133.59</td></tr>
+      <tr><td colspan="3"><strong>收益價格 P</strong></td><td><strong>≈2,438.13</strong></td></tr>
+    </table>
+    <div class="note">⚠️ 陷阱：①第3年底同時有淨收益與期末價值，兩者都折3年；②折現率用於DCF，資本化率用於直接資本化法，不可混用；③若直接資本化法：價格＝平均一年客觀淨收益÷收益資本化率（§30），不需估期末價值；④數字取到小數點後兩位時，注意四捨五入累積誤差，寫出算式即可。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    本題以DCF計算，三年淨收益與期末價值折現後加總，收益價格約<strong>2,438萬元</strong>。DCF以折現率逐期折現各期淨收益與期末價值，直接資本化法則以資本化率將平均一年之客觀淨收益還原，兩者換算工具不同、不可混用。</div>
+
+    </div>
+  </div>
+</div>
+
   </div>
 </details>
 
@@ -2315,7 +2655,7 @@ r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
       <div class="g-title">A篇概念</div>
       <div class="g-sub">價格種類・影響因素・作業程序・方法選取</div>
     </div>
-    <span class="g-count"><span class="g-vis" data-total="9">9題（含預測1）</span>｜已讀 <span class="g-read" id="gr-foundation">0</span></span>
+    <span class="g-count"><span class="g-vis" data-total="10">10題（含預測2）</span>｜已讀 <span class="g-read" id="gr-foundation">0</span></span>
   </summary>
   <div class="g-body">
     <div class="g-laws"><div class="g-laws-t">📌 要背重點</div>四種價格：正常／限定／特定／特殊；影響因素分類（一般・區域・個別）；估價方法選取原則與適用時機（114-二）</div>
@@ -2867,6 +3207,65 @@ r＝收益資本化率　n＝地上權剩餘年限</div>
     </div>
   </div>
 </div>
+<div class="essay-card" id="pred-12" data-pri="B" data-type="foundation">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <span class="card-year tier-p">🔮 115預測⑫｜B級</span>
+      <div class="card-title">【115預測⑫】權利估價：地上權價格計算與抵押權估價（§114、§116、§121）</div>
+      <div class="card-meta"><span class="tag">§114</span><span class="tag">§116</span><span class="tag">§121</span><span class="tag">計算</span><span class="tag" style="background:#fff7e6;border-color:var(--key);color:var(--key);">模擬題</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-pred-12" onclick="event.stopPropagation();toggleRead('pred-12')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body">
+    <div class="ver-bar">
+      <span class="ver-label">模式：</span>
+      <div class="seg-wrap">
+        <button class="ver-btn active" data-ver="full" onclick="setVer(this.closest('.essay-card'),'full')">📖 完整版</button>
+        <button class="ver-btn" data-ver="quick" onclick="setVer(this.closest('.essay-card'),'quick')">⚡ 速答版</button>
+      </div>
+    </div>
+    <div class="quick-ans">
+      <div class="qa-blk qa-def"><div class="qa-label">▌ 權利估價範圍（§114）</div>
+        地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、容積移轉、都更權利變換
+      </div>
+      <div class="qa-blk qa-form"><div class="qa-label">▌ 地上權（§116）</div>
+        考慮用途、存續期間、有無支付地租、權利讓與限制、設定之空間位置；差額租金還原 <code class="qa-code">P＝a×[(1+r)^n−1]÷[r×(1+r)^n]</code>
+      </div>
+      <div class="qa-blk qa-calc"><div class="qa-label">▌ 本題</div>
+        a＝90−30＝60；P＝60×13.5903＝<span class="qa-kw">約815.4萬</span>
+      </div>
+      <div class="qa-blk qa-trap"><div class="qa-label">▌ 考試陷阱</div>
+        用「差額」60萬還原，不是淨收益90萬；抵押權（§121）以<span class="qa-kw">正常價格</span>為基礎、參酌實際債權額並考慮順位、流通性、風險性、增值性、執行難易度
+      </div>
+    </div>
+    <div class="detail-content">
+    <div class="pred-info"><strong>🔮 預測依據：</strong>權利估價（§114列舉地上權、典權、農育權、不動產役權、抵押權、租賃權、市地重劃、容積移轉、都更權利變換）16年申論只有103年二考過「地上權」一次，其餘權利從未入題；公有土地設定地上權釋出是近年實務熱點，且與經紀人實務（地上權房地）相關，列為補缺題。</div>
+    <div class="q-box">
+      <strong>【模擬題】</strong> (一)依不動產估價技術規則，權利估價之範圍有哪些？估計地上權價格應考慮哪些因素？(二)某土地設定地上權，剩餘年限20年，預期每年淨收益90萬元，每年應付地租30萬元，收益資本化率4%，試以差額租金還原法求地上權價格；(三)估計抵押權價格，應以何種價格為基礎？（25分）
+    </div>
+
+    <div class="section-h">一、定義與範圍（§114）</div>
+    <p>權利估價範圍包括：地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、容積移轉及都市更新權利變換等。</p>
+    <div class="section-h">二、法條</div>
+    <ol>
+      <li><strong>地上權（§116）</strong>：考慮用途、權利存續期間、支付地租之有無、權利讓與限制、設定之空間位置。</li>
+      <li><strong>抵押權（§121）</strong>：估計價格日期當時勘估標的之<strong>正常價格</strong>，以<strong>實際債權額</strong>為基礎，並考慮其他順位設定狀況、流通性、風險性、增值性及執行難易度加以調整。</li>
+      <li>已設定地上權土地：價格＝未設定地上權素地正常價格－價格日期當時地上權之剩餘價值（教材做法，非條文逐字）。</li>
+    </ol>
+    <div class="section-h">三、涵攝：差額租金還原法（教材常用做法）</div>
+    <div class="formula-box">a ＝ 每年淨收益 － 每年應付地租 ＝ 90 － 30 ＝ 60 萬
+P ＝ a × [(1＋r)^n － 1] ÷ [r × (1＋r)^n]
+　＝ 60 × [(1.04)^20 － 1] ÷ [0.04 × (1.04)^20]
+　＝ 60 × 13.5903 ≈ <strong>815.4 萬元</strong></div>
+    <div class="note">⚠️ 陷阱：①是用「差額租金」a＝淨收益－地租來還原，直接用90萬會高估；②n是地上權<strong>剩餘</strong>年限；③抵押權估價不是債權額本身，而是以正常價格為基礎、再以實際債權額與各種條件調整；④差額租金還原法是教材做法，條文只列考慮因素，答題時註明方法來源。</div>
+    <div class="conclusion"><strong>四、結論</strong><br>
+    權利估價依§114涵蓋地上權至都更權利變換等；地上權估價考慮用途、存續期間、地租、讓與限制等（§116），本題以差額租金60萬、資本化率4%、剩餘20年還原，地上權價格約<strong>815.4萬元</strong>；抵押權依§121以正常價格為基礎，參酌實際債權額及各項風險條件調整。</div>
+
+    </div>
+  </div>
+</div>
+
   </div>
 </details>
 
@@ -3008,7 +3407,7 @@ r＝收益資本化率　n＝地上權剩餘年限</div>
 </main>
 
 <footer>
-  不動產估價概要｜申論題實戰範文 官方32題＋預測5題（99–114年）· BrokerX 115年備考
+  不動產估價概要｜申論題實戰範文 官方32題＋預測14題（99–114年）· BrokerX 115年備考
 </footer>
 
 <script>
@@ -3046,7 +3445,7 @@ function toggleRead(id){
   paintRead();
 }
 function paintRead(){
-  var r=getRead(),total=40,n=0;
+  var r=getRead(),total=46,n=0;
   var perG={};
   document.querySelectorAll('.essay-card[id]').forEach(function(c){
     var on=r.indexOf(c.id)>=0;
@@ -3131,6 +3530,14 @@ function setVer(card, mode){
 })();
 </script>
 
+
+<button id="navtog" type="button" aria-label="收合或展開導覽">▾ 收起導覽</button>
+<script>
+(function(){var h=document.documentElement,b=document.getElementById('navtog');if(!b)return;
+function set(v){h.classList.toggle('nav-hidden',v);b.textContent=v?'▴ 導覽':'▾ 收起導覽';try{localStorage.setItem('bx-essay-nav',v?'1':'0')}catch(e){}}
+var s=false;try{s=localStorage.getItem('bx-essay-nav')==='1'}catch(e){}
+set(s);b.onclick=function(){set(!h.classList.contains('nav-hidden'))};})();
+</script>
 <!-- ===== BOTTOM NAV ===== -->
 <nav class="botnav" aria-label="估價備考導覽">
 
