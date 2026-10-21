@@ -934,6 +934,11 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
     <div class="sec-title">模擬卷成績追蹤</div>
     <div id="mock-table"></div>
     <div style="margin-top:12px;">
+      <div class="sec-title" style="font-size:.85rem;">★ 綜合模擬卷（題目已彙整打散、章節比例對齊官方）</div>
+      <div class="tool-row"><a class="tool-btn" href="估價_綜合模擬卷一.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷一</a><a class="tool-btn" href="估價_綜合模擬卷二.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷二</a></div>
+      <div class="tool-row" style="margin-top:8px;"><a class="tool-btn" href="估價_綜合模擬卷三.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷三</a><a class="tool-btn" href="估價_綜合模擬卷四.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷四</a></div>
+      <div class="tool-row" style="margin-top:8px;"><a class="tool-btn" href="估價_綜合模擬卷五.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷五</a><a class="tool-btn" href="估價_模擬卷覆蓋分析.html" target="_blank" style="background:var(--paper2);border-color:var(--key);"><span class="icon">📊</span> 模擬卷覆蓋分析（結論）</a></div>
+      <div class="sec-title" style="font-size:.85rem;margin-top:14px;">舊版試卷（題目已併入綜合卷，保留供回看）</div>
       <div class="tool-row">
         <a class="tool-btn" href="估價_診斷卷一.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 診斷卷① — 開始作答</a>
         <a class="tool-btn" href="估價_模擬試題二.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 模擬試題二（成本法＋比較法）</a>
@@ -1582,11 +1587,11 @@ function injectDrillStats(){
 
 // ── 模擬卷成績 ──
 (function(){
-  var mocks=[{id:'1',name:'診斷卷①'},{id:'2',name:'高頻考點卷②'},{id:'3',name:'混淆對比卷③'},{id:'4',name:'全真模擬卷④'}];
+  var mocks=[{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①（舊）'},{k:'bx_mock_2',name:'高頻考點卷②（舊）'},{k:'bx_mock_3',name:'混淆對比卷③（舊）'},{k:'bx_mock_4',name:'全真模擬卷④（舊）'}];
   function renderMocks(cid){
     var c=document.getElementById(cid);if(!c)return;
     mocks.forEach(function(m){
-      var key='bx_mock_'+m.id;var stored;
+      var key=m.k;var stored;
       try{stored=JSON.parse(localStorage.getItem(key));}catch(e){}
       var row=document.createElement('div');row.className='mock-row';
       var score=stored&&stored.score!==undefined?'<div class="mk-score">'+stored.score+' / 25</div>':'<div class="mk-none">尚未作答</div>';
@@ -1703,6 +1708,16 @@ function filterEssay(f,btn){
 
 // ── 模擬題 ──
 var simData=[
+  {src:'綜合模擬卷一', q:'申論一', topic:'收益法（直接資本化）＋價格計算', hard:'計算', href:'估價_綜合模擬卷一.html'},
+  {src:'綜合模擬卷一', q:'申論二', topic:'比較法情況調整／區域・個別因素調整', hard:'說明', href:'估價_綜合模擬卷一.html'},
+  {src:'綜合模擬卷二', q:'申論一', topic:'成本法折舊（定率法）計算', hard:'計算', href:'估價_綜合模擬卷二.html'},
+  {src:'綜合模擬卷二', q:'申論二', topic:'營造施工費求取＋規劃設計費＋資本利息', hard:'計算', href:'估價_綜合模擬卷二.html'},
+  {src:'綜合模擬卷三', q:'申論一', topic:'租金估計＋實質租金計算', hard:'計算', href:'估價_綜合模擬卷三.html'},
+  {src:'綜合模擬卷三', q:'申論二', topic:'資本化率決定方法＋WACC 計算收益價格', hard:'計算', href:'估價_綜合模擬卷三.html'},
+  {src:'綜合模擬卷四', q:'申論一', topic:'估價程序／價格日期／報告書', hard:'說明', href:'估價_綜合模擬卷四.html'},
+  {src:'綜合模擬卷四', q:'申論二', topic:'折現現金流量分析法', hard:'說明', href:'估價_綜合模擬卷四.html'},
+  {src:'綜合模擬卷五', q:'申論一', topic:'土地開發分析法計算', hard:'計算', href:'估價_綜合模擬卷五.html'},
+  {src:'綜合模擬卷五', q:'申論二', topic:'比較法：§23 質的排除＋§25/§26 量的管控', hard:'說明', href:'估價_綜合模擬卷五.html'},
   {src:'來勝模擬試題一', q:'申論一', topic:'土地開發分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_來勝模擬試題一.html'},
   {src:'來勝模擬試題一', q:'申論二', topic:'折現現金流量分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_來勝模擬試題一.html'},
   {src:'模擬試題二', q:'申論一', topic:'成本法意義/程序＋定率遞減法公式及計算（重建成本800萬、50年、殘值率10%、已使用20年）', hard:'計算', href:'估價_模擬試題二.html'},

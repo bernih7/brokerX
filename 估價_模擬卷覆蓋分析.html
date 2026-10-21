@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>不動產估價概要｜模擬卷覆蓋分析</title>
+<style>
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--paper:#F5F1E6;--paper-deep:#ECE6D4;--ink:#25302C;--ink-soft:#66706A;--rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--ok:#35693F;--lo-bg:#F3D9D2;--mid-bg:#F1E3C4;--rad:10px}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;--rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;--key:#D9A25E;--stamp:#E0806A;--ok:#7FC08A;--lo-bg:#4A2A24;--mid-bg:#4A3E1E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;--rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;--key:#D9A25E;--stamp:#E0806A;--ok:#7FC08A;--lo-bg:#4A2A24;--mid-bg:#4A3E1E;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Serif TC","Noto Sans TC",serif;line-height:1.75;padding-bottom:90px}
+header{background:var(--pri);color:var(--onpri);text-align:center;padding:20px 16px 18px}
+.case-tag{font-size:.75rem;letter-spacing:.12em;opacity:.8;margin-bottom:6px}
+header h1{font-size:1.35rem;line-height:1.3}
+header .sub{display:block;font-size:.8rem;opacity:.8;margin-top:4px;font-weight:400}
+main{max-width:860px;margin:0 auto;padding:16px}
+section{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:16px;margin-bottom:16px;min-width:0}
+h2{font-size:1.05rem;color:var(--pri);margin-bottom:8px;text-wrap:balance}
+p,li{font-size:.92rem}
+p{margin:6px 0}
+ul,ol{padding-left:1.3em;margin:6px 0}
+.sum li{margin:6px 0}
+.warn{border-left:3px solid var(--stamp);background:var(--paper);padding:8px 12px;border-radius:4px;margin:8px 0;font-size:.88rem}
+.tw{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.82rem;min-width:420px}
+th,td{border:1px solid var(--rule);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--paper);color:var(--ink-soft);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:700;background:var(--paper)}
+td.lo{background:var(--lo-bg);font-weight:700}
+td.mid{background:var(--mid-bg)}
+.list{list-style:none;padding:0}
+.list li{border-bottom:1px dashed var(--rule);padding:6px 0;font-size:.84rem}
+.tg{display:inline-block;font-size:.7rem;background:var(--pri);color:var(--onpri);border-radius:4px;padding:0 6px;margin-right:6px;white-space:nowrap}
+details summary{cursor:pointer;color:var(--pri);font-weight:700;font-size:.92rem}
+.bxfab{position:fixed;left:0;right:0;bottom:0;background:var(--paper-deep);border-top:1px solid var(--rule);padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;z-index:10}
+.fab-home{color:var(--pri);font-weight:700;text-decoration:none;font-size:.92rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="case-tag">不動產估價概要・分析結論</div>
+  <h1>模擬卷覆蓋分析<span class="sub">原 125 題試卷如何重新彙整、打散成 5 張綜合模擬卷</span></h1>
+</header>
+<main>
+
+<section class="sum">
+<h2>一、結論（先看這裡）</h2>
+<ol>
+<li><b>原本的問題：</b>舊試卷是「想到就補」，分布偏斜。收益法／資本化率偏多（官方約 54 題→試卷 20 題），而營造施工費、不動產證券化、計量模型、市地重劃等考點明顯偏少。以「試卷題數÷官方題數」＜0.15 算，47 個考點中有 <b>12</b> 個偏少。</li>
+<li><b>作法：</b>把 125 題全部彙整、打散，依<b>官方 519 題的章節比例</b>（全部年度 50％＋近 5 年 50％）重新配額；偏多的重複題移出 <b>26</b> 題，缺口自行補寫 <b>26</b> 題，再平均分到 5 卷。</li>
+<li><b>結果：</b>章節題數與配額<b>完全吻合</b>（見表二）；每卷都含比較法 2～3 題、成本法 2～3 題、收益法與資本化率 3～4 題；每卷答案字母 A/B/C/D 約 6/6/6/7 分布，不會連續超過 3 題同字母。上述偏少考點由 12 個降到 <b>4</b> 個。</li>
+<li><b>可以信到哪裡：</b>章節配額是精確的；考點比對是關鍵字約略值，只看方向。其餘限制見第八節。</li>
+</ol>
+<div class="warn">別把這頁當成「保證會考這些」。它證明的是：試卷的重點分布跟過去 16 年官方題目的分布對得上，而不是預測 115 年一定考什麼。</div>
+</section>
+
+<section>
+<h2>二、章節配額與五卷分布</h2>
+<p>章節代號同刷題頁（A1、A2…I1）。「配額」＝125 題依官方章節比例換算。</p>
+<div class="tw"><table>
+<tr><th>章節</th><th class="n">官方全部</th><th class="n">近5年</th><th class="n">配額</th><th class="n">卷一</th><th class="n">卷二</th><th class="n">卷三</th><th class="n">卷四</th><th class="n">卷五</th><th class="n">合計</th></tr>
+<tr><td>A1</td><td class=n>44</td><td class=n>11</td><td class=n><b>11</b></td><td class=n>2</td><td class=n>3</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n><b>11</b></td></tr><tr><td>A2</td><td class=n>31</td><td class=n>9</td><td class=n><b>8</b></td><td class=n>1</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>1</td><td class=n><b>8</b></td></tr><tr><td>A3</td><td class=n>44</td><td class=n>10</td><td class=n><b>10</b></td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n><b>10</b></td></tr><tr><td>A4</td><td class=n>44</td><td class=n>11</td><td class=n><b>11</b></td><td class=n>2</td><td class=n>2</td><td class=n>3</td><td class=n>2</td><td class=n>2</td><td class=n><b>11</b></td></tr><tr><td>B1</td><td class=n>61</td><td class=n>13</td><td class=n><b>14</b></td><td class=n>3</td><td class=n>3</td><td class=n>3</td><td class=n>3</td><td class=n>2</td><td class=n><b>14</b></td></tr><tr><td>C1</td><td class=n>57</td><td class=n>10</td><td class=n><b>12</b></td><td class=n>3</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>3</td><td class=n><b>12</b></td></tr><tr><td>C2</td><td class=n>40</td><td class=n>9</td><td class=n><b>9</b></td><td class=n>2</td><td class=n>2</td><td class=n>1</td><td class=n>2</td><td class=n>2</td><td class=n><b>9</b></td></tr><tr><td>D1</td><td class=n>42</td><td class=n>8</td><td class=n><b>9</b></td><td class=n>2</td><td class=n>1</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n><b>9</b></td></tr><tr><td>D2</td><td class=n>29</td><td class=n>12</td><td class=n><b>10</b></td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n>2</td><td class=n><b>10</b></td></tr><tr><td>D3</td><td class=n>13</td><td class=n>4</td><td class=n><b>4</b></td><td class=n>1</td><td class=n>0</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n><b>4</b></td></tr><tr><td>E1</td><td class=n>24</td><td class=n>5</td><td class=n><b>5</b></td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n><b>5</b></td></tr><tr><td>F1</td><td class=n>33</td><td class=n>9</td><td class=n><b>8</b></td><td class=n>2</td><td class=n>2</td><td class=n>1</td><td class=n>1</td><td class=n>2</td><td class=n><b>8</b></td></tr><tr><td>G1</td><td class=n>15</td><td class=n>4</td><td class=n><b>4</b></td><td class=n>1</td><td class=n>1</td><td class=n>0</td><td class=n>1</td><td class=n>1</td><td class=n><b>4</b></td></tr><tr><td>H</td><td class=n>21</td><td class=n>6</td><td class=n><b>6</b></td><td class=n>1</td><td class=n>1</td><td class=n>2</td><td class=n>1</td><td class=n>1</td><td class=n><b>6</b></td></tr><tr><td>H3</td><td class=n>5</td><td class=n>1</td><td class=n><b>1</b></td><td class=n>0</td><td class=n>0</td><td class=n>0</td><td class=n>0</td><td class=n>1</td><td class=n><b>1</b></td></tr><tr><td>I1</td><td class=n>12</td><td class=n>3</td><td class=n><b>3</b></td><td class=n>0</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class=n>0</td><td class=n><b>3</b></td></tr><tr class=tot><td>合計</td><td class=n>515</td><td class=n>125</td><td class=n>125</td><td class=n><b>25</b></td><td class=n><b>25</b></td><td class=n><b>25</b></td><td class=n><b>25</b></td><td class=n><b>25</b></td><td class=n>125</td></tr>
+</table></div>
+<p style="color:var(--ink-soft);font-size:.82rem">官方全部／近 5 年為本站歸類之選擇題題數（H 含權利估價與都更相關章節），未歸入的零星章節不列。</p>
+</section>
+
+<section>
+<h2>三、47 個考點：改版前後</h2>
+<p>比值＝試卷題數÷官方題數（全卷平均約 0.24）。紅底＜0.15（偏少）、黃底＜0.22。依改版前比值由低到高排列。</p>
+<div class="tw"><table>
+<tr><th>考點</th><th class="n">官方</th><th class="n">近5年</th><th class="n">舊卷題</th><th class="n">新卷題</th><th class="n">舊比值</th><th class="n">新比值</th></tr>
+<tr><td>C 規劃設計費§57(2~3%)</td><td class=n>3</td><td class=n>0</td><td class=n>0</td><td class=n>2</td><td class="n lo">0.00</td><td class="n ">0.67</td></tr><tr><td>H 市地重劃/區段徵收</td><td class=n>6</td><td class=n>0</td><td class=n>0</td><td class=n>1</td><td class="n lo">0.00</td><td class="n mid">0.17</td></tr><tr><td>J 證券化/不動產投資信託(REITs)</td><td class=n>10</td><td class=n>4</td><td class=n>0</td><td class=n>2</td><td class="n lo">0.00</td><td class="n mid">0.20</td></tr><tr><td>C 營造施工費求取(直接/間接)§54~§56</td><td class=n>25</td><td class=n>9</td><td class=n>1</td><td class=n>6</td><td class="n lo">0.04</td><td class="n ">0.24</td></tr><tr><td>A3 一般/區域/個別因素分類</td><td class=n>61</td><td class=n>14</td><td class=n>5</td><td class=n>13</td><td class="n lo">0.08</td><td class="n mid">0.21</td></tr><tr><td>B 計量模型§20(判定係數0.7/5倍/顯著)</td><td class=n>12</td><td class=n>3</td><td class=n>1</td><td class=n>3</td><td class="n lo">0.08</td><td class="n ">0.25</td></tr><tr><td>A4 勘估標的/土地建物定義/不動產特性</td><td class=n>111</td><td class=n>27</td><td class=n>10</td><td class=n>18</td><td class="n lo">0.09</td><td class="n mid">0.16</td></tr><tr><td>I 全聯會公告項目(§56 §60 §61 §63 §66 §67 §98)</td><td class=n>9</td><td class=n>1</td><td class=n>1</td><td class=n>2</td><td class="n lo">0.11</td><td class="n ">0.22</td></tr><tr><td>E 土開程序§71~§78(蒐集/勘察/構想)</td><td class=n>15</td><td class=n>0</td><td class=n>2</td><td class=n>4</td><td class="n lo">0.13</td><td class="n ">0.27</td></tr><tr><td>F 實質租金/經濟/支付租金(§130)</td><td class=n>29</td><td class=n>8</td><td class=n>4</td><td class=n>6</td><td class="n lo">0.14</td><td class="n mid">0.21</td></tr><tr><td>G 土地改良物/農作/林木/水產</td><td class=n>7</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class="n lo">0.14</td><td class="n lo">0.14</td></tr><tr><td>A1 價格種類:限定/特定/特殊/正常</td><td class=n>41</td><td class=n>9</td><td class=n>6</td><td class=n>8</td><td class="n lo">0.15</td><td class="n mid">0.20</td></tr><tr><td>B 價格日期調整(價格變動率/指數)</td><td class=n>13</td><td class=n>5</td><td class=n>2</td><td class=n>3</td><td class="n mid">0.15</td><td class="n ">0.23</td></tr><tr><td>E V公式§81(S/(1+R)/(1+i)-(C+M))</td><td class=n>13</td><td class=n>4</td><td class=n>2</td><td class=n>2</td><td class="n mid">0.15</td><td class="n mid">0.15</td></tr><tr><td>E 資本利息綜合利率§79(土地×1建物×1/2×年數)</td><td class=n>19</td><td class=n>4</td><td class=n>3</td><td class=n>3</td><td class="n mid">0.16</td><td class="n mid">0.16</td></tr><tr><td>A2 估價原則-替代/最有效使用/貢獻/適合/均衡/變動/預期</td><td class=n>37</td><td class=n>11</td><td class=n>6</td><td class=n>9</td><td class="n mid">0.16</td><td class="n ">0.24</td></tr><tr><td>G 宗地合併分割§83~§84/畸零</td><td class=n>17</td><td class=n>2</td><td class=n>3</td><td class=n>4</td><td class="n mid">0.18</td><td class="n ">0.24</td></tr><tr><td>C 利潤§60/廣告費銷售費管理費稅費§61</td><td class=n>27</td><td class=n>9</td><td class=n>5</td><td class=n>6</td><td class="n mid">0.19</td><td class="n ">0.22</td></tr><tr><td>B 比較標的選取(§12 §21~§22)</td><td class=n>47</td><td class=n>14</td><td class=n>9</td><td class=n>11</td><td class="n mid">0.19</td><td class="n ">0.23</td></tr><tr><td>F 租金估計因素§129</td><td class=n>47</td><td class=n>11</td><td class=n>9</td><td class=n>12</td><td class="n mid">0.19</td><td class="n ">0.26</td></tr><tr><td>A1 估價條件(§6)與估價報告書(§16)</td><td class=n>15</td><td class=n>3</td><td class=n>3</td><td class=n>5</td><td class="n mid">0.20</td><td class="n ">0.33</td></tr><tr><td>A1 價格日期/勘察日期(§9~§13)</td><td class=n>45</td><td class=n>12</td><td class=n>9</td><td class=n>13</td><td class="n mid">0.20</td><td class="n ">0.29</td></tr><tr><td>B 區域/個別因素調整與§25 15%/30%</td><td class=n>20</td><td class=n>5</td><td class=n>4</td><td class=n>6</td><td class="n mid">0.20</td><td class="n ">0.30</td></tr><tr><td>B §26 差距20%/§27三件/調和</td><td class=n>25</td><td class=n>5</td><td class=n>5</td><td class=n>5</td><td class="n mid">0.20</td><td class="n mid">0.20</td></tr><tr><td>D 土地殘餘/建物殘餘(殘餘法)</td><td class=n>10</td><td class=n>4</td><td class=n>2</td><td class=n>2</td><td class="n mid">0.20</td><td class="n mid">0.20</td></tr><tr><td>F 差額分配法/承租人貢獻</td><td class=n>15</td><td class=n>5</td><td class=n>3</td><td class=n>4</td><td class="n mid">0.20</td><td class="n ">0.27</td></tr><tr><td>H 權利估價(地上權/典權/農育權/役權/抵押)§114~§128</td><td class=n>10</td><td class=n>1</td><td class=n>2</td><td class=n>2</td><td class="n mid">0.20</td><td class="n mid">0.20</td></tr><tr><td>H 都更權利變換§125基地價值比率</td><td class=n>5</td><td class=n>1</td><td class=n>1</td><td class=n>1</td><td class="n mid">0.20</td><td class="n mid">0.20</td></tr><tr><td>C 經濟耐用年數/殘餘價格率§65~§67</td><td class=n>33</td><td class=n>6</td><td class=n>7</td><td class=n>7</td><td class="n mid">0.21</td><td class="n mid">0.21</td></tr><tr><td>C 資本利息§58~§59(預售不計息)</td><td class=n>22</td><td class=n>4</td><td class=n>5</td><td class=n>6</td><td class="n ">0.23</td><td class="n ">0.27</td></tr><tr><td>C 總成本§52 含土地另加</td><td class=n>13</td><td class=n>5</td><td class=n>3</td><td class=n>5</td><td class="n ">0.23</td><td class="n ">0.38</td></tr><tr><td>E 利潤率/§77 銷售管理費按總銷售金額</td><td class=n>13</td><td class=n>3</td><td class=n>3</td><td class=n>3</td><td class="n ">0.23</td><td class="n ">0.23</td></tr><tr><td>D 淨收益/§37 校核</td><td class=n>34</td><td class=n>8</td><td class=n>8</td><td class=n>9</td><td class="n ">0.24</td><td class="n ">0.26</td></tr><tr><td>A1 估價基本事項/作業程序(§8~§9)</td><td class=n>16</td><td class=n>4</td><td class=n>4</td><td class=n>5</td><td class="n ">0.25</td><td class="n ">0.31</td></tr><tr><td>G 多種使用/附建物宗地§85~§86</td><td class=n>12</td><td class=n>3</td><td class=n>3</td><td class=n>2</td><td class="n ">0.25</td><td class="n mid">0.17</td></tr><tr><td>D DCF §31~§32(折現率/期末價值)</td><td class=n>27</td><td class=n>10</td><td class=n>7</td><td class=n>4</td><td class="n ">0.26</td><td class="n lo">0.15</td></tr><tr><td>D 有效總收入/空置/總費用不計項目§35~§39</td><td class=n>28</td><td class=n>6</td><td class=n>8</td><td class=n>4</td><td class="n ">0.29</td><td class="n lo">0.14</td></tr><tr><td>H 房地拆價/建物價值比率§99~§101-1</td><td class=n>17</td><td class=n>1</td><td class=n>5</td><td class=n>4</td><td class="n ">0.29</td><td class="n ">0.24</td></tr><tr><td>C 重建 vs 重置成本§48</td><td class=n>16</td><td class=n>3</td><td class=n>5</td><td class=n>5</td><td class="n ">0.31</td><td class="n ">0.31</td></tr><tr><td>J 估價方法選取§14 兩種以上/調和§15</td><td class=n>22</td><td class=n>6</td><td class=n>8</td><td class=n>9</td><td class="n ">0.36</td><td class="n ">0.41</td></tr><tr><td>D 直接資本化法§30 與資本化率§43五法</td><td class=n>54</td><td class=n>17</td><td class=n>20</td><td class=n>15</td><td class="n ">0.37</td><td class="n ">0.28</td></tr><tr><td>F 限定租金/正常租金情境</td><td class=n>8</td><td class=n>1</td><td class=n>3</td><td class=n>4</td><td class="n ">0.38</td><td class="n ">0.50</td></tr><tr><td>C 成本法八步驟§49/適用對象</td><td class=n>29</td><td class=n>4</td><td class=n>11</td><td class=n>7</td><td class="n ">0.38</td><td class="n ">0.24</td></tr><tr><td>E 土地開發分析法適用§70</td><td class=n>21</td><td class=n>4</td><td class=n>8</td><td class=n>3</td><td class="n ">0.38</td><td class="n lo">0.14</td></tr><tr><td>C 折舊三法 定額/定率/償債</td><td class=n>23</td><td class=n>4</td><td class=n>9</td><td class=n>8</td><td class="n ">0.39</td><td class="n ">0.35</td></tr><tr><td>F 新訂 §132 三種/續訂 §133 四種</td><td class=n>5</td><td class=n>2</td><td class=n>2</td><td class=n>3</td><td class="n ">0.40</td><td class="n ">0.60</td></tr><tr><td>C 建物現值/房地成本價格§69</td><td class=n>12</td><td class=n>3</td><td class=n>5</td><td class=n>4</td><td class="n ">0.42</td><td class="n ">0.33</td></tr><tr><td>D 收益法程序§34 與適用</td><td class=n>38</td><td class=n>9</td><td class=n>18</td><td class=n>7</td><td class="n ">0.47</td><td class="n mid">0.18</td></tr><tr><td>B §23 情況調整十三款(特殊交易)</td><td class=n>11</td><td class=n>3</td><td class=n>6</td><td class=n>7</td><td class="n ">0.55</td><td class="n ">0.64</td></tr><tr><td>G 設施限制/污染/違建/溫泉§88~§97</td><td class=n>5</td><td class=n>1</td><td class=n>3</td><td class=n>2</td><td class="n ">0.60</td><td class="n ">0.40</td></tr><tr><td>D 折舊提存費§40~§41</td><td class=n>9</td><td class=n>1</td><td class=n>6</td><td class=n>5</td><td class="n ">0.67</td><td class="n ">0.56</td></tr><tr><td>D 綜合資本化率§46</td><td class=n>2</td><td class=n>0</td><td class=n>4</td><td class=n>3</td><td class="n ">2.00</td><td class="n ">1.50</td></tr>
+</table></div>
+<div class="warn">這是「題幹＋正確選項」的關鍵字比對，一題可同時歸入多個考點，所以不是精確題數。少數考點（如證券化、市地重劃）新卷仍低，是因為官方題數本身少、且章節配額已固定；若要再補，請告訴我哪個考點。</div>
+</section>
+
+<section>
+<h2>四、五卷組成</h2>
+<div class="tw"><table>
+<tr><th>卷</th><th class="n">答案 A/B/C/D 題數</th><th class="n">題型</th><th class="n">新補題</th><th class="n">比較法題</th></tr>
+<tr><td>卷一</td><td class=n>6 / 6 / 6 / 7</td><td class=n>判斷12 / 辨識5 / 計算4 / 找錯4</td><td class=n>4</td><td class=n>3</td></tr><tr><td>卷二</td><td class=n>6 / 7 / 6 / 6</td><td class=n>判斷12 / 辨識4 / 計算4 / 找錯4 / 組合1</td><td class=n>5</td><td class=n>3</td></tr><tr><td>卷三</td><td class=n>6 / 6 / 7 / 6</td><td class=n>判斷11 / 辨識5 / 計算5 / 找錯4</td><td class=n>7</td><td class=n>3</td></tr><tr><td>卷四</td><td class=n>6 / 6 / 6 / 7</td><td class=n>判斷11 / 辨識4 / 計算5 / 找錯4 / 組合1</td><td class=n>4</td><td class=n>3</td></tr><tr><td>卷五</td><td class=n>6 / 6 / 7 / 6</td><td class=n>判斷11 / 辨識5 / 計算4 / 找錯3 / 組合1 / 排序1</td><td class=n>6</td><td class=n>2</td></tr>
+</table></div>
+<p>題型為啟發式分類（判斷／辨識／計算／找錯／組合／排序），計算題每卷約 4～5 題（約 18％）；官方 112–114 年計算題約 16％。</p>
+</section>
+
+<section>
+<h2>五、申論配置（每卷 2 題）</h2>
+<div class="tw"><table>
+<tr><th>卷</th><th>申論一</th><th>申論二</th></tr>
+<tr><td>卷一</td><td>收益法直接資本化＋價格計算（舊）</td><td>比較法情況調整／區域・個別因素（舊）</td></tr><tr><td>卷二</td><td>成本法折舊定率法計算（舊）</td><td>營造施工費求取＋規劃設計費＋資本利息（新）</td></tr><tr><td>卷三</td><td>租金估計＋實質租金計算（舊）</td><td>資本化率決定方法＋WACC 計算收益價格（新）</td></tr><tr><td>卷四</td><td>估價程序／價格日期／報告書（舊）</td><td>折現現金流量分析法（來勝・舊）</td></tr><tr><td>卷五</td><td>土地開發分析法計算（舊）</td><td>比較法：§23 質的排除＋§25/§26 量的管控（新）</td></tr>
+</table></div>
+<p>10 題申論：8 題沿用舊卷、2 題新補（資本化率／WACC、營造施工費）；比較法 §23＋§25/§26 取自範文頁預測④。因舊申論題數有限，申論的考點覆蓋<b>不如選擇題均勻</b>，仍須搭配範文頁與預測頁。</p>
+</section>
+
+<section>
+<h2>六、新補 26 題</h2>
+<details><summary>展開清單</summary><ul class="list"><li><span class=tg>卷一・D3</span>不動產估價應兼採二種以上估價方法。以契約約定租金作為不動產證券化受益證券信託利益分配基礎者，綜合決定價格時，下列何種價格宜賦予相對較大之權重？</li><li><span class=tg>卷一・C1</span>下列有關營造或施工費求取方法之敘述，何者錯誤？</li><li><span class=tg>卷一・A3</span>下列何者屬於影響不動產價格之「個別因素」？</li><li><span class=tg>卷一・C1</span>就勘估標的所需要各種建築材料及人工之數量，逐一乘以價格日期當時之單價及人工工資，並加計管理費、稅捐、資本利息及利潤，以求取營造或施工費之方法，稱為下列何者？</li><li><span class=tg>卷二・A1</span>收益法以勘估標的未來之淨收益為基礎推估價格，其理論基礎主要為下列何種估價原則？</li><li><span class=tg>卷二・I1</span>依技術規則，應用計量模型分析法時，下列何者符合規定？</li><li><span class=tg>卷二・A2</span>下列何種情況，可歸類於不動產估價價格種類中之「正常價格」？</li><li><span class=tg>卷二・C2</span>建物總成本1,000萬元，經濟耐用年數50年，殘餘價格率10%，已經歷10年。分別以定額法、定率法、償債基金法（利率2%）計算建物現值，結果由小到大排列，何者正確？</li><li><span class=tg>卷二・A3</span>下列何者屬於影響不動產價格之「一般因素」？①政府調整房地合一稅制 ②央行調整重貼現率 ③社區附近新設捷運站 ④勘估標的屬路角地</li><li><span class=tg>卷三・C1</span>按工程概算項目逐項比較勘估標的與比較標的（或標準建物）之差異，並依工程價格及工程數量比率進行調整，以求取營造或施工費之方法，稱為下列何者？</li><li><span class=tg>卷三・A3</span>下列有關同一供需圈、近鄰地區與類似地區之敘述，何者正確？</li><li><span class=tg>卷三・A4</span>估價師至現場勘察時，委託人未領勘、無法確認勘估標的範圍，或無法進入室內勘察，依技術規則應如何處理？</li><li><span class=tg>卷三・I1</span>採計量模型分析法估價，自變數個數為7個，依技術規則，至少須蒐集多少件比較標的？</li><li><span class=tg>卷三・D3</span>依技術規則，以不動產證券化為估價目的、採折現現金流量分析法估價時，下列敘述何者錯誤？</li><li><span class=tg>卷三・A1</span>比較法之所以成立，主要是基於下列何種估價原則？</li><li><span class=tg>卷三・F1</span>續訂租約：原契約租金每月30,000元，市場經濟租金每月40,000元，經分析差額中應歸屬承租人70%、出租人30%。依差額分配法，續訂租約租金每月應為多少？</li><li><span class=tg>卷四・A2</span>依技術規則，限定價格係指具市場性之不動產在限定條件之一所形成之價值。下列何者屬於限定條件？①以不動產所有權以外其他權利與所有權合併為目的 ②以不動產合併為目的 ③以違反經濟合理性之不動產分割為前提 ④以變更為其他使用分區為前提</li><li><span class=tg>卷四・C1</span>依技術規則，成本法估計規劃設計費時，得按下列何者之百分之二至百分之三推估之？</li><li><span class=tg>卷四・A3</span>下列有關「區域因素」之敘述，何者錯誤？</li><li><span class=tg>卷四・D1</span>某房地年淨收益195萬元，土地價格3,000萬元、土地收益資本化率2.5%，建物收益資本化率6%。以建物殘餘法求建物之收益價格，應為多少？</li><li><span class=tg>卷五・A1</span>不動產價格隨社會、經濟及環境之變遷而持續變動，故估價須以價格日期當時之價值為準，此最符合下列何種估價原則？</li><li><span class=tg>卷五・C1</span>成本法案例：土地總成本6,000萬元、建物總成本3,000萬元、建物累積折舊額600萬元。依技術規則，房地成本價格為何？</li><li><span class=tg>卷五・A2</span>估價師受託評估某縣政府管理、不對外交易之古蹟紀念館價值，其價格種類為何？</li><li><span class=tg>卷五・C1</span>依技術規則，下列何者「不屬於」營造或施工費之內含項目？</li><li><span class=tg>卷五・A3</span>同一供需圈內，近鄰地區以外而使用性質與勘估標的相近之其他地區，稱為下列何者？</li><li><span class=tg>卷五・A4</span>下列為估價作業程序中擷取之六個步驟，其正確先後順序為何？①蒐集資料 ②確定估價基本事項 ③確認勘估標的狀態 ④擬定估價計畫 ⑤運用估價方法推算勘估標的價格 ⑥製作估價報告書</li></ul></details>
+<p style="font-size:.84rem;color:var(--ink-soft)">新題為自編，答案與解析已對照站內條文核實表（技術規則§2、§8、§12、§19、§20、§23、§25–§27、§33、§52–§57、§65–§69、§99、§130、§133 等）。自編題仍可能有疏漏，作答時若發現與官方解釋不同，請回報。</p>
+</section>
+
+<section>
+<h2>七、移出的 26 題</h2>
+<details><summary>展開清單</summary><ul class="list"><li><span class=tg>模擬二-Q2・C2</span>採用定額法（直線法）估算折舊時，下列何者為其特點？</li><li><span class=tg>模擬二-Q7・D1</span>依「不動產估價技術規則」，收益法中「有效總收入」之計算公式，下列何者正確？</li><li><span class=tg>模擬二-Q9・D3</span>折現現金流量分析法（DCF法）適用時機，下列何者最為正確？</li><li><span class=tg>模擬二-Q10・E1</span>依「不動產估價技術規則」，土地開發分析法中，開發完成後之預期收益，係指下列何者？</li><li><span class=tg>模擬二-Q12・D1</span>某收益性不動產年有效總收入500萬，年費用180萬，資本化率5%，則以直接資本化法求算之不動產價值為何？</li><li><span class=tg>模擬二-Q22・D2</span>依「不動產估價技術規則」，收益法中「綜合資本化率」之求取，下列何者為正確方式？</li><li><span class=tg>模擬三-Q1・D1</span>下列關於「收益資本化法」（直接資本化法）之敘述，何者有誤？</li><li><span class=tg>模擬三-Q2・D3</span>下列關於「折現現金流量分析法」（DCF法）之計算要素，不包含下列何者？</li><li><span class=tg>模擬三-Q3・D1</span>依「不動產估價技術規則」，「有效總收入」之計算方式，下列何者正確？</li><li><span class=tg>模擬三-Q8・D1</span>某收益性不動產，土地現值5,000萬元，土地資本化率4%；建物現值2,000萬元，建物資本化率8%。則該不動產之年淨收益為何？</li><li><span class=tg>模擬三-Q13・C2</span>某建物重建成本1,200萬，耐用年數40年，殘值率0%，已使用10年。採定額法計算，建物現值為何？</li><li><span class=tg>模擬三-Q17・E1</span>下列哪一情況適合採用「假設開發法」（土地開發分析法）估算土地價格？</li><li><span class=tg>模擬三-Q20・D1</span>在收益法中，若比較不動產之「總費用率」偏高，通常可能反映下列何種情況？</li><li><span class=tg>模擬三-Q21・D1</span>「不動產估價技術規則」中，規定收益法得採「直接資本化法」或「折現現金流量法」之條文為第幾條？</li><li><span class=tg>模擬四-Q9・D1</span>【收益法・殘餘法】某房地年淨收益200萬元，建物成本價格1,500萬元，建物收益資本化率6%（淨收益已扣除折舊提存費），土地收益資本化率4%</li><li><span class=tg>模擬四-Q20・H</span>【特殊宗地】下列何種宗地，規則僅列舉其估價考量因素，並未指定估價方法？</li><li><span class=tg>來勝一-Q4・E1</span>土地開發分析法之精神，下列何者正確？</li><li><span class=tg>來勝一-Q11・D1</span>收益法之下列名詞之數值大小關係？</li><li><span class=tg>來勝一-Q12・D3</span>有一收益不動產，第1年至第3年淨收益分別為100萬、200萬及300萬元，第3年年末之期末值為800萬元，若折現率為5%，則此不動產之收益價</li><li><span class=tg>來勝一-Q14・D1</span>經濟耐用年數40年，經歷年數30年，殘餘價格率10%，則以等速折舊計算建物價格日期未來每年折舊提存率，答案為何？</li><li><span class=tg>來勝一-Q21・H</span>實際建築使用之容積率超過法定容積率之房地估價，下列何項最正確？</li><li><span class=tg>來勝一-Q25・A2</span>下列何種價格估價，應同時估計其正常價格？</li><li><span class=tg>診斷一-Q12・E1</span>土地開發分析法中，建物興建資金之利息計算方式為何？</li><li><span class=tg>診斷一-Q16・A2</span>下列哪種不動產價格種類，在估價時須同時估計正常價格？</li><li><span class=tg>診斷一-Q24・H</span>依不動產估價技術規則，估價師受託評估含有違章建築之不動產時，應如何處理？</li><li><span class=tg>診斷一-Q25・G1</span>依不動產估價技術規則§100，區分所有建物「基地單價」依地價分配率調整之方式，下列何者正確？</li></ul></details>
+<p style="font-size:.84rem;color:var(--ink-soft)">移出原因多為同一考點重複（收益法有效總收入、直接資本化等）。舊版試卷頁仍保留，題目沒有消失。</p>
+</section>
+
+<section>
+<h2>八、限制（誠實版）</h2>
+<ul>
+<li>考點比對屬關鍵字約略值，不是人工逐題判讀。</li>
+<li>新補題為自編，非官方題；§53 營造施工費內含項目等引自站內整理版。</li>
+<li>申論只有 10 題，考點覆蓋有限；申論請搭配範文頁。</li>
+<li>舊卷（模擬二／三／四、診斷卷、來勝一）仍可作答，但題目已併入綜合卷，成績不重複計算。</li>
+</ul>
+</section>
+
+</main>
+<div class="bxfab"><a class="fab-home" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠 回備考中心</a></div>
+</body>
+</html>
