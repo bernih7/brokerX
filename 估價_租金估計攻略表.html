@@ -168,6 +168,48 @@ header{position:relative}
 .nr-hot{background:color-mix(in srgb,var(--green) 9%,var(--card))}
 .nr-hl{color:var(--green)}
 .nr-legend{font-size:12px;color:var(--sub);line-height:1.8;margin-bottom:12px}
+
+/* 租金種類全圖 */
+.rm{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px;margin-bottom:16px}
+.rm-h{font-family:'Noto Serif TC',serif;font-weight:700;font-size:15px;color:var(--pri);margin-bottom:10px}
+.rm-g{border-top:1px dashed var(--line);padding:12px 0}
+.rm-g:first-of-type{border-top:0;padding-top:2px}
+.rm-gt{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rm-gt small{font-weight:500;color:var(--sub);font-size:10.5px}
+.rm-gi{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:var(--pri);color:var(--onpri);font-size:11px}
+.rm-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rm-box{border-radius:10px;padding:10px;text-align:center;border:1.5px solid}
+.rm-box.n{border-color:color-mix(in srgb,var(--blu) 45%,var(--card));background:color-mix(in srgb,var(--blu) 8%,var(--card))}
+.rm-box.r{border-color:color-mix(in srgb,var(--gold) 50%,var(--card));background:color-mix(in srgb,var(--gold) 9%,var(--card))}
+.rm-from{font-size:12px;color:var(--sub);font-weight:700}
+.rm-arrow{font-size:13px;color:var(--sub);line-height:1.2}
+.rm-to{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700}
+.rm-box.n .rm-to{color:var(--blu)}.rm-box.r .rm-to{color:var(--gold)}
+.rm-d{font-size:11px;color:var(--sub);line-height:1.6;margin-top:3px}
+.rm-d.c{text-align:center;margin-top:6px}
+.rm-bar{display:flex;border-radius:8px;overflow:hidden;font-size:12px;font-weight:700;text-align:center;line-height:1.35}
+.rm-seg{padding:8px 4px;min-width:0}
+.rm-seg small{display:block;font-size:10px;font-weight:500;opacity:.85}
+.rm-seg.pay{flex:3.2;background:var(--pri);color:var(--onpri)}
+.rm-seg.dep{flex:1.6;background:color-mix(in srgb,var(--pri) 55%,var(--card));color:var(--onpri)}
+.rm-seg.key{flex:1.2;background:color-mix(in srgb,var(--pri) 35%,var(--card));color:var(--ink)}
+.rm-seg.oth{flex:1;background:color-mix(in srgb,var(--pri) 18%,var(--card));color:var(--ink)}
+.rm-brace{margin-top:4px;height:16px;border:2px solid var(--key);border-top:0;border-radius:0 0 10px 10px;position:relative}
+.rm-brace span{position:absolute;left:50%;top:9px;transform:translateX(-50%);background:var(--card);padding:0 8px;font-size:13px;font-weight:700;color:var(--key);white-space:nowrap}
+.rm-g .rm-brace+.rm-d{margin-top:16px}
+.rm-cmp{display:flex;align-items:stretch;justify-content:center;gap:4px}
+.rm-pill{flex:1;min-width:0;border-radius:9px;padding:7px 4px;text-align:center;font-size:12.5px;font-weight:700;border:1.5px solid}
+.rm-pill small{display:block;font-size:9.5px;font-weight:500;color:var(--sub);line-height:1.4;margin-top:2px}
+.rm-pill.mkt{color:var(--blu);border-color:color-mix(in srgb,var(--blu) 45%,var(--card));background:color-mix(in srgb,var(--blu) 8%,var(--card))}
+.rm-pill.old{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 50%,var(--card));background:color-mix(in srgb,var(--gold) 9%,var(--card))}
+.rm-pill.dif{flex:.8;color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,var(--card));background:color-mix(in srgb,var(--red) 8%,var(--card));display:grid;place-items:center}
+.rm-op{align-self:center;font-weight:700;color:var(--sub)}
+.rm-split{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.rm-leg{text-align:center;font-size:11.5px;color:var(--sub);line-height:1.6}
+.rm-leg b{color:var(--red)}
+.rm-line{width:2px;height:12px;background:var(--red);margin:0 auto 4px;opacity:.6}
+.rm-res{margin-top:5px;border-radius:9px;padding:7px 4px;background:var(--pri);color:var(--onpri);font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700}
+.rm-res small{display:block;font-family:'Noto Sans TC',sans-serif;font-size:10px;font-weight:500;opacity:.85}
 </style>
 </head>
 <body>
@@ -182,6 +224,44 @@ header{position:relative}
 
 <!-- 一、租金種類定義 -->
 <div class="sec-title">租金種類定義 ★★★極高頻</div>
+<div class="rm">
+  <div class="rm-h">租金種類全圖</div>
+
+  <div class="rm-g">
+    <div class="rm-gt"><span class="rm-gi">A</span>依租約看「價格種類」<small>§2・§131</small></div>
+    <div class="rm-pair">
+      <div class="rm-box n"><div class="rm-from">新訂租約</div><div class="rm-arrow">↓</div><div class="rm-to">正常租金</div><div class="rm-d">市場上正常條件下新訂的租金</div></div>
+      <div class="rm-box r"><div class="rm-from">續訂租約</div><div class="rm-arrow">↓</div><div class="rm-to">限定租金</div><div class="rm-d">受原租約、雙方關係限制的租金</div></div>
+    </div>
+  </div>
+
+  <div class="rm-g">
+    <div class="rm-gt"><span class="rm-gi">B</span>依「金額怎麼組成」看<small>§130</small></div>
+    <div class="rm-bar">
+      <div class="rm-seg pay">支付租金<small>每期付的錢</small></div>
+      <div class="rm-seg dep">押金・保證金<small>運用收益</small></div>
+      <div class="rm-seg key">權利金<small>運用收益</small></div>
+      <div class="rm-seg oth">其他<small>運用收益</small></div>
+    </div>
+    <div class="rm-brace"><span>實質租金＝全部加總</span></div>
+    <div class="rm-d c">租金估計以<b>實質租金</b>為原則。「名目租金」不是規則用語。</div>
+  </div>
+
+  <div class="rm-g">
+    <div class="rm-gt"><span class="rm-gi">C</span>依「跟市場比」看<small>學理</small></div>
+    <div class="rm-cmp">
+      <div class="rm-pill mkt">經濟租金<small>最有效使用時應有的租金</small></div>
+      <div class="rm-op">－</div>
+      <div class="rm-pill old">契約租金<small>租約上約定的租金</small></div>
+      <div class="rm-op">＝</div>
+      <div class="rm-pill dif">差額租金</div>
+    </div>
+    <div class="rm-split">
+      <div class="rm-leg"><div class="rm-line"></div><b>分配</b>給出租人＋契約租金<div class="rm-res">續租租金<small>差額分配法・§133④</small></div></div>
+      <div class="rm-leg"><div class="rm-line"></div><b>還原</b>成剩餘租期現值<div class="rm-res">租賃權價格<small>差額租金還原法</small></div></div>
+    </div>
+  </div>
+</div>
 <div class="def-grid">
   <div class="def-card" style="border-color:color-mix(in srgb,var(--red) 30%,var(--line))">
     <div class="def-name">實質租金 <span class="def-badge high">最重要</span></div>
