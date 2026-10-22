@@ -91,6 +91,18 @@ header .sub{display:block;font-size:.8rem;opacity:.75;margin-top:4px;font-weight
 .fab-submit:hover{opacity:.9;}
 </style>
 <script src="bxv-use.js"></script>
+<style id="kf-mock">
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-ink:#25302C;--ks-line:#DDD6C3;--ks-paper:#FFFEFA;--ks-fg:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4;--ks-line:#334039;--ks-paper:#22302C;--ks-fg:#E8E0CE}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4;--ks-line:#334039;--ks-paper:#22302C;--ks-fg:#E8E0CE}
+.cbox{border:1px solid var(--ks-line);border-radius:10px;background:var(--ks-paper);padding:8px 10px;margin:6px 0;display:flex;flex-direction:column;gap:6px;min-width:0;font-family:inherit;white-space:normal}
+.cbox .kf-eq{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.cbox .kf-eq>*{flex:0 0 auto}
+.cbox .kf-c{border-radius:8px;padding:4px 9px;font-weight:700;font-size:13px;line-height:1.4;color:var(--ks-ink);border:1px solid;white-space:nowrap;text-align:center;font-family:inherit}
+.cbox .kf-op{font-size:17px;font-weight:700;color:var(--ks-fg);padding:0 2px;white-space:nowrap}
+.cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
+.cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+</style>
 </head>
 <body>
 <header>
@@ -147,14 +159,14 @@ header .sub{display:block;font-size:.8rem;opacity:.75;margin-top:4px;font-weight
       </div>
       <div class="ans-block">
         <h4>五、定率遞減法（屬初期加速折舊路徑，§68）</h4>
-        <div class="formula-box">殘值率 = (1 − 年折舊率)^耐用年數<br>∴ 年折舊率 r = 1 − (殘值率)^(1/耐用年數)</div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">殘值率</span><span class="kf-op">＝</span><span class="kf-c k-m">(1 − 年折舊率)^耐用年數</span></div><div class="kf-eq"><span class="kf-c k-s">∴ 年折舊率 r</span><span class="kf-op">＝</span><span class="kf-c k-m">1</span><span class="kf-op">−</span><span class="kf-c k-m">(殘值率)^(1/耐用年數)</span></div></div>
         <p>殘值率 10% = 0.1；耐用年數 N = 50</p>
-        <div class="formula-box">r = 1 − (0.1)^(1/50) = 1 − 0.1^0.02</div>
-        <div class="calc-step">0.1^0.02 = e^(0.02 × ln0.1) = e^(0.02 × (−2.3026)) = e^(−0.046052) ≈ 0.9550</div>
-        <div class="calc-step">∴ r ≈ 1 − 0.9550 = 0.0450（年折舊率約 4.50%）</div>
-        <div class="calc-step">已使用20年 → 成數 = (1 − r)^20 = (0.9550)^20</div>
-        <div class="calc-step">(0.9550)^20 = e^(20 × ln0.9550) = e^(20 × (−0.046052)) = e^(−0.9210) ≈ 0.3981</div>
-        <div class="calc-step">建物現值 = 800 × 0.3981 ≈ <strong>318.5 萬元</strong></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">r</span><span class="kf-op">＝</span><span class="kf-c k-g">1</span><span class="kf-op">−</span><span class="kf-c k-g">(0.1)^(1/50)</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-m">1</span><span class="kf-op">−</span><span class="kf-c k-m">0.1^0.02</span></div></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">0.1^0.02</span><span class="kf-op">＝</span><span class="kf-c k-g">e^(0.02 × ln0.1)</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-g">e^(0.02 × (−2.3026))</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-g">e^(−0.046052)</span></div><div class="kf-eq"><span class="kf-op">≈</span><span class="kf-c k-m">0.9550</span></div></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">∴ r</span><span class="kf-op">≈</span><span class="kf-c k-g">1</span><span class="kf-op">−</span><span class="kf-c k-g">0.9550</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-m">0.0450（年折舊率約 4.50%）</span></div></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">已使用20年</span><span class="kf-op">→</span><span class="kf-c k-s">成數</span><span class="kf-op">＝</span><span class="kf-c k-g">(1 − r)^20</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-m">(0.9550)^20</span></div></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">(0.9550)^20</span><span class="kf-op">＝</span><span class="kf-c k-g">e^(20 × ln0.9550)</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-g">e^(20 × (−0.046052))</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-g">e^(−0.9210)</span></div><div class="kf-eq"><span class="kf-op">≈</span><span class="kf-c k-m">0.3981</span></div></div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">建物現值</span><span class="kf-op">＝</span><span class="kf-c k-g">800</span><span class="kf-op">×</span><span class="kf-c k-g">0.3981</span><span class="kf-op">≈</span><span class="kf-c k-m"><strong>318.5 萬元</strong></span></div></div>
         <p style="font-size:.82rem;color:var(--ink-soft);margin-top:6px;">（若考試給定 r=4.5%，則 0.955^20≈0.398，建物現值≈318萬，依題目給定值為準）</p>
       </div>
     </div>
@@ -330,5 +342,6 @@ function resetAll(){
 
 init();
 </script>
+<script src="kf-fit.js"></script>
 </body>
 </html>
