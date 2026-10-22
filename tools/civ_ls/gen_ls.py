@@ -19,6 +19,16 @@ page=re.sub(r'<div class="sub">.*?</div></div></header>','<div class="sub">補�
 rep('},ID="civ1";','},ID="civls1";')
 rep('var ID="civ1";','var ID="civls1";')
 rep('申論兩題共 50 分。建議先自己寫在紙上，再展開擬答（3 個版本）對照。','申論兩題共 50 分。先自己寫在紙上，再展開本站擬答；版本列最後一個是「來勝老師版」，並寫明與本站的差異。')
-rep('展開擬答（3 個版本）','展開擬答（4 個版本，含來勝老師版）')
+rep('展開擬答（3 個版本）','展開擬答（5 個版本，含來勝老師版與對照）')
+rep('var c=p[2]==="ok"?"f3":p[2]==="bad"?"f4":"f"+(k%4+1);','var c=p[2]==="ok"?"f3":p[2]==="bad"?"f4":p[2]==="add"?"f5":"f"+(k%4+1);')
+rep('老師版＝補習班老師解答。','老師版＝補習班老師解答（照片逐字；標【本站補充】的段落不是老師原文）；對照＝本站整理的兩版差異。')
+# 提示框：中性底色＋深色字＋分行，【…】為小標
+rep('.tipf{border-left:5px solid var(--acc);background:var(--acc-soft);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px;color:var(--acc-ink)}',
+    '.tipf{border:1px solid var(--line);border-left:5px solid var(--pri);background:var(--surface);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px;line-height:1.75;color:var(--ink)}'
+    '.tipf .wl{display:block}.tipf .wl.ind{padding-left:1.2em}.tipf .wt{margin-top:8px}.tipf .wh{font-weight:700;color:var(--pri)}'
+    '.fr.f5{border:1px dashed var(--sub);background:var(--bg)}.fr.f5 .ph{color:var(--sub)}')
+WARN_JS = r'''wn.className="tipf";wn.innerHTML=("💡 提示｜"+x.warn).split("\n").map(function(l){var e=l.replace(/&/g,"&amp;").replace(/</g,"&lt;");return /^【/.test(l)?'<span class="wl wt">'+e.replace(/^(【[^】]*】)/,'<b class="wh">$1</b>')+'</span>':'<span class="wl'+(/^[　・]/.test(l)?' ind':'')+'">'+e+'</span>'}).join("");'''
+rep('wn.className="tipf";wn.textContent="💡 提示｜"+x.warn;', WARN_JS)
+rep('綠框＝口訣　黃框＝提示','綠框＝口訣　綠邊框＝提示　虛線框＝本站補充')
 open(os.path.join(ROOT,'民法_來勝模擬試題一.html'),'w',encoding='utf-8').write(page)
 print('ok',len(page))
