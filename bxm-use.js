@@ -77,5 +77,57 @@ function build(){
  L.push("","══ 四、頁面使用（自 2026-10-12 起記錄；開啟次數與約略停留分鐘）══");hr.forEach(function(s){L.push(s)});if(nv.length)L.push("尚未開過："+nv.join("、"));
  var data={};ids.forEach(function(i){var r=DB[i];data[i]=[r.c,r.ok,r.k==="D"?1:0,r.k||"",r.t,r.n||1,r.w||0]});
  L.push("","BXDATA1:"+b64e(data));return L.join("\n")}
-window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,PAGE:PAGE,today:function(){return ld("bxm-day",{})[ymd()]||{q:0,c:0}}};
+/* ---- ⑤ 讀過輪數（手動 －／＋，做法同估價）＋ 各工具完成度（指揮中心「進度」頁顯示） ---- */
+var BASE="https://bernih7.github.io/brokerX/";
+function U8(p){return BASE+encodeURIComponent(p)+".html"}
+function readInc(id,d){var R=ld("bxm-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bxm-read",R);return x.n}
+function readGet(id){return ld("bxm-read",{})[id]||{n:0,t:0}}
+/* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷的完成度是自動算，不放計數鈕） */
+var READP={"民法A_彩色重點速記":1,"民法BC_彩色重點速記":1,"民法D_彩色重點速記":1,"民法E_彩色重點速記":1,"民法_法律效果總整理":1,"民法_數字期間速查":1,"民法_用詞分類與申論必背":1,"民法_申論115出題預測":1,"民法申論題_五型答題模板":1,"民法A_考題小卡":1,"民法BC_考題小卡":1,"民法D_考題小卡":1,"民法E_考題小卡":1,"民法A_完整考題小卡":1,"民法BC_完整考題小卡":1,"民法D_完整考題小卡":1,"民法E_完整考題小卡":1,"民法A_互動單字卡":1,"民法BC_互動單字卡":1,"民法D_互動單字卡":1,"民法E_互動單字卡":1,"民法_定義填空練習":1};
+function readWidget(){if(!READP[PAGE]||document.getElementById("bxmRead"))return;
+ var cs=document.createElement("style");cs.textContent="#bxmRead{--rp:#2F5D50;--rs:#FFFEFA;--ri:#25302C;--rl:#DAD6C3;position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:59;width:40px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--rs);color:var(--ri);border:1px solid var(--rl);border-radius:20px;padding:3px 0;box-shadow:0 2px 8px rgba(0,0,0,.18);font:11px/1.15 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center}"+
+ "#bxmRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0}#bxmRead button.p{background:var(--rp);color:var(--rs)}#bxmRead .t{display:block;padding:1px 0}#bxmRead b{display:block;font-size:15px;color:var(--rp)}"+
+ "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxmRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}}:root[data-theme=\"dark\"] #bxmRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}";
+ document.head.appendChild(cs);
+ var w=document.createElement("div");w.id="bxmRead";w.title="讀完一輪按＋，按錯按－；次數顯示在指揮中心「進度」";
+ w.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
+ var bs=w.querySelectorAll("button"),n=w.querySelector("b");function up(){n.textContent=readGet(PAGE).n||0}
+ bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up();day("c",1)};document.body.appendChild(w);up()}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
+/* 各工具完成度：回傳分組資料，指揮中心畫成表 */
+function mcount(key,tt){var m=st(key),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return{m:n,r:r,t:tt}}
+function status(){
+ var DB=ld("bxm-q2",{}),UU=ld("bxm-use",{}),G=[];
+ function row(p,name,done,total,txt){var u=UU[p]||{},rd=readGet(p);return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:READP[p]?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0)}}
+ /* 刷題 */
+ var by={};Object.keys(DB).forEach(function(id){var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0,w:0};o.d++;if(DB[id].ok)o.ok++;else o.w++});
+ var R1=[];for(var c in CH){var o=by[c]||{d:0,ok:0,w:0};R1.push(row("民法刷題練習_"+c+"篇","刷題 "+CH[c][1],o.d,CH[c][2],"已作答 "+o.d+"／"+CH[c][2]+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+o.w:"")))}
+ G.push({g:"刷題（作答後自動記錄）",rows:R1});
+ /* 模擬卷 */
+ var H=ld("bx_mock_civ_sim",[]),ys={};H.forEach(function(r){ys[r.y]=r});var yn=Object.keys(ys).length,R2=[];
+ R2.push(row("民法概要_25題模擬測驗","歷屆整卷模擬（107–114）",yn,8,"已做 "+yn+"／8 卷"+(H.length?"・最近 "+H[H.length-1].y+" 年 "+H[H.length-1].score+" 分":"")));
+ [["民法_模擬試題一","自擬模擬卷①","civ1"],["民法_模擬試題二","自擬模擬卷②","civ2"],["民法_來勝模擬試題一","來勝模擬試題(一)","civls1"]].forEach(function(a){var r=ld("bx_mock_"+a[2],null);var dn=r&&r.n?r.a:0;R2.push(row(a[0],a[1],dn,25,r&&r.n?"已答 "+r.a+"／"+r.n+"・答對 "+r.c+"（選擇 "+(r.c*2)+"／50）":"尚未作答"))});
+ R2.push(row("民法_申論專練卷","申論專練卷①（3 題）",0,0,"自己手寫後對照；只記開啟次數"));
+ G.push({g:"模擬卷（交卷後自動記錄）",rows:R2});
+ /* 記憶工具 */
+ var R3=[],DK=[["A","A 總則"],["BC","BC 債編"],["D","D 物權"],["E","E 親屬繼承"]];
+ var SEL={A:["exam_mastery_data_a",18],BC:["exam_mastery_data",20],D:["exam_mastery_data_d",18],E:["exam_mastery_data_e",18]};
+ var FULL={A:["exam_mastery_a_full_v1",107],BC:["exam_mastery_bc_full_v1",162],D:["exam_mastery_d_full_v1",134],E:["exam_mastery_e_full_v1",117]};
+ var WORD={A:["mastery_data_a",42],BC:["mastery_data",38],D:["mastery_data_d",50],E:["mastery_data_e",42]};
+ function deck(set,suffix,label){DK.forEach(function(d){var k=set[d[0]],x=mcount(k[0],k[1]);R3.push(row("民法"+d[0]+suffix,label+" "+d[1],x.m,x.t,"已掌握 "+x.m+"／"+x.t+(x.r?"・待複習 "+x.r:"")))})}
+ deck(SEL,"_考題小卡","精選小卡");deck(FULL,"_完整考題小卡","完整小卡");deck(WORD,"_互動單字卡","單字卡");
+ var fk=Object.keys(ld("bxm-fill",{})).length;R3.push(row("民法_定義填空練習","定義填空練習",fk,TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
+ G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
+ /* 申論 */
+ var R4=[],rs=ld("minfa_read",{}),rn=Object.keys(rs).filter(function(k){return rs[k]}).length;
+ R4.push({p:"",url:"#essay",name:"申論 73 題（官方32＋預測41）",done:rn,total:73,pct:Math.round(rn/73*100),txt:"已讀 "+rn+"／73",read:null,open:null,last:0});
+ var es=ld("bxm-st:civlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
+ R4.push(row("民法申論題_五型答題模板","申論五型答題模板",er+em,32,"已讀 "+(er+em)+"／32（已熟 "+em+"）"));
+ R4.push(row("民法_申論115出題預測","申論 115 出題預測",0,0,""));
+ G.push({g:"申論",rows:R4});
+ /* 閱讀頁 */
+ var R5=[];[["民法A_彩色重點速記","彩色速記 A 總則"],["民法BC_彩色重點速記","彩色速記 BC 債編"],["民法D_彩色重點速記","彩色速記 D 物權"],["民法E_彩色重點速記","彩色速記 E 親屬繼承"],["民法_法律效果總整理","法律效果總整理"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法_數字期間速查","數字期間速查"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
+ G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R5});
+ return G}
+window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,PAGE:PAGE,today:function(){return ld("bxm-day",{})[ymd()]||{q:0,c:0}}};
 })();
