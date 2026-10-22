@@ -102,7 +102,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 .proc-ol li{margin-bottom:2px}
 .proc-note{font-size:11px;color:var(--hi-red);font-weight:700;margin-top:8px}
 /* 公式區 */
-.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:20px}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:14px;margin-bottom:20px}
 .formula-card{border-radius:10px;padding:15px 16px;border:1.5px solid var(--line)}
 .fc-comp{background:var(--comp-bg);border-color:var(--comp)}.fc-comp .formula-title{color:var(--comp)}
 .fc-cost{background:var(--cost-bg);border-color:var(--cost)}.fc-cost .formula-title{color:var(--cost)}
@@ -115,6 +115,23 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 .fnum{display:inline-block;background:rgba(184,120,46,.18);color:var(--hi-gold);font-weight:700;padding:0 4px;border-radius:3px}
 .ferr{display:inline-block;background:rgba(168,64,48,.12);color:var(--hi-red);font-weight:700;padding:0 4px;border-radius:3px}
 .fgrn{display:inline-block;background:rgba(47,107,69,.12);color:var(--hi-grn);font-weight:700;padding:0 4px;border-radius:3px}
+
+/* 公式步驟卡（統一配色，公式不換行） */
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-mk:#DCE8A4;--ks-mkt:#33480F;--ks-ink:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-mk:#59692A;--ks-mkt:#F0F7CF;--ks-ink:#E8E2D4}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-mk:#59692A;--ks-mkt:#F0F7CF;--ks-ink:#E8E2D4}
+.formula-card{min-width:0}
+.kf{display:flex;flex-direction:column;gap:8px;margin:2px 0 4px}
+.kf-step{border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:8px 10px;min-width:0}
+.kf-t{font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.kf-t b{display:inline-block;background:var(--primary);color:#fff;border-radius:50%;min-width:18px;height:18px;line-height:18px;text-align:center;margin-right:6px;font-size:11px}
+.kf-eq{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.kf-eq>*{flex:0 0 auto}
+.kf-c{border-radius:8px;padding:4px 9px;font-weight:700;font-size:13px;line-height:1.4;color:var(--ks-ink);border:1px solid;white-space:nowrap;text-align:center}
+.kf-op{font-size:18px;font-weight:700;color:var(--fg);padding:0 2px;white-space:nowrap}
+.k-s{background:var(--ks-s);border-color:var(--ks-sb)}.k-o{background:var(--ks-o);border-color:var(--ks-ob)}.k-g{background:var(--ks-g);border-color:var(--ks-gb)}.k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+.kf-ex{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
+.kf .kwm,.kf-ex .kwm{background:var(--ks-mk);color:var(--ks-mkt);font-weight:800;padding:0 3px;border-radius:3px}
 /* 適用時機表 */
 .app-table-wrap{overflow-x:auto;margin-bottom:20px}
 .app-table{border-collapse:collapse;width:100%;min-width:560px;background:var(--paper);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px var(--shadow)}
@@ -428,34 +445,19 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 <div class="formula-grid">
   <div class="formula-card fc-comp">
     <div class="formula-title">比較法｜調整後試算價格</div>
-    <div class="formula-body">
-      試算價格 = 比較標的成交價<br>
-      × 情況調整率<br>
-      × 價格日期調整率<br>
-      × 區域因素調整率<br>
-      × 個別因素調整率<br><br>
-      差距率 = （高−低）÷ 平均　（<span class="fnum">達20%以上</span>須重新檢討）
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>試算價格（成交價＝比較標的成交價）</div><div class="kf-eq"><span class="kf-c k-m">試算價格</span><span class="kf-op">＝</span><span class="kf-c k-s">成交價</span><span class="kf-op">×</span><span class="kf-c k-o">情況調整率</span><span class="kf-op">×</span><span class="kf-c k-o">日期調整率</span><span class="kf-op">×</span><span class="kf-c k-g">區域調整率</span><span class="kf-op">×</span><span class="kf-c k-g">個別調整率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>差距率（§26）</div><div class="kf-eq"><span class="kf-c k-m">差距率</span><span class="kf-op">＝</span><span class="kf-c k-s">（高 − 低）</span><span class="kf-op">÷</span><span class="kf-c k-s">平均</span></div><div class="kf-ex">差距率 <mark class="kwm">達 20% 以上</mark>須重新檢討</div></div></div>
     <div class="formula-note">區域／個別因素（或其內單項）<span class="fnum">大於15%</span>、四項<span class="fnum">總調整率大於30%</span>→不宜採用（§25）；試算價格<span class="fnum">差距達20%以上</span>→重新檢討（§26）。剛好15%、30%不排除，剛好20%就要檢討</div>
   </div>
   <div class="formula-card fc-cost">
     <div class="formula-title">成本法｜定額折舊（最常考）</div>
-    <div class="formula-body">
-      年折舊額 = C × (1−<span class="fnum">s</span>) ÷ <span class="fnum">N</span><br>
-      累積折舊Dn = 年折舊額 × <span class="fnum">n</span><br>
-      建物現值 = C − Dn
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>年折舊額</div><div class="kf-eq"><span class="kf-c k-m">年折舊額</span><span class="kf-op">＝</span><span class="kf-c k-s">C 重建成本</span><span class="kf-op">×</span><span class="kf-c k-o">（1 − s 殘餘價格率）</span><span class="kf-op">÷</span><span class="kf-c k-g">N 經濟耐用年數</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>累積折舊</div><div class="kf-eq"><span class="kf-c k-m">Dn 累積折舊</span><span class="kf-op">＝</span><span class="kf-c k-s">年折舊額</span><span class="kf-op">×</span><span class="kf-c k-g">n 經歷年數</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>建物現值</div><div class="kf-eq"><span class="kf-c k-m">建物現值</span><span class="kf-op">＝</span><span class="kf-c k-s">C 重建成本</span><span class="kf-op">−</span><span class="kf-c k-o">Dn 累積折舊</span></div></div></div>
     <div class="formula-note">
-      C=重建成本　<span class="fnum">s=殘餘價格率（≤10%）</span><br>
-      <span class="fnum">N=經濟耐用年數</span>　<span class="fnum">n=經歷年數</span>
+      <span class="fnum">s 殘餘價格率（≤10%）</span>
     </div>
   </div>
   <div class="formula-card fc-cost">
     <div class="formula-title">成本法｜資本利息（§58、§59）</div>
-    <div class="formula-body">
-      資本利息 = <span class="fnum">（營造施工費＋規劃設計費＋廣告銷售費＋管理費＋稅捐及其他負擔＋土地價格）</span> × 利率<br>
-      依<span class="fnum">分期投入數額</span>與<span class="fnum">資本使用年數</span>，自有／借貸<span class="fnum">分別計息</span>
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>投入合計額（施工費＝營造施工費；設計費＝規劃設計費；銷售費＝廣告銷售費；稅捐＝稅捐及其他負擔）</div><div class="kf-eq"><span class="kf-c k-s">合計額</span><span class="kf-op">＝</span><span class="kf-c k-s">施工費</span><span class="kf-op">＋</span><span class="kf-c k-s">設計費</span><span class="kf-op">＋</span><span class="kf-c k-s">銷售費</span><span class="kf-op">＋</span><span class="kf-c k-s">管理費</span><span class="kf-op">＋</span><span class="kf-c k-s">稅捐</span><span class="kf-op">＋</span><span class="kf-c k-o">土地價格</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>資本利息</div><div class="kf-eq"><span class="kf-c k-m">資本利息</span><span class="kf-op">＝</span><span class="kf-c k-s">合計額</span><span class="kf-op">×</span><span class="kf-c k-g">利率</span></div><div class="kf-ex">依<mark class="kwm">分期投入數額</mark>與<mark class="kwm">資本使用年數</mark>，自有／借貸<mark class="kwm">分別計息</mark></div></div></div>
     <div class="formula-note">
       自有資金：<span class="fnum">不高於一年期定存、不低於活存</span>；借款：銀行短期放款利率<br>
       <span class="ferr">預售收入之資金不計息（§59）</span>；含土地者合計額要加土地價格（§58Ⅲ）；合計額不含利息與利潤
@@ -463,19 +465,12 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
   </div>
   <div class="formula-card fc-inc">
     <div class="formula-title">收益法｜直接資本化法</div>
-    <div class="formula-body">
-      收益價格 = <span class="fnum">淨收益</span> ÷ <span class="fnum">資本化率</span><br><br>
-      淨收益 = 有效總收入 − 總費用<br>
-      有效總收入 = 總收入 × (1−<span class="fnum">空置率</span>)<br>
-      實質租金 = 支付租金 ＋ 押金或保證金運用收益 ＋ 權利金運用收益 ＋ 其他相關運用收益（§130）
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>收益價格</div><div class="kf-eq"><span class="kf-c k-m">收益價格</span><span class="kf-op">＝</span><span class="kf-c k-s">淨收益</span><span class="kf-op">÷</span><span class="kf-c k-g">資本化率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>淨收益</div><div class="kf-eq"><span class="kf-c k-m">淨收益</span><span class="kf-op">＝</span><span class="kf-c k-s">有效總收入</span><span class="kf-op">−</span><span class="kf-c k-o">總費用</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>有效總收入</div><div class="kf-eq"><span class="kf-c k-m">有效總收入</span><span class="kf-op">＝</span><span class="kf-c k-s">總收入</span><span class="kf-op">×</span><span class="kf-c k-o">（1 − 空置率）</span></div></div><div class="kf-step"><div class="kf-t"><b>4</b>實質租金（§130）</div><div class="kf-eq"><span class="kf-c k-m">實質租金</span><span class="kf-op">＝</span><span class="kf-c k-s">支付租金</span><span class="kf-op">＋</span><span class="kf-c k-g">押金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">權利金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">其他運用收益</span></div></div></div>
     <div class="formula-note"><span class="ferr">不得計入費用：所得稅、貸款利息、土地增值稅、改良性資本支出</span></div>
   </div>
   <div class="formula-card fc-inc">
     <div class="formula-title">收益法｜DCF折現現金流量</div>
-    <div class="formula-body">
-      P = Σ[CFk÷(1+Y)^k] ＋ <span class="fnum">Pn'÷(1+Y)^n'</span>
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>DCF 折現現金流量</div><div class="kf-eq"><span class="kf-c k-m">P 收益價格</span><span class="kf-op">＝</span><span class="kf-c k-s">Σ CFk÷(1+Y)^k 現值</span><span class="kf-op">＋</span><span class="kf-c k-o">Pn′÷(1+Y)^n′ 處分現值</span></div></div></div>
     <div class="formula-note">
       CFk=第k期淨收益　Y=折現率<br>
       <span class="ferr">Pn'=期末處分價值（不可省略！）</span><br>
@@ -485,15 +480,10 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
   </div>
   <div class="formula-card fc-dev">
     <div class="formula-title">土地開發分析法｜V公式（§81）★鐵打必考　選擇24題｜申論5次</div>
-    <div class="formula-body">
-      <span class="fgrn">V = [S÷(1+r)÷(1+i)] − (C+M)</span>
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>總銷售金額折現</div><div class="kf-eq"><span class="kf-c k-s">S′ 折現後總價</span><span class="kf-op">＝</span><span class="kf-c k-s">S 總銷售金額</span><span class="kf-op">÷</span><span class="kf-c k-o">（1 + r 利潤率）</span><span class="kf-op">÷</span><span class="kf-c k-o">（1 + i 利息綜合利率）</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>V 公式（§81）</div><div class="kf-eq"><span class="kf-c k-m">V 土地價值</span><span class="kf-op">＝</span><span class="kf-c k-s">S′ 折現後總價</span><span class="kf-op">−</span><span class="kf-c k-g">（C 直接成本 ＋ M 間接成本）</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>利息綜合利率 i</div><div class="kf-eq"><span class="kf-c k-m">i 綜合利率</span><span class="kf-op">＝</span><span class="kf-c k-s">年利率</span><span class="kf-op">×</span><span class="kf-c k-g">（土地比率 ＋ 建物比率 × ½）</span><span class="kf-op">×</span><span class="kf-c k-g">開發年數</span></div></div></div>
     <div class="formula-note">
-      S=總銷售金額　<span class="fnum">r=利潤率</span>　<span class="fnum">i=資本利息綜合利率</span><br>
-      C=直接成本　M=間接成本<br><br>
       <span class="ferr">建物資金比率×½</span>（建物資金中後段才投入）<br>
-      <span class="ferr">土地資金自始全期占用，不打折</span><br>
-      i = 年利率×（土地比率＋建物比率×<span class="fnum">½</span>）×開發年數
+      <span class="ferr">土地資金自始全期占用，不打折</span>
     </div>
     <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
       <a href="估價刷題練習_E1.html" target="_blank" style="font-size:10.5px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid var(--dev);color:var(--dev);text-decoration:none;background:var(--dev-bg)">🎯 E1 題組練習 →</a>
@@ -503,10 +493,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
   </div>
   <div class="formula-card fc-wacc">
     <div class="formula-title">WACC（加權平均資金成本）</div>
-    <div class="formula-body">
-      WACC = 自有資金比重×自有資金報酬率<br>
-      ＋ 借貸資金比重×借款利率
-    </div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>WACC</div><div class="kf-eq"><span class="kf-c k-m">WACC</span><span class="kf-op">＝</span><span class="kf-c k-s">自有資金比重</span><span class="kf-op">×</span><span class="kf-c k-s">自有資金報酬率</span><span class="kf-op">＋</span><span class="kf-c k-g">借貸資金比重</span><span class="kf-op">×</span><span class="kf-c k-g">借款利率</span></div></div></div>
     <div class="formula-note">
       三方資金（土開資本利息年利率）：自有、借貸、預售收入——<span class="ferr">預售收入之資金不計息（§59）</span>，其比重照算、利率以 0 計（105-二：40%×2%＋50%×6%＋10%×0＝3.8%）<br>
       <span class="fnum">WACC用於收益法資本化率，也用於土地開發分析法</span>
@@ -686,3 +673,5 @@ function applyTheme(dark){document.documentElement.setAttribute('data-theme',dar
 function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
 (function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
 </script>
+
+<script src="kf-fit.js"></script>

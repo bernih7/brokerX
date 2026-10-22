@@ -10,12 +10,12 @@
       while(e.scrollWidth>e.clientWidth+1 && i<12){ z=Math.max(.55,z*Math.min(.97,e.clientWidth/e.scrollWidth)); e.style.zoom=z.toFixed(3); i++; if(z<=.55)break; }
     }finally{e._fitting=false;}
   }
-  function all(){document.querySelectorAll('.kf-eq,.cbox').forEach(fitOne);}
+  function all(){document.querySelectorAll('.kf-eq,.cbox,.cf-eq,.fx-eq,.rm-eq,.eqline,.calc-step.nw').forEach(fitOne);}
   function init(){
     all();
     if(window.ResizeObserver){
       var ro=new ResizeObserver(function(es){es.forEach(function(x){fitOne(x.target)})});
-      document.querySelectorAll('.kf-eq,.cbox').forEach(function(e){ro.observe(e)});
+      document.querySelectorAll('.kf-eq,.cbox,.cf-eq,.fx-eq,.rm-eq,.eqline,.calc-step.nw').forEach(function(e){ro.observe(e)});
     }
     window.addEventListener('resize',all);
     document.addEventListener('toggle',all,true);

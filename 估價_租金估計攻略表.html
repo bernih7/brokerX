@@ -219,6 +219,20 @@ header{position:relative}
 .rm-in b:first-child{color:var(--green)}.rm-out b:first-child{color:var(--red)}
 .rm-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;line-height:1.4;margin-bottom:7px}
 .rm-ex{font-size:12px;line-height:1.7;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin:2px 0 4px}
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-ink:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4}
+/* 公式統一配色＋不換行 */
+.fx-eq,.rm-eq,.fx-tip .eqline{flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.fx-eq>*,.rm-eq>*,.eqline>*{flex:0 0 auto}
+.t{color:var(--ks-ink)!important;border:1px solid var(--ks-sb)!important}
+.t.res{background:var(--ks-m)!important;border:2px solid var(--ks-mb)!important}
+.t.neu{background:var(--ks-s)!important;border-color:var(--ks-sb)!important}
+.t.old{background:var(--ks-o)!important;border-color:var(--ks-ob)!important}
+.t.mkt{background:var(--ks-g)!important;border-color:var(--ks-gb)!important}
+.t.ten{background:var(--ks-n)!important;border:1px dashed var(--ks-nb)!important}
+.calc-step.nw{white-space:nowrap;overflow-x:auto;overflow-y:hidden}
+.fx-eq .op,.rm-eq .op,.eqline .op{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -362,7 +376,7 @@ header{position:relative}
 <div class="sec-title">實質租金計算公式 ★★★必考計算</div>
 <div class="fx">
   <div class="fx-row"><span class="fx-n">1</span><div class="fx-b"><div class="fx-name">實質租金（出租人一年實拿的）</div>
-    <div class="fx-eq"><span class="t res">實質租金</span><span class="g"><span class="op">＝</span><span class="t neu">支付租金</span></span><span class="g"><span class="op">＋</span><span class="t neu">押金收益</span></span><span class="g"><span class="op">＋</span><span class="t neu">權利金收益</span></span><span class="g"><span class="op">＋</span><span class="t neu">其他運用收益</span></span></div>
+    <div class="fx-eq"><span class="t res">實質租金</span><span class="g"><span class="op">＝</span><span class="t neu">支付租金</span></span><span class="g"><span class="op">＋</span><span class="t neu">押金收益</span></span><span class="g"><span class="op">＋</span><span class="t neu">權利金收益</span></span><span class="g"><span class="op">＋</span><span class="t neu">其他收益</span></span></div>
     <div class="fx-ex">支付租金 ＝ 月租 × 12</div></div></div>
   <div class="fx-row"><span class="fx-n">2</span><div class="fx-b"><div class="fx-name">押金運用收益（先算押金本金，再乘利率）</div>
     <div class="fx-eq"><span class="t neu">押金收益</span><span class="g"><span class="op">＝</span><span class="t neu">月租</span></span><span class="g"><span class="op">×</span><span class="t neu">押金月數</span></span><span class="g"><span class="op">×</span><span class="t neu">年利率</span></span></div>
@@ -395,12 +409,12 @@ header{position:relative}
   <div class="fx-row"><span class="fx-n">1</span><div class="fx-b"><div class="fx-name">先算「漲了多少」</div>
     <div class="fx-eq"><span class="t neu">差額</span><span class="g"><span class="op">＝</span><span class="t mkt">市場經濟租金</span></span><span class="g"><span class="op">－</span><span class="t old">原契約租金</span></span></div></div></div>
   <div class="fx-row"><span class="fx-n">2</span><div class="fx-b"><div class="fx-name">再算「出租人分到多少」（承租人貢獻的那份不給出租人）</div>
-    <div class="fx-eq"><span class="t neu">出租人分得</span><span class="g"><span class="op">＝</span><span class="t neu">差額</span></span><span class="g"><span class="op">×</span><span class="g pr"><span class="op">(</span><span class="t neu">1</span><span class="op">－</span><span class="t ten">承租人貢獻</span><span class="op">)</span></span></span></div></div></div>
+    <div class="fx-eq"><span class="t neu">出租人分得</span><span class="g"><span class="op">＝</span><span class="t neu">差額</span></span><span class="g"><span class="op">×</span><span class="g pr"><span class="op">(</span><span class="t neu">1</span><span class="op">－</span><span class="t ten">承租貢獻</span><span class="op">)</span></span></span></div></div></div>
   <div class="fx-row"><span class="fx-n">3</span><div class="fx-b"><div class="fx-name">最後加回舊租金</div>
     <div class="fx-eq"><span class="t res">續租合理租金</span><span class="g"><span class="op">＝</span><span class="t old">原契約租金</span></span><span class="g"><span class="op">＋</span><span class="t neu">出租人分得</span></span></div></div></div>
 </div>
 <div class="fx-tip"><b>💡 一行速記（算法等價，更好背）：</b>續租租金是「新舊租金的加權平均」
-  <div class="eqline"><span class="t res">續租合理租金</span><span class="g"><span class="op">＝</span><span class="t old">原契約租金</span></span><span class="g"><span class="op">×</span><span class="t ten">承租人貢獻</span></span><span class="g"><span class="op">＋</span><span class="t mkt">市場經濟租金</span></span><span class="g"><span class="op">×</span><span class="g pr"><span class="op">(</span><span class="t neu">1</span><span class="op">－</span><span class="t ten">承租人貢獻</span><span class="op">)</span></span></span></div>
+  <div class="eqline"><span class="t res">續租合理租金</span><span class="g"><span class="op">＝</span><span class="t old">原契約租金</span></span><span class="g"><span class="op">×</span><span class="t ten">承租貢獻</span></span><span class="g"><span class="op">＋</span><span class="t mkt">市場經濟租金</span></span><span class="g"><span class="op">×</span><span class="g pr"><span class="op">(</span><span class="t neu">1</span><span class="op">－</span><span class="t ten">承租貢獻</span><span class="op">)</span></span></span></div>
   驗算：100 年（舊 1 萬、市場 1.6 萬、各半）→ 1×50% ＋ 1.6×50% ＝ <b>1.3 萬</b>；106 年（舊 200、市場 250、承租人 60%）→ 200×60% ＋ 250×40% ＝ <b>220 萬</b>，與下方歷屆答案相同。</div>
 <div class="formula-note" style="margin-bottom:12px">差額分配法：把「現在市場行情」與「舊契約租金」的差距，按雙方對租金上漲的貢獻比例來分配。<br><span class="fn-warn">⚠</span> 承租人貢獻越多，出租人分得越少。題目若只說「歸功於承租人 60%」，代入的就是 <span class="fn-key">60%</span>，不是 40%。</div>
 <div style="background:var(--tip);border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:24px">
@@ -444,10 +458,10 @@ header{position:relative}
   <div class="calc-q">【計算｜自編例題】某店面承租人每年支付契約租金 40 萬元，目前同類店面經濟租金每年 60 萬元，租約尚餘 5 年，還原利率 3%。以差額租金還原法估計之租賃權價格約為多少？</div>
   <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
   <div class="calc-ans">
-    <div class="calc-step">差額租金 ＝ 60 － 40 ＝ 20萬元／年</div>
-    <div class="calc-step">複利年金現價率（3%，5年）＝ [1－1.03<sup>－5</sup>]÷0.03 ≈ 4.5797</div>
-    <div class="calc-step">租賃權價格 ＝ 20 × 4.5797 ≈ <b>91.6萬元</b></div>
-    <div class="calc-step">⚠ 不是 20 × 5 ＝ 100 萬：未來每年的差額要折現</div>
+    <div class="calc-step nw">差額租金 ＝ 60 － 40 ＝ 20萬元／年</div>
+    <div class="calc-step nw">複利年金現價率（3%，5年）＝ [1－1.03<sup>－5</sup>]÷0.03 ≈ 4.5797</div>
+    <div class="calc-step nw">租賃權價格 ＝ 20 × 4.5797 ≈ <b>91.6萬元</b></div>
+    <div class="calc-step nw">⚠ 不是 20 × 5 ＝ 100 萬：未來每年的差額要折現</div>
   </div>
 </div>
 
@@ -458,9 +472,9 @@ header{position:relative}
   <div class="calc-q">【計算①｜100年】林乙向王甲承租房屋，每月支付的實質租金為10,000元，此棟房屋如於市場上重新出租，合理租金為16,000元。假設王甲、林乙對租金增加的貢獻各半，請問合理的續租租金應調整為多少？</div>
   <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
   <div class="calc-ans">
-    <div class="calc-step">差額 ＝ 16,000 － 10,000 ＝ 6,000元</div>
-    <div class="calc-step">各半分配 → 出租人分得：6,000 × 50% ＝ 3,000元</div>
-    <div class="calc-step">續租合理租金 ＝ 10,000 ＋ 3,000 ＝ <b>13,000元</b>　✓</div>
+    <div class="calc-step nw">差額 ＝ 16,000 － 10,000 ＝ 6,000元</div>
+    <div class="calc-step nw">各半分配 → 出租人分得：6,000 × 50% ＝ 3,000元</div>
+    <div class="calc-step nw">續租合理租金 ＝ 10,000 ＋ 3,000 ＝ <b>13,000元</b>　✓</div>
   </div>
 </div>
 
@@ -468,9 +482,9 @@ header{position:relative}
   <div class="calc-q">【計算②｜106年】西門町某店面3年前出租，當年契約租金每年200萬元，目前市場經濟租金每年250萬元，分析此租金上漲有60%歸功於承租經營者，在必要費用不增加情況下，合理續租年租金多少？</div>
   <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
   <div class="calc-ans">
-    <div class="calc-step">差額 ＝ 250 － 200 ＝ 50萬元</div>
-    <div class="calc-step">出租人應分得 ＝ 50 × (1 － 60%) ＝ 50 × 40% ＝ 20萬元</div>
-    <div class="calc-step">續租租金 ＝ 200 ＋ 20 ＝ <b>220萬元</b>　✓</div>
+    <div class="calc-step nw">差額 ＝ 250 － 200 ＝ 50萬元</div>
+    <div class="calc-step nw">出租人應分得 ＝ 50 × (1 － 60%) ＝ 50 × 40% ＝ 20萬元</div>
+    <div class="calc-step nw">續租租金 ＝ 200 ＋ 20 ＝ <b>220萬元</b>　✓</div>
   </div>
 </div>
 
@@ -478,11 +492,11 @@ header{position:relative}
   <div class="calc-q">【計算③｜113年】A把忠孝東路五段鄰近市政府店面出租給連鎖咖啡店，每月租金100,000元，押金2個月，假設年利率2.5%，約定每年管理費120,000元由咖啡店支付，請問一年支付之實質租金為多少元？</div>
   <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
   <div class="calc-ans">
-    <div class="calc-step">支付租金 ＝ 100,000 × 12 ＝ 1,200,000元</div>
-    <div class="calc-step">押金金額 ＝ 100,000 × 2 ＝ 200,000元</div>
-    <div class="calc-step">押金運用收益 ＝ 200,000 × 2.5% ＝ 5,000元</div>
+    <div class="calc-step nw">支付租金 ＝ 100,000 × 12 ＝ 1,200,000元</div>
+    <div class="calc-step nw">押金金額 ＝ 100,000 × 2 ＝ 200,000元</div>
+    <div class="calc-step nw">押金運用收益 ＝ 200,000 × 2.5% ＝ 5,000元</div>
     <div class="calc-step">管理費由承租人支付 → <b>不計入</b>出租人實質租金</div>
-    <div class="calc-step">實質租金 ＝ 1,200,000 ＋ 5,000 ＝ <b>1,205,000元</b>　✓</div>
+    <div class="calc-step nw">實質租金 ＝ 1,200,000 ＋ 5,000 ＝ <b>1,205,000元</b>　✓</div>
   </div>
 </div>
 
@@ -490,8 +504,8 @@ header{position:relative}
   <div class="calc-q">【計算④｜110年】勘估標的丙之市場價格1,000萬元，當地同類型不動產之租金收益率5%，必要費用20萬元/年，租賃所得稅約2萬元。若丙為新訂租約，估計之年租金為？</div>
   <button class="calc-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'收起答案':'展開答案'">展開答案</button>
   <div class="calc-ans">
-    <div class="calc-step">淨收益 ＝ 1,000萬 × 5% ＝ 50萬元</div>
-    <div class="calc-step">租金 ＝ 淨收益 ＋ 必要費用 ＝ 50 ＋ 20 ＝ <b>70萬元</b>　✓</div>
+    <div class="calc-step nw">淨收益 ＝ 1,000萬 × 5% ＝ 50萬元</div>
+    <div class="calc-step nw">租金 ＝ 淨收益 ＋ 必要費用 ＝ 50 ＋ 20 ＝ <b>70萬元</b>　✓</div>
     <div class="calc-step">⚠ 租賃所得稅 → <b>不加計</b>（非必要費用項目）</div>
   </div>
 </div>
@@ -554,5 +568,6 @@ function applyTheme(dark){document.documentElement.setAttribute('data-theme',dar
 function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');localStorage.setItem('bxr-theme',next?'dark':'light');}catch(e){}}
 (function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
 </script>
+<script src="kf-fit.js"></script>
 </body>
 </html>
