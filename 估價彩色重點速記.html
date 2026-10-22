@@ -247,12 +247,15 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 
-:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#FBE9DA;--ks-ob:#E2B792;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-kw:#4E6B1F;--ks-ink:#25302C}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#45352A;--ks-ob:#8A6A4A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-ink:#E8E2D4}}
-:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#45352A;--ks-ob:#8A6A4A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-ink:#E8E2D4}
-.kf .kf-c[class*=" k-"]{color:var(--ks-ink);border:1px solid}
-.kf .kf-c[class*=" k-"] small{color:inherit;opacity:.75}
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-kw:#4E6B1F;--ks-mk:#DCE8A4;--ks-mkt:#33480F;--ks-ink:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-mk:#59692A;--ks-mkt:#F0F7CF;--ks-ink:#E8E2D4}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-mk:#59692A;--ks-mkt:#F0F7CF;--ks-ink:#E8E2D4}
+.kf .kf-c{color:var(--ks-ink);border:1px solid}
+.kf .kf-c small{color:inherit;opacity:.75}
 .kf .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.kf .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.kf .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.kf .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.kf .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+.kf .kwm{background:var(--ks-mk);color:var(--ks-mkt);font-weight:800;padding:0 3px;border-radius:3px}
+.kf-fr{display:inline-flex;flex-direction:column;align-items:stretch;gap:4px;vertical-align:middle}.kf-fr .kf-c{text-align:center}.fr-line{height:3px;background:var(--ks-ink);border-radius:2px}
+table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
 .kf .kw{color:var(--ks-kw);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
 </style>
 <style>
@@ -765,7 +768,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 
   <h3>用語辨析：比較標的 ＞ 試算價格 ＞ 比較價格</h3>
   <div class="tbl-wrap">
-    <table>
+    <table class="tbl-def">
       <tr><th>用語</th><th>定義</th></tr>
       <tr><td><b>比較標的</b></td><td>原始選定之交易實例</td></tr>
       <tr><td><b>試算價格</b></td><td>比較標的價格經各項調整後初步得出之價格</td></tr>
@@ -773,10 +776,10 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </table>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c k-o">勘估標的價格日期之價格<b class="kw">指數</b><small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c k-s">比較標的交易日期之價格<b class="kw">指數</b><small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">成交價<small>比較標的</small></span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o"><mark class="kwm">價格指數</mark><small>勘估標的・價格日期（現在）</small></span><span class="fr-line"></span><span class="kf-c k-s"><mark class="kwm">價格指數</mark><small>比較標的・交易日期（成交當時）</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。<br>顏色：<b>比較標的同色</b>（成交價、分母指數），勘估標的另一色。</div></div></div>
 
   <h3>B2　比較法：合併開發分配計算</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c k-s">該筆土地<b class="kw">合併前價值</b></span><span class="kf-op">÷</span><span class="kf-c k-s">各筆土地<b class="kw">合併前價值</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">該筆土地<mark class="kwm">合併前價值</mark></span><span class="fr-line"></span><span class="kf-c k-s">各筆土地<mark class="kwm">合併前價值</mark>總和</span></span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
     <p>★高頻計算題：務必先求出該筆土地占合併前總價值之<b>比例</b>，再乘以合併後總價格。</p>
@@ -1752,7 +1755,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 
   <h3>用語辨析：比較標的 ＞ 試算價格 ＞ 比較價格</h3>
   <div class="tbl-wrap">
-    <table>
+    <table class="tbl-def">
       <tr><th>用語</th><th>定義</th></tr>
       <tr><td><b>比較標的</b></td><td>原始選定之交易實例</td></tr>
       <tr><td><b>試算價格</b></td><td>比較標的價格經各項調整後初步得出之價格</td></tr>
@@ -1760,10 +1763,10 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </table>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c k-o">勘估標的價格日期之價格<b class="kw">指數</b><small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c k-s">比較標的交易日期之價格<b class="kw">指數</b><small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">成交價<small>比較標的</small></span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o"><mark class="kwm">價格指數</mark><small>勘估標的・價格日期（現在）</small></span><span class="fr-line"></span><span class="kf-c k-s"><mark class="kwm">價格指數</mark><small>比較標的・交易日期（成交當時）</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。<br>顏色：<b>比較標的同色</b>（成交價、分母指數），勘估標的另一色。</div></div></div>
 
   <h3>B2　比較法：合併開發分配計算</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c k-s">該筆土地<b class="kw">合併前價值</b></span><span class="kf-op">÷</span><span class="kf-c k-s">各筆土地<b class="kw">合併前價值</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">該筆土地<mark class="kwm">合併前價值</mark></span><span class="fr-line"></span><span class="kf-c k-s">各筆土地<mark class="kwm">合併前價值</mark>總和</span></span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
     <p>★高頻計算題：務必先求出該筆土地占合併前總價值之<b>比例</b>，再乘以合併後總價格。</p>
