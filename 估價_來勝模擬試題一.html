@@ -249,6 +249,14 @@ try{ answers = JSON.parse(localStorage.getItem(SK)||'{}'); }catch(e){}
 try{ etags = JSON.parse(localStorage.getItem(TK)||'{}'); }catch(e){}
 
 function saveAnswers(){ try{localStorage.setItem(SK,JSON.stringify(answers));}catch(e){} }
+// 本卷選擇題成績（供備考指揮中心「模擬卷成績」讀取）：score＝已答對、answered＝已作答
+function saveMockScore(){
+  try{
+    let ok=0,n=0; ITEMS.forEach(it=>{ if(answers[it.id]!==undefined){ n++; if(answers[it.id]===it.correct) ok++; } });
+    const d={score:ok,ok:ok,answered:n,total:ITEMS.length,pct:Math.round(ok/ITEMS.length*100),ts:Date.now()};
+    localStorage.setItem('bx_mock_hs1',JSON.stringify(d));
+  }catch(e){}
+}
 function saveEtags(){ try{localStorage.setItem(TK,JSON.stringify(etags));}catch(e){} }
 
 // ── 渲染選擇題 ──
@@ -316,11 +324,9 @@ function pick(id, idx){
   if(answers[id]!==undefined) return;
   answers[id] = idx;
   saveAnswers();
-  // bxv-use.js 回報
-  if(typeof BXREP !== 'undefined'){
-    const item = ITEMS.find(x=>x.id===id);
-    if(item) BXREP.rec('v_hs1', id, idx===item.correct);
-  }
+  // 模擬卷題目不屬題庫：不寫 bxv-q2，只存本卷成績（bx_mock_hs1）並計入今日作答數
+  saveMockScore();
+  try{ if(typeof BXREP!=='undefined' && BXREP.countQ) BXREP.countQ(1); }catch(e){}
   renderMC();
   updateResult();
 }
@@ -329,7 +335,6 @@ function tagErr(id, tag){
   if(etags[id]===tag){ delete etags[id]; }
   else { etags[id]=tag; }
   saveEtags();
-  if(typeof BXREP!=='undefined') BXREP.tag('v_hs1', id, etags[id]||'');
   renderMC();
 }
 
@@ -611,9 +616,9 @@ function toggleTheme(){
 // ── 初始化 ──
 renderMC();
 updateResult();
+try{ if(answeredCount() && !localStorage.getItem('bx_mock_hs1')) saveMockScore(); }catch(e){} // 舊作答補存成績
 
-// bxv-use.js 造訪記錄
-if(typeof BXREP!=='undefined' && typeof BXREP.visit==='function') BXREP.visit('v_hs1');
+// 頁面開啟次數由 bxv-use.js 自動記錄（不需另外呼叫）
 </script>
 <script src="kf-fit.js"></script>
 </body></html>

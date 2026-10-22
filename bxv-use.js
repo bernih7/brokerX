@@ -117,6 +117,27 @@ if(typeof window.storage==="undefined"){
 
 var PAGE=decodeURIComponent((location.pathname.split("/").pop()||"index.html")).replace(/\.html$/,"");
 
+/* ---- 章節代碼統一：頁面題目的 cat（B1、H1、J1…）→ 指揮中心章節代碼（CH 的 key） ----
+   刷題頁 rec() 用題目 cat 當前綴、sync() 用頁面傳入的 CH_KEY（＝第一題 cat），兩者對不上；
+   113 真題的題目 cat 是 A1/B…，會被算進各章。統一規則：在刷題頁一律用該頁章節代碼；其他情況用別名表。 */
+var ALIAS={"B1":"B","B2":"B","H1":"H1H2","H2":"H1H2","H3":"H3I1","I1":"H3I1","I2":"I2J1","J1":"I2J1"};
+var PAGECH={};for(var _c in CH)PAGECH["估價刷題練習_"+CH[_c][0]]=_c;
+function chOf(raw){return PAGECH[PAGE]||ALIAS[raw]||raw}
+/* 一次性清理＋遷移 bxv-q2（每次載入檢查，冪等；只有有變動才寫回）：
+   ①刪除 key 含 "undefined" 的壞紀錄（舊版來勝模擬試題一 rec 參數錯誤造成）
+   ②舊前綴歸章：題號 Q113_* → 113；B1/B2→B、H1/H2→H1H2、H3/I1→H3I1、I2/J1→I2J1；同題重複時留較新的一筆 */
+(function cleanQ2(){
+ var DB=ld("bxv-q2",null);if(!DB||typeof DB!=="object")return;var ch=false;
+ Object.keys(DB).forEach(function(k){
+  if(k.indexOf("undefined")>=0){delete DB[k];ch=true;return}
+  var a=k.split("-"),p=a[0],idp=a[a.length-1],np=/^Q113_/.test(idp)?"113":(ALIAS[p]||p);
+  if(np===p)return;
+  a[0]=np;var nk=a.join("-"),o=DB[nk],r=DB[k];
+  if(!o||(r&&(r.t||0)>(o.t||0)))DB[nk]=r;
+  delete DB[k];ch=true});
+ if(ch)sv("bxv-q2",DB);
+})();
+
 /* ---- ② 使用追蹤 ---- */
 var known=PAGES.some(function(p){return p[0]===PAGE});
 if(known){
@@ -130,7 +151,7 @@ if(known){
 }
 
 /* ---- ④ 刷題頁寫入共用作答紀錄（bxv-q2；id = 章-年-題） ---- */
-function qid(q){return (q.chapter||q.cat)+"-"+(q.year||"obs")+"-"+(q.num||q.id)}
+function qid(q){return chOf(q.chapter||q.cat)+"-"+(q.year||"obs")+"-"+(q.num||q.id)}
 function rec(q,chosen,ok){
  var DB=ld("bxv-q2",{}),id=qid(q),r=DB[id]||{n:0,w:0,h:[]};
  r.c=chosen;r.ok=ok?1:0;r.g=0;r.k="";r.t=Math.floor(Date.now()/1000);
@@ -139,13 +160,14 @@ function rec(q,chosen,ok){
  DB[id]=r;sv("bxv-q2",DB);day("q",1)
 }
 function tag(q,k){var DB=ld("bxv-q2",{}),r=DB[qid(q)];if(!r)return;r.k=k||"";r.g=k==="D"?1:0;sv("bxv-q2",DB)}
-function drop(ch){var DB=ld("bxv-q2",{});Object.keys(DB).forEach(function(i){if(i.split("-")[0]===ch)delete DB[i]});sv("bxv-q2",DB)}
+function drop(ch){ch=chOf(ch);var DB=ld("bxv-q2",{});Object.keys(DB).forEach(function(i){if(i.split("-")[0]===ch)delete DB[i]});sv("bxv-q2",DB)}
 
 /* 舊作答補寫進共用紀錄（window.storage key → bxv-q2） */
 function sync(ch,QS,S,gk){
- var DB=ld("bxv-q2",{}),changed=false,M={a:"A",b:"B",c:"C",d:"D"};
+ var DB=ld("bxv-q2",{}),changed=false,M={a:"A",b:"B",c:"C",d:"D"};ch=chOf(ch);
  QS.forEach(function(q){
-  var s=S[gk(q)];if(!s)return;
+  var g=gk(q);if(g&&typeof g==="object")g=g.id; /* 各頁傳 k=>k，拿到的是題目物件本身，改取 id */
+  var s=S[g];if(!s)return;
   var id=ch+"-"+(q.year||"obs")+"-"+(q.num||q.id);
   if(DB[id]){if(s.et&&DB[id].k!==M[s.et]){DB[id].k=M[s.et];DB[id].g=s.et==="d"?1:0;changed=true}return}
   DB[id]={c:s.ch||s.selected,ok:s.ok||s.correct?1:0,g:s.et==="d"?1:0,k:s.et?M[s.et]:"",t:Math.floor(Date.now()/1000),n:1,w:(s.ok||s.correct)?0:1,h:[]};changed=true
@@ -154,6 +176,12 @@ function sync(ch,QS,S,gk){
 }
 
 function fillMark(key){var f=ld("bxv-fill",{});if(!f[key]){f[key]=1;sv("bxv-fill",f);day("c",1)}}
+function fillUnmark(keys){var f=ld("bxv-fill",{});(keys||[]).forEach(function(k){delete f[k]});sv("bxv-fill",f)}
+/* 定義填空每張卡 id＝章節代碼-兩位序號（例 A1-01）；"fill" 是舊版「跑完一輪」標記，不算張數 */
+var FILL_RE=/^(A1|A2|A3|A4|B|C|D|E|G|H|I2|J|K|I)-\d{2}$/;
+function fillDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&FILL_RE.test(k))n++});return n}
+/* 模擬卷題目不屬題庫：只計入今日作答數，不寫 bxv-q2 */
+function countQ(n){day("q",n||1)}
 
 /* 純閱讀頁 計次（+1 / -1 / 讀取） */
 function readInc(id,delta){
@@ -208,7 +236,7 @@ function build(){
  else Object.keys(H).forEach(function(id){var r=H[id];L.push("診斷卷 "+id+"｜得分 "+r.score+"｜"+new Date(r.t*1000).toLocaleDateString("zh-TW"))});
 
  L.push("","══ 三、記憶工具 ══");
- var ff=ld("bxv-fill",{}),fk=Object.keys(ff).length;
+ var fk=fillDone();
  L.push("定義填空練習：已確認 "+fk+" 張"+(fk?"":"（尚無紀錄；此功能 2026-10-13 起才開始記錄）"));
 
  var R=ld("bxv-read",{});
@@ -258,7 +286,7 @@ var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_�
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
 var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1","113":"val_prac_113_v1"};
-var TOT={card:92,kcard:532,essay:46,v_hs1:25,e1dev:8,dcf:8,split:6};
+var TOT={fill:116,card:92,kcard:532,essay:46,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
  var UU=ld("bxv-use",{}),G=[];
@@ -288,7 +316,8 @@ function status(){
  fmm=Math.min(fmm,TOT.card);R4.push(row("估價互動單字卡","互動單字卡",fmm,TOT.card,"已掌握 "+fmm+"／"+TOT.card+" 張"+(fmr?"・待複習 "+fmr:"")));
  var kc=ld("bxe-card-v2",{})||{},kcm=0,kcr=0;Object.keys(kc).forEach(function(k){var s=kc[k]&&typeof kc[k]==="object"?kc[k].status:kc[k];if(s==="mastered")kcm++;else if(s==="review")kcr++});
  kcm=Math.min(kcm,TOT.kcard);R4.push(row("估價_考題小卡","考題小卡",kcm,TOT.kcard,"已掌握 "+kcm+"／"+TOT.kcard+" 張"+(kcr?"・待複習 "+kcr:"")));
- var fr=parseInt(ld("bxe-fill",0),10)||0;R4.push(row("估價_定義填空練習","定義填空練習",0,0,fr?"隨機測驗跑完 "+fr+" 輪":"隨機測驗尚未跑完一輪"));
+ var fr=parseInt(ld("bxe-fill",0),10)||0,ft=parseInt(ld("bxv-fill-total",TOT.fill),10)||TOT.fill,fd=Math.min(fillDone(),ft);
+ R4.push(row("估價_定義填空練習","定義填空練習",fd,ft,"已完成 "+fd+"／"+ft+" 張"+(fr?"・隨機測驗跑完 "+fr+" 輪":"")));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R4});
  /* 申論 */
  var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+)$/.test(id))en++});en=Math.min(en,TOT.essay);
@@ -298,7 +327,7 @@ function status(){
  G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R6});
  return G}
 
-window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
+window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,fillUnmark:fillUnmark,fillDone:fillDone,countQ:countQ,chOf:chOf,CH:CH,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
 
 /* ── 浮動鈕（全站標準 #bxfab）：左下回頂端（進度環）＋右下回備考指揮中心；沒有深淺色切換鈕的頁面補 🌙 ── */

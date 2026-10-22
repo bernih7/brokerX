@@ -92,7 +92,14 @@ function readWidget(){if(!READP[PAGE]||document.getElementById("bxmRead"))return
  var w=document.createElement("div");w.id="bxmRead";w.title="讀完一輪按＋，按錯按－；次數顯示在指揮中心「進度」";
  w.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
  var bs=w.querySelectorAll("button"),n=w.querySelector("b");function up(){n.textContent=readGet(PAGE).n||0}
- bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up();day("c",1)};document.body.appendChild(w);up()}
+ bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up();day("c",1)};document.body.appendChild(w);up();
+ /* 計數鈕避開頁面按鈕：重疊時往上移，不擋「下一題／下一張」 */
+ (function(w){var base=null,raf=0;function hit(a,b){return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top}
+  function fix(){raf=0;w.style.transform="";var r=w.getBoundingClientRect(),up=0,els=document.querySelectorAll("button,a,input,select,textarea,[role=button],[onclick]");
+   for(var k=0;k<3;k++){var moved=false;for(var i=0;i<els.length;i++){var e=els[i];if(w.contains(e)||e.closest("#bxfab"))continue;var q=e.getBoundingClientRect();if(!q.width||!q.height||q.bottom<0||q.top>innerHeight)continue;
+     var rr={left:r.left,right:r.right,top:r.top-up,bottom:r.bottom-up};if(hit(rr,q)){up+=rr.bottom-q.top+8;moved=true}}if(!moved)break}
+   if(up>0){up=Math.min(up,Math.max(0,r.top-60));w.style.transform="translateY(-"+Math.round(up)+"px)"}}
+  function sch(){if(!raf)raf=requestAnimationFrame(fix)}addEventListener("scroll",sch,{passive:true});addEventListener("resize",sch);document.addEventListener("click",function(){setTimeout(sch,60)},true);setTimeout(fix,300)})(w);}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
 /* 各工具完成度：回傳分組資料，指揮中心畫成表 */
 function mcount(key,tt){var m=st(key),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return{m:n,r:r,t:tt}}

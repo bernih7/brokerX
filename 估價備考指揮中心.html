@@ -71,6 +71,7 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
   cursor:pointer;transition:background .15s;
 }
 .theme-btn:hover{background:rgba(255,255,255,.25);}
+@media (max-width:520px){header{padding-top:50px;}}
 
 /* ── Flow bar → V2 進度點 ── */
 .flow-bar{
@@ -552,17 +553,6 @@ nav.botnav .nav-iw{display:inline-flex; line-height:1.2; padding:2px 11px;}
 nav.botnav svg{width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;}
 nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 
-/* 主題切換按鈕 */
-.theme-toggle{
-  position:fixed;top:14px;right:14px;z-index:999;
-  width:36px;height:36px;border-radius:50%;
-  border:1.5px solid var(--line);background:var(--paper);
-  color:var(--fg);font-size:16px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px var(--shadow);
-  transition:all .2s ease;
-}
-.theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
 
 /* ── 工具分頁 v282：工具頁／數字・公式 ── */
@@ -608,10 +598,9 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 <script src="bxv-use.js"></script>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 
 <header>
-  <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀ 淺色</button>
+  <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀ 淺色</button>
   <h1>📐 不動產估價備考指揮中心</h1>
   <div class="sub">99–114年 520題選擇題＋32題申論｜依讀書流程編排</div>
   <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
@@ -913,6 +902,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
       <a class="tool-btn" href="估價刷題練習_113真題.html" target="_blank" style="border-color:var(--accent-gold);color:var(--accent-gold)">
         <span class="icon">🥇</span> 113年官方真題（25題）— 開始挑戰
       </a>
+      <div id="card-113" class="drill-113"></div>
     </div>
     <div style="border-top:1px solid var(--line);padding-top:14px;">
     <div class="notice-box">混合刷題目前透過各章節工具進行，請搭配紙本錯題本（A/B/C型）使用。</div>
@@ -1162,7 +1152,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   <div class="sec-title">今日</div>
   <p class="ts-today" id="bxTodayLine"></p>
   <div class="sec-title">工具完成度與閱讀次數</div>
-  <p class="ts-note">完成度自動計算：刷題作答、模擬卷交卷、計算題組核對答對、單字卡與考題小卡標「已掌握」、申論範文標已讀。閱讀頁、單字卡、考題小卡、定義填空與申論範文讀完一輪，在該頁的計數鈕按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
+  <p class="ts-note">完成度自動計算：刷題作答、模擬卷交卷、計算題組核對答對、單字卡與考題小卡標「已掌握」、申論範文標已讀、定義填空每張看完答案（全部顯示或最後一格點開）。閱讀頁、單字卡、考題小卡、定義填空與申論範文讀完一輪，在該頁的計數鈕按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
   <div id="toolStat"></div>
 
   <!-- 四類進度總覽 -->
@@ -1297,17 +1287,19 @@ function toggleGroup(h){
 }
 
 // ── 主題切換 ──
+/* 全站共用 bx-theme（同時寫 bxr-theme 讓舊頁同步）；本頁只保留 header 這一顆切換鈕 */
+function themeLabel(){var b=document.getElementById('theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'🌙 深色':'☀ 淺色';}
 function toggleTheme(){
   var h=document.documentElement;
-  var cur=h.getAttribute('data-theme');
-  var next=cur==='dark'?'light':'dark';
+  var next=h.getAttribute('data-theme')==='dark'?'light':'dark';
   h.setAttribute('data-theme',next);
-  document.getElementById('theme-btn').textContent=next==='dark'?'🌙 深色':'☀ 淺色';
-  try{localStorage.setItem('bx-theme',next);}catch(e){}
+  themeLabel();
+  try{localStorage.setItem('bx-theme',next);localStorage.setItem('bxr-theme',next);}catch(e){}
 }
 (function(){
-  var t; try{t=localStorage.getItem('bx-theme');}catch(e){}
-  if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'🌙 深色':'☀ 淺色';}
+  var t; try{t=localStorage.getItem('bx-theme')||localStorage.getItem('bxr-theme');}catch(e){}
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);
+  themeLabel();
 })();
 
 // ── 今日建議 ──
@@ -1499,25 +1491,27 @@ var BXV_CH_TOTAL={
 function injectDrillStats(){
   var raw;
   try{raw=JSON.parse(localStorage.getItem('bxv-q2')||'{}');}catch(e){return;}
-  // bxv-q2 structure: {chKey: {qid: {sel,ok,et}}}
+  // bxv-q2 是扁平結構：{"章-年-題": {c, ok, k, g, t, n, w, h}}；章＝key 第一段（bxv-use.js 已統一成 CH 代碼）
+  var by={};
+  Object.keys(raw||{}).forEach(function(id){
+    var r=raw[id];if(!r||typeof r!=='object')return;
+    var ch=id.split('-')[0];
+    var o=by[ch]=by[ch]||{sure:0,gok:0,ng:0};
+    if(r.ok){ if(r.k==='D'||r.g===1) o.gok++; else o.sure++; } else o.ng++;
+  });
   Object.keys(BXV_CH_TOTAL).forEach(function(ch){
     var card=document.getElementById('card-'+ch);
     if(!card) return;
-    // 避免重複注入
-    if(card.querySelector('.drill-mini')) return;
-    var chData=raw[ch]||{};
+    // 重新整理時先移除舊的
+    var old=card.querySelector('.drill-mini');if(old)old.remove();
     var total=BXV_CH_TOTAL[ch];
-    var sure=0,gok=0,ng=0;
-    Object.values(chData).forEach(function(r){
-      if(r.ok===1){
-        if((r.et||'')==='d') gok++; else sure++;
-      } else if(r.ok===0) ng++;
-    });
+    var o=by[ch]||{sure:0,gok:0,ng:0},sure=o.sure,gok=o.gok,ng=o.ng;
     var done=sure+gok+ng;
     if(!done){return;} // 未作答不顯示
     var T=total||1;
     var sw=Math.round(sure/T*100),gw=Math.round(gok/T*100),nw=Math.round(ng/T*100);
     var acc=Math.round((sure+gok)/done*100);
+    if(done>T){done=T;} // 防呆：重複紀錄不讓已答超過題數
     var pct=Math.round(done/T*100);
     var div=document.createElement('div');
     div.className='drill-mini';
@@ -1530,6 +1524,7 @@ function injectDrillStats(){
       +'<span>已答 <b>'+done+'</b>/'+total+'（'+pct+'%）</span>'
       +'<span>正確率 <b>'+acc+'%</b></span>'
       +(ng?'<span style="color:#A84030">答錯 '+ng+'</span>':'')
+      +(gok?'<span style="color:#B8782E">猜對 '+gok+'</span>':'')
       +'</div>';
     // 插入到 read-check 前
     var rc=card.querySelector('.read-check');
@@ -1537,6 +1532,9 @@ function injectDrillStats(){
     else card.appendChild(div);
   });
 }
+
+window.addEventListener('focus',injectDrillStats);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')injectDrillStats();});
 
 // 初始化：從 localStorage 恢復所有28項狀態
 (function(){
@@ -1584,14 +1582,16 @@ function injectDrillStats(){
 
 // ── 模擬卷成績 ──
 (function(){
-  var mocks=[{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①（舊）'},{k:'bx_mock_2',name:'高頻考點卷②（舊）'},{k:'bx_mock_3',name:'混淆對比卷③（舊）'},{k:'bx_mock_4',name:'全真模擬卷④（舊）'}];
+  /* key 以各頁實際存檔為準：bx_mock_hs1＝來勝模擬試題一（逐題存）、bx_mock_2～4＝估價_模擬試題二～四、bx_mockc_1～5＝綜合模擬卷一～五、bx_mock_1＝估價_診斷卷一 */
+  var mocks=[{k:'bx_mock_hs1',name:'來勝模擬試題一',part:1},{k:'bx_mock_2',name:'模擬試題二'},{k:'bx_mock_3',name:'模擬試題三'},{k:'bx_mock_4',name:'模擬試題四'},{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①'}];
   function renderMocks(cid){
     var c=document.getElementById(cid);if(!c)return;
     mocks.forEach(function(m){
       var key=m.k;var stored;
       try{stored=JSON.parse(localStorage.getItem(key));}catch(e){}
       var row=document.createElement('div');row.className='mock-row';
-      var score=stored&&stored.score!==undefined?'<div class="mk-score">'+stored.score+' / 25</div>':'<div class="mk-none">尚未作答</div>';
+      var tt=(stored&&stored.total)||25;
+      var score=stored&&stored.score!==undefined?'<div class="mk-score">'+stored.score+' / '+tt+(m.part&&stored.answered<tt?'<small style="font-weight:500;color:var(--muted)">（已答 '+stored.answered+'）</small>':'')+'</div>':'<div class="mk-none">尚未作答</div>';
       row.innerHTML='<div class="mock-name">'+m.name+'</div>'+score;
       c.appendChild(row);
     });
@@ -1794,35 +1794,13 @@ var predData=[
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script>
-// 主題切換
-(function(){
-  const btn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('bxr-theme');
-  if(saved) { document.documentElement.setAttribute('data-theme', saved); }
-  function updateIcon(){
-    const t = document.documentElement.getAttribute('data-theme');
-    const isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    btn.textContent = isDark ? '☀️' : '🌙';
-  }
-  updateIcon();
-  btn.addEventListener('click', function(){
-    const cur = document.documentElement.getAttribute('data-theme');
-    const isDark = cur === 'dark' || (!cur && window.matchMedia('(prefers-color-scheme:dark)').matches);
-    const next = isDark ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('bxr-theme', next);
-    updateIcon();
-  });
-})();
-</script>
-<script>
 // ── 工具頁右側記錄：讀次數／作答進度 ──
 (function(){
   var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color','估價_租金估計攻略表':'rent','估價_技術規則專欄':'col'};
   function J(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
   function lab(name){
     if(M[name]){var r=J('bxv-read',{}),n=(r[M[name]]&&r[M[name]].n)||0;return ['讀 '+n,n];}
-    if(name==='估價_定義填空練習'){var n=parseInt(localStorage.getItem('bxe-fill')||'0')||0;return ['填 '+n,n];}
+    if(name==='估價_定義填空練習'){var n=(window.BXREP&&BXREP.fillDone)?BXREP.fillDone():0,t=parseInt(localStorage.getItem('bxv-fill-total')||'116')||116;return ['完成 '+n+'/'+t,n];}
     if(name==='估價_房地拆價計算題組'){var n=(J('bx-split-done',[])||[]).length;return ['對 '+n+'/6',n];}
     if(name==='估價_土開計算題組'){var n=(J('bx-e1dev-done',[])||[]).length;return ['對 '+n+'/8',n];}
     if(name==='估價_DCF計算題組'){var n=(J('bx-dcfcalc-done',[])||[]).length;return ['對 '+n+'/8',n];}

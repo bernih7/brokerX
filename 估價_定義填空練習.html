@@ -130,6 +130,15 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 .prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .3s}
 .prog-txt{font-size:12px;color:var(--muted);white-space:nowrap}
 
+/* 每張卡完成紀錄（全部顯示或最後一格顯示完＝看完該張；存 bxv-fill） */
+header .fill-done{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;padding:3px 12px;border-radius:99px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);font-variant-numeric:tabular-nums}
+.card{position:relative}
+.card.done .term{padding-right:28px}
+.card.done::before{content:"";position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;background:var(--green)}
+.card.done::after{content:"";position:absolute;top:16px;right:19px;width:5px;height:9px;border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.ch-reset{font:inherit;font-size:12px;font-weight:700;padding:3px 12px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;margin:-6px 0 14px}
+.ch-reset:hover{border-color:var(--green);color:var(--green)}
+
 /* hub */
 #hub{position:fixed;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:var(--redbg);color:#fff;font-size:24px;text-align:center;line-height:52px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
 
@@ -225,7 +234,8 @@ main{max-width:1240px;margin:0 auto;padding:20px 16px}
 
 <header>
   <h1>估價概要｜定義填空練習</h1>
-  <div class="sub">章節練習 + 隨機測驗模式｜全科 81 題</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜全科 <span id="fillTotal">116</span> 題</div>
+  <div class="fill-done" id="fillDone">已完成 0／116</div>
 </header>
 
 <div class="mode-tabs">
@@ -251,30 +261,35 @@ const DATA = [
     id:'A1', label:'A1 估價原則',
     cards:[
       {
+        cid:'A1-01',
         term:'最有效使用',
         blank:'客觀上具___及___者，在___、___、___、___前提下，得致___之使用。',
         answer:'客觀上具<span class="key">良好意識</span>及<span class="key">通常使用能力</span>者，在<span class="key">合法</span>、<span class="key">實質可能</span>、<span class="key">正當合理</span>、<span class="key">財務可行</span>前提下，得致<span class="key">最高利益</span>之使用。',
         src:('技術規則§2第17款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e104-1">104年一</a></div>', mc:5, essay:1
       },
       {
+        cid:'A1-02',
         term:'替代原則',
         blank:'三大估價方法（___、___、___）的共同基礎；審慎的消費者不會付出高於具相同___替代財貨之代價。',
         answer:'三大估價方法（<span class="key">比較法</span>、<span class="key">成本法</span>、<span class="key">收益法</span>）的共同基礎；審慎的消費者不會付出高於具相同<span class="key">滿意度</span>替代財貨之代價。',
         src:('估價原則（替代原則）')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e100-2">100年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e104-1">104年一</a></div>', mc:4, essay:2
       },
       {
+        cid:'A1-03',
         term:'貢獻原則',
         blank:'不動產某一構成部分對___的「貢獻」決定其價值，而非其本身___。',
         answer:'不動產某一構成部分對<span class="key">整體價值</span>的「貢獻」決定其價值，而非其本身<span class="key">成本</span>。',
         src:'估價原則（貢獻原則）', mc:3, essay:0
       },
       {
+        cid:'A1-04',
         term:'適合原則 vs 外部性原則',
         blank:'適合原則：不動產與其___之間的協調一致。<br>外部性原則：不動產___（公園、捷運、嫌惡設施等）對其價值之影響。',
         answer:'適合原則：不動產與其<span class="key">坐落環境</span>之間的協調一致。<br>外部性原則：不動產<span class="key">周邊環境</span>（公園、捷運、嫌惡設施等）對其價值之影響。',
         src:'估價原則', mc:3, essay:0
       },
       {
+        cid:'A1-05',
         term:'預期（期待）原則',
         blank:'不動產現在的價值，反映對___收益或效用的___。',
         answer:'不動產現在的價值，反映對<span class="key">未來</span>收益或效用的<span class="key">預期</span>。',
@@ -286,30 +301,35 @@ const DATA = [
     id:'A2', label:'A2 價格種類',
     cards:[
       {
+        cid:'A2-01',
         term:'正常價格',
         blank:'具___之不動產，有意願買賣雙方依___謹慎行動、不受___，經___及正常交易條件形成之合理價值。',
         answer:'具<span class="key">市場性</span>之不動產，有意願買賣雙方依<span class="key">專業知識</span>謹慎行動、不受<span class="key">脅迫</span>，經<span class="key">適當市場行銷</span>及正常交易條件形成之合理價值。',
         src:('技術規則§2第1款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-2">103年二</a></div>', mc:6, essay:2
       },
       {
+        cid:'A2-02',
         term:'限定價格（三種前提）',
         blank:'具市場性之不動產，在①以___以外其他權利與所有權___、②以不動產___、③以違反___之分割為前提，三種限定條件之一所形成之價值。',
         answer:'具市場性之不動產，在①以<span class="key">所有權</span>以外其他權利與所有權<span class="key">合併</span>、②以不動產<span class="key">合併</span>、③以違反<span class="key">經濟合理性</span>之分割為前提，三種限定條件之一所形成之價值。',
         src:('技術規則§2第2款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-2">103年二</a></div>', mc:4, essay:1
       },
       {
+        cid:'A2-03',
         term:'特定價格 vs 特殊價格',
         blank:'特定價格：具___之不動產，基於特定___下形成之價值。<br>特殊價格：對___具市場性之不動產所估計之價值。',
         answer:'特定價格：具<span class="key">市場性</span>之不動產，基於特定<span class="key">條件</span>下形成之價值。<br>特殊價格：對<span class="key">不</span>具市場性之不動產所估計之價值。',
         src:'技術規則§2第3-4款', mc:4, essay:0
       },
       {
+        cid:'A2-04',
         term:'限定租金',
         blank:'基於___或___為目的形成之租賃價值。',
         answer:'基於<span class="key">續訂租約</span>或<span class="key">不動產合併</span>為目的形成之租賃價值。',
         src:'技術規則§2第6款', mc:2, essay:0
       },
       {
+        cid:'A2-05',
         term:'價格日期 vs 勘察日期',
         blank:'價格日期＝表示價格之___；勘察日期＝赴___調查分析之日期，二者___。',
         answer:'價格日期＝表示價格之<span class="key">基準日期</span>；勘察日期＝赴<span class="key">現場</span>調查分析之日期，二者<span class="key">不必相同</span>。',
@@ -346,48 +366,56 @@ const DATA = [
     </div>`,
     cards:[
       {
+        cid:'A3-01',
         term:'影響因素分類：舉例判別（情境題高頻）',
         blank:'央行升息、國土計畫公告、稅制調整屬___因素；地區淹水、捷運站設置、生活圈機能屬___因素；面對公園第一排、臨路寬度、凶宅屬___因素。',
         answer:'央行升息、國土計畫公告、稅制調整屬<span class="key">一般</span>因素；地區淹水、捷運站設置、生活圈機能屬<span class="key">區域</span>因素；面對公園第一排、臨路寬度、凶宅屬<span class="key">個別</span>因素。',
         src:'考古：111-1、112-1、112-3、113-11、113-18、114-13、114-14（至少7題）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>判斷口訣：</b>影響全面（政策、利率、稅制）→一般；影響一個地區（設站、淹水、生活圈）→區域；只影響這一戶／這一宗→個別。<br><b>陷阱：</b>「距公園50公尺」是個別，「大安森林公園周遭房價高」才是區域；「特殊因素」不在規則分類內。</div>', mc:7, essay:0
       },
       {
+        cid:'A3-02',
         term:'區域因素的條文用字（§2第15款）',
         blank:'區域因素，指影響___地區不動產價格水準之因素。',
         answer:'區域因素，指影響<span class="key">近鄰</span>地區不動產價格水準之因素。',
         src:'規則原文（§2第15款）；補習班卷曾寫成「同一供需圈」，已更正<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>同一供需圈（§2第11款）＝近鄰地區＋類似地區，是比較標的選取的範圍；區域因素的條文用語是「近鄰地區」。一般因素＝全面影響；個別因素＝不動產本身條件。</div>', mc:0, essay:0
       },
       {
+        cid:'A3-03',
         term:'最有效使用的四個前提與「客觀」（§2第17款）',
         blank:'最有效使用：___上具良好意識及通常使用能力者，在___、___、___、___前提下，所得之最高利益使用。',
         answer:'最有效使用：<span class="key">客觀</span>上具良好意識及通常使用能力者，在<span class="key">合法</span>、<span class="key">實質可能</span>、<span class="key">正當合理</span>、<span class="key">財務可行</span>前提下，所得之最高利益使用。',
         src:'考古：106-35、111-5（錯誤選項為「主觀上」「超凡意識」）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>四項缺一不可；改成「主觀」「超凡」「技術上可能」「業主期望」皆錯。</div>', mc:2, essay:0
       },
       {
+        cid:'A3-04',
         term:'近鄰地區',
         blank:'___標的或___標的周圍，供相同或類似___之不動產，形成___較高之地區。',
         answer:'<span class="key">勘估</span>標的或<span class="key">比較</span>標的周圍，供相同或類似<span class="key">用途</span>之不動產，形成<span class="key">同質性</span>較高之地區。',
         src:('技術規則§2第12款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e107-2">107年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e108-1">108年一</a></div>', mc:4, essay:1
       },
       {
+        cid:'A3-05',
         term:'類似地區',
         blank:'___內，近鄰地區___而使用性質___之其他地區。',
         answer:'<span class="key">同一供需圈</span>內，近鄰地區<span class="key">以外</span>而使用性質<span class="key">相近</span>之其他地區。',
         src:('技術規則§2第13款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e107-2">107年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e108-1">108年一</a></div>', mc:3, essay:1
       },
       {
+        cid:'A3-06',
         term:'同一供需圈',
         blank:'比較標的與勘估標的能成立___關係、價格___之最適範圍。',
         answer:'比較標的與勘估標的能成立<span class="key">替代</span>關係、價格<span class="key">互為影響</span>之最適範圍。',
         src:('技術規則§2第11款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e107-2">107年二</a></div>', mc:3, essay:1
       },
       {
+        cid:'A3-07',
         term:'一般因素 / 區域因素 / 個別因素',
         blank:'一般因素：對不動產市場及價格水準發生___影響之自然、政治、社會、經濟等共同因素。<br>區域因素：影響___不動產價格水準之因素。<br>個別因素：不動產___所產生之價格差異因素。',
         answer:'一般因素：對不動產市場及價格水準發生<span class="key">全面</span>影響之自然、政治、社會、經濟等共同因素。<br>區域因素：影響<span class="key">近鄰地區</span>不動產價格水準之因素。<br>個別因素：不動產<span class="key">本身條件</span>所產生之價格差異因素。',
         src:('技術規則§2第14-16款')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-1">103年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e112-1">112年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e99-2">99年二</a></div>', mc:6, essay:2
       },
       {
+        cid:'A3-08',
         term:'區域因素 vs 個別因素（易混考點）',
         blank:'「___寬度與連接性」→ ___因素（看那條路）<br>「___寬度」→ ___因素（看這筆地的門面）',
         answer:'「<span class="key">道路</span>寬度與連接性」→ <span class="key">區域</span>因素（看那條路）<br>「<span class="key">臨街</span>寬度」→ <span class="key">個別</span>因素（看這筆地的門面）',
@@ -399,78 +427,91 @@ const DATA = [
     id:'A4', label:'A4 估價程序',
     cards:[
       {
+        cid:'A4-01',
         term:'估價作業8大程序（§8）口訣記憶',
         blank:'①確定___→②擬定___→③蒐集___→④確認___→⑤整理___→⑥運用___→⑦決定___→⑧製作___。',
         answer:'①確定<span class="key">估價基本事項</span>→②擬定<span class="key">估價計畫</span>→③蒐集<span class="key">資料</span>→④確認<span class="key">勘估標的狀態</span>→⑤整理<span class="key">比較分析資料</span>→⑥運用<span class="key">估價方法推算</span>→⑦決定<span class="key">勘估標的價格</span>→⑧製作<span class="key">估價報告書</span>。<br><br><strong style="color:var(--green)">🔑 口訣（8步驟）：</strong><br><span style="color:var(--red);font-size:15px;font-weight:700;letter-spacing:3px">基計蒐狀　整估決書</span><br><span style="font-size:12px;color:var(--muted);line-height:2">基（本事項）計（畫）蒐（集資料）狀（態確認）　整（理比較資料）估（算推算）決（定價格）書（報告書）</span><br><span style="font-size:11.5px;color:var(--red);margin-top:4px;display:block">⚠️ 順序不可顛倒，考題常考「哪個步驟第幾」</span>',
         src:('技術規則§8')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e101-1">101年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e109-1">109年一</a></div>', mc:8, essay:1
       },
       {
+        cid:'A4-02',
         term:'① 確定估價基本事項（§9）共4項',
         blank:'① 勘估標的___　② ___　③ ___及條件　④ ___目的。<br>（注意：不含___方法、不含___日期）',
         answer:'① 勘估標的<span class="key">內容</span>　② <span class="key">價格日期</span>　③ <span class="key">價格種類</span>及條件　④ <span class="key">估價</span>目的。<br><span style="color:var(--red)">不含<span class="key">估價</span>方法（方法是步驟⑥才用）、不含<span class="key">勘察</span>日期（勘察日期≠價格日期）</span>',
         src:'技術規則§9★「步驟一」的4項內容，高頻陷阱：估價方法不在此列', mc:8, essay:0
       },
       {
+        cid:'A4-03',
         term:'② 擬定估價計畫（§10）共5項',
         blank:'一、確定___步驟　二、預估所需___　三、預估所需___　四、預估作業___　五、擬定作業___表',
         answer:'一、確定<span class="key">作業</span>步驟　二、預估所需<span class="key">時間</span>　三、預估所需<span class="key">人力</span>　四、預估作業<span class="key">經費</span>　五、擬定作業<span class="key">進度</span>表<br><span style="color:var(--green);font-size:12.5px">口訣：<b>步時人費表</b></span>',
         src:'技術規則§10', mc:4, essay:0
       },
       {
+        cid:'A4-04',
         term:'③ 蒐集資料（§11）共3類',
         blank:'一、勘估標的之___、___、___及使用管制等基本資料<br>二、影響價格之___因素、___因素及___因素<br>三、相關___、___及___資料',
         answer:'一、勘估標的之<span class="key">標示</span>、<span class="key">權利</span>、<span class="key">法定用途</span>及使用管制等基本資料<br>二、影響價格之<span class="key">一般</span>因素、<span class="key">區域</span>因素及<span class="key">個別</span>因素<br>三、相關<span class="key">交易</span>、<span class="key">收益</span>及<span class="key">成本</span>資料',
         src:('技術規則§11')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e106-2">106年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e109-1">109年一</a></div>', mc:3, essay:1
       },
       {
+        cid:'A4-05',
         term:'④ 確認勘估標的狀態（§13）共4項',
         blank:'一、確認基本資料及___狀態　二、調查___現況　三、確認影響___各項資料　四、作成___及攝製___<br>特別規定：委託人___，無法確認範圍或無法進入室內 → 應於___敘明',
         answer:'一、確認基本資料及<span class="key">權利</span>狀態　二、調查<span class="key">使用</span>現況　三、確認影響<span class="key">價格</span>各項資料　四、作成<span class="key">紀錄</span>及攝製<span class="key">照片或影像檔</span><br>特別規定：委託人<span class="key">未領勘</span>，無法確認範圍或無法進入室內 → 應於<span class="key">估價報告書</span>敘明',
         src:('技術規則§13')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e109-1">109年一</a></div>', mc:3, essay:1
       },
       {
+        cid:'A4-06',
         term:'⑤ 整理比較分析資料（§14）',
         blank:'原則應兼採___以上方法推算價格。採比較法時，應就蒐集資料進行整理，對___所列特殊情況之案例先作適當調整，無法有效掌握及量化者不予採用；單項調整率超過___或總調整率超過___應排除（§25）；試算價格差距達___以上，經重新檢討後仍達者應排除（§26）。',
         answer:'原則應兼採<span class="key">二種</span>以上方法推算價格。採比較法時，應就蒐集資料進行整理，對<span class="key">§23所列13款</span>特殊情況之案例先作適當調整，無法有效掌握及量化者不予採用；單項調整率超過<span class="key">15%</span>或總調整率超過<span class="key">30%</span>應排除（§25）；試算價格差距達<span class="key">20%</span>以上，經重新檢討後仍達者應排除（§26）。',
         src:('技術規則§14§25§26★口訣：情況特殊→報告書敘明（例外允許只用一種方法）')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-1">103年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e106-2">106年二</a></div>', mc:4, essay:1
       },
       {
+        cid:'A4-07',
         term:'⑥ 運用估價方法推算（§18、§28、§48、§70）',
         blank:'三大方法：___法（→___價格）、___法（→___價格）、___法（→___價格）。另有___法。<br>比較法調整順序：___→___→___→___',
         answer:'三大方法：<span class="key">比較</span>法（→<span class="key">比較</span>價格）、<span class="key">成本</span>法（→<span class="key">成本</span>價格）、<span class="key">收益</span>法（→<span class="key">收益</span>價格）。另有<span class="key">土地開發分析</span>法。<br>比較法調整順序：<span class="key">情況</span>→<span class="key">價格日期</span>→<span class="key">區域因素</span>→<span class="key">個別因素</span>',
         src:('技術規則§18（比較法）、§28（收益法）、§48（成本法）、§70（土地開發分析法）、§19／§21（調整順序）；§15為綜合比較決定價格★調整順序固定，考題常考「哪項先調整」')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e114-2">114年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e101-1">101年一</a></div>', mc:4, essay:1
       },
       {
+        cid:'A4-08',
         term:'⑦ 決定勘估標的價格（§15）',
         blank:'應就不同估價方法所得價格進行___，金額___者重新檢討，考量___可信度及估價___差異，決定價格並___。<br>不動產證券化以___租金為分配基礎者，___法之收益價格應賦予___較大權重；___時不在此限。',
         answer:'應就不同估價方法所得價格進行<span class="key">綜合比較</span>，金額<span class="key">顯著差異</span>者重新檢討，考量<span class="key">資料</span>可信度及估價<span class="key">種類目的條件</span>差異，決定價格並<span class="key">詳予敘明決定理由</span>。<br>不動產證券化以<span class="key">契約約定</span>租金為分配基礎者，<span class="key">DCF折現現金流量分析</span>法之收益價格應賦予<span class="key">相對</span>較大權重；<span class="key">清算</span>時不在此限。',
         src:'技術規則§15★考點：DCF加大權重限於「以契約租金為分配基礎」，清算時例外', mc:4, essay:0
       },
       {
+        cid:'A4-09',
         term:'⑧ 製作估價報告書（§16）應載明幾項',
         blank:'共___項，並應附___資料。第___項同時含「價格日期」與「勘察日期」。___委託估價案件，不受前___項之限制（同時豁免___項與___兩條）。',
         answer:'共<span class="key">15</span>項，並應附<span class="key">必要圖說</span>資料。第<span class="key">3</span>項同時含「價格日期」與「勘察日期」。<span class="key">行政執行或強制執行</span>委託估價案件，不受前<span class="key">二</span>項之限制（同時豁免<span class="key">應載明15項</span>與<span class="key">應附必要圖說</span>兩條）。',
         src:'技術規則§16★「不受前二項之限制」＝15項＋圖說同時豁免，非只豁免其中一條', mc:6, essay:0
       },
       {
+        cid:'A4-10',
         term:'⑧ 報告書15項口訣（§16）',
         blank:'口訣15字：委　基　___　___　___　___　___　他　況　管　因　程　敘　___　師',
         answer:'<span style="font-size:15px;font-weight:700;letter-spacing:4px;color:var(--red)">委・基・<span class="key">日</span>・<span class="key">種</span>・<span class="key">條</span>・<span class="key">目</span>・<span class="key">金</span>・他・況・管・因・程・敘・<span class="key">其</span>・師</span><br><br><span style="font-size:12px;line-height:2;color:var(--ink)">①委託人　②基本資料　③<span class="key">日</span>期（價格日期＋勘察日期★）　④<span class="key">種</span>類（價格種類）<br>⑤<span class="key">條</span>件（估價條件）　⑥<span class="key">目</span>的（估價目的）　⑦<span class="key">金</span>額　⑧他項（所有權他項權利及負擔）<br>⑨況（使用現況）　⑩管（法定使用管制）　⑪因（價格形成主要因素分析）<br>⑫程（估價方法推算過程及決定理由）　⑬<span class="key">敘</span>（須敘明之情況）　⑭<span class="key">其</span>（其他必要事項）　⑮師（估價師姓名及證照字號）</span>',
         src:'技術規則§16★共同記憶：①～⑥與步驟①「確定估價基本事項」4項高度重疊，③第3項才同時有「價格日期」與「勘察日期」', mc:5, essay:0
       },
       {
+        cid:'A4-11',
         term:'蒐集比較實例4原則（§12）',
         blank:'①價格屬___或可調整為___②位於同一供需圈之___或___③使用性質或___相同或相近④___與價格日期接近。',
         answer:'①價格屬<span class="key">正常價格</span>或可調整為<span class="key">正常價格</span>②位於同一供需圈之<span class="key">近鄰地區</span>或<span class="key">類似地區</span>③使用性質或<span class="key">管制</span>相同或相近④<span class="key">價格形成日期</span>與價格日期接近。',
         src:('技術規則§12')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e106-2">106年二</a></div>', mc:5, essay:1
       },
       {
+        cid:'A4-12',
         term:'兼採二種以上方法（§14）',
         blank:'原則上應兼採___以上方法推算價格，但因___不能採二種以上，並於___敘明者不在此限。',
         answer:'原則上應兼採<span class="key">二種</span>以上方法推算價格，但因<span class="key">情況特殊</span>不能採二種以上，並於<span class="key">報告書</span>敘明者不在此限。',
         src:'技術規則§14★陷阱：有例外', mc:4, essay:0
       },
       {
+        cid:'A4-13',
         term:'估價報告書（§16）應載明幾事項',
         blank:'估價報告書應載明___事項（行政執行或強制執行案件___）。',
         answer:'估價報告書應載明<span class="key">15</span>事項（行政執行或強制執行案件<span class="key">格式不受此限制</span>）。<br><br>📋 15事項：<br>①委託人　②勘估標的基本資料　③價格日期及勘察日期　④價格種類　⑤估價條件　⑥估價目的　⑦估價金額　⑧所有權、他項權利及其他負擔　⑨使用現況　⑩法定使用管制　⑪價格形成主要因素分析　⑫估價方法之估算過程及決定理由　⑬須敘明之情況　⑭其他必要事項　⑮估價師姓名及證照字號',
@@ -482,66 +523,77 @@ const DATA = [
     id:'B', label:'B 比較法',
     cards:[
       {
+        cid:'B-01',
         term:'價格日期調整公式（§19）',
         blank:'價格日期調整：調整後價格＝比較標的成交價×（___日期之價格指數÷___日期之價格指數）。',
         answer:'價格日期調整：調整後價格＝比較標的成交價×（<span class="key">價格</span>日期之價格指數÷<span class="key">交易</span>日期之價格指數）。',
         src:'教材公式（題數未逐題統計）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例：</b>成交價1,000萬、交易日指數100、價格日期指數110 → 1,000×110÷100＝<b>1,100萬</b>。<br><b>陷阱：</b>分子分母顛倒會得909萬；價格日期調整只處理「時間差」，不處理非正常交易（那是情況調整）。</div>', mc:0, essay:0
       },
       {
+        cid:'B-02',
         term:'§25 單項15%到底管誰',
         blank:'§25：___調整、___調整，或其內___，調整率大於15%者排除；___調整率（情況、價格日期、區域、個別）大於30%者排除。',
         answer:'§25：<span class="key">區域因素</span>調整、<span class="key">個別因素</span>調整，或其內<span class="key">任一單獨項目</span>，調整率大於15%者排除；<span class="key">總</span>調整率（情況、價格日期、區域、個別）大於30%者排除。',
         src:'逐字核對補遺（§25三種調整率）；考古見「三道排除關卡」卡<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>單項15%不適用情況調整、價格日期調整；「大於」＝剛好15%／30%仍可採用。例外：勘估標的性質或區位特殊、缺乏交易資料，並於報告書敘明。</div>', mc:0, essay:0
       },
       {
+        cid:'B-03',
         term:'§26 差距公式與先重新檢討',
         blank:'試算價格差距＝（高低價格之___）÷（高低價格之___值）；試算價格應就偏高或偏低者先___；檢討後差距仍達20%以上者，排除該___價格。',
         answer:'試算價格差距＝（高低價格之<span class="key">差</span>）÷（高低價格之<span class="key">平均</span>值）；試算價格應就偏高或偏低者先<span class="key">重新檢討</span>；檢討後差距仍達20%以上者，排除該<span class="key">試算</span>價格。',
         src:'逐字核對補遺（§26）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例：</b>最高1,200、最低960 → 240÷1,080＝22.2%（≥20%，應就偏高或偏低者重新檢討，檢討後仍達則排除）。分母錯用最高價得20.0%、錯用最低價得25.0%，都是陷阱。<b>排除對象是「試算價格」，不是比較標的</b>（比較標的是§25）。</div>', mc:0, essay:0
       },
       {
+        cid:'B-04',
         term:'合併開發分配（§84）',
         blank:'數筆土地合併估價：某筆分配價格＝合併後總價格×（該筆合併前價值÷各筆合併前價值___）。',
         answer:'數筆土地合併估價：某筆分配價格＝合併後總價格×（該筆合併前價值÷各筆合併前價值<span class="key">總和</span>）。',
         src:'教材公式（§84）；題數未逐題統計<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>先求比例再乘總價；畸零地或合併使用之交易屬「情況調整」（§23第5款），不是個別因素調整。</div>', mc:0, essay:0
       },
       {
+        cid:'B-05',
         term:'比較法定義（§18）',
         blank:'以___價格為基礎，經比較、分析及調整等，推算___價格之方法；所求得之價格為___。',
         answer:'以<span class="key">比較標的</span>價格為基礎，經比較、分析及調整等，推算<span class="key">勘估標的</span>價格之方法；所求得之價格為<span class="key">比較價格</span>。',
         src:('技術規則§18')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-1">103年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e99-2">99年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e108-1">108年一</a></div>', mc:5, essay:1
       },
       {
+        cid:'B-06',
         term:'四大調整順序',
         blank:'___調整 → ___調整 → ___因素調整 → ___因素調整 → 試算價格。',
         answer:'<span class="key">情況</span>調整 → <span class="key">價格日期</span>調整 → <span class="key">區域</span>因素調整 → <span class="key">個別</span>因素調整 → 試算價格。',
         src:('技術規則§21★每年必考順序')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e99-2">99年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e103-1">103年一</a></div>', mc:10, essay:2
       },
       {
+        cid:'B-07',
         term:'試算價格（§21）',
         blank:'試算價格＝經___、___、___、___四項調整後所獲得之價格。',
         answer:'試算價格＝經<span class="key">情況</span>、<span class="key">價格日期</span>、<span class="key">區域因素</span>、<span class="key">個別因素</span>四項調整後所獲得之價格。',
         src:'技術規則§21第2項', mc:5, essay:0
       },
       {
+        cid:'B-08',
         term:'§23 特殊情況13款（先調整，無法調整者不採用）（口訣★）',
         blank:'口訣：「急期債親畸糾拍公迷公哄法其」共___款。<br>①急迫出售或購買 ②___因素 ③債權債務關係 ④親友關係人間交易 ⑤___或有合併使用之交易 ⑥地上物處理有___ ⑦___ ⑧公有土地標售、讓售 ⑨受___影響之交易 ⑩含公共設施用地 ⑪人為___之交易 ⑫與___用途不符 ⑬其他特殊交易',
         answer:'共<span class="key">13</span>款（口訣：急期債親畸糾拍公迷公哄法其）。<br>①急迫出售或購買 ②<span class="key">期待</span>因素 ③債權債務關係 ④親友關係人間交易 ⑤<span class="key">畸零地</span>或有合併使用之交易 ⑥地上物處理有<span class="key">糾紛</span> ⑦<span class="key">拍賣</span> ⑧公有土地標售、讓售 ⑨受<span class="key">迷信</span>影響之交易 ⑩含公共設施用地 ⑪人為<span class="key">哄抬</span>之交易 ⑫與<span class="key">法定</span>用途不符 ⑬其他特殊交易<br>處理：應先作適當調整，無法有效掌握及量化調整者不予採用。',
         src:('技術規則§23（十三款依 v289 對 6laws 核實）★口訣：急期債親畸糾拍公迷公哄法其')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e102-1">102年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e110-1">110年一</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-4">預測④</a></div>', mc:6, essay:2
       },
       {
+        cid:'B-09',
         term:'三道排除關卡（§25-26）★鐵打必考',
         blank:'【§25】任一單獨項目調整率超過___%，或總調整率超過___%→排除比較標的。<br>【§26】試算價格間差距達___%以上→排除該試算價格。',
         answer:'【§25】任一單獨項目調整率超過<span class="key">15</span>%，或總調整率超過<span class="key">30</span>%→排除比較標的。<br>【§26】試算價格間差距達<span class="key">20</span>%以上→排除該試算價格。',
         src:('技術規則§25-26★16年每年考')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#pred-4">預測④</a>、<a href="不動產估價概要_申論題實戰範文.html#e102-1">102年一</a></div>', mc:16, essay:2
       },
       {
+        cid:'B-10',
         term:'決定比較價格件數（§27）',
         blank:'應採用___件以上比較標的。',
         answer:'應採用<span class="key">3</span>件以上比較標的。',
         src:'技術規則§27', mc:4, essay:0
       },
       {
+        cid:'B-11',
         term:'區域因素調整 vs 個別因素調整（§19）',
         blank:'區域因素調整：比較標的與勘估標的不在___時，調整為同一___之價格水準。<br>個別因素調整：因___不同所產生價格差異之調整。',
         answer:'區域因素調整：比較標的與勘估標的不在<span class="key">同一近鄰地區</span>時，調整為同一<span class="key">近鄰地區</span>之價格水準。<br>個別因素調整：因<span class="key">個別因素</span>不同所產生價格差異之調整。',
@@ -553,36 +605,42 @@ const DATA = [
     id:'C', label:'C 成本法',
     cards:[
       {
+        cid:'C-01',
         term:'成本法定義（§48）',
         blank:'求取勘估標的於價格日期之___或___，扣減___，推算價格之方法；所求得之價格為___。',
         answer:'求取勘估標的於價格日期之<span class="key">重建成本</span>或<span class="key">重置成本</span>，扣減<span class="key">累積折舊額</span>，推算價格之方法；所求得之價格為<span class="key">成本價格</span>。',
         src:('技術規則§48')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e111-2">111年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e101-1">101年一</a></div>', mc:5, essay:1
       },
       {
+        cid:'C-02',
         term:'重建成本 vs 重置成本',
         blank:'重建成本：使用___或___建材標準、設計、配置、施工品質___所需成本。<br>重置成本：以___建材標準、設計、配置建築___效用建物所需成本。',
         answer:'重建成本：使用<span class="key">相同</span>或<span class="key">極類似</span>建材標準、設計、配置、施工品質<span class="key">重新複製</span>所需成本。<br>重置成本：以<span class="key">現代</span>建材標準、設計、配置建築<span class="key">相同</span>效用建物所需成本。',
         src:('技術規則§48（建物估價以重建成本為原則）')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e111-2">111年二</a></div>', mc:5, essay:1
       },
       {
+        cid:'C-03',
         term:'營造或施工費內含項目（§53）',
         blank:'營造或施工費內含：直接___費、直接___費、間接___費、間接___費、___費、___、___、營造或施工___。',
         answer:'營造或施工費內含：直接<span class="key">材料</span>費、直接<span class="key">人工</span>費、間接<span class="key">材料</span>費、間接<span class="key">人工</span>費、<span class="key">管理</span>費、<span class="key">稅捐</span>、<span class="key">資本利息</span>、營造或施工<span class="key">利潤</span>。',
         src:'§53★不含：規劃設計費、廣告費、銷售費、開發或建築利潤（開發商的合理利潤）、土地價格。考古：110-8（不含→廣告費）、113-9（非內含→開發商的合理利潤）。口訣：材工（直間）＋管稅息利', mc:3, essay:0
       },
       {
+        cid:'C-04',
         term:'成本法建築工期（109-23）',
         blank:'成本法建築工期＝自___開始，至建築完成達到___為止，無間斷所需之時間。',
         answer:'成本法建築工期＝自<span class="key">申請建造執照</span>開始，至建築完成達到<span class="key">可交屋使用</span>為止，無間斷所需之時間。',
         src:'109年第23題★干擾項：變更建照、擬定權利變換計畫、銷售完竣。對照：土開開發年數（§80）自價格日期起至開發完成', mc:1, essay:0
       },
       {
+        cid:'C-05',
         term:'總成本7項目（§52）',
         blank:'___費／___設計費／廣告費___費／___費／稅捐及其他負擔／___利息／開發或___利潤。',
         answer:'<span class="key">營造或施工</span>費／<span class="key">規劃</span>設計費／廣告費<span class="key">銷售</span>費／<span class="key">管理</span>費／稅捐及其他負擔／<span class="key">資本</span>利息／開發或<span class="key">建築</span>利潤。',
         src:('技術規則§52')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e111-2">111年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e104-2">104年二</a></div>', mc:4, essay:1
       },
       {
+        cid:'C-06',
         term:'成本法資本利息（§58、§59）★99-8、99-38 考過',
         blank:'資本利息依___數額及資本使用年數，按___資金與___資金分別計息；計息基礎＝（營造施工費＋規劃設計費＋廣告銷售費＋管理費＋稅捐及其他負擔，含土地者另加___價格）×利率。自有資金利率不高於___定存、不低於活存；___收入之資金不計息。',
         answer:'資本利息依<span class="key">分期投入資本</span>數額及資本使用年數，按<span class="key">自有</span>資金與<span class="key">借貸</span>資金分別計息；計息基礎＝（營造施工費＋規劃設計費＋廣告銷售費＋管理費＋稅捐及其他負擔，含土地者另加<span class="key">土地</span>價格）×利率。自有資金利率不高於<span class="key">一年期</span>定存、不低於活存；<span class="key">預售</span>收入之資金不計息。',
@@ -593,48 +651,56 @@ const DATA = [
           +'<b>相關：</b><a href="估價四大方法系統攻略.html">四大方法系統攻略（成本法資本利息怎麼估）</a>｜<a href="估價_考題小卡.html#VC1_99_8">99年第8題</a>、<a href="估價_考題小卡.html#VC1_99_38">99年第38題</a></div>', mc:2, essay:0
       },
       {
+        cid:'C-07',
         term:'殘餘價格怎麼算（§67）',
         blank:'殘餘價格 ＝ 建物___ × ___價格率（C × s）；可折舊額 ＝ C × (1－s)。',
         answer:'殘餘價格 ＝ 建物<span class="key">總成本</span> × <span class="key">殘餘</span>價格率（C × s）；可折舊額 ＝ C × (1－s)。',
         src:'技術規則§67（條文只給殘餘價格率 s；殘餘價格 C·s 為站上寫法）', mc:6, essay:0
       },
       {
+        cid:'C-08',
         term:'殘餘價格率（§67）',
         blank:'殘餘價格率以不超過___%為原則（由___公告）。',
         answer:'殘餘價格率以不超過<span class="key">10</span>%為原則（由<span class="key">全聯會</span>公告）。',
         src:'技術規則§67', mc:6, essay:0
       },
       {
+        cid:'C-09',
         term:'折舊3種路徑（§68）',
         blank:'___折舊、初期___折舊、初期___折舊（無「後期減速」路徑）。',
         answer:'<span class="key">等速</span>折舊、初期<span class="key">加速</span>折舊、初期<span class="key">減速</span>折舊（無「後期減速」路徑）。',
         src:('技術規則§68★陷阱')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e105-1">105年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e107-1">107年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e111-1">111年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e112-2">112年二</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-1">預測①</a></div>', mc:8, essay:2
       },
       {
+        cid:'C-10',
         term:'三種折舊法的敘述（定額法、定率法、償債基金法）★101-27',
         blank:'定額法假定每年之減價額___、與經過年數___；定率法每年乘以___計算折舊額；償債基金法每年___一定金額，以___計算其總減價額。',
         answer:'定額法假定每年之減價額<span class="key">劃一固定</span>、與經過年數<span class="key">逐年累計</span>；定率法每年乘以<span class="key">一定比率</span>計算折舊額；償債基金法每年<span class="key">提存</span>一定金額，以<span class="key">複利</span>計算其總減價額。',
         src:'101年第27題（定額法）★口訣：劃一＝定額、比率＝定率、複利＝償債；干擾句「期初先確定減價額，累計時呈現減價額遞減」不屬於任何一法<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>題目：</b><a href="估價_考題小卡.html#VC1_101_27">101-27</a>、<a href="估價_考題小卡.html#VC2_102_16">102-16</a></div>', mc:2, essay:0
       },
       {
+        cid:'C-11',
         term:'折舊計算以何年數為主（§65）',
         blank:'折舊計算以___耐用年數為主，必要時得以___耐用年數計算。',
         answer:'折舊計算以<span class="key">經濟</span>耐用年數為主，必要時得以<span class="key">物理</span>耐用年數計算。',
         src:'技術規則§65★陷阱：非以物理耐用年數為主', mc:6, essay:0
       },
       {
+        cid:'C-12',
         term:'全聯會公報：一般房屋經濟耐用年數',
         blank:'辦公、商店、住宅用房屋：鋼骨／SRC／RC／預鑄混凝土造___年、加強磚造___年、磚造___年、鋼架造有披覆___年、無披覆___年、木造___年。',
         answer:'鋼骨／SRC／RC／預鑄混凝土造<span class="key">50</span>年、加強磚造<span class="key">35</span>年、磚造<span class="key">25</span>年、鋼架造有披覆<span class="key">20</span>年、無披覆<span class="key">15</span>年、木造<span class="key">10</span>年。',
         src:'不動產估價師公會全國聯合會公報（經濟耐用年數表）★102-40 住宅RC＝50年。口訣：50・35・25・20・15・10；工廠、車庫、停車場類各降一級（35・30・20・15・10・8）；估價師得依實際狀況推估而異於公報，須於報告書敘明', mc:1, essay:0
       },
       {
+        cid:'C-13',
         term:'全聯會公報：建物殘餘價格率',
         blank:'SRC、SC、鋼架造殘餘價格率___；RC造___；加強磚造、磚造、木造、石造___；估價師判定不得超過___。',
         answer:'SRC、SC、鋼架造殘餘價格率<span class="key">8～10%</span>；RC造<span class="key">4～5%</span>；加強磚造、磚造、木造、石造<span class="key">0</span>；估價師判定不得超過<span class="key">10%</span>。',
         src:'全聯會技術公報（建物殘餘價格率，110.11.01發布）、技術規則§67★口訣：鋼骨鋼架 8～10，RC 4～5，磚木石 0。題目給RC殘餘價格率4%／5%即出自此表', mc:5, essay:0
       },
       {
+        cid:'C-14',
         term:'全聯會公告之項目（8項）',
         blank:'全聯會公告：___標準表、廣告費銷售費管理費稅捐之___、開發或建築___率、工程___比例表、經濟___年數表、建物___價格率、___別效用比、土開法廣銷管稅___（§77）。',
         answer:'全聯會公告：<span class="key">營造或施工費</span>標準表、廣告費銷售費管理費稅捐之<span class="key">相關費率</span>、開發或建築<span class="key">利潤</span>率、工程<span class="key">進度營造費用</span>比例表、經濟<span class="key">耐用</span>年數表、建物<span class="key">殘餘</span>價格率、<span class="key">樓層</span>別效用比、土開法廣銷管稅<span class="key">費率</span>（§77，乘總銷售金額）。',
@@ -646,84 +712,98 @@ const DATA = [
     id:'D', label:'D 收益法',
     cards:[
       {
+        cid:'D-01',
         term:'總費用：包含與不得列入的項目',
         blank:'總費用含地價稅（或___）、房屋稅、___費、管理費、維修費，建物另加計___提存費；___稅、土地增值稅、貸款___不屬總費用。',
         answer:'總費用含地價稅（或<span class="key">地租</span>）、房屋稅、<span class="key">保險</span>費、管理費、維修費，建物另加計<span class="key">折舊</span>提存費；<span class="key">所得</span>稅、土地增值稅、貸款<span class="key">利息</span>不屬總費用。',
         src:'考古：105-34、106-8、107-2、110-10、112-9（5題）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>110-10：貸款支出不是總費用，不能從有效總收入扣除；廣告費是成本法才有的項目。<br>總費用推算依相同或相似不動產費用資料或會計報表；§38Ⅱ證券化DCF總費用依信託計畫資料推算。</div>', mc:5, essay:0
       },
       {
+        cid:'D-02',
         term:'折舊提存的兩種處理（§40）',
         blank:'勘估標的包含建物者，總費用應加計建物___，或計算收益價格時，除建物資本化率外加計每年___率。淨收益已扣除折舊提存費者，綜合資本化率___（大於／小於）未扣除者。',
         answer:'勘估標的包含建物者，總費用應加計建物<span class="key">折舊提存費</span>，或計算收益價格時，除建物資本化率外加計每年<span class="key">折舊提存</span>率。淨收益已扣除折舊提存費者，綜合資本化率<span class="key">小於</span>未扣除者。',
         src:'考古：107-8、108-11（一律給分）、113-14<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱（113-14）：</b>淨收益「未扣除」折舊提存費者，建物收益價格＝建物淨收益÷（建物資本化率＋折舊提存率），不是單除以資本化率。</div>', mc:3, essay:0
       },
       {
+        cid:'D-03',
         term:'折舊提存費公式（§40-1）',
         blank:'等速折舊型：折舊提存費＝C×(1－s)×___；償債基金型：折舊提存費＝C×(1－s)×___。',
         answer:'等速折舊型：折舊提存費＝C×(1－s)×<span class="key">1/N</span>；償債基金型：折舊提存費＝C×(1－s)×<span class="key">i÷[(1＋i)^N－1]</span>。',
         src:'逐字核對補遺（§40-1）；108-11一律給分<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例：</b>C＝1,000萬、s＝10%、N＝20、i＝4%：等速＝1,000×0.9÷20＝45萬；償債基金＝900×0.04÷(1.04^20－1)≈<b>30.2萬</b>。<br><b>陷阱：</b>把兩型公式對調（舊題庫解析提示曾對調，已更正）。C＝建物總成本。</div>', mc:1, essay:0
       },
       {
+        cid:'D-04',
         term:'折舊提存率公式（§41）',
         blank:'等速折舊型：d＝[(1－s)/N]÷[1－(1－s)×___÷N]；償債基金型：d＝i÷[(1＋i)^n′－1]，n′＝剩餘可___年數。',
         answer:'等速折舊型：d＝[(1－s)/N]÷[1－(1－s)×<span class="key">n</span>÷N]；償債基金型：d＝i÷[(1＋i)^n′－1]，n′＝剩餘可<span class="key">收益</span>年數。',
         src:'逐字核對補遺（§41）；106-11、109-15題庫選項OCR不清，答案待對官方PDF<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例：</b>N＝50、n＝20、s＝10%：(0.9÷50)÷(1－0.9×20÷50)＝0.018÷0.64≈<b>2.81%</b>。<br><b>陷阱：</b>分母是「目前價值成數」，所以提存率比 (1－s)/N 大；n＝已經歷年數。</div>', mc:0, essay:0
       },
       {
+        cid:'D-05',
         term:'房地綜合資本化率與土地／建物資本化率大小（§46）',
         blank:'房地綜合資本化率＝土地資本化率×土地___比率＋建物資本化率×建物___比率；大小關係：建物率＞綜合率＞___率。',
         answer:'房地綜合資本化率＝土地資本化率×土地<span class="key">價值</span>比率＋建物資本化率×建物<span class="key">價值</span>比率；大小關係：建物率＞綜合率＞<span class="key">土地</span>率。',
         src:'考古：99-9、110-20、113-14；§46<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例：</b>土地40%、3%；建物60%、6% → 1.2%＋3.6%＝<b>4.8%</b>（權重互換得4.2%是陷阱；簡單平均4.5%也是陷阱）。</div>', mc:3, essay:0
       },
       {
+        cid:'D-06',
         term:'資本化率與不動產特性的關係',
         blank:'流通性高→資本化率___；風險性高→資本化率___；增值性高→資本化率___；管理難度高→資本化率___。',
         answer:'流通性高→資本化率<span class="key">較低</span>；風險性高→資本化率<span class="key">較高</span>；增值性高→資本化率<span class="key">較低</span>；管理難度高→資本化率<span class="key">較高</span>。',
         src:'考古：107-20（「增值性高→資本化率較高」為錯誤選項）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>增值性與風險性方向相反，最常被考成錯誤敘述。資本化率與折現率數值高低關係「不一定」。</div>', mc:1, essay:0
       },
       {
+        cid:'D-07',
         term:'DCF公式（§31–§32）與直接資本化法差異',
         blank:'P＝Σ[CFk÷(1＋Y)^k]＋Pn′÷(1＋Y)^n′；CFk＝第k期___，Pn′＝___價值。直接資本化法用未來___一年之客觀淨收益，不另加期末價值。',
         answer:'P＝Σ[CFk÷(1＋Y)^k]＋Pn′÷(1＋Y)^n′；CFk＝第k期<span class="key">淨收益</span>，Pn′＝<span class="key">期末</span>價值。直接資本化法用未來<span class="key">平均</span>一年之客觀淨收益，不另加期末價值。',
         src:'§29–§32；104-15、105-19、108-17、109-11、113-14、114-10<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>直接資本化法是「勘估標的未來平均一年」，不是過去、不是現在、不是比較標的；DCF適合以投資為目的之不動產投資評估；期末價值與第n期淨收益同期折現。</div>', mc:6, essay:0
       },
       {
+        cid:'D-08',
         term:'收益法定義（§28）',
         blank:'___法、___法（DCF），所求得之價格為___。',
         answer:'<span class="key">直接資本化</span>法、<span class="key">折現現金流量分析</span>法（DCF），所求得之價格為<span class="key">收益價格</span>。',
         src:'技術規則§28', mc:4, essay:0
       },
       {
+        cid:'D-09',
         term:'殘餘法（土地殘餘／建物殘餘）★101-33',
         blank:'從已知投資成分價值乘以___求得其收益，再從___中扣除，求得未知成分之收益，據以反推其價格，稱為___法。',
         answer:'從已知投資成分價值乘以<span class="key">資本化率</span>求得其收益，再從<span class="key">總收益</span>中扣除，求得未知成分之收益，據以反推其價格，稱為<span class="key">殘餘</span>法。',
         src:'101年第33題★土地淨收益＝房地淨收益－建物淨收益；土地價格＝土地淨收益÷土地資本化率。干擾項：分配法、積算法、收益倍數法。「殘餘法」為教材用語，技術規則無此名稱<div style="margin-top:6px;line-height:1.75;color:var(--ink)">例：房地淨收益100萬、建物600萬×6%＝36萬 → 土地收益64萬 ÷4%＝1,600萬。口訣：已知先拿，剩的給未知。</div>', mc:1, essay:0
       },
       {
+        cid:'D-10',
         term:'直接資本化法公式（§29）',
         blank:'收益價格＝未來平均一年___÷___。',
         answer:'收益價格＝未來平均一年<span class="key">客觀淨收益</span>÷<span class="key">收益資本化率</span>。',
         src:('技術規則§29-30')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e113-1">113年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e104-2">104年二</a></div>', mc:8, essay:2
       },
       {
+        cid:'D-11',
         term:'有效總收入（§36）',
         blank:'___收入－___及其他收入損失＝有效總收入。',
         answer:'<span class="key">總</span>收入－<span class="key">閒置</span>及其他收入損失＝有效總收入。',
         src:'技術規則§36', mc:4, essay:0
       },
       {
+        cid:'D-12',
         term:'五種資本化率決定方法（§43）★必考',
         blank:'①___法②___法③___資金成本法④___比率法⑤___乘數法。',
         answer:'①<span class="key">風險溢酬</span>法②<span class="key">市場萃取</span>法③<span class="key">加權平均資金成本</span>法④<span class="key">債務保障比率</span>法⑤<span class="key">有效總收入乘數</span>法。',
         src:('技術規則§43★高頻計算題')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e99-1">99年一</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-2">預測②</a></div>', mc:10, essay:2
       },
       {
+        cid:'D-13',
         term:'蒐集資料年限（§35）',
         blank:'應蒐集最近___年總收入總費用及資本化率資料。',
         answer:'應蒐集最近<span class="key">三</span>年總收入總費用及資本化率資料。',
         src:'技術規則§35★陷阱：3年不是5年', mc:4, essay:0
       },
       {
+        cid:'D-14',
         term:'客觀淨收益基準（§33）',
         blank:'以勘估標的___之客觀淨收益為基準，參酌___類似不動產收益推算。',
         answer:'以勘估標的<span class="key">最有效使用</span>之客觀淨收益為基準，參酌<span class="key">鄰近</span>類似不動產收益推算。',
@@ -735,54 +815,63 @@ const DATA = [
     id:'E', label:'E 土地開發分析法',
     cards:[
       {
+        cid:'E-01',
         term:'§71 土地開發分析法估價程序（八款）',
         blank:'①確定開發內容及預期___→②調查成本費用並蒐集___→③現況勘察及環境發展程度調查→④估算可銷售___→⑤估算總銷售金額→⑥估算成本費用→⑦選擇___率及資本利息綜合利率→⑧計算價格。',
         answer:'①確定開發內容及預期<span class="key">開發時間</span>→②調查成本費用並蒐集<span class="key">市場行情</span>→③現況勘察及環境發展程度調查→④估算可銷售<span class="key">面積</span>→⑤估算總銷售金額→⑥估算成本費用→⑦選擇<span class="key">利潤</span>率及資本利息綜合利率→⑧計算價格。',
         src:'逐字核對（§71）；申論常配合公式一起考<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>可銷售面積在總銷售金額之前；利潤率與資本利息綜合利率在成本費用之後。</div>', mc:0, essay:0
       },
       {
+        cid:'E-02',
         term:'§72 土開應蒐集之資料',
         blank:'土開除一般資料外，另得蒐集：開發構想計畫書、建築設計圖說或土地規劃配置圖說、___申請書或建造執照、___施工費資料、規劃設計廣告銷售管理稅捐等費用資料、資本___、開發或建築___率。',
         answer:'土開除一般資料外，另得蒐集：開發構想計畫書、建築設計圖說或土地規劃配置圖說、<span class="key">建照</span>申請書或建造執照、<span class="key">營造</span>施工費資料、規劃設計廣告銷售管理稅捐等費用資料、資本<span class="key">利率</span>、開發或建築<span class="key">利潤</span>率。',
         src:'逐字核對補遺（§72）；考古：109-二（申論）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>答題要點：</b>109年申論只要列舉；漏列「利潤率」與「資本利率」是常見失分。</div>', mc:0, essay:1
       },
       {
+        cid:'E-03',
         term:'§73 現況勘察與環境發展程度調查',
         blank:'§73：調查影響總銷售金額與成本費用之因素；了解工程進度、施工及環境狀況並攝製___；蒐集市場___資料；調查週遭環境、土地建物及___設施之開發程度。',
         answer:'§73：調查影響總銷售金額與成本費用之因素；了解工程進度、施工及環境狀況並攝製<span class="key">照片</span>；蒐集市場<span class="key">交易</span>資料；調查週遭環境、土地建物及<span class="key">公共</span>設施之開發程度。',
         src:'逐字核對補遺（§73）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>對照：</b>成本法§50蒐集計畫書、設計圖說、許可或執照、施工計畫書、竣工圖、使用執照、登記謄本；土開§72蒐集項目不同，別混。</div>', mc:0, essay:0
       },
       {
+        cid:'E-04',
         term:'資本利息年利率加權：預售收入不計息（§59）',
         blank:'資本利息年利率＝自有資金比重×自有利率＋借貸資金比重×借貸利率＋預售收入比重×___。',
         answer:'資本利息年利率＝自有資金比重×自有利率＋借貸資金比重×借貸利率＋預售收入比重×<span class="key">0</span>（預售收入之資金不計息）。',
         src:'考古：105-二（40%×2%＋50%×6%＋10%×0＝3.8%）；99-8<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>資金比例（自有：借貸：預售）與土地建物價值比率是兩組不同的比例；再代入§79：年利率×(土地比＋建物比×1/2)×開發年數。</div>', mc:1, essay:1
       },
       {
+        cid:'E-05',
         term:'廣告銷售管理稅捐：土開按總銷售金額，成本法按總成本',
         blank:'成本法（§61）廣告費、銷售費、管理費、稅捐按___乘以費率；土開（§77）按___乘以費率；費率由全聯會定期公告。',
         answer:'成本法（§61）廣告費、銷售費、管理費、稅捐按<span class="key">總成本</span>乘以費率；土開（§77）按<span class="key">總銷售金額</span>乘以費率；費率由全聯會定期公告。',
         src:'逐字核對補遺（§61、§77）；題數未逐題統計<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>舊條文的4%～5%、3%～4%等百分比已不在現行條文；題目有給比率才代入。</div>', mc:0, essay:0
       },
       {
+        cid:'E-06',
         term:'土地開發分析法定義（§70）',
         blank:'根據土地___、___進行開發改良估算___，扣除___、___、___及利潤後，求得___前或___前價格。',
         answer:'根據土地<span class="key">法定用途</span>、<span class="key">使用強度</span>進行開發改良估算<span class="key">總銷售金額</span>，扣除<span class="key">直接成本</span>、<span class="key">間接成本</span>、<span class="key">資本利息</span>及利潤後，求得<span class="key">開發</span>前或<span class="key">建築</span>前價格。',
         src:('技術規則§70')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e100-1">100年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e106-1">106年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e109-2">109年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e113-2">113年二</a></div>', mc:4, essay:1
       },
       {
+        cid:'E-07',
         term:'直接成本 vs 間接成本（§76）',
         blank:'直接成本＝___費。<br>間接成本＝___費＋廣告___費＋___費＋稅捐及其他負擔。',
         answer:'直接成本＝<span class="key">營造施工</span>費。<br>間接成本＝<span class="key">規劃設計</span>費＋廣告<span class="key">銷售</span>費＋<span class="key">管理</span>費＋稅捐及其他負擔。',
         src:('技術規則§76')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e113-2">113年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e102-2">102年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e105-2">105年二</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-3">預測③</a></div>', mc:5, essay:1
       },
       {
+        cid:'E-08',
         term:'V公式（§81）★鐵打必考',
         blank:'V＝___÷(1+___)÷(1+___)－(___+___)',
         answer:'V＝<span class="key">S</span>÷(1+<span class="key">R</span>)÷(1+<span class="key">i</span>)－(<span class="key">C</span>+<span class="key">M</span>)<br>（V＝開發分析價格，S＝預期總銷售金額，R＝利潤率，i＝資本利息綜合利率，C＝直接成本，M＝間接成本）',
         src:('技術規則§81')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e100-1">100年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e102-2">102年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e105-2">105年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e113-2">113年二</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-3">預測③</a></div>', mc:8, essay:5
       },
       {
+        cid:'E-09',
         term:'資本利息綜合利率公式（§79）',
         blank:'資本利息綜合利率＝___×（___＋___×___）×___<br>（i＝年利率×資金占用比例加權×開發期間）',
         answer:'資本利息綜合利率＝<span class="key">資本利息年利率</span>×（<span class="key">土地價值比率</span>＋<span class="key">建物價值比率</span>×<span class="key">1/2</span>）×<span class="key">開發年數</span>',
@@ -798,36 +887,42 @@ const DATA = [
     id:'G', label:'G 宗地通則與特殊宗地',
     cards:[
       {
+        cid:'G-01',
         term:'宗地合併或分割估價（§83）',
         blank:'以合併或分割為前提之宗地估價，應考慮合併或分割___之價格變動情形，而予___。',
         answer:'以合併或分割為前提之宗地估價，應考慮合併或分割<span class="key">前後</span>之價格變動情形，而予<span class="key">酌量增減</span>。',
         src:('技術規則§83')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e108-2">108年二</a></div>', mc:3, essay:1
       },
       {
+        cid:'G-02',
         term:'宗地合併後分配（§84）',
         blank:'數筆土地合併為一宗進行土地利用，以___土地估價，並以合併前各筆土地___比例分算；非以合併一宗利用為目的之相連土地，屬___所有權人者比照。',
         answer:'數筆土地合併為一宗進行土地利用，以<span class="key">合併後</span>土地估價，並以合併前各筆土地<span class="key">價值</span>比例分算；非以合併一宗利用為目的之相連土地，屬<span class="key">同一</span>所有權人者比照。',
         src:'技術規則§84', mc:2, essay:0
       },
       {
+        cid:'G-03',
         term:'多種法定用途宗地（§85）',
         blank:'一宗土地內有數種不同法定用途時，考量___及各種用途之相關性、分割之難易度後，決定___或依___估價。',
         answer:'一宗土地內有數種不同法定用途時，考量<span class="key">最有效使用</span>及各種用途之相關性、分割之難易度後，決定<span class="key">分別估價</span>或依<span class="key">主要用途</span>估價。',
         src:'技術規則§85', mc:2, essay:0
       },
       {
+        cid:'G-04',
         term:'有建物之宗地（§86）',
         blank:'附有建物之宗地估價，應考慮該建物對該宗地___之影響；但以___估價為前提並於___敘明者，不在此限。',
         answer:'附有建物之宗地估價，應考慮該建物對該宗地<span class="key">價格</span>之影響；但以<span class="key">素地</span>估價為前提並於<span class="key">報告書</span>敘明者，不在此限。',
         src:'技術規則§86', mc:2, essay:0
       },
       {
+        cid:'G-05',
         term:'受設施限制土地（§88）vs 受污染土地（§89）',
         blank:'§88 受___限制土地（架空電線、地下管線等）：先估___再扣___。<br>§89 受___土地：先估___再扣___。<br>★陷阱：兩條___相同，但對象不同。',
         answer:'§88 受<span class="key">地下或上方設施</span>限制土地（架空電線、地下管線等）：先估<span class="key">正常地價</span>再扣<span class="key">地價減損額</span>。<br>§89 受<span class="key">污染</span>土地：先估<span class="key">正常地價</span>再扣<span class="key">地價減損額</span>。<br>★陷阱：兩條<span class="key">公式</span>相同，但對象不同。',
         src:'技術規則§88-89★兩條公式相同，陷阱在哪條對應哪種情形', mc:4, essay:0
       },
       {
+        cid:'G-06',
         term:'特殊宗地估價方法總覽（§90-97）★陷阱',
         blank:'①溫泉地（§90）：考慮___、開發成本、水量、___、___、交通、設施、___等因素。<br>②高爾夫球場（§91）：考慮___、球場設施、開發成本、___及___。<br>③林地（§92）：依___情形，分別採___；成本法費用含___、林地改良費、___。<br>④農場／牧場（§93）／鹽田（§94）／池沼、墓地（§95）：均以___為原則；無實例者：農場／牧場以___土地價格為基礎，考慮位置、形狀、地形、土壤特性及利用狀況；鹽田考慮日照、通風、位置及形狀；池沼、墓地考慮位置、形狀、利用狀況。<br>⑤公共設施保留地（§97）：以___為原則；無實例者比較___差異及___推算。<br>⚠️§96已___（注意：此條已刪除，不可誤寫入答案）',
         answer:'①溫泉地（§90）：考慮<span class="key">水權內容</span>、開發成本、水量、<span class="key">水質</span>、<span class="key">水溫</span>、交通、設施、<span class="key">遊客人數</span>等因素。<br>②高爾夫球場（§91）：考慮<span class="key">會員制度</span>、球場設施、開發成本、<span class="key">收益</span>及<span class="key">營運費用</span>。<br>③林地（§92）：依<span class="key">林木成長</span>情形，分別採<span class="key">比較法／收益法／成本法</span>；成本法費用含<span class="key">造林費</span>、林地改良費、<span class="key">道路開挖費</span>。<br><span style="color:var(--red);font-size:12.5px">★陷阱：林地≠比較法為原則，視成長情形選方法</span><br>④農場／牧場（§93）／鹽田（§94）／池沼、墓地（§95）：均以<span class="key">比較法</span>為原則；無實例者：農場／牧場以<span class="key">附近</span>土地價格為基礎，考慮位置、形狀、地形、土壤特性及利用狀況；鹽田考慮日照、通風、位置及形狀；池沼、墓地考慮位置、形狀、利用狀況。<br><span style="color:var(--red);font-size:12.5px">★陷阱：墓地§95明文「比較法為原則」——考題「較難以比較法」是描述實務困難，非排除法規</span><br>⑤公共設施保留地（§97）：以<span class="key">比較法</span>為原則；無實例者比較<span class="key">使用分區及強度</span>差異及<span class="key">土地價值減損</span>推算。<br>⚠️§96已<span class="key">刪除</span>（注意：此條已刪除，不可誤寫入答案）',
@@ -839,12 +934,14 @@ const DATA = [
     id:'H', label:'H 房地估價',
     cards:[
       {
+        cid:'H-01',
         term:'區分所有建物合併估價（§98）',
         blank:'應就___部分、___部分比例及___合併估價，並考量___及___差異調整。<br>樓層別效用比由___公告供參考。',
         answer:'應就<span class="key">專有</span>部分、<span class="key">共用</span>部分比例及<span class="key">基地權利</span>合併估價，並考量<span class="key">樓層別效用比</span>及<span class="key">位置</span>差異調整。<br>樓層別效用比由<span class="key">全聯會</span>公告供參考。',
         src:'技術規則§98★樓層別效用比16年出現15次，全聯會公告為常考陷阱', mc:8, essay:0
       },
       {
+        cid:'H-02',
         term:'由房地價格推算土地單價（§99）★高頻計算',
         blank:'土地單價＝（___－___×建物價值比率）÷___<br>建物價值比率＝___÷（___＋___）',
         answer:'土地單價＝（<span class="key">房地總價</span>－<span class="key">房地總價</span>×建物價值比率）÷<span class="key">基地面積</span><br>建物價值比率＝<span class="key">建物現值</span>÷（<span class="key">建物現值</span>＋<span class="key">素地總價</span>）',
@@ -855,30 +952,35 @@ const DATA = [
           +'<b>相關題目：</b><a href="估價_房地拆價計算題組.html">房地拆價計算題組（6題）</a>｜<a href="估價_計算題攻略.html#split-card">計算題攻略</a>｜<a href="估價_考題小卡.html#VC1_99_32">小卡99-32</a>、<a href="估價_考題小卡.html#VH3_103_36">103-36</a>、<a href="估價_考題小卡.html#VH3_109_8">109-8</a>、<a href="估價_考題小卡.html#VH3_110_14">110-14</a>｜申論（相近，非同題）：<a href="不動產估價概要_申論題實戰範文.html#e112-2">112年二（建物現值）</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-6">預測⑥</a></div>', mc:6, essay:0
       },
       {
+        cid:'H-03',
         term:'建物超過法定面積估價（§102）',
         blank:'實際建築使用之___超過法定___之房地估價，應以實際建築使用___部分之現況估價，並敘明法定___對估值之影響。',
         answer:'實際建築使用之<span class="key">容積率</span>超過法定<span class="key">容積率</span>之房地估價，應以實際建築使用<span class="key">合法</span>部分之現況估價，並敘明法定<span class="key">容積</span>對估值之影響。',
         src:'技術規則§102★陷阱：合法但超容積與違建處理不同', mc:4, essay:0
       },
       {
+        cid:'H-04',
         term:'違章建築估價（§103）',
         blank:'違建部分___（但委託人要求___者不在此限）。',
         answer:'違建部分<span class="key">不予評估</span>（但委託人要求<span class="key">分別標示</span>者不在此限）。',
         src:'技術規則§103', mc:3, essay:0
       },
       {
+        cid:'H-05',
         term:'使用不足宗地（§104）',
         blank:'使用未達___使用時，應先估___使用之___，再調整為___使用之現況價格。',
         answer:'使用未達<span class="key">最有效</span>使用時，應先估<span class="key">最有效</span>使用之<span class="key">價格</span>，再調整為<span class="key">現況</span>使用之現況價格。',
         src:'技術規則§104', mc:3, essay:0
       },
       {
+        cid:'H-06',
         term:'建物使用與分區不符（§105）',
         blank:'建物原核定用途與現行土地使用管制不符之合法建物，以現行___允許之建物用途估價，並就其與建物___用途估價之差額於___敘明。',
         answer:'建物原核定用途與現行土地使用管制不符之合法建物，以現行<span class="key">土地使用分區管制</span>允許之建物用途估價，並就其與建物<span class="key">法定</span>用途估價之差額於<span class="key">報告書</span>敘明。',
         src:'技術規則§105', mc:2, essay:0
       },
       {
+        cid:'H-07',
         term:'無使用價值建物（§106）',
         blank:'建物已不具備使用價值，得將其基地視為___估價，但應考量建物___成本予以調整。',
         answer:'建物已不具備使用價值，得將其基地視為<span class="key">素地</span>估價，但應考量建物<span class="key">拆除</span>成本予以調整。',
@@ -890,18 +992,21 @@ const DATA = [
     id:'I2', label:'I2 土地改良物',
     cards:[
       {
+        cid:'I2-01',
         term:'土地改良物估價原則（§107-108）',
         blank:'土地改良物包括___及___。建物估價以___為原則。',
         answer:'土地改良物包括<span class="key">建物</span>及<span class="key">農作改良物</span>。建物估價以<span class="key">成本法</span>為原則。',
         src:'技術規則§107-108', mc:3, essay:0
       },
       {
+        cid:'I2-02',
         term:'農作改良物（§109-111）',
         blank:'農作改良物＝附著於土地之___、___、___、觀賞花木、___及其他各種農作物（§109）。§111依___分三類：幼小且距成熟期尚長者，依___費用並視作物生長情況估計；接近成熟期者，估計___及市場價格；距成熟期一年以上且有期待收穫價值者，以___價格為基礎推估未來收穫價格後折算為價格日期之價格。',
         answer:'農作改良物＝附著於土地之<span class="key">果樹</span>、<span class="key">茶樹</span>、<span class="key">竹類</span>、觀賞花木、<span class="key">造林木</span>及其他各種農作物（§109）。§111依<span class="key">成熟期</span>分三類：幼小且距成熟期尚長者，依<span class="key">種植及培育</span>費用並視作物生長情況估計；接近成熟期者，估計<span class="key">收穫量</span>及市場價格；距成熟期一年以上且有期待收穫價值者，以<span class="key">產地</span>價格為基礎推估未來收穫價格後折算為價格日期之價格。',
         src:'技術規則§109-111（§110列估價考量因素：生產環境、農業災害、生產技術、生產期間、樹齡、生長情形、結果習性、管理狀況、農業設施）', mc:3, essay:0
       },
       {
+        cid:'I2-03',
         term:'工事及水利土壤之改良（§112）',
         blank:'附著於土地之工事及水利土壤之改良，以___為原則；但得斟酌___法及___法結果決定估價額。',
         answer:'附著於土地之工事及水利土壤之改良，以<span class="key">成本法</span>為原則；但得斟酌<span class="key">比較</span>法及<span class="key">收益</span>法結果決定估價額。',
@@ -913,48 +1018,56 @@ const DATA = [
     id:'J', label:'J 權利估價',
     cards:[
       {
+        cid:'J-01',
         term:'地上權估價（§116）★103年申論考過',
         blank:'地上權估價，應考慮其___、權利___、支付___之有無、權利讓與之限制、設定之空間位置等因素。',
         answer:'地上權估價，應考慮其<span class="key">用途</span>、權利<span class="key">存續期間</span>、支付<span class="key">地租</span>之有無、權利讓與之限制、設定之空間位置等因素。',
         src:('技術規則§116★103年申論題：不動產價格種類+地上權設定土地估價')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e103-2">103年二</a></div>', mc:4, essay:2
       },
       {
+        cid:'J-02',
         term:'典權估價（§117）',
         blank:'典權估價，以___為基礎估計，並考慮權利___、權利讓與之限制等因素。',
         answer:'典權估價，以<span class="key">典價</span>為基礎估計，並考慮權利<span class="key">存續期間</span>、權利讓與之限制等因素。',
         src:'技術規則§117', mc:2, essay:0
       },
       {
+        cid:'J-03',
         term:'農育權估價（§118-1）',
         blank:'農育權估價，應考慮___目的、約定方法、權利___、支付___之有無及高低、權利讓與之限制、民間習俗、增加土地生產力或使用便利之特別改良等因素。',
         answer:'農育權估價，應考慮<span class="key">設定</span>目的、約定方法、權利<span class="key">存續期間</span>、支付<span class="key">地租</span>之有無及高低、權利讓與之限制、民間習俗、增加土地生產力或使用便利之特別改良等因素。',
         src:'技術規則§118-1', mc:2, essay:0
       },
       {
+        cid:'J-04',
         term:'不動產役權估價（§119）',
         blank:'不動產役權估價，應考慮___不動產與___不動產之使用情況、權利存續期間、不動產役權___、民間習俗等因素。',
         answer:'不動產役權估價，應考慮<span class="key">需役</span>不動產與<span class="key">供役</span>不動產之使用情況、權利存續期間、不動產役權<span class="key">使用性質</span>、民間習俗等因素。',
         src:'技術規則§119★陷阱：農育權§118-1、役權§119、耕作權§120，別背錯條號', mc:3, essay:0
       },
       {
+        cid:'J-05',
         term:'抵押權估價（§121）★陷阱',
         blank:'估計價格日期當時勘估標的___，以___為基礎，考慮其他順位設定狀況、___、___、___、執行難易度調整。',
         answer:'估計價格日期當時勘估標的<span class="key">正常價格</span>，以<span class="key">實際債權額</span>為基礎，考慮其他順位設定狀況、<span class="key">流通性</span>、<span class="key">風險性</span>、<span class="key">增值性</span>、執行難易度調整。',
         src:'技術規則§121★陷阱：以「實際債權額」為基礎，非以「設定債權額」', mc:4, essay:0
       },
       {
+        cid:'J-06',
         term:'租賃權估價（§122）',
         blank:'租賃權估價，應考慮___內容、用途、___、租金支付方式、使用目的及使用情形等因素。',
         answer:'租賃權估價，應考慮<span class="key">契約</span>內容、用途、<span class="key">租期</span>、租金支付方式、使用目的及使用情形等因素。',
         src:'技術規則§122', mc:3, essay:0
       },
       {
+        cid:'J-07',
         term:'容積移轉估價（§123）',
         blank:'容積移轉估價，應考慮容積___基地、___基地，以及其他影響不動產價格之因素和相關法令。',
         answer:'容積移轉估價，應考慮容積<span class="key">送出</span>基地、<span class="key">接受</span>基地，以及其他影響不動產價格之因素和相關法令。',
         src:'技術規則§123', mc:3, essay:0
       },
       {
+        cid:'J-08',
         term:'都更基地價值比率公式（§125）★高頻',
         blank:'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span>基地價值比率＝</span><div style="display:inline-flex;flex-direction:column;text-align:center;font-size:13px"><div style="padding:0 8px 2px">___×基地總面積</div><div style="border-top:2px solid currentColor;padding:2px 8px 0">___×基地總面積＋___×（1－___率）×全棟建物面積</div></div></div>',
         answer:'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span>基地價值比率＝</span><div style="display:inline-flex;flex-direction:column;text-align:center;font-size:13px;line-height:2"><div style="padding:0 8px 2px"><span class="key">素地單價</span>×基地總面積</div><div style="border-top:2px solid var(--ink);padding:2px 8px 0"><span class="key">素地單價</span>×基地總面積＋<span class="key">營造施工費單價</span>×（1－<span class="key">累積折舊</span>率）×全棟建物面積</div></div></div>',
@@ -966,66 +1079,77 @@ const DATA = [
     id:'K', label:'F1 租金估計',
     cards:[
       {
+        cid:'K-01',
         term:'租金估計原則（§130、§131）★考古最多',
         blank:'不動產租金估計，以估計勘估標的之___租金為原則（§130）；並應視___租約與___租約分別為之（§131）。',
         answer:'不動產租金估計，以估計勘估標的之<span class="key">實質</span>租金為原則（§130）；並應視<span class="key">新訂</span>租約與<span class="key">續訂</span>租約分別為之（§131）。',
         src:'考古：99-5、103-2、105-20、105-27、112-13、112-17、114-22（至少7題）<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>干擾選項常見：支付租金、契約租金、經濟租金、差額租金、押租金、市場租金、合理租金，答案都不是。唯一用契約租金的是<b>不動產證券化 DCF 各期淨收益</b>（110-13，見另一張卡）。</div>', mc:7, essay:0
       },
       {
+        cid:'K-02',
         term:'實質租金：定義與計算（§130）★99-5、104-24、113-19',
         blank:'實質租金＝承租人每期___予出租人之租金，加計___或保證金、___及其他相關___之總數。',
         answer:'實質租金＝承租人每期<span class="key">支付</span>予出租人之租金，加計<span class="key">押金</span>或保證金、<span class="key">權利金</span>及其他相關<span class="key">運用收益</span>之總數。',
         src:'考古：100-40、107-25、104-34、104-24、105-26、113-19、99-5、103-38、113-5<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>公式：</b>實質租金＝月租×12＋押金×利率（＋權利金運用收益）。<br><b>例104-24：</b>35,000×12＝420,000；押金70,000×1.5%＝1,050 → <b>421,050</b>。<br><b>例105-26：</b>60,000＋(10,000×5%＝500)＝<b>60,500</b>。<br><b>例113-19：</b>1,200,000＋(200,000×2.5%＝5,000)＝<b>1,205,000</b>；承租人另付的管理費12萬不列入。<br><b>陷阱：</b>①99-5「不可將權利金之收益列入」錯，權利金運用收益要列入；②104-34 四項（租金、押金、保證金、權利金運用收益）全都包括；③113-5「名目租金」「純租金」「淨租金」都不是定義用語；④103-38 問「支付租金」＝25,000×12＝300,000，不含押金收益，也不是合理租金。</div>', mc:9, essay:0
       },
       {
+        cid:'K-03',
         term:'四種租金：支付、實質、經濟、契約（大小關係）',
         blank:'___租金：承租人每期支付予出租人之租金本身；___租金：不動產於市場上以最有效利用方式所能產生之收益；___租金：依租賃契約約定之租金。',
         answer:'<span class="key">支付</span>租金：承租人每期支付予出租人之租金本身；<span class="key">經濟</span>租金：不動產於市場上以最有效利用方式所能產生之收益；<span class="key">契約</span>租金：依租賃契約約定之租金。',
         src:'考古：100-33、101-32（反映經濟價值＝經濟租金）、114-24、103-38、105-20<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>陷阱：</b>①經濟租金與支付租金的大小關係<b>不一定</b>（高、低、相等都可能，114-24）；②實質租金＝支付租金＋押金等運用收益，不是經濟租金；③差額租金、純租金、淨租金不是定義用語；④租金種類（價格種類）只有正常租金與限定租金（113-5）。</div>', mc:5, essay:0
       },
       {
+        cid:'K-04',
         term:'正常租金 vs 限定租金：什麼情形是限定租金',
         blank:'租金種類只有___租金與___租金兩種；基於___租約或不動產___為目的形成之租賃價值，稱為___租金。',
         answer:'租金種類只有<span class="key">正常</span>租金與<span class="key">限定</span>租金兩種；基於<span class="key">續訂</span>租約或不動產<span class="key">合併</span>為目的形成之租賃價值，稱為<span class="key">限定</span>租金。',
         src:'技術規則§2；考古：99-20、106-4、106-24、107-1、113-5、105-20<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>情境判斷：</b>①隔壁店家不續租，你一併承租擴大經營（106-4）→限定租金；②私校將校舍一部出租，屆期續約（106-24）→限定租金；③便利商店兩間相鄰店面打通合併使用（107-1）→限定租金，不是「合併租金」。<br><b>113-5 判斷：</b>續訂租金屬限定租金（對）；租金種類含正常、限定兩種（對）；積算法用於評估正常租金（對）；「名目租金」＝實質租金的定義（錯）。<br><b>陷阱：</b>特定租金、特殊租金、合併租金、市場租金都是干擾。</div>', mc:6, essay:0
       },
       {
+        cid:'K-05',
         term:'差額分配法（§133④）計算★必考計算',
         blank:'差額＝___租金－___租金；出租人分得＝差額×（1－承租人___比例）；續租合理租金＝___租金＋出租人分得之差額。',
         answer:'差額＝<span class="key">市場經濟</span>租金－<span class="key">原契約</span>租金；出租人分得＝差額×（1－承租人<span class="key">貢獻</span>比例）；續租合理租金＝<span class="key">原契約</span>租金＋出租人分得之差額。',
         src:'考古：100-39、102-21、106-18、110-23、104-40；申論101-二、110-二<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例100-39：</b>10,000→16,000，差6,000，各半＝3,000 → <b>13,000</b>。<br><b>例102-21：</b>250→350，差100萬，60%歸承租人 → 出租人40萬 → <b>290萬</b>。<br><b>例106-18：</b>200→250，差50萬，60%歸承租人 → 出租人20萬 → <b>220萬</b>。<br><b>陷阱：</b>①題目說「60%歸功於承租人」，出租人拿的是<b>40%</b>；②110-23：差額是「市場經濟租金與原契約租金」，不是實質租金或正常租金；③104-40「最適合推估租金」＝差額分配法（不是殘餘法、資本化率法、還原利率法）；④100-37「差額租金還原法」求得的是<b>租賃權價格</b>（權利估價）。</div>', mc:5, essay:2
       },
       {
+        cid:'K-06',
         term:'新訂租約：價格×租金收益率＋必要費用（110-22）',
         blank:'新訂租約租金＝勘估標的___×___＝淨收益，再加計___。',
         answer:'新訂租約租金＝勘估標的<span class="key">價格</span>×<span class="key">租金收益率</span>＝淨收益，再加計<span class="key">必要費用</span>。',
         src:'考古：110-22<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>例110-22：</b>價格1,000萬×5%＝50萬；加必要費用20萬＝<b>70萬</b>；租賃所得稅2萬屬所得稅，不是必要費用，不加（官方答案70萬）。<br><b>陷阱：</b>50萬（漏必要費用）、52萬、72萬（多加所得稅）都是干擾。</div>', mc:1, essay:0
       },
       {
+        cid:'K-07',
         term:'新訂 vs 續訂：哪個方式只能用在哪種租約',
         blank:'「分析企業經營總收入」只用於___租約（估計一定期間之___收益，再加必要費用）；「原契約租金之淨收益依趨勢調整」「差額分配法」只用於___租約。',
         answer:'「分析企業經營總收入」只用於<span class="key">新訂</span>租約（估計一定期間之<span class="key">淨</span>收益，再加必要費用）；「原契約租金之淨收益依趨勢調整」「差額分配法」只用於<span class="key">續訂</span>租約。',
         src:'考古：101-20（答案：淨收益）、104-33、112-17、113-5<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>用字差別：</b>§132② 新訂用「勘估標的<b>價格</b>×租金收益率」（積算法，113-5：用於正常租金）；§133② 續訂用「<b>價格日期之正常價格</b>為基礎×租金收益率」。104-33、112-17 選項寫成「勘估標的價格乘以租金收益率」，就判為<b>不是</b>續訂的方式。<br><b>陷阱：</b>112-17 的 B（新訂租約用原契約租金淨收益調整）是續訂的方式，所以錯；104-33 題幹①寫「運用收益法」，現行條文是比較法，依題幹與官方答案（①③）作答。</div>', mc:4, essay:0
       },
       {
+        cid:'K-08',
         term:'證券化 DCF 的租金：契約租金（110-13）',
         blank:'以不動產證券化為估價目的，採DCF時，各期淨收益以勘估標的之___租金計算為原則；一般租金估計則以___租金為原則。',
         answer:'以不動產證券化為估價目的，採DCF時，各期淨收益以勘估標的之<span class="key">契約</span>租金計算為原則；一般租金估計則以<span class="key">實質</span>租金為原則。',
         src:'考古：110-13<div style="margin-top:6px;line-height:1.75;color:var(--ink)">契約租金未知者，以市場經濟租金推估客觀淨收益；總費用依信託計畫資料推算。<br><b>陷阱：</b>110-13 四個選項是「實質／契約」兩個位置的排列，一般租金估計＝實質租金，證券化DCF＝契約租金，兩者不要對調。</div>', mc:1, essay:0
       },
       {
+        cid:'K-09',
         term:'租金估計應考慮因素（§129）★114年申論',
         blank:'應考慮：①租賃___內容②___長短③使用___④___負擔⑤租金___⑥___狀態⑦租約___⑧變更___及其他相關因素。',
         answer:'應考慮：①租賃<span class="key">契約</span>內容②<span class="key">租期</span>長短③使用<span class="key">目的</span>④<span class="key">稅費</span>負擔⑤租金<span class="key">水準</span>⑥<span class="key">變遷</span>狀態⑦租約<span class="key">更新</span>⑧變更<span class="key">條件</span>及其他相關因素。',
         src:'技術規則§129（依知識庫整理版，考前對原文）★104-25：不屬應考慮因素＝出租人數；使用目的、租期長短、稅費負擔都是'+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e114-1">114年一</a>、<a href="不動產估價概要_申論題實戰範文.html#e101-2">101年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e110-2">110年二</a></div>', mc:2, essay:2
       },
       {
+        cid:'K-10',
         term:'新訂租約估計方式（§132）★3種',
         blank:'①以___之租賃實例為標的，採比較法。<br>②以勘估標的___乘以___，估計淨收益，再加計___。<br>③分析___之___，據以估計淨收益，再加計___。',
         answer:'①以<span class="key">新訂租約</span>之租賃實例為標的，採比較法。<br>②以勘估標的<span class="key">價格</span>乘以<span class="key">租金收益率</span>，估計淨收益，再加計<span class="key">必要費用</span>。<br>③分析<span class="key">企業經營總收入</span>之<span class="key">淨收益</span>，據以估計淨收益，再加計<span class="key">必要費用</span>。',
         src:('技術規則§132★方式②「價格×租金收益率」、方式③「企業經營總收入」只適用新訂')+'<div style="margin-top:6px;line-height:1.75;color:var(--ink)"><b>申論相關題：</b><a href="不動產估價概要_申論題實戰範文.html#e110-2">110年二</a>、<a href="不動產估價概要_申論題實戰範文.html#e101-2">101年二</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-5">預測⑤</a></div>', mc:5, essay:1
       },
       {
+        cid:'K-11',
         term:'續訂租約估計方式（§133）★4種',
         blank:'①以___之租賃實例為標的，採比較法。<br>②以___之___為基礎，乘以___，估計淨收益，加計___。<br>③以___之淨收益，依___趨勢調整後，加計___。<br>④分析___與___之差額，取應歸___之適當部分，加計___。',
         answer:'①以<span class="key">續訂租約</span>之租賃實例為標的，採比較法。<br>②以<span class="key">價格日期</span>之<span class="key">正常價格</span>為基礎，乘以<span class="key">租金收益率</span>，估計淨收益，加計<span class="key">必要費用</span>。<br>③以<span class="key">原契約租金</span>之淨收益，依<span class="key">租金變動</span>趨勢調整後，加計<span class="key">必要費用</span>。<br>④分析<span class="key">原契約租金</span>與<span class="key">市場經濟租金</span>之差額，取應歸<span class="key">出租人</span>之適當部分，加計<span class="key">契約租金</span>。',
@@ -1037,12 +1161,14 @@ const DATA = [
     id:'I', label:'I CAMA計量模型',
     cards:[
       {
+        cid:'I-01',
         term:'CAMA應用條件（§20）★高頻數字',
         blank:'樣本數須為自變數個數___倍以上；判定係數R²不得低於___；顯著機率不得大於___%。',
         answer:'樣本數須為自變數個數<span class="key">5</span>倍以上；判定係數R²不得低於<span class="key">0.7</span>；顯著機率不得大於<span class="key">5</span>%。',
         src:'技術規則§20★鐵打必考數字', mc:6, essay:0
       },
       {
+        cid:'I-02',
         term:'計量模型分析法（§19）定義',
         blank:'蒐集相當數量___，透過___模型求出主要___因素與___關係式。',
         answer:'蒐集相當數量<span class="key">比較標的</span>，透過<span class="key">計量</span>模型求出主要<span class="key">影響</span>因素與<span class="key">價格</span>關係式。',
@@ -1118,11 +1244,12 @@ DATA.forEach((ch,ci)=>{
       <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
       <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
     </div>
-    <div class="section-hint">💡 點空格顯示答案，再點收起</div>
+    <div class="section-hint">💡 點空格顯示答案，再點收起；全部顯示（或最後一格點開）即記為「已完成」</div>
+    <button class="ch-reset" type="button" onclick="resetChDone('${ch.id}')">重設本章完成紀錄</button>
     ${ch.top||''}`;
 
   ch.cards.forEach((c,i)=>{
-    const key = ch.id+'-'+i;
+    const key = c.cid; // 穩定 id（章節＋原始序號），不受考頻排序影響
     cardDone[key] = false;
     const blankCount = (c.blank.match(/___/g)||[]).length;
     const builtBlank = buildBlankLine(fmtAns(c.blank,true), c.answer, key);
@@ -1197,12 +1324,20 @@ function revealAllBlanks(key, chId, total) {
   markDone(key, chId, total);
 }
 
-function markDone(key, chId, total) {
+function markDone(key, chId, total, fromStore) {
   if(cardDone[key]) return;
   cardDone[key] = true;
-  const note = document.getElementById('ans-'+key);
-  if(note) note.classList.add('show');
-  // 更新進度
+  const cardEl = document.getElementById('card-'+key);
+  if(cardEl) cardEl.classList.add('done');
+  if(fromStore!==true){ // true＝載入舊紀錄；'quiz'＝隨機測驗看完（存紀錄但不展開瀏覽頁答案）
+    const note = document.getElementById('ans-'+key);
+    if(note && !fromStore) note.classList.add('show');
+    try{ if(typeof BXREP!=='undefined') BXREP.fillMark(key); }catch(e){}
+  }
+  updChProg(chId,total);
+  updFillHead();
+}
+function updChProg(chId,total){
   const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
   const pct = Math.round(done/total*100);
   const pf = document.getElementById('pf-'+chId);
@@ -1210,6 +1345,32 @@ function markDone(key, chId, total) {
   if(pf) pf.style.width = pct+'%';
   if(pt) pt.textContent = done+' / '+total;
 }
+const FILL_TOTAL = DATA.reduce((n,ch)=>n+ch.cards.length,0);
+function updFillHead(){
+  const n = Object.keys(cardDone).filter(k=>cardDone[k]).length;
+  const el = document.getElementById('fillDone'); if(el) el.textContent = '已完成 '+n+'／'+FILL_TOTAL;
+  const t = document.getElementById('fillTotal'); if(t) t.textContent = FILL_TOTAL;
+}
+function resetChDone(chId){
+  const ch = DATA.find(c=>c.id===chId); if(!ch) return;
+  if(!confirm('確定要清除「'+ch.label+'」的完成紀錄？（其他章不受影響）')) return;
+  const keys = ch.cards.map(c=>c.cid);
+  try{ if(typeof BXREP!=='undefined'&&BXREP.fillUnmark) BXREP.fillUnmark(keys); }catch(e){}
+  keys.forEach(k=>{
+    cardDone[k]=false;
+    const el=document.getElementById('card-'+k); if(el) el.classList.remove('done');
+    document.querySelectorAll('.blank[data-key="'+k+'"]').forEach(b=>b.classList.remove('revealed'));
+    ['ans-','bstat-'].forEach(p=>{const e=document.getElementById(p+k); if(e) e.classList.remove('show');});
+  });
+  updChProg(chId, ch.cards.length); updFillHead();
+}
+// 載入既有完成紀錄（bxv-fill；只認本頁實際存在的卡片 id）
+(function(){
+  let F={}; try{ F=JSON.parse(localStorage.getItem('bxv-fill')||'{}')||{}; }catch(e){}
+  try{ localStorage.setItem('bxv-fill-total', String(FILL_TOTAL)); }catch(e){}
+  DATA.forEach(ch=>ch.cards.forEach(c=>{ if(F[c.cid]) markDone(c.cid, ch.id, ch.cards.length, true); }));
+  updFillHead();
+})();
 
 function switchCh(id){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
@@ -1251,7 +1412,7 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
+        quizPool.push({ cid: c.cid, chN: ch.cards.length, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
       });
     });
   }
@@ -1415,6 +1576,8 @@ function revealAllQuizBlanks(qid) {
   const qn=document.getElementById('qnav-' + qid); if(qn) qn.style.display='none';
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
+  const qc = quizQueue[quizIdx];
+  if (qc && qc.cid) markDone(qc.cid, qc.chId, qc.chN, 'quiz');
 }
 
 function nextQuiz() {

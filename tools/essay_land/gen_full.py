@@ -120,7 +120,11 @@ for r in rows:
     for a in r['m']['cite']:
         (offc if r['kind'] == 'off' else prec)[a] += 1
 
-def stars(n): return '★★★' if n >= 3 else '★★' if n == 2 else '★' if n == 1 else '預'
+def stars(n): return '★★★' if n >= 3 else '★★' if n == 2 else '★' if n == 1 else ''
+def cnt_txt(o, q):
+    a = [f'歷屆申論考過 {o} 題' if o else '歷屆申論沒考過']
+    if q: a.append(f'預測題用到 {q} 題')
+    return '・'.join(a)
 
 def law_body(a):
     L = LAW.get(a)
@@ -141,7 +145,7 @@ def lawdet(a, who=None):
     n = offc[a]
     c = f'<div class="btc">本組用到：{"・".join(who)}</div>' if who else ''
     return (f'<details class="bt"><summary><b class="bn">{a}</b><span class="bti">{law_title(a)}</span>'
-            f'<span class="bm">{stars(n)}<small>官{n}・預{prec[a]}</small></span></summary><div class="btx">{c}{law_body(a)}</div></details>')
+            f'<span class="bm">{stars(n)}<small>{cnt_txt(n, prec[a])}</small></span></summary><div class="btx">{c}{law_body(a)}</div></details>')
 
 NUMS = '一二三四五六七八九十'
 def split_ham(p):
@@ -198,7 +202,7 @@ def card(r):
     for i, (h, p) in enumerate(d['sec']):
         cls = 'b%d' % (min(i, 3) + 1)
         if i == 1:
-            p += (f'<div class="btw"><div class="bth">這題要背的條文（{len(cite)} 條）<small>★＝歷屆官方申論引用次數，點開看全文</small></div>'
+            p += (f'<div class="btw"><div class="bth">這題要背的條文（{len(cite)} 條）<small>★＝歷屆官方申論考過幾題（★★★ 3 題以上、★★ 2 題、★ 1 題），點開看全文</small></div>'
                   + ''.join(lawdet(a) for a in cite) + '</div>')
         if i == 2: p = split_ham(p)
         secs += f'<details class="blk {cls}"{" open" if i == 0 else ""}><summary><h5>{h}</h5></summary><div class="fdb">{p}</div></details>'
@@ -255,7 +259,7 @@ for g in ORDER:
     ptag = P115[g]
     body = (f'<div class="gnote"><p>{h["rule"]}</p><p class="how"><b>答法</b>{h["how"]}</p></div>'
             f'<details class="btg"><summary>本組要背的條文（{len(al)} 條）<small>依官方申論引用次數排序・點條文看全文</small></summary>'
-            f'<div class="btgb"><p class="btl">★★★＝官方申論引用 3 次以上　★★＝2 次　★＝1 次　預＝只出現在預測題。</p>{"".join(lawdet(a, arts[a]) for a in al)}</div></details>')
+            f'<div class="btgb"><p class="btl">★★★＝歷屆官方申論考過 3 題以上　★★＝2 題　★＝1 題　沒有星＝歷屆沒考過、只在預測題出現。</p>{"".join(lawdet(a, arts[a]) for a in al)}</div></details>')
     body += f'<h5 class="sec">官方歷屆（{len(off)} 題）<small>{h["ys"].replace("出現：", "")}</small></h5>' + ''.join(card(r) for r in off)
     if mk:
         body += f'<h5 class="sec">補習班模擬卷（{len(mk)} 題）<small>非考選部；本站依現行條文撰寫範文</small></h5>' + ''.join(card(r) for r in mk)
