@@ -246,6 +246,14 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
 .ctrl-pill .bxv-mini .sep{width:1px;height:14px;background:var(--line);flex-shrink:0}
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
+
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#FBE9DA;--ks-ob:#E2B792;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-kw:#4E6B1F;--ks-ink:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#45352A;--ks-ob:#8A6A4A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-ink:#E8E2D4}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#45352A;--ks-ob:#8A6A4A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-kw:#B7D27A;--ks-ink:#E8E2D4}
+.kf .kf-c[class*=" k-"]{color:var(--ks-ink);border:1px solid}
+.kf .kf-c[class*=" k-"] small{color:inherit;opacity:.75}
+.kf .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.kf .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.kf .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.kf .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.kf .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+.kf .kw{color:var(--ks-kw);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
 </style>
 <style>
 
@@ -701,7 +709,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先算價差</div><div class="kf-eq"><span class="kf-c kf-a">較高試算價格</span><span class="kf-op">－</span><span class="kf-c kf-b">較低試算價格</span><span class="kf-op">＝</span><span class="kf-c kf-r res">價差</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再除以「平均」（不是除以最高、也不是最低）</div><div class="kf-eq"><span class="kf-c kf-a">價差</span><span class="kf-op">÷</span><span class="kf-c kf-p">試算價格平均值<small>(高＋低)÷2</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">差距率</span></div><div class="kf-ex">例：980、1,250 → 價差 270 ÷ 平均 1,115 ≈ <b>24.2%</b>，達 20% 以上要排除（§26）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先算價差</div><div class="kf-eq"><span class="kf-c k-s">較高<b class="kw">試算價格</b></span><span class="kf-op">－</span><span class="kf-c k-s">較低<b class="kw">試算價格</b></span><span class="kf-op">＝</span><span class="kf-c k-n">價差</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再除以「平均」（不是最高、也不是最低）</div><div class="kf-eq"><span class="kf-c k-n">價差</span><span class="kf-op">÷</span><span class="kf-c k-s"><b class="kw">試算價格</b>平均值<small>(高＋低)÷2</small></span><span class="kf-op">＝</span><span class="kf-c k-m">差距率</span></div><div class="kf-ex">例：980、1,250 → 價差 270 ÷ 平均 1,115 ≈ <b>24.2%</b>，達 20% 以上要排除（§26）。</div></div></div>
 
   <h3>蒐集比較實例應依循之原則（4項）</h3>
   <div class="note note-blue">
@@ -765,10 +773,10 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </table>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c kf-a">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c kf-b">勘估標的價格日期指數<small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c kf-p">比較標的交易日期指數<small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c k-o">勘估標的價格日期之價格<b class="kw">指數</b><small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c k-s">比較標的交易日期之價格<b class="kw">指數</b><small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
 
   <h3>B2　比較法：合併開發分配計算</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c kf-a">該筆土地合併前價值</span><span class="kf-op">÷</span><span class="kf-c kf-b">各筆合併前價值總和</span><span class="kf-op">＝</span><span class="kf-c kf-r res">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c kf-a">合併後總價格</span><span class="kf-op">×</span><span class="kf-c kf-r">占比</span><span class="kf-op">＝</span><span class="kf-c kf-p res">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c k-s">該筆土地<b class="kw">合併前價值</b></span><span class="kf-op">÷</span><span class="kf-c k-s">各筆土地<b class="kw">合併前價值</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
     <p>★高頻計算題：務必先求出該筆土地占合併前總價值之<b>比例</b>，再乘以合併後總價格。</p>
@@ -980,7 +988,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>定額法（直線）— 每年折舊相同</div><div class="kf-eq"><span class="kf-c kf-a">C<small>重建成本</small></span><span class="kf-op">×</span><span class="kf-c kf-b">(1－s)÷N<small>每年折舊率</small></span><span class="kf-op">×</span><span class="kf-c kf-p">n<small>經歷年數</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">累積折舊 Dn</span></div><div class="kf-ex">建物現值＝C－Dn。曲線是<b>直線</b>。</div></div><div class="kf-step"><div class="kf-t"><b>2</b>定率法 — 每年對「前一年餘值」打折</div><div class="kf-eq"><span class="kf-c kf-a">C</span><span class="kf-op">×</span><span class="kf-c kf-b">(1－r)ⁿ<small>r＝每年固定比率</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">第 n 年末現值</span></div><div class="kf-ex">初期折舊最大、逐年遞減（曲線在直線<b>下方</b>）。</div></div><div class="kf-step"><div class="kf-t"><b>3</b>償債基金法 — 複利提存</div><div class="kf-eq"><span class="kf-c kf-a">(1－s)</span><span class="kf-op">×</span><span class="kf-c kf-b">i<small>利率</small></span><span class="kf-op">÷</span><span class="kf-c kf-p">(1+i)ᴺ－1</span><span class="kf-op">＝</span><span class="kf-c kf-r res">每年提存 dn</span></div><div class="kf-ex">初期折舊較小（曲線在直線<b>上方</b>）。<br>符號：C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>定額法（直線）— 每年折舊相同</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－s)÷N<small>每年折舊率</small></span><span class="kf-op">×</span><span class="kf-c k-g">經歷年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dn</span></div><div class="kf-ex">建物現值＝C－Dn。曲線是<b>直線</b>。</div></div><div class="kf-step"><div class="kf-t"><b>2</b>定率法 — 每年對「前一年餘值」打折</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－r)ⁿ<small>r＝每年固定比率</small></span><span class="kf-op">＝</span><span class="kf-c k-m">第 n 年末現值</span></div><div class="kf-ex">初期折舊最大、逐年遞減（曲線在直線<b>下方</b>）。</div></div><div class="kf-step"><div class="kf-t"><b>3</b>償債基金法 — 複利提存</div><div class="kf-eq"><span class="kf-c k-s">(1－s)<small>殘餘價格率 s</small></span><span class="kf-op">×</span><span class="kf-c k-o"><b class="kw">i</b><small>利率</small></span><span class="kf-op">÷</span><span class="kf-c k-o">(1+i)ᴺ－1</span><span class="kf-op">＝</span><span class="kf-c k-m">每年提存 dn</span></div><div class="kf-ex">初期折舊較小（曲線在直線<b>上方</b>）。<br>符號：C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數。</div></div></div>
 
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
@@ -1083,7 +1091,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
   </div>
 
   <h3>D1　直接資本化法公式・極高頻</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>直接資本化法（§29、§30）</div><div class="kf-eq"><span class="kf-c kf-a">未來平均1年客觀淨收益</span><span class="kf-op">÷</span><span class="kf-c kf-b">收益資本化率</span><span class="kf-op">＝</span><span class="kf-c kf-r res">收益價格</span></div><div class="kf-ex">必為<b>未來</b>、<b>淨收益</b>、價格日期當時之資本化率。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>直接資本化法（§29、§30）</div><div class="kf-eq"><span class="kf-c k-s">未來平均1年客觀<b class="kw">淨收益</b></span><span class="kf-op">÷</span><span class="kf-c k-o">收益資本化率</span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格</span></div><div class="kf-ex">必為<b>未來</b>、<b>淨收益</b>、價格日期當時之資本化率。</div></div></div>
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
     <p style="display:flex;gap:12px;align-items:center;">
@@ -1170,7 +1178,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <p>應蒐集勘估標的及比較標的最近<b>3年</b>間總收入、總費用及資本化率等資料。</p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先扣掉建物，得土地淨收益</div><div class="kf-eq"><span class="kf-c kf-a">房地淨收益</span><span class="kf-op">－</span><span class="kf-c kf-b">建物淨收益</span><span class="kf-op">＝</span><span class="kf-c kf-p res">土地淨收益</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再還原成土地價格</div><div class="kf-eq"><span class="kf-c kf-p">土地淨收益</span><span class="kf-op">÷</span><span class="kf-c kf-b">土地收益資本化率</span><span class="kf-op">＝</span><span class="kf-c kf-r res">土地收益價格</span></div><div class="kf-ex">房地分離計算高頻題型（殘餘法）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先扣掉建物，得土地淨收益</div><div class="kf-eq"><span class="kf-c k-s">房地<b class="kw">淨收益</b></span><span class="kf-op">－</span><span class="kf-c k-g">建物<b class="kw">淨收益</b></span><span class="kf-op">＝</span><span class="kf-c k-n"><b class="kw">土地</b>淨收益</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再還原成土地價格</div><div class="kf-eq"><span class="kf-c k-n"><b class="kw">土地</b>淨收益</span><span class="kf-op">÷</span><span class="kf-c k-o"><b class="kw">土地</b>收益資本化率</span><span class="kf-op">＝</span><span class="kf-c k-m"><b class="kw">土地</b>收益價格</span></div><div class="kf-ex">房地分離計算高頻題型（殘餘法）。</div></div></div>
 
   <div class="note note-purple">
     <span class="tag">🟣 殘餘法（101-33 考過）</span>
@@ -1220,14 +1228,14 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <p>當折舊提存率＞0時，<b>淨收益已扣除折舊提存費</b>之房地綜合收益資本化率，<b>小於</b>淨收益未扣除折舊提存費者。淨收益<b>未扣除</b>折舊提存費者，建物收益價格＝建物淨收益÷(建物收益資本化率＋折舊提存率)，非單純除以資本化率。</p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>綜合資本化率：按價值比重加權</div><div class="kf-eq"><span class="kf-c kf-a">土地資本化率<small>× 土地價值÷總價值</small></span><span class="kf-op">＋</span><span class="kf-c kf-b">建物資本化率<small>× 建物價值÷總價值</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">綜合資本化率</span></div><div class="kf-ex">建物資本化率通常高於土地（有折舊）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>綜合資本化率：按價值比重加權（土地一組、建物一組）</div><div class="kf-eq"><span class="kf-c k-s"><b class="kw">土地</b>資本化率<small>× 土地價值÷總價值</small></span><span class="kf-op">＋</span><span class="kf-c k-g"><b class="kw">建物</b>資本化率<small>× 建物價值÷總價值</small></span><span class="kf-op">＝</span><span class="kf-c k-m">綜合資本化率</span></div><div class="kf-ex">建物資本化率通常高於土地（有折舊）。</div></div></div>
   <div class="note note-orange">
     <span class="tag">🟠 易混淆</span>
     <p>一般而言，<b>建物資本化率高於土地</b>（建物有折舊耗損風險，土地無實體折舊）。資本化率與折現率關係：兩者數值高低關係<b>不一定</b>（視評估方法與市場條件而定）。</p>
   </div>
 
   <h3>D3　折現現金流量分析法（DCF）</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>DCF：各期淨收益折現＋期末價值折現</div><div class="kf-eq"><span class="kf-c kf-a">Σ CFk÷(1+Y)ᵏ<small>各期淨收益折現</small></span><span class="kf-op">＋</span><span class="kf-c kf-b">Pn'÷(1+Y)ⁿ'<small>期末處分價值折現</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">收益價格 P</span></div><div class="kf-ex">CFk＝第k期淨收益、Y＝折現率、Pn'＝期末價值、n'＝分析期間。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>DCF：各期淨收益折現＋期末價值折現</div><div class="kf-eq"><span class="kf-c k-s">Σ CFk÷(1+Y)ᵏ<small><b class="kw">折現</b>各期淨收益</small></span><span class="kf-op">＋</span><span class="kf-c k-o">Pn'÷(1+Y)ⁿ'<small><b class="kw">折現</b>期末處分價值</small></span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格 P</span></div><div class="kf-ex">CFk＝第k期淨收益、Y＝折現率、Pn'＝期末價值、n'＝分析期間。</div></div></div>
 
   <h3>DCF與直接資本化法之差異（高頻比較題）</h3>
   <div class="tbl-wrap">
@@ -1688,7 +1696,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先算價差</div><div class="kf-eq"><span class="kf-c kf-a">較高試算價格</span><span class="kf-op">－</span><span class="kf-c kf-b">較低試算價格</span><span class="kf-op">＝</span><span class="kf-c kf-r res">價差</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再除以「平均」（不是除以最高、也不是最低）</div><div class="kf-eq"><span class="kf-c kf-a">價差</span><span class="kf-op">÷</span><span class="kf-c kf-p">試算價格平均值<small>(高＋低)÷2</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">差距率</span></div><div class="kf-ex">例：980、1,250 → 價差 270 ÷ 平均 1,115 ≈ <b>24.2%</b>，達 20% 以上要排除（§26）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先算價差</div><div class="kf-eq"><span class="kf-c k-s">較高<b class="kw">試算價格</b></span><span class="kf-op">－</span><span class="kf-c k-s">較低<b class="kw">試算價格</b></span><span class="kf-op">＝</span><span class="kf-c k-n">價差</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再除以「平均」（不是最高、也不是最低）</div><div class="kf-eq"><span class="kf-c k-n">價差</span><span class="kf-op">÷</span><span class="kf-c k-s"><b class="kw">試算價格</b>平均值<small>(高＋低)÷2</small></span><span class="kf-op">＝</span><span class="kf-c k-m">差距率</span></div><div class="kf-ex">例：980、1,250 → 價差 270 ÷ 平均 1,115 ≈ <b>24.2%</b>，達 20% 以上要排除（§26）。</div></div></div>
 
   <h3>蒐集比較實例應依循之原則（4項）</h3>
   <div class="note note-blue">
@@ -1752,10 +1760,10 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </table>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c kf-a">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c kf-b">勘估標的價格日期指數<small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c kf-p">比較標的交易日期指數<small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>價格日期調整（常考計算題）</div><div class="kf-eq"><span class="kf-c k-s">比較標的成交價</span><span class="kf-op">×</span><span class="kf-c k-o">勘估標的價格日期之價格<b class="kw">指數</b><small>分子＝現在（價格日期）</small></span><span class="kf-op">÷</span><span class="kf-c k-s">比較標的交易日期之價格<b class="kw">指數</b><small>分母＝成交當時</small></span><span class="kf-op">＝</span><span class="kf-c k-m">調整後價格</span></div><div class="kf-ex">例：成交 1,000 萬，交易日指數 100、價格日期指數 110 → 1,000×110÷100＝<b>1,100 萬</b>。口訣：<b>新÷舊</b>，指數上漲價格就加上去。</div></div></div>
 
   <h3>B2　比較法：合併開發分配計算</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c kf-a">該筆土地合併前價值</span><span class="kf-op">÷</span><span class="kf-c kf-b">各筆合併前價值總和</span><span class="kf-op">＝</span><span class="kf-c kf-r res">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c kf-a">合併後總價格</span><span class="kf-op">×</span><span class="kf-c kf-r">占比</span><span class="kf-op">＝</span><span class="kf-c kf-p res">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求「占比」</div><div class="kf-eq"><span class="kf-c k-s">該筆土地<b class="kw">合併前價值</b></span><span class="kf-op">÷</span><span class="kf-c k-s">各筆土地<b class="kw">合併前價值</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-n">占比</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘合併後總價格</div><div class="kf-eq"><span class="kf-c k-o">合併後總價格</span><span class="kf-op">×</span><span class="kf-c k-n">占比</span><span class="kf-op">＝</span><span class="kf-c k-m">該筆分配價格</span></div><div class="kf-ex">例：合併後 3,000 萬；甲 1,000、乙 2,000（合併前）→ 甲占 1/3，分得 <b>1,000 萬</b>。</div></div></div>
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
     <p>★高頻計算題：務必先求出該筆土地占合併前總價值之<b>比例</b>，再乘以合併後總價格。</p>
@@ -1967,7 +1975,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>定額法（直線）— 每年折舊相同</div><div class="kf-eq"><span class="kf-c kf-a">C<small>重建成本</small></span><span class="kf-op">×</span><span class="kf-c kf-b">(1－s)÷N<small>每年折舊率</small></span><span class="kf-op">×</span><span class="kf-c kf-p">n<small>經歷年數</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">累積折舊 Dn</span></div><div class="kf-ex">建物現值＝C－Dn。曲線是<b>直線</b>。</div></div><div class="kf-step"><div class="kf-t"><b>2</b>定率法 — 每年對「前一年餘值」打折</div><div class="kf-eq"><span class="kf-c kf-a">C</span><span class="kf-op">×</span><span class="kf-c kf-b">(1－r)ⁿ<small>r＝每年固定比率</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">第 n 年末現值</span></div><div class="kf-ex">初期折舊最大、逐年遞減（曲線在直線<b>下方</b>）。</div></div><div class="kf-step"><div class="kf-t"><b>3</b>償債基金法 — 複利提存</div><div class="kf-eq"><span class="kf-c kf-a">(1－s)</span><span class="kf-op">×</span><span class="kf-c kf-b">i<small>利率</small></span><span class="kf-op">÷</span><span class="kf-c kf-p">(1+i)ᴺ－1</span><span class="kf-op">＝</span><span class="kf-c kf-r res">每年提存 dn</span></div><div class="kf-ex">初期折舊較小（曲線在直線<b>上方</b>）。<br>符號：C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>定額法（直線）— 每年折舊相同</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－s)÷N<small>每年折舊率</small></span><span class="kf-op">×</span><span class="kf-c k-g">經歷年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dn</span></div><div class="kf-ex">建物現值＝C－Dn。曲線是<b>直線</b>。</div></div><div class="kf-step"><div class="kf-t"><b>2</b>定率法 — 每年對「前一年餘值」打折</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－r)ⁿ<small>r＝每年固定比率</small></span><span class="kf-op">＝</span><span class="kf-c k-m">第 n 年末現值</span></div><div class="kf-ex">初期折舊最大、逐年遞減（曲線在直線<b>下方</b>）。</div></div><div class="kf-step"><div class="kf-t"><b>3</b>償債基金法 — 複利提存</div><div class="kf-eq"><span class="kf-c k-s">(1－s)<small>殘餘價格率 s</small></span><span class="kf-op">×</span><span class="kf-c k-o"><b class="kw">i</b><small>利率</small></span><span class="kf-op">÷</span><span class="kf-c k-o">(1+i)ᴺ－1</span><span class="kf-op">＝</span><span class="kf-c k-m">每年提存 dn</span></div><div class="kf-ex">初期折舊較小（曲線在直線<b>上方</b>）。<br>符號：C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數。</div></div></div>
 
   <div class="note note-purple">
     <span class="tag">🟣 口訣</span>
@@ -2070,7 +2078,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
   </div>
 
   <h3>D1　直接資本化法公式・極高頻</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>直接資本化法（§29、§30）</div><div class="kf-eq"><span class="kf-c kf-a">未來平均1年客觀淨收益</span><span class="kf-op">÷</span><span class="kf-c kf-b">收益資本化率</span><span class="kf-op">＝</span><span class="kf-c kf-r res">收益價格</span></div><div class="kf-ex">必為<b>未來</b>、<b>淨收益</b>、價格日期當時之資本化率。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>直接資本化法（§29、§30）</div><div class="kf-eq"><span class="kf-c k-s">未來平均1年客觀<b class="kw">淨收益</b></span><span class="kf-op">÷</span><span class="kf-c k-o">收益資本化率</span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格</span></div><div class="kf-ex">必為<b>未來</b>、<b>淨收益</b>、價格日期當時之資本化率。</div></div></div>
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
     <p style="display:flex;gap:12px;align-items:center;">
@@ -2157,7 +2165,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <p>應蒐集勘估標的及比較標的最近<b>3年</b>間總收入、總費用及資本化率等資料。</p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先扣掉建物，得土地淨收益</div><div class="kf-eq"><span class="kf-c kf-a">房地淨收益</span><span class="kf-op">－</span><span class="kf-c kf-b">建物淨收益</span><span class="kf-op">＝</span><span class="kf-c kf-p res">土地淨收益</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再還原成土地價格</div><div class="kf-eq"><span class="kf-c kf-p">土地淨收益</span><span class="kf-op">÷</span><span class="kf-c kf-b">土地收益資本化率</span><span class="kf-op">＝</span><span class="kf-c kf-r res">土地收益價格</span></div><div class="kf-ex">房地分離計算高頻題型（殘餘法）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先扣掉建物，得土地淨收益</div><div class="kf-eq"><span class="kf-c k-s">房地<b class="kw">淨收益</b></span><span class="kf-op">－</span><span class="kf-c k-g">建物<b class="kw">淨收益</b></span><span class="kf-op">＝</span><span class="kf-c k-n"><b class="kw">土地</b>淨收益</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再還原成土地價格</div><div class="kf-eq"><span class="kf-c k-n"><b class="kw">土地</b>淨收益</span><span class="kf-op">÷</span><span class="kf-c k-o"><b class="kw">土地</b>收益資本化率</span><span class="kf-op">＝</span><span class="kf-c k-m"><b class="kw">土地</b>收益價格</span></div><div class="kf-ex">房地分離計算高頻題型（殘餘法）。</div></div></div>
 
   <div class="note note-purple">
     <span class="tag">🟣 殘餘法（101-33 考過）</span>
@@ -2207,14 +2215,14 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <p>當折舊提存率＞0時，<b>淨收益已扣除折舊提存費</b>之房地綜合收益資本化率，<b>小於</b>淨收益未扣除折舊提存費者。淨收益<b>未扣除</b>折舊提存費者，建物收益價格＝建物淨收益÷(建物收益資本化率＋折舊提存率)，非單純除以資本化率。</p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>綜合資本化率：按價值比重加權</div><div class="kf-eq"><span class="kf-c kf-a">土地資本化率<small>× 土地價值÷總價值</small></span><span class="kf-op">＋</span><span class="kf-c kf-b">建物資本化率<small>× 建物價值÷總價值</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">綜合資本化率</span></div><div class="kf-ex">建物資本化率通常高於土地（有折舊）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>綜合資本化率：按價值比重加權（土地一組、建物一組）</div><div class="kf-eq"><span class="kf-c k-s"><b class="kw">土地</b>資本化率<small>× 土地價值÷總價值</small></span><span class="kf-op">＋</span><span class="kf-c k-g"><b class="kw">建物</b>資本化率<small>× 建物價值÷總價值</small></span><span class="kf-op">＝</span><span class="kf-c k-m">綜合資本化率</span></div><div class="kf-ex">建物資本化率通常高於土地（有折舊）。</div></div></div>
   <div class="note note-orange">
     <span class="tag">🟠 易混淆</span>
     <p>一般而言，<b>建物資本化率高於土地</b>（建物有折舊耗損風險，土地無實體折舊）。資本化率與折現率關係：兩者數值高低關係<b>不一定</b>（視評估方法與市場條件而定）。</p>
   </div>
 
   <h3>D3　折現現金流量分析法（DCF）</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>DCF：各期淨收益折現＋期末價值折現</div><div class="kf-eq"><span class="kf-c kf-a">Σ CFk÷(1+Y)ᵏ<small>各期淨收益折現</small></span><span class="kf-op">＋</span><span class="kf-c kf-b">Pn'÷(1+Y)ⁿ'<small>期末處分價值折現</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">收益價格 P</span></div><div class="kf-ex">CFk＝第k期淨收益、Y＝折現率、Pn'＝期末價值、n'＝分析期間。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>DCF：各期淨收益折現＋期末價值折現</div><div class="kf-eq"><span class="kf-c k-s">Σ CFk÷(1+Y)ᵏ<small><b class="kw">折現</b>各期淨收益</small></span><span class="kf-op">＋</span><span class="kf-c k-o">Pn'÷(1+Y)ⁿ'<small><b class="kw">折現</b>期末處分價值</small></span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格 P</span></div><div class="kf-ex">CFk＝第k期淨收益、Y＝折現率、Pn'＝期末價值、n'＝分析期間。</div></div></div>
 
   <h3>DCF與直接資本化法之差異（高頻比較題）</h3>
   <div class="tbl-wrap">
@@ -2242,9 +2250,9 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <div class="titles"><h2>土地開發分析法</h2><div class="en">Land Development Analysis ★高頻計算章節</div></div>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先把銷售金額「除掉」利潤與利息</div><div class="kf-eq"><span class="kf-c kf-a">S 總銷售金額</span><span class="kf-op">÷</span><span class="kf-c kf-b">(1＋r)<small>利潤率</small></span><span class="kf-op">÷</span><span class="kf-c kf-p">(1＋i)<small>資本利息綜合利率</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">扣利潤利息後</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再減掉成本</div><div class="kf-eq"><span class="kf-c kf-r">扣利潤利息後</span><span class="kf-op">－</span><span class="kf-c kf-b">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c kf-p res">V 土地開發分析價格</span></div><div class="kf-ex">利潤、利息是「<b>除</b>」不是「減」（§81）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先把銷售金額「除掉」利潤與利息</div><div class="kf-eq"><span class="kf-c k-s">S 總銷售金額</span><span class="kf-op">÷</span><span class="kf-c k-o">(1＋r)<small>利潤率</small></span><span class="kf-op">÷</span><span class="kf-c k-o">(1＋i)<small>資本利息綜合利率</small></span><span class="kf-op">＝</span><span class="kf-c k-n">扣利潤利息後</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再減掉成本</div><div class="kf-eq"><span class="kf-c k-n">扣利潤利息後</span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div><div class="kf-ex">利潤、利息是「<b>除</b>」不是「減」（§81）。</div></div></div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>資本利息綜合利率（§79）</div><div class="kf-eq"><span class="kf-c kf-a">年利率</span><span class="kf-op">×</span><span class="kf-c kf-b">土地比率 ＋ 建物比率×½<small>只有建物乘 ½</small></span><span class="kf-op">×</span><span class="kf-c kf-p">開發年數</span><span class="kf-op">＝</span><span class="kf-c kf-r res">綜合利率</span></div><div class="kf-ex">例：3%、土地 40%／建物 60%、3 年 → 3%×(0.4＋0.3)×3＝<b>6.3%</b>。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>資本利息綜合利率（§79）</div><div class="kf-eq"><span class="kf-c k-s">資本利息年利率</span><span class="kf-op">×</span><span class="kf-c k-o">土地比率 ＋ 建物比率×½<small>只有建物乘 ½</small></span><span class="kf-op">×</span><span class="kf-c k-g">開發年數</span><span class="kf-op">＝</span><span class="kf-c k-m">綜合利率</span></div><div class="kf-ex">例：3%、土地 40%／建物 60%、3 年 → 3%×(0.4＋0.3)×3＝<b>6.3%</b>。</div></div></div>
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
     <p style="display:flex;gap:12px;align-items:center;">
@@ -2253,7 +2261,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     </p>
   </div>
 
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>年利率：按資金來源加權（§59 預售收入不計息）</div><div class="kf-eq"><span class="kf-c kf-a">自有比重×自有利率</span><span class="kf-op">＋</span><span class="kf-c kf-b">借貸比重×借貸利率</span><span class="kf-op">＋</span><span class="kf-c kf-p">預售比重×0<small>不計息</small></span><span class="kf-op">＝</span><span class="kf-c kf-r res">加權年利率</span></div><div class="kf-ex">例：40%×2%＋50%×6%＋10%×0＝<b>3.8%</b>（105-二）。</div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>年利率：按資金來源加權（§59 預售收入不計息）</div><div class="kf-eq"><span class="kf-c k-s">自有比重×自有利率</span><span class="kf-op">＋</span><span class="kf-c k-s">借貸比重×借貸利率</span><span class="kf-op">＋</span><span class="kf-c k-g">預售比重×0<small>不計息</small></span><span class="kf-op">＝</span><span class="kf-c k-m">加權年利率</span></div><div class="kf-ex">例：40%×2%＋50%×6%＋10%×0＝<b>3.8%</b>（105-二）。</div></div></div>
 
   <h3>估價程序順序（8步驟之土地開發分析法版本，高頻）</h3>
   <div class="flow">
@@ -2462,7 +2470,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
     <span class="tag">🟠 易混淆</span>
     <p>基準樓層通常以各層中<b>價格或租金最低之樓層</b>為基準（效用比設為100），<b>並非地面層恆定</b>為基準，亦非「樓層愈高、效用比愈高」（高樓層未必效用比最高，須視實際市場行情訂定）。</p>
   </div>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>某樓層土地分配價格</div><div class="kf-eq"><span class="kf-c kf-a">土地總價</span><span class="kf-op">×</span><span class="kf-c kf-b">該樓層效用比</span><span class="kf-op">÷</span><span class="kf-c kf-p">各樓層效用比總和</span><span class="kf-op">＝</span><span class="kf-c kf-r res">該樓層土地價格</span></div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>某樓層土地分配價格</div><div class="kf-eq"><span class="kf-c k-s">土地總價</span><span class="kf-op">×</span><span class="kf-c k-o">該樓層<b class="kw">效用比</b></span><span class="kf-op">÷</span><span class="kf-c k-o">各樓層<b class="kw">效用比</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-m">該樓層土地價格</span></div></div></div>
   <h3>區分所有建物基地單價（§100、§101）</h3>
   <style>
     .kf{display:flex;flex-direction:column;gap:10px;margin:14px 0}
@@ -2637,7 +2645,7 @@ footer{margin-top:40px;text-align:center;font-size:11px;color:var(--ink-soft);le
   </div>
 
   <h3>H3　都市更新權利變換</h3>
-  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求基地價值比率</div><div class="kf-eq"><span class="kf-c kf-a">該所有權人更新前權利價值</span><span class="kf-op">÷</span><span class="kf-c kf-b">權利變換前各所有權人權利價值總和</span><span class="kf-op">＝</span><span class="kf-c kf-r res">基地價值比率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘「實際分配」的權利價值總和</div><div class="kf-eq"><span class="kf-c kf-r">基地價值比率</span><span class="kf-op">×</span><span class="kf-c kf-b">更新後實施者實際分配之權利價值總和</span><span class="kf-op">＝</span><span class="kf-c kf-p res">應分配權利價值</span></div></div></div>
+  <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求基地價值比率</div><div class="kf-eq"><span class="kf-c k-s">該所有權人<b class="kw">更新前權利價值</b></span><span class="kf-op">÷</span><span class="kf-c k-s">權利變換前各所有權人<b class="kw">權利價值</b>總和</span><span class="kf-op">＝</span><span class="kf-c k-n">基地價值比率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>再乘「實際分配」的權利價值總和</div><div class="kf-eq"><span class="kf-c k-n">基地價值比率</span><span class="kf-op">×</span><span class="kf-c k-o">更新後實施者實際分配之權利價值總和</span><span class="kf-op">＝</span><span class="kf-c k-m">應分配權利價值</span></div></div></div>
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
     <p style="display:flex;gap:12px;align-items:center;">
