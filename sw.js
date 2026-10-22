@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v374';
+const CACHE = 'brokerx-v375';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -97,6 +97,7 @@ const FILES = [
   '/民法_模擬試題二.html',
   '/民法_申論115出題預測.html',
   '/民法_申論專練卷.html',
+  '/民法_來勝模擬試題一.html',
   '/民法_法律效果總整理.html',
   '/民法_定義填空練習.html',
   '/民法刷題練習_A篇.html',
