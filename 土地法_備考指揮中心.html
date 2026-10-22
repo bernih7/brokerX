@@ -231,10 +231,11 @@ footer{text-align:center;font-size:.76rem;color:var(--sub);margin:24px 0 0}
  </section>
 
 <section class="tab" id="pProg">
-  <div class="group-label">📤 回報給【總控】（全站一份）</div>
-  <p style="font-size:.85rem;margin:4px 0 8px">涵蓋題庫七頁、互動練習、解析版練習、模擬卷、小卡／單字卡／填空、各頁開啟次數。按一下複製，貼到【總控】對話。</p>
-  <button id="bxRepBtn" style="padding:8px 14px;border-radius:99px;border:1px solid var(--pri);background:var(--pri);color:#fff;font-size:.9rem;cursor:pointer">複製全站回報</button>
-  <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:.78rem;box-sizing:border-box"></textarea>
+  <div class="group-label">今日</div>
+  <p style="font-size:.9rem;margin:4px 0 8px" id="bxTodayLine"></p>
+  <div class="group-label">工具完成度與閱讀次數</div>
+  <p class="hint">完成度自動計算（刷題作答、模擬卷作答、小卡與單字卡標「已掌握」、填空按完成、申論勾已讀、六型模板勾已掌握）。速記、總整理、速查表、小卡、單字卡、填空、申論預測與模板讀完一輪，在該頁右下按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
+  <div id="toolStat"></div>
   <div class="group-label">📋 完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>
   <div class="group-label">🗂️ 錯題本統計（A 法條混淆／B 粗心／C 真的不熟）</div>
@@ -330,6 +331,34 @@ var k="1";try{k=localStorage.getItem("bx-rv")||"1"}catch(e){}if(["1","2","3"].in
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
 <script src="bx-use.js"></script>
-<script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa");if(!b)return;b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bx-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼到【總控】"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
+<style>
+.ts-sum{font-size:.84rem;color:var(--sub);margin:0 0 8px}
+details.ts-g{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:2px 12px}
+details.ts-g>summary{cursor:pointer;padding:10px 2px;font-family:"Noto Serif TC",serif;font-weight:700;color:var(--pri);font-size:.94rem}
+.ts-r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:9px 2px;border-top:1px solid var(--line);align-items:center}
+.ts-n{font-size:.9rem;color:var(--ink);text-decoration:none;font-weight:700;min-width:0;overflow-wrap:anywhere}
+a.ts-n:hover{color:var(--pri)}
+.ts-rd{font-size:.74rem;white-space:nowrap;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--sub)}
+.ts-rd.on{background:var(--pri-soft);border-color:var(--pri);color:var(--pri);font-weight:700}
+.ts-l{grid-column:1/-1;display:flex;align-items:center;gap:8px;min-width:0}
+.ts-bar{flex:0 0 34%;max-width:160px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.ts-bar i{display:block;height:100%;background:var(--pri);border-radius:99px}
+.ts-pc{font-size:.76rem;font-weight:700;color:var(--pri);min-width:34px;font-variant-numeric:tabular-nums}
+.ts-t{font-size:.76rem;color:var(--sub);line-height:1.5;min-width:0}
+</style>
+<script>(function(){var l=document.getElementById("bxTodayLine"),box=document.getElementById("toolStat");if(!window.BXREP||!BXREP.status)return;
+function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
+function draw(){var d=BXREP.today();if(l)l.textContent="今天作答 "+d.q+" 題選擇題"+(d.q?"（答對 "+d.c+"）":"")+"；記錄讀完 "+d.rd+" 頁。";if(!box)return;
+ var G=BXREP.status(),h="",all=0,nOpen=0;
+ G.forEach(function(g){var rows="";g.rows.forEach(function(r){all++;if(r.open||r.done||r.read)nOpen++;
+  var meta=[];if(r.txt)meta.push(esc(r.txt));if(r.open!=null)meta.push(r.open?"開 "+r.open+" 次":"尚未開過");if(r.last)meta.push("最近 "+md(r.last));
+  var name='<a class="ts-n" href="'+r.url+'" target="_blank" rel="noopener">'+esc(r.name)+'</a>';
+  var rd=r.read==null?"<span></span>":'<span class="ts-rd'+(r.read?" on":"")+'">讀過 '+r.read+' 輪</span>';
+  var bar=r.total?'<span class="ts-bar"><i style="width:'+r.pct+'%"></i></span><span class="ts-pc">'+r.pct+'%</span>':"";
+  rows+='<div class="ts-r">'+name+rd+'<div class="ts-l">'+bar+'<span class="ts-t">'+meta.join("・")+'</span></div></div>'});
+  h+='<details class="ts-g" open><summary>'+esc(g.g)+'</summary>'+rows+'</details>'});
+ box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h}
+draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw)})()</script>
 </body>
 </html>

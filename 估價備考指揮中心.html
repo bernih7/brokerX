@@ -397,27 +397,24 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 .pv-yes{color:var(--accent-g);font-weight:700;font-size:.74rem;white-space:nowrap;}
 .pv-no{color:var(--muted);font-size:.74rem;white-space:nowrap;}
 
-/* ── 閱讀進度匯報區 ── */
-.report-box{
-  background:var(--paper);border:1.5px solid var(--primary);
-  border-radius:10px;padding:14px 16px;margin-bottom:14px;
-}
-.report-box h4{
-  font-family:"Noto Serif TC",serif;font-size:.9rem;font-weight:700;
-  color:var(--primary);margin-bottom:8px;
-}
-.report-preview{
-  font-size:.8rem;color:var(--muted);background:var(--paper2);
-  border-radius:6px;padding:10px 12px;white-space:pre-line;
-  line-height:1.8;margin-bottom:10px;min-height:60px;font-family:monospace;
-}
-.copy-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--primary);color:#fff;border:none;border-radius:8px;
-  padding:8px 16px;font-size:.84rem;font-weight:600;cursor:pointer;transition:opacity .15s;
-}
-.copy-btn:hover{opacity:.85;}
-.copy-ok{color:var(--accent-g);font-size:.8rem;margin-left:10px;opacity:0;transition:opacity .3s;}
+/* ── 工具完成度與閱讀次數（進度頁） ── */
+.ts-today{font-size:.88rem;margin:4px 0 6px;color:var(--fg);line-height:1.6}
+.ts-note{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0 0 10px}
+.ts-sum{font-size:.82rem;color:var(--muted);margin:0 0 8px}
+.ts-g{border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-bottom:10px;overflow:hidden}
+.ts-g>summary{cursor:pointer;padding:11px 14px;font-weight:700;font-size:.9rem;color:var(--primary);display:flex;align-items:center;gap:8px}
+.ts-g>summary small{margin-left:auto;font-weight:600;font-size:.74rem;color:var(--muted)}
+.ts-rows{padding:0 14px 4px}
+.ts-r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
+.ts-n{font-size:.88rem;color:var(--fg);text-decoration:none;font-weight:600;min-width:0;overflow-wrap:anywhere}
+a.ts-n:hover{color:var(--primary)}
+.ts-rd{font-size:.74rem;white-space:nowrap;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.ts-rd.on{background:var(--paper2);border-color:var(--primary);color:var(--primary);font-weight:700}
+.ts-l{grid-column:1/-1;display:flex;align-items:center;gap:8px;min-width:0}
+.ts-bar{flex:0 0 34%;max-width:160px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.ts-bar i{display:block;height:100%;background:var(--primary);border-radius:99px}
+.ts-pc{font-size:.74rem;font-weight:700;color:var(--primary);min-width:34px;font-variant-numeric:tabular-nums}
+.ts-t{font-size:.74rem;color:var(--muted);line-height:1.5;min-width:0}
 
 /* ── Chapter read summary grid ── */
 .chap-grid{
@@ -1161,14 +1158,12 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 <!-- ⑤ 進度 -->
 <div id="tab-progress" class="panel">
 
-  <!-- 閱讀進度匯報 -->
-  <div class="sec-title">📤 閱讀進度匯報</div>
-  <div class="report-box">
-    <h4>複製後貼給 Claude → 更新記憶</h4>
-    <div class="report-preview" id="report-preview">（載入中⋯）</div>
-    <button class="copy-btn" onclick="copyReport()">📋 複製回報文字</button>
-    <span class="copy-ok" id="copy-ok">✓ 已複製！</span>
-  </div>
+  <!-- 今日＋工具完成度與閱讀次數（取代原「閱讀進度匯報」，不需回報） -->
+  <div class="sec-title">今日</div>
+  <p class="ts-today" id="bxTodayLine"></p>
+  <div class="sec-title">工具完成度與閱讀次數</div>
+  <p class="ts-note">完成度自動計算：刷題作答、模擬卷交卷、計算題組核對答對、單字卡與考題小卡標「已掌握」、申論範文標已讀。閱讀頁、單字卡、考題小卡、定義填空與申論範文讀完一輪，在該頁的計數鈕按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
+  <div id="toolStat"></div>
 
   <!-- 四類進度總覽 -->
   <div class="sec-title">四類閱讀進度一覽</div>
@@ -1465,51 +1460,34 @@ function updateAllCatGrids(){
 // kept for backwards compat (called by markRead)
 function updateChapGrid(){updateAllCatGrids();}
 
-function updateReport(){
-  // 若 bxv-use.js 已載入，優先用 BXREP.build() 產出全站自動統計
-  if(typeof BXREP!=='undefined'){
-    try{
-      var built=BXREP.build();
-      var el=document.getElementById('report-preview');
-      if(el)el.textContent=built;
-      return;
-    }catch(e){}
-  }
-  var today=new Date();
-  var dateStr=today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2,'0')+'-'+today.getDate().toString().padStart(2,'0');
-  var allItems=CHAPTERS.concat(MEMORY_TOOLS).concat(ESSAY_TOOLS).concat(LAW_TOOLS);
-  var drillDone=CHAPTERS.filter(function(c){return getRead(c.key);});
-  var memDone=MEMORY_TOOLS.filter(function(c){return getRead(c.key);});
-  var essayDone=ESSAY_TOOLS.filter(function(c){return getRead(c.key);});
-  var lawDone=LAW_TOOLS.filter(function(c){return getRead(c.key);});
-  var totalDone=drillDone.length+memDone.length+essayDone.length+lawDone.length;
-  var lines=['📊 估價備考閱讀進度回報 '+dateStr,'總完成：'+totalDone+'/'+allItems.length,''];
-  lines.push('📝 刷題練習（'+drillDone.length+'/16）：');
-  lines.push(drillDone.length>0?drillDone.map(function(c){return c.label;}).join('、'):'（尚無）');
-  lines.push('');
-  lines.push('🧠 記憶工具（'+memDone.length+'/9）：');
-  lines.push(memDone.length>0?memDone.map(function(c){return c.label;}).join('、'):'（尚無）');
-  lines.push('');
-  lines.push('✍️ 申論工具（'+essayDone.length+'/2）：');
-  lines.push(essayDone.length>0?essayDone.map(function(c){return c.label;}).join('、'):'（尚無）');
-  lines.push('');
-  lines.push('⚡ 計算題＋診斷（'+lawDone.length+'/2）：');
-  lines.push(lawDone.length>0?lawDone.map(function(c){return c.label;}).join('、'):'（尚無）');
-  var el=document.getElementById('report-preview');
-  if(el)el.textContent=lines.join('\n');
-}
-
-function copyReport(){
-  var text=document.getElementById('report-preview').textContent;
-  navigator.clipboard.writeText(text).then(function(){
-    var ok=document.getElementById('copy-ok');
-    ok.style.opacity='1';
-    setTimeout(function(){ok.style.opacity='0';},2000);
-  }).catch(function(){
-    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    var ok=document.getElementById('copy-ok');ok.style.opacity='1';setTimeout(function(){ok.style.opacity='0';},2000);
+/* 原「複製回報」改為在本頁直接顯示各工具完成度與讀過輪數（BXREP.status()）；BXREP.build() 仍保留在 bxv-use.js */
+function tsEsc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function tsMD(t){if(!t)return '';var d=new Date(t*1000);return (d.getMonth()+1)+'/'+d.getDate();}
+function drawToolStat(){
+  var l=document.getElementById('bxTodayLine'),box=document.getElementById('toolStat');
+  if(typeof BXREP==='undefined'||!BXREP.status)return;
+  var d=BXREP.today();
+  if(l)l.textContent='今天刷了 '+d.q+' 題選擇題；卡片與填空操作 '+d.c+' 次。';
+  if(!box)return;
+  var G=BXREP.status(),h='',all=0,nOpen=0;
+  G.forEach(function(g){
+    var rows='',gd=0;
+    g.rows.forEach(function(r){
+      all++;if(r.open||r.done||r.read){nOpen++;gd++;}
+      var meta=[];if(r.txt)meta.push(tsEsc(r.txt));
+      if(r.open!=null)meta.push(r.open?'開 '+r.open+' 次':'尚未開過');
+      if(r.last)meta.push('最近 '+tsMD(r.last));
+      var rd=r.read==null?'<span></span>':'<span class="ts-rd'+(r.read?' on':'')+'">讀過 '+r.read+' 輪</span>';
+      var bar=r.total?'<span class="ts-bar"><i style="width:'+r.pct+'%"></i></span><span class="ts-pc">'+r.pct+'%</span>':'';
+      rows+='<div class="ts-r"><a class="ts-n" href="'+r.url+'" target="_blank" rel="noopener">'+tsEsc(r.name)+'</a>'+rd+'<div class="ts-l">'+bar+'<span class="ts-t">'+meta.join('・')+'</span></div></div>';
+    });
+    h+='<details class="ts-g" open><summary>'+tsEsc(g.g)+'<small>已開始 '+gd+'／'+g.rows.length+'</small></summary><div class="ts-rows">'+rows+'</div></details>';
   });
+  box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h;
 }
+function updateReport(){drawToolStat();}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')drawToolStat();});
+window.addEventListener('focus',drawToolStat);
 
 // ── 刷題答題統計（讀 bxv-q2）──
 var BXV_CH_TOTAL={

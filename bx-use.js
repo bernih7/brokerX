@@ -39,7 +39,7 @@ function build(){
   L.push(m[1]+"：已答 "+r.a+"／"+r.n+"｜答對 "+r.c+"｜"+pc(r.c,r.a)+"%｜"+new Date(r.t).toLocaleString("zh-TW",{hour12:false})+(es?"｜錯題原因 "+es:""))});
  L.push("","══ 三、記憶工具 ══");
  var cnt=function(key,tt){var m=ld(key,{}),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return"已掌握 "+n+"｜待複習 "+r+"｜未標記 "+Math.max(0,tt-n-r)};
- L.push("考題小卡（共 518 張）："+cnt("exam_mastery_land_v1",518));L.push("互動單字卡（共 104 張）："+cnt("land_flashcard_mastery_v1",104));
+ L.push("考題小卡（共 "+TOT.card+" 張）："+cnt("exam_mastery_land_v1",TOT.card));L.push("互動單字卡（共 "+TOT.flash+" 張）："+cnt("land_flashcard_mastery_v1",TOT.flash));
  var ff=ld("bx-fill",{}),fc={},fk=Object.keys(ff).length;Object.keys(ff).forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
  L.push("定義填空練習：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
  var U=ld("bx-use",{}),hr=[],nv=[];
@@ -49,5 +49,64 @@ function build(){
  var data={};ids.forEach(function(i){var r=DB[i];data[i]=[r.c,r.ok,r.k==="D"?1:0,r.k||"",r.t,r.n||1,r.w||0]});
  L.push("","BXDATA1:"+b64e(data));return L.join("\n")}
 function fillMark(key){var f=ld("bx-fill",{});f[key]=1;sv("bx-fill",f)}
-window.BXREP={build:build,rec:rec,tag:tag,fillMark:fillMark,PAGE:PAGE};
+/* ---- ⑤ 讀過輪數（手動 －／＋，做法同民法）＋ 各工具完成度（指揮中心「進度」頁顯示） ---- */
+var BASE="https://bernih7.github.io/brokerX/";
+function U8(p){return BASE+encodeURIComponent(p)+".html"}
+/* 各工具總數（2026-10-22 依頁面實際內容核對：考題小卡 518、單字卡 108、填空 183、申論總覽 72、六型模板 6 型） */
+var TOT={card:518,flash:108,fill:183,essay:72,tpl:6};
+function readInc(id,d){var R=ld("bx-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bx-read",R);return x.n}
+function readGet(id){return ld("bx-read",{})[id]||{n:0,t:0}}
+/* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷、申論總覽的完成度是自動算，不放計數鈕） */
+var READP={"土地法_罰則總整理":1,"土地法_稅率總表":1,"土地法_一生一次一生一屋分析":1,"土地法_土增稅申報時間點":1,"土地法_稅制與取得方式比較表":1,"土地法_速查三表":1,"土地法_年數速查":1,"土地法_優先購買權_物權債權":1,"土地法_分數倍數數字分析":1,"土地法_彩色重點速記":1,"土地法_讀書攻略與備考指南":1,"土地法_考題小卡":1,"土地法_互動單字卡":1,"土地法_定義填空練習":1,"土地法_申論115出題預測":1,"土地法申論題_六型答題模板":1};
+function readWidget(){if(!READP[PAGE]||document.getElementById("bxRead"))return;
+ var cs=document.createElement("style");cs.textContent="#bxRead{--rp:#2F5D50;--rs:#FFFEFA;--ri:#25302C;--rl:#DAD6C3;position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:59;width:40px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--rs);color:var(--ri);border:1px solid var(--rl);border-radius:20px;padding:3px 0;box-shadow:0 2px 8px rgba(0,0,0,.18);font:11px/1.15 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center}"+
+ "#bxRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0}#bxRead button.p{background:var(--rp);color:var(--rs)}#bxRead .t{display:block;padding:1px 0}#bxRead b{display:block;font-size:15px;color:var(--rp)}"+
+ "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}}:root[data-theme=\"dark\"] #bxRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}";
+ document.head.appendChild(cs);
+ var w=document.createElement("div");w.id="bxRead";w.title="讀完一輪按＋，按錯按－；次數顯示在指揮中心「進度」";
+ w.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
+ var bs=w.querySelectorAll("button"),n=w.querySelector("b");function up(){n.textContent=readGet(PAGE).n||0}
+ bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up()};document.body.appendChild(w);up();
+ /* 頁尾留白至少 200px，捲到底時最後的按鈕／連結不會被計數鈕蓋住 */
+ try{if((parseFloat(getComputedStyle(document.body).paddingBottom)||0)<200)document.body.style.paddingBottom="200px"}catch(e){}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
+/* 今日：由作答歷史（bx-q2 每題 h 紀錄）推算今天作答題數 */
+function today(){var DB=ld("bx-q2",{}),d0=new Date();d0.setHours(0,0,0,0);var s0=Math.floor(d0.getTime()/1000),q=0,c=0,rd=0,R=ld("bx-read",{});
+ Object.keys(DB).forEach(function(id){(DB[id].h||[]).forEach(function(h){if(h[0]>=s0){q++;if(h[1])c++}})});
+ Object.keys(R).forEach(function(k){if((R[k].t||0)>=s0)rd++});return{q:q,c:c,rd:rd}}
+/* 各工具完成度：回傳分組資料，指揮中心畫成清單 */
+function mcount(key,tt){var m=ld(key,{}),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return{m:n,r:r,t:tt}}
+function status(){
+ var DB=ld("bx-q2",{}),UU=ld("bx-use",{}),G=[];
+ function row(p,name,done,total,txt){var u=UU[p]||{},rd=readGet(p);return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:READP[p]?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0)}}
+ /* 刷題：題庫七頁＋互動練習＋解析版練習共用 bx-q2 */
+ var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0};o.d++;all.d++;if(DB[id].ok){o.ok++;all.ok++}});
+ var pg={},order=[],c,total=0;for(c in CH){var p=CH[c][0];if(!pg[p]){pg[p]={t:0,d:0,ok:0,ch:[]};order.push(p)}pg[p].t+=CH[c][2];pg[p].ch.push(c);total+=CH[c][2];var x=by[c];if(x){pg[p].d+=x.d;pg[p].ok+=x.ok}}
+ var R1=[];order.forEach(function(p){var o=pg[p],dn=Math.min(o.d,o.t);R1.push(row("LandLaw_"+p+"_quiz","題庫 "+p+"（"+o.ch.join("・")+"）",dn,o.t,"已作答 "+dn+"／"+o.t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});
+ var ad=Math.min(all.d,total),at="全科已作答 "+ad+"／"+total+(all.d?"・正確率 "+pc(all.ok,all.d)+"%":"")+"（與題庫共用紀錄）";
+ R1.push(row("土地法互動練習","互動練習（全 "+total+" 題）",ad,total,at));
+ R1.push(row("土地法解析版練習","解析版練習（全 "+total+" 題）",ad,total,at));
+ G.push({g:"刷題（作答後自動記錄）",rows:R1});
+ /* 模擬卷／診斷卷 */
+ var R2=[];[["土地法_診斷卷一","診斷卷一（自擬）","landdiag1"],["土地法_來勝模擬試題一_土地法規","來勝模擬(一) 土地法規","ll_a1"],["土地法_來勝模擬試題一_土地稅法","來勝模擬(一) 土地稅法","ll_b1"]].forEach(function(a){var r=ld("bx_mock_"+a[2],null),N=(r&&r.n)||25,dn=r?(r.a||0):0;
+  var o=row(a[0],a[1],Math.min(dn,N),N,dn?"已答 "+dn+"／"+N+"・答對 "+(r.c||0)+"（選擇 "+((r.c||0)*2)+"／"+(N*2)+"）":"尚未作答");if(r&&r.t)o.last=Math.max(o.last,Math.floor(r.t/1000));R2.push(o)});
+ G.push({g:"模擬卷（作答後自動記錄）",rows:R2});
+ /* 記憶工具 */
+ var R3=[],x1=mcount("exam_mastery_land_v1",TOT.card),x2=mcount("land_flashcard_mastery_v1",TOT.flash);
+ R3.push(row("土地法_考題小卡","考題小卡",Math.min(x1.m,x1.t),x1.t,"已掌握 "+x1.m+"／"+x1.t+(x1.r?"・待複習 "+x1.r:"")));
+ R3.push(row("土地法_互動單字卡","互動單字卡",Math.min(x2.m,x2.t),x2.t,"已掌握 "+x2.m+"／"+x2.t+(x2.r?"・待複習 "+x2.r:"")));
+ var fk=Object.keys(ld("bx-fill",{})).length;R3.push(row("土地法_定義填空練習","定義填空練習",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
+ G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
+ /* 申論 */
+ var R4=[],es=ld("bx-es-read",{}),eo=0,ep=0;Object.keys(es).forEach(function(k){if(!es[k])return;if(/^q-/.test(k))eo++;else ep++});var en=eo+ep;
+ R4.push(row("土地法_申論題分類總覽","申論總覽（官方 32＋預測／模擬 40）",Math.min(en,TOT.essay),TOT.essay,"已讀 "+en+"／"+TOT.essay+"（官方 "+eo+"／32・預測／模擬 "+ep+"／40）"));
+ var tp=ld("bx-land-tpl",{}),tn=Object.keys(tp).filter(function(k){return tp[k]}).length;
+ R4.push(row("土地法申論題_六型答題模板","申論六型答題模板",Math.min(tn,TOT.tpl),TOT.tpl,"已掌握題型 "+tn+"／"+TOT.tpl));
+ R4.push(row("土地法_申論115出題預測","申論 115 出題預測",0,0,""));
+ G.push({g:"申論",rows:R4});
+ /* 閱讀頁 */
+ var R5=[];[["土地法_彩色重點速記","彩色重點速記"],["土地法_罰則總整理","罰則總整理"],["土地法_稅率總表","稅務總表"],["土地法_稅制與取得方式比較表","稅制與取得方式比較表"],["土地法_速查三表","速查三表"],["土地法_年數速查","期間速查"],["土地法_優先購買權_物權債權","優先購買權（物權・債權）"],["土地法_分數倍數數字分析","分數倍數數字分析"],["土地法_一生一次一生一屋分析","一生一次・一生一屋分析"],["土地法_土增稅申報時間點","土增稅申報時間點"],["土地法_讀書攻略與備考指南","讀書攻略與備考指南"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
+ G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R5});
+ return G}
+window.BXREP={build:build,rec:rec,tag:tag,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,today:today,PAGE:PAGE};
 })();

@@ -53,6 +53,20 @@ var PAGES=[
  ["不動產估價概要_申論題實戰範文","申論題實戰範文"],
  ["估價_計算題攻略","計算題攻略"],
  ["估價_診斷卷一","診斷卷①"],
+ ["估價_租金估計攻略表","租金估計攻略表"],
+ ["估價_技術規則專欄","技術規則專欄"],
+ ["估價_土開計算題組","土開計算題組"],
+ ["估價_DCF計算題組","DCF計算題組"],
+ ["估價_房地拆價計算題組","房地拆價計算題組"],
+ ["估價_來勝模擬試題一","來勝模擬試題一"],
+ ["估價_模擬試題二","模擬試題二"],
+ ["估價_模擬試題三","模擬試題三"],
+ ["估價_模擬試題四","模擬試題四"],
+ ["估價_綜合模擬卷一","綜合模擬卷一"],
+ ["估價_綜合模擬卷二","綜合模擬卷二"],
+ ["估價_綜合模擬卷三","綜合模擬卷三"],
+ ["估價_綜合模擬卷四","綜合模擬卷四"],
+ ["估價_綜合模擬卷五","綜合模擬卷五"],
  ["估價備考指揮中心","備考指揮中心"]
 ];
 
@@ -235,7 +249,56 @@ function build(){
  return L.join("\n")
 }
 
-window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
+/* ---- ⑤ 各工具完成度＋讀過輪數（指揮中心「進度」頁顯示，不需回報） ---- */
+var BASE="https://bernih7.github.io/brokerX/";
+function U8(p){return BASE+encodeURIComponent(p)+".html"}
+/* 頁面 → 讀過計數 RID（bxv-read）；有 RID 的頁面在指揮中心顯示「讀過 N 輪」 */
+var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_定義填空練習":"fill","估價彩色重點速記":"color","估價四大方法系統攻略":"sys","估價_四大方法比較表":"method","估價_程序流程記憶圖":"flow","估價_八大程序速覽表":"proc","估價_租金估計攻略表":"rent","估價_計算題攻略":"calc","估價_易混淆概念並排":"mix1","估價_易混淆概念補充卷":"mix2","估價_技術規則專欄":"rule","不動產估價概要_申論題實戰範文":"essay"};
+/* 頁面本身沒有 header 計數元件、由本檔在右下自動補「＋／讀過 N 輪／－」的頁面 */
+var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
+/* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
+var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1","113":"val_prac_113_v1"};
+var TOT={card:92,kcard:532,essay:46,v_hs1:25,e1dev:8,dcf:8,split:6};
+function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
+function status(){
+ var UU=ld("bxv-use",{}),G=[];
+ function row(p,name,done,total,txt,t2){var u=UU[p]||{},rid=RIDS[p],rd=rid?readGet(rid):{n:0,t:0};
+  return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:rid?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0,t2||0)}}
+ /* 刷題：讀各頁自己的作答存檔 */
+ var R1=[];["A1","A2","A3","A4","B","C1","C2","D1","D2","D3","E1","F1","G1","H1H2","H3I1","I2J1","113"].forEach(function(c){var a=ld("bxv-st:"+ANS[c]+"_answers",null)||ld(ANS[c]+"_answers",{})||{},ks=Object.keys(a),d=Math.min(ks.length,CH[c][2]),ok=0,known=0;
+  ks.forEach(function(k){var v=a[k];if(v&&typeof v==="object"&&"correct" in v){known++;if(v.correct)ok++}});
+  R1.push(row("估價刷題練習_"+CH[c][0],"刷題 "+CH[c][1],d,CH[c][2],"已作答 "+d+"／"+CH[c][2]+(known?"・正確率 "+pc(ok,known)+"%・錯 "+(known-ok):"")))});
+ G.push({g:"刷題（作答後自動記錄）",rows:R1});
+ /* 模擬卷 */
+ var R2=[],hs=ld("v_hs1_answers",{}),hn=Math.min(Object.keys(hs).length,TOT.v_hs1);
+ R2.push(row("估價_來勝模擬試題一","來勝模擬試題一",hn,TOT.v_hs1,"選擇題已作答 "+hn+"／"+TOT.v_hs1));
+ [["估價_模擬試題二","模擬試題二","bx_mock_2","mock2"],["估價_模擬試題三","模擬試題三","bx_mock_3","mock3"],["估價_模擬試題四","模擬試題四","bx_mock_4","mock4"],
+  ["估價_綜合模擬卷一","綜合模擬卷一","bx_mockc_1","mockc1"],["估價_綜合模擬卷二","綜合模擬卷二","bx_mockc_2","mockc2"],["估價_綜合模擬卷三","綜合模擬卷三","bx_mockc_3","mockc3"],["估價_綜合模擬卷四","綜合模擬卷四","bx_mockc_4","mockc4"],["估價_綜合模擬卷五","綜合模擬卷五","bx_mockc_5","mockc5"],
+  ["估價_診斷卷一","診斷卷一","bx_mock_1","diag1"]].forEach(function(m){
+  var r=ld(m[2],null)||ld("bxv-mock:"+m[3],null),tt=(r&&r.total)||25,ts=r&&r.ts?Math.floor(r.ts/1000):0;
+  R2.push(row(m[0],m[1],r?tt:0,tt,r?"已交卷・答對 "+r.score+"／"+tt+"（"+(r.pct!=null?r.pct:pc(r.score,tt))+"%）":"尚未交卷",ts))});
+ var cv=row("估價_模擬卷覆蓋分析","模擬卷覆蓋分析",0,0,"分析頁，不記錄開啟");cv.open=null;R2.push(cv);
+ G.push({g:"模擬卷（交卷後自動記錄）",rows:R2});
+ /* 計算題組 */
+ var R3=[];[["估價_土開計算題組","土開計算題組","bx-e1dev-done",TOT.e1dev],["估價_DCF計算題組","DCF計算題組","bx-dcfcalc-done",TOT.dcf],["估價_房地拆價計算題組","房地拆價計算題組","bx-split-done",TOT.split]].forEach(function(x){
+  var dn=ld(x[2],[]);dn=Array.isArray(dn)?Math.min(dn.length,x[3]):0;R3.push(row(x[0],x[1],dn,x[3],"答對 "+dn+"／"+x[3]+" 題"))});
+ G.push({g:"計算題組（核對答對自動記錄）",rows:R3});
+ /* 記憶工具 */
+ var R4=[],fm=ld("bxv-st:valuation_flashcard_mastery",{})||{},fmm=0,fmr=0;Object.keys(fm).forEach(function(k){if(fm[k]==="mastered")fmm++;else if(fm[k])fmr++});
+ fmm=Math.min(fmm,TOT.card);R4.push(row("估價互動單字卡","互動單字卡",fmm,TOT.card,"已掌握 "+fmm+"／"+TOT.card+" 張"+(fmr?"・待複習 "+fmr:"")));
+ var kc=ld("bxe-card-v2",{})||{},kcm=0,kcr=0;Object.keys(kc).forEach(function(k){var s=kc[k]&&typeof kc[k]==="object"?kc[k].status:kc[k];if(s==="mastered")kcm++;else if(s==="review")kcr++});
+ kcm=Math.min(kcm,TOT.kcard);R4.push(row("估價_考題小卡","考題小卡",kcm,TOT.kcard,"已掌握 "+kcm+"／"+TOT.kcard+" 張"+(kcr?"・待複習 "+kcr:"")));
+ var fr=parseInt(ld("bxe-fill",0),10)||0;R4.push(row("估價_定義填空練習","定義填空練習",0,0,fr?"隨機測驗跑完 "+fr+" 輪":"隨機測驗尚未跑完一輪"));
+ G.push({g:"記憶工具（已掌握＝自己標記）",rows:R4});
+ /* 申論 */
+ var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+)$/.test(id))en++});en=Math.min(en,TOT.essay);
+ G.push({g:"申論",rows:[row("不動產估價概要_申論題實戰範文","申論題實戰範文",en,TOT.essay,"已讀 "+en+"／"+TOT.essay+" 題（官方 32＋預測 14）")]});
+ /* 閱讀頁 */
+ var R6=[];[["估價彩色重點速記","彩色重點速記"],["估價四大方法系統攻略","四大方法系統攻略"],["估價_四大方法比較表","四大方法比較表"],["估價_程序流程記憶圖","程序流程記憶圖"],["估價_八大程序速覽表","八大程序速覽表"],["估價_租金估計攻略表","租金估計攻略表"],["估價_計算題攻略","計算題攻略"],["估價_易混淆概念並排","易混淆概念並排"],["估價_易混淆概念補充卷","易混淆概念補充卷"],["估價_技術規則專欄","技術規則專欄"]].forEach(function(a){R6.push(row(a[0],a[1],0,0,""))});
+ G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R6});
+ return G}
+
+window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
 
 /* ── 浮動鈕（全站標準 #bxfab）：左下回頂端（進度環）＋右下回備考指揮中心；沒有深淺色切換鈕的頁面補 🌙 ── */
@@ -312,7 +375,25 @@ window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,
    var up=w.querySelector(".bx-up"),wb=w.getBoundingClientRect().bottom;
    if(leftTop<innerHeight&&up)up.style.marginBottom=Math.max(0,Math.round(wb-leftTop+10))+"px";
    themeBtn();
+   readWidget(w);
   }catch(e){}
+ }
+ /* 沒有 header 計數元件的閱讀／記憶頁：右下直式「＋／讀過 N 輪／－」，放在回指揮中心圓鈕正上方（沿用 bxv-read） */
+ function readWidget(w){
+  var R=window.BXREP;if(!R||!R.READ_INJ||!R.READ_INJ[R.PAGE]||document.getElementById("bxv-n")||document.getElementById("bxvRead"))return;
+  var rid=R.RIDS[R.PAGE];if(!rid)return;
+  var cs=document.createElement("style");cs.textContent=
+   "#bxvRead{--rp:#2F5D50;--rs:#FFFEFA;--ri:#25302C;--rl:#DDD6C0;position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:59;width:40px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--rs);color:var(--ri);border:1px solid var(--rl);border-radius:20px;padding:3px 0;box-shadow:0 2px 8px rgba(0,0,0,.18);font:11px/1.15 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center}"+
+   "#bxvRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0}#bxvRead button.p{background:var(--rp);color:var(--rs)}#bxvRead .t{display:block;padding:1px 0}#bxvRead b{display:block;font-size:15px;color:var(--rp)}"+
+   "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxvRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#34403A}}:root[data-theme=\"dark\"] #bxvRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#34403A}";
+  document.head.appendChild(cs);
+  var b=document.createElement("div");b.id="bxvRead";b.title="讀完一輪按＋，按錯按－；輪數顯示在指揮中心「進度」";
+  b.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
+  var bs=b.querySelectorAll("button"),n=b.querySelector("b");function up(){n.textContent=R.readGet(rid).n||0}
+  bs[0].onclick=function(){R.readInc(rid,1);up()};bs[1].onclick=function(){R.readInc(rid,-1);up()};
+  document.body.appendChild(b);up();
+  /* 跟著 #bxfab 的高度（底部有固定列時 #bxfab 會被墊高） */
+  var hub=w&&w.querySelector(".bx-hub");if(hub&&hub.getClientRects().length){var top=hub.getBoundingClientRect().top;b.style.bottom=Math.round(innerHeight-top+10)+"px"}
  }
  if(document.readyState==="complete")setTimeout(run,300);else addEventListener("load",function(){setTimeout(run,500)});
 })();

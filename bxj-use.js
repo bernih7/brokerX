@@ -49,5 +49,58 @@ function build(){
  var data={};ids.forEach(function(i){var r=DB[i];data[i]=[r.c,r.ok,r.k==="D"?1:0,r.k||"",r.t,r.n||1,r.w||0]});
  L.push("","BXDATA1:"+b64e(data));return L.join("\n")}
 function fillMark(key){var f=ld("bxj-fill",{});f[key]=1;sv("bxj-fill",f)}
-window.BXREP={build:build,rec:rec,tag:tag,fillMark:fillMark,PAGE:PAGE};
+/* ---- ⑤ 讀過輪數（手動 －／＋，做法同民法）＋ 各工具完成度（指揮中心「進度」頁顯示） ---- */
+var BASE="https://bernih7.github.io/brokerX/";
+function U8(p){return BASE+encodeURIComponent(p)+".html"}
+function readInc(id,d){var R=ld("bxj-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bxj-read",R);return x.n}
+function readGet(id){return ld("bxj-read",{})[id]||{n:0,t:0}}
+/* 有「讀過 N 輪」計數鈕的頁面（刷題、互動練習、小考、模擬卷的完成度是自動算，不放計數鈕） */
+var READP={"經紀法規概要_互動單字卡":1,"經紀法規_定義填空練習":1,"經紀法規申論題_篇章主題答題模板":1,"經紀法規_申論115出題預測":1,"經紀法規_罰則總整理":1,"經紀法規_罰鍰與處分一覽表":1,"經紀法規_四法罰則總比較":1,"經紀法規_公平法消保法罰則整理":1,"經紀法規_公寓大廈條例罰則整理":1,"經紀法規_應記載不得記載總整理":1,"經紀法規_公平法獨占聯合結合整理":1,"經紀法規_定型化契約_無效vs不構成":1,"經紀法規概要_彩色重點速記":1,"經紀法規_易混淆概念並排":1,"經紀法規_讀書攻略與備考指南":1};
+function readWidget(){if(!READP[PAGE]||document.getElementById("bxjRead"))return;
+ var cs=document.createElement("style");cs.textContent="#bxjRead{--rp:#2F5D50;--rs:#FFFEFA;--ri:#25302C;--rl:#DAD6C3;position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:59;width:40px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--rs);color:var(--ri);border:1px solid var(--rl);border-radius:20px;padding:3px 0;box-shadow:0 2px 8px rgba(0,0,0,.18);font:11px/1.15 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center;box-sizing:border-box}"+
+ "#bxjRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0;margin:0}#bxjRead button.p{background:var(--rp);color:var(--rs)}#bxjRead .t{display:block;padding:1px 0}#bxjRead .t b{display:block;font-size:15px;color:var(--rp)!important;font-weight:700}#bxjRead .t{color:var(--ri)!important}"+
+ "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxjRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}}:root[data-theme=\"dark\"] #bxjRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}";
+ document.head.appendChild(cs);
+ var w=document.createElement("div");w.id="bxjRead";w.title="讀完一輪按＋，按錯按－；次數顯示在指揮中心「進度」";
+ w.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
+ var bs=w.querySelectorAll("button"),n=w.querySelector("b");function up(){n.textContent=readGet(PAGE).n||0}
+ bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up()};document.body.appendChild(w);up()}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
+/* 今日：由作答歷程（bxj-q2 的 h）與讀過輪數的時間算出 */
+function today(){var d=new Date();d.setHours(0,0,0,0);var t0=Math.floor(d.getTime()/1000),DB=ld("bxj-q2",{}),q=0,c=0,R=ld("bxj-read",{}),r=0;
+ Object.keys(DB).forEach(function(id){(DB[id].h||[]).forEach(function(h){if(h[0]>=t0){q++;if(h[1])c++}})});
+ Object.keys(R).forEach(function(k){if((R[k].t||0)>=t0)r++});return{q:q,c:c,r:r}}
+/* 各工具完成度：回傳分組資料，指揮中心畫成表 */
+var SPLIT={G1:[49,61],H3:[46,42]};/* G1、H3 依年度分兩頁：99–104 年為 _1，105–114 年為 _2 */
+function drillPage(id){var a=id.split("-"),c=a[0],y=parseInt(a[1],10);if(!CH[c])return"";var g=CH[c][0];if(SPLIT[c])g+=(y<=104?"_1":"_2");return g==="115說明書修正小考"?"經紀法規_115說明書修正小考":"經紀法規刷題練習_"+g}
+function status(){
+ var DB=ld("bxj-q2",{}),UU=ld("bxj-use",{}),G=[];
+ function row(p,name,done,total,txt){var u=UU[p]||{},rd=readGet(p);return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:READP[p]?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0)}}
+ /* 刷題：bxj-q2 依題號章節（G1、H3 再依年度）歸頁 */
+ var tot={},order=[],c;for(c in CH){var pg=drillPage(c+"-0-0");if(SPLIT[c]){var p1=drillPage(c+"-104-0"),p2=drillPage(c+"-105-0");tot[p1]=SPLIT[c][0];tot[p2]=SPLIT[c][1];if(order.indexOf(p1)<0)order.push(p1,p2)}else{tot[pg]=(tot[pg]||0)+CH[c][2];if(order.indexOf(pg)<0)order.push(pg)}}
+ var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){var p=drillPage(id);if(!p)return;var o=by[p]=by[p]||{d:0,ok:0};o.d++;if(DB[id].ok)o.ok++;if(id.split("-")[0]!=="C5"){all.d++;if(DB[id].ok)all.ok++}});
+ var NM={},R1=[];PAGES.forEach(function(x){NM[x[0]]=x[1]});
+ var SO=["A1A2A3","A4","A5","E1","E3","G1_1","G1_2","G2","H1","H3_1","H3_2","其他小章節"].map(function(k){return"經紀法規刷題練習_"+k});SO.push("經紀法規_115說明書修正小考");
+ SO.forEach(function(p){var o=by[p]||{d:0,ok:0},t=tot[p]||0;R1.push(row(p,(p.indexOf("115")>=0?"":"刷題 ")+(NM[p]||p).replace(/^題庫 /,""),o.d,t,"已作答 "+o.d+"／"+t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});
+ R1.push(row("經紀法規概要_互動練習","互動練習（520 題混合）",all.d,520,"題庫共用，各頁作答都算：已作答 "+all.d+"／520"+(all.d?"・正確率 "+pc(all.ok,all.d)+"%":"")));
+ G.push({g:"刷題（作答後自動記錄）",rows:R1});
+ /* 模擬卷：bx_mock_<id>={a,c,n,t} */
+ var R2=[];[["經紀法規_診斷卷一","① 診斷卷","diag1"],["經紀法規_高頻考點卷二","② 高頻考點卷","hi2"],["經紀法規_混淆對比卷三","③ 混淆對比卷","cf3"],["經紀法規_全真模擬卷四","④ 全真模擬卷","full4"],["經紀法規_缺口補強卷五","⑤ 缺口補強卷","full5"],["經紀法規_模擬試題一_曾榮耀","來勝 115 模擬(一)","tch1"]].forEach(function(a){var r=ld("bx_mock_"+a[2],null),n=(r&&r.n)||25,dn=r&&r.n?r.a:0;R2.push(row(a[0],a[1],dn,n,r&&r.n?"已答 "+r.a+"／"+r.n+"・答對 "+r.c+"（"+pc(r.c,r.n)+"%）":"尚未作答"))});
+ R2.push(row("經紀法規_申論專練卷","申論專練卷①（3 題）",0,0,"自己手寫後對照；只記開啟次數"));
+ G.push({g:"模擬卷（交卷後自動記錄）",rows:R2});
+ /* 記憶工具 */
+ var R3=[],fm=ld("jingji_flashcard_mastery",{}),fy=0,fs=0,fn=0;Object.keys(fm).forEach(function(k){if(fm[k]==="yes")fy++;else if(fm[k]==="soso")fs++;else if(fm[k]==="no")fn++});
+ R3.push(row("經紀法規概要_互動單字卡","互動單字卡",fy,113,"已掌握 "+fy+"／113"+(fs||fn?"・普通 "+fs+"・不熟 "+fn:"")));
+ var fk=Object.keys(ld("bxj-fill",{})).length;R3.push(row("經紀法規_定義填空練習","定義填空練習",fk,95,"已完成 "+fk+"／95 張"));
+ G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
+ /* 申論 */
+ var R4=[],es=ld("brokerlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
+ R4.push(row("經紀法規申論題_篇章主題答題模板","申論篇章主題答題模板",er+em,30,"已讀 "+(er+em)+"／30 題範例（已掌握 "+em+"）"));
+ var pr=Object.keys(ld("bx-jj-pred",{})).length;R4.push(row("經紀法規_申論115出題預測","申論 115 出題預測",pr,9,"高、中頻主題已讀完範文 "+pr+"／9"));
+ G.push({g:"申論",rows:R4});
+ /* 閱讀頁 */
+ var R5=[];[["經紀法規_罰則總整理","罰則總整理"],["經紀法規_罰鍰與處分一覽表","罰鍰與處分一覽表"],["經紀法規_四法罰則總比較","四法罰則總比較"],["經紀法規_公平法消保法罰則整理","公平法＋消保法罰則"],["經紀法規_公寓大廈條例罰則整理","公寓大廈條例罰則"],["經紀法規_應記載不得記載總整理","應記載不得記載總整理"],["經紀法規_公平法獨占聯合結合整理","公平法獨占・聯合・結合"],["經紀法規_定型化契約_無效vs不構成","定型化契約 無效vs不構成"],["經紀法規概要_彩色重點速記","彩色重點速記"],["經紀法規_易混淆概念並排","易混淆概念並排"],["經紀法規_讀書攻略與備考指南","讀書攻略與備考指南"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
+ G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R5});
+ return G}
+window.BXREP={build:build,rec:rec,tag:tag,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,today:today,PAGE:PAGE};
 })();

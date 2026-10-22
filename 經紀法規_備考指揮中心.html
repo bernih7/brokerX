@@ -757,11 +757,11 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 </section>
 
 <section class="tab" id="pProg">
-  <div class="group-label">回報給專案對話（全站一份）</div>
-  <p class="note">涵蓋十二個章節題庫頁、互動練習、模擬卷、單字卡、填空、申論模板、各頁開啟次數。按一下複製，貼回專案對話。</p>
-  <button id="bxRepBtn" class="seg-btn" style="padding:8px 16px;border-radius:99px;border:1px solid var(--pri);background:var(--pri);color:var(--on,#fff);font-size:.9rem;cursor:pointer">複製全站回報</button>
-  <textarea id="bxRepTa" readonly style="display:none;width:100%;height:220px;margin-top:8px;font-size:.78rem;box-sizing:border-box;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px"></textarea>
-  <script>(function(){var b=document.getElementById("bxRepBtn"),t=document.getElementById("bxRepTa");if(!b)return;b.onclick=function(){var x=BXREP.build();try{localStorage.setItem("bxj-lastrep",JSON.stringify(Math.floor(Date.now()/1000)))}catch(e){}t.style.display="block";t.value=x;t.focus();t.select();var ok=function(){b.textContent="已複製，貼回專案對話"};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(ok,function(){b.textContent="請手動全選複製"});else b.textContent="請手動全選複製"}})()</script>
+  <div class="group-label">今日</div>
+  <p style="font-size:.9rem;margin:4px 0 8px" id="bxTodayLine"></p>
+  <div class="group-label">工具完成度與閱讀次數</div>
+  <p class="hint">完成度自動計算（刷題作答、模擬卷交卷、單字卡標「掌握」、填空按完成、申論模板翻開或標已掌握、出題預測勾讀完）。速記、總整理、單字卡、填空、申論頁讀完一輪，在該頁右下按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
+  <div id="toolStat"></div>
   <div class="group-label">完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>
   <div class="group-label">錯題本統計（A 法條混淆／B 粗心／C 真的不熟）</div>
@@ -823,7 +823,7 @@ var exam=new Date('2026-11-14T00:00:00+08:00');var d=Math.max(0,Math.ceil((exam-
 var wd=new Date().getDay(),we=(wd===0||wd===6);
 var next=null;MOCKS.slice(0,4).forEach(function(m){var s=mockState(m[0]);if(!(s&&s.done)&&!next)next=m});
 var wk=['最弱一章回頭刷＋錯題','A 經紀業管理條例','E 公寓大廈管理條例','H 消費者保護法','G 公平交易法','A 獎懲＋說明書簽章','最弱一章回頭刷'];
-var plan=we?['限時做模擬卷：'+(next?next[1]:'⑤ 錯題重組卷（請 Claude 依錯題製作）'),'訂正：錯題歸 A／B／C，把分篇答對率貼回專案對話','最弱一章刷題＋讀 1 題申論作答架構','現行法修正／罰則總整理']:['章節刷題 1–2 回（主力：'+wk[wd]+'）','錯題本 15–20 分（A／B／C 歸類）','罰則總整理或單字卡（碎片時間）'];
+var plan=we?['限時做模擬卷：'+(next?next[1]:'⑤ 錯題重組卷（請 Claude 依錯題製作）'),'訂正：錯題歸 A／B／C，到「進度」看各卷與各章完成度','最弱一章刷題＋讀 1 題申論作答架構','現行法修正／罰則總整理']:['章節刷題 1–2 回（主力：'+wk[wd]+'）','錯題本 15–20 分（A／B／C 歸類）','罰則總整理或單字卡（碎片時間）'];
 document.getElementById('homeSub').textContent='距考試 '+d+' 天・今天是'+(we?'假日（約 6 小時）':'平日（約 2 小時）');
 document.getElementById('homeFocus').textContent=we?'假日優先：模擬卷與訂正':'平日優先：選擇題章節刷題';
 var key='jj_today_'+new Date().toISOString().slice(0,10),stt={};try{stt=JSON.parse(lsG(key)||'{}')}catch(e){}
@@ -892,6 +892,35 @@ details.essay-detail .bt>summary{cursor:pointer;list-style:none;display:grid;gri
 <div id="bxfab"><button class="bx-up" id="upBtn" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div>
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
+<style>
+.ts-g{margin:0 0 10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 12px}
+.ts-g>summary{font-weight:700;color:var(--pri);cursor:pointer;padding:6px 0;font-family:"Noto Serif TC",serif}
+.ts-r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:9px 2px;border-top:1px solid var(--line);align-items:center}
+.ts-n{font-size:.9rem;color:var(--ink);text-decoration:none;font-weight:600;min-width:0;overflow-wrap:anywhere}
+a.ts-n:hover{color:var(--pri)}
+.ts-rd{font-size:.75rem;white-space:nowrap;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--sub)}
+.ts-rd.on{background:var(--pri-soft);border-color:var(--pri);color:var(--pri);font-weight:700}
+.ts-l{grid-column:1/-1;display:flex;align-items:center;gap:8px;min-width:0}
+.ts-bar{flex:0 0 34%;max-width:160px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.ts-bar i{display:block;height:100%;background:var(--pri);border-radius:99px}
+.ts-pc{font-size:.75rem;font-weight:700;color:var(--pri);min-width:34px}
+.ts-t{font-size:.75rem;color:var(--sub);line-height:1.5;min-width:0}
+.ts-sum{font-size:.82rem;color:var(--sub);margin:0 0 8px}
+</style>
+<script>(function(){var l=document.getElementById("bxTodayLine"),box=document.getElementById("toolStat");if(!window.BXREP||!BXREP.status)return;
+function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
+function draw(){var d=BXREP.today();if(l)l.textContent="今天作答 "+d.q+" 次選擇題（答對 "+d.c+"）；記了讀過輪數的頁面 "+d.r+" 頁。";if(!box)return;
+ var G=BXREP.status(),h="",all=0,nOpen=0;
+ G.forEach(function(g){var rows="";g.rows.forEach(function(r){all++;if(r.open||r.done||r.read)nOpen++;
+  var meta=[];if(r.txt)meta.push(esc(r.txt));if(r.open!=null)meta.push(r.open?"開 "+r.open+" 次":"尚未開過");if(r.last)meta.push("最近 "+md(r.last));
+  var name='<a class="ts-n" href="'+r.url+'" target="_blank" rel="noopener">'+esc(r.name)+'</a>';
+  var rd=r.read==null?"<span></span>":'<span class="ts-rd'+(r.read?" on":"")+'">讀過 '+r.read+' 輪</span>';
+  var bar=r.total?'<span class="ts-bar"><i style="width:'+r.pct+'%"></i></span><span class="ts-pc">'+r.pct+'%</span>':"";
+  rows+='<div class="ts-r">'+name+rd+'<div class="ts-l">'+bar+'<span class="ts-t">'+meta.join("・")+'</span></div></div>'});
+  h+='<details class="ts-g" open><summary>'+esc(g.g)+'</summary>'+rows+'</details>'});
+ box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h}
+draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw)})()</script>
 <script>
 (function(){function openEs(){var h=location.hash;if(!h||h.indexOf('#es-')!==0)return;
  var el=document.getElementById(h.slice(1));if(!el)return;
