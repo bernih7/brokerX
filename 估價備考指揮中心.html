@@ -196,6 +196,14 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 .group-name{font-family:"Noto Serif TC",serif;font-size:.9rem;font-weight:700;color:var(--fg);}
 .group-pct{font-size:.74rem;color:var(--muted);}
 .group-arrow{color:var(--muted);font-size:.72rem;transition:transform .2s;}
+.group-header-left{flex:1;min-width:0;flex-wrap:wrap}
+.group-header{gap:10px}
+.rd{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;border-radius:99px;padding:2px 9px;border:1px solid var(--border,#d9d3c7);color:var(--muted);white-space:nowrap;margin-left:auto}
+.rd i{display:inline-block;width:34px;height:5px;border-radius:9px;background:var(--border,#d9d3c7);position:relative;overflow:hidden}
+.rd i b{position:absolute;top:0;bottom:0;left:0;background:var(--accent-gold)}
+.rd.part{color:var(--accent-gold);border-color:var(--accent-gold)}
+.rd.done{color:var(--accent-g);border-color:var(--accent-g);background:rgba(74,122,58,.12)}
+.rd.done i b{background:var(--accent-g)}
 .group-header.open .group-arrow{transform:rotate(180deg);}
 .group-body{
   display:none;border:1.5px solid var(--primary);border-top:none;
@@ -738,7 +746,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
           <a class="ch-pill blue" href="估價_計算題攻略.html" target="_blank">🧮 DCF計算題攻略</a>
         </div>
       </div>
-      <div class="group-read-bar">
+      <div class="group-read-bar" id="bar-D">
         <span>D章進度</span>
         <div class="g-bar"><div class="g-fill" id="gfill-D" style="width:0%"></div></div>
         <span id="gpct-D">0/3</span>
@@ -770,7 +778,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
           <a class="ch-pill" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank">📐 系統攻略（比較法）</a>
         </div>
       </div>
-      <div class="group-read-bar">
+      <div class="group-read-bar" id="bar-B">
         <span>B章進度</span>
         <div class="g-bar"><div class="g-fill" id="gfill-B" style="width:0%"></div></div>
         <span id="gpct-B">0/1</span>
@@ -821,7 +829,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
           <a class="ch-pill" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9%E5%9B%9B%E5%A4%A7%E6%96%B9%E6%B3%95%E7%B3%BB%E7%B5%B1%E6%94%BB%E7%95%A5.html" target="_blank">📐 系統攻略（估價原則）</a>
         </div>
       </div>
-      <div class="group-read-bar">
+      <div class="group-read-bar" id="bar-A">
         <span>A章進度</span>
         <div class="g-bar"><div class="g-fill" id="gfill-A" style="width:0%"></div></div>
         <span id="gpct-A">0/4</span>
@@ -891,7 +899,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
           <a class="ch-pill" href="估價_DCF計算題組.html" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">📈 DCF計算題組（8題換條件）</a>
         </div>
       </div>
-      <div class="group-read-bar">
+      <div class="group-read-bar" id="bar-EI">
         <span>E–I章進度</span>
         <div class="g-bar"><div class="g-fill" id="gfill-EI" style="width:0%"></div></div>
         <span id="gpct-EI">0/5</span>
@@ -1404,6 +1412,15 @@ function updateGroupBars(){
     var pctEl=document.getElementById('gpct-'+g);
     if(fill)fill.style.width=pct+'%';
     if(pctEl)pctEl.textContent=done+'/'+gr.tot;
+    var bar=document.getElementById('bar-'+g);
+    var body=bar&&bar.closest('.group-body');
+    var hd=body&&body.previousElementSibling;
+    if(hd&&hd.classList.contains('group-header')){
+      var rd=hd.querySelector('.rd');
+      if(!rd){rd=document.createElement('span');rd.className='rd';hd.insertBefore(rd,hd.querySelector('.group-arrow'));}
+      rd.className='rd'+(done===gr.tot?' done':(done>0?' part':''));
+      rd.innerHTML='<i><b style="width:'+pct+'%"></b></i>已讀 '+done+'/'+gr.tot+(done===gr.tot?' ✓':'');
+    }
   });
 }
 
