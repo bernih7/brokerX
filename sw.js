@@ -11,6 +11,7 @@ const FILES = [
   '/bxm-exam.js',
   '/bxm-exams-data.js',
   '/bxv-use.js',
+  '/kf-fit.js',
   '/LandLaw_A1A2_quiz.html',
   '/LandLaw_A3A4A5_quiz.html',
   '/LandLaw_B_quiz.html',
