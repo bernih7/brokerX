@@ -647,7 +647,7 @@ body {
           <td><span class="tag tag-mid">備考</span></td>
         </tr>
         <tr>
-          <td>樓層別效用比計算<br><span style="font-size:11px;color:var(--ink-soft)">地價分配率→基地單價</span></td>
+          <td>樓層別效用比計算<br><span style="font-size:11px;color:var(--ink-soft)">地價分配率→基地單價（教材簡化算法）</span></td>
           <td>比較法應用</td>
           <td>7</td>
           <td>0</td>
@@ -683,7 +683,7 @@ body {
           <td><span class="tag tag-mid">留意</span></td>
         </tr>
         <tr>
-          <td>都更基地價值比率<br><span style="font-size:11px;color:var(--ink-soft)">各宗地更新前後價值比例</span></td>
+          <td>都更基地價值比率<br><span style="font-size:11px;color:var(--ink-soft)">素地價值÷（素地價值＋建物成本×(1－累積折舊率)）（§125）</span></td>
           <td>權利估價</td>
           <td>3</td>
           <td>0</td>
@@ -848,16 +848,16 @@ body {
         <div class="calc-card-freq">16年全考</div>
       </div>
       <div class="calc-card-body">
-        <div class="kf"><div class="kf-step"><div class="kf-t"><b>①</b>單項調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">區域因素、個別因素或其單項調整率</span><span class="kf-op">＞</span><span class="kf-c k-o">15%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>②</b>總調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">情況＋日期＋區域＋個別 合計</span><span class="kf-op">＞</span><span class="kf-c k-o">30%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>③</b>試算價格差距（§26）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">最高－最低</span><span class="fr-line"></span><span class="kf-c k-s">(最高＋最低)÷2</span></span><span class="kf-op">≥</span><span class="kf-c k-o">20%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div><div class="kf-ex">剛好 15%、30% 不排除（「大於」）；剛好 20% 要排除（「達」）。</div></div></div>
+        <div class="kf"><div class="kf-step"><div class="kf-t"><b>①</b>單項調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">區域因素、個別因素或其單項調整率</span><span class="kf-op">＞</span><span class="kf-c k-o">15%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>②</b>總調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">情況＋日期＋區域＋個別 合計</span><span class="kf-op">＞</span><span class="kf-c k-o">30%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>③</b>試算價格差距（§26）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">最高－最低</span><span class="fr-line"></span><span class="kf-c k-s">(最高＋最低)÷2</span></span><span class="kf-op">≥</span><span class="kf-c k-o">20%</span><span class="kf-op">→</span><span class="kf-c k-m">先就偏高／偏低者重新檢討；檢討後仍≥20% 才排除</span></div><div class="kf-ex">剛好 15%、30% 不排除（「大於」）；檢討後差距剛好 20% 仍要排除（「達」），&lt;20% 才過關。</div></div></div>
         <ul class="card-steps">
           <li>逐項列出各比較條件調整率（情況/日期/區域/個別）</li>
-          <li>檢查每一個單項是否超過±15%</li>
+          <li>檢查區域因素、個別因素（及其內任一單獨項目）是否超過±15%（§25；情況、日期調整不適用單項15%，只計入總調整率30%）</li>
           <li>加總所有調整率絕對值，檢查是否超過30%</li>
           <li>算出各比較實例的試算價格，計算最高vs最低差距比例</li>
         </ul>
         <div class="trap-note">
           <strong>⚠ 計算陷阱</strong>
-          第③關差距分母是「最高與最低試算價格的平均值」（§26Ⅱ），不是最低、也不是最高。關卡①②在§25（排除比較標的）、關卡③在§26（排除試算價格）；剛好15%、30%仍可採用，但差距「達」20%即排除。
+          第③關差距分母是「最高與最低試算價格的平均值」（§26Ⅱ），不是最低、也不是最高。關卡①②在§25（排除比較標的）、關卡③在§26（排除試算價格）；剛好15%、30%仍可採用；差距「達」20%須先重新檢討，檢討後仍達20%才排除（&lt;20%過關）。
         </div>
         <div class="calc-history">
           <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
@@ -899,7 +899,7 @@ body {
         <div class="calc-card-freq">8年出現</div>
       </div>
       <div class="calc-card-body">
-        <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>實質租金</div><div class="kf-eq"><span class="kf-c k-s">支付租金</span><span class="kf-op">＋</span><span class="kf-c k-o">押金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">預付差額</span><span class="kf-op">＝</span><span class="kf-c k-m">實質租金</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>押金運用收益</div><div class="kf-eq"><span class="kf-c k-o">押金金額</span><span class="kf-op">×</span><span class="kf-c k-n">年利率</span><span class="kf-op">＝</span><span class="kf-c k-m">押金運用收益</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>預付期差額</div><div class="kf-eq"><span class="kf-c k-g">(實際預付期－正常預付期)</span><span class="kf-op">×</span><span class="kf-c k-s">月租金</span><span class="kf-op">×</span><span class="kf-c k-n">月利率</span><span class="kf-op">＝</span><span class="kf-c k-m">預付差額</span></div></div></div>
+        <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>實質租金</div><div class="kf-eq"><span class="kf-c k-s">支付租金</span><span class="kf-op">＋</span><span class="kf-c k-o">押金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">預付差額</span><span class="kf-op">＝</span><span class="kf-c k-m">實質租金</span></div><div class="kf-ex">§130：租金加計「押金<b>或保證金、權利金</b>及其他相關運用收益」之總數；保證金、權利金之運用收益比照押金計算。「預付差額」非條文列舉項，屬「其他相關運用收益」之教材算法</div></div><div class="kf-step"><div class="kf-t"><b>2</b>押金運用收益</div><div class="kf-eq"><span class="kf-c k-o">押金金額</span><span class="kf-op">×</span><span class="kf-c k-n">年利率</span><span class="kf-op">＝</span><span class="kf-c k-m">押金運用收益</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>預付期差額</div><div class="kf-eq"><span class="kf-c k-g">(實際預付期－正常預付期)</span><span class="kf-op">×</span><span class="kf-c k-s">月租金</span><span class="kf-op">×</span><span class="kf-c k-n">月利率</span><span class="kf-op">＝</span><span class="kf-c k-m">預付差額</span></div></div></div>
         <div class="formula-note">
           <strong>各符號：</strong><br>
           押金運用收益：押金交給房東使用，等同出租人多收之額外報酬<br>
@@ -929,7 +929,7 @@ body {
         <div class="calc-card-freq">7年選擇</div>
       </div>
       <div class="calc-card-body">
-        <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>地價分配率</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-o">各樓層<mark class="kwm">效用比</mark></span><span class="fr-line"></span><span class="kf-c k-o"><mark class="kwm">效用比</mark>總和</span></span><span class="kf-op">＝</span><span class="kf-c k-n">地價分配率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>各樓層地價</div><div class="kf-eq"><span class="kf-c k-s">基地總地價</span><span class="kf-op">×</span><span class="kf-c k-n">地價分配率</span><span class="kf-op">＝</span><span class="kf-c k-m">各樓層地價</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>基地單價</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-m">各樓層地價</span><span class="fr-line"></span><span class="kf-c k-s">各樓層樓地板面積</span></span><span class="kf-op">＝</span><span class="kf-c k-m">基地單價</span></div></div></div>
+        <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>地價分配率（教材簡化算法，非§100 公式）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-o">各樓層<mark class="kwm">效用比</mark></span><span class="fr-line"></span><span class="kf-c k-o"><mark class="kwm">效用比</mark>總和</span></span><span class="kf-op">＝</span><span class="kf-c k-n">地價分配率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>各樓層地價</div><div class="kf-eq"><span class="kf-c k-s">基地總地價</span><span class="kf-op">×</span><span class="kf-c k-n">地價分配率</span><span class="kf-op">＝</span><span class="kf-c k-m">各樓層地價</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>基地單價</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-m">各樓層地價</span><span class="fr-line"></span><span class="kf-c k-s">各樓層樓地板面積</span></span><span class="kf-op">＝</span><span class="kf-c k-m">基地單價</span></div></div></div>
         <div class="formula-note">
           <strong>考試流程：</strong><br>
           ①題目給各樓層效用比（如1F:100, 2F:60, 3F:50）<br>
@@ -939,7 +939,7 @@ body {
         </div>
         <div class="trap-note">
           <strong>⚠ 注意分母</strong>
-          地價分配率的分母是「所有樓層效用比加總」，不是建物樓板面積。若題目給的效用比是「每平方公尺」，要先×各樓板面積再算分配率。
+          地價分配率的分母是「所有樓層效用比加總」，不是建物樓板面積。若題目給的效用比是「每平方公尺」，要先×各樓板面積再算分配率。<br>此為教材簡化算法；§100 之地價分配率＝該樓層別效用比－平均樓層別效用比×全棟建物成本價格占全棟房地總價格比率，兩者不同，依題目指定方法作答。
         </div>
       </div>
     </div>
@@ -1059,7 +1059,7 @@ body {
         113年申論考「DCF定義與和直接資本化法的差異」，但沒有要求計算。選擇題近兩年開始出現DCF計算題（112、113年選擇）。<br><br>
         DCF是收益法中最難的計算題型，且§28、§31～§32明確規定DCF為收益法之正式方法之一，命題人補上「完整DCF計算申論」的可能性在115年顯著提高。
         <br><br>
-        <strong>應備公式：</strong>V = Σ[NOI_t ÷ (1+r)ᵗ] + [復歸價值 ÷ (1+r)ⁿ]
+        <strong>應備公式（§32）：</strong>P ＝ Σ[CFk ÷ (1＋Y)ᵏ] ＋ [Pn′ ÷ (1＋Y)ⁿ]（P＝收益價格、CFk＝各期淨收益、Y＝折現率、Pn′＝期末價值）
       </div>
       <div class="risk-level">🟡 命中機率：中（115年申論出現機率 45%）</div>
     </div>
@@ -1106,7 +1106,7 @@ body {
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">③</span> 比較法三關卡順序</h4>
-      <p>計算排除規則時，順序是：①先檢查每個單項調整率是否≤15% → ②檢查各項絕對值總和≤30% → ③最後算試算價格差距≤20%。三關任一超標就排除，不能跳過順序。</p>
+      <p>計算排除規則時，順序是：①先檢查每個單項調整率是否≤15% → ②檢查各項絕對值總和≤30% → ③最後算試算價格差距＜20%（達20%須先就偏高或偏低者重新檢討，檢討後仍達20%以上才排除）。三關任一超標就排除，不能跳過順序。</p>
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">④</span> V公式建物成本乘以½</h4>
@@ -1118,7 +1118,7 @@ body {
     </div>
     <div class="tip-card">
       <h4><span class="tip-num">⑥</span> 差距分母用平均值</h4>
-      <p>比較法試算價格差距（§26Ⅱ）：差距 ＝（最高－最低）÷ 高低價格之平均值，達20%以上者排除。分母是「平均值」，不是最低、不是最高。</p>
+      <p>比較法試算價格差距（§26Ⅱ）：差距 ＝（最高－最低）÷ 高低價格之平均值，達20%以上者須先重新檢討，檢討後仍達20%以上者排除。分母是「平均值」，不是最低、不是最高。</p>
     </div>
   </div>
 </div>
