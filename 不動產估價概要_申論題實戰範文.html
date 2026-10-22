@@ -318,6 +318,28 @@ header::after{pointer-events:none;}
 [data-theme="dark"] .pred-info strong{color:#7AACCA;}
 [data-theme="dark"] nav.botnav a.active .nav-iw{background:rgba(132,194,174,.15);}
 [data-theme="dark"] .usage-box h3{color:var(--primary);}
+
+/* ── 公式小卡（依角色配色，一行不換行）── */
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-ink:#25302C}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4}
+.kf{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.kf-step{border:1px solid var(--line);border-radius:10px;background:var(--paper2);padding:10px 12px;min-width:0}
+.kf-t{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.kf-t b{display:inline-block;background:var(--found,#3D5A6A);color:#fff;border-radius:50%;min-width:20px;height:20px;line-height:20px;text-align:center;margin-right:6px;font-size:12px}
+.kf-eq{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.kf-eq>*{flex:0 0 auto}
+.kf-c{border-radius:8px;padding:5px 10px;font-weight:700;font-size:14px;line-height:1.4;color:var(--ks-ink);border:1px solid;white-space:nowrap;text-align:center}
+.kf-c small{display:block;font-weight:400;font-size:11px;opacity:.78}
+.kf-op{font-size:20px;font-weight:700;color:var(--ink);padding:0 2px;white-space:nowrap}
+.k-s{background:var(--ks-s);border-color:var(--ks-sb)}.k-o{background:var(--ks-o);border-color:var(--ks-ob)}.k-g{background:var(--ks-g);border-color:var(--ks-gb)}.k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+.kf-fr{display:inline-flex;flex-direction:column;align-items:stretch;gap:4px}.fr-line{height:3px;background:var(--ks-ink);border-radius:2px}
+.kf-ex{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6}
+/* 代入計算：一行一式、不換行 */
+.cbox{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--ks-mb);border-radius:8px;padding:10px 14px;margin:10px 0;font-variant-numeric:tabular-nums;font-size:.9rem;line-height:1.9;overflow-x:auto}
+.cbox .cl{white-space:pre;width:max-content;min-width:100%}
+.cbox .cl.tx{white-space:normal;width:auto;color:var(--muted);font-size:.84rem;line-height:1.7}
+.cbox .cl.sp{height:6px}
+.cbox .rs{background:var(--ks-m);border:1px solid var(--ks-mb);border-radius:6px;padding:0 6px;font-weight:800;color:var(--ks-ink)}
 </style>
 <script src="bxv-use.js"></script>
 </head>
@@ -432,13 +454,9 @@ header::after{pointer-events:none;}
     </ol>
     <div class="note">⚠️ 陷阱：只有三種路徑，絕對沒有「後期加速折舊」這個說法，考題常用選項混淆。</div>
     <div class="section-h">二、定額法公式</div>
-    <div class="formula-box">每年折舊額 ＝ C × (1－s) ÷ N
-Dn（n年累積折舊）＝ C × (1－s) ÷ N × n
-建物現值 ＝ C － Dn
-
-C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>每年折舊額</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N<small>耐用年數</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">每年折舊額</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>n 年累積折舊 Dn</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N<small>耐用年數</small></span></span><span class="kf-op">×</span><span class="kf-c k-g">經歷年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dn</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>建物現值</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">－</span><span class="kf-c k-n">累積折舊 Dn</span><span class="kf-op">＝</span><span class="kf-c k-m">建物現值</span></div><div class="kf-ex">C＝重建成本、s＝殘餘價格率、N＝耐用年數、n＝經歷年數</div></div></div>
     <div class="section-h">三、代入計算（C=200萬、s=5%、N=50年）</div>
-    <div class="formula-box">每年折舊額 ＝ 200 × 0.95 ÷ 50 ＝ 3.8 萬元/年</div>
+    <div class="cbox"><div class="cl">每年折舊額 ＝ 200 × 0.95 ÷ 50 ＝<b class="rs">3.8 萬元/年</b></div></div>
     <table>
       <tr><th>經歷年數n</th><th>累積折舊額（萬元）</th><th>建物現值（萬元）</th></tr>
       <tr><td>0</td><td>0</td><td>200.0</td></tr>
@@ -511,16 +529,10 @@ C=重建成本、s=殘餘價格率、N=耐用年數、n=經歷年數</div>
     <div class="section-h">一、定率法意義</div>
     <p>定率法係依每年固定折舊率，對當年「餘值」（而非原始成本）計算折舊，故每年折舊金額逐年遞減，屬初期加速折舊路徑。</p>
     <div class="section-h">二、定率法公式</div>
-    <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n
-
-C = 重建成本
-r = 年折舊率（固定）
-n = 經歷年數</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>定率法：第 n 年末建物現值</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－r)ⁿ<small>r＝年折舊率（固定）</small></span><span class="kf-op">＝</span><span class="kf-c k-m">第 n 年末建物現值</span></div><div class="kf-ex">C＝重建成本、r＝年折舊率（固定）、n＝經歷年數</div></div></div>
     <div class="note">⚠️ 陷阱：定率法是對「餘值」計算，而不是對原始成本×n，此與定額法完全不同，兩者公式不可混用。</div>
     <div class="section-h">三、代入計算（C=1000萬、r=2%、n=5）</div>
-    <div class="formula-box">第5年末現值 ＝ 1000 × (0.98)^5
-              ＝ 1000 × 0.9039
-              ≈ 903.9 萬元</div>
+    <div class="cbox"><div class="cl">第5年末現值 ＝<b class="rs">1000 × (0.98)^5</b></div><div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;＝<b class="rs">1000 × 0.9039</b></div><div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;≈<b class="rs">903.9 萬元</b></div></div>
     <table>
       <tr><th>年度</th><th>期初現值</th><th>當年折舊（×2%）</th><th>期末現值</th></tr>
       <tr><td>第1年</td><td>1000.0萬</td><td>20.0萬</td><td>980.0萬</td></tr>
@@ -576,12 +588,11 @@ n = 經歷年數</div>
     <p>建物因使用、自然耗損或功能衰退，價值隨經歷年數遞減，單期（每年）減損之金額為<strong>折舊額</strong>；逐年累積之折舊總額為<strong>累積折舊額</strong>。依不動產估價技術規則規定，建物累積折舊額之計算，應視建物特性及市場動態，選擇等速折舊、初期加速折舊或初期減速折舊之路徑，並得採定額法、定率法或償債基金法計算。</p>
     <div class="section-h">二、三種計算方法</div>
     <p><strong>（一）定額法（等速折舊）</strong>：每年折舊額相同，曲線為直線。</p>
-    <div class="formula-box">每年折舊額 ＝ C × (1－s) ÷ N
-累積折舊額 Dn ＝ C × [(1－s) ÷ N] × n</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>每年折舊額</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N<small>耐用年數</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">每年折舊額</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>累積折舊額 Dn</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N<small>耐用年數</small></span></span><span class="kf-op">×</span><span class="kf-c k-g">經歷年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dn</span></div></div></div>
     <p><strong>（二）定率法（初期加速折舊）</strong>：每年依固定比率對前一年餘值計算折舊，初期折舊大、後期遞減，曲線在直線下方（先陡後緩）。</p>
-    <div class="formula-box">第n年末建物現值 ＝ C × (1－r)^n</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>第 n 年末建物現值</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-c k-o">(1－r)ⁿ</span><span class="kf-op">＝</span><span class="kf-c k-m">第 n 年末建物現值</span></div></div></div>
     <p><strong>（三）償債基金法（初期減速折舊）</strong>：按年提存一定金額，以複利累積至耐用年數屆滿，本利和恰等於應折舊總額；初期折舊小、後期較大，曲線在直線上方（先緩後陡）。</p>
-    <div class="formula-box">每年提存額 ＝ C × (1－s) × i ÷ [(1＋i)^N － 1]</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>償債基金法：每年提存額</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">C×(1－s)×i<small>可折舊額 × 利率</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋i)ᴺ－1<small>複利終值係數</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">每年提存額</span></div></div></div>
     <p>（C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數、r＝折舊率、i＝利率）</p>
     <div class="section-h">三、三種方法比較</div>
     <table>
@@ -701,9 +712,7 @@ n = 經歷年數</div>
     </div>
     <div class="section-h">一、等速折舊計算公式</div>
     <p>依不動產估價技術規則規定，建物採等速折舊路徑者，以定額法計算累積折舊額：</p>
-    <div class="formula-box">Dn ＝ C × [(1－s) ÷ N] × n
-建物現值 ＝ C － Dn
-（C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>累積折舊 Dn</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N<small>耐用年數</small></span></span><span class="kf-op">×</span><span class="kf-c k-g">經歷年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dn</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>建物現值</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">－</span><span class="kf-c k-n">累積折舊 Dn</span><span class="kf-op">＝</span><span class="kf-c k-m">建物現值</span></div><div class="kf-ex">C＝重建成本、s＝殘餘價格率、N＝經濟耐用年數、n＝經歷年數</div></div></div>
     <div class="section-h">二、代入本題數字計算</div>
     <div class="calc-row"><span class="cc c1">800萬</span><span class="op">×</span><span class="cc c2">(1－5%)</span><span class="op">÷</span><span class="cc c3">50年</span><span class="op">×</span><span class="cc c4">10年</span></div>
     <div class="calc-note">（重建成本 C × 折舊比率 (1－s) ÷ 耐用年數 N × 經歷年數 n）每年折舊 15.2 萬 → 累積折舊額 Dn ＝ <strong>152萬元</strong></div>
@@ -771,9 +780,7 @@ n = 經歷年數</div>
       <tr><td>償債基金型</td><td>折舊提存費 ＝ C ×（1－s）× i ÷ [（1＋i）^N － 1]</td><td>每年提存，並以自有資金利率複利累積至耐用年數屆滿</td></tr>
     </table>
     <p>C＝建物總成本（重建或重置成本）；s＝殘餘價格率；i＝自有資金利率；N＝經濟耐用年數。</p>
-    <div class="formula-box">例：C ＝ 800 萬，s ＝ 5%，N ＝ 50 年，i ＝ 2%
-等速型：800 × 0.95 ÷ 50 ＝ 15.2 萬/年
-償債基金型：800 × 0.95 × 2% ÷ [1.02^50 － 1] ≈ 15.2 ÷ 1.6916 ≈ 8.99 萬/年</div>
+    <div class="cbox"><div class="cl">例：C ＝ 800 萬，s ＝ 5%，N ＝ 50 年，i ＝ 2%</div><div class="cl">等速型：800 × 0.95 ÷ 50 ＝<b class="rs">15.2 萬/年</b></div><div class="cl">償債基金型：800 × 0.95 × 2% ÷ [1.02^50 － 1] ≈ 15.2 ÷ 1.6916 ≈<b class="rs">8.99 萬/年</b></div></div>
     <div class="note">⚠️ 同一建物，償債基金型每年提存額較小（利息幫忙累積）；另，未來每年折舊提存率 d 的算式依§41，需用經歷年數與剩餘收益年數，這裡不展開。</div>
     <div class="section-h">二、營造或施工費之估計（成本法）</div>
     <p>營造或施工費之組成（§53）：直接材料、直接人工、間接材料、間接人工、管理費、稅捐、資本利息、施工利潤。估計方法（§54）分<strong>直接法</strong>與<strong>間接法</strong>：</p>
@@ -848,43 +855,13 @@ n = 經歷年數</div>
     <div class="note">⚠️ 考試陷阱：三種路徑名稱不可混淆——定額＝等速、定率＝初期加速、償債基金＝初期減速。</div>
 
     <div class="section-h">二、定額法計算</div>
-    <div class="formula-box">每年折舊額 ＝ C × (1 － s) ÷ N
-＝ 1,200 × (1 － 10%) ÷ 40
-＝ 1,200 × 0.9 ÷ 40
-＝ <strong>27 萬元/年</strong>
-
-8年累積折舊額 ＝ 27 × 8 ＝ 216 萬元
-建物現值 ＝ 1,200 － 216 ＝ <strong>984 萬元</strong>
-
-C=重建成本(1200萬)、s=殘餘價格率(10%)、N=耐用年數(40年)</div>
+    <div class="cbox"><div class="cl">每年折舊額 ＝<b class="rs">C × (1 － s) ÷ N</b></div><div class="cl">＝<b class="rs">1,200 × (1 － 10%) ÷ 40</b></div><div class="cl">＝<b class="rs">1,200 × 0.9 ÷ 40</b></div><div class="cl">＝ <strong>27 萬元/年</strong></div><div class="cl sp"></div><div class="cl">8年累積折舊額 ＝ 27 × 8 ＝<b class="rs">216 萬元</b></div><div class="cl">建物現值 ＝ 1,200 － 216 ＝ <strong>984 萬元</strong></div><div class="cl sp"></div><div class="cl tx">C=重建成本(1200萬)、s=殘餘價格率(10%)、N=耐用年數(40年)</div></div>
 
     <div class="section-h">三、定率法計算</div>
-    <div class="formula-box">定率法折舊率 r ＝ 1 － (s)^(1/N)
-＝ 1 － (0.1)^(1/40)
-＝ 1 － 0.9442 ＝ 約 <strong>5.59%</strong>
-
-第1年折舊 ＝ 1,200 × 0.0559 ≈ 67.1 萬
-第2年折舊 ＝ (1,200 － 67.1) × 0.0559 ≈ 63.3 萬
-…（每年以剩餘現值為基礎計算）
-
-8年後建物現值 ＝ C × s^(n/N)
-＝ 1,200 × (0.1)^(8/40)
-＝ 1,200 × (0.1)^0.2
-≈ 1,200 × 0.6310 ≈ <strong>757.2 萬元</strong>
-折舊總額 ＝ 1,200 － 757.2 ≈ <strong>442.8 萬元</strong></div>
+    <div class="cbox"><div class="cl">定率法折舊率 r ＝<b class="rs">1 － (s)^(1/N)</b></div><div class="cl">＝<b class="rs">1 － (0.1)^(1/40)</b></div><div class="cl">＝ 1 － 0.9442 ＝ 約 <strong>5.59%</strong></div><div class="cl sp"></div><div class="cl">第1年折舊 ＝ 1,200 × 0.0559 ≈<b class="rs">67.1 萬</b></div><div class="cl">第2年折舊 ＝ (1,200 － 67.1) × 0.0559 ≈<b class="rs">63.3 萬</b></div><div class="cl tx">…（每年以剩餘現值為基礎計算）</div><div class="cl sp"></div><div class="cl">8年後建物現值 ＝<b class="rs">C × s^(n/N)</b></div><div class="cl">＝<b class="rs">1,200 × (0.1)^(8/40)</b></div><div class="cl">＝<b class="rs">1,200 × (0.1)^0.2</b></div><div class="cl">≈ 1,200 × 0.6310 ≈ <strong>757.2 萬元</strong></div><div class="cl">折舊總額 ＝ 1,200 － 757.2 ≈ <strong>442.8 萬元</strong></div></div>
 
     <div class="section-h">四、償債基金法計算</div>
-    <div class="formula-box">每年折舊攤提額（存入基金）:
-d ＝ C × (1 － s) × i ÷ [(1＋i)^N － 1]
-＝ 1,200 × 0.9 × 0.02 ÷ [(1.02)^40 － 1]
-＝ 1,080 × 0.02 ÷ [2.2080 － 1]
-＝ 21.6 ÷ 1.2080 ≈ <strong>17.88 萬元/年</strong>
-
-8年累積基金 ＝ 17.88 × [(1.02)^8 － 1] ÷ 0.02
-≈ 17.88 × 8.5830 ≈ <strong>153.5 萬元</strong>（複利累積）
-建物現值 ＝ 1,200 － 153.5 ≈ <strong>1,046.5 萬元</strong>
-
-i=年利率(2%)、n=屋齡(8年)</div>
+    <div class="cbox"><div class="cl tx">每年折舊攤提額（存入基金）:</div><div class="cl">d ＝ C × (1 － s) × i ÷ [(1＋i)^N － 1]</div><div class="cl">＝ 1,200 × 0.9 × 0.02 ÷ [(1.02)^40 － 1]</div><div class="cl">＝ 1,080 × 0.02 ÷ [2.2080 － 1]</div><div class="cl">＝ 21.6 ÷ 1.2080 ≈ <strong>17.88 萬元/年</strong></div><div class="cl sp"></div><div class="cl">8年累積基金 ＝ 17.88 × [(1.02)^8 － 1] ÷ 0.02</div><div class="cl">≈ 17.88 × 8.5830 ≈ <strong>153.5 萬元</strong>（複利累積）</div><div class="cl">建物現值 ＝ 1,200 － 153.5 ≈ <strong>1,046.5 萬元</strong></div><div class="cl sp"></div><div class="cl tx">i=年利率(2%)、n=屋齡(8年)</div></div>
 
     <div class="section-h">五、三種方法比較</div>
     <table>
@@ -958,9 +935,7 @@ i=年利率(2%)、n=屋齡(8年)</div>
 
     <div class="section-h">一、定義與公式</div>
     <p><strong>成本法（§48）</strong>：求取勘估標的於價格日期之重建成本或重置成本，扣減累積折舊額或其他應扣除部分，推算勘估標的價格之方法；所得為<strong>成本價格</strong>。</p>
-    <div class="formula-box">土地價格 ＝ 土地總成本
-建物成本價格 ＝ 建物總成本 － 建物累積折舊額
-房地成本價格 ＝ 土地價格 ＋ 建物成本價格　（§69）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>土地價格</div><div class="kf-eq"><span class="kf-c k-s">土地總成本</span><span class="kf-op">＝</span><span class="kf-c k-m">土地價格</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>建物成本價格</div><div class="kf-eq"><span class="kf-c k-s">建物總成本</span><span class="kf-op">－</span><span class="kf-c k-n">建物累積折舊額</span><span class="kf-op">＝</span><span class="kf-c k-m">建物成本價格</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>房地成本價格（§69）</div><div class="kf-eq"><span class="kf-c k-s">土地價格</span><span class="kf-op">＋</span><span class="kf-c k-g">建物成本價格</span><span class="kf-op">＝</span><span class="kf-c k-m">房地成本價格</span></div></div></div>
     <div class="section-h">二、法條與程序</div>
     <ol>
       <li><strong>§49 八步驟</strong>：蒐集資料→現況勘察→整理比較分析成本費用資料→選擇方法推算營造施工費→推算其他費用及利潤→計算總成本→計算建物累積折舊額→計算成本價格。</li>
@@ -1047,8 +1022,7 @@ i=年利率(2%)、n=屋齡(8年)</div>
       <li><strong>利潤、廣告銷售、管理、稅捐（§60～§62）</strong>：費率由全聯會公告，依規定基礎計算；視性質得不予計入。</li>
     </ol>
     <div class="section-h">四、涵攝（本題代入）</div>
-    <div class="formula-box">營造施工費 ＝ 8萬 × 1.05 × 300坪 ＝ <strong>2,520 萬元</strong>
-規劃設計費 ＝ 2,520 × 2% ～ 2,520 × 3% ＝ <strong>50.4 萬 ～ 75.6 萬元</strong></div>
+    <div class="cbox"><div class="cl">營造施工費 ＝ 8萬 × 1.05 × 300坪 ＝ <strong>2,520 萬元</strong></div><div class="cl">規劃設計費 ＝ 2,520 × 2% ～ 2,520 × 3% ＝ <strong>50.4 萬 ～ 75.6 萬元</strong></div></div>
     <div class="note">⚠️ 陷阱：①直接法兩種（淨計、單位工程）、間接法兩種（工程造價比較、單位面積比較）別互換；②單位面積比較法的調整率乘在「標準建物單價」上；③設計費基礎是營造施工費，不是總銷售金額或總成本；④預售收入不計息；⑤費率數字（利潤、廣告、管理）以全聯會公告為準，不憑記憶寫固定百分比。</div>
     <div class="conclusion"><strong>五、結論</strong><br>
     總成本含營造施工費等七項（土地另加）；營造施工費可採直接法（淨計法、單位工程法）或間接法（工程造價比較法、單位面積比較法）。本題單位面積比較法求得營造施工費2,520萬元，規劃設計費約50.4萬至75.6萬元；資本利息分自有、借貸資金計息，預售收入不計息。</div>
@@ -1109,9 +1083,7 @@ i=年利率(2%)、n=屋齡(8年)</div>
       <li><strong>路徑（§68）</strong>：等速折舊、初期加速折舊、初期減速折舊三種。</li>
     </ol>
     <div class="section-h">三、涵攝（定額法）</div>
-    <div class="formula-box">Dn ＝ C × (1－s) ÷ N × n
-情況一（s＝10%）：1,000 × 0.9 ÷ 40 × 12 ＝ <strong>270 萬</strong>　現值 ＝ 1,000－270 ＝ <strong>730 萬</strong>
-情況二（確實無殘餘價格，s＝0）：1,000 ÷ 40 × 12 ＝ <strong>300 萬</strong>　現值 ＝ 1,000－300 ＝ <strong>700 萬</strong></div>
+    <div class="cbox"><div class="cl">Dn ＝<b class="rs">C × (1－s) ÷ N × n</b></div><div class="cl">情況一（s＝10%）：1,000 × 0.9 ÷ 40 × 12 ＝ <strong>270 萬</strong>　現值 ＝ 1,000－270 ＝ <strong>730 萬</strong></div><div class="cl">情況二（確實無殘餘價格，s＝0）：1,000 ÷ 40 × 12 ＝ <strong>300 萬</strong>　現值 ＝ 1,000－300 ＝ <strong>700 萬</strong></div></div>
     <div class="note">⚠️ 陷阱：①「以經濟耐用年數為主」不是物理；②殘餘價格率「不超過10%為原則」，由全聯會公告，不可寫成固定10%；③確實無殘餘價格是<strong>不提列</strong>（相當 s＝0），差異30萬就在這裡；④折舊三路徑沒有「後期減速」。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     折舊額以經濟耐用年數為主，經歷年數大於經濟耐用年數應重新調整；殘餘價格率依全聯會公告、以不超過10%為原則，確無殘餘價格者不予提列。本題殘餘價格率10%時累積折舊270萬、現值730萬；無殘餘價格時累積折舊300萬、現值700萬。</div>
@@ -1169,10 +1141,7 @@ i=年利率(2%)、n=屋齡(8年)</div>
       <strong>【原題】</strong> 運用土地開發分析法進行估價，除了必須確定開發計畫之可銷售土地與建築面積，同時估算總銷售金額與各項成本及相關費用，還有更重要的是如何有效選擇適當之利潤率及資本利息綜合利率，試說明利潤率及資本利息綜合利率計算依據與方法？（25分）
     </div>
     <div class="section-h">一、土地開發分析法公式（§81）</div>
-    <div class="formula-box">V ＝ S ÷（1＋R）÷（1＋i）－（C＋M）
-V＝土地開發分析價格　S＝開發完成後預期總銷售金額
-R＝適當利潤率　i＝資本利息綜合利率
-C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣告銷售費、管理費、稅捐及其他負擔）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>土開價格 V（§81）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S<small>開發完成後總銷售金額</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div><div class="kf-ex">V＝土地開發分析價格　S＝開發完成後預期總銷售金額　R＝適當利潤率　i＝資本利息綜合利率<br>C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣告銷售費、管理費、稅捐及其他負擔）</div></div></div>
     <div class="section-h">二、利潤率之依據與方法（§78、§60）</div>
     <ol>
       <li>計算依據：以營造施工費、規劃設計費、廣告費、銷售費、管理費、資本利息、稅捐及其他負擔之<strong>合計額</strong>為基礎（土地開發分析法中，利潤率依§60規定）</li>
@@ -1180,7 +1149,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <li>調整：得依<strong>開發型態、經營風險及工期長短</strong>調整（風險愈高、工期愈長，利潤率愈高）</li>
     </ol>
     <div class="section-h">三、資本利息綜合利率之依據與方法（§79、§58、§59）</div>
-    <div class="formula-box">i ＝ 資本利息年利率 ×（土地價值比率 ＋ 建物價值比率 × ½）× 開發年數</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>資本利息綜合利率 i（§79）</div><div class="kf-eq"><span class="kf-c k-s">資本利息年利率</span><span class="kf-op">×</span><span class="kf-c k-o">土地比率＋建物比率×½<small>只有建物乘 ½</small></span><span class="kf-op">×</span><span class="kf-c k-g">開發年數</span><span class="kf-op">＝</span><span class="kf-c k-m">i 綜合利率</span></div></div></div>
     <ol>
       <li><strong>資本利息年利率</strong>：依分期投入資本額與使用年數，<strong>自有資金與借貸資金分別計息</strong>，資金比例依銀行一般放款成數決定（§58）；自有資金利率不高於一年期定存利率、不低於活存利率；借款依銀行短期放款利率；<strong>預售收入不計息</strong>（§59）</li>
       <li><strong>土地乘1、建物乘½</strong>：土地於取得時即全額投入，全期計息；建物依工程進度分批投入，平均約半期，故乘½</li>
@@ -1228,7 +1197,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <strong>【原題】</strong> 現有一筆建地，土地面積1600坪，位於都市計畫住宅區，建蔽率50%，容積率225%，所在地區生活機能健全，土地現況不需整地為可建築狀態。根據最有效利用原則確立未來土地開發方式為興建透天住宅，在計算開發完成之總銷售面積與蒐集市場行情之後，得知一年後建築完成之預期總銷售金額為新臺幣12億4200萬元（一年之資金折現率為1.33%），建築所需的直接成本為新臺幣1億8000萬元，資本利息綜合利率為1.94%，開發商的要求利潤率為20%，規劃設計費用為營造費用的3%，廣告銷售費用為總銷售金額的5%，稅捐費用為總銷售金額的1%，管理費用為總銷售金額的3%，施工期間1年。請以土地開發分析法推估該土地的試算價格。
     </div>
     <div class="section-h">一、公式（§81）</div>
-    <div class="formula-box">V ＝ S ÷（1＋R）÷（1＋i）－（C＋M）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>土開價格 V</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S<small>開發完成後總銷售金額</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div></div></div>
     <p>土地面積、建蔽率、容積率是用來推算可銷售面積；本題已直接給總銷售金額，故為<strong>干擾資料</strong>，不必計算。</p>
     <div class="section-h">二、計算</div>
     <ol>
@@ -1237,7 +1206,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <li><strong>間接成本</strong>M：規劃設計費＝1億8,000萬×3%＝540萬；廣告銷售費＝S×5%＝6,128萬；稅捐＝S×1%＝1,226萬；管理費＝S×3%＝3,677萬；M ≈ <strong>1億1,571萬元</strong></li>
       <li><strong>代入公式</strong>：S ÷ 1.20 ÷ 1.0194 ≈ 10億0,198萬元；V ＝ 10億0,198萬 －（1億8,000萬＋1億1,571萬）≈ <strong>7億0,626萬元</strong></li>
     </ol>
-    <div class="formula-box">V ≈ 706,264,000 元（約 7.06 億元），平均每坪約 44.1 萬元</div>
+    <div class="cbox"><div class="cl">V ≈ 706,264,000 元（約 7.06 億元），平均每坪約 44.1 萬元</div></div>
     <div class="note">⚠️ 計算基礎：①利潤率20%、資本利息綜合利率1.94%直接代入，不用再算（1.94%已含施工1年）；②規劃設計費以<strong>營造費（直接成本）</strong>為基礎，廣告、稅捐、管理費以<strong>總銷售金額</strong>為基礎；③本解把「12.42億」視為一年後之價格，先折現再代公式；若考場把12.42億視為價格日期之總銷售金額（不折現，費用亦以12.42億計），V 約 7.18 億，作答時請寫明假設與基礎。</div>
     <div class="conclusion"><strong>三、結論</strong><br>
     以土地開發分析法推估，該筆土地之試算價格約為7億0,626萬元（每坪約44.1萬元）。計算重點在：①總銷售金額折現；②間接成本之計算基礎不同（設計費按營造費、其餘按總銷售金額）；③利潤率與資本利息綜合利率依公式代入。</div>
@@ -1279,7 +1248,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <strong>【原題】</strong> 請依不動產估價技術規則之規定，列示土地開發分析法中計算資本利息綜合利率之公式。假設土地與建物價值比率為6：4，自有、借貸與預售收入之資金比例為4：5：1，自有資金與借貸資金之計息利率為2%與6%，而取得土地至開發完成之年數為2年，則資本利息綜合利率為若干？
     </div>
     <div class="section-h">一、公式（§79）</div>
-    <div class="formula-box">資本利息綜合利率 i ＝ 資本利息年利率 ×（土地價值比率 ＋ 建物價值比率 × ½）× 開發年數</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>資本利息綜合利率 i（§79）</div><div class="kf-eq"><span class="kf-c k-s">資本利息年利率</span><span class="kf-op">×</span><span class="kf-c k-o">土地比率＋建物比率×½<small>只有建物乘 ½</small></span><span class="kf-op">×</span><span class="kf-c k-g">開發年數</span><span class="kf-op">＝</span><span class="kf-c k-m">i 綜合利率</span></div></div></div>
     <p>其中資本利息年利率依§58、§59：自有資金與借貸資金<strong>分別計息、依資金比例加權</strong>；<strong>預售收入不計息</strong>。</p>
     <div class="section-h">二、計算</div>
     <table>
@@ -1395,7 +1364,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <strong>【原題】</strong> 請說明土地開發分析法之計算公式，又土地開發分析法之成本項目內容為何？（25分）
     </div>
     <div class="section-h">一、計算公式（§81）</div>
-    <div class="formula-box">V ＝ S ÷（1＋R）÷（1＋i）－（C＋M）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>土開價格 V</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S<small>開發完成後總銷售金額</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div></div></div>
     <table>
       <tr><th>符號</th><th>意義</th></tr>
       <tr><td>V</td><td>土地開發分析價格</td></tr>
@@ -1459,7 +1428,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <strong>【原題】</strong> 某建地600坪，開發後預期總銷售金額（價格日期現值）6億元；直接成本（營造施工費）1億8,000萬元；規劃設計費為營造施工費之3%；廣告銷售費為總銷售金額之5%，稅捐1%，管理費3%；資本利息年利率：銀行借款60%（利率3%）、自有資金40%（利率6%）；土地與建物價值比率5：5；開發期間2年；開發利潤率15%。試以土地開發分析法推估土地總價及每坪單價。（25分）
     </div>
     <div class="section-h">一、公式（§81）</div>
-    <div class="formula-box">V ＝ S ÷（1＋R）÷（1＋i）－（C＋M）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>土開價格 V</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S<small>開發完成後總銷售金額</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div></div></div>
     <div class="section-h">二、逐項計算</div>
     <table>
       <tr><th>項目</th><th>計算</th></tr>
@@ -1469,7 +1438,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <tr><td>④ 間接成本 M（§76～§78）</td><td>規劃設計費 18,000×3%＝540；廣告銷售費 60,000×5%＝3,000；稅捐 60,000×1%＝600；管理費 60,000×3%＝1,800 → M ＝ <strong>5,940 萬元</strong></td></tr>
       <tr><td>⑤ 代入公式</td><td>S ÷ 1.15 ÷ 1.063 ＝ 60,000 ÷ 1.15 ÷ 1.063 ≈ 49,082；V ＝ 49,082 －（18,000 ＋ 5,940）≈ <strong>25,142 萬元</strong></td></tr>
     </table>
-    <div class="formula-box">土地總價 ≈ 2億5,142萬元；每坪 ≈ 25,142 ÷ 600 ≈ 41.9 萬元/坪</div>
+    <div class="cbox"><div class="cl">土地總價 ≈ 2億5,142萬元；每坪 ≈ 25,142 ÷ 600 ≈<b class="rs">41.9 萬元/坪</b></div></div>
     <div class="note">⚠️ 陷阱：①綜合利率：土地乘1、建物乘½，並乘開發年數；②規劃設計費以<strong>營造施工費</strong>為基礎，廣告銷售、稅捐、管理費以<strong>總銷售金額</strong>為基礎；③公式先把 S 除以（1＋R）、（1＋i）；④預售收入不計息（本題無預售資金）。</div>
     <div class="conclusion"><strong>三、結論</strong><br>
     依土地開發分析法，本案土地總價約2億5,142萬元，每坪約41.9萬元。計算關鍵：資本利息綜合利率＝年利率×（土地比率＋建物比率×½）×開發年數；V＝S÷(1＋R)÷(1＋i)－(C＋M)，此為技術規則§79、§81之規定。</div>
@@ -1521,10 +1490,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
       <li><strong>§101（已知土地價值比率）</strong>：基地權利價格＝房地價格×土地價值比率；基地權利單價＝基地權利價格÷基地持分面積；<span class="qa-kw">基地單價＝基地權利單價×平均樓層別效用比÷該建物之樓層別效用比</span>。</li>
     </ol>
     <div class="section-h">三、涵攝（代入§101）</div>
-    <div class="formula-box">① 基地權利價格 ＝ 2,000 × 40% ＝ 800 萬元
-② 基地權利單價 ＝ 800 ÷ 8 坪 ＝ 100 萬元/坪
-③ 基地單價 ＝ 100 × (平均樓層別效用比 100 ÷ 該戶效用比 120)
-　　　　　＝ 100 × 0.8333 ≈ 83.33 萬元/坪</div>
+    <div class="cbox"><div class="cl">① 基地權利價格 ＝ 2,000 × 40% ＝<b class="rs">800 萬元</b></div><div class="cl">② 基地權利單價 ＝ 800 ÷ 8 坪 ＝<b class="rs">100 萬元/坪</b></div><div class="cl">③ 基地單價 ＝ 100 × (平均樓層別效用比 100 ÷ 該戶效用比 120)</div><div class="cl">　　　　　＝ 100 × 0.8333 ≈<b class="rs">83.33 萬元/坪</b></div></div>
     <div class="note">解讀：第5層效用比高於平均（120＞100），房地價格中有一部分是「樓層高」的溢價，不屬於土地；還原成整筆基地單價時要<b>除以效用比、乘平均效用比</b>，所以基地單價（83.33）低於持分權利單價（100）。<br>
     若題目改給§100條件（建物成本價格、全棟建物成本占比、平均地價分配率等），則改用地價分配率調整；兩條是<b>二選一的不同算法</b>，題目會給足資料，依題目條件判斷用哪一條，勿混用。</div>
     <div class="note">⚠️ 考試陷阱：①§101是<b>乘平均、除該戶</b>（平均÷該戶），顛倒會變成 100×120÷100＝120，基地單價反而高於權利單價；②基地權利價格用「持分面積」求單價，不是整棟基地面積；③效用比是<b>相對比值</b>，不要誤當成價格；④§98 要「合併估價」專有、共用部分與基地權利，不能只估專有部分。</div>
@@ -1574,8 +1540,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
 
     <div class="section-h">一、定義與公式</div>
     <p><strong>基地價值比率（§125，都市更新權利變換）</strong>：基地價值占「基地價值＋建物價值」之比率。</p>
-    <div class="formula-box">基地價值比率 ＝ （素地單價 × 基地總面積）
-　　　　　÷ [素地單價 × 基地總面積 ＋ 營造施工費單價 ×（1－累積折舊率）× 全棟建物面積]</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>基地價值比率</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">素地單價 × 基地總面積</span><span class="fr-line"></span><span class="kf-c k-o">素地單價×基地總面積 ＋ 營造施工費單價×(1－累積折舊率)×全棟建物面積</span></span><span class="kf-op">＝</span><span class="kf-c k-m">基地價值比率</span></div></div></div>
     <div class="section-h">二、法條：由房地價格推估基地價格</div>
     <ol>
       <li><strong>§99</strong>（一般房地）：①基地價格＝房地價格－建物成本價格；②基地單價＝基地價格÷基地面積。土地、建物價值比率已知者，亦得 基地價格＝房地價格×土地價值比率，再÷基地面積；比率須參酌當地市場調查資料，運用估價方法計算。</li>
@@ -1600,13 +1565,7 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
     </table>
     <div class="note">📌 口訣：<strong>給成本→減（§100，第三款用地價分配率）；給比率→乘（§101，第三款直接用樓層別效用比）；都更權利變換→§125先算比率再乘</strong>。§125 的比率要自己算（分母含折舊後建物價值），§101 的土地價值比率是題目直接給的。</div>
     <div class="section-h">三、涵攝（代入）</div>
-    <div class="formula-box">(一) 素地總價值 ＝ 50萬 × 400坪 ＝ 20,000 萬
-　　建物價值 ＝ 10萬 × (1－20%) × 1,000坪 ＝ 8,000 萬
-　　基地價值比率 ＝ 20,000 ÷ (20,000＋8,000) ＝ <strong>71.43%</strong>　建物價值比率 ＝ 28.57%
-
-(二) 土地價格 ＝ 3,000 × 71.43% ≈ <strong>2,142.9 萬</strong>
-　　建物價格 ＝ 3,000 × 28.57% ≈ <strong>857.1 萬</strong>
-　　基地權利單價 ＝ 2,142.9 ÷ 8坪 ≈ <strong>267.9 萬/坪</strong></div>
+    <div class="cbox"><div class="cl">(一) 素地總價值 ＝ 50萬 × 400坪 ＝<b class="rs">20,000 萬</b></div><div class="cl">　　建物價值 ＝ 10萬 × (1－20%) × 1,000坪 ＝<b class="rs">8,000 萬</b></div><div class="cl">　　基地價值比率 ＝ 20,000 ÷ (20,000＋8,000) ＝ <strong>71.43%</strong>　建物價值比率 ＝<b class="rs">28.57%</b></div><div class="cl sp"></div><div class="cl">(二) 土地價格 ＝ 3,000 × 71.43% ≈ <strong>2,142.9 萬</strong></div><div class="cl">　　建物價格 ＝ 3,000 × 28.57% ≈ <strong>857.1 萬</strong></div><div class="cl">　　基地權利單價 ＝ 2,142.9 ÷ 8坪 ≈ <strong>267.9 萬/坪</strong></div></div>
     <p>(三) 若題目改給「建物成本價格1,000萬元」，則依§99直接相減：基地價格＝3,000－1,000＝2,000萬元。兩種條件下數字不同，因為價值比率法按整個基地建物的價值比例拆分，直接相減則以個案建物成本價格為準。</p>
     <div class="note">⚠️ 陷阱：①分母必須是「基地價值＋<strong>扣折舊後</strong>的建物價值」；②建物營造施工費要乘 (1－累積折舊率)；③建物比率＝1－基地比率；④題目給建物成本價格→相減（§99），給價值比率→相乘（基地用§99Ⅱ、建物用§101-1；區分所有建物用§101）；⑤基地權利單價用「持分面積」。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
@@ -2173,16 +2132,9 @@ C＝直接成本（營造施工費）　M＝間接成本（規劃設計費、廣
     </table>
     <div class="section-h">二、加權平均資金成本法（§43第3款）</div>
     <p>依<strong>資金來源之比重</strong>與<strong>各資金來源之利率或要求報酬率</strong>加權平均求得：</p>
-    <div class="formula-box">R（資本化率或折現率）＝ Σ（Wi × Ki）
-Wi＝第 i 種資金占不動產總投資成本之比重（各 Wi 合計 100%）
-Ki＝第 i 種資金之利率或要求報酬率</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>資本化率 R（WACC）</div><div class="kf-eq"><span class="kf-c k-s">R<small>資本化率或折現率</small></span><span class="kf-op">＝</span><span class="kf-c k-m">Σ（Wi × Ki）</span></div><div class="kf-ex">Wi＝第 i 種資金占不動產總投資成本之比重（各 Wi 合計 100%）；Ki＝第 i 種資金之利率或要求報酬率</div></div></div>
     <div class="section-h">三、舉例計算</div>
-    <div class="formula-box">假設：自有資金 40%，要求報酬率 8%；借貸資金 60%，借款利率 4%
-R ＝ 40% × 8% ＋ 60% × 4%
-  ＝ 3.2% ＋ 2.4% ＝ 5.6%
-
-若年客觀淨收益 100 萬元，依直接資本化法（§30）：
-收益價格 ＝ 100 ÷ 5.6% ≈ 1,785.7 萬元</div>
+    <div class="cbox"><div class="cl tx">假設：自有資金 40%，要求報酬率 8%；借貸資金 60%，借款利率 4%</div><div class="cl">R ＝<b class="rs">40% × 8% ＋ 60% × 4%</b></div><div class="cl">&nbsp;&nbsp;＝ 3.2% ＋ 2.4% ＝<b class="rs">5.6%</b></div><div class="cl sp"></div><div class="cl tx">若年客觀淨收益 100 萬元，依直接資本化法（§30）：</div><div class="cl">收益價格 ＝ 100 ÷ 5.6% ≈<b class="rs">1,785.7 萬元</b></div></div>
     <div class="note">⚠️ 自訂例子時：①各資金比重合計須為 100%；②自有資金之要求報酬率通常高於借款利率；③此處用的是「利率」，不是貸款常數（年還款額÷貸款額）。貸款常數是用在債務保障比率法（§43第4款）。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     收益資本化率或折現率應先以定存利率、公債利率、不動產投資風險性、貨幣變動狀況及價格變動趨勢等選定一般性財貨報酬率為比較基準，再就流通性、風險性、增值性及管理難易調整；若採加權平均資金成本法，依自有、借貸資金之比重與利率加權，本例為 5.6%，可進一步用於直接資本化法求收益價格。</div>
@@ -2228,11 +2180,7 @@ R ＝ 40% × 8% ＋ 60% × 4%
     <strong>直接資本化法（§29）：</strong>指勘估標的<span class="qa-kw">未來平均一年期間之客觀淨收益</span>，應用價格日期當時適當之<span class="qa-kw">收益資本化率</span>，推算勘估標的價格之方法。<br>
     兩者同屬收益法（§28Ⅰ），所求得之價格均為收益價格（§28Ⅱ）。</div>
     <div class="section-h">二、法條與公式（§30、§32）</div>
-    <div class="formula-box">直接資本化法（§30）：收益價格 ＝ 未來平均一年期間客觀淨收益 ÷ 收益資本化率
-
-DCF（§32）：P ＝ Σ CFk ÷ (1＋Y)^k ＋ Pn' ÷ (1＋Y)^n'
-P＝收益價格　CFk＝各期淨收益　Y＝折現率
-n'＝折現現金流量分析期間　k＝各年期　Pn'＝期末價值</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>直接資本化法（§30）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">未來平均一年期間客觀淨收益</span><span class="fr-line"></span><span class="kf-c k-o">收益資本化率</span></span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>DCF（§32）</div><div class="kf-eq"><span class="kf-c k-s">Σ CFk÷(1＋Y)ᵏ<small>各期淨收益折現</small></span><span class="kf-op">＋</span><span class="kf-c k-o">Pn'÷(1＋Y)ⁿ'<small>期末價值折現</small></span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格 P</span></div><div class="kf-ex">P＝收益價格　CFk＝各期淨收益　Y＝折現率　n'＝折現現金流量分析期間　k＝各年期　Pn'＝期末價值</div></div></div>
     <div class="section-h">三、涵攝：兩者差異</div>
     <table>
       <tr><th>比較項目</th><th>直接資本化法</th><th>DCF法</th></tr>
@@ -2301,17 +2249,10 @@ n'＝折現現金流量分析期間　k＝各年期　Pn'＝期末價值</div>
     <div class="note">⚠️ 考試重點：§43共列五種方法（風險溢酬法、市場萃取法、WACC、債務保障比率法、有效總收入乘數法），至少要能背出名稱，並能說明WACC的計算邏輯。</div>
 
     <div class="section-h">二、WACC計算資本化率</div>
-    <div class="formula-box">資本化率 r ＝ 自有資金比例 × 自有資金報酬率 ＋ 借款比例 × 借款利率
-
-r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
-  ＝ 2.1% ＋ 1.75%
-  ＝ <strong>3.85%</strong></div>
+    <div class="cbox"><div class="cl">資本化率 r ＝ 自有資金比例 × 自有資金報酬率 ＋ 借款比例 × 借款利率</div><div class="cl sp"></div><div class="cl">r ＝<b class="rs">0.30 × 7% ＋ 0.70 × 2.5%</b></div><div class="cl">&nbsp;&nbsp;＝<b class="rs">2.1% ＋ 1.75%</b></div><div class="cl">&nbsp;&nbsp;＝ <strong>3.85%</strong></div></div>
 
     <div class="section-h">三、計算收益價格</div>
-    <div class="formula-box">收益價格 ＝ 年淨收益 ÷ 資本化率
-         ＝ 60 萬元 ÷ 3.85%
-         ＝ 60 ÷ 0.0385
-         ≈ <strong>1,558.4 萬元</strong></div>
+    <div class="cbox"><div class="cl">收益價格 ＝<b class="rs">年淨收益 ÷ 資本化率</b></div><div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ＝<b class="rs">60 萬元 ÷ 3.85%</b></div><div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ＝<b class="rs">60 ÷ 0.0385</b></div><div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ≈ <strong>1,558.4 萬元</strong></div></div>
 
     <div class="conclusion"><strong>結論：</strong>以WACC法計算之資本化率為3.85%，據以推算該辦公室之收益價格約為1,558萬元。在實務中，估價師應再以市場萃取法核驗此一資本化率是否符合市場現況，確保估價結果之合理性。</div>
 
@@ -2321,12 +2262,7 @@ r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
     </div>
 
     <div class="section-h">補充一：市場萃取法（補充驗核）</div>
-    <div class="formula-box">若已知近期成交案例：
-  成交價 = 1,500 萬元，年淨收益 = 57 萬元
-  市場萃取資本化率 ＝ 57 ÷ 1,500 ＝ 3.80%
-
-與 WACC 計算值 3.85% 相近，差異約 0.05%，
-在可接受範圍內（一般±0.5%），可相互佐證採用 3.85%。</div>
+    <div class="cbox"><div class="cl tx">若已知近期成交案例：</div><div class="cl tx">  成交價 = 1,500 萬元，年淨收益 = 57 萬元</div><div class="cl">&nbsp;&nbsp;市場萃取資本化率 ＝ 57 ÷ 1,500 ＝<b class="rs">3.80%</b></div><div class="cl sp"></div><div class="cl tx">與 WACC 計算值 3.85% 相近，差異約 0.05%，</div><div class="cl tx">在可接受範圍內（一般±0.5%），可相互佐證採用 3.85%。</div></div>
 
     <div class="section-h">補充二：風險溢酬法（學理稱累加法）舉例，數字為自設</div>
     <table>
@@ -2388,9 +2324,7 @@ r ＝ 0.30 × 7% ＋ 0.70 × 2.5%
 
     <div class="section-h">一、定義與公式</div>
     <p><strong>折現現金流量分析法（§31）</strong>：勘估標的未來折現現金流量分析期間之各期淨收益及期末價值，以適當折現率折現後加總，推算價格之方法；所求得之價格為<strong>收益價格</strong>（§28）。</p>
-    <div class="formula-box">P ＝ Σ CFk ÷ (1＋Y)^k ＋ Pn' ÷ (1＋Y)^n'　（§32）
-P＝收益價格　CFk＝各期淨收益　Y＝折現率
-n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>DCF（§32）</div><div class="kf-eq"><span class="kf-c k-s">Σ CFk÷(1＋Y)ᵏ<small>各期淨收益折現</small></span><span class="kf-op">＋</span><span class="kf-c k-o">Pn'÷(1＋Y)ⁿ'<small>期末價值折現</small></span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格 P</span></div><div class="kf-ex">P＝收益價格　CFk＝各期淨收益　Y＝折現率　n'＝折現現金流量分析期間　k＝各年期　Pn'＝期末價值</div></div></div>
     <div class="section-h">二、法條</div>
     <ol>
       <li><strong>§33</strong>：淨收益以勘估標的最有效使用之客觀淨收益為基準；證券化案件原則以契約租金計算各期淨收益。</li>
@@ -2470,13 +2404,7 @@ n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
       <tr><td>經濟租金</td><td>勘估標的在<strong>正常市場</strong>下之合理租金（市場租金）；相對於支付租金，可看出租約是否偏離市場</td></tr>
     </table>
     <div class="section-h">二、計算</div>
-    <div class="formula-box">① 年支付租金 ＝ 9,000 × 12 ＝ 108,000 元
-
-② 押金運用收益 ＝（9,000 × 2）× 2% ＝ 18,000 × 2% ＝ 360 元
-   年實質租金 ＝ 108,000 ＋ 360 ＝ 108,360 元
-
-③ 低於市場行情一成 → 支付租金 ＝ 經濟租金 ×（1－10%）
-   年經濟租金 ＝ 108,000 ÷ 0.9 ＝ 120,000 元</div>
+    <div class="cbox"><div class="cl">① 年支付租金 ＝ 9,000 × 12 ＝<b class="rs">108,000 元</b></div><div class="cl sp"></div><div class="cl">② 押金運用收益 ＝（9,000 × 2）× 2% ＝ 18,000 × 2% ＝<b class="rs">360 元</b></div><div class="cl">&nbsp;&nbsp; 年實質租金 ＝ 108,000 ＋ 360 ＝<b class="rs">108,360 元</b></div><div class="cl sp"></div><div class="cl">③ 低於市場行情一成 → 支付租金 ＝<b class="rs">經濟租金 ×（1－10%）</b></div><div class="cl">&nbsp;&nbsp; 年經濟租金 ＝ 108,000 ÷ 0.9 ＝<b class="rs">120,000 元</b></div></div>
     <div class="note">⚠️ 陷阱：①經濟租金要用<strong>支付租金÷0.9</strong>還原，不是×0.9，也不是用實質租金還原（押金收益是個案契約條件，不反映市場）；②押金是兩個月（18,000元），不是一個月；③利率用題目給的一年期定存2%。</div>
     <div class="conclusion"><strong>三、結論</strong><br>
     本題年支付租金為108,000元，年實質租金為108,360元，年經濟租金為120,000元。三者由低至高為：支付租金＜實質租金＜經濟租金，顯示承租人因租金低於市場行情，每年享有約11,640元（120,000－108,360）之租金利益。</div>
@@ -2581,7 +2509,7 @@ n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
     </div>
     <div class="section-h">一、實質租金之意義（§130）</div>
     <p>不動產租金估計，以估計勘估標的之<strong>實質租金</strong>為原則。實質租金係指承租人每期支付予出租人之租金，加計<strong>押金或保證金、權利金及其他相關運用收益</strong>之總數，即承租人承租該不動產之真實代價。</p>
-    <div class="formula-box">實質租金 ＝ 每期支付租金 ＋ 押金或保證金運用收益 ＋ 權利金運用收益 ＋ 其他相關運用收益</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>實質租金</div><div class="kf-eq"><span class="kf-c k-s">每期支付租金</span><span class="kf-op">＋</span><span class="kf-c k-o">押金或保證金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">權利金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-n">其他相關運用收益</span><span class="kf-op">＝</span><span class="kf-c k-m">實質租金</span></div></div></div>
     <div class="section-h">二、租金估計應考慮之因素（§129）</div>
     <ol>
       <li><strong>契約內容</strong>：租金支付方式、押金、免租期、優惠條件等；</li>
@@ -2642,13 +2570,7 @@ n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
       <li><strong>經濟租金</strong>：標的不動產於正常市場狀況下應有之合理租金水準（市場租金）。</li>
     </ol>
     <div class="section-h">二、計算</div>
-    <div class="formula-box">① 年支付租金 ＝ 12,000 × 12 ＝ 144,000 元
-
-② 押金運用收益 ＝ (12,000×3) × 1.5% ＝ 36,000 × 1.5% ＝ 540 元
-   年實質租金 ＝ 144,000 ＋ 540 ＝ 144,540 元
-
-③ 低於行情5% → 支付租金 ＝ 經濟租金 × 95%
-   年經濟租金 ＝ 144,000 ÷ 0.95 ≈ 151,579 元</div>
+    <div class="cbox"><div class="cl">① 年支付租金 ＝ 12,000 × 12 ＝<b class="rs">144,000 元</b></div><div class="cl sp"></div><div class="cl">② 押金運用收益 ＝ (12,000×3) × 1.5% ＝ 36,000 × 1.5% ＝<b class="rs">540 元</b></div><div class="cl">&nbsp;&nbsp; 年實質租金 ＝ 144,000 ＋ 540 ＝<b class="rs">144,540 元</b></div><div class="cl sp"></div><div class="cl">③ 低於行情5% → 支付租金 ＝<b class="rs">經濟租金 × 95%</b></div><div class="cl">&nbsp;&nbsp; 年經濟租金 ＝ 144,000 ÷ 0.95 ≈<b class="rs">151,579 元</b></div></div>
     <div class="note">⚠️ 經濟租金以「支付租金」還原，不是以實質租金還原——押金運用收益屬個案契約條件，不反映市場水準。101年原題（月租9,000、押2個月、利率2%、低一成）即同一題型，數字換了邏輯不變。</div>
     <div class="section-h">三、延伸：租金估計方式（§132新訂 vs §133續訂）</div>
     <ol>
@@ -2872,9 +2794,7 @@ n'＝分析期間　k＝各年期　Pn'＝期末價值</div>
       <li><strong>素地價格</strong>：以比較法、收益法或成本法求取；</li>
       <li><strong>地上權價格</strong>（§116，須考慮地上權之用途、存續期間、有無支付地租、讓與限制、設定之空間位置），常見估法：市價比較法（地上權買賣實例）、價格比率法（地上權價格占素地價格之比率）、設定實例比較法（設定實例之比率）、<strong>差額租金還原法</strong>。</li>
     </ul>
-    <div class="formula-box">差額租金還原法：P ＝ a × [（1＋r）^n － 1] ÷ [r ×（1＋r）^n]
-P＝地上權價格　a＝每年淨收益－每年應付地租（差額租金）
-r＝收益資本化率　n＝地上權剩餘年限</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>差額租金還原法（§116）</div><div class="kf-eq"><span class="kf-c k-s">a<small>差額租金</small></span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1＋r)ⁿ－1</span><span class="fr-line"></span><span class="kf-c k-o">r×(1＋r)ⁿ</span></span><span class="kf-op">＝</span><span class="kf-c k-m">P 地上權價格</span></div><div class="kf-ex">a＝每年淨收益－每年應付地租（差額租金）；r＝收益資本化率；n＝地上權剩餘年限</div></div></div>
     <div class="conclusion"><strong>四、結論</strong><br>
     不動產價格分正常、限定、特定、特殊四種；已設定地上權之土地，若買受人為地上權人評估限定價格，一般競標評估正常價格；估價時以素地正常價格扣減地上權價值，並依用途、存續期間、地租等因素估計地上權價格。</div>
     </div>
@@ -2932,7 +2852,7 @@ r＝收益資本化率　n＝地上權剩餘年限</div>
       <li>選擇適當之利潤率及資本利息綜合利率</li>
       <li>計算土地開發分析價格</li>
     </ol>
-    <div class="formula-box">V ＝ S ÷（1＋R）÷（1＋i）－（C＋M）　（§81）</div>
+    <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>土開價格 V（§81）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S<small>開發完成後總銷售金額</small></span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div></div></div>
     <div class="section-h">三、比較法之運用程序（§21）</div>
     <p>蒐集並查證比較標的 → 選擇條件相同或相似者（至少三件，§27）→ 情況及價格日期調整 → 區域因素與個別因素比較 → 計算試算價格 → 決定比較價格。</p>
     <div class="conclusion"><strong>四、結論</strong><br>
@@ -3290,10 +3210,7 @@ r＝收益資本化率　n＝地上權剩餘年限</div>
       <li>已設定地上權土地：價格＝未設定地上權素地正常價格－價格日期當時地上權之剩餘價值（教材做法，非條文逐字）。</li>
     </ol>
     <div class="section-h">三、涵攝：差額租金還原法（教材常用做法）</div>
-    <div class="formula-box">a ＝ 每年淨收益 － 每年應付地租 ＝ 90 － 30 ＝ 60 萬
-P ＝ a × [(1＋r)^n － 1] ÷ [r × (1＋r)^n]
-　＝ 60 × [(1.04)^20 － 1] ÷ [0.04 × (1.04)^20]
-　＝ 60 × 13.5903 ≈ <strong>815.4 萬元</strong></div>
+    <div class="cbox"><div class="cl">a ＝ 每年淨收益 － 每年應付地租 ＝ 90 － 30 ＝<b class="rs">60 萬</b></div><div class="cl">P ＝ a × [(1＋r)^n － 1] ÷ [r × (1＋r)^n]</div><div class="cl">　＝ 60 × [(1.04)^20 － 1] ÷ [0.04 × (1.04)^20]</div><div class="cl">　＝ 60 × 13.5903 ≈ <strong>815.4 萬元</strong></div></div>
     <div class="note">⚠️ 陷阱：①是用「差額租金」a＝淨收益－地租來還原，直接用90萬會高估；②n是地上權<strong>剩餘</strong>年限；③抵押權估價不是債權額本身，而是以正常價格為基礎、再以實際債權額與各種條件調整；④差額租金還原法是教材做法，條文只列考慮因素，答題時註明方法來源。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     權利估價依§114涵蓋地上權至都更權利變換等；地上權估價考慮用途、存續期間、地租、讓與限制等（§116），本題以差額租金60萬、資本化率4%、剩餘20年還原，地上權價格約<strong>815.4萬元</strong>；抵押權依§121以正常價格為基礎，參酌實際債權額及各項風險條件調整。</div>
@@ -3603,5 +3520,6 @@ set(s);b.onclick=function(){set(!h.classList.contains('nav-hidden'))};})();
   </button>
 
 </nav>
+<script src="kf-fit.js"></script>
 </body>
 </html>
