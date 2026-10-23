@@ -182,6 +182,40 @@ footer{
   letter-spacing:.14em;margin-top:50px;
 }
 </style>
+<style id="pv-css">
+.pv{--pv-red:#F8E6E1}
+:root[data-theme="dark"] .pv{--pv-red:#3A2420}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pv{--pv-red:#3A2420}}
+.pv{margin:14px 0 6px;font-size:14px;line-height:1.7}
+.pv .pv-tools{display:flex;gap:8px;margin:8px 0 10px}
+.pv .pv-tools button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surf);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.pv details.pv-cd{background:var(--surf);border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.pv details.pv-cd>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;gap:10px;align-items:center}
+.pv details.pv-cd>summary::-webkit-details-marker{display:none}
+.pv .pv-ic{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.pv .pv-sm{flex:1;min-width:0}.pv .pv-sm b{display:block;font-size:15px}.pv .pv-sm span{font-size:12.5px;color:var(--ink-soft)}
+.pv .pv-yr{flex:none;font-size:11.5px;font-weight:700;color:var(--gold);background:var(--t-gold);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.pv .pv-yr.pv-no-yr{color:var(--ink-soft);background:var(--paper);border:1px solid var(--rule)}
+.pv .pv-chev{flex:none;color:var(--ink-soft);transition:transform .2s}.pv details[open] .pv-chev{transform:rotate(90deg)}
+.pv .pv-bd{padding:0 14px 12px;display:grid;gap:8px}
+.pv .pv-row{display:grid;grid-template-columns:5.5em 1fr;gap:8px;align-items:start}
+.pv .pv-row>span:first-child{font-size:12px;font-weight:700;color:var(--ink-soft);padding-top:2px}
+.pv .pv-row>div{min-width:0}
+.pv .pv-eff{background:var(--t-green);border-radius:8px;padding:6px 10px}.pv .pv-eff b{color:var(--green)}
+.pv .pv-num{background:var(--t-gold);color:var(--gold);font-weight:700;padding:0 4px;border-radius:4px}
+.pv .pv-trap{background:var(--pv-red);border-radius:8px;padding:6px 10px;font-size:13.5px}.pv .pv-trap b{color:var(--red)}
+.pv details.pv-law{font-size:13px}.pv details.pv-law summary{cursor:pointer;color:var(--blue);font-weight:700}
+.pv details.pv-law p{margin:6px 0 0;padding:8px 10px;background:var(--paper);border-radius:8px;line-height:1.75}
+.pv .pv-c1{background:#3A5A7A}.pv .pv-c2{background:#7A4F8A}.pv .pv-c3{background:#A8402B}.pv .pv-c4{background:#35693F}.pv .pv-c5{background:#B8782E}.pv .pv-c6{background:#66726B}.pv .pv-c7{background:#5B6B3A}.pv .pv-c8{background:#2F6F73}.pv .pv-c9{background:#8A5A2B}
+.pv .pv-h{font-size:15px;margin:14px 0 6px}
+.pv .pv-grp{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:18px 0 8px}.pv .pv-gt{font-size:16px}
+.pv .pv-tag{font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px}
+.pv .pv-tag.pv-ps{background:var(--t-blue);color:var(--blue)}.pv .pv-tag.pv-sw{background:var(--t-gold);color:var(--gold)}.pv .pv-tag.pv-no{background:var(--paper);color:var(--ink-soft);border:1px solid var(--rule)}
+.pv .pv-lead{font-size:13px;color:var(--ink-soft)}
+.pv .pv-mn{background:var(--t-green);border-radius:10px;padding:10px 12px;font-size:14.5px;margin:8px 0}.pv .pv-mn b{color:var(--green)}
+.pv .pv-ex{font-size:12.5px;color:var(--ink-soft);margin-top:10px}
+@media (max-width:560px){.pv details.pv-cd>summary{flex-wrap:wrap}.pv .pv-sm{flex:1 1 calc(100% - 80px)}.pv .pv-chev{order:2}.pv .pv-yr{order:3;margin-left:40px;white-space:normal}.pv .pv-row{grid-template-columns:1fr;gap:2px}}
+</style>
 <style id="rk-css">
 .rk{--rk-red:#F8E6E1}
 :root[data-theme="dark"] .rk{--rk-red:#3A2420}
@@ -481,6 +515,82 @@ footer{
   </div>
 <script id="rk-js">(function(){var q=function(o){document.querySelectorAll(".rk details.rk-cd").forEach(function(d){d.open=o})};document.getElementById("rk-open").onclick=function(){q(true)};document.getElementById("rk-close").onclick=function(){q(false)}})()</script>
   <!-- /RK -->
+
+  <!-- PV推定視為 -->
+  <h3>推定・視為：地上權與租賃</h3>
+  <div class="pv">
+<div class="pv-mn"><b>先分清兩個字：</b><br><b>推定</b>＝法律先假設成立，對方<b>可以舉反證推翻</b>。<br><b>視為</b>＝法律直接擬制成這樣，<b>不能舉反證推翻</b>。<br>選擇題最愛把兩個字對調，看到題目寫「推定」或「視為」，先對條文用詞。</div>
+
+<h4 class="pv-h">房地分家四種情形（最常考）</h4>
+<div class="tbl-wrap"><table>
+<tr><th>怎麼分家的</th><th>用詞</th><th>產生什麼</th><th>條號</th></tr>
+<tr><td>房地同屬一人，<b>自己</b>只讓與土地或只讓與房屋，或先後讓與不同人</td><td><span class="pv-tag pv-ps">推定</span></td><td><b>租賃關係</b>（房屋得使用期限內）</td><td>§425-1</td></tr>
+<tr><td>設定<b>抵押權時</b>房地同屬一人，抵押物<b>拍賣</b>後分屬不同人</td><td><span class="pv-tag pv-sw">視為</span></td><td>已有<b>地上權</b>之設定</td><td>§876</td></tr>
+<tr><td>房地同屬一人，因<b>強制執行</b>之拍賣，拍定人各異（或只拍其一）</td><td><span class="pv-tag pv-sw">視為</span></td><td>已有<b>地上權</b>之設定</td><td>§838-1</td></tr>
+<tr><td>典物為土地，出典人同意典權人蓋屋，<b>回贖時不願補償</b>建物時價</td><td><span class="pv-tag pv-sw">視為</span></td><td>已有<b>地上權</b>之設定</td><td>§927Ⅲ、Ⅳ</td></tr>
+</table></div>
+<div class="pv-mn"><b>口訣：</b>自己賣的推定租（§425-1），拍賣、回贖的視為地上權（§876、§838-1、§927）。</div>
+
+<div class="pv-tools"><button type="button" id="pv-open">全部展開</button><button type="button" id="pv-close">全部收合</button></div>
+
+<div class="pv-grp"><b class="pv-gt">地上權：全部是「視為」</b><span class="pv-tag pv-sw">視為</span></div>
+<details class="pv-cd"><summary><span class="pv-ic pv-c4">押</span><span class="pv-sm"><b>抵押拍賣的法定地上權</b><span>§876Ⅰ、Ⅱ</span></span><span class="pv-yr">103・相關 104・105・108・113</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff"><b>設定抵押權時</b>，土地及其上建築物<b>同屬一人</b>所有</div></div><div class="pv-row"><span>Ⅰ 只抵押一個</span><div class="pv-eff">僅以土地或僅以建築物為抵押 → 抵押物拍賣時，<b>視為已有地上權之設定</b></div></div><div class="pv-row"><span>Ⅱ 兩個都抵押</span><div class="pv-eff">以土地及建築物為抵押，拍賣後<b>拍定人各異</b> → 適用前項（也視為地上權）</div></div><div class="pv-row"><span>地租等</span><div class="pv-eff">地租、期間及範圍由當事人<b>協議</b>；不能協議者，得聲請<b>法院以判決</b>定之</div></div>
+<div class="pv-trap"><b>陷阱：</b>看的時點是「<b>設定抵押權時</b>」是否同屬一人；設定後才蓋的房屋不適用 §876，要看 §877 併付拍賣（預01 申論就考這個分辨）。103-32 正解是「視為已設定地上權」，用「推定」或「租賃」都錯。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§876 Ⅰ 設定抵押權時，土地及其土地上之建築物，同屬於一人所有，而僅以土地或僅以建築物為抵押者，於抵押物拍賣時，視為已有地上權之設定，其地租、期間及範圍由當事人協議定之。不能協議者，得聲請法院以判決定之。Ⅱ 設定抵押權時，土地及其土地上之建築物，同屬於一人所有，而以土地及建築物為抵押者，如經拍賣，其土地與建築物之拍定人各異時，適用前項之規定。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c3">執</span><span class="pv-sm"><b>強制執行拍賣的法定地上權</b><span>§838-1</span></span><span class="pv-yr">104・113・相關 105</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff">土地及其上建築物<b>同屬一人</b>，因<b>強制執行之拍賣</b>，拍定人各異；只拍土地或只拍建築物，<b>亦同</b></div></div><div class="pv-row"><span>效果</span><div class="pv-eff"><b>視為已有地上權之設定</b>；地租、期間及範圍協議，不能協議者，得請求法院以判決定之</div></div><div class="pv-row"><span>消滅</span><div class="pv-eff">此地上權<b>因建築物之滅失而消滅</b>（Ⅱ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>一般地上權<b>不因</b>建築物滅失而消滅（§841），但 §838-1 的法定地上權<b>因建築物滅失而消滅</b>，正好相反。§838-1 不需要有抵押權，一般債權人聲請查封拍賣就適用（104-31、113-12 都是一般債權人聲請拍賣）。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§838-1 Ⅰ 土地及其土地上之建築物，同屬於一人所有，因強制執行之拍賣，其土地與建築物之拍定人各異時，視為已有地上權之設定，其地租、期間及範圍由當事人協議定之；不能協議者，得請求法院以判決定之。其僅以土地或建築物為拍賣時，亦同。Ⅱ 前項地上權，因建築物之滅失而消滅。<br>對照 §841 地上權不因建築物或其他工作物之滅失而消滅。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c9">典</span><span class="pv-sm"><b>典權回贖時的法定地上權</b><span>§927Ⅲ、Ⅳ、Ⅴ</span></span><span class="pv-yr pv-no-yr">99–114 選擇題未出現</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff">典物為土地，<b>出典人同意</b>典權人在其上營造建築物</div></div><div class="pv-row"><span>原則</span><div class="pv-eff">除另有約定外，回贖時出典人應按該建築物之<b>時價補償</b></div></div><div class="pv-row"><span>不願補償</span><div class="pv-eff">出典人不願補償 → 回贖時<b>視為已有地上權之設定</b>（Ⅲ）</div></div><div class="pv-row"><span>時價談不攏</span><div class="pv-eff">聲請法院<b>裁定</b>時價；仍不願依裁定補償 → 回贖時亦<b>視為已有地上權之設定</b>（Ⅳ）</div></div><div class="pv-row"><span>地租等</span><div class="pv-eff">地租、期間及範圍，當事人不能協議時，得請求法院以判決定之（Ⅴ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>要件是「<b>出典人同意</b>」蓋屋；時價談不攏是法院「<b>裁定</b>」，地租期間範圍談不攏是法院「<b>判決</b>」。106-29 考的是同條第Ⅰ項有益費用（現存利益限度），不是這裡。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§927 Ⅲ 典物為土地，出典人同意典權人在其上營造建築物者，除另有約定外，於典物回贖時，應按該建築物之時價補償之。出典人不願補償者，於回贖時視為已有地上權之設定。Ⅳ 出典人願依前項規定為補償而就時價不能協議時，得聲請法院裁定之；其不願依裁定之時價補償者，於回贖時亦視為已有地上權之設定。Ⅴ 前二項視為已有地上權設定之情形，其地租、期間及範圍，當事人不能協議時，得請求法院以判決定之。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c6">混</span><span class="pv-sm"><b>易混：基地租賃請求登記地上權</b><span>§422-1（不是視為）</span></span><span class="pv-yr">111・相關 100・101・104</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>效果</span><div class="pv-eff">租用基地建築房屋者，承租人於契約成立後，<b>得請求</b>出租人為地上權之登記</div></div><div class="pv-row"><span>性質</span><div class="pv-eff">是承租人的<b>請求權</b>；要真的辦登記才取得地上權，不是法律直接「視為」</div></div>
+<div class="pv-trap"><b>陷阱：</b>不要寫成「租用基地建屋者，視為已有地上權」。111-21 正解就是 §422-1 原文「得請求出租人為地上權之登記」。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§422-1 租用基地建築房屋者，承租人於契約成立後，得請求出租人為地上權之登記。</p></details>
+</div></details>
+<div class="pv-grp"><b class="pv-gt">租賃：一個推定，三個視為</b><span class="pv-tag pv-ps">推定</span><span class="pv-tag pv-sw">視為</span></div>
+<details class="pv-cd"><summary><span class="pv-ic pv-c1">推</span><span class="pv-sm"><b>房地分別讓與的推定租賃</b><span>§425-1</span></span><span class="pv-yr">108・113・相關 103・104・109・113</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff">土地及其上房屋<b>同屬一人</b>，僅讓與土地或僅讓與房屋，或同時、先後讓與<b>相異之人</b></div></div><div class="pv-row"><span>效果</span><div class="pv-eff"><b>推定</b>在房屋得使用期限內，有<b>租賃關係</b></div></div><div class="pv-row"><span>期限</span><div class="pv-eff">不受 §449Ⅰ <span class="pv-num">二十年</span>上限之限制</div></div><div class="pv-row"><span>租金</span><div class="pv-eff">當事人不能協議時，得請求<b>法院</b>定之（Ⅱ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>108-21、113-9 的錯誤選項都是把「推定」換成「視為」，或把「租賃」換成「地上權」。109-12 題目以「依實務見解」出題，選項敘述違章建築原同屬一人、分別讓與時類推適用 §425-1（題庫解析所述，判決字號待查）。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§425-1 Ⅰ 土地及其土地上之房屋同屬一人所有，而僅將土地或僅將房屋所有權讓與他人，或將土地及房屋同時或先後讓與相異之人時，土地受讓人或房屋受讓人與讓與人間或房屋受讓人與土地受讓人間，推定在房屋得使用期限內，有租賃關係。其期限不受第四百四十九條第一項規定之限制。Ⅱ 前項情形，其租金數額當事人不能協議時，得請求法院定之。<br>§449 Ⅰ 租賃契約之期限，不得逾二十年。逾二十年者，縮短為二十年。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c5">字</span><span class="pv-sm"><b>逾一年未立字據</b><span>§422</span></span><span class="pv-yr">100・102・104・相關 100・105・114</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff"><b>不動產</b>租賃，期限<b>逾一年</b>，未以字據訂立</div></div><div class="pv-row"><span>效果</span><div class="pv-eff"><b>視為不定期限之租賃</b>（契約仍有效）</div></div><div class="pv-row"><span>連帶後果</span><div class="pv-eff">未定期限 → 各當事人原則得隨時終止（§450Ⅱ）；未經公證的不定期限不動產租賃，不適用買賣不破租賃（§425Ⅱ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>最常考的錯誤選項：「未以字據訂立者，<b>無效</b>」（100-2、104-19、114-12）。租賃是不要式契約，口頭也成立，只是變成不定期。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§422 不動產之租賃契約，其期限逾一年者，應以字據訂立之，未以字據訂立者，視為不定期限之租賃。<br>§450 Ⅱ 未定期限者，各當事人得隨時終止契約。但有利於承租人之習慣者，從其習慣。<br>§425 Ⅱ 前項規定，於未經公證之不動產租賃契約，其期限逾五年或未定期限者，不適用之。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c8">續</span><span class="pv-sm"><b>租期屆滿還在用</b><span>§451</span></span><span class="pv-yr">相關 114</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff">租賃期限屆滿後，承租人<b>仍為使用收益</b>，出租人<b>不即</b>表示反對之意思</div></div><div class="pv-row"><span>效果</span><div class="pv-eff"><b>視為以不定期限繼續契約</b>（默示更新）</div></div>
+<div class="pv-trap"><b>陷阱：</b>關鍵字是出租人「<b>不即</b>」反對；是變成<b>不定期限</b>，不是按原期限再續一次。114-12 選項 D 即本條。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§451 租賃期限屆滿後，承租人仍為租賃物之使用收益，而出租人不即表示反對之意思者，視為以不定期限繼續契約。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c2">棄</span><span class="pv-sm"><b>基地房屋優先承買權沒回覆</b><span>§426-2Ⅱ、Ⅲ</span></span><span class="pv-yr">101・相關 109</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>誰有權</span><div class="pv-eff">出租人出賣基地 → <b>承租人</b>優先承買；承租人出賣房屋 → <b>基地所有人</b>優先承買（Ⅰ）</div></div><div class="pv-row"><span>沒回覆</span><div class="pv-eff">出賣人以書面通知出賣條件，優先承買權人於通知達到後<span class="pv-num">十日</span>內未以書面表示承買者，<b>視為放棄</b>（Ⅱ）</div></div><div class="pv-row"><span>出賣人沒通知</span><div class="pv-eff">未以書面通知即為所有權移轉登記者，<b>不得對抗</b>優先承買權人（Ⅲ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>101-13 錯誤選項寫基地所有人「無」優先承買權，條文是雙向都有。期間是 <span class="pv-num">10 日</span>，通知與表示都要<b>書面</b>。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§426-2 Ⅰ 租用基地建築房屋，出租人出賣基地時，承租人有依同樣條件優先承買之權。承租人出賣房屋時，基地所有人有依同樣條件優先承買之權。Ⅱ 前項情形，出賣人應將出賣條件以書面通知優先承買權人。優先承買權人於通知達到後十日內未以書面表示承買者，視為放棄。Ⅲ 出賣人未以書面通知優先承買權人而為所有權之移轉登記者，不得對抗優先承買權人。</p></details>
+</div></details>
+<div class="pv-grp"><b class="pv-gt">對照組：不是推定也不是視為</b><span class="pv-tag pv-no">法定效果</span></div>
+<p class="pv-lead" style="margin:0 0 8px">下面兩條條文寫的是「仍繼續存在」，法律直接規定，題目若改寫成「推定繼續存在」就錯。</p>
+<details class="pv-cd"><summary><span class="pv-ic pv-c7">破</span><span class="pv-sm"><b>買賣不破租賃</b><span>§425</span></span><span class="pv-yr">99・101・102・106・111</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>要件</span><div class="pv-eff">出租人於租賃物<b>交付後</b>、承租人<b>占有中</b>，將所有權讓與第三人</div></div><div class="pv-row"><span>效果</span><div class="pv-eff">租賃契約對於受讓人<b>仍繼續存在</b></div></div><div class="pv-row"><span>例外</span><div class="pv-eff"><b>未經公證</b>之不動產租賃，期限<b>逾五年</b>或<b>未定期限</b>者，不適用（Ⅱ）</div></div>
+<div class="pv-trap"><b>陷阱：</b>要「交付後＋占有中」；§422 變成不定期的租約又沒公證，就落入 Ⅱ 的例外，買受人可以不承認。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§425 Ⅰ 出租人於租賃物交付後，承租人占有中，縱將其所有權讓與第三人，其租賃契約，對於受讓人仍繼續存在。Ⅱ 前項規定，於未經公證之不動產租賃契約，其期限逾五年或未定期限者，不適用之。</p></details>
+</div></details>
+<details class="pv-cd"><summary><span class="pv-ic pv-c6">房</span><span class="pv-sm"><b>基地承租人賣房屋</b><span>§426-1</span></span><span class="pv-yr">相關 101</span><span class="pv-chev">›</span></summary>
+<div class="pv-bd"><div class="pv-row"><span>效果</span><div class="pv-eff">租用基地建築房屋，承租人<b>房屋所有權移轉</b>時，基地租賃契約對於房屋受讓人<b>仍繼續存在</b></div></div>
+<div class="pv-trap"><b>陷阱：</b>§425 是「出租人」賣租賃物；§426-1 是「承租人」賣自己蓋的房屋，方向相反。</div>
+<details class="pv-law"><summary>條文原文</summary><p>§426-1 租用基地建築房屋，承租人房屋所有權移轉時，其基地租賃契約，對於房屋受讓人，仍繼續存在。</p></details>
+</div></details>
+<p class="pv-ex">年份來源：站上刷題練習 A–E 篇解析中出現該條號的題目（99–114 年）。§927Ⅲ、Ⅳ 在題庫中未出現，列入是因為它和 §876、§838-1 同屬「視為已有地上權」，容易一起考。</p>
+  </div>
+<script id="pv-js">(function(){var q=function(o){document.querySelectorAll(".pv details.pv-cd").forEach(function(d){d.open=o})};document.getElementById("pv-open").onclick=function(){q(true)};document.getElementById("pv-close").onclick=function(){q(false)}})()</script>
+  <!-- /PV -->
 
   <h3>農育權</h3>
   <div class="note note-blue">
