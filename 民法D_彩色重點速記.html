@@ -182,6 +182,40 @@ footer{
   letter-spacing:.14em;margin-top:50px;
 }
 </style>
+<style id="rk-css">
+.rk{--rk-red:#F8E6E1}
+:root[data-theme="dark"] .rk{--rk-red:#3A2420}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rk{--rk-red:#3A2420}}
+.rk{margin:14px 0 6px;font-size:14px;line-height:1.7}
+.rk .rk-tools{display:flex;gap:8px;margin:8px 0 10px}
+.rk .rk-tools button{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surf);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.rk details.rk-cd{background:var(--surf);border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.rk details.rk-cd>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;gap:10px;align-items:center}
+.rk details.rk-cd>summary::-webkit-details-marker{display:none}
+.rk .rk-ic{flex:none;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.rk .rk-sm{flex:1;min-width:0}.rk .rk-sm b{display:block;font-size:15px}.rk .rk-sm span{font-size:12.5px;color:var(--ink-soft)}
+.rk .rk-yr{flex:none;font-size:11.5px;font-weight:700;color:var(--gold);background:var(--t-gold);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.rk .rk-chev{flex:none;color:var(--ink-soft);transition:transform .2s}.rk details[open] .rk-chev{transform:rotate(90deg)}
+.rk .rk-bd{padding:0 14px 12px;display:grid;gap:8px}
+.rk .rk-row{display:grid;grid-template-columns:5.5em 1fr;gap:8px;align-items:start}
+.rk .rk-row>span:first-child{font-size:12px;font-weight:700;color:var(--ink-soft);padding-top:2px}
+.rk .rk-row>div{min-width:0}
+.rk .rk-eff{background:var(--t-green);border-radius:8px;padding:6px 10px}.rk .rk-eff b{color:var(--green)}
+.rk .rk-num{background:var(--t-gold);color:var(--gold);font-weight:700;padding:0 4px;border-radius:4px}
+.rk .rk-reg{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:0 7px}
+.rk .rk-reg.rk-y{background:var(--t-blue);color:var(--blue)}.rk .rk-reg.rk-n{background:var(--paper);color:var(--ink-soft);border:1px solid var(--rule)}
+.rk .rk-trap{background:var(--rk-red);border-radius:8px;padding:6px 10px;font-size:13.5px}.rk .rk-trap b{color:var(--red)}
+.rk details.rk-law{font-size:13px}.rk details.rk-law summary{cursor:pointer;color:var(--blue);font-weight:700}
+.rk details.rk-law p{margin:6px 0 0;padding:8px 10px;background:var(--paper);border-radius:8px;line-height:1.75}
+.rk .rk-c1{background:#3A5A7A}.rk .rk-c2{background:#7A4F8A}.rk .rk-c3{background:#A8402B}.rk .rk-c4{background:#35693F}.rk .rk-c5{background:#B8782E}.rk .rk-c6{background:#66726B}.rk .rk-c7{background:#5B6B3A}
+.rk .rk-h{font-size:15px;margin:14px 0 6px}
+.rk .rk-vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.rk .rk-vs>div{min-width:0;background:var(--surf);border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+.rk .rk-vs h4{margin:0 0 6px;font-size:14.5px}.rk .rk-vs ul{margin:0;padding-left:1.1em}
+.rk .rk-mn{background:var(--t-green);border-radius:10px;padding:10px 12px;font-size:14.5px;margin:8px 0}.rk .rk-mn b{color:var(--green)}
+.rk .rk-ex{font-size:12.5px;color:var(--ink-soft);margin-top:10px}
+@media (max-width:560px){.rk .rk-vs{grid-template-columns:1fr}.rk .rk-row{grid-template-columns:1fr;gap:2px}}
+</style>
 <script src="bxm-use.js"></script>
 <script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
 </head>
@@ -367,6 +401,86 @@ footer{
       <tr><td>讓與/設定抵押權</td><td>得為之（契約另有約定者不在此限）；<b>地上權與建物不得分離</b></td><td>838條</td></tr>
     </table>
   </div>
+
+  <!-- RK地租比較卡 -->
+  <h3>地上權地租比較卡：發生什麼事看哪條</h3>
+  <div class="rk">
+<div class="rk-mn"><b>先記一句：</b>想走看 §834／§835，欠錢看 §836Ⅰ，地租不公平看 §835-1，<b>換人看登記</b>（地上權人換人 §836Ⅱ、地主換人 §836-1），天災照付 §837，太久沒期限找法院 §833-1。</div>
+
+<div class="rk-tools"><button type="button" id="rk-open">全部展開</button><button type="button" id="rk-close">全部收合</button></div>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c1">走</span><span class="rk-sm"><b>地上權人想拋棄</b><span>§834、§835</span></span><span class="rk-yr">99・100・101・103・105・109</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>沒有地租</span><div class="rk-eff"><b>隨時拋棄</b>（§834）</div></div>
+<div class="rk-row"><span>有地租・定期限</span><div class="rk-eff">付<span class="rk-num">未到期 3 年分</span>地租後拋棄（§835Ⅰ）</div></div>
+<div class="rk-row"><span>有地租・未定期限</span><div class="rk-eff"><span class="rk-num">1 年前</span>通知地主，或付<span class="rk-num">未到期 1 年分</span>地租（§835Ⅱ）</div></div>
+<div class="rk-row"><span>土地不能用了</span><div class="rk-eff">不可歸責地上權人：付前兩項地租的<span class="rk-num">1/2</span>後拋棄；可歸責地主：<b>免付</b>地租直接拋棄（§835Ⅲ）</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-n">不涉及</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>「地上權人<b>均</b>得隨時拋棄」錯，只有沒有地租的才行（100-24）。「無地租者應一年前通知」錯，一年前通知是<b>有地租、未定期限</b>（109-18）。另：地上權已設定抵押權給別人時，拋棄須得抵押權人同意（§764Ⅱ）。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§834 地上權無支付地租之約定者，地上權人得隨時拋棄其權利。<br>§835 Ⅰ 地上權定有期限，而有支付地租之約定者，地上權人得支付未到期之三年分地租後，拋棄其權利。Ⅱ 地上權未定有期限，而有支付地租之約定者，地上權人拋棄權利時，應於一年前通知土地所有人，或支付未到期之一年分地租。Ⅲ 因不可歸責於地上權人之事由，致土地不能達原來使用之目的時，地上權人於支付前二項地租二分之一後，得拋棄其權利；其因可歸責於土地所有人之事由，致土地不能達原來使用之目的時，地上權人亦得拋棄其權利，並免支付地租。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c3">欠</span><span class="rk-sm"><b>地上權人欠地租</b><span>§836Ⅰ、Ⅲ</span></span><span class="rk-yr">101・108・109・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>門檻</span><div class="rk-eff">積欠達<span class="rk-num">2 年之總額</span>（不是「連續 2 年」），除另有習慣外</div></div>
+<div class="rk-row"><span>程序</span><div class="rk-eff">地主<b>先定相當期限催告</b> → 期限內仍不付 → 才得<b>終止</b>；地上權有抵押權者，同時把催告的事實<b>通知抵押權人</b>；終止要向地上權人以<b>意思表示</b>為之</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-n">不涉及</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>「積欠 2 年總額即得<b>逕行</b>終止」錯，要先催告（114-17）。「須<b>連續</b>積欠 2 年」錯，看的是總額（109-18）。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§836 Ⅰ 地上權人積欠地租達二年之總額，除另有習慣外，土地所有人得定相當期限催告地上權人支付地租，如地上權人於期限內不為支付，土地所有人得終止地上權。地上權經設定抵押權者，並應同時將該催告之事實通知抵押權人。Ⅲ 第一項終止，應向地上權人以意思表示為之。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c2">換</span><span class="rk-sm"><b>地上權人換人（地上權讓與）</b><span>§836Ⅱ</span></span><span class="rk-yr">相關：108・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>效果</span><div class="rk-eff">地租約定<b>經登記</b>者：前地上權人<b>積欠</b>的地租併同計算，受讓人要跟讓與人<b>連帶</b>清償</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-y">地租約定要登記</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>沒登記，新地上權人不必替前手還欠租；有登記才連帶。管的是「<b>積欠</b>」的地租。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§836 Ⅱ 地租之約定經登記者，地上權讓與時，前地上權人積欠之地租應併同計算。受讓人就前地上權人積欠之地租，應與讓與人連帶負清償責任。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c4">賣</span><span class="rk-sm"><b>地主換人（土地所有權讓與）</b><span>§836-1</span></span><span class="rk-yr">100・109・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>效果</span><div class="rk-eff">地上權人<b>已預付</b>的地租，<b>非經登記，不得對抗第三人</b>（新地主）；有登記，新地主不能再收一次</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-y">預付地租要登記（對抗要件）</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>「已預付之地租，<b>均</b>不得對抗第三人」錯，漏了「非經登記」（100-24）。114-17 用正面改寫「預收之地租如已登記，得對抗受讓之第三人」，也是對的。沒登記不是「無效」，只是不能對抗新地主。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§836-1 土地所有權讓與時，已預付之地租，非經登記，不得對抗第三人。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c5">調</span><span class="rk-sm"><b>地租變得不公平</b><span>§835-1</span></span><span class="rk-yr">相關：101・108・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>有約定地租</span><div class="rk-eff">設定後因<b>土地價值昇降</b>，依原地租給付顯失公平 → 當事人得<b>請求法院增減</b>（§835-1Ⅰ）</div></div>
+<div class="rk-row"><span>沒約定地租</span><div class="rk-eff">土地負擔增加、非當時所得預料，仍無償使用顯失公平 → <b>地主</b>得請求法院<b>酌定</b>地租（§835-1Ⅱ）</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-n">不涉及</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>是「請求<b>法院</b>」增減或酌定，不是一方自己調整；第Ⅱ項請求人只有土地所有人。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§835-1 Ⅰ 地上權設定後，因土地價值之昇降，依原定地租給付顯失公平者，當事人得請求法院增減之。Ⅱ 未定有地租之地上權，如因土地之負擔增加，非當時所得預料，仍無償使用顯失公平者，土地所有人得請求法院酌定其地租。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c6">災</span><span class="rk-sm"><b>天災妨礙使用</b><span>§837</span></span><span class="rk-yr">101・103・108・109・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>效果</span><div class="rk-eff">縱因<b>不可抗力</b>妨礙土地使用，地上權人<b>不得請求免除或減少</b>租金</div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-n">不涉及</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>最常出的錯誤選項：「因不可抗力即得請求減免租金」（109-18、114-17）。土地「不能達原來使用目的」時另看 §835Ⅲ 拋棄，不要混在一起。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§837 地上權人，縱因不可抗力，妨礙其土地之使用，不得請求免除或減少租金。</p></details>
+</div></details>
+
+<details class="rk-cd"><summary><span class="rk-ic rk-c7">久</span><span class="rk-sm"><b>沒定期限、用很久</b><span>§833-1</span></span><span class="rk-yr">99・101・106・110・114</span><span class="rk-chev">›</span></summary>
+<div class="rk-bd">
+<div class="rk-row"><span>效果</span><div class="rk-eff">未定期限，存續逾<span class="rk-num">20 年</span>或成立目的已不存在 → 法院得因<b>當事人</b>請求，定存續期間或<b>終止</b></div></div>
+<div class="rk-row"><span>要登記嗎</span><div><span class="rk-reg rk-n">不涉及</span></div></div>
+<div class="rk-trap"><b>陷阱：</b>是 <span class="rk-num">20 年</span>，不是 30 年（114-17 錯誤選項寫 30 年）；請求人是「當事人」，不限地主。</div>
+<details class="rk-law"><summary>條文原文</summary><p>§833-1 地上權未定有期限者，存續期間逾二十年或地上權成立之目的已不存在時，法院得因當事人之請求，斟酌地上權成立之目的、建築物或工作物之種類、性質及利用狀況等情形，定其存續期間或終止其地上權。</p></details>
+</div></details>
+
+<h4 class="rk-h">最容易混的一組：誰換人？</h4>
+<div class="rk-vs">
+<div><h4>地上權人換人｜§836Ⅱ</h4><ul><li>管<b>積欠</b>的地租</li><li>地租<b>約定</b>經登記</li><li>受讓人與讓與人<b>連帶</b>清償</li></ul></div>
+<div><h4>地主換人｜§836-1</h4><ul><li>管<b>預付</b>的地租</li><li><b>預付</b>經登記</li><li>才能<b>對抗</b>新地主</li></ul></div>
+</div>
+<div class="rk-mn"><b>口訣：</b>欠的跟著人走（§836Ⅱ），付的靠登記擋（§836-1）。</div>
+
+<p class="rk-ex">「考過」年份依站上 D 篇題庫解析中出現該條文的題目統計；標「相關」的是該條出現在同題選項或解析、但不是正確選項本身。</p>
+  </div>
+<script id="rk-js">(function(){var q=function(o){document.querySelectorAll(".rk details.rk-cd").forEach(function(d){d.open=o})};document.getElementById("rk-open").onclick=function(){q(true)};document.getElementById("rk-close").onclick=function(){q(false)}})()</script>
+  <!-- /RK -->
 
   <h3>農育權</h3>
   <div class="note note-blue">
