@@ -35,7 +35,7 @@ bad=0
 for d in D:
     k=d['k']; e=ES.get(k)
     if not e: print('✗',k,'essays.json 查無此題'); bad+=1; continue
-    raw=e['full']+e['quick']+e['keys']+e['question']
+    raw=re.sub(r'[ \u3000]','',e['full']+e['quick']+e['keys']+e['question'])  # 去空白，條號常寫成「第 4 條第 7 款」
     pool=norm(raw)+cn2art(raw)
     txt=json.dumps(d,ensure_ascii=False)
     arts={norm(a) for a in ART.findall(txt)}
