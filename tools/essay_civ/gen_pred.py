@@ -8,6 +8,7 @@ TPL = open(os.path.join(ROOT, '土地法申論題_六型答題模板.html'), enc
 HEAD = TPL[:TPL.index('<title>')] + '<title>民法申論115預測</title>' + TPL[TPL.index('</title>') + 8:TPL.index('<style>')]
 CSS = TPL[TPL.index('<style>') + 7:TPL.index('</style>')]
 FAB = TPL[TPL.index('<!--bxfab-->'):TPL.index('<!--/bxfab-->') + len('<!--/bxfab-->')] if '<!--bxfab-->' in TPL else ''
+FAB = FAB.replace('%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html', '%E6%B0%91%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html').replace('土地法_備考指揮中心.html', '民法_備考指揮中心.html')  # 首頁鈕指向民法指揮中心
 HUB = '民法_備考指揮中心.html'
 CN = '一二'
 def key(c):
