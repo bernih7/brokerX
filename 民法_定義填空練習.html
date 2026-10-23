@@ -2392,7 +2392,18 @@ function renderQuizCard() {
   const prog = document.getElementById('quiz-progress');
   if (quizIdx >= quizQueue.length) {
     prog.textContent = '';
-    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
+    let note = '';
+    if (quizQueue.length === quizPool.length) {
+      if (!quizQueue._counted && window.BXREP && BXREP.readInc) {
+        quizQueue._counted = true;
+        const cnt = BXREP.readInc(BXREP.PAGE, 1);
+        const b = document.querySelector('#bxmRead b'); if (b) b.textContent = cnt;
+      }
+      note = '<div style="font-size:13px;color:var(--sub,#666);margin-top:8px">已自動記錄「讀過 1 輪」，右下角不用再按＋。</div>';
+    } else {
+      note = '<div style="font-size:13px;color:var(--sub,#666);margin-top:8px">這輪只練部分章節，不自動記入「讀過 N 輪」；全部 ' + quizPool.length + ' 題做完才會自動記一輪。</div>';
+    }
+    area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！${note}<br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
     return;
   }
   const c = quizQueue[quizIdx];
