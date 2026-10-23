@@ -7,10 +7,19 @@ D=json.load(open(f,encoding='utf-8'))
 ART=re.compile(r'§\s*\d+(?:\s*[之\-]\s*\d+)?')
 CNUM={'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9}
 def cn(t):
+    # 支援 百／十，例：二百五十九→259、十六→16、一百→100
     if t.isdigit(): return int(t)
-    if '十' not in t: return sum(CNUM.get(c,0) for c in t) if len(t)==1 else int(''.join(str(CNUM.get(c,0)) for c in t))
-    a,_,b=t.partition('十')
-    return (CNUM.get(a,1) if a else 1)*10+(CNUM.get(b,0) if b else 0)
+    tot=0; cur=0
+    for c in t:
+        if c=='百':
+            tot+=(cur or 1)*100; cur=0
+        elif c=='十':
+            cur=(cur or 1)*10; tot+=cur; cur=0
+        elif c in CNUM:
+            cur=CNUM[c]
+        else:
+            return 0
+    return tot+cur
 def cn2art(t):
     out=[]
     for m in re.finditer(r'第([0-9一二三四五六七八九十百]+)條(?:之([0-9一二三四五六七八九十]+))?',t):
