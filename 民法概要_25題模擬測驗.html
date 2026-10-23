@@ -97,6 +97,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margi
 .es-chk label{display:block;font-size:13px;padding:3px 0}
 .es-sc{margin-top:8px;font-size:13px}.es-sc select{font-size:14px;padding:4px 6px}
 .ainote{font-size:10.5px;color:#A8A39B;margin-top:6px}
+@keyframes wfl{0%{box-shadow:0 0 0 0 rgba(168,64,43,.55)}100%{box-shadow:0 0 0 14px rgba(168,64,43,0)}}.wflash{animation:wfl 1.2s ease-out}
 </style>
 <script src="bxm-use.js"></script>
 </head>
@@ -145,7 +146,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margi
   <div id="qList"></div>
   <div id="essaySec"></div>
   <div class="sticky-ctrl ctrl">
-    <button class="btn" onclick="reviewWrong()">⚠️ 跳到錯題</button>
+    <button class="btn" id="wrongBtn" onclick="reviewWrong()">⚠️ 錯題 0</button>
     <button class="btn primary" onclick="submitExam()">📋 立即交卷</button>
   </div>
 </div>
@@ -294,12 +295,26 @@ function updateProgress(){
   document.getElementById('answered').textContent=done;
   document.getElementById('liveScore').textContent=`${ok*2} / 50分`;
   document.getElementById('progFill').style.width=`${done/25*100}%`;
+  wrongPos=-1;wrongLabel();
 }
 
+// 錯題鈕：每按一次跳到「目前畫面以下」的下一個錯題，到最後一題再回到第一個；鈕上顯示第幾個／共幾個
+let wrongPos=-1;
+function wrongList(){const r=[];answers.forEach((a,i)=>{if(a!==null&&!isOK(QS[i],a))r.push(i)});return r;}
+function wrongLabel(){const b=document.getElementById('wrongBtn');if(!b)return;const w=wrongList();
+  b.textContent=w.length?(wrongPos>=0&&wrongPos<w.length?`⚠️ 錯題 ${wrongPos+1}/${w.length} ↓`:`⚠️ 錯題 ${w.length} 題 ↓`):'⚠️ 錯題 0';}
 function reviewWrong(){
-  const wrongIdx=answers.findIndex((a,i)=>a!==null&&!isOK(QS[i],a));
-  if(wrongIdx<0){alert('目前沒有答錯的題目！');return;}
-  document.getElementById(`qc${wrongIdx}`).scrollIntoView({behavior:'smooth',block:'center'});
+  const w=wrongList();const b=document.getElementById('wrongBtn');
+  if(!w.length){b.textContent='目前沒有錯題 👍';setTimeout(wrongLabel,1500);return;}
+  const mid=60;
+  let k=w.findIndex(i=>{const el=document.getElementById(`qc${i}`);return el&&el.getBoundingClientRect().top>mid;});
+  if(wrongPos>=0&&wrongPos<w.length){const cur=document.getElementById(`qc${w[wrongPos]}`);
+    if(cur){const t=cur.getBoundingClientRect().top;if(Math.abs(t+cur.offsetHeight/2-window.innerHeight/2)<cur.offsetHeight)k=(wrongPos+1)%w.length;}}
+  if(k<0)k=0;
+  wrongPos=k;const el=document.getElementById(`qc${w[k]}`);
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.remove('wflash');void el.offsetWidth;el.classList.add('wflash');setTimeout(()=>el.classList.remove('wflash'),1400);
+  wrongLabel();
 }
 
 function submitExam(){
