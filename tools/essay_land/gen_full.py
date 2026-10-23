@@ -60,6 +60,12 @@ E = json.load(open(W + 'essays.json'))
 M = {}
 for f in sorted(glob.glob(W + 'M*_out.json')):
     for r in json.load(open(f)): M[r['key']] = r
+LJ = {}
+_ljf = os.path.join(W, 'lj_data.json')
+if os.path.exists(_ljf):
+    LJ = {x['k']: x for x in json.load(open(_ljf, encoding='utf-8'))}
+if os.environ.get('LJ_EXTRA'):
+    LJ.update({x['k']: x for x in json.load(open(os.environ['LJ_EXTRA'], encoding='utf-8'))})
 LAW = {}
 for f in sorted(glob.glob(W + 'F*_law.json')):
     LAW.update(json.load(open(f)))
@@ -195,6 +201,59 @@ TAGC = {'定義': 'm1', '法條': 'm2', '涵攝': 'm3', '結論': 'm4'}
 
 def clean_tx(x): return re.sub(r'\s+', '', html.unescape(re.sub(r'<[^>]+>', '', x))).lower()
 
+E_ = html.escape
+def _rich(t): return re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', E_(t))
+_TAG = {'law': ('條文', 'tl'), 'fact': ('本題', 'tf'), 'ans': ('答', 'ta')}
+_CN = '一二三四五六'
+def lj_render(d):
+    subs = d['subs']; multi = len(subs) > 1
+    def qh(i, sb):
+        lab = f'問題{_CN[i]}' if multi else '問題'
+        return f'<div class="ljq"><span class="ljqn">{lab}</span><span class="ljqt">{E_(sb["q"])}</span></div>'
+    A = '<p class="ljd">一步一步推：先問一句 → 條文 → 本題 → 小結，箭頭寫上下關係。適合第一次讀懂。</p>'
+    n = 0
+    for i, sb in enumerate(subs):
+        A += qh(i, sb)
+        if sb.get('pre'): A += f'<div class="ljar ljpre">{E_(sb["pre"])}</div>'
+        for j, st in enumerate(sb['steps']):
+            n += 1
+            A += f'<div class="ljst"><div class="ljsq"><span class="ljno">{n}</span>{E_(st["ask"])}</div>'
+            if st.get('lawh'): A += f'<p><span class="ljt tl">條文</span><b>{E_(st["lawh"])}</b>：{E_(st["law"])}</p>'
+            A += f'<p><span class="ljt tf">{E_(st.get("facth") or "本題") if st.get("facth") in ("代入", "舉例", "違反時") else "本題"}</span>{E_(st["fact"])}</p>'
+            if st.get('res'): A += f'<p><span class="ljt ta">小結</span>{E_(st["res"])}</p>'
+            A += '</div>'
+            if j < len(sb['steps']) - 1: A += f'<div class="ljar">↓ {E_(st.get("link", ""))}</div>'
+        A += f'<div class="ljans"><b>答{_CN[i] if multi else ""}：</b>{_rich(sb["ans"])}</div>'
+    if d.get('mnem'): A += f'<p class="kou2"><b>口訣</b>：{E_(d["mnem"])}〔自編〕</p>'
+    B = '<p class="ljd">左＝條文說什麼，右＝本題套進去，一列一組。適合對答案。</p>'
+    for i, sb in enumerate(subs):
+        B += qh(i, sb) + '<div class="ljch"><span>條文說什麼</span><span>本題套進去</span></div>'
+        for st in sb['steps']:
+            l = f'<div class="ljh">{E_(st["lawh"])}</div>{E_(st["law"])}' if st.get('lawh') else f'<div class="ljh">推理</div>{E_(st["ask"])}'
+            B += f'<div class="ljrow"><div class="ljl">{l}</div><div class="ljr"><div class="ljh">{E_(st.get("facth") or "本題")}</div>{E_(st["fact"])}</div></div>'
+        B += f'<div class="ljans"><b>答{_CN[i] if multi else ""}：</b>{_rich(sb["ans"])}</div>'
+    C = '<p class="ljd">一眼看完推理順序，下方寫完逐項勾。適合考前複習。</p><div class="ljmap">'
+    n = 0
+    for i, sb in enumerate(subs):
+        C += f'<div><h6>{("問題" + _CN[i] + "｜") if multi else ""}{E_(sb["q"])}</h6><ul>'
+        for j, st in enumerate(sb['steps']):
+            n += 1
+            C += f'<li><span class="ljno">{n}</span>{E_(st["key"])}</li>'
+            if j < len(sb['steps']) - 1: C += '<li class="ljdn">↓</li>'
+        C += f'</ul><div class="ljans"><b>答：</b>{_rich(sb["ans"])}</div></div>'
+    C += '</div>'
+    ck = d['checks']
+    C += f'<div class="ljck"><b>寫完逐項勾（{len(ck)} 個採分點；<span class="ljhot">常錯</span>＝最常漏寫或寫錯）</b><ul>'
+    for c in ck:
+        t, cls = _TAG[c['t']]
+        g = f'<span class="ljg">問題{_CN[c["sub"] - 1]}</span>' if multi else ''
+        hot = '<span class="ljhot">常錯</span>' if c.get('hot') else ''
+        C += f'<li><label><input type="checkbox"><span class="ljt {cls}">{t}</span>{E_(c["txt"])}{hot}</label>{g}</li>'
+    C += '</ul></div>'
+    return ('<div class="ljs"><span>排法</span><div class="ljseg">'
+            '<button type="button" data-lj="A" class="on">① 推理鏈</button><button type="button" data-lj="B">② 條文｜本題</button><button type="button" data-lj="C">③ 地圖＋勾選</button></div></div>'
+            f'<div class="ljp" data-lj="A">{A}</div><div class="ljp" data-lj="B" hidden>{B}</div><div class="ljp" data-lj="C" hidden>{C}</div>')
+
 def card(r):
     d = r['d']; m = r['m']; key = r['key']; kind = r['kind']
     cite = m['cite']
@@ -228,10 +287,13 @@ def card(r):
             f'<span class="em"><span class="lvp {lc}">{lab}</span><span class="ek">{ek}</span></span>'
             f'<span class="chips">{"".join(f"<i>{c}</i>" for c in d["chips"][:5])}</span></summary>'
             f'<div class="ebody"><div class="oq">{oq}</div>{"<p class=srcl>" + d["src"] + "</p>" if d["src"] else ""}{why}'
-            f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="0">完整四段式</button><button type="button" data-v="1">考場速寫版</button><button type="button" data-v="2">得分關鍵・失分點</button><button type="button" data-v="3">必提重點</button></div>'
-            f'<div class="vp" data-v="0">{secs}{tail}</div><div class="vp" data-v="1" hidden>{v1}</div><div class="vp" data-v="2" hidden>{d["v2"]}</div>'
-            f'<div class="vp" data-v="3" hidden><p class="mh">一定要寫到的 {len(m["must"])} 個採分點（照答題順序，寫完逐項打勾自查）</p><ul class="must">{must}</ul>'
-            f'<div class="mc"><b>結論必寫</b>{html.escape(m["mc"])}</div><div class="mtrap"><b>最容易漏</b>{html.escape(m["mt"])}</div></div>'
+            + (f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="3">邏輯拆解</button><button type="button" data-v="1">考場速寫</button><button type="button" data-v="0">完整四段式</button></div>'
+               f'<div class="vp lj" data-v="3">{lj_render(LJ[key])}</div><div class="vp" data-v="1" hidden>{v1}<div class="sk2">{d["v2"]}</div></div><div class="vp" data-v="0" hidden>{secs}{tail}</div>'
+               if key in LJ else
+               f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="0">完整四段式</button><button type="button" data-v="1">考場速寫版</button><button type="button" data-v="2">得分關鍵・失分點</button><button type="button" data-v="3">必提重點</button></div>'
+               f'<div class="vp" data-v="0">{secs}{tail}</div><div class="vp" data-v="1" hidden>{v1}</div><div class="vp" data-v="2" hidden>{d["v2"]}</div>'
+               f'<div class="vp" data-v="3" hidden><p class="mh">一定要寫到的 {len(m["must"])} 個採分點（照答題順序，寫完逐項打勾自查）</p><ul class="must">{must}</ul>'
+               f'<div class="mc"><b>結論必寫</b>{html.escape(m["mc"])}</div><div class="mtrap"><b>最容易漏</b>{html.escape(m["mt"])}</div></div>') +
             f'<label class="done"><input type="checkbox" class="rd"> 我已讀懂這題的邏輯</label></div></details>')
 
 def sortkey(r):
