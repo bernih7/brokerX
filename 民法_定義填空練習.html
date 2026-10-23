@@ -235,7 +235,7 @@ details.chd[open]>summary::after{transform:rotate(90deg)}
 }
 </style>
 <script src="bxm-use.js"></script>
-</head>
+<style id="es-flash-css">details.es-row.es-flash .es-links a{animation:esf 1.8s ease}@keyframes esf{0%,60%{box-shadow:0 0 0 3px var(--gold,#C9A227);background:rgba(201,162,39,.18)}100%{box-shadow:none}}details.es-row.es-flash summary::after{content:"　↓ 點下面任一題開啟";color:var(--gold,#A0781E);font-weight:700}</style></head>
 <body>
 
 <button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
@@ -2197,7 +2197,7 @@ function esRow(c){
   return '<details class="es-row"><summary>相關申論 '+n+' 題（歷屆 '+a+'・預測 '+b+'）▾</summary><div class="es-links">'+
     c.es.map(k=>'<a class="'+(k.indexOf('預')===0?'pred':'')+'" href="'+HUB+'#essay='+encodeURIComponent(k)+'">'+esLabel(k)+'</a>').join('')+'</div></details>';
 }
-function openEs(a){const box=a.closest('.card,.quiz-card');const d=box&&box.querySelector('details.es-row');if(d){d.open=true;d.scrollIntoView({block:'center',behavior:'smooth'});}}
+function openEs(a){const box=a.closest('.quiz-card,.card');const d=box&&box.querySelector('details.es-row');if(!d)return;d.open=true;d.scrollIntoView({block:'center',behavior:'smooth'});d.classList.remove('es-flash');void d.offsetWidth;d.classList.add('es-flash');setTimeout(()=>d.classList.remove('es-flash'),1800);}
 function statHtmlOf(c){
   const [a,b]=esCount(c);const parts=[];
   if((c.mc||0)>0) parts.push('選擇 <strong>'+c.mc+'</strong> 次');
