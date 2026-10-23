@@ -7,7 +7,7 @@ def txt(h):
     h=re.sub(r'<[^>]+>','',h); h=html.unescape(h)
     return re.sub(r'\n{3,}','\n\n',re.sub(r'[ \t]+',' ',h)).strip()
 out=[]
-for m in re.finditer(r'<details id="(es-[^"]+)" class="essay-detail([^"]*)">(.*?)(?=<details id="es-|<div class="group-label|$)',s,re.S):
+for m in re.finditer(r'<details id="(es-[^"]+)" class="essay-detail([^"]*)">(.*?)(?=<details id="es-|<div class="group-label|<div class="ess-panel|$)',s,re.S):
     eid,cls,body=m.group(1),m.group(2),m.group(3)
     num=re.search(r'<span class="essay-num">([^<]*)</span>',body).group(1)
     ti=re.search(r'<span class="es-t">([^<]*)</span>',body).group(1)
