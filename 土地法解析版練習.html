@@ -369,7 +369,7 @@ function selectAnswer(idx) {
   var _e=EXPS[q.year+'-'+q.num]||[],_L=['A','B','C','D'],_h='';
   q.options.forEach(function(o,i){var ok=i===q.answer,pk=i===idx;_h+='<div class="xr'+(ok?' ok':'')+(pk&&!ok?' pick':'')+'"><span class="xl">'+_L[i]+'</span><div class="xt"><span class="xm">'+(ok?'✓':'✗')+'</span>'+(pk&&!ok?'<span class="xp">你選的</span>':'')+(_e[i]||'（本選項解析待補）')+'</div></div>'});
   _h+='<details class="lawsum"><summary>本章法條重點（'+(CHAPTER_LABELS[q.chapter]||q.chapter)+'）</summary><div></div></details>';
-  lawText.innerHTML=_h;lawText.querySelector('details.lawsum div').textContent=hint;
+  lawText.innerHTML=_h;(function(el,t){var o='',d=0;for(var i=0;i<t.length;i++){var c=t[i];if(c==='（'||c==='(')d++;else if(c==='）'||c===')')d=Math.max(0,d-1);o+=c==='<'?'&lt;':c==='&'?'&amp;':c;if((c==='；'||c==='。')&&d===0&&i<t.length-1)o+='<br>'}el.innerHTML=o})(lawText.querySelector('details.lawsum div'),hint);
   var _o=lawBlock.querySelector('.bxtl');if(_o)_o.remove();var _t=bxTax(q.chapter,q.text+q.options.join(''),q.text+q.options.join(''));if(_t)lawBlock.insertAdjacentHTML('beforeend',_t);
   lawBlock.classList.add('show');
   document.getElementById('nextBtn').classList.remove('hidden');
