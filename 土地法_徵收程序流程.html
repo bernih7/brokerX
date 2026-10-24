@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>土地徵收程序流程</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>
+:root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--blue:#1E3E6E;--surface2:#ECE6D4;--warn:#FFF1D6;--c0:#2F5D50;--c1:#3E6B8C;--c2:#35693F;--c3:#7B5C8C;--c4:#B8782E;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--pri2:#6FAE9A;--key:#E0B070;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--bg:#161C19;--ink:#E7ECE6;--red:#E05040;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--blue:#6090D8;--surface2:#27302B;--warn:#3A2E14;--c0:#84C2AE;--c1:#6AA8D0;--c2:#8FCB93;--c3:#B08CC8;--c4:#E0B070;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--pri2:#6FAE9A;--key:#E0B070;--onpri:#10201B;--hbg1:#24413A;--hbg2:#2D4F46;--bg:#161C19;--ink:#E7ECE6;--red:#E05040;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--blue:#6090D8;--surface2:#27302B;--warn:#3A2E14;--c0:#84C2AE;--c1:#6AA8D0;--c2:#8FCB93;--c3:#B08CC8;--c4:#E0B070;color-scheme:dark}
+:root[data-theme="light"]{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--blue:#1E3E6E;--surface2:#ECE6D4;--warn:#FFF1D6;--c0:#2F5D50;--c1:#3E6B8C;--c2:#35693F;--c3:#7B5C8C;--c4:#B8782E;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:56px}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:15px}
+header{background:linear-gradient(135deg,var(--hbg1),var(--hbg2));color:#fff;padding:22px 16px 18px;text-align:center;position:relative}
+header h1{font-family:"Noto Serif TC",serif;font-size:21px;font-weight:700;margin-bottom:4px}
+header .sub{font-size:13px;opacity:.9}
+.theme{position:absolute;right:12px;top:12px;font:inherit;font-size:15px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:#fff;border-radius:99px;width:36px;height:36px;cursor:pointer}
+nav{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);padding:8px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin}
+nav a{flex:none;font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid var(--line);color:var(--pri);text-decoration:none;background:var(--card)}
+main{max-width:980px;margin:0 auto;padding:16px}
+.intro{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:8px;padding:12px 14px;font-size:13.5px;color:var(--muted)}
+.intro b{color:var(--ink)}
+.tools{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
+.tools button{font:inherit;font-size:13px;font-weight:700;padding:6px 14px;border-radius:99px;border:1px solid var(--pri);background:var(--card);color:var(--pri);cursor:pointer}
+details.sec{margin-top:16px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--a,var(--pri));border-radius:10px;overflow:hidden}
+details.sec>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:10px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary h2{font-family:"Noto Serif TC",serif;font-size:16.5px;color:var(--a,var(--pri));flex:1;min-width:0}
+details.sec>summary .cnt{font-size:12px;color:var(--muted);flex:none}
+details.sec>summary::after{content:"›";font-size:20px;color:var(--muted);transition:transform .2s}
+details.sec[open]>summary::after{transform:rotate(90deg)}
+.bd{padding:2px 16px 16px}
+.law{font-weight:700;color:var(--key)}
+.k{color:var(--red);font-weight:700}
+.n{background:var(--warn);color:var(--key);font-weight:700;padding:0 4px;border-radius:4px;white-space:nowrap}
+.mn{background:color-mix(in srgb,var(--green) 13%,var(--card));border:1px solid color-mix(in srgb,var(--green) 35%,transparent);border-radius:8px;padding:9px 12px;margin-top:10px;font-size:14px}
+.mn b{color:var(--green)}
+.tr{background:color-mix(in srgb,var(--red) 10%,var(--card));border-left:4px solid var(--red);border-radius:6px;padding:8px 12px;margin-top:10px;font-size:14px}
+.tr b{color:var(--red)}
+ol.flow{list-style:none;counter-reset:f;margin-top:8px}
+ol.flow li{counter-increment:f;position:relative;padding:8px 0 8px 40px;border-left:2px solid var(--line);margin-left:13px}
+ol.flow li::before{content:counter(f);position:absolute;left:-14px;top:8px;width:26px;height:26px;border-radius:50%;background:var(--a,var(--pri));color:var(--onpri);font-weight:700;font-size:13px;display:grid;place-items:center}
+ol.flow li:last-child{border-left-color:transparent}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:8px}
+.card{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);min-width:0}
+.card h4{font-size:14px;margin-bottom:4px}
+.card p{font-size:14px}
+.tw{overflow-x:auto;margin-top:8px;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:560px;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--surface2);font-weight:700}
+.qz{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;background:var(--bg)}
+.qz .qh{font-size:12px;color:var(--muted);margin-bottom:3px;display:flex;gap:8px;flex-wrap:wrap}
+.qz .qt{font-size:14.5px;margin-bottom:6px}
+.qz button.op{display:flex;gap:8px;width:100%;text-align:left;font:inherit;font-size:14px;padding:7px 10px;margin-top:5px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);cursor:pointer}
+.qz button.op b{flex:none}
+.qz button.op.ok{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--card))}
+.qz button.op.ng{border-color:var(--red);background:color-mix(in srgb,var(--red) 10%,var(--card))}
+.qz .ex{display:none;font-size:13.5px;margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+.qz.done .ex{display:block}
+.qz .ex div{margin-top:4px}
+.qz .ex .y{color:var(--green);font-weight:700}.qz .ex .x{color:var(--red);font-weight:700}
+.score{font-size:13px;color:var(--muted);margin-top:6px}
+.foot{font-size:12.5px;color:var(--muted);margin:22px 0 40px}
+</style></head><body>
+<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>土地法概要｜土地徵收程序流程</h1><div class="sub">土地徵收條例｜從勘選用地到進入施工＋補償・救濟｜考古 25 題</div></header>
+<nav><a href="#s1">① 流程圖</a><a href="#s2">② 異議與救濟</a><a href="#s3">③ 補償標準</a><a href="#s4">④ 期限總表</a><a href="#s5">⑤ 徵收後</a><a href="#s6">⑥ 考古題</a></nav>
+<main>
+<div class="intro"><b>怎麼讀：</b>先把 ① 的 10 步背成一條線（口訣在下方），再看 ② 異議兩個期限、④ 數字總表。條文取自站內條文庫（臺北市法規查詢、全國法規資料庫逐字）；<b>§22 只取得條文重點、非逐字</b>，已標示。申論對應：108-一 徵收必備要件、104-一 徵收失效。</div>
+<div class="tools"><button id="ea">全部展開</button><button id="ca">全部收合</button></div>
+
+<details class="sec" id="s1" style="--a:var(--c0)" open><summary><h2>① 一般徵收程序：10 步</h2><span class="cnt">§3-1～§27</span></summary><div class="bd">
+<ol class="flow">
+<li><b>勘選用地＋評估</b>：按事業性質勘選適當用地，<b class="k">儘量避免耕地</b>、優先使用無使用計畫之公有土地或國營事業土地（<span class="law">§3-1Ⅰ</span>）；特定農業區農牧用地原則<b class="k">不得徵收</b>（例外：國防、交通、水利、公用事業輸電線路必須或行政院核定之重大建設，<span class="law">§3-1Ⅳ</span>）。並依社會、經濟、文化及生態、永續發展、其他因素評估<b class="k">公益性及必要性</b>（<span class="law">§3-2</span>）。</li>
+<li><b>公聽會</b>：事業計畫報請目的事業主管機關許可<b class="k">前</b>，應舉行公聽會，聽取所有權人及利害關係人意見（<span class="law">§10Ⅱ</span>）；無須許可者，於協議價購前先舉行（<span class="law">§10Ⅳ</span>）。例外：機密性國防事業、已舉行公聽會或說明會。特定農業區經行政院核定為重大建設、有爭議者 → 依行政程序法舉行<b class="k">聽證</b>（<span class="law">§10Ⅲ</span>，114-3）。</li>
+<li><b>事業計畫許可</b>：依法應經許可者，申請徵收前先報經目的事業主管機關許可（<span class="law">§10Ⅰ</span>）。</li>
+<li><b>協議價購</b>：申請徵收前，應先與所有權人<b class="k">協議價購或以其他方式取得</b>；依<b class="k">市價</b>（市場正常交易價格）協議；協議內容作成書面。所有權人拒絕或未能達成協議且無法以其他方式取得，<b class="k">始得</b>申請徵收（<span class="law">§11</span>）。例外：國防、交通或水利事業因公共安全急需。協議價購<b class="k">無優先購買權之適用</b>（§11Ⅲ）。</li>
+<li><b>申請徵收</b>：需用土地人擬具<b class="k">徵收計畫書</b>，附土地圖冊或改良物清冊、土地使用計畫圖，送<b class="k">核准徵收機關</b>核准，並副知直轄市或縣（市）主管機關（<span class="law">§13Ⅰ</span>）。</li>
+<li><b>中央主管機關審查</b>：公益性、必要性、適當與合理；執行能力；是否符合都市計畫、區域計畫或國土計畫；土地合理利用；財務可行；安置計畫等（<span class="law">§13Ⅱ</span>）。視需要現場勘查，勘查紀錄 <span class="n">14日</span> 內寄送利害關係人（§13Ⅳ）。</li>
+<li><b>公告＋通知</b>：直轄市或縣（市）主管機關接到中央核准通知 → <b class="k">應即公告</b>，並<b class="k">書面通知</b>所有權人及他項權利人；公告期間 <span class="n">30日</span>（<span class="law">§18</span>）。</li>
+<li><b>公告後禁止</b>：自公告日起不得分割、合併、移轉或設定負擔，不得新建、增建、改建、採取土石、變更地形或增加種植（<span class="law">§23</span>）。例外：公告前因<b class="k">繼承、強制執行、法院判決</b>取得，並於公告期間內申請登記。</li>
+<li><b>發給補償費</b>：公告<b class="k">期滿後</b> <span class="n">15日</span> 內發給（<span class="law">§20Ⅰ</span>）。未於期限內發給完竣 → 該部分<b class="k">徵收失其效力</b>；例外四款：已提交地價評議委員會復議、書面同意延期或分期、拒絕或不能受領、所在地不明（<span class="law">§20Ⅱ</span>，申論 104-一）。</li>
+<li><b>權利終止＋進入施工</b>：所有權人權利義務於補償費<b class="k">發給完竣時終止</b>；發給完竣前得繼續為從來之使用（<span class="law">§21</span>）。需用土地人應俟補償費發給完竣或核定發給抵價地後，<b class="k">始得進入</b>工作；國防、交通、水利事業因公共安全急需先行使用者除外（<span class="law">§27</span>）。</li>
+</ol>
+<div class="mn"><b>口訣〔自編〕：</b>「選評・聽・許・協・申・審・公三十・禁・十五發・完竣終」</div>
+<div class="tr"><b>陷阱：</b>①15日是從<b>公告期滿後</b>起算，不是公告日；②公聽會在<b>事業計畫報請許可前</b>，不是核准徵收後；③協議價購用<b>市價</b>，且<b>無優先購買權</b>；④權利義務終止在<b>補償費發給完竣時</b>，不是公告時、也不是登記時。</div>
+</div></details>
+
+<details class="sec" id="s2" style="--a:var(--c1)"><summary><h2>② 異議與救濟</h2><span class="cnt">§22（條文重點，非逐字）</span></summary><div class="bd">
+<div class="cards">
+<div class="card"><h4>對「公告事項」有異議</h4><p>於<b class="k">公告期間內</b>，以書面向直轄市或縣（市）主管機關提出；主管機關查明處理，並以書面通知。</p></div>
+<div class="card"><h4>對「補償價額」有異議</h4><p>於<b class="k">公告期間屆滿之次日起</b> <span class="n">30日</span> 內，以書面提出；主管機關查明處理，並以書面通知。</p></div>
+<div class="card"><h4>不服查處結果</h4><p>主管機關得提請<b class="k">地價評議委員會復議</b>；不服復議結果 → 依法提起<b class="k">行政救濟</b>。</p></div>
+<div class="card"><h4>不停止執行＋差額</h4><p>補償費發給完竣後，徵收計畫之執行<b class="k">不因異議或行政救濟而停止</b>。補償價額因復議或救濟變動，差額於確定之日起 <span class="n">3個月</span> 內發給。</p></div>
+</div>
+<div class="tr"><b>陷阱：</b>兩種異議期間不同：公告事項＝<b>公告期間內</b>；補償價額＝<b>期滿次日起30日</b>。§22 本站只取得條文重點（臺北市法規查詢），未附逐字，考前對紙本。</div>
+</div></details>
+
+<details class="sec" id="s3" style="--a:var(--c4)"><summary><h2>③ 補償標準</h2><span class="cnt">§30、§31、§34</span></summary><div class="bd">
+<div class="cards">
+<div class="card"><h4>土地</h4><p>按<b class="k">徵收當期之市價</b>補償；都市計畫區內公共設施保留地，按<b class="k">毗鄰非公共設施保留地之平均市價</b>。市價由地價評議委員會評定；每 <span class="n">6個月</span> 評定市價變動幅度（<span class="law">§30</span>）。</p></div>
+<div class="card"><h4>建築改良物</h4><p>按徵收當時之<b class="k">重建價格</b>估定（<span class="law">§31Ⅰ</span>）。</p></div>
+<div class="card"><h4>農作改良物</h4><p>距孳息成熟 <span class="n">1年</span> 以內 → 按成熟時之孳息；逾1年 → 按種植及培育費用並參酌現值（<span class="law">§31Ⅱ</span>）。</p></div>
+<div class="card"><h4>遷移費</h4><p>徵收公告 <span class="n">6個月</span> 前設有戶籍之人口必須遷移者等五款（結婚或出生而設籍者不受6個月限制，<span class="law">§34</span>）。</p></div>
+</div>
+<div class="tr"><b>陷阱：</b>保留地補償是「毗鄰非保留地的<b>平均市價</b>」；都市計畫法§49 的「公告土地現值加成最高40%」是舊制。</div>
+</div></details>
+
+<details class="sec" id="s4" style="--a:var(--c2)"><summary><h2>④ 期限總表</h2><span class="cnt">10 個數字</span></summary><div class="bd">
+<div class="tw"><table><thead><tr><th style="width:30%">事項</th><th style="width:22%">期限</th><th>起算／重點</th><th style="width:14%">條文</th></tr></thead><tbody>
+<tr><td>現場勘查紀錄寄送</td><td><span class="n">14日</span> 內</td><td>勘查紀錄作成後</td><td class="law">§13Ⅳ</td></tr>
+<tr><td>徵收公告期間</td><td><span class="n">30日</span></td><td>接到核准通知應即公告</td><td class="law">§18Ⅱ</td></tr>
+<tr><td>補償費發給</td><td><span class="n">15日</span> 內</td><td>公告<b class="k">期滿後</b></td><td class="law">§20Ⅰ</td></tr>
+<tr><td>補償價額異議</td><td><span class="n">30日</span> 內</td><td>公告期間屆滿之次日起</td><td class="law">§22</td></tr>
+<tr><td>差額發給</td><td><span class="n">3個月</span> 內</td><td>復議或救濟結果確定之日起</td><td class="law">§22</td></tr>
+<tr><td>遷移費設籍</td><td><span class="n">6個月</span> 前</td><td>徵收公告前設籍</td><td class="law">§34</td></tr>
+<tr><td>市價變動評定</td><td>每 <span class="n">6個月</span></td><td>地價評議委員會</td><td class="law">§30Ⅲ</td></tr>
+<tr><td>收回權行使</td><td><span class="n">20年</span> 內</td><td>徵收公告之日起</td><td class="law">§9Ⅰ</td></tr>
+<tr><td>收回事由</td><td><span class="n">3年</span>／<span class="n">5年</span></td><td>補償發完滿3年未開始使用；開始使用後未滿5年不繼續使用</td><td class="law">§9Ⅰ</td></tr>
+<tr><td>繳還補償地價</td><td><span class="n">6個月</span> 內</td><td>收回核准通知後；撤廢後發還「不得少於6個月」</td><td class="law">§9Ⅱ、§51Ⅲ</td></tr>
+</tbody></table></div>
+</div></details>
+
+<details class="sec" id="s5" style="--a:var(--c3)"><summary><h2>⑤ 徵收之後：收回・撤銷・廢止・徵用</h2><span class="cnt">§9、§49～§52、§58</span></summary><div class="bd">
+<div class="cards">
+<div class="card"><h4>收回權（§9）</h4><p>原所有權人於徵收公告之日起 <span class="n">20年</span> 內，照<b class="k">原徵收補償價額</b>申請收回：①補償費發給完竣屆滿3年未依計畫開始使用；②未依核准原定事業使用；③開始使用後未滿5年不繼續使用。區段徵收除外。</p></div>
+<div class="card"><h4>撤銷 vs 廢止（§49）</h4><p><b class="k">撤銷</b>＝自始有瑕疵：作業錯誤致不在工程用地範圍、公告時都市計畫已定以聯合開發／市地重劃等方式開發。<b class="k">廢止</b>＝事後變化：工程變更設計、事業改變或計畫註銷、情事變更已無徵收必要。</p></div>
+<div class="card"><h4>撤廢後發還（§50～§52）</h4><p>由需用土地人向中央主管機關申請；核准後公告 <span class="n">30日</span>，通知原所有權人於一定期間（<b class="k">不少於6個月</b>）繳清價額後發還。原設定之他項權利及耕地租約<b class="k">不予回復</b>（抵價地移載之抵押權、典權例外）。</p></div>
+<div class="card"><h4>徵用（§58）</h4><p>臨時性公共建設得徵用；期間逾 <span class="n">3年</span> 應事先書面通知，所有權人收到通知 <span class="n">30日</span> 內得請求徵收所有權。使用補償費每年按公告土地現值 <span class="n">10%</span>。</p></div>
+</div>
+<p style="margin-top:10px;font-size:13.5px">詳細比較見申論專題 P05、X1（撤銷・廢止・收回權）、P11（徵用 vs 徵收）；區段徵收見彩色速記 D3 與 P06。</p>
+</div></details>
+
+<details class="sec" id="s6" style="--a:var(--c1)" open><summary><h2>⑥ 考古題（徵收程序相關）</h2><span class="cnt">25 題</span></summary><div class="bd">
+<p style="font-size:13px;color:var(--muted)">D1 全部＋D2～D4 中題目或選項涉及公聽會、協議價購、公告、異議、發給期限、失效者。作答後顯示逐選項解析（同《考題小卡》）。</p>
+<div class="score" id="score"></div>
+<div id="qlist"></div>
+</div></details>
+
+<p class="foot">本頁為備考整理，非法規原文。土地徵收條例條文依站內條文庫（臺北市法規查詢逐字；§22、§27 取自臺北市法規查詢，§22 為重點）；考前以紙本六法為準。</p>
+</main>
+<script>
+var QD=[{"y": "99年第18題", "g": "D2 徵收補償標準", "q": "被徵收土地之所有權人，對於其土地之權利義務，於何時終止？", "o": ["於市縣地政機關接到徵收土地案核准通知時", "於徵收補償發給完竣屆滿1年時", "於應受補償費發給完竣時", "於徵收公告期滿時"], "c": 2, "e": ["核准通知只是行政程序，所有權人的權利義務此時尚未終止。", "補償發給完竣屆滿1年不是權利義務終止時點；收回權另依屆滿3年未使用等事由。", "土地徵收條例第21條：被徵收土地所有權人之權利義務，於「應受補償費發給完竣時」終止。「應受」是關鍵字——即使當事人拒絕受領，存入保管專戶時也視同發給完竣，此時權利義務即告終止。", "公告期滿代表徵收程序完成，但所有權人的權利義務要等到補償發給完竣才終止，兩個時點不同。"]}, {"y": "99年第28題", "g": "D4 撤銷・廢止徵收與收回權", "q": "被徵收之土地，除區段徵收及依土地徵收條例或其他法律另有規定外，在某些情形發生時，原土地所有權人得於徵收公告之日起20年內，向該管直轄市或縣（市）主管機關申請照原徵收補償價額收回其土地，不適用土地法第219條之規定，下列敘述何者錯誤？", "o": ["徵收補償費發給完竣屆滿3年，未依徵收計畫開始使用者", "未依核准徵收原定興辦事業使用者", "經監察院糾正確定者", "依原徵收計畫開始使用後未滿5年，不繼續依原徵收計畫使用者"], "c": 2, "e": ["本選項描述正確，補償完竣3年未開始使用是收回權的法定事由之一，非錯誤。", "本選項描述正確，未依原定事業使用也是收回權的法定事由，非錯誤。", "本選項為錯誤敘述：監察院糾正是監察權的行使，不是土地徵收條例規定的收回權法定事由。收回權的三種法定事由：①補償完竣3年未開始使用②未依核准事業使用③開始使用後未滿5年不繼續使用。「監察院糾正」不在這三種之列。", "本選項描述正確，使用後未滿5年中斷是收回權的法定事由，非錯誤。"]}, {"y": "100年第12題", "g": "D1 徵收程序與要件", "q": "下列何者非為土地徵收時依法應進行之程序？", "o": ["協議價購", "舉辦公聽會", "舉辦聽證會", "舉辦說明會"], "c": 2, "e": ["協議價購（土地徵收條例第11條）是徵收前的法定必要程序，需用土地人應先與所有權人協議，屬必要程序。", "公聽會（土地徵收條例第10條）是需用土地人申請徵收前必須舉辦的法定程序，屬必要程序。", "聽證（非公聽會）只有在特定農業區農牧用地遭徵收且所有權人有爭議時才需舉辦，一般徵收程序不需要舉行聽證會。公聽會是一般必要程序，聽證是特殊情形才需要，兩者不同，這是本題的核心陷阱。", "說明會也是徵收程序的一環（對居民說明徵收計畫），屬必要程序。"]}, {"y": "100年第14題", "g": "D1 徵收程序與要件", "q": "同一土地有二以上需用土地人申請徵收時，其核定原則為：", "o": ["以其申請書之安置計畫妥善性為核定原則", "以其申請之單位層級為核定原則", "以興辦事業性質之輕重為核定原則", "以興辦事業規模之大小為核定原則"], "c": 2, "e": ["安置計畫妥善性屬事業計畫內容，並非同一土地多人申請時的核定原則。", "申請單位屬中央或地方層級，不是核定先後的標準。", "土地徵收條例第16條：同一土地有二以上需用土地人申請徵收時，以「興辦事業之性質輕重」為核定原則；國防、交通等重要性較高的事業優先。", "事業規模大小不是標準，法定看的是興辦事業性質之輕重。"]}, {"y": "101年第7題", "g": "D1 徵收程序與要件", "q": "依土地徵收條例規定，中央主管機關為審議徵收案件，應遴聘（派）專家學者、民間團體及相關機關代表，以合議制方式辦理之。其中專家學者及民間團體代表不得少於多少比例？", "o": ["二分之一", "三分之二", "四分之三", "五分之二"], "c": 0, "e": ["土地徵收條例第15條：中央主管機關審議徵收案件，應遴聘（派）專家學者、民間團體及相關機關代表，以合議制方式辦理，其中「專家學者及民間團體代表不得少於二分之一」。1/2是法定最低比例，確保外部獨立性。", "過高，非法定比例。", "過高，非法定比例。", "低於1/2，不符法定要求。"]}, {"y": "101年第8題", "g": "D3 區段徵收", "q": "依土地徵收條例規定，需用土地人應俟補償費發給完竣或核定發給抵價地後，始得進入被徵收土地內工作。但興辦下列何種事業，因公共安全急需先行使用者，不在此限？", "o": ["公共衛生事業", "環境保護事業", "社會福利事業", "交通及水利事業"], "c": 3, "e": ["公共衛生事業不在法定因公共安全急需得先行使用的例外範圍，仍須等補償發給完竣後才能進入。", "環境保護事業不在例外範圍。", "社會福利事業不在例外範圍（111-10也考過這個陷阱，社福不算）。", "因公共安全急需先行使用者，限國防、交通、水利事業（土徵條例§27）。本項「交通及水利事業」屬其中兩種，其他選項皆不在例外內。"]}, {"y": "101年第9題", "g": "D1 徵收程序與要件", "q": "依土地徵收條例第11條規定協議價購，應由需用土地人依何種價格與所有權人協議？", "o": ["土地公告現值加四成", "市場正常收益價格", "市場正常交易價格", "毗鄰該地之平均公告土地現值"], "c": 2, "e": ["公告現值加四成是舊制徵收補償標準，現行土地徵收條例協議價購不是以此為基準。", "收益價格是估價方法之一，不是協議價購的法定價格基準。", "土地徵收條例第11條：需用土地人申請徵收土地前，應與所有權人協議，協議之價格以「市場正常交易價格」為準。強調「正常交易價格」（非公告現值、非收益價格），確保補償合理。", "毗鄰地的平均現值是公設保留地補償的方式，不是協議價購的法定基準。"]}, {"y": "102年第2題", "g": "D1 徵收程序與要件", "q": "土地徵收條例規定，需用土地人因興辦事業而徵收土地時，應綜合何種因素，以評估是否具備公益性及必要性？①社會因素②經濟因素③文化及生態因素④地價因素", "o": ["①②③", "①②④", "①③④", "②③④"], "c": 0, "e": ["土地徵收條例第3條之2：需用土地人興辦事業徵收土地時，應依社會、經濟、文化及生態、永續發展及其他因素，評估有無公益性及必要性。注意：「地價因素」④不在法定評估因素之列，這是本題的核心陷阱——地價是徵收後補償的問題，不是判斷是否徵收的公益必要性評估因素。", "含地價因素，但地價不在法定評估因素內。", "含地價因素，不符法定規定。", "含地價因素，且漏掉社會因素①。"]}, {"y": "102年第7題", "g": "D3 區段徵收", "q": "依土地徵收條例規定實施區段徵收時，原土地所有權人不願領取現金補償者，應於下列何期間內，檢具有關證明文件，以書面向主管機關申請發給抵價地？", "o": ["徵收公告期間", "徵收補償地價發放時", "分配抵價地公告時", "舉行公聽會期間"], "c": 0, "e": ["原所有權人不願領現金補償者，應於徵收公告期間內，檢具證明文件以書面申請發給抵價地。公告期間為30日，逾期未申請即領現金補償。", "補償發放時已過申請抵價地的截止期間，此時才申請已太晚。", "分配公告是抵價地分配結果的公告，非申請發給抵價地的時機。", "公聽會在徵收申請前舉行，此時尚未公告徵收，不是申請抵價地的時機。"]}, {"y": "102年第35題", "g": "D4 撤銷・廢止徵收與收回權", "q": "依土地徵收條例規定，採一般徵收之土地，於徵收補償費發給完竣屆滿三年，未依徵收計畫開始使用者，原土地所有權人得於何期限內申請收回其土地？", "o": ["自徵收補償費發給完竣之日起二十年內", "自徵收公告之日起二十年內", "自未依徵收計畫使用屆滿三年之日起二十年內", "自原土地所有權人領取補償費之日起二十年內"], "c": 1, "e": ["起算點說法有誤：應從「徵收公告之日」起算，不是從「補償費發給完竣之日」起算。", "土地徵收條例第9條第1項：原土地所有權人得於徵收「公告之日起20年內」申請收回。注意起算點是「公告之日」（不是補償完竣日），且20年是最長期限（在此期限內，只要觸發收回事由就可申請）。", "起算點說法有誤，應從徵收公告之日起算，不是從「未使用屆滿三年之日」起算。", "領取補償費日不是收回權的起算點，起算點是徵收公告之日。"]}, {"y": "103年第8題", "g": "D4 撤銷・廢止徵收與收回權", "q": "被徵收之土地，除區段徵收及土地徵收條例或其他法律另有規定外，有下列何種情形，原土地所有權人得於徵收公告之日起20年內，向該管直轄市或縣（市）主管機關申請照原徵收補償價額收回其土地，不適用土地法第219條之規定？", "o": ["徵收補償費發給完竣屆滿一年，未依徵收計畫開始使用者", "徵收補償費發給完竣屆滿二年，未依徵收計畫開始使用者", "依原徵收計畫開始使用後未滿五年，不繼續依原徵收計畫使用者", "依原徵收計畫開始使用後未滿十年，不繼續依原徵收計畫使用者"], "c": 2, "e": ["法定標準是「屆滿3年」未開始使用，不是1年，數字錯誤。", "法定標準是「屆滿3年」，2年也不符合。", "土地徵收條例第9條第1項第3款：依原徵收計畫開始使用後「未滿5年」，不繼續依原徵收計畫使用者，原所有人得申請收回。5年是法定期間，不是3年也不是10年。", "法定標準是「未滿5年」，10年錯誤。"]}, {"y": "103年第15題", "g": "D1 徵收程序與要件", "q": "有關徵收土地地點選擇，下列何者為非？", "o": ["興辦公益事業應避免使用公有土地或國營事業土地", "特定農業區農牧用地，除零星夾雜難以避免者外，不得徵收", "申請徵收之土地，遇有登錄之歷史建築應於可能範圍內避免之", "興辦公益事業應儘量避免耕地"], "c": 0, "e": ["本選項為本題「何者為非」的答案。土地徵收條例規定，徵收應「優先使用公有土地」，再考慮私有土地；「避免使用公有土地」正好相反，是錯誤描述。「應優先使用公有土地→再使用私有土地」才是正確順序。", "本選項描述正確，符合土地徵收條例規定，非錯誤。", "本選項描述正確，徵收應避免歷史建築，非錯誤。", "本選項描述正確，徵收應儘量避免耕地，非錯誤。"]}, {"y": "103年第23題", "g": "D2 徵收補償標準", "q": "徵收土地時，其土地改良物原應一併徵收。但下列情形何者得不受此一限制？", "o": ["墳墓及其他紀念物必須遷移", "依法令規定得建造之建築改良物", "土地改良物所有權人要求取回，並自公告期滿之日起三十日內自行遷移", "農作改良物之種類或數量與正常種植情形不相當者，其全部之農作改良物"], "c": 0, "e": ["墳墓及其他紀念物必須遷移者，屬土地徵收條例§5所列不一併徵收之例外，為官方答案。", "依法令得建造的合法建物應一併徵收，例外限於依法令不得建造者。", "土徵§5Ⅰ①的例外是自公告期滿之日起「15日」內自行遷移，本項寫30日故錯誤；官方答案A正確。", "農作改良物的例外僅限種類或數量與正常種植情形不相當的「不相當部分」，不是全部。"]}, {"y": "104年第14題", "g": "D2 徵收補償標準", "q": "需用土地人興辦交通事業徵收私有土地之地上權，因事業之興辦，致土地不能為相當之使用時，土地所有權人得於下列何段期間內請求需用土地人徵收其土地所有權？", "o": ["自徵收公告之日起一年內", "自徵收公告之日起五年內", "自補償費發給完竣屆滿一年之次日起五年內", "自施工之日起至完工後一年內"], "c": 3, "e": ["1年不是地上權被徵收後土地所有人請求一併徵收所有權的期限。", "5年不是正確期限。", "此期限描述不符合法條規定，且起算點有誤。", "土地徵收條例第57條：地上權因事業興辦致土地不能為相當使用時，土地所有人得「自施工之日起至完工後一年內」請求需用土地人徵收其土地所有權。「施工到完工後一年內」是法定請求期限。"]}, {"y": "104年第15題", "g": "D2 徵收補償標準", "q": "依法被徵收土地之所有權人，對於其被徵收土地權利義務終止時機之認定，下列何者正確？", "o": ["公告徵收之日", "公告徵收期滿之日", "應受補償費發給完竣時", "土地經完成登記為需用土地人管有時"], "c": 2, "e": ["公告日只是徵收程序啟動，所有權尚未終止。", "公告期滿是徵收確定，但所有權終止要等補償發給完竣。", "同99-18，土地徵收條例第21條明文：權利義務於「應受補償費發給完竣時」終止。「應受」而非「實際受領」——拒絕受領而存入保管專戶亦視同發給完竣。", "登記是所有權轉移的公示行為，但權利義務終止早於登記完成（補償發給完竣時即終止）。"]}, {"y": "106年第22題", "g": "D4 撤銷・廢止徵收與收回權", "q": "被徵收之土地，有下列何種情形時，原土地所有權人得於徵收公告之日起20年內，向該管直轄市或縣（市）主管機關申請照原徵收補償價額收回其土地？", "o": ["徵收補償費發給完竣屆滿2年，未依徵收計畫開始使用者", "徵收土地之殘餘部分面積過小或形勢不整，致不能為相當之使用者", "未依核准徵收原定興辦事業使用者", "依原徵收計畫開始使用後未滿6年，不繼續依原徵收計畫使用者"], "c": 2, "e": ["法定標準是「3年」，2年未達門檻，不構成收回事由。", "此為一併徵收的申請事由（第8條），不是收回權的事由。", "土地徵收條例第9條第1項第2款：「未依核准徵收原定興辦事業使用」是收回權的法定事由之一，與第3款（使用後未滿5年中斷）和第1款（3年未開始使用）並列。本選項正確描述了其中一種收回事由。", "法定標準是「未滿5年」，6年超過5年（已超過保護期），不構成收回事由。"]}, {"y": "107年第12題", "g": "D1 徵收程序與要件", "q": "依土地徵收條例規定，關於特定農業區農牧用地之徵收，下列何者錯誤？", "o": ["除零星夾雜難以避免者外，不得徵收。但國防所必須或經行政院核定之重大建設所需者，不在此限", "除零星夾雜難以避免者外，不得徵收。但交通所必須或經行政院核定之重大建設所需者，不在此限", "特定農業區經行政院核定為重大建設須辦理徵收者，若有爭議，應依行政程序法舉行聽證", "特定農業區經行政院核定為重大建設須辦理徵收者，若有爭議，應依行政程序法舉行公聽會"], "c": 3, "e": ["特農農牧用地以國防所必須或經行政院核定之重大建設為例外，本項敘述正確。", "本項敘述正確：土徵§3-1Ⅳ例外包括國防、交通、水利事業、公用事業供輸電線路使用所必須，或經行政院核定之重大建設所需者，「交通所必須」在例外內；本題唯一錯誤為D（應為聽證），官方答案無疑義。", "特農有爭議時須依行政程序法舉行聽證，本項敘述正確。", "本選項為錯誤敘述：特定農業區有爭議時，應舉行的是「聽證」（不是公聽會）。聽證與公聽會是不同的程序，聽證的正式程度更高、當事人參與權更完整。公聽會是一般徵收的程序，聽證是特農有爭議時的特別程序，本選項混淆兩者。"]}, {"y": "109年第11題", "g": "D4 撤銷・廢止徵收與收回權", "q": "關於原土地所有權人申請已徵收土地之收回權，依土地徵收條例規定，下列敘述何者錯誤？", "o": ["被徵收之土地，依原徵收計畫開始使用後未滿五年，不繼續依原徵收計畫使用者", "原土地所有權人應於該管直轄市或縣（市）主管機關通知後三個月內繳還原受領之補償地價及地價加成補償，逾期視為放棄收回權", "申請收回土地案件，應由該管直轄市或縣（市）主管機關受理", "被徵收之土地，徵收補償費發給完竣屆滿三年，未依徵收計畫開始使用者"], "c": 1, "e": ["本選項描述正確，「開始使用後未滿5年中斷」是收回權的法定事由之一，非錯誤。", "本項錯誤：土徵§9Ⅱ為通知後「6個月」內繳還原受領之補償地價及地價加成補償，不是3個月；官方答案正確（舊筆記D4有誤）。", "本選項描述正確，地方主管機關受理收回申請，非錯誤。", "本選項描述正確，補償完竣3年未開始使用是收回事由，非錯誤。"]}, {"y": "109年第12題", "g": "D2 徵收補償標準", "q": "有關徵收補償，依土地徵收條例相關規定，下列敘述何者正確？", "o": ["農作改良物之補償費，於農作改良物被徵收時與其孳息成熟時期相距在1年以內者，按成熟時之孳息估定之", "徵收當期市價指徵收公告期滿次日起算第十日經地價評議委員會評定之當期市價", "建築改良物之補償費，按起造當時該建築改良物之重建價格估定之", "被徵收土地在都市計畫區內之公共設施保留地，應按毗鄰公共設施保留地之平均市價補償其地價"], "c": 0, "e": ["土地徵收條例第31條：農作改良物補償費，與孳息成熟相距1年以內者，按「成熟時之孳息」估定；超過1年者按「種植及培育費用並參酌現值」估定。本選項正確描述了1年以內的計算方式。", "當期市價的法定評定基準日不是公告期滿次日起第10日，本項日期有誤。", "建築改良物補償費應按「徵收當時」的重建價格，不是「起造當時」，同103-18的常見陷阱。", "應按「毗鄰非公共設施保留地」之市價，而非「毗鄰公共設施保留地」，同109-9的陷阱。"]}, {"y": "111年第9題", "g": "D3 區段徵收", "q": "依都市計畫法指定供公用事業設施使用之公共設施保留地，應由各該事業機構依法徵收或購買；其餘由公用事業設施所屬政府或鄉、鎮、縣轄市公所依何種方式取得？", "o": ["徵收、區段徵收、市地重劃", "協議價購、公私土地交換、都市更新", "都市更新、市地重劃、區段徵收", "徵收、協議價購、公私土地交換"], "c": 0, "e": ["都市計畫法第48條：供公用事業設施使用的公設保留地，除各該事業機構依法徵收或購買外，其餘由政府或公所依「徵收、區段徵收或市地重劃」方式取得。三種方式為一組，本選項正確。", "協議價購是徵收前的程序，公私土地交換（第50條之1）是私有公設保留地的另一種取得方式，但都市更新不在法定的政府取得方式清單內。", "都市更新不是都市計畫法第48條規定的政府取得公設保留地方式。", "協議價購不是政府主動取得的方式之一（協議價購是徵收前的準備程序），公私土地交換是私人申請的程序。"]}, {"y": "111年第10題", "g": "D3 區段徵收", "q": "下列何類徵收事業之需用土地人在補償費未發給完竣前，或未核定發給抵價地前，因公共安全急需，得先進入被徵收土地內工作？", "o": ["國防事業、平價住宅事業、水利事業", "交通事業、水利事業、社會福利事業", "高齡化事業、少子化事業、防疫事業", "國防事業、交通事業、水利事業"], "c": 3, "e": ["平價住宅事業不在法定三種例外事業中，此選項混入了不在清單的事業。", "社會福利事業不在法定三種例外事業中（這是本考點最常見的干擾選項）。", "此三種均不在法定例外事業清單中，為完全干擾選項。", "同101-8，法定可因公共安全急需先行使用的例外三種事業為「國防、交通、水利」，缺一不可，其他事業（社福、環保、衛生等）均不在此例外範圍內。"]}, {"y": "111年第21題", "g": "D4 撤銷・廢止徵收與收回權", "q": "徵收土地或土地改良物應發給之補償費，需用土地人應於公告期滿後十五日內將補償費繳交該管直轄市或縣（市）主管機關發給完竣，逾期者該部分土地或土地改良物之法律效力為何？", "o": ["仍具徵收效力", "徵收從此失其效力", "被徵收之所有權人得申請撤銷徵收", "需用土地人得申請保留徵收"], "c": 1, "e": ["逾期未發給補償費，法律效果是徵收失效，不是繼續有效。", "土地徵收條例第20條：需用土地人應於公告期滿後15日內將補償費繳交地方主管機關發給完竣，逾期未繳者，「該部分土地之徵收從此失其效力」（即徵收失效）。這是為保障被徵收人在合理期間內獲得補償的制度設計。", "補償逾期是「法律上自動失效」（徵收失效），不是所有權人申請撤銷徵收的程序（撤銷徵收是需用土地人申請的程序）。", "不存在「保留徵收」的法律制度，為虛構選項。"]}, {"y": "112年第13題", "g": "D2 徵收補償標準", "q": "依土地徵收條例規定，因受領遲延、拒絕受領或不能受領之補償費，下列何者正確？", "o": ["依提存法提存於直轄市或縣（市）主管機關於國庫設立之土地徵收補償費保管專戶", "直轄市或縣（市）主管機關應於補償費發給期限屆滿之日起三個月內存入專戶保管", "保管專戶儲存之補償費應給付利息", "已依規定繳存專戶保管之徵收補償費，自徵收公告期滿之日起，逾十五年未領取者，歸屬國庫"], "c": 2, "e": ["本選項描述有誤：保管補償費「不適用提存法」（土地徵收條例明文排除提存法之適用），而是依主管機關規定存入保管專戶，兩種程序不同。", "應於補償費發給期限屆滿之「次日起」3個月內存入專戶，本項寫成「屆滿之日起」。", "土地徵收條例第26條：補償費保管專戶應給付利息，利息歸應受領補償費之人所有，確保受補償人的財產價值不因存放而受損。本選項正確。", "逾15年未領取才歸屬國庫，且起算點是通知送達發生效力之日，不是徵收公告期滿之日。"]}, {"y": "113年第8題", "g": "D1 徵收程序與要件", "q": "依土地徵收條例規定，有關徵收之程序，下列何者正確？", "o": ["特定農業區經行政院核定為重大建設須辦理徵收者，應依行政程序法舉行聽證", "需用土地人於事業計畫報請目的事業主管機關許可後，應舉行公聽會", "協議價購時，依其他法律規定有優先購買權者，無優先購買權之適用", "需用土地人於所有權人拒絕參與協議或經開會未能達成協議時，則改申請徵收"], "c": 2, "e": ["特農須「有爭議」才依行政程序法舉行聽證，本項未提爭議要件，敘述不完整。", "公聽會須在事業計畫報請目的事業主管機關許可「前」舉行，不是許可後。", "土地徵收條例第11條第2項：依其他法律規定有優先購買權者，於協議價購時，「無優先購買權之適用」。例如，耕地承租人依耕地三七五減租條例有優先購買權，但在協議價購情形下不適用此優先購買權。", "本項不完整：§11Ⅰ須所有權人拒絕參與協議或經開會未能達成協議「且無法以其他方式取得」者，始得申請徵收；本項漏此要件，故非正確答案。"]}, {"y": "114年第3題", "g": "D1 徵收程序與要件", "q": "辦理土地徵收時，徵收事業經行政院核定為重大建設，徵收範圍內之特定農業區農牧用地，如土地所有權人對於土地列入徵收範圍有爭議，經說明後仍有異議，則中央目的事業主管機關應辦理那一項民眾參與方式？", "o": ["聽證", "說明會", "公聽會", "陳述意見"], "c": 0, "e": ["同107-12的考點：特定農業區農牧用地因行政院核定重大建設須辦理徵收，若土地所有權人對列入徵收範圍有爭議，經說明後仍有異議，則中央目的事業主管機關應依行政程序法舉行「聽證」（不是公聽會）。此考點在107和114年都考了，是D1的固定陷阱。", "說明會是一般程序，不是有爭議時的救濟程序。", "公聽會是一般徵收的法定程序（申請徵收前舉辦），不是特農有爭議時的特別程序。", "陳述意見是行政處分前給予當事人的程序保障，不是本情形的特別程序。"]}];
+(function(){var L=['A','B','C','D'],box=document.getElementById('qlist'),ok=0,done=0;
+function sc(){document.getElementById('score').textContent=done?('已作答 '+done+'／'+QD.length+'，答對 '+ok):''}
+QD.forEach(function(d,qi){var w=document.createElement('div');w.className='qz';
+ var h='<div class="qh"><span>【'+d.y+'】</span><span>'+d.g+'</span></div><div class="qt">'+d.q+'</div>';
+ d.o.forEach(function(o,i){h+='<button class="op" data-i="'+i+'"><b>'+L[i]+'</b><span>'+o+'</span></button>'});
+ h+='<div class="ex">';d.e.forEach(function(e,i){h+='<div><span class="'+(i===d.c?'y':'x')+'">'+L[i]+(i===d.c?' ✓ 正解':' ✗')+'</span> '+e+'</div>'});h+='</div>';
+ w.innerHTML=h;box.appendChild(w);
+ w.querySelectorAll('.op').forEach(function(b){b.onclick=function(){if(w.classList.contains('done'))return;var i=+b.dataset.i;w.classList.add('done');done++;if(i===d.c)ok++;
+  w.querySelectorAll('.op')[d.c].classList.add('ok');if(i!==d.c)b.classList.add('ng');sc()}})});
+document.getElementById('ea').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=true})};
+document.getElementById('ca').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=false})};
+var tb=document.getElementById('themeBtn');function ub(){tb.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'🌙':'☀️'}ub();
+tb.onclick=function(){var h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}ub()};
+})();
+</script>
+<script src="bx-use.js"></script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E5%9C%9F%E5%9C%B0%E6%B3%95_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+</body></html>
