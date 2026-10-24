@@ -258,6 +258,8 @@ def lj_render(d):
             '<button type="button" data-lj="A" class="on">① 推理鏈</button><button type="button" data-lj="B">② 條文｜本題</button><button type="button" data-lj="C">③ 地圖＋勾選</button></div></div>'
             f'<div class="ljp" data-lj="A">{A}</div><div class="ljp" data-lj="B" hidden>{B}</div><div class="ljp" data-lj="C" hidden>{C}</div>')
 
+CMP = json.load(open(os.path.join(W, 'cmp.json'), encoding='utf-8')) if os.path.exists(os.path.join(W, 'cmp.json')) else {}
+
 def card(r):
     d = r['d']; m = r['m']; key = r['key']; kind = r['kind']
     cite = m['cite']
@@ -268,6 +270,7 @@ def card(r):
             p += (f'<div class="btw"><div class="bth">這題要背的條文（{len(cite)} 條）<small>★＝歷屆官方申論考過幾題（★★★ 3 題以上、★★ 2 題、★ 1 題），點開看全文</small></div>'
                   + ''.join(lawdet(a) for a in cite) + '</div>')
         if i == 2: p = split_ham(p)
+        if i == 2 and key in CMP: p = CMP[key] + p
         secs += f'<details class="blk {cls}"{" open" if i == 0 else ""}><summary><h5>{h}</h5></summary><div class="fdb">{p}</div></details>'
     must = ''.join(f'<li class="{TAGC[t]}"><span class="mt">{t}</span><span>{html.escape(x)}</span></li>' for t, x in m['must'])
     lab, lc, pr = LVL[r['lv']]
