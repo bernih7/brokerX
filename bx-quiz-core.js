@@ -122,7 +122,7 @@ function setEx(m){EX=m;document.body.dataset.ex=m;[].forEach.call(document.query
 function dec(div){if(div.dataset.dec||!/answered-(ok|ng)/.test(div.className))return;var m=(div.id||"").match(/(\d+)$/);if(!m||typeof CARDS==="undefined")return;var c=CARDS[+m[1]];if(!c)return;
  div.dataset.dec="1";div.classList.add("done");var ok=div.classList.contains("answered-ok"),L="ABCD",chosen=-1;
  var os=div.querySelectorAll(".opt");[].forEach.call(os,function(o,i){if(o.classList.contains("ng"))chosen=i});
- [].forEach.call(os,function(o,i){var tx=o.children[1];if(!tx)return;tx.className="ob";tx.insertAdjacentHTML("beforeend",'<span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div>');tx.querySelector(".nt").textContent=(c.exps&&c.exps[i])||"";
+ [].forEach.call(os,function(o,i){var tx=o.children[1];if(!tx)return;tx.className="ob";tx.insertAdjacentHTML("beforeend",'<span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div>');tx.querySelector(".nt").innerHTML=(c.exps&&c.exps[i])||"";
   o.addEventListener("click",function(){if(div.classList.contains("done")&&(EX==="C"||EX==="D"))o.classList.toggle("open")})});
  var ob=div.querySelector(".opts");ob.insertAdjacentHTML("beforebegin",'<div class="res'+(ok?" ok":"")+'">'+(ok?"答對了":"答錯了")+"　正解 "+L[c.ans]+(ok||chosen<0?"":"（你選 "+L[chosen]+"）")+'</div><div class="hn">點每個選項可展開／收合說明；上方「全部展開」一次看完</div>');
  var so=(c.q||"")+(c.opts||[]).join("");var tl=typeof bxTax==="function"?bxTax(String(c.ch||"").slice(0,2),so,so+(c.exps||[]).join("")):"";if(tl)div.insertAdjacentHTML("beforeend",'<div class="tl">'+tl+"</div>");
