@@ -147,11 +147,15 @@ def law_body(a):
 def law_title(a):
     L = LAW.get(a); return html.escape(L['t']) if L and L.get('t') else ''
 
+def law_kou(a):
+    k = LAW.get(a, {}).get('kou')
+    return f'<p class="kou2 bkou"><b>口訣</b>：{k}〔自編〕</p>' if k else ''
+
 def lawdet(a, who=None):
     n = offc[a]
     c = f'<div class="btc">本組用到：{"・".join(who)}</div>' if who else ''
     return (f'<details class="bt"><summary><b class="bn">{a}</b><span class="bti">{law_title(a)}</span>'
-            f'<span class="bm">{stars(n)}<small>{cnt_txt(n, prec[a])}</small></span></summary><div class="btx">{c}{law_body(a)}</div></details>')
+            f'<span class="bm">{stars(n)}<small>{cnt_txt(n, prec[a])}</small></span></summary><div class="btx">{c}{law_body(a)}{law_kou(a)}</div></details>')
 
 NUMS = '一二三四五六七八九十'
 def split_ham(p):
