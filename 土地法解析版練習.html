@@ -27,7 +27,11 @@
   .panel { background: #FFFEFA; border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 6px; margin-top: 10px; }
   .chapter-btn { font-family: "Noto Sans TC", sans-serif; font-size: 0.78rem; padding: 7px 8px; border: 1px solid var(--line); border-radius: 7px; background: #fff; cursor: pointer; text-align: left; color: var(--ink); transition: all 0.15s; }
-  .chapter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .chapter-btn{border-left:5px solid var(--cc,var(--line))}
+.chapter-btn.active { background: var(--cc,var(--blue)); color: #fff; border-color: var(--cc,var(--blue)); }
+.ccA{--cc:#3A5A7A}.ccB{--cc:#35693F}.ccC{--cc:#B8782E}.ccD{--cc:#A8402B}.ccE{--cc:#6B4C8C}.ccF{--cc:#2E7D7D}.ccG{--cc:#8A5A44}.ccH{--cc:#9C3D6E}.ccI{--cc:#5F6B2E}
+.tag{background:var(--cc,var(--blue))!important}
+.chapter-stat-row>span:first-child{border-left:4px solid var(--cc,transparent);padding-left:6px}
   .chapter-count { font-size: 0.7rem; opacity: 0.65; }
   .controls-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
   button.primary { font-family: "Noto Sans TC", sans-serif; font-weight: 700; font-size: 0.95rem; padding: 10px 20px; border-radius: 8px; border: none; background: var(--pri); color:var(--onpri); cursor: pointer; flex: 1; }
@@ -258,7 +262,7 @@ function renderChapterGrid() {
   grid.innerHTML = '';
   CHAPTER_ORDER.forEach(ch => {
     const btn = document.createElement('button');
-    btn.className = 'chapter-btn' + (selectedChapters.has(ch) ? ' active' : '');
+    btn.className = 'chapter-btn cc'+ch[0] + (selectedChapters.has(ch) ? ' active' : '');
     btn.innerHTML = `${CHAPTER_LABELS[ch]}<br><span class="chapter-count">${counts[ch]} 題</span>`;
     btn.onclick = () => {
       if (selectedChapters.has(ch)) selectedChapters.delete(ch);
@@ -312,7 +316,7 @@ function statUI(){var g=document.getElementById('chapterGrid');if(!g)return;var 
  var D=q2(),by={},tot={d:0,ok:0};CHAPTER_ORDER.forEach(function(c){by[c]={t:0,d:0,ok:0}});
  QUIZ_DATA.forEach(function(q){var o=by[q.chapter];o.t++;var r=D[qk(q)];if(r){o.d++;tot.d++;if(r.ok){o.ok++;tot.ok++}}});
  var h='<summary style="cursor:pointer;font-weight:700;font-size:.85rem">各章作答總覽（全科已作答 '+tot.d+'／'+QUIZ_DATA.length+(tot.d?'・正確率 '+Math.round(tot.ok/tot.d*100)+'%':'')+'）</summary>';
- CHAPTER_ORDER.forEach(function(c){var o=by[c],p=o.d?Math.round(o.ok/o.d*100):0;h+='<div class="chapter-stat-row"><span>'+CHAPTER_LABELS[c]+' <span style="opacity:.55">'+o.d+'／'+o.t+'</span></span><span style="display:flex;align-items:center;gap:8px"><span class="mini-bar"><span class="mini-bar-fill" style="width:'+p+'%"></span></span><span style="min-width:5.5em;text-align:right">'+(o.d?p+'%・錯 '+(o.d-o.ok):'未作答')+'</span></span></div>'});
+ CHAPTER_ORDER.forEach(function(c){var o=by[c],p=o.d?Math.round(o.ok/o.d*100):0;h+='<div class="chapter-stat-row cc'+c[0]+'"><span>'+CHAPTER_LABELS[c]+' <span style="opacity:.55">'+o.d+'／'+o.t+'</span></span><span style="display:flex;align-items:center;gap:8px"><span class="mini-bar"><span class="mini-bar-fill" style="width:'+p+'%"></span></span><span style="min-width:5.5em;text-align:right">'+(o.d?p+'%・錯 '+(o.d-o.ok):'未作答')+'</span></span></div>'});
  h+='<div style="font-size:.75rem;color:#6b6354;margin-top:6px">與題庫七頁共用紀錄；正確率以每題最近一次作答計。</div>';el.innerHTML=h;var th=document.getElementById('tHistSetup');if(!th){th=document.createElement('div');th.id='tHistSetup';el.parentNode.insertBefore(th,el.nextSibling)}th.innerHTML=tHtml()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wrongUI);else wrongUI();
 document.getElementById('startBtn').onclick = () => {
@@ -376,7 +380,7 @@ function showQuestion() {
   currentAnswered = false;
   const q = quizQueue[quizIndex];bxSeenAdd(q.id);
   document.getElementById('progressText').textContent = `${quizIndex+1} / ${quizQueue.length}`;
-  document.getElementById('chapterTag').textContent = q.chapterName;
+  document.getElementById('chapterTag').textContent = q.chapterName;document.getElementById('chapterTag').className='tag cc'+q.chapter[0];
   document.getElementById('progressFill').style.width = `${(quizIndex/quizQueue.length)*100}%`;
   document.getElementById('qtext').textContent = `【${q.year}年第${q.num}題】${q.text}`;
 
@@ -467,7 +471,7 @@ function showResults() {
     const d = byChapter[ch];
     const pct = Math.round(d.correct/d.total*100);
     const row = document.createElement('div');
-    row.className = 'chapter-stat-row';
+    row.className = 'chapter-stat-row cc'+ch[0];
     row.innerHTML = `<span>${CHAPTER_LABELS[ch]}</span><span style="display:flex;align-items:center;gap:8px;"><span class="mini-bar"><span class="mini-bar-fill" style="width:${pct}%"></span></span><span>${d.correct}/${d.total}</span></span>`;
     breakdown.appendChild(row);
   });
