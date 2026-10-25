@@ -110,6 +110,11 @@
 .xm{font-weight:700;margin-right:4px}.xr.ok .xm{color:var(--green)}.xr:not(.ok) .xm{color:var(--stamp)}
 .xp{display:inline-block;font-size:.72rem;font-weight:700;color:var(--stamp);border:1px solid var(--stamp);border-radius:4px;padding:0 5px;margin-right:4px}
 .xt{flex:1;min-width:0;line-height:1.75}
+
+.wtag-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.wtag{font:inherit;font-size:.78rem;padding:5px 10px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.wtag.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+button.secondary:disabled{opacity:.45;cursor:default}
 details.lawsum{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
 details.lawsum summary{cursor:pointer;font-weight:700;color:var(--blue);font-size:.8rem}
 details.lawsum div{margin-top:6px;color:#2a3a4a}
@@ -119,7 +124,7 @@ details.lawsum div{margin-top:6px;color:#2a3a4a}
 <body>
 <div class="app">
   <h1>土地法與土地相關稅法概要 <span class="mode-badge">解析版</span></h1>
-  <div class="subtitle">法條解析練習 ｜ 99–114年考古題（共518題）｜作答後顯示法條出處</div>
+  <div class="subtitle">法條解析練習（已整合互動練習）｜ 99–114年考古題（共518題）｜逐選項解析・錯誤類型 A/B/C/D・各章總覽</div>
 
   <div id="setupScreen" class="panel">
     <div style="font-weight:700; margin-bottom:6px;">選擇章節範圍</div>
@@ -260,20 +265,37 @@ function renderChapterGrid() {
 document.getElementById('selectAllBtn').onclick = () => { selectedChapters = new Set(CHAPTER_ORDER); renderChapterGrid(); };
 document.getElementById('selectNoneBtn').onclick = () => { selectedChapters = new Set(); renderChapterGrid(); };
 
-var MODE='normal',WK='bx-land-anal-wrong';
-function wGet(){try{return JSON.parse(localStorage.getItem(WK)||'{}')}catch(e){return {}}}
-function wSet(o){try{localStorage.setItem(WK,JSON.stringify(o))}catch(e){}}
+var MODE='normal',WTL={A:'A 法條混淆',B:'B 粗心',C:'C 真的不熟',D:'D 猜的'};
+function q2(){try{return JSON.parse(localStorage.getItem('bx-q2')||'{}')}catch(e){return {}}}
+function qk(q){return q.chapter+'-'+q.year+'-'+q.num}
+function wClr(){try{return +localStorage.getItem('bx-land-wclr')||0}catch(e){return 0}}
+/* 錯題本＝共用作答紀錄中「最近一次答錯」的題（題庫七頁＋解析版共用；任何一頁答對即移出） */
+function wGet(){var D=q2(),c=wClr(),o={};QUIZ_DATA.forEach(function(q){var r=D[qk(q)];if(r&&r.ok===0&&(r.t||0)>c)o[q.id]=r.k||'';});return o}
+function wSet(o){}
 function startList(list,mode){
  MODE=mode;quizQueue=list;quizIndex=0;quizResults=[];
  setupScreen.classList.add('hidden');resultScreen.classList.add('hidden');quizScreen.classList.remove('hidden');showQuestion();
 }
 function wrongUI(){var b=document.getElementById('startBtn');if(!b)return;var h=document.getElementById('wrongBar');
  if(!h){h=document.createElement('div');h.id='wrongBar';b.parentNode.parentNode.insertBefore(h,b.parentNode.nextSibling)}
+ statUI();
  var w=wGet(),n=Object.keys(w).length;
- h.innerHTML=n?'<button class="secondary" id="wrongAllBtn">🔁 練累積錯題（'+n+' 題）</button><button class="secondary" id="wrongClr">清空錯題紀錄</button><span style="font-size:.78rem;color:#6b6354;align-self:center">錯題答對一次就會移出</span>':'<span style="font-size:.78rem;color:#6b6354">累積錯題：0 題（答錯的題會自動收進這裡）</span>';
- var x=document.getElementById('wrongAllBtn');if(x)x.onclick=function(){var l=QUIZ_DATA.filter(function(q){return w[q.id]});startList(shuffle(l),'wrong')};
- var c=document.getElementById('wrongClr');if(c)c.onclick=function(){h.innerHTML='<span style="font-size:.85rem;align-self:center">確定清空？</span><button class="secondary" id="wcY">確定</button><button class="secondary" id="wcN">取消</button>';document.getElementById('wcY').onclick=function(){wSet({});wrongUI()};document.getElementById('wcN').onclick=wrongUI};
+ h.innerHTML=n?'<button class="secondary" id="wrongAllBtn">🔁 練累積錯題（'+n+' 題）</button><button class="secondary" id="wrongClr">清空錯題紀錄</button><span style="font-size:.78rem;color:#6b6354;align-self:center">錯題在任何題庫頁或本頁答對一次就會移出</span>':'<span style="font-size:.78rem;color:#6b6354">累積錯題：0 題（答錯的題會自動收進這裡）</span>';
+ var x=document.getElementById('wrongAllBtn');if(x)x.onclick=function(){var l=QUIZ_DATA.filter(function(q){return q.id in w});startList(shuffle(l),'wrong')};
+ var c=document.getElementById('wrongClr');if(c)c.onclick=function(){h.innerHTML='<span style="font-size:.85rem;align-self:center">確定清空？</span><button class="secondary" id="wcY">確定</button><button class="secondary" id="wcN">取消</button>';document.getElementById('wcY').onclick=function(){try{localStorage.setItem('bx-land-wclr',Math.floor(Date.now()/1000))}catch(e){}wrongUI()};document.getElementById('wcN').onclick=wrongUI};
+ if(n){var tc={A:0,B:0,C:0,D:0,'':0};Object.keys(w).forEach(function(k){tc[w[k]in tc?w[k]:'']++});
+  var t=document.createElement('div');t.style.cssText='flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8rem';
+  t.innerHTML='<span style="color:#6b6354">依錯誤類型練：</span>'+['A','B','C','D'].map(function(k){return '<button class="secondary wtb" data-k="'+k+'"'+(tc[k]?'':' disabled')+'>'+WTL[k]+'（'+tc[k]+'）</button>'}).join('')+(tc['']?'<span style="color:#6b6354">未標類型 '+tc['']+' 題</span>':'');
+  h.appendChild(t);t.querySelectorAll('.wtb').forEach(function(bt){bt.onclick=function(){var k=bt.dataset.k;startList(shuffle(QUIZ_DATA.filter(function(q){return w[q.id]===k})),'wrong')}})}
 }
+/* 各章作答總覽（原互動練習功能；讀共用作答紀錄） */
+function statUI(){var g=document.getElementById('chapterGrid');if(!g)return;var el=document.getElementById('chStat');
+ if(!el){el=document.createElement('details');el.id='chStat';el.style.cssText='margin-top:12px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff';g.parentNode.insertBefore(el,g.nextSibling)}
+ var D=q2(),by={},tot={d:0,ok:0};CHAPTER_ORDER.forEach(function(c){by[c]={t:0,d:0,ok:0}});
+ QUIZ_DATA.forEach(function(q){var o=by[q.chapter];o.t++;var r=D[qk(q)];if(r){o.d++;tot.d++;if(r.ok){o.ok++;tot.ok++}}});
+ var h='<summary style="cursor:pointer;font-weight:700;font-size:.85rem">各章作答總覽（全科已作答 '+tot.d+'／'+QUIZ_DATA.length+(tot.d?'・正確率 '+Math.round(tot.ok/tot.d*100)+'%':'')+'）</summary>';
+ CHAPTER_ORDER.forEach(function(c){var o=by[c],p=o.d?Math.round(o.ok/o.d*100):0;h+='<div class="chapter-stat-row"><span>'+CHAPTER_LABELS[c]+' <span style="opacity:.55">'+o.d+'／'+o.t+'</span></span><span style="display:flex;align-items:center;gap:8px"><span class="mini-bar"><span class="mini-bar-fill" style="width:'+p+'%"></span></span><span style="min-width:5.5em;text-align:right">'+(o.d?p+'%・錯 '+(o.d-o.ok):'未作答')+'</span></span></div>'});
+ h+='<div style="font-size:.75rem;color:#6b6354;margin-top:6px">與題庫七頁共用紀錄；正確率以每題最近一次作答計。</div>';el.innerHTML=h}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wrongUI);else wrongUI();
 document.getElementById('startBtn').onclick = () => {
   const pool = QUIZ_DATA.filter(q => selectedChapters.has(q.chapter));
@@ -371,10 +393,10 @@ function selectAnswer(idx) {
     const letters = ['A','B','C','D'];
     resultNote.innerHTML = `<span class="wrong-note">答錯了</span> <span style="font-size:0.85rem;">正確答案：<strong>${letters[q.answer]}. ${q.options[q.answer]}</strong></span>`;
   }
-  lawBlock.insertBefore(resultNote, lawBlock.firstChild.nextSibling);
-  if (lawBlock.childNodes.length > 3) {
-    lawBlock.removeChild(lawBlock.childNodes[1]);
-  }
+  if(!isCorrect){var tr=document.createElement('div');tr.className='wtag-row';tr.innerHTML='<span style="font-size:.8rem;color:#6b6354">錯誤類型：</span>'+['A','B','C','D'].map(function(k){return '<button type="button" class="wtag" data-k="'+k+'">'+WTL[k]+'</button>'}).join('');resultNote.appendChild(tr);
+   tr.querySelectorAll('.wtag').forEach(function(bt){bt.onclick=function(){tr.querySelectorAll('.wtag').forEach(function(x){x.classList.toggle('sel',x===bt)});try{BXREP.tag(q,bt.dataset.k)}catch(e){}}})}
+ resultNote.className='rnote';lawBlock.querySelectorAll('.rnote').forEach(function(x){x.remove()});
+ lawBlock.insertBefore(resultNote, lawBlock.querySelector('.law-block-title').nextSibling);
 
   var _e=EXPS[q.year+'-'+q.num]||[],_L=['A','B','C','D'],_h='';
   q.options.forEach(function(o,i){var ok=i===q.answer,pk=i===idx;_h+='<div class="xr'+(ok?' ok':'')+(pk&&!ok?' pick':'')+'"><span class="xl">'+_L[i]+'</span><div class="xt"><span class="xm">'+(ok?'✓':'✗')+'</span>'+(pk&&!ok?'<span class="xp">你選的</span>':'')+(_e[i]||'（本選項解析待補）')+'</div></div>'});
@@ -418,6 +440,7 @@ function showResults() {
   });
   var rw=quizResults.filter(function(r){return !r.correct}).map(function(r){return r.id});
   var wb=document.createElement('div');wb.className='controls-row';wb.style.marginTop='14px';
+  if(rw.length){var D=q2(),tc={A:0,B:0,C:0,D:0,'':0};QUIZ_DATA.forEach(function(q){if(rw.indexOf(q.id)>=0){var r=D[qk(q)]||{};tc[r.k in tc?r.k:'']++}});var ts=document.createElement('div');ts.style.cssText='font-size:.82rem;margin-top:10px';ts.innerHTML='<b>本輪錯題類型：</b>'+['A','B','C','D'].map(function(k){return WTL[k]+' '+tc[k]}).join('、')+(tc['']?'、未標 '+tc['']:'');breakdown.appendChild(ts)}
   wb.innerHTML=rw.length?'<button class="primary" id="wrongRoundBtn">🔁 練本輪錯題（'+rw.length+' 題）</button>':'<span style="font-size:.85rem;color:var(--green);font-weight:700">本輪全對 👍</span>';
   breakdown.appendChild(wb);
   var wr=document.getElementById('wrongRoundBtn');if(wr)wr.onclick=function(){startList(QUIZ_DATA.filter(function(q){return rw.indexOf(q.id)>=0}),'wrong')};
