@@ -115,6 +115,13 @@
 .wtag{font:inherit;font-size:.78rem;padding:5px 10px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
 .wtag.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
 button.secondary:disabled{opacity:.45;cursor:default}
+.qtimer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--blue)}
+.qtimer.over{color:var(--stamp)}
+.meta-row{flex-wrap:wrap;gap:6px}
+details.thist{margin-top:10px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;font-size:.8rem}
+details.thist summary{cursor:pointer;font-weight:700}
+details.thist table{width:100%;border-collapse:collapse;margin-top:6px;font-variant-numeric:tabular-nums}
+details.thist th,details.thist td{border-bottom:1px solid var(--line);padding:4px;text-align:left}
 details.lawsum{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
 details.lawsum summary{cursor:pointer;font-weight:700;color:var(--blue);font-size:.8rem}
 details.lawsum div{margin-top:6px;color:#2a3a4a}
@@ -141,7 +148,7 @@ details.lawsum div{margin-top:6px;color:#2a3a4a}
 
   <div id="quizScreen" class="panel hidden">
     <div class="meta-row">
-      <span id="progressText">1 / 20</span>
+      <span id="progressText">1 / 20</span><span id="qTimer" class="qtimer">⏱ 00:00</span>
       <span class="tag" id="chapterTag">A1</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -272,8 +279,19 @@ function wClr(){try{return +localStorage.getItem('bx-land-wclr')||0}catch(e){ret
 /* 錯題本＝共用作答紀錄中「最近一次答錯」的題（題庫七頁＋解析版共用；任何一頁答對即移出） */
 function wGet(){var D=q2(),c=wClr(),o={};QUIZ_DATA.forEach(function(q){var r=D[qk(q)];if(r&&r.ok===0&&(r.t||0)>c)o[q.id]=r.k||'';});return o}
 function wSet(o){}
+
+/* 計時：每輪開始計時；超過 40 分鐘停止，本次不列入紀錄；保留最近 10 次 */
+var TM={st:0,iv:0,over:false},TLIM=2400,TKEY='bx-land-anal-time';
+function tFmt(x){x=Math.floor(x);return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0')}
+function tStart(){clearInterval(TM.iv);TM={st:Date.now(),iv:0,over:false};var el=document.getElementById('qTimer');el.classList.remove('over');el.textContent='⏱ 00:00';
+ TM.iv=setInterval(function(){var e=(Date.now()-TM.st)/1000;if(e>=TLIM){TM.over=true;clearInterval(TM.iv);el.classList.add('over');el.textContent='⏱ 已超過 40 分鐘・本次不計時';return}el.textContent='⏱ '+tFmt(e)},1000)}
+function tStop(){clearInterval(TM.iv);return TM.over?null:(Date.now()-TM.st)/1000}
+function tHist(){try{return JSON.parse(localStorage.getItem(TKEY)||'[]')}catch(e){return []}}
+function tSave(rec){var h=tHist();h.unshift(rec);h=h.slice(0,10);try{localStorage.setItem(TKEY,JSON.stringify(h))}catch(e){}}
+function tHtml(){var h=tHist();if(!h.length)return '';var L={new:'新→舊',rand:'隨機',smart:'智慧配題',wrong:'錯題'};
+ return '<details class="thist"><summary>最近 '+h.length+' 次作答時間</summary><table><tr><th>日期</th><th>方式</th><th>題數</th><th>答對</th><th>用時</th><th>每題</th></tr>'+h.map(function(r){var d=new Date(r.d);return '<tr><td>'+(d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'</td><td>'+(L[r.m]||r.m)+'</td><td>'+r.n+'</td><td>'+r.c+'</td><td>'+tFmt(r.s)+'</td><td>'+Math.round(r.s/Math.max(1,r.n))+' 秒</td></tr>'}).join('')+'</table><div style="font-size:.75rem;color:#6b6354;margin-top:4px">超過 40 分鐘的輪次不列入。</div></details>'}
 function startList(list,mode){
- MODE=mode;quizQueue=list;quizIndex=0;quizResults=[];
+ MODE=mode;tStart();quizQueue=list;quizIndex=0;quizResults=[];
  setupScreen.classList.add('hidden');resultScreen.classList.add('hidden');quizScreen.classList.remove('hidden');showQuestion();
 }
 function wrongUI(){var b=document.getElementById('startBtn');if(!b)return;var h=document.getElementById('wrongBar');
@@ -295,12 +313,12 @@ function statUI(){var g=document.getElementById('chapterGrid');if(!g)return;var 
  QUIZ_DATA.forEach(function(q){var o=by[q.chapter];o.t++;var r=D[qk(q)];if(r){o.d++;tot.d++;if(r.ok){o.ok++;tot.ok++}}});
  var h='<summary style="cursor:pointer;font-weight:700;font-size:.85rem">各章作答總覽（全科已作答 '+tot.d+'／'+QUIZ_DATA.length+(tot.d?'・正確率 '+Math.round(tot.ok/tot.d*100)+'%':'')+'）</summary>';
  CHAPTER_ORDER.forEach(function(c){var o=by[c],p=o.d?Math.round(o.ok/o.d*100):0;h+='<div class="chapter-stat-row"><span>'+CHAPTER_LABELS[c]+' <span style="opacity:.55">'+o.d+'／'+o.t+'</span></span><span style="display:flex;align-items:center;gap:8px"><span class="mini-bar"><span class="mini-bar-fill" style="width:'+p+'%"></span></span><span style="min-width:5.5em;text-align:right">'+(o.d?p+'%・錯 '+(o.d-o.ok):'未作答')+'</span></span></div>'});
- h+='<div style="font-size:.75rem;color:#6b6354;margin-top:6px">與題庫七頁共用紀錄；正確率以每題最近一次作答計。</div>';el.innerHTML=h}
+ h+='<div style="font-size:.75rem;color:#6b6354;margin-top:6px">與題庫七頁共用紀錄；正確率以每題最近一次作答計。</div>';el.innerHTML=h;var th=document.getElementById('tHistSetup');if(!th){th=document.createElement('div');th.id='tHistSetup';el.parentNode.insertBefore(th,el.nextSibling)}th.innerHTML=tHtml()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wrongUI);else wrongUI();
 document.getElementById('startBtn').onclick = () => {
   const pool = QUIZ_DATA.filter(q => selectedChapters.has(q.chapter));
   if (!pool.length) { alert('請至少選擇一個章節'); return; }
-  MODE='normal';
+  MODE='normal';tStart();
   quizQueue = bxQueue(pool);
   quizIndex = 0;
   quizResults = [];
@@ -315,7 +333,20 @@ document.getElementById('startBtn').onclick = () => {
 var BXO='new';try{BXO=localStorage.getItem('bx-ord')||'new'}catch(e){}
 function bxSeenGet(){try{return JSON.parse(localStorage.getItem('bx-seen')||'{}')}catch(e){return {}}}
 function bxSeenAdd(id){try{var s=bxSeenGet();s[id]=1;localStorage.setItem('bx-seen',JSON.stringify(s))}catch(e){}}
+/* 智慧配題：依各章歷屆題數比例分配 → 章內優先序：錯題（C>A>D>B>未標）→ 未練 → 已答對（最久沒練優先） */
+function smartQueue(pool){
+ var N=Math.min(30,pool.length),D=q2(),c=wClr(),KO={C:0,A:1,D:2,B:3,'':4};
+ function sc(q){var r=D[qk(q)];if(r&&r.ok===0&&(r.t||0)>c)return [0,KO[r.k||'']!=null?KO[r.k||'']:4,Math.random()];if(!r)return [1,0,Math.random()];return [2,r.t||0,Math.random()]}
+ function cmp(a,b){for(var i=0;i<3;i++){if(a.s[i]!==b.s[i])return a.s[i]-b.s[i]}return 0}
+ var by={};pool.forEach(function(q){(by[q.chapter]=by[q.chapter]||[]).push({q:q,s:sc(q)})});
+ var chs=Object.keys(by),quota={},rem=[],used=0;
+ chs.forEach(function(ch){by[ch].sort(cmp);var e=N*by[ch].length/pool.length,f=Math.min(Math.floor(e),by[ch].length);quota[ch]=f;used+=f;rem.push([e-f,ch])});
+ rem.sort(function(a,b){return b[0]-a[0]});for(var i=0;used<N&&i<rem.length*3;i++){var ch=rem[i%rem.length][1];if(quota[ch]<by[ch].length){quota[ch]++;used++}}
+ var out=[];chs.forEach(function(ch){out=out.concat(by[ch].slice(0,quota[ch]))});
+ out.sort(cmp);var w=out.filter(function(x){return x.s[0]===0}),o=shuffle(out.filter(function(x){return x.s[0]!==0}));
+ return w.map(function(x){return x.q}).concat(o.map(function(x){return x.q}))}
 function bxQueue(pool){
+  if(BXO==='smart')return smartQueue(pool);
   if(BXO==='rand')return shuffle(pool).slice(0,Math.min(30,pool.length));
   var seen=bxSeenGet();
   var sorted=pool.slice().sort(function(a,b){return (+b.year)-(+a.year)||(+a.num)-(+b.num)});
@@ -325,10 +356,10 @@ function bxQueue(pool){
 }
 function bxOrdUI(){var b=document.getElementById('startBtn');if(!b||document.getElementById('bxord'))return;
  var h=document.createElement('div');h.id='bxord';h.className='controls-row';h.style.marginTop='14px';h.style.flexWrap='wrap';
- h.innerHTML='<span style="font-size:.85rem;color:#6b6354">出題順序</span><button class="secondary" data-o="new">年份新→舊（接續上次）</button><button class="secondary" data-o="rand">隨機</button><button class="secondary" id="bxreset">從最新年份重來</button><div id="bxnote" style="flex-basis:100%;font-size:.78rem;color:#6b6354"></div>';
+ h.innerHTML='<span style="font-size:.85rem;color:#6b6354">出題順序</span><button class="secondary" data-o="new">年份新→舊（接續上次）</button><button class="secondary" data-o="rand">隨機</button><button class="secondary" data-o="smart">智慧配題</button><button class="secondary" id="bxreset">從最新年份重來</button><div id="bxnote" style="flex-basis:100%;font-size:.78rem;color:#6b6354"></div>';
  b.parentNode.parentNode.insertBefore(h,b.parentNode);
  function mark(){[].forEach.call(h.querySelectorAll('button[data-o]'),function(x){var on=x.dataset.o===BXO;x.style.background=on?'var(--pri)':'';x.style.color=on?'var(--onpri,#fff)':'';x.style.borderColor=on?'var(--pri)':''});
-  var n=Object.keys(bxSeenGet()).length;h.querySelector('#bxnote').textContent=BXO==='new'?'從最新年份依序出題，已練過的題目會略過（目前已練 '+n+' 題）；每輪最多 30 題。':'隨機抽 30 題。';document.getElementById('bxreset').style.display=BXO==='new'?'':'none'}
+  var n=Object.keys(bxSeenGet()).length;h.querySelector('#bxnote').textContent=BXO==='new'?'從最新年份依序出題，已練過的題目會略過（目前已練 '+n+' 題）；每輪最多 30 題。':BXO==='smart'?'智慧配題：依所選章節的歷屆題數比例分配 30 題；各章先出錯題（C 真的不熟→A→D→B→未標），再出沒練過的，最後出最久沒練的答對題。錯題排在本輪前面。':'隨機抽 30 題。';document.getElementById('bxreset').style.display=BXO==='new'?'':'none'}
  [].forEach.call(h.querySelectorAll('button[data-o]'),function(x){x.onclick=function(){BXO=x.dataset.o;try{localStorage.setItem('bx-ord',BXO)}catch(e){}mark()}});
  h.querySelector('#bxreset').onclick=function(){try{localStorage.removeItem('bx-seen')}catch(e){}mark()};mark()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bxOrdUI);else bxOrdUI();
@@ -414,6 +445,8 @@ document.getElementById('nextBtn').onclick = () => {
 };
 
 function showResults() {
+  var _sec=tStop(),_cor=quizResults.filter(function(r){return r.correct}).length;
+  if(_sec!=null&&quizResults.length)tSave({d:Date.now(),m:MODE==='wrong'?'wrong':BXO,n:quizResults.length,c:_cor,s:Math.round(_sec)});
   quizScreen.classList.add('hidden');
   resultScreen.classList.remove('hidden');
   const correct = quizResults.filter(r => r.correct).length;
@@ -443,10 +476,11 @@ function showResults() {
   if(rw.length){var D=q2(),tc={A:0,B:0,C:0,D:0,'':0};QUIZ_DATA.forEach(function(q){if(rw.indexOf(q.id)>=0){var r=D[qk(q)]||{};tc[r.k in tc?r.k:'']++}});var ts=document.createElement('div');ts.style.cssText='font-size:.82rem;margin-top:10px';ts.innerHTML='<b>本輪錯題類型：</b>'+['A','B','C','D'].map(function(k){return WTL[k]+' '+tc[k]}).join('、')+(tc['']?'、未標 '+tc['']:'');breakdown.appendChild(ts)}
   wb.innerHTML=rw.length?'<button class="primary" id="wrongRoundBtn">🔁 練本輪錯題（'+rw.length+' 題）</button>':'<span style="font-size:.85rem;color:var(--green);font-weight:700">本輪全對 👍</span>';
   breakdown.appendChild(wb);
+  var tb=document.createElement('div');tb.style.marginTop='12px';tb.innerHTML='<div style="font-size:.85rem"><b>本輪用時：</b>'+(_sec==null?'超過 40 分鐘，本次不計時、不列入紀錄':tFmt(_sec)+'（每題約 '+Math.round(_sec/Math.max(1,quizResults.length))+' 秒）')+'</div>'+tHtml();breakdown.appendChild(tb);
   var wr=document.getElementById('wrongRoundBtn');if(wr)wr.onclick=function(){startList(QUIZ_DATA.filter(function(q){return rw.indexOf(q.id)>=0}),'wrong')};
 }
 
-document.getElementById('backToSetupBtn').onclick = () => { resultScreen.classList.add('hidden'); setupScreen.classList.remove('hidden'); renderChapterGrid(); wrongUI(); };
+document.getElementById('backToSetupBtn').onclick = () => { clearInterval(TM.iv); resultScreen.classList.add('hidden'); setupScreen.classList.remove('hidden'); renderChapterGrid(); wrongUI(); };
 document.getElementById('restartBtn').onclick = () => document.getElementById('startBtn').click();
 
 renderChapterGrid();
