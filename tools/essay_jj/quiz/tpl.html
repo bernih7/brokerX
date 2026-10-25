@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>經紀法規｜法條解析練習</title>
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#fff;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--sh:0 2px 8px rgba(37,48,44,.07);
+--cA:#2F5D50;--cAs:#DDEBE5;--cC:#8A5517;--cCs:#F7E6CC;--cD:#7A5BA6;--cDs:#EBE3F6;--cE:#2F6B8C;--cEs:#E3EFF6;--cF:#5F6B63;--cFs:#E6E8E4;--cG:#A8402B;--cGs:#F8E1DC;--cH:#2F7A55;--cHs:#E1F1E8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#9DA9A2;--line:#34403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#10201A;--pri-soft:#22362F;--acc:#D9A863;--acc-ink:#E2BC84;--acc-soft:#3A2F1C;--ok:#7FC18A;--ok-soft:#1E3024;--bad:#E8806A;--bad-soft:#3A221D;--warn:#332B18;--sh:0 2px 8px rgba(0,0,0,.3);
+--cA:#84C2AE;--cAs:#22362F;--cC:#D9A863;--cCs:#3A2F1C;--cD:#B9A3DC;--cDs:#2B2338;--cE:#8CBBD8;--cEs:#1E2B35;--cF:#A6B0A9;--cFs:#262B28;--cG:#E8806A;--cGs:#3A221D;--cH:#7FC18A;--cHs:#1E3024;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#9DA9A2;--line:#34403A;--pri:#84C2AE;--pri2:#6FAE9A;--on:#10201A;--pri-soft:#22362F;--acc:#D9A863;--acc-ink:#E2BC84;--acc-soft:#3A2F1C;--ok:#7FC18A;--ok-soft:#1E3024;--bad:#E8806A;--bad-soft:#3A221D;--warn:#332B18;--sh:0 2px 8px rgba(0,0,0,.3);
+--cA:#84C2AE;--cAs:#22362F;--cC:#D9A863;--cCs:#3A2F1C;--cD:#B9A3DC;--cDs:#2B2338;--cE:#8CBBD8;--cEs:#1E2B35;--cF:#A6B0A9;--cFs:#262B28;--cG:#E8806A;--cGs:#3A221D;--cH:#7FC18A;--cHs:#1E3024;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;padding-bottom:70px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 16px}
+header{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;padding-block:14px 12px;margin-bottom:14px}
+header .wrap{padding-block:0}
+h1{margin:0;font-size:1.06rem;letter-spacing:.4px}
+.sub{font-size:.76rem;opacity:.9;margin-top:3px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--sh)}
+.h2{font-size:.95rem;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hint{font-size:.78rem;color:var(--sub);margin:0 0 8px;line-height:1.6}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:7px 13px;font-size:.84rem}
+.btn.on,.btn.pri{background:var(--pri);color:var(--on);border-color:var(--pri);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.grp{margin-bottom:12px}
+.glab{font-size:.74rem;color:var(--sub);margin-bottom:5px}
+/* 選章 */
+.cat{border-radius:11px;padding:9px 11px;margin-bottom:9px;border-left:5px solid}
+.cat h3{margin:0 0 7px;font-size:.86rem;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.cat h3 small{font-weight:400;font-size:.74rem;opacity:.85}
+.chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.ch{display:flex;gap:7px;align-items:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:6px 8px;cursor:pointer;min-width:0}
+.ch.sel{border-color:var(--pri);background:var(--pri-soft)}
+.ch input{margin:3px 0 0;accent-color:var(--pri);flex:none}
+.ch .nm{font-size:.8rem;line-height:1.45;min-width:0}
+.ch .st{font-size:.7rem;color:var(--sub);display:block;margin-top:1px}
+.bar{height:4px;border-radius:3px;background:var(--line);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.bar i.w{background:var(--bad)}
+/* 作答 */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.78rem;color:var(--sub);margin-bottom:6px;flex-wrap:wrap}
+.tm{font-variant-numeric:tabular-nums;font-weight:700;color:var(--pri)}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px}
+.stem{font-size:1rem;line-height:1.75;margin:4px 0 11px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;margin-bottom:7px;font-size:.92rem;line-height:1.6}
+.opt:hover:not(:disabled){border-color:var(--pri)}
+.opt .L{font-weight:700;color:var(--pri);margin-right:7px}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.ng{background:var(--bad-soft);border-color:var(--bad)}
+.opt.mine{box-shadow:inset 0 0 0 2px var(--acc)}
+.verdict{font-weight:700;margin:9px 0 6px;font-size:.93rem}
+.verdict.y{color:var(--ok)}.verdict.n{color:var(--bad)}
+.exs{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:8px}
+.ex{display:flex;gap:8px;padding:8px 11px;font-size:.87rem;line-height:1.65;border-top:1px dashed var(--line)}
+.ex:first-child{border-top:0}
+.ex .L{flex:none;font-weight:700;width:1.6em}
+.ex.ok{background:var(--ok-soft)}.ex.ok .L{color:var(--ok)}
+.ex.ng .L{color:var(--bad)}
+.ex .me{font-size:.7rem;background:var(--acc-soft);color:var(--acc-ink);border-radius:4px;padding:0 5px;margin-left:5px;white-space:nowrap}
+details.law,details.mem{margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+details.law>summary,details.mem>summary{padding:7px 11px;font-size:.84rem;font-weight:700;cursor:pointer;color:var(--pri)}
+.lawb{padding:0 11px 9px;font-size:.86rem;line-height:1.7}
+.lawb h5{margin:8px 0 3px;font-size:.82rem;color:var(--acc-ink)}
+.lawb p{margin:2px 0}
+.nv{font-size:.72rem;color:var(--sub)}
+.dis{background:var(--warn);border:1px solid var(--acc);border-radius:10px;padding:8px 11px;font-size:.84rem;line-height:1.65;margin-top:8px}
+.dis b{color:var(--acc-ink)}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
+.tagrow .lb{font-size:.76rem;color:var(--sub)}
+.tg{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 10px;font-size:.78rem}
+.tg.on{background:var(--bad);color:#fff;border-color:var(--bad);font-weight:700}
+.nav{display:flex;gap:8px;margin-top:12px}
+.nav .btn{flex:1}
+/* 結果 */
+.score{font-size:2rem;font-weight:700;color:var(--pri);text-align:center;margin:6px 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:10px 0}
+.kv>div{background:var(--bg);border-radius:9px;padding:7px 9px;text-align:center}
+.kv b{display:block;font-size:1.1rem;color:var(--pri)}
+.kv span{font-size:.72rem;color:var(--sub)}
+table.ov{width:100%;border-collapse:collapse;font-size:.8rem}
+table.ov th,table.ov td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right}
+table.ov th:first-child,table.ov td:first-child{text-align:left}
+table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
+.fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;z-index:30}
+.fab a,.fab button{width:44px;height:44px;border-radius:50%;background:var(--pri);color:var(--on);border:0;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;box-shadow:var(--sh)}
+@media(max-width:480px){.chs{grid-template-columns:1fr}}
+[hidden]{display:none!important}
+</style></head><body>
+<header><div class="wrap"><h1>經紀法規｜法條解析練習</h1>
+<div class="sub">99–114 年官方試題 520 題・逐選項解析・本題相關法條・錯誤類型 A/B/C/D</div></div></header>
+<div class="wrap">
+
+<section id="setup">
+  <div class="card">
+    <div class="h2">選擇章節 <span class="nv" id="selCnt"></span></div>
+    <div class="row" style="margin-bottom:9px">
+      <button class="btn" id="selAll">全選</button><button class="btn" id="selNone">全不選</button>
+      <button class="btn" id="selWeak">只選錯最多的三章</button>
+    </div>
+    <div id="cats"></div>
+  </div>
+
+  <div class="card">
+    <div class="h2">出題方式</div>
+    <div class="grp"><div class="glab">順序</div><div class="row" id="ordRow">
+      <button class="btn" data-ord="new">年份新→舊</button>
+      <button class="btn" data-ord="rand">隨機</button>
+      <button class="btn" data-ord="ch">章節順序</button>
+      <button class="btn" data-ord="smart">智慧配題</button>
+    </div>
+    <p class="hint" id="ordHint"></p></div>
+    <div class="grp"><div class="glab">題數</div><div class="row" id="numRow">
+      <button class="btn" data-num="20">20</button><button class="btn" data-num="30">30</button>
+      <button class="btn" data-num="50">50</button><button class="btn" data-num="0">全部</button>
+    </div></div>
+    <div class="grp"><div class="glab">計時</div><div class="row">
+      <button class="btn" id="tmBtn">計時：關</button>
+      <span class="hint" style="margin:0">滿 40 分鐘自動停止，該輪不列入紀錄</span>
+    </div></div>
+    <div class="row"><button class="btn pri" id="start" style="flex:1;padding:10px">開始練習</button></div>
+  </div>
+
+  <div class="card">
+    <div class="h2">錯題本 <span class="nv" id="wrongCnt"></span></div>
+    <p class="hint">讀共用作答紀錄的「最近一次答錯」。題庫 12 頁與本頁共用，<b>在任何一頁答對就會移出</b>。</p>
+    <div class="row">
+      <button class="btn" id="goWrong">練累積錯題</button>
+      <button class="btn" data-tag="C">只練 C 不熟</button><button class="btn" data-tag="A">只練 A 法條混淆</button>
+      <button class="btn" data-tag="D">只練 D 猜的</button><button class="btn" data-tag="B">只練 B 粗心</button>
+      <button class="btn" id="clrWrong">清空</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="h2">各章作答總覽</div>
+    <div style="overflow-x:auto"><table class="ov" id="ovTbl"></table></div>
+    <p class="hint" id="timesHint"></p>
+  </div>
+</section>
+
+<section id="quiz" hidden>
+  <div class="card">
+    <div class="qtop"><span id="prog"></span><span class="tm" id="tmDisp" hidden></span></div>
+    <div id="meta" class="qtop" style="margin-bottom:2px"></div>
+    <div class="stem" id="stem"></div>
+    <div id="opts"></div>
+    <div id="after" hidden>
+      <div class="verdict" id="verdict"></div>
+      <div id="disBox"></div>
+      <div class="exs" id="exs"></div>
+      <div id="lawBox"></div>
+      <div id="memBox"></div>
+      <div class="tagrow" id="tagrow"><span class="lb">答錯了？標一下原因：</span>
+        <button class="tg" data-k="A">A 法條混淆</button><button class="tg" data-k="B">B 粗心</button>
+        <button class="tg" data-k="C">C 真的不熟</button><button class="tg" data-k="D">D 猜的</button></div>
+    </div>
+    <div class="nav"><button class="btn" id="prev">上一題</button><button class="btn pri" id="next">下一題</button></div>
+  </div>
+</section>
+
+<section id="done" hidden>
+  <div class="card">
+    <div class="h2">本輪結果</div>
+    <div class="score" id="score"></div>
+    <div class="kv" id="kv"></div>
+    <div id="tagStat"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn pri" id="again">再練一輪</button>
+      <button class="btn" id="roundWrong">練本輪錯題</button>
+      <button class="btn" id="back">回選章</button>
+    </div>
+  </div>
+  <div class="card"><div class="h2">本輪錯題</div><div id="roundList"></div></div>
+</section>
+</div>
+
+<div class="fab">
+  <button id="theme" title="深淺色">◐</button>
+  <a href="%HUB%" title="回指揮中心">⌂</a>
+</div>
+
+<script id="DATA" type="application/json">%DATA%</script>
+<script id="CHS" type="application/json">%CHS%</script>
+<script src="bxj-use.js"></script>
+<script>
+(function(){
+var D=JSON.parse(document.getElementById('DATA').textContent);
+var CT=JSON.parse(document.getElementById('CHS').textContent);
+var Q=D.q, LAW=D.law;
+var CAT={A:'A 不動產經紀業管理條例',C:'C 不動產說明書',D:'D 定型化契約',E:'E 公寓大廈管理條例',F:'F 規約範本',G:'G 公平交易法',H:'H 消費者保護法'};
+var KN={A:'A 法條混淆',B:'B 粗心',C:'C 真的不熟',D:'D 猜的'};
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function qid(q){return q.ch+'-'+q.y+'-'+q.n}
+function db(){return ld('bxj-q2',{})}
+/* 作答寫入：優先用 bxj-use.js 的 BXREP，格式才會與題庫 12 頁一致 */
+function rec(q,chosen,ok){
+  if(window.BXREP&&BXREP.rec){try{BXREP.rec({chapter:q.ch,year:q.y,qnum:q.n},chosen,ok);return}catch(e){}}
+  var DB=db(),id=qid(q),r=DB[id]||{n:0,w:0,h:[]};
+  r.c=chosen;r.ok=ok?1:0;r.g=0;r.k='';r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;
+  if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[id]=r;sv('bxj-q2',DB);
+}
+function tagIt(q,k){
+  if(window.BXREP&&BXREP.tag){try{BXREP.tag({chapter:q.ch,year:q.y,qnum:q.n},k);return}catch(e){}}
+  var DB=db(),r=DB[qid(q)];if(!r)return;r.k=k;r.g=(k==='D')?1:0;sv('bxj-q2',DB);
+}
+function esc(t){return String(t==null?'':t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function rich(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
+/* 爭議題：可接受答案 */
+function accept(q){return q.dis?q.dis.acc:[q.ans]}
+function isFree(q){return !!(q.sp||(q.dis&&q.dis.kind==='free'))}
+
+/* ---------- 狀態 ---------- */
+var sel=new Set(Object.keys(CT)), ord=ld('bxj-ord','new'), num=30, useTm=false;
+var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch';
+var WCLR=ld('bxj-wclr',0);
+
+/* ---------- 選章 ---------- */
+function chStat(c){var DB=db(),tot=0,a=0,ok=0,w=0;
+  Q.forEach(function(q){if(q.ch!==c)return;tot++;var r=DB[qid(q)];if(r&&r.n){a++;if(r.ok)ok++;else w++}});
+  return {tot:tot,a:a,ok:ok,w:w};}
+function renderCats(){
+  var box=document.getElementById('cats'),h='';
+  Object.keys(CAT).forEach(function(g){
+    var chs=Object.keys(CT).filter(function(c){return c[0]===g});
+    if(!chs.length)return;
+    var n=chs.reduce(function(s,c){return s+Q.filter(function(q){return q.ch===c}).length},0);
+    h+='<div class="cat" style="border-left-color:var(--c'+g+');background:var(--c'+g+'s)">'+
+       '<h3><span style="color:var(--c'+g+')">'+esc(CAT[g])+'</span><small>'+n+' 題</small></h3><div class="chs">';
+    chs.forEach(function(c){
+      var s=chStat(c),pct=s.tot?Math.round(s.a/s.tot*100):0;
+      h+='<label class="ch'+(sel.has(c)?' sel':'')+'" data-ch="'+c+'">'+
+         '<input type="checkbox" '+(sel.has(c)?'checked':'')+'><span class="nm">'+esc(CT[c])+
+         '<span class="st">'+s.tot+' 題・已答 '+s.a+'（'+pct+'%）'+(s.w?'・錯 '+s.w:'')+'</span>'+
+         '<span class="bar"><i class="'+(s.w>s.ok?'w':'')+'" style="width:'+pct+'%"></i></span></span></label>';
+    });
+    h+='</div></div>';
+  });
+  box.innerHTML=h;
+  document.getElementById('selCnt').textContent='已選 '+sel.size+' 章／共 '+poolOf().length+' 題';
+}
+function poolOf(){return Q.filter(function(q){return sel.has(q.ch)})}
+document.getElementById('cats').addEventListener('click',function(e){
+  var l=e.target.closest('.ch');if(!l)return;
+  var c=l.dataset.ch; if(sel.has(c))sel.delete(c);else sel.add(c);
+  setTimeout(renderCats,0);
+});
+document.getElementById('selAll').onclick=function(){sel=new Set(Object.keys(CT));renderCats()};
+document.getElementById('selNone').onclick=function(){sel=new Set();renderCats()};
+document.getElementById('selWeak').onclick=function(){
+  var a=Object.keys(CT).map(function(c){return [c,chStat(c).w]}).sort(function(x,y){return y[1]-x[1]}).slice(0,3);
+  sel=new Set(a.map(function(x){return x[0]}));renderCats();
+};
+var ORDH={new:'依年份由新到舊，近年題先練。',rand:'整池隨機打散。',ch:'依章節順序，同章集中練。',
+  smart:'依所選章節的歷屆題數比例分配題數；章內優先序＝錯題（C→A→D→B→未標）→沒練過→答對但最久沒練。'};
+function renderOrd(){
+  [].forEach.call(document.querySelectorAll('#ordRow .btn'),function(b){b.classList.toggle('on',b.dataset.ord===ord)});
+  document.getElementById('ordHint').textContent=ORDH[ord];
+}
+document.getElementById('ordRow').onclick=function(e){var b=e.target.closest('[data-ord]');if(!b)return;ord=b.dataset.ord;sv('bxj-ord',ord);renderOrd()};
+function renderNum(){[].forEach.call(document.querySelectorAll('#numRow .btn'),function(b){b.classList.toggle('on',+b.dataset.num===num)})}
+document.getElementById('numRow').onclick=function(e){var b=e.target.closest('[data-num]');if(!b)return;num=+b.dataset.num;renderNum()};
+document.getElementById('tmBtn').onclick=function(){useTm=!useTm;this.textContent='計時：'+(useTm?'開':'關');this.classList.toggle('on',useTm)};
+
+/* 錯題本：共用紀錄的「最近一次答錯」 */
+function wrongList(tag){var DB=db();
+  return Q.filter(function(q){var r=DB[qid(q)];
+    if(!r||r.ok||!r.n)return false; if(r.t&&r.t<WCLR)return false;
+    if(tag&&r.k!==tag)return false; return true});}
+function renderWrong(){
+  var w=wrongList();document.getElementById('wrongCnt').textContent=w.length+' 題';
+  var DB=db(),c={A:0,B:0,C:0,D:0,'':0};w.forEach(function(q){var r=DB[qid(q)];c[r.k||'']++});
+  [].forEach.call(document.querySelectorAll('[data-tag]'),function(b){
+    var n=c[b.dataset.tag]||0;b.textContent=b.textContent.replace(/（\d+）$/,'')+'（'+n+'）';b.disabled=!n});
+}
+document.getElementById('start').onclick=function(){var l=poolOf();if(!l.length){alert('請先選章節');return}start(l,'ch')};
+document.getElementById('goWrong').onclick=function(){var w=wrongList();if(!w.length){alert('目前沒有錯題');return}start(w,'wrong')};
+[].forEach.call(document.querySelectorAll('[data-tag]'),function(b){
+  b.onclick=function(){var w=wrongList(b.dataset.tag);if(!w.length)return;start(w,'tag')}});
+document.getElementById('clrWrong').onclick=function(){
+  if(!confirm('清空錯題本？（只記一個時間戳，不會刪掉作答紀錄）'))return;
+  WCLR=Math.floor(Date.now()/1000);sv('bxj-wclr',WCLR);renderWrong();renderOv()};
+
+/* 各章總覽 */
+function renderOv(){
+  var h='<tr><th>章節</th><th>題數</th><th>已答</th><th>答對</th><th>錯</th><th>正確率</th></tr>';
+  Object.keys(CT).forEach(function(c){var s=chStat(c);
+    h+='<tr><td><span class="tag" style="background:var(--c'+c[0]+'s);color:var(--c'+c[0]+')">'+c+'</span> '+
+       esc(CT[c].replace(/^\S+\s/,''))+'</td><td>'+s.tot+'</td><td>'+s.a+'</td><td>'+s.ok+'</td><td>'+s.w+'</td><td>'+
+       (s.a?Math.round(s.ok/s.a*100)+'%':'—')+'</td></tr>'});
+  document.getElementById('ovTbl').innerHTML=h;
+  var ts=ld('bxj-anal-time',[]);
+  document.getElementById('timesHint').textContent=ts.length?('最近 '+ts.length+' 次計時：'+ts.map(function(x){return Math.floor(x/60)+'分'+('0'+(x%60)).slice(-2)+'秒'}).join('、')):'';
+}
+
+/* ---------- 智慧配題 ---------- */
+var PRI={C:0,A:1,D:2,B:3,'':4};
+function smartPick(list,want){
+  var DB=db(),byCh={};
+  list.forEach(function(q){(byCh[q.ch]=byCh[q.ch]||[]).push(q)});
+  var chs=Object.keys(byCh),tot=list.length,out=[];
+  chs.forEach(function(c){
+    var quota=Math.max(1,Math.round(want*byCh[c].length/tot));
+    var arr=byCh[c].slice().map(function(q){
+      var r=DB[qid(q)]||{};
+      var rank = (r.n&&!r.ok)?PRI[r.k||''] : (!r.n?5:6);
+      return {q:q,rank:rank,t:r.t||0}});
+    arr.sort(function(a,b){return a.rank-b.rank || a.t-b.t});
+    out=out.concat(arr.slice(0,quota).map(function(x){return x.q}));
+  });
+  return out.slice(0,want);
+}
+function order(list){
+  var a=list.slice();
+  if(ord==='rand'){for(var i=a.length-1;i>0;i--){var j=Math.random()*(i+1)|0;var t=a[i];a[i]=a[j];a[j]=t}}
+  else if(ord==='ch'){a.sort(function(x,y){return x.ch<y.ch?-1:x.ch>y.ch?1:(x.y-y.y||x.n-y.n)})}
+  else if(ord==='smart'){return smartPick(a,num||30)}
+  else {a.sort(function(x,y){return y.y-x.y||x.n-y.n})}
+  return num?a.slice(0,num):a;
+}
+/* ---------- 流程 ---------- */
+function start(list,m){
+  mode=m||'ch';
+  pool=(m==='wrong'||m==='tag'||m==='round')?(num&&list.length>num&&m==='wrong'?list.slice(0,num):list):order(list);
+  if(!pool.length){alert('沒有符合的題目');return}
+  idx=0;ansMap={};roundWrong=[];timedOut=false;
+  document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
+  document.getElementById('quiz').hidden=false;
+  if(useTm){t0=Date.now();document.getElementById('tmDisp').hidden=false;tick();tmr=setInterval(tick,1000)}
+  else{document.getElementById('tmDisp').hidden=true}
+  render();window.scrollTo(0,0);
+}
+function tick(){
+  var s=Math.floor((Date.now()-t0)/1000);
+  document.getElementById('tmDisp').textContent=Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);
+  if(s>=2400){clearInterval(tmr);tmr=null;timedOut=true;
+    document.getElementById('tmDisp').textContent='已滿 40 分鐘（本輪不列入）';finish()}
+}
+function render(){
+  var q=pool[idx];
+  document.getElementById('prog').textContent='第 '+(idx+1)+' / '+pool.length+' 題';
+  document.getElementById('meta').innerHTML='<span class="tag" style="background:var(--c'+q.ch[0]+'s);color:var(--c'+q.ch[0]+')">'+q.ch+'</span>'+
+    '<span>'+q.y+' 年 第 '+q.n+' 題</span>';
+  document.getElementById('stem').textContent=q.stem;
+  var picked=ansMap[q.k];
+  var oh='';
+  q.opt.forEach(function(o,i){
+    var L='ABCD'[i],cls='opt';
+    if(picked){
+      if(accept(q).indexOf(L)>=0)cls+=' ok'; else if(L===picked)cls+=' ng';
+      if(L===picked)cls+=' mine';
+    }
+    oh+='<button class="'+cls+'" data-l="'+L+'"'+(picked?' disabled':'')+'><span class="L">'+L+'</span>'+esc(o)+'</button>';
+  });
+  document.getElementById('opts').innerHTML=oh;
+  document.getElementById('after').hidden=!picked;
+  if(picked)showAfter(q,picked);
+  document.getElementById('prev').disabled=idx===0;
+  document.getElementById('next').textContent=(idx===pool.length-1)?'看結果':'下一題';
+}
+function showAfter(q,picked){
+  var acc=accept(q),ok=acc.indexOf(picked)>=0,free=isFree(q);
+  var v=document.getElementById('verdict');
+  v.className='verdict '+(ok?'y':'n');
+  v.textContent=free?('這題一律給分（不計入正確率）'):(ok?'答對了':'答錯了　正解：'+acc.join(' 或 '));
+  document.getElementById('disBox').innerHTML=q.dis?
+    '<div class="dis"><b>'+(q.dis.kind==='free'?'考選部一律給分':(q.dis.kind==='dual'?'爭議題：官方答案與條文衝突，兩解皆判對':'爭議題：維持官方答案'))+
+    '</b><br>'+rich(q.dis.why)+'</div>':'';
+  var eh='';
+  q.exp.forEach(function(t,i){
+    var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
+    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+esc(t)+
+        (L===picked?'<span class="me">你選的</span>':'')+'</span></div>';
+  });
+  document.getElementById('exs').innerHTML=eh;
+  var lb=document.getElementById('lawBox');
+  if(q.law&&q.law.length){
+    var lh='';
+    q.law.forEach(function(k){var L=LAW[k];if(!L)return;
+      lh+='<h5>'+esc(k)+(L.t?'　'+esc(L.t):'')+(L.v?'':' <span class="nv">（要點整理，非逐字）</span>')+'</h5>'+
+          L.x.split('\n').map(function(p){return '<p>'+esc(p)+'</p>'}).join('')});
+    lb.innerHTML='<details class="law"><summary>本題相關法條（'+q.law.length+' 條）</summary><div class="lawb">'+lh+
+      (q.ref?'<p class="nv" style="margin-top:7px">出處：'+esc(q.ref)+'</p>':'')+'</div></details>';
+  } else lb.innerHTML=q.ref?'<details class="law"><summary>本題出處</summary><div class="lawb"><p class="nv">'+esc(q.ref)+'</p></div></details>':'';
+  var mb=document.getElementById('memBox');
+  if(q.mem&&q.mem.length){
+    mb.innerHTML='<details class="mem"><summary>相關整理頁（'+q.mem.length+'）</summary><div class="lawb">'+
+      q.mem.map(function(m){return '<p><a href="'+encodeURI(m[0])+'.html#'+m[1]+'">'+esc(m[3])+'｜'+esc(m[2])+'</a></p>'}).join('')+
+      '<p class="nv">對應為自行歸類；比較型題目可能對應多張卡，以題意為準。</p></div></details>';
+  } else mb.innerHTML='';
+  var tr=document.getElementById('tagrow');
+  tr.hidden=ok||free;
+  var cur=(db()[qid(q)]||{}).k||'';
+  [].forEach.call(tr.querySelectorAll('.tg'),function(b){b.classList.toggle('on',b.dataset.k===cur)});
+}
+document.getElementById('opts').addEventListener('click',function(e){
+  var b=e.target.closest('.opt');if(!b||b.disabled)return;
+  var q=pool[idx],L=b.dataset.l;ansMap[q.k]=L;
+  var ok=accept(q).indexOf(L)>=0||isFree(q);
+  if(!timedOut)rec(q,L,ok);
+  if(!ok&&roundWrong.indexOf(q)<0)roundWrong.push(q);
+  render();
+});
+document.getElementById('tagrow').addEventListener('click',function(e){
+  var b=e.target.closest('.tg');if(!b)return;
+  if(!timedOut)tagIt(pool[idx],b.dataset.k);
+  [].forEach.call(this.querySelectorAll('.tg'),function(x){x.classList.toggle('on',x===b)});
+});
+document.getElementById('prev').onclick=function(){if(idx>0){idx--;render();window.scrollTo(0,0)}};
+document.getElementById('next').onclick=function(){
+  if(idx<pool.length-1){idx++;render();window.scrollTo(0,0)}else finish()};
+function finish(){
+  if(tmr){clearInterval(tmr);tmr=null}
+  var done=Object.keys(ansMap).length,graded=0,ok=0;
+  pool.forEach(function(q){var p=ansMap[q.k];if(!p||isFree(q))return;graded++;if(accept(q).indexOf(p)>=0)ok++});
+  if(useTm&&!timedOut){var ts=ld('bxj-anal-time',[]);ts.unshift(Math.floor((Date.now()-t0)/1000));sv('bxj-anal-time',ts.slice(0,10))}
+  document.getElementById('quiz').hidden=true;document.getElementById('done').hidden=false;
+  document.getElementById('score').textContent=graded?(Math.round(ok/graded*100)+'%'):'—';
+  document.getElementById('kv').innerHTML=
+    '<div><b>'+pool.length+'</b><span>出題</span></div><div><b>'+done+'</b><span>已答</span></div>'+
+    '<div><b>'+ok+'</b><span>答對</span></div><div><b>'+(graded-ok)+'</b><span>答錯</span></div>'+
+    '<div><b>'+(pool.length-graded-(pool.length-done))+'</b><span>給分題</span></div>';
+  var DB=db(),c={A:0,B:0,C:0,D:0,'':0};roundWrong.forEach(function(q){c[(DB[qid(q)]||{}).k||'']++});
+  document.getElementById('tagStat').innerHTML=roundWrong.length?
+    '<p class="hint">本輪錯題類型：'+['A','B','C','D'].map(function(k){return KN[k]+' '+c[k]}).join('　')+'　未標 '+c['']+'</p>':'';
+  document.getElementById('roundList').innerHTML=roundWrong.length?
+    roundWrong.map(function(q){return '<p style="font-size:.85rem;margin:4px 0"><span class="tag" style="background:var(--c'+q.ch[0]+'s);color:var(--c'+q.ch[0]+')">'+q.ch+'</span> '+q.y+'-'+q.n+'　'+esc(q.stem.slice(0,46))+'…</p>'}).join('')
+    :'<p class="hint">本輪沒有答錯。</p>';
+  document.getElementById('roundWrong').disabled=!roundWrong.length;
+  if(timedOut)document.getElementById('tagStat').innerHTML+='<p class="hint" style="color:var(--bad)">本輪已滿 40 分鐘，未列入作答紀錄與計時紀錄。</p>';
+  renderWrong();renderOv();renderCats();window.scrollTo(0,0);
+}
+document.getElementById('again').onclick=function(){start(poolOf(),'ch')};
+document.getElementById('roundWrong').onclick=function(){start(roundWrong.slice(),'round')};
+document.getElementById('back').onclick=function(){
+  document.getElementById('done').hidden=true;document.getElementById('setup').hidden=false;
+  renderCats();renderWrong();renderOv();window.scrollTo(0,0)};
+/* 深連結 #q=100-8,101-16 */
+function deepLink(){
+  var m=/[#&]q=([\d,\-]+)/.exec(location.hash);if(!m)return false;
+  var ks=m[1].split(',').map(function(x){return x.trim()}).filter(Boolean);
+  var list=ks.map(function(k){for(var i=0;i<Q.length;i++)if(Q[i].k===k)return Q[i];return null}).filter(Boolean);
+  if(!list.length)return false;
+  pool=list;idx=0;ansMap={};roundWrong=[];timedOut=false;mode='deep';
+  document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
+  document.getElementById('quiz').hidden=false;document.getElementById('tmDisp').hidden=true;
+  render();return true;
+}
+window.addEventListener('hashchange',deepLink);
+/* 主題 */
+document.getElementById('theme').onclick=function(){
+  var cur=document.documentElement.getAttribute('data-theme');
+  var dark=cur?cur==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  var nx=dark?'light':'dark';document.documentElement.setAttribute('data-theme',nx);
+  try{localStorage.setItem('bx-theme',nx)}catch(e){}};
+try{var th=localStorage.getItem('bx-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+renderCats();renderOrd();renderNum();renderWrong();renderOv();
+deepLink();
+})();
+</script>
+</body></html>
