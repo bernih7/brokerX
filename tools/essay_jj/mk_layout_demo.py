@@ -3,11 +3,12 @@
 五項：①摘要列壓成一行、chips 收到展開後 ②拿掉左側色條 ③legend 縮短並修掉過時分頁名稱
 ④子分頁說明只在需要時顯示 ⑤加「只看未讀」切換。
 """
-import io, os, re
+import io, os, re, sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 SRC = os.path.join(ROOT, '經紀法規_備考指揮中心.html')
-DST = os.path.join(ROOT, 'demo', '經紀法規_申論版面_demo.html')
+LIVE = '--live' in sys.argv
+DST = SRC if LIVE else os.path.join(ROOT, 'demo', '經紀法規_申論版面_demo.html')
 s = io.open(SRC, encoding='utf-8').read()
 
 # ───── ② 拿掉左側色條，改細框＋左上篇別小標 ─────
@@ -128,13 +129,14 @@ if(btn)btn.addEventListener("click",function(){
 i = s.rindex('</body>')
 s = s[:i] + JS + s[i:]
 
-s = s.replace('<title>', '<title>〔版面 demo〕', 1)
-BANNER = ('<div style="position:sticky;top:0;z-index:99;background:#8A5517;color:#fff;'
-          'padding:7px 12px;font-size:13px;line-height:1.6">'
-          '〔版面整理 <b>demo</b>〕正式頁未動。改了五項：①標題列壓成一行、關鍵詞展開後才出現 '
-          '②拿掉左側色條改小圓點 ③說明縮短並修掉過時的分頁名稱 ④排法說明收到「？」裡 '
-          '⑤進度列加「只看未讀」。</div>')
-s = s.replace('<body>', '<body>' + BANNER, 1)
+if not LIVE:
+    s = s.replace('<title>', '<title>〔版面 demo〕', 1)
+    BANNER = ('<div style="position:sticky;top:0;z-index:99;background:#8A5517;color:#fff;'
+              'padding:7px 12px;font-size:13px;line-height:1.6">'
+              '〔版面整理 <b>demo</b>〕正式頁未動。改了五項：①標題列壓成一行、關鍵詞展開後才出現 '
+              '②拿掉左側色條改小圓點 ③說明縮短並修掉過時的分頁名稱 ④排法說明收到「？」裡 '
+              '⑤進度列加「只看未讀」。</div>')
+    s = s.replace('<body>', '<body>' + BANNER, 1)
 
 os.makedirs(os.path.dirname(DST), exist_ok=True)
 io.open(DST, 'w', encoding='utf-8').write(s)

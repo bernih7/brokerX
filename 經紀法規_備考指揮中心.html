@@ -136,9 +136,9 @@ details.essay-detail.pred{border-style:dashed}details.essay-detail.pred summary{
 :root{--p1:#2F6B8C;--p2:#7A5BA6;--p3:#B8782E;--p4:#2F7A55;--p5:#B04A6A;--p6:#4A6FA5;--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8;--b5:#8A5517;--b5s:#F6EBDD}
 :root[data-theme="dark"]{--p1:#7DB6D8;--p2:#B79BE0;--p3:#E0B070;--p4:#7FCBA0;--p5:#E58AA8;--p6:#8FAEE0;--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;--b5:#E6C06E;--b5s:#3A3220}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--p1:#7DB6D8;--p2:#B79BE0;--p3:#E0B070;--p4:#7FCBA0;--p5:#E58AA8;--p6:#8FAEE0;--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;--b5:#E6C06E;--b5s:#3A3220}}
-details.essay-detail{border-left:5px solid var(--pk,var(--line))}
+details.essay-detail{border-left:1px solid var(--line)}
 details.essay-detail.pk-a{--pk:var(--p1)}details.essay-detail.pk-c{--pk:var(--p2)}details.essay-detail.pk-d{--pk:var(--p3)}details.essay-detail.pk-e{--pk:var(--p4)}details.essay-detail.pk-g{--pk:var(--p5)}details.essay-detail.pk-h{--pk:var(--p6)}
-details.essay-detail.pred{border-style:solid;border-left-style:dashed}
+details.essay-detail.pred{border-style:dashed}
 details.essay-detail.tierA summary,details.essay-detail.tierB summary,details.essay-detail.tierC summary,details.essay-detail.pred summary{color:var(--ink)}
 details.essay-detail summary.es-sum{display:block;list-style:none}details.essay-detail summary.es-sum::-webkit-details-marker{display:none}
 .es-top{display:flex;gap:8px;align-items:flex-start}.es-t{flex:1;min-width:0;font-size:.93rem;line-height:1.45}
@@ -313,9 +313,9 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
     </a>
 
     <div class="group-label">先挑篇</div>
-<div class="es-prog"><div class="es-prog-row"><b id="esPrgT"><span>已讀懂</span><span>官方 0／32</span><span>預測 0／33</span><span>模擬 0／2</span></b><button type="button" id="esNext">挑下一題未讀</button></div><div class="es-prog-bar"><i id="esPrgI"></i></div><small>勾選只記在這台瀏覽器，換裝置要重勾。排序：必考 → 高機率 → 參考 → 預測。</small></div>
+<div class="es-prog"><div class="es-prog-row"><b id="esPrgT"><span>已讀懂</span><span>官方 0／32</span><span>預測 0／33</span><span>模擬 0／2</span></b></div><div class="es-prog-btns"><button type="button" id="esOnlyUnread">只看未讀</button><button type="button" id="esNext">挑下一題未讀</button></div><div class="es-prog-bar"><i id="esPrgI"></i></div><small>勾選只記在這台瀏覽器，換裝置要重勾。排序：必考 → 高機率 → 參考 → 預測。</small></div>
     <div class="ess-seg" id="essSeg"><button type="button" class="ess-b on" data-k="a"><b>經紀業管理條例</b><small>官方 14・預測 8・模擬 1</small></button><button type="button" class="ess-b" data-k="c"><b>不動產說明書</b><small>官方 2・預測 2</small></button><button type="button" class="ess-b" data-k="d"><b>定型化契約</b><small>官方 1・預測 3</small></button><button type="button" class="ess-b" data-k="e"><b>公寓大廈管理</b><small>官方 7・預測 10</small></button><button type="button" class="ess-b" data-k="g"><b>公平交易法</b><small>官方 3・預測 7</small></button><button type="button" class="ess-b" data-k="h"><b>消費者保護法</b><small>官方 5・預測 3・模擬 1</small></button></div>
-    <div class="ess-leg">左側色條＝所屬篇別（每篇一色）　★★★＝16 年反覆考　★★＝高機率　★＝低頻參考　虛線＝預測題（依條文擬的，不是真題）。每題可切換：完整四段式／考場速寫版／得分關鍵・失分點</div>
+    <div class="ess-leg"><b>★★★</b> 16 年反覆考・<b>★★</b> 高機率・<b>★</b> 低頻參考・<b>虛線框</b>＝預測題或補習班模擬卷（不是真題）。<br>每題三個分頁：<b>邏輯拆解</b>（第一次讀懂）→ <b>考場速寫</b>（含失分點）→ <b>完整四段式</b>。標題列只留級別，<b>關鍵詞展開後才出現</b>。</div>
 <div class="ess-panel" data-k="a"><p class="hint">經紀人員、營業保證金、雙方代理、廣告、申報、罰則</p><div class="group-label">高頻考點</div><div class="ess-hot"><span class="essay-chip tierA"><span class="star">★</span> 雙方代理<small>109-二・114-二</small></span><span class="essay-chip tierA"><span class="star">★</span> 廣告不實／查核分工<small>103-二・104-二・110-二・112-一</small></span><span class="essay-chip tierA"><span class="star">★</span> 差價與報酬<small>107-二</small></span></div><div class="group-label">官方範文（真題 14 題）</div><details id="es-fw01" class="essay-detail tierA pk-a"><summary class="es-sum"><span class="es-top"><span class="essay-num">範文01★</span><span class="es-t">103年申論二｜何謂不動產經紀業廣告、廣告不實案件查核權責分工原則</span></span><span class="es-meta"><span class="es-lv tierA">★★★ 必考</span><span class="kc">廣告定義</span><span class="kc">五種查核分工</span><span class="kc">內政部 vs 公平會</span></span></summary><div class="essay-body">
         <p class="essay-question"><b>【原題】</b> 何謂不動產經紀業廣告？對於不動產廣告不實案件之查核，其權責分工原則為何？（25分）</p>
 <div class="vtabs"><button type="button" class="vt on" data-v="3">邏輯拆解</button><button type="button" class="vt" data-v="1">考場速寫</button><button type="button" class="vt" data-v="0">完整四段式</button></div><div class="vp" data-v="3"><div class="ljs"><span>排法</span><div class="ljseg"><button type="button" data-lj="A" class="on">① 推理鏈</button><button type="button" data-lj="B">② 條文｜本題</button><button type="button" data-lj="C">③ 地圖＋勾選</button></div></div><div class="ljp" data-lj="A"><p class="ljd">一步一步推：先問一句 → 條文 → 舉例 → 小結，箭頭寫出為什麼接下一步。適合第一次讀懂。</p><div class="ljq"><span class="ljqn">問題一</span><span class="ljqt">何謂不動產經紀業廣告？</span></div><div class="ljst"><div class="ljsq"><span class="ljno">1</span>判斷是不是廣告，要看「用什麼媒介」還是「給誰看」？</div><p><span class="ljt tl">條文</span><b>廣告處理原則第二點（逐字）</b>：本處理原則所稱廣告，指經紀業利用電視、廣播、影片、幻燈片、報紙、雜誌、傳單、海報、招牌、牌坊、廣告圖冊、模型、樣品屋、布條、電腦、電話傳真、電子視訊、電子語音、網際網路或其他方法，使不特定多數人知悉其宣傳內容之傳播。</p><p><span class="ljt tf">舉例</span>在租屋網刊登物件、路口立招牌、發傳單、擺樣品屋都算；只交給某一位客戶的個別報價單，因未使不特定多數人知悉，不算。</p><p><span class="ljt ta">小結</span>判準在「使不特定多數人知悉」，媒介不限、也不以傳統平面媒體為限。</p></div><div class="ljans"><b>答一：</b>廣告係指經紀業以任何方法，使<b>不特定多數人</b>知悉其宣傳內容之傳播；<b>媒介不限</b>（含網際網路、模型、樣品屋）。</div><div class="ljq"><span class="ljqn">問題二</span><span class="ljqt">不動產廣告不實案件之查核，權責分工原則為何？</span></div><div class="ljar ljpre">分工不是看「廣告登在哪」，而是看「誰是廣告主、不實的是哪一種內容」。</div><div class="ljst"><div class="ljsq"><span class="ljno">2</span>這則廣告是不是經紀業自己刊登、或屬於執業規範的事？</div><p><span class="ljt tl">條文</span><b>第三點（一）（三）（逐字）</b>：（一）經紀業所為不實廣告案件，由主管機關依不動產經紀業管理條例處理；非屬管理條例規範之範疇者，由公平交易委員會依公平交易法處理。（三）經紀業係加盟經營，而未於廣告、市招及名片等明顯處，標明加盟店或加盟經營字樣者，由主管機關依管理條例處理。</p><p><span class="ljt tf">舉例</span>仲介在網路刊登售屋廣告；加盟店的廣告、市招、名片未標「加盟店」字樣。</p><p><span class="ljt ta">小結</span>回地政主管機關（內政部／直轄市、縣市政府）依管理條例處理。</p></div><div class="ljar">↓ 若不實的內容不是執業規範，而是企業形象或服務品質呢？</div><div class="ljst"><div class="ljsq"><span class="ljno">3</span>不實內容是否已超出管理條例的規範範疇？</div><p><span class="ljt tl">條文</span><b>第三點（二）（逐字）</b>：經紀業所為之廣告內容，涉及事業服務品質、企業形象、行銷策略等虛偽不實或引人錯誤之表示或表徵，或其他足以嚴重影響市場交易秩序及公共利益之情形者，由公平會依公平法處理。</p><p><span class="ljt tf">舉例</span>廣告誇稱「全國成交第一」「服務滿意度最高」這類企業形象或品質用語。</p><p><span class="ljt ta">小結</span>交公平會以競爭法視角審查。</p></div><div class="ljar">↓ 那建商委託經紀業銷售、兩邊都具名的廣告歸誰？</div><div class="ljst"><div class="ljsq"><span class="ljno">4</span>建商與經紀業「俱為廣告主」時由誰查核？劃不開怎麼辦？</div><p><span class="ljt tl">條文</span><b>第三點（四）（五）（逐字）</b>：（四）建商委託經紀業者從事銷售行為之不實廣告案件，依其個案具體情形，如建商與經紀業者俱為廣告主時，由公平會依公平法處理。（五）其他經紀業所為不實廣告案件，如無法依前四款原則劃分業務管轄時，由內政部與公平會協調處理。</p><p><span class="ljt tf">舉例</span>預售屋建商委託代銷公司銷售，廣告上同時出現建商與代銷公司名稱。</p><p><span class="ljt ta">小結</span>由公平會處理；確實無法劃分時才由兩機關協調。</p></div><div class="ljans"><b>答二：</b>依廣告處理原則第三點分<b>五款</b>：（一）經紀業自身廣告、（三）加盟未標明 → <b>主管機關依管理條例</b>；（二）企業形象／服務品質等虛偽不實、（四）建商與經紀業俱為廣告主 → <b>公平會依公平交易法</b>；（五）無法劃分 → <b>內政部與公平會協調</b>。</div><div class="kou"><b>口訣</b>　經紀自身、加盟未標明 → 主管機關；形象策略、共同具名 → 公平會；劃不開 → 協調</div></div><div class="ljp" data-lj="B" hidden><p class="ljd">左＝條文說什麼，右＝舉例怎麼套，一列一組。適合對答案。</p><div class="ljq"><span class="ljqn">問題一</span><span class="ljqt">何謂不動產經紀業廣告？</span></div><div class="ljch"><span>條文說什麼</span><span>舉例怎麼套</span></div><div class="ljrow"><div class="ljl"><div class="ljh">廣告處理原則第二點（逐字）</div>本處理原則所稱廣告，指經紀業利用電視、廣播、影片、幻燈片、報紙、雜誌、傳單、海報、招牌、牌坊、廣告圖冊、模型、樣品屋、布條、電腦、電話傳真、電子視訊、電子語音、網際網路或其他方法，使不特定多數人知悉其宣傳內容之傳播。</div><div class="ljr"><div class="ljh">舉例</div>在租屋網刊登物件、路口立招牌、發傳單、擺樣品屋都算；只交給某一位客戶的個別報價單，因未使不特定多數人知悉，不算。</div></div><div class="ljans"><b>答一：</b>廣告係指經紀業以任何方法，使<b>不特定多數人</b>知悉其宣傳內容之傳播；<b>媒介不限</b>（含網際網路、模型、樣品屋）。</div><div class="ljq"><span class="ljqn">問題二</span><span class="ljqt">不動產廣告不實案件之查核，權責分工原則為何？</span></div><div class="ljch"><span>條文說什麼</span><span>舉例怎麼套</span></div><div class="ljrow"><div class="ljl"><div class="ljh">第三點（一）（三）（逐字）</div>（一）經紀業所為不實廣告案件，由主管機關依不動產經紀業管理條例處理；非屬管理條例規範之範疇者，由公平交易委員會依公平交易法處理。（三）經紀業係加盟經營，而未於廣告、市招及名片等明顯處，標明加盟店或加盟經營字樣者，由主管機關依管理條例處理。</div><div class="ljr"><div class="ljh">舉例</div>仲介在網路刊登售屋廣告；加盟店的廣告、市招、名片未標「加盟店」字樣。</div></div><div class="ljrow"><div class="ljl"><div class="ljh">第三點（二）（逐字）</div>經紀業所為之廣告內容，涉及事業服務品質、企業形象、行銷策略等虛偽不實或引人錯誤之表示或表徵，或其他足以嚴重影響市場交易秩序及公共利益之情形者，由公平會依公平法處理。</div><div class="ljr"><div class="ljh">舉例</div>廣告誇稱「全國成交第一」「服務滿意度最高」這類企業形象或品質用語。</div></div><div class="ljrow"><div class="ljl"><div class="ljh">第三點（四）（五）（逐字）</div>（四）建商委託經紀業者從事銷售行為之不實廣告案件，依其個案具體情形，如建商與經紀業者俱為廣告主時，由公平會依公平法處理。（五）其他經紀業所為不實廣告案件，如無法依前四款原則劃分業務管轄時，由內政部與公平會協調處理。</div><div class="ljr"><div class="ljh">舉例</div>預售屋建商委託代銷公司銷售，廣告上同時出現建商與代銷公司名稱。</div></div><div class="ljans"><b>答二：</b>依廣告處理原則第三點分<b>五款</b>：（一）經紀業自身廣告、（三）加盟未標明 → <b>主管機關依管理條例</b>；（二）企業形象／服務品質等虛偽不實、（四）建商與經紀業俱為廣告主 → <b>公平會依公平交易法</b>；（五）無法劃分 → <b>內政部與公平會協調</b>。</div></div><div class="ljp" data-lj="C" hidden><p class="ljd">一眼看完推理順序，下方寫完逐項勾。適合考前複習。</p><div class="ljmap"><div><h6>問題一｜何謂不動產經紀業廣告？</h6><ul><li><span class="ljno">1</span>廣告＝使不特定多數人知悉，媒介不限</li></ul><div class="ljans"><b>答：</b>廣告係指經紀業以任何方法，使<b>不特定多數人</b>知悉其宣傳內容之傳播；<b>媒介不限</b>（含網際網路、模型、樣品屋）。</div></div><div><h6>問題二｜不動產廣告不實案件之查核，權責分工原則為何？</h6><ul><li><span class="ljno">2</span>（一）自身廣告、（三）加盟未標明 → 主管機關</li><li class="ljdn">↓</li><li><span class="ljno">3</span>（二）形象、品質、行銷策略 → 公平會</li><li class="ljdn">↓</li><li><span class="ljno">4</span>（四）俱為廣告主 → 公平會；（五）劃不開 → 兩機關協調</li></ul><div class="ljans"><b>答：</b>依廣告處理原則第三點分<b>五款</b>：（一）經紀業自身廣告、（三）加盟未標明 → <b>主管機關依管理條例</b>；（二）企業形象／服務品質等虛偽不實、（四）建商與經紀業俱為廣告主 → <b>公平會依公平交易法</b>；（五）無法劃分 → <b>內政部與公平會協調</b>。</div></div></div><div class="ljck"><b>寫完逐項勾（8 個採分點；<span class="ljhot">常錯</span>＝最常漏寫或寫錯）</b><ul><li><label><input type="checkbox"><span class="ljt tl">條文</span>第二點：使不特定多數人知悉其宣傳內容之傳播（媒介不限，含模型、樣品屋、網際網路）</label><span class="ljg">問題一</span></li><li><label><input type="checkbox"><span class="ljt ta">答</span>廣告的判準是「不特定多數人」，不是媒介種類</label><span class="ljg">問題一</span></li><li><label><input type="checkbox"><span class="ljt tl">條文</span>第三點（一）：經紀業所為不實廣告 → 主管機關依管理條例</label><span class="ljg">問題二</span></li><li><label><input type="checkbox"><span class="ljt tl">條文</span>第三點（二）：服務品質、企業形象、行銷策略等 → 公平會依公平法</label><span class="ljg">問題二</span></li><li><label><input type="checkbox"><span class="ljt tl">條文</span>第三點（三）：加盟經營未標明加盟店字樣 → 主管機關（不是公平會）<span class="ljhot">常錯</span></label><span class="ljg">問題二</span></li><li><label><input type="checkbox"><span class="ljt tl">條文</span>第三點（四）：建商與經紀業「俱為」廣告主 → 公平會<span class="ljhot">常錯</span></label><span class="ljg">問題二</span></li><li><label><input type="checkbox"><span class="ljt tl">條文</span>第三點（五）：無法劃分 → 內政部與公平會協調處理<span class="ljhot">常錯</span></label><span class="ljg">問題二</span></li><li><label><input type="checkbox"><span class="ljt ta">答</span>五款要寫全，只寫定義不寫分工會大量失分<span class="ljhot">常錯</span></label><span class="ljg">問題二</span></li></ul></div></div></div><div class="vp" data-v="0" hidden><div class="blk b1"><span class="blk-l">定義</span><p><b>一、不動產經紀業廣告查核分工制度之意義</b></p>
@@ -975,6 +975,41 @@ a.ts-n:hover{color:var(--pri)}
 .mksrc b{color:var(--acc-ink)}
 .mksrc a{color:var(--pri);font-weight:700}
 .lawwrap{margin-top:10px}
+
+/* ── 版面整理 demo ── */
+details.essay-detail{padding:2px 12px}
+details.essay-detail>summary.es-sum{padding:9px 0}
+/* ① 摘要列壓成一行：標題與級別同列，關鍵詞收到展開後 */
+.es-top{align-items:center;gap:7px}
+.essay-num{flex:none}
+.es-t{flex:1;min-width:0;line-height:1.5;order:9}
+.es-top{flex-wrap:wrap}
+.es-top>.es-lv{flex:none;white-space:nowrap;margin-right:0}
+@media(max-width:430px){.es-t{flex:1 0 100%;margin-top:2px}}
+.es-meta{margin-top:0}
+details.essay-detail:not([open])>summary .es-meta:empty,details.essay-detail:not([open])>summary .es-meta{display:none}
+details.essay-detail[open]>summary .es-meta{display:flex}
+details.essay-detail:not([open])>summary .es-meta .kc{display:none}
+details.essay-detail[open]>summary .es-meta{margin-top:6px}
+@media(min-width:520px){
+  details.essay-detail:not([open])>summary .es-sum-row{display:flex;align-items:center;gap:8px}
+}
+/* ② 篇別改成左上小標籤 */
+.pkdot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--pk,var(--line));display:inline-block}
+details.essay-detail.pred .pkdot{box-shadow:inset 0 0 0 1px var(--surface)}
+/* ④ 子分頁說明預設收起，由「？」開關 */
+.ljd{display:none}
+.ljp.showd .ljd{display:block}
+.ljhelp{font:inherit;font-size:.72rem;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--sub);border-radius:50%;width:20px;height:20px;cursor:pointer;flex:none;line-height:1}
+.ljhelp.on{border-color:var(--pri);color:var(--pri)}
+/* 進度列：數字一列、按鈕一列 */
+.es-prog-row{display:block}
+.es-prog-row b{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:.86rem}
+.es-prog-btns{display:flex;gap:8px;margin-top:8px}
+.es-prog-btns button{flex:1;font:inherit;font-size:.8rem;font-weight:700;padding:6px 10px;border-radius:99px;border:1.5px solid var(--pri);background:var(--surface);color:var(--pri);cursor:pointer}
+/* ⑤ 只看未讀 */
+#esOnlyUnread.on{background:var(--pri);color:var(--on)}
+.essay-detail.hid{display:none}
 </style>
 <script>(function(){var l=document.getElementById("bxTodayLine"),box=document.getElementById("toolStat");if(!window.BXREP||!BXREP.status)return;
 function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
@@ -1057,5 +1092,52 @@ upd();
 })();</script>
 <script id="lj-js">(function(){var K="bxj-ljv";function set(v,save){document.querySelectorAll(".ljseg button").forEach(function(b){b.classList.toggle("on",b.dataset.lj===v)});document.querySelectorAll(".ljp").forEach(function(p){p.hidden=p.dataset.lj!==v});if(save){try{localStorage.setItem(K,v)}catch(e){}}}
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".ljseg button");if(b)set(b.dataset.lj,true)});
-try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script></body>
+try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script>
+<script>/* 版面整理 demo */
+(function(){
+var ES=[].slice.call(document.querySelectorAll(".essay-detail[id^=es-]"));
+if(!ES.length)return;
+/* ① 去掉「範文01★」尾端重複的星（級別膠囊已經有星） */
+ES.forEach(function(d){
+  var n=d.querySelector(".essay-num");
+  if(n)n.textContent=n.textContent.replace(/[★\s]+$/,"");
+  /* ② 篇別小圓點 */
+  var top=d.querySelector(".es-top");
+  if(top&&!top.querySelector(".pkdot")){
+    var s=document.createElement("span");s.className="pkdot";top.insertBefore(s,top.firstChild);
+  }
+  /* ① 級別移到標題同一列（原本自己佔一行） */
+  var lv=d.querySelector(".es-meta > .es-lv");
+  if(top&&lv&&n)top.insertBefore(lv,n.nextSibling);
+});
+/* ④ 每個排法面板加一顆「？」，只有按下才顯示說明；選擇記在 bxj-ljhelp */
+var HK="bxj-ljhelp",open=false;
+try{open=localStorage.getItem(HK)==="1"}catch(e){}
+[].slice.call(document.querySelectorAll(".ljs")).forEach(function(bar){
+  if(bar.querySelector(".ljhelp"))return;
+  var b=document.createElement("button");
+  b.type="button";b.className="ljhelp";b.textContent="？";b.title="顯示／隱藏這個排法的說明";
+  bar.appendChild(b);
+  b.addEventListener("click",function(ev){
+    ev.preventDefault();ev.stopPropagation();
+    open=!open;try{localStorage.setItem(HK,open?"1":"0")}catch(e){}
+    sync();
+  });
+});
+function sync(){
+  [].slice.call(document.querySelectorAll(".ljp")).forEach(function(p){p.classList.toggle("showd",open)});
+  [].slice.call(document.querySelectorAll(".ljhelp")).forEach(function(b){b.classList.toggle("on",open)});
+}
+sync();
+/* ⑤ 只看未讀 */
+var btn=document.getElementById("esOnlyUnread");
+if(btn)btn.addEventListener("click",function(){
+  var on=!btn.classList.contains("on");
+  btn.classList.toggle("on",on);
+  var R={};try{R=JSON.parse(localStorage.getItem("bxj-es-read")||"{}")||{}}catch(e){}
+  ES.forEach(function(d){d.classList.toggle("hid",on&&!!R[d.id])});
+  btn.textContent=on?"顯示全部":"只看未讀";
+});
+})();</script>
+</body>
 </html>
