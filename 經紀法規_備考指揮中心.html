@@ -313,7 +313,7 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
     </a>
 
     <div class="group-label">先挑篇</div>
-<div class="es-prog"><div class="es-prog-row"><b id="esPrgT">已讀懂　官方 0／32　預測 0／33</b><button type="button" id="esNext">挑下一題未讀</button></div><div class="es-prog-bar"><i id="esPrgI"></i></div><small>勾選只記在這台瀏覽器，換裝置要重勾。排序：必考 → 高機率 → 參考 → 預測。</small></div>
+<div class="es-prog"><div class="es-prog-row"><b id="esPrgT"><span>已讀懂</span><span>官方 0／32</span><span>預測 0／33</span></b><button type="button" id="esNext">挑下一題未讀</button></div><div class="es-prog-bar"><i id="esPrgI"></i></div><small>勾選只記在這台瀏覽器，換裝置要重勾。排序：必考 → 高機率 → 參考 → 預測。</small></div>
     <div class="ess-seg" id="essSeg"><button type="button" class="ess-b on" data-k="a"><b>經紀業管理條例</b><small>官方 14・預測 8</small></button><button type="button" class="ess-b" data-k="c"><b>不動產說明書</b><small>官方 2・預測 2</small></button><button type="button" class="ess-b" data-k="d"><b>定型化契約</b><small>官方 1・預測 3</small></button><button type="button" class="ess-b" data-k="e"><b>公寓大廈管理</b><small>官方 7・預測 10</small></button><button type="button" class="ess-b" data-k="g"><b>公平交易法</b><small>官方 3・預測 7</small></button><button type="button" class="ess-b" data-k="h"><b>消費者保護法</b><small>官方 5・預測 3</small></button></div>
     <div class="ess-leg">左側色條＝所屬篇別（每篇一色）　★★★＝16 年反覆考　★★＝高機率　★＝低頻參考　虛線＝預測題（依條文擬的，不是真題）。每題可切換：完整四段式／考場速寫版／得分關鍵・失分點</div>
 <div class="ess-panel" data-k="a"><p class="hint">經紀人員、營業保證金、雙方代理、廣告、申報、罰則</p><div class="group-label">高頻考點</div><div class="ess-hot"><span class="essay-chip tierA"><span class="star">★</span> 雙方代理<small>109-二・114-二</small></span><span class="essay-chip tierA"><span class="star">★</span> 廣告不實／查核分工<small>103-二・104-二・110-二・112-一</small></span><span class="essay-chip tierA"><span class="star">★</span> 差價與報酬<small>107-二</small></span></div><div class="group-label">官方範文（真題 14 題）</div><details id="es-fw01" class="essay-detail tierA pk-a"><summary class="es-sum"><span class="es-top"><span class="essay-num">範文01★</span><span class="es-t">103年申論二｜何謂不動產經紀業廣告、廣告不實案件查核權責分工原則</span></span><span class="es-meta"><span class="es-lv tierA">★★★ 必考</span><span class="kc">廣告定義</span><span class="kc">五種查核分工</span><span class="kc">內政部 vs 公平會</span></span></summary><div class="essay-body">
@@ -960,12 +960,14 @@ a.ts-n:hover{color:var(--pri)}
 .essay-detail.esread>summary::before{content:"✓ ";color:var(--ok);font-weight:700}
 .es-prog{margin:4px 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .es-prog-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.es-prog-row b{font-size:.92rem;color:var(--ink);flex:1;min-width:0}
+.es-prog-row b{font-size:.9rem;color:var(--ink);flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:2px 12px}
+.es-prog-row b span{white-space:nowrap}
 .es-prog-row button{font:inherit;font-size:.8rem;font-weight:700;padding:5px 13px;border-radius:99px;border:1.5px solid var(--pri);background:var(--surface);color:var(--pri);cursor:pointer;flex:none}
 .es-prog-bar{height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 6px}
 .es-prog-bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--pri);transition:width .25s}
 .es-prog small{font-size:.74rem;color:var(--sub);line-height:1.7}
-.ess-b .esn{color:var(--ok);font-weight:700}
+.ess-b .esn{color:var(--ok);font-weight:700;white-space:nowrap}
+.ess-b.on .esn,.ess-b[aria-pressed="true"] .esn{color:inherit;opacity:.95;text-decoration:underline}
 </style>
 <script>(function(){var l=document.getElementById("bxTodayLine"),box=document.getElementById("toolStat");if(!window.BXREP||!BXREP.status)return;
 function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
@@ -1009,7 +1011,7 @@ function upd(){
  var o=0,oa=0,p=0,pa=0;
  ES.forEach(function(d){var r=!!R[d.id];if(isPred(d)){pa++;if(r)p++}else{oa++;if(r)o++}});
  var t=document.getElementById("esPrgT");
- if(t)t.textContent="已讀懂　官方 "+o+"／"+oa+"　預測 "+p+"／"+pa;
+ if(t)t.innerHTML="<span>已讀懂</span><span>官方 "+o+"／"+oa+"</span><span>預測 "+p+"／"+pa+"</span>";
  var bar=document.getElementById("esPrgI");
  if(bar)bar.style.width=(ES.length?(o+p)/ES.length*100:0)+"%";
  [].slice.call(document.querySelectorAll("#essSeg .ess-b")).forEach(function(b){
