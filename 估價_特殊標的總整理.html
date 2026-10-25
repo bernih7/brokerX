@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>估價特殊標的總整理</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--key:#8A5517;--onpri:#fff;--bg:#F5F1E6;--card:#FFFEFA;--card2:#F0EDE0;--line:#DDD6C0;--ink:#25302C;--sub:#5F6B63;--red:#A8402B;--gold:#B8782E;--green:#35693F;--tip:#FBF1D9;--blu:#2255A4}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--key:#D4A050;--onpri:#10201B;--bg:#1A1F1D;--card:#222926;--card2:#1C2825;--line:#34403A;--ink:#E8EDE6;--sub:#9AA79F;--red:#E07060;--gold:#E0B070;--green:#8FCB93;--tip:#33291A;--blu:#6AA8D0;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--key:#D4A050;--onpri:#10201B;--bg:#1A1F1D;--card:#222926;--card2:#1C2825;--line:#34403A;--ink:#E8EDE6;--sub:#9AA79F;--red:#E07060;--gold:#E0B070;--green:#8FCB93;--tip:#33291A;--blu:#6AA8D0;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:14px;padding:0 0 90px}
+header{position:relative;background:var(--pri);color:var(--onpri);padding:50px 20px 16px;text-align:center}
+.htag{font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:6px}
+header h1{font-family:'Noto Serif TC',serif;font-size:20px}
+header .sub{font-size:12px;opacity:.8;margin-top:4px}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px}
+#rdc{position:absolute;top:12px;right:14px;display:flex;align-items:center;border:1.5px solid color-mix(in srgb,var(--onpri) 55%,transparent);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.14);height:28px}
+#rdc .thm,#rdc button{all:unset;cursor:pointer;height:28px;display:grid;place-items:center;color:var(--onpri);font-size:.8rem;font-weight:700}
+#rdc .thm{padding:0 10px}#rdc button:not(.thm){width:28px}
+#rdc .vsep{width:1px;height:14px;background:color-mix(in srgb,var(--onpri) 45%,transparent)}
+#rdc .cnt{min-width:24px;padding:0 5px;height:28px;background:var(--key);color:var(--onpri);display:grid;place-items:center;font-size:.75rem;font-weight:800}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:6px}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.jump a{font-size:12.5px;text-decoration:none;color:var(--pri);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 11px}
+h2{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:5px;margin:26px 0 8px;scroll-margin-top:12px}
+h2 small{font-family:'Noto Sans TC',sans-serif;font-size:12px;color:var(--sub);font-weight:400;margin-left:6px}
+.src{font-size:12px;color:var(--sub);margin-bottom:8px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:13.5px}
+th{background:var(--pri);color:var(--onpri);text-align:left;padding:7px 10px;font-weight:700;white-space:nowrap}
+td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+td.a{white-space:nowrap;font-weight:700;color:var(--key)}
+td.n{font-weight:700;white-space:nowrap}
+.k{color:var(--red);font-weight:700}.g{color:var(--green);font-weight:700}.y{color:var(--gold);font-weight:700}.b{color:var(--blu);font-weight:700}
+.m{text-align:center;font-weight:700;color:var(--green)}.m0{text-align:center;color:var(--sub);opacity:.55}
+.box{margin-top:8px;padding:9px 12px;border-left:4px solid var(--gold);background:var(--tip);border-radius:0 8px 8px 0;font-size:13px}
+.box b{color:var(--key)}
+.box.inf{border-left-color:var(--blu)}
+.fm{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px;min-width:0}
+.c h3{font-size:14px;color:var(--pri);margin-bottom:3px;font-family:'Noto Serif TC',serif}
+.c .s{font-size:12px;color:var(--key);font-weight:700}
+#hub{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:22px;text-align:center;line-height:46px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+</style></head><body>
+<header>
+  <div id="rdc"><button class="thm" id="theme-btn" onclick="toggleTheme()" title="切換深淺色">深色</button><span class="vsep"></span><button onclick="rdInc(-1)" title="減一">－</button><div class="cnt" id="rdn">0</div><button onclick="rdInc(1)" title="加一">＋</button></div>
+  <div class="htag">不動產估價概要・技術規則 §83～§128</div>
+  <h1>特殊標的總整理</h1>
+  <div class="sub">宗地通則｜特殊宗地｜房地｜土地改良物｜權利估價</div>
+</header>
+<div class="wrap">
+<div class="legend"><span>📜 <b>條文</b>：逐條對照《不動產估價技術規則》現行全文</span><span>🧠 <b>整理</b>：由條文文字比對得出，非條文原文</span><span>租金估計（§129～§133）請看<a href="估價_租金估計攻略表.html" style="color:var(--pri);font-weight:700">租金估計攻略表</a></span></div>
+<div class="jump"><a href="#s1">宗地通則</a><a href="#s2">特殊宗地</a><a href="#s3">房地</a><a href="#s4">土地改良物</a><a href="#s5">權利估價</a><a href="#s6">考古題</a></div>
+
+<h2 id="s1">一、宗地通則<small>§83～§89</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>情形</th><th>條文怎麼處理</th></tr></thead><tbody>
+<tr><td class="a">§83</td><td>以合併或分割為前提</td><td>考慮合併或分割<span class="k">前後之價格變動情形</span>，酌量增減</td></tr>
+<tr><td class="a">§84</td><td>數筆土地合併為一宗進行利用</td><td>以<span class="k">合併後</span>土地估價，再依<span class="k">合併前各筆土地價值比例</span>分算各筆地價；非以合併一宗利用為目的之相連土地，屬<span class="y">同一所有權人</span>者，比照辦理</td></tr>
+<tr><td class="a">§85</td><td>一宗土地有數種不同法定用途</td><td>考量<span class="k">最有效使用</span>、各種用途之<span class="k">相關性</span>及<span class="k">分割之難易度</span>，決定「分別估價」或「依主要用途估價」</td></tr>
+<tr><td class="a">§86</td><td>附有建物之宗地</td><td>考慮該建物對宗地價格造成之影響；<span class="y">例外</span>：以素地估價為前提並於估價報告書敘明</td></tr>
+<tr><td class="a">§87</td><td>以進行開發為前提</td><td>得採<span class="k">土地開發分析法</span>，並<span class="k">參酌比較法或收益法</span>之結果決定估價額</td></tr>
+<tr><td class="a">§88</td><td>上下有其他設施通過、使用受限</td><td>先估<span class="k">正常價格</span> → 考量設施通過之影響，算<span class="k">地價減損額</span> → 從正常價格<span class="k">扣除</span>，餘額為宗地價格</td></tr>
+<tr><td class="a">§89</td><td>土壤或地下水受污染之土地</td><td>先估<span class="k">未受污染之正常價格</span> → 依<span class="k">委託人提供之土壤污染檢測資料</span>考量影響、算地價減損額 → 扣除，餘額為宗地價格</td></tr>
+</tbody></table></div>
+<div class="box inf"><b>🧠 整理：</b>§88 與 §89 流程相同（正常價格 − 地價減損額）；差在「原因」與「資料來源」：§88 是設施通過造成使用受限，§89 是污染且<b>依委託人提供之檢測資料</b>。§113 受污染<b>建物</b>同一套路，扣的是「減損額」（非「地價」減損額）。</div>
+
+<h2 id="s2">二、特殊宗地<small>§90～§97</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>標的</th><th>估價方法</th><th>應考慮／計算重點</th></tr></thead><tbody>
+<tr><td class="a">§90</td><td class="n">溫泉地</td><td>條文未指定方法</td><td>水權內容、開發成本、水量、水質、水溫、當地交通情形、相關設施、遊客人數</td></tr>
+<tr><td class="a">§91</td><td class="n">高爾夫球場</td><td>條文未指定方法</td><td>會員制度、球場設施、開發成本、收益及營運費用</td></tr>
+<tr><td class="a">§92</td><td class="n">林地</td><td><span class="k">視林木成長情形</span>分別採比較法、收益法、成本法</td><td>採成本法時，總費用須考量<span class="k">造林費、林地改良費、道路開挖費用</span></td></tr>
+<tr><td class="a">§93</td><td class="n">農場、牧場</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：以附近土地價格為基礎，考慮位置、形狀、地形、土壤特性、利用狀況等差異比較推估</td></tr>
+<tr><td class="a">§94</td><td class="n">鹽田</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：以附近土地價格為基礎，考慮日照、通風、位置、形狀等差異</td></tr>
+<tr><td class="a">§95</td><td class="n">池沼、墓地</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：以附近土地價格為基礎，考慮位置、形狀、利用狀況等差異</td></tr>
+<tr><td class="a">§96</td><td class="n">（刪除）</td><td colspan="2" style="color:var(--sub)">現行條文已刪除</td></tr>
+<tr><td class="a">§97</td><td class="n">公共設施用地、公共設施保留地</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：比較其與毗鄰土地<span class="k">使用分區及使用強度差異</span>、<span class="k">土地價值減損情況</span>，並斟酌毗鄰土地平均價格為基礎推算</td></tr>
+</tbody></table></div>
+<div class="box inf"><b>🧠 整理：</b>條文明寫「比較法為原則」的只有 <b>農場牧場、鹽田、池沼墓地、公共設施用地（§93、94、95、97）</b>；<b>林地（§92）不是比較法為原則</b>，而是依林木成長情形分採三法；溫泉地、高爾夫球場（§90、§91）只列考慮因素、未指定方法。</div>
+
+<h2 id="s3">三、房地估價<small>§98～§106</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>情形</th><th>條文怎麼處理</th></tr></thead><tbody>
+<tr><td class="a">§98</td><td>區分所有建物</td><td>就<span class="k">專有部分、共用部分之比例及基地權利合併估價</span>，並考量與比較標的之<span class="k">樓層別效用比</span>及位置差異調整；樓層別效用比由<span class="y">全聯會</span>按不同地區蒐集案例公告供參考</td></tr>
+<tr><td class="a">§99</td><td>由房地價格推估基地單價</td><td>基地價格＝房地價格－建物成本價格；基地單價＝基地價格／基地面積。土地、建物價值比率已知時：基地價格＝房地價格×土地價值比率</td></tr>
+<tr><td class="a">§100</td><td>區分所有建物，由房地價格推基地單價（成本價格法）</td><td>基地權利價格＝房地價格－建物成本價格；基地權利單價＝基地權利價格／基地持分面積；基地單價＝基地權利單價×平均地價分配率／該建物地價分配率</td></tr>
+<tr><td class="a">§101</td><td>同上，價值比率已知</td><td>基地權利價格＝房地價格×土地價值比率；基地單價＝基地權利單價×平均樓層別效用比／該建物樓層別效用比</td></tr>
+<tr><td class="a">§101-1</td><td>由房地價格推建物價格</td><td>房地價格×建物價值比率（價值比率已知時）</td></tr>
+<tr><td class="a">§102</td><td>實際容積率超過法定容積率</td><td>以<span class="k">實際建築使用合法部分之現況</span>估價，並敘明法定容積對估值之影響</td></tr>
+<tr><td class="a">§103</td><td>附有違章建築</td><td>違建部分<span class="k">不予評估</span>；<span class="y">例外</span>：委託人要求評估，且於報告書就合法建物及違建分別標示價格</td></tr>
+<tr><td class="a">§104</td><td>未達最有效使用</td><td>先求<span class="k">最有效使用狀態之正常價格</span>，再視低度使用情況調整</td></tr>
+<tr><td class="a">§105</td><td>原核定用途與現行土地使用管制不符之合法建物</td><td>以<span class="k">現行土地使用分區管制允許之建物用途</span>估價，並就與建物法定用途估價之<span class="k">差額</span>於報告書敘明</td></tr>
+<tr><td class="a">§106</td><td>建物已不具使用價值</td><td>可將基地視為<span class="k">素地</span>估價，但應考量<span class="k">建物拆除成本</span>調整</td></tr>
+</tbody></table></div>
+<div class="fm">§100 地價分配率 ＝ 該建物之樓層別效用比 － 平均樓層別效用比 × 全棟建物成本價格占全棟房地總價格比率</div>
+
+<h2 id="s4">四、土地改良物估價<small>§107～§113</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>標的</th><th>條文怎麼處理</th></tr></thead><tbody>
+<tr><td class="a">§107</td><td>土地改良物之分類</td><td>依<span class="k">土地法第五條</span></td></tr>
+<tr><td class="a">§108</td><td class="n">建物</td><td><span class="g">成本法為原則</span>；附屬設施得一併估計</td></tr>
+<tr><td class="a">§109</td><td class="n">農作改良物（定義）</td><td>附著於土地之果樹、茶樹、竹類、觀賞花木、造林木及其他各種農作物</td></tr>
+<tr><td class="a">§110</td><td class="n">農作改良物（考量因素）</td><td>依類別，考量生產環境、農業災害、生產技術、生產期間、樹齡大小、生長情形、結果習性、管理狀況、農業設施</td></tr>
+<tr><td class="a">§111</td><td class="n">農作改良物（估價方式）</td><td>① <span class="k">幼小且距孳息成熟期尚長</span>：依種植及培育費用，視生長情況估計<br>② <span class="k">接近孳息成熟期</span>：估計收穫量及市場價格，必要時扣減價格日期至成熟期間收成所應投入費用<br>③ <span class="k">距成熟期一年以上且有期待收穫價值</span>：以產地價格為基礎推估未來收穫價格後折算為價格日期之價格，但應扣除收成所應投入費用</td></tr>
+<tr><td class="a">§112</td><td class="n">工事、水利土壤改良</td><td><span class="g">成本法為原則</span>，得斟酌比較法及收益法結果決定</td></tr>
+<tr><td class="a">§113</td><td class="n">受土壤及地下水污染之建物</td><td>先估未受污染之正常價格，依委託人提供之檢測資料考量影響、算<span class="k">減損額</span>，從正常價格扣除</td></tr>
+</tbody></table></div>
+<div class="box inf"><b>🧠 整理：</b>§111 三種情形是依「離成熟期的遠近」分：<b>遠 → 成本（培育費）</b>；<b>近 → 收穫量×市價</b>；<b>一年以上但有期待收穫價值 → 產地價格推未來收穫價再折現</b>。</div>
+
+<h2 id="s5">五、權利估價<small>§114～§128</small></h2>
+<div class="src">§114：權利估價包括 11 項——地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、容積移轉、都市更新權利變換。§115 通則：應考慮契約內容、權利存續期間、權利登記狀況、相關法令規定、民間習俗及正常市場權利狀態等影響權利價值之因素。</div>
+<div class="tw"><table><thead><tr><th>權利</th><th>條</th><th>存續期間</th><th>讓與限制</th><th>地租／佃租</th><th>民間習俗</th><th>用途／使用</th><th>條文另列</th></tr></thead><tbody>
+<tr><td class="n">地上權</td><td class="a">§116</td><td class="m">✓</td><td class="m">✓</td><td class="m">✓ 有無</td><td class="m0">—</td><td class="m">✓ 用途</td><td>設定之<span class="k">空間位置</span></td></tr>
+<tr><td class="n">典權</td><td class="a">§117</td><td class="m">✓</td><td class="m">✓</td><td class="m0">—</td><td class="m0">—</td><td class="m0">—</td><td><span class="k">以典價為基礎</span></td></tr>
+<tr><td class="n">永佃權</td><td class="a">§118</td><td class="m0">—</td><td class="m0">—</td><td class="m">✓ 支付情形</td><td class="m">✓</td><td class="m0">—</td><td>—</td></tr>
+<tr><td class="n">農育權</td><td class="a">§118-1</td><td class="m">✓</td><td class="m">✓</td><td class="m">✓ 有無及高低</td><td class="m">✓</td><td class="m">✓ 設定目的、約定方法</td><td>得增加土地生產力或使用便利之<span class="k">特別改良</span></td></tr>
+<tr><td class="n">不動產役權</td><td class="a">§119</td><td class="m">✓</td><td class="m0">—</td><td class="m0">—</td><td class="m">✓</td><td class="m">✓ 使用性質</td><td><span class="k">需役與供役不動產</span>之使用情況</td></tr>
+<tr><td class="n">耕作權</td><td class="a">§120</td><td class="m">✓ 耕作期間</td><td class="m0">—</td><td class="m0">—</td><td class="m0">—</td><td class="m0">—</td><td>權利登記狀況、相關法令規定</td></tr>
+<tr><td class="n">租賃權</td><td class="a">§122</td><td class="m">✓ 租期</td><td class="m0">—</td><td class="m">✓ 租金支付方式</td><td class="m0">—</td><td class="m">✓ 用途、使用目的、使用情形</td><td>契約內容</td></tr>
+</tbody></table></div>
+<div class="box inf"><b>🧠 整理：</b>此表是把 §116～§120、§122 各條列舉的因素逐項打勾，「—」表示該條<b>文字沒有列</b>（不代表實務不考慮）。幾個一眼可記的差異：<b>讓與限制</b>只出現在地上權、典權、農育權；<b>民間習俗</b>只出現在永佃權、農育權、不動產役權（另 §115 通則也列）；<b>典權以「典價」為基礎</b>。</div>
+
+<div class="cards">
+ <div class="c"><div class="s">§121 抵押權</div><h3>最特別的一條</h3>應估計價格日期當時勘估標的<span class="k">正常價格</span>，<span class="k">以實際債權額為基礎</span>，考慮其他順位抵押權設定狀況、流通性、風險性、增值性及執行上之難易程度等因素調整。</div>
+ <div class="c"><div class="s">§122-1 市地重劃</div><h3>依法令</h3>重劃前、後地價評估項目，依平均地權條例及其施行細則、市地重劃實施辦法、獎勵土地所有權人辦理市地重劃辦法等相關法令規定辦理。</div>
+ <div class="c"><div class="s">§123 容積移轉</div><h3>送出基地＋接受基地</h3>考慮容積<span class="k">送出基地、接受基地</span>及其他影響不動產價格及相關法令等因素。</div>
+ <div class="c"><div class="s">§124 都更權利變換</div><h3>依法令</h3>評估項目依都市更新條例及都市更新權利變換實施辦法等相關法令規定辦理。</div>
+</div>
+
+<h2 id="s5b">都更權利變換的基地權利價值<small>§125～§128</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>情形</th><th>條文怎麼處理</th></tr></thead><tbody>
+<tr><td class="a">§125</td><td>權利變換前為<span class="k">區分所有建物</span></td><td>以<span class="k">全棟建物之基地價值比率</span>，分算各區分所有建物房地總價之基地權利價值：基地權利價值＝房地總價×基地價值比率。情況特殊致顯失公平者，得依 §126-2 計算之基地權利價值調整</td></tr>
+<tr><td class="a">§126</td><td>區分所有建物之<span class="k">基地總價值 &lt; 坐落基地素地總價值</span></td><td>① 依 §125 算基地價值比率 ② 各戶基地權利價值＝房地總價×基地價值比率 ③ 各戶基地權利價值比率＝各戶基地權利價值／Σ各戶基地權利價值 ④ 調整後基地權利價值＝<span class="k">素地總價值</span>×各戶基地權利價值比率</td></tr>
+<tr><td class="a">§126-1</td><td>權利變換前為<span class="k">非區分所有</span>建物</td><td>房地總價×基地價值比率；<span class="y">但基地權利價值低於素地價值者，以素地價值為準</span></td></tr>
+<tr><td class="a">§126-2</td><td>基地所有權人<span class="k">未持有</span>該區分所有建物產權</td><td>土地持分<span class="g">可確認對應建物</span>：依 §125／§126 算其對應建物之基地權利價值，<b>再扣除該合法區分所有建物權利價值</b>。<br><span class="g">無法確認</span>：同一建築基地平均單價×無持分建物權屬之基地持分面積，減（地上建物全棟權利價值×無持分建物權屬之基地持分比例）。雙方自行協議者依協議</td></tr>
+<tr><td class="a">§127</td><td>權利變換前基地<span class="k">未建築使用</span></td><td>以<span class="k">素地價值</span>推估其土地權利價值</td></tr>
+<tr><td class="a">§128</td><td>權利變換<span class="k">後</span>區分所有建物及其土地應有部分</td><td>考量建築計畫、建材標準、設備等級、工程造價水準、更新前後樓層別效用比關聯性等因素，以<span class="k">都市更新評價基準日當時之新成屋價格</span>查估</td></tr>
+</tbody></table></div>
+<div class="fm">基地價值比率 ＝ 〔素地單價×基地總面積〕 ÷ 〔素地單價×基地總面積 ＋ 營造或施工費單價×(1－累積折舊率)×全棟建物面積〕　（§125）</div>
+
+<h2 id="s6">六、考古題<small>H1H2 特殊宗地、H3I1 都更、I2J1 土地改良物・特殊宗地</small></h2>
+<div class="src">下面的紀錄與各刷題頁共用（讀取 bxv-q2），可依錯誤類型 A／B／C／D 篩選；點題目展開正確選項與解析。</div>
+<div class="bxv-tq" data-chs="H1H2,H3I1,I2J1" data-title="特殊宗地・都更・土地改良物"></div>
+</div>
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠</a>
+<script src="bxv-use.js"></script>
+<script src="bxv-topic-q.js"></script>
+<script>
+function rdUpd(){var e=document.getElementById('rdn');if(e&&window.BXREP)e.textContent=BXREP.readGet('special').n||0;}
+function rdInc(d){if(window.BXREP){BXREP.readInc('special',d);rdUpd();}}
+setTimeout(rdUpd,100);
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+</script>
+</body></html>
