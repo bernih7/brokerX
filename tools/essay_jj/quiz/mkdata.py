@@ -1,4 +1,7 @@
 # 由刷題 12 頁（解析）＋互動練習（章節／一律給分）＋條文庫＋爭議題表，產生 quiz_data.json
+# ⚠️ 2026-10-25 起本檔無法直接執行：來源之一《經紀法規概要_互動練習.html》已改為轉址頁，
+#    IAp 讀不到題目。quiz_data.json 目前是「唯一事實來源」，要改內容請直接改 quiz_data.json，
+#    再跑 quiz/build.py 重建頁面。若要恢復本檔，需把 IAp 換成備份或改由 quiz_data.json 回填。
 import re,json,glob,collections,os
 HERE=os.path.dirname(os.path.abspath(__file__)); J=os.path.join(HERE,'..'); ROOT=os.path.join(J,'..','..')
 def grab(path,name):
