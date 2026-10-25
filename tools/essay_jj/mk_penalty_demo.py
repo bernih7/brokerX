@@ -50,8 +50,40 @@ EXTRA = '''
 .only{display:grid;gap:8px;margin-top:10px}
 .only div{border:1px solid var(--line);border-left:3px solid var(--red);border-radius:8px;padding:8px 11px;font-size:14px;background:var(--card)}
 .only b{color:var(--red)}
+.only div>b:first-child{display:block;margin-bottom:4px}
+.only small{display:block;font-size:13.5px;line-height:1.9;color:var(--ink);margin-top:3px}
+.only small b{color:var(--ink)}
 ul.pl li{margin-top:4px}
 .ctr{color:var(--red);font-weight:700}
+
+/* ── 配色收斂：口訣與陷阱改成同一種形狀，底色一律用卡片底，
+      避免「綠底配綠字」這種同色相疊；顏色只出現在左側粗條與實心標籤上 ── */
+.mn,.tr{background:var(--card);border:1px solid var(--line);border-radius:9px;
+  padding:10px 13px 11px;margin-top:11px;font-size:14px;line-height:1.95;color:var(--ink)}
+.mn{border-left:5px solid var(--green)}
+.tr{border-left:5px solid var(--red)}
+.mn>b:first-child,.tr>b:first-child{display:inline-block;font-size:.76rem;font-weight:700;
+  letter-spacing:.04em;padding:2px 9px;border-radius:99px;margin:0 7px 5px 0;vertical-align:1px}
+.mn>b:first-child{background:var(--green);color:#fff}
+.tr>b:first-child{background:var(--red);color:#fff}
+:root[data-theme="dark"] .mn>b:first-child,:root[data-theme="dark"] .tr>b:first-child{color:#10201B}
+.mn b,.tr b{color:var(--ink)}          /* 內文的 <b> 一律墨色，只有膠囊有顏色 */
+.mn .ctr,.tr .ctr{color:var(--red)}    /* 要跳出來的關鍵詞才用紅 */
+.mn em{font-style:normal;font-weight:700;color:var(--green)}
+/* 口訣本體：單獨一行、放大、可唸 */
+.mnq{display:block;margin-top:6px;font-family:"Noto Serif TC",serif;font-size:15.5px;
+  font-weight:700;color:var(--ink);letter-spacing:.02em;line-height:2}
+.mnw{display:block;margin-top:5px;font-size:13.5px;color:var(--muted)}
+
+/* ── 款項清單：一款一行，行不過長 ── */
+ul.kl{margin:7px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+ul.kl li{display:grid;grid-template-columns:1.6em 1fr;gap:6px;font-size:13.5px;
+  line-height:1.85;color:var(--ink)}
+ul.kl li>span:first-child{font-weight:700;color:var(--muted);text-align:right}
+ul.kl li b{color:var(--ink)}
+ul.kl li .q{color:var(--muted)}        /* 括號裡的補充說明才用灰 */
+.lrow .ld small{color:var(--ink)}      /* 原本整段灰字，改墨色 */
+.lrow .ld .tag{display:inline-block;font-size:.74rem;color:var(--muted);margin-left:6px}
 '''
 
 # ───────── 內容 ─────────
@@ -71,26 +103,53 @@ sec('p0', 'E', '⓪ 先把三個問題分開：罰誰、誰罰、罰多少', '�
 <tr><td><b>誰罰</b><br><span class="law">主管機關</span></td><td>幾乎全部是<b>直轄市、縣（市）主管機關</b>；<b class="ctr">只有 §51 是中央主管機關</b></td><td>記<b class="ctr">一個例外</b>就好</td></tr>
 <tr><td><b>罰多少</b><br><span class="law">金額級距</span></td><td>看<b class="ctr">違規的性質</b>：內部失職／生活秩序／安全與財產，共<b>三階</b></td><td>金額不是看身分，是看<b>闖的禍有多大</b></td></tr>
 </tbody></table></div>
-<div class="mn"><b>為什麼金額要看「性質」不看「身分」：</b>同一個主委，「沒督促投保」只罰 <span class="n">1千～5千</span>（§48①），但「卸任不移交」就跳到 <span class="n">4萬～20萬</span>（§49Ⅰ⑦）。同一個住戶，亂丟垃圾 <span class="n">3千～1.5萬</span>（§47②），但在逃生通道堆雜物 <span class="n">4萬～20萬</span>（§49Ⅰ④）。<b>身分一樣、金額差幾十倍，差在闖的禍。</b></div>
+<div class="mn"><b>為什麼金額看性質、不看身分</b>
+<span class="mnw">同一個主委：沒督促投保 <span class="n">1千～5千</span>（§48①）；卸任不移交 <span class="n">4萬～20萬</span>（§49Ⅰ⑦）。</span>
+<span class="mnw">同一個住戶：亂丟垃圾 <span class="n">3千～1.5萬</span>（§47②）；逃生通道堆雜物 <span class="n">4萬～20萬</span>（§49Ⅰ④）。</span>
+<span class="mnq">身分一樣，金額差幾十倍——差在闖的禍。</span></div>
 ''', open_=True)
 
 sec('p1', 'E', '① 罰多少：三階金額，各對應一種性質', '§47／§48／§49', '''
 <div class="lad">
 <div class="lrow"><div class="lv">1千～5千<br><small style="color:var(--muted)">§48</small></div>
 <div class="ld"><b>內部失職</b>——管理幹部「該做沒做」，還沒造成外部危害
-<small>四款全部都是管理負責人、主委或管理委員：①未善盡督促住戶投保責任保險（§17）②無正當理由未執行 §22 促請改善或訴請遷離、出讓之職務 ③無正當理由違反 §35（拒絕利害關係人閱覽影印）④無正當理由未執行 §36 第 1 款、第 5 款至第 12 款職務且顯然影響住戶權益</small></div></div>
+<span class="tag">四款的對象都是管理負責人、主委或管理委員</span>
+<ul class="kl">
+<li><span>①</span><div>未善盡督促住戶<b>投保責任保險</b><span class="q">（§17）</span></div></li>
+<li><span>②</span><div>無正當理由未執行 §22 <b>促請改善、訴請遷離或出讓</b>之職務</div></li>
+<li><span>③</span><div>無正當理由違反 §35<span class="q">（拒絕利害關係人閱覽、影印）</span></div></li>
+<li><span>④</span><div>無正當理由未執行 §36①、⑤～⑫ 職務，<b>且顯然影響住戶權益</b></div></li>
+</ul></div></div>
 <div class="lrow"><div class="lv">3千～1.5萬<br><small style="color:var(--muted)">§47</small></div>
 <div class="ld"><b>生活秩序</b>——會議沒開、鄰里公害
-<small>三款：①召集人、起造人或臨時召集人違反 §25 或 §28 之<b>召集義務</b> ②住戶違反 <b class="ctr">§16 第 1 項</b>（棄置垃圾、排放污染惡臭、喧囂振動）<b class="ctr">或第 4 項</b>（飼養動物妨礙公共衛生、安寧、安全）③區分所有權人或住戶違反 §6（相鄰義務），經主管機關受理請求、通知限期改善而屆期不改善</small></div></div>
+<ul class="kl">
+<li><span>①</span><div>召集人、起造人或臨時召集人違反 §25、§28 之<b>召集義務</b></div></li>
+<li><span>②</span><div>住戶違反 <b class="ctr">§16Ⅰ</b><span class="q">（棄置垃圾、污染惡臭、喧囂振動）</span><br>或 <b class="ctr">§16Ⅳ</b><span class="q">（飼養動物妨礙公共衛生、安寧、安全）</span></div></li>
+<li><span>③</span><div>區分所有權人或住戶違反 §6 相鄰義務<br><span class="q">須先經主管機關受理請求、通知限期改善，屆期不改善才罰</span></div></li>
+</ul></div></div>
 <div class="lrow"><div class="lv">4萬～20萬<br><small style="color:var(--muted)">§49</small></div>
 <div class="ld"><b>安全與財產</b>——動到建物、動到錢、動到別人的權利
-<small>八款：①區分所有權人對<b>專有部分之利用</b>違反 §5 ②住戶違反 §8Ⅰ 或 §9Ⅱ 變更使用限制，<b class="ctr">經制止而不遵從</b> ③住戶違反 §15Ⅰ <b>擅自變更</b>專有或約定專用之使用 ④住戶違反 <b class="ctr">§16 第 2 項</b>（逃生通道堆置雜物、設柵欄、營業使用、違規廣告物、私設路障）<b class="ctr">或第 3 項</b>（未經核准破壞或變更主要構造）⑤住戶違反 §17 <b>未投保</b>責任保險 ⑥區分所有權人違反 §18Ⅰ② <b>未繳納公共基金</b> ⑦管理負責人、主委或管理委員違反 §20 之<b>公告或移交</b>義務 ⑧<b>起造人或建築業者</b>違反 §57 或 §58</small></div></div>
+<ul class="kl">
+<li><span>①</span><div>區分所有權人對<b>專有部分之利用</b>違反 §5</div></li>
+<li><span>②</span><div>住戶違反 §8Ⅰ、§9Ⅱ 變更使用限制，<b class="ctr">且經制止而不遵從</b></div></li>
+<li><span>③</span><div>住戶違反 §15Ⅰ，<b>擅自變更</b>專有或約定專用之使用</div></li>
+<li><span>④</span><div>住戶違反 <b class="ctr">§16Ⅱ</b><span class="q">（逃生通道堆雜物、設柵欄、營業使用、違規廣告物、私設路障）</span><br>或 <b class="ctr">§16Ⅲ</b><span class="q">（未經核准破壞或變更主要構造）</span></div></li>
+<li><span>⑤</span><div>住戶違反 §17，<b>未投保</b>責任保險</div></li>
+<li><span>⑥</span><div>區分所有權人違反 §18Ⅰ②，<b>未繳納公共基金</b></div></li>
+<li><span>⑦</span><div>管理負責人、主委或管理委員違反 §20 之<b>公告或移交</b>義務</div></li>
+<li><span>⑧</span><div><b>起造人或建築業者</b>違反 §57、§58</div></li>
+</ul></div></div>
 </div>
-<div class="mn"><b>口訣〔自編〕：</b>「<b>幹部失職一到五千・生活秩序三千一萬五・安全財產四萬二十萬</b>」。三階的分界線是「<b>有沒有危害到建物安全、公共安全或別人的錢</b>」。</div>
-<div class="tr"><b>§16 一條拆兩階，這是最常考的切點：</b><br>
-§16<b class="ctr">Ⅰ</b>（垃圾、污染、惡臭、喧囂、振動）與 §16<b class="ctr">Ⅳ</b>（飼養動物妨礙公衛安寧安全）→ <b>§47②，3千～1.5萬</b><br>
-§16<b class="ctr">Ⅱ</b>（逃生通道堆雜物、營業使用、違規廣告物、私設路障）與 §16<b class="ctr">Ⅲ</b>（破壞或變更主要構造）→ <b>§49Ⅰ④，4萬～20萬</b><br>
-記法：<b>Ⅰ、Ⅳ 是「吵到人、髒到人」；Ⅱ、Ⅲ 是「逃不出去、房子會垮」</b>，後者貴一個數量級。</div>
+<div class="mn"><b>口訣</b><span class="tag" style="font-size:.74rem;color:var(--muted)">自編</span>
+<span class="mnq">幹部失職一到五千<br>生活秩序三千一萬五<br>安全財產四萬二十萬</span>
+<span class="mnw">三階的分界線：<b class="ctr">有沒有危害到建物安全、公共安全，或別人的錢</b>。</span></div>
+<div class="tr"><b>陷阱</b>§16 <b>一條拆成兩階</b>，這是整章最常考的切點。
+<ul class="kl" style="margin-top:7px">
+<li><span>低</span><div>§16<b class="ctr">Ⅰ</b>、§16<b class="ctr">Ⅳ</b><span class="q">（垃圾污染惡臭喧囂振動／飼養動物）</span><br>→ §47②，<span class="n">3千～1.5萬</span></div></li>
+<li><span>高</span><div>§16<b class="ctr">Ⅱ</b>、§16<b class="ctr">Ⅲ</b><span class="q">（逃生通道堆雜物營業違規廣告路障／破壞主要構造）</span><br>→ §49Ⅰ④，<span class="n">4萬～20萬</span></div></li>
+</ul>
+<span class="mnq">Ⅰ、Ⅳ 吵到人髒到人；Ⅱ、Ⅲ 逃不出去房子會垮。</span>
+<span class="mnw">後者貴一個數量級。</span></div>
 ''' + '<div class="lawwrap"><div class="group-label">這三條的逐字全文</div>'
     + bt('公寓大廈 §47', '★★★') + bt('公寓大廈 §48', '★★') + bt('公寓大廈 §49', '★★★') + '</div>')
 
@@ -113,18 +172,35 @@ sec('p2', 'E', '② 罰誰：五種身分，各自會踩到哪幾款', '查表�
 <td>§50 直轄市、縣（市）<br><b class="ctr">§51 中央主管機關</b></td>
 <td>§50 <b class="ctr">勒令停業或停止執行業務</b>＋罰鍰，拒不遵從得按次連續處罰<br>§51 一律<b class="ctr">先通知限期改正，屆期不改正</b>才處分</td></tr>
 </tbody></table></div>
-<div class="tr"><b>考試陷阱：</b>①把「<b>誰罰</b>」全部寫成直轄市、縣（市）主管機關——<b class="ctr">§51 三項都是中央主管機關</b>，這是整章唯一的例外。②§50 不是只有罰鍰，<b>一定要寫勒令停業或停止執行業務</b>。③§51 不是直接開罰，<b>先通知限期改正</b>；屆期不改正才「得」停業、廢止許可或登記證、或罰鍰。④§49-1 是<b class="ctr">按每一專有部分</b>處區分所有權人，不是整棟罰一次。</div>
+<div class="tr"><b>陷阱</b>這四個錯法每年都有人踩。
+<ul class="kl" style="margin-top:7px">
+<li><span>①</span><div>把「誰罰」全寫成直轄市、縣（市）<br><b class="ctr">§51 三項都是中央主管機關</b>，整章唯一例外</div></li>
+<li><span>②</span><div>§50 不是只罰錢<br>一定要寫<b>勒令停業或停止執行業務</b>，罰鍰是「並處」</div></li>
+<li><span>③</span><div>§51 不是直接開罰<br><b>先通知限期改正</b>，屆期不改正才得停業、廢止證照或罰鍰</div></li>
+<li><span>④</span><div>§49-1 是<b class="ctr">按每一專有部分</b>處區分所有權人<br><span class="q">不是整棟罰一次</span></div></li>
+</ul></div>
 ''' + '<div class="lawwrap"><div class="group-label">這三條的逐字全文</div>'
     + bt('公寓大廈 §49之1', '★★') + bt('公寓大廈 §50', '★★') + bt('公寓大廈 §51', '★★★　唯一歸中央') + '</div>')
 
 sec('p3', 'E', '③ 四個「唯一」：考前十秒掃一遍', '最好拿分的四句', '''
 <div class="only">
-<div><b>唯一歸中央主管機關的：§51</b>　管理維護公司違反 §43（3萬～15萬）、受僱服務人員違反 §44、其他管理服務人員違反 §45（均 3千～1.5萬）。其餘 §47、§48、§49、§49-1、§50 全部是直轄市、縣（市）主管機關。</div>
-<div><b>唯一按「每一專有部分」計罰的：§49-1</b>　未於 §29-1Ⅰ 期限內成立管委會或推選管理負責人並報備，按<b>每一專有部分</b>處區分所有權人 4萬～20萬，並令限期辦理，屆期仍未辦理得按次處罰。</div>
-<div><b>唯一有「勒令停業」的：§50</b>　無證營業或經廢止後仍營業，勒令停業或停止執行業務，<b>並</b>處 4萬～20萬；拒不遵從得按次連續處罰。</div>
-<div><b>唯一有刑責的：§49 第 2 項</b>　<b>有供營業使用事實</b>之住戶，有 §49Ⅰ 第 3 款（擅自變更使用）或第 4 款（§16Ⅱ、Ⅲ）行為，<b>因而致人於死</b>→ 1年以上7年以下有期徒刑，得併科 100萬～500萬罰金；<b>致重傷</b>→ 6個月以上5年以下有期徒刑，得併科 50萬～250萬罰金。</div>
+<div><b>唯一歸中央主管機關的：§51</b>
+<small>公司違反 §43 → <span class="n">3萬～15萬</span>；受僱服務人員違反 §44、其他管理服務人員違反 §45 → 均 <span class="n">3千～1.5萬</span>。</small>
+<small>其餘 §47、§48、§49、§49-1、§50 全部是直轄市、縣（市）。</small></div>
+<div><b>唯一按「每一專有部分」計罰的：§49-1</b>
+<small>未於 §29-1Ⅰ 期限內成立管委會或推選管理負責人並報備。</small>
+<small>按<b>每一專有部分</b>處區分所有權人 <span class="n">4萬～20萬</span>，並令限期辦理，屆期仍未辦理得<b>按次</b>處罰。</small></div>
+<div><b>唯一有「勒令停業」的：§50</b>
+<small>無證營業，或經廢止後仍營業。</small>
+<small>勒令停業或停止執行業務，<b>並</b>處 <span class="n">4萬～20萬</span>；拒不遵從得<b>按次連續</b>處罰。</small></div>
+<div><b>唯一有刑責的：§49 第 2 項</b>
+<small>前提：<b>有供營業使用事實</b>之住戶，且有 §49Ⅰ③（擅自變更使用）或 ④（§16Ⅱ、Ⅲ）之行為。</small>
+<small><b>致人於死</b> → 1 年以上 7 年以下有期徒刑，得併科 <span class="n">100萬～500萬</span>罰金。</small>
+<small><b>致重傷</b> → 6 個月以上 5 年以下有期徒刑，得併科 <span class="n">50萬～250萬</span>罰金。</small></div>
 </div>
-<div class="mn"><b>口訣〔自編〕：</b>「<b>中央只管 51、按戶只有 49-1、停業只有 50、坐牢只有 49 第 2 項</b>」。四句背完，這一章的「誰罰」與特殊處分就不會錯。</div>
+<div class="mn"><b>口訣</b><span class="tag" style="font-size:.74rem;color:var(--muted)">自編</span>
+<span class="mnq">中央只管 51<br>按戶只有 49-1<br>停業只有 50<br>坐牢只有 49 第 2 項</span>
+<span class="mnw">這四句背完，「誰罰」與特殊處分就不會錯。</span></div>
 <div class="sub2">另外兩條程序條文</div>
 <ul class="pl">
 <li><span class="law">§59</span>　<b>誰可以檢舉</b>：召集人、臨時召集人、起造人、建築業者、區分所有權人、住戶、管理負責人、主委或管理委員有 §47、§48、§49 各款情事之一時，<b>他區分所有權人、利害關係人、管理負責人或管理委員會</b>得<b class="ctr">列舉事實及提出證據</b>，報直轄市、縣（市）主管機關處理。</li>
