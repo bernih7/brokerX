@@ -1288,8 +1288,8 @@ function initQuiz() {
   // 建 pool（只跑一次）
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
-      ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, essay: c.essay||0, hot: c.hot||0, chStat: ch.stat });
+      ch.cards.forEach((c, ci) => {
+        quizPool.push({ key: ch.id+'-'+ci, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, essay: c.essay||0, hot: c.hot||0, chStat: ch.stat });
       });
     });
   }
@@ -1426,7 +1426,15 @@ function revealAllQuizBlanks(qid) {
   if (ans) ans.classList.add('show');
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
-}
+  // 隨機測驗也要計入完成（與章節瀏覽共用 bxj-fill）
+      try{
+        var _c = quizQueue[quizIdx];
+        if(_c && _c.key && !cardDone[_c.key]){
+          cardDone[_c.key] = true;
+          window.BXREP && BXREP.fillMark(_c.key);
+        }
+      }catch(e){}
+    }
 
 function nextQuiz() {
   quizIdx++;

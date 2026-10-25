@@ -41,7 +41,7 @@ function build(){
  var cnt=function(key,tt,yes,no){var m=ld(key,{}),n=0,r=0,t=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);t++;if(s===yes)n++;else if(s===no)r++});return"已掌握 "+n+"｜待加強 "+r+"｜其他已標記 "+(t-n-r)+"｜未標記 "+Math.max(0,tt-t)};
  L.push("互動單字卡（共 113 張；掌握／不熟／普通）："+cnt("jingji_flashcard_mastery",113,"yes","no"));var em=ld("brokerlaw_essay_template_mastery_v2",{}),e1=0,e2=0;Object.keys(em).forEach(function(k){if(em[k]==="mastered")e1++;else e2++});L.push("申論答題模板：已掌握 "+e1+" 題範例｜僅讀過 "+e2+" 題範例");
  var ff=ld("bxj-fill",{}),fc={},fk=Object.keys(ff).length;Object.keys(ff).forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
- L.push("定義填空練習（共 95 張）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
+ L.push("定義填空練習（共 106 張）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
  var U=ld("bxj-use",{}),hr=[],nv=[];
  PAGES.forEach(function(p){var x=U[p[0]];if(!x||!x.n){nv.push(p[1]);return}hr.push(p[1]+"｜開 "+x.n+" 次｜約 "+Math.round((x.s||0)/60)+" 分｜最近 "+new Date(x.t*1000).toLocaleDateString("zh-TW"))});
  L.push("","══ 四、頁面使用（自 2026-10-12 起記錄；開啟次數與約略停留分鐘）══");hr.forEach(function(s){L.push(s)});if(nv.length)L.push("尚未開過："+nv.join("、"));
@@ -98,7 +98,7 @@ function status(){
  /* 記憶工具 */
  var R3=[],fm=ld("jingji_flashcard_mastery",{}),fy=0,fs=0,fn=0;Object.keys(fm).forEach(function(k){if(fm[k]==="yes")fy++;else if(fm[k]==="soso")fs++;else if(fm[k]==="no")fn++});
  R3.push(row("經紀法規概要_互動單字卡","互動單字卡",fy,113,"已掌握 "+fy+"／113"+(fs||fn?"・普通 "+fs+"・不熟 "+fn:"")));
- var fk=Object.keys(ld("bxj-fill",{})).length;R3.push(row("經紀法規_定義填空練習","定義填空練習",fk,95,"已完成 "+fk+"／95 張"));
+ var fk=Object.keys(ld("bxj-fill",{})).length;R3.push(row("經紀法規_定義填空練習","定義填空練習",fk,106,"已完成 "+fk+"／106 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],es=ld("brokerlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
