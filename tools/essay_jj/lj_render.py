@@ -8,6 +8,8 @@ CN = '一二三四五六'
 
 
 def rich(t):
+    """先 escape 再把 Markdown 的 **粗體** 轉成 <b>。
+    內文欄位一律走這裡——只有 ans 走 rich、其餘走 E()，會讓 ** 原封不動印出來。"""
     return re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', E(t))
 
 
@@ -20,7 +22,7 @@ def render(d):
 
     def qh(i, sb):
         lab = f'問題{CN[i]}' if multi else '問題'
-        return f'<div class="ljq"><span class="ljqn">{lab}</span><span class="ljqt">{E(sb["q"])}</span></div>'
+        return f'<div class="ljq"><span class="ljqn">{lab}</span><span class="ljqt">{rich(sb["q"])}</span></div>'
 
     # ① 推理鏈
     A = '<p class="ljd">一步一步推：先問一句 → 條文 → %s → 小結，箭頭寫出為什麼接下一步。適合第一次讀懂。</p>' % FT
@@ -28,41 +30,41 @@ def render(d):
     for i, sb in enumerate(subs):
         A += qh(i, sb)
         if sb.get('pre'):
-            A += f'<div class="ljar ljpre">{E(sb["pre"])}</div>'
+            A += f'<div class="ljar ljpre">{rich(sb["pre"])}</div>'
         for j, st in enumerate(sb['steps']):
             n += 1
-            A += f'<div class="ljst"><div class="ljsq"><span class="ljno">{n}</span>{E(st["ask"])}</div>'
+            A += f'<div class="ljst"><div class="ljsq"><span class="ljno">{n}</span>{rich(st["ask"])}</div>'
             if st.get('lawh'):
-                A += f'<p><span class="ljt tl">條文</span><b>{E(st["lawh"])}</b>：{E(st["law"])}</p>'
-            A += f'<p><span class="ljt tf">{FT}</span>{E(st["fact"])}</p>'
+                A += f'<p><span class="ljt tl">條文</span><b>{rich(st["lawh"])}</b>：{rich(st["law"])}</p>'
+            A += f'<p><span class="ljt tf">{FT}</span>{rich(st["fact"])}</p>'
             if st.get('res'):
-                A += f'<p><span class="ljt ta">小結</span>{E(st["res"])}</p>'
+                A += f'<p><span class="ljt ta">小結</span>{rich(st["res"])}</p>'
             A += '</div>'
             if j < len(sb['steps']) - 1:
-                A += f'<div class="ljar">↓ {E(st["link"])}</div>' if st.get('link') else '<div class="ljar">↓</div>'
+                A += f'<div class="ljar">↓ {rich(st["link"])}</div>' if st.get('link') else '<div class="ljar">↓</div>'
         A += f'<div class="ljans"><b>答{CN[i] if multi else ""}：</b>{rich(sb["ans"])}</div>'
     if d.get('mnem'):
-        A += f'<div class="kou"><b>口訣</b>　{E(d["mnem"])}</div>'
+        A += f'<div class="kou"><b>口訣</b>　{rich(d["mnem"])}</div>'
 
     # ② 條文｜本題（或 條文｜舉例）
     B = '<p class="ljd">左＝條文說什麼，右＝%s，一列一組。適合對答案。</p>' % ('舉例怎麼套' if ex else '本題套進去')
     for i, sb in enumerate(subs):
         B += qh(i, sb) + f'<div class="ljch"><span>條文說什麼</span><span>{"舉例怎麼套" if ex else "本題套進去"}</span></div>'
         for st in sb['steps']:
-            l = (f'<div class="ljh">{E(st["lawh"])}</div>{E(st["law"])}' if st.get('lawh')
-                 else f'<div class="ljh">推理</div>{E(st["ask"])}')
+            l = (f'<div class="ljh">{rich(st["lawh"])}</div>{rich(st["law"])}' if st.get('lawh')
+                 else f'<div class="ljh">推理</div>{rich(st["ask"])}')
             B += (f'<div class="ljrow"><div class="ljl">{l}</div>'
-                  f'<div class="ljr"><div class="ljh">{E(st.get("facth") or FT)}</div>{E(st["fact"])}</div></div>')
+                  f'<div class="ljr"><div class="ljh">{rich(st.get("facth") or FT)}</div>{rich(st["fact"])}</div></div>')
         B += f'<div class="ljans"><b>答{CN[i] if multi else ""}：</b>{rich(sb["ans"])}</div>'
 
     # ③ 地圖＋勾選
     C = '<p class="ljd">一眼看完推理順序，下方寫完逐項勾。適合考前複習。</p><div class="ljmap">'
     n = 0
     for i, sb in enumerate(subs):
-        C += f'<div><h6>{("問題" + CN[i] + "｜") if multi else ""}{E(sb["q"])}</h6><ul>'
+        C += f'<div><h6>{("問題" + CN[i] + "｜") if multi else ""}{rich(sb["q"])}</h6><ul>'
         for j, st in enumerate(sb['steps']):
             n += 1
-            C += f'<li><span class="ljno">{n}</span>{E(st["key"])}</li>'
+            C += f'<li><span class="ljno">{n}</span>{rich(st["key"])}</li>'
             if j < len(sb['steps']) - 1:
                 C += '<li class="ljdn">↓</li>'
         C += f'</ul><div class="ljans"><b>答：</b>{rich(sb["ans"])}</div></div>'
@@ -77,7 +79,7 @@ def render(d):
         g = f'<span class="ljg">問題{CN[c["sub"] - 1]}</span>' if multi else ''
         hot = '<span class="ljhot">常錯</span>' if c.get('hot') else ''
         C += (f'<li><label><input type="checkbox"><span class="ljt {cls}">{t}</span>'
-              f'{E(c["txt"])}{hot}</label>{g}</li>')
+              f'{rich(c["txt"])}{hot}</label>{g}</li>')
     C += '</ul></div>'
 
     return ('<div class="ljs"><span>排法</span><div class="ljseg">'

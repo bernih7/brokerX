@@ -236,14 +236,16 @@ function hlLaw(t){
   x=x.replace(HLL_N,function(m){return '\u0001'+m+'\u0002'});
   x=x.replace(HLL_K,function(m){return '\u0003'+m+'\u0004'});
   return x.replace(/\u0001([^\u0002]*)\u0002/g,'<mark class="hi">$1</mark>')
-          .replace(/\u0003([^\u0004]*)\u0004/g,'<mark class="hi2">$1</mark>');
+          .replace(/\u0003([^\u0004]*)\u0004/g,'<mark class="hi2">$1</mark>')
+          .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
 }
 function hl(t,keys){
   var x=esc(t);
   x=x.replace(HL_N,function(m){return '\u0001'+m+'\u0002'});
   if(keys)x=x.replace(HL_K,function(m){return '\u0003'+m+'\u0004'});
   return x.replace(/\u0001([^\u0002]*)\u0002/g,'<mark class="hi">$1</mark>')
-          .replace(/\u0003([^\u0004]*)\u0004/g,'<mark class="hi2">$1</mark>');
+          .replace(/\u0003([^\u0004]*)\u0004/g,'<mark class="hi2">$1</mark>')
+          .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');   /* Markdown 粗體，漏轉會原封不動印出來 */
 }
 /* 爭議題：可接受答案 */
 function accept(q){return q.dis?q.dis.acc:[q.ans]}
