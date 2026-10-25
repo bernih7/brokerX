@@ -31,6 +31,11 @@ SRC = io.open(os.path.join(ROOT, '經紀法規_程序總整理.html'), encoding=
 BASECSS = re.search(r'<style>([\s\S]*?)</style>', SRC).group(1)
 FAB = SRC[SRC.index('<!--bxfab-->'):SRC.index('<!--/bxfab-->') + len('<!--/bxfab-->')]
 QZ = '%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E6%B3%95%E6%A2%9D%E8%A7%A3%E6%9E%90%E7%B7%B4%E7%BF%92.html'
+import urllib.parse as _up
+PENU = _up.quote('經紀法規_公寓大廈條例罰則整理.html')
+TOTU = _up.quote('經紀法規_罰則總整理.html')
+FCU = _up.quote('經紀法規_公平法消保法罰則整理.html')
+CMPU = _up.quote('經紀法規_四法罰則總比較.html')
 
 FULL = {'條例': '不動產經紀業管理條例', '細則': '不動產經紀業管理條例施行細則',
         '公寓': '公寓大廈管理條例', '公平法': '公平交易法', '消保法': '消費者保護法'}
@@ -130,103 +135,27 @@ for r in D:
         bad.append((key, '表 %s｜條文 %s' % (r['amt'],
                     '、'.join('%g萬-%g萬' % (a / 10000, b / 10000) for a, b in sorted(found)))))
 
-# ── 版型：一筆一卡、固定四欄（與公寓大廈罰則頁同一套）──
-TIER = [(0, 0.5, 'ta'), (0.5, 2, 'tb'), (2, 3.1, 'tc'), (3.1, 1e9, 'td')]
 
-
-def tier(r):
+# ── 以「金額」為軸分組：這頁的用途就是反查「某個金額有哪些條文」 ──
+def amtkey(r):
     try:
-        lo = float(r['lo'])
+        return (float(r['lo']), float(r['hi']))
     except Exception:
-        return 'tb'
-    for a, b, c in TIER:
-        if a <= lo < b:
-            return c
-    return 'td'
+        return None
 
 
+def amtlab(lo, hi):
+    def one(v):
+        if v < 1:
+            return '%d千' % round(v * 10)
+        return '%g萬' % v
+    return '%s–%s' % (one(lo), one(hi))
+
+
+LAWORD = {'條例': 0, '公寓': 1, '公平法': 2, '消保法': 3}
+KINDS = ['罰鍰', '停業廢止', '人員處分', '刑責', '賠償']
 KINDLAB = {'罰鍰': '罰鍰', '停業廢止': '停業・廢止', '人員處分': '人員處分',
            '刑責': '刑責', '賠償': '損害賠償'}
-
-
-def card(r):
-    raw = (r.get('note') or '').strip()
-    if raw.startswith('◆'):
-        raw = raw.split('｜', 1)[1].strip() if '｜' in raw else ''
-    note = ('<div class="nt">%s</div>' % raw) if raw else ''
-    return (
-        '<article class="act %s" data-law="%s" data-kind="%s">'
-        '<div class="hd"><span class="ar">%s %s</span><h3>%s</h3>'
-        '<span class="kd">%s</span></div>'
-        '<div class="rows">'
-        '<div class="row"><span class="k">罰誰</span><span class="v">%s</span></div>'
-        '<div class="row"><span class="k">誰罰</span><span class="v">%s</span></div>'
-        '<div class="row"><span class="k">罰多少</span><span class="v amtv">%s</span></div>'
-        '<div class="row"><span class="k">程序</span><span class="v">%s</span></div>'
-        '</div>%s</article>'
-        % (tier(r), r['law'], r['kind'], r['lawshort'], r['art'], r['act'],
-           KINDLAB.get(r['kind'], r['kind']), r['who'], r['org'], r['amt'],
-           r.get('cond') or '—', note))
-
-
-CSS = '''
-.filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.fb2{font:inherit;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:99px;
-  border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-.fb2.on{border-color:var(--pri);background:var(--pri);color:var(--on)}
-.cntline{margin-top:9px;font-size:.82rem;color:var(--muted)}
-.acts{display:grid;gap:11px;margin-top:11px}
-.act{border:1px solid var(--line);border-left:5px solid var(--c,var(--line));
-  border-radius:11px;background:var(--card);padding:11px 13px 12px}
-.act.ta{--c:#7A8B72}.act.tb{--c:#B8782E}.act.tc{--c:#8A5517}.act.td{--c:#A8402B}
-:root[data-theme="dark"] .act.ta{--c:#9DB295}
-:root[data-theme="dark"] .act.tb{--c:#E0B070}
-:root[data-theme="dark"] .act.tc{--c:#E0B070}
-:root[data-theme="dark"] .act.td{--c:#E05040}
-@media(prefers-color-scheme:dark){
- :root:not([data-theme="light"]) .act.ta{--c:#9DB295}
- :root:not([data-theme="light"]) .act.tb{--c:#E0B070}
- :root:not([data-theme="light"]) .act.tc{--c:#E0B070}
- :root:not([data-theme="light"]) .act.td{--c:#E05040}}
-.act .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px}
-.act .ar{font-weight:700;color:var(--key);font-size:.9rem;flex:none}
-.act h3{font-family:"Noto Serif TC",serif;font-size:15px;color:var(--ink);
-  flex:1;min-width:0;line-height:1.55;margin:0;font-weight:700}
-.act .kd{flex:none;font-size:.74rem;color:var(--muted);border:1px solid var(--line);
-  border-radius:99px;padding:1px 8px}
-.act .rows{margin-top:9px;display:grid;gap:5px}
-.act .row{display:grid;grid-template-columns:3.6em 1fr;gap:9px;font-size:13.5px;
-  line-height:1.8;align-items:start}
-.act .row .k{color:var(--muted);font-size:.8rem;font-weight:700;padding-top:2px;letter-spacing:.04em}
-.act .row .v{color:var(--ink);min-width:0}
-.act .row .v.amtv{color:var(--key);font-weight:700}
-.act .nt{margin-top:9px;padding:7px 10px;border-radius:8px;background:var(--bg);
-  border:1px solid var(--line);border-left:4px solid var(--red);
-  font-size:13px;line-height:1.85;color:var(--ink)}
-.sub2x{font-size:.82em;color:var(--muted)}
-.ctr{color:var(--red);font-weight:700}
-.act[hidden]{display:none}
-.lawgrp{margin-top:18px}
-.lawgrp[hidden]{display:none}
-.lgh{font-family:"Noto Serif TC",serif;font-size:16.5px;color:var(--pri);margin:0 0 7px;
-  display:flex;align-items:baseline;gap:9px;padding-bottom:6px;border-bottom:2px solid var(--pri)}
-.lgn{font-size:.74rem;color:var(--muted);font-family:inherit;font-weight:400}
-.jur{border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:9px;
-  background:var(--card);padding:9px 12px;font-size:13.5px;line-height:1.9;color:var(--ink)}
-.jur>b:first-child{display:block;width:fit-content;font-size:.74rem;font-weight:700;
-  background:var(--pri);color:var(--on);border-radius:99px;padding:2px 9px;margin:0 0 5px}
-.jur b{color:var(--ink)}
-.mnx{margin-top:7px;border:1px solid var(--line);border-left:4px solid var(--green);
-  border-radius:9px;background:var(--card);padding:9px 12px}
-.mnx>b:first-child{display:block;width:fit-content;font-size:.74rem;font-weight:700;
-  background:var(--green);color:#fff;border-radius:99px;padding:2px 9px;margin:0 0 5px}
-:root[data-theme="dark"] .mnx>b:first-child,:root[data-theme="dark"] .jur>b:first-child{color:#10201B}
-.mnc{font-family:"Noto Serif TC",serif;font-size:15.5px;font-weight:700;letter-spacing:.14em;color:var(--ink)}
-.mnn{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
-'''
-
-LAWS = ['條例', '公寓', '公平法', '消保法']
-KINDS = ['罰鍰', '停業廢止', '人員處分', '刑責', '賠償']
 
 
 def artnum(a):
@@ -234,80 +163,197 @@ def artnum(a):
     return (int(m.group(1)), int(m.group(2) or 0)) if m else (999, 0)
 
 
-# 每個法規只講一次管轄
-JUR = {
- '條例': '管轄依施行細則：§29 的處罰由<b>經紀業所在地</b>主管機關為之，'
-         '但 §29Ⅰ①②或Ⅱ 且營業處所或執行業務行為地不同轄區者，由該地主管機關為之（細則§25-1）；'
-         '§14Ⅲ、§31Ⅱ 由<b>原發證之戶籍所在地</b>主管機關為之（細則§26）；'
-         '§32Ⅰ 由公司或商號所在地主管機關為之，行為地不同者由行為地查明後移請（細則§28-1）。',
- '公寓': '除 <b class="ctr">§51（管理維護公司與管理服務人員）歸中央主管機關</b>外，'
-         '§47、§48、§49、§49-1、§50 全部是直轄市、縣（市）主管機關。這是整章唯一的例外。',
- '公平法': '一律由<b class="ctr">公平交易委員會</b>（中央主管機關）處分；刑責部分須由公平會移送檢察機關。',
- '消保法': '罰鍰由直轄市、縣（市）主管機關處分；§51 懲罰性賠償金是<b>法院</b>依消費者請求判決，不是行政罰。',
+groups = {}
+others = {k: [] for k in KINDS[1:]}
+for r in D:
+    if r['kind'] == '罰鍰' and amtkey(r):
+        groups.setdefault(amtkey(r), []).append(r)
+    else:
+        others.setdefault(r['kind'], []).append(r)
+for g in groups.values():
+    g.sort(key=lambda r: (LAWORD.get(r['law'], 9), artnum(r['art'])))
+
+ORDER = sorted(groups, key=lambda k: (k[0], k[1]))
+
+SHORTN = {'條例': '經紀業', '公寓': '公寓大廈', '公平法': '公平法', '消保法': '消保法'}
+
+
+def qual(r):
+    """amt 欄位在級距之外多寫的限定（按戶、並勒令停業…），要顯示出來"""
+    lab = amtlab(*amtkey(r))
+    a = r['amt'].replace('元', '').replace('萬萬', '萬')
+    for cand in (lab, lab.replace('–', '-'), r['amt'].split('，')[0].split('／')[0]):
+        if a.startswith(cand.replace('元', '')):
+            a = a[len(cand.replace('元', '')):]
+            break
+    a = a.lstrip('，,／/ ').strip()
+    return '<span class="qf">%s</span>' % a if a else ''
+
+
+def rowhtml(r):
+    return ('<tr><td class="c1"><b>%s</b>%s</td><td class="c2">%s%s</td>'
+            '<td class="c3">%s</td><td class="c4">%s</td></tr>'
+            % (SHORTN[r['law']], r['art'], r['act'], qual(r),
+               r['who'], r.get('cond') or '—'))
+
+
+def table(rows):
+    return ('<div class="tw2"><table class="pt"><thead><tr>'
+            '<th>法規・條號</th><th>違規行為</th><th>罰誰</th><th>程序</th>'
+            '</tr></thead><tbody>%s</tbody></table></div>'
+            % ''.join(rowhtml(r) for r in rows))
+
+
+def gid(k):
+    return 'a' + str(k[0]).replace('.', 'p') + '_' + str(k[1]).replace('.', 'p')
+
+
+# 金額索引：一排可點的金額，點了跳到該組
+IDX = '<div class="amtidx">' + ''.join(
+    '<a class="ac" href="#%s"><b>%s</b><span>%d</span></a>'
+    % (gid(k), amtlab(*k), len(groups[k])) for k in ORDER) + '</div>'
+
+SEC = ''
+for k in ORDER:
+    rows = groups[k]
+    laws = '、'.join(dict.fromkeys(SHORTN[r['law']] for r in rows))
+    SEC += ('<section class="ag" id="%s"><h3 class="agh"><span class="av">%s</span>'
+            '<span class="an2">%d 筆</span><span class="al2">%s</span></h3>%s</section>'
+            % (gid(k), amtlab(*k), len(rows), laws, table(rows)))
+
+OTH = ''
+for kind in KINDS[1:]:
+    rows = sorted(others.get(kind) or [],
+                  key=lambda r: (LAWORD.get(r['law'], 9), artnum(r['art'])))
+    if not rows:
+        continue
+    OTH += ('<section class="ag"><h3 class="agh"><span class="av vk">%s</span>'
+            '<span class="an2">%d 筆</span></h3>'
+            '<div class="tw2"><table class="pt"><thead><tr><th>法規・條號</th>'
+            '<th>情形</th><th>對象</th><th>處分內容</th></tr></thead><tbody>%s'
+            '</tbody></table></div></section>'
+            % (KINDLAB[kind], len(rows),
+               ''.join('<tr><td class="c1"><b>%s</b>%s</td><td class="c2">%s</td>'
+                       '<td class="c3">%s</td><td class="c4">%s</td></tr>'
+                       % (SHORTN[r['law']], r['art'], r['act'], r['who'], r['amt'])
+                       for r in rows)))
+
+JUR = ('<div class="jur"><b>誰罰</b>'
+       '<b>經紀業條例</b>：直轄市、縣（市）。管轄依細則——§29 由經紀業所在地為之，'
+       '但 §29Ⅰ①②或Ⅱ 且營業處所或行為地不同轄區者由該地為之（細則§25-1）；'
+       '§14Ⅲ、§31Ⅱ 由原發證之戶籍所在地（細則§26）；§32Ⅰ 由公司或商號所在地（細則§28-1）。<br>'
+       '<b>公寓大廈</b>：直轄市、縣（市）。<b class="ctr">只有 §51（管理維護公司與管理服務人員）歸中央</b>，'
+       '這是整章唯一例外。<br>'
+       '<b>公平法</b>：一律<b class="ctr">公平交易委員會</b>（中央）；刑責由公平會移送檢察機關。<br>'
+       '<b>消保法</b>：罰鍰由直轄市、縣（市）；§51 懲罰性賠償金是<b>法院</b>依請求判決，不是行政罰。</div>')
+
+CSS = """
+.purpose{border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:10px;
+  background:var(--card);padding:11px 13px;font-size:13.5px;line-height:1.95;color:var(--ink);margin-top:12px}
+.purpose b{color:var(--ink)}
+.purpose .ph{display:block;width:fit-content;font-size:.74rem;font-weight:700;background:var(--pri);
+  color:var(--on);border-radius:99px;padding:2px 9px;margin:0 0 6px}
+.purpose ul{margin:6px 0 0;padding-left:1.15em}
+.purpose li{margin-top:3px}
+.purpose a{color:var(--pri);font-weight:700;text-decoration:none;border-bottom:1px solid currentColor}
+
+.amtidx{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.amtidx .ac{display:flex;align-items:baseline;gap:5px;text-decoration:none;
+  border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:5px 11px}
+.amtidx .ac b{font-family:"Noto Serif TC",serif;font-size:14px;color:var(--key);font-weight:700}
+.amtidx .ac span{font-size:11px;color:var(--muted)}
+.amtidx .ac:hover{border-color:var(--key)}
+
+.jur{margin-top:12px;border:1px solid var(--line);border-left:4px solid var(--key);
+  border-radius:10px;background:var(--card);padding:10px 13px;font-size:13px;
+  line-height:1.95;color:var(--ink)}
+.jur>b:first-child{display:block;width:fit-content;font-size:.74rem;font-weight:700;
+  background:var(--key);color:#fff;border-radius:99px;padding:2px 9px;margin:0 0 5px}
+:root[data-theme="dark"] .jur>b:first-child{color:#161C19}
+.jur b{color:var(--ink)}
+.ctr{color:var(--red);font-weight:700}
+
+.ag{margin-top:20px;scroll-margin-top:12px}
+.agh{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:0 0 7px;
+  padding-bottom:6px;border-bottom:2px solid var(--key)}
+.agh .av{font-family:"Noto Serif TC",serif;font-size:19px;font-weight:700;color:var(--key)}
+.agh .av.vk{font-size:16.5px;color:var(--pri)}
+.agh .an2{font-size:.76rem;color:var(--muted)}
+.agh .al2{font-size:.76rem;color:var(--muted);margin-left:auto}
+
+.tw2{overflow-x:auto;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+table.pt{border-collapse:collapse;width:100%;min-width:610px;font-size:13px}
+table.pt th{text-align:left;font-size:.76rem;font-weight:700;color:var(--muted);
+  background:var(--surface2);padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.pt td{padding:8px 10px;border-bottom:1px solid var(--line);line-height:1.75;
+  vertical-align:top;color:var(--ink)}
+table.pt tr:last-child td{border-bottom:none}
+table.pt .c1{white-space:nowrap;width:9.4em}
+table.pt .c1 b{color:var(--muted);font-weight:500;font-size:.86em;margin-right:4px}
+table.pt .c1{color:var(--key);font-weight:700}
+table.pt .c2{min-width:14em}
+table.pt .c3{white-space:nowrap;width:8.6em}
+table.pt .c4{width:13em;color:var(--sub,var(--muted))}
+table.pt .qf{display:inline-block;margin-left:6px;font-size:.78rem;font-weight:700;
+  color:var(--red);background:var(--bad-soft,rgba(168,64,43,.1));border-radius:5px;padding:0 6px}
+
+/* 手機：不要橫捲。一列拆兩行——條號＋行為在上，罰誰・程序在下 */
+@media(max-width:620px){
+  .tw2{overflow-x:visible}
+  table.pt{min-width:0;display:block}
+  table.pt thead{display:none}
+  table.pt tbody,table.pt tr{display:block}
+  table.pt tr{padding:9px 11px;border-bottom:1px solid var(--line)}
+  table.pt tr:last-child{border-bottom:none}
+  table.pt td{display:inline;padding:0;border:none}
+  table.pt .c1{width:auto;white-space:nowrap}
+  table.pt .c1::after{content:"　"}
+  table.pt .c2{min-width:0}
+  table.pt .c3,table.pt .c4{width:auto;display:inline;font-size:12.5px;color:var(--muted)}
+  table.pt .c3::before{content:"罰誰 ";font-size:.84em}
+  table.pt .c4::before{content:"・程序 ";font-size:.84em}
+  table.pt .c3{display:block;margin-top:4px}
 }
+"""
 
+PURPOSE = """<div class="purpose"><b class="ph">這頁拿來做什麼</b>
+<b>反查用：先想到金額，再找哪些條文。</b>四法 73 筆依<b>金額級距</b>分組，
+上面的索引一排掃過去就知道每個級距各有幾條；點一下跳到那一組，整組一次背完。
+<ul>
+<li><b>和其他罰則頁的分工</b>——<br>
+　<b>這頁</b>：以<b>金額</b>為軸，跨四法。問「6–30萬有哪些」「3–15萬怎麼分」時看這頁。<br>
+　<a href="%s">公寓大廈條例罰則整理</a>：以<b>違規行為</b>為軸，單一法規逐條詳解，每條都有罰誰・誰罰・罰多少・程序。<br>
+　<a href="%s">罰則總整理</a>：以<b>對象</b>為軸，經紀業（公司）vs 經紀人員（個人）。<br>
+　<a href="%s">公平法＋消保法罰則</a>：那兩法的罰鍰、刑責、賠償倍數與時效。<br>
+　<a href="%s">四法罰則總比較</a>：同一個行為在四法各怎麼罰。</li>
+<li><b>資料源</b>：四頁共用 penalty.json，金額已逐筆比對全國法規資料庫現行條文。</li>
+<li><b>條號一律帶法規名</b>——同一個 §17，經紀業條例是「僱用未具資格者 6–30萬」、
+公寓大廈是「未投保 4–20萬」、消保法是「定型化契約應記載事項」，三件完全不同的事。</li>
+</ul></div>""" % (PENU, TOTU, FCU, CMPU)
 
-def grp(law):
-    rows = sorted([r for r in D if r['law'] == law],
-                  key=lambda r: (KINDS.index(r['kind']) if r['kind'] in KINDS else 9, artnum(r['art'])))
-    mn = ''.join(re.match(r'◆(\S)', r['note']).group(1)
-                 for r in rows if (r.get('note') or '').startswith('◆'))
-    head = ('<div class="lawgrp" data-law="%s"><h3 class="lgh">%s<span class="lgn">%d 筆</span></h3>'
-            '<div class="jur"><b>誰罰</b>%s</div>' % (law, FULL[law], len(rows), JUR[law]))
-    if mn:
-        head += ('<div class="mnx"><b>記憶字</b><span class="mnc">%s</span>'
-                 '<span class="mnn">每張卡依序取一字，整組串起來背</span></div>' % mn)
-    return head + '<div class="acts">%s</div></div>' % ''.join(card(r) for r in rows)
-
-
-FILTERS = ('<div class="filters">'
-           + ''.join('<button class="fb2 on" data-f="law:%s">%s</button>' % (l, FULL[l]) for l in LAWS)
-           + '</div><div class="filters">'
-           + ''.join('<button class="fb2 on" data-f="kind:%s">%s</button>' % (k, KINDLAB[k]) for k in KINDS)
-           + '</div><div class="cntline" id="cnt"></div>')
-
-BODY = ''.join(grp(l) for l in LAWS)
-
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>經紀法規｜罰鍰與處分一覽表</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
-<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜罰鍰與處分一覽表</h1><div class="sub">四法共 %d 筆・罰誰・誰罰・罰多少・程序</div></header>
+HTML = """<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>經紀法規｜罰鍰與處分一覽表</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
+<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜罰鍰與處分一覽表</h1><div class="sub">以金額反查：四法共 %d 筆、%d 個金額級距</div></header>
 <main>
-<div class="intro"><b>這是四個罰則頁共用的資料源。</b>每一筆都標<b>法規全名</b>，不裸寫 §N——
-同一個 §17，經紀業條例是「僱用未具資格者 6–30萬」、公寓大廈是「未投保 4–20萬」、
-消保法是「定型化契約應記載事項」，三件完全不同的事。金額已逐筆比對全國法規資料庫現行條文。</div>
 %s
 %s
-<p class="foot">本頁為備考整理，非法規原文。資料源 tools/essay_jj/penalty.json，四頁共用。考前以紙本六法為準。</p>
+%s
+%s
+%s
+<p class="foot">本頁為備考整理，非法規原文。資料源 tools/essay_jj/penalty.json，四個罰則頁共用。考前以紙本六法為準。</p>
 </main>
 <script>
 (function(){
-var off={};
-function sync(){
-  var n=0;
-  [].forEach.call(document.querySelectorAll('.act'),function(a){
-    var h=off['law:'+a.dataset.law]||off['kind:'+a.dataset.kind];
-    a.hidden=!!h; if(!h)n++;
-  });
-  [].forEach.call(document.querySelectorAll('.lawgrp'),function(g){
-    g.hidden = !g.querySelector('.act:not([hidden])');
-  });
-  document.getElementById('cnt').textContent='顯示 '+n+' / %d 筆';
-}
-document.addEventListener('click',function(e){
-  var b=e.target.closest('.fb2'); if(!b)return;
-  var f=b.dataset.f; off[f]=!off[f]; b.classList.toggle('on',!off[f]); sync();
-});
-sync();
 var tb=document.getElementById('themeBtn');function cur(){return document.documentElement.getAttribute('data-theme')}
 function ub(){tb.textContent=cur()==='dark'?'🌙':'☀️'}ub();
 tb.onclick=function(){var h=document.documentElement,n=cur()==='dark'?'light':'dark';h.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}ub()};
 })();
 </script>
 %s
-</body></html>''' % (BASECSS, CSS, len(D), FILTERS, BODY, len(D), FAB)
+</body></html>""" % (BASECSS, CSS, len(D), len(ORDER), PURPOSE, IDX, JUR, SEC, OTH, FAB)
 
 io.open(DST, 'w', encoding='utf-8').write(HTML)
 print('已重建 經紀法規_罰鍰與處分一覽表.html', len(HTML) // 1024, 'KB')
-print('資料源 tools/essay_jj/penalty.json：%d 筆' % len(D))
-print('法規分布：', dict(collections.Counter(r['lawshort'] for r in D)))
-print('處分類型：', dict(collections.Counter(r['kind'] for r in D)))
+print('金額級距 %d 組（最大一組 %d 筆）｜其他處分 %d 筆'
+      % (len(ORDER), max(len(v) for v in groups.values()),
+         sum(len(v) for v in others.values())))
 print('金額與條文不符：%d 筆 %s' % (len(bad), bad if bad else ''))

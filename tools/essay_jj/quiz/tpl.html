@@ -227,6 +227,17 @@ function rich(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
 /* 重點標示：數字量詞／分數／條號 → 黃底粗體；決定性法律效果詞 → 深黃 */
 var HL_N=/(?:§\s*\d+(?:\s*(?:之|-)\s*\d+)?(?:[ⅠⅡⅢⅣⅤⅥ]|第[一二三四五六七八九十]+項)?)|(?:第\s*[0-9一二三四五六七八九十百零]+\s*條(?:之[0-9一二三四五六七八九十]+)?(?:第[0-9一二三四五六七八九十]+項)?(?:第[0-9一二三四五六七八九十]+款)?)|(?:[一二三四五六七八九十]+分之[一二三四五六七八九十]+)|(?:\d+\s*\/\s*\d+)|(?:過半數|半數以上)|(?:[0-9一二三四五六七八九十]+\s*至\s*[0-9一二三四五六七八九十]+\s*(?:個月|小時|年|月|日|天|次|人|名|倍))|(?:(?:\d[\d,]*(?:\.\d+)?|[一二三四五六七八九十百千兩]+)\s*(?:個月|小時|年|月|日|天|次|人|名|倍|％|%|‰|萬元|億元|萬|億|元))/g;
 var HL_K=/無效|不構成契約之內容|視為|推定|連帶|撤銷|廢止|準用/g;
+/* 條文全文專用：**不標條號**。逐字條文裡的「第五條」「第八條第一項」都是交互
+   參照，標了只是噪音；要記的是金額、期間、比例，以及決定成敗的程序詞。 */
+var HLL_N=/(?:[一二三四五六七八九十]+分之[一二三四五六七八九十]+)|(?:\d+\s*\/\s*\d+)|(?:過半數|半數以上)|(?:[0-9一二三四五六七八九十]+\s*至\s*[0-9一二三四五六七八九十]+\s*(?:個月|小時|年|月|日|天|次|人|名|倍))|(?:(?:\d[\d,]*(?:\.\d+)?|[一二三四五六七八九十百千兩]+)\s*(?:個月|小時|年|月|日|天|次|人|名|倍|％|%|‰|萬元|億元|萬|億|元))/g;
+var HLL_K=/得連續處罰|按次連續處罰|按次處罰|應令其限期改正|得令其限期改善|令其限期改善|經制止而不遵從|屆期未改正|屆期不改善|屆期仍不|勒令停業|停止營業|應廢止|得廢止|視為|無效|不得規避、妨礙或拒絕/g;
+function hlLaw(t){
+  var x=esc(t);
+  x=x.replace(HLL_N,function(m){return '\u0001'+m+'\u0002'});
+  x=x.replace(HLL_K,function(m){return '\u0003'+m+'\u0004'});
+  return x.replace(/\u0001([^\u0002]*)\u0002/g,'<mark class="hi">$1</mark>')
+          .replace(/\u0003([^\u0004]*)\u0004/g,'<mark class="hi2">$1</mark>');
+}
 function hl(t,keys){
   var x=esc(t);
   x=x.replace(HL_N,function(m){return '\u0001'+m+'\u0002'});
@@ -449,11 +460,12 @@ function showAfter(q,picked){
   var v=document.getElementById('verdict');
   v.className='verdict '+(ok?'y':'n');
   v.textContent=isOos(q)?'這題的法源已刪除，不會再考（不計入正確率）':(free?'這題一律給分（不計入正確率）':(ok?'答對了':'答錯了　正解：'+acc.join(' 或 ')));
-  var db='';
-  if(isOos(q)) db+='<div class="dis oos"><b>⚠️ 不在現行考試範圍</b><br>'+q.oos+'</div>';
-  if(q.dis) db+='<div class="dis"><b>'+(q.dis.kind==='free'?'考選部一律給分':(q.dis.kind==='dual'?'爭議題：官方答案與條文衝突，兩解皆判對':'爭議題：維持官方答案'))+
+  /* 變數名不可用 db——全域有個 db() 取作答紀錄，同名會被遮蔽 */
+  var dbh='';
+  if(isOos(q)) dbh+='<div class="dis oos"><b>⚠️ 不在現行考試範圍</b><br>'+q.oos+'</div>';
+  if(q.dis) dbh+='<div class="dis"><b>'+(q.dis.kind==='free'?'考選部一律給分':(q.dis.kind==='dual'?'爭議題：官方答案與條文衝突，兩解皆判對':'爭議題：維持官方答案'))+
     '</b><br>'+rich(q.dis.why)+'</div>';
-  document.getElementById('disBox').innerHTML=db;
+  document.getElementById('disBox').innerHTML=dbh;
   var eh='';
   q.exp.forEach(function(t,i){
     var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
@@ -466,7 +478,7 @@ function showAfter(q,picked){
     var lh='';
     q.law.forEach(function(k){var L=LAW[k];if(!L)return;
       lh+='<h5>'+esc(k)+(L.t?'　'+esc(L.t):'')+(L.v?'':' <span class="nv">（要點整理，非逐字）</span>')+'</h5>'+
-          L.x.split('\n').map(function(p){return '<p>'+hl(p,1)+'</p>'}).join('')});
+          L.x.split('\n').map(function(p){return '<p>'+hlLaw(p)+'</p>'}).join('')});
     lb.innerHTML='<details class="law"><summary>本題相關法條（'+q.law.length+' 條）</summary><div class="lawb">'+lh+
       (q.ref?'<p class="nv" style="margin-top:7px">出處：'+esc(q.ref)+'</p>':'')+'</div></details>';
   } else lb.innerHTML=q.ref?'<details class="law"><summary>本題出處</summary><div class="lawb"><p class="nv">'+esc(q.ref)+'</p></div></details>':'';
