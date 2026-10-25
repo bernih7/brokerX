@@ -57,6 +57,8 @@ button{font:inherit;cursor:pointer}
 .ex .L{flex:none;font-weight:700;width:1.6em}
 .ex.ok{background:var(--ok-soft)}.ex.ok .L{color:var(--ok)}
 .ex.ng .L{color:var(--bad)}
+.srcmk{font-size:.7rem;font-weight:700;background:var(--acc-soft);color:var(--acc-ink);border:1px dashed var(--acc);border-radius:5px;padding:0 6px}
+.btn.on{background:var(--pri);color:#fff;border-color:var(--pri)}
 .ex .me{font-size:.7rem;background:var(--acc-soft);color:var(--acc-ink);border-radius:4px;padding:0 5px;margin-left:5px;white-space:nowrap}
 details.law,details.mem{margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 details.law>summary,details.mem>summary{padding:7px 11px;font-size:.84rem;font-weight:700;cursor:pointer;color:var(--pri)}
@@ -88,7 +90,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 [hidden]{display:none!important}
  mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style></head><body>
 <header><div class="wrap"><h1>經紀法規｜法條解析練習</h1>
-<div class="sub">99–114 年官方試題 520 題・逐選項解析・本題相關法條・錯誤類型 A/B/C/D</div></div></header>
+<div class="sub">99–114 年官方試題 520 題（＋可選補習班模擬卷 25 題）・逐選項解析・本題相關法條・錯誤類型 A/B/C/D</div></div></header>
 <div class="wrap">
 
 <section id="setup">
@@ -97,6 +99,10 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
     <div class="row" style="margin-bottom:9px">
       <button class="btn" id="selAll">全選</button><button class="btn" id="selNone">全不選</button>
       <button class="btn" id="selWeak">只選錯最多的三章</button>
+    </div>
+    <div class="row" style="margin-bottom:9px;align-items:center">
+      <button class="btn" id="mkToggle">加入補習班模擬卷 25 題</button>
+      <span class="nv" id="mkHint"></span>
     </div>
     <div id="cats"></div>
   </div>
@@ -129,6 +135,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
       <button class="btn" data-tag="C">只練 C 不熟</button><button class="btn" data-tag="A">只練 A 法條混淆</button>
       <button class="btn" data-tag="D">只練 D 猜的</button><button class="btn" data-tag="B">只練 B 粗心</button>
       <button class="btn" id="clrWrong">清空</button>
+      <button class="btn" id="onlyMock">只練補習班模擬卷 25 題</button>
     </div>
   </div>
 
@@ -170,7 +177,8 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
     <div class="h2">本輪結果</div>
     <div class="score" id="score"></div>
     <div class="kv" id="kv"></div>
-    <div id="tagStat"></div>
+    <div id="srcStat"></div>
+<div id="tagStat"></div>
     <div class="row" style="margin-top:10px">
       <button class="btn pri" id="again">再練一輪</button>
       <button class="btn" id="roundWrong">練本輪錯題</button>
@@ -198,7 +206,7 @@ var CAT={A:'A 不動產經紀業管理條例',C:'C 不動產說明書',D:'D 定�
 var KN={A:'A 法條混淆',B:'B 粗心',C:'C 真的不熟',D:'D 猜的'};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-function qid(q){return q.ch+'-'+q.y+'-'+q.n}
+function qid(q){return q.ch+'-'+q.y+'-'+q.n}  /* 模擬題 y=0，id 與官方不會相撞 */
 function db(){return ld('bxj-q2',{})}
 /* 作答寫入：優先用 bxj-use.js 的 BXREP，格式才會與題庫 12 頁一致 */
 function rec(q,chosen,ok){
@@ -226,24 +234,31 @@ function hl(t,keys){
 /* 爭議題：可接受答案 */
 function accept(q){return q.dis?q.dis.acc:[q.ans]}
 function isFree(q){return !!(q.sp||(q.dis&&q.dis.kind==='free'))}
+/* 題源：官方歷屆（無 sr）vs 補習班模擬卷（sr==='mock'）。正確率分開算，智慧配題權重只用官方。 */
+function isMock(q){return q.sr==='mock'}
+var OFF=Q.filter(function(q){return !isMock(q)}), MK=Q.filter(isMock);
 
 /* ---------- 狀態 ---------- */
 var sel=new Set(Object.keys(CT)), ord=ld('bxj-ord','new'), num=30, useTm=false;
+var useMock=ld('bxj-mock',0)?1:0;
 var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch';
 var WCLR=ld('bxj-wclr',0);
 
 /* ---------- 選章 ---------- */
-function chStat(c){var DB=db(),tot=0,a=0,ok=0,w=0;
-  Q.forEach(function(q){if(q.ch!==c)return;tot++;var r=DB[qid(q)];if(r&&r.n){a++;if(r.ok)ok++;else w++}});
+function stOf(list,c){var DB=db(),tot=0,a=0,ok=0,w=0;
+  list.forEach(function(q){if(c&&q.ch!==c)return;tot++;var r=DB[qid(q)];if(r&&r.n){a++;if(r.ok)ok++;else w++}});
   return {tot:tot,a:a,ok:ok,w:w};}
+function chStat(c){return stOf(OFF,c)}      /* 官方 */
+function chStatM(c){return stOf(MK,c)}      /* 補習班 */
 function renderCats(){
   var box=document.getElementById('cats'),h='';
   Object.keys(CAT).forEach(function(g){
     var chs=Object.keys(CT).filter(function(c){return c[0]===g});
     if(!chs.length)return;
-    var n=chs.reduce(function(s,c){return s+Q.filter(function(q){return q.ch===c}).length},0);
+    var n=chs.reduce(function(s,c){return s+OFF.filter(function(q){return q.ch===c}).length},0);
+    var nm=chs.reduce(function(s,c){return s+MK.filter(function(q){return q.ch===c}).length},0);
     h+='<div class="cat" style="border-left-color:var(--c'+g+');background:var(--c'+g+'s)">'+
-       '<h3><span style="color:var(--c'+g+')">'+esc(CAT[g])+'</span><small>'+n+' 題</small></h3><div class="chs">';
+       '<h3><span style="color:var(--c'+g+')">'+esc(CAT[g])+'</span><small>'+n+' 題'+(useMock&&nm?'＋模擬 '+nm:'')+'</small></h3><div class="chs">';
     chs.forEach(function(c){
       var s=chStat(c),pct=s.tot?Math.round(s.a/s.tot*100):0;
       h+='<label class="ch'+(sel.has(c)?' sel':'')+'" data-ch="'+c+'">'+
@@ -256,12 +271,21 @@ function renderCats(){
   box.innerHTML=h;
   document.getElementById('selCnt').textContent='已選 '+sel.size+' 章／共 '+poolOf().length+' 題';
 }
-function poolOf(){return Q.filter(function(q){return sel.has(q.ch)})}
+function poolOf(){return Q.filter(function(q){return sel.has(q.ch)&&(useMock||!isMock(q))})}
 document.getElementById('cats').addEventListener('click',function(e){
   var l=e.target.closest('.ch');if(!l)return;
   var c=l.dataset.ch; if(sel.has(c))sel.delete(c);else sel.add(c);
   setTimeout(renderCats,0);
 });
+function renderMk(){
+  var b=document.getElementById('mkToggle');
+  b.classList.toggle('on',!!useMock);
+  b.textContent=useMock?'已加入補習班模擬卷 25 題（點此移除）':'加入補習班模擬卷 25 題';
+  document.getElementById('mkHint').textContent=useMock
+    ?'曾榮耀模擬試題一；正確率與各章總覽分開算，智慧配題的章節權重仍只看官方 520 題。'
+    :'預設只練官方歷屆 520 題。';
+}
+document.getElementById('mkToggle').onclick=function(){useMock=useMock?0:1;sv('bxj-mock',useMock);renderMk();renderCats();renderOv()};
 document.getElementById('selAll').onclick=function(){sel=new Set(Object.keys(CT));renderCats()};
 document.getElementById('selNone').onclick=function(){sel=new Set();renderCats()};
 document.getElementById('selWeak').onclick=function(){
@@ -294,6 +318,11 @@ document.getElementById('start').onclick=function(){var l=poolOf();if(!l.length)
 document.getElementById('goWrong').onclick=function(){var w=wrongList();if(!w.length){alert('目前沒有錯題');return}start(w,'wrong')};
 [].forEach.call(document.querySelectorAll('[data-tag]'),function(b){
   b.onclick=function(){var w=wrongList(b.dataset.tag);if(!w.length)return;start(w,'tag')}});
+document.getElementById('onlyMock').onclick=function(){
+  if(!MK.length){alert('沒有模擬卷題目');return}
+  if(!useMock){useMock=1;sv('bxj-mock',1);renderMk();renderCats()}
+  start(MK.slice(),'ch');
+};
 document.getElementById('clrWrong').onclick=function(){
   if(!confirm('清空錯題本？（只記一個時間戳，不會刪掉作答紀錄）'))return;
   WCLR=Math.floor(Date.now()/1000);sv('bxj-wclr',WCLR);renderWrong();renderOv()};
@@ -305,6 +334,9 @@ function renderOv(){
     h+='<tr><td><span class="tag" style="background:var(--c'+c[0]+'s);color:var(--c'+c[0]+')">'+c+'</span> '+
        esc(CT[c].replace(/^\S+\s/,''))+'</td><td>'+s.tot+'</td><td>'+s.a+'</td><td>'+s.ok+'</td><td>'+s.w+'</td><td>'+
        (s.a?Math.round(s.ok/s.a*100)+'%':'—')+'</td></tr>'});
+    var so=stOf(OFF,''),sm=stOf(MK,'');
+  h+='<tr style="border-top:2px solid var(--line)"><td><b>官方歷屆合計</b></td><td>'+so.tot+'</td><td>'+so.a+'</td><td>'+so.ok+'</td><td>'+so.w+'</td><td>'+(so.a?Math.round(so.ok/so.a*100)+'%':'—')+'</td></tr>';
+  h+='<tr><td><b>補習班模擬卷合計</b></td><td>'+sm.tot+'</td><td>'+sm.a+'</td><td>'+sm.ok+'</td><td>'+sm.w+'</td><td>'+(sm.a?Math.round(sm.ok/sm.a*100)+'%':'—')+'</td></tr>';
   document.getElementById('ovTbl').innerHTML=h;
 }
 var MODN={ch:'整章練習',wrong:'練累積錯題',tag:'依錯誤類型',round:'練本輪錯題',deep:'指定題目'};
@@ -336,14 +368,19 @@ var PRI={C:0,A:1,D:2,B:3,'':4};
 function smartPick(list,want){
   var DB=db(),byCh={};
   list.forEach(function(q){(byCh[q.ch]=byCh[q.ch]||[]).push(q)});
+  /* 權重只用官方題數：補習班題可被抽到，但不改變各章配額 */
+  var wCh={},wTot=0;
+  list.forEach(function(q){if(isMock(q))return;wCh[q.ch]=(wCh[q.ch]||0)+1;wTot++});
   var chs=Object.keys(byCh),tot=list.length,out=[];
   chs.forEach(function(c){
-    var quota=Math.max(1,Math.round(want*byCh[c].length/tot));
+    var base=wTot?(wCh[c]||0)/wTot:byCh[c].length/tot;
+    var quota=Math.max(1,Math.round(want*base));
     var arr=byCh[c].slice().map(function(q){
       var r=DB[qid(q)]||{};
       var rank = (r.n&&!r.ok)?PRI[r.k||''] : (!r.n?5:6);
       return {q:q,rank:rank,t:r.t||0}});
-    arr.sort(function(a,b){return a.rank-b.rank || a.t-b.t});
+    arr.forEach(function(x){x.r=Math.random()});
+    arr.sort(function(a,b){return a.rank-b.rank || a.t-b.t || a.r-b.r});
     out=out.concat(arr.slice(0,quota).map(function(x){return x.q}));
   });
   return out.slice(0,want);
@@ -353,7 +390,8 @@ function order(list){
   if(ord==='rand'){for(var i=a.length-1;i>0;i--){var j=Math.random()*(i+1)|0;var t=a[i];a[i]=a[j];a[j]=t}}
   else if(ord==='ch'){a.sort(function(x,y){return x.ch<y.ch?-1:x.ch>y.ch?1:(x.y-y.y||x.n-y.n)})}
   else if(ord==='smart'){return smartPick(a,num||30)}
-  else {a.sort(function(x,y){return y.y-x.y||x.n-y.n})}
+  else {/* 官方依年份新→舊；補習班模擬卷排最後，避免 25 題洗掉整輪 */
+       a.sort(function(x,y){return (isMock(x)?1:0)-(isMock(y)?1:0)||y.y-x.y||x.n-y.n})}
   return num?a.slice(0,num):a;
 }
 /* ---------- 流程 ---------- */
@@ -378,7 +416,8 @@ function render(){
   var q=pool[idx];
   document.getElementById('prog').textContent='第 '+(idx+1)+' / '+pool.length+' 題';
   document.getElementById('meta').innerHTML='<span class="tag" style="background:var(--c'+q.ch[0]+'s);color:var(--c'+q.ch[0]+')">'+q.ch+'</span>'+
-    '<span>'+q.y+' 年 第 '+q.n+' 題</span>';
+    (isMock(q)?'<span class="srcmk">補習班模擬卷</span><span>曾榮耀模擬試題一 第 '+q.n+' 題</span>'
+             :'<span>'+q.y+' 年 第 '+q.n+' 題</span>');
   document.getElementById('stem').textContent=q.stem;
   var picked=ansMap[q.k];
   var oh='';
@@ -458,6 +497,11 @@ function finish(){
     '<div><b>'+pool.length+'</b><span>出題</span></div><div><b>'+done+'</b><span>已答</span></div>'+
     '<div><b>'+ok+'</b><span>答對</span></div><div><b>'+(graded-ok)+'</b><span>答錯</span></div>'+
     '<div><b>'+(pool.length-graded-(pool.length-done))+'</b><span>給分題</span></div>';
+  var so={g:0,k:0},sm={g:0,k:0};
+  pool.forEach(function(q){var p=ansMap[q.k];if(!p||isFree(q))return;var t=isMock(q)?sm:so;t.g++;if(accept(q).indexOf(p)>=0)t.k++});
+  document.getElementById('srcStat').innerHTML=sm.g?
+    '<p class="hint">分題源：官方歷屆 '+so.k+'／'+so.g+(so.g?'（'+Math.round(so.k/so.g*100)+'%）':'')+
+    '　補習班模擬卷 '+sm.k+'／'+sm.g+(sm.g?'（'+Math.round(sm.k/sm.g*100)+'%）':'')+'</p>':'';
   var DB=db(),c={A:0,B:0,C:0,D:0,'':0};roundWrong.forEach(function(q){c[(DB[qid(q)]||{}).k||'']++});
   document.getElementById('tagStat').innerHTML=roundWrong.length?
     '<p class="hint">本輪錯題類型：'+['A','B','C','D'].map(function(k){return KN[k]+' '+c[k]}).join('　')+'　未標 '+c['']+'</p>':'';
@@ -478,7 +522,7 @@ document.getElementById('back').onclick=function(){
   renderCats();renderWrong();renderOv();renderLog();window.scrollTo(0,0)};
 /* 深連結 #q=100-8,101-16 */
 function deepLink(){
-  var m=/[#&]q=([\d,\-]+)/.exec(location.hash);if(!m)return false;
+  var m=/[#&]q=([\w,\-]+)/.exec(location.hash);if(!m)return false;  /* \w 以容納模擬卷的 mk-N */
   var ks=m[1].split(',').map(function(x){return x.trim()}).filter(Boolean);
   var list=ks.map(function(k){for(var i=0;i<Q.length;i++)if(Q[i].k===k)return Q[i];return null}).filter(Boolean);
   if(!list.length)return false;
@@ -495,7 +539,7 @@ document.getElementById('theme').onclick=function(){
   var nx=dark?'light':'dark';document.documentElement.setAttribute('data-theme',nx);
   try{localStorage.setItem('bx-theme',nx)}catch(e){}};
 try{var th=localStorage.getItem('bx-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
-renderCats();renderOrd();renderNum();renderWrong();renderOv();renderLog();
+renderMk();renderCats();renderOrd();renderNum();renderWrong();renderOv();renderLog();
 deepLink();
 })();
 </script>
