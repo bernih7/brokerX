@@ -40,6 +40,7 @@ var PAGES=[
  ["估價刷題練習_H3I1","刷題 H3I1"],
  ["估價刷題練習_I2J1","刷題 I2J1"],
  ["估價刷題練習_113真題","刷題 113真題"],
+ ["估價解析版練習","解析版練習（跨章）"],
  ["估價互動單字卡","互動單字卡"],
  ["估價_定義填空練習","定義填空練習"],
  ["估價_考題小卡","考題小卡"],
@@ -296,6 +297,8 @@ function status(){
  var R1=[];["A1","A2","A3","A4","B","C1","C2","D1","D2","D3","E1","F1","G1","H1H2","H3I1","I2J1","113"].forEach(function(c){var a=ld("bxv-st:"+ANS[c]+"_answers",null)||ld(ANS[c]+"_answers",{})||{},ks=Object.keys(a),d=Math.min(ks.length,CH[c][2]),ok=0,known=0;
   ks.forEach(function(k){var v=a[k];if(v&&typeof v==="object"&&"correct" in v){known++;if(v.correct)ok++}});
   R1.push(row("估價刷題練習_"+CH[c][0],"刷題 "+CH[c][1],d,CH[c][2],"已作答 "+d+"／"+CH[c][2]+(known?"・正確率 "+pc(ok,known)+"%・錯 "+(known-ok):"")))});
+ var AT=ld("bxv-anal-time",[]);
+ R1.unshift(row("估價解析版練習","解析版練習（跨章節・智慧配題・計時）",0,0,AT.length?"已計時練習 "+AT.length+" 輪（近 10 輪）・最近一輪 "+Math.round(AT[0].s/60*10)/10+" 分、每題約 "+Math.round(AT[0].s/Math.max(1,AT[0].n))+" 秒":"尚未練習（作答自動寫入下方各章進度）",AT.length?Math.floor(AT[0].d/1000):0));
  G.push({g:"刷題（作答後自動記錄）",rows:R1});
  /* 模擬卷 */
  var R2=[],hs=ld("v_hs1_answers",{}),hn=Math.min(Object.keys(hs).length,TOT.v_hs1);
