@@ -68,6 +68,9 @@ details.law>summary,details.mem>summary{padding:7px 11px;font-size:.84rem;font-w
 .nv{font-size:.72rem;color:var(--sub)}
 .dis{background:var(--warn);border:1px solid var(--acc);border-radius:10px;padding:8px 11px;font-size:.84rem;line-height:1.65;margin-top:8px}
 .dis b{color:var(--acc-ink)}
+.dis.oos{background:var(--bad-soft);border-color:var(--bad)}
+.srcoos{background:var(--bad);color:#fff;border-radius:99px;padding:1px 8px;font-size:.72rem;font-weight:700}
+.dis.oos b{color:var(--bad)}
 .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
 .tagrow .lb{font-size:.76rem;color:var(--sub)}
 .tg{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 10px;font-size:.78rem}
@@ -90,7 +93,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 [hidden]{display:none!important}
  mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style></head><body>
 <header><div class="wrap"><h1>經紀法規｜法條解析練習</h1>
-<div class="sub">99–114 年官方試題 520 題（＋可選補習班模擬卷 25 題）・逐選項解析・本題相關法條・錯誤類型 A/B/C/D</div></div></header>
+<div class="sub">99–114 年官方試題 518 題（另 2 題法源已廢止，不列入）・可選補習班模擬卷 25 題・逐選項解析・本題相關法條・錯誤類型 A/B/C/D</div></div></header>
 <div class="wrap">
 
 <section id="setup">
@@ -156,7 +159,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
   <div class="card">
     <div class="qtop"><span id="prog"></span><span class="tm" id="tmDisp" hidden></span></div>
     <div id="meta" class="qtop" style="margin-bottom:2px"></div>
-    <div class="stem" id="stem"></div>
+    <div id="oosTop"></div><div class="stem" id="stem"></div>
     <div id="opts"></div>
     <div id="after" hidden>
       <div class="verdict" id="verdict"></div>
@@ -233,10 +236,12 @@ function hl(t,keys){
 }
 /* 爭議題：可接受答案 */
 function accept(q){return q.dis?q.dis.acc:[q.ans]}
-function isFree(q){return !!(q.sp||(q.dis&&q.dis.kind==='free'))}
+function isFree(q){return !!(q.sp||isOos(q)||(q.dis&&q.dis.kind==='free'))}
 /* 題源：官方歷屆（無 sr）vs 補習班模擬卷（sr==='mock'）。正確率分開算，智慧配題權重只用官方。 */
 function isMock(q){return q.sr==='mock'}
-var OFF=Q.filter(function(q){return !isMock(q)}), MK=Q.filter(isMock);
+/* 法源已廢止或移出本科考試範圍：預設不進出題池、不計正確率，只有深連結進得來 */
+function isOos(q){return !!q.oos}
+var OFF=Q.filter(function(q){return !isMock(q)&&!isOos(q)}), MK=Q.filter(isMock);
 
 /* ---------- 狀態 ---------- */
 var sel=new Set(Object.keys(CT)), ord=ld('bxj-ord','new'), num=30, useTm=false;
@@ -271,7 +276,7 @@ function renderCats(){
   box.innerHTML=h;
   document.getElementById('selCnt').textContent='已選 '+sel.size+' 章／共 '+poolOf().length+' 題';
 }
-function poolOf(){return Q.filter(function(q){return sel.has(q.ch)&&(useMock||!isMock(q))})}
+function poolOf(){return Q.filter(function(q){return sel.has(q.ch)&&!isOos(q)&&(useMock||!isMock(q))})}
 document.getElementById('cats').addEventListener('click',function(e){
   var l=e.target.closest('.ch');if(!l)return;
   var c=l.dataset.ch; if(sel.has(c))sel.delete(c);else sel.add(c);
@@ -417,7 +422,11 @@ function render(){
   document.getElementById('prog').textContent='第 '+(idx+1)+' / '+pool.length+' 題';
   document.getElementById('meta').innerHTML='<span class="tag" style="background:var(--c'+q.ch[0]+'s);color:var(--c'+q.ch[0]+')">'+q.ch+'</span>'+
     (isMock(q)?'<span class="srcmk">補習班模擬卷</span><span>曾榮耀模擬試題一 第 '+q.n+' 題</span>'
-             :'<span>'+q.y+' 年 第 '+q.n+' 題</span>');
+             :'<span>'+q.y+' 年 第 '+q.n+' 題</span>')+
+    (isOos(q)?'<span class="srcoos">已不考</span>':'');
+  /* 法源已廢止的題：一進來就警告，不要等作答完才說 */
+  document.getElementById('oosTop').innerHTML=isOos(q)
+    ?'<div class="dis oos"><b>⚠️ 這題已經不會再考</b><br>'+q.oos+'</div>':'';
   document.getElementById('stem').textContent=q.stem;
   var picked=ansMap[q.k];
   var oh='';
@@ -439,10 +448,12 @@ function showAfter(q,picked){
   var acc=accept(q),ok=acc.indexOf(picked)>=0,free=isFree(q);
   var v=document.getElementById('verdict');
   v.className='verdict '+(ok?'y':'n');
-  v.textContent=free?('這題一律給分（不計入正確率）'):(ok?'答對了':'答錯了　正解：'+acc.join(' 或 '));
-  document.getElementById('disBox').innerHTML=q.dis?
-    '<div class="dis"><b>'+(q.dis.kind==='free'?'考選部一律給分':(q.dis.kind==='dual'?'爭議題：官方答案與條文衝突，兩解皆判對':'爭議題：維持官方答案'))+
-    '</b><br>'+rich(q.dis.why)+'</div>':'';
+  v.textContent=isOos(q)?'這題的法源已刪除，不會再考（不計入正確率）':(free?'這題一律給分（不計入正確率）':(ok?'答對了':'答錯了　正解：'+acc.join(' 或 ')));
+  var db='';
+  if(isOos(q)) db+='<div class="dis oos"><b>⚠️ 不在現行考試範圍</b><br>'+q.oos+'</div>';
+  if(q.dis) db+='<div class="dis"><b>'+(q.dis.kind==='free'?'考選部一律給分':(q.dis.kind==='dual'?'爭議題：官方答案與條文衝突，兩解皆判對':'爭議題：維持官方答案'))+
+    '</b><br>'+rich(q.dis.why)+'</div>';
+  document.getElementById('disBox').innerHTML=db;
   var eh='';
   q.exp.forEach(function(t,i){
     var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
