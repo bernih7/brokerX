@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>估價備考指揮中心</title>
+<title>日拱一築・估價</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -46,28 +46,39 @@ body{
 h1,h2,h3{font-family:"Noto Serif TC",serif;}
 
 /* ── Header ── */
+/* ── 頁首：一條色帶＋小貓腳印（v524；顏色跟著 bxv-hit-pal 的色卡走） ── */
 header{
-  background:linear-gradient(135deg,var(--primary),#3A5038);
-  color:#fff; padding:28px 20px 22px; text-align:center; position:relative; overflow:hidden;
+  background:var(--cp-accent); color:var(--cp-accent-t);
+  padding:19px 18px 17px; position:relative; overflow:hidden; text-align:left;
 }
 header::after{
-  content:""; position:absolute; inset:0;
-  background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px);
+  content:"🐾"; position:absolute; right:10px; bottom:-18px;
+  font-size:5.6rem; line-height:1; opacity:.15; pointer-events:none;
 }
-header h1{font-size:1.5rem;margin:0 0 6px;font-weight:900;position:relative;}
-header .sub{font-size:.88rem;opacity:.85;position:relative;}
+header .hdtop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;position:relative;z-index:1;padding-right:76px}
+header h1{font-size:1.38rem;margin:0;font-weight:900;letter-spacing:.04em;}
+header .sub{font-size:.78rem;opacity:.92;margin-top:4px;position:relative;z-index:1;padding-right:76px}
 #countdown{
-  margin-top:14px;display:inline-block;background:rgba(0,0,0,.22);
-  padding:9px 22px;border-radius:30px;font-size:.95rem;font-weight:700;
-  position:relative;border:1px solid rgba(255,255,255,.2);
+  margin-left:auto;font-size:.82rem;font-weight:700;white-space:nowrap;opacity:.95;
 }
-#countdown b{font-size:1.35rem;color:#C8F0D8;}
+#countdown b{font-size:1.24rem;font-variant-numeric:tabular-nums;}
+#examBar{height:7px;border-radius:4px;background:rgba(255,255,255,.24);
+  margin-top:13px;overflow:hidden;position:relative;z-index:1;max-width:660px}
+[data-theme="dark"] #examBar{background:rgba(0,0,0,.26)}
+#examBar i{display:block;height:100%;border-radius:4px;background:var(--cp-accent-t)}
+#examLab{display:flex;justify-content:space-between;font-size:.68rem;opacity:.78;
+  margin-top:5px;position:relative;z-index:1;max-width:660px}
+@media(max-width:430px){
+  header h1{font-size:1.2rem}
+  header .hdtop,header .sub{padding-right:64px}
+  #countdown{margin-left:0;width:100%}
+}
 
 /* theme toggle */
 .theme-btn{
   position:absolute;top:14px;right:14px;z-index:5;
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
-  color:#fff;border-radius:20px;padding:5px 12px;font-size:.78rem;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);
+  color:var(--cp-accent-t);border-radius:20px;padding:5px 12px;font-size:.78rem;
   cursor:pointer;transition:background .15s;
 }
 .theme-btn:hover{background:rgba(255,255,255,.25);}
@@ -107,41 +118,41 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 /* ── Sec title ── */
 /* ── 日拱一築（v520，取代 v500 舊版掌握度面板）──
    全部 scope 在 #hitPanel 內；五組貓系色卡由 [data-pal] 切換，存 bxv-hit-pal ── */
-#hitPanel, #hitPanel[data-pal="p1"]{   /* Forest Paws */
+body, body[data-pal="p1"]{   /* Forest Paws */
   --cp-got:#4E5F4A; --cp-got-t:#ECD9B9; --cp-pick:#8FA083; --cp-pick-t:#28331F;
   --cp-unk:#ECD9B9; --cp-unk-t:#4E5F4A; --cp-accent:#4E5F4A; --cp-accent-t:#ECD9B9;
   --cp-card:#FFFDF7; --cp-milk:#F6F1E4; --cp-line:#DCD3C0;
   --cp-ink:#2F3A2C; --cp-soft:#6E7A68; --cp-track:#E6DECB;
 }
-#hitPanel[data-pal="p2"]{   /* Orange Cat */
+body[data-pal="p2"]{   /* Orange Cat */
   --cp-got:#4A3028; --cp-got-t:#FFF1D0; --cp-pick:#F28C28; --cp-pick-t:#4A3028;
   --cp-unk:#FFF1D0; --cp-unk-t:#4A3028; --cp-accent:#F28C28; --cp-accent-t:#4A3028;
   --cp-card:#FFFBF2; --cp-milk:#FFF1D0; --cp-line:#E7D8BC;
   --cp-ink:#3A2720; --cp-soft:#8A6F5E; --cp-track:#F3E4C9;
 }
-#hitPanel[data-pal="p3"]{   /* Blue-Eyed Kitty */
+body[data-pal="p3"]{   /* Blue-Eyed Kitty */
   --cp-got:#4B5D6B; --cp-got-t:#E8EFF7; --cp-pick:#7F8FA6; --cp-pick-t:#1F2A33;
   --cp-unk:#C7D3E3; --cp-unk-t:#3A4753; --cp-accent:#4B5D6B; --cp-accent-t:#E8EFF7;
   --cp-card:#FBFCFE; --cp-milk:#EEF3F9; --cp-line:#CFDAE7;
   --cp-ink:#273039; --cp-soft:#6B7A8A; --cp-track:#DEE6F0;
 }
-#hitPanel[data-pal="p4"]{   /* Garfield */
+body[data-pal="p4"]{   /* Garfield */
   --cp-got:#030303; --cp-got-t:#FFFFFF; --cp-pick:#F58220; --cp-pick-t:#1A0C00;
   --cp-unk:#ECECEC; --cp-unk-t:#333333; --cp-accent:#F58220; --cp-accent-t:#1A0C00;
   --cp-card:#FFFFFF; --cp-milk:#F6F6F6; --cp-line:#DCDCDC;
   --cp-ink:#1A1A1A; --cp-soft:#6E6E6E; --cp-track:#ECECEC;
 }
-#hitPanel[data-pal="p5"]{   /* Muzzle Taupe */
+body[data-pal="p5"]{   /* Muzzle Taupe */
   --cp-got:#3A3A3A; --cp-got-t:#EFE8DE; --cp-pick:#A89B8A; --cp-pick-t:#2A251F;
   --cp-unk:#D6C8B6; --cp-unk-t:#4A423A; --cp-accent:#3A3A3A; --cp-accent-t:#EFE8DE;
   --cp-card:#FDFBF7; --cp-milk:#F2ECE3; --cp-line:#DED4C6;
   --cp-ink:#2F2B26; --cp-soft:#7A7167; --cp-track:#E6DCCE;
 }
-[data-theme="dark"] #hitPanel{--cp-card:#242820;--cp-milk:#2B3027;--cp-line:#3A422F;--cp-ink:#E9EFE4;--cp-soft:#9AA693;--cp-track:#343B2D;--cp-accent:#8FA083;--cp-accent-t:#28331F}
-[data-theme="dark"] #hitPanel[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}
-[data-theme="dark"] #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
-[data-theme="dark"] #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
-[data-theme="dark"] #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
+[data-theme="dark"] body{--cp-card:#242820;--cp-milk:#2B3027;--cp-line:#3A422F;--cp-ink:#E9EFE4;--cp-soft:#9AA693;--cp-track:#343B2D;--cp-accent:#8FA083;--cp-accent-t:#1A2214}
+[data-theme="dark"] body[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}
+[data-theme="dark"] body[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#0E141A;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
+[data-theme="dark"] body[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
+[data-theme="dark"] body[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
 
 #hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
   padding:15px 15px 13px;margin-bottom:11px;color:var(--cp-ink)}
@@ -693,9 +704,9 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 <script src="bxv-use.js"></script>
 <style id="dark-fix-hdr">
 /* 深色模式：標題區與「今天做什麼」改深底 */
-[data-theme="dark"] header{background:linear-gradient(135deg,#2C4433,#18221B);color:#E8EDE4}
+[data-theme="dark"] header{background:var(--cp-accent);color:var(--cp-accent-t)}
 [data-theme="dark"] .today-card{background:var(--paper);color:var(--fg);border:1px solid var(--line)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{background:linear-gradient(135deg,#2C4433,#18221B);color:#E8EDE4}:root:not([data-theme="light"]) .today-card{background:var(--paper);color:var(--fg);border:1px solid var(--line)}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{background:var(--cp-accent);color:var(--cp-accent-t)}:root:not([data-theme="light"]) .today-card{background:var(--paper);color:var(--fg);border:1px solid var(--line)}}
 </style>
 <style id="tbl-fix">/* 寬表在手機上自己成為捲動容器，避免整頁橫向溢出 */
 @media(max-width:700px){
@@ -703,12 +714,18 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   .essay-table thead,.law-table thead,.stat-table thead{display:table-header-group}
 }</style></head>
 <body>
+<script>/* 色卡要在第一次繪製就生效，頁首才不會先閃綠色 */
+try{document.body.setAttribute('data-pal',localStorage.getItem('bxv-hit-pal')||'p1')}catch(e){document.body.setAttribute('data-pal','p1')}</script>
 
 <header>
   <button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀ 淺色</button>
-  <h1>📐 不動產估價備考指揮中心</h1>
-  <div class="sub">99–114年 520題選擇題＋32題申論｜依讀書流程編排</div>
-  <div id="countdown">距離考試還有 <b id="days">--</b> 天</div>
+  <div class="hdtop">
+    <h1>日拱一築・估價</h1>
+    <div id="countdown">還有 <b id="days">--</b> 天</div>
+  </div>
+  <div class="sub">不動產估價概要｜99–114年 520 題選擇＋32 題申論，依讀書流程編排</div>
+  <div id="examBar"><i style="width:0%"></i></div>
+  <div id="examLab"><span>考前 100 天</span><span id="examRight">—</span></div>
 </header>
 
 
@@ -1353,7 +1370,13 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 // ── 倒數 ──
 (function(){
   var exam=new Date('2026-11-14T09:00:00+08:00');
-  function upd(){var d=Math.ceil((exam-new Date())/86400000);var el=document.getElementById('days');if(el)el.textContent=d>0?d:'已考試';}
+  function upd(){
+    var d=Math.ceil((exam-new Date())/86400000);
+    var el=document.getElementById('days'); if(el)el.textContent=d>0?d:'已考試';
+    var bar=document.querySelector('#examBar i'), lab=document.getElementById('examRight');
+    if(bar){var pct=d>=100?0:(d<=0?100:Math.round((100-d)/100*100));bar.style.width=pct+'%';}
+    if(lab)lab.textContent=d>100?('考前 100 天開始倒數'):(d>0?('還有 '+d+' 天'):'考試日');
+  }
   upd();setInterval(upd,60000);
 })();
 
@@ -1683,7 +1706,7 @@ function hitPal(){try{return localStorage.getItem('bxv-hit-pal')||'p1'}catch(e){
 function hitBuild(){
   var box=document.getElementById('hitPanel'); if(!box) return;
   var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
-  box.setAttribute('data-pal',hitPal());
+  document.body.setAttribute('data-pal',hitPal());
   var raw={}; try{raw=JSON.parse(localStorage.getItem('bxv-q2')||'{}');}catch(e){}
   var by={};
   Object.keys(raw||{}).forEach(function(id){
@@ -1808,7 +1831,7 @@ document.addEventListener('click',function(e){
   var pb=e.target.closest('.palrow [data-hpal]');
   if(pb){
     try{localStorage.setItem('bxv-hit-pal',pb.getAttribute('data-hpal'))}catch(err){}
-    box.setAttribute('data-pal',pb.getAttribute('data-hpal'));
+    document.body.setAttribute('data-pal',pb.getAttribute('data-hpal'));
     box.querySelectorAll('.palrow [data-hpal]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-hpal')===pb.getAttribute('data-hpal'))});
     var nmEl=document.getElementById('hitPalName');
     if(nmEl){var f=HIT_PALS.filter(function(x){return x[0]===pb.getAttribute('data-hpal')})[0]; if(f) nmEl.textContent=f[1];}
