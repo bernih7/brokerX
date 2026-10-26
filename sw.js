@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v521';
+const CACHE = 'brokerx-v522';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -26,7 +26,7 @@ const FILES = [
   '/估價_四大方法比較表.html',
   '/估價_定義填空練習.html',
   '/估價_易混淆概念並排.html',
-  '/估價_程序流程記憶圖.html',
+  '/估價_估價程序總整理.html',
   '/估價_考題小卡.html',
   '/估價_計算題攻略.html',
   '/估價_計算題組.html',
@@ -55,7 +55,6 @@ const FILES = [
   '/估價刷題練習_113真題.html',
   '/估價四大方法系統攻略.html',
   '/估價彩色重點速記.html',
-  '/估價_八大程序速覽表.html',
   '/估價_易混淆概念補充卷.html',
   '/土地法_互動單字卡.html',
   '/土地法_備考指揮中心.html',

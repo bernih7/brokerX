@@ -1,0 +1,497 @@
+<meta charset="utf-8">
+<title>估價程序總整理</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<style>
+/* ══ 基礎色票（站台共用） ══ */
+:root{
+  --bg:#F5F1E6;--paper:#FFFEFA;--paper2:#F0EDE0;
+  --fg:#25302C;--muted:#7A8C84;--line:#DDD6C3;--shadow:rgba(37,48,44,.09);
+  /* 語意色：五組色卡都不動，因為考試重點靠它分辨 */
+  --hi-red:#B83A28;      /* 關鍵詞／陷阱 */
+  --hi-red-bg:rgba(184,58,40,.11);
+  --hi-gold-bg:rgba(240,185,60,.34);   /* 黃底半階：數字・期限・門檻 */
+  --hi-grn:#2A6B32;--hi-grn-bg:rgba(42,107,50,.13); /* 口訣 */
+  --hi-brn:#7A4A1E;      /* 條號 */
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#181C19;--paper:#1E2420;--paper2:#242A26;
+  --fg:#E8EFE6;--muted:#8FA096;--line:#2E3830;--shadow:rgba(0,0,0,.3);
+  --hi-red:#E8776A;--hi-red-bg:rgba(232,119,106,.16);
+  --hi-gold-bg:rgba(240,185,60,.26);
+  --hi-grn:#6FBF80;--hi-grn-bg:rgba(111,191,128,.17);
+  --hi-brn:#D6A66A;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#181C19;--paper:#1E2420;--paper2:#242A26;
+  --fg:#E8EFE6;--muted:#8FA096;--line:#2E3830;--shadow:rgba(0,0,0,.3);
+  --hi-red:#E8776A;--hi-red-bg:rgba(232,119,106,.16);
+  --hi-gold-bg:rgba(240,185,60,.26);
+  --hi-grn:#6FBF80;--hi-grn-bg:rgba(111,191,128,.17);
+  --hi-brn:#D6A66A;
+  color-scheme:dark;
+}
+
+/* ══ 五組貓系色卡（只管版面氣氛，語意色不受影響） ══ */
+body,body[data-pal="p1"]{--pa:#4E5F4A;--pb:#8FA083;--pc:#ECD9B9;--pa-t:#ECD9B9;--pc-t:#4E5F4A}
+body[data-pal="p2"]{--pa:#4A3028;--pb:#F28C28;--pc:#FFF1D0;--pa-t:#FFF1D0;--pc-t:#4A3028}
+body[data-pal="p3"]{--pa:#4B5D6B;--pb:#7F8FA6;--pc:#C7D3E3;--pa-t:#EDF3FA;--pc-t:#2A363F}
+body[data-pal="p4"]{--pa:#030303;--pb:#F58220;--pc:#ECECEC;--pa-t:#FFFFFF;--pc-t:#1A1A1A}
+body[data-pal="p5"]{--pa:#3A3A3A;--pb:#A89B8A;--pc:#D6C8B6;--pa-t:#EFE8DE;--pc-t:#332E29}
+[data-theme="dark"] body,[data-theme="dark"] body[data-pal="p1"]{--pa:#8FA083;--pa-t:#1C241A;--pc:#3A4536;--pc-t:#DCE6D4}
+[data-theme="dark"] body[data-pal="p2"]{--pa:#F28C28;--pa-t:#2A1A12;--pc:#4A3028;--pc-t:#FFE6BC}
+[data-theme="dark"] body[data-pal="p3"]{--pa:#7F8FA6;--pa-t:#161D23;--pc:#36424C;--pc-t:#DCE6F2}
+[data-theme="dark"] body[data-pal="p4"]{--pa:#F58220;--pa-t:#1A0C00;--pc:#2E2E2E;--pc-t:#EDEDED}
+[data-theme="dark"] body[data-pal="p5"]{--pa:#A89B8A;--pa-t:#201D19;--pc:#3B3630;--pc-t:#E6DCCE}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:15px;line-height:1.7;padding:0 14px 90px;-webkit-text-size-adjust:100%}
+.wrap{max-width:860px;margin:0 auto}
+
+/* ── 頁首 ── */
+header{padding:18px 0 4px}
+.hrow{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+h1{font-size:1.32rem;margin:0;letter-spacing:.04em;flex:1 1 auto;min-width:0}
+.hsub{font-size:.78rem;color:var(--muted);margin:3px 0 0}
+.hctl{display:flex;gap:6px;align-items:center;flex:none}
+.hctl button,.hctl a{all:unset;cursor:pointer;height:30px;min-width:30px;padding:0 9px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--muted);font-size:.76rem;font-weight:700;
+  display:grid;place-items:center;text-align:center}
+.hctl button.on{background:var(--pa);border-color:var(--pa);color:var(--pa-t)}
+.cnt{min-width:24px;height:26px;border-radius:999px;background:var(--pa);color:var(--pa-t);
+  display:grid;place-items:center;font-size:.74rem;font-weight:800;font-variant-numeric:tabular-nums;padding:0 6px}
+.minirec{display:flex;align-items:center;gap:4px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);padding:2px 5px;height:30px}
+.minirec button{border:0;background:transparent;height:24px;min-width:22px;padding:0}
+
+/* ── 色卡列 ── */
+.palrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0 0;font-size:.76rem;color:var(--muted);
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:9px 11px}
+.palrow[hidden]{display:none!important}
+.palrow button{all:unset;display:flex;align-items:center;padding:3px;border-radius:999px;cursor:pointer;
+  border:2px solid var(--line);background:var(--paper)}
+.palrow button.on{border-color:var(--fg)}
+.palrow button i{display:block;width:17px;height:17px;border-radius:50%;margin-left:-5px;border:1.5px solid var(--paper)}
+.palrow button i:first-child{margin-left:0}
+
+/* ── 口訣總表 ── */
+.spine{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:14px;margin:14px 0 18px;
+  box-shadow:0 1px 3px var(--shadow)}
+.spine .lab{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--pa);margin-bottom:9px}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.chip{background:var(--pc);color:var(--pc-t);border-radius:10px;padding:8px 4px;text-align:center;line-height:1.35;
+  text-decoration:none;display:block}
+.chip b{display:block;font-size:1.22rem;font-weight:900}
+.chip s{display:block;font-size:.64rem;text-decoration:none;opacity:.8;font-variant-numeric:tabular-nums}
+.chip em{display:block;font-size:.66rem;font-style:normal;opacity:.85;margin-top:1px}
+.spine .say{margin:11px 0 0;font-size:.84rem;line-height:1.85}
+.spine .say b{color:var(--hi-red)}
+
+/* ── 步驟卡 ── */
+.step{background:var(--paper);border:1.5px solid var(--line);border-left:6px solid var(--pa);border-radius:12px;
+  padding:13px 14px;margin-bottom:11px;box-shadow:0 1px 3px var(--shadow)}
+.sh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.snum{width:34px;height:34px;border-radius:10px;background:var(--pa);color:var(--pa-t);display:grid;place-items:center;
+  font-size:1.05rem;font-weight:900;flex:none}
+.skey{font-size:1.5rem;font-weight:900;color:var(--pa);line-height:1;flex:none;letter-spacing:.02em}
+.sname{font-weight:800;font-size:1.02rem;flex:1 1 150px;min-width:0}
+.slaw{font-size:.84rem;font-weight:800;color:var(--hi-brn);flex:none}
+.freq{font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px;flex:none;white-space:nowrap}
+.f3{background:var(--hi-red-bg);color:var(--hi-red)}
+.f2{background:var(--hi-gold-bg);color:var(--fg)}
+.f1{background:var(--paper2);color:var(--muted)}
+
+.mn{display:inline-block;background:var(--hi-grn-bg);color:var(--hi-grn);font-weight:800;font-size:.88rem;
+  border-radius:8px;padding:5px 11px;margin:10px 0 0;letter-spacing:.06em}
+.mn small{font-weight:400;font-size:.74rem;letter-spacing:0;opacity:.85}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.it{background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:.82rem;line-height:1.5}
+.it b{color:var(--hi-red)}
+.it .n{color:var(--pa);font-weight:900;margin-right:3px}
+.note{font-size:.8rem;line-height:1.75;margin-top:9px;color:var(--fg)}
+.note b{color:var(--hi-red)}
+.num{background:var(--hi-gold-bg);font-weight:700;border-radius:4px;padding:0 4px}
+.trap{margin-top:9px;background:var(--hi-red-bg);border-radius:8px;padding:8px 11px;font-size:.81rem;line-height:1.75}
+.trap::before{content:"⚠ 考試陷阱　";font-weight:800;color:var(--hi-red)}
+.trap b{color:var(--hi-red)}
+.hit{margin-top:8px;font-size:.78rem;color:var(--muted);line-height:1.6}
+.hit b{color:var(--fg)}
+
+details.ext{margin-top:10px;border:1.5px dashed var(--line);border-radius:10px;background:var(--paper2)}
+details.ext>summary{list-style:none;cursor:pointer;padding:8px 11px;font-size:.8rem;font-weight:700;color:var(--pa)}
+details.ext>summary::-webkit-details-marker{display:none}
+details.ext>summary::after{content:" ▾"}
+details.ext[open]>summary::after{content:" ▴"}
+.exb{padding:0 11px 11px;font-size:.81rem;line-height:1.8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:4px}
+.grid2>div{min-width:0}
+.exb b{color:var(--hi-red)}
+.exb .k{color:var(--hi-brn);font-weight:800}
+.story{border-left:4px solid var(--pa);background:var(--paper);border-radius:0 8px 8px 0;padding:8px 11px;margin-top:8px}
+.story .t{font-weight:800;letter-spacing:.08em;font-size:.95rem}
+.story .t b{color:var(--hi-red)}
+.story .w{font-size:.74rem;color:var(--muted);font-style:italic;margin:1px 0 4px}
+.story .d{font-size:.8rem;line-height:1.85}
+.story .d b{color:var(--hi-red)}
+
+/* ── 一表背完 ── */
+.tblwrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);margin-top:4px}
+table{border-collapse:collapse;width:100%;font-size:.8rem;min-width:520px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{background:var(--pa);color:var(--pa-t);font-size:.76rem;letter-spacing:.04em;position:sticky;top:0}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:900;color:var(--pa);font-size:1.05rem;width:34px;text-align:center}
+td.l{color:var(--hi-brn);font-weight:800;white-space:nowrap}
+td.m{font-weight:800;color:var(--hi-grn);white-space:nowrap}
+.sec{font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--pa);margin:22px 0 9px}
+
+.fab{position:fixed;right:14px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:9}
+.fab a,.fab button{all:unset;cursor:pointer;width:42px;height:42px;border-radius:50%;background:var(--pa);color:var(--pa-t);
+  display:grid;place-items:center;font-size:1.05rem;box-shadow:0 2px 8px var(--shadow)}
+@media(max-width:430px){
+  .chips{grid-template-columns:repeat(4,1fr);gap:5px}
+  .chip b{font-size:1.05rem}
+  .grid2{grid-template-columns:1fr}
+  h1{font-size:1.16rem}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="hrow">
+    <div style="flex:1 1 200px;min-width:0">
+      <h1>估價程序總整理</h1>
+      <p class="hsub">技術規則 §8～§16　｜　八大步驟・口訣・條文・考頻・延伸一頁到底<br>（原「程序流程記憶圖」＋「八大程序速覽表」合併）</p>
+    </div>
+    <div class="hctl">
+      <button id="palBtn" title="換色卡">🎨</button>
+      <button id="themeBtn" onclick="toggleTheme()">深色</button>
+      <div class="minirec">
+        <button onclick="bxvDec()" title="減一">－</button>
+        <div class="cnt" id="bxv-n">0</div>
+        <button onclick="bxvInc()" title="加一">＋</button>
+      </div>
+    </div>
+  </div>
+  <div class="palrow" id="palRow" hidden>色卡：
+    <button data-pal="p1" title="Forest Paws"><i style="background:#4E5F4A"></i><i style="background:#8FA083"></i><i style="background:#ECD9B9"></i></button>
+    <button data-pal="p2" title="Orange Cat"><i style="background:#4A3028"></i><i style="background:#F28C28"></i><i style="background:#FFF1D0"></i></button>
+    <button data-pal="p3" title="Blue-Eyed Kitty"><i style="background:#4B5D6B"></i><i style="background:#7F8FA6"></i><i style="background:#C7D3E3"></i></button>
+    <button data-pal="p4" title="Garfield"><i style="background:#030303"></i><i style="background:#F58220"></i><i style="background:#ECECEC"></i></button>
+    <button data-pal="p5" title="Muzzle Taupe"><i style="background:#3A3A3A"></i><i style="background:#A89B8A"></i><i style="background:#D6C8B6"></i></button>
+    <span id="palName">Forest Paws</span>
+  </div>
+</header>
+
+<!-- ══ 口訣總表 ══ -->
+<div class="spine">
+  <div class="lab">🔑 先背這八個字</div>
+  <div class="chips">
+    <a class="chip" href="#s1"><b>基</b><s>§9</s><em>基本事項</em></a>
+    <a class="chip" href="#s2"><b>計</b><s>§10</s><em>估價計畫</em></a>
+    <a class="chip" href="#s3"><b>蒐</b><s>§11-12</s><em>蒐集資料</em></a>
+    <a class="chip" href="#s4"><b>狀</b><s>§13</s><em>確認狀態</em></a>
+    <a class="chip" href="#s5"><b>整</b><s>§14</s><em>整理分析</em></a>
+    <a class="chip" href="#s6"><b>估</b><s>§14</s><em>運用方法</em></a>
+    <a class="chip" href="#s7"><b>決</b><s>§15</s><em>決定價格</em></a>
+    <a class="chip" href="#s8"><b>書</b><s>§16</s><em>報告書</em></a>
+  </div>
+  <p class="say">唸成兩句四字：<b>基計蒐狀　整估決書</b>。<br>
+  前四字是「<b>開工前的準備</b>」（確定要估什麼→排計畫→找資料→去現場看），後四字是「<b>動手算到交件</b>」（整理資料→套方法→決定一個價→寫報告書）。<br>
+  <span class="num">§8 的順序不可顛倒</span>，考題最愛問「○○是第幾步」「①不含什麼」。</p>
+</div>
+
+<div class="sec">八大步驟 ｜ 口訣・條文・考頻・延伸</div>
+
+<!-- ① -->
+<section class="step" id="s1">
+  <div class="sh"><div class="snum">①</div><div class="skey">基</div>
+    <div class="sname">確定估價基本事項</div><div class="slaw">§9　共4項</div>
+    <span class="freq f3">🔴 高頻</span></div>
+  <div class="mn">口訣：內・日・種・目　<small>（內容→日期→種類→目的）</small></div>
+  <div class="items">
+    <span class="it"><span class="n">1</span>勘估標的<b>內容</b></span>
+    <span class="it"><span class="n">2</span><b>價格日期</b></span>
+    <span class="it"><span class="n">3</span><b>價格種類</b>及條件（估價條件）</span>
+    <span class="it"><span class="n">4</span><b>估價目的</b></span>
+  </div>
+  <div class="trap">不含「<b>估價方法</b>」——方法到步驟⑥才決定。<br>
+  不含「<b>勘察日期</b>」——勘察日期 ≠ 價格日期（兩個日期都要寫，但是寫在 §16 報告書第③項）。</div>
+  <div class="hit">🔴 <b>99、101、103、104、105 年</b>都考過——多考「四項是什麼」「不含什麼」。</div>
+</section>
+
+<!-- ② -->
+<section class="step" id="s2">
+  <div class="sh"><div class="snum">②</div><div class="skey">計</div>
+    <div class="sname">擬定估價計畫</div><div class="slaw">§10　共5項</div>
+    <span class="freq f1">⚪ 低頻</span></div>
+  <div class="mn">口訣：步・時・人・費・表　<small>（步驟→時間→人力→經費→進度表）</small></div>
+  <div class="items">
+    <span class="it"><span class="n">1</span>確定作業<b>步驟</b></span>
+    <span class="it"><span class="n">2</span>預估所需<b>時間</b></span>
+    <span class="it"><span class="n">3</span>預估所需<b>人力</b></span>
+    <span class="it"><span class="n">4</span>預估作業<b>經費</b></span>
+    <span class="it"><span class="n">5</span>擬定作業<b>進度表</b></span>
+  </div>
+  <div class="note">白話：接了案子以後，先想「<b>怎麼做、做多久、幾個人、花多少錢、什麼時候交</b>」——跟任何專案開工前做的事一樣。</div>
+</section>
+
+<!-- ③ -->
+<section class="step" id="s3">
+  <div class="sh"><div class="snum">③</div><div class="skey">蒐</div>
+    <div class="sname">蒐集資料</div><div class="slaw">§11～§12　共3類</div>
+    <span class="freq f1">⚪ 低頻</span></div>
+  <div class="mn">口訣：標・因・比　<small>（標的→因素→比較實例）</small></div>
+  <div class="items">
+    <span class="it">🏷 <b>標</b>＝標的資料：標示・權利・用途・管制</span>
+    <span class="it">📊 <b>因</b>＝因素資料：一般・區域・個別因素</span>
+    <span class="it">🔁 <b>比</b>＝比較實例：交易・收益・成本資料</span>
+  </div>
+  <div class="trap">「<b>比</b>」不是「比較」這個<b>動作</b>，而是在這一步先去<b>蒐集比較實例的交易資料</b>（之後選案要用的那批成交資料）。真正「比」是步驟⑥。</div>
+  <details class="ext"><summary>延伸：§12 比較實例選取 4 原則（選案標準）</summary>
+    <div class="exb">
+      <div class="grid2">
+        <div><b>①</b> 屬<b>正常價格</b>或可調整為正常價格</div>
+        <div><b>②</b> 與勘估標的屬<b>同一供需圈</b>之近鄰地區或類似地區</div>
+        <div><b>③</b> 與勘估標的<b>使用性質或使用管制相近</b></div>
+        <div><b>④</b> <b>價格形成日期</b>與勘估標的<b>價格日期接近</b></div>
+      </div>
+      <div class="note" style="margin-top:7px">選案是在「蒐集階段（§12）」就定好的；到了步驟⑤才做<span class="num">§23／§25／§26</span> 的排除與檢討。考題常把這兩段混在一起問。</div>
+    </div>
+  </details>
+</section>
+
+<!-- ④ -->
+<section class="step" id="s4">
+  <div class="sh"><div class="snum">④</div><div class="skey">狀</div>
+    <div class="sname">確認勘估標的狀態</div><div class="slaw">§13　共4項</div>
+    <span class="freq f2">🟡 有考</span></div>
+  <div class="mn">口訣：權・況・影・記　<small>（權利→現況→影響價格→作成紀錄）</small></div>
+  <div class="items">
+    <span class="it"><span class="n">1</span>基本資料及<b>權利</b>狀態</span>
+    <span class="it"><span class="n">2</span>使用<b>現況</b></span>
+    <span class="it"><span class="n">3</span><b>影響</b>價格之各項資料</span>
+    <span class="it"><span class="n">4</span>作成<b>紀錄</b>＋攝製照片</span>
+  </div>
+  <div class="trap">委託人<b>未配合領勘</b>、無法確認範圍或無法進入室內 → 不是不估，而是<b>於估價報告書敘明</b>。</div>
+  <div class="hit">🟡 <b>103 年</b>——考「委託人未配合領勘之處理方式」。</div>
+</section>
+
+<!-- ⑤ -->
+<section class="step" id="s5">
+  <div class="sh"><div class="snum">⑤</div><div class="skey">整</div>
+    <div class="sname">整理比較分析資料</div><div class="slaw">§8 五、§14</div>
+    <span class="freq f3">🔴 高頻</span></div>
+  <div class="mn">口訣：單 15、總 30、差 20　<small>（§25 單項／§25 合計／§26 差距）</small></div>
+  <div class="items">
+    <span class="it">比較標的整理與篩選</span>
+    <span class="it"><b>§23</b> 須先調整、無法量化則不採用之 13 款</span>
+    <span class="it"><b>§25</b> 單項調整率 <span class="num">&gt;15%</span> 或總調整率 <span class="num">&gt;30%</span> → 排除</span>
+    <span class="it"><b>§26</b> 檢討後差距 <span class="num">≥20%</span> → 應排除</span>
+  </div>
+  <div class="trap"><b>§25 比的是「調整前後」</b>（調整率＝調多少）；<b>§26 比的是「試算價格彼此」</b>（分母是高低兩個價的平均值）。這兩條最容易記反。</div>
+  <details class="ext"><summary>延伸 1：§23 須調整或不採用之 13 款（口訣〔自編〕：急期債親，畸糾拍公，迷設哄符他）</summary>
+    <div class="exb">
+      <div class="grid2">
+        <div>① 急買急賣、急出租急承租</div>
+        <div>② 期待因素影響之交易</div>
+        <div>③ 受債權債務關係影響之交易</div>
+        <div>④ 親友、關係人間之交易</div>
+        <div>⑤ 畸零地或有合併使用之交易</div>
+        <div>⑥ 地上物處理有糾紛之交易</div>
+        <div>⑦ 拍賣</div>
+        <div>⑧ 公有土地標售、讓售</div>
+        <div>⑨ 受迷信影響之交易</div>
+        <div>⑩ 包含公共設施用地之交易</div>
+        <div>⑪ 人為哄抬之交易</div>
+        <div>⑫ 與法定用途不符之交易</div>
+        <div>⑬ 其他特殊交易</div>
+      </div>
+      <div class="trap" style="margin-top:8px">前導句是「<b>應先作適當調整</b>；影響交易價格之情況<b>無法有效掌握及量化調整時，應不予採用</b>」。<br>
+      所以既<b>不是一律排除</b>，也<b>不是一律可用</b>——先調整，調不動才不採用。</div>
+    </div>
+  </details>
+  <details class="ext"><summary>延伸 2：§25／§26 白話算例（考過就靠這三句）</summary>
+    <div class="exb">
+      <div class="note"><b>§25 單項調整率：</b>某案例「路寬」比標的窄，要調 ＋18% → 超過 <span class="num">15%</span> 上限 → 整筆排除。<br>
+      → 口訣：<b>「單項超過一個巴掌（15%），砍掉不用」</b></div>
+      <div class="note"><b>§25 合計調整率：</b>同一案例各項加總 ＝ 32% → 超過 <span class="num">30%</span> 上限 → 排除。<br>
+      → 口訣：<b>「東調西調超過三成，已失代表性」</b></div>
+      <div class="note"><b>§26 差距排除：</b>三件試算價格 A＝100 萬、B＝123 萬、C＝111 萬。<br>
+      先就<b>偏高（B）或偏低（A）</b>者重新檢討；檢討後差距仍為<br>
+      （123－100）÷ 高低平均值〔(123＋100)÷2＝111.5〕≈ <span class="num">20.6% ≥ 20%</span> → <b>應排除</b>。<br>
+      條文<b>未指明</b>排除最高或最低，只說「<b>應排除</b>」。<br>
+      → 口訣：<b>「高低差超過平均兩成，先檢討、檢討完還超過就排除」</b></div>
+    </div>
+  </details>
+  <div class="note">例外：情況特殊、不能採二種以上方法時 → <b>於報告書敘明理由</b>。</div>
+</section>
+
+<!-- ⑥ -->
+<section class="step" id="s6">
+  <div class="sh"><div class="snum">⑥</div><div class="skey">估</div>
+    <div class="sname">運用估價方法推算</div><div class="slaw">§14　應兼採 2 種以上</div>
+    <span class="freq f2">🟡 有考</span></div>
+  <div class="mn">口訣：情・價・區・個　<small>（§21 比較法調整順序）</small></div>
+  <div class="items">
+    <span class="it">比較法 → <b>比較</b>價格</span>
+    <span class="it">成本法 → <b>成本</b>價格</span>
+    <span class="it">收益法 → <b>收益</b>價格</span>
+    <span class="it">土地開發分析法（§70）→ <b>V 值</b></span>
+  </div>
+  <div class="note"><b>§21 調整順序不可亂：</b><b>情</b>況調整 → <b>價格日期</b>調整 → <b>區域</b>因素調整 → <b>個別</b>因素調整。<br>
+  先把案例「拉成正常、拉到今天」，再「拉到同一區」，最後才「拉成同一筆地」。</div>
+  <div class="trap">「<b>估價方法</b>」是在這一步決定的——<b>步驟①（§9 基本事項）不含估價方法</b>，這是最常考的對調題。<br>
+  例外：情況特殊無法兼採二種以上 → <b>報告書敘明</b>。</div>
+  <details class="ext"><summary>延伸：§2、§6 價格種類快查（8 種）</summary>
+    <div class="exb">
+      <div class="grid2">
+        <div><span class="k">正常價格</span>：具市場性、有意願買賣雙方、不受脅迫、經適當行銷之合理價值</div>
+        <div><span class="k">限定價格</span>：①其他權利與所有權合併 ②不動產合併 ③違反經濟合理性之分割（<b>不須</b>同時估正常價格）</div>
+        <div><span class="k">特定價格</span>：基於特定條件下形成之價值（§6 後段：須敘明估價條件<b>並同時估計正常價格</b>）</div>
+        <div><span class="k">特殊價格</span>：對<b>不具市場性</b>之不動產所估計之價值（如總統府、孔廟）</div>
+        <div><span class="k">比較價格</span>：由比較法推算所得</div>
+        <div><span class="k">收益價格</span>：由收益法推算所得</div>
+        <div><span class="k">成本價格</span>：由成本法推算所得</div>
+        <div><span class="k">勘估標的價格</span>：最終決定之完整估價結果</div>
+      </div>
+      <div class="trap" style="margin-top:8px"><b>限定價格</b>不必同時估正常價格；<b>特定價格</b>要。這一組最常互換來考。</div>
+    </div>
+  </details>
+</section>
+
+<!-- ⑦ -->
+<section class="step" id="s7">
+  <div class="sh"><div class="snum">⑦</div><div class="skey">決</div>
+    <div class="sname">決定勘估標的價格</div><div class="slaw">§15</div>
+    <span class="freq f2">🟡 有考</span></div>
+  <div class="mn">口訣〔自編〕：綜比 → 顯檢 → 詳由　<small>（綜合比較→顯著差異重新檢討→詳述理由）</small></div>
+  <div class="items">
+    <span class="it"><span class="n">1</span>各方法試算價格<b>綜合比較</b></span>
+    <span class="it"><span class="n">2</span>金額<b>顯著差異</b>→ 重新檢討</span>
+    <span class="it"><span class="n">3</span>考量資料<b>可信度</b></span>
+    <span class="it"><span class="n">4</span><b>詳予敘明</b>決定理由</span>
+  </div>
+  <div class="trap">§15：以<b>契約租金</b>為信託利益分配基礎者 → <b>DCF（折現現金流量分析）應賦予較大權重</b>。<br>
+  陷阱：題目若寫「評估<b>清算價格</b>」，<b>不是</b>信託利益分配的前提，<b>不適用</b>這一條。</div>
+  <div class="hit">🟡 <b>102 年</b>——考「DCF vs 契約租金 vs 經濟租金」的選擇邏輯。</div>
+</section>
+
+<!-- ⑧ -->
+<section class="step" id="s8">
+  <div class="sh"><div class="snum">⑧</div><div class="skey">書</div>
+    <div class="sname">製作估價報告書</div><div class="slaw">§16　應載明 15 項</div>
+    <span class="freq f3">🔴 高頻</span></div>
+  <div class="mn">口訣：委基日種條目金 ｜ 他況管 ｜ 因程情 ｜ 項師</div>
+  <div class="items">
+    <span class="it"><span class="n">①</span>委託人</span>
+    <span class="it"><span class="n">②</span>基本資料</span>
+    <span class="it"><span class="n">③</span>日期<b>★兩個</b></span>
+    <span class="it"><span class="n">④</span>價格種類</span>
+    <span class="it"><span class="n">⑤</span>估價條件</span>
+    <span class="it"><span class="n">⑥</span>估價目的</span>
+    <span class="it"><span class="n">⑦</span>估價金額</span>
+    <span class="it"><span class="n">⑧</span>他項權利及負擔</span>
+    <span class="it"><span class="n">⑨</span>使用現況</span>
+    <span class="it"><span class="n">⑩</span>法定使用管制</span>
+    <span class="it"><span class="n">⑪</span>因素分析</span>
+    <span class="it"><span class="n">⑫</span>推算程序及理由</span>
+    <span class="it"><span class="n">⑬</span>須敘明之情況</span>
+    <span class="it"><span class="n">⑭</span>其他必要事項</span>
+    <span class="it"><span class="n">⑮</span>估價師姓名及證照字號</span>
+  </div>
+  <div class="trap">共 <span class="num">15 項</span>＋應附<b>必要圖說</b>；<b>行政／強制執行</b>委託案件 → <b>15 項與圖說同時豁免</b>（「不受前二項限制」）。<br>
+  第③項的「日期」是<b>價格日期＋勘察日期兩個</b>——步驟①只有價格日期，這裡才兩個都要。</div>
+  <details class="ext" open><summary>延伸：15 項拆成四句故事來背</summary>
+    <div class="exb">
+      <div class="story"><div class="t"><b>委</b><b>基</b>人，訂<b>日</b><b>種</b><b>條</b><b>目</b><b>金</b></div>
+        <div class="w">委託人來，把七件核心事項定好</div>
+        <div class="d">①<b>委</b>託人　②<b>基</b>本資料　③<b>日</b>期（價格日期＋勘察日期 ★考點）<br>
+        ④價格<b>種</b>類　⑤估價<b>條</b>件　⑥估價<b>目</b>的　⑦估價<b>金</b>額</div></div>
+      <div class="story"><div class="t"><b>他</b><b>況</b><b>管</b>，查外部</div>
+        <div class="w">他項、現況、管制，三件外部事查清楚</div>
+        <div class="d">⑧<b>他</b>項權利及負擔　⑨使用現<b>況</b>　⑩法定使用<b>管</b>制</div></div>
+      <div class="story"><div class="t"><b>因</b><b>程</b><b>情</b>，走分析</div>
+        <div class="w">因素、程序、情況，分析推算走一遍</div>
+        <div class="d">⑪價格形成主要<b>因</b>素分析　⑫推算<b>程</b>序及決定理由　⑬須敘明之<b>情</b>況</div></div>
+      <div class="story"><div class="t"><b>項</b><b>師</b>，收工簽</div>
+        <div class="w">其他項目補齊，估價師姓名及證照字號收尾</div>
+        <div class="d">⑭其他必要事<b>項</b>　⑮估價<b>師</b>姓名及證照字號</div></div>
+    </div>
+  </details>
+</section>
+
+<!-- ══ 一表背完 ══ -->
+<div class="sec">考前 3 分鐘 ｜ 一表背完</div>
+<div class="tblwrap">
+<table>
+  <thead><tr><th>字</th><th>步驟</th><th>條</th><th>口訣</th><th>一句話記住</th></tr></thead>
+  <tbody>
+    <tr><td class="k">基</td><td>確定估價基本事項</td><td class="l">§9</td><td class="m">內日種目</td><td>要估什麼、哪一天的價、什麼價、為什麼估。<b>不含方法、不含勘察日期</b></td></tr>
+    <tr><td class="k">計</td><td>擬定估價計畫</td><td class="l">§10</td><td class="m">步時人費表</td><td>怎麼做、多久、幾人、多少錢、何時交</td></tr>
+    <tr><td class="k">蒐</td><td>蒐集資料</td><td class="l">§11-12</td><td class="m">標因比</td><td>標的資料、影響因素、比較實例三類；選案 4 原則在 §12</td></tr>
+    <tr><td class="k">狀</td><td>確認勘估標的狀態</td><td class="l">§13</td><td class="m">權況影記</td><td>去現場看＋拍照作紀錄；<b>沒領勘要敘明</b></td></tr>
+    <tr><td class="k">整</td><td>整理比較分析資料</td><td class="l">§14</td><td class="m">單15總30差20</td><td>§23 先調整調不動才不用；§25 比調整率、§26 比價格彼此</td></tr>
+    <tr><td class="k">估</td><td>運用估價方法推算</td><td class="l">§14</td><td class="m">情價區個</td><td>兼採 2 種以上；§21 調整順序不可亂</td></tr>
+    <tr><td class="k">決</td><td>決定勘估標的價格</td><td class="l">§15</td><td class="m">綜比顯檢詳由</td><td>顯著差異要重新檢討；契約租金 → <b>DCF 權重加大</b></td></tr>
+    <tr><td class="k">書</td><td>製作估價報告書</td><td class="l">§16</td><td class="m">委基日種條目金｜他況管｜因程情｜項師</td><td>15 項＋圖說；<b>行政／強執案件兩者同時豁免</b></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="sec">往下一步</div>
+<div class="items" style="margin-top:0">
+  <a class="it" style="text-decoration:none;color:inherit" href="估價刷題練習_A4.html">去刷 A4 程序章 ▸</a>
+  <a class="it" style="text-decoration:none;color:inherit" href="估價_技術規則專欄.html">看 §8–§16 條文原文 ▸</a>
+  <a class="it" style="text-decoration:none;color:inherit" href="估價_易混淆概念並排.html">易混淆概念並排 ▸</a>
+  <a class="it" style="text-decoration:none;color:inherit" href="估價_四大方法比較表.html">四大方法比較表 ▸</a>
+</div>
+</div>
+
+<div class="fab">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回頂端">↑</button>
+  <a href="估價備考指揮中心.html" title="返回指揮中心">🏠</a>
+</div>
+
+<script src="bxv-use.js"></script>
+<script>
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+
+/* ── 色卡 ── */
+var PALS={p1:'Forest Paws',p2:'Orange Cat',p3:'Blue-Eyed Kitty',p4:'Garfield',p5:'Muzzle Taupe'};
+function getPal(){try{return localStorage.getItem('bxv-proc-pal')||'p1'}catch(e){return 'p1'}}
+function setPal(v){
+  document.body.setAttribute('data-pal',v);
+  try{localStorage.setItem('bxv-proc-pal',v)}catch(e){}
+  var r=document.getElementById('palRow');
+  if(r)r.querySelectorAll('[data-pal]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-pal')===v)});
+  var n=document.getElementById('palName'); if(n)n.textContent=PALS[v]||'';
+}
+setPal(getPal());
+document.getElementById('palBtn').addEventListener('click',function(){
+  var r=document.getElementById('palRow'); r.hidden=!r.hidden; this.classList.toggle('on',!r.hidden);
+});
+document.getElementById('palRow').addEventListener('click',function(e){
+  var b=e.target.closest('[data-pal]'); if(b)setPal(b.getAttribute('data-pal'));
+});
+
+/* ── 計數器（沿用 proc；舊「記憶圖」flow 的次數併入顯示） ── */
+(function(){
+  var RID='proc';
+  function get(){ if(typeof BXREP==='undefined')return 0;
+    return (BXREP.readGet(RID).n||0)+(BXREP.readGet('flow').n||0); }
+  function upd(){var el=document.getElementById('bxv-n');if(el)el.textContent=get();}
+  window.bxvInc=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,1);upd();}}
+  window.bxvDec=function(){if(typeof BXREP!=='undefined'){BXREP.readInc(RID,-1);upd();}}
+  setTimeout(upd,100);
+})();
+
+/* ── 主題 ── */
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('themeBtn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+</script>
