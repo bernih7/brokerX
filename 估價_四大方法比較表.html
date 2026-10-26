@@ -192,19 +192,27 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 
-/* 申論考頻籤（v526） */
-.proc-exam{margin:7px 0 2px;padding:7px 10px;border-radius:8px;background:rgba(240,185,60,.18);
-  font-size:.78rem;line-height:1.65}
-.proc-exam .pe-lab{font-weight:800;margin-right:7px;white-space:nowrap}
-.proc-exam .pe-yr{font-weight:700}
-.proc-exam .pe-hot{display:block;margin-top:3px;opacity:.9}
-.proc-exam b{color:var(--cost,#B83A28)}
-[data-theme="dark"] .proc-exam{background:rgba(240,185,60,.14)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .proc-exam{background:rgba(240,185,60,.14)}}
-
-.proc-exam a{color:inherit;font-weight:800;text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:1px}
-.proc-exam a:hover{opacity:.72}
-.proc-exam .pe-hot a{font-weight:700}
+/* 程序本身考過（v530・A 版：一行、放卡片最下面、年份用小膠囊不加底線） */
+.proc-exam{margin:11px 0 0;padding-top:9px;border-top:1px dashed var(--line);
+  font-size:.78rem;line-height:1.7;color:var(--muted)}
+.proc-exam .pe-lab{font-weight:800;color:var(--ink);margin-right:6px;white-space:nowrap}
+.proc-exam .pe-yr{color:var(--ink)}
+.proc-exam a.ylk{display:inline-block;text-decoration:none;font-weight:800;font-size:.74rem;
+  padding:1px 8px;border-radius:999px;background:rgba(47,93,80,.1);color:var(--primary);
+  font-variant-numeric:tabular-nums;margin:0 1px}
+.proc-exam a.ylk:hover{background:var(--primary);color:#fff}
+.proc-exam details{margin-top:5px}
+.proc-exam summary{list-style:none;cursor:pointer;font-size:.74rem;color:var(--muted)}
+.proc-exam summary::-webkit-details-marker{display:none}
+.proc-exam summary::after{content:" ▾"}
+.proc-exam details[open] summary::after{content:" ▴"}
+.proc-exam .pe-d{margin-top:4px;color:var(--ink);font-size:.77rem}
+.proc-exam .pe-d b{color:var(--stamp)}
+/* 全維度對比表裡的申論年份連結 */
+.big-table a.ylk{display:inline-block;text-decoration:none;font-weight:800;font-size:.8rem;
+  padding:1px 7px;border-radius:999px;background:rgba(47,93,80,.1);color:var(--primary);
+  font-variant-numeric:tabular-nums;margin:1px}
+.big-table a.ylk:hover{background:var(--primary);color:#fff}
 </style>
 
 <script src="bxv-use.js"></script>
@@ -373,11 +381,11 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
       <td><span class="c-grn">§70–§82</span></td>
     </tr>
     <tr>
-      <td class="row-head">申論題<br>出現次數</td>
-      <td><span class="c-blu">5次</span>（99、102、103、108、110年）</td>
-      <td><span class="c-red">6次</span>（104、105、107、111×2、112年）</td>
-      <td><span class="c-gold">5次</span>（99、113年＋租金題101、110、114年）</td>
-      <td><span class="c-grn">5次</span>（100、102、105、109、113年）</td>
+      <td class="row-head">申論題<br>出現次數<br><small style="font-weight:400">（可點，跳到該題）</small></td>
+      <td><span class="c-blu">6次</span><br><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e99-2" target="_blank" rel="noopener">99</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e102-1" target="_blank" rel="noopener">102</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e106-2" target="_blank" rel="noopener">106</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e107-2" target="_blank" rel="noopener">107</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e108-1" target="_blank" rel="noopener">108</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e110-1" target="_blank" rel="noopener">110</a> 年</td>
+      <td><span class="c-red">6次・最多</span><br><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e104-2" target="_blank" rel="noopener">104</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e105-1" target="_blank" rel="noopener">105</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e107-1" target="_blank" rel="noopener">107</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e111-1" target="_blank" rel="noopener">111-一</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e111-2" target="_blank" rel="noopener">111-二</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e112-2" target="_blank" rel="noopener">112</a> 年</td>
+      <td><span class="c-gold">5次</span><br><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e99-1" target="_blank" rel="noopener">99</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e113-1" target="_blank" rel="noopener">113</a> 年；租金題 <a class="ylk" href="不動產估價概要_申論題實戰範文.html#e101-2" target="_blank" rel="noopener">101</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e110-2" target="_blank" rel="noopener">110</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e114-1" target="_blank" rel="noopener">114</a> 年</td>
+      <td><span class="c-grn">5次</span><br><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e100-1" target="_blank" rel="noopener">100</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e102-2" target="_blank" rel="noopener">102</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e105-2" target="_blank" rel="noopener">105</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e109-2" target="_blank" rel="noopener">109</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e113-2" target="_blank" rel="noopener">113</a> 年</td>
     </tr>
     <tr>
       <td class="row-head">選擇題頻率</td>
@@ -403,7 +411,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
   <div class="proc-card pc-comp">
     <div class="proc-title">比較法（§21 六款）</div>
     <div class="proc-mn">口訣〔自編〕：蒐選調調算決</div>
-    <div class="proc-exam"><span class="pe-lab">🖋 本法申論考過</span><span class="pe-yr"><a href="不動產估價概要_申論題實戰範文.html#e99-2" target="_blank" rel="noopener">99</a>、<a href="不動產估價概要_申論題實戰範文.html#e102-1" target="_blank" rel="noopener">102</a>、<a href="不動產估價概要_申論題實戰範文.html#e106-2" target="_blank" rel="noopener">106</a>、<a href="不動產估價概要_申論題實戰範文.html#e107-2" target="_blank" rel="noopener">107</a>、<a href="不動產估價概要_申論題實戰範文.html#e108-1" target="_blank" rel="noopener">108</a>、<a href="不動產估價概要_申論題實戰範文.html#e110-1" target="_blank" rel="noopener">110</a> 年（6 題）</span><span class="pe-hot"><b>程序本身</b>被問到的是 <a href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一（三法的意義與估價程序）</a>、<a href="不動產估價概要_申論題實戰範文.html#e103-1" target="_blank" rel="noopener">103-一（影響因素＋比較法估價程序）</a>。第 3～4 步「四項調整」與第 5 步的 §25／§26 排除關卡最常入題。</span></div>
+    
     <ol class="proc-ol">
       <li><span class="c-blu">蒐</span>集並查證比較標的資料（§22 查證；<span class="c-red">應採用三件以上</span>，§27）</li>
       <li><span class="c-blu">選</span>擇條件相同或相似之比較標的（§12）</li>
@@ -413,11 +421,11 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
       <li><span class="c-blu">決</span>定比較價格</li>
     </ol>
     <div class="proc-note">⚠ 關卡：區域／個別因素（或其內單項）調整率<span class="c-red">大於</span><span class="c-gold">15%</span>、四項總調整率<span class="c-red">大於</span><span class="c-gold">30%</span>→應排除該比較標的（§25）；試算價格先就偏高或偏低者<b>重新檢討</b>，檢討後差距<span class="c-red">仍達</span><span class="c-gold">20%</span>以上→應排除（§26）</div>
-  </div>
+  <div class="proc-exam"><span class="pe-lab">🖋 程序本身考過</span><span class="pe-yr"><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一</a>（三法的意義與估價程序）、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e103-1" target="_blank" rel="noopener">103-一</a>（影響因素＋比較法估價程序）</span><details><summary>其他申論題考什麼</summary><div class="pe-d">這兩題才是直接問程序。第 3～4 步「四項調整」與第 5 步 §25／§26 排除關卡則常以選擇題出現。</div></details></div></div>
   <div class="proc-card pc-cost">
     <div class="proc-title">成本法（§49 八款）</div>
     <div class="proc-mn">口訣〔自編〕：蒐勘整選推總折價</div>
-    <div class="proc-exam"><span class="pe-lab">🖋 本法申論考過</span><span class="pe-yr"><a href="不動產估價概要_申論題實戰範文.html#e104-2" target="_blank" rel="noopener">104</a>、<a href="不動產估價概要_申論題實戰範文.html#e105-1" target="_blank" rel="noopener">105</a>、<a href="不動產估價概要_申論題實戰範文.html#e107-1" target="_blank" rel="noopener">107</a>、<a href="不動產估價概要_申論題實戰範文.html#e111-1" target="_blank" rel="noopener">111-一</a>＋<a href="不動產估價概要_申論題實戰範文.html#e111-2" target="_blank" rel="noopener">111-二</a>、<a href="不動產估價概要_申論題實戰範文.html#e112-2" target="_blank" rel="noopener">112</a> 年（<b>6 題・最多</b>）</span><span class="pe-hot"><b>程序本身</b>被問到的是 <a href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一</a>、<a href="不動產估價概要_申論題實戰範文.html#e111-2" target="_blank" rel="noopener">111-二（重建vs重置＋成本法估價程序）</a>。其餘幾乎都考<b>第 7 步「折舊」</b>（105、107、111-一、112）。</span></div>
+    
     <ol class="proc-ol">
       <li><span class="c-red">蒐</span>集資料</li>
       <li>現況<span class="c-red">勘</span>察</li>
@@ -429,11 +437,11 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
       <li>計算成本<span class="c-red">價</span>格（§69：房地成本價格＝土地價格＋建物成本價格）</li>
     </ol>
     <div class="proc-note">⚠ <span class="c-red">重建成本為原則</span>，重置成本為例外（建材已無生產或施工方法已改變時）</div>
-  </div>
+  <div class="proc-exam"><span class="pe-lab">🖋 程序本身考過</span><span class="pe-yr"><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一</a>、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e111-2" target="_blank" rel="noopener">111-二</a>（重建vs重置＋成本法估價程序）</span><details><summary>其他申論題考什麼</summary><div class="pe-d">其餘 4 題（105、107、111-一、112）考的是<b>第 7 步「折舊」</b>本身，不是整套程序。</div></details></div></div>
   <div class="proc-card pc-inc">
     <div class="proc-title">收益法（6步＋DCF分支）</div>
     <div class="proc-mn">口訣〔自編〕：蒐推推計決計（DCF再加）</div>
-    <div class="proc-exam"><span class="pe-lab">🖋 本法申論考過</span><span class="pe-yr"><a href="不動產估價概要_申論題實戰範文.html#e99-1" target="_blank" rel="noopener">99</a>、<a href="不動產估價概要_申論題實戰範文.html#e113-1" target="_blank" rel="noopener">113</a> 年；租金題另有 <a href="不動產估價概要_申論題實戰範文.html#e101-2" target="_blank" rel="noopener">101</a>、<a href="不動產估價概要_申論題實戰範文.html#e110-2" target="_blank" rel="noopener">110</a>、<a href="不動產估價概要_申論題實戰範文.html#e114-1" target="_blank" rel="noopener">114</a> 年（合計 5 題）</span><span class="pe-hot"><b>程序本身</b>只在 <a href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一</a> 被問到。考點集中在第 3 步「總費用<b>不得計入項</b>」與第 5 步「資本化率五種方法」。</span></div>
+    
     <ol class="proc-ol">
       <li><span class="c-gold">蒐</span>集近<span class="c-gold">3年</span>總收入/總費用/資本化率</li>
       <li><span class="c-gold">推</span>算有效總收入（×（1−空置率））</li>
@@ -443,11 +451,11 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
       <li><span class="c-gold">計</span>算收益價格（淨收益÷資本化率）</li>
     </ol>
     <div class="proc-note">⚠ DCF另需：選折現率→逐期折現→<span class="c-red">加計期末處分價值</span>（不可省略）</div>
-  </div>
+  <div class="proc-exam"><span class="pe-lab">🖋 程序本身考過</span><span class="pe-yr"><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e101-1" target="_blank" rel="noopener">101-一</a></span><details><summary>其他申論題考什麼</summary><div class="pe-d">只有這一題。99、113 與租金三題考的是資本化率、DCF 與租金，不是程序。</div></details></div></div>
   <div class="proc-card pc-dev">
     <div class="proc-title">土地開發分析法（8步）</div>
     <div class="proc-mn">口訣〔自編〕：前四「定調勘面」＋後四照公式 S→C+M→R、i→V</div>
-    <div class="proc-exam"><span class="pe-lab">🖋 本法申論考過</span><span class="pe-yr"><a href="不動產估價概要_申論題實戰範文.html#e100-1" target="_blank" rel="noopener">100</a>、<a href="不動產估價概要_申論題實戰範文.html#e102-2" target="_blank" rel="noopener">102</a>、<a href="不動產估價概要_申論題實戰範文.html#e105-2" target="_blank" rel="noopener">105</a>、<a href="不動產估價概要_申論題實戰範文.html#e109-2" target="_blank" rel="noopener">109</a>、<a href="不動產估價概要_申論題實戰範文.html#e113-2" target="_blank" rel="noopener">113</a> 年（5 題）</span><span class="pe-hot">最貼近程序的是 <a href="不動產估價概要_申論題實戰範文.html#e109-2" target="_blank" rel="noopener">109-二（應蒐集之資料＝第 2 步）</a> 與 <a href="不動產估價概要_申論題實戰範文.html#e113-2" target="_blank" rel="noopener">113-二（計算公式與成本項目＝後四步）</a>。後四步的 <b>V 公式</b>幾乎每次都要列式。</span></div>
+    
     <ol class="proc-ol">
       <li>確<span class="c-grn">定</span>開發內容及預期開發時間</li>
       <li><span class="c-grn">調</span>查各項成本及市場行情</li>
@@ -458,7 +466,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
       <li>選擇適當利潤率（<span class="c-grn">R</span>）及資本利息綜合利率（<span class="c-grn">i</span>）</li>
       <li>計算土地開發分析價格（<span class="c-grn">V</span>）</li>
     </ol>
-    <div class="proc-note">⚠ 建物價值比率<span class="c-red">乘以½</span>，土地價值<span class="c-red">不打折</span></div>
+    <div class="proc-note">⚠ 建物價值比率<span class="c-red">乘以½</span>，土地價值<span class="c-red">不打折</span><div class="proc-exam"><span class="pe-lab">🖋 程序本身考過</span><span class="pe-yr"><a class="ylk" href="不動產估價概要_申論題實戰範文.html#e109-2" target="_blank" rel="noopener">109-二</a>（應蒐集之資料＝第 2 步）、<a class="ylk" href="不動產估價概要_申論題實戰範文.html#e113-2" target="_blank" rel="noopener">113-二</a>（計算公式與成本項目＝後四步）</span><details><summary>其他申論題考什麼</summary><div class="pe-d">沒有整套八步被整題問過；這兩題各命中其中一段。</div></details></div></div>
   </div>
 </div>
 
