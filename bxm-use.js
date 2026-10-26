@@ -2,7 +2,7 @@
 (function(){
 var SUBJ="民法";
 var CH={"A":["A","A 民法總則",107],"B":["B","B 債編總論",85],"C":["C","C 債編分則",77],"D":["D","D 物權",134],"E":["E","E 親屬與繼承",117]};
-var PAGES=[["民法_數字期間速查","數字期間速查"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法刷題練習_A篇","刷題 A 篇"],["民法刷題練習_B篇","刷題 B 篇"],["民法刷題練習_C篇","刷題 C 篇"],["民法刷題練習_D篇","刷題 D 篇"],["民法刷題練習_E篇","刷題 E 篇"],["民法概要_25題模擬測驗","25題模擬測驗"],["民法A_考題小卡","A 精選小卡"],["民法BC_考題小卡","BC 精選小卡"],["民法D_考題小卡","D 精選小卡"],["民法E_考題小卡","E 精選小卡"],["民法A_完整考題小卡","A 完整小卡"],["民法BC_完整考題小卡","BC 完整小卡"],["民法D_完整考題小卡","D 完整小卡"],["民法E_完整考題小卡","E 完整小卡"],["民法A_互動單字卡","A 單字卡"],["民法BC_互動單字卡","BC 單字卡"],["民法D_互動單字卡","D 單字卡"],["民法E_互動單字卡","E 單字卡"],["民法A_彩色重點速記","A 彩色速記"],["民法BC_彩色重點速記","BC 彩色速記"],["民法D_彩色重點速記","D 彩色速記"],["民法E_彩色重點速記","E 彩色速記"],["民法_定義填空練習","定義填空練習"],["民法_模擬試題一","自擬模擬卷①"],["民法_模擬試題二","自擬模擬卷②"],["民法_申論115出題預測","申論115預測"],["民法_申論專練卷","申論專練卷①"],["民法_來勝模擬試題一","來勝模擬(一)"],["民法_法律效果總整理","法律效果總整理"],["民法申論題_五型答題模板","申論五型模板"],["民法_備考指揮中心","備考指揮中心"]];
+var PAGES=[["民法_數字期間速查","數字期間速查"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法刷題練習_A篇","刷題 A 篇"],["民法刷題練習_B篇","刷題 B 篇"],["民法刷題練習_C篇","刷題 C 篇"],["民法刷題練習_D篇","刷題 D 篇"],["民法刷題練習_E篇","刷題 E 篇"],["民法概要_25題模擬測驗","25題模擬測驗"],["民法A_考題小卡","A 精選小卡"],["民法BC_考題小卡","BC 精選小卡"],["民法D_考題小卡","D 精選小卡"],["民法E_考題小卡","E 精選小卡"],["民法A_完整考題小卡","A 完整小卡"],["民法BC_完整考題小卡","BC 完整小卡"],["民法D_完整考題小卡","D 完整小卡"],["民法E_完整考題小卡","E 完整小卡"],["民法A_互動單字卡","A 單字卡"],["民法BC_互動單字卡","BC 單字卡"],["民法D_互動單字卡","D 單字卡"],["民法E_互動單字卡","E 單字卡"],["民法A_彩色重點速記","A 彩色速記"],["民法BC_彩色重點速記","BC 彩色速記"],["民法D_彩色重點速記","D 彩色速記"],["民法E_彩色重點速記","E 彩色速記"],["民法_定義填空練習","定義填空練習"],["民法_模擬試題一","自擬模擬卷①"],["民法_模擬試題二","自擬模擬卷②"],["民法_申論115出題預測","申論115預測"],["民法_申論專練卷","申論專練卷①"],["民法_來勝模擬試題一","來勝模擬(一)"],["民法_法律效果總整理","法律效果總整理"],["民法申論題_五型答題模板","申論五型模板"],["民法_法條解析練習","法條解析練習"],["民法_繼承專區","繼承專區"],["民法_共有專區","共有專區"],["民法_物權變動與登記","物權變動與登記"],["民法_抵押權總整理","抵押權總整理"],["民法_備考指揮中心","備考指揮中心"]];
 var TOT={fill:147,sel:74,full:520,word:172};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -83,7 +83,7 @@ function U8(p){return BASE+encodeURIComponent(p)+".html"}
 function readInc(id,d){var R=ld("bxm-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bxm-read",R);return x.n}
 function readGet(id){return ld("bxm-read",{})[id]||{n:0,t:0}}
 /* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷的完成度是自動算，不放計數鈕） */
-var READP={"民法A_彩色重點速記":1,"民法BC_彩色重點速記":1,"民法D_彩色重點速記":1,"民法E_彩色重點速記":1,"民法_法律效果總整理":1,"民法_數字期間速查":1,"民法_用詞分類與申論必背":1,"民法_申論115出題預測":1,"民法申論題_五型答題模板":1,"民法A_考題小卡":1,"民法BC_考題小卡":1,"民法D_考題小卡":1,"民法E_考題小卡":1,"民法A_完整考題小卡":1,"民法BC_完整考題小卡":1,"民法D_完整考題小卡":1,"民法E_完整考題小卡":1,"民法A_互動單字卡":1,"民法BC_互動單字卡":1,"民法D_互動單字卡":1,"民法E_互動單字卡":1,"民法_定義填空練習":1};
+var READP={"民法_繼承專區":1,"民法_共有專區":1,"民法_物權變動與登記":1,"民法_抵押權總整理":1,"民法A_彩色重點速記":1,"民法BC_彩色重點速記":1,"民法D_彩色重點速記":1,"民法E_彩色重點速記":1,"民法_法律效果總整理":1,"民法_數字期間速查":1,"民法_用詞分類與申論必背":1,"民法_申論115出題預測":1,"民法申論題_五型答題模板":1,"民法A_考題小卡":1,"民法BC_考題小卡":1,"民法D_考題小卡":1,"民法E_考題小卡":1,"民法A_完整考題小卡":1,"民法BC_完整考題小卡":1,"民法D_完整考題小卡":1,"民法E_完整考題小卡":1,"民法A_互動單字卡":1,"民法BC_互動單字卡":1,"民法D_互動單字卡":1,"民法E_互動單字卡":1,"民法_定義填空練習":1};
 function readWidget(){if(!READP[PAGE]||document.getElementById("bxmRead"))return;
  var cs=document.createElement("style");cs.textContent="#bxmRead{--rp:#2F5D50;--rs:#FFFEFA;--ri:#25302C;--rl:#DAD6C3;position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:59;width:40px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--rs);color:var(--ri);border:1px solid var(--rl);border-radius:20px;padding:3px 0;box-shadow:0 2px 8px rgba(0,0,0,.18);font:11px/1.15 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center}"+
  "#bxmRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0}#bxmRead button.p{background:var(--rp);color:var(--rs)}#bxmRead .t{display:block;padding:1px 0}#bxmRead b{display:block;font-size:15px;color:var(--rp)}"+
@@ -109,6 +109,7 @@ function status(){
  /* 刷題 */
  var by={};Object.keys(DB).forEach(function(id){var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0,w:0};o.d++;if(DB[id].ok)o.ok++;else o.w++});
  var R1=[];for(var c in CH){var o=by[c]||{d:0,ok:0,w:0};R1.push(row("民法刷題練習_"+c+"篇","刷題 "+CH[c][1],o.d,CH[c][2],"已作答 "+o.d+"／"+CH[c][2]+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+o.w:"")))}
+ R1.push(row("民法_法條解析練習","法條解析練習（A～E 混合）",0,0,"作答記入上方各篇；這裡只記開啟次數"));
  G.push({g:"刷題（作答後自動記錄）",rows:R1});
  /* 模擬卷 */
  var H=ld("bx_mock_civ_sim",[]),ys={};H.forEach(function(r){ys[r.y]=r});var yn=Object.keys(ys).length,R2=[];
@@ -133,7 +134,7 @@ function status(){
  R4.push(row("民法_申論115出題預測","申論 115 出題預測",0,0,""));
  G.push({g:"申論",rows:R4});
  /* 閱讀頁 */
- var R5=[];[["民法A_彩色重點速記","彩色速記 A 總則"],["民法BC_彩色重點速記","彩色速記 BC 債編"],["民法D_彩色重點速記","彩色速記 D 物權"],["民法E_彩色重點速記","彩色速記 E 親屬繼承"],["民法_法律效果總整理","法律效果總整理"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法_數字期間速查","數字期間速查"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
+ var R5=[];[["民法A_彩色重點速記","彩色速記 A 總則"],["民法BC_彩色重點速記","彩色速記 BC 債編"],["民法D_彩色重點速記","彩色速記 D 物權"],["民法E_彩色重點速記","彩色速記 E 親屬繼承"],["民法_法律效果總整理","法律效果總整理"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法_數字期間速查","數字期間速查"],["民法_繼承專區","專區｜繼承"],["民法_共有專區","專區｜共有"],["民法_物權變動與登記","專區｜物權變動與登記"],["民法_抵押權總整理","專區｜抵押權總整理"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
  G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R5});
  return G}
 window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,readInc:readInc,readGet:readGet,status:status,PAGE:PAGE,today:function(){return ld("bxm-day",{})[ymd()]||{q:0,c:0}}};

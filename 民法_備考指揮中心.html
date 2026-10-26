@@ -285,19 +285,20 @@ details.gdet2{margin:4px 0 8px;font-size:.78rem;color:var(--sub)}details.gdet2>s
   <div class="sec">刷題概況</div>
   <div class="stats" id="stats"></div>
   <div class="sec">快速前往</div>
-  <div class="qgo"><a data-go="sim" href="#">整卷模擬</a><a data-go="ess" href="#">申論</a></div>
+  <div class="qgo"><a href="%E6%B0%91%E6%B3%95_%E6%B3%95%E6%A2%9D%E8%A7%A3%E6%9E%90%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener">法條解析</a><a data-go="sim" href="#">整卷模擬</a><a data-go="ess" href="#">申論</a></div>
   <div class="gnote">錯題到各篇刷題頁按「只看答錯」，分 A 法條混淆／B 粗心／C 不熟（C 優先回頭讀）。紀錄只存在此瀏覽器。</div>
 </section>
 
 <section class="tab" id="pPrac">
   <div class="seg" data-g="prac"><button class="on" data-s="s1">章節</button><button data-s="s2">錯題・混合</button><button data-s="s3" id="simBtn">整卷模擬</button></div>
   <div class="sp on" id="s1">
-    <p class="gnote" style="margin-top:0">依近 8 年占比由大到小排列。</p>
+    <a class="row" href="%E6%B0%91%E6%B3%95_%E6%B3%95%E6%A2%9D%E8%A7%A3%E6%9E%90%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener"><div class="n"><b>法條解析練習（A～E 共 520 題）</b><small>每題附條文原文＋記憶框，可依 28 小類、智慧出題、累積錯題練；作答與刷題頁共用紀錄</small></div><span class="b mid">去練</span></a>
+    <p class="gnote">依近 8 年占比由大到小排列。</p>
     <div id="segbox"></div>
     <div class="gnote">共 520 題，皆為考選部官方題＋官方答案；完整小卡已用官方題重建。</div>
   </div>
   <div class="sp" id="s2">
-    
+    <a class="row" href="%E6%B0%91%E6%B3%95_%E6%B3%95%E6%A2%9D%E8%A7%A3%E6%9E%90%E7%B7%B4%E7%BF%92.html" target="_blank" rel="noopener"><div class="n"><b>跨篇混合錯題：法條解析練習</b><small>選「練累積錯題」，A～E 的錯題一起出，可依錯誤類型 A／B／C 篩</small></div><span class="b mid">去練</span></a>
     <div class="tw"><table class="keep" id="wrongtb"><tr><th>篇</th><th>已作答</th><th>錯題</th><th>連結</th></tr></table></div>
     <div class="gnote">整卷模擬的錯題在交卷後的結果頁。</div>
   </div>
@@ -630,7 +631,7 @@ function rvLink(n,name,desc,url,badge){return '<a class="rvst" href="'+url+'" ta
 function rvChips(n,name,desc,kind){var h='<div class="rvst"><i>'+n+'</i><div><b>'+name+'</b><small>'+desc+'</small><div class="rvsub">';byKind(kind).forEach(function(t){h+='<span data-h="'+t.url+'">'+chipLabel(t)+'</span>'});return h+'</div></div></div>'}
 var fillT=byKind('fill')[0],sumT=byKind('sum')[0],essT=byKind('essay')[0];
 $('rvp1').innerHTML=''+rvChips(1,'彩色重點速記','彩色標記重點，刷題前先掃一遍','note')+rvChips(2,'互動單字卡','名詞／要件翻卡記憶','vocab')+rvLink(3,'定義填空練習','定義／數字／要件挖空，點空格看答案、隨機測驗',fillT.url,fillT.n);
-$('rvp2').innerHTML='<p class="rvq">想查陷阱、用詞、數字、修法時用</p>'+rvLink('效','法律效果總整理','無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡',sumT.url,sumT.n)+rvLink('詞','用詞分類・申論必背','視為／推定／不得／無效／應須分類，加 11 個申論母題族必背條號與涵攝；預設收合、可遮住自測','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E7%94%A8%E8%A9%9E%E5%88%86%E9%A1%9E%E8%88%87%E7%94%B3%E8%AB%96%E5%BF%85%E8%83%8C.html','新')+rvLink('數','數字・期間速查','年齡／日數／月數／年數／比例，可遮數字自測；含易混淆整理','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%95%B8%E5%AD%97%E6%9C%9F%E9%96%93%E9%80%9F%E6%9F%A5.html','110項')+'<a class="rvst" href="#" data-go2="r2"><i>法</i><div><b>現行法</b><small>修法對照與申論核實修正表</small></div><span class="rvb hot">看表</span></a>';
+$('rvp2').innerHTML='<p class="rvq">想查陷阱、用詞、數字、修法時用</p>'+rvLink('效','法律效果總整理','無效／撤銷／效力未定／解除／時效；條號附白話、遮答案、陷阱總整理、30秒速背卡',sumT.url,sumT.n)+rvLink('詞','用詞分類・申論必背','視為／推定／不得／無效／應須分類，加 11 個申論母題族必背條號與涵攝；預設收合、可遮住自測','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E7%94%A8%E8%A9%9E%E5%88%86%E9%A1%9E%E8%88%87%E7%94%B3%E8%AB%96%E5%BF%85%E8%83%8C.html','新')+rvLink('數','數字・期間速查','年齡／日數／月數／年數／比例，可遮數字自測；含易混淆整理','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%95%B8%E5%AD%97%E6%9C%9F%E9%96%93%E9%80%9F%E6%9F%A5.html','110項')+'<a class="rvst" href="#" data-go2="r2"><i>法</i><div><b>現行法</b><small>修法對照與申論核實修正表</small></div><span class="rvb hot">看表</span></a>'+'<p class="rvq" style="margin-top:14px">專區・總整理：一個主題一頁讀完（條文、易混淆、申論卡、考古題）</p>'+rvLink('繼','繼承專區','順序與應繼分、代位 vs 再轉、拋棄、遺產分割、遺囑、特留分；易混淆 12 組＋考古題','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E7%B9%BC%E6%89%BF%E5%B0%88%E5%8D%80.html','69題')+rvLink('共','共有專區','應有部分、管理門檻、分管、分割與抵押權、公同共有；申論 7 題骨架','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E5%85%B1%E6%9C%89%E5%B0%88%E5%8D%80.html','48題')+rvLink('變','物權變動與登記','負擔 vs 處分、§758／§759、善意取得、借名登記、一物二賣、時效取得','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E7%89%A9%E6%AC%8A%E8%AE%8A%E5%8B%95%E8%88%87%E7%99%BB%E8%A8%98.html','59題')+rvLink('押','抵押權總整理','設定→範圍→次序→實行→法定地上權→最高限額；質權・留置權簡表','https://bernih7.github.io/brokerX/%E6%B0%91%E6%B3%95_%E6%8A%B5%E6%8A%BC%E6%AC%8A%E7%B8%BD%E6%95%B4%E7%90%86.html','42題');
 $('rvp3').innerHTML='<p class="rvq">知道考什麼、怎麼讀、怎麼寫</p>'+rvLink('論','申論題 五型答題模板','五型判型＋依年度瀏覽',essT.url,essT.n)+'<a class="rvst" href="#" data-go2="ess"><i>73</i><div><b>申論 73 題（官方32＋預測41）</b><small>四段式全文＋速寫版，可標記已讀</small></div><span class="rvb">開啟</span></a><a class="rvst" href="#" data-go2="prog"><i>攻</i><div><b>攻略</b><small>段落優先順序、五件套、時程、提示詞（在進度頁）</small></div><span class="rvb">開啟</span></a>';
 document.addEventListener('click',function(e){var x=e.target.closest('.rvsub span');if(x){e.preventDefault();e.stopPropagation();window.open(x.dataset.h,'_blank','noopener');return}var g=e.target.closest('[data-go2]');if(g){e.preventDefault();var k=g.dataset.go2;if(k==='r2'){goTab('pRev');setSeg(document.querySelector('.seg[data-g="rev"]'),'r2')}else if(k==='ess')goTab('pEss');else if(k==='prog')goTab('pProg')}},true);
 var seg=$('rvseg');function setRv(k){seg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false')});[1,2,3].forEach(function(i){$('rvp'+i).hidden=String(i)!==k});lsS('bx-rv-mf',k)}
