@@ -645,7 +645,11 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 [data-theme="dark"] .today-card{background:var(--paper);color:var(--fg);border:1px solid var(--line)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{background:linear-gradient(135deg,#2C4433,#18221B);color:#E8EDE4}:root:not([data-theme="light"]) .today-card{background:var(--paper);color:var(--fg);border:1px solid var(--line)}}
 </style>
-</head>
+<style id="tbl-fix">/* 寬表在手機上自己成為捲動容器，避免整頁橫向溢出 */
+@media(max-width:700px){
+  .essay-table,.law-table,.stat-table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  .essay-table thead,.law-table thead,.stat-table thead{display:table-header-group}
+}</style></head>
 <body>
 
 <header>
