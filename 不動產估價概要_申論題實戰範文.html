@@ -3687,5 +3687,89 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
 })();
 </script>
 
+
+<style>
+/* ── 申論卡 → 工具頁（v529） ── */
+.es-tools{margin:13px 0 0;padding:10px 12px;border-radius:10px;background:var(--paper,#F5F1E6);
+  border:1px solid var(--line,#DDD6C0)}
+.es-tools .tl{display:block;font-size:.73rem;font-weight:800;letter-spacing:.05em;color:var(--primary,#2F5D50);margin-bottom:5px}
+.es-tools a{display:inline-block;font-size:.79rem;font-weight:700;text-decoration:none;margin:3px 6px 3px 0;
+  padding:4px 11px;border-radius:999px;border:1.5px solid var(--line,#DDD6C0);
+  background:var(--paper2,#FFFEFA);color:var(--ink,#25302C)}
+.es-tools a:hover{border-color:var(--primary,#2F5D50)}
+</style>
+<script>
+/* 每張申論卡底下列出該題該讀的整理頁。依 data-type 給預設，少數題另外指定。 */
+(function(){
+ var BY={
+  comp:[['四大方法比較表 ②各法程序','估價_四大方法比較表.html#proc'],
+        ['技術規則專欄 比較法','估價_技術規則專欄.html#t2'],
+        ['計算題攻略 三道排除關卡','估價_計算題攻略.html'],
+        ['易混淆概念並排','估價_易混淆概念並排.html']],
+  cost:[['計算題攻略 折舊','估價_計算題攻略.html'],
+        ['營造施工費四法','估價_營造施工費四法.html'],
+        ['技術規則專欄 成本法與折舊','估價_技術規則專欄.html#t4'],
+        ['易混淆 ⑬重建vs重置','估價_易混淆概念並排.html#rebuild']],
+  income:[['計算題攻略 收益法','估價_計算題攻略.html#inc-extra'],
+          ['技術規則專欄 收益法','估價_技術規則專欄.html#t3'],
+          ['四大方法比較表','估價_四大方法比較表.html#proc']],
+  rent:[['租金估計攻略表','估價_租金估計攻略表.html'],
+        ['技術規則專欄 租金','估價_技術規則專欄.html#t8'],
+        ['易混淆 新訂vs續訂','估價_易混淆概念並排.html']],
+  land:[['計算題組 土地開發 8 題','估價_計算題組.html#e1'],
+        ['計算題攻略 V 公式','估價_計算題攻略.html'],
+        ['技術規則專欄 土地開發分析法','估價_技術規則專欄.html#t5']],
+  foundation:[['估價程序總整理','估價_估價程序總整理.html'],
+        ['四大方法比較表','估價_四大方法比較表.html'],
+        ['彩色重點速記','估價彩色重點速記.html'],
+        ['技術規則專欄 總則與程序','估價_技術規則專欄.html#t1']],
+  principle:[['四大方法系統攻略','估價四大方法系統攻略.html'],
+        ['彩色重點速記','估價彩色重點速記.html'],
+        ['易混淆概念並排','估價_易混淆概念並排.html']],
+  all:[['估價程序總整理','估價_估價程序總整理.html'],['四大方法比較表','估價_四大方法比較表.html']]
+ };
+ /* 單題覆寫：題目問到的東西和分類不同時 */
+ var ONE={
+  'e104-2':[['計算題攻略 ⑥折舊提存率 §41','估價_計算題攻略.html#inc-extra'],
+            ['營造施工費四法（§55 直接法／§56 間接法）','估價_營造施工費四法.html'],
+            ['技術規則專欄 成本法','估價_技術規則專欄.html#t4']],
+  'e105-1':[['技術規則專欄 折舊三路徑圖','估價_技術規則專欄.html#t4'],
+            ['計算題攻略 定額法','估價_計算題攻略.html'],
+            ['易混淆 折舊三法並排','估價_易混淆概念並排.html']],
+  'e111-2':[['易混淆 ⑬重建成本vs重置成本','估價_易混淆概念並排.html#rebuild'],
+            ['四大方法比較表 成本法 §49 八步','估價_四大方法比較表.html#proc'],
+            ['營造施工費四法','估價_營造施工費四法.html']],
+  'e101-1':[['估價程序總整理（§8～§16）','估價_估價程序總整理.html'],
+            ['四大方法比較表 ②各法程序','估價_四大方法比較表.html#proc']],
+  'e103-1':[['彩色重點速記 A3 因素層次','估價彩色重點速記.html'],
+            ['四大方法比較表 比較法 §21 六步','估價_四大方法比較表.html#proc']],
+  'e109-1':[['估價程序總整理 ④確認勘估標的狀態','估價_估價程序總整理.html#s4'],
+            ['地價調查估計規則專欄','估價_地價調查估計規則專欄.html']],
+  'e112-1':[['彩色重點速記 A3 因素層次','估價彩色重點速記.html'],
+            ['特殊標的總整理','估價_特殊標的總整理.html']],
+  'e103-2':[['特殊標的總整理 地上權','估價_特殊標的總整理.html'],
+            ['四大方法比較表 四種價格','估價_四大方法比較表.html']],
+  'e113-1':[['計算題組 DCF 8 題','估價_計算題組.html#dcf'],
+            ['易混淆 直接資本化vsDCF','估價_易混淆概念並排.html'],
+            ['技術規則專欄 收益法','估價_技術規則專欄.html#t3']],
+  'e99-1':[['計算題攻略 五種資本化率','估價_計算題攻略.html#inc-extra'],
+           ['技術規則專欄 §43 五款','估價_技術規則專欄.html#t3']]
+ };
+ function boot(){
+  document.querySelectorAll('.essay-card[id]').forEach(function(c){
+    var body=c.querySelector('.card-body'); if(!body||body.querySelector('.es-tools'))return;
+    var list=ONE[c.id]||BY[c.getAttribute('data-type')]||BY.all;
+    if(!list||!list.length)return;
+    var d=document.createElement('div'); d.className='es-tools';
+    d.innerHTML='<span class="tl">📚 這題該讀哪幾頁</span>'
+      +list.map(function(a){return '<a href="'+a[1]+'" target="_blank" rel="noopener">'+a[0]+' ▸</a>';}).join('');
+    var rate=body.querySelector('.es-rate');
+    if(rate)body.insertBefore(d,rate); else body.appendChild(d);
+  });
+ }
+ if(document.readyState==='loading')addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
+
 </body>
 </html>
