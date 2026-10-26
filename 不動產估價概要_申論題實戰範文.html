@@ -3360,13 +3360,14 @@ function toggleRead(id){
   paintRead();
 }
 function paintRead(){
-  var r=getRead(),total=46,n=0;
+  var cards=document.querySelectorAll('.essay-card[id]');
+  var r=getRead(),total=cards.length||53,n=0;
   var perG={};
-  document.querySelectorAll('.essay-card[id]').forEach(function(c){
+  cards.forEach(function(c){
     var on=r.indexOf(c.id)>=0;
     c.classList.toggle('read',on);
     var b=document.getElementById('rbtn-'+c.id);
-    if(b){b.classList.toggle('done',on);b.textContent=on?'✓ 已讀':'☐ 已讀';}
+    if(b){b.classList.toggle('done',on);b.innerHTML=(on?'✓ 已讀':'☐ 已讀')+esBadge(c.id);}
     if(on){n++;var t=c.getAttribute('data-type');perG[t]=(perG[t]||0)+1;}
   });
   var sr=document.getElementById('s-read'),sp=document.getElementById('s-pct');
@@ -3508,5 +3509,124 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
   });
 })();
 </script>
+
+<style>
+/* ── 申論：輪數與用時（v527） ── */
+.read-btn .es-n{display:inline-block;margin-left:6px;font-size:.68rem;font-weight:800;
+  border-radius:999px;padding:1px 7px;background:rgba(47,93,80,.14);color:var(--green,#2F5D50);
+  font-variant-numeric:tabular-nums;vertical-align:middle}
+[data-theme="dark"] .read-btn .es-n{background:rgba(132,194,174,.18);color:#84C2AE}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .read-btn .es-n{background:rgba(132,194,174,.18);color:#84C2AE}}
+.es-live{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;
+  color:var(--gold,#B8782E);font-variant-numeric:tabular-nums;margin-left:8px;white-space:nowrap}
+.es-sum{font-size:.8rem;line-height:1.8;background:var(--paper2,#F0EDE0);border:1px solid var(--line,#DDD2BB);
+  border-radius:10px;padding:9px 12px;margin:10px 0 0}
+.es-sum b{font-variant-numeric:tabular-nums}
+.es-done{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:84px;z-index:70;
+  background:#2F5D50;color:#FFFEFA;border-radius:12px;padding:9px 15px;opacity:0;transition:.25s;
+  font-size:13px;line-height:1.5;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:min(88vw,330px)}
+.es-done.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.es-done b{display:block}.es-done span{display:block;font-size:12px;opacity:.85}
+</style>
+<script>
+/* ══ 申論：每張卡「看了幾輪・每輪看多久」（v527）
+   輪數的定義與其他閱讀頁一致：卡片展開、累積停留 ≥20 秒、而且捲到卡片底部。
+   存 bxv-es-log = {卡片id:{n:輪數, s:[最近5輪秒數], tot:總秒數, t:最後一次}}。
+   既有的 bx-es-read（已讀勾選）不動，兩者並存。 ══ */
+(function(){
+ var KEY='bxv-es-log', MIN=20, IDLE=120000;
+ function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+ function save(d){try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+ var LOG=load();
+ var cur=null, t0=0, acc=0, act=Date.now(), counted=false;
+ ['pointerdown','keydown','scroll','touchstart'].forEach(function(ev){
+   addEventListener(ev,function(){act=Date.now()},{passive:true})});
+
+ function fmt(s){s=Math.round(s);var m=Math.floor(s/60);return m?m+' 分 '+(s%60)+' 秒':s+' 秒';}
+ function fmtShort(s){s=Math.round(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+ window.esBadge=function(id){
+   var r=LOG[id]; if(!r||!r.n) return '';
+   var avg=r.s&&r.s.length?r.s.reduce(function(a,b){return a+b},0)/r.s.length:0;
+   return '<span class="es-n">'+r.n+' 輪'+(avg?'・'+fmtShort(avg):'')+'</span>';
+ };
+ function flush(){
+   if(!cur) return;
+   var sec=acc; acc=0;
+   if(sec>=5){
+     var r=LOG[cur]||{n:0,s:[],tot:0,t:0};
+     r.tot=(r.tot||0)+sec; r.t=Math.floor(Date.now()/1000);
+     if(counted){ r.n=(r.n||0)+1; r.s=[Math.round(sec)].concat(r.s||[]).slice(0,5); }
+     LOG[cur]=r; save(LOG);
+   }
+   cur=null; counted=false; paintSum(); if(typeof paintRead==='function')paintRead();
+ }
+ function open(id){ flush(); cur=id; t0=Date.now(); acc=0; counted=false; act=Date.now(); }
+
+ setInterval(function(){
+   if(!cur) return;
+   var n=Date.now();
+   if(document.visibilityState==='visible'&&n-act<IDLE) acc+=1;
+   var live=document.getElementById('esLive');
+   if(live) live.textContent='⏱ '+fmtShort(acc);
+   if(!counted&&acc>=MIN){
+     var c=document.getElementById(cur);
+     if(c){var b=c.getBoundingClientRect();
+       if(b.bottom<=innerHeight+80){ counted=true; doneToast(cur); }}
+   }
+ },1000);
+
+ function doneToast(id){
+   var r=LOG[id]||{n:0};
+   var t=document.createElement('div'); t.className='es-done';
+   t.innerHTML='<b>✓ 這一題看完了</b><span>這會是第 '+((r.n||0)+1)+' 輪・本次 '+fmt(acc)+'</span>';
+   document.body.appendChild(t); requestAnimationFrame(function(){t.classList.add('on')});
+   setTimeout(function(){t.classList.remove('on');setTimeout(function(){t.remove()},400)},3400);
+ }
+
+ /* 監看卡片展開／收合 */
+ function watch(){
+   document.querySelectorAll('.essay-card[id]').forEach(function(c){
+     new MutationObserver(function(){
+       var on=c.classList.contains('open');
+       if(on&&cur!==c.id) open(c.id);
+       else if(!on&&cur===c.id) flush();
+       mountLive();
+     }).observe(c,{attributes:true,attributeFilter:['class']});
+   });
+ }
+ function mountLive(){
+   var old=document.getElementById('esLive'); if(old)old.remove();
+   if(!cur) return;
+   var c=document.getElementById(cur); if(!c) return;
+   var h=c.querySelector('.card-header'); if(!h) return;
+   var sp=document.createElement('span'); sp.id='esLive'; sp.className='es-live'; sp.textContent='⏱ 00:00';
+   var rb=h.querySelector('.read-btn'); if(rb)h.insertBefore(sp,rb); else h.appendChild(sp);
+ }
+ function paintSum(){
+   var box=document.getElementById('esSum'); if(!box) return;
+   var ids=Object.keys(LOG), rounds=0, tot=0, cards=0, secs=[];
+   ids.forEach(function(k){var r=LOG[k]; if(r&&r.n){cards++;rounds+=r.n;tot+=r.tot||0;
+     (r.s||[]).forEach(function(x){secs.push(x)});}});
+   var total=document.querySelectorAll('.essay-card[id]').length;
+   if(!rounds){box.innerHTML='還沒有計時紀錄。<b>展開一題、停留 20 秒以上並捲到該題最底</b>，就會自動記一輪，並記下這次看了多久。';return;}
+   var avg=secs.length?secs.reduce(function(a,b){return a+b},0)/secs.length:0;
+   box.innerHTML='申論已看過 <b>'+cards+'／'+total+'</b> 題，累計 <b>'+rounds+'</b> 輪，'
+     +'總共 <b>'+fmt(tot)+'</b>，平均每題一輪 <b>'+fmt(avg)+'</b>。';
+ }
+ addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible')flush();});
+ addEventListener('pagehide',flush);
+ addEventListener('beforeunload',flush);
+ function boot(){
+   var sr=document.getElementById('s-read');
+   var host=sr?sr.closest('div'):null;
+   var box=document.createElement('div'); box.id='esSum'; box.className='es-sum';
+   if(host&&host.parentNode)host.parentNode.insertBefore(box,host.nextSibling);
+   else document.querySelector('main').insertBefore(box,document.querySelector('main').firstChild);
+   watch(); paintSum(); if(typeof paintRead==='function')paintRead();
+ }
+ if(document.readyState==='loading')addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
+
 </body>
 </html>

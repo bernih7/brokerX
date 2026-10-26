@@ -435,6 +435,53 @@ window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,
  if(document.readyState==="complete")setTimeout(run,300);else addEventListener("load",function(){setTimeout(run,500)});
 })();
 
+/* ── 捲到最底＝這一輪看完（v527） ───────────────────────────────
+   規則：①頁夠長（可捲超過半屏）②停留滿 25 秒 ③捲到距底 60px 內
+   三個都成立才自動 +1 輪，每次開頁最多一次；手動 ＋／－ 照常可用。 */
+(function(){
+ var R=window.BXREP; if(!R||!R.RIDS) return;
+ var rid=R.RIDS[R.PAGE]; if(!rid) return;
+ var MIN_MS=25000, PAD=60, t0=Date.now(), fired=false, tid=0;
+ function docH(){var d=document.documentElement,b=document.body;
+  return Math.max(d.scrollHeight,b.scrollHeight,d.offsetHeight,b.offsetHeight);}
+ function longEnough(){return docH()-innerHeight>innerHeight*0.5;}
+ function atBottom(){var d=document.documentElement;
+  return docH()-((window.scrollY||d.scrollTop)+innerHeight)<=PAD;}
+ function toast(n){
+  var t=document.createElement("div"); t.id="bxvRoundToast";
+  t.innerHTML='<b>✓ 這一輪看完了</b><span>讀過第 '+n+' 輪・捲到最底自動記錄</span>';
+  var st=document.createElement("style"); st.textContent=
+   '#bxvRoundToast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);'+
+   'bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:70;background:#2F5D50;color:#FFFEFA;'+
+   'border-radius:12px;padding:10px 16px;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;'+
+   "font:13px/1.5 system-ui,-apple-system,'Noto Sans TC',sans-serif;text-align:center;"+
+   'transition:opacity .25s,transform .25s;max-width:min(88vw,340px)}'+
+   '#bxvRoundToast.on{opacity:1;transform:translateX(-50%) translateY(0)}'+
+   '#bxvRoundToast b{display:block;font-size:14px}'+
+   '#bxvRoundToast span{display:block;opacity:.85;font-size:12px;margin-top:2px}';
+  document.head.appendChild(st); document.body.appendChild(t);
+  requestAnimationFrame(function(){t.classList.add("on")});
+  setTimeout(function(){t.classList.remove("on");setTimeout(function(){t.remove();st.remove()},400)},3600);
+ }
+ function fire(){
+  if(fired) return; 
+  if(!longEnough()||!atBottom()||Date.now()-t0<MIN_MS) return;
+  fired=true;
+  var n;
+  if(typeof window.bxvInc==="function"){window.bxvInc(); n=R.readGet(rid).n||0;}
+  else { n=R.readInc(rid,1); }
+  /* 各頁計數器寫法不一，能呼叫的都呼叫一次，再直接補寫常見的顯示元素 */
+  ["rdUpd","updRead","upd"].forEach(function(f){try{if(typeof window[f]==="function")window[f]();}catch(e){}});
+  document.querySelectorAll("#bxvRead b,#bxv-n,#rdN,#rd-n").forEach(function(el){el.textContent=n;});
+  toast(n);
+ }
+ function hit(){clearTimeout(tid);tid=setTimeout(fire,350);}
+ addEventListener("scroll",hit,{passive:true});
+ addEventListener("resize",hit,{passive:true});
+ /* 停留時間沒到就捲到底的情況：時間到了再補判一次 */
+ setTimeout(hit,MIN_MS+500);
+})();
+
 /* ---- 答案鍵修正後的一次性重算（v495）：舊作答若依錯誤答案鍵判分，這裡依新答案鍵重判 ---- */
 (function(){try{
  var FLAG="bxv-keyfix",VER="v495";if(localStorage.getItem(FLAG)===VER)return;

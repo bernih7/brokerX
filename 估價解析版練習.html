@@ -110,6 +110,23 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 .slow li{margin:2px 0}
 #wrongBar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
 .msg{font-size:.82rem;color:var(--red);margin-top:8px;min-height:1.2em}
+
+/* ── 暫停（v527） ── */
+.pzbtn{font:inherit;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:999px;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--paper,#fff);color:var(--sub,#666);margin-left:8px}
+.pzbtn:hover{border-color:var(--blue)}
+.pzbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+#quizScreen{position:relative}
+#pzMask{position:absolute;inset:-8px;z-index:30;border-radius:12px;
+  background:var(--paper,#fff);display:grid;place-items:center;padding:24px 18px}
+#pzMask[hidden]{display:none!important}
+#pzMask .pz-in{max-width:360px;text-align:center}
+#pzMask .pz-ic{font-size:2.4rem;line-height:1}
+#pzMask .pz-t{font-size:1.12rem;font-weight:800;margin:6px 0 4px}
+#pzMask .pz-s{font-size:.83rem;line-height:1.75;color:var(--sub,#666)}
+#pzMask .pz-el{font-size:.8rem;font-weight:700;color:var(--blue);margin-top:9px;font-variant-numeric:tabular-nums}
+#pzMask .pz-go{margin-top:14px;font:inherit;font-size:.9rem;font-weight:800;padding:10px 22px;border-radius:999px;
+  cursor:pointer;border:0;background:var(--blue);color:#fff}
 </style>
 <script src="bxv-use.js"></script>
 </head>
@@ -147,8 +164,9 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
   </div>
 
   <div id="quizScreen" class="panel hidden">
+    <div id="pzMask" hidden><div class="pz-in"><div class="pz-ic">⏸</div><div class="pz-t">已暫停</div><div class="pz-s">計時停住了，題目先蓋起來。回來再按「繼續」，這段時間不會算進本輪與本題。</div><div class="pz-el" id="pzEl"></div><button type="button" id="pzGo" class="pz-go">▶ 繼續作答</button></div></div>
     <div class="meta-row">
-      <span id="progressText">1 / 20</span><span id="qTimer" class="qtimer">⏱ 00:00</span>
+      <span id="progressText">1 / 20</span><span id="qTimer" class="qtimer">⏱ 00:00</span><button type="button" id="qPause" class="pzbtn" title="暫停計時（被打斷時用）">⏸ 暫停</button>
       <span><span class="tag" id="kindTag"></span> <span class="tag" id="chapterTag">A1</span></span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -225,19 +243,41 @@ function recordTag(q,k){
 function wGet(){var Dd=q2(),c=wClr(),o={};ITEMS.forEach(function(q){var r=Dd[qk(q)];if(r&&r.ok===0&&(r.t||0)>c)o[q.id]=r.k||""});return o}
 
 /* ---------- 計時：整輪 wall-clock；每題只算「有在操作」的秒數 ---------- */
-var TM={st:0,iv:0,over:false},TLIM=2400,IDLE=180000,QCAP=600;
+var TM={st:0,iv:0,over:false,pz:0,ps:0},PAUSED=false,TLIM=2400,IDLE=180000,QCAP=600;
 var act=Date.now();
 ["pointerdown","keydown","scroll","touchstart"].forEach(function(ev){addEventListener(ev,function(){act=Date.now()},{passive:true})});
 var QT={acc:0,prev:0,calc:false};
 function qBegin(){QT.acc=0;QT.prev=Date.now();act=Date.now()}
 setInterval(function(){
   var n=Date.now();
-  if(quizIndex>=0&&!$("quizScreen").classList.contains("hidden")&&!answered&&document.visibilityState==="visible"&&n-act<IDLE)QT.acc+=Math.min(2,(n-QT.prev)/1000);
+  if(!PAUSED&&quizIndex>=0&&!$("quizScreen").classList.contains("hidden")&&!answered&&document.visibilityState==="visible"&&n-act<IDLE)QT.acc+=Math.min(2,(n-QT.prev)/1000);
   QT.prev=n;
 },1000);
-function tStart(){clearInterval(TM.iv);TM={st:Date.now(),iv:0,over:false};var el=$("qTimer");el.classList.remove("over");el.textContent="⏱ 00:00";
-  TM.iv=setInterval(function(){var e=(Date.now()-TM.st)/1000;if(TLIMON&&e>=TLIM){TM.over=true;clearInterval(TM.iv);el.classList.add("over");el.textContent="⏱ 已超過 40 分鐘・本輪不列入";return}el.textContent="⏱ "+fmt(e)},1000)}
-function tStop(){clearInterval(TM.iv);return TM.over?null:(Date.now()-TM.st)/1000}
+function tStart(){clearInterval(TM.iv);pzOff();TM={st:Date.now(),iv:0,over:false,pz:0,ps:0};var el=$("qTimer");el.classList.remove("over");el.textContent="⏱ 00:00";
+  TM.iv=setInterval(function(){if(PAUSED)return;var e=tEl();if(TLIMON&&e>=TLIM){TM.over=true;clearInterval(TM.iv);el.classList.add("over");el.textContent="⏱ 已超過 40 分鐘・本輪不列入";return}el.textContent="⏱ "+fmt(e)},1000)}
+function tEl(){return (Date.now()-TM.st-TM.pz-(PAUSED?Date.now()-TM.ps:0))/1000}
+function tStop(){clearInterval(TM.iv);var e=TM.over?null:tEl();pzOff();return e}
+/* ── 暫停／繼續（v527）：被打斷時按，暫停期間不算本輪也不算本題 ── */
+function pzOn(){
+  if(PAUSED||!TM.st)return; PAUSED=true; TM.ps=Date.now();
+  var m=$("pzMask"); if(m){m.hidden=false;$("pzEl").textContent="本輪已用 "+fmt(tEl());}
+  var b=$("qPause"); if(b){b.textContent="▶ 繼續";b.classList.add("on");}
+}
+function pzOff(){
+  var m=$("pzMask"); if(m)m.hidden=true;
+  var b=$("qPause"); if(b){b.textContent="⏸ 暫停";b.classList.remove("on");}
+  if(!PAUSED)return;
+  TM.pz+=Date.now()-TM.ps; PAUSED=false; TM.ps=0;
+  act=Date.now(); QT.prev=Date.now();
+}
+addEventListener("DOMContentLoaded",function(){
+  var b=document.getElementById("qPause");
+  if(b)b.addEventListener("click",function(){PAUSED?pzOff():pzOn();});
+  var g=document.getElementById("pzGo"); if(g)g.addEventListener("click",pzOff);
+  addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&!document.getElementById("quizScreen").classList.contains("hidden")){PAUSED?pzOff():pzOn();}
+  });
+});
 function tHist(){return ld(KEY.TIME,[])}
 function tSave(r){var h=tHist();h.unshift(r);sv(KEY.TIME,h.slice(0,10))}
 function qtGet(){return ld(KEY.QT,{})}

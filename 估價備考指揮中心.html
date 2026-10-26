@@ -219,6 +219,30 @@ body[data-pal="p5"]{   /* Muzzle Taupe */
   border:1.5px solid var(--cp-line);color:var(--cp-ink);background:var(--cp-milk)}
 #hitPanel .acts a.go{background:var(--cp-got);border-color:var(--cp-got);color:var(--cp-got-t)}
 #hitPanel .hint{font-size:.75rem;color:var(--cp-soft);margin:8px 0 0;padding:0 3px}
+
+/* ── 進度落後清單（v527） ── */
+#lagPanel{margin:0 0 18px}
+#lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
+  padding:14px 15px;color:var(--cp-ink)}
+#lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+#lagPanel h3 .d{margin-left:auto;background:var(--cp-accent);color:var(--cp-accent-t);
+  font-size:.76rem;font-weight:800;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
+#lagPanel .goal{font-size:.76rem;color:var(--cp-soft);margin-bottom:10px;line-height:1.6}
+#lagPanel table{border-collapse:collapse;width:100%;font-size:.81rem;font-variant-numeric:tabular-nums}
+#lagPanel th,#lagPanel td{padding:7px 8px;text-align:left;border-top:1px solid var(--cp-line)}
+#lagPanel thead th{border-top:0;background:var(--cp-milk);font-size:.72rem;color:var(--cp-soft);
+  letter-spacing:.04em;font-weight:800;white-space:nowrap}
+#lagPanel td.n{text-align:right;white-space:nowrap}
+#lagPanel .pb{display:inline-flex;height:8px;width:100%;min-width:60px;max-width:110px;border-radius:5px;
+  overflow:hidden;background:var(--cp-track);vertical-align:middle}
+#lagPanel .pb i{display:block;height:100%;background:var(--cp-got)}
+#lagPanel .need{font-weight:800;color:var(--cp-accent)}
+#lagPanel .zero{color:var(--cp-soft)}
+#lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);
+  font-size:.79rem;line-height:1.85}
+#lagPanel .names b{color:var(--cp-ink)}
+#lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
+#lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
 #hitPanel .grouphd{font-size:.78rem;font-weight:700;color:var(--cp-soft);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
 #hitPanel .grouphd::after{content:"";flex:1;height:1px;background:var(--cp-line)}
 
@@ -1277,6 +1301,9 @@ try{document.body.setAttribute('data-pal',localStorage.getItem('bxv-hit-pal')||'
   <!-- 日拱一築（v520；標題與說明都在面板內，由 hitBuild 產生） -->
   <div id="hitPanel"></div>
 
+  <!-- 進度落後清單（v527） -->
+  <div id="lagPanel"></div>
+
   <!-- 今日＋工具完成度與閱讀次數（取代原「閱讀進度匯報」，不需回報） -->
   <div class="sec-title">今日</div>
   <p class="ts-today" id="bxTodayLine"></p>
@@ -1707,6 +1734,72 @@ var HIT_PALS=[['p1','Forest Paws','#4E5F4A','#8FA083','#ECD9B9'],
   ['p5','Muzzle Taupe','#3A3A3A','#A89B8A','#D6C8B6']];
 function hitPal(){try{return localStorage.getItem('bxv-hit-pal')||'p1'}catch(e){return 'p1'}}
 
+/* ══ 進度落後清單（v527）
+   目標寫明：考前把每一樣至少做完 1 輪。只用已知數字算，沒有自訂的進度表。 ══ */
+function lagBuild(){
+  var box=document.getElementById('lagPanel'); if(!box) return;
+  if(typeof BXREP==='undefined'||!BXREP.status){box.innerHTML='';return;}
+  var exam=new Date('2026-11-14T09:00:00+08:00');
+  var days=Math.max(1,Math.ceil((exam-new Date())/86400000));
+  var G=BXREP.status();
+  function grp(name){for(var i=0;i<G.length;i++){if(G[i].g.indexOf(name)===0)return G[i];}return null;}
+  function sum(g,f){var a=0;(g?g.rows:[]).forEach(function(r){a+=(f(r)||0)});return a;}
+
+  var drill=grp('刷題'), mock=grp('模擬卷'), calc=grp('計算題組'), mem=grp('記憶工具'),
+      es=grp('申論'), read=grp('閱讀頁');
+
+  /* 刷題：只算 16 章（排除「解析版練習」與 113 真題那兩列，它們是視圖不是題庫） */
+  var dDone=0,dTot=0;
+  (drill?drill.rows:[]).forEach(function(r){ if(r.total>0&&r.name.indexOf('刷題 ')===0){dDone+=r.done;dTot+=r.total;} });
+
+  /* 申論：優先用本機的輪數紀錄，沒有就用已讀勾選 */
+  var esCards=0,esRounds=0,esSec=0,esTotal=53;
+  try{var L=JSON.parse(localStorage.getItem('bxv-es-log')||'{}');
+    Object.keys(L).forEach(function(k){var r=L[k];if(r&&r.n){esCards++;esRounds+=r.n;esSec+=r.tot||0;}});}catch(e){}
+  if(!esCards){try{esCards=(JSON.parse(localStorage.getItem('bx-es-read')||'[]')||[]).length;}catch(e){}}
+
+  var rPages=(read?read.rows.length:0), rDone=sum(read,function(r){return (r.read||0)>0?1:0});
+  var mDone=sum(mock,function(r){return r.done>=r.total&&r.total?1:0}), mTot=mock?mock.rows.length:0;
+  var cDone=sum(calc,function(r){return r.done}), cTot=sum(calc,function(r){return r.total});
+
+  function per(remain){return remain<=0?'已完成':(Math.ceil(remain/days)+' / 天');}
+  function bar(d,t){var p=t?Math.min(100,Math.round(d/t*100)):0;
+    return '<span class="pb"><i style="width:'+p+'%"></i></span>';}
+  function row(nm,d,t,unit,note){
+    var rem=Math.max(0,t-d);
+    return '<tr><td>'+nm+'</td><td class="n">'+d+'／'+t+' '+unit+'</td>'
+      +'<td>'+bar(d,t)+'</td><td class="n '+(rem?'need':'zero')+'">'+per(rem)+'</td>'
+      +'<td class="zero">'+(note||'')+'</td></tr>';
+  }
+  var h='<div class="lg"><h3><span>⏳</span>進度落後在哪<span class="d">剩 '+days+' 天</span></h3>'
+    +'<div class="goal">目標設定：<b>考前把每一樣至少做完 1 輪</b>。右邊那欄是「要達成這個目標，從今天起每天得做多少」——沒有另外訂讀書表，就是剩下的量除以剩下的天數。</div>'
+    +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
+    +row('選擇題（16 章）',dDone,dTot,'題','')
+    +row('申論範文',esCards,esTotal,'張',esRounds?('累計 '+esRounds+' 輪・共 '+Math.round(esSec/60)+' 分鐘'):'還沒有計時紀錄')
+    +row('閱讀／整理頁',rDone,rPages,'頁','讀完一輪＝捲到該頁最底')
+    +row('模擬卷',mDone,mTot,'份','')
+    +(cTot?row('計算題組',cDone,cTot,'題',''):'')
+    +'</tbody></table>';
+
+  /* 完全沒開始的，點名 */
+  var zero=[];
+  (drill?drill.rows:[]).forEach(function(r){ if(r.total>0&&r.name.indexOf('刷題 ')===0&&r.done===0)
+    zero.push({t:'刷題',n:r.name.replace('刷題 ',''),u:r.url}); });
+  (read?read.rows:[]).forEach(function(r){ if(!r.read) zero.push({t:'閱讀',n:r.name,u:r.url}); });
+  (mock?mock.rows:[]).forEach(function(r){ if(!r.done) zero.push({t:'模擬卷',n:r.name,u:r.url}); });
+  if(zero.length){
+    h+='<div class="names"><span class="lab">完全沒開始的 '+zero.length+' 項</span>'
+      +zero.slice(0,14).map(function(z){
+        return '<a href="'+z.u+'" target="_blank" rel="noopener">'+z.n+'</a>';
+      }).join('、')+(zero.length>14?'　…另 '+(zero.length-14)+' 項':'')+'</div>';
+  } else {
+    h+='<div class="names"><span class="lab">每一項都已經開始</span>接下來看上面「每天要」那一欄，把量補上就好。</div>';
+  }
+  box.innerHTML=h+'</div>';
+}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')lagBuild();});
+window.addEventListener('focus',lagBuild);
+
 function hitBuild(){
   var box=document.getElementById('hitPanel'); if(!box) return;
   var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
@@ -1854,7 +1947,7 @@ document.addEventListener('click',function(e){
   }
 });
 window.addEventListener('focus',hitBuild);
-document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')hitBuild();});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){hitBuild();lagBuild();}});
 
 window.addEventListener('focus',injectDrillStats);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')injectDrillStats();});
@@ -1902,6 +1995,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
   updateReport();
   injectDrillStats();
   hitBuild();
+  lagBuild();
 })();
 
 // ── 模擬卷成績 ──
