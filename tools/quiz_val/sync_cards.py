@@ -27,9 +27,9 @@ ne=nn=0;changed=[]
 for c in cards:
     p=pg.get(c['id'])
     if not p: continue
-    for k in ('q','opts'):
-        assert c[k]==p[k],(c['id'],k)
     ch=False
+    for k in ('q','opts'):
+        if c[k]!=p[k]: c[k]=p[k];ch=True;print(k,'更新',c['id'])
     if c['correct']!=p['correct']: c['correct']=p['correct'];ch=True;print('correct 更新',c['id'])
     if c['exps']!=p['exps']: c['exps']=p['exps'];ne+=1;ch=True
     if (c['note'] or None)!=(p['note'] or None): c['note']=p['note'];nn+=1;ch=True
