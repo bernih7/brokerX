@@ -556,7 +556,20 @@ function deepLink(){
   document.getElementById('quiz').hidden=false;document.getElementById('tmDisp').hidden=true;
   render();return true;
 }
-window.addEventListener('hashchange',deepLink);
+/* 深連結 #ch=A4,E3：預選章節，停在選章畫面（供指揮中心「混合練這章」用） */
+function chLink(){
+  var m=/[#&]ch=([\w,]+)/.exec(location.hash);if(!m)return false;
+  var cs=m[1].split(',').map(function(x){return x.trim()}).filter(function(c){return CT[c]});
+  if(!cs.length)return false;
+  sel=new Set(cs);
+  document.getElementById('quiz').hidden=true;document.getElementById('done').hidden=true;
+  document.getElementById('setup').hidden=false;
+  renderCats();
+  var el=document.getElementById('cats');
+  if(el)setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'})},120);
+  return true;
+}
+window.addEventListener('hashchange',function(){if(!deepLink())chLink()});
 /* 主題 */
 document.getElementById('theme').onclick=function(){
   var cur=document.documentElement.getAttribute('data-theme');
@@ -565,7 +578,7 @@ document.getElementById('theme').onclick=function(){
   try{localStorage.setItem('bx-theme',nx)}catch(e){}};
 try{var th=localStorage.getItem('bx-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
 renderMk();renderCats();renderOrd();renderNum();renderWrong();renderOv();renderLog();
-deepLink();
+if(!deepLink())chLink();
 })();
 </script>
 </body></html>
