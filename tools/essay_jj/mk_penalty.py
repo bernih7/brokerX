@@ -330,13 +330,24 @@ sec('p3', '③ §22 強制遷離與強制出讓', '考古 5 題', '''
     'color:var(--pri);text-decoration:none;font-weight:700">練這 5 題 ▸</a></div>' % QUIZ)
 
 # ④ 檢舉與不繳
-sec('p4', '④ 檢舉與罰鍰不繳', '§59、§52', '''
+sec('p4', '④ 檢舉、調處與罰鍰不繳', '§59、§59-1、§52', '''
 <div class="q30">
 <div><b>§59 誰可以檢舉</b>　他區分所有權人、利害關係人、管理負責人或管理委員會，
 <b class="ctr">列舉事實並提出證據</b>，報直轄市、縣（市）主管機關處理</div>
+<div><b>§59-1 爭議調處</b>　直轄市、縣（市）政府為處理公寓大廈爭議事件，
+<b>得聘請資深之專家、學者及建築師、律師，並指定公寓大廈及建築管理主管人員</b>，
+組設<b class="ctr">公寓大廈爭議事件調處委員會</b>；該委員會之組織由<b class="ctr">內政部</b>定之</div>
 <div><b>§52 不繳怎麼辦</b>　經限期繳納屆期仍不繳納者，<b class="ctr">依法移送強制執行</b></div>
 </div>
-''' + '<div class="lawwrap"><div class="group-label">逐字全文</div>' + bt('公寓大廈 §59') + bt('公寓大廈 §52') + '</div>')
+<div class="tr"><b>三條容易混</b>
+<ul class="kl" style="margin-top:7px">
+<li><span>§59</span><div>對<b>主管機關</b>檢舉違規 → 走<b>行政罰</b>（§47～§49）</div></li>
+<li><span>§59-1</span><div>向<b>縣市政府的調處委員會</b>聲請 → 走<b>爭議調處</b>，不是罰</div></li>
+<li><span>§22</span><div>由<b>管委會</b>促請改善、訴請法院 → 走<b>強制遷離、出讓、拍賣</b></div></li>
+</ul>
+<span class="mnq">同一件惡鄰糾紛，三條路可以並行：檢舉求罰、聲請調處、訴請趕人。</span>
+<span class="mnw">組設調處委員會的是<b>縣市政府</b>，訂組織的是<b>內政部</b>，兩個主體不要混。</span></div>
+''' + '<div class="lawwrap"><div class="group-label">逐字全文</div>' + bt('公寓大廈 §59') + bt('公寓大廈 §59之1') + bt('公寓大廈 §52') + '</div>')
 
 # ⑤ 逐字條文
 sec('p5', '⑤ 逐字條文', '對紙本用',
@@ -349,7 +360,7 @@ sec('p5', '⑤ 逐字條文', '對紙本用',
 BODY = '\n\n'.join(S)
 NAV = ('<nav><a href="#p0">⓪ 四級金額</a><a href="#p1">① 行為卡</a>'
        '<a href="#p2">② 四個唯一</a><a href="#p3">③ §22 遷離出讓</a>'
-       '<a href="#p4">④ 檢舉與不繳</a><a href="#p5">⑤ 逐字條文</a></nav>')
+       '<a href="#p4">④ 檢舉・調處・不繳</a><a href="#p5">⑤ 逐字條文</a></nav>')
 
 MNCSS = '''
 .mn,.tr{background:var(--card);border:1px solid var(--line);border-radius:9px;
@@ -373,7 +384,7 @@ BANNER = ('<div style="position:sticky;top:0;z-index:99;background:#8A5517;color
           ) if DEMO else ''
 
 HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>%s公寓大廈條例罰則</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s%s</style></head><body>
-%s<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜公寓大廈條例罰則</h1><div class="sub">罰誰・誰罰・罰多少・程序　§22、§47～§52、§49-1、§59</div></header>
+%s<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜公寓大廈條例罰則</h1><div class="sub">罰誰・誰罰・罰多少・程序　§22、§47～§52、§49-1、§59、§59-1</div></header>
 %s
 <main>
 <div class="intro"><b>這頁只回答四件事：</b>這個人是<b>誰</b>、哪個機關<b>罰</b>、哪一<b>級金額</b>、要不要<b>先限期改善</b>。金額看闖的禍有多大，不是看身分；主管機關只有 <b>§51</b> 一個例外。</div>
