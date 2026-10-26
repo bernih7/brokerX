@@ -1843,7 +1843,7 @@ function hitBuild(){
 
   function pc(r,k){var t=r.ok+r.need+r.seed; return t?Math.max(0,Math.round(r[k]/t*100)):0;}
   function todo(r){
-    if(r.est===0) return '無官方題，不計分';
+    if(r.est===0) return '自編題・不計分（官方題在 H1H2）';
     if(r.cov<0.30) return r.done===0?'先刷一輪，實力未知':'只測了 '+Math.round(r.cov*100)+'%，先刷一輪';
     if(r.ng>0&&!r.kk) return '先標錯誤類型';
     if(r.kk) return HIT_KN[r.kk][0];
@@ -1851,7 +1851,7 @@ function hitBuild(){
     return r.cov>=0.7?'維持就好':'再刷滿一輪';
   }
   function why(r){
-    if(r.est===0) return '這章全是自編／預測題，沒有官方題，不計入這 50 分。';
+    if(r.est===0) return '這章的 '+r.bank+' 題<b>全是自編觀念題</b>，所以不計入這 50 分。'+'<br>⚠ <b>但「土地改良物」本身是會考的</b>——§107～§113 的官方題有 4 題，'+'被歸在 <b>H1H2 特殊宗地</b>（99-12 農作改良物、105-39、107-22、<b>114-9 地層下陷之工事水利／土壤改良</b>，'+'<b>114 年剛考過</b>）。想練那幾題請去 H1H2，或看《特殊標的總整理》第六節。';
     if(r.cov<0.30) return (r.done===0
       ? '這章<b>一題都還沒作答</b>，'
       : '這章只測了 <b>'+r.done+'/'+r.bank+'</b> 題（'+Math.round(r.cov*100)+'%），')
@@ -1918,6 +1918,7 @@ function hitDetail(i){
   var r=HIT_ROWS[i]; if(!r) return;
   var acts='<div class="acts"><a class="go" href="估價刷題練習_'+r.ch+'.html">去刷 '+r.ch+' ▸</a>'
     +'<a href="'+HIT_READ[r.ch][1]+'">讀 '+HIT_READ[r.ch][0]+' ▸</a>';
+  if(r.est===0) acts+='<a href="估價刷題練習_H1H2.html">去 H1H2 練官方題 ▸</a>';
   if(r.done) acts+='<a href="估價解析版練習.html#ch='+r.ch+'">混合練這章 ▸</a>';
   acts+='</div>';
   el.innerHTML='<div class="detail"><h4>'+HIT_NM(r.ch)
