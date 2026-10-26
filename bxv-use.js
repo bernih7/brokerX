@@ -18,9 +18,10 @@ var CH={
  "G1":["G1","G1 樓層效用",15],
  "H1H2":["H1H2","H1H2 特殊宗地",21],
  "H3I1":["H3I1","H3I1 都更CAMA",17],
- "I2J1":["I2J1","I2J1 土地改良物・特殊宗地",20],
- "113":["113真題","113真題 官方試題",25]
+ "I2J1":["I2J1","I2J1 土地改良物・特殊宗地",20]
 };
+/* 113 真題頁不是獨立章節：它直接取用章節題庫的 113 年 25 題，作答記在各題自己的章節。
+   （v512 前曾有 "113" 偽章節與 Q113_* 題號，已移除） */
 /* PAGES：[頁面檔名（不含.html）, 顯示名稱] */
 var PAGES=[
  ["估價刷題練習_A1","刷題 A1"],
@@ -134,7 +135,11 @@ function chOf(raw){return PAGECH[PAGE]||ALIAS[raw]||raw}
  var DB=ld("bxv-q2",null);if(!DB||typeof DB!=="object")return;var ch=false;
  Object.keys(DB).forEach(function(k){
   if(k.indexOf("undefined")>=0){delete DB[k];ch=true;return}
-  var a=k.split("-"),p=a[0],idp=a[a.length-1],np=/^Q113_/.test(idp)?"113":(ALIAS[p]||p);
+  var a=k.split("-"),p=a[0],idp=a[a.length-1];
+  /* v512：舊 113 真題頁的 Q113_* 是「改寫版題幹」的作答，不是官方題，直接刪除不保留
+     （官方 113 年 25 題記在各章，id 為 V??_113_N；詳見 113 真題頁說明） */
+  if(/^Q113_/.test(idp)||p==="113"){delete DB[k];ch=true;return}
+  var np=ALIAS[p]||p;
   if(np===p)return;
   a[0]=np;var nk=a.join("-"),o=DB[nk],r=DB[k];
   if(!o||(r&&(r.t||0)>(o.t||0)))DB[nk]=r;
@@ -217,7 +222,7 @@ function build(){
  var L=["【估價學習回報】"+now(),"產生自："+(document.title||PAGE),
   "說明：同一瀏覽器所有頁面共用一份紀錄，任一頁產生的回報都涵蓋全部工具，不需每頁各貼；換裝置才另貼。","",
   "今日：刷題作答 "+td.q+" 題｜卡片與填空操作 "+td.c+" 次；近 7 日：刷題 "+wk+" 題｜卡片與填空 "+wc+" 次（自 2026-10-13 起記錄）","",
-  "══ 一、選擇題題庫（A1～I2J1 共 16 章＋113真題，共 "+total+" 題）══",
+  "══ 一、選擇題題庫（A1～I2J1 共 16 章，共 "+total+" 題；含 113 年官方 25 題）══",
   "整體：已作答 "+done+"／"+total+"（達成 "+pc(done,total)+"%）｜答對 "+ok+"（確定 "+tot.sure+"、猜對 "+tot.gok+"）｜答錯 "+tot.wr+"｜正確率 "+(done?pc(ok,done)+"%":"-")+"｜及格線 "+TGT.p+"%・目標 "+TGT.g+"%",
   "自上次回報新增：作答 "+fresh+" 題","","── 各章 ──"];
 
@@ -290,7 +295,7 @@ var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_�
 /* 頁面本身沒有 header 計數元件、由本檔在右下自動補「＋／讀過 N 輪／－」的頁面 */
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
-var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1","113":"val_prac_113_v1"};
+var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1"};
 var TOT={fill:116,card:95,kcard:533,essay:53,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
@@ -298,9 +303,12 @@ function status(){
  function row(p,name,done,total,txt,t2){var u=UU[p]||{},rid=RIDS[p],rd=rid?readGet(rid):{n:0,t:0};
   return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:rid?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0,t2||0)}}
  /* 刷題：讀各頁自己的作答存檔 */
- var R1=[];["A1","A2","A3","A4","B","C1","C2","D1","D2","D3","E1","F1","G1","H1H2","H3I1","I2J1","113"].forEach(function(c){var a=ld("bxv-st:"+ANS[c]+"_answers",null)||ld(ANS[c]+"_answers",{})||{},ks=Object.keys(a),d=Math.min(ks.length,CH[c][2]),ok=0,known=0;
+ var R1=[];["A1","A2","A3","A4","B","C1","C2","D1","D2","D3","E1","F1","G1","H1H2","H3I1","I2J1"].forEach(function(c){var a=ld("bxv-st:"+ANS[c]+"_answers",null)||ld(ANS[c]+"_answers",{})||{},ks=Object.keys(a),d=Math.min(ks.length,CH[c][2]),ok=0,known=0;
   ks.forEach(function(k){var v=a[k];if(v&&typeof v==="object"&&"correct" in v){known++;if(v.correct)ok++}});
   R1.push(row("估價刷題練習_"+CH[c][0],"刷題 "+CH[c][1],d,CH[c][2],"已作答 "+d+"／"+CH[c][2]+(known?"・正確率 "+pc(ok,known)+"%・錯 "+(known-ok):"")))});
+ /* 113 年官方 25 題：記在各章，這一列只是把它們挑出來看進度（不是獨立章節，不另計總題數） */
+ (function(){var D3=ld("bxv-q2",{}),n=0,k3=0;Object.keys(D3).forEach(function(k){if(k.indexOf("-113年")>0){n++;if(D3[k].ok)k3++}});
+  R1.push(row("估價刷題練習_113真題","113年官方真題（25題・已計入各章）",Math.min(n,25),25,"已作答 "+Math.min(n,25)+"／25"+(n?"・正確率 "+pc(k3,n)+"%":"")))})();
  var AT=ld("bxv-anal-time",[]);
  R1.unshift(row("估價解析版練習","解析版練習（跨章節・智慧配題・計時）",0,0,AT.length?"已計時練習 "+AT.length+" 輪（近 10 輪）・最近一輪 "+Math.round(AT[0].s/60*10)/10+" 分、每題約 "+Math.round(AT[0].s/Math.max(1,AT[0].n))+" 秒":"尚未練習（作答自動寫入下方各章進度）",AT.length?Math.floor(AT[0].d/1000):0));
  G.push({g:"刷題（作答後自動記錄）",rows:R1});
