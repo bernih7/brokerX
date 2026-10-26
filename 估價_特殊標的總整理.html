@@ -31,6 +31,13 @@ td.n{font-weight:700;white-space:nowrap}
 .k{color:var(--red);font-weight:700}.g{color:var(--green);font-weight:700}.y{color:var(--gold);font-weight:700}.b{color:var(--blu);font-weight:700}
 .m{text-align:center;font-weight:700;color:var(--green)}.m0{text-align:center;color:var(--sub);opacity:.55}
 .box{margin-top:8px;padding:9px 12px;border-left:4px solid var(--gold);background:var(--tip);border-radius:0 8px 8px 0;font-size:13px}
+.hl{background:rgba(240,185,60,.34);font-weight:700;padding:0 3px;border-radius:3px;color:inherit}
+:root[data-theme="dark"] .hl{background:rgba(240,185,60,.26)}
+.okl{list-style:none;padding:0;margin:8px 0 0}
+.okl li{position:relative;padding:5px 0 5px 24px;line-height:1.75;border-top:1px dashed var(--line)}
+.okl li:first-child{border-top:0}
+.okl li::before{content:"✓";position:absolute;left:4px;top:5px;color:var(--grn);font-weight:900}
+.okl li.no::before{content:"✗";color:var(--red)}
 .box b{color:var(--key)}
 .box.inf{border-left-color:var(--blu)}
 .fm{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:6px;overflow-x:auto;line-height:1.7}
@@ -52,14 +59,25 @@ td.n{font-weight:700;white-space:nowrap}
 
 <h2 id="s1">一、宗地通則<small>§83～§89</small></h2>
 <div class="tw"><table><thead><tr><th>條</th><th>情形</th><th>條文怎麼處理</th></tr></thead><tbody>
-<tr><td class="a">§83</td><td>以合併或分割為前提</td><td>考慮合併或分割<span class="k">前後之價格變動情形</span>，酌量增減</td></tr>
-<tr><td class="a">§84</td><td>數筆土地合併為一宗進行利用</td><td>以<span class="k">合併後</span>土地估價，再依<span class="k">合併前各筆土地價值比例</span>分算各筆地價；非以合併一宗利用為目的之相連土地，屬<span class="y">同一所有權人</span>者，比照辦理</td></tr>
-<tr><td class="a">§85</td><td>一宗土地有數種不同法定用途</td><td>考量<span class="k">最有效使用</span>、各種用途之<span class="k">相關性</span>及<span class="k">分割之難易度</span>，決定「分別估價」或「依主要用途估價」</td></tr>
-<tr><td class="a">§86</td><td>附有建物之宗地</td><td>考慮該建物對宗地價格造成之影響；<span class="y">例外</span>：以素地估價為前提並於估價報告書敘明</td></tr>
-<tr><td class="a">§87</td><td>以進行開發為前提</td><td>得採<span class="k">土地開發分析法</span>，並<span class="k">參酌比較法或收益法</span>之結果決定估價額</td></tr>
-<tr><td class="a">§88</td><td>上下有其他設施通過、使用受限</td><td>先估<span class="k">正常價格</span> → 考量設施通過之影響，算<span class="k">地價減損額</span> → 從正常價格<span class="k">扣除</span>，餘額為宗地價格</td></tr>
-<tr><td class="a">§89</td><td>土壤或地下水受污染之土地</td><td>先估<span class="k">未受污染之正常價格</span> → 依<span class="k">委託人提供之土壤污染檢測資料</span>考量影響、算地價減損額 → 扣除，餘額為宗地價格</td></tr>
+<tr><td class="a">§83</td><td>以<span class="hl">合併</span>或<span class="hl">分割</span>為前提</td><td>考慮合併或分割<span class="k">前後之價格變動情形</span>，酌量增減</td></tr>
+<tr><td class="a">§84</td><td>數筆土地<span class="hl">合併</span>為一宗進行利用</td><td>以<span class="k">合併後</span>土地估價，再依<span class="k">合併前各筆土地價值比例</span>分算各筆地價；非以合併一宗利用為目的之相連土地，屬<span class="y">同一所有權人</span>者，比照辦理</td></tr>
+<tr><td class="a">§85</td><td>一宗土地有數種<span class="hl">不同法定用途</span></td><td>考量<span class="k">最有效使用</span>、各種用途之<span class="k">相關性</span>及<span class="k">分割之難易度</span>，決定「分別估價」或「依主要用途估價」</td></tr>
+<tr><td class="a">§86</td><td>附有<span class="hl">建物</span>之宗地</td><td>考慮該建物對宗地價格造成之影響；<span class="y">例外</span>：以素地估價為前提並於估價報告書敘明</td></tr>
+<tr><td class="a">§87</td><td>以進行<span class="hl">開發</span>為前提</td><td>得採<span class="k">土地開發分析法</span>，並<span class="k">參酌比較法或收益法</span>之結果決定估價額</td></tr>
+<tr><td class="a">§88</td><td><span class="hl">上下</span>有其他設施通過、使用受限</td><td>先估<span class="k">正常價格</span> → 考量設施通過之影響，算<span class="k">地價減損額</span> → 從正常價格<span class="k">扣除</span>，餘額為宗地價格</td></tr>
+<tr><td class="a">§89</td><td>土壤或地下水受<span class="hl">污染</span>之土地</td><td>先估<span class="k">未受污染之正常價格</span> → 依<span class="k">委託人提供之土壤污染檢測資料</span>考量影響、算地價減損額 → 扣除，餘額為宗地價格</td></tr>
 </tbody></table></div>
+<div class="box"><b>📜 §85 逐字（112-25 必背）：</b>一宗土地內有數種不同法定用途時，應<span class="hl">考量其最有效使用</span>及<span class="hl">各種用途之相關性</span>及<span class="hl">分割之難易度</span><b>後</b>，決定<span class="hl">分別估價</span>或<span class="hl">依主要用途估價</span>。
+<div style="margin-top:8px"><b>112 年第 25 題反推：</b>該題問「下列何者<b>錯誤</b>」，正解是 D，<b>代表 A、B、C 三句都是對的</b>——這三句就是 §85 的標準說法，直接背：</div>
+<ul class="okl">
+<li>估價前應先考量其<span class="hl">最有效使用</span>再決定估價方式——§85 規定的正確處理原則。</li>
+<li>在考量宗地狀況後，可以<span class="hl">視不同法定用途採分別估價</span>——規則明定的兩種處理方式之一。</li>
+<li>估價前應先考量各種用途之<span class="hl">相關性</span>及<span class="hl">分割之難易度</span>再決定估價方式——規則明定的考量因素。</li>
+<li class="no">（D，錯）估價時無須考量是否有數種不同法定用途，只需依其主要用途估價——<b>與條文完全相反</b>。依主要用途估價是「考量之後可能得出的結論」，不是「不用考量」。</li>
+</ul>
+<div style="margin-top:8px"><b>⚠ 考試陷阱：</b>「分別估價」與「依主要用途估價」是<span class="hl">二選一的結果</span>，不是順序；條文沒有說哪一個優先，是看<b>相關性高不高、好不好分割</b>。選項只要寫「一律分別估價」或「一律依主要用途」都錯。<br>
+<b>和 §83、§84 的分界：</b>§83／§84 是<b>好幾筆地</b>（合併或分割）；§85 是<b>同一筆地</b>裡有好幾種用途。<a href="估價_考題小卡.html#VA4_112_25">112-25</a></div>
+</div>
 <div class="box inf"><b>🧠 整理：</b>§88 與 §89 流程相同（正常價格 − 地價減損額）；差在「原因」與「資料來源」：§88 是設施通過造成使用受限，§89 是污染且<b>依委託人提供之檢測資料</b>。§113 受污染<b>建物</b>同一套路，扣的是「減損額」（非「地價」減損額）。</div>
 
 <h2 id="s2">二、特殊宗地<small>§90～§97</small></h2>
