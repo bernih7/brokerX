@@ -289,7 +289,7 @@ var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_�
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
 var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1","113":"val_prac_113_v1"};
-var TOT={fill:116,card:92,kcard:532,essay:46,v_hs1:25,e1dev:8,dcf:8,split:6};
+var TOT={fill:116,card:92,kcard:532,essay:53,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
  var UU=ld("bxv-use",{}),G=[];
