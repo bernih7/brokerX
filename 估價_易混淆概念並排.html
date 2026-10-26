@@ -109,6 +109,18 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .ts-a{flex:1.5;color:var(--ink-soft);}
 .ts-a .hi{color:var(--stamp);font-weight:700;}
 
+/* ── 日期時間軸（v501） ── */
+.dt-flow{display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:6px;margin:0 0 10px}
+.dt-node{flex:1 1 92px;min-width:88px;max-width:150px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:8px 6px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.dt-node.dt-key{border:2px solid var(--stamp);background:var(--paper-deep)}
+.dt-d{font-family:"Noto Serif TC",serif;font-weight:900;font-size:15px;color:var(--gold);font-variant-numeric:tabular-nums}
+.dt-key .dt-d{color:var(--stamp)}
+.dt-n{font-weight:700;font-size:12px}
+.dt-s{font-size:10.5px;color:var(--ink-soft)}
+.dt-arrow{align-self:center;color:var(--ink-soft);font-weight:700}
+@media(max-width:560px){.dt-arrow{display:none}.dt-node{flex:1 1 44%;max-width:none}}
+.ts-q a{color:var(--primary);font-weight:700}
+
 /* home button */
 .home-btn{position:fixed;right:18px;bottom:22px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px;box-shadow:0 3px 10px rgba(0,0,0,.2);z-index:99;}
 
@@ -135,7 +147,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 
 <header>
   <div class="case-tag">🔀 BROKERX 估價</div>
-  <h1>易混淆概念並排記憶<span class="sub">三大折舊法・五種資本化率・比較法三關卡・租金五種・價格種類・地區概念</span></h1>
+  <h1>易混淆概念並排記憶<span class="sub">三大折舊法・五種資本化率・比較法三關卡・租金五種・價格種類・地區概念・估價日期</span></h1>
 </header>
 
 <nav class="nav">
@@ -150,6 +162,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
   <a href="#area">地區三概念</a>
   <a href="#adjust">調整四順序</a>
   <a href="#cost-type">費用易混淆</a>
+  <a href="#dates">估價日期</a>
 </nav>
 
 <!-- ① 折舊三法 -->
@@ -630,6 +643,169 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
     <div class="ts-q">「功能性折舊算物理還是經濟？」（105-18、104-21、113-20）</div>
     <div class="ts-a">折舊「原因」有三類：<strong>物理性</strong>（自然耗損、外力破壞，隔壁施工致牆壁龜裂也算）、<strong>功能性</strong>（技術革新、設計變化致標的較同類最新建物落伍，105-18 答案）、<strong>經濟性</strong>（外部環境變化）。功能性與經濟性都反映在<strong>經濟耐用年數</strong>變短。§68Ⅱ 只提「物理、功能因素」與「經濟因素」，三類的定義是教材，條文沒逐類定義；「外部性」「破壞性」不是折舊分類（干擾選項）。</div>
   </div>
+</div>
+
+<!-- ⑪ 估價日期七種 -->
+<div class="sec-head" id="dates">
+  <span class="num">⑪</span><h2>估價相關日期：價格日期 / 勘察日期 / 委託日期 / 交易日期…<span class="tag">陷阱題</span></h2>
+</div>
+
+<div class="note-box" style="margin-top:0;margin-bottom:12px">
+  <strong>先記一句：條文只「定義」兩個日期——價格日期（§2⑦）與勘察日期（§2⑧）。</strong><br>
+  委託日期、查估日期、出報告日期都<span class="hi">不是</span>技術規則的定義用語，在選擇題裡幾乎都是拿來誤導的選項。
+</div>
+
+<!-- 時間軸例子 -->
+<div class="dt-flow">
+  <div class="dt-node"><span class="dt-d">2025/12</span><span class="dt-n">交易日期</span><span class="dt-s">比較標的成交</span></div>
+  <div class="dt-arrow">→</div>
+  <div class="dt-node"><span class="dt-d">9/25</span><span class="dt-n">委託日期</span><span class="dt-s">簽委託契約</span></div>
+  <div class="dt-arrow">→</div>
+  <div class="dt-node dt-key"><span class="dt-d">10/1</span><span class="dt-n">價格日期</span><span class="dt-s">估「這天」的價</span></div>
+  <div class="dt-arrow">→</div>
+  <div class="dt-node"><span class="dt-d">10/20</span><span class="dt-n">勘察日期</span><span class="dt-s">人到現場</span></div>
+  <div class="dt-arrow">→</div>
+  <div class="dt-node"><span class="dt-d">11/5</span><span class="dt-n">出報告日期</span><span class="dt-s">簽章後交付</span></div>
+</div>
+<div class="note-box" style="margin-top:0;margin-bottom:14px">
+  例子：比較標的是2025/12成交，估的是10/1的價 → 兩者有時間差、價格水準有變動 → 依§19②做<span class="hi">價格日期調整</span>（以適當之變動率或變動金額，調整成10/1的價格）。<br>
+  ★整份報告只有<span class="hi">價格日期</span>決定「金額對應哪一天」；其餘日期都只是程序上的時間點。
+</div>
+
+<!-- 主對決：價格日期 VS 勘察日期 -->
+<div class="vs-block">
+  <div class="vs-header">
+    <div class="vh" style="color:var(--blue)">價格日期</div>
+    <div class="vs-mid">VS</div>
+    <div class="vh" style="color:var(--green)">勘察日期</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">條文定義</div>
+    <div class="vs-cell left">§2⑦：表示不動產價格之<span class="hi">基準日期</span></div>
+    <div class="vs-mid-cell"></div>
+    <div class="vs-cell">§2⑧：赴勘估標的<span class="ok">現場</span>從事調查分析之日期</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">白話</div>
+    <div class="vs-cell left">這份報告「估的是<strong>哪一天</strong>的價錢」（價格的時間座標）</div>
+    <div class="vs-mid-cell"></div>
+    <div class="vs-cell">估價師<strong>人到現場看</strong>的那一天（動作的日期）</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">屬於§9「估價基本事項」嗎？</div>
+    <div class="vs-cell left"><span class="hi">屬於</span>（§9②，開工前就要先確定）</div>
+    <div class="vs-mid-cell"></div>
+    <div class="vs-cell"><span class="ok">不屬於</span>（§9四項：勘估標的內容／價格日期／價格種類及條件／估價目的）</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">報告書要載明嗎？</div>
+    <div class="vs-cell left"><span class="hi">要</span>：§16第3款「價格日期及勘察日期」</div>
+    <div class="vs-mid-cell"></div>
+    <div class="vs-cell"><span class="ok">要</span>：同樣在§16第3款（兩者並列在同一款）</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">兩者要相同嗎？</div>
+    <div class="vs-cell left" style="grid-column:1/-1;text-align:center"><span class="hi">不必相同</span>，先後也不一定（單字卡 V17）。估價「切合價格日期當時之價值」（§6）</div>
+  </div>
+  <div class="vs-row">
+    <div class="row-label">在哪一步驟發生？</div>
+    <div class="vs-cell left">步驟①確定估價基本事項（§8①、§9）</div>
+    <div class="vs-mid-cell"></div>
+    <div class="vs-cell">步驟④確認勘估標的狀態（§8④、§13現場勘察）</div>
+  </div>
+</div>
+
+<!-- 其他日期逐一 -->
+<div class="group-label">其他日期：各自是什麼、條文有沒有</div>
+<div class="trap-summary">
+  <div class="ts-head">⚠️ 除了上面兩個，其他都要分清楚「是不是條文用語」</div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--stamp);color:#fff">基</div>
+    <div class="ts-q">基準日期<br><span style="font-weight:400;color:var(--ink-soft)">＝價格日期</span></div>
+    <div class="ts-a">不是第二個日期，就是§2⑦定義裡的「基準日期」＝<span class="hi">價格日期的同義說法</span>。102-22 答案選「價格的<strong>基準日期</strong>」。</div>
+  </div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--gold);color:#fff">委</div>
+    <div class="ts-q">委託日期</div>
+    <div class="ts-a">就是<strong>委託估價的簽約日</strong>，跟經紀人簽立委託銷售契約書上的「委託日」是同一種概念。<br><span class="hi">條文無此用語，不是價格日期</span>（101-10 選項A、來勝模擬一）。<br><span style="color:var(--ink-soft)">補充：實務上估價委託契約通常會訂明訂定日期、價格日期、履約期間——但「委託日」與「價格日期」是兩個欄位，沒有誰決定誰。</span></div>
+  </div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--blue);color:#fff">交</div>
+    <div class="ts-q">交易日期<br>價格形成日期</div>
+    <div class="ts-a"><strong>比較標的</strong>的日期，不是勘估標的的。<br>・§19②、§22④：比較標的之<span class="hi">交易日期</span>與勘估標的價格日期有時間差 → <span class="hi">價格日期調整</span><br>・§12④：蒐集比較實例時，實例「<span class="hi">價格形成日期</span>」要與價格日期<strong>接近</strong>（不是「成交日期」）<br>・§22④：蒐集比較標的要查證「交易日期」</div>
+  </div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--purple);color:#fff">查</div>
+    <div class="ts-q">查估日期</div>
+    <div class="ts-a">技術規則<span class="hi">沒有定義這個詞</span>，是通俗講法，專門拿來混淆「價格日期／勘察日期」的選項。看到就當作誘答，除非題目明講是哪部法規。</div>
+  </div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--green);color:#fff">出</div>
+    <div class="ts-q">出報告日期</div>
+    <div class="ts-a">報告書<strong>簽名或蓋章後交付委託人</strong>的時間（§16Ⅰ）。報告製作完成日，<span class="hi">不是價格日期</span>（111-18 選項A、來勝模擬一選項D）。</div>
+  </div>
+  <div class="ts-row">
+    <div class="ts-tag" style="background:var(--stamp);color:#fff">地</div>
+    <div class="ts-q">估價基準日<br><span style="font-weight:400;color:var(--ink-soft)">（另一部法規）</span></div>
+    <div class="ts-a"><strong>地價調查估計規則§17Ⅲ</strong>：每年<span class="hi">9月1日</span>；案例蒐集期間＝前一年9/2～當年9/1。實例土地正常單價要調整到這一天（§17Ⅰ）。<br>★不是技術規則的「價格日期」，題目若出現「9月1日」「地價區段」就是這邊。</div>
+  </div>
+</div>
+
+<!-- 價格日期怎麼訂 -->
+<div class="group-label">價格日期通常怎麼訂（實務／教材說法）</div>
+<div class="rank-block">
+  <div class="rb-title"><span class="rb-badge">為什麼要有基準日期</span>價格會隨時間波動，金額一定要綁定「某一天」才有意義</div>
+  <div class="rc-desc" style="margin-bottom:10px">景氣、政策、周邊建設進度都會讓價格變動。所以估價結果必須限定在特定時點，才有依據可比較、可檢驗。→ 條文對應：§6「應切合價格日期當時之價值」。</div>
+  <div class="rank-row">
+    <div class="rank-num rn-blue">現</div>
+    <div class="rank-content">
+      <div class="rc-name">現時估價（最常見）</div>
+      <div class="rc-desc">價格日期多半訂在勘察當日或前後不遠。<br><span class="rc-trap">★這是「習慣」，不是「規定」：§2⑧只定義勘察日期、並沒有說它等於價格日期。</span></div>
+    </div>
+  </div>
+  <div class="rank-row">
+    <div class="rank-num rn-gold">過</div>
+    <div class="rank-content">
+      <div class="rc-name">過去估價（追溯估價）</div>
+      <div class="rc-desc">例：法院分配財產，要知道「5年前繼承發生時」的土地價值 → 價格日期訂在過去。此時價格日期<strong>早於</strong>勘察日期。</div>
+    </div>
+  </div>
+  <div class="rank-row">
+    <div class="rank-num rn-green">未</div>
+    <div class="rank-content">
+      <div class="rc-name">未來估價（預期估價）</div>
+      <div class="rc-desc">例：評估都更案「3年後完工時」的價值 → 價格日期在未來。<br>條文實例：<strong>§128</strong>權利變換後新成屋價格，以<span class="hi">都市更新評價基準日</span>當時之新成屋價格查估。</div>
+    </div>
+  </div>
+</div>
+<div class="note-box">
+  以上「現時／追溯／預期」的分類來自估價實務說明，<span class="hi">非技術規則條文用語</span>，申論可引用觀念，但不要寫成「依§幾條」。
+</div>
+
+<!-- 價格日期在條文各處的用法 -->
+<div class="group-label">「價格日期」在條文中出現的地方（計算與申論都會用到）</div>
+<div class="trap-summary">
+  <div class="ts-row"><div class="ts-tag">§6</div><div class="ts-q">估價的時間基準</div><div class="ts-a">不動產估價，應切合<span class="hi">價格日期當時</span>之價值。</div></div>
+  <div class="ts-row"><div class="ts-tag">§19</div><div class="ts-q">價格日期調整</div><div class="ts-a">交易日期與價格日期的時間差 → 以變動率或變動金額，把比較標的價格調整為價格日期之價格。</div></div>
+  <div class="ts-row"><div class="ts-tag">§36</div><div class="ts-q">收益法總收入</div><div class="ts-a">指<span class="hi">價格日期當時</span>勘估標的按法定用途出租或營運，在正常情況下所獲得之租金或收入。</div></div>
+  <div class="ts-row"><div class="ts-tag">§48</div><div class="ts-q">重建／重置成本</div><div class="ts-a">於<span class="hi">價格日期</span>重新複製（或以現代建材）建築所需之成本。</div></div>
+  <div class="ts-row"><div class="ts-tag">§80</div><div class="ts-q">開發年數</div><div class="ts-a">自<span class="hi">價格日期起</span>至開發完成為止無間斷所需之時間。</div></div>
+  <div class="ts-row"><div class="ts-tag">§121</div><div class="ts-q">抵押權估價</div><div class="ts-a">應估計<span class="hi">價格日期當時</span>勘估標的正常價格。</div></div>
+</div>
+
+<!-- 歷屆對照 -->
+<div class="group-label">歷屆原題對照（點題號到考題小卡）</div>
+<div class="trap-summary">
+  <div class="ts-head">這些日期題怎麼考</div>
+  <div class="ts-row"><div class="ts-tag">①</div><div class="ts-q"><a href="估價_考題小卡.html#VA4_101_10">101-10</a>、<a href="估價_考題小卡.html#VA4_111_18">111-18</a></div><div class="ts-a">「價格日期係指？」→ 勘估標的價格之<span class="hi">基準日期</span>。錯誤選項：接受委託日、赴現場調查日、報告書提出日、交易日。</div></div>
+  <div class="ts-row"><div class="ts-tag">②</div><div class="ts-q"><a href="估價_考題小卡.html#VA4_102_22">102-22</a></div><div class="ts-a">「價格日期」→ 價格的<span class="hi">基準日期</span>（B）。錯誤選項：委託日期、<span class="hi">查估日期</span>、交易日期。</div></div>
+  <div class="ts-row"><div class="ts-tag">③</div><div class="ts-q"><a href="估價_考題小卡.html#VA4_99_29">99-29</a>、<a href="估價_考題小卡.html#VA4_101_8">101-8</a>、<a href="估價_考題小卡.html#VA4_103_29">103-29</a>、<a href="估價_考題小卡.html#VA4_105_4">105-4</a></div><div class="ts-a">「確定估價基本事項」→ <span class="hi">勘察日期、估價方法、委託人、估價費用都不是</span>；估價條件、價格日期、價格種類及條件才是。</div></div>
+  <div class="ts-row"><div class="ts-tag">④</div><div class="ts-q">來勝模擬試題一</div><div class="ts-a">「估價金額」對應哪個日期 → 只對應<span class="hi">價格日期</span>；委託日期、勘查日期、出報告日期都只是程序日期。</div></div>
+</div>
+
+<div class="note-box">
+  口訣：<strong>「價」定金額、「勘」是動作、「委」是簽約、「交」是比較標的、「基」＝價</strong>。<br>
+  考場判斷法：題目問「估價金額對應哪一天」→ 價格日期（＝基準日期）；問「§9基本事項」→ 價格日期在、勘察日期不在；看到「9月1日」→ 地價調查估計規則的估價基準日。
 </div>
 
 </div><!-- .wrap -->
