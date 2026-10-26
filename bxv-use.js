@@ -56,6 +56,7 @@ var PAGES=[
  ["估價_診斷卷一","診斷卷①"],
  ["估價_租金估計攻略表","租金估計攻略表"],
  ["估價_營造施工費四法","營造施工費四法"],
+ ["估價_地價調查估計規則專欄","地價調查估計規則專欄"],
  ["估價_特殊標的總整理","特殊標的總整理"],
  ["估價_技術規則專欄","技術規則專欄"],
  ["估價_土開計算題組","土開計算題組"],
@@ -285,12 +286,12 @@ function build(){
 var BASE="https://bernih7.github.io/brokerX/";
 function U8(p){return BASE+encodeURIComponent(p)+".html"}
 /* 頁面 → 讀過計數 RID（bxv-read）；有 RID 的頁面在指揮中心顯示「讀過 N 輪」 */
-var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_定義填空練習":"fill","估價彩色重點速記":"color","估價四大方法系統攻略":"sys","估價_四大方法比較表":"method","估價_程序流程記憶圖":"flow","估價_八大程序速覽表":"proc","估價_租金估計攻略表":"rent","估價_營造施工費四法":"cost4","估價_特殊標的總整理":"special","估價_計算題攻略":"calc","估價_易混淆概念並排":"mix1","估價_易混淆概念補充卷":"mix2","估價_技術規則專欄":"rule","不動產估價概要_申論題實戰範文":"essay"};
+var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_定義填空練習":"fill","估價彩色重點速記":"color","估價四大方法系統攻略":"sys","估價_四大方法比較表":"method","估價_程序流程記憶圖":"flow","估價_八大程序速覽表":"proc","估價_租金估計攻略表":"rent","估價_營造施工費四法":"cost4","估價_地價調查估計規則專欄":"dijia","估價_特殊標的總整理":"special","估價_計算題攻略":"calc","估價_易混淆概念並排":"mix1","估價_易混淆概念補充卷":"mix2","估價_技術規則專欄":"rule","不動產估價概要_申論題實戰範文":"essay"};
 /* 頁面本身沒有 header 計數元件、由本檔在右下自動補「＋／讀過 N 輪／－」的頁面 */
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
 var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1","113":"val_prac_113_v1"};
-var TOT={fill:116,card:92,kcard:532,essay:53,v_hs1:25,e1dev:8,dcf:8,split:6};
+var TOT={fill:116,card:95,kcard:532,essay:53,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
  var UU=ld("bxv-use",{}),G=[];
@@ -329,7 +330,7 @@ function status(){
  var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+)$/.test(id))en++});en=Math.min(en,TOT.essay);
  G.push({g:"申論",rows:[row("不動產估價概要_申論題實戰範文","申論題實戰範文",en,TOT.essay,"已讀 "+en+"／"+TOT.essay+" 題（官方 32＋預測 14）")]});
  /* 閱讀頁 */
- var R6=[];[["估價彩色重點速記","彩色重點速記"],["估價四大方法系統攻略","四大方法系統攻略"],["估價_四大方法比較表","四大方法比較表"],["估價_程序流程記憶圖","程序流程記憶圖"],["估價_八大程序速覽表","八大程序速覽表"],["估價_租金估計攻略表","租金估計攻略表"],["估價_營造施工費四法","營造施工費四法"],["估價_特殊標的總整理","特殊標的總整理"],["估價_計算題攻略","計算題攻略"],["估價_易混淆概念並排","易混淆概念並排"],["估價_易混淆概念補充卷","易混淆概念補充卷"],["估價_技術規則專欄","技術規則專欄"]].forEach(function(a){R6.push(row(a[0],a[1],0,0,""))});
+ var R6=[];[["估價彩色重點速記","彩色重點速記"],["估價四大方法系統攻略","四大方法系統攻略"],["估價_四大方法比較表","四大方法比較表"],["估價_程序流程記憶圖","程序流程記憶圖"],["估價_八大程序速覽表","八大程序速覽表"],["估價_租金估計攻略表","租金估計攻略表"],["估價_營造施工費四法","營造施工費四法"],["估價_地價調查估計規則專欄","地價調查估計規則專欄"],["估價_特殊標的總整理","特殊標的總整理"],["估價_計算題攻略","計算題攻略"],["估價_易混淆概念並排","易混淆概念並排"],["估價_易混淆概念補充卷","易混淆概念補充卷"],["估價_技術規則專欄","技術規則專欄"]].forEach(function(a){R6.push(row(a[0],a[1],0,0,""))});
  G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R6});
  return G}
 

@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>地價調查估計規則專欄</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--key:#8A5517;--onpri:#fff;--bg:#F5F1E6;--card:#FFFEFA;--card2:#F0EDE0;--line:#DDD6C0;--ink:#25302C;--sub:#5F6B63;--red:#A8402B;--gold:#B8782E;--green:#35693F;--tip:#FBF1D9;--blu:#2255A4}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--key:#D4A050;--onpri:#10201B;--bg:#1A1F1D;--card:#222926;--card2:#1C2825;--line:#34403A;--ink:#E8EDE6;--sub:#9AA79F;--red:#E07060;--gold:#E0B070;--green:#8FCB93;--tip:#33291A;--blu:#6AA8D0;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--key:#D4A050;--onpri:#10201B;--bg:#1A1F1D;--card:#222926;--card2:#1C2825;--line:#34403A;--ink:#E8EDE6;--sub:#9AA79F;--red:#E07060;--gold:#E0B070;--green:#8FCB93;--tip:#33291A;--blu:#6AA8D0;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:14px;padding:0 0 90px}
+header{position:relative;background:var(--pri);color:var(--onpri);padding:50px 20px 16px;text-align:center}
+.htag{font-size:11px;letter-spacing:.15em;opacity:.75;margin-bottom:6px}
+header h1{font-family:'Noto Serif TC',serif;font-size:20px}
+header .sub{font-size:12px;opacity:.8;margin-top:4px}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px}
+#rdc{position:absolute;top:12px;right:14px;display:flex;align-items:center;border:1.5px solid color-mix(in srgb,var(--onpri) 55%,transparent);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.14);height:28px}
+#rdc .thm,#rdc button{all:unset;cursor:pointer;height:28px;display:grid;place-items:center;color:var(--onpri);font-size:.8rem;font-weight:700}
+#rdc .thm{padding:0 10px}#rdc button:not(.thm){width:28px}
+#rdc .vsep{width:1px;height:14px;background:color-mix(in srgb,var(--onpri) 45%,transparent)}
+#rdc .cnt{min-width:24px;padding:0 5px;height:28px;background:var(--key);color:var(--onpri);display:grid;place-items:center;font-size:.75rem;font-weight:800}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:6px}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.jump a{font-size:12.5px;text-decoration:none;color:var(--pri);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 11px}
+h2{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:5px;margin:26px 0 8px;scroll-margin-top:12px}
+h2 small{font-family:'Noto Sans TC',sans-serif;font-size:12px;color:var(--sub);font-weight:400;margin-left:6px}
+.src{font-size:12px;color:var(--sub);margin-bottom:8px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:0;font-size:13.5px}
+th{background:var(--pri);color:var(--onpri);text-align:left;padding:7px 10px;font-weight:700;white-space:nowrap}
+td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+td.a{white-space:nowrap;vertical-align:top;font-weight:700;color:var(--key)}
+td.n{font-weight:700;white-space:nowrap}
+.k{color:var(--red);font-weight:700}.g{color:var(--green);font-weight:700}.y{color:var(--gold);font-weight:700}.b{color:var(--blu);font-weight:700}
+.m{text-align:center;font-weight:700;color:var(--green)}.m0{text-align:center;color:var(--sub);opacity:.55}
+.box{margin-top:8px;padding:9px 12px;border-left:4px solid var(--gold);background:var(--tip);border-radius:0 8px 8px 0;font-size:13px}
+.box b{color:var(--key)}
+.box.inf{border-left-color:var(--blu)}
+.fm{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px;min-width:0}
+.c h3{font-size:14px;color:var(--pri);margin-bottom:3px;font-family:'Noto Serif TC',serif}
+.c .s{font-size:12px;color:var(--key);font-weight:700}
+#hub{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:22px;text-align:center;line-height:46px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+td.n{white-space:normal}</style></head><body>
+<header>
+  <div id="rdc"><button class="thm" id="theme-btn" onclick="toggleTheme()" title="切換深淺色">深色</button><span class="vsep"></span><button onclick="rdInc(-1)" title="減一">－</button><div class="cnt" id="rdn">0</div><button onclick="rdInc(1)" title="加一">＋</button></div>
+  <div class="htag">地價調查估計規則 §1～§26（102.12.31 修正）</div>
+  <h1>地價調查估計規則專欄</h1>
+  <div class="sub">辦理程序｜實例｜建物現值｜地價區段｜路線價｜宗地單位地價</div>
+</header>
+<div class="wrap">
+<div class="legend"><span>📜 逐條對照全國法規資料庫全文。<b>這是地政機關辦地價調查的規則，不是估價技術規則</b>；技術規則全文沒有「路線價」「繁榮街道」。</span></div>
+<div class="jump"><a href="#s1">一、定位</a><a href="#s2">二、六步程序</a><a href="#s3">三、實例</a><a href="#s4">四、建物現值</a><a href="#s5">五、土地正常單價</a><a href="#s6">六、地價區段</a><a href="#s7">七、單位地價</a><a href="#s8">八、考古題</a></div>
+
+<h2 id="s1">一、定位<small>§1、§2、§24、§25</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>重點</th></tr></thead><tbody>
+<tr><td class="a">§1</td><td>依<span class="k">土地法施行法§40</span>訂定；地價調查估計應符合<span class="k">平均地權條例</span>規定</td></tr>
+<tr><td class="a">§2</td><td>主辦機關：<span class="k">直轄市或縣（市）地政機關</span></td></tr>
+<tr><td class="a">§24</td><td>應由直轄市或縣（市）地政機關訂定：作業規定、<span class="k">繁榮街道路線價區段宗地單位地價計算原則</span>、建物標準單價表、建物耐用年數及每年折舊率、全棟建物裝潢設備庭園設施等費用、農作改良物標準單價、土地與建物收益資本化率、調整至估價基準日地價用之比率、影響地價區域因素評價基準明細表（共 9 項）</td></tr>
+<tr><td class="a">§25</td><td><span class="k">內政部</span>對都市土地商業區、住宅區、工業區，依地政機關調查之地價，每年編製地價指數表<span class="k">二次</span></td></tr>
+</tbody></table></div>
+<div class="box inf"><b>考古：</b>105 年第 13 題問「地政機關辦理公告土地現值之估價方法，主要法令依據」，答案是地價調查估計規則，不是估價技術規則。</div>
+
+<h2 id="s2">二、六步程序<small>§3</small></h2>
+<div class="tw"><table><thead><tr><th>步驟</th><th>內容</th></tr></thead><tbody>
+<tr><td class="n">①</td><td>蒐集、製作或修正有關之<span class="k">基本圖籍及資料</span>（§5）</td></tr>
+<tr><td class="n">②</td><td>調查<span class="k">買賣或收益實例</span>、繪製地價區段草圖、調查有關影響區段地價之因素</td></tr>
+<tr><td class="n">③</td><td>估計<span class="k">實例土地正常單價</span></td></tr>
+<tr><td class="n">④</td><td><span class="k">劃分或修正地價區段</span>，並繪製地價區段圖</td></tr>
+<tr><td class="n">⑤</td><td>估計<span class="k">區段地價</span></td></tr>
+<tr><td class="n">⑥</td><td>計算<span class="k">宗地單位地價</span></td></tr>
+</tbody></table></div>
+<div class="fm">實例 → 正常單價 → 區段 → 區段地價 → 宗地單位地價</div>
+
+<h2 id="s3">三、實例的調查與修正<small>§4～§9</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>重點</th></tr></thead><tbody>
+<tr><td class="a">§4</td><td>以<span class="k">買賣實例為主</span>；無買賣實例者，得調查收益實例。收益實例指<span class="k">租賃權或地上權</span>等他項權利，且具有租金或權利金等對價給付者</td></tr>
+<tr><td class="a">§6</td><td>依實例調查估價表項目填寫；可採用<span class="k">實價登錄</span>資訊，或當事人、四鄰、估價師、經紀人員、地政士、金融機構、公有土地管理機關、司法機關等提供之資訊</td></tr>
+<tr><td class="a">§7</td><td>有下列 13 款情形致價格明顯偏高或偏低者，<span class="k">先作適當修正</span>並記載；<span class="y">但影響交易價格之情況無法有效掌握及量化調整時，應不予採用</span>：①急買急賣或急出租急承租 ②期待因素 ③債權債務關係 ④親友關係人間 ⑤畸零地或有合併使用 ⑥地上物處理有糾紛 ⑦拍賣 ⑧公有土地標售、讓售 ⑨迷信 ⑩包含公共設施用地 ⑪人為哄抬 ⑫與法定用途不符 ⑬其他特殊交易</td></tr>
+<tr><td class="a">§8</td><td>另須查證確認：①交易價格、租金或權利金及各項稅費負擔方式 ②有無特殊付款方式 ③實例狀況，再調整實例價格</td></tr>
+<tr><td class="a">§9</td><td>影響區段地價因素：土地使用管制、交通運輸、自然條件、土地改良、公共建設、特殊設施、環境污染、工商活動、房屋建築現況、土地利用現況、發展趨勢及其他；依地價區段勘查表填寫</td></tr>
+</tbody></table></div>
+<div class="box"><b>與技術規則的差異：</b>這裡 §7 是「先修正；無法掌握量化才不採用」，與估價技術規則比較法的情況調整同一邏輯，但款項不完全相同（例如本條有拍賣、公有土地標售讓售、迷信、公共設施用地）。</div>
+
+<h2 id="s4">四、建物現值<small>§10～§13</small></h2>
+<div class="fm">① 建物重建價格＝建物單價×建物面積<br>② 建物累積折舊額＝建物重建價格×建物每年折舊率×經歷年數<br>③ 建物現值＝建物重建價格－建物累積折舊額<br>簡化：建物現值＝建物單價×【1－（年折舊率×經歷年數）】×建物面積</div>
+<div class="tw"><table><thead><tr><th>條</th><th>重點</th></tr></thead><tbody>
+<tr><td class="a">§11</td><td>建物主體構造 11 類：竹造、土造土磚混合造、木造、石造、磚造、加強磚造、鋼鐵造或輕鋼架造、鋼筋混凝土造、鋼骨鋼筋混凝土造、鋼骨造、其他</td></tr>
+<tr><td class="a">§12Ⅱ</td><td>建物單價以<span class="k">不同主體構造之建物標準單價</span>為準；樓層高度、層數、材料、用途、設計、設備特殊者酌予增減</td></tr>
+<tr><td class="a">§13</td><td>面積：已登記者以<span class="k">登記面積</span>為準；全部或部分未登記者以<span class="k">實際調查面積</span>為準</td></tr>
+</tbody></table></div>
+<div class="box inf"><b>注意：</b>這裡的折舊是<span class="k">定額法</span>（年折舊率×經歷年數，直線），與技術規則 §68 成本法折舊三路徑是不同法規的不同用途。</div>
+
+<h2 id="s5">五、土地正常單價<small>§14～§17</small></h2>
+<div class="tw"><table><thead><tr><th>情形</th><th>算法</th></tr></thead><tbody>
+<tr><td class="n">地上無建物</td><td>土地正常買賣單價＝正常買賣總價格÷土地面積</td></tr>
+<tr><td class="n">區分所有建物、實例為部分層數或單位</td><td>先估全棟房地可出售總價格＝Σ〔各樓層房地正常買賣平均單價×各樓層可出售面積＋車位平均價格×車位數〕；<br>土地可出售總價格＝全棟房地可出售總價格－<span class="k">全棟建物現值</span>－<span class="k">裝潢、設備及庭園設施等費用</span>－<span class="k">全棟建物買賣正常利潤</span>；<br>土地正常買賣單價＝土地可出售總價格÷基地面積</td></tr>
+<tr><td class="n">地上有建物、實例為全部層數</td><td>土地正常買賣總價格＝全棟房地正常買賣總價格－全棟建物現值－裝潢設備庭園設施等費用－全棟建物買賣正常利潤；÷基地面積</td></tr>
+<tr><td class="a">§15</td><td>建物<span class="k">已不具使用價值</span>：基地視為<span class="k">素地</span>估價，但應考量<span class="k">建物拆除成本</span>調整</td></tr>
+<tr><td class="a">§16</td><td>收益實例估計土地正常單價：依<span class="k">不動產估價技術規則第三章第二節</span>（收益法）</td></tr>
+<tr><td class="a">§17</td><td>實例單價調整至<span class="k">估價基準日</span>；基準日是<span class="k">每年九月一日</span>，案例蒐集期間為<span class="k">前一年九月二日至當年九月一日</span></td></tr>
+</tbody></table></div>
+
+<h2 id="s6">六、地價區段<small>§18～§22</small></h2>
+<div class="tw"><table><thead><tr><th>條</th><th>重點</th></tr></thead><tbody>
+<tr><td class="a">§18Ⅰ</td><td>以<span class="k">鄉（鎮、市、區）為單位</span>，攜帶地籍圖、地價分布圖及地價區段勘查表實地勘查，將<span class="k">地價相近、地段相連、情況相同或相近</span>之土地劃為同一地價區段</td></tr>
+<tr><td class="a">§18Ⅱ<br>路線價</td><td><b>繁榮街道路線價區段</b>：已開闢道路及其二側或一側帶狀土地，地價與一般地價區段有<span class="k">顯著差異</span>者，得就<span class="k">具有顯著商業活動之繁榮地區</span>，依當地發展及地價高低情形劃設。<br><b>一般路線價區段</b>：<span class="k">繁榮街道以外</span>已開闢之道路，鄰接該道路之土地地價<span class="k">顯著較高</span>者，得於適當範圍劃設。<br><span class="y">兩者都是「得」劃設，一般路線價區段不是「其餘全部」。</span></td></tr>
+<tr><td class="a">§18Ⅲ</td><td>非建築用地中依法允許局部集中作建築使用且地價有顯著差異：<span class="k">單獨劃分</span>地價區段；非都市土地及都計農業區、保護區之零星建築用地等，得將地價相近、使用相同而地段不相連者視為一個區段另編區段號</td></tr>
+<tr><td class="a">§18Ⅳ、Ⅴ</td><td><span class="k">公共設施保留地應單獨劃分</span>；但毗鄰之非保留地均屬相同區段地價之區段時，<span class="k">得併入</span>毗鄰非保留地區段。帶狀公共設施保留地穿越數個地價不同區段，得視二側非保留地之不同<span class="k">分段劃分</span></td></tr>
+<tr><td class="a">§19</td><td>界線以地形地貌等自然界線、道路、溝渠、使用分區或編定使用地類別之界線、適當地籍線為準；<span class="k">繁榮街道路線價區段以裡地線為界</span>；路線價區段界線以距臨街線<span class="k">適當深度範圍</span>為準</td></tr>
+<tr><td class="a">§20</td><td>區段圖以<span class="k">紅線</span>標示區段界線，註明區段號、區段地價、主要街道及重要公共設施位置與名稱</td></tr>
+<tr><td class="a">§21</td><td><b>有實例的區段</b>：調整至基準日的實例土地正常單價，求<span class="k">中位數</span>為區段地價。<br><b>無實例的區段</b>：於鄰近或適當地區選<span class="k">二個以上</span>使用分區或編定用地相同、且已估出區段地價的區段為<span class="k">基準地價區段</span>，依影響地價區域因素評價基準表及明細表修正；選不到同分區者得以鄰近使用性質類似或其他區段修正。<br>中位數：項數奇數取中項；偶數取中間二項平均；只有一個實例以該實例為準。評價基準由<span class="k">內政部</span>訂定</td></tr>
+<tr><td class="a">§22</td><td>區段地價以每平方公尺為單位。尾數：≤100 元計至個位；逾 100～1,000 元計至十位；逾 1,000～10 萬元計至百位；逾 10 萬元計至千位（均四捨五入）；公共設施保留地區段計至個位</td></tr>
+</tbody></table></div>
+
+<h2 id="s7">七、宗地單位地價<small>§23</small></h2>
+<div class="tw"><table><thead><tr><th>情形</th><th>算法</th></tr></thead><tbody>
+<tr><td class="n">繁榮街道路線價區段</td><td>由地政機關依「繁榮街道路線價區段宗地單位地價計算原則」計算（§24 由地政機關訂定）</td></tr>
+<tr><td class="n">其他區段</td><td>以<span class="k">區段地價</span>作為宗地單位地價</td></tr>
+<tr><td class="n">跨二個以上區段</td><td>Σ（各區段面積×各區段地價）÷宗地面積</td></tr>
+<tr><td class="n">表示</td><td>每平方公尺新臺幣元，計算至個位數，四捨五入</td></tr>
+</tbody></table></div>
+
+<h2 id="s8">八、考古題<small>刷題 A4 章；作答請至刷題頁</small></h2>
+<div class="tw"><table><thead><tr><th>年／題</th><th>考什麼</th><th>答案</th></tr></thead><tbody>
+<tr><td class="a">106／21</td><td>繁榮地區可劃設哪兩種地價區段（§18Ⅱ）</td><td class="n">繁榮街道路線價區段與一般路線價區段</td></tr>
+<tr><td class="a">105／13</td><td>公告土地現值之估價方法主要法令依據</td><td class="n">地價調查估計規則</td></tr>
+<tr><td class="a">103／1</td><td>區段內具代表性、查估公共設施保留地毗鄰非保留地區段地價之宗地</td><td class="n">比準地（本規則 §1～§26 全文未定義此詞，僅供辨識）</td></tr>
+<tr><td class="a">103／23</td><td>路線價法基本原理：愈接近街道，價值</td><td class="n">愈高</td></tr>
+</tbody></table></div>
+<div class="box">考試陷阱：<b>出處別弄錯</b>（路線價、區段劃分、基準日九月一日在本規則；比較法、成本法、收益法在技術規則）；<b>「得」劃設</b>不是「應」；<b>繁榮街道路線價區段以裡地線為界</b>。</div>
+</div>
+<a id="hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠</a>
+<script src="bxv-use.js"></script>
+<script>
+function rdUpd(){var e=document.getElementById('rdn');if(e&&window.BXREP)e.textContent=BXREP.readGet('dijia').n||0;}
+function rdInc(d){if(window.BXREP){BXREP.readInc('dijia',d);rdUpd();}}
+setTimeout(rdUpd,100);
+function isDark(){var t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function applyTheme(dark){document.documentElement.setAttribute('data-theme',dark?'dark':'light');var b=document.getElementById('theme-btn');if(b)b.textContent=dark?'淺色':'深色';}
+function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
+(function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});
+</script>
+</body></html>
