@@ -163,6 +163,11 @@ function rec(q,chosen,ok){
  DB[id]=r;sv("bxv-q2",DB);day("q",1)
 }
 function tag(q,k){var DB=ld("bxv-q2",{}),r=DB[qid(q)];if(!r)return;r.k=k||"";r.g=k==="D"?1:0;sv("bxv-q2",DB)}
+/* 答對後的自評（v528）：sure＝很確定、shaky＝對了但不熟、guess＝用猜的。
+   「不熟」與「猜的」都不算真的會，真會率與智慧配題都看這個。 */
+function conf(q,v){var DB=ld("bxv-q2",{}),r=DB[qid(q)];if(!r)return;
+ r.sh=(v==="shaky")?1:0; r.g=(v==="guess")?1:0; if(v==="guess")r.k="D"; else if(r.k==="D")r.k="";
+ sv("bxv-q2",DB)}
 function drop(ch){ch=chOf(ch);var DB=ld("bxv-q2",{});Object.keys(DB).forEach(function(i){if(i.split("-")[0]===ch)delete DB[i]});sv("bxv-q2",DB)}
 
 /* 舊作答補寫進共用紀錄（window.storage key → bxv-q2） */
@@ -335,7 +340,7 @@ function status(){
  G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R6});
  return G}
 
-window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,fillUnmark:fillUnmark,fillDone:fillDone,countQ:countQ,chOf:chOf,CH:CH,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
+window.BXREP={build:build,rec:rec,tag:tag,conf:conf,drop:drop,sync:sync,fillMark:fillMark,fillUnmark:fillUnmark,fillDone:fillDone,countQ:countQ,chOf:chOf,CH:CH,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
 
 /* ── 浮動鈕（全站標準 #bxfab）：左下回頂端（進度環）＋右下回備考指揮中心；沒有深淺色切換鈕的頁面補 🌙 ── */

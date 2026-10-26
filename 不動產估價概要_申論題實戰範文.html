@@ -3527,6 +3527,27 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
   font-size:13px;line-height:1.5;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:min(88vw,330px)}
 .es-done.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .es-done b{display:block}.es-done span{display:block;font-size:12px;opacity:.85}
+/* 自評（v528） */
+.es-rate{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:14px 0 2px;padding:10px 12px;
+  border-radius:10px;background:var(--paper2,#F0EDE0);border:1px dashed var(--line,#DDD2BB)}
+.es-rate .rl{font-size:.8rem;font-weight:700}
+.es-rate button{font:inherit;font-size:.8rem;font-weight:700;padding:5px 13px;border-radius:999px;cursor:pointer;
+  border:1.5px solid var(--line,#DDD2BB);background:var(--paper,#FBF8F0);color:var(--ink,#2A2722)}
+.es-rate button[data-v="ok"].sel{background:#2F6B45;border-color:#2F6B45;color:#fff}
+.es-rate button[data-v="mem"].sel{background:#B8782E;border-color:#B8782E;color:#fff}
+.es-rate button[data-v="hard"].sel{background:#A8402B;border-color:#A8402B;color:#fff}
+.es-rate .rh{flex-basis:100%;font-size:.73rem;opacity:.75;line-height:1.6}
+.read-btn .es-v{display:inline-block;margin-left:5px;font-size:.68rem;font-weight:800;border-radius:999px;
+  padding:1px 7px;vertical-align:middle}
+.es-v.v-ok{background:rgba(47,107,69,.16);color:#2F6B45}
+.es-v.v-mem{background:rgba(184,120,46,.18);color:#B8782E}
+.es-v.v-hard{background:rgba(168,64,43,.16);color:#A8402B}
+[data-theme="dark"] .es-v.v-ok{background:rgba(111,191,128,.2);color:#6FBF80}
+[data-theme="dark"] .es-v.v-mem{background:rgba(227,160,94,.2);color:#E3A05E}
+[data-theme="dark"] .es-v.v-hard{background:rgba(232,119,106,.2);color:#E8776A}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .es-v.v-ok{background:rgba(111,191,128,.2);color:#6FBF80}
+:root:not([data-theme="light"]) .es-v.v-mem{background:rgba(227,160,94,.2);color:#E3A05E}
+:root:not([data-theme="light"]) .es-v.v-hard{background:rgba(232,119,106,.2);color:#E8776A}}
 </style>
 <script>
 /* ══ 申論：每張卡「看了幾輪・每輪看多久」（v527）
@@ -3544,11 +3565,42 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
 
  function fmt(s){s=Math.round(s);var m=Math.floor(s/60);return m?m+' 分 '+(s%60)+' 秒':s+' 秒';}
  function fmtShort(s){s=Math.round(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+ var VL={ok:['熟','v-ok'],mem:['還沒背起來','v-mem'],hard:['太難','v-hard']};
  window.esBadge=function(id){
-   var r=LOG[id]; if(!r||!r.n) return '';
-   var avg=r.s&&r.s.length?r.s.reduce(function(a,b){return a+b},0)/r.s.length:0;
-   return '<span class="es-n">'+r.n+' 輪'+(avg?'・'+fmtShort(avg):'')+'</span>';
+   var r=LOG[id]; if(!r) return '';
+   var out='';
+   if(r.n){var avg=r.s&&r.s.length?r.s.reduce(function(a,b){return a+b},0)/r.s.length:0;
+     out+='<span class="es-n">'+r.n+' 輪'+(avg?'・'+fmtShort(avg):'')+'</span>';}
+   if(r.v&&VL[r.v]) out+='<span class="es-v '+VL[r.v][1]+'">'+VL[r.v][0]+'</span>';
+   return out;
  };
+ window.esRate=function(id,v){
+   var r=LOG[id]||{n:0,s:[],tot:0,t:0};
+   r.v=(r.v===v)?'':v; r.t=Math.floor(Date.now()/1000);
+   LOG[id]=r; save(LOG); paintRates(); paintSum();
+   if(typeof paintRead==='function')paintRead();
+ };
+ function paintRates(){
+   document.querySelectorAll('.es-rate').forEach(function(bar){
+     var id=bar.getAttribute('data-id'), v=(LOG[id]||{}).v||'';
+     bar.querySelectorAll('button').forEach(function(b){b.classList.toggle('sel',b.dataset.v===v);});
+   });
+ }
+ function mountRates(){
+   document.querySelectorAll('.essay-card[id]').forEach(function(c){
+     var body=c.querySelector('.card-body'); if(!body||body.querySelector('.es-rate'))return;
+     var bar=document.createElement('div'); bar.className='es-rate'; bar.setAttribute('data-id',c.id);
+     bar.innerHTML='<span class="rl">看完後自評：</span>'
+       +'<button type="button" data-v="ok">✅ 熟</button>'
+       +'<button type="button" data-v="mem">📖 還沒背起來</button>'
+       +'<button type="button" data-v="hard">😵 太難</button>'
+       +'<span class="rh">自評會顯示在標題列，也會算進指揮中心「進度落後在哪」。再按一次可取消。</span>';
+     bar.addEventListener('click',function(e){var b=e.target.closest('button[data-v]');
+       if(b)window.esRate(c.id,b.dataset.v);});
+     body.appendChild(bar);
+   });
+   paintRates();
+ }
  function flush(){
    if(!cur) return;
    var sec=acc; acc=0;
@@ -3608,10 +3660,17 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
    ids.forEach(function(k){var r=LOG[k]; if(r&&r.n){cards++;rounds+=r.n;tot+=r.tot||0;
      (r.s||[]).forEach(function(x){secs.push(x)});}});
    var total=document.querySelectorAll('.essay-card[id]').length;
-   if(!rounds){box.innerHTML='還沒有計時紀錄。<b>展開一題、停留 20 秒以上並捲到該題最底</b>，就會自動記一輪，並記下這次看了多久。';return;}
    var avg=secs.length?secs.reduce(function(a,b){return a+b},0)/secs.length:0;
+   var V={ok:0,mem:0,hard:0};
+   ids.forEach(function(k){var v=(LOG[k]||{}).v; if(v&&V[v]!=null)V[v]++;});
+   var rated=V.ok+V.mem+V.hard;
+   var rateLine=rated
+     ? '自評：✅ 熟 <b>'+V.ok+'</b>　📖 還沒背起來 <b>'+V.mem+'</b>　😵 太難 <b>'+V.hard+'</b>（已評 '+rated+'／'+total+'）'
+     : '還沒有自評。看完一題後，卡片最下面有「熟／還沒背起來／太難」三個鈕。';
+   if(!rounds){box.innerHTML='還沒有計時紀錄。<b>展開一題、停留 20 秒以上並捲到該題最底</b>，就會自動記一輪，並記下這次看了多久。<br>'+rateLine;return;}
    box.innerHTML='申論已看過 <b>'+cards+'／'+total+'</b> 題，累計 <b>'+rounds+'</b> 輪，'
-     +'總共 <b>'+fmt(tot)+'</b>，平均每題一輪 <b>'+fmt(avg)+'</b>。';
+     +'總共 <b>'+fmt(tot)+'</b>，平均每題一輪 <b>'+fmt(avg)+'</b>。'
+     +'<br>'+rateLine;
  }
  addEventListener('visibilitychange',function(){if(document.visibilityState!=='visible')flush();});
  addEventListener('pagehide',flush);
@@ -3622,7 +3681,7 @@ document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute(
    var box=document.createElement('div'); box.id='esSum'; box.className='es-sum';
    if(host&&host.parentNode)host.parentNode.insertBefore(box,host.nextSibling);
    else document.querySelector('main').insertBefore(box,document.querySelector('main').firstChild);
-   watch(); paintSum(); if(typeof paintRead==='function')paintRead();
+   watch(); mountRates(); paintSum(); if(typeof paintRead==='function')paintRead();
  }
  if(document.readyState==='loading')addEventListener('DOMContentLoaded',boot); else boot();
 })();

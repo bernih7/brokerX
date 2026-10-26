@@ -127,6 +127,14 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 #pzMask .pz-el{font-size:.8rem;font-weight:700;color:var(--blue);margin-top:9px;font-variant-numeric:tabular-nums}
 #pzMask .pz-go{margin-top:14px;font:inherit;font-size:.9rem;font-weight:800;padding:10px 22px;border-radius:999px;
   cursor:pointer;border:0;background:var(--blue);color:#fff}
+
+/* ── 答對後的自評（v528） ── */
+.conf-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 2px}
+.cbtn{font:inherit;font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:999px;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--paper,#fff);color:var(--ink,#222)}
+.cbtn:hover{border-color:var(--blue)}
+.cbtn.sel{background:var(--blue);border-color:var(--blue);color:#fff}
+.conf-row .cfh{flex-basis:100%;font-size:.74rem;opacity:.8;margin-top:2px}
 </style>
 <script src="bxv-use.js"></script>
 </head>
@@ -296,10 +304,16 @@ function kindOK(q){return KIND==="all"||(KIND==="calc"?!!q.calc:!q.calc)}
 function poolOf(){return ITEMS.filter(function(q){return sel.has(q.ch)&&kindOK(q)})}
 function seenGet(){return ld(KEY.SEEN,{})}
 function seenAdd(id){var s=seenGet();s[id]=1;sv(KEY.SEEN,s)}
-/* 智慧配題：依所選章節歷屆題數比例分配 30 題 → 章內優先序：錯題（C>A>D>B>未標）→ 未練 → 已答對（最久沒練優先） */
+/* 智慧配題：依所選章節歷屆題數比例分配 30 題 →
+   章內優先序：錯題（C>A>D>B>未標）→ 未練 → 答對但不熟／猜的 → 答對且很確定（最久沒練優先） */
 function smartQueue(pool){
   var N=Math.min(30,pool.length),Dd=q2(),c=wClr(),KO={C:0,A:1,D:2,B:3,"":4};
-  function sc(q){var r=Dd[qk(q)];if(r&&r.ok===0&&(r.t||0)>c)return [0,KO[r.k||""]!=null?KO[r.k||""]:4,Math.random()];if(!r)return [1,0,Math.random()];return [2,r.t||0,Math.random()]}
+  /* 0 最近答錯 → 1 沒作答過 → 2 答對但不熟／猜的 → 3 答對且很確定（最久沒練優先） */
+  function sc(q){var r=Dd[qk(q)];
+    if(r&&r.ok===0&&(r.t||0)>c)return [0,KO[r.k||""]!=null?KO[r.k||""]:4,Math.random()];
+    if(!r)return [1,0,Math.random()];
+    if(r.sh===1||r.g===1||r.k==="D")return [2,r.t||0,Math.random()];
+    return [3,r.t||0,Math.random()]}
   function cmp(a,b){for(var i=0;i<3;i++){if(a.s[i]!==b.s[i])return a.s[i]-b.s[i]}return 0}
   var by={};pool.forEach(function(q){(by[q.ch]=by[q.ch]||[]).push({q:q,s:sc(q)})});
   var chs=Object.keys(by),quota={},rem=[],used=0;
@@ -430,12 +444,26 @@ function selectAnswer(idx){
   recordAnswer(q,idx,ok);
   var h='<div class="rnote" style="margin-bottom:6px">'+(ok?'<span class="stamp ok">答對了</span>':'<span class="stamp ng">答錯了</span> <span style="font-size:.85rem">正確答案：<strong>'+"ABCD"[q.correct]+". "+q.opts[q.correct]+"</strong></span>")+"</div>";
   if(!ok){h+='<div class="wtag-row" id="wtagRow"><span class="note">錯誤類型：</span>'+["A","B","C","D"].map(function(k){return '<button type="button" class="wtag" data-k="'+k+'">'+WTL[k]+"</button>"}).join("")+"</div>"}
+  else{
+    var cv=q2()[qk(q)]||{};
+    var cvs=cv.g===1?"guess":(cv.sh===1?"shaky":"");
+    h+='<div class="conf-row" id="confRow"><span class="note">這題你有把握嗎？</span>'
+      +[["sure","👍 很確定"],["shaky","🤔 對了但不熟"],["guess","🎲 用猜的"]].map(function(a){
+        return '<button type="button" class="cbtn'+(cvs===a[0]?" sel":"")+'" data-v="'+a[0]+'">'+a[1]+"</button>";
+      }).join("")
+      +'<span class="note cfh">標「不熟」或「猜的」就不算真的會——真會率會扣掉，智慧配題也會提早再出一次。</span>'
+      +"</div>";
+  }
   q.opts.forEach(function(o,i){var isOk=i===q.correct,pk=i===idx;
     h+='<div class="xr'+(isOk?" ok":"")+(pk&&!isOk?" pick":"")+'"><span class="xl">'+"ABCD"[i]+'</span><div class="xt"><span class="xm">'+(isOk?"✓":"✗")+"</span>"+(pk&&!isOk?'<span class="xp">你選的</span>':"")+(q.exps[i]||"（本選項解析待補）")+"</div></div>"});
   if(q.note)h+='<div class="notebox"><b>📌 補充說明：</b>'+q.note+"</div>";
   h+='<div class="qsec">⏱ 本題 '+sec+" 秒"+(prev.length?"（前幾次："+prev.join("、")+" 秒）":"")+(q.calc?"・計算題":"")+"</div>";
   $("lawText").innerHTML=h;
   var tr=$("wtagRow");if(tr)tr.querySelectorAll(".wtag").forEach(function(bt){bt.onclick=function(){tr.querySelectorAll(".wtag").forEach(function(x){x.classList.toggle("sel",x===bt)});recordTag(q,bt.dataset.k)}});
+  var cr=$("confRow");if(cr)cr.querySelectorAll(".cbtn").forEach(function(bt){bt.onclick=function(){
+    cr.querySelectorAll(".cbtn").forEach(function(x){x.classList.toggle("sel",x===bt)});
+    try{BXREP.conf(adapt(q),bt.dataset.v)}catch(e){}
+  }});
   $("lawBlock").classList.add("show");$("nextBtn").classList.remove("hidden");
   $("nextBtn").textContent=quizIndex+1>=quizQueue.length?"看結果":"下一題";
 }

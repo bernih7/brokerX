@@ -1753,9 +1753,11 @@ function lagBuild(){
   (drill?drill.rows:[]).forEach(function(r){ if(r.total>0&&r.name.indexOf('刷題 ')===0){dDone+=r.done;dTot+=r.total;} });
 
   /* 申論：優先用本機的輪數紀錄，沒有就用已讀勾選 */
-  var esCards=0,esRounds=0,esSec=0,esTotal=53;
+  var esCards=0,esRounds=0,esSec=0,esTotal=53,esV={ok:0,mem:0,hard:0};
   try{var L=JSON.parse(localStorage.getItem('bxv-es-log')||'{}');
-    Object.keys(L).forEach(function(k){var r=L[k];if(r&&r.n){esCards++;esRounds+=r.n;esSec+=r.tot||0;}});}catch(e){}
+    Object.keys(L).forEach(function(k){var r=L[k];if(!r)return;
+      if(r.n){esCards++;esRounds+=r.n;esSec+=r.tot||0;}
+      if(r.v&&esV[r.v]!=null)esV[r.v]++;});}catch(e){}
   if(!esCards){try{esCards=(JSON.parse(localStorage.getItem('bx-es-read')||'[]')||[]).length;}catch(e){}}
 
   var rPages=(read?read.rows.length:0), rDone=sum(read,function(r){return (r.read||0)>0?1:0});
@@ -1775,7 +1777,9 @@ function lagBuild(){
     +'<div class="goal">目標設定：<b>考前把每一樣至少做完 1 輪</b>。右邊那欄是「要達成這個目標，從今天起每天得做多少」——沒有另外訂讀書表，就是剩下的量除以剩下的天數。</div>'
     +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
     +row('選擇題（16 章）',dDone,dTot,'題','')
-    +row('申論範文',esCards,esTotal,'張',esRounds?('累計 '+esRounds+' 輪・共 '+Math.round(esSec/60)+' 分鐘'):'還沒有計時紀錄')
+    +row('申論範文',esCards,esTotal,'張',
+       (esRounds?('累計 '+esRounds+' 輪・共 '+Math.round(esSec/60)+' 分鐘'):'還沒有計時紀錄')
+       +((esV.mem||esV.hard)?('　｜ 📖 還沒背 '+esV.mem+'・😵 太難 '+esV.hard):''))
     +row('閱讀／整理頁',rDone,rPages,'頁','讀完一輪＝捲到該頁最底')
     +row('模擬卷',mDone,mTot,'份','')
     +(cTot?row('計算題組',cDone,cTot,'題',''):'')
@@ -1811,7 +1815,7 @@ function hitBuild(){
     var ch=id.split('-')[0]; if(!(ch in HIT_EST)) return;
     var o=by[ch]=by[ch]||{done:0,sure:0,ng:0,k:{A:0,B:0,C:0,D:0,'':0},guess:0};
     o.done++;
-    if(r.ok){ if(r.k==='D'||r.g===1){o.guess++;} else {o.sure++;} }
+    if(r.ok){ if(r.k==='D'||r.g===1||r.sh===1){o.guess++;} else {o.sure++;} }
     else { o.ng++; o.k[r.k||'']=(o.k[r.k||'']||0)+1; }
   });
   var LAB={}; (typeof CHAPTERS!=='undefined'?CHAPTERS:[]).forEach(function(c){LAB[c.key]=c.label;});
@@ -1843,7 +1847,7 @@ function hitBuild(){
     if(r.cov<0.30) return r.done===0?'先刷一輪，實力未知':'只測了 '+Math.round(r.cov*100)+'%，先刷一輪';
     if(r.ng>0&&!r.kk) return '先標錯誤類型';
     if(r.kk) return HIT_KN[r.kk][0];
-    if(r.guess>0) return '有 '+r.guess+' 題用猜的';
+    if(r.guess>0) return '有 '+r.guess+' 題不熟／用猜的';
     return r.cov>=0.7?'維持就好':'再刷滿一輪';
   }
   function why(r){
@@ -1854,7 +1858,7 @@ function hitBuild(){
       +'所以這 '+r.seed.toFixed(1)+' 分目前是<b>實力未知</b>，不是「會」也不是「不會」。先刷一輪把它量出來，才知道要不要花時間補。';
     if(r.kk) return '卡在：<b>'+HIT_KN[r.kk][0]+'</b>（'+r.kn+' 題）。'+HIT_KN[r.kk][1];
     if(r.ng>0) return '有 <b>'+r.ng+'</b> 題答錯但還沒標錯誤類型。先去錯題本標 A／B／C／D，才知道要補法條還是補觀念。';
-    if(r.guess>0) return '答對的裡面有 <b>'+r.guess+'</b> 題是猜的，等於還沒會。先讀整理頁再回來刷。';
+    if(r.guess>0) return '答對的裡面有 <b>'+r.guess+'</b> 題你自己標了「猜的」或「對了但不熟」，等於還沒會。先讀整理頁再回來刷。';
     return r.cov>=0.7
       ? '測過 <b>'+Math.round(r.cov*100)+'%</b> 而且都會、也沒用猜的。<b>先放著</b>，考前再刷一輪確認就好。'
       : '測過的都對，但只測了 <b>'+Math.round(r.cov*100)+'%</b>。把這章刷滿，這 '+r.seed.toFixed(1)+' 分才算真的到手。';
