@@ -433,3 +433,30 @@ window.BXREP={build:build,rec:rec,tag:tag,drop:drop,sync:sync,fillMark:fillMark,
  }
  if(document.readyState==="complete")setTimeout(run,300);else addEventListener("load",function(){setTimeout(run,500)});
 })();
+
+/* ---- 答案鍵修正後的一次性重算（v495）：舊作答若依錯誤答案鍵判分，這裡依新答案鍵重判 ---- */
+(function(){try{
+ var FLAG="bxv-keyfix",VER="v495";if(localStorage.getItem(FLAG)===VER)return;
+ var PFX={A1:"valuation_practice_a1_v2",A2:"valuation_practice_a2_v2",A3:"valuation_practice_a3_v2",A4:"valuation_practice_a4_v2",B:"valuation_practice_b_v2",C1:"valuation_practice_c1_v2",C2:"valuation_practice_c2_v2",D1:"valuation_practice_d1_v2",D2:"valuation_practice_d2_v2",D3:"valuation_practice_d3_v2",E1:"valuation_practice_e1_v2",F1:"valuation_practice_f1_v2",G1:"valuation_practice_g1_v2",H1H2:"valuation_practice_h1h2_v2",H3I1:"valuation_practice_h3i1_v2",I2J1:"val_prac_i2j1_v1"};
+ /* [章, 年第N題, 題id, 新正解index, 類型] 類型：k＝依新答案重判；f＝一律給分；d＝題幹選項已換成原卷，舊紀錄作廢；r＝選項重排（103-15） */
+ var FIX=[["A2","105年第7題","VA2_105_7",3,"k"],["B","107年第17題","VB1_107_17",0,"k"],["C1","102年第33題","VC1_102_33",3,"k"],["D1","102年第12題","VD1_102_12",3,"k"],["H1H2","102年第19題","VH1_102_19",1,"d"],["H1H2","105年第28題","VH2_105_28",1,"d"],["A4","103年第14題","VA4_103_14",1,"k"],["H1H2","103年第15題","VH2_103_15",2,"r"],["F1","104年第33題","VF1_104_33",2,"k"],["A3","100年第2題","VA3_100_2",2,"k"],["A3","100年第5題","VA3_100_5",1,"k"],["B","100年第21題","VB1_100_21",1,"k"],["D2","99年第9題","VD2_99_9",1,"f"],["D1","104年第15題","VD1_104_15",1,"f"],["B","106年第28題","VB1_106_28",0,"f"],["D1","108年第11題","VD1_108_11",0,"f"],["B","108年第18題","VB1_108_18",3,"f"],["C1","101年第17題","VC1_101_17",0,"f"]];
+ var rd=function(k,d){try{return JSON.parse(localStorage.getItem(k)||"")||d}catch(e){return d}};
+ var DB=rd("bxv-q2",{}),chg=false,ST={};
+ FIX.forEach(function(f){
+  var ch=f[0],qid=ch+"-"+f[1]+"-"+f[2],type=f[4],ok;
+  var fn=function(c){if(type==="f")return 1;return c===f[3]?1:0};
+  var r=DB[qid];
+  if(r){
+   if(type==="d"){delete DB[qid];chg=true}
+   else if(typeof r.c==="number"||type==="f"){var c=r.c;if(type==="r"&&typeof c==="number"){c=c===3?2:(c===2?-1:c);r.c=c}ok=fn(r.c);if(r.ok!==ok){r.ok=ok;chg=true}if(r.h&&r.h.length)r.h[r.h.length-1][1]=ok}
+  }
+  var p=PFX[ch];if(!p)return;var k="bxv-st:"+p+"_answers";var A=ST[k]||(ST[k]=rd(k,null));
+  if(A&&A[f[2]]){
+   if(type==="d"){delete A[f[2]];ST[k+"#"]=1}
+   else{var a=A[f[2]],c2=a.selected;if(type==="r"&&typeof c2==="number"){c2=c2===3?2:(c2===2?-1:c2);a.selected=c2}var o=type==="f"?true:(c2===f[3]);if(a.correct!==o){a.correct=o}ST[k+"#"]=1}
+  }
+ });
+ if(chg)localStorage.setItem("bxv-q2",JSON.stringify(DB));
+ Object.keys(ST).forEach(function(k){if(k.slice(-1)!=="#"&&ST[k+"#"])localStorage.setItem(k,JSON.stringify(ST[k]))});
+ localStorage.setItem(FLAG,VER)
+}catch(e){}})();
