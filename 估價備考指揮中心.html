@@ -105,55 +105,110 @@ header .sub{font-size:.88rem;opacity:.85;position:relative;}
 .panel.active{display:block;}
 
 /* ── Sec title ── */
-/* ── 掌握度・精準打擊（v500） ── */
-.hit-sum{background:var(--paper);border:1.5px solid var(--line);border-left:5px solid var(--accent-r);
-  border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:.9rem;line-height:1.7}
-.hit-sum b{color:var(--accent-r);font-variant-numeric:tabular-nums}
-.hit-sum .hs-ok{color:var(--accent-g)}
-.hit-row{background:var(--paper);border:1.5px solid var(--line);border-radius:8px;
-  padding:10px 12px;margin-bottom:8px;border-left:5px solid var(--line)}
-.hit-row.lv1{border-left-color:var(--accent-r)}
-.hit-row.lv2{border-left-color:var(--accent-gold)}
-.hit-row.lv3{border-left-color:var(--accent-g)}
-.hit-row.lv0{border-left-color:var(--muted);opacity:.92}
-.hit-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-.hit-rank{font-size:.72rem;font-weight:700;color:var(--paper);background:var(--muted);
-  border-radius:4px;padding:1px 6px;flex-shrink:0}
-.hit-row.lv1 .hit-rank{background:var(--accent-r)}
-.hit-row.lv2 .hit-rank{background:var(--accent-gold)}
-.hit-row.lv3 .hit-rank{background:var(--accent-g)}
-.hit-name{font-family:"Noto Serif TC",serif;font-weight:700;font-size:.95rem;color:var(--fg)}
-.hit-loss{margin-left:auto;font-size:.88rem;font-weight:700;color:var(--accent-r);
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.hit-row.lv0 .hit-loss{color:var(--muted)}
-.hit-bar{height:9px;border-radius:5px;background:var(--paper2);overflow:hidden;margin:6px 0 7px}
-.hit-bar i{display:block;height:100%;border-radius:5px;background:var(--accent-r)}
-.hit-row.lv2 .hit-bar i{background:var(--accent-gold)}
-.hit-row.lv3 .hit-bar i{background:var(--accent-g)}
-.hit-row.lv0 .hit-bar i{background:var(--muted)}
-.hit-facts{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.78rem;color:var(--muted);
-  font-variant-numeric:tabular-nums;margin-bottom:6px}
-.hit-facts b{color:var(--fg)}
-.hit-why{font-size:.8rem;line-height:1.6;background:var(--paper2);border-radius:6px;
-  padding:6px 9px;margin-bottom:7px;overflow-wrap:anywhere}
-.hit-why .hw-k{color:var(--accent-r);font-weight:700}
-.hit-acts{display:flex;flex-wrap:wrap;gap:6px}
-.hit-acts a{font-size:.78rem;text-decoration:none;border:1.2px solid var(--line);
-  border-radius:999px;padding:3px 11px;color:var(--primary);background:var(--paper2);white-space:nowrap}
-.hit-acts a.go{background:var(--primary);color:var(--paper);border-color:var(--primary)}
-.hit-more{font-size:.82rem;color:var(--primary);background:none;border:1.2px dashed var(--line);
-  border-radius:6px;padding:7px 12px;width:100%;cursor:pointer;font-family:inherit;margin-top:2px}
-@media(max-width:430px){
-  .hit-loss{margin-left:0;width:100%}
-  .hit-acts a{flex:1 1 auto;text-align:center}
+/* ── 日拱一築（v520，取代 v500 掌握度・精準打擊）──
+   全部 scope 在 #hitPanel 內；五組貓系色卡由 [data-pal] 切換，存 bxv-hit-pal ── */
+#hitPanel, #hitPanel[data-pal="p1"]{   /* Forest Paws */
+  --cp-got:#4E5F4A; --cp-got-t:#ECD9B9; --cp-pick:#8FA083; --cp-pick-t:#28331F;
+  --cp-unk:#ECD9B9; --cp-unk-t:#4E5F4A; --cp-accent:#4E5F4A; --cp-accent-t:#ECD9B9;
+  --cp-card:#FFFDF7; --cp-milk:#F6F1E4; --cp-line:#DCD3C0;
+  --cp-ink:#2F3A2C; --cp-soft:#6E7A68; --cp-track:#E6DECB;
 }
+#hitPanel[data-pal="p2"]{   /* Orange Cat */
+  --cp-got:#4A3028; --cp-got-t:#FFF1D0; --cp-pick:#F28C28; --cp-pick-t:#4A3028;
+  --cp-unk:#FFF1D0; --cp-unk-t:#4A3028; --cp-accent:#F28C28; --cp-accent-t:#4A3028;
+  --cp-card:#FFFBF2; --cp-milk:#FFF1D0; --cp-line:#E7D8BC;
+  --cp-ink:#3A2720; --cp-soft:#8A6F5E; --cp-track:#F3E4C9;
+}
+#hitPanel[data-pal="p3"]{   /* Blue-Eyed Kitty */
+  --cp-got:#4B5D6B; --cp-got-t:#E8EFF7; --cp-pick:#7F8FA6; --cp-pick-t:#1F2A33;
+  --cp-unk:#C7D3E3; --cp-unk-t:#3A4753; --cp-accent:#4B5D6B; --cp-accent-t:#E8EFF7;
+  --cp-card:#FBFCFE; --cp-milk:#EEF3F9; --cp-line:#CFDAE7;
+  --cp-ink:#273039; --cp-soft:#6B7A8A; --cp-track:#DEE6F0;
+}
+#hitPanel[data-pal="p4"]{   /* Garfield */
+  --cp-got:#030303; --cp-got-t:#FFFFFF; --cp-pick:#F58220; --cp-pick-t:#1A0C00;
+  --cp-unk:#ECECEC; --cp-unk-t:#333333; --cp-accent:#F58220; --cp-accent-t:#1A0C00;
+  --cp-card:#FFFFFF; --cp-milk:#F6F6F6; --cp-line:#DCDCDC;
+  --cp-ink:#1A1A1A; --cp-soft:#6E6E6E; --cp-track:#ECECEC;
+}
+#hitPanel[data-pal="p5"]{   /* Muzzle Taupe */
+  --cp-got:#3A3A3A; --cp-got-t:#EFE8DE; --cp-pick:#A89B8A; --cp-pick-t:#2A251F;
+  --cp-unk:#D6C8B6; --cp-unk-t:#4A423A; --cp-accent:#3A3A3A; --cp-accent-t:#EFE8DE;
+  --cp-card:#FDFBF7; --cp-milk:#F2ECE3; --cp-line:#DED4C6;
+  --cp-ink:#2F2B26; --cp-soft:#7A7167; --cp-track:#E6DCCE;
+}
+[data-theme="dark"] #hitPanel{--cp-card:#242820;--cp-milk:#2B3027;--cp-line:#3A422F;--cp-ink:#E9EFE4;--cp-soft:#9AA693;--cp-track:#343B2D;--cp-accent:#8FA083;--cp-accent-t:#28331F}
+[data-theme="dark"] #hitPanel[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}
+[data-theme="dark"] #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
+[data-theme="dark"] #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
+[data-theme="dark"] #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
 
-.sec-title{
-  font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:700;
-  color:var(--primary);border-bottom:2px solid var(--line);
-  padding-bottom:6px;margin:22px 0 12px;
-}
-.sec-title:first-child{margin-top:4px;}
+#hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
+  padding:15px 15px 13px;margin-bottom:11px;color:var(--cp-ink)}
+#hitPanel .score h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:1.06rem;
+  display:flex;align-items:center;gap:7px;position:relative;padding-right:34px;letter-spacing:.04em}
+#hitPanel .motto{font-size:.8rem;color:var(--cp-accent);font-weight:700;margin:1px 0 7px}
+#hitPanel .ssub{font-size:.76rem;color:var(--cp-soft);margin-bottom:12px;line-height:1.6}
+#hitPanel .palbtn{position:absolute;right:-2px;top:-3px;width:28px;height:28px;border-radius:50%;cursor:pointer;
+  border:1.5px solid var(--cp-line);background:var(--cp-milk);font-size:.85rem;line-height:1;
+  display:grid;place-items:center;padding:0;color:var(--cp-soft)}
+#hitPanel .palbtn.on{background:var(--cp-accent);border-color:var(--cp-accent);color:var(--cp-accent-t)}
+#hitPanel .palrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:11px;font-size:.76rem;
+  color:var(--cp-soft);background:var(--cp-milk);border:1.5px solid var(--cp-line);border-radius:10px;padding:9px 11px}
+#hitPanel .palrow[hidden]{display:none!important}
+#hitPanel .palrow button{display:flex;align-items:center;padding:3px;border-radius:999px;cursor:pointer;
+  border:2px solid var(--cp-line);background:var(--cp-card)}
+#hitPanel .palrow button.on{border-color:var(--cp-ink)}
+#hitPanel .palrow button i{display:block;width:17px;height:17px;border-radius:50%;margin-left:-5px;border:1.5px solid var(--cp-card)}
+#hitPanel .palrow button i:first-child{margin-left:0}
+#hitPanel .sbar{display:flex;height:34px;border-radius:9px;overflow:hidden;background:var(--cp-track);margin-bottom:10px}
+#hitPanel .sbar div{display:grid;place-items:center;font-size:.82rem;font-weight:800;min-width:0;font-variant-numeric:tabular-nums}
+#hitPanel .sbar .got{background:var(--cp-got);color:var(--cp-got-t)}
+#hitPanel .sbar .pick{background:var(--cp-pick);color:var(--cp-pick-t)}
+#hitPanel .sbar .unk{background:var(--cp-unk);color:var(--cp-unk-t)}
+#hitPanel .skey{display:grid;gap:5px;font-size:.81rem;line-height:1.5}
+#hitPanel .skey span{display:flex;align-items:center;gap:8px}
+#hitPanel .skey i{width:11px;height:11px;border-radius:3px;flex:none}
+#hitPanel .skey b{font-variant-numeric:tabular-nums;font-size:.88rem}
+#hitPanel .skey small{color:var(--cp-soft);font-size:.75rem}
+#hitPanel .howbtn{width:100%;font:inherit;font-size:.76rem;font-weight:700;padding:7px;border-radius:8px;cursor:pointer;
+  background:transparent;color:var(--cp-soft);border:1.5px dashed var(--cp-line);margin-top:10px}
+#hitPanel .defs2{font-size:.76rem;color:var(--cp-soft);line-height:1.75;background:var(--cp-milk);
+  border-radius:8px;padding:9px 11px;margin-top:9px}
+#hitPanel .today{background:var(--cp-card);border:1.5px solid var(--cp-line);border-left:6px solid var(--cp-accent);
+  border-radius:12px;padding:14px 15px;margin-bottom:11px;color:var(--cp-ink)}
+#hitPanel .today .tag{font-size:.73rem;font-weight:800;letter-spacing:.05em;color:var(--cp-accent);margin-bottom:4px}
+#hitPanel .today h4{margin:0;font-family:"Noto Serif TC",serif;font-size:1.16rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+#hitPanel .today .gain{background:var(--cp-accent);color:var(--cp-accent-t);font-size:.8rem;font-weight:800;
+  padding:3px 10px;border-radius:999px;font-variant-numeric:tabular-nums;margin-left:auto;font-family:inherit}
+#hitPanel .today p{margin:9px 0 11px;font-size:.84rem;line-height:1.7}
+#hitPanel .today p b{color:var(--cp-accent)}
+#hitPanel .acts{display:flex;gap:7px;flex-wrap:wrap}
+#hitPanel .acts a{font-size:.78rem;font-weight:700;text-decoration:none;padding:7px 13px;border-radius:999px;
+  border:1.5px solid var(--cp-line);color:var(--cp-ink);background:var(--cp-milk)}
+#hitPanel .acts a.go{background:var(--cp-got);border-color:var(--cp-got);color:var(--cp-got-t)}
+#hitPanel .nextup{font-size:.79rem;color:var(--cp-soft);margin:0 0 12px;line-height:1.8;padding:0 3px}
+#hitPanel .nextup b{color:var(--cp-ink)}
+#hitPanel .more{width:100%;font:inherit;font-size:.8rem;font-weight:700;padding:10px;border-radius:9px;cursor:pointer;
+  background:var(--cp-milk);color:var(--cp-soft);border:1.5px solid var(--cp-line)}
+#hitPanel .slim{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:10px;overflow:hidden}
+#hitPanel .slim details{border-top:1px solid var(--cp-line)}
+#hitPanel .slim details:first-child{border-top:0}
+#hitPanel .slim summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;
+  padding:9px 11px;font-size:.82rem;color:var(--cp-ink)}
+#hitPanel .slim summary::-webkit-details-marker{display:none}
+#hitPanel .slim summary:hover{background:var(--cp-milk)}
+#hitPanel .sl-dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--cp-got)}
+#hitPanel .sl-dot.hi{background:var(--cp-pick)}
+#hitPanel .sl-dot.un{background:var(--cp-unk)}
+#hitPanel .sl-name{font-weight:700;flex:none}
+#hitPanel .sl-mini{flex:1;height:6px;border-radius:4px;background:var(--cp-track);overflow:hidden;min-width:28px}
+#hitPanel .sl-mini i{display:block;height:100%;background:var(--cp-pick)}
+#hitPanel .sl-num{font-size:.78rem;color:var(--cp-soft);font-variant-numeric:tabular-nums;flex:none}
+#hitPanel .sl-num b{color:var(--cp-ink)}
+#hitPanel .sl-body{padding:0 11px 11px;font-size:.79rem;line-height:1.7;color:var(--cp-ink)}
+#hitPanel .grouphd{font-size:.78rem;font-weight:700;color:var(--cp-soft);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
+#hitPanel .grouphd::after{content:"";flex:1;height:1px;background:var(--cp-line)}
 
 /* ── Today card ── */
 .today-card{
@@ -1203,9 +1258,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 <!-- ⑤ 進度 -->
 <div id="tab-progress" class="panel">
 
-  <!-- 掌握度 → 精準打擊（v500） -->
-  <div class="sec-title">掌握度・精準打擊</div>
-  <p class="ts-note" id="hitIntro">把各章的「真的會」換算成 115 年預計掉幾分，由高到低排。<b>預估題數</b>＝25 題 ×（16 年占比×0.5＋近 5 年占比×0.5）；<b>真會率</b>＝答對且沒標「猜的」÷ 已作答；<b>預估失分</b>＝預估題數 ×（1－真會率）。選擇題每題 2 分。<span style="color:var(--accent-r)">這是依你自己的作答推估，不是命中率預測；某章作答愈少，推估愈不準。</span></p>
+  <!-- 日拱一築（v520；標題與說明都在面板內，由 hitBuild 產生） -->
   <div id="hitPanel"></div>
 
   <!-- 今日＋工具完成度與閱讀次數（取代原「閱讀進度匯報」，不需回報） -->
@@ -1599,16 +1652,16 @@ function injectDrillStats(){
   });
 }
 
-// ── 掌握度・精準打擊（v500）──
-// EST＝115 年該章預估題數（25 題制）＝25×(16年占比×0.5＋近5年占比×0.5)，依 520 題官方題計算。
-// I2J1 無官方題（20 題為自編／預測），113 為官方 113 年複習卷（與各章重複），兩者不計入失分估計。
+// ── 日拱一築（v520，取代 v500 掌握度・精準打擊）──
+// EST＝115 年該章預估題數（25 題制）＝25×(16年占比×0.5＋近5年占比×0.5)，依 520 題官方題分布
+// I2J1 無官方題（20 題為自編／預測），不計入；113 年官方題已併回各章
 var HIT_EST={A1:2.16,A2:1.65,A3:2.06,A4:2.16,B:2.86,C1:2.37,C2:1.86,
   D1:1.81,D2:1.90,D3:0.71,E1:1.10,F1:1.69,G1:0.76,H1H2:1.10,H3I1:0.81,I2J1:0};
 var HIT_READ={
   A1:['彩色重點速記','估價彩色重點速記.html'],
   A2:['技術規則專欄 總則','估價_技術規則專欄.html#t1'],
   A3:['彩色重點速記 因素層次','估價彩色重點速記.html'],
-  A4:['八大程序速覽表','估價_八大程序速覽表.html'],
+  A4:['估價程序總整理','估價_估價程序總整理.html'],
   B:['四大方法比較表','估價_四大方法比較表.html'],
   C1:['營造施工費四法','估價_營造施工費四法.html'],
   C2:['計算題攻略 折舊','估價_計算題攻略.html'],
@@ -1619,15 +1672,25 @@ var HIT_READ={
   F1:['租金估計攻略表','估價_租金估計攻略表.html'],
   G1:['計算題攻略 房地拆價','估價_計算題攻略.html#split-card'],
   H1H2:['特殊標的總整理','估價_特殊標的總整理.html'],
-  H3I1:['特殊標的總整理','估價_特殊標的總整理.html'],
-  I2J1:['特殊標的總整理','估價_特殊標的總整理.html']
+  H3I1:['特殊標的總整理 都更','估價_特殊標的總整理.html#s5b'],
+  I2J1:['特殊標的總整理 改良物','估價_特殊標的總整理.html#s4']
 };
 var HIT_KN={A:['法條混淆','兩條記混了。去讀整理頁把兩條並排看，不要只重刷題。'],
   B:['粗心','會但看錯。作答時先圈題幹的「錯誤／不正確／不包括」再看選項。'],
   C:['真的不熟','還沒讀懂。先讀整理頁再回來刷，直接刷只是重複猜。'],
-  D:['用猜的','等於不會。把猜對的也當錯題處理。']};
+  D:['用猜的','等於還沒會。把猜對的也當錯題處理。']};
+var HIT_PALS=[['p1','Forest Paws','#4E5F4A','#8FA083','#ECD9B9'],
+  ['p2','Orange Cat','#4A3028','#F28C28','#FFF1D0'],
+  ['p3','Blue-Eyed Kitty','#4B5D6B','#7F8FA6','#C7D3E3'],
+  ['p4','Garfield','#030303','#F58220','#ECECEC'],
+  ['p5','Muzzle Taupe','#3A3A3A','#A89B8A','#D6C8B6']];
+function hitPal(){try{return localStorage.getItem('bxv-hit-pal')||'p1'}catch(e){return 'p1'}}
+
 function hitBuild(){
   var box=document.getElementById('hitPanel'); if(!box) return;
+  var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
+  var openAll=!!(box.querySelector('#hitAll')&&!box.querySelector('#hitAll').hidden);
+  box.setAttribute('data-pal',hitPal());
   var raw={}; try{raw=JSON.parse(localStorage.getItem('bxv-q2')||'{}');}catch(e){}
   var by={};
   Object.keys(raw||{}).forEach(function(id){
@@ -1639,75 +1702,124 @@ function hitBuild(){
     else { o.ng++; o.k[r.k||'']=(o.k[r.k||'']||0)+1; }
   });
   var LAB={}; (typeof CHAPTERS!=='undefined'?CHAPTERS:[]).forEach(function(c){LAB[c.key]=c.label;});
-  var rows=[],unknown=[],lossT=0,estT=0,doneT=0,bankT=0;
+  function nm(ch){return LAB[ch]||ch;}
+  var rows=[],unk=[],estAns=0,lossT=0,doneT=0,bankT=0,unEst=0;
   Object.keys(HIT_EST).forEach(function(ch){
     var est=HIT_EST[ch], bank=(typeof BXV_CH_TOTAL!=='undefined'&&BXV_CH_TOTAL[ch])||0;
-    var o=by[ch]; bankT+=bank; estT+=est;
-    if(!o||!o.done){ unknown.push({ch:ch,est:est,bank:bank}); return; }
-    doneT+=Math.min(o.done,bank||o.done);
+    var o=by[ch]; bankT+=bank;
+    if(!o||!o.done){ unk.push({ch:ch,est:est,bank:bank}); unEst+=est; return; }
+    estAns+=est; doneT+=Math.min(o.done,bank||o.done);
     var rate=o.sure/o.done, loss=est*(1-rate); lossT+=loss;
+    var kk='',kn=0; ['A','B','C','D'].forEach(function(t){ if((o.k[t]||0)>kn){kn=o.k[t];kk=t;} });
     rows.push({ch:ch,est:est,bank:bank,done:o.done,sure:o.sure,ng:o.ng,guess:o.guess,
-      rate:rate,loss:loss,k:o.k,thin:(o.done<8||(bank&&o.done/bank<0.25))});
+      rate:rate,loss:loss,kk:kk,kn:kn,thin:(o.done<8||(bank&&o.done/bank<0.25))});
   });
   rows.sort(function(a,b){return b.loss-a.loss||b.est-a.est;});
-  unknown.sort(function(a,b){return b.est-a.est;});
-  var h='';
-  if(!rows.length){
-    h+='<div class="hit-sum">還沒有作答紀錄，無法推估掌握度。先去任一章刷題，這裡就會依你的正確率排出「先打哪一章」。<br>'
-      +'未作答的章節依官方出題量排序如下，可當作起手順序。</div>';
-  } else {
-    var unEst=0; unknown.forEach(function(u){unEst+=u.est;});
-    h+='<div class="hit-sum">已作答 <b>'+doneT+'</b> 題（題庫 '+bankT+' 題）。'
-      +'依目前正確率推估，115 年選擇題<b>預估失分 '+lossT.toFixed(1)+' 題 ≈ '+(lossT*2).toFixed(0)+' 分</b>'
-      +'（選擇題滿分 50）。'
-      +(unEst>0?'另有 <b>'+unEst.toFixed(1)+'</b> 題落在還沒作答的章節，狀態未知。':'<span class="hs-ok">全部章節都有作答紀錄。</span>')
-      +'</div>';
-  }
+  unk.sort(function(a,b){return b.est-a.est;});
+  var gotP=(estAns-lossT)*2, pickP=lossT*2, unkP=unEst*2;
   var maxL=rows.length?rows[0].loss:1;
-  rows.forEach(function(r,i){
-    var lv = r.loss>=1.0?'lv1' : r.loss>=0.5?'lv2' : 'lv3';
-    var name=LAB[r.ch]||r.ch;
-    var kk='',kn=0;
-    ['A','B','C','D'].forEach(function(t){ if((r.k[t]||0)>kn){kn=r.k[t];kk=t;} });
-    var why;
-    if(r.ng===0&&r.guess===0){ why='這一章目前全對、也沒有猜的。<span class="hw-k">維持</span>：考前再刷一輪確認，不用再花時間讀。'; }
-    else if(kk){ why='主要錯因：<span class="hw-k">'+kk+' '+HIT_KN[kk][0]+'</span>（'+kn+' 題）。'+HIT_KN[kk][1]; }
-    else if(r.ng>0){ why='有 <span class="hw-k">'+r.ng+'</span> 題答錯但<span class="hw-k">沒標錯誤類型</span>。先去錯題本標 A／B／C／D，才知道要補法條還是補觀念。'; }
-    else { why='答對的題裡有 <span class="hw-k">'+r.guess+'</span> 題是猜的，等於不會。先讀整理頁再回來刷。'; }
-    h+='<div class="hit-row '+lv+'">'
-      +'<div class="hit-head"><span class="hit-rank">'+(i+1)+'</span><span class="hit-name">'+name+'</span>'
-      +'<span class="hit-loss">預估失分 '+r.loss.toFixed(1)+' 題（'+(r.loss*2).toFixed(1)+' 分）</span></div>'
-      +'<div class="hit-bar"><i style="width:'+Math.max(3,Math.round(r.loss/(maxL||1)*100))+'%"></i></div>'
-      +'<div class="hit-facts">'
-      +'<span>115 預估出 <b>'+r.est.toFixed(1)+'</b> 題</span>'
-      +'<span>真會率 <b>'+Math.round(r.rate*100)+'%</b></span>'
-      +'<span>已答 <b>'+r.done+'</b>/'+r.bank+'</span>'
-      +(r.ng?'<span>答錯 <b>'+r.ng+'</b></span>':'')
-      +(r.guess?'<span>猜對 <b>'+r.guess+'</b></span>':'')
-      +(r.thin?'<span style="color:var(--accent-gold)">⚠ 作答太少，僅供參考</span>':'')
-      +'</div>'
-      +'<div class="hit-why">'+why+'</div>'
-      +'<div class="hit-acts">'
-      +'<a class="go" href="估價刷題練習_'+r.ch+'.html">去刷 '+r.ch+' ▸</a>'
-      +'<a href="'+HIT_READ[r.ch][1]+'">讀 '+HIT_READ[r.ch][0]+' ▸</a>'
-      +'<a href="估價解析版練習.html#ch='+r.ch+'">混合練這章 ▸</a>'
-      +'</div></div>';
-  });
-  if(unknown.length){
-    h+='<div class="hit-sum" style="border-left-color:var(--muted);margin-top:14px">'
-      +'<b style="color:var(--muted)">未作答・狀態未知（'+unknown.length+' 章）</b>　依官方出題量排序，由多到少先打。</div>';
-    unknown.forEach(function(u){
-      h+='<div class="hit-row lv0">'
-        +'<div class="hit-head"><span class="hit-rank">—</span><span class="hit-name">'+(LAB[u.ch]||u.ch)+'</span>'
-        +'<span class="hit-loss">未作答</span></div>'
-        +'<div class="hit-facts"><span>115 預估出 <b>'+u.est.toFixed(1)+'</b> 題</span><span>題庫 <b>'+u.bank+'</b> 題</span>'
-        +(u.est===0?'<span>無官方題，不計入失分估計</span>':'')+'</div>'
-        +'<div class="hit-acts"><a class="go" href="估價刷題練習_'+u.ch+'.html">去刷 '+u.ch+' ▸</a>'
-        +'<a href="'+HIT_READ[u.ch][1]+'">讀 '+HIT_READ[u.ch][0]+' ▸</a></div></div>';
-    });
+
+  function why(r){
+    if(r.ng===0&&r.guess===0) return '這章目前全對、也沒有用猜的。<b>先放著</b>，考前再刷一輪確認就好。';
+    if(r.kk) return '卡在：<b>'+HIT_KN[r.kk][0]+'</b>（'+r.kn+' 題）。'+HIT_KN[r.kk][1];
+    if(r.ng>0) return '有 <b>'+r.ng+'</b> 題答錯但還沒標錯誤類型。先去錯題本標 A／B／C／D，才知道要補法條還是補觀念。';
+    return '答對的裡面有 <b>'+r.guess+'</b> 題是猜的，等於還沒會。先讀整理頁再回來刷。';
   }
+  function gain(r){return (r.loss*2).toFixed(1);}
+
+  var h='<div class="score"><h3><span>🐾</span>日拱一築'
+    +'<button class="palbtn'+(openPal?' on':'')+'" id="hitPalBtn" title="換色卡" aria-label="換色卡">🎨</button></h3>'
+    +'<div class="palrow"'+(openPal?'':' hidden')+'>色卡：'+HIT_PALS.map(function(x){
+        return '<button data-hpal="'+x[0]+'"'+(hitPal()===x[0]?' class="on"':'')+' title="'+x[1]+'">'
+          +'<i style="background:'+x[2]+'"></i><i style="background:'+x[3]+'"></i><i style="background:'+x[4]+'"></i></button>';
+      }).join('')+'<span id="hitPalName">'+((HIT_PALS.filter(function(x){return x[0]===hitPal()})[0]||HIT_PALS[0])[1])+'</span></div>'
+    +'<div class="motto">藏分於日 —— 今天拿回來的分，考場上就是你的</div>';
+
+  if(!rows.length){
+    h+='<div class="ssub">還沒有作答紀錄，先去任一章刷題，這裡就會算出你的 50 分現在長什麼樣，並挑出今天從哪一章開始。</div></div>';
+  } else {
+    h+='<div class="ssub">你的選擇題 50 分現在長這樣，依已經作答的題推估。申論另外 50 分不在這張圖裡。</div>'
+      +'<div class="sbar">'
+      +(gotP>0?'<div class="got" style="flex:'+gotP+'">'+Math.round(gotP)+'</div>':'')
+      +(pickP>0?'<div class="pick" style="flex:'+pickP+'">'+Math.round(pickP)+'</div>':'')
+      +(unkP>0?'<div class="unk" style="flex:'+unkP+'">'+Math.round(unkP)+'</div>':'')
+      +'</div><div class="skey">'
+      +'<span><i style="background:var(--cp-got)"></i>🌟 穩穩收下 <b>'+Math.round(gotP)+' 分</b></span>'
+      +'<span><i style="background:var(--cp-pick)"></i>🌱 還能追回 <b>'+Math.round(pickP)+' 分</b>　<small>答錯或用猜的，補起來就是你的</small></span>'
+      +(unkP>0?'<span><i style="background:var(--cp-unk)"></i>🎁 等待開箱 <b>'+Math.round(unkP)+' 分</b>　<small>'+unk.length+' 章完全沒作答，實力未知</small></span>':'')
+      +'</div><button class="howbtn" id="hitHow">這三個數字怎麼算出來的？</button>'
+      +'<div class="defs2" id="hitDefs" hidden><b>每章 115 年預估出幾題</b>＝25 題×（16 年占比×0.5＋近 5 年占比×0.5）。'
+      +'<b>真會率</b>＝答對且沒標「猜的」÷ 已作答（猜對不算會）。<b>🌟 穩穩收下</b>＝預估題數×真會率；<b>🌱 還能追回</b>＝其餘；'
+      +'完全沒作答的章整章算 <b>🎁 等待開箱</b>。每題 2 分，已作答 '+doneT+'／'+bankT+' 題。'
+      +'<br>這是依你自己的作答推估，不是命中率預測；某章作答愈少，推估愈不準。</div></div>';
+
+    var t=rows[0];
+    h+='<div class="today"><div class="tag">今天從這章開始</div>'
+      +'<h4>'+nm(t.ch)+'<span class="gain">還能追回 '+gain(t)+' 分</span></h4>'
+      +'<p>'+why(t)+'<br>目前已答 '+t.done+'/'+t.bank+' 題，真會率 '+Math.round(t.rate*100)+'%。'
+      +(t.thin?'<br><span style="color:var(--cp-accent)">⚠ 這章作答還少，推估僅供參考。</span>':'')+'</p>'
+      +'<div class="acts"><a class="go" href="估價刷題練習_'+t.ch+'.html">去刷 '+t.ch+' ▸</a>'
+      +'<a href="'+HIT_READ[t.ch][1]+'">讀 '+HIT_READ[t.ch][0]+' ▸</a>'
+      +'<a href="估價解析版練習.html#ch='+t.ch+'">混合練這章 ▸</a></div></div>';
+
+    var nx='';
+    if(rows[1]) nx+='練完接著：<b>'+nm(rows[1].ch)+'</b>（'+gain(rows[1])+' 分）';
+    if(rows[2]) nx+='、<b>'+nm(rows[2].ch)+'</b>（'+gain(rows[2])+' 分）';
+    if(nx) nx+='。';
+    if(unk.length&&unk[0].est>0) nx+='<br>那 '+Math.round(unkP)+' 分等待開箱的，從 <b>'+nm(unk[0].ch)+'</b>（預估出 '+unk[0].est.toFixed(1)+' 題）開始最划算。';
+    if(nx) h+='<p class="nextup">'+nx+'</p>';
+  }
+
+  h+='<button class="more" id="hitMore">'+(openAll?'收起 ▴':'看全部 '+(rows.length+unk.length)+' 章 ▾')+'</button>'
+    +'<div id="hitAll"'+(openAll?'':' hidden')+' style="margin-top:10px"><div class="slim">';
+  rows.forEach(function(r){
+    h+='<details><summary><span class="sl-dot'+(r.loss>=0.5?' hi':'')+'"></span>'
+      +'<span class="sl-name">'+r.ch+'</span>'
+      +'<span class="sl-mini"><i style="width:'+Math.max(3,Math.round(r.loss/(maxL||1)*100))+'%"></i></span>'
+      +'<span class="sl-num">可追回 <b>'+gain(r)+' 分</b>・會 <b>'+Math.round(r.rate*100)+'%</b></span></summary>'
+      +'<div class="sl-body">'+why(r)
+      +'<div class="acts" style="margin-top:8px"><a class="go" href="估價刷題練習_'+r.ch+'.html">去刷 '+r.ch+' ▸</a>'
+      +'<a href="'+HIT_READ[r.ch][1]+'">讀 '+HIT_READ[r.ch][0]+' ▸</a>'
+      +'<a href="估價解析版練習.html#ch='+r.ch+'">混合練 ▸</a></div></div></details>';
+  });
+  unk.forEach(function(u){
+    h+='<details><summary><span class="sl-dot un"></span><span class="sl-name">'+u.ch+'</span>'
+      +'<span class="sl-mini"></span>'
+      +'<span class="sl-num">等待開箱・值 <b>'+(u.est*2).toFixed(1)+' 分</b></span></summary>'
+      +'<div class="sl-body">'+(u.est===0?'這章沒有官方題（自編／預測），不計入分數。':'這章完全沒作答，先刷一輪就知道實力落在哪。題庫 '+u.bank+' 題。')
+      +'<div class="acts" style="margin-top:8px"><a class="go" href="估價刷題練習_'+u.ch+'.html">去刷 '+u.ch+' ▸</a>'
+      +'<a href="'+HIT_READ[u.ch][1]+'">讀 '+HIT_READ[u.ch][0]+' ▸</a></div></div></details>';
+  });
+  h+='</div></div>';
   box.innerHTML=h;
 }
+document.addEventListener('click',function(e){
+  var box=document.getElementById('hitPanel'); if(!box||!box.contains(e.target)) return;
+  var pb=e.target.closest('.palrow [data-hpal]');
+  if(pb){
+    try{localStorage.setItem('bxv-hit-pal',pb.getAttribute('data-hpal'))}catch(err){}
+    box.setAttribute('data-pal',pb.getAttribute('data-hpal'));
+    box.querySelectorAll('.palrow [data-hpal]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-hpal')===pb.getAttribute('data-hpal'))});
+    var nmEl=document.getElementById('hitPalName');
+    if(nmEl){var f=HIT_PALS.filter(function(x){return x[0]===pb.getAttribute('data-hpal')})[0]; if(f) nmEl.textContent=f[1];}
+    return;
+  }
+  if(e.target.id==='hitPalBtn'){
+    var row=box.querySelector('.palrow'); row.hidden=!row.hidden;
+    e.target.classList.toggle('on',!row.hidden); return;
+  }
+  if(e.target.id==='hitHow'){
+    var d=document.getElementById('hitDefs'); d.hidden=!d.hidden;
+    e.target.textContent=d.hidden?'這三個數字怎麼算出來的？':'收起說明 ▴'; return;
+  }
+  if(e.target.id==='hitMore'){
+    var a=document.getElementById('hitAll'); a.hidden=!a.hidden;
+    e.target.textContent=a.hidden?e.target.textContent.replace('收起 ▴','看全部 ▾'):'收起 ▴';
+    if(!a.hidden) e.target.textContent='收起 ▴';
+    else hitBuild();
+    return;
+  }
+});
 window.addEventListener('focus',hitBuild);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')hitBuild();});
 
