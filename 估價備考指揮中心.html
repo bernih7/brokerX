@@ -992,14 +992,10 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
       <div class="tool-row"><a class="tool-btn" href="估價_綜合模擬卷一.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷一</a><a class="tool-btn" href="估價_綜合模擬卷二.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷二</a></div>
       <div class="tool-row" style="margin-top:8px;"><a class="tool-btn" href="估價_綜合模擬卷三.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷三</a><a class="tool-btn" href="估價_綜合模擬卷四.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷四</a></div>
       <div class="tool-row" style="margin-top:8px;"><a class="tool-btn" href="估價_綜合模擬卷五.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 綜合模擬卷五</a><a class="tool-btn" href="估價_模擬卷覆蓋分析.html" target="_blank" style="background:var(--paper2);border-color:var(--key);"><span class="icon">📊</span> 模擬卷覆蓋分析（結論）</a></div>
-      <div class="sec-title" style="font-size:.85rem;margin-top:14px;">舊版試卷（題目已併入綜合卷，保留供回看）</div>
+      <div class="sec-title" style="font-size:.85rem;margin-top:14px;">診斷・補強（模擬試題二～四已併入：51 題與綜合卷重複、24 題收進補強卷、6 題申論在綜合卷）</div>
       <div class="tool-row">
         <a class="tool-btn" href="估價_診斷卷一.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 診斷卷① — 開始作答</a>
-        <a class="tool-btn" href="估價_模擬試題二.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 模擬試題二（成本法＋比較法）</a>
-      </div>
-      <div class="tool-row" style="margin-top:8px;">
-        <a class="tool-btn" href="估價_模擬試題三.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 模擬試題三（收益法＋估價程序）</a>
-        <a class="tool-btn" href="估價_模擬試題四.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">📝</span> 模擬試題四（租金＋土開＋收益細項＋權利）</a>
+        <a class="tool-btn" href="估價_自編補強卷.html" target="_blank" style="background:var(--paper2);border-color:var(--primary);"><span class="icon">🧩</span> 自編補強卷（24題・綜合卷沒有的題）</a>
       </div>
       <div class="tool-row" style="margin-top:8px;">
         <a class="tool-btn" href="估價_來勝模擬試題一.html" target="_blank" style="background:var(--paper2);border-color:var(--key);"><span class="icon">🏫</span> 來勝模擬試題一（許文昌老師・25題＋申論）</a>
@@ -1769,8 +1765,8 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 
 // ── 模擬卷成績 ──
 (function(){
-  /* key 以各頁實際存檔為準：bx_mock_hs1＝來勝模擬試題一（逐題存）、bx_mock_2～4＝估價_模擬試題二～四、bx_mockc_1～5＝綜合模擬卷一～五、bx_mock_1＝估價_診斷卷一 */
-  var mocks=[{k:'bx_mock_hs1',name:'來勝模擬試題一',part:1},{k:'bx_mock_2',name:'模擬試題二'},{k:'bx_mock_3',name:'模擬試題三'},{k:'bx_mock_4',name:'模擬試題四'},{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①'}];
+  /* key 以各頁實際存檔為準：bx_mock_hs1＝來勝模擬試題一（逐題存）、bx_mockx_1＝自編補強卷（原模擬試題二～四的獨有題）、bx_mockc_1～5＝綜合模擬卷一～五、bx_mock_1＝估價_診斷卷一 */
+  var mocks=[{k:'bx_mock_hs1',name:'來勝模擬試題一',part:1},{k:'bx_mockx_1',name:'自編補強卷'},{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①'}];
   function renderMocks(cid){
     var c=document.getElementById(cid);if(!c)return;
     mocks.forEach(function(m){
@@ -1904,12 +1900,6 @@ var simData=[
   {src:'綜合模擬卷五', q:'申論二', topic:'比較法：§23 質的排除＋§25/§26 量的管控', hard:'說明', href:'估價_綜合模擬卷五.html'},
   {src:'來勝模擬試題一', q:'申論一', topic:'土地開發分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_來勝模擬試題一.html'},
   {src:'來勝模擬試題一', q:'申論二', topic:'折現現金流量分析法意義、應用時機、公式及估價程序', hard:'計算', href:'估價_來勝模擬試題一.html'},
-  {src:'模擬試題二', q:'申論一', topic:'成本法意義/程序＋定率遞減法公式及計算（重建成本800萬、50年、殘值率10%、已使用20年）', hard:'計算', href:'估價_模擬試題二.html'},
-  {src:'模擬試題二', q:'申論二', topic:'比較法意義/程序＋情況調整意義及區域/個別因素調整差異', hard:'說明', href:'估價_模擬試題二.html'},
-  {src:'模擬試題三', q:'申論一', topic:'收益法（直接資本化法）意義/應用時機/程序＋淨收益計算（題目含資本化率）', hard:'計算', href:'估價_模擬試題三.html'},
-  {src:'模擬試題三', q:'申論二', topic:'估價師執行估價之程序步驟＋估價基準日意義及重要性＋估價報告書應記載事項', hard:'說明', href:'估價_模擬試題三.html'},
-  {src:'模擬試題四', q:'申論一', topic:'實質租金定義＋新訂/續訂租約租金估計方式＋實質租金計算（月租3萬、押金60萬、權利金24萬）', hard:'計算', href:'估價_模擬試題四.html'},
-  {src:'模擬試題四', q:'申論二', topic:'土地開發分析法意義/程序/公式＋資本利息綜合利率與開發分析價格計算', hard:'計算', href:'估價_模擬試題四.html'},
 ];
 (function(){
   var tb=document.getElementById('sim-tbody');if(!tb)return;

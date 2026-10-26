@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>不動產估價概要｜自編補強卷・24題</title>
+<style>
+:root{
+  --pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;
+  --paper:#F5F1E6;--paper-deep:#ECE6D4;--ink:#25302C;--ink-soft:#66706A;
+  --rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;
+  --rad:10px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
+  --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
+  --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Noto Serif TC","Noto Sans TC",serif;line-height:1.7;padding:0 0 120px;}
+header{background:var(--pri);color:var(--onpri);text-align:center;padding:20px 16px 18px;}
+.case-tag{font-size:.75rem;letter-spacing:.12em;opacity:.8;margin-bottom:6px;text-transform:uppercase;}
+header h1{font-size:1.35rem;font-weight:700;line-height:1.3;}
+header .sub{display:block;font-size:.8rem;opacity:.75;margin-top:4px;font-weight:400;}
+
+.score-bar{background:var(--paper-deep);border-bottom:1px solid var(--rule);padding:10px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.score-bar span{font-size:.85rem;color:var(--ink-soft);}
+.score-bar strong{color:var(--pri);font-weight:700;}
+.btn-reset{margin-left:auto;background:transparent;border:1px solid var(--rule);color:var(--ink-soft);padding:4px 12px;border-radius:20px;cursor:pointer;font-size:.8rem;}
+.btn-reset:hover{border-color:var(--pri);color:var(--pri);}
+
+.section{max-width:760px;margin:0 auto;padding:24px 16px 8px;}
+.section-label{font-size:.7rem;letter-spacing:.15em;color:var(--key);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.section-title{font-size:1.1rem;font-weight:700;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:6px;margin-bottom:16px;}
+
+.essay-card{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:20px;margin-bottom:16px;}
+.essay-num{font-size:.75rem;color:var(--key);font-weight:700;letter-spacing:.1em;margin-bottom:6px;}
+.essay-q{font-size:1rem;line-height:1.75;color:var(--ink);margin-bottom:14px;}
+.essay-toggle{background:var(--pri);color:var(--onpri);border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-size:.85rem;font-family:inherit;}
+.essay-toggle:hover{background:var(--pri2);}
+.essay-ans{display:none;margin-top:14px;border-top:1px solid var(--rule);padding-top:14px;}
+.essay-ans.open{display:block;}
+.ans-block{margin-bottom:12px;}
+.ans-block h4{font-size:.85rem;color:var(--key);font-weight:700;margin-bottom:4px;}
+.ans-block p,.ans-block li{font-size:.9rem;color:var(--ink);line-height:1.8;}
+.ans-block ul,.ans-block ol{padding-left:1.4em;}
+.formula-box{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;font-family:monospace;font-size:.9rem;color:var(--stamp);margin:8px 0;}
+.calc-step{background:var(--paper);border-left:3px solid var(--pri);padding:8px 12px;margin:6px 0;font-size:.88rem;border-radius:0 6px 6px 0;}
+.table-wrap{overflow-x:auto;margin:10px 0;}
+table{border-collapse:collapse;font-size:.85rem;width:100%;min-width:480px;}
+th,td{border:1px solid var(--rule);padding:6px 10px;text-align:center;}
+th{background:var(--pri);color:var(--onpri);}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
+
+.q-card{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:20px;margin-bottom:14px;transition:border-color .2s;}
+.q-card.correct{border-color:var(--green);}
+.q-card.wrong{border-color:var(--stamp);}
+.q-num{font-size:.7rem;color:var(--ink-soft);margin-bottom:6px;letter-spacing:.05em;}
+.q-text{font-size:.95rem;line-height:1.75;margin-bottom:14px;color:var(--ink);}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1.5px solid var(--rule);border-radius:8px;cursor:pointer;transition:all .15s;font-size:.9rem;background:var(--paper);}
+.opt:hover:not(.disabled){border-color:var(--pri);background:color-mix(in srgb,var(--pri) 8%,var(--paper));}
+.opt.selected{border-color:var(--pri);}
+.opt.correct-ans{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--paper));}
+.opt.wrong-ans{border-color:var(--stamp);background:color-mix(in srgb,var(--stamp) 10%,var(--paper));}
+.opt.disabled{cursor:default;}
+.letter{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opt.correct-ans .letter{background:var(--green);border-color:var(--green);color:#fff;}
+.opt.wrong-ans .letter{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+.opt-text{flex:1;line-height:1.6;}
+.result-badge{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle;}
+.result-badge.ok{background:color-mix(in srgb,var(--green) 15%,transparent);color:var(--green);}
+.result-badge.ng{background:color-mix(in srgb,var(--stamp) 15%,transparent);color:var(--stamp);}
+.explanation{margin-top:12px;display:none;border-top:1px solid var(--rule);padding-top:12px;}
+.explanation.open{display:block;}
+.exp-title{font-size:.75rem;font-weight:700;color:var(--key);letter-spacing:.08em;margin-bottom:8px;}
+.exp-item{font-size:.85rem;line-height:1.7;padding:6px 10px;border-radius:6px;margin-bottom:4px;border-left:3px solid transparent;}
+.exp-item.right{border-left-color:var(--green);background:color-mix(in srgb,var(--green) 8%,var(--paper));}
+.exp-item.wrong{border-left-color:var(--rule);}
+.exp-mark{font-weight:700;margin-right:4px;}
+
+.bxfab{position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--paper-deep);border-top:1px solid var(--rule);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));}
+.fab-score{font-size:.85rem;color:var(--ink-soft);}
+.fab-score strong{color:var(--pri);font-size:1rem;}
+.fab-home{background:var(--pri);color:var(--onpri);border:none;border-radius:8px;padding:8px 18px;font-size:.85rem;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.fab-home:hover{background:var(--pri2);}
+</style>
+<script src="bxv-use.js"></script>
+<style id="kf-mock">
+:root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-ink:#25302C;--ks-line:#DDD6C3;--ks-paper:#FFFEFA;--ks-fg:#25302C}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4;--ks-line:#334039;--ks-paper:#22302C;--ks-fg:#E8E0CE}}
+:root[data-theme="dark"]{--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4;--ks-line:#334039;--ks-paper:#22302C;--ks-fg:#E8E0CE}
+.cbox{border:1px solid var(--ks-line);border-radius:10px;background:var(--ks-paper);padding:8px 10px;margin:6px 0;display:flex;flex-direction:column;gap:6px;min-width:0;font-family:inherit;white-space:normal}
+.cbox .kf-eq{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.cbox .kf-eq>*{flex:0 0 auto}
+.cbox .kf-c{border-radius:8px;padding:4px 9px;font-weight:700;font-size:13px;line-height:1.4;color:var(--ks-ink);border:1px solid;white-space:nowrap;text-align:center;font-family:inherit}
+.cbox .kf-op{font-size:17px;font-weight:700;color:var(--ks-fg);padding:0 2px;white-space:nowrap}
+.cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
+.cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
+</style>
+</head>
+<body>
+<header>
+  <div class="case-tag">不動產估價概要・自編補強卷</div>
+  <h1>不動產估價概要 自編補強卷
+    <span class="sub">選擇 24 題（各 2 分）・自編題・約 25 分鐘<br>
+    <span style="font-size:13px;font-weight:400">原《模擬試題二／三／四》共 75 題中，有 51 題與綜合模擬卷重複；這 24 題是綜合卷沒有的，集中成一卷保留。原三卷的 6 題申論也都在綜合卷一～五裡，沒有遺漏。</span></span>
+  </h1>
+</header>
+
+<div class="score-bar">
+  <span>選擇作答：<strong id="answeredCount">0</strong>/24</span>
+  <span>答對：<strong id="correctCount" style="color:var(--green)">0</strong></span>
+  <span>答錯：<strong id="wrongCount" style="color:var(--stamp)">0</strong></span>
+  <button class="btn-reset" onclick="resetAll()">↺ 重置</button>
+</div>
+
+<div class="section">
+  <div class="section-label">第二部分</div>
+  <div class="section-title">選擇題（每題2分，共24題48分）</div>
+  <div id="quizContainer"></div>
+</div>
+
+<div class="bxfab">
+  <div class="fab-score">已作答 <strong id="fabAnswered">0</strong>/24 ｜得分 <strong id="fabScore">0</strong>/48</div>
+  <a class="fab-home" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">🏠 回備考中心</a>
+</div>
+
+<script>
+const QUESTIONS=[{"id": 1, "text": "採用定額法（直線法）估算折舊時，下列何者為其特點？", "opts": ["A.每年折舊額隨時間遞減，前期折舊較多", "B.折舊率等於1減去殘值率的（1/N）次方", "C.每年折舊額固定相同，計算簡便", "D.反映建物實際老化速度，前期損耗較快"], "ans": 2, "exps": ["此為定率遞減法之特點（前期多、後期少），非定額法", "此為定率遞減法之年折舊率公式（r = 1－殘值率¹⁄ᴺ）", "定額法（等速折舊）每年提列固定金額折舊，計算最為簡便（技術規則§68 等速折舊路徑）", "反映前期損耗較快是定率法邏輯；定額法不考慮時間加速因素"], "src": "模擬試題二・第2題"}, {"id": 2, "text": "依「不動產估價技術規則」，收益法中「有效總收入」之計算公式，下列何者正確？", "opts": ["A.有效總收入 ＝ 總收入 ＋ 閒置及其他原因所致之收入損失", "B.有效總收入 ＝ 淨收益 ＋ 各項費用", "C.有效總收入 ＝ 總收入 － 閒置及其他原因所致之收入損失", "D.有效總收入 ＝ 總收入 ／ 綜合資本化率"], "ans": 2, "exps": ["損失應為減項，不是加項", "此為淨收益反推有效總收入之算式；規則定義是「總收入減損失」，非此式", "有效總收入＝總收入－閒置及其他收入損失（§36）；總收入指按法定用途出租或營運、在正常情況下所獲得之數額", "此為資本化之逆算，與有效總收入之計算無關"], "src": "模擬試題二・第7題"}, {"id": 3, "text": "折現現金流量分析法（DCF法）適用時機，下列何者最為正確？", "opts": ["A.主要適用於土地素地之估價", "B.適用於收益型態不規則或持有期間有明確終值之不動產", "C.僅適用於住宅類不動產", "D.適用於市場交易活絡且可找到充足比較案例之不動產"], "ans": 1, "exps": ["素地估價較適用比較法或土地開發分析法", "DCF法（§28、§31）將各期淨收益及期末價值折現加總，適用於收益流不規則（如辦公商場之收益變動大）或有明確持有期間及終值估算之收益型不動產", "DCF法不限住宅，尤適用商辦、購物中心", "此為比較法之適用時機"], "src": "模擬試題二・第9題"}, {"id": 4, "text": "依「不動產估價技術規則」，土地開發分析法中，開發完成後之預期收益，係指下列何者？", "opts": ["A.開發完成後可能取得之不動產正常銷售總價格", "B.開發後之土地公告現值", "C.開發完成後土地之申報地價", "D.開發完成後建物之重建成本"], "ans": 0, "exps": ["土地開發分析法以開發完成後之總銷售金額為基礎，扣除成本、利息及利潤，逆推開發前土地價格（§70、§81）", "公告現值為政府公告地價，非市場估算之預期收益", "申報地價為地價稅計算基準，非估價之預期收益", "重建成本為成本法概念"], "src": "模擬試題二・第10題"}, {"id": 5, "text": "某收益性不動產年有效總收入500萬，年費用180萬，資本化率5%，則以直接資本化法求算之不動產價值為何？", "opts": ["A.6,400萬", "B.6,200萬", "C.6,000萬", "D.5,800萬"], "ans": 0, "exps": ["年淨收益＝500─180＝320萬；不動產價值＝320÷5%＝6,400萬", "6,200萬÷5%×5%≠320萬；不符", "6,000萬對應淨收益300萬，計算有誤", "5,800萬對應淨收益290萬，計算有誤"], "src": "模擬試題二・第12題"}, {"id": 6, "text": "依「不動產估價技術規則」，收益法中「綜合資本化率」之求取，下列何者為正確方式？", "opts": ["A.綜合資本化率 ＝ 土地資本化率 × 土地價值比 ＋ 建物資本化率 × 建物價值比", "B.綜合資本化率 ＝（土地資本化率 ＋ 建物資本化率）÷ 2", "C.綜合資本化率 ＝ 年淨收益 ÷ 不動產市場價格", "D.A 與 C 均正確"], "ans": 3, "exps": ["正確。房地綜合資本化率依土地、建物價值比率加權計算（技術規則§46）", "簡單平均僅在土建比例各50%時才與A相同，一般情況下不適用", "正確。此為市場萃取法之概念（§43 五法之一），以已知案例之淨收益除以價格求資本化率", "A（§46 價值比率加權）與C（§43 市場萃取法概念）皆正確"], "src": "模擬試題二・第22題"}, {"id": 7, "text": "下列關於「收益資本化法」（直接資本化法）之敘述，何者有誤？", "opts": ["A.以穩定年淨收益除以資本化率求取不動產價格", "B.資本化率之高低直接影響估價結果", "C.適用於收益流量穩定、具長期持有性質之不動產", "D.DCF法為直接資本化法之簡化特例"], "ans": 3, "exps": ["正確。直接資本化法公式：P = 淨收益 ÷ 資本化率", "正確。資本化率越低，估算價格越高；資本化率敏感度高", "正確。收益穩定之辦公室、商場最適用直接資本化法", "✗ 錯誤。DCF法（折現現金流量法）與直接資本化法為並列方法，DCF法較直接資本化法更複雜，可處理不規則現金流，非其簡化特例"], "src": "模擬試題三・第1題"}, {"id": 8, "text": "下列關於「折現現金流量分析法」（DCF法）之計算要素，不包含下列何者？", "opts": ["A.各期淨現金流量", "B.折現率", "C.年折舊率", "D.期末價值（終值）"], "ans": 2, "exps": ["DCF法之核心：各持有期間之淨現金流量逐期折現", "折現率為DCF法必要要素，用以將未來現金流折算現值", "年折舊率為成本法（定率法或定額法）之計算要素，非DCF法之計算要素", "期末價值係分析期間屆滿時之價值，折現後與各期淨收益現值加總（§31～§32）"], "src": "模擬試題三・第2題"}, {"id": 9, "text": "依「不動產估價技術規則」，「有效總收入」之計算方式，下列何者正確？", "opts": ["A.有效總收入 ＝ 總收入 － 閒置及其他收入損失", "B.有效總收入 ＝ 總收入 ＋ 空租補貼", "C.有效總收入 ＝ 淨收益 ＋ 營運費用", "D.有效總收入 ＝ 年租金 × 出租面積"], "ans": 0, "exps": ["有效總收入＝總收入－閒置及其他收入損失（§36）", "損失為減項；「空租補貼」也不是規則用語", "此為逆推式，不是有效總收入之定義", "年租金×面積只是滿租之總收入，尚未扣除損失"], "src": "模擬試題三・第3題"}, {"id": 10, "text": "某收益性不動產，土地現值5,000萬元，土地資本化率4%；建物現值2,000萬元，建物資本化率8%。則該不動產之年淨收益為何？", "opts": ["A.360萬", "B.380萬", "C.400萬", "D.420萬"], "ans": 0, "exps": ["土地年淨收益＝5,000×4%＝200萬；建物年淨收益＝2,000×8%＝160萬；合計＝360萬", "380萬計算有誤", "400萬計算有誤", "420萬計算有誤"], "src": "模擬試題三・第8題"}, {"id": 11, "text": "某建物重建成本1,200萬，耐用年數40年，殘值率0%，已使用10年。採定額法計算，建物現值為何？", "opts": ["A.840萬", "B.900萬", "C.800萬", "D.960萬"], "ans": 1, "exps": ["840萬對應折舊360萬（12年×30萬），計算年數有誤", "定額法年折舊額＝1,200×(1─0%)÷40＝30萬；已提折舊＝30×10＝300萬；建物現值＝1,200─300＝900萬", "800萬對應折舊400萬（13.3年×30萬），計算有誤", "960萬對應折舊240萬（8年×30萬），計算年數有誤"], "src": "模擬試題三・第13題"}, {"id": 12, "text": "下列哪一情況適合採用「假設開發法」（土地開發分析法）估算土地價格？", "opts": ["A.已完成開發、穩定收租中之商辦大樓", "B.已全數出售完畢之舊式公寓", "C.空白素地，已取得建照即將開發之土地", "D.正在使用中之工業廠房"], "ans": 2, "exps": ["已完成開發且穩定收租，適合收益法", "已售完之舊公寓，適合比較法評估個別房屋", "空白素地（或即將開發之土地）為土地開發分析法最典型適用情境：以開發後完成銷售總額，扣除開發成本與合理利潤，反推素地價格（技術規則§70）", "使用中廠房可採收益法或比較法"], "src": "模擬試題三・第17題"}, {"id": 13, "text": "在收益法中，若比較不動產之「總費用率」偏高，通常可能反映下列何種情況？", "opts": ["A.不動產維護良好，管理效率高", "B.建物較老舊、設備維護費用高，或管理效率低", "C.出租率高，空租損失低", "D.資本化率偏低，不動產市場需求旺盛"], "ans": 1, "exps": ["管理效率高通常使費用率降低，非費用率偏高的原因", "費用率（費用/有效總收入）偏高，可能因建物老舊導致修繕費用高、設備耗損快或管理效率低下（如空置率高造成管理成本分攤增加）", "出租率高（空租損失低）會提高有效總收入，費用率反而可能降低", "資本化率與費用率為不同概念，資本化率偏低反映市場需求，不直接影響費用率"], "src": "模擬試題三・第20題"}, {"id": 14, "text": "「不動產估價技術規則」中，規定收益法得採「直接資本化法」或「折現現金流量法」之條文為第幾條？", "opts": ["A.第18條", "B.第28條", "C.第48條", "D.第70條"], "ans": 1, "exps": ["§18為比較法", "§28：收益法得採直接資本化法或折現現金流量法（§29～§30 直接資本化法；§31～§32 DCF法）", "§48為成本法", "§70為土地開發分析法"], "src": "模擬試題三・第21題"}, {"id": 15, "text": "【土地開發分析法】依§71 估價程序，在「估算總銷售金額」之前，應先完成下列何項？", "opts": ["A.估算開發後可銷售之土地或建物面積", "B.選擇適當利潤率及資本利息綜合利率", "C.計算開發分析價格", "D.估算各項成本費用"], "ans": 0, "exps": ["§71 程序：確定開發內容及預期時間→調查成本費用及市場行情→現況勘察並調查環境發展程度→估算可銷售面積→估算總銷售金額→估算各項成本費用→選擇利潤率及資本利息綜合利率→計算開發分析價格", "屬總銷售金額之後的步驟（倒數第二步）", "是最後一步，在總銷售金額之後", "估算各項成本費用在總銷售金額之後"], "src": "模擬試題四・第6題"}, {"id": 16, "text": "【收益法・殘餘法】某房地年淨收益200萬元，建物成本價格1,500萬元，建物收益資本化率6%（淨收益已扣除折舊提存費），土地收益資本化率4%。依規則，土地收益價格為多少？", "opts": ["A.5,000萬元", "B.3,500萬元", "C.2,750萬元", "D.1,833萬元"], "ans": 2, "exps": ["200÷4%＝5,000，是把房地淨收益全部歸給土地，沒有扣掉建物淨收益", "200÷4%－1,500＝3,500，是用「價格相減」；應先扣建物「淨收益」再資本化", "建物淨收益＝建物成本價格×建物收益資本化率＝1,500×6%＝90萬；土地淨收益＝200－90＝110萬；土地收益價格＝110÷4%＝2,750萬元（§44～§45）", "（200－90）÷6%＝1,833，是用建物資本化率去除土地淨收益，率用錯"], "src": "模擬試題四・第9題"}, {"id": 17, "text": "【收益法】下列何者「不是」推算勘估標的總費用之項目？", "opts": ["A.地價稅（或地租）及房屋稅", "B.保險費", "C.所得稅", "D.維修費及管理費"], "ans": 2, "exps": ["屬總費用項目", "屬總費用項目", "總費用包括地價稅或地租、房屋稅、保險費、管理費、維修費等；所得稅、土地增值稅、貸款利息等不屬於總費用（歷屆 105-34、106-8、107-2、112-9）", "屬總費用項目"], "src": "模擬試題四・第10題"}, {"id": 18, "text": "【收益法・綜合資本化率】土地價值占40%、土地收益資本化率3%；建物價值占60%、建物收益資本化率6%。房地綜合收益資本化率為多少？", "opts": ["A.4.2%", "B.4.5%", "C.4.8%", "D.5.0%"], "ans": 2, "exps": ["4.2%＝3%×60%＋6%×40%，土地、建物之價值比率權重互換", "4.5% 是簡單平均（3%＋6%）÷2，未依價值比率加權", "綜合資本化率＝土地率×土地價值比率＋建物率×建物價值比率＝3%×40%＋6%×60%＝1.2%＋3.6%＝4.8%（§46）", "5.0% 無對應算式"], "src": "模擬試題四・第13題"}, {"id": 19, "text": "【影響因素】下列何者屬於「個別因素」？", "opts": ["A.某戶房屋面對公園第一排", "B.該重劃區整體房價水準很高", "C.某生活圈生活機能良好", "D.政府公告調整房地合一稅制"], "ans": 0, "exps": ["個別因素＝不動產本身條件所產生之價格差異因素（112-1：面對公園第一排屬個別因素）", "整體房價水準屬區域因素", "生活圈機能屬區域因素", "稅制調整屬一般因素"], "src": "模擬試題四・第17題"}, {"id": 20, "text": "【估價原則】公寓加裝電梯後價格提升，最符合下列何種估價原則？", "opts": ["A.外部性原則", "B.替代原則", "C.適合原則", "D.貢獻原則"], "ans": 3, "exps": ["外部性原則是外部環境之正負影響（如嫌惡設施、捷運設站）", "替代原則是審慎者不會支付高於同滿意度替代財貨之代價（三法之評價基礎）", "適合原則是不動產與環境配合協調（如學校旁開書局）", "貢獻原則：各生產要素（如電梯設備）對整體價值之貢獻程度（110-4、112-5）"], "src": "模擬試題四・第18題"}, {"id": 21, "text": "【特殊宗地】依§92，林地之估價方法，下列何者正確？", "opts": ["A.一律以比較法為原則", "B.一律以收益法為原則", "C.視林木成長情形，分別採比較法、收益法或成本法", "D.一律以成本法為原則"], "ans": 2, "exps": ["林地不是比較法為原則（常考陷阱）", "林地不是一律收益法", "§92：林地依林木成長情形分別採比較法、收益法或成本法；成本法總費用加計造林費、林地改良費、道路開挖費。最高頻陷阱：不是「比較法為原則」（比較法為原則的是農場牧場、鹽田、池沼、墓地、公共設施用地）", "林地不是一律成本法"], "src": "模擬試題四・第19題"}, {"id": 22, "text": "【特殊宗地】下列何種宗地，規則僅列舉其估價考量因素，並未指定估價方法？", "opts": ["A.溫泉地", "B.林地", "C.鹽田", "D.池沼"], "ans": 0, "exps": ["§90 溫泉地（水權內容、開發成本、水量水質水溫、交通、設施、遊客人數）與 §91 高爾夫球場（會員制度、球場設施、收益及營運費用）僅列考量因素，條文未指定估價方法", "林地（§92）依林木成長情形分別採比較、收益或成本法", "鹽田（§94）以比較法為原則", "池沼（§95）以比較法為原則"], "src": "模擬試題四・第20題"}, {"id": 23, "text": "【權利估價】下列何者「不屬於」§114 所列之權利估價範圍？", "opts": ["A.地上權", "B.抵押權", "C.租賃權", "D.質權"], "ans": 3, "exps": ["地上權屬之（§116）", "抵押權屬之（§121）", "租賃權屬之", "§114 列舉：地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、容積移轉及都市更新權利變換；不包含質權（常見陷阱）"], "src": "模擬試題四・第21題"}, {"id": 24, "text": "【權利估價】關於抵押權之估價（§121），下列敘述何者正確？", "opts": ["A.以實際債權額為基礎，並考慮其他順位抵押權設定狀況、流通性、風險性、增值性及執行難易程度調整", "B.以抵押物之公告現值為基礎，不須考慮其他順位抵押權", "C.估價結果得高於所擔保之債權額", "D.不須考慮抵押物之現況使用情形"], "ans": 0, "exps": ["§121：估計價格日期當時勘估標的之正常價格，以實際債權額為基礎，考慮其他順位抵押權設定狀況、流通性、風險性、增值性及執行上之難易程度調整", "基礎是實際債權額，且須考慮其他順位設定狀況", "§121以實際債權額為基礎調整，條文未規定可高於所擔保之債權額（「上限為債權額」屬教材說法）", "§121所列調整因素為其他順位抵押權設定狀況、流通性、風險性、增值性及執行上之難易程度，條文未列「現況使用情形」，本項非§121內容"], "src": "模擬試題四・第22題"}];
+
+// Fix Q8 answer - both A and D are 360, answer should be A(0)
+QUESTIONS[7].ans=0;
+
+const state={};
+let answered=0,correct=0,wrong=0;
+
+function init(){
+  const c=document.getElementById('quizContainer');
+  QUESTIONS.forEach((q,i)=>{
+    const div=document.createElement('div');
+    div.className='q-card';
+    div.id='q'+q.id;
+    div.innerHTML=`
+      <div class="q-num">第 ${i+1} 題${q.src?' <span style="font-weight:400;opacity:.65;font-size:12px">（原 '+q.src+'）</span>':''}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">${q.opts.map((o,oi)=>`
+        <div class="opt" data-qid="${q.id}" data-oi="${oi}" onclick="selectOpt(this,${q.id},${oi})">
+          <div class="letter">${['A','B','C','D'][oi]}</div>
+          <div class="opt-text">${o}</div>
+        </div>`).join('')}
+      </div>
+      <div class="explanation" id="exp${q.id}">
+        <div class="exp-title">各選項解析</div>
+        ${q.exps.map((e,ei)=>`<div class="exp-item ${ei===q.ans?'right':'wrong'}"><span class="exp-mark">${['A','B','C','D'][ei]}. ${ei===q.ans?'✓ 正解':'✗'}</span>${e}</div>`).join('')}
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function selectOpt(el,qid,oi){
+  if(state[qid]!==undefined)return;
+  state[qid]=oi;
+  const q=QUESTIONS.find(x=>x.id===qid);
+  const card=document.getElementById('q'+qid);
+  const opts=card.querySelectorAll('.opt');
+  opts.forEach(o=>{o.classList.add('disabled');});
+  opts[q.ans].classList.add('correct-ans');
+  if(oi!==q.ans){opts[oi].classList.add('wrong-ans');}
+  const isRight=(oi===q.ans);
+  card.classList.add(isRight?'correct':'wrong');
+  const qText=card.querySelector('.q-text');
+  const badge=document.createElement('span');
+  badge.className='result-badge '+(isRight?'ok':'ng');
+  badge.textContent=isRight?'✓ 答對':'✗ 答錯';
+  qText.appendChild(badge);
+  document.getElementById('exp'+qid).classList.add('open');
+  answered++;
+  if(isRight)correct++;else wrong++;
+  updateScore();
+}
+
+function saveMock(){try{var _d=JSON.stringify({score:correct,ok:correct,total:24,pct:Math.round(correct/24*100),ts:Date.now()});localStorage.setItem('bx_mockx_1',_d);localStorage.setItem('bxv-mock:mockx1',_d)}catch(e){}}
+function updateScore(){
+  document.getElementById('answeredCount').textContent=answered;
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=wrong;
+  document.getElementById('fabAnswered').textContent=answered;
+  document.getElementById('fabScore').textContent=correct*2;
+  if(answered===24)saveMock();
+}
+
+function toggleEssay(btn){
+  const ans=btn.nextElementSibling;
+  const open=ans.classList.toggle('open');
+  btn.textContent=open?'▲ 收起擬答架構':'▼ 顯示擬答架構';
+}
+
+function resetAll(){
+  if(!confirm('確定要重置所有作答紀錄？'))return;
+  Object.keys(state).forEach(k=>delete state[k]);
+  answered=0;correct=0;wrong=0;
+  updateScore();
+  document.getElementById('quizContainer').innerHTML='';
+  init();
+}
+
+init();
+</script>
+<script src="kf-fit.js"></script>
+</body>
+</html>
