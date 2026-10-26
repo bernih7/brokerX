@@ -400,14 +400,21 @@ section{margin-bottom:36px}
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
 </style>
-<style>
-
-  color:var(--primary,#3a7d5a);padding:0 .15rem;line-height:1;}
-</style><script src="bxv-use.js"></script>
+<script src="bxv-use.js"></script>
 </head>
 <body>
-<!-- 主題切換 -->
-<header>
+<header style="position:relative;padding-top:54px">
+  <div class="ctrl-pill" style="position:absolute;top:12px;right:14px;z-index:5">
+    <button class="theme-btn-pill" id="theme-btn" onclick="toggleTheme()">深色</button>
+    <div class="vsep"></div>
+    <div class="bxv-mini">
+      <button onclick="bxvDec()" title="減一">－</button>
+      <div class="sep"></div>
+      <div class="cnt" id="bxv-n">0</div>
+      <div class="sep"></div>
+      <button onclick="bxvInc()" title="加一">＋</button>
+    </div>
+  </div>
   <h1>估價程序流程記憶圖</h1>
   <div class="sub">技術規則 §8～§16　｜　8大步驟完整展開　｜　考頻標記</div>
 </header>
@@ -557,7 +564,7 @@ section{margin-bottom:36px}
           <div class="step-name-row">
             <span class="step-name">整理比較分析資料</span>
           </div>
-          <div class="step-law">§12 ｜ 選取比較實例4原則</div>
+          <div class="step-law">§8五 ｜ 比較實例選取4原則見§12（蒐集階段）</div>
           <div class="step-detail">
             ① 正常價格<br>
             ② 近鄰或類似地區<br>
@@ -582,7 +589,7 @@ section{margin-bottom:36px}
           </div>
           <div class="step-law">§14 ｜ 應兼採2種以上</div>
           <div class="step-detail">
-            比較法・成本法・收益法<br>
+            比較法・成本法・收益法（另有土地開發分析法 §70）<br>
             （例外：情況特殊 → 報告書敘明）
           </div>
           <div class="tags">
@@ -786,7 +793,7 @@ section{margin-bottom:36px}
         <div style="color:var(--fg);font-weight:700;font-size:15px;letter-spacing:1px;margin-bottom:2px">
           <span style="color:var(--purple)">項</span><span style="color:var(--purple)">師</span>，收工簽
         </div>
-        <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px;font-style:italic">其他項目補齊，估價師簽章收尾</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px;font-style:italic">其他項目補齊，估價師姓名及證照字號收尾</div>
         <div style="font-size:12.5px;color:var(--ink2);line-height:2">
           ⑭其他必要事<b>項</b>　⑮估價<b>師</b>姓名及證照字號
         </div>
