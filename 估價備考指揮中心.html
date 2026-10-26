@@ -197,7 +197,11 @@ body[data-pal="p5"]{   /* Muzzle Taupe */
 #hitPanel .cdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle;background:var(--cp-got)}
 #hitPanel .cdot.hi{background:var(--cp-pick)}
 #hitPanel .cdot.un{background:var(--cp-unk)}
-#hitPanel .cbar{display:inline-block;vertical-align:middle;height:7px;border-radius:4px;background:var(--cp-pick);margin-right:5px}
+#hitPanel .mini{display:inline-flex;height:9px;width:100%;min-width:76px;max-width:150px;border-radius:5px;overflow:hidden;background:var(--cp-track);vertical-align:middle}
+#hitPanel .mini i{display:block;height:100%}
+#hitPanel .mini .a{background:var(--cp-got)}
+#hitPanel .mini .b{background:var(--cp-pick)}
+#hitPanel .mini .c{background:var(--cp-unk)}
 #hitPanel .todaytag{display:inline-block;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.63rem;font-weight:800;
   border-radius:999px;padding:1px 7px;margin-left:7px;vertical-align:middle;letter-spacing:.04em}
 #hitPanel td.todo{color:var(--cp-soft);font-size:.78rem}
@@ -1719,29 +1723,49 @@ function hitBuild(){
   });
   var LAB={}; (typeof CHAPTERS!=='undefined'?CHAPTERS:[]).forEach(function(c){LAB[c.key]=c.label;});
   function nm(ch){return LAB[ch]||ch;}
-  var rows=[],unk=[],estAns=0,lossT=0,doneT=0,bankT=0,unEst=0;
+
+  /* v526：把「這章做了幾題」（覆蓋率）算進去。
+     🌟＝預估題數×覆蓋率×真會率　🌱＝預估題數×覆蓋率×(1－真會率)　🌰＝預估題數×(1－覆蓋率)
+     舊版把未作答的題當成「會」，3/65 全對就送整章的分，會虛報。 */
+  var rows=[],okT=0,needT=0,seedT=0,doneT=0,bankT=0,anyAns=false;
   Object.keys(HIT_EST).forEach(function(ch){
     var est=HIT_EST[ch], bank=(typeof BXV_CH_TOTAL!=='undefined'&&BXV_CH_TOTAL[ch])||0;
-    var o=by[ch]; bankT+=bank;
-    if(!o||!o.done){ unk.push({ch:ch,est:est,bank:bank}); unEst+=est; return; }
-    estAns+=est; doneT+=Math.min(o.done,bank||o.done);
-    var rate=o.sure/o.done, loss=est*(1-rate); lossT+=loss;
+    var o=by[ch]||{done:0,sure:0,ng:0,k:{},guess:0};
+    bankT+=bank; doneT+=Math.min(o.done,bank||o.done);
+    if(o.done) anyAns=true;
+    var cov=bank?Math.min(1,o.done/bank):0;
+    var rate=o.done?o.sure/o.done:0;
+    var ok=est*cov*rate, need=est*cov*(1-rate), seed=est*(1-cov);
+    okT+=ok; needT+=need; seedT+=seed;
     var kk='',kn=0; ['A','B','C','D'].forEach(function(t){ if((o.k[t]||0)>kn){kn=o.k[t];kk=t;} });
     rows.push({ch:ch,est:est,bank:bank,done:o.done,sure:o.sure,ng:o.ng,guess:o.guess,
-      rate:rate,loss:loss,kk:kk,kn:kn,thin:(o.done<8||(bank&&o.done/bank<0.25))});
+      cov:cov,rate:rate,ok:ok*2,need:need*2,seed:seed*2,left:(need+seed)*2,kk:kk,kn:kn});
   });
-  rows.sort(function(a,b){return b.loss-a.loss||b.est-a.est;});
-  unk.sort(function(a,b){return b.est-a.est;});
-  var gotP=(estAns-lossT)*2, pickP=lossT*2, unkP=unEst*2;
-  var maxL=rows.length?rows[0].loss:1;
+  rows.sort(function(a,b){return b.left-a.left||b.est-a.est;});
+  var gotP=okT*2, pickP=needT*2, seedP=seedT*2;
 
+  function pc(r,k){var t=r.ok+r.need+r.seed; return t?Math.max(0,Math.round(r[k]/t*100)):0;}
+  function todo(r){
+    if(r.est===0) return '無官方題，不計分';
+    if(r.cov<0.30) return r.done===0?'先刷一輪，實力未知':'只測了 '+Math.round(r.cov*100)+'%，先刷一輪';
+    if(r.ng>0&&!r.kk) return '先標錯誤類型';
+    if(r.kk) return HIT_KN[r.kk][0];
+    if(r.guess>0) return '有 '+r.guess+' 題用猜的';
+    return r.cov>=0.7?'維持就好':'再刷滿一輪';
+  }
   function why(r){
-    if(r.ng===0&&r.guess===0) return '這章目前全對、也沒有用猜的。<b>先放著</b>，考前再刷一輪確認就好。';
+    if(r.est===0) return '這章全是自編／預測題，沒有官方題，不計入這 50 分。';
+    if(r.cov<0.30) return (r.done===0
+      ? '這章<b>一題都還沒作答</b>，'
+      : '這章只測了 <b>'+r.done+'/'+r.bank+'</b> 題（'+Math.round(r.cov*100)+'%），')
+      +'所以這 '+r.seed.toFixed(1)+' 分目前是<b>實力未知</b>，不是「會」也不是「不會」。先刷一輪把它量出來，才知道要不要花時間補。';
     if(r.kk) return '卡在：<b>'+HIT_KN[r.kk][0]+'</b>（'+r.kn+' 題）。'+HIT_KN[r.kk][1];
     if(r.ng>0) return '有 <b>'+r.ng+'</b> 題答錯但還沒標錯誤類型。先去錯題本標 A／B／C／D，才知道要補法條還是補觀念。';
-    return '答對的裡面有 <b>'+r.guess+'</b> 題是猜的，等於還沒會。先讀整理頁再回來刷。';
+    if(r.guess>0) return '答對的裡面有 <b>'+r.guess+'</b> 題是猜的，等於還沒會。先讀整理頁再回來刷。';
+    return r.cov>=0.7
+      ? '測過 <b>'+Math.round(r.cov*100)+'%</b> 而且都會、也沒用猜的。<b>先放著</b>，考前再刷一輪確認就好。'
+      : '測過的都對，但只測了 <b>'+Math.round(r.cov*100)+'%</b>。把這章刷滿，這 '+r.seed.toFixed(1)+' 分才算真的到手。';
   }
-  function gain(r){return (r.loss*2).toFixed(1);}
 
   var h='<div class="score"><h3><span>🐾</span>日拱一築'
     +'<button class="palbtn'+(openPal?' on':'')+'" id="hitPalBtn" title="換色卡" aria-label="換色卡">🎨</button></h3>'
@@ -1751,80 +1775,61 @@ function hitBuild(){
       }).join('')+'<span id="hitPalName">'+((HIT_PALS.filter(function(x){return x[0]===hitPal()})[0]||HIT_PALS[0])[1])+'</span></div>'
     +'<div class="motto">藏分於日 —— 今天拿回來的分，考場上就是你的</div>';
 
-  if(!rows.length){
-    h+='<div class="ssub">還沒有作答紀錄，先去任一章刷題，這裡就會算出你的 50 分現在長什麼樣，並挑出今天從哪一章開始。</div></div>';
+  if(!anyAns){
+    h+='<div class="ssub">還沒有作答紀錄。先去任一章刷題，這裡就會算出你的 50 分現在長什麼樣，並挑出今天從哪一章開始。</div></div>';
   } else {
-    h+='<div class="ssub">你的選擇題 50 分現在長這樣，依已經作答的題推估。申論另外 50 分不在這張圖裡。</div>'
+    h+='<div class="ssub">你的選擇題 50 分現在長這樣。<b>沒作答的題算「還沒測」，不算你會</b>。申論另外 50 分不在這張圖裡。</div>'
       +'<div class="sbar">'
-      +(gotP>0?'<div class="got" style="flex:'+gotP+'">'+Math.round(gotP)+'</div>':'')
-      +(pickP>0?'<div class="pick" style="flex:'+pickP+'">'+Math.round(pickP)+'</div>':'')
-      +(unkP>0?'<div class="unk" style="flex:'+unkP+'">'+Math.round(unkP)+'</div>':'')
+      +(gotP>0.4?'<div class="got" style="flex:'+gotP+'">'+gotP.toFixed(gotP<10?1:0)+'</div>':'')
+      +(pickP>0.4?'<div class="pick" style="flex:'+pickP+'">'+pickP.toFixed(pickP<10?1:0)+'</div>':'')
+      +(seedP>0.4?'<div class="unk" style="flex:'+seedP+'">'+seedP.toFixed(seedP<10?1:0)+'</div>':'')
       +'</div><div class="skey">'
-      +'<span><i style="background:var(--cp-got)"></i>🌟 穩穩收下 <b>'+Math.round(gotP)+' 分</b></span>'
-      +'<span><i style="background:var(--cp-pick)"></i>🌱 還能追回 <b>'+Math.round(pickP)+' 分</b>　<small>答錯或用猜的，補起來就是你的</small></span>'
-      +(unkP>0?'<span><i style="background:var(--cp-unk)"></i>🎁 等待開箱 <b>'+Math.round(unkP)+' 分</b>　<small>'+unk.length+' 章完全沒作答，實力未知</small></span>':'')
-      +'</div><div class="ssub" style="margin:9px 0 0">已作答 '+doneT+'／'+bankT+' 題。每題 2 分，依你自己的作答推估，不是命中率預測。</div></div>';
+      +'<span><i style="background:var(--cp-got)"></i>🌟 穩穩收下 <b>'+gotP.toFixed(1)+' 分</b>　<small>測過、而且會</small></span>'
+      +'<span><i style="background:var(--cp-pick)"></i>🌱 還能追回 <b>'+pickP.toFixed(1)+' 分</b>　<small>測過，但答錯或用猜的</small></span>'
+      +'<span><i style="background:var(--cp-unk)"></i>🌰 等待發芽 <b>'+seedP.toFixed(1)+' 分</b>　<small>還沒測到的題，實力未知</small></span>'
+      +'</div><div class="ssub" style="margin:9px 0 0">已作答 '+doneT+'／'+bankT+' 題（'+Math.round(doneT/(bankT||1)*100)+'%）。每題 2 分，依你自己的作答推估，不是命中率預測。</div></div>';
 
     function chcell(ch){
       var full=nm(ch), sp=full.indexOf(' ');
       var code=sp>0?full.slice(0,sp):ch, cn=sp>0?full.slice(sp+1):'';
       return '<b>'+code+'</b>'+(cn?'<span>'+cn+'</span>':'');
     }
-    function todo(r){
-      if(r.ng===0&&r.guess===0) return '維持就好';
-      if(r.kk) return HIT_KN[r.kk][0];
-      if(r.ng>0) return '先標錯誤類型';
-      return '先讀整理頁';
-    }
-    h+='<div class="tblwrap"><table><thead><tr><th>章節 Chapter</th><th class="n">還能追回</th>'
-      +'<th class="n">真會率</th><th class="n">已答</th><th>先做什麼</th></tr></thead><tbody>';
+    h+='<div class="tblwrap"><table><thead><tr><th>章節 Chapter</th><th class="n">115 出題</th>'
+      +'<th>測過多少</th><th class="n">還沒到手</th><th>先做什麼</th></tr></thead><tbody>';
     rows.forEach(function(r,i){
       h+='<tr data-hi="'+i+'"'+(i===0?' class="sel"':'')+'>'
-        +'<td class="ch"><span class="cdot'+(r.loss>=0.5?' hi':'')+'"></span>'+chcell(r.ch)
+        +'<td class="ch"><span class="cdot'+(r.cov<0.3?' un':(r.need>0.2?' hi':''))+'"></span>'+chcell(r.ch)
         +(i===0?'<span class="todaytag">今天</span>':'')+'</td>'
-        +'<td class="n"><span class="cbar" style="width:'+Math.max(4,Math.round(r.loss/(maxL||1)*30))+'px"></span><b>'+gain(r)+'</b> 分</td>'
-        +'<td class="n">'+Math.round(r.rate*100)+'%</td>'
-        +'<td class="n">'+r.done+'/'+r.bank+'</td>'
+        +'<td class="n">'+r.est.toFixed(1)+' 題</td>'
+        +'<td><span class="mini" title="已答 '+r.done+'/'+r.bank+'"><i class="a" style="width:'+pc(r,'ok')+'%"></i>'
+        +'<i class="b" style="width:'+pc(r,'need')+'%"></i><i class="c" style="width:'+pc(r,'seed')+'%"></i></span></td>'
+        +'<td class="n"><b>'+r.left.toFixed(1)+'</b> 分</td>'
         +'<td class="todo">'+todo(r)+'</td></tr>';
     });
-    unk.forEach(function(u,i){
-      h+='<tr data-hu="'+i+'"><td class="ch"><span class="cdot un"></span>'+chcell(u.ch)+'</td>'
-        +'<td class="n todo">🎁 '+(u.est*2).toFixed(1)+' 分</td><td class="n todo">—</td>'
-        +'<td class="n">0/'+u.bank+'</td>'
-        +'<td class="todo">'+(u.est===0?'無官方題，不計分':'先刷一輪測實力')+'</td></tr>';
-    });
     h+='</tbody></table></div><div id="hitDet"></div>'
-      +'<p class="hint">依「還能追回」由多到少排；點任一列看那一章的細節與按鈕。</p>';
+      +'<p class="hint">依「還沒到手」由多到少排——出題多又還沒測的章自動排最前面。點任一列看那一章的細節與按鈕。</p>';
   }
 
   box.innerHTML=h;
-  HIT_ROWS=rows; HIT_UNK=unk; HIT_NM=nm; HIT_WHY=why; HIT_GAIN=gain;
+  HIT_ROWS=rows; HIT_NM=nm; HIT_WHY=why; HIT_TODO=todo;
   if(rows.length) hitDetail(0,0);
 }
 
-var HIT_ROWS=[],HIT_UNK=[],HIT_NM=null,HIT_WHY=null,HIT_GAIN=null;
-function hitDetail(i,isUnk){
+var HIT_ROWS=[],HIT_NM=null,HIT_WHY=null,HIT_TODO=null;
+function hitDetail(i){
   var el=document.getElementById('hitDet'); if(!el) return;
-  if(isUnk){
-    var u=HIT_UNK[i]; if(!u) return;
-    el.innerHTML='<div class="detail"><h4>'+HIT_NM(u.ch)
-      +'<span class="gain">🎁 等待開箱 '+(u.est*2).toFixed(1)+' 分</span></h4>'
-      +'<div class="f">題庫 '+u.bank+' 題・目前 0 題作答</div>'
-      +'<p>'+(u.est===0?'這章沒有官方題（自編／預測），不計入這 50 分。'
-        :'這章完全沒作答，實力未知。先刷一輪，就知道這 '+(u.est*2).toFixed(1)+' 分是本來就會，還是真的要補。')+'</p>'
-      +'<div class="acts"><a class="go" href="估價刷題練習_'+u.ch+'.html">去刷 '+u.ch+' ▸</a>'
-      +'<a href="'+HIT_READ[u.ch][1]+'">讀 '+HIT_READ[u.ch][0]+' ▸</a></div></div>';
-    return;
-  }
   var r=HIT_ROWS[i]; if(!r) return;
+  var acts='<div class="acts"><a class="go" href="估價刷題練習_'+r.ch+'.html">去刷 '+r.ch+' ▸</a>'
+    +'<a href="'+HIT_READ[r.ch][1]+'">讀 '+HIT_READ[r.ch][0]+' ▸</a>';
+  if(r.done) acts+='<a href="估價解析版練習.html#ch='+r.ch+'">混合練這章 ▸</a>';
+  acts+='</div>';
   el.innerHTML='<div class="detail"><h4>'+HIT_NM(r.ch)
-    +'<span class="gain">🌱 還能追回 '+HIT_GAIN(r)+' 分</span></h4>'
-    +'<div class="f">已答 '+r.done+'/'+r.bank+' 題・真會率 '+Math.round(r.rate*100)+'%・115 年預估出 '+r.est.toFixed(1)+' 題'
-    +(r.thin?'　⚠ 作答還少，推估僅供參考':'')+'</div>'
+    +'<span class="gain">還沒到手 '+r.left.toFixed(1)+' 分</span></h4>'
+    +'<div class="f">115 年預估出 '+r.est.toFixed(1)+' 題・已測 '+r.done+'/'+r.bank+'（'+Math.round(r.cov*100)+'%）'
+    +(r.done?'・測過的對 '+Math.round(r.rate*100)+'%':'')+'</div>'
     +'<p>'+HIT_WHY(r)+'</p>'
-    +'<div class="acts"><a class="go" href="估價刷題練習_'+r.ch+'.html">去刷 '+r.ch+' ▸</a>'
-    +'<a href="'+HIT_READ[r.ch][1]+'">讀 '+HIT_READ[r.ch][0]+' ▸</a>'
-    +'<a href="估價解析版練習.html#ch='+r.ch+'">混合練這章 ▸</a></div></div>';
+    +'<div class="f" style="margin:0 0 7px">🌟 穩穩收下 '+r.ok.toFixed(1)+' 分　🌱 還能追回 '+r.need.toFixed(1)+' 分　🌰 等待發芽 '+r.seed.toFixed(1)+' 分</div>'
+    +acts+'</div>';
 }
 document.addEventListener('click',function(e){
   var box=document.getElementById('hitPanel'); if(!box||!box.contains(e.target)) return;
@@ -1845,8 +1850,7 @@ document.addEventListener('click',function(e){
   if(tr){
     box.querySelectorAll('#hitPanel tbody tr').forEach(function(x){x.classList.remove('sel')});
     tr.classList.add('sel');
-    if(tr.hasAttribute('data-hi')) hitDetail(+tr.getAttribute('data-hi'),0);
-    else hitDetail(+tr.getAttribute('data-hu'),1); return;
+    if(tr.hasAttribute('data-hi')) hitDetail(+tr.getAttribute('data-hi')); return;
   }
 });
 window.addEventListener('focus',hitBuild);
