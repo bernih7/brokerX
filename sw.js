@@ -5,6 +5,7 @@ const FILES = [
   '/bx-quiz.css',
   '/bx-quiz-core.js',
   '/bx-use.js',
+  '/bx-theme.js',
   '/bxj-use.js',
   '/bxm-use.js',
   '/bxm-fmt.js',
