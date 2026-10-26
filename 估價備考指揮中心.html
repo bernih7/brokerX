@@ -1823,7 +1823,7 @@ var predData=[
 <script>
 // ── 工具頁右側記錄：讀次數／作答進度 ──
 (function(){
-  var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color','估價_租金估計攻略表':'rent','估價_特殊標的總整理':'special','估價_技術規則專欄':'col'};
+  var M={'估價_八大程序速覽表':'proc','估價_四大方法比較表':'method','估價_易混淆概念並排':'mix1','估價_易混淆概念補充卷':'mix2','估價_程序流程記憶圖':'flow','估價_考題小卡':'kcard','估價_計算題攻略':'calc','估價互動單字卡':'card','估價四大方法系統攻略':'sys','估價彩色重點速記':'color','估價_租金估計攻略表':'rent','估價_特殊標的總整理':'special','估價_技術規則專欄':'rule'};
   function J(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
   function lab(name){
     if(M[name]){var r=J('bxv-read',{}),n=(r[M[name]]&&r[M[name]].n)||0;return ['讀 '+n,n];}
@@ -1842,7 +1842,14 @@ var predData=[
       b.textContent=L[0];b.style.opacity=L[1]?1:.45;
     });
   }
-  paint();window.addEventListener('focus',paint);document.addEventListener('visibilitychange',function(){if(!document.hidden)paint();});
+  function paintEssay(){
+    var a=document.querySelector('.essay-hero');if(!a)return;
+    var r=J('bxv-read',{}),n=(r.essay&&r.essay.n)||0,b=a.querySelector('.tl-rd');
+    if(!b){b=document.createElement('span');b.className='tl-rd';var ar=a.querySelector('.eh-arrow');a.insertBefore(b,ar);}
+    b.textContent='讀 '+n;b.style.opacity=n?1:.45;
+  }
+  paint();paintEssay();
+  window.addEventListener('focus',function(){paint();paintEssay();});document.addEventListener('visibilitychange',function(){if(!document.hidden){paint();paintEssay();}});
 })();
 </script>
 </body>
