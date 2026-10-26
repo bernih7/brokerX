@@ -712,7 +712,7 @@ body {
   <div class="calc-grid">
 
     <!-- 定額法 -->
-    <div class="calc-card">
+    <div class="depfig-slot"></div><div class="calc-card">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-cost"></div>
         <div class="calc-card-title">成本法①：定額法折舊（等速路徑）</div>
@@ -1265,5 +1265,30 @@ function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setI
 .kf-eq .kf-fr{flex:0 0 auto}
 </style>
 <script src="kf-fit.js"></script>
+<style id="depfig-css">
+/* 三條折舊路徑示意圖（與《技術規則專欄》#t4 同一張；自帶色票，不吃各頁 token） */
+.depfig{--dp-up:#B8782E;--dp-mid:#5A5648;--dp-dn:#2F6B45;
+  --dp-bd:#DDD5C3;--dp-bg:#FFFDF8;--dp-tx:#2B2A26;--dp-mu:#6B675C;
+  margin:14px 0;padding:12px 13px;border:1.5px solid var(--dp-bd);border-radius:12px;background:var(--dp-bg);color:var(--dp-tx)}
+[data-theme="dark"] .depfig{--dp-up:#E3A05E;--dp-mid:#C3BDAB;--dp-dn:#6FBF80;
+  --dp-bd:#3D3B34;--dp-bg:#262521;--dp-tx:#ECE8DC;--dp-mu:#A39E8E}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .depfig{--dp-up:#E3A05E;--dp-mid:#C3BDAB;--dp-dn:#6FBF80;
+  --dp-bd:#3D3B34;--dp-bg:#262521;--dp-tx:#ECE8DC;--dp-mu:#A39E8E}}
+.depfig .dp-h{font-size:.88rem;font-weight:800;margin-bottom:2px;color:var(--dp-tx)}
+.depfig .dp-h small{font-weight:400;color:var(--dp-mu);font-size:.74rem;margin-left:6px}
+.depfig svg{width:100%;height:auto;display:block;max-width:520px;margin:4px auto 0}
+.depfig svg text{fill:var(--dp-tx);font-size:11px}
+.depfig .dp-ax{stroke:var(--dp-mu);stroke-width:1;fill:none}
+.depfig .dp-gr{stroke:var(--dp-bd);stroke-width:1;stroke-dasharray:3 3;fill:none}
+.depfig .dp-leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.78rem;margin-top:8px;color:var(--dp-tx)}
+.depfig .dp-leg i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+.depfig .dp-note{font-size:.76rem;color:var(--dp-mu);line-height:1.7;margin:8px 0 0}
+.depfig .dp-note b{color:var(--dp-tx)}
+</style>
+<template id="depfig-tpl"><figure class="depfig"><div class="dp-h">三條折舊路徑一次看懂<small>示意：C＝100、s＝10%、N＝40</small></div><svg viewBox="0 0 480 290" role="img" aria-label="建物現值隨經歷年數下降的三條折舊路徑示意圖"><line class="dp-gr" x1="50" y1="20" x2="450" y2="20"/><line class="dp-gr" x1="50" y1="218.0" x2="450" y2="218.0"/><line class="dp-ax" x1="50" y1="20" x2="50" y2="240"/><line class="dp-ax" x1="50" y1="240" x2="450" y2="240"/><text x="44" y="24" text-anchor="end">C</text><text x="44" y="222.0" text-anchor="end">C·s</text><text x="50" y="258" text-anchor="middle">0</text><text x="450" y="258" text-anchor="middle">N</text><text x="250" y="274" text-anchor="middle">經歷年數 n</text><text x="8" y="12">建物現值</text><polyline fill="none" stroke="var(--dp-up)" stroke-width="2.6" points="50.0,20.0 60.0,22.6 70.0,25.3 80.0,28.1 90.0,31.0 100.0,33.9 110.0,37.0 120.0,40.1 130.0,43.4 140.0,46.7 150.0,50.1 160.0,53.6 170.0,57.3 180.0,61.0 190.0,64.9 200.0,68.8 210.0,72.9 220.0,77.1 230.0,81.5 240.0,86.0 250.0,90.6 260.0,95.3 270.0,100.2 280.0,105.2 290.0,110.4 300.0,115.7 310.0,121.2 320.0,126.9 330.0,132.7 340.0,138.7 350.0,144.9 360.0,151.3 370.0,157.9 380.0,164.6 390.0,171.6 400.0,178.8 410.0,186.2 420.0,193.8 430.0,201.6 440.0,209.7 450.0,218.0"/><polyline fill="none" stroke="var(--dp-mid)" stroke-width="2.6" points="50.0,20.0 60.0,24.9 70.0,29.9 80.0,34.9 90.0,39.8 100.0,44.8 110.0,49.7 120.0,54.6 130.0,59.6 140.0,64.6 150.0,69.5 160.0,74.5 170.0,79.4 180.0,84.3 190.0,89.3 200.0,94.2 210.0,99.2 220.0,104.2 230.0,109.1 240.0,114.0 250.0,119.0 260.0,123.9 270.0,128.9 280.0,133.8 290.0,138.8 300.0,143.8 310.0,148.7 320.0,153.7 330.0,158.6 340.0,163.5 350.0,168.5 360.0,173.4 370.0,178.4 380.0,183.4 390.0,188.3 400.0,193.2 410.0,198.2 420.0,203.2 430.0,208.1 440.0,213.0 450.0,218.0"/><polyline fill="none" stroke="var(--dp-dn)" stroke-width="2.6" points="50.0,20.0 60.0,32.3 70.0,43.9 80.0,54.9 90.0,65.2 100.0,75.0 110.0,84.3 120.0,93.0 130.0,101.2 140.0,109.0 150.0,116.3 160.0,123.2 170.0,129.7 180.0,135.9 190.0,141.7 200.0,147.2 210.0,152.4 220.0,157.3 230.0,161.9 240.0,166.3 250.0,170.4 260.0,174.3 270.0,178.0 280.0,181.5 290.0,184.7 300.0,187.8 310.0,190.7 320.0,193.5 330.0,196.1 340.0,198.6 350.0,200.9 360.0,203.1 370.0,205.1 380.0,207.1 390.0,208.9 400.0,210.7 410.0,212.3 420.0,213.9 430.0,215.3 440.0,216.7 450.0,218.0"/></svg><div class="dp-leg"><span><i style="background:var(--dp-up)"></i>初期減速（償債基金法）在直線<b>上方</b></span><span><i style="background:var(--dp-mid)"></i>等速（定額法）<b>直線</b></span><span><i style="background:var(--dp-dn)"></i>初期加速（定率法）在直線<b>下方</b></span></div><p class="dp-note">三條起點同為 <b>C</b>、終點同為 <b>C·s</b>；在 0 &lt; n &lt; N 之間，建物現值恆為 <b>定率法 &lt; 定額法 &lt; 償債基金法</b>（所以定率法算出的成本價格最低）。<br>⚠ 只有這三條路徑，<b>沒有「後期減速」</b>。示意圖，非精確數值。</p></figure></template>
+<script id="depfig-js">
+(function(){var t=document.getElementById('depfig-tpl');if(!t)return;
+document.querySelectorAll('.depfig-slot').forEach(function(s){s.replaceWith(t.content.cloneNode(true));});})();
+</script>
 </body>
 </html>
