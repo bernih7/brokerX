@@ -37,6 +37,7 @@ def arts(txt):
     return out
 # 完整小卡分類明顯錯置者，依題目內容改歸（11 題）
 FIX={'114-14':'C4','110-20':'E2','110-21':'E2','107-6':'D6','104-36':'E3','103-29':'E2','102-16':'B6','102-27':'C1','101-12':'B2','100-10':'C3','99-40':'E2'}
+MEMP=os.path.join(H,'mem.json'); MEM=json.load(open(MEMP,encoding='utf-8')) if os.path.exists(MEMP) else {}  # gen_mem.py 產生
 CHN={}; OUT=[]
 def kk(x): return [int(t) for t in x.split('-')]
 for (y,n),(p,q) in sorted(QS.items(),key=lambda t:(-t[0][0],t[0][1])):
@@ -54,6 +55,7 @@ for (y,n),(p,q) in sorted(QS.items(),key=lambda t:(-t[0][0],t[0][1])):
     if tip: o['tip']=tip
     if q.get('note'): o['note']=q['note']
     if not q['ans'] and not q['acc']: o['free']=1
+    if o['k'] in MEM: o['mem']=MEM[o['k']]
     OUT.append(o)
 used=sorted({k for q in OUT for k in q['law']},key=kk)
 law={k:LAW[k] for k in used}
