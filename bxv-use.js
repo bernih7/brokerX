@@ -59,9 +59,7 @@ var PAGES=[
  ["估價_地價調查估計規則專欄","地價調查估計規則專欄"],
  ["估價_特殊標的總整理","特殊標的總整理"],
  ["估價_技術規則專欄","技術規則專欄"],
- ["估價_土開計算題組","土開計算題組"],
- ["估價_DCF計算題組","DCF計算題組"],
- ["估價_房地拆價計算題組","房地拆價計算題組"],
+ ["估價_計算題組","計算題組（土開・DCF・房地拆價）"],
  ["估價_來勝模擬試題一","來勝模擬試題一"],
  ["估價_自編補強卷","自編補強卷"],
  ["估價_綜合模擬卷一","綜合模擬卷一"],
@@ -319,8 +317,9 @@ function status(){
  var cv=row("估價_模擬卷覆蓋分析","模擬卷覆蓋分析",0,0,"分析頁，不記錄開啟");cv.open=null;R2.push(cv);
  G.push({g:"模擬卷（交卷後自動記錄）",rows:R2});
  /* 計算題組 */
- var R3=[];[["估價_土開計算題組","土開計算題組","bx-e1dev-done",TOT.e1dev],["估價_DCF計算題組","DCF計算題組","bx-dcfcalc-done",TOT.dcf],["估價_房地拆價計算題組","房地拆價計算題組","bx-split-done",TOT.split]].forEach(function(x){
-  var dn=ld(x[2],[]);dn=Array.isArray(dn)?Math.min(dn.length,x[3]):0;R3.push(row(x[0],x[1],dn,x[3],"答對 "+dn+"／"+x[3]+" 題"))});
+ var R3=[],_cg=[["#e1","土開","bx-e1dev-done",TOT.e1dev],["#dcf","DCF","bx-dcfcalc-done",TOT.dcf],["#split","房地拆價","bx-split-done",TOT.split]],_cd=0,_ct=0,_cx=[];
+ _cg.forEach(function(x){var dn=ld(x[2],[]);dn=Array.isArray(dn)?Math.min(dn.length,x[3]):0;_cd+=dn;_ct+=x[3];_cx.push(x[1]+" "+dn+"／"+x[3])});
+ R3.push(row("估價_計算題組","計算題組（土開・DCF・房地拆價）",_cd,_ct,"答對 "+_cd+"／"+_ct+" 題（"+_cx.join("・")+"）"));
  G.push({g:"計算題組（核對答對自動記錄）",rows:R3});
  /* 記憶工具 */
  var R4=[],fm=ld("bxv-st:valuation_flashcard_mastery",{})||{},fmm=0,fmr=0;Object.keys(fm).forEach(function(k){if(fm[k]==="mastered")fmm++;else if(fm[k])fmr++});

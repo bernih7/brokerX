@@ -933,9 +933,9 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
         <div class="ch-tools-pills">
           <a class="ch-pill" href="https://bernih7.github.io/brokerX/%E4%BC%B0%E5%83%B9_%E7%A7%9F%E9%87%91%E4%BC%B0%E8%A8%88%E6%94%BB%E7%95%A5%E8%A1%A8.html" target="_blank">📋 租金估計攻略表</a>
           <a class="ch-pill blue" href="估價_計算題攻略.html" target="_blank">🧮 計算題攻略（E1/G1）</a>
-          <a class="ch-pill" href="估價_土開計算題組.html" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">📐 土開計算題組（8題換條件）</a>
-          <a class="ch-pill" href="估價_房地拆價計算題組.html" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">🏠 房地拆價計算題組（6題換條件）</a>
-          <a class="ch-pill" href="估價_DCF計算題組.html" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">📈 DCF計算題組（8題換條件）</a>
+          <a class="ch-pill" href="估價_計算題組.html#e1" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">📐 計算題組・土開（8題）</a>
+          <a class="ch-pill" href="估價_計算題組.html#split" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">🏠 計算題組・房地拆價（6題）</a>
+          <a class="ch-pill" href="估價_計算題組.html#dcf" target="_blank" style="border-color:var(--accent-r);color:var(--accent-r);font-weight:700;">📈 計算題組・DCF（8題）</a>
         </div>
       </div>
       <div class="group-read-bar" id="bar-EI">
@@ -1038,10 +1038,7 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
   <div class="tl-grp"><div class="tl-hd"><b>✍️ 自我檢測</b><span>做題確認會不會</span></div>
     <div class="tl-list">
       <a class="tl-row" href="估價_考題小卡.html" target="_blank"><span class="tl-ic">🗂️</span><span class="tl-tx"><span class="tl-nm">歷屆考題小卡</span><span class="tl-ds">533 題・逐選項解析</span></span><span class="tl-ch">全科</span></a>
-     
-      <a class="tl-row" href="估價_土開計算題組.html" target="_blank"><span class="tl-ic">📐</span><span class="tl-tx"><span class="tl-nm">土開計算題組</span><span class="tl-ds">8 題換條件・含兩版公式辨析</span></span><span class="tl-ch">E1</span></a>
-      <a class="tl-row" href="估價_房地拆價計算題組.html" target="_blank"><span class="tl-ic">🏠</span><span class="tl-tx"><span class="tl-nm">房地拆價計算題組</span><span class="tl-ds">6 題・按建物價值比率拆土地單價</span></span><span class="tl-ch">C1</span></a>
-      <a class="tl-row" href="估價_DCF計算題組.html" target="_blank"><span class="tl-ic">📈</span><span class="tl-tx"><span class="tl-nm">DCF計算題組</span><span class="tl-ds">8 題換條件・§31/§32 折現＋期末價值</span></span><span class="tl-ch">E2</span></a>
+      <a class="tl-row" href="估價_計算題組.html" target="_blank"><span class="tl-ic">🧮</span><span class="tl-tx"><span class="tl-nm">計算題組（三分頁）</span><span class="tl-ds">土開 8＋DCF 8＋房地拆價 6＝22 題換條件</span></span><span class="tl-ch">E1 C1 D3</span></a>
       <a class="tl-row" href="估價_診斷卷一.html" target="_blank"><span class="tl-ic">📝</span><span class="tl-tx"><span class="tl-nm">診斷卷①</span><span class="tl-ds">自我評量・含計分</span></span><span class="tl-ch">全科</span></a>
     </div>
   </div>
@@ -1991,9 +1988,7 @@ var predData=[
   function lab(name){
     if(M[name]){var r=J('bxv-read',{}),n=(r[M[name]]&&r[M[name]].n)||0;return ['讀 '+n,n];}
     if(name==='估價_定義填空練習'){var n=(window.BXREP&&BXREP.fillDone)?BXREP.fillDone():0,t=parseInt(localStorage.getItem('bxv-fill-total')||'116')||116;return ['完成 '+n+'/'+t,n];}
-    if(name==='估價_房地拆價計算題組'){var n=(J('bx-split-done',[])||[]).length;return ['對 '+n+'/6',n];}
-    if(name==='估價_土開計算題組'){var n=(J('bx-e1dev-done',[])||[]).length;return ['對 '+n+'/8',n];}
-    if(name==='估價_DCF計算題組'){var n=(J('bx-dcfcalc-done',[])||[]).length;return ['對 '+n+'/8',n];}
+    if(name==='估價_計算題組'){var n=(J('bx-e1dev-done',[])||[]).length+(J('bx-dcfcalc-done',[])||[]).length+(J('bx-split-done',[])||[]).length;return ['對 '+n+'/22',n];}
     if(name==='估價_診斷卷一'){var m=J('bxv-mock:diag1',null);return m?[(m.score!=null?m.score:m.ok)+'/'+(m.total||25),1]:['未做',0];}
     return null;
   }

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>估價｜計算題組（土開・DCF・房地拆價）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1E6;--card:#FFFEFA;--line:#DDD6C0;
+  --ink:#25302C;--sub:#5F6B63;--pri:#2F5D50;
+  --key:#8A5517;--red:#A8402B;--gold:#B8782E;--green:#35693F;
+  --opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1d1b17;--card:#272420;--line:#3d3830;
+    --ink:#ece6d8;--sub:#a79f8c;--pri:#6E9C8C;
+    --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
+    --opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1d1b17;--card:#272420;--line:#3d3830;
+  --ink:#ece6d8;--sub:#a79f8c;--pri:#6E9C8C;
+  --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
+  --opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Noto Sans TC",sans-serif;
+  background:var(--bg);color:var(--ink);
+  min-height:100vh;font-size:15px;line-height:1.7;
+  padding:0 0 90px;overflow-x:hidden;
+}
+h1,h2,h3{font-family:"Noto Serif TC",serif;}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px;}
+
+/* header */
+header{
+  background:linear-gradient(135deg,var(--pri),#1F4034);
+  color:#fff;padding:26px 16px 22px;text-align:center;position:relative;overflow:hidden;
+  padding-top:calc(26px + env(safe-area-inset-top,0px));
+}
+header::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px);
+}
+header h1{font-size:1.32rem;font-weight:900;margin-bottom:6px;position:relative;z-index:1;}
+header .sub{font-size:.82rem;opacity:.88;position:relative;z-index:1;line-height:1.6;}
+.theme-btn{
+  position:absolute;top:14px;right:14px;z-index:5;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);
+  color:#fff;border-radius:20px;padding:5px 12px;font-size:.76rem;cursor:pointer;
+}
+.back-link{
+  position:absolute;top:14px;left:14px;z-index:5;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);
+  color:#fff;border-radius:20px;padding:5px 12px;font-size:.76rem;text-decoration:none;
+}
+
+/* 進度 */
+.prog-wrap{
+  display:flex;align-items:center;gap:10px;
+  background:var(--card);border:1.5px solid var(--line);border-radius:10px;
+  padding:10px 14px;margin:16px 0;font-size:.8rem;color:var(--sub);
+}
+.pbar{flex:1;background:var(--line);border-radius:99px;height:7px;overflow:hidden;}
+.pfill{height:100%;background:var(--green);border-radius:99px;transition:width .35s;}
+.pnum{font-weight:700;color:var(--green);white-space:nowrap;}
+
+/* 公式卡 */
+.formula-card{
+  background:var(--card);border:2px solid var(--pri);border-radius:12px;
+  padding:16px 16px 14px;margin-bottom:14px;
+}
+.fc-title{font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:900;color:var(--pri);margin-bottom:10px;}
+.fml{
+  background:var(--tipbg);border-left:4px solid var(--gold);
+  padding:10px 13px;border-radius:0 8px 8px 0;margin-bottom:9px;
+  font-size:.95rem;font-weight:700;line-height:1.8;overflow-x:auto;
+}
+.fml small{display:block;font-weight:400;font-size:.78rem;color:var(--sub);margin-top:5px;line-height:1.6;}
+.hl{color:var(--red);font-weight:900;}
+.sym{font-size:.8rem;color:var(--sub);line-height:1.8;}
+.sym b{color:var(--ink);}
+
+/* 兩版辨析 */
+.warn-card{
+  background:var(--badbg);border:1.5px solid var(--red);border-radius:12px;
+  padding:14px 16px;margin-bottom:18px;font-size:.84rem;line-height:1.75;
+}
+.warn-card h3{font-size:.92rem;color:var(--red);margin-bottom:8px;}
+.warn-card table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.8rem;}
+.warn-card th,.warn-card td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;background:var(--card);}
+.warn-card th{background:var(--opt);font-weight:700;font-size:.78rem;}
+
+/* 題卡 */
+.q-card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:12px;
+  padding:16px;margin-bottom:14px;
+}
+.q-card.done{border-color:var(--green);}
+.q-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.q-no{
+  background:var(--pri);color:#fff;border-radius:8px;
+  min-width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;font-family:"Noto Serif TC",serif;
+}
+.q-tag{
+  font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;
+  background:var(--tipbg);color:var(--key);white-space:nowrap;align-self:center;
+}
+.q-tag.trap{background:var(--badbg);color:var(--red);}
+.q-title{font-weight:700;font-size:.92rem;flex:1;min-width:0;line-height:1.5;}
+.q-body{font-size:.88rem;line-height:1.8;margin-bottom:12px;}
+.given{
+  background:var(--opt);border:1px dashed var(--line);border-radius:8px;
+  padding:9px 12px;margin-top:8px;font-size:.84rem;
+}
+.given b{color:var(--key);}
+
+/* 作答 */
+.ans-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+.ans-row label{font-size:.82rem;color:var(--sub);font-weight:600;}
+.ans-row input{
+  flex:1 1 130px;min-width:110px;padding:8px 11px;font-size:.92rem;
+  border:1.5px solid var(--line);border-radius:8px;background:var(--opt);color:var(--ink);
+  font-family:inherit;
+}
+.ans-row input:focus{outline:none;border-color:var(--pri);}
+.btn{
+  padding:8px 15px;border-radius:8px;border:none;cursor:pointer;
+  font-size:.84rem;font-weight:700;font-family:inherit;transition:opacity .15s;
+}
+.btn:hover{opacity:.85;}
+.btn-chk{background:var(--pri);color:#fff;}
+.btn-sol{background:var(--opt);color:var(--ink);border:1.5px solid var(--line);}
+.fb{font-size:.84rem;font-weight:700;padding:8px 12px;border-radius:8px;margin-top:4px;display:none;}
+.fb.ok{display:block;background:var(--okbg);color:var(--green);}
+.fb.bad{display:block;background:var(--badbg);color:var(--red);}
+
+/* 詳解 */
+.sol{display:none;margin-top:11px;border-top:1.5px dashed var(--line);padding-top:11px;}
+.sol.open{display:block;}
+.sol h4{font-size:.85rem;color:var(--pri);margin:9px 0 5px;font-family:"Noto Serif TC",serif;}
+.sol h4:first-child{margin-top:0;}
+.step{
+  background:var(--opt);border-left:3px solid var(--pri);
+  padding:8px 12px;border-radius:0 7px 7px 0;margin-bottom:7px;
+  font-size:.85rem;line-height:1.8;overflow-x:auto;
+}
+.step .eq{font-weight:700;color:var(--key);}
+.res{
+  background:var(--okbg);border:1.5px solid var(--green);border-radius:8px;
+  padding:9px 12px;font-size:.9rem;font-weight:700;color:var(--green);margin-top:4px;
+}
+.trap-box{
+  background:var(--badbg);border-left:3px solid var(--red);
+  padding:8px 12px;border-radius:0 7px 7px 0;margin-top:9px;
+  font-size:.82rem;line-height:1.75;color:var(--ink);
+}
+.trap-box b{color:var(--red);}
+
+.foot{text-align:center;padding:22px 16px;font-size:.72rem;color:var(--sub);border-top:1px solid var(--line);margin-top:18px;}
+.reset-btn{
+  background:none;border:1px solid var(--line);color:var(--sub);
+  border-radius:8px;padding:6px 14px;font-size:.76rem;cursor:pointer;font-family:inherit;margin-top:8px;
+}
+@media(max-width:430px){
+  header h1{font-size:1.12rem;}
+  .q-head{flex-wrap:wrap;}
+}
+</style>
+<script src="bxv-use.js"></script>
+
+<style>
+/* 分頁（v515 三題組合併） */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.tabs button{flex:1 1 30%;min-width:96px;font:inherit;font-size:.86rem;font-weight:700;padding:9px 6px;border-radius:9px;cursor:pointer;
+  background:var(--card,#fff);color:var(--sub,#666);border:1.5px solid var(--line,#ddd)}
+.tabs button.on{background:var(--accent,#8a4b00);border-color:var(--accent,#8a4b00);color:#fff}
+.tabs button small{display:block;font-weight:500;font-size:.72rem;opacity:.85;margin-top:2px}
+.pane[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="/brokerX/%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html">← 指揮中心</a>
+  <button class="theme-btn" id="themeBtn">🌙 深色</button>
+  <h1>🧮 估價計算題組</h1>
+  <div class="sub">土地開發分析法 8 題 ・ DCF 8 題 ・ 房地拆價 6 題＝共 22 題換條件練習<br>
+  <span style="font-size:.8rem">三個題組原為三支獨立頁面，v515 併成本頁三分頁；作答紀錄沿用原本的鍵，進度不會歸零。</span></div>
+</header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs">
+        <button data-t="e1" id="tab-e1">📐 土地開發分析法<small>8 題</small></button>
+    <button data-t="dcf" id="tab-dcf">📈 折現現金流量分析法（DCF）<small>8 題</small></button>
+    <button data-t="split" id="tab-split">🏠 房地拆價<small>6 題</small></button>
+  </div>
+
+<div class="pane" id="pane-e1">
+  <div class="prog-wrap">
+    <span>答對進度</span>
+    <div class="pbar"><div class="pfill" id="pfill-e1" style="width:0%"></div></div>
+    <span class="pnum" id="pnum-e1">0／8</span>
+  </div>
+  <div class="sub" style="margin:-4px 0 12px;font-size:.82rem;line-height:1.7">E1・8 題換條件練習｜16 年申論 5 次入題（100、102、105、109、113）<br>純數字計算型自 102 年後空缺，115 年高機率回歸</div>
+  <!-- 公式卡 -->
+  <div class="formula-card">
+    <div class="fc-title">📐 本題組使用的公式（技術規則版）</div>
+    <div class="fml">
+      V ＝ S ÷ (1＋R) ÷ (1＋i) － (C＋M)
+      <small>V＝土地開發分析價格　S＝開發後預期總銷售金額　R＝適當之利潤率<br>i＝資本利息綜合利率　C＝直接成本（營造施工費等）　M＝間接成本（規劃設計、廣告銷售、管理、稅捐）</small>
+    </div>
+    <div class="fml">
+      i ＝ 資本利息年利率 ×（土地價值比率 ＋ 建物價值比率 × <span class="hl">½</span>）× <span class="hl">開發年數</span>
+      <small><b>只有建物乘 ½，土地乘 1。</b>土地自取得起全期佔用資金；建物分批投入，平均只墊付一半期間。算完括號還要<b>乘開發年數</b>。</small>
+    </div>
+    <div class="sym">
+      驗算（114 年考古題）：綜合利率 4.8%、土地 60%、建物 40%、2 年 → 年利率 ＝ 4.8% ÷ [(0.6＋0.4×½)×2] ＝ <b>3.0%</b>
+    </div>
+  </div>
+
+  <!-- 兩版辨析 -->
+  <div class="warn-card">
+    <h3>⚠️ 先搞清楚：市面上有兩套土開公式，別混用</h3>
+    考古題考的是<b>技術規則版</b>。補習班常見的「扣除法」雖然也能算，但它的「綜合利率」是<b>資金加權成本</b>，和技術規則的 i 只是同名、意義完全不同。本題組全部用技術規則版。
+    <table>
+      <tr><th>　</th><th>技術規則版（本頁）</th><th>補習班扣除法版</th></tr>
+      <tr><td><b>主公式</b></td><td>V ＝ S÷(1+R)÷(1+i) －(C+M)<br>利潤與利息用<b>除</b>的</td><td>V ＝ SR－BC－Fees－CI－Profit<br>各項用<b>減</b>的</td></tr>
+      <tr><td><b>「綜合利率」指</b></td><td>年利率×(土地比率＋建物比率×½)×年數<br>＝<b>資金佔用期間的加權</b></td><td>自有資金%×報酬率 ＋ 貸款%×利率<br>＝<b>資金來源的加權成本</b>（WACC）</td></tr>
+      <tr><td><b>½ 乘在哪</b></td><td>乘在<b>建物價值比率</b></td><td>乘在<b>整筆資本利息</b></td></tr>
+    </table>
+  </div>
+  <div id="qs-e1"></div>
+  <div class="foot">估價｜土地開發分析法計算題組 v1.0<br>
+    公式依不動產估價技術規則；本頁題目為依考點自編之練習題，非考選部官方試題。<br>
+    <button class="reset-btn" data-reset="e1">清除本題組作答紀錄</button>
+  </div>
+</div>
+<div class="pane" id="pane-dcf" hidden>
+  <div class="prog-wrap">
+    <span>答對進度</span>
+    <div class="pbar"><div class="pfill" id="pfill-dcf" style="width:0%"></div></div>
+    <span class="pnum" id="pnum-dcf">0／8</span>
+  </div>
+  <div class="sub" style="margin:-4px 0 12px;font-size:.82rem;line-height:1.7">8 題換條件練習｜§31 定義・§32 公式・§33 契約租金<br>113 年申論考 DCF 定義；選擇題近年開始出現算數，115 年可能補上計算</div>
+  <!-- 公式卡 -->
+  <div class="formula-card">
+    <div class="fc-title">📐 本題組使用的公式（技術規則§31、§32）</div>
+    <div class="fml">
+      P ＝ Σ CFₖ ÷ (1＋Y)ᵏ ＋ Pₙ' ÷ (1＋Y)ⁿ'
+      <small>P＝收益價格　CFₖ＝第 k 期淨收益　Y＝折現率　n'＝折現現金流量分析期間　k＝各年期　Pₙ'＝期末價值<br>各期淨收益與期末價值，<b>都</b>要用折現率折回價格日期，再加總。</small>
+    </div>
+    <div class="fml">
+      淨收益 ＝ 有效總收入 － 總費用　　有效總收入 ＝ 總收入 －（空置等損失）
+      <small>§42：淨收益＝有效總收入－總費用（營運性不動產另須扣除非不動產所生收益）。§38 總費用含地價稅或地租、房屋稅、保險費、管理費、維修費等；包含建物者另須加計折舊提存費。</small>
+    </div>
+    <div class="sym">
+      期末價值常見作法〔教材作法，條文只稱「期末價值」〕：期末價值 ＝ 第 n＋1 期淨收益 ÷ 期末（最終）資本化率。<br>
+      證券化目的採 DCF：各期淨收益<b>原則以契約租金計算</b>；契約租金未知者，以市場經濟租金推估（§33Ⅱ、Ⅲ）。
+    </div>
+  </div>
+
+  <div class="warn-card">
+    <h3>⚠️ DCF 三大易錯點</h3>
+    ①<b>期末價值也要折現</b>，折現期數＝分析期間末（第 n 期），不是 n－1 或 n＋1。②<b>折現率 Y 越高，價格越低</b>（第4題驗證）。③DCF 與直接資本化法的差別：直接資本化法用「未來平均一年」淨收益 ÷ 資本化率（§29、§30）；DCF 用「分析期間各期」淨收益與期末價值折現（§31）。
+  </div>
+  <div id="qs-dcf"></div>
+  <div class="foot">估價｜折現現金流量分析法計算題組 v1.0<br>
+    公式依不動產估價技術規則§31、§32、§33；期末價值求法為教材作法；本頁題目為依考點自編之練習題，非考選部官方試題。<br>
+    <button class="reset-btn" data-reset="dcf">清除本題組作答紀錄</button>
+  </div>
+</div>
+<div class="pane" id="pane-split" hidden>
+  <div class="prog-wrap">
+    <span>答對進度</span>
+    <div class="pbar"><div class="pfill" id="pfill-split" style="width:0%"></div></div>
+    <span class="pnum" id="pnum-split">0／6</span>
+  </div>
+  <div class="sub" style="margin:-4px 0 12px;font-size:.82rem;line-height:1.7">房地總價 → 土地單價｜6 題換條件練習<br>公式：建物價值比率、土地總價、土地單價</div>
+  <!-- 公式卡 -->
+  <div class="formula-card">
+    <div class="fc-title">📐 本題組使用的公式</div>
+    <div class="fml">
+      建物價值比率 ＝ 建物現值 ÷（建物現值 ＋ 素地總價）
+      <small>建物現值＝重建成本扣掉折舊後的值；素地總價＝把土地當空地的總價。比率代表「房子在兩者合計裡占幾成」。</small>
+    </div>
+    <div class="fml">
+      土地總價 ＝ 房地總價 × （1 － 建物價值比率）
+      <small>把市場上的房地總價<b>按比例</b>切開，扣掉建物那一份，剩下就是土地。</small>
+    </div>
+    <div class="fml">
+      土地單價 ＝ 土地總價 ÷ <span class="hl">基地面積</span>
+      <small>除的是土地（基地）面積，<b>不是建坪</b>。</small>
+    </div>
+    <div class="sym">
+      範例：房地總價 3,000 萬、建物現值 600 萬、素地總價 1,800 萬、基地 30 坪 → 比率 ＝ 600÷2,400 ＝ 25% → 土地總價 ＝ 3,000×75% ＝ 2,250 萬 → 單價 ＝ <b>75 萬／坪</b>
+    </div>
+  </div>
+
+  <div class="warn-card">
+    <h3>⚠️ 先看題目給什麼條件</h3>
+    技術規則 §99：已知<b>建物成本價格</b>時，基地價格＝房地價格－建物成本價格（直接相減，例 (3,000－600)÷30＝80）；已知<b>價值比率</b>時，基地價格＝房地價格×土地價值比率。本題組給的是「建物現值＋素地總價」，要求<b>按比例拆</b>（例 75 萬／坪）。兩種條件算出的數字不同，考試先看題目給的是哪一種。<br><br>
+    <b>相關條文與題目（連結）：</b>
+    技術規則 §99（給建物成本價格→相減；已知價值比率亦得 基地價格＝房地價格×土地價值比率，再÷基地面積）、§101-1（建物價格＝房地價格×建物價值比率）、§125（都市更新基地價值比率，分母同樣是「基地價值＋建物現值」）。
+    <ul style="margin:8px 0 0 18px;line-height:1.9;">
+      <li><a href="估價_計算題攻略.html#split-card">計算題攻略：房地總價拆土地單價</a></li>
+      <li><a href="估價_考題小卡.html#VC1_99_32">99年第32題（區分所有建物基地單價推估）</a>、<a href="估價_考題小卡.html#VH3_103_36">103年第36題</a>、<a href="估價_考題小卡.html#VH3_109_8">109年第8題</a>、<a href="估價_考題小卡.html#VH3_110_14">110年第14題</a>（基地價值比率）</li>
+      <li><a href="不動產估價概要_申論題實戰範文.html#e112-2">112年申論二（建物現值怎麼算）</a>、<a href="不動產估價概要_申論題實戰範文.html#pred-6">115預測⑥（樓層別效用比＋已知土地價值比率）</a></li>
+    </ul>
+  </div>
+  <div id="qs-split"></div>
+  <div class="foot">估價｜房地拆價計算題組 v1.0<br>
+    公式依不動產估價技術規則 §99、§101-1、§125 之比例拆價概念整理；本頁題目為自編練習題，非考選部官方試題。<br>
+    <button class="reset-btn" data-reset="split">清除本題組作答紀錄</button>
+  </div>
+</div>
+</div>
+
+<script>
+var SETS={};
+SETS["e1"]={key:"bx-e1dev-done", bad:"\u2717 \u4e0d\u5c0d\u3002\u518d\u6aa2\u67e5\u4e00\u6b21\u62ec\u865f\u88e1\u571f\u5730\u6709\u6c92\u6709\u4e58 1\u3001\u5efa\u7269\u6709\u6c92\u6709\u4e58 \u00bd\u3001\u6700\u5f8c\u6709\u6c92\u6709\u4e58\u958b\u767c\u5e74\u6578\u3002", QS:[
+{
+ no:1,tag:'綜合利率・正推',trap:false,
+ title:'綜合利率基本計算',
+ body:'某建地委託估價，採土地開發分析法。經查資本利息年利率為 <b>2.5%</b>，開發計畫中土地價值比率 <b>55%</b>、建物價值比率 <b>45%</b>，預計開發年數 <b>3 年</b>。',
+ ask:'試求資本利息綜合利率 i。',
+ unit:'%', ans:5.8125, tol:0.02,
+ hint:'答案填百分比數字',
+ sol:[
+  ['括號內先加權','土地 0.55 × 1 ＝ 0.55<br>建物 0.45 × ½ ＝ 0.225<br>合計 ＝ <span class="eq">0.775</span>'],
+  ['乘年利率與開發年數','i ＝ 2.5% × 0.775 × 3']
+ ],
+ res:'i ＝ 5.8125% ≈ <b>5.81%</b>',
+ trapNote:'括號內土地是<b>整個</b>算進去（×1），只有建物打對折。如果誤把兩者都打對折會得 2.5%×0.5×3＝3.75%，整題歸零。'
+},
+{
+ no:2,tag:'綜合利率・反推年利率',trap:false,
+ title:'已知綜合利率，反推年利率',
+ body:'某土地開發案之資本利息綜合利率經算定為 <b>7.2%</b>，其中土地價值比率 <b>50%</b>、建物價值比率 <b>50%</b>，開發年數 <b>4 年</b>。',
+ ask:'試求資本利息年利率。',
+ unit:'%', ans:2.4, tol:0.02,
+ hint:'答案填百分比數字',
+ sol:[
+  ['先算括號','0.5 × 1 ＋ 0.5 × ½ ＝ <span class="eq">0.75</span>'],
+  ['列式','7.2% ＝ 年利率 × 0.75 × 4 ＝ 年利率 × 3'],
+  ['反除','年利率 ＝ 7.2% ÷ 3']
+ ],
+ res:'年利率 ＝ <b>2.4%</b>',
+ trapNote:'反推題一定要<b>先把括號和年數合併成一個倍數</b>（此題為 3 倍），再用綜合利率去除。直接拿 7.2% 除 4 得 1.8% 是常見錯解。'
+},
+{
+ no:3,tag:'綜合利率・反推年數',trap:false,
+ title:'已知綜合利率，反推開發年數',
+ body:'資本利息年利率 <b>3%</b>，土地價值比率 <b>60%</b>、建物價值比率 <b>40%</b>，資本利息綜合利率為 <b>7.2%</b>。',
+ ask:'試求開發年數。',
+ unit:'年', ans:3, tol:0.02,
+ hint:'答案填數字',
+ sol:[
+  ['括號','0.6 ＋ 0.4 × ½ ＝ <span class="eq">0.8</span>'],
+  ['每年貢獻','3% × 0.8 ＝ <span class="eq">2.4%／年</span>'],
+  ['反推','7.2% ÷ 2.4% ＝ 3']
+ ],
+ res:'開發年數 ＝ <b>3 年</b>',
+ trapNote:'這題在提醒你：<b>年數是乘數不是除數</b>。綜合利率會隨開發期拉長而等比例放大，開發期越久、資本利息負擔越重、推估地價越低。'
+},
+{
+ no:4,tag:'比率變動・比較',trap:false,
+ title:'土地建物比率對調，綜合利率差多少',
+ body:'兩個開發案的資本利息年利率同為 <b>3%</b>、開發年數同為 <b>2 年</b>。<br>甲案：土地價值比率 <b>70%</b>、建物價值比率 <b>30%</b>。<br>乙案：土地價值比率 <b>30%</b>、建物價值比率 <b>70%</b>。',
+ ask:'甲案綜合利率比乙案高出多少百分點？',
+ unit:'個百分點', ans:1.2, tol:0.02,
+ hint:'答案填數字',
+ sol:[
+  ['甲案','括號 ＝ 0.7 ＋ 0.3×½ ＝ 0.85<br>i ＝ 3% × 0.85 × 2 ＝ <span class="eq">5.1%</span>'],
+  ['乙案','括號 ＝ 0.3 ＋ 0.7×½ ＝ 0.65<br>i ＝ 3% × 0.65 × 2 ＝ <span class="eq">3.9%</span>'],
+  ['相減','5.1% － 3.9%']
+ ],
+ res:'甲案高出 <b>1.2 個百分點</b>',
+ trapNote:'觀念題常考這個方向：<b>土地價值比率越高，綜合利率越高</b>。因為土地款自始全額墊付、佔用資金的期間最長；建物款分批投入，平均只佔一半期間。'
+},
+{
+ no:5,tag:'V 公式・基本',trap:false,
+ title:'V 公式完整代入',
+ body:'某建地採土地開發分析法估價，已知：開發後預期總銷售金額 <b>2 億 4,000 萬元</b>；適當利潤率 <b>15%</b>；資本利息綜合利率 <b>6%</b>；直接成本 <b>9,000 萬元</b>；間接成本 <b>1,800 萬元</b>。',
+ ask:'試求土地開發分析價格 V（單位：萬元，四捨五入至整數）。',
+ unit:'萬元', ans:8888, tol:3,
+ hint:'答案填萬元',
+ sol:[
+  ['先扣利潤','24,000 ÷ (1＋0.15) ＝ <span class="eq">20,869.57 萬元</span>'],
+  ['再扣資本利息','20,869.57 ÷ (1＋0.06) ＝ <span class="eq">19,688.27 萬元</span>'],
+  ['減直接＋間接成本','19,688.27 －(9,000＋1,800) ＝ 19,688.27 － 10,800']
+ ],
+ res:'V ≈ <b>8,888 萬元</b>',
+ trapNote:'利潤率與資本利息綜合利率是<b>連續兩次除法</b>，不能合併成 ÷(1＋0.15＋0.06)。合併算會得 24,000÷1.21－10,800≈9,035 萬，差了約 147 萬。'
+},
+{
+ no:6,tag:'V 公式・完整題型',trap:false,
+ title:'從面積單價算起的完整申論題型',
+ body:'某建築基地 <b>500 坪</b>，依法定容積可興建可銷售樓地板面積 <b>1,200 坪</b>，預計銷售單價每坪 <b>45 萬元</b>。<br>營造施工費（直接成本）<b>1 億 5,000 萬元</b>；規劃設計、廣告銷售、管理及稅捐等間接成本合計 <b>3,000 萬元</b>。<br>資本利息年利率 <b>3%</b>，土地價值比率 <b>60%</b>、建物價值比率 <b>40%</b>，開發年數 <b>2 年</b>，適當利潤率 <b>20%</b>。',
+ ask:'試求土地開發分析價格之<b>每坪單價</b>（萬元／坪，四捨五入至小數第 1 位）。',
+ unit:'萬元/坪', ans:49.9, tol:0.3,
+ hint:'答案填數字',
+ sol:[
+  ['① 總銷售金額 S','1,200 坪 × 45 萬／坪 ＝ <span class="eq">54,000 萬元</span>'],
+  ['② 資本利息綜合利率 i','括號 ＝ 0.6 ＋ 0.4×½ ＝ 0.8<br>i ＝ 3% × 0.8 × 2 ＝ <span class="eq">4.8%</span>'],
+  ['③ 代入 V 公式','54,000 ÷ 1.20 ＝ 45,000<br>45,000 ÷ 1.048 ＝ <span class="eq">42,938.93 萬元</span>'],
+  ['④ 減成本','42,938.93 －(15,000＋3,000) ＝ <span class="eq">24,938.93 萬元</span>'],
+  ['⑤ 換算單價','24,938.93 ÷ 500 坪']
+ ],
+ res:'土地總價約 <b>24,939 萬元</b>，每坪約 <b>49.9 萬元</b>',
+ trapNote:'申論完整題型就是這個流程，五步一步都不能少。<b>銷售面積用的是「可銷售樓地板面積」1,200 坪，不是基地 500 坪</b>；但最後換算單價時分母才用基地面積 500 坪。這組數字用錯邊是最常見的整題失分。'
+},
+{
+ no:7,tag:'陷阱・漏乘½',trap:true,
+ title:'漏乘 ½ 會差多少',
+ body:'資本利息年利率 <b>4%</b>，土地價值比率 <b>45%</b>、建物價值比率 <b>55%</b>，開發年數 <b>3 年</b>。',
+ ask:'試求<b>正確</b>的資本利息綜合利率。（算完請看詳解，比較漏乘 ½ 的錯誤結果差多少）',
+ unit:'%', ans:8.7, tol:0.03,
+ hint:'答案填百分比數字',
+ sol:[
+  ['正確算法','括號 ＝ 0.45 ＋ 0.55×½ ＝ 0.45＋0.275 ＝ <span class="eq">0.725</span><br>i ＝ 4% × 0.725 × 3 ＝ <span class="eq">8.7%</span>'],
+  ['❌ 漏乘 ½ 的錯誤算法','括號誤算成 0.45＋0.55 ＝ 1.0<br>i ＝ 4% × 1.0 × 3 ＝ <span class="eq">12%</span>']
+ ],
+ res:'正確 i ＝ <b>8.7%</b>；漏乘 ½ 會得 12%，高估 <b>3.3 個百分點</b>',
+ trapNote:'土地＋建物比率必定等於 1，所以<b>一旦漏乘 ½，括號就會剛好等於 1</b>——看到自己算出的括號是整數 1，幾乎可以確定漏了這一步。這是最快的自我檢查點。'
+},
+{
+ no:8,tag:'陷阱・漏乘年數',trap:true,
+ title:'漏乘開發年數會差多少',
+ body:'資本利息年利率 <b>2.8%</b>，土地價值比率 <b>65%</b>、建物價值比率 <b>35%</b>，開發年數 <b>4 年</b>。',
+ ask:'試求<b>正確</b>的資本利息綜合利率。',
+ unit:'%', ans:9.24, tol:0.03,
+ hint:'答案填百分比數字',
+ sol:[
+  ['括號','0.65 ＋ 0.35×½ ＝ 0.65＋0.175 ＝ <span class="eq">0.825</span>'],
+  ['乘年利率','2.8% × 0.825 ＝ <span class="eq">2.31%</span>　←這只是「一年份」'],
+  ['乘開發年數','2.31% × 4 ＝ <span class="eq">9.24%</span>']
+ ],
+ res:'正確 i ＝ <b>9.24%</b>；若停在 2.31%（漏乘年數）會低估 <b>6.93 個百分點</b>',
+ trapNote:'「綜合利率」四個字容易讓人以為是個<b>年</b>利率，其實它是<b>整個開發期間的累計利息率</b>，所以一定含年數。檢查法：算出來的 i 通常會明顯<b>大於</b>題目給的年利率，若反而比年利率小，多半是漏乘年數。'
+}
+]};
+SETS["dcf"]={key:"bx-dcfcalc-done", bad:"\u2717 \u4e0d\u5c0d\u3002\u518d\u6aa2\u67e5\u4e00\u6b21\uff1a\u6bcf\u671f\u6298\u73fe\u6b21\u65b9\u6578\u3001\u671f\u672b\u50f9\u503c\u662f\u5426\u4e5f\u6298\u73fe\uff08\u671f\u6578\uff1d\u6700\u5f8c\u4e00\u671f\uff09\u3001\u6298\u73fe\u7387\u8207\u8cc7\u672c\u5316\u7387\u6709\u6c92\u6709\u6df7\u7528\u3002", QS:[
+{
+ no:1,tag:'基本折現',trap:false,
+ title:'三期淨收益＋期末價值',
+ body:'某出租店面採折現現金流量分析法估價。分析期間 <b>3 年</b>，各年淨收益依序為 <b>100、120、140 萬元</b>，第 3 年末預估期末價值 <b>2,000 萬元</b>，折現率 <b>5%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2053, tol:2,
+ hint:'答案填萬元',
+ sol:[
+  ['各期淨收益折現','100÷1.05 ＝ 95.24<br>120÷1.05² ＝ 108.84<br>140÷1.05³ ＝ 120.94<br>合計 ＝ <span class="eq">325.02 萬元</span>'],
+  ['期末價值折現（第 3 期）','2,000 ÷ 1.05³ ＝ <span class="eq">1,727.68 萬元</span>'],
+  ['加總','325.02 ＋ 1,727.68']
+ ],
+ res:'P ＝ <b>2,052.69 ≈ 2,053 萬元</b>',
+ trapNote:'期末價值落在<b>第 3 年末</b>，與第 3 年淨收益同期，所以也除以 1.05³。若誤用 1.05² 會得 2,139 萬、誤用 1.05⁴ 會得 1,970 萬（第7題）。'
+},
+{
+ no:2,tag:'期末價值求法',trap:false,
+ title:'期末價值由資本化率求得',
+ body:'分析期間 <b>5 年</b>，各年淨收益依序為 <b>80、84、88、92、96 萬元</b>。第 6 年預估淨收益 <b>100 萬元</b>，期末（最終）資本化率 <b>4%</b>，折現率 <b>6%</b>。期末價值以第 6 年淨收益除以期末資本化率求得，並於第 5 年末發生。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2237, tol:3,
+ hint:'答案填萬元',
+ sol:[
+  ['五年淨收益折現','80÷1.06 ＝ 75.47；84÷1.06² ＝ 74.76；88÷1.06³ ＝ 73.89<br>92÷1.06⁴ ＝ 72.87；96÷1.06⁵ ＝ 71.74<br>合計 ＝ <span class="eq">368.73 萬元</span>'],
+  ['求期末價值','100 ÷ 4% ＝ <span class="eq">2,500 萬元</span>（發生在第 5 年末）'],
+  ['期末價值折現','2,500 ÷ 1.06⁵ ＝ <span class="eq">1,868.15 萬元</span>'],
+  ['加總','368.73 ＋ 1,868.15']
+ ],
+ res:'P ＝ <b>2,236.87 ≈ 2,237 萬元</b>',
+ trapNote:'兩個資本化／折現率<b>不能混用</b>：折現各期現金流用 Y（6%），求期末價值用期末資本化率（4%）。期末價值用「第 n＋1 期」淨收益，但折現只折 n 期。'
+},
+{
+ no:3,tag:'等額年金＋期末價值',trap:false,
+ title:'每年淨收益相同時的年金折現',
+ body:'某不動產每年淨收益固定為 <b>60 萬元</b>，分析期間 <b>10 年</b>，第 10 年末期末價值 <b>1,200 萬元</b>，折現率 <b>4%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:1297, tol:2,
+ hint:'答案填萬元',
+ sol:[
+  ['年金現值','60 × [1－1.04⁻¹⁰] ÷ 0.04 ＝ 60 × 8.1109 ＝ <span class="eq">486.65 萬元</span>'],
+  ['期末價值折現','1,200 ÷ 1.04¹⁰ ＝ 1,200 × 0.6756 ＝ <span class="eq">810.68 萬元</span>'],
+  ['加總','486.65 ＋ 810.68']
+ ],
+ res:'P ＝ <b>1,297.33 ≈ 1,297 萬元</b>',
+ trapNote:'各期相同時用年金現值係數 [1－(1＋Y)⁻ⁿ]÷Y，省去逐年折現；但<b>期末價值不屬於年金</b>，要另外折現一次。'
+},
+{
+ no:4,tag:'折現率敏感度',trap:false,
+ title:'折現率從 5% 降到 4%，價格差多少',
+ body:'沿用第1題的現金流量（淨收益 100、120、140 萬元；第 3 年末期末價值 2,000 萬元）。委託人改以折現率 <b>4%</b> 估價。',
+ ask:'折現率 4% 時的收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:2110, tol:2,
+ hint:'答案填萬元',
+ sol:[
+  ['各期淨收益折現','100÷1.04 ＝ 96.15；120÷1.04² ＝ 110.95；140÷1.04³ ＝ 124.46<br>合計 ＝ <span class="eq">331.56 萬元</span>'],
+  ['期末價值折現','2,000 ÷ 1.04³ ＝ <span class="eq">1,777.99 萬元</span>'],
+  ['加總與比較','331.56 ＋ 1,777.99 ＝ 2,109.55<br>對照第1題 5%：2,052.69，高出約 56.9 萬元；若升至 6% 則為 1,997.92 萬元']
+ ],
+ res:'P ＝ <b>2,109.55 ≈ 2,110 萬元</b>（折現率低 → 價格高）',
+ trapNote:'折現率與價格<b>反向變動</b>。折現率反映風險：風險高、折現率高、價格低。選擇題常考這個方向，不必算也能判斷。'
+},
+{
+ no:5,tag:'契約租金・證券化',trap:false,
+ title:'以契約租金推各期淨收益（§33）',
+ body:'某商辦大樓為不動產證券化標的，採 DCF 估價。未來 5 年契約租金（年）依序為 <b>500、500、520、520、540 萬元</b>，各年總費用為契約租金之 <b>20%</b>。第 5 年末期末價值 <b>9,000 萬元</b>，折現率 <b>4.5%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:9031, tol:3,
+ hint:'答案填萬元',
+ sol:[
+  ['各期淨收益＝契約租金×(1－20%)','400、400、416、416、432 萬元'],
+  ['淨收益折現','400÷1.045 ＝ 382.78；400÷1.045² ＝ 366.29；416÷1.045³ ＝ 364.54<br>416÷1.045⁴ ＝ 348.84；432÷1.045⁵ ＝ 346.66<br>合計 ＝ <span class="eq">1,809.11 萬元</span>'],
+  ['期末價值折現','9,000 ÷ 1.045⁵ ＝ <span class="eq">7,222.06 萬元</span>'],
+  ['加總','1,809.11 ＋ 7,222.06']
+ ],
+ res:'P ＝ <b>9,031.17 ≈ 9,031 萬元</b>',
+ trapNote:'§33Ⅱ：<b>證券化目的</b>採 DCF，各期淨收益原則以<b>契約租金</b>計算；若改用「市場經濟租金」是契約租金未知（§33Ⅲ）或情況特殊並於報告書敘明時才可以。'
+},
+{
+ no:6,tag:'由總收入推淨收益',trap:false,
+ title:'潛在總收入→有效總收入→淨收益→DCF',
+ body:'某收益性不動產第 1 年潛在總收入 <b>1,000 萬元</b>，空置損失率 <b>5%</b>，總費用 <b>250 萬元</b>；第 1 年淨收益起每年成長 <b>2%</b>。分析期間 <b>3 年</b>，期末價值以第 4 年淨收益除以期末資本化率 <b>5%</b> 求得，折現率 <b>7%</b>。',
+ ask:'試求收益價格 P（萬元，四捨五入至整數）。',
+ unit:'萬元', ans:14000, tol:5,
+ hint:'答案填萬元',
+ sol:[
+  ['第 1 年淨收益','有效總收入 ＝ 1,000 ×(1－5%) ＝ 950<br>淨收益 ＝ 950 － 250 ＝ <span class="eq">700 萬元</span>'],
+  ['各期淨收益','第1年 700、第2年 714、第3年 728.28、第4年 742.85'],
+  ['各期折現','700÷1.07 ＝ 654.21；714÷1.07² ＝ 623.64；728.28÷1.07³ ＝ 594.49<br>合計 ＝ <span class="eq">1,872.33 萬元</span>'],
+  ['期末價值折現','742.85÷5% ＝ 14,856.91；÷1.07³ ＝ <span class="eq">12,127.67 萬元</span>'],
+  ['加總','1,872.33 ＋ 12,127.67 ＝ 14,000.00']
+ ],
+ res:'P ≈ <b>14,000 萬元</b>',
+ trapNote:'自我驗算：淨收益永續成長 g＝2%、折現率 7% 時，P＝700÷(7%－2%)＝14,000，與本題一致（期末資本化率＝Y－g＝5%）。<b>期末資本化率＝折現率－成長率</b>是 DCF 與直接資本化法接軌的關鍵。'
+},
+{
+ no:7,tag:'陷阱・期數錯誤',trap:true,
+ title:'期末價值折現期數錯誤會差多少',
+ body:'沿用第1題現金流量與折現率 5%（淨收益 100、120、140 萬元；第 3 年末期末價值 2,000 萬元）。某生把期末價值折現到<b>第 2 期</b>（誤以為期末價值少折一期）。',
+ ask:'該生算出的價格是多少（萬元，四捨五入至整數）？與正確答案差多少？',
+ unit:'萬元（填算出的價格）', ans:2139, tol:2,
+ hint:'答案填該生算出的價格',
+ sol:[
+  ['淨收益折現（同第1題）','325.02 萬元'],
+  ['期末價值誤折 2 期','2,000 ÷ 1.05² ＝ <span class="eq">1,814.06 萬元</span>'],
+  ['誤算結果','325.02 ＋ 1,814.06 ＝ 2,139.08<br>正確答案 2,052.69，高估 <span class="eq">86.39 萬元</span>']
+ ],
+ res:'誤算 ≈ <b>2,139 萬元</b>，高估約 <b>86 萬元</b>（若多折一期成 4 期則低估 82 萬元）',
+ trapNote:'檢查法：<b>期末價值折現期數＝最後一期淨收益的期數</b>。看到期末價值的折現次方數與最後一年淨收益不同，就是錯了。'
+},
+{
+ no:8,tag:'反推期末價值',trap:false,
+ title:'已知收益價格，反推期末價值',
+ body:'某不動產採 DCF 估得收益價格 <b>2,800 萬元</b>。分析期間 <b>3 年</b>，每年淨收益均為 <b>150 萬元</b>，折現率 <b>5%</b>。',
+ ask:'試求第 3 年末的期末價值（萬元，四捨五入至小數第 1 位）。',
+ unit:'萬元', ans:2768.5, tol:1.5,
+ hint:'答案填萬元',
+ sol:[
+  ['三年淨收益現值','150 × [1－1.05⁻³] ÷ 0.05 ＝ 150 × 2.7232 ＝ <span class="eq">408.49 萬元</span>'],
+  ['期末價值現值','2,800 － 408.49 ＝ <span class="eq">2,391.51 萬元</span>'],
+  ['還原為第 3 年末價值','2,391.51 × 1.05³ ＝ 2,391.51 × 1.157625']
+ ],
+ res:'期末價值 ≈ <b>2,768.5 萬元</b>',
+ trapNote:'反推要把「期末價值現值」<b>乘回</b> (1＋Y)ⁿ，不是直接拿 2,391.51 當期末價值。方向記法：折現是除，還原是乘。'
+}
+]};
+SETS["split"]={key:"bx-split-done", bad:"\u2717 \u4e0d\u5c0d\u3002\u518d\u6aa2\u67e5\uff1a\u6bd4\u7387\u5206\u6bcd\u662f\u5426\u70ba\u300c\u5efa\u7269\u73fe\u503c\uff0b\u7d20\u5730\u7e3d\u50f9\u300d\u3001\u571f\u5730\u662f\u5426\u4e58 (1\uff0d\u6bd4\u7387)\u3001\u6700\u5f8c\u6709\u6c92\u6709\u9664\u4ee5\u57fa\u5730\u9762\u7a4d\u3002", QS:[
+{
+ no:1,tag:'基本代入',trap:false,
+ title:'由房地總價拆出土地單價',
+ body:'某透天厝房地總價 <b>3,000 萬元</b>，建物現值 <b>600 萬元</b>，素地總價 <b>1,800 萬元</b>，基地面積 <b>30 坪</b>。',
+ ask:'試求土地單價（萬元／坪）。',
+ unit:'萬元/坪', ans:75, tol:0.05,
+ hint:'填數字',
+ sol:[
+  ['先算建物價值比率','600 ÷（600＋1,800）＝ <span class="eq">25%</span>'],
+  ['土地總價','3,000 × (1－25%) ＝ 2,250 萬'],
+  ['除以基地面積','2,250 ÷ 30']
+ ],
+ res:'土地單價 ＝ <b>75 萬元／坪</b>',
+ trapNote:'若題目改成只給建物成本價格 600 萬，§99 直接相減 (3,000－600)÷30＝80；本題給的是素地總價、要按比例拆，才是 75。分母是基地面積 30 坪，不是建坪。'
+},
+{
+ no:2,tag:'只求比率',trap:false,
+ title:'先求建物價值比率',
+ body:'某房地之建物現值 <b>800 萬元</b>，素地總價 <b>1,200 萬元</b>。',
+ ask:'試求建物價值比率（%）。',
+ unit:'%', ans:40, tol:0.05,
+ hint:'填百分比數字',
+ sol:[
+  ['分母是兩者合計','800 ＋ 1,200 ＝ 2,000'],
+  ['相除','800 ÷ 2,000']
+ ],
+ res:'建物價值比率 ＝ <b>40%</b>',
+ trapNote:'分母是「建物現值＋素地總價」，不是房地總價；若題目沒給房地總價，只能用這個分母。'
+},
+{
+ no:3,tag:'完整三步',trap:false,
+ title:'換條件完整計算',
+ body:'房地總價 <b>4,200 萬元</b>，建物現值 <b>900 萬元</b>，素地總價 <b>2,100 萬元</b>，基地面積 <b>42 坪</b>。',
+ ask:'試求土地單價（萬元／坪）。',
+ unit:'萬元/坪', ans:70, tol:0.05,
+ hint:'填數字',
+ sol:[
+  ['建物價值比率','900 ÷（900＋2,100）＝ <span class="eq">30%</span>'],
+  ['土地總價','4,200 × (1－30%) ＝ 2,940 萬'],
+  ['土地單價','2,940 ÷ 42']
+ ],
+ res:'土地單價 ＝ <b>70 萬元／坪</b>',
+ trapNote:'括號內是 (1－比率)，不要拿建物比率去乘；乘完是「土地總價」，還要再除面積才是單價。'
+},
+{
+ no:4,tag:'辨析：相減 vs 比率',trap:true,
+ title:'兩種條件，兩種算法',
+ body:'房地總價 <b>2,400 萬元</b>，建物現值 <b>360 萬元</b>，素地總價 <b>1,640 萬元</b>，基地面積 <b>24 坪</b>。',
+ ask:'試求土地單價（萬元／坪），並以建物價值比率拆價。',
+ unit:'萬元/坪', ans:82, tol:0.05,
+ hint:'填數字',
+ sol:[
+  ['建物價值比率','360 ÷（360＋1,640）＝ <span class="eq">18%</span>'],
+  ['土地總價','2,400 × (1－18%) ＝ 1,968 萬'],
+  ['土地單價','1,968 ÷ 24']
+ ],
+ res:'土地單價 ＝ <b>82 萬元／坪</b>',
+ trapNote:'若題目只給建物成本價格 360 萬，依 §99 直接相減 (2,400－360)÷24＝85；本題給素地總價並要求以建物價值比率拆價，所以是 82。差在題目給的條件不同，先看清楚。'
+},
+{
+ no:5,tag:'反推比率',trap:false,
+ title:'已知土地單價，反推建物價值比率',
+ body:'房地總價 <b>2,500 萬元</b>，土地單價 <b>90 萬元／坪</b>，基地面積 <b>20 坪</b>。',
+ ask:'試求建物價值比率（%）。',
+ unit:'%', ans:28, tol:0.05,
+ hint:'填百分比數字',
+ sol:[
+  ['土地總價','90 × 20 ＝ 1,800 萬'],
+  ['土地占房地總價','1,800 ÷ 2,500 ＝ 72%'],
+  ['建物比率','1 － 72%']
+ ],
+ res:'建物價值比率 ＝ <b>28%</b>',
+ trapNote:'反推時土地占 (1－比率)；算出來的 72% 是「土地」比率，別直接當成答案。'
+},
+{
+ no:6,tag:'接建物現值計算',trap:false,
+ title:'建物現值先用折舊算出來',
+ body:'某建物重建成本 <b>800 萬元</b>，殘餘價格率 <b>5%</b>，經濟耐用年數 <b>50 年</b>，已使用 <b>10 年</b>（等速折舊，定額法），素地總價 <b>2,000 萬元</b>。房地總價 <b>3,200 萬元</b>，基地面積 <b>25 坪</b>。',
+ ask:'試求土地單價（萬元／坪），取小數點後兩位。',
+ unit:'萬元/坪', ans:96.68, tol:0.06,
+ hint:'填數字',
+ sol:[
+  ['建物現值','累積折舊 ＝ 800×(0.95÷50)×10 ＝ 152；現值 ＝ 800－152 ＝ <span class="eq">648 萬</span>'],
+  ['建物價值比率','648 ÷（648＋2,000）＝ 648 ÷ 2,648 ≈ 24.47%'],
+  ['土地總價','3,200 × (1－24.47%) ≈ 2,416.9 萬'],
+  ['土地單價','2,416.9 ÷ 25']
+ ],
+ res:'土地單價 ≈ <b>96.68 萬元／坪</b>',
+ trapNote:'建物現值是扣掉折舊後的 648，不是重建成本 800；這一步算錯，後面全錯。折舊算法與112年申論二相同。'
+}
+]};
+
+function getDone(k){try{return JSON.parse(localStorage.getItem(SETS[k].key)||'[]');}catch(e){return [];}}
+function setDone(k,a){try{localStorage.setItem(SETS[k].key,JSON.stringify(a));}catch(e){}}
+function render(k){
+  var S=SETS[k],box=document.getElementById('qs-'+k),h='';
+  S.QS.forEach(function(q){
+    h+='<div class="q-card" id="qc-'+k+'-'+q.no+'">'
+      +'<div class="q-head"><div class="q-no">'+q.no+'</div>'
+      +'<div class="q-title">'+q.title+'</div>'
+      +'<span class="q-tag'+(q.trap?' trap':'')+'">'+q.tag+'</span></div>'
+      +'<div class="q-body">'+q.body
+      +'<div class="given"><b>求：</b>'+q.ask+'</div></div>'
+      +'<div class="ans-row"><label for="in-'+k+'-'+q.no+'">我的答案</label>'
+      +'<input type="text" inputmode="decimal" id="in-'+k+'-'+q.no+'" placeholder="'+q.hint+'">'
+      +'<span style="font-size:.82rem;color:var(--sub);">'+q.unit+'</span>'
+      +'<button class="btn btn-chk" data-chk="'+q.no+'" data-set="'+k+'">核對</button>'
+      +'<button class="btn btn-sol" data-sol="'+q.no+'" data-set="'+k+'">看詳解</button></div>'
+      +'<div class="fb" id="fb-'+k+'-'+q.no+'"></div>'
+      +'<div class="sol" id="sol-'+k+'-'+q.no+'">';
+    q.sol.forEach(function(s,i){ h+='<h4>'+(i+1)+'. '+s[0]+'</h4><div class="step">'+s[1]+'</div>'; });
+    h+='<div class="res">✓ '+q.res+'</div>'
+      +'<div class="trap-box"><b>⚠ 考試陷阱：</b>'+q.trapNote+'</div>'
+      +'</div></div>';
+  });
+  box.innerHTML=h;
+  paint(k);
+}
+function paint(k){
+  var S=SETS[k],d=getDone(k);
+  S.QS.forEach(function(q){
+    var c=document.getElementById('qc-'+k+'-'+q.no);
+    if(c) c.classList.toggle('done',d.indexOf(q.no)>=0);
+  });
+  var n=d.length,p=Math.round(n/S.QS.length*100);
+  document.getElementById('pfill-'+k).style.width=p+'%';
+  document.getElementById('pnum-'+k).textContent=n+'／'+S.QS.length;
+}
+function showTab(k,push){
+  ['e1','dcf','split'].forEach(function(x){
+    document.getElementById('pane-'+x).hidden=(x!==k);
+    document.getElementById('tab-'+x).classList.toggle('on',x===k);
+  });
+  if(push&&location.hash!=='#'+k){try{history.replaceState(null,'','#'+k);}catch(e){}}
+}
+document.getElementById('tabs').addEventListener('click',function(e){
+  var b=e.target.closest('[data-t]'); if(b) showTab(b.getAttribute('data-t'),true);
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-chk]');
+  if(b){
+    var k=b.getAttribute('data-set'),no=+b.getAttribute('data-chk'),S=SETS[k],q=S.QS[no-1];
+    var raw=(document.getElementById('in-'+k+'-'+no).value||'').replace(/[%,，\s]/g,'');
+    var fb=document.getElementById('fb-'+k+'-'+no);
+    var v=parseFloat(raw);
+    if(raw===''||isNaN(v)){fb.className='fb bad';fb.textContent='請先填入數字再核對。';return;}
+    if(Math.abs(v-q.ans)<=q.tol){
+      fb.className='fb ok';fb.textContent='✓ 答對了（標準答案 '+q.ans+' '+q.unit+'）。展開詳解確認列式寫法。';
+      var d=getDone(k); if(d.indexOf(no)<0){d.push(no);setDone(k,d);paint(k);}
+      document.getElementById('sol-'+k+'-'+no).classList.add('open');
+    }else{
+      fb.className='fb bad';fb.textContent=S.bad;
+    }
+    return;
+  }
+  var s=e.target.closest('[data-sol]');
+  if(s){
+    var el=document.getElementById('sol-'+s.getAttribute('data-set')+'-'+s.getAttribute('data-sol'));
+    if(el) el.classList.toggle('open');
+    return;
+  }
+  var r=e.target.closest('[data-reset]');
+  if(r){
+    var k2=r.getAttribute('data-reset');
+    if(confirm('確定清除此題組的作答紀錄？')){ setDone(k2,[]); paint(k2); }
+  }
+});
+(function(){
+  var btn=document.getElementById('themeBtn');
+  function lbl(){
+    var dark=document.documentElement.getAttribute('data-theme')==='dark';
+    btn.textContent=dark?'☀️ 淺色':'🌙 深色';
+  }
+  try{var t=localStorage.getItem('bxr-theme'); if(t) document.documentElement.setAttribute('data-theme',t);}catch(e){}
+  btn.addEventListener('click',function(){
+    var dark=(document.documentElement.getAttribute('data-theme')==='dark');
+    var nx = dark?'light':'dark';
+    document.documentElement.setAttribute('data-theme',nx);
+    try{localStorage.setItem('bxr-theme',nx);}catch(e){}
+    lbl();
+  });
+  lbl();
+})();
+
+['e1','dcf','split'].forEach(render);
+var H=(location.hash||'').replace('#','');
+showTab(SETS[H]?H:'e1',false);
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body>
+</html>
