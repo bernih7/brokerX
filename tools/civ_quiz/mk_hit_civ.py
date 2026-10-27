@@ -56,29 +56,29 @@ CH = [{'c': c, 'nm': CT[c], 'n16': c16[c], 'n5': c5[c], 'p': PRED[c], 'bank': c1
        'd': DRILL[c[0]], 'r': READ[c][0], 'rn': READ[c][1]} for c in sorted(CT)]
 
 CSS = """<style id="hit-css">
-/* 日拱一築（民法版）；五組貓系色卡由 #hitPanel[data-pal] 切換，存 bxm-hit-pal */
+/* 日拱一築（民法版）；五組貓系色卡由 body[data-pal] 切換（頁首色帶與面板共用），存 bxm-hit-pal */
 #hitPanel{margin:0 0 18px}
-#hitPanel, #hitPanel[data-pal="p1"]{
+body, body[data-pal="p1"]{
   --cp-got:#4E5F4A;--cp-got-t:#ECD9B9;--cp-pick:#8FA083;--cp-pick-t:#28331F;
   --cp-unk:#ECD9B9;--cp-unk-t:#4E5F4A;--cp-accent:#4E5F4A;--cp-accent-t:#ECD9B9;
   --cp-card:#FFFDF7;--cp-milk:#F6F1E4;--cp-line:#DCD3C0;--cp-ink:#2F3A2C;--cp-soft:#6E7A68;--cp-track:#E6DECB;}
-#hitPanel[data-pal="p2"]{--cp-got:#4A3028;--cp-got-t:#FFF1D0;--cp-pick:#F28C28;--cp-pick-t:#4A3028;
+body[data-pal="p2"]{--cp-got:#4A3028;--cp-got-t:#FFF1D0;--cp-pick:#F28C28;--cp-pick-t:#4A3028;
   --cp-unk:#FFF1D0;--cp-unk-t:#4A3028;--cp-accent:#F28C28;--cp-accent-t:#4A3028;
   --cp-card:#FFFBF2;--cp-milk:#FFF1D0;--cp-line:#E7D8BC;--cp-ink:#3A2720;--cp-soft:#8A6F5E;--cp-track:#F3E4C9;}
-#hitPanel[data-pal="p3"]{--cp-got:#4B5D6B;--cp-got-t:#E8EFF7;--cp-pick:#7F8FA6;--cp-pick-t:#1F2A33;
+body[data-pal="p3"]{--cp-got:#4B5D6B;--cp-got-t:#E8EFF7;--cp-pick:#7F8FA6;--cp-pick-t:#1F2A33;
   --cp-unk:#C7D3E3;--cp-unk-t:#3A4753;--cp-accent:#4B5D6B;--cp-accent-t:#E8EFF7;
   --cp-card:#FBFCFE;--cp-milk:#EEF3F9;--cp-line:#CFDAE7;--cp-ink:#273039;--cp-soft:#6B7A8A;--cp-track:#DEE6F0;}
-#hitPanel[data-pal="p4"]{--cp-got:#030303;--cp-got-t:#FFFFFF;--cp-pick:#F58220;--cp-pick-t:#1A0C00;
+body[data-pal="p4"]{--cp-got:#030303;--cp-got-t:#FFFFFF;--cp-pick:#F58220;--cp-pick-t:#1A0C00;
   --cp-unk:#ECECEC;--cp-unk-t:#333333;--cp-accent:#F58220;--cp-accent-t:#1A0C00;
   --cp-card:#FFFFFF;--cp-milk:#F6F6F6;--cp-line:#DCDCDC;--cp-ink:#1A1A1A;--cp-soft:#6E6E6E;--cp-track:#ECECEC;}
-#hitPanel[data-pal="p5"]{--cp-got:#3A3A3A;--cp-got-t:#EFE8DE;--cp-pick:#A89B8A;--cp-pick-t:#2A251F;
+body[data-pal="p5"]{--cp-got:#3A3A3A;--cp-got-t:#EFE8DE;--cp-pick:#A89B8A;--cp-pick-t:#2A251F;
   --cp-unk:#D6C8B6;--cp-unk-t:#4A423A;--cp-accent:#3A3A3A;--cp-accent-t:#EFE8DE;
   --cp-card:#FDFBF7;--cp-milk:#F2ECE3;--cp-line:#DED4C6;--cp-ink:#2F2B26;--cp-soft:#7A7167;--cp-track:#E6DCCE;}
-[data-theme="dark"] #hitPanel{--cp-card:#1F2723;--cp-milk:#263029;--cp-line:#33403A;--cp-ink:#E7ECE6;--cp-soft:#A5B1A8;--cp-track:#2C3832;--cp-accent:#8FA083;--cp-accent-t:#28331F}
-[data-theme="dark"] #hitPanel[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}
-[data-theme="dark"] #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
-[data-theme="dark"] #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
-[data-theme="dark"] #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
+[data-theme="dark"] body{--cp-card:#1F2723;--cp-milk:#263029;--cp-line:#33403A;--cp-ink:#E7ECE6;--cp-soft:#A5B1A8;--cp-track:#2C3832;--cp-accent:#8FA083;--cp-accent-t:#1A2214}
+[data-theme="dark"] body[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}
+[data-theme="dark"] body[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#0E141A;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
+[data-theme="dark"] body[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
+[data-theme="dark"] body[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
 #hitPanel .hscore{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:15px 15px 13px;margin-bottom:11px;color:var(--cp-ink)}
 #hitPanel .hscore h3{margin:0 0 2px;font-size:1.06rem;display:flex;align-items:center;gap:7px;position:relative;padding-right:34px;letter-spacing:.04em}
 #hitPanel .motto{font-size:.8rem;color:var(--cp-accent);font-weight:700;margin:1px 0 7px}
@@ -185,7 +185,7 @@ function fx(n){return (Math.round(n*10)/10).toFixed(1)}
 function pc(n){return Math.round(n*100)}
 function draw(){
   var box=document.getElementById('hitBody'); if(!box) return;
-  var panel=document.getElementById('hitPanel'); panel.setAttribute('data-pal',pal());
+  document.body.setAttribute('data-pal',pal());
   var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
   var openAll=!!(box.querySelector('#hitAll')&&!box.querySelector('#hitAll').hidden);
   var raw={}; try{raw=JSON.parse(localStorage.getItem('bxm-q2')||'{}')}catch(e){}
@@ -294,7 +294,7 @@ document.addEventListener('click',function(e){
   if(pb){
     var v=pb.getAttribute('data-hpal');
     try{localStorage.setItem('bxm-hit-pal',v)}catch(err){}
-    box.setAttribute('data-pal',v);
+    document.body.setAttribute('data-pal',v);
     box.querySelectorAll('.palrow [data-hpal]').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-hpal')===v)});
     var n=document.getElementById('hitPalName');
     if(n){var f=PALS.filter(function(x){return x[0]===v})[0]; if(f)n.textContent=f[1]}
