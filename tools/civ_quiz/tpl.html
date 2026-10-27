@@ -77,6 +77,12 @@ details.law>summary,details.mem>summary{padding:7px 11px;font-size:.84rem;font-w
 .dis.oos b{color:var(--bad)}
 .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
 .tagrow .lb{font-size:.76rem;color:var(--sub)}
+.tagrow.sure .lb{color:var(--pri)}
+.sg{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:.78rem;font-family:inherit;cursor:pointer}
+.sg.on{background:var(--pri);color:var(--on);border-color:var(--pri);font-weight:700}
+.sg[data-sh="1"].on{background:var(--acc);border-color:var(--acc);color:#fff}
+.sg[data-sh="2"].on{background:var(--bad);border-color:var(--bad);color:#fff}
+.sgnote{flex-basis:100%;font-size:.73rem;color:var(--sub);line-height:1.6;margin-top:2px}
 .tg{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 10px;font-size:.78rem}
 .tg.on{background:var(--bad);color:#fff;border-color:var(--bad);font-weight:700}
 .nav{display:flex;gap:8px;margin-top:12px}
@@ -97,7 +103,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 [hidden]{display:none!important}
  mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style></head><body>
 <header><div class="wrap"><h1>民法｜法條解析練習</h1>
-<div class="sub">99–114 年官方試題 520 題・28 小類・逐選項解析・本題相關法條・錯誤類型 A/B/C/D・與刷題 A～E 篇共用作答紀錄</div></div></header>
+<div class="sub">99–114 年官方試題 520 題・28 小類・逐選項解析・本題相關法條・錯誤類型 A/B/C/D・答對自評 👍🤔🎲・與刷題 A～E 篇共用作答紀錄</div></div></header>
 <div class="wrap">
 
 <section id="setup">
@@ -169,6 +175,10 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
       <div class="tagrow" id="tagrow"><span class="lb">答錯了？標一下原因：</span>
         <button class="tg" data-k="A">A 法條混淆</button><button class="tg" data-k="B">B 粗心</button>
         <button class="tg" data-k="C">C 真的不熟</button><button class="tg" data-k="D">D 猜的</button></div>
+      <div class="tagrow sure" id="surerow" hidden><span class="lb">答對了。這題你有多確定？</span>
+        <button class="sg" data-sh="0">👍 很確定</button><button class="sg" data-sh="1">🤔 對了但不熟</button>
+        <button class="sg" data-sh="2">🎲 用猜的</button>
+        <span class="sgnote">只有「👍 很確定」會算進指揮中心的<b>真會率</b>；另外兩種算「還能追回」，智慧配題也會排回來重練。</span></div>
     </div>
     <div class="nav"><button class="btn" id="prev">上一題</button><button class="btn pri" id="next">下一題</button></div>
   </div>
@@ -214,13 +224,16 @@ function db(){return ld('bxm-q2',{})}
 function rec(q,chosen,ok){
   if(window.BXREP&&BXREP.rec){try{BXREP.rec({chapter:q.p,year:q.y,num:q.n},chosen,ok);return}catch(e){}}
   var DB=db(),id=qid(q),r=DB[id]||{n:0,w:0,h:[]};
-  r.c=chosen;r.ok=ok?1:0;r.g=0;r.k='';r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;
+  r.c=chosen;r.ok=ok?1:0;r.g=0;r.k='';delete r.sh;r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;
   if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[id]=r;sv('bxm-q2',DB);
 }
 function tagIt(q,k){
   if(window.BXREP&&BXREP.tag){try{BXREP.tag({chapter:q.p,year:q.y,num:q.n},k);return}catch(e){}}
   var DB=db(),r=DB[qid(q)];if(!r)return;r.k=k;r.g=(k==='D')?1:0;sv('bxm-q2',DB);
 }
+/* 答對自評：0 很確定／1 對了但不熟／2 用猜的。寫同一筆 bxm-q2 紀錄的 .sh；
+   「🎲 用猜的」一併寫 g=1，沿用既有「猜對不算會」，不另立新鍵。 */
+function sureIt(q,sh){var DB=db(),r=DB[qid(q)];if(!r)return;r.sh=sh;r.g=(sh===2)?1:0;sv('bxm-q2',DB)}
 function esc(t){return String(t==null?'':t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
 function rich(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
 /* 重點標示：數字量詞／分數／條號 → 黃底粗體；決定性法律效果詞 → 深黃 */
@@ -302,7 +315,7 @@ document.getElementById('selWeak').onclick=function(){
   sel=new Set(a.filter(function(x){return x[1]>0}).map(function(x){return x[0]}));if(!sel.size){alert('目前還沒有錯題紀錄');sel=new Set(Object.keys(CT))}renderCats();
 };
 var ORDH={new:'依年份由新到舊，近年題先練。',rand:'整池隨機打散。',ch:'依章節順序，同章集中練。',
-  smart:'依所選章節的歷屆題數比例分配題數；章內優先序＝錯題（C→A→D→B→未標）→沒練過→答對但最久沒練。'};
+  smart:'依所選章節的歷屆題數比例分配題數；章內四層優先序＝①錯題（C→A→D→B→未標）→②沒作答過→③答對但不熟／用猜的→④答對且很確定（最久沒練）。'};
 function renderOrd(){
   [].forEach.call(document.querySelectorAll('#ordRow .btn'),function(b){b.classList.toggle('on',b.dataset.ord===ord)});
   document.getElementById('ordHint').textContent=ORDH[ord];
@@ -379,7 +392,8 @@ function smartPick(list,want){
   var out=[];
   Q0.forEach(function(x){
     var arr=byCh[x.c].map(function(q){var r=DB[qid(q)]||{};
-      var rank=(r.n&&!r.ok)?PRI[r.k||'']:(!r.n?5:6);return {q:q,rank:rank,t:r.t||0,rd:Math.random()}});
+      /* 四層：①錯題 0–4 ②沒作答過 5 ③答對但不熟／猜的 6 ④答對且很確定 7 */
+      var rank=!r.n?5:(!r.ok?PRI[r.k||'']:((r.k==='D'||r.g===1||r.sh===1||r.sh===2)?6:7));return {q:q,rank:rank,t:r.t||0,rd:Math.random()}});
     arr.sort(function(a,b){return a.rank-b.rank||a.t-b.t||a.rd-b.rd});
     out=out.concat(arr.slice(0,x.q));
   });
@@ -476,8 +490,12 @@ function showAfter(q,picked){
   document.getElementById('tipBox').innerHTML=q.tip&&q.tip.length?'<div class="tip"><b>重點</b>'+q.tip.map(function(t){return '<p>'+hl(t,1)+'</p>'}).join('')+'</div>':'';
   var tr=document.getElementById('tagrow');
   tr.hidden=ok||free;
-  var cur=(db()[qid(q)]||{}).k||'';
+  var rec0=db()[qid(q)]||{},cur=rec0.k||'';
   [].forEach.call(tr.querySelectorAll('.tg'),function(b){b.classList.toggle('on',b.dataset.k===cur)});
+  var sr=document.getElementById('surerow');
+  sr.hidden=!ok||free||isOos(q);
+  var cs=(rec0.sh===0||rec0.sh===1||rec0.sh===2)?String(rec0.sh):(rec0.ok&&rec0.g===1?'2':'');
+  [].forEach.call(sr.querySelectorAll('.sg'),function(b){b.classList.toggle('on',b.dataset.sh===cs)});
 }
 document.getElementById('opts').addEventListener('click',function(e){
   var b=e.target.closest('.opt');if(!b||b.disabled)return;
@@ -491,6 +509,11 @@ document.getElementById('tagrow').addEventListener('click',function(e){
   var b=e.target.closest('.tg');if(!b)return;
   if(!timedOut)tagIt(pool[idx],b.dataset.k);
   [].forEach.call(this.querySelectorAll('.tg'),function(x){x.classList.toggle('on',x===b)});
+});
+document.getElementById('surerow').addEventListener('click',function(e){
+  var b=e.target.closest('.sg');if(!b)return;
+  if(!timedOut)sureIt(pool[idx],parseInt(b.dataset.sh,10));
+  [].forEach.call(this.querySelectorAll('.sg'),function(x){x.classList.toggle('on',x===b)});
 });
 document.getElementById('prev').onclick=function(){if(idx>0){idx--;render();window.scrollTo(0,0)}};
 document.getElementById('next').onclick=function(){
@@ -540,7 +563,15 @@ function deepLink(){
   document.getElementById('quiz').hidden=false;document.getElementById('tmDisp').hidden=true;
   render();return true;
 }
-window.addEventListener('hashchange',deepLink);
+/* 深連結 #ch=A4,E3：預選小類、停在選章畫面（指揮中心「混合練這章」用） */
+function chLink(){
+  var m=/[#&]ch=([A-E0-9,]+)/.exec(location.hash);if(!m)return false;
+  var cs=m[1].split(',').filter(function(c){return CT[c]});if(!cs.length)return false;
+  sel=new Set(cs);renderCats();
+  document.getElementById('quiz').hidden=true;document.getElementById('done').hidden=true;document.getElementById('setup').hidden=false;
+  return true;
+}
+window.addEventListener('hashchange',function(){deepLink()||chLink()});
 /* 主題 */
 document.getElementById('theme').onclick=function(){
   var cur=document.documentElement.getAttribute('data-theme');
@@ -549,7 +580,7 @@ document.getElementById('theme').onclick=function(){
   try{localStorage.setItem('bx-theme',nx)}catch(e){}};
 try{var th=localStorage.getItem('bx-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
 renderMk();renderCats();renderOrd();renderNum();renderWrong();renderOv();renderLog();
-deepLink();
+deepLink()||chLink();
 })();
 </script>
 </body></html>

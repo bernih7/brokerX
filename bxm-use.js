@@ -34,7 +34,7 @@ if(known){var U=ld("bxm-use",{});var u=U[PAGE]=U[PAGE]||{n:0,s:0,t:0};u.n++;u.t=
  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden"&&acc>0)flush()});addEventListener("pagehide",function(){if(acc>0)flush()})}
 /* ---- ④ 刷題頁寫入共用作答紀錄（bxm-q2；id = 篇-年-題） ---- */
 function qid(q){return q.chapter+"-"+q.year+"-"+q.num}
-function rec(q,chosen,ok){var DB=ld("bxm-q2",{}),id=qid(q),r=DB[id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=0;r.k="";r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[id]=r;sv("bxm-q2",DB);day("q",1)}
+function rec(q,chosen,ok){var DB=ld("bxm-q2",{}),id=qid(q),r=DB[id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=0;r.k="";delete r.sh;r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[id]=r;sv("bxm-q2",DB);day("q",1)}
 function tag(q,k){var DB=ld("bxm-q2",{}),r=DB[qid(q)];if(!r)return;r.k=k||"";r.g=k==="D"?1:0;sv("bxm-q2",DB)}
 function drop(ch){var DB=ld("bxm-q2",{});Object.keys(DB).forEach(function(i){if(i.split("-")[0]===ch)delete DB[i]});sv("bxm-q2",DB)}
 /* 舊作答（頁面自己的存檔）補寫一次進共用紀錄 */
