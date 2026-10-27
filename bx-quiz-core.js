@@ -61,7 +61,7 @@ function makeCard(card,idx){var a=ans[idx],ht=histTxt(card);var div=document.cre
 function buildExp(card,chosen,ok){var h='<div style="margin-bottom:7px;"><span class="verdict '+(ok?"ok":"ng")+'">'+(ok?"答對了":"答錯了")+"</span></div>";
  ["A","B","C","D"].forEach(function(l,i){var ec=i===card.ans?"ok":(i===chosen&&!ok?"ng":"no");h+='<div class="ei"><span class="el '+ec+'">'+l+"</span><span>"+(card.exps[i]||"")+"</span></div>"});return h}
 function pick(idx,chosen){var card=CARDS[idx],ok=chosen===card.ans;ans[idx]={chosen:chosen,ok:ok};
- var r=DB[card.id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=0;r.k="";r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[card.id]=r;save();
+ var r=DB[card.id]||{n:0,w:0,h:[]};r.c=chosen;r.ok=ok?1:0;r.g=0;r.k="";delete r.sh;r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;(r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[card.id]=r;save();
  var div=g("c"+idx);div.className="qcard"+(ok?" answered-ok":" answered-ng");
  div.querySelectorAll(".opt").forEach(function(b,i){b.disabled=true;b.onclick=null;if(i===card.ans)b.classList.add("show-correct");if(i===chosen&&!ok)b.classList.add("ng")});
  g("eb"+idx).innerHTML=buildExp(card,chosen,ok);g("e"+idx).classList.add("show");
