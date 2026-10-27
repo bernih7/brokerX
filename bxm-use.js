@@ -101,6 +101,22 @@ function readWidget(){if(!READP[PAGE]||document.getElementById("bxmRead"))return
    if(up>0){up=Math.min(up,Math.max(0,r.top-60));w.style.transform="translateY(-"+Math.round(up)+"px)"}}
   function sch(){if(!raf)raf=requestAnimationFrame(fix)}addEventListener("scroll",sch,{passive:true});addEventListener("resize",sch);document.addEventListener("click",function(){setTimeout(sch,60)},true);setTimeout(fix,300)})(w);}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
+/* ── 捲到最底＝這一輪看完（施工單第 4 項，移植估價 v527） ──
+   只用在閱讀頁（速記、專區、總整理、速查）；小卡／單字卡／填空不適用（捲到底≠看完）。
+   三個條件都成立才 +1：①頁夠長（可捲超過半屏）②停留滿 25 秒 ③捲到距底 60px 內。每次開頁最多一次；手動＋／－照常。 */
+var AUTOR={"民法A_彩色重點速記":1,"民法BC_彩色重點速記":1,"民法D_彩色重點速記":1,"民法E_彩色重點速記":1,"民法_繼承專區":1,"民法_共有專區":1,"民法_物權變動與登記":1,"民法_抵押權總整理":1,"民法_法律效果總整理":1,"民法_數字期間速查":1,"民法_用詞分類與申論必背":1,"民法_申論115出題預測":1};
+(function(){if(!AUTOR[PAGE]||!READP[PAGE])return;
+ var MIN=25000,PAD=60,t0=Date.now(),fired=false,tid=0;
+ function H(){var d=document.documentElement,b=document.body;return Math.max(d.scrollHeight,b.scrollHeight)}
+ function fire(){if(fired)return;var y=window.scrollY||document.documentElement.scrollTop;
+  if(H()-innerHeight<=innerHeight*0.5||H()-(y+innerHeight)>PAD||Date.now()-t0<MIN)return;
+  fired=true;var n=readInc(PAGE,1);day("c",1);var b=document.querySelector("#bxmRead b");if(b)b.textContent=n;
+  var t=document.createElement("div");t.id="bxmRoundToast";t.innerHTML='<b>✓ 這一輪看完了</b><span>讀過第 '+n+' 輪・捲到最底自動記錄（按錯可按－）</span>';
+  var st=document.createElement("style");st.textContent='#bxmRoundToast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:70;background:#2F5D50;color:#FFFEFA;border-radius:12px;padding:10px 16px;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;font:13px/1.5 system-ui,-apple-system,"Noto Sans TC",sans-serif;text-align:center;transition:opacity .25s,transform .25s;max-width:min(88vw,340px)}#bxmRoundToast.on{opacity:1;transform:translateX(-50%) translateY(0)}#bxmRoundToast b{display:block;font-size:14px}#bxmRoundToast span{display:block;opacity:.85;font-size:12px;margin-top:2px}';
+  document.head.appendChild(st);document.body.appendChild(t);requestAnimationFrame(function(){t.classList.add("on")});
+  setTimeout(function(){t.classList.remove("on");setTimeout(function(){t.remove();st.remove()},400)},3600)}
+ function hit(){clearTimeout(tid);tid=setTimeout(fire,350)}
+ addEventListener("scroll",hit,{passive:true});setTimeout(hit,MIN+200)})();
 /* 各工具完成度：回傳分組資料，指揮中心畫成表 */
 function mcount(key,tt){var m=st(key),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return{m:n,r:r,t:tt}}
 function status(){
