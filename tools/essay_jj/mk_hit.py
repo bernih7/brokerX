@@ -70,6 +70,7 @@ if abs(s - 25) > 0.001:
 CH = []
 for c in sorted(CT):
     CH.append({'c': c, 'nm': CT[c], 'n16': c16[c], 'n5': c5[c], 'p': PRED[c],
+               'bank': c16[c],          # 每章題庫題數＝官方可考題數，由 quiz_data 統計，不寫死
                'd': DRILL.get(c, OTHER), 'r': READ[c][0], 'rn': READ[c][1]})
 
 CSS = """<style id="hit-css">
@@ -147,6 +148,40 @@ CSS = """<style id="hit-css">
 #hitPanel .sl-num{font-size:.78rem;color:var(--cp-soft);font-variant-numeric:tabular-nums;flex:none}
 #hitPanel .sl-num b{color:var(--cp-ink)}
 #hitPanel .sl-body{padding:0 11px 11px;font-size:.79rem;line-height:1.7;color:var(--cp-ink)}
+/* A 版全章表：章節｜115 出題｜測過多少｜還沒到手｜先做什麼（沒有「真會率」欄） */
+#hitPanel .atb{width:100%;border-collapse:collapse;font-size:.8rem;color:var(--cp-ink);background:var(--cp-card);
+  border:1.5px solid var(--cp-line);border-radius:10px;overflow:hidden}
+#hitPanel .atb th{background:var(--cp-milk);color:var(--cp-soft);font-size:.74rem;font-weight:700;
+  text-align:left;padding:8px 9px;border-bottom:1.5px solid var(--cp-line);white-space:nowrap}
+#hitPanel .atb td{padding:9px;border-bottom:1px solid var(--cp-line);vertical-align:top;line-height:1.6}
+#hitPanel .atb tr:last-child td{border-bottom:0}
+#hitPanel .atb .cc{font-weight:800}
+#hitPanel .atb .cn{display:block;color:var(--cp-soft);font-size:.74rem;font-weight:400}
+#hitPanel .atb .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+#hitPanel .atb .left b{font-size:.92rem}
+#hitPanel .atb .mini{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--cp-track);min-width:56px}
+#hitPanel .atb .mini i{display:block;height:100%}
+#hitPanel .atb .mini .g{background:var(--cp-got)}
+#hitPanel .atb .mini .p{background:var(--cp-pick)}
+#hitPanel .atb .mini .s{background:var(--cp-unk)}
+#hitPanel .atb .cov{display:block;color:var(--cp-soft);font-size:.73rem;margin-top:3px;font-variant-numeric:tabular-nums}
+#hitPanel .atb .do b{display:block}
+#hitPanel .atb .do small{color:var(--cp-soft);font-size:.74rem;line-height:1.55;display:block;margin-top:2px}
+#hitPanel .atb .lk{display:inline-block;margin-top:5px;margin-right:6px;font-size:.74rem;font-weight:700;
+  text-decoration:none;color:var(--cp-ink);background:var(--cp-milk);border:1.5px solid var(--cp-line);
+  border-radius:999px;padding:3px 9px}
+@media(max-width:620px){
+  #hitPanel .atb,#hitPanel .atb tbody,#hitPanel .atb tr,#hitPanel .atb td{display:block;width:100%}
+  #hitPanel .atb thead{display:none}
+  #hitPanel .atb tr{border-bottom:1.5px solid var(--cp-line);padding:3px 0}
+  #hitPanel .atb tr:last-child{border-bottom:0}
+  #hitPanel .atb td{border-bottom:0;padding:4px 10px;display:flex;gap:9px;align-items:flex-start}
+  #hitPanel .atb td:first-child{padding-top:10px}
+  #hitPanel .atb td:last-child{padding-bottom:11px;flex-direction:column;gap:0}
+  #hitPanel .atb td::before{content:attr(data-l);flex:none;width:68px;color:var(--cp-soft);font-size:.73rem;padding-top:1px}
+  #hitPanel .atb td:last-child::before{width:auto;margin-bottom:2px}
+  #hitPanel .atb .mini{flex:1}
+}
 </style>"""
 
 JS = r"""<script id="hit-js">
@@ -163,6 +198,8 @@ var PALS=[['p1','Forest Paws','#4E5F4A','#8FA083','#ECD9B9'],
  ['p5','Muzzle Taupe','#3A3A3A','#A89B8A','#D6C8B6']];
 function pal(){try{return localStorage.getItem('bxj-hit-pal')||'p1'}catch(e){return 'p1'}}
 function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function fx(n){return (Math.round(n*10)/10).toFixed(1)}
+function pc(n){return Math.round(n*100)}
 function draw(){
   var box=document.getElementById('hitBody'); if(!box) return;
   var panel=document.getElementById('hitPanel'); panel.setAttribute('data-pal',pal());
@@ -173,31 +210,39 @@ function draw(){
   Object.keys(raw).forEach(function(id){
     var r=raw[id]; if(!r||typeof r!=='object') return;
     var c=id.split('-')[0];
-    var o=by[c]=by[c]||{a:0,sure:0,w:0,g:0,k:{A:0,B:0,C:0,D:0,'':0}};
+    var o=by[c]=by[c]||{a:0,sure:0,w:0,soft:0,k:{A:0,B:0,C:0,D:0,'':0}};
     o.a++;
-    if(r.ok){ if(r.k==='D'||r.g===1){o.g++}else{o.sure++} }
+    /* 真會率的分子：答對、且沒標「D 猜的」、沒按 🎲（g=1）、也沒按 🤔 對了但不熟（sh=1） */
+    if(r.ok){ if(r.k==='D'||r.g===1||r.sh===1){o.soft++}else{o.sure++} }
     else { o.w++; o.k[r.k||'']=(o.k[r.k||'']||0)+1 }
   });
-  var rows=[],un=[],estAns=0,lossT=0,doneT=0,bankT=0,unEst=0;
+  var rows=[],okT=0,needT=0,seedT=0,doneT=0,bankT=0,anyAns=false;
   CH.forEach(function(x){
-    var s=by[x.c]; bankT+=x.n16;
-    if(!s||!s.a){ un.push(x); unEst+=x.p; return }
-    estAns+=x.p; doneT+=Math.min(s.a,x.n16||s.a);
-    var rr=s.sure/s.a, ls=x.p*(1-rr); lossT+=ls;
+    var s=by[x.c]||{a:0,sure:0,w:0,soft:0,k:{}};
+    var bank=x.bank||x.n16||0;
+    var done=bank?Math.min(s.a,bank):s.a;
+    var cov=bank?done/bank:0;              /* 覆蓋率：這章題庫測過幾成 */
+    var rate=s.a?s.sure/s.a:0;             /* 真會率：測過的裡面真的會幾成 */
+    var ok=x.p*cov*rate, need=x.p*cov*(1-rate), seed=x.p*(1-cov);
+    okT+=ok; needT+=need; seedT+=seed; doneT+=done; bankT+=bank;
+    if(s.a)anyAns=true;
     var kk='',kn=0; ['A','B','C','D'].forEach(function(t){ if((s.k[t]||0)>kn){kn=s.k[t];kk=t} });
-    rows.push({x:x,a:s.a,w:s.w,g:s.g,rr:rr,ls:ls,kk:kk,kn:kn,thin:(s.a<8||(x.n16&&s.a/x.n16<0.25))});
+    rows.push({x:x,bank:bank,done:done,cov:cov,rate:rate,ok:ok,need:need,seed:seed,
+               left:need+seed,a:s.a,w:s.w,soft:s.soft,kk:kk,kn:kn});
   });
-  rows.sort(function(a,b){return b.ls-a.ls||b.x.p-a.x.p});
-  un.sort(function(a,b){return b.p-a.p});
-  var gotP=(estAns-lossT)*2, pickP=lossT*2, unkP=unEst*2;
-  var maxL=rows.length?rows[0].ls:1;
-  function why(r){
-    if(r.w===0&&r.g===0) return '這章目前全對、也沒有用猜的。<b>先放著</b>，考前再刷一輪確認就好。';
-    if(r.kk) return '卡在：<b>'+KN[r.kk][0]+'</b>（'+r.kn+' 題）。'+KN[r.kk][1];
-    if(r.w>0) return '有 <b>'+r.w+'</b> 題答錯但還沒標錯誤類型。先去錯題本標 A／B／C／D，才知道要補法條還是補觀念。';
-    return '答對的裡面有 <b>'+r.g+'</b> 題是猜的，等於還沒會。先讀整理頁再回來刷。';
+  rows.sort(function(a,b){return b.left-a.left||b.x.p-a.x.p});   /* 依「還沒到手」排 */
+  var gotP=okT*2, pickP=needT*2, unkP=seedT*2;
+  /* 先做什麼：嚴格版——只有測過七成以上、且全對又沒有不確定，才准說「維持就好」 */
+  function todo(r){
+    if(r.cov>=0.7&&r.w===0&&r.soft===0&&r.a>0)
+      return ['維持就好','已經測過 '+pc(r.cov)+'%，全對、也沒有不確定的。考前再刷一輪確認就好。'];
+    if(r.cov<0.3)
+      return [r.a?'先刷一輪':'還沒開始','只測了 '+pc(r.cov)+'%（'+r.done+'/'+r.bank+' 題），現在的數字還不準。先刷一輪把底掀開。'];
+    if(r.kk) return ['補「'+KN[r.kk][0]+'」',KN[r.kk][1]+'（'+r.kn+' 題）'];
+    if(r.w>0) return ['先標錯題類型','有 '+r.w+' 題答錯還沒標 A／B／C／D，標了才知道要補法條還是補觀念。'];
+    if(r.soft>0) return ['回頭確認 '+r.soft+' 題','這些是「對了但不熟」或用猜的，等於還沒會。先讀整理頁再回來刷。'];
+    return ['把剩下的刷完','測過 '+pc(r.cov)+'%，目前都站得住，繼續把這章刷滿。'];
   }
-  function gain(r){return (r.ls*2).toFixed(1)}
   var h='<div class="score"><h3><span>🐾</span>日拱一築'
     +'<button class="palbtn'+(openPal?' on':'')+'" id="hitPalBtn" title="換色卡" aria-label="換色卡">🎨</button></h3>'
     +'<div class="palrow"'+(openPal?'':' hidden')+'>色卡：'+PALS.map(function(x){
@@ -205,59 +250,58 @@ function draw(){
         +'<i style="background:'+x[2]+'"></i><i style="background:'+x[3]+'"></i><i style="background:'+x[4]+'"></i></button>'}).join('')
     +'<span id="hitPalName">'+((PALS.filter(function(x){return x[0]===pal()})[0]||PALS[0])[1])+'</span></div>'
     +'<div class="motto">藏分於日 —— 今天拿回來的分，考場上就是你的</div>';
-  if(!rows.length){
-    h+='<div class="ssub">還沒有作答紀錄，先去任一章刷題，這裡就會算出你的 50 分現在長什麼樣，並挑出今天從哪一章開始。</div></div>';
+  if(!anyAns){
+    h+='<div class="ssub">還沒有作答紀錄。整個 50 分現在都是 <b>🌰 等待發芽</b>——不是「會」也不是「不會」，是還沒測過。'
+      +'先去任一章刷一輪，這張圖就會長出來。</div>';
   }else{
-    h+='<div class="ssub">你的選擇題 50 分現在長這樣，依已經作答的題推估。申論另外 50 分不在這張圖裡。</div>'
+    h+='<div class="ssub">你的選擇題 50 分現在長這樣。<b>沒測過的題一律算「等待發芽」，不會被當成你會</b>。申論另外 50 分不在這張圖裡。</div>'
       +'<div class="sbar">'
-      +(gotP>0?'<div class="got" style="flex:'+gotP+'">'+Math.round(gotP)+'</div>':'')
-      +(pickP>0?'<div class="pick" style="flex:'+pickP+'">'+Math.round(pickP)+'</div>':'')
-      +(unkP>0?'<div class="unk" style="flex:'+unkP+'">'+Math.round(unkP)+'</div>':'')
-      +'</div><div class="skey">'
-      +'<span><i style="background:var(--cp-got)"></i>🌟 穩穩收下 <b>'+Math.round(gotP)+' 分</b></span>'
-      +'<span><i style="background:var(--cp-pick)"></i>🌱 還能追回 <b>'+Math.round(pickP)+' 分</b>　<small>答錯或用猜的，補起來就是你的</small></span>'
-      +(unkP>0?'<span><i style="background:var(--cp-unk)"></i>🎁 等待開箱 <b>'+Math.round(unkP)+' 分</b>　<small>'+un.length+' 章完全沒作答，實力未知</small></span>':'')
-      +'</div><button class="howbtn" id="hitHow">這三個數字怎麼算出來的？</button>'
-      +'<div class="defs2" id="hitDefs" hidden><b>每章 115 年預估出幾題</b>＝25 題×（16 年占比×0.5＋近 5 年〔1105114〕占比×0.5）。'
-      +'<b>真會率</b>＝答對且沒標「猜的」÷ 已作答（猜對不算會）。<b>🌟 穩穩收下</b>＝預估題數×真會率；'
-      +'<b>🌱 還能追回</b>＝其餘；完全沒作答的章整章算 <b>🎁 等待開箱</b>。每題 2 分，已作答 '+doneT+'／'+bankT+' 題。'
-      +'<br>這是依你自己的作答推估，不是命中率預測；某章作答愈少，推估愈不準。</div></div>';
-    var t=rows[0];
+      +(gotP>0.5?'<div class="got" style="flex:'+gotP+'">'+Math.round(gotP)+'</div>':'')
+      +(pickP>0.5?'<div class="pick" style="flex:'+pickP+'">'+Math.round(pickP)+'</div>':'')
+      +(unkP>0.5?'<div class="unk" style="flex:'+unkP+'">'+Math.round(unkP)+'</div>':'')
+      +'</div>';
+  }
+  h+='<div class="skey">'
+    +'<span><i style="background:var(--cp-got)"></i>🌟 穩穩收下 <b>'+fx(gotP)+' 分</b>　<small>測過而且真的會</small></span>'
+    +'<span><i style="background:var(--cp-pick)"></i>🌱 還能追回 <b>'+fx(pickP)+' 分</b>　<small>測過但答錯、用猜的或不熟</small></span>'
+    +'<span><i style="background:var(--cp-unk)"></i>🌰 等待發芽 <b>'+fx(unkP)+' 分</b>　<small>還沒測過的題，實力未知</small></span>'
+    +'</div><button class="howbtn" id="hitHow">這三個數字怎麼算出來的？</button>'
+    +'<div class="defs2" id="hitDefs" hidden>每章先算 <b>115 年預估出幾題</b>＝25 題×（16 年占比×0.5＋近 5 年〔110–114〕占比×0.5），22 章合計 25 題。'
+    +'再用兩個比率把它切三段：<b>覆蓋率</b>＝這章題庫你測過幾成、<b>真會率</b>＝測過的裡面答對且沒標「不熟／猜的」占幾成。'
+    +'<br>🌟 ＝ 預估題數 × 覆蓋率 × 真會率；🌱 ＝ 預估題數 × 覆蓋率 ×（1－真會率）；🌰 ＝ 預估題數 ×（1－覆蓋率）。每題 2 分，三段相加恆為 50 分。'
+    +'<br>目前全科測過 <b>'+doneT+'／'+bankT+'</b> 題（'+pc(bankT?doneT/bankT:0)+'%）。這是依你自己的作答推估，不是命中率預測。</div></div>';
+  if(anyAns||rows.length){
+    var t=rows[0],td=todo(t);
     h+='<div class="today"><div class="tag">今天從這章開始</div>'
-      +'<h4>'+esc(t.x.nm)+'<span class="gain">還能追回 '+gain(t)+' 分</span></h4>'
-      +'<p>'+why(t)+'<br>目前已答 '+t.a+'/'+t.x.n16+' 題，真會率 '+Math.round(t.rr*100)+'%。'
-      +(t.thin?'<br><span style="color:var(--cp-accent)">⚠ 這章作答還少，推估僅供參考。</span>':'')+'</p>'
+      +'<h4>'+esc(t.x.nm)+'<span class="gain">還沒到手 '+fx(t.left*2)+' 分</span></h4>'
+      +'<p><b>'+esc(td[0])+'</b>　'+td[1]+'<br>這章 115 年預估出 '+fx(t.x.p)+' 題，題庫 '+t.bank+' 題、你測過 '+t.done+' 題（'+pc(t.cov)+'%）。</p>'
       +'<div class="acts"><a class="go" href="'+t.x.d+'">去刷這章 ▸</a>'
       +'<a href="'+t.x.r+'">讀 '+esc(t.x.rn)+' ▸</a>'
       +'<a href="經紀法規_法條解析練習.html#ch='+t.x.c+'">混合練這章 ▸</a></div></div>';
     var nx='';
-    if(rows[1]) nx+='練完接著：<b>'+esc(rows[1].x.nm)+'</b>（'+gain(rows[1])+' 分）';
-    if(rows[2]) nx+='、<b>'+esc(rows[2].x.nm)+'</b>（'+gain(rows[2])+' 分）';
-    if(nx) nx+='。';
-    if(un.length&&un[0].p>0) nx+='<br>那 '+Math.round(unkP)+' 分等待開箱的，從 <b>'+esc(un[0].nm)+'</b>（預估出 '+un[0].p.toFixed(1)+' 題）開始最劃算。';
-    if(nx) h+='<p class="nextup">'+nx+'</p>';
+    if(rows[1]) nx+='練完接著：<b>'+esc(rows[1].x.nm)+'</b>（'+fx(rows[1].left*2)+' 分）';
+    if(rows[2]) nx+='、<b>'+esc(rows[2].x.nm)+'</b>（'+fx(rows[2].left*2)+' 分）';
+    if(nx) h+='<p class="nextup">'+nx+'。前三章就占 '+fx((rows[0].left+(rows[1]?rows[1].left:0)+(rows[2]?rows[2].left:0))*2)+' 分。</p>';
   }
-  h+='<button class="more" id="hitMore">'+(openAll?'收起 ▴':'看全部 '+(rows.length+un.length)+' 章 ▾')+'</button>'
-    +'<div id="hitAll"'+(openAll?'':' hidden')+' style="margin-top:10px"><div class="slim">';
+  h+='<button class="more" id="hitMore">'+(openAll?'收起 ▴':'看全部 '+rows.length+' 章 ▾')+'</button>'
+    +'<div id="hitAll"'+(openAll?'':' hidden')+' style="margin-top:10px">'
+    +'<table class="atb"><thead><tr><th>章節</th><th>115 出題</th><th>測過多少</th><th>還沒到手</th><th>先做什麼</th></tr></thead><tbody>';
   rows.forEach(function(r){
-    h+='<details><summary><span class="sl-dot'+(r.ls>=0.5?' hi':'')+'"></span>'
-      +'<span class="sl-name">'+esc(r.x.c)+'</span>'
-      +'<span class="sl-mini"><i style="width:'+Math.max(3,Math.round(r.ls/(maxL||1)*100))+'%"></i></span>'
-      +'<span class="sl-num">可追回 <b>'+gain(r)+' 分</b>・會 <b>'+Math.round(r.rr*100)+'%</b></span></summary>'
-      +'<div class="sl-body"><b>'+esc(r.x.nm)+'</b><br>'+why(r)
-      +'<div class="acts" style="margin-top:8px"><a class="go" href="'+r.x.d+'">去刷這章 ▸</a>'
-      +'<a href="'+r.x.r+'">讀 '+esc(r.x.rn)+' ▸</a>'
-      +'<a href="經紀法規_法條解析練習.html#ch='+r.x.c+'">混合練 ▸</a></div></div></details>';
+    var td=todo(r),tot=r.x.p||1;
+    h+='<tr>'
+      +'<td data-l="章節"><span><span class="cc">'+esc(r.x.c)+'</span><span class="cn">'+esc(r.x.nm.replace(/^\S+\s*/,''))+'</span></span></td>'
+      +'<td data-l="115 出題" class="num">'+fx(r.x.p)+' 題</td>'
+      +'<td data-l="測過多少"><span style="flex:1;min-width:0"><span class="mini">'
+        +'<i class="g" style="flex:'+(r.ok/tot)+'"></i><i class="p" style="flex:'+(r.need/tot)+'"></i><i class="s" style="flex:'+(r.seed/tot)+'"></i>'
+        +'</span><span class="cov">'+r.done+'/'+r.bank+' 題・'+pc(r.cov)+'%</span></span></td>'
+      +'<td data-l="還沒到手" class="num left"><b>'+fx(r.left*2)+' 分</b></td>'
+      +'<td data-l="先做什麼" class="do"><b>'+esc(td[0])+'</b><small>'+td[1]+'</small>'
+        +'<span><a class="lk" href="'+r.x.d+'">去刷 ▸</a>'
+        +'<a class="lk" href="'+r.x.r+'">讀整理頁 ▸</a>'
+        +'<a class="lk" href="經紀法規_法條解析練習.html#ch='+r.x.c+'">混合練 ▸</a></span></td>'
+      +'</tr>';
   });
-  un.forEach(function(x){
-    h+='<details><summary><span class="sl-dot un"></span><span class="sl-name">'+esc(x.c)+'</span>'
-      +'<span class="sl-mini"></span>'
-      +'<span class="sl-num">等待開箱・值 <b>'+(x.p*2).toFixed(1)+' 分</b></span></summary>'
-      +'<div class="sl-body"><b>'+esc(x.nm)+'</b><br>這章完全沒作答，先刷一輪就知道實力落在哪（16 年 '+x.n16+' 題）。'
-      +'<div class="acts" style="margin-top:8px"><a class="go" href="'+x.d+'">去刷這章 ▸</a>'
-      +'<a href="'+x.r+'">讀 '+esc(x.rn)+' ▸</a></div></div></details>';
-  });
-  h+='</div></div>';
+  h+='</tbody></table></div>';
   box.innerHTML=h;
 }
 draw();
