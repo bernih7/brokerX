@@ -51,6 +51,20 @@ READ = {
  'H3':('經紀法規_公平法消保法罰則整理.html','公平法・消保法罰則整理'),
 }
 
+# ── 115 年有修法的章：歷史占比不代表今年的出題機率 ──
+# 預估題數「不」因此灌水（那會讓三段加不到 50 分），只影響排序與標示。
+LAW115 = {
+ 'C2': ('115.4.1 生效', '說明書應記載<b>第二點</b>（成屋）115.1.13 令修正：新增<b>太陽光電發電設備</b>、'
+        '<b>建築能效</b>（建築能效只有成屋有，預售屋沒有）。'
+        '另外成屋買賣定型化契約應記載第2點附件1〈建物現況確認書〉114.12.19 公告修正，'
+        '新增<b>用戶加壓受水設備</b>、<b>太陽光電發電設備</b>兩項，氯離子檢測標準備註更新（不是新增）。'
+        '這兩份都是 115.4.1 生效，<b>考試時已經生效</b>。'),
+ 'C3': ('115.4.1 生效', '說明書應記載<b>第三點</b>（預售屋）115.1.13 令修正：新增<b>太陽光電發電設備</b>；'
+        '建物瑕疵擔保的<b>氯離子報告用字調整</b>——現行是「建築物混凝土氯離子含量檢測報告」'
+        '「無<b>放射性</b>污染證明」，舊字「新拌」「<b>輻射</b>」已經不是現行用語。'
+        '⚠️ 水災淹水救助紀錄<b>不是</b>115 新增，是 104 年版起就有的預售屋老項目。'),
+}
+
 OFF = [q for q in QD['q'] if q.get('sr') != 'mock' and not q.get('oos')]
 TOT = len(OFF)
 REC = [q for q in OFF if q['y'] >= 110]          # 近 5 年 110–114
@@ -71,6 +85,7 @@ CH = []
 for c in sorted(CT):
     CH.append({'c': c, 'nm': CT[c], 'n16': c16[c], 'n5': c5[c], 'p': PRED[c],
                'bank': c16[c],          # 每章題庫題數＝官方可考題數，由 quiz_data 統計，不寫死
+               'nw': LAW115.get(c, ('', ''))[0], 'nwy': LAW115.get(c, ('', ''))[1],
                'd': DRILL.get(c, OTHER), 'r': READ[c][0], 'rn': READ[c][1]})
 
 CSS = """<style id="hit-css">
@@ -167,6 +182,18 @@ CSS = """<style id="hit-css">
 #hitPanel .atb .cov{display:block;color:var(--cp-soft);font-size:.73rem;margin-top:3px;font-variant-numeric:tabular-nums}
 #hitPanel .atb .do b{display:block}
 #hitPanel .atb .do small{color:var(--cp-soft);font-size:.74rem;line-height:1.55;display:block;margin-top:2px}
+#hitPanel .atb tr.grp td{background:var(--cp-milk);font-size:.76rem;font-weight:800;color:var(--cp-ink);
+  padding:8px 9px;border-bottom:1.5px solid var(--cp-line)}
+#hitPanel .atb tr.grp td span{font-weight:400;color:var(--cp-soft)}
+#hitPanel .atb tr.nw td:first-child{box-shadow:inset 4px 0 0 var(--cp-pick)}
+#hitPanel .nwtag{display:inline-block;background:var(--cp-pick);color:var(--cp-pick-t);font-size:.66rem;
+  font-weight:800;border-radius:999px;padding:1px 7px;margin-left:5px;vertical-align:1px;white-space:nowrap}
+#hitPanel .nwwhy{display:block;margin-top:4px;padding:6px 8px;background:var(--cp-milk);border-radius:6px;
+  font-size:.74rem;line-height:1.6;color:var(--cp-ink)}
+#hitPanel .nwline{background:var(--cp-milk);border:1.5px dashed var(--cp-pick);border-radius:10px;
+  padding:10px 12px;margin:0 0 11px;font-size:.8rem;line-height:1.7;color:var(--cp-ink)}
+#hitPanel .nwline b{color:var(--cp-ink)}
+#hitPanel .nwline a{color:var(--cp-ink);font-weight:700}
 #hitPanel .atb .lk{display:inline-block;margin-top:5px;margin-right:6px;font-size:.74rem;font-weight:700;
   text-decoration:none;color:var(--cp-ink);background:var(--cp-milk);border:1.5px solid var(--cp-line);
   border-radius:999px;padding:3px 9px}
@@ -231,6 +258,11 @@ function draw(){
                left:need+seed,a:s.a,w:s.w,soft:s.soft,kk:kk,kn:kn});
   });
   rows.sort(function(a,b){return b.left-a.left||b.x.p-a.x.p});   /* 依「還沒到手」排 */
+  /* 115 年有修法的章：歷史占比低不代表今年不考，排序上釘到最前面獨立一區。
+     已經測過七成以上、全對又沒有不確定的就不再釘，回到一般排序。 */
+  function solid(r){return r.cov>=0.7&&r.w===0&&r.soft===0&&r.a>0}
+  var nwRows=rows.filter(function(r){return r.x.nw&&!solid(r)});
+  var orRows=rows.filter(function(r){return !(r.x.nw&&!solid(r))});
   var gotP=okT*2, pickP=needT*2, unkP=seedT*2;
   /* 先做什麼：嚴格版——只有測過七成以上、且全對又沒有不確定，才准說「維持就好」 */
   function todo(r){
@@ -269,7 +301,8 @@ function draw(){
     +'<div class="defs2" id="hitDefs" hidden>每章先算 <b>115 年預估出幾題</b>＝25 題×（16 年占比×0.5＋近 5 年〔110–114〕占比×0.5），22 章合計 25 題。'
     +'再用兩個比率把它切三段：<b>覆蓋率</b>＝這章題庫你測過幾成、<b>真會率</b>＝測過的裡面答對且沒標「不熟／猜的」占幾成。'
     +'<br>🌟 ＝ 預估題數 × 覆蓋率 × 真會率；🌱 ＝ 預估題數 × 覆蓋率 ×（1－真會率）；🌰 ＝ 預估題數 ×（1－覆蓋率）。每題 2 分，三段相加恆為 50 分。'
-    +'<br>目前全科測過 <b>'+doneT+'／'+bankT+'</b> 題（'+pc(bankT?doneT/bankT:0)+'%）。這是依你自己的作答推估，不是命中率預測。</div></div>';
+    +'<br>目前全科測過 <b>'+doneT+'／'+bankT+'</b> 題（'+pc(bankT?doneT/bankT:0)+'%）。這是依你自己的作答推估，不是命中率預測。'
+    +'<br>⚠️ 預估題數是<b>歷史占比</b>，不會知道有修法。<b>115 年有修法的章不灌水預估題數</b>（灌了三段就加不到 50 分），改成在表格<b>最上方獨立一區</b>，理由寫在該列。</div></div>';
   if(anyAns||rows.length){
     var t=rows[0],td=todo(t);
     h+='<div class="today"><div class="tag">今天從這章開始</div>'
@@ -283,25 +316,42 @@ function draw(){
     if(rows[2]) nx+='、<b>'+esc(rows[2].x.nm)+'</b>（'+fx(rows[2].left*2)+' 分）';
     if(nx) h+='<p class="nextup">'+nx+'。前三章就占 '+fx((rows[0].left+(rows[1]?rows[1].left:0)+(rows[2]?rows[2].left:0))*2)+' 分。</p>';
   }
+  if(nwRows.length){
+    var tq=nwRows.reduce(function(n,r){return n+r.bank},0);
+    h+='<div class="nwline">⚠️ <b>另外這 '+nwRows.length+' 章今年有修法</b>（'
+      +nwRows.map(function(r){return esc(r.x.c)}).join('、')+'，'+nwRows[0].x.nw+'）。'
+      +'歷屆占比只有 '+fx(nwRows.reduce(function(n,r){return n+r.x.p},0))+' 題，'
+      +'但<b>歷史不會知道有修法</b>——題庫合計才 '+tq+' 題，花十分鐘先掃掉最划算。已釘在下面表格最上面。</div>';
+  }
   h+='<button class="more" id="hitMore">'+(openAll?'收起 ▴':'看全部 '+rows.length+' 章 ▾')+'</button>'
     +'<div id="hitAll"'+(openAll?'':' hidden')+' style="margin-top:10px">'
-    +'<table class="atb"><thead><tr><th>章節</th><th>115 出題</th><th>測過多少</th><th>還沒到手</th><th>先做什麼</th></tr></thead><tbody>';
-  rows.forEach(function(r){
+    +'<table class="atb"><thead><tr><th>章節</th><th>115 出題</th><th>測過多少</th><th>還沒到手</th><th>先做什麼</th></tr></thead>';
+  function rowHtml(r){
     var td=todo(r),tot=r.x.p||1;
-    h+='<tr>'
-      +'<td data-l="章節"><span><span class="cc">'+esc(r.x.c)+'</span><span class="cn">'+esc(r.x.nm.replace(/^\S+\s*/,''))+'</span></span></td>'
+    return '<tr'+(r.x.nw?' class="nw"':'')+'>'
+      +'<td data-l="章節"><span><span class="cc">'+esc(r.x.c)+'</span>'
+        +(r.x.nw?'<span class="nwtag">115 新修</span>':'')
+        +'<span class="cn">'+esc(r.x.nm.replace(/^\S+\s*/,''))+'</span></span></td>'
       +'<td data-l="115 出題" class="num">'+fx(r.x.p)+' 題</td>'
       +'<td data-l="測過多少"><span style="flex:1;min-width:0"><span class="mini">'
         +'<i class="g" style="flex:'+(r.ok/tot)+'"></i><i class="p" style="flex:'+(r.need/tot)+'"></i><i class="s" style="flex:'+(r.seed/tot)+'"></i>'
         +'</span><span class="cov">'+r.done+'/'+r.bank+' 題・'+pc(r.cov)+'%</span></span></td>'
       +'<td data-l="還沒到手" class="num left"><b>'+fx(r.left*2)+' 分</b></td>'
       +'<td data-l="先做什麼" class="do"><b>'+esc(td[0])+'</b><small>'+td[1]+'</small>'
+        +(r.x.nw?'<span class="nwwhy"><b>今年修法：</b>'+r.x.nwy+'</span>':'')
         +'<span><a class="lk" href="'+r.x.d+'">去刷 ▸</a>'
         +'<a class="lk" href="'+r.x.r+'">讀整理頁 ▸</a>'
         +'<a class="lk" href="經紀法規_法條解析練習.html#ch='+r.x.c+'">混合練 ▸</a></span></td>'
       +'</tr>';
-  });
-  h+='</tbody></table></div>';
+  }
+  if(nwRows.length){
+    h+='<tbody><tr class="grp"><td colspan="5">⚠ 115 年有修法，先掃這幾章　'
+      +'<span>歷史占比低不代表今年不考，所以不照「還沒到手」排</span></td></tr>'
+      +nwRows.map(rowHtml).join('')+'</tbody>';
+  }
+  h+='<tbody>'+(nwRows.length?'<tr class="grp"><td colspan="5">其餘章節　<span>依「還沒到手」由多到少</span></td></tr>':'')
+    +orRows.map(rowHtml).join('')+'</tbody>';
+  h+='</table></div>';
   box.innerHTML=h;
 }
 draw();
