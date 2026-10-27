@@ -45,6 +45,18 @@ button{font:inherit;cursor:pointer}
 /* 作答 */
 .qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.78rem;color:var(--sub);margin-bottom:6px;flex-wrap:wrap}
 .tm{font-variant-numeric:tabular-nums;font-weight:700;color:var(--pri)}
+/* 計時暫停：被打斷時按，暫停期間不算進本輪 40 分鐘 */
+.pzbtn{font:inherit;font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:999px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--sub);margin-left:6px}
+.pzbtn.on{background:var(--pri);border-color:var(--pri);color:var(--on)}
+#quiz .card{position:relative}
+#pzMask{position:absolute;inset:0;z-index:30;border-radius:inherit;background:var(--surface);display:grid;place-items:center;padding:24px 18px}
+#pzMask[hidden]{display:none!important}
+#pzMask .pz-in{max-width:340px;text-align:center}
+#pzMask .pz-ic{font-size:2.2rem;line-height:1}
+#pzMask .pz-t{font-size:1.08rem;font-weight:800;margin:6px 0 4px}
+#pzMask .pz-s{font-size:.83rem;line-height:1.75;color:var(--sub)}
+#pzMask .pz-el{font-size:.8rem;font-weight:700;color:var(--pri);margin-top:9px;font-variant-numeric:tabular-nums}
+#pzMask .pz-go{margin-top:14px;font:inherit;font-size:.9rem;font-weight:800;padding:10px 22px;border-radius:999px;cursor:pointer;border:0;background:var(--pri);color:var(--on)}
 .tag{display:inline-block;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px}
 .stem{font-size:1rem;line-height:1.75;margin:4px 0 11px;font-weight:600}
 .opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;margin-bottom:7px;font-size:.92rem;line-height:1.6}
@@ -162,7 +174,8 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 
 <section id="quiz" hidden>
   <div class="card">
-    <div class="qtop"><span id="prog"></span><span class="tm" id="tmDisp" hidden></span></div>
+    <div id="pzMask" hidden><div class="pz-in"><div class="pz-ic">⏸</div><div class="pz-t">已暫停</div><div class="pz-s">計時停住了，題目先蓋起來。回來按「繼續」，暫停的時間不算進本輪 40 分鐘。</div><div class="pz-el" id="pzEl"></div><button type="button" id="pzGo" class="pz-go">▶ 繼續作答</button></div></div>
+    <div class="qtop"><span id="prog"></span><span><span class="tm" id="tmDisp" hidden></span><button type="button" id="qPause" class="pzbtn" hidden title="暫停計時（被打斷時用，也可按 Esc）">⏸ 暫停</button></span></div>
     <div id="meta" class="qtop" style="margin-bottom:2px"></div>
     <div id="oosTop"></div><div class="stem" id="stem"></div>
     <div id="opts"></div>
@@ -271,7 +284,7 @@ var OFF=Q.filter(function(q){return !isMock(q)&&!isOos(q)}), MK=Q.filter(isMock)
 /* ---------- 狀態 ---------- */
 var sel=new Set(Object.keys(CT)), ord=ld('bxm-anal-ord','new'), num=30, useTm=false;
 var useMock=0;
-var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch';
+var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch',PZ=false,pzAcc=0,pzAt=0;
 var WCLR=ld('bxm-wclr',0);
 
 /* ---------- 選章 ---------- */
@@ -418,12 +431,26 @@ function start(list,m){
   idx=0;ansMap={};roundWrong=[];timedOut=false;
   document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
   document.getElementById('quiz').hidden=false;
-  if(useTm){t0=Date.now();document.getElementById('tmDisp').hidden=false;tick();tmr=setInterval(tick,1000)}
-  else{document.getElementById('tmDisp').hidden=true}
+  pzOff();pzAcc=0;
+  if(useTm){t0=Date.now();document.getElementById('tmDisp').hidden=false;document.getElementById('qPause').hidden=false;tick();tmr=setInterval(tick,1000)}
+  else{document.getElementById('tmDisp').hidden=true;document.getElementById('qPause').hidden=true}
   render();window.scrollTo(0,0);
 }
+/* 本輪已用秒數＝經過時間－累計暫停（暫停中再扣掉這一段） */
+function tEl(){return (Date.now()-t0-pzAcc-(PZ?Date.now()-pzAt:0))/1000}
+function fmtS(x){x=Math.floor(x);return Math.floor(x/60)+':'+('0'+(x%60)).slice(-2)}
+function pzOn(){if(PZ||!tmr)return;PZ=true;pzAt=Date.now();
+  document.getElementById('pzMask').hidden=false;document.getElementById('pzEl').textContent='本輪已用 '+fmtS(tEl());
+  var b=document.getElementById('qPause');b.textContent='▶ 繼續';b.classList.add('on')}
+function pzOff(){document.getElementById('pzMask').hidden=true;
+  var b=document.getElementById('qPause');b.textContent='⏸ 暫停';b.classList.remove('on');
+  if(!PZ)return;pzAcc+=Date.now()-pzAt;PZ=false;pzAt=0}
+document.getElementById('qPause').onclick=function(){PZ?pzOff():pzOn()};
+document.getElementById('pzGo').onclick=pzOff;
+addEventListener('keydown',function(e){if(e.key==='Escape'&&tmr&&!document.getElementById('quiz').hidden){PZ?pzOff():pzOn()}});
 function tick(){
-  var s=Math.floor((Date.now()-t0)/1000);
+  if(PZ)return;
+  var s=Math.floor(tEl());
   document.getElementById('tmDisp').textContent=Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);
   if(s>=2400){clearInterval(tmr);tmr=null;timedOut=true;
     document.getElementById('tmDisp').textContent='已滿 40 分鐘（本輪不列入）';finish()}
@@ -522,7 +549,7 @@ function finish(){
   if(tmr){clearInterval(tmr);tmr=null}
   var done=Object.keys(ansMap).length,graded=0,ok=0;
   pool.forEach(function(q){var p=ansMap[q.k];if(!p||isFree(q))return;graded++;if(accept(q).indexOf(p)>=0)ok++});
-  var secs=useTm?Math.floor((Date.now()-t0)/1000):null;
+  var secs=useTm?Math.floor(tEl()):null;pzOff();document.getElementById('qPause').hidden=true;
   document.getElementById('quiz').hidden=true;document.getElementById('done').hidden=false;
   document.getElementById('score').textContent=graded?(Math.round(ok/graded*100)+'%'):'—';
   document.getElementById('kv').innerHTML=
@@ -561,6 +588,7 @@ function deepLink(){
   pool=list;idx=0;ansMap={};roundWrong=[];timedOut=false;mode='deep';
   document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
   document.getElementById('quiz').hidden=false;document.getElementById('tmDisp').hidden=true;
+  if(tmr){clearInterval(tmr);tmr=null}pzOff();document.getElementById('qPause').hidden=true;
   render();return true;
 }
 /* 深連結 #ch=A4,E3：預選小類、停在選章畫面（指揮中心「混合練這章」用） */
