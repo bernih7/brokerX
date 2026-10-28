@@ -112,7 +112,9 @@ CSS = """<style id="hit-css">
 [data-theme="dark"] #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
 [data-theme="dark"] #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
 [data-theme="dark"] #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
-#hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:15px 15px 13px;margin-bottom:11px;color:var(--cp-ink)}
+#hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:18px 15px 13px;margin-bottom:11px;color:var(--cp-ink);position:relative;overflow:hidden}
+#hitPanel .score::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--cp-got) 0%,var(--cp-got) 33%,var(--cp-pick) 33%,var(--cp-pick) 66%,var(--cp-unk) 66%,var(--cp-unk) 100%)}
+#hitPanel .score h3 .subj{font-size:.78rem;font-weight:600;color:var(--cp-soft);letter-spacing:.02em}
 #hitPanel .score h3{margin:0 0 2px;font-size:1.06rem;display:flex;align-items:center;gap:7px;position:relative;padding-right:34px;letter-spacing:.04em}
 #hitPanel .motto{font-size:.8rem;color:var(--cp-accent);font-weight:700;margin:1px 0 7px}
 #hitPanel .ssub{font-size:.76rem;color:var(--cp-soft);margin-bottom:12px;line-height:1.6}
@@ -275,7 +277,7 @@ function draw(){
     if(r.soft>0) return ['回頭確認 '+r.soft+' 題','這些是「對了但不熟」或用猜的，等於還沒會。先讀整理頁再回來刷。'];
     return ['把剩下的刷完','測過 '+pc(r.cov)+'%，目前都站得住，繼續把這章刷滿。'];
   }
-  var h='<div class="score"><h3><span>🐾</span>日拱一築'
+  var h='<div class="score"><h3><span>🐾</span>日拱一築<span class="subj">・經紀法規</span>'
     +'<button class="palbtn'+(openPal?' on':'')+'" id="hitPalBtn" title="換色卡" aria-label="換色卡">🎨</button></h3>'
     +'<div class="palrow"'+(openPal?'':' hidden')+'>色卡：'+PALS.map(function(x){
       return '<button data-hpal="'+x[0]+'"'+(pal()===x[0]?' class="on"':'')+' title="'+x[1]+'">'
