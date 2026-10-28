@@ -87,9 +87,9 @@ def sk2(d):
             + ''.join(f'<span>{E(k)}</span>' for k in kw) + '</div></div>')
 
 TABS = ('<div class="ver-bar vt3"><span class="ver-label">看法：</span><div class="seg-wrap">'
-        '<button class="ver-btn active" data-ver="lj" onclick="setVer(this.closest(\'.essay-card\'),\'lj\')">邏輯拆解</button>'
-        '<button class="ver-btn" data-ver="quick" onclick="setVer(this.closest(\'.essay-card\'),\'quick\')">考場速寫</button>'
-        '<button class="ver-btn" data-ver="full" onclick="setVer(this.closest(\'.essay-card\'),\'full\')">完整四段式</button></div></div>')
+        '<button class="ver-btn active" data-ver="lj" title="一步一步推：問一句→條文／公式→本題→小結，附採分點勾選" onclick="setVer(this.closest(\'.essay-card\'),\'lj\')">邏輯拆解</button>'
+        '<button class="ver-btn" data-ver="quick" title="考場上來不及時的最小可得分版本：公式、代入、常見失分點、得分關鍵詞" onclick="setVer(this.closest(\'.essay-card\'),\'quick\')">考場速寫</button>'
+        '<button class="ver-btn" data-ver="full" title="完整範文。預測題為定義→法條→涵攝→結論四段；官方題依題目小題分段（題目問幾件事就分幾段）" onclick="setVer(this.closest(\'.essay-card\'),\'full\')">完整版</button></div></div>')
 
 def convert(block, d):
     # 1) 取出各部分
