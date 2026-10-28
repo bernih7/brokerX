@@ -61,10 +61,25 @@ function readWidget(){if(!READP[PAGE]||document.getElementById("bxjRead"))return
  "#bxjRead button{width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--rp);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0;margin:0}#bxjRead button.p{background:var(--rp);color:var(--rs)}#bxjRead .t{display:block;padding:1px 0}#bxjRead .t b{display:block;font-size:15px;color:var(--rp)!important;font-weight:700}#bxjRead .t{color:var(--ri)!important}"+
  "@media (prefers-color-scheme: dark){:root:not([data-theme=\"light\"]) #bxjRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}}:root[data-theme=\"dark\"] #bxjRead{--rp:#84C2AE;--rs:#1F2723;--ri:#E7ECE6;--rl:#33403A}";
  document.head.appendChild(cs);
- var w=document.createElement("div");w.id="bxjRead";w.title="讀完一輪按＋，按錯按－；次數顯示在指揮中心「進度」";
+ var w=document.createElement("div");w.id="bxjRead";w.title="讀完一輪按＋，按錯按－；捲到整頁最底且停留超過 25 秒會自動 +1。次數顯示在指揮中心「進度」";
  w.innerHTML='<button type="button" class="p" aria-label="讀完一輪，加一">＋</button><span class="t">讀過<b>0</b>輪</span><button type="button" aria-label="減一輪">－</button>';
  var bs=w.querySelectorAll("button"),n=w.querySelector("b");function up(){n.textContent=readGet(PAGE).n||0}
  bs[1].onclick=function(){readInc(PAGE,-1);up()};bs[0].onclick=function(){readInc(PAGE,1);up()};document.body.appendChild(w);up();
+ /* ④ 捲到最底＝看完一輪：頁夠長＋停留≥25 秒＋捲到距底 60px 內，三者皆成立才 +1，每次開頁最多一次。
+    ⚠️ 停留時間這條不可省：不然按 End 直接跳到底就記一輪，數字會失去意義。 */
+ (function(){var fired=false,sec=0,act=Date.now(),iv;
+  ["pointerdown","keydown","scroll","touchstart","wheel"].forEach(function(ev){addEventListener(ev,function(){act=Date.now()},{passive:true})});
+  iv=setInterval(function(){if(document.visibilityState==="visible"&&Date.now()-act<60000)sec+=2;chk()},2000);
+  function longEnough(){var d=document.documentElement;return (d.scrollHeight-innerHeight)>innerHeight*0.5}
+  function atBottom(){var d=document.documentElement;return (d.scrollHeight-(scrollY+innerHeight))<=60}
+  function chk(){if(fired||sec<25||!longEnough()||!atBottom())return;fired=true;clearInterval(iv);
+   readInc(PAGE,1);up();toast("✓ 已記一輪（看完整頁）")}
+  addEventListener("scroll",chk,{passive:true});
+  function toast(msg){var t=document.createElement("div");t.textContent=msg;
+   t.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(112px + env(safe-area-inset-bottom,0px));z-index:60;background:#2F5D50;color:#fff;padding:8px 14px;border-radius:999px;font:13px/1.4 system-ui,-apple-system,'Noto Sans TC',sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25);opacity:0;transition:opacity .25s";
+   document.body.appendChild(t);requestAnimationFrame(function(){t.style.opacity="1"});
+   setTimeout(function(){t.style.opacity="0";setTimeout(function(){t.remove()},400)},2600)}
+ })();
  /* 計數鈕避開頁面按鈕：重疊時往上移，不擋「下一題／下一張」 */
  (function(w){var base=null,raf=0;function hit(a,b){return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top}
   function fix(){raf=0;w.style.transform="";var r=w.getBoundingClientRect(),up=0,els=document.querySelectorAll("button,a,input,select,textarea,[role=button],[onclick]");
