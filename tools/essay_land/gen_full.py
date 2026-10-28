@@ -88,7 +88,7 @@ for r in E:
         assert len(cand) == 1, (r['key'], len(cand))
         pmap[r['key']] = cand[0]
 
-CAT = dict(P01='A', P02='E', P03='D', P04='D', P06='C', P07='E', P08='D', P09='D', P10='G', P11='B', P12='B', P13='G', P14='G', P15='G', P16='G', P17='G', P18='D', P19='D', P20='D', P21='G', P22='F', P23='D', P24='C', P25='C', P26='D', P27='F', P28='G', P29='E', P30='F', P31='A', P32='F', P33='G', X1='B', X2='B', X3='B', P34='A', K1='D', K2='B', K3='E', K4='F')
+CAT = dict(P01='A', P02='E', P03='D', P04='D', P06='C', P07='E', P08='D', P09='D', P10='G', P11='B', P12='B', P13='G', P14='G', P15='G', P16='G', P17='G', P18='D', P19='D', P20='D', P21='G', P22='F', P23='D', P24='C', P25='C', P26='D', P27='F', P28='G', P29='E', P30='F', P31='A', P32='F', P33='G', X1='B', X2='B', X3='B', P34='A', K1='D', K2='B', K3='E', K4='F', P35='E', P36='B', P37='A', P38='A', P39='F')
 rows = []
 for r in E:
     if r['key'] == 'P05': continue
