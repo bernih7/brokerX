@@ -128,6 +128,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
       <button class="btn" data-ord="smart">智慧配題</button>
     </div>
     <p class="hint" id="ordHint"></p></div>
+    <div class="grp"><div class="glab">範圍</div><div class="row" id="scRow"><button class="btn" data-sc="all">全部</button><button class="btn" data-sc="new">只出還沒作答過的</button><button class="btn" data-sc="weak">只出錯題＋不熟</button></div><p class="hint" id="scHint"></p></div>
     <div class="grp"><div class="glab">題數</div><div class="row" id="numRow">
       <button class="btn" data-num="20">20</button><button class="btn" data-num="30">30</button>
       <button class="btn" data-num="50">50</button><button class="btn" data-num="0">全部</button>
@@ -308,7 +309,7 @@ function renderCats(){
     h+='</div></div>';
   });
   box.innerHTML=h;
-  document.getElementById('selCnt').textContent='已選 '+sel.size+' 章／共 '+poolOf().length+' 題';
+  var pl=poolOf();document.getElementById('selCnt').textContent='已選 '+sel.size+' 章／共 '+pl.length+' 題'+(typeof scope!=='undefined'&&scope!=='all'?'・'+(scope==='new'?'還沒作答 ':'錯題＋不熟 ')+scoped(pl).length+' 題':'');
 }
 function poolOf(){return Q.filter(function(q){return sel.has(q.ch)&&!isOos(q)&&(useMock||!isMock(q))})}
 document.getElementById('cats').addEventListener('click',function(e){
@@ -357,7 +358,21 @@ function renderWrong(){
   [].forEach.call(document.querySelectorAll('[data-tag]'),function(b){
     var n=c[b.dataset.tag]||0;b.textContent=b.textContent.replace(/（\d+）$/,'')+'（'+n+'）';b.disabled=!n});
 }
-document.getElementById('start').onclick=function(){var l=poolOf();if(!l.length){alert('請先選章節');return}start(l,'ch')};
+/* 範圍：全部／只出還沒作答過的／只出錯題＋不熟（新鍵 bxj-scope） */
+var scope=ld('bxj-scope','all');
+var SCH={all:'所選章節的題目全部都會出（含已作答過的）。',new:'只出所選章節裡「從來沒作答過」的題；做完一題就不會再出現，可以一輪一輪往前推覆蓋率。',
+  weak:'只出所選章節裡「最近一次答錯」或「答對但標了不熟／用猜的」的題。'};
+function scoped(l){var DB=db();
+  if(scope==='new')return l.filter(function(q){var r=DB[qid(q)];return !(r&&r.n)});
+  if(scope==='weak')return l.filter(function(q){var r=DB[qid(q)];return r&&r.n&&(!r.ok||r.k==='D'||r.g===1||r.sh===1||r.sh===2)});
+  return l}
+function renderSc(){[].forEach.call(document.querySelectorAll('#scRow .btn'),function(b){b.classList.toggle('on',b.dataset.sc===scope)});
+  document.getElementById('scHint').textContent=SCH[scope]||''}
+document.getElementById('scRow').onclick=function(e){var b=e.target.closest('[data-sc]');if(!b)return;scope=b.dataset.sc;sv('bxj-scope',scope);renderSc();renderCats()};
+renderSc();renderCats();
+document.getElementById('start').onclick=function(){var l0=poolOf();if(!l0.length){alert('請先選章節');return}
+  var l=scoped(l0);if(!l.length){alert(scope==='new'?'所選章節的題目都已經作答過了，可以改選其他章節，或把範圍改成「全部」。':'所選章節目前沒有錯題或不熟的題。');return}
+  start(l,'ch')};
 document.getElementById('goWrong').onclick=function(){var w=wrongList();if(!w.length){alert('目前沒有錯題');return}start(w,'wrong')};
 [].forEach.call(document.querySelectorAll('[data-tag]'),function(b){
   b.onclick=function(){var w=wrongList(b.dataset.tag);if(!w.length)return;start(w,'tag')}});
