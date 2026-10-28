@@ -98,6 +98,7 @@ OVR = {  # 單張卡指定
  'es-fw29': ['fhpen', 'fair'],
  'es-mk2':  ['must', 'void'],
  'es-h2':   ['void', 'must'],
+ 'es-e11':  ['apt', 'proc4', 'must'],
 }
 
 CSS = """<style id="eslink-css">
