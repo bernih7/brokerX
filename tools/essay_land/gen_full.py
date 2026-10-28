@@ -61,6 +61,8 @@ M = {}
 for f in sorted(glob.glob(W + 'M*_out.json')):
     for r in json.load(open(f)): M[r['key']] = r
 LJ = {}
+_evf = os.path.join(W, 'exam_ver.json')
+EV = json.load(open(_evf, encoding='utf-8')) if os.path.exists(_evf) else {}
 _ljf = os.path.join(W, 'lj_data.json')
 if os.path.exists(_ljf):
     LJ = {x['k']: x for x in json.load(open(_ljf, encoding='utf-8'))}
@@ -289,13 +291,19 @@ def card(r):
     v1 = d['v1'].replace('速寫版由上方完整範文濃縮，未新增法條事實；⚠️待核處同完整版。', '速寫版由上方完整範文濃縮；⚠️待核處同完整版。' if hasw else '速寫版由上方完整範文濃縮。')
     tx = clean_tx(d['nm'] + ' '.join(d['chips']) + key + d['oq'] + ' '.join(cite) + ' '.join(x for _, x in m['must']))
     oq = d['oq']
+    evb = evp = ''
+    if key in EV:
+        _n = len(re.sub(r'<[^>]+>|\s', '', ''.join(h + p for h, p in EV[key])))
+        evb = '<button type="button" data-v="4">考場版</button>'
+        evp = (f'<div class="vp" data-v="4" hidden><p class="note">考場版約 {_n} 字（約 25 分鐘寫得完的長度），由完整版濃縮，沒有新增法條或事實。考場照這個長度寫；想補理由再看完整版。</p>'
+               + ''.join(f'<details class="blk b{min(i, 3) + 1}" open><summary><h5>{h}</h5></summary><div class="fdb">{p}</div></details>' for i, (h, p) in enumerate(EV[key])) + '</div>')
     return (f'<details class="es{" pred" if kind != "off" else ""}" id="{r["id"]}" data-k="{"off" if kind == "off" else "pred"}"{" data-mk=\"1\"" if kind == "mock" else ""} data-pr="{pr}" data-lv="{r["lv"]}" data-tx="{html.escape(tx)}">'
             f'<summary><span class="eh"><span class="rk" aria-hidden="true">✓</span><b class="et">{d["nm"]}</b></span>'
             f'<span class="em"><span class="lvp {lc}">{lab}</span><span class="ek">{ek}</span></span>'
             f'<span class="chips">{"".join(f"<i>{c}</i>" for c in d["chips"][:5])}</span></summary>'
             f'<div class="ebody"><div class="oq">{oq}</div>{"<p class=srcl>" + d["src"] + "</p>" if d["src"] else ""}{why}'
-            + (f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="3">邏輯拆解</button><button type="button" data-v="1">考場速寫</button><button type="button" data-v="0">完整四段式</button></div>'
-               f'<div class="vp lj" data-v="3">{lj_render(LJ[key])}</div><div class="vp" data-v="1" hidden>{v1}<div class="sk2">{d["v2"]}</div></div><div class="vp" data-v="0" hidden>{secs}{tail}</div>'
+            + (f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="3">邏輯拆解</button><button type="button" data-v="1">考場速寫</button>{evb}<button type="button" data-v="0">完整四段式</button></div>'
+               f'<div class="vp lj" data-v="3">{lj_render(LJ[key])}</div><div class="vp" data-v="1" hidden>{v1}<div class="sk2">{d["v2"]}</div></div><div class="vp" data-v="0" hidden>{secs}{tail}</div>{evp}'
                if key in LJ else
                f'<div class="vtab" role="tablist"><button type="button" class="on" data-v="0">完整四段式</button><button type="button" data-v="1">考場速寫版</button><button type="button" data-v="2">得分關鍵・失分點</button><button type="button" data-v="3">必提重點</button></div>'
                f'<div class="vp" data-v="0">{secs}{tail}</div><div class="vp" data-v="1" hidden>{v1}</div><div class="vp" data-v="2" hidden>{d["v2"]}</div>'

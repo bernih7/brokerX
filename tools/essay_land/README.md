@@ -8,3 +8,4 @@
 
 - 2026-10-28：`gen_full.py` 重產後，**要再依序跑** `python3 mk_esl_land.py`（申論卡輪數／用時／自評，鍵 `bx-land-es-log`）與 `python3 mk_esrd_land.py`（每卡「📚 這題該讀哪幾頁」），否則這兩塊會被蓋掉。
 - 2026-10-28：`gen_pred.py` 目前讀題庫的格式已過期（JSONDecodeError），115 預測頁改用手動維護；要重啟產生器前先修讀檔。
+- 2026-10-28：考場版（約 700～850 字）原始檔在 `data/exam_ver_src.py`，跑它產生 `data/exam_ver.json`，再跑 gen_full.py。目前 12 張（115 預測標「高」）；只能由該卡完整版濃縮，不可新增法條或事實。
