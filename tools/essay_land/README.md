@@ -5,3 +5,5 @@
 - `python3 gen_full.py` → 產生 `../../土地法_申論題分類總覽.html`（正式頁）。
 - 版面樣式 `full.css`、互動 `full.js`。
 - 作法說明見知識庫《備考_申論頁標準作法_跨科套用指南_v2》。
+
+- 2026-10-28：`gen_full.py` 重產後，**要再依序跑** `python3 mk_esl_land.py`（申論卡輪數／用時／自評，鍵 `bx-land-es-log`）與 `python3 mk_esrd_land.py`（每卡「📚 這題該讀哪幾頁」），否則這兩塊會被蓋掉。

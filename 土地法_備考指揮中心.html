@@ -340,9 +340,38 @@ footer{text-align:center;font-size:.76rem;color:var(--sub);margin:24px 0 0}
   #hitPanel .atb td:last-child::before{width:auto;margin-bottom:2px}
   #hitPanel .atb .mini{flex:1}
 }
+</style><style id="lag-css">
+#lagPanel{margin:14px 0 0}
+#lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:14px 15px;color:var(--cp-ink)}
+#lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+#lagPanel h3 .d{margin-left:auto;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
+#lagPanel .goal{font-size:.76rem;color:var(--cp-soft);margin-bottom:10px;line-height:1.6}
+#lagPanel table{border-collapse:collapse;width:100%;font-size:.81rem;font-variant-numeric:tabular-nums}
+#lagPanel th,#lagPanel td{padding:7px 8px;text-align:left;border-top:1px solid var(--cp-line)}
+#lagPanel thead th{border-top:0;background:var(--cp-milk);font-size:.72rem;color:var(--cp-soft);letter-spacing:.04em;font-weight:800;white-space:nowrap}
+#lagPanel td.n{text-align:right;white-space:nowrap}
+#lagPanel .pb{display:inline-flex;height:8px;width:100%;min-width:50px;max-width:110px;border-radius:5px;overflow:hidden;background:var(--cp-track);vertical-align:middle}
+#lagPanel .pb i{display:block;height:100%;background:var(--cp-got)}
+#lagPanel .need{font-weight:800;color:var(--cp-accent)}
+#lagPanel .zero{color:var(--cp-soft)}
+#lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);font-size:.79rem;line-height:1.85}
+#lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
+#lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
+@media(max-width:560px){
+  #lagPanel table,#lagPanel tbody,#lagPanel tr,#lagPanel td{display:block;width:100%}
+  #lagPanel thead{display:none}
+  #lagPanel tr{border-top:1px solid var(--cp-line);padding:6px 0}
+  #lagPanel td{border:0;padding:2px 2px;display:flex;gap:8px;align-items:center}
+  #lagPanel td.n{text-align:left}
+  #lagPanel td::before{content:attr(data-l);flex:none;width:60px;color:var(--cp-soft);font-size:.72rem}
+  #lagPanel td:first-child{font-weight:800}
+  #lagPanel td:first-child::before{display:none}
+  #lagPanel td:empty{display:none}
+}
 </style>
 <section id="hitPanel">
   <div id="hitBody"></div>
+  <div id="lagPanel"></div>
 </section>
 <script id="hit-js">
 (function(){
@@ -488,6 +517,55 @@ function hitHash(){var hs=location.hash;if(hs==='#hit'||hs==='#progress'||hs==='
   if(hs==='#hit'){var el=document.getElementById('hitPanel');if(el)setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'})},120)}}}
 if(location.hash)setTimeout(hitHash,180);
 addEventListener('hashchange',hitHash);
+})();
+</script><script id="lag-js">
+/* 進度落後清單：目標＝考前把每一樣至少做完 1 輪；每天要＝剩餘量÷剩餘天數。只讀，不寫任何鍵。 */
+(function(){
+function lagBuild(){
+  var box=document.getElementById('lagPanel'); if(!box) return;
+  if(typeof BXREP==='undefined'||!BXREP.status){box.innerHTML='';return;}
+  var exam=new Date('2026-11-14T09:00:00+08:00');
+  var days=Math.max(1,Math.ceil((exam-new Date())/86400000));
+  var G=BXREP.status();
+  function grp(n){for(var i=0;i<G.length;i++)if(G[i].g.indexOf(n)===0)return G[i];return null}
+  function rows(g){return g?g.rows:[]}
+  var drill=grp('刷題'),mock=grp('模擬卷'),read=grp('閱讀頁'),mem=grp('記憶工具');
+  var dDone=0,dTot=0;rows(drill).forEach(function(r){if(r.total>0&&r.p.indexOf('LandLaw_')===0){dDone+=r.done;dTot+=r.total}});
+  var esRead=0;try{var M=JSON.parse(localStorage.getItem('bx-es-read')||'{}');Object.keys(M).forEach(function(k){if(M[k])esRead++})}catch(e){}
+  var rTot=rows(read).length,rDone=rows(read).filter(function(r){return (r.read||0)>0}).length;
+  var mRows=rows(mock).filter(function(r){return r.total>0}),mTot=0,mDone=0;
+  /* 歷屆整卷一列＝8 卷（done／total 就是卷數）；其餘每列 1 份，答完才算 */
+  mRows.forEach(function(r){mTot++;if(r.done>=r.total)mDone++});
+  var kRows=rows(mem).filter(function(r){return r.total>0}),kDone=0,kTot=0;kRows.forEach(function(r){kDone+=Math.min(r.done,r.total);kTot+=r.total});
+  function per(rem){return rem<=0?'已完成':(Math.ceil(rem/days)+' / 天')}
+  function bar(d,t){var p=t?Math.min(100,Math.round(d/t*100)):0;return '<span class="pb"><i style="width:'+p+'%"></i></span>'}
+  function row(nm,d,t,u,note){var rem=Math.max(0,t-d);
+    return '<tr><td>'+nm+'</td><td class="n" data-l="目前">'+d+'／'+t+' '+u+'</td><td data-l="完成度">'+bar(d,t)+'</td>'
+      +'<td class="n '+(rem?'need':'zero')+'" data-l="每天要">'+per(rem)+'</td><td class="zero" data-l="備註">'+(note||'')+'</td></tr>'}
+  var h='<div class="lg"><h3><span>⏳</span>進度落後在哪<span class="d">剩 '+days+' 天</span></h3>'
+    +'<div class="goal">目標：<b>考前把每一樣至少做完 1 輪</b>。「每天要」＝剩下的量 ÷ 剩下的天數，沒有另外訂讀書表。</div>'
+    +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
+    +row('選擇題（題庫七頁）',dDone,dTot,'題','解析版練習、互動練習的作答也算在這裡')
+    +row('申論 72 題',Math.min(esRead,72),72,'題','在申論卡勾「我已讀懂這題的邏輯」')
+    +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底')
+    +row('模擬卷',mDone,mTot,'份','診斷卷一＋來勝模擬(一) 兩份；答完整份才算')
+    +row('記憶工具（已掌握）',kDone,kTot,'張','小卡、單字卡自己標「已掌握」；填空按完成')
+    +'</tbody></table>';
+  var zero=[];
+  rows(drill).forEach(function(r){if(r.total>0&&r.p.indexOf('LandLaw_')===0&&r.done===0)zero.push({n:r.name,u:r.url})});
+  rows(read).forEach(function(r){if(!r.read)zero.push({n:r.name,u:r.url})});
+  mRows.forEach(function(r){if(!r.done)zero.push({n:r.name,u:r.url})});
+  if(zero.length){
+    h+='<div class="names"><span class="lab">完全沒開始的 '+zero.length+' 項</span>'
+      +zero.slice(0,14).map(function(z){return '<a href="'+z.u+'" target="_blank" rel="noopener">'+z.n+'</a>'}).join('、')
+      +(zero.length>14?'　…另 '+(zero.length-14)+' 項':'')+'</div>';
+  }else h+='<div class="names"><span class="lab">每一項都已經開始</span>接下來看「每天要」那一欄，把量補上就好。</div>';
+  box.innerHTML=h+'</div>';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',lagBuild);else lagBuild();
+addEventListener('load',lagBuild);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')lagBuild()});
+addEventListener('focus',lagBuild);
 })();
 </script>
   <div class="group-label">今日</div>

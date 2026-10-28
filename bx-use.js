@@ -81,6 +81,20 @@ function readWidget(){if(!READP[PAGE]||document.getElementById("bxRead"))return;
  /* 頁尾留白至少 200px，捲到底時最後的按鈕／連結不會被計數鈕蓋住 */
  try{if((parseFloat(getComputedStyle(document.body).paddingBottom)||0)<200)document.body.style.paddingBottom="200px"}catch(e){}}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",readWidget);else readWidget();
+/* ---- ⑥ 捲到最底＝看完一輪（頁夠長、停留≥25秒、捲到距底60px內，三者都成立才記；每次開頁最多一次） ---- */
+var AUTOR={"土地法_彩色重點速記":1,"土地法_罰則總整理":1,"土地法_稅率總表":1,"土地法_稅制與取得方式比較表":1,"土地法_速查三表":1,"土地法_年數速查":1,"土地法_優先購買權_物權債權":1,"土地法_分數倍數數字分析":1,"土地法_一生一次一生一屋分析":1,"土地法_繼承專區":1,"土地法_程序總整理":1,"土地法_土增稅申報時間點":1,"土地法_讀書攻略與備考指南":1,"土地法_申論115出題預測":1};
+(function(){if(!AUTOR[PAGE]||!READP[PAGE])return;
+ var MIN=25000,PAD=60,t0=Date.now(),fired=false,tid=0;
+ function H(){var d=document.documentElement,b=document.body;return Math.max(d.scrollHeight,b.scrollHeight)}
+ function fire(){if(fired)return;var y=window.scrollY||document.documentElement.scrollTop;
+  if(H()-innerHeight<=innerHeight*0.5||H()-(y+innerHeight)>PAD||Date.now()-t0<MIN)return;
+  fired=true;var n=readInc(PAGE,1);var b=document.querySelector("#bxRead b");if(b)b.textContent=n;
+  var t=document.createElement("div");t.id="bxRoundToast";t.innerHTML='<b>✓ 這一輪看完了</b><span>讀過第 '+n+' 輪・捲到最底自動記錄（按錯可按－）</span>';
+  var st=document.createElement("style");st.textContent='#bxRoundToast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:70;background:#2F5D50;color:#FFFEFA;border-radius:12px;padding:10px 16px;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;font:13px/1.5 system-ui,-apple-system,"Noto Sans TC",sans-serif;text-align:center;transition:opacity .3s,transform .3s;max-width:calc(100vw - 32px)}#bxRoundToast.on{opacity:1;transform:translateX(-50%) translateY(0)}#bxRoundToast b,#bxRoundToast span{display:block}#bxRoundToast span{font-size:12px;opacity:.85}';
+  document.head.appendChild(st);document.body.appendChild(t);requestAnimationFrame(function(){t.classList.add("on")});
+  setTimeout(function(){t.classList.remove("on");setTimeout(function(){t.remove();st.remove()},400)},3600)}
+ function hit(){clearTimeout(tid);tid=setTimeout(fire,350)}
+ addEventListener("scroll",hit,{passive:true});setTimeout(hit,MIN+200)})();
 /* 今日：由作答歷史（bx-q2 每題 h 紀錄）推算今天作答題數 */
 function today(){var DB=ld("bx-q2",{}),d0=new Date();d0.setHours(0,0,0,0);var s0=Math.floor(d0.getTime()/1000),q=0,c=0,rd=0,R=ld("bx-read",{});
  Object.keys(DB).forEach(function(id){(DB[id].h||[]).forEach(function(h){if(h[0]>=s0){q++;if(h[1])c++}})});
