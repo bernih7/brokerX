@@ -94,7 +94,7 @@ for m in re.finditer(r'<details class="essay[^"]*"[^>]*data-key="([^"]+)"', s):
     blk = blk.replace('<div class="vp lj" data-v="3" hidden>', '<div class="vp lj" data-v="3">')
     out.append(s[pos:i]); out.append(blk); pos = e; done += 1
 out.append(s[pos:]); s = ''.join(out)
-assert done == 73, done
+assert done == 81, done
 # 舊版標記 class="vp" data-v="3" 也要能被 seg 找到 → 統一屬性順序
 s = s.replace('<div class="vp lj" data-v="3">', '<div class="vp" data-v="3" data-lj-root="1">')
 

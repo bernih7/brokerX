@@ -373,7 +373,7 @@ function lagBuild(){
     +'<div class="goal">目標：<b>考前把每一樣至少做完 1 輪</b>。「每天要」＝剩下的量 ÷ 剩下的天數，沒有另外訂讀書表。</div>'
     +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
     +row('選擇題（A～E 篇）',dDone,dTot,'題','法條解析練習的作答也算在這裡')
-    +row('申論 73 題',esRead,73,'題','在申論卡按「已讀」')
+    +row('申論 81 題',esRead,81,'題','在申論卡按「已讀」')
     +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底')
     +row('模擬卷',mDone,mTot,'份','歷屆整卷 8 卷＋自擬 2 份＋來勝 1 份')
     +row('記憶工具（已掌握）',kDone,kTot,'張','小卡、單字卡自己標「已掌握」；填空按完成')
