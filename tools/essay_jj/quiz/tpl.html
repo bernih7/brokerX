@@ -44,6 +44,11 @@ button{font:inherit;cursor:pointer}
 /* 作答 */
 .qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.78rem;color:var(--sub);margin-bottom:6px;flex-wrap:wrap}
 .tm{font-variant-numeric:tabular-nums;font-weight:700;color:var(--pri)}
+.pz{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:3px 10px;font-size:.78rem;font-weight:700;cursor:pointer}
+.pz:hover{border-color:var(--pri);color:var(--pri)}
+#qmask{margin:14px 0;padding:26px 14px;border:1px dashed var(--line);border-radius:12px;background:var(--pri-soft);text-align:center;color:var(--sub);font-size:.88rem}
+#qmask b{display:block;font-size:1.08rem;color:var(--ink);margin-bottom:6px}
+#qmask kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;background:var(--surface);font-family:inherit}
 .tag{display:inline-block;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px}
 .stem{font-size:1rem;line-height:1.75;margin:4px 0 11px;font-weight:600}
 .opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;margin-bottom:7px;font-size:.92rem;line-height:1.6}
@@ -167,10 +172,11 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 
 <section id="quiz" hidden>
   <div class="card">
-    <div class="qtop"><span id="prog"></span><span class="tm" id="tmDisp" hidden></span></div>
+    <div class="qtop"><span id="prog"></span><span><span class="tm" id="tmDisp" hidden></span> <button type="button" class="pz" id="tmPz" hidden>⏸️ 暫停</button></span></div>
     <div id="meta" class="qtop" style="margin-bottom:2px"></div>
     <div id="oosTop"></div><div class="stem" id="stem"></div>
     <div id="opts"></div>
+<div id="qmask" hidden><b>⏸️ 已暫停</b>計時停住了，題目先蓋起來，回來再按一次就好（暫停的時間不會補算回去）。<div style="margin-top:10px"><button type="button" class="pz" id="tmGo">▶ 繼續作答（Esc）</button></div></div>
     <div id="after" hidden>
       <div class="verdict" id="verdict"></div>
       <div id="disBox"></div>
@@ -185,7 +191,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
         <button class="sg" data-sh="2">🎲 用猜的</button>
         <span class="sgnote">只有「👍 很確定」會算進指揮中心的<b>真會率</b>；另外兩種算「還能追回」，也會被智慧配題排回來重練。</span></div>
     </div>
-    <div class="nav"><button class="btn" id="prev">上一題</button><button class="btn pri" id="next">下一題</button></div>
+    <div class="nav" id="navrow"><button class="btn" id="prev">上一題</button><button class="btn pri" id="next">下一題</button></div>
   </div>
 </section>
 
@@ -281,6 +287,8 @@ var OFF=Q.filter(function(q){return !isMock(q)&&!isOos(q)}), MK=Q.filter(isMock)
 var sel=new Set(Object.keys(CT)), ord=ld('bxj-ord','new'), num=30, useTm=false;
 var useMock=ld('bxj-mock',0)?1:0;
 var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch';
+var paused=false,pAt=0,pTot=0,hidWas=[];  /* ③ 計時暫停：pTot＝累計暫停毫秒，恢復不補算 */
+function elapsed(){return Math.floor((Date.now()-t0-pTot-(paused?Date.now()-pAt:0))/1000)}
 var WCLR=ld('bxj-wclr',0);
 
 /* ---------- 選章 ---------- */
@@ -464,16 +472,40 @@ function start(list,m){
   idx=0;ansMap={};roundWrong=[];timedOut=false;
   document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
   document.getElementById('quiz').hidden=false;
-  if(useTm){t0=Date.now();document.getElementById('tmDisp').hidden=false;tick();tmr=setInterval(tick,1000)}
-  else{document.getElementById('tmDisp').hidden=true}
+  paused=false;pAt=0;pTot=0;hidWas=[];document.getElementById('qmask').hidden=true;
+  if(useTm){t0=Date.now();document.getElementById('tmDisp').hidden=false;document.getElementById('tmPz').hidden=false;
+    document.getElementById('tmPz').textContent='⏸️ 暫停';tick();tmr=setInterval(tick,1000)}
+  else{document.getElementById('tmDisp').hidden=true;document.getElementById('tmPz').hidden=true}
   render();window.scrollTo(0,0);
 }
 function tick(){
-  var s=Math.floor((Date.now()-t0)/1000);
+  if(paused)return;
+  var s=elapsed();
   document.getElementById('tmDisp').textContent=Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);
   if(s>=2400){clearInterval(tmr);tmr=null;timedOut=true;
     document.getElementById('tmDisp').textContent='已滿 40 分鐘（本輪不列入）';finish()}
 }
+/* ③ 暫停：遮住題目（stem／選項／解析），整輪計時與本題都停住 */
+var MASKIDS=['meta','oosTop','stem','opts','after','navrow'];
+function setPause(on){
+  if(on===paused)return;
+  if(on){paused=true;pAt=Date.now();hidWas=[];
+    MASKIDS.forEach(function(id){var e=document.getElementById(id);if(!e)return;hidWas.push([id,e.hidden]);e.hidden=true});
+    document.getElementById('qmask').hidden=false;
+    document.getElementById('tmDisp').textContent='⏸️ 已暫停';
+    document.getElementById('tmPz').textContent='▶ 繼續';
+  }else{pTot+=Date.now()-pAt;paused=false;
+    hidWas.forEach(function(p){var e=document.getElementById(p[0]);if(e)e.hidden=p[1]});hidWas=[];
+    document.getElementById('qmask').hidden=true;
+    document.getElementById('tmPz').textContent='⏸️ 暫停';tick();}
+}
+document.getElementById('tmPz').onclick=function(){setPause(!paused)};
+document.getElementById('tmGo').onclick=function(){setPause(false)};
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(!useTm||document.getElementById('quiz').hidden)return;
+  e.preventDefault();setPause(!paused);
+});
 function render(){
   var q=pool[idx];
   document.getElementById('prog').textContent='第 '+(idx+1)+' / '+pool.length+' 題';
@@ -565,10 +597,12 @@ document.getElementById('prev').onclick=function(){if(idx>0){idx--;render();wind
 document.getElementById('next').onclick=function(){
   if(idx<pool.length-1){idx++;render();window.scrollTo(0,0)}else finish()};
 function finish(){
+  if(paused)setPause(false);
   if(tmr){clearInterval(tmr);tmr=null}
+  document.getElementById('tmPz').hidden=true;
   var done=Object.keys(ansMap).length,graded=0,ok=0;
   pool.forEach(function(q){var p=ansMap[q.k];if(!p||isFree(q))return;graded++;if(accept(q).indexOf(p)>=0)ok++});
-  var secs=useTm?Math.floor((Date.now()-t0)/1000):null;
+  var secs=useTm?elapsed():null;
   document.getElementById('quiz').hidden=true;document.getElementById('done').hidden=false;
   document.getElementById('score').textContent=graded?(Math.round(ok/graded*100)+'%'):'—';
   document.getElementById('kv').innerHTML=
