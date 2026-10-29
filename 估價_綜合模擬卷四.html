@@ -181,27 +181,29 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
   </div>
 <div class="essay-card"><div class="essay-num">申論二（25分）</div><div class="essay-q">二、試述折現現金流量分析法之意義、應用時機、公式及估價程序？</div><button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button><div class="essay-ans">
         <div class="section-h">（一）意義</div>
-        <p>折現現金流量分析法（DCF法）係預測勘估標的未來各期淨收益及期末處分（復歸）價值，再以適當折現率折現加總，求取勘估標的收益價格之估價方法。</p>
+        <p>折現現金流量分析法，指勘估標的未來折現現金流量分析期間之<b>各期淨收益</b>及<b>期末價值</b>，以適當<b>折現率</b>折現後加總推算勘估標的價格之方法（技術規則§31Ⅰ）。</p>
 
-        <div class="section-h">（二）應用時機（實務歸納；定義見技術規則§28、§31）</div>
-        <p>1. 勘估標的收益有明確逐期變動趨勢者（如租金逐年調升）。</p>
-        <p>2. 各期淨收益不穩定，直接資本化法不易適用時。</p>
-        <p>3. 需反映持有期間內各期收益現值者。</p>
+        <div class="section-h">（二）應用時機</div>
+        <p>1. <b>條文明定</b>：得適用於以投資為目的之不動產投資評估（§31Ⅱ）。</p>
+        <p>2. 以不動產證券化為估價目的者，各期淨收益以契約租金計算為原則（§33Ⅱ）；以契約約定租金作為信託利益分配基礎者，DCF 之收益價格應賦予相對較大之權重（§15Ⅱ）。</p>
+        <p>3. 實務歸納：各期收益有明確變動趨勢（如租金逐年調升）、各期淨收益不穩定而直接資本化法不易適用時。</p>
 
-        <div class="section-h">（三）公式</div>
-        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">收益價格（V）</span><span class="kf-op">＝</span><span class="kf-c k-m">Σ [NOIₜ ÷ (1+r)ᵗ]</span><span class="kf-op">＋</span><span class="kf-c k-m">Pₙ</span><span class="kf-op">÷</span><span class="kf-c k-m">(1+r)ⁿ</span></div><div class="kf-note">其中：</div><div class="kf-eq"><span class="kf-c k-s">NOIₜ</span><span class="kf-op">＝</span><span class="kf-c k-m">第t期淨收益</span></div><div class="kf-eq"><span class="kf-c k-s">r</span><span class="kf-op">＝</span><span class="kf-c k-m">折現率</span></div><div class="kf-eq"><span class="kf-c k-s">Pₙ</span><span class="kf-op">＝</span><span class="kf-c k-m">第n期末處分（復歸）價值</span></div><div class="kf-eq"><span class="kf-c k-s">n</span><span class="kf-op">＝</span><span class="kf-c k-m">分析年期（持有期間）</span></div></div>
+        <div class="section-h">（三）公式（§32，符號照條文）</div>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">P</span><span class="kf-op">＝</span><span class="kf-c k-m">Σ CF<sub>k</sub> ÷ (1＋Y)<sup>k</sup></span><span class="kf-op">＋</span><span class="kf-c k-m">P<sub>n′</sub> ÷ (1＋Y)<sup>n′</sup></span></div><div class="kf-note">其中（k＝1～n′）：</div><div class="kf-eq"><span class="kf-c k-s">P</span><span class="kf-op">＝</span><span class="kf-c k-m">收益價格</span></div><div class="kf-eq"><span class="kf-c k-s">CF<sub>k</sub></span><span class="kf-op">＝</span><span class="kf-c k-m">各期淨收益</span></div><div class="kf-eq"><span class="kf-c k-s">Y</span><span class="kf-op">＝</span><span class="kf-c k-m">折現率</span></div><div class="kf-eq"><span class="kf-c k-s">n′</span><span class="kf-op">＝</span><span class="kf-c k-m">折現現金流量分析期間</span></div><div class="kf-eq"><span class="kf-c k-s">k</span><span class="kf-op">＝</span><span class="kf-c k-m">各年期</span></div><div class="kf-eq"><span class="kf-c k-s">P<sub>n′</sub></span><span class="kf-op">＝</span><span class="kf-c k-m">期末價值</span></div></div>
+        <p><b>白話：</b>每一年的淨收益各自折回今天，最後的期末價值也折回今天，全部加起來就是 P。</p>
 
-        <div class="section-h">（四）估價程序</div>
-        <p>① 決定分析年期（持有期間n）</p>
-        <p>② 預測各期有效總收入（EGI）</p>
-        <p>③ 估算各期營運費用，求各期淨收益（NOI = EGI ─ 費用）</p>
-        <p>④ 預測期末復歸價值（Pₙ）：以第n+1期NOI除以末期資本化率求得</p>
-        <p>⑤ 選定適當折現率（反映市場報酬率與風險）</p>
-        <p>⑥ 將各期NOI及期末復歸值分別折現加總，求得收益價格</p>
-      
-        <p>🎯 <b>DCF vs 直接資本化：</b>直資法用「未來平均一年期間」之客觀淨收益÷資本化率（§29）；DCF用「未來各期」淨收益折現累加。</p>
-        <p>🎯 <b>期末復歸值：</b>Pₙ ＝ NOI(n+1) ÷ 末期資本化率，不是NOIₙ。</p>
-        <p>🎯 <b>折現率 vs 資本化率：</b>折現率用於DCF各期折現；資本化率用於直接資本化或求期末值。</p>
+        <div class="section-h">（四）估價程序（§34，與收益法同一套六步）</div>
+        <p>① 蒐集總收入、總費用及折現率等資料（§35：最近三年）</p>
+        <p>② 推算有效總收入（§36）</p>
+        <p>③ 推算總費用（§38；證券化目的者依<b>信託計畫資料</b>推算）</p>
+        <p>④ 計算淨收益：有效總收入－總費用（§42）</p>
+        <p>⑤ 決定折現率（§43 五種方法）</p>
+        <p>⑥ 計算收益價格：依 §32 將各期淨收益及期末價值折現加總</p>
+        <p>DCF 另須決定<b>分析期間 n′</b> 與<b>期末價值 P<sub>n′</sub></b>（§31、§32）。期末價值常以「第 n′＋1 期淨收益 ÷ 期末資本化率」推估——<b>這是教材作法，條文未規定</b>；推估出 P<sub>n′</sub> 後，仍以折現率 Y 折現。</p>
+
+        <p>🎯 <b>DCF vs 直接資本化：</b>直接資本化法用「未來平均一年期間」之客觀淨收益÷收益資本化率（§29、§30）；DCF 用分析期間內「各期」淨收益及期末價值折現加總。</p>
+        <p>🎯 <b>符號題：</b>101-18 考 P<sub>n′</sub>＝期末價值；102-27 考 n′＝折現現金流量分析期間（不是耐用年數）。</p>
+        <p>🎯 <b>折現率 vs 資本化率：</b>各期淨收益與期末價值都用折現率 Y 折現（114-23）；資本化率用於直接資本化法，或在教材作法中用來推估期末價值。</p>
       </div></div>
 
 </div>

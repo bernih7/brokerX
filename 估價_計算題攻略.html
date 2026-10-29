@@ -452,6 +452,25 @@ body {
 }
 .fab:hover { background: #8B3420; }
 
+/* v590 頁內導覽、④整理 */
+.jump-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-bottom:1px solid var(--rule)}
+.jump-nav .in{max-width:860px;margin:0 auto;padding:8px 20px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.jump-nav .in::-webkit-scrollbar{display:none}
+.jump-nav a{flex:none;font-size:12px;padding:3px 11px;border-radius:99px;border:1px solid var(--rule);color:var(--ink);background:var(--card);text-decoration:none;white-space:nowrap}
+.jump-nav a:hover{border-color:var(--stamp);color:var(--stamp)}
+.section,.calc-card,.not-yet-card{scroll-margin-top:56px}
+.cat-row{display:flex;flex-wrap:wrap;gap:4px 12px;margin:-8px 0 18px;font-size:12px;color:var(--ink-soft);line-height:1.8}
+.cat-row .g{font-weight:700;color:var(--ink)}
+.cat-row a,.not-yet-card a.q{color:var(--blue);text-decoration:none;border-bottom:1px dotted currentColor;white-space:nowrap}
+.not-yet-card{min-width:0}
+.ny-k{font-size:11px;font-weight:700;color:var(--purple);letter-spacing:1px;margin:12px 0 4px}
+.ny-f{font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;overflow-x:auto;line-height:1.9;color:var(--ink)}
+.ny-f .sym{display:block;font-size:12px;color:var(--ink-soft);line-height:1.7;margin-top:2px}
+.not-yet-card ol{font-size:12px;padding-left:18px;line-height:1.75;color:var(--ink)}
+.not-yet-card .src{font-size:11px;color:var(--ink-soft);font-weight:400}
+.not-yet-card .calc-history{font-size:12px;line-height:1.8;color:var(--ink-soft)}
+.not-yet-card .calc-history a{font-size:12px}
+
 /* DIVIDER */
 .section-divider {
   height: 1px;
@@ -583,8 +602,13 @@ body {
   </div>
 </div>
 
+<!-- 頁內導覽 -->
+<nav class="jump-nav" aria-label="本頁章節"><div class="in">
+<a href="#s1">① 頻次總覽</a><a href="#s2">② 公式拆解</a><a href="#s3">③ 出現矩陣</a><a href="#s4">④ 高危未出現</a><a href="#inc-extra">⑤ 收益法補充</a><a href="#s6">⑥ 高分技巧</a>
+</div></nav>
+
 <!-- ① 總覽表 -->
-<div class="section">
+<div class="section" id="s1">
   <div class="section-title">① 16年計算題型出現頻次總覽 <span class="sub-note">依「選擇題＋申論題」累計出現年次排序</span></div>
   <div class="overview-table-wrap">
     <table class="overview-table">
@@ -707,12 +731,20 @@ body {
 <div class="section-divider"></div>
 
 <!-- ② 核心公式拆解 -->
-<div class="section">
+<div class="section" id="s2">
   <div class="section-title">② 必考計算題型 · 公式完整拆解 <span class="sub-note">A級必考 4 大類型</span></div>
+  <div class="cat-row"><span class="g">依方法跳：</span>
+    <span>成本法 <a href="#cc-dep1">定額</a>・<a href="#cc-dep2">定率</a>・<a href="#cc-dep3">償債基金</a></span>
+    <span>土地開發 <a href="#cc-dev">V公式</a></span>
+    <span>比較法 <a href="#cc-cmp">三道排除關卡</a></span>
+    <span>收益法 <a href="#cc-cap">五種資本化率</a>・<a href="#ny-dcf">DCF</a>・<a href="#inc-extra">殘餘法等⑤</a></span>
+    <span>租金 <a href="#cc-rent">實質租金</a></span>
+    <span>房地 <a href="#cc-floor">樓層別效用比</a>・<a href="#split-card">拆土地單價</a></span>
+  </div>
   <div class="calc-grid">
 
     <!-- 定額法 -->
-    <div class="depfig-slot"></div><div class="calc-card">
+    <div class="depfig-slot"></div><div class="calc-card" id="cc-dep1">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-cost"></div>
         <div class="calc-card-title">成本法①：定額法折舊（等速路徑）</div>
@@ -744,7 +776,7 @@ body {
     </div>
 
     <!-- 定率法 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-dep2">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-cost"></div>
         <div class="calc-card-title">成本法②：定率法折舊（初期加速路徑）</div>
@@ -769,13 +801,13 @@ body {
         </div>
         <div class="calc-history">
           <span style="font-size:11px;color:var(--ink-soft);margin-right:4px">出現年：</span>
-          <span class="year-chip chip-essay">107申（完整計算）</span><span class="year-chip chip-choice">108選</span><span class="year-chip chip-choice">110選</span><span class="year-chip chip-choice">113選</span>
+          <span class="year-chip chip-essay">107申（公式＋代入一次）</span><span class="year-chip chip-choice">102選（成本價格最低）</span><span class="year-chip chip-choice">103選・106選（折舊路徑）</span>
         </div>
       </div>
     </div>
 
     <!-- 償債基金法 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-dep3">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-cost"></div>
         <div class="calc-card-title">成本法③：償債基金法（初期減速路徑）</div>
@@ -806,7 +838,7 @@ body {
     </div>
 
     <!-- V公式 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-dev">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-dev"></div>
         <div class="calc-card-title">土地開發分析法：V公式完整計算</div>
@@ -840,7 +872,7 @@ body {
     </div>
 
     <!-- 比較法排除 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-cmp">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-comp"></div>
         <div class="calc-card-title">比較法：三道排除關卡計算</div>
@@ -871,7 +903,7 @@ body {
     </div>
 
     <!-- 資本化率五種方法 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-cap">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-inc"></div>
         <div class="calc-card-title">收益法：五種資本化率決定方法</div>
@@ -896,7 +928,7 @@ body {
     </div>
 
     <!-- 實質租金 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-rent">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-rent"></div>
         <div class="calc-card-title">租金估計：實質租金計算</div>
@@ -926,7 +958,7 @@ body {
     </div>
 
     <!-- 樓層別效用比 -->
-    <div class="calc-card">
+    <div class="calc-card" id="cc-floor">
       <div class="calc-card-header">
         <div class="calc-method-dot dot-comp"></div>
         <div class="calc-card-title">樓層別效用比計算</div>
@@ -977,7 +1009,7 @@ body {
 <div class="section-divider"></div>
 
 <!-- ③ 年度×題型矩陣 -->
-<div class="section">
+<div class="section" id="s3">
   <div class="section-title">③ 16年 × 計算題型出現矩陣 <span class="sub-note">選 = 選擇題　申 = 申論題　雙 = 兩者皆考</span></div>
   <div class="matrix-wrap">
     <table class="matrix-table">
@@ -1058,40 +1090,47 @@ body {
 <div class="section-divider"></div>
 
 <!-- ④ 高危未出現考點 -->
-<div class="section">
-  <div class="section-title">④ 高危未出現考點 <span class="sub-note">16年尚未在申論題考過，但命題邏輯高度可能在115年首次出現</span></div>
+<div class="section" id="s4">
+  <div class="section-title">④ 高危未出現考點 <span class="sub-note">三題都是：選擇題反覆考，申論還沒考過「完整計算版」</span></div>
   <div class="not-yet-grid">
 
-    <div class="not-yet-card">
-      <h4>⚡ 定率法申論完整計算題</h4>
-      <div class="reason">
-        定率法折舊計算107年曾在申論出現，但原題（107年一，25分）是「列式說明定率法折舊公式；1000萬元建物每年減損2%，第5年年末現值？」，只要公式＋一次代入 1000×0.98⁵≈903.9萬。尚未出現「連續多年逐年折舊額＋現值全列式」或「與定額法並列比較」的完整申論計算題型（以站上16年資料為準，考前請對考選部原卷）。<br><br>
-        近年選擇題持續考定率法（108、110、113年），且技術規則§68已明確定義三種折舊路徑，命題人有充分理由在申論要求完整展示定率法計算過程。
-      </div>
-      <div class="calc-history" style="margin:8px 0">模擬：<a href="估價_綜合模擬卷二.html">綜合模擬卷二・申論一（定率法例題）</a>｜範文：<a href="不動產估價概要_申論題實戰範文.html#pred-1">115預測①　折舊三路徑（含定率法）</a></div>
-      <div class="risk-level">🔴 命中機率：高（115年申論首次完整版計算機率 70%）</div>
+    <div class="not-yet-card" id="ny-dep2">
+      <h4>⚡ 定率法：完整計算申論</h4>
+      <div class="ny-k">為什麼高危</div>
+      <div class="reason">申論只考過 107-一，而且只要「公式＋代入一次」：1,000 萬×0.98⁵≈903.92 萬。還沒考過「逐年列表」或「和定額法並列比較」。選擇題考過 <a class="q" href="估價_考題小卡.html#VC2_102_16">102-16</a>（三法中成本價格最低＝定率法）、<a class="q" href="估價_考題小卡.html#VC2_103_11">103-11</a>、<a class="q" href="估價_考題小卡.html#VC2_106_26">106-26</a>（三種折舊路徑，§68）。</div>
+      <div class="ny-k">要背的公式 <span class="src">教材公式；§68 只規定三種路徑，沒有列算式</span></div>
+      <div class="ny-f">第 n 年末現值 ＝ C ×（1－r）<sup>n</sup><br>累積折舊額 ＝ C ×［1－（1－r）<sup>n</sup>］
+        <span class="sym">C＝重建成本　r＝每年折舊率　n＝經歷年數</span></div>
+      <div class="ny-k">考場怎麼寫</div>
+      <ol><li>先寫公式與符號。</li><li>逐年列表：期初價值 → 當年折舊額（期初價值×r）→ 期末價值。</li><li>寫結論，補一句：定率法屬<b>初期加速折舊</b>路徑（§68），第 1 年折舊額最大、逐年遞減。</li></ol>
+      <div class="calc-history" style="margin:10px 0 0">公式拆解：<a href="#cc-dep2">② 定率法卡</a>｜模擬：<a href="估價_綜合模擬卷二.html">綜合模擬卷二・申論一</a>｜範文：<a href="不動產估價概要_申論題實戰範文.html#pred-1">115預測①　折舊三路徑</a></div>
     </div>
 
-    <div class="not-yet-card">
-      <h4>⚡ 債務保障比率法申論推導</h4>
-      <div class="reason">
-        債務保障比率法（DCR法）在選擇題已連續四年（111～114；另 109 年也考過）高頻出現，但16年來從未在申論出現過完整的「說明公式＋代入計算資本化率＋進而推估收益價格」流程。<br><br>
-        這個缺口非常明顯：選擇題連年考，申論卻零紀錄。命題上升趨勢明確，申論補考機率很高。
-      </div>
-      <div class="calc-history" style="margin:8px 0">範文：<a href="不動產估價概要_申論題實戰範文.html#pred-2">115預測②　§43 五種資本化率方法</a>（只列 DCR 公式）｜選擇題：<a href="估價_綜合模擬卷四.html">綜合模擬卷四 第18題</a>｜<a href="不動產估價概要_申論題實戰範文.html#pred-16">115預測⑯　DCR＋有效總收入乘數（公式＋代入＋推估收益價格）</a></div>
-      <div class="risk-level">🔴 命中機率：高（115年申論出現機率 65%）</div>
+    <div class="not-yet-card" id="ny-dcr">
+      <h4>⚡ 債務保障比率法：公式＋代入＋推估收益價格</h4>
+      <div class="ny-k">為什麼高危</div>
+      <div class="reason">選擇題 111～114 年<b>連續四年</b>都考（<a class="q" href="估價_考題小卡.html#VD2_111_3">111-3</a>、<a class="q" href="估價_考題小卡.html#VD2_112_18">112-18</a>、<a class="q" href="估價_考題小卡.html#VD2_113_13">113-13</a>、<a class="q" href="估價_考題小卡.html#VD2_114_8">114-8</a>；<a class="q" href="估價_考題小卡.html#VD2_104_39">104-39</a> 也考過計算），申論還沒考過整套流程。</div>
+      <div class="ny-k">要背的公式 <span class="src">§43④ 逐字；收益價格用 §30</span></div>
+      <div class="ny-f">收益資本化率 ＝ 債務保障比率 × 貸款常數 × <b>貸款資金</b>占不動產價格比率<br>收益價格 ＝ 淨收益 ÷ 收益資本化率
+        <span class="sym">例 114-8：1.3 × 0.055 × 70% ＝ 5.005% ≈ 5%</span></div>
+      <div class="ny-k">考場陷阱</div>
+      <ol><li>第三個乘數是「<b>貸款資金</b>」占價格比率。題目給自有資金時要先換算。</li><li>104-39：貸款以外的資金占 40% → 貸款占 60%，1.3×0.1×60%＝7.8%。</li><li>112-18：自有資金 15 億／價格 60 億 → 貸款占 75%，1.5×0.1×75%＝11.25%。</li></ol>
+      <div class="calc-history" style="margin:10px 0 0">公式拆解：<a href="#cc-cap">② 五種資本化率卡</a>｜範文：<a href="不動產估價概要_申論題實戰範文.html#pred-16">115預測⑯　DCR＋有效總收入乘數</a>｜<a href="不動產估價概要_申論題實戰範文.html#pred-2">115預測②　§43 五種方法</a>｜選擇：<a href="估價_綜合模擬卷四.html">綜合模擬卷四 第18題</a></div>
     </div>
 
-    <div class="not-yet-card">
-      <h4>⚡ DCF折現現金流量完整計算申論</h4>
-      <div class="reason">
-        113年申論考「DCF定義與和直接資本化法的差異」，但沒有要求計算。選擇題近兩年開始出現DCF計算題（112、113年選擇）。<br><br>
-        DCF是收益法中最難的計算題型，且§28、§31～§32明確規定DCF為收益法之正式方法之一，命題人補上「完整DCF計算申論」的可能性在115年顯著提高。
-        <br><br>
-        <strong>應備公式（§32）：</strong>P ＝ Σ[CFk ÷ (1＋Y)ᵏ] ＋ [Pn′ ÷ (1＋Y)ⁿ]（P＝收益價格、CFk＝各期淨收益、Y＝折現率、Pn′＝期末價值）
-      </div>
-      <div class="calc-history" style="margin:8px 0">範文：<a href="不動產估價概要_申論題實戰範文.html#pred-11">115預測⑪　DCF 之計算（§31、§32）</a>｜模擬：<a href="估價_綜合模擬卷四.html">綜合模擬卷四・申論二（DCF 意義、公式、程序）</a></div>
-      <div class="risk-level">🟡 命中機率：中（115年申論出現機率 45%）</div>
+    <div class="not-yet-card" id="ny-dcf">
+      <h4>⚡ DCF 折現現金流量：完整計算申論</h4>
+      <div class="ny-k">為什麼高危</div>
+      <div class="reason">申論考過 113-一（DCF 與直接資本化法的差異），沒要求計算。選擇題的 DCF 計算只考過一次（<a class="q" href="估價_考題小卡.html#VD3_103_37">103-37</a>），其他 DCF 題都在考符號：<a class="q" href="估價_考題小卡.html#VD3_101_18">101-18</a>（Pn′）、<a class="q" href="估價_考題小卡.html#VD3_102_27">102-27</a>（n′）、<a class="q" href="估價_考題小卡.html#VD3_114_23">114-23</a>（期末價值用折現率）。</div>
+      <div class="ny-k">要背的公式 <span class="src">§32，符號照條文寫</span></div>
+      <div class="ny-f">P ＝ Σ CF<sub>k</sub> ÷（1＋Y）<sup>k</sup> ＋ P<sub>n′</sub> ÷（1＋Y）<sup>n′</sup>
+        <span class="sym">（k＝1～n′）P＝收益價格　CF<sub>k</sub>＝各期淨收益　Y＝折現率　n′＝折現現金流量分析期間　k＝各年期　P<sub>n′</sub>＝期末價值</span>
+        <span class="sym"><b>白話：</b>每一年的淨收益各自折回今天，最後的期末價值也折回今天，全部加起來就是 P。</span></div>
+      <div class="ny-k">代入示範（103-37）</div>
+      <div class="ny-f">每年淨收益 10 萬、第 3 年底以 200 萬出售、折現率 5%<br>10÷1.05 ＋ 10÷1.05² ＋（10＋200）÷1.05³ ＝ 9.52 ＋ 9.07 ＋ 181.41 ≈ <b>200 萬</b></div>
+      <div class="ny-k">考場陷阱</div>
+      <ol><li>期末價值和最後一期淨收益<b>同一期</b>折現（上例第 3 年的 10＋200 一起 ÷1.05³），不要多折一期。</li><li>期末價值用<b>折現率 Y</b> 折現，不是資本化率（114-23）。</li><li>n′ 是<b>分析期間</b>，不是耐用年數（102-27）。</li></ol>
+      <div class="calc-history" style="margin:10px 0 0">範文：<a href="不動產估價概要_申論題實戰範文.html#pred-11">115預測⑪　DCF 之計算（§31、§32）</a>｜模擬：<a href="估價_綜合模擬卷四.html">綜合模擬卷四・申論二</a>｜練習：<a href="估價_DCF計算題組.html">DCF 計算題組</a></div>
     </div>
 
   </div>
@@ -1102,7 +1141,7 @@ body {
 
 <!-- ⑥ 收益法補充（v499 補：總覽表未列入的三個計算考點） -->
 <div class="section" id="inc-extra">
-  <div class="section-title">⑥ 收益法補充：殘餘法・綜合資本化率・折舊提存率・年金現值 <span class="sub-note">①總覽表沒列、但 99～114 年選擇題考過的四個計算點</span></div>
+  <div class="section-title">⑤ 收益法補充：殘餘法・綜合資本化率・折舊提存率・年金現值 <span class="sub-note">①總覽表沒列、但 99～114 年選擇題考過的四個計算點</span></div>
   <div class="calc-grid">
 
     <div class="calc-card" id="annuity-card">
@@ -1184,9 +1223,9 @@ body {
 
 <div class="section-divider"></div>
 
-<!-- ⑤ 備考得分技巧 -->
-<div class="section">
-  <div class="section-title">⑤ 計算題高分技巧 <span class="sub-note">考試現場不失分的關鍵動作</span></div>
+<!-- ⑥ 備考得分技巧 -->
+<div class="section" id="s6">
+  <div class="section-title">⑥ 計算題高分技巧 <span class="sub-note">考試現場不失分的關鍵動作</span></div>
   <div class="tips-grid">
     <div class="tip-card">
       <h4><span class="tip-num">①</span> 公式先列再代數</h4>
