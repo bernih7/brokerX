@@ -46,6 +46,17 @@ td.n{font-weight:700;white-space:nowrap}
 .c h3{font-size:14px;color:var(--pri);margin-bottom:3px;font-family:'Noto Serif TC',serif}
 .c .s{font-size:12px;color:var(--key);font-weight:700}
 #hub{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:22px;text-align:center;line-height:46px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:20}
+
+.box.trap{border-left-color:var(--red);min-width:0}
+.qlk{color:var(--pri,#2F5D50);font-weight:700;text-decoration:none;
+  border-bottom:1px dotted currentColor;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* 站規：比較表不做成一大張橫表，每列一張小卡、手機單欄。
+   這裡刻意不用 <table>——display:block 的 table 在窄螢幕仍會以 min-content 撐寬，
+   實測 390px 會溢出 242px。 */
+.qq{margin:6px 0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.qrow{min-width:0;padding:6px 8px;background:var(--card);border-radius:7px;
+  border:1px solid var(--line,rgba(128,128,128,.25))}
+.qrow .qt,.qrow .qa{margin-top:2px;overflow-wrap:anywhere}
 </style></head><body>
 <header>
   <div id="rdc"><button class="thm" id="theme-btn" onclick="toggleTheme()" title="切換深淺色">深色</button><span class="vsep"></span><button onclick="rdInc(-1)" title="減一">－</button><div class="cnt" id="rdn">0</div><button onclick="rdInc(1)" title="加一">＋</button></div>
@@ -89,9 +100,32 @@ td.n{font-weight:700;white-space:nowrap}
 <tr><td class="a">§94</td><td class="n">鹽田</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：以附近土地價格為基礎，考慮日照、通風、位置、形狀等差異</td></tr>
 <tr><td class="a">§95</td><td class="n">池沼、墓地</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：以附近土地價格為基礎，考慮位置、形狀、利用狀況等差異</td></tr>
 <tr><td class="a">§96</td><td class="n">（刪除）</td><td colspan="2" style="color:var(--sub)">現行條文已刪除</td></tr>
-<tr><td class="a">§97</td><td class="n">公共設施用地、公共設施保留地</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：比較其與毗鄰土地<span class="k">使用分區及使用強度差異</span>、<span class="k">土地價值減損情況</span>，並斟酌毗鄰土地平均價格為基礎推算</td></tr>
+<tr><td class="a">§97</td><td class="n">公共設施用地、公共設施保留地</td><td><span class="g">比較法為原則</span></td><td>無買賣實例：比較其與毗鄰土地<span class="k">使用分區及使用強度差異</span>、<span class="k">土地價值減損情況</span>，並斟酌毗鄰土地平均價格為基礎推算。<br><b>⚠️ 條文<span class="k">沒有列舉「比較標的」要選哪一種土地</span>——這點考過兩次而且官方答案相反，見下方紅框。</b></td></tr>
 </tbody></table></div>
 <div class="box inf"><b>🧠 整理：</b>條文明寫「比較法為原則」的只有 <b>農場牧場、鹽田、池沼墓地、公共設施用地（§93、94、95、97）</b>；<b>林地（§92）不是比較法為原則</b>，而是依林木成長情形分採三法；溫泉地、高爾夫球場（§90、§91）只列考慮因素、未指定方法。</div>
+<div class="box trap"><b>⚠️ §97 最大的陷阱：「比較標的怎麼選」考過兩次，<span class="k">官方答案相反</span></b><br>
+<div class="qq">
+<div class="qrow"><a class="qlk" href="估價_考題小卡.html#VH2_106_13">106-13</a>
+<div class="qt">「依不動產估價技術規則規定，<b>得以下列何者為比較標的</b>？」</div>
+<div class="qa">官方答案：<span class="k">都市計畫保護區土地</span></div></div>
+<div class="qrow"><a class="qlk" href="估價_考題小卡.html#VH2_112_19">112-19</a>
+<div class="qt">「原則上採比較法估價，其<b>比較標的應如何選取</b>？」</div>
+<div class="qa">官方答案：<span class="k">鄰近之公共設施保留地或<b>毗鄰</b>非公共設施保留地</span></div></div>
+</div>
+兩題的四個選項幾乎一樣（鄰近公保地或毗鄰非公保地／一般建築用地／農業用地／都市計畫保護區土地），
+<b>106 年選「都市計畫保護區土地」，112 年選「鄰近公保地或毗鄰非公保地」</b>，答案互換。<br>
+<b>為什麼會這樣：<span class="k">§97 條文根本沒有列舉比較標的之類型</span></b>。
+條文只說「以比較法估價為原則；無買賣實例者，得比較其與<span class="k">毗鄰土地</span>
+使用分區及使用強度差異，及土地價值減損情況，並斟酌毗鄰土地平均價格為基礎推算之」。
+兩題都不是從條文直接推得。<br>
+<b>考場怎麼判斷</b>（以下為<span class="y">依條文所作之判斷，非官方說法</span>）：
+條文能確定的只有一件事——無買賣實例時，比較的對象是「<span class="k">毗鄰土地</span>」。
+112-19 的正解含「毗鄰非公共設施保留地」，與條文後段用語最接近；
+而「都市計畫保護區土地」在 §97 條文中完全沒有出現。
+故若再考同一題型，<span class="k">優先選含「毗鄰土地」字樣的選項</span>；
+但 106 年官方選的是「都市計畫保護區土地」，<b>兩個答案都要有印象</b>——
+這一題型本身就是不穩定考點。</div>
+
 
 <h2 id="s3">三、房地估價<small>§98～§106</small></h2>
 <div class="tw"><table><thead><tr><th>條</th><th>情形</th><th>條文怎麼處理</th></tr></thead><tbody>
