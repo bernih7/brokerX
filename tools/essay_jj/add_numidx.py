@@ -16,8 +16,8 @@ ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 PAGE = os.path.join(ROOT, '經紀法規_應記載不得記載總整理.html')
 
 # 節 id → 國字編號（插入新節後的順序）
-NUM = {'s0': '一', 's1': '二', 's2': '三', 's3': '四', 's3b': '五',
-       's4': '六', 's5': '七', 's6': '八', 's7': '九', 's8': '十'}
+NUM = {'s0': '一', 's0b': '二', 's1': '三', 's2': '四', 's3': '五', 's3b': '六',
+       's4': '七', 's5': '八', 's6': '九', 's7': '十', 's8': '十一'}
 
 CSS = """<style id="numidx-css">
 /* 版型 A：顏色全頁一義 + 數字反向索引 */
@@ -176,7 +176,7 @@ def main():
 
     # 各節國字編號重排
     for sid, n in NUM.items():
-        s = re.sub(r'(id="%s"><summary><span class="n2">)[^<]*(</span>)' % sid,
+        s = re.sub(r'(id="%s"><summary><span class="n2">)[^<]*(</span>)' % re.escape(sid),
                    lambda mm, n=n: mm.group(1) + n + mm.group(2), s)
 
     # CSS
