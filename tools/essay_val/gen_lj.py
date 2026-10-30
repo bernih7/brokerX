@@ -43,7 +43,7 @@ def render(d):
         for j, st in enumerate(sb['steps']):
             n += 1
             A += f'<div class="ljst"><div class="ljsq"><span class="ljno">{n}</span>{E(st["ask"])}</div>'
-            if st.get('lawh'): A += f'<p><span class="ljt tl">{tl}</span><b>{E(st["lawh"])}</b>：{E(st["law"])}</p>'
+            if st.get('lawh'): A += f'<p><span class="ljt tl">{st.get("lt", tl)}</span><b>{E(st["lawh"])}</b>：{E(st["law"])}</p>'
             A += f'<p><span class="ljt tf">{tf}</span>{E(st["fact"])}</p>'
             if st.get('res'): A += f'<p><span class="ljt ta">小結</span>{E(st["res"])}</p>'
             A += '</div>'
@@ -72,6 +72,7 @@ def render(d):
     for c in ck:
         tl, tf, hl, hr = L(c['sub'] - 1)
         t, cls = {'law': (tl, 'tl'), 'fact': (tf, 'tf'), 'ans': ('答', 'ta')}[c['t']]
+        if c.get('lt'): t = c['lt']
         g = f'<span class="ljg">問題{CN[c["sub"] - 1]}</span>' if multi else ''
         hot = '<span class="ljhot">常錯</span>' if c.get('hot') else ''
         C += f'<li><label><input type="checkbox"><span class="ljt {cls}">{t}</span>{E(c["txt"])}{hot}</label>{g}</li>'
