@@ -4,7 +4,7 @@
 依 JSON 修正清單改寫估價刷題章節頁 ITEMS 的單一欄位（章節頁是唯一資料來源）。
 用法：python3 tools/quiz_val/apply_exp_fixes.py fixes.json [--write]
 fixes.json：[{"id":"VB2_100_38","field":"explains","i":1,"new":"……"}, {"id":"…","field":"note","new":"…"}, {"id":"…","field":"q","new":"…"}]
-  field 預設 explains；explains 需給 i（0 起算）。可另給 "old"（子字串）只替換該字串內的片段。
+  field 預設 explains；explains／opts 需給 i（0 起算）。可另給 "old"（子字串）只替換該字串內的片段。
 不加 --write 只做 dry-run（列出每筆前後差異）；任何一筆對不上整批不寫。
 改完要跑：node tools/quiz_val/extract_items.js > /tmp/quiz_items.json && python3 tools/quiz_val/sync_cards.py --write && python3 tools/quiz_val/gen_data.py
 """
@@ -18,10 +18,12 @@ FILES = sorted(R.glob("估價刷題練習_*.html"))
 FILES = [f for f in FILES if "113真題" not in f.name]
 
 
-def js_str_spans(s, start, end):
-    """回傳 s[start:end] 內所有雙引號字串的 (內容起, 內容迄)"""
+def js_str_spans(s, start, end=None):
+    """回傳從 start 起所有雙引號字串的 (內容起, 內容迄)；end=None 時遇到字串外的 ] 停止"""
     out, i = [], start
-    while i < end:
+    while i < (end if end is not None else len(s)):
+        if end is None and s[i] == "]":
+            break
         if s[i] == '"':
             j = i + 1
             while s[j] != '"':
@@ -55,9 +57,9 @@ def main():
         f, s = hits[0]
         a = s.index(f'id:"{iid}"')
         e = s.index("\n", a)
-        if field == "explains":
-            k = s.index("explains:[", a, e) + len("explains:[")
-            spans = js_str_spans(s, k, s.index("]", k))
+        if field in ("explains", "opts"):
+            k = s.index(field + ":[", a, e) + len(field) + 2
+            spans = js_str_spans(s, k)
             if fx["i"] >= len(spans):
                 fail.append(f"✗ {iid} explains[{fx['i']}] 不存在")
                 continue
@@ -77,7 +79,7 @@ def main():
             new = cur.replace(fx["old"], fx["new"])
         else:
             new = fx["new"]
-        print(f"— {iid} {field}{'['+str(fx['i'])+']' if field=='explains' else ''}\n  舊：{cur}\n  新：{new}")
+        print(f"— {iid} {field}{'['+str(fx['i'])+']' if field in ('explains','opts') else ''}\n  舊：{cur}\n  新：{new}")
         texts[f] = s[:p] + enc(new) + s[q:]
     if fail:
         print("\n".join(fail))
