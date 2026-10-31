@@ -47,7 +47,7 @@
     + '.bxv-tq .op.ok .L{color:var(--hi-grn,var(--green,#2F6B45))}'
     + '.bxv-tq .op.ng{border-color:var(--hi-red,var(--vermillion,#A84030));background:color-mix(in srgb,var(--hi-red,var(--vermillion,#A84030)) 12%,transparent)}'
     + '.bxv-tq .op.ng .L{color:var(--hi-red,var(--vermillion,#A84030))}'
-    + '.bxv-tq .me{flex:none;font-size:11px;font-weight:700;color:var(--muted,#7A8C84);align-self:center}'
+    + '.bxv-tq .me{flex:none;font-size:11px;font-weight:700;color:var(--hi-red,var(--vermillion,#A84030));align-self:center;border:1px solid currentColor;border-radius:4px;padding:0 5px}.bxv-tq .op.ok .me,.bxv-tq .me.ans{color:var(--hi-grn,var(--green,#2F6B45))}'
     + '.bxv-tq .vd{margin:9px 0 0;font-weight:800;font-size:13.5px}'
     + '.bxv-tq .vd.y{color:var(--hi-grn,var(--green,#2F6B45))}.bxv-tq .vd.n{color:var(--hi-red,var(--vermillion,#A84030))}'
     + '.bxv-tq .ex{margin-top:7px;display:grid;gap:4px;font-size:12.8px;line-height:1.65}'
@@ -183,10 +183,10 @@
           if (picked) cls = acc.indexOf(L) >= 0 ? ' ok' : (L === picked ? ' ng' : '');
           return '<button type="button" class="op' + cls + '" data-l="' + L + '"' + (picked ? ' disabled' : '') + '>'
             + '<span class="L">' + L + '</span><span>' + esc(o) + '</span>'
-            + (L === picked ? '<span class="me">你選的</span>' : '') + '</button>';
+            + (L === picked ? '<span class="me">你選的</span>' : (picked && acc.indexOf(L) >= 0 ? '<span class="me ans">正確答案</span>' : '')) + '</button>';
         }).join('') + '</div>';
         if (picked) {
-          h += '<div class="vd ' + (ok ? 'y' : 'n') + '">' + (isFree(q) ? '這題不計正確率' : (ok ? '答對了' : '答錯了　正解：' + acc.join(' 或 '))) + '</div>';
+          h += '<div class="vd ' + (ok ? 'y' : 'n') + '">' + (isFree(q) ? '這題不計正確率' : (ok ? '答對了' : '答錯了　你選 ' + picked + '，正確答案 ' + acc.join(' 或 '))) + '</div>';
           h += '<div class="ex">' + (q.exp || []).map(function (t, i) {
             var L = 'ABCD'[i];
             return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + rich(t) + '</span></div>';
