@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>經紀法規刷題練習｜G1公平交易法(一) 99-104年</title>
@@ -189,7 +189,7 @@ function setEx(m){EX=m;document.body.dataset.ex=m;lsS('bx-ex2',m);[].forEach.cal
 document.getElementById('ea').onclick=function(){var on=document.body.classList.toggle('allopen');this.textContent=on?'全部收合':'全部展開'};
 var th=document.getElementById('th');function isDark(){var t=document.documentElement.dataset.theme;return t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)}
 function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?'淺色':'深色'}
-setTh(lsG('bx-theme')||'light');th.onclick=function(){var n=isDark()?'light':'dark';lsS('bx-theme',n);setTh(n)};
+setTh(lsG('bx-theme'));th.onclick=function(){var n=isDark()?'light':'dark';lsS('bx-theme',n);setTh(n)};
 markOrd();setEx(EX);renderChips();renderList();
 </script>
 <!--bxfab-->

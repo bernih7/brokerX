@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-Hant"><head>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",(s||"light").replace(/"/g,""))})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s.replace(/"/g,""))})();</script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>經紀法規申論115預測</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -210,7 +210,7 @@ var tb=document.getElementById('thb');
 function dark(){var t=document.documentElement.dataset.theme;return t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches)}
 function setT(m){if(m)document.documentElement.dataset.theme=m;tb.textContent=dark()?'☀':'☾'}
 var sv=null;try{sv=localStorage.getItem('bx-theme')}catch(e){}
-setT(sv?JSON.parse('"'+sv.replace(/"/g,'')+'"'):'light');
+setT(sv?JSON.parse('"'+sv.replace(/"/g,'')+'"'):null);
 tb.onclick=function(){var n=dark()?'light':'dark';try{localStorage.setItem('bx-theme',n)}catch(e){}setT(n)};
 
 </script>

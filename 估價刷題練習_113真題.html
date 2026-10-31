@@ -592,9 +592,10 @@ document.getElementById("resetMastery").onclick = ()=>{
 
 // Theme toggle
 const tt = document.getElementById("themeToggle");
-const getTheme = ()=>{ try{return localStorage.getItem("bx-theme")||"light";}catch(e){return "light";} };
-const applyTheme = t=>{ document.documentElement.setAttribute("data-theme",t); tt.textContent=t==="dark"?"☀️":"🌙"; try{localStorage.setItem("bx-theme",t);}catch(e){} };
-tt.onclick = ()=>applyTheme(getTheme()==="dark"?"light":"dark");
+const getTheme = ()=>{ try{return localStorage.getItem("bx-theme");}catch(e){return null;} };
+const curDark = ()=>{ var t=getTheme(); return t?t==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches); };
+const applyTheme = t=>{ if(t){document.documentElement.setAttribute("data-theme",t); try{localStorage.setItem("bx-theme",t);}catch(e){}} tt.textContent=curDark()?"☀️":"🌙"; };
+tt.onclick = ()=>applyTheme(curDark()?"light":"dark");
 applyTheme(getTheme());
 
 buildChips();

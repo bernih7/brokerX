@@ -183,7 +183,7 @@ footer{
 }
 </style>
 <script src="bxm-use.js"></script>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <style id="zlink-css">.zlink{display:block;margin:6px 0 12px;padding:8px 12px;border:1px dashed currentColor;border-radius:10px;font-size:.92em;font-weight:700;text-decoration:none;color:#2F5D50}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .zlink{color:#84C2AE}}:root[data-theme="dark"] .zlink{color:#84C2AE}</style>
 </head>
 <body>
@@ -571,6 +571,6 @@ footer{
 <!--/bxfab-->
 
 <button id="bxth" type="button" aria-label="切換深淺色"></button>
-<script>(function(){var b=document.getElementById("bxth");function sync(){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()}})()</script>
+<script>(function(){var b=document.getElementById("bxth");function sync(){b.textContent=(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"))==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"))==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()}})()</script>
 </body>
 </html>

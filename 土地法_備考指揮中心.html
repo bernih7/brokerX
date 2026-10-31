@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script>
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>日拱一築・土地法</title>
@@ -630,7 +630,7 @@ document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('cl
 document.querySelectorAll('.seg').forEach(function(sg){sg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){sg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});sg.parentElement.querySelectorAll(':scope > .sp').forEach(function(s){s.classList.toggle('on',s.id===b.dataset.s)});lsS('ll_seg_'+sg.dataset.g,b.dataset.s)})});var sv=lsG('ll_seg_'+sg.dataset.g);if(sv){var t=sg.querySelector('[data-s="'+sv+'"]');if(t)t.click()}});
 document.querySelectorAll('[data-go="mock"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();goTab('pPrac');document.getElementById('mockBtn').click()})});
 var th=document.getElementById('th');function setTh(m){if(m)document.documentElement.dataset.theme=m;var d=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches);th.textContent=d?'淺色':'深色'}
-setTh(lsG('bx-theme')||lsG('ll_theme')||'light');th.addEventListener('click',function(){var d=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches);var n=d?'light':'dark';lsS('ll_theme',n);lsS('bx-theme',n);setTh(n)});
+setTh(lsG('bx-theme')||lsG('ll_theme'));th.addEventListener('click',function(){var d=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches);var n=d?'light':'dark';lsS('ll_theme',n);lsS('bx-theme',n);setTh(n)});
 (function(){var exam=new Date('2026-11-14T00:00:00+08:00');var d=Math.max(0,Math.ceil((exam-new Date())/86400000));document.getElementById('days').textContent=d;(function(){var bar=document.querySelector('#examBar i'),lab=document.getElementById('examRight');if(bar)bar.style.width=(d>=100?0:(d<=0?100:Math.round(100-d)))+'%';if(lab)lab.textContent=d>100?'考前 100 天開始倒數':(d>0?'還有 '+d+' 天':'考試日')})();
 var wd=new Date().getDay(),we=(wd===0||wd===6);
 var wk=['E 地價稅／土增稅','A 登記與優先購買','B 都市計畫','C 重劃與申報登錄','D 徵收','F/G/H 房屋稅契稅房地合一','A2 預告登記＋E 回頭錯題'];

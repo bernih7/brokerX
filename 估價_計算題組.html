@@ -747,12 +747,12 @@ document.addEventListener('click',function(e){
 (function(){
   var btn=document.getElementById('themeBtn');
   function lbl(){
-    var dark=document.documentElement.getAttribute('data-theme')==='dark';
+    var dark=(document.documentElement.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'))==='dark';
     btn.textContent=dark?'☀️ 淺色':'🌙 深色';
   }
   try{var t=localStorage.getItem('bxr-theme'); if(t) document.documentElement.setAttribute('data-theme',t);}catch(e){}
   btn.addEventListener('click',function(){
-    var dark=(document.documentElement.getAttribute('data-theme')==='dark');
+    var dark=((document.documentElement.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'))==='dark');
     var nx = dark?'light':'dark';
     document.documentElement.setAttribute('data-theme',nx);
     try{localStorage.setItem('bxr-theme',nx);}catch(e){}

@@ -5,7 +5,7 @@ function bxTax(sec,so,all){var S={E1:["landvalue","地價稅"],E2:["zeng","土�
  if(l.length||/稅/.test(so))[["自用住宅","selfuse","自用住宅・一生一屋一生一次"],["免徵|減徵|不課徵|減半|免稅","relief","免徵・減徵・不課徵"],["滯納|怠報|匿報|短報|罰鍰","penalty","罰則"],["納稅義務人|申報|期限|繳納","payer","義務人・期限・稽徵機關"]].forEach(function(a){if(new RegExp(a[0]).test(all)&&!l.some(function(x){return x[1]===a[1]}))l.push([a[2],a[1]])});
  if(!l.length)return "";
  return '<div class="bxtl" style="margin-top:8px">'+l.slice(0,3).map(function(a){return '<a target="_blank" rel="noopener" href="土地法_稅率總表.html#'+a[1]+'" style="display:inline-block;margin:2px 6px 2px 0;padding:2px 11px;border:1px solid #B8782E;border-radius:99px;color:#8A5517;background:#FBF1D9;text-decoration:none;font-size:13px;font-weight:700">💰 稅務總表：'+a[0]+' →</a>'}).join("")+'</div>'}
-/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>來勝115模擬試題(一)｜土地法規概要</title>
+/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>來勝115模擬試題(一)｜土地法規概要</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;--hbg1:#2F5D50;--hbg2:#3E7566;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--sub:#5F6B63;--opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9}
@@ -222,7 +222,7 @@ build();
 <!--bxtheme-->
 <style>#theme-btn{position:fixed;top:10px;right:10px;z-index:70;width:38px;height:38px;border-radius:50%;border:1px solid var(--line,#ccc);background:var(--card,#fff);color:var(--ink,#222);font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);padding:0}</style>
 <button id="theme-btn" onclick="toggleTheme()" title="切換深淺色" aria-label="切換深淺色">☀️</button>
-<script>function ub(t){var b=document.getElementById("theme-btn");if(b)b.textContent=t==="dark"?"🌙":"☀️"}function toggleTheme(){var h=document.documentElement,c=h.getAttribute("data-theme")||"light",n=c==="dark"?"light":"dark";h.setAttribute("data-theme",n);ub(n);try{localStorage.setItem("bx-theme",n)}catch(e){}}ub(document.documentElement.getAttribute("data-theme")||"light");</script>
+<script>function ub(t){var b=document.getElementById("theme-btn");if(b)b.textContent=t==="dark"?"🌙":"☀️"}function toggleTheme(){var h=document.documentElement,c=h.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"),n=c==="dark"?"light":"dark";h.setAttribute("data-theme",n);ub(n);try{localStorage.setItem("bx-theme",n)}catch(e){}}ub(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"));</script>
 <!--/bxtheme-->
 <script src="bx-use.js"></script>
 </body></html>

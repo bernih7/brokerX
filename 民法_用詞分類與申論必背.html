@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>民法概要｜用詞分類・申論必背</title>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <script src="bxm-use.js"></script>
 <script src="bxm-fmt.js"></script>
 <style>
@@ -82,7 +82,13 @@ details.sub[open]>summary{margin-bottom:4px}
 .lrp{font-weight:700;color:var(--pri);margin:2px 0 0}
 .eb .lrs{margin:4px 0 2px}
 .eb .lr .ln{flex:0 0 auto;min-width:64px}
-</style></head><body>
+</style><style id="sysdark-css">/* 系統深色：鏡像既有 [data-theme=dark] 的值，未新增顏色 */
+@media (prefers-color-scheme:dark){
+:root:not([data-theme=light]){--pri:#84C2AE;--bg:#14191a;--sf:#1d2425;--sf2:#252e2f;--tx:#e6ece9;--mu:#9aa9a2;--bd:#34403f;--ac:#F0A878}
+:root:not([data-theme=light]) .k{color:#ff8f7e}
+:root:not([data-theme=light]) .nm{background:#4a3d12;color:#ffe08a}
+}</style>
+</head><body>
 <header><div><h1>民法概要｜用詞分類・申論必背</h1><div class="sub">條號可點，直接開全國法規資料庫核對</div></div><button id="th">🌓</button></header>
 <nav><a href="#s1">用詞分類</a><a href="#s2">申論必背</a></nav>
 <div class="tools"><input id="q" placeholder="搜尋：條號、關鍵字（例：§356、沉默、償金）">
@@ -109,7 +115,7 @@ $('ex').onclick=function(){[].forEach.call(document.querySelectorAll('.it.fold')
 $('co').onclick=function(){[].forEach.call(document.querySelectorAll('.it.fold'),function(d){d.classList.remove('on')});[].forEach.call(document.querySelectorAll('details.sub'),function(d){d.open=false});[].forEach.call(document.querySelectorAll('details.sx'),function(d){d.open=false});[].forEach.call(document.querySelectorAll('details.gc'),function(d){d.open=false})};
 $('mk').onclick=function(){document.body.classList.toggle('mask');[].forEach.call(document.querySelectorAll('.show'),function(x){x.classList.remove('show')});this.classList.toggle('on',document.body.classList.contains('mask'))};
 document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('.gb .k,.gb .nm');if(v&&document.body.classList.contains('mask'))v.classList.toggle('show')});
-$('th').onclick=function(){var n=document.documentElement.getAttribute('data-theme')=='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}};
+$('th').onclick=function(){var n=(document.documentElement.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'))==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}};
 </script>
 <!--bxfab-->
 <style>

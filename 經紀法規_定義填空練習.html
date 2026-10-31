@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>經紀法規定義填空練習</title>
@@ -593,7 +593,7 @@ function updateThemeBtn(theme) {
 }
 function toggleTheme() {
   const html = document.documentElement;
-  const current = html.getAttribute('data-theme') || 'light';
+  const current = html.getAttribute('data-theme') || ((window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches) ? 'dark' : 'light');
   const next = current === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   updateThemeBtn(next);

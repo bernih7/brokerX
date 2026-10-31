@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script>
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>經紀法規｜備考指揮中心</title>
@@ -1226,7 +1226,7 @@ document.querySelectorAll('.seg').forEach(function(sg){sg.querySelectorAll('butt
 var th=document.getElementById('th');
 function isDark(){var t=document.documentElement.dataset.theme;return t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)}
 function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?'淺色':'深色'}
-setTh(lsG('bx-theme')||'light');
+setTh(lsG('bx-theme'));
 th.addEventListener('click',function(){var n=isDark()?'light':'dark';lsS('bx-theme',n);setTh(n)});
 // 模擬卷狀態
 var MOCKS=[['diag1','① 診斷卷','經紀法規_診斷卷一.html','先找基準線'],['hi2','② 高頻考點卷','經紀法規_高頻考點卷二.html','鐵律考點'],['cf3','③ 混淆對比卷','經紀法規_混淆對比卷三.html','專攻 A 型錯題'],['full4','④ 全真模擬卷','經紀法規_全真模擬卷四.html','限時 90 分鐘'],['full5','⑤ 缺口補強卷','經紀法規_缺口補強卷五.html','補弱主題・限時 90 分鐘'],['tch1','來勝115模擬(一)','經紀法規_模擬試題一_曾榮耀.html','已對照老師解答']];

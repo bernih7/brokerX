@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>民法抵押權總整理</title>
@@ -145,7 +145,7 @@ document.querySelectorAll('.rc table').forEach(function(t){var h=[].map.call(t.q
 document.getElementById('ea').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=true})};
 document.getElementById('ca').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=false})};
 document.querySelectorAll('a[href^="#s"]').forEach(function(a){a.addEventListener('click',function(){var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t.tagName==='DETAILS')t.open=true})});
-var b=document.getElementById("bxth");function sync(){b.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()};
+var b=document.getElementById("bxth");function sync(){b.textContent=(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"))==="dark"?"淺色":"深色"}sync();b.onclick=function(){var d=(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"))==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",d);try{localStorage.setItem("bx-theme",d)}catch(e){}sync()};
 })();
 </script>
 <script src="bxm-use.js"></script>

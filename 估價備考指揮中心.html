@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-theme="light">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1457,10 +1457,10 @@ function toggleGroup(h){
 
 // ── 主題切換 ──
 /* 全站共用 bx-theme（同時寫 bxr-theme 讓舊頁同步）；本頁只保留 header 這一顆切換鈕 */
-function themeLabel(){var b=document.getElementById('theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'🌙 深色':'☀ 淺色';}
+function themeLabel(){var b=document.getElementById('theme-btn');if(b)b.textContent=(document.documentElement.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'))==='dark'?'🌙 深色':'☀ 淺色';}
 function toggleTheme(){
   var h=document.documentElement;
-  var next=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  var next=(h.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'))==='dark'?'light':'dark';
   h.setAttribute('data-theme',next);
   themeLabel();
   try{localStorage.setItem('bx-theme',next);localStorage.setItem('bxr-theme',next);}catch(e){}

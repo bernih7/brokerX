@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>民法概要｜數字・期間速查</title>
-<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}document.documentElement.setAttribute("data-theme",s||"light")})();</script>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
 <script src="bxm-use.js"></script>
 <script src="bxm-fmt.js"></script>
 <style>
@@ -75,7 +75,16 @@ details.gc[open]>summary::after{transform:rotate(90deg)}
 details.gc>summary .gh{order:2;padding-left:0}
 details.gc>summary .gt,details.gc>summary .gn{order:0}
 details.gc.l2>summary::after{font-size:18px}
-</style><style id="sx4-css">.sx4{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--sf);margin:6px 0 10px}.sx4r{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:9px 10px;border-bottom:1px solid var(--bd)}.sx4r:last-child{border-bottom:0}.sx4v{font-weight:700;font-size:13.5px}.sx4b{min-width:0}.sx4w{font-size:14px}.sx4s{font-size:13px;color:var(--tx);margin-top:3px}.sx4s .tg{margin-right:6px}.sx4t{font-size:12.5px;margin-top:4px;background:#fbe3dd;color:#6a2416;border-radius:6px;padding:3px 7px}[data-theme=dark] .sx4t{background:#3a221d;color:#ffb5a6}.sx4k{background:#e3f1e5;color:#1f4a2a;border-radius:8px;padding:7px 10px;font-size:13.5px;margin:4px 0 6px}[data-theme=dark] .sx4k{background:#1f3326;color:#bfe5c7}details.sx4l{margin-top:4px}details.sx4l>summary{padding:2px 0;font-size:12.5px;color:var(--pri);font-weight:600}details.sx4l p{font-size:13px;margin:4px 0;background:var(--sf2);border-radius:6px;padding:6px 8px}.sx4 .art{color:#8a5517}[data-theme=dark] .sx4 .art{color:#e2bc84}@media(max-width:420px){.sx4r{grid-template-columns:1fr}}</style></head><body>
+</style><style id="sx4-css">.sx4{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--sf);margin:6px 0 10px}.sx4r{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:9px 10px;border-bottom:1px solid var(--bd)}.sx4r:last-child{border-bottom:0}.sx4v{font-weight:700;font-size:13.5px}.sx4b{min-width:0}.sx4w{font-size:14px}.sx4s{font-size:13px;color:var(--tx);margin-top:3px}.sx4s .tg{margin-right:6px}.sx4t{font-size:12.5px;margin-top:4px;background:#fbe3dd;color:#6a2416;border-radius:6px;padding:3px 7px}[data-theme=dark] .sx4t{background:#3a221d;color:#ffb5a6}.sx4k{background:#e3f1e5;color:#1f4a2a;border-radius:8px;padding:7px 10px;font-size:13.5px;margin:4px 0 6px}[data-theme=dark] .sx4k{background:#1f3326;color:#bfe5c7}details.sx4l{margin-top:4px}details.sx4l>summary{padding:2px 0;font-size:12.5px;color:var(--pri);font-weight:600}details.sx4l p{font-size:13px;margin:4px 0;background:var(--sf2);border-radius:6px;padding:6px 8px}.sx4 .art{color:#8a5517}[data-theme=dark] .sx4 .art{color:#e2bc84}@media(max-width:420px){.sx4r{grid-template-columns:1fr}}</style><style id="sysdark-css">/* 系統深色：鏡像既有 [data-theme=dark] 的值，未新增顏色 */
+@media (prefers-color-scheme:dark){
+:root:not([data-theme=light]){--pri:#84C2AE;--bg:#14191a;--sf:#1d2425;--sf2:#252e2f;--tx:#e6ece9;--mu:#9aa9a2;--bd:#34403f;--ac:#F0A878}
+:root:not([data-theme=light]) .k{color:#ff8f7e}
+:root:not([data-theme=light]) .nm{background:#4a3d12;color:#ffe08a}
+:root:not([data-theme=light]) .sx4t{background:#3a221d;color:#ffb5a6}
+:root:not([data-theme=light]) .sx4k{background:#1f3326;color:#bfe5c7}
+:root:not([data-theme=light]) .sx4 .art{color:#e2bc84}
+}</style>
+</head><body>
 <header><div><h1>民法概要｜數字・期間速查</h1><div class="sub">110 項・條號可點，開全國法規資料庫核對</div></div><button id="th">🌓</button></header>
 <nav><a href="#s1">依期間</a><a href="#s2">依主題</a><a href="#s3">易混淆</a><a href="#s4">時效並排</a></nav>
 <div class="tools"><input id="q" placeholder="搜尋：條號、關鍵字（例：§127、租金、6個月）"><div class="bar"><button id="ex">全部展開</button><button id="co">全部收合</button><button id="mk">遮住數字自測（依主題、易混淆）</button></div><div id="cnt"></div></div>
@@ -112,7 +121,7 @@ $("ex").onclick=function(){[].forEach.call(document.querySelectorAll("details"),
 $("co").onclick=function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.open=false})};
 $("mk").onclick=function(){document.body.classList.toggle("mask");this.classList.toggle("on",document.body.classList.contains("mask"));[].forEach.call(document.querySelectorAll(".show"),function(x){x.classList.remove("show")})};
 document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest("#b2 .msk,#b2 .it .nm,#b3 .nm");if(v&&document.body.classList.contains("mask")){e.preventDefault();v.classList.toggle("show")}},true);
-$("th").onclick=function(){var n=document.documentElement.getAttribute("data-theme")=="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("bx-theme",n)}catch(e){}};
+$("th").onclick=function(){var n=(document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light"))==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("bx-theme",n)}catch(e){}};
 $("b3").innerHTML=C.map(function(c){return '<details class="gc"><summary><span class="gt">'+c[0]+'</span>'+(c[2]?'<span class="gh">'+c[2]+'</span>':'')+'</summary><div class="gb"><div class="cf" style="border:0;margin:0;padding:0"><table>'+c[1].map(function(r){return '<tr><td>'+r[0]+'</td><td class="ct">'+r[1]+(r[2]?'<div class="nt">'+r[2]+'</div>':'')+'</td></tr>'}).join("")+'</table></div></div></details>'}).join("");
 [].forEach.call($("b3").querySelectorAll(".ct"),function(c){BXF.hi(c,KEY)});BXF.link($("b3"));
 render();
