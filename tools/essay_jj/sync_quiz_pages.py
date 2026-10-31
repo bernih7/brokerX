@@ -17,6 +17,8 @@ for q in D['q']:
     SRC[(q['y'], q['n'])] = {
         'explains': {'ABCD'[i]: exp[i] for i in range(min(len(exp), 4))},
         'ref': q.get('ref') or '',
+        'stem': q.get('stem') or '',
+        'options': list(q.get('opt') or []),
     }
 
 def arr_end(s, i):
@@ -37,8 +39,12 @@ def arr_end(s, i):
         k += 1
     raise ValueError('找不到陣列結尾')
 
-tot_pages = tot_q = tot_exp = tot_ref = 0
+# 本次確定要連題幹／選項一起覆寫的題（依考選部官方試題更正者）
+ALLOW = {(106, 33)}
+
+tot_pages = tot_q = tot_exp = tot_ref = tot_stem = tot_opt = 0
 miss = []
+drift = []
 for p in sorted(glob.glob(os.path.join(ROOT, '經紀法規刷題練習_*.html'))):
     s = io.open(p, encoding='utf-8').read()
     m = re.search(r'const QUESTIONS\s*=\s*', s)
@@ -49,7 +55,7 @@ for p in sorted(glob.glob(os.path.join(ROOT, '經紀法規刷題練習_*.html'))
         qs = json.loads(s[a:b])
     except Exception as e:
         print('  ✗ %s JSON 解析失敗：%s' % (os.path.basename(p), e)); sys.exit(1)
-    ce = cr = 0
+    ce = cr = cs = co = 0
     for item in qs:
         key = (item.get('year'), item.get('qnum'))
         src = SRC.get(key)
@@ -65,13 +71,31 @@ for p in sorted(glob.glob(os.path.join(ROOT, '經紀法規刷題練習_*.html'))
         item['explains'] = new
         if src['ref'] and item.get('ref') != src['ref']:
             item['ref'] = src['ref']; cr += 1
+        # 題幹與選項只在 ALLOW 名單內才覆寫。頁面副本過去做過人工清理
+        # （101-14 的「→」、113-9 的引號間距等），全量同步會把它們改壞。
+        if src['stem'] and item.get('stem') != src['stem']:
+            if key in ALLOW:
+                item['stem'] = src['stem']; cs += 1
+            else:
+                drift.append('%s：%s-%s 題幹不同（未改）' % (os.path.basename(p), key[0], key[1]))
+        if src['options'] and item.get('options') != src['options']:
+            if key in ALLOW and len(src['options']) == len(item.get('options') or []):
+                item['options'] = src['options']; co += 1
+            else:
+                drift.append('%s：%s-%s 選項不同（未改）' % (os.path.basename(p), key[0], key[1]))
     out = s[:a] + json.dumps(qs, ensure_ascii=False) + s[b:]
     if out != s:
         io.open(p, 'w', encoding='utf-8').write(out)
     tot_pages += 1; tot_q += len(qs); tot_exp += ce; tot_ref += cr
-    print('  %-34s %3d 題　解析更新 %3d　ref 更新 %3d' % (os.path.basename(p), len(qs), ce, cr))
+    tot_stem += cs; tot_opt += co
+    print('  %-34s %3d 題　解析 %3d　ref %3d　題幹 %d　選項 %d'
+          % (os.path.basename(p), len(qs), ce, cr, cs, co))
 
-print('\n共 %d 頁 / %d 題；解析更新 %d 處、ref 更新 %d 處' % (tot_pages, tot_q, tot_exp, tot_ref))
+print('\n共 %d 頁 / %d 題；解析 %d 處、ref %d 處、題幹 %d 處、選項 %d 處'
+      % (tot_pages, tot_q, tot_exp, tot_ref, tot_stem, tot_opt))
 if miss:
     print('quiz_data 內找不到的題（未改）：%d 筆' % len(miss))
     for x in miss[:12]: print('   ', x)
+if drift:
+    print('題幹／選項與 quiz_data 不同但不在 ALLOW 名單，未改：%d 筆' % len(drift))
+    for x in drift[:12]: print('   ', x)
