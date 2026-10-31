@@ -202,7 +202,7 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
   </div>
 </div>
 
-<script src="bxv-quiz-data.js"></script>
+<script src="bxv-quiz-data.js"></script><script src="bxv-hl.js"></script>
 <script>
 (function(){
 "use strict";
@@ -439,7 +439,7 @@ function selectAnswer(idx){
   var q=quizQueue[quizIndex],ok=idx===q.correct;
   var sec=Math.max(1,Math.min(QCAP,Math.round(QT.acc)));
   var prev=(qtGet()[q.id]||[]).slice(0,3);qtAdd(q.id,sec);
-  document.querySelectorAll(".opt").forEach(function(el,i){el.disabled=true;if(i===q.correct)el.classList.add("correct");else if(i===idx)el.classList.add("wrong")});
+  document.querySelectorAll(".opt").forEach(function(el,i){el.disabled=true;if(i===q.correct)el.classList.add("correct");else if(i===idx)el.classList.add("wrong");if(window.bxvHL)el.innerHTML='<span class="letter">'+"ABCD"[i]+"</span>"+bxvHL(q.id,i,q.opts[i],"opt")});
   quizResults.push({ch:q.ch,correct:ok,id:q.id,sec:sec,calc:!!q.calc});
   recordAnswer(q,idx,ok);
   var h='<div class="rnote" style="margin-bottom:6px">'+(ok?'<span class="stamp ok">答對了</span>':'<span class="stamp ng">答錯了</span> <span style="font-size:.85rem">正確答案：<strong>'+"ABCD"[q.correct]+". "+q.opts[q.correct]+"</strong></span>")+"</div>";
@@ -455,7 +455,7 @@ function selectAnswer(idx){
       +"</div>";
   }
   q.opts.forEach(function(o,i){var isOk=i===q.correct,pk=i===idx;
-    h+='<div class="xr'+(isOk?" ok":"")+(pk&&!isOk?" pick":"")+'"><span class="xl">'+"ABCD"[i]+'</span><div class="xt"><span class="xm">'+(isOk?"✓":"✗")+"</span>"+(pk&&!isOk?'<span class="xp">你選的</span>':"")+(q.exps[i]||"（本選項解析待補）")+"</div></div>"});
+    h+='<div class="xr'+(isOk?" ok":"")+(pk&&!isOk?" pick":"")+'"><span class="xl">'+"ABCD"[i]+'</span><div class="xt"><span class="xm">'+(isOk?"✓":"✗")+"</span>"+(pk&&!isOk?'<span class="xp">你選的</span>':"")+(q.exps[i]?(window.bxvHL?bxvHL(q.id,i,q.exps[i],"exp"):q.exps[i]):"（本選項解析待補）")+"</div></div>"});
   if(q.note)h+='<div class="notebox"><b>📌 補充說明：</b>'+q.note+"</div>";
   h+='<div class="qsec">⏱ 本題 '+sec+" 秒"+(prev.length?"（前幾次："+prev.join("、")+" 秒）":"")+(q.calc?"・計算題":"")+"</div>";
   $("lawText").innerHTML=h;

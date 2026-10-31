@@ -181,7 +181,8 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 .btn.rep:hover{background:var(--gold);color:#fff;}
 </style>
 <script src="bxv-use.js"></script>
-<style id="ans-tag-css">.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bxv-hl.js"></script>
+</head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 <div class="wrap">
@@ -371,13 +372,13 @@ function buildCard(it){
     </div>
     <div class="qtext">${it.q}</div>
     <div class="opt-list">
-      ${it.opts.map((o,i)=>`<button class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}"><b>${'ABCD'[i]}.</b>${o}</button>`).join('')}
+      ${it.opts.map((o,i)=>`<button class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}"><b>${'ABCD'[i]}.</b>${ans&&window.bxvHL?bxvHL(it.id,i,o,'opt'):o}</button>`).join('')}
     </div>
     ${it.note?`<div class="note-box">${it.note}</div>`:''}
     ${ans?`<div class="explain-box">
-      <div class="explain-title">▸ 逐選項解析</div>
+      <div class="explain-title">▸ 逐選項解析${(window.BXV_HL||{})[it.id]?bxvHLlegend:''}</div>
       ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}">
-        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${ex}</span>
+        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${window.bxvHL?bxvHL(it.id,i,ex,'exp'):ex}</span>
       </div>`).join('')}
     </div>`:''}
     <div class="error-tag-row">

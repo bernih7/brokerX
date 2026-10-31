@@ -182,14 +182,14 @@
           var L = 'ABCD'[i], cls = '';
           if (picked) cls = acc.indexOf(L) >= 0 ? ' ok' : (L === picked ? ' ng' : '');
           return '<button type="button" class="op' + cls + '" data-l="' + L + '"' + (picked ? ' disabled' : '') + '>'
-            + '<span class="L">' + L + '</span><span>' + esc(o) + '</span>'
+            + '<span class="L">' + L + '</span><span>' + (picked && window.bxvHL ? bxvHL(q._id, i, esc(o), 'opt') : esc(o)) + '</span>'
             + (L === picked ? '<span class="me">你選的</span>' : (picked && acc.indexOf(L) >= 0 ? '<span class="me ans">正確答案</span>' : '')) + '</button>';
         }).join('') + '</div>';
         if (picked) {
           h += '<div class="vd ' + (ok ? 'y' : 'n') + '">' + (isFree(q) ? '這題不計正確率' : (ok ? '答對了' : '答錯了　你選 ' + picked + '，正確答案 ' + acc.join(' 或 '))) + '</div>';
           h += '<div class="ex">' + (q.exp || []).map(function (t, i) {
             var L = 'ABCD'[i];
-            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + rich(t) + '</span></div>';
+            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + (window.bxvHL ? bxvHL(q._id, i, rich(t), 'exp') : rich(t)) + '</span></div>';
           }).join('') + '</div>';
           var ls = (q.law || []).filter(function (k) { return LAW[k]; });
           if (ls.length) {

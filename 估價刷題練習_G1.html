@@ -181,7 +181,8 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 .btn.rep:hover{background:var(--gold);color:#fff;}
 </style>
 <script src="bxv-use.js"></script>
-<style id="ans-tag-css">.exp-me,.exp-ans{display:inline-block;font-size:11px;font-weight:700;padding:0 5px;margin-right:5px;border-radius:4px;border:1px solid currentColor}.exp-me{color:var(--red,#A84030)}.exp-ans{color:var(--green,#2F6B45)}.ans-verdict{margin:10px 0 4px;padding:8px 12px;border-radius:8px;border:1px solid var(--red,#A84030);color:var(--red,#A84030);font-weight:600}.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.exp-me,.exp-ans{display:inline-block;font-size:11px;font-weight:700;padding:0 5px;margin-right:5px;border-radius:4px;border:1px solid currentColor}.exp-me{color:var(--red,#A84030)}.exp-ans{color:var(--green,#2F6B45)}.ans-verdict{margin:10px 0 4px;padding:8px 12px;border-radius:8px;border:1px solid var(--red,#A84030);color:var(--red,#A84030);font-weight:600}.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bxv-hl.js"></script>
+</head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 <div class="wrap">
@@ -359,17 +360,17 @@ function renderList(){
         if(i===it.correct) cls += ' correct-answer';
         else if(i===a.selected) cls += ' wrong-selected';
       }
-      optsHtml += `<button class="${cls}" data-idx="${i}"><b>${letters[i]}.</b>${opt}</button>`;
+      optsHtml += `<button class="${cls}" data-idx="${i}"><b>${letters[i]}.</b>${a&&window.bxvHL?bxvHL(it.id,i,opt,'opt'):opt}</button>`;
     });
 
     let explainHtml = '';
     if(a && it.explains && it.explains.some(e=>e)){
-      explainHtml = (!a.correct ? `<div class="ans-verdict">✗ 答錯了：你選 <b>${letters[a.selected]}</b>，正確答案 <b>${letters[it.correct]}</b></div>` : '') + '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
+      explainHtml = (!a.correct ? `<div class="ans-verdict">✗ 答錯了：你選 <b>${letters[a.selected]}</b>，正確答案 <b>${letters[it.correct]}</b></div>` : '') + '<div class="explain-box"><div class="explain-title">📚 逐選項解析' + ((window.BXV_HL||{})[it.id]&&window.bxvHLlegend?bxvHLlegend:'') + '</div>';
       it.opts.forEach((opt,i)=>{
         const isCorrect = i===it.correct;
         const mark = isCorrect ? '✓' : '✗';
         const cls = isCorrect ? 'explain-item right' : 'explain-item';
-        const expText = (it.explains && it.explains[i]) ? it.explains[i] : '';
+        const expText = (it.explains && it.explains[i]) ? (window.bxvHL?bxvHL(it.id,i,it.explains[i],'exp'):it.explains[i]) : '';
         const meTag = (i===a.selected && !isCorrect) ? '<span class="exp-me">你選的</span>' : ((isCorrect && !a.correct) ? '<span class="exp-ans">正確答案</span>' : '');
         explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${meTag}${expText}</span></div>`;
       });
