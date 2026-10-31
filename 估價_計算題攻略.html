@@ -603,6 +603,11 @@ body.bx-quick .cc-qt{display:block}
 .d3-traps{list-style:none;margin-top:10px;display:grid;gap:4px;padding:0}
 .d3-traps li{font-size:13px;padding-left:1.3em;position:relative;line-height:1.7}
 .d3-traps li::before{content:"✗";position:absolute;left:0;color:var(--stamp);font-weight:900}
+.d3-sub{margin-top:14px;scroll-margin-top:64px}
+.d3-h{font-weight:800;font-size:14.5px;color:var(--ink);margin:0 0 8px}
+.d3-why{margin-top:10px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.8;background:var(--card);display:grid;gap:6px}
+.d3-why>b{font-size:14px}
+.d3-why a{color:var(--blue)}
 /* 練習面板開關 */
 .tq-wrap{margin-top:10px}
 .tq-btn{font:inherit;font-size:12.5px;font-weight:700;width:100%;text-align:left;padding:7px 12px;border-radius:8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
@@ -701,7 +706,7 @@ body.bx-quick .cc-qt{display:block}
         <div class="calc-card-title">成本法：折舊三法（定額・定率・償債基金）</div>
         <div class="calc-card-freq">定額 11 年出現</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">Dₙ＝C(1－s) × 已折比例　定額 <span class="d3-fr"><span>n</span><span>N</span></span>｜償債基金 <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>(1+i)<sup>N</sup>－1</span></span>｜定率 Pₙ＝C(1－r)<sup>n</sup></div><div class="cc-qt">償債基金分子用 n（已經歷）、分母用 N（經濟耐用年數），別對調</div></div>
+      <div class="cc-sum"><div class="cc-f">Dₙ＝C(1－s) × 已折比例　定額 <span class="d3-fr"><span>n</span><span>N</span></span>｜償債基金 <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>(1+i)<sup>N</sup>－1</span></span>｜定率 Pₙ＝C(1－r)<sup>n</sup></div><div class="cc-qt">償債基金分子用 n（已經歷）、分母用 N（經濟耐用年數），別對調；收益法折舊提存費只有等速、償債基金兩型</div></div>
       <div class="calc-card-body">
         <div class="dep-tabs" role="tablist" aria-label="折舊三法"><button type="button" role="tab" data-p="0">三法對照</button><button type="button" role="tab" data-p="1">① 定額法</button><button type="button" role="tab" data-p="2">② 定率法</button><button type="button" role="tab" data-p="3">③ 償債基金法</button></div>
         <div class="dep-pane" data-p="0" id="dep-cmp">
@@ -721,6 +726,22 @@ body.bx-quick .cc-qt{display:block}
             </tbody>
           </table></div>
           <p class="d3-note">C＝建物總成本　s＝殘餘價格率　N＝建物經濟耐用年數　n＝已經歷年數。§68 只規定三種路徑，Dₙ、Pₙ 算式是教材公式；§40-1 只列償債基金型的「提存費」。</p>
+          <div class="d3-sub" id="dep-inc"><div class="d3-h">收益法也要算折舊：折舊提存費（§40-1）只有兩型</div>
+          <div class="d3-tw"><table class="d3-t">
+            <thead><tr><th></th><th><i class="d3-sw sw1"></i>等速折舊型</th><th><i class="d3-sw sw2"></i>（定率）</th><th><i class="d3-sw sw3"></i>償債基金型</th></tr></thead>
+            <tbody>
+            <tr class="key"><td class="k">折舊提存費<br><small>每年一筆金額（§40-1）</small></td><td class="f">C(1－s) × <span class="d3-fr"><span>1</span><span>N</span></span></td><td>條文沒有</td><td class="f">C(1－s) × <span class="d3-fr"><span>i</span><span>(1+i)<sup>N</sup>－1</span></span></td></tr>
+            <tr class="key"><td class="k">折舊提存率 d<br><small>比率（§41）</small></td><td class="f"><span class="d3-fr"><span>(1－s)÷N</span><span>1－(1－s)×n÷N</span></span></td><td>條文沒有</td><td class="f"><span class="d3-fr"><span>i</span><span>(1+i)<sup>n′</sup>－1</span></span></td></tr>
+            <tr><td class="k">放在哪</td><td colspan="3">§40 二選一：提存費加進<b>總費用</b>，或提存率 d 加進<b>資本化率</b>，不能兩邊都加</td></tr>
+            <tr><td class="k">例（104 申論二）</td><td>800×0.95÷50＝<b>15.2 萬／年</b></td><td>—</td><td>800×0.95×2%÷(1.02<sup>50</sup>－1)≈<b>8.99 萬／年</b></td></tr>
+            </tbody>
+          </table></div>
+          <div class="d3-why"><b>為什麼收益法只有兩型、成本法有三條路？</b>
+            <div>成本法 §68 問的是「到價格日期為止，<b>累積</b>折掉多少」——一個時點的餘額，曲線可以走等速、加速、減速三種形狀。</div>
+            <div>收益法 §40 要的是「<b>每年</b>從收入裡扣多少」——直接資本化法用「未來平均一年期間之客觀淨收益」（§30），所以折舊也要是每年固定一筆。等速型＝每年平均攤；償債基金型＝每年存一樣多、靠利息滾到期滿剛好湊滿 C(1－s)。定率法第一年折最多、逐年變小，給不出「每年固定一筆」，所以條文沒有列。</div>
+            <div class="d3-note">條文只列兩型、沒有寫理由；上面是用 §30、§40 推出的白話說明。口訣「<b>收益兩型（等・債），成本三路（等・加・減）</b>」。</div>
+            <div class="d3-note">連結：申論 <a href="不動產估價概要_申論題實戰範文.html#e104-2">104 申論二</a>（折舊提存費＋營造施工費）｜選擇 <a href="估價_考題小卡.html#VD1_103_28">103-28</a>（「初期加速／初期減速」不是 §40-1 的型名）</div>
+          </div></div>
           <div class="depfig-slot"></div>
           <div class="d3-steps">
             <div class="d3-st"><div class="h">同一題算三次（C＝1,000 萬、s＝10%、N＝40、n＝10、i＝3%）</div>
@@ -731,7 +752,7 @@ body.bx-quick .cc-qt{display:block}
             <div class="d3-st"><div class="h">償債基金法兩種算法（結果相同）</div>
               <div>① 分兩步：年提存額 A＝C(1－s) × <span class="d3-fr"><span>i</span><span>(1+i)<sup>N</sup>－1</span></span>，再 Dₙ＝A × <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>i</span></span></div>
               <div style="margin-top:6px">② 一次算：兩個 <b>i 上下約掉</b> → Dₙ＝C(1－s) × <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>(1+i)<sup>N</sup>－1</span></span></div>
-              <div class="d3-note">例：A＝900×0.03÷2.2620≈11.94 萬；×(0.3439÷0.03)≈136.8 萬，與一次算相同。</div></div>
+              <div class="d3-note">例：A＝900×0.03÷2.2620≈11.94 萬；×(0.3439÷0.03)≈136.8 萬，與一次算相同。</div><div class="d3-note">① 的年提存額 A 就是收益法 §40-1「償債基金型」折舊提存費，同一條公式。</div></div>
           </div>
           <ul class="d3-traps">
             <li>償債基金法分子是「(1+i)<sup>n</sup>－1」（已經歷年數 n），分母是「(1+i)<sup>N</sup>－1」（經濟耐用年數 N），別對調</li>
