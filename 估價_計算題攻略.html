@@ -608,6 +608,9 @@ body.bx-quick .cc-qt{display:block}
 .d3-why{margin-top:10px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.8;background:var(--card);display:grid;gap:6px}
 .d3-why>b{font-size:14px}
 .d3-why a{color:var(--blue)}
+.cc-tag{flex:none;font-size:11px;font-weight:700;color:var(--ink-soft);border:1px solid var(--rule);border-radius:99px;padding:0 8px;line-height:1.7;white-space:nowrap}
+.cc-f{font-weight:400!important;color:var(--ink)}
+.cc-f b{font-weight:800}
 /* 練習面板開關 */
 .tq-wrap{margin-top:10px}
 .tq-btn{font:inherit;font-size:12.5px;font-weight:700;width:100%;text-align:left;padding:7px 12px;border-radius:8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
@@ -688,25 +691,17 @@ body.bx-quick .cc-qt{display:block}
 
 <!-- ② 核心公式拆解 -->
 <div class="section" id="s2">
-  <div class="section-title">② 必考計算題型 · 公式完整拆解 <span class="sub-note">各卡右上角＝要動手算的出現次數</span></div>
-  <div class="cat-row"><span class="g">依方法跳：</span>
-    <span>成本法 <a href="#cc-dep1">定額</a>・<a href="#cc-dep2">定率</a>・<a href="#cc-dep3">償債基金</a></span>
-    <span>土地開發 <a href="#cc-dev">V公式</a></span>
-    <span>比較法 <a href="#cc-cmp">三道排除關卡</a></span>
-    <span>收益法 <a href="#cc-cap">五種資本化率</a>・<a href="#ny-dcf">DCF</a>・<a href="#inc-extra">殘餘法等⑤</a></span>
-    <span>租金 <a href="#cc-rent">實質租金</a></span>
-    <span>房地 <a href="#cc-floor">樓層別效用比</a>・<a href="#split-card">拆土地單價</a></span>
-  </div>
-  <div class="calc-grid">
+  <div class="section-title">② 必考計算題型 · 公式完整拆解 <span class="sub-note">各卡右上角＝要動手算的題：選擇題算年數、申論算題數（與頁尾 ① 總覽同口徑）</span></div>
+    <div class="calc-grid">
 
     <!-- 折舊三法（定額・定率・償債基金）合併卡 -->
     <div class="calc-card cc-wide" id="cc-dep">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-cost"></div>
-        <div class="calc-card-title">成本法：折舊三法（定額・定率・償債基金）</div>
-        <div class="calc-card-freq">定額 11 年出現</div>
+        <span class="cc-tag">成本法</span>
+        <div class="calc-card-title">折舊三法（定額・定率・償債基金）</div>
+        <div class="calc-card-freq">選 10 年・申 3 題</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">Dₙ＝C(1－s) × 已折比例　定額 <span class="d3-fr"><span>n</span><span>N</span></span>｜償債基金 <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>(1+i)<sup>N</sup>－1</span></span>｜定率 Pₙ＝C(1－r)<sup>n</sup></div><div class="cc-qt">償債基金分子用 n（已經歷）、分母用 N（經濟耐用年數），別對調；收益法折舊提存費只有等速、償債基金兩型</div></div>
+      <div class="cc-sum"><div class="cc-f">Dₙ＝C(1－s) × <b>已折比例</b>　定額 <span class="d3-fr"><span>n</span><span>N</span></span>｜償債基金 <span class="d3-fr"><span>(1+i)<sup>n</sup>－1</span><span>(1+i)<sup>N</sup>－1</span></span>｜定率 Pₙ＝C(1－r)<sup>n</sup></div><div class="cc-qt">償債基金分子用 n（已經歷）、分母用 N（經濟耐用年數），別對調；收益法折舊提存費只有等速、償債基金兩型</div></div>
       <div class="calc-card-body">
         <div class="dep-tabs" role="tablist" aria-label="折舊三法"><button type="button" role="tab" data-p="0">三法對照</button><button type="button" role="tab" data-p="1">① 定額法</button><button type="button" role="tab" data-p="2">② 定率法</button><button type="button" role="tab" data-p="3">③ 償債基金法</button></div>
         <div class="dep-pane" data-p="0" id="dep-cmp">
@@ -763,9 +758,9 @@ body.bx-quick .cc-qt{display:block}
         <div class="dep-pane" data-p="1">
     <div class="calc-card" id="cc-dep1">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-cost"></div>
+        <span class="cc-tag">成本法</span>
         <div class="calc-card-title">成本法①：定額法折舊（等速路徑）</div>
-        <div class="calc-card-freq">11年出現</div>
+        <div class="calc-card-freq">選 10 年・申 2 題</div>
       </div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>★</b>殘餘價格（§67；折舊時不折舊的那一塊）</div><div class="kf-eq"><span class="kf-c k-s">C 建物總成本</span><span class="kf-op">×</span><span class="kf-c k-o">s 殘餘價格率</span><span class="kf-op">＝</span><span class="kf-c k-m">殘餘價格 C·s</span></div><div class="kf-ex">殘餘價格＝耐用年數屆滿後剩餘材料設備仍能出售的價格。可折舊額＝C－C·s＝C×(1－s)。條文只給「殘餘價格率 s」，沒有為殘餘價格另訂英文代號，站上寫 C·s。</div></div><div class="kf-step"><div class="kf-t"><b>★</b>定額法年折舊率（每年折舊占 C 的幾 %）</div><div class="kf-eq"><span class="kf-c k-s">年折舊率</span><span class="kf-op">＝</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>1－殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-s">N 經濟耐用年數</span></span><span class="kf-op">＝</span><span class="kf-c k-m">年折舊額 ÷ C</span></div><div class="kf-eq"><span class="kf-c k-n">累積折舊率 ＝ 年折舊率 × n</span><span class="kf-op">；</span><span class="kf-c k-m">現值率 ＝ 1 － 累積折舊率</span></div><div class="kf-ex">例（110-5）：s 10%、N 50 → 年折舊率＝0.9÷50＝<b>1.8%</b>（每年折舊額都相同）。技術規則沒有為它另訂代號，題目寫「每年折舊率」。⚠ 不要和定率法的 d（每年對餘值打折的比率）、§41 折舊提存率 d 混；定額法的年折舊率是對<b>原始成本 C</b> 算的。</div></div><div class="kf-step"><div class="kf-t"><b>1</b>累積折舊額（定額法）</div><div class="kf-eq"><span class="kf-c k-s">重建成本 C</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1－s)<small>1－殘餘價格率</small></span><span class="fr-line"></span><span class="kf-c k-o">N 經濟耐用年數</span></span><span class="kf-op">×</span><span class="kf-c k-g">已用年數 n</span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊 Dₙ</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>現值率（現值÷重建成本）</div><div class="kf-eq"><span class="kf-c k-n">1</span><span class="kf-op">－</span><span class="kf-c k-o">(1－s)÷N × n<small>累積折舊占重建成本</small></span><span class="kf-op">＝</span><span class="kf-c k-m">現值率</span></div></div><div class="kf-step"><div class="kf-t"><b>★</b>建物成本價格（＝建物現值，已扣折舊）</div><div class="kf-eq"><span class="kf-c k-s">C 建物總成本</span><span class="kf-op">－</span><span class="kf-c k-o">Dn 累積折舊</span><span class="kf-op">＝</span><span class="kf-c k-m">建物成本價格</span></div><div class="kf-eq"><span class="kf-c k-m">建物成本價格</span><span class="kf-op">＝</span><span class="kf-c k-s">C</span><span class="kf-op">×</span><span class="kf-c k-n">[ 1 － (1－s) × n ÷ N ]</span></div><div class="kf-ex">定額法的一次算法。例：C 1,000 萬、s 5%、N 50、n 10 → 1,000×[1－0.95×10÷50]＝<b>810 萬</b>。n＝0 時＝C（全新）；n＝N 時＝C·s（只剩殘餘價格）。房地成本價格＝土地總成本＋建物成本價格，折舊已扣在裡面，不要再減一次。</div></div></div>
@@ -795,9 +790,9 @@ body.bx-quick .cc-qt{display:block}
         <div class="dep-pane" data-p="2">
     <div class="calc-card" id="cc-dep2">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-cost"></div>
+        <span class="cc-tag">成本法</span>
         <div class="calc-card-title">成本法②：定率法折舊（初期加速路徑）</div>
-        <div class="calc-card-freq">計算僅 107 申論 1 次</div>
+        <div class="calc-card-freq">申 1 題</div>
       </div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>定率法：現值率</div><div class="kf-eq"><span class="kf-c k-o">(1－r)ⁿ<small>r＝年折舊率、n＝已用年數</small></span><span class="kf-op">＝</span><span class="kf-c k-m">現值率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>每年折舊額（對「期初」帳面算）</div><div class="kf-eq"><span class="kf-c k-s">期初帳面價值</span><span class="kf-op">×</span><span class="kf-c k-o">r 折舊率</span><span class="kf-op">＝</span><span class="kf-c k-m">當年折舊額</span></div><div class="kf-ex">第 1 年最大、逐年遞減。</div></div></div>
@@ -826,9 +821,9 @@ body.bx-quick .cc-qt{display:block}
         <div class="dep-pane" data-p="3">
     <div class="calc-card" id="cc-dep3">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-cost"></div>
+        <span class="cc-tag">成本法</span>
         <div class="calc-card-title">成本法③：償債基金法（初期減速路徑）</div>
-        <div class="calc-card-freq">計算 0 次（僅概念題）</div>
+        <div class="calc-card-freq">未考過計算</div>
       </div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>償債基金法：每年提存額</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">C×(1－s) × <mark class="kwm">i</mark><small>應折舊總額 C(1－s) × 利率</small></span><span class="fr-line"></span><span class="kf-c k-o">(1+<mark class="kwm">i</mark>)ᴺ－1<small>複利終值係數 (1+i)ᴺ 再減 1</small></span></span><span class="kf-op">＝</span><span class="kf-c k-m">年提存額</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>累積折舊</div><div class="kf-eq"><span class="kf-c k-n">年提存額</span><span class="kf-op">×</span><span class="kf-fr"><span class="kf-c k-o">(1+<mark class="kwm">i</mark>)ⁿ－1</span><span class="fr-line"></span><span class="kf-c k-o"><mark class="kwm">i</mark></span></span><span class="kf-op">＝</span><span class="kf-c k-m">累積折舊</span></div></div></div>
@@ -860,11 +855,11 @@ body.bx-quick .cc-qt{display:block}
     <!-- V公式 -->
     <div class="calc-card" id="cc-dev">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-dev"></div>
-        <div class="calc-card-title">土地開發分析法：V公式完整計算</div>
-        <div class="calc-card-freq">申論計算 2 次</div>
+        <span class="cc-tag">土地開發</span>
+        <div class="calc-card-title">V 公式完整計算</div>
+        <div class="calc-card-freq">選 10 年・申 2 題</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">V＝S÷(1+R)÷(1+i)－(C+M)　i＝年利率×(土地比率＋建物比率×½)×開發年數</div><div class="cc-qt">利潤、利息是「除」不是「減」；只有建物比率乘 ½，還要乘開發年數</div></div>
+      <div class="cc-sum"><div class="cc-f">V＝S<b>÷(1+R)÷(1+i)</b>－(C+M)　i＝年利率×(土地比率＋建物比率<b>×½</b>)<b>×開發年數</b></div><div class="cc-qt">利潤、利息是「除」不是「減」；只有建物比率乘 ½，還要乘開發年數</div></div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>土開價格 V（§81）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">S 總銷售金額</span><span class="fr-line"></span><span class="kf-c k-o">(1＋R)×(1＋i)<small>利潤率、資本利息綜合利率</small></span></span><span class="kf-op">－</span><span class="kf-c k-g">C 直接成本＋M 間接成本</span><span class="kf-op">＝</span><span class="kf-c k-m">V 土地開發分析價格</span></div><div class="kf-ex">利潤、利息是「<b>除</b>」不是「減」。</div></div><div class="kf-step"><div class="kf-t"><b>2</b>資本利息綜合利率 i（§79）</div><div class="kf-eq"><span class="kf-c k-s">年利率</span><span class="kf-op">×</span><span class="kf-c k-o">土地比率 ＋ 建物比率×½<small>只有建物乘 ½</small></span><span class="kf-op">×</span><span class="kf-c k-g">開發年數</span><span class="kf-op">＝</span><span class="kf-c k-m"><mark class="kwm">i</mark></span></div><div class="kf-ex">土地 ×1（取得後全期佔用資金）；建物 ×½（分批投入，平均只墊付半期）。<b>開發年數不可漏乘。</b></div></div></div>
         <div class="formula-note">
@@ -895,11 +890,11 @@ body.bx-quick .cc-qt{display:block}
     <!-- 比較法排除 -->
     <div class="calc-card" id="cc-cmp">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-comp"></div>
-        <div class="calc-card-title">比較法：三道排除關卡計算</div>
-        <div class="calc-card-freq">計算 4 年・門檻概念 14 年</div>
+        <span class="cc-tag">比較法</span>
+        <div class="calc-card-title">三道排除關卡計算</div>
+        <div class="calc-card-freq">選 4 年</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">單項 ＞15% 排除｜總調整率 ＞30% 排除｜試算價格差距（最高－最低）÷高低平均 達 20% 先檢討，仍達 20% 才排除</div><div class="cc-qt">剛好 15%、30% 不排除；差距分母是高低平均，不是最低</div></div>
+      <div class="cc-sum"><div class="cc-f">單項 <b>＞15%</b> 排除｜總調整率 <b>＞30%</b> 排除｜試算價格差距（最高－最低）<b>÷高低平均</b> 達 <b>20%</b> 先檢討，仍達 20% 才排除</div><div class="cc-qt">剛好 15%、30% 不排除；差距分母是高低平均，不是最低</div></div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>①</b>單項調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">區域因素、個別因素或其單項調整率</span><span class="kf-op">＞</span><span class="kf-c k-o">15%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>②</b>總調整率（§25）</div><div class="kf-eq"><span class="kf-c k-s">情況＋日期＋區域＋個別 合計</span><span class="kf-op">＞</span><span class="kf-c k-o">30%</span><span class="kf-op">→</span><span class="kf-c k-m">排除</span></div></div><div class="kf-step"><div class="kf-t"><b>③</b>試算價格差距（§26）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">最高－最低</span><span class="fr-line"></span><span class="kf-c k-s">(最高＋最低)÷2</span></span><span class="kf-op">≥</span><span class="kf-c k-o">20%</span><span class="kf-op">→</span><span class="kf-c k-m">先就偏高／偏低者重新檢討；檢討後仍≥20% 才排除</span></div><div class="kf-ex">剛好 15%、30% 不排除（「大於」）；檢討後差距剛好 20% 仍要排除（「達」），&lt;20% 才過關。</div></div></div>
         <ul class="card-steps">
@@ -927,11 +922,11 @@ body.bx-quick .cc-qt{display:block}
     <!-- 資本化率五種方法 -->
     <div class="calc-card" id="cc-cap">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-inc"></div>
-        <div class="calc-card-title">收益法：五種資本化率決定方法</div>
-        <div class="calc-card-freq">計算 7 年</div>
+        <span class="cc-tag">收益法</span>
+        <div class="calc-card-title">五種資本化率決定方法</div>
+        <div class="calc-card-freq">選 6 年・申 1 題</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">溢萃加債乘｜債務保障比率法 r＝債務保障比率×貸款常數×貸款資金占價格比率｜乘數法 r＝淨收益率÷有效總收入乘數</div><div class="cc-qt">債務保障比率法第三個乘數是「貸款資金」占比，給自有資金要先換算</div></div>
+      <div class="cc-sum"><div class="cc-f"><b>溢萃加債乘</b>｜債務保障比率法 r＝債務保障比率×貸款常數×<b>貸款資金</b>占價格比率｜乘數法 r＝淨收益率<b>÷</b>有效總收入乘數</div><div class="cc-qt">債務保障比率法第三個乘數是「貸款資金」占比，給自有資金要先換算</div></div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>①</b>風險溢酬法</div><div class="kf-eq"><span class="kf-c k-m">r 資本化率</span><span class="kf-op">＝</span><span class="kf-c k-s">無風險率</span><span class="kf-op">＋</span><span class="kf-c k-o">各項風險溢酬</span></div></div><div class="kf-step"><div class="kf-t"><b>②</b>市場萃取法</div><div class="kf-eq"><span class="kf-c k-m">r 資本化率</span><span class="kf-op">＝</span><span class="kf-fr"><span class="kf-c k-s">淨收益</span><span class="fr-line"></span><span class="kf-c k-s">成交價格</span></span><span class="kf-op"></span></div><div class="kf-ex">選數個類似不動產，各自淨收益÷價格後比較。</div></div><div class="kf-step"><div class="kf-t"><b>③</b>WACC（§43）</div><div class="kf-eq"><span class="kf-c k-m">r 資本化率</span><span class="kf-op">＝</span><span class="kf-c k-s">自有比例×自有報酬率</span><span class="kf-op">＋</span><span class="kf-c k-o">借款比例×借款利率</span></div></div><div class="kf-step"><div class="kf-t"><b>④</b>債務保障比率法（§43）</div><div class="kf-eq"><span class="kf-c k-m">r 資本化率</span><span class="kf-op">＝</span><span class="kf-c k-s">DCR 債務保障比率</span><span class="kf-op">×</span><span class="kf-c k-o">貸款常數</span><span class="kf-op">×</span><span class="kf-c k-g">LTV 貸款成數</span></div></div><div class="kf-step"><div class="kf-t"><b>⑤</b>有效總收入乘數法（§43）</div><div class="kf-eq"><span class="kf-c k-m">r 資本化率</span><span class="kf-op">＝</span><span class="kf-fr"><span class="kf-c k-s">淨收益率<small>＝1－營運費用率</small></span><span class="fr-line"></span><span class="kf-c k-o">有效總收入乘數</span></span></div></div></div>
         <div class="formula-note">
@@ -953,11 +948,11 @@ body.bx-quick .cc-qt{display:block}
     <!-- 實質租金 -->
     <div class="calc-card" id="cc-rent">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-rent"></div>
-        <div class="calc-card-title">租金估計：實質租金計算</div>
-        <div class="calc-card-freq">計算 5 年</div>
+        <span class="cc-tag">租金</span>
+        <div class="calc-card-title">實質租金計算</div>
+        <div class="calc-card-freq">選 4 年・申 1 題</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">實質租金＝支付租金＋押金運用收益（押金×年利率）＋預付差額</div><div class="cc-qt">問實質租金別直接填支付租金，押金運用收益要加回</div></div>
+      <div class="cc-sum"><div class="cc-f">實質租金＝支付租金<b>＋押金運用收益</b>（押金×年利率）＋預付差額</div><div class="cc-qt">問實質租金別直接填支付租金，押金運用收益要加回</div></div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>實質租金</div><div class="kf-eq"><span class="kf-c k-s">支付租金</span><span class="kf-op">＋</span><span class="kf-c k-o">押金運用收益</span><span class="kf-op">＋</span><span class="kf-c k-g">預付差額</span><span class="kf-op">＝</span><span class="kf-c k-m">實質租金</span></div><div class="kf-ex">§130：租金加計「押金<b>或保證金、權利金</b>及其他相關運用收益」之總數；保證金、權利金之運用收益比照押金計算。「預付差額」非條文列舉項，屬「其他相關運用收益」之教材算法</div></div><div class="kf-step"><div class="kf-t"><b>2</b>押金運用收益</div><div class="kf-eq"><span class="kf-c k-o">押金金額</span><span class="kf-op">×</span><span class="kf-c k-n">年利率</span><span class="kf-op">＝</span><span class="kf-c k-m">押金運用收益</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>預付期差額</div><div class="kf-eq"><span class="kf-c k-g">(實際預付期－正常預付期)</span><span class="kf-op">×</span><span class="kf-c k-s">月租金</span><span class="kf-op">×</span><span class="kf-c k-n">月利率</span><span class="kf-op">＝</span><span class="kf-c k-m">預付差額</span></div></div></div>
         <div class="formula-note">
@@ -984,11 +979,11 @@ body.bx-quick .cc-qt{display:block}
     <!-- 樓層別效用比 -->
     <div class="calc-card" id="cc-floor">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-comp"></div>
+        <span class="cc-tag">比較法</span>
         <div class="calc-card-title">樓層別效用比計算</div>
-        <div class="calc-card-freq">8年選擇</div>
+        <div class="calc-card-freq">選 8 年</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">地價分配率＝該層效用比÷效用比總和；各層地價＝基地總地價×分配率</div><div class="cc-qt">分母是效用比總和，不是樓板面積（教材簡化算法，非 §100 公式）</div></div>
+      <div class="cc-sum"><div class="cc-f">地價分配率＝該層效用比<b>÷效用比總和</b>；各層地價＝基地總地價×分配率</div><div class="cc-qt">分母是效用比總和，不是樓板面積（教材簡化算法，非 §100 公式）</div></div>
       <div class="calc-card-body">
         <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>地價分配率（教材簡化算法，非§100 公式）</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-o">各樓層<mark class="kwm">效用比</mark></span><span class="fr-line"></span><span class="kf-c k-o"><mark class="kwm">效用比</mark>總和</span></span><span class="kf-op">＝</span><span class="kf-c k-n">地價分配率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>各樓層地價</div><div class="kf-eq"><span class="kf-c k-s">基地總地價</span><span class="kf-op">×</span><span class="kf-c k-n">地價分配率</span><span class="kf-op">＝</span><span class="kf-c k-m">各樓層地價</span></div></div><div class="kf-step"><div class="kf-t"><b>3</b>每坪樓地板分攤地價</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-m">各樓層地價</span><span class="fr-line"></span><span class="kf-c k-s">各樓層樓地板面積</span></span><span class="kf-op">＝</span><span class="kf-c k-m">每坪樓地板分攤地價（不是 §99 的基地單價）</span></div></div></div>
         <div class="formula-note">
@@ -1008,11 +1003,11 @@ body.bx-quick .cc-qt{display:block}
   
     <div class="calc-card" id="split-card">
         <div class="calc-card-header">
-          <span class="calc-method-dot dot-cost"></span>
+          <span class="cc-tag">房地</span>
           <span class="calc-card-title">房地總價拆土地單價（建物價值比率）</span>
-          <span class="calc-card-freq">技術規則 §99、§101-1</span>
+          <span class="calc-card-freq">選 1 年</span>
         </div>
-        <div class="cc-sum"><div class="cc-f">建物價值比率＝建物現值÷(建物現值＋素地總價)；土地單價＝房地總價×(1－比率)÷基地面積</div><div class="cc-qt">給建物成本價格就用 §99 直接相減；最後除基地面積，不是建坪</div></div>
+        <div class="cc-sum"><div class="cc-f">建物價值比率＝建物現值<b>÷(建物現值＋素地總價)</b>；土地單價＝房地總價×(1－比率)<b>÷基地面積</b></div><div class="cc-qt">給建物成本價格就用 §99 直接相減；最後除基地面積，不是建坪</div></div>
       <div class="calc-card-body">
           <div class="kf"><div class="kf-step"><div class="kf-t"><b>1</b>先求建物價值比率</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s"><mark class="kwm">建物現值</mark></span><span class="fr-line"></span><span class="kf-c k-s"><mark class="kwm">建物現值</mark>＋素地總價</span></span><span class="kf-op">＝</span><span class="kf-c k-n">建物價值比率</span></div></div><div class="kf-step"><div class="kf-t"><b>2</b>房地總價切開，土地那份除以基地面積</div><div class="kf-eq"><span class="kf-fr"><span class="kf-c k-s">房地總價<small>× (1－建物價值比率)</small></span><span class="fr-line"></span><span class="kf-c k-g">基地面積</span></span><span class="kf-op">＝</span><span class="kf-c k-m">土地單價</span></div><div class="kf-ex">白話：先算房子占幾成，把房地總價按比例切開，土地那份再除以基地面積。</div></div></div>
           <ol class="card-steps">
@@ -1094,9 +1089,9 @@ body.bx-quick .cc-qt{display:block}
 
     <div class="calc-card" id="annuity-card">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-inc"></div>
-        <div class="calc-card-title">收益法⑦：年金現值（§47 一定期間收益價格／貸款可貸金額）</div>
-        <div class="calc-card-freq">2 題（106-25、106-29）</div>
+        <span class="cc-tag">收益法</span>
+        <div class="calc-card-title">年金現值（§47 一定期間收益價格／貸款可貸金額）</div>
+        <div class="calc-card-freq">選 1 年</div>
       </div>
       <div class="cc-sum"><div class="cc-f">P＝a×[1－1÷(1+r)<sup>n′</sup>]÷r　（年金現值係數＝[1－(1+r)<sup>−n</sup>]÷r）</div><div class="cc-qt">10 萬×10 年＝100 萬沒有折現；無限期才直接 a÷r</div></div>
       <div class="calc-card-body">
@@ -1114,11 +1109,11 @@ body.bx-quick .cc-qt{display:block}
 
     <div class="calc-card">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-inc"></div>
-        <div class="calc-card-title">收益法④：殘餘法（§44 土地、§45 建物）</div>
-        <div class="calc-card-freq">5 題（計算 3）</div>
+        <span class="cc-tag">收益法</span>
+        <div class="calc-card-title">殘餘法（§44 土地、§45 建物）</div>
+        <div class="calc-card-freq">選 3 年</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">土地淨收益＝房地淨收益－建物成本價格×建物率；÷土地率＝土地收益價格（§44）</div><div class="cc-qt">「折舊前」淨收益：建物那一半的率要加折舊提存率</div></div>
+      <div class="cc-sum"><div class="cc-f">土地淨收益＝房地淨收益<b>－建物成本價格×建物率</b>；<b>÷土地率</b>＝土地收益價格（§44）</div><div class="cc-qt">「折舊前」淨收益：建物那一半的率要加折舊提存率</div></div>
       <div class="calc-card-body">
         <div class="kf">
           <div class="kf-step"><div class="kf-t"><b>1</b>先算「已知那一半」的淨收益</div><div class="kf-eq"><span class="kf-c k-s">建物成本價格</span><span class="kf-op">×</span><span class="kf-c k-o">建物收益資本化率</span><span class="kf-op">＝</span><span class="kf-c k-m">建物淨收益</span></div><div class="kf-ex">§44 第 2 項第 1 款（淨收益已扣折舊提存費）。若題目給的是「折舊前」淨收益，建物那一半要用「建物收益資本化率＋折舊提存率」去乘（§44 第 2 項第 2 款）。</div></div>
@@ -1134,11 +1129,11 @@ body.bx-quick .cc-qt{display:block}
 
     <div class="calc-card">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-inc"></div>
-        <div class="calc-card-title">收益法⑤：房地綜合收益資本化率（§46）</div>
-        <div class="calc-card-freq">4 題（計算 1）</div>
+        <span class="cc-tag">收益法</span>
+        <div class="calc-card-title">房地綜合收益資本化率（§46）</div>
+        <div class="calc-card-freq">選 1 年</div>
       </div>
-      <div class="cc-sum"><div class="cc-f">綜合率＝土地率×土地價值比率＋建物率×建物價值比率（§46）</div><div class="cc-qt">權重是價值比率不是對半；建物率＞綜合率＞土地率</div></div>
+      <div class="cc-sum"><div class="cc-f">綜合率＝土地率×<b>土地價值比率</b>＋建物率×<b>建物價值比率</b>（§46）</div><div class="cc-qt">權重是價值比率不是對半；建物率＞綜合率＞土地率</div></div>
       <div class="calc-card-body">
         <div class="kf">
           <div class="kf-step"><div class="kf-t"><b>1</b>依價值比率加權（已扣折舊提存費）</div><div class="kf-eq"><span class="kf-c k-s">土地率 × 土地價值比率</span><span class="kf-op">＋</span><span class="kf-c k-o">建物率 × 建物價值比率</span><span class="kf-op">＝</span><span class="kf-c k-m">房地綜合收益資本化率</span></div><div class="kf-ex">例（100-24）：土地 600 萬 5%、建物 400 萬 8% → 5%×0.6＋8%×0.4＝<b>6.2%</b>。權重是「價值比率」，不是對半平均。</div></div>
@@ -1152,9 +1147,9 @@ body.bx-quick .cc-qt{display:block}
 
     <div class="calc-card">
       <div class="calc-card-header">
-        <div class="calc-method-dot dot-inc"></div>
-        <div class="calc-card-title">收益法⑥：折舊提存率 d（§41 等速折舊型）</div>
-        <div class="calc-card-freq">3 題計算</div>
+        <span class="cc-tag">收益法</span>
+        <div class="calc-card-title">折舊提存率 d（§41 等速折舊型）</div>
+        <div class="calc-card-freq">選 3 年</div>
       </div>
       <div class="cc-sum"><div class="cc-f">等速 d＝[(1－s)÷N]÷[1－(1－s)×n÷N]；償債基金型 d＝i÷[(1+i)<sup>n′</sup>－1]（§41）</div><div class="cc-qt">§40-1 提存「費」和 §41 提存「率」二選一加，不能兩邊都加</div></div>
       <div class="calc-card-body">
