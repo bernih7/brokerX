@@ -177,6 +177,15 @@ header h1 {
 }
 
 /* ── compare table ── */
+@media (max-width:640px){
+ .stack-wrap{overflow:visible}
+ .stack-tbl thead{display:none}
+ .stack-tbl{min-width:0!important}
+ .stack-tbl,.stack-tbl tbody,.stack-tbl tr,.stack-tbl td{display:block;width:100%;box-sizing:border-box}
+ .stack-tbl tr{margin-bottom:10px;border:1px solid var(--line,#ddd);border-radius:10px;overflow:hidden}
+ .stack-tbl td.label{font-weight:700}
+ .stack-tbl td[data-l]::before{content:attr(data-l);display:block;font-size:12px;font-weight:700;opacity:.75;margin-bottom:2px}
+}
 .compare-wrap { overflow-x: auto; margin-bottom: 20px; }
 .compare-table {
   width: 100%;
@@ -1249,13 +1258,58 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
   <div class="trap-block">⚠️ 應蒐集<b>最近3年</b>資料（非1年、非5年）。</div>
 
   <div class="section-title">折舊前後淨收益的還原方式</div>
-  <div class="block">
-    <ul class="checklist">
-      <li><span class="icon">A</span><div><b>折舊後淨收益</b>→ 已扣掉折舊，直接用資本化率還原：<code>P＝淨收益÷資本化率</code></div></li>
-      <li><span class="icon">B</span><div><b>折舊前淨收益</b>→ 未扣折舊，須用「資本化率＋折舊提存率」還原：<code>建物收益價格＝建物折舊前淨收益÷(建物收益資本化率＋折舊提存率)</code>（§45）；房地則用 §46：土地率×土地價值比率＋(建物率＋折舊提存率)×建物價值比率</div></li>
-    </ul>
-    <div class="trap-block" style="margin-top:8px;">⚠️ 建物折舊提存費是總費用的一部分，扣掉它才是「折舊後淨收益」。沒扣的是折舊前，分母要加折舊提存率補足。</div>
+  <div class="note-block">
+    <b>先搞懂一件事</b>：建物折舊提存費（§40）可以放在<b>分子</b>扣，也可以放在<b>分母</b>加，兩條路擇一，結果一樣。<br>
+    ・分子已扣（總費用含折舊提存費）＝<b>折舊後淨收益</b> → 分母只用資本化率。<br>
+    ・分子沒扣＝<b>折舊前淨收益</b> → 分母要「資本化率＋折舊提存率 d」補回來。<br>
+    §40 原文：「應加計建物之折舊提存費，<b>或</b>於計算收益價格時，除考量建物收益資本化率或折現率外，應加計建物價格日期當時價值未來每年折舊提存率。」
   </div>
+  <div class="compare-wrap stack-wrap">
+    <table class="compare-table stack-tbl">
+      <thead>
+        <tr>
+          <th class="label">求什麼</th>
+          <th class="income">A 折舊<b>後</b>淨收益<br><small>（已扣折舊提存費）</small></th>
+          <th style="color:var(--trap)">B 折舊<b>前</b>淨收益<br><small>（未扣折舊提存費）</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label">建物收益價格<br><small>§45</small></td>
+          <td data-l="A 折舊後（已扣提存費）">建物淨收益 ÷ <b>建物率</b><br><small>§45Ⅰ①(一)</small></td>
+          <td data-l="B 折舊前（未扣提存費）">建物折舊前淨收益 ÷ (<b>建物率＋d</b>)<br><small>§45Ⅰ②(一)</small></td>
+        </tr>
+        <tr>
+          <td class="label">土地收益價格<br><small>§44（地上有建物）</small></td>
+          <td data-l="A 折舊後（已扣提存費）">(房地淨收益－建物淨收益) ÷ <b>土地率</b><br><small>建物淨收益＝建物成本價格×建物率（§44Ⅱ①）</small></td>
+          <td data-l="B 折舊前（未扣提存費）">(房地折舊前淨收益－建物折舊前淨收益) ÷ <b>土地率</b><br><small>建物折舊前淨收益＝建物成本價格×(建物率＋d)（§44Ⅱ②）</small></td>
+        </tr>
+        <tr>
+          <td class="label">房地收益價格<br><small>§46</small></td>
+          <td data-l="A 折舊後（已扣提存費）">房地淨收益 ÷ 綜合率<br>綜合率＝土地率×土地比＋<b>建物率</b>×建物比<br><small>§46Ⅱ①</small></td>
+          <td data-l="B 折舊前（未扣提存費）">房地淨收益 ÷ 綜合率<br>綜合率＝土地率×土地比＋(<b>建物率＋d</b>)×建物比<br><small>§46Ⅱ②</small></td>
+        </tr>
+        <tr>
+          <td class="label">分母記法</td>
+          <td data-l="A 折舊後（已扣提存費）"><b>只用資本化率</b></td>
+          <td data-l="B 折舊前（未扣提存費）"><b>建物那一塊</b>加 d；<b>土地永遠不加 d</b>（土地不折舊）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mnemonic">
+    <div class="label">📌 口訣</div>
+    <b>「上面沒扣，下面補；土地不老，不用補」</b><br>
+    <small style="color:var(--ink-2);font-size:12.5px;">分子沒扣折舊 → 分母加 d；但只加在建物，土地永遠只除土地資本化率。</small>
+  </div>
+  <div class="trap-block">
+    ⚠️ <b>101-37</b>：「折舊後的純收益，應僅以資本化率還原」才對；折舊前要「資本化率＋折舊提存率」，不是只用折舊率。<br>
+    ⚠️ <b>102-13</b>：求<b>土地</b>收益價格，扣完建物淨收益後只除土地率 3%（500 萬）；除以 (3%＋2.5%) 的 273 萬是陷阱——d 不加在土地。<br>
+    ⚠️ <b>107-8</b>：d＞0 時，未扣折舊提存費的綜合率（多加了 d×建物比）<b>較大</b>，已扣者較小。<br>
+    ⚠️ d 是「折舊<b>提存</b>率」（§41，有 n 或 n′），不是「折舊率」(1－s)/N。<br>
+    ⚠️ <b>103-28</b>：收益法的折舊提存費／提存率只有<b>等速折舊型、償債基金型</b>兩型（§40-1、§41）；「初期加速、初期減速」是成本法累積折舊的<b>路徑</b>（§68），不要混。
+  </div>
+  <div class="bxv-tq" data-qs="101-37,102-13,107-8,113-14,103-28,102-12,106-11,109-15" data-title="折舊前後還原／折舊提存 考古題"></div>
 
   <div class="section-title">收益法高頻陷阱彙整</div>
   <div class="accordion">
