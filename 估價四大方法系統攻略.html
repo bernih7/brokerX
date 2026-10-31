@@ -1099,7 +1099,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
     <li><div><b>計算淨收益</b>＝有效總收入 − 總費用</div></li>
   </ol>
 
-  <div class="section-title">總費用：應計入 vs 不應計入</div>
+  <div class="section-title" id="sec-fee">總費用：應計入 vs 不應計入</div>
   <div class="compare-wrap">
     <table class="compare-table">
       <thead>
@@ -1237,9 +1237,37 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
       </tbody>
     </table>
   </div>
-  <div class="trap-block" style="margin-top:8px;">
-    ⚠️ <b>不動產證券化DCF特殊規則</b>：各期淨收益以<b>契約租金</b>計算為原則；契約租金未知者以<b>經濟租金</b>推估；以契約約定租金作信託利益分配基礎者，DCF收益價格應賦予<b>較大權重</b>。
+  <div class="section-title" id="sec-dcf">不動產證券化的 DCF 三條特別規定（§33、§38、§15）</div>
+  <div class="note-block">
+    <b>白話</b>：證券化是把一棟出租大樓切成很多份賣給投資人，投資人每年分到的錢就是<b>真的收到的租金</b>。所以估價也要照「合約上真的收的錢」算，不能用估價師自己推的市場行情；費用照「信託計畫」寫的算；而且 DCF 這個價格最貼近投資人拿到的錢，要給它比較大的權重。
   </div>
+  <div class="compare-wrap stack-wrap">
+    <table class="compare-table stack-tbl">
+      <thead><tr><th class="label">項目</th><th class="income">規定（條文）</th><th style="color:var(--trap)">常見錯誤選項</th></tr></thead>
+      <tbody>
+        <tr><td class="label">① 各期淨收益<br><small>§33Ⅱ、Ⅲ</small></td>
+          <td data-l="規定（條文）">以勘估標的之<b>契約租金</b>計算為原則（§33Ⅱ）；但情況特殊不宜採契約租金，並於報告書敘明者不在此限。<br><b>契約租金未知者，應以「市場經濟租金」推估客觀淨收益</b>（§33Ⅲ）。</td>
+          <td data-l="常見錯誤選項">「以經濟租金為原則」（104-13、105-17）<br>「契約租金未知者，以<b>限定租金</b>推估」（102-8，就是答案）</td></tr>
+        <tr><td class="label">② 總費用<br><small>§38Ⅱ</small></td>
+          <td data-l="規定（條文）">以不動產證券化為估價目的者，DCF 之總費用應依<b>信託計畫資料</b>加以推算。</td>
+          <td data-l="常見錯誤選項">「市場相關資料」「類似產品資料」「歷史費用資料」（110-11）；一般情形才依相同或相似不動產費用資料或會計報表推算（§38Ⅰ）</td></tr>
+        <tr><td class="label">③ 決定價格時的權重<br><small>§15Ⅱ</small></td>
+          <td data-l="規定（條文）">以<b>契約約定租金</b>作為受益證券信託利益分配基礎者，<b>DCF 收益價格</b>應賦予相對較大之權重；但證券化標的<b>進行清算時，不在此限</b>。</td>
+          <td data-l="常見錯誤選項">「以經濟租金作分配基礎者」（102-29）<br>「清算時 DCF 加大權重」（113-6）<br>選成比較價格、成本價格（108-6、109-22、111-10）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mnemonic">
+    <div class="label">📌 口訣</div>
+    <b>「證券化看合約：租金看契約、費用看信託、權重給 DCF；清算例外」</b><br>
+    <small style="color:var(--ink-2);font-size:12.5px;">契約租金不知道 → 「市場經濟租金」補（不是限定租金、不是正常租金）。</small>
+  </div>
+  <div class="trap-block">
+    ⚠️ 「市場經濟租金」只在<b>契約租金未知</b>時才用，不是原則；原則永遠是契約租金。<br>
+    ⚠️ 推估的對象是「<b>客觀淨收益</b>」（§33Ⅲ 原文），選項寫「推估淨收益」意思相同，關鍵是看用哪一種租金。<br>
+    ⚠️ 一般收益法（非證券化）：淨收益以「最有效使用之客觀淨收益」為基準（§33Ⅰ），和證券化不同。
+  </div>
+  <div class="bxv-tq" data-qs="102-8,104-13,105-17,110-11,110-13,102-29,108-6,109-22,111-10,113-6" data-title="不動產證券化 DCF（§33、§38、§15）考古題"></div>
 
   <div class="section-title">收益法估價程序（6步驟）</div>
   <div style="background:var(--income-bg);border:2px solid var(--income);border-radius:10px;padding:12px 16px;margin-bottom:12px;">
@@ -1257,7 +1285,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 20px 0; }
   </ol>
   <div class="trap-block">⚠️ 應蒐集<b>最近3年</b>資料（非1年、非5年）。</div>
 
-  <div class="section-title">折舊前後淨收益的還原方式</div>
+  <div class="section-title" id="sec-dep">折舊前後淨收益的還原方式</div>
   <div class="note-block">
     <b>先搞懂一件事</b>：建物折舊提存費（§40）可以放在<b>分子</b>扣，也可以放在<b>分母</b>加，兩條路擇一，結果一樣。<br>
     ・分子已扣（總費用含折舊提存費）＝<b>折舊後淨收益</b> → 分母只用資本化率。<br>
@@ -1427,6 +1455,21 @@ document.querySelectorAll('.tab').forEach(tab=>{
     window.scrollTo({top:0,behavior:'smooth'});
   });
 });
+
+// ── 深連結：#sec-xxx 或 #tab 名稱 → 切到所在分頁並捲到該處 ──
+(function(){
+  function go(){
+    var h=decodeURIComponent(location.hash.slice(1)); if(!h) return;
+    var el=document.getElementById(h); var tab=null;
+    if(!el && document.getElementById('tab-'+h)){ tab=h; }
+    else if(el){ var c=el.closest('.content'); if(c) tab=c.id.replace('tab-',''); }
+    if(!tab) return;
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab);});
+    document.querySelectorAll('.content').forEach(function(c){c.classList.toggle('active',c.id==='tab-'+tab);});
+    if(el) setTimeout(function(){el.scrollIntoView({block:'start'});window.scrollBy(0,-70);},60);
+  }
+  window.addEventListener('hashchange',go); go();
+})();
 
 // ── accordions ──
 document.querySelectorAll('.accordion-header').forEach(h=>{
