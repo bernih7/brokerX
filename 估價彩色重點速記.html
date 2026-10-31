@@ -122,24 +122,27 @@ h3{
 .note small{color:var(--ink-soft);}
 
 .note-green{border-color:var(--green);}
-.note-green .tag{background:var(--green);}
+.note-green .tag{background:var(--s-green);}
 .note-green b{border-color:var(--green);}
 
 .note-blue{border-color:var(--blue);}
-.note-blue .tag{background:var(--blue);}
+.note-blue .tag{background:var(--s-blue);}
 .note-blue b{border-color:var(--blue);}
 
 .note-orange{border-color:var(--orange);}
-.note-orange .tag{background:var(--orange);}
+.note-orange .tag{background:var(--s-orange);}
 .note-orange b{border-color:var(--orange);}
 
 .note-purple{border-color:var(--purple);}
-.note-purple .tag{background:var(--purple);}
+.note-purple .tag{background:var(--s-purple);}
 .note-purple b{border-color:var(--purple);}
 
 .note-red{border-color:var(--red);}
-.note-red .tag{background:var(--red);}
+.note-red .tag{background:var(--s-red);}
 .note-red b{border-color:var(--red);}
+.note-gold{border-color:var(--gold);}
+.note-gold .tag{background:var(--s-gold);}
+.note-gold b{border-color:var(--gold);}
 
 .stamp{
   display:inline-flex;align-items:center;justify-content:center;
@@ -155,14 +158,14 @@ h3{
 }
 .flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
 .flow-box{
-  background:var(--paper);border:1.5px solid var(--ink);border-radius:8px;
+  background:var(--paper);color:var(--fg);border:1.5px solid var(--ink);border-radius:8px;
   padding:10px 14px;font-size:13px;font-weight:700;text-align:center;
   font-family:'Noto Serif TC',serif;min-width:90px;
 }
 .flow-box small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);
   font-family:"Noto Sans TC",sans-serif;margin-top:3px;}
-.flow-box.highlight{border-color:var(--gold);background:#FBF3DF;}
-.flow-box.result{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--paper));}
+.flow-box.highlight{border-color:var(--gold);background:var(--flow-hl-bg);color:var(--fg);}
+.flow-box.result{border-color:var(--green);background:var(--flow-res-bg);color:var(--fg);}
 .flow-arrow{font-size:13px;color:var(--ink-soft);font-weight:700;}
 
 .tbl-wrap{overflow-x:auto;margin:14px 0;border-radius:8px;border:1px solid var(--rule);}
@@ -174,13 +177,14 @@ th{
   white-space:nowrap;
 }
 /* 欄位顏色區隔：第1欄橘（原則/名稱），第2欄深藍（核心概念/定義），第3欄深棕綠（情境） */
-th:nth-child(1){background:var(--orange);}
-th:nth-child(2){background:var(--blue);}
-th:nth-child(3){background:var(--green);}
+th:nth-child(1){background:var(--s-orange);}
+th:nth-child(2){background:var(--s-blue);}
+th:nth-child(3){background:var(--s-green);}
+th:nth-child(n+4){background:var(--s-blue);}
 td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top;}
 td:nth-child(2){line-height:1.85;word-break:keep-all;white-space:normal;}
 tr:last-child td{border-bottom:none;}
-tr:nth-child(even) td{background:#FBF8F1;}
+tr:nth-child(even) td{background:var(--zebra);}
 td b{color:var(--orange);}
 /* 第二欄的 b 標籤改藍色，與標題欄呼應 */
 td:nth-child(2) b{color:var(--blue);}
@@ -188,11 +192,11 @@ td:nth-child(2) b{color:var(--blue);}
 table.tbl-sm{min-width:0}
 table.tbl-sm td:nth-child(2){word-break:normal}
 table.tbl-pub td b, table.tbl-pub td:nth-child(2) b{color:var(--ink);}
-table.tbl-pub th:nth-child(1){background:var(--green);}
-table.tbl-pub th:nth-child(2){background:var(--blue);}
-table.tbl-pub th:nth-child(3){background:var(--blue);}
-table.tbl-not th, table.tbl-not th:nth-child(n){background:var(--red);}
-table.tbl-not td, table.tbl-not tr:nth-child(even) td{background:color-mix(in srgb,var(--red) 9%,var(--paper));}
+table.tbl-pub th:nth-child(1){background:var(--s-green);}
+table.tbl-pub th:nth-child(2){background:var(--s-blue);}
+table.tbl-pub th:nth-child(3){background:var(--s-blue);}
+table.tbl-not th, table.tbl-not th:nth-child(n){background:var(--s-red);}
+table.tbl-not td, table.tbl-not tr:nth-child(even) td{background:var(--tbl-not-bg);}
 table.tbl-not td b, table.tbl-not td:nth-child(2) b{color:var(--red);}
 
 .formula-box{
@@ -262,6 +266,16 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
 .kf-legend .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.kf-legend .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.kf-legend .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.kf-legend .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.kf-legend .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
 .kf-legend .kf-c{color:var(--ks-ink);border-radius:8px}.kf-legend .kwm{background:var(--ks-mk);color:var(--ks-mkt);font-weight:800;padding:0 3px;border-radius:3px}
 @media(max-width:600px){.nav{padding-right:56px;padding-left:12px;gap:4px 8px}}
+/* ── 對比修正 tokens（淺色值＝原寫死值；深色兩份式）── */
+:root{--flow-hl-bg:#F4E9D9;--flow-res-bg:#E6ECE4;--zebra:#FBF8F1;--tbl-not-bg:#F7EDE8;--card:#fff;
+  --s-orange:var(--orange);--s-blue:var(--blue);--s-green:var(--green);--s-purple:var(--purple);--s-red:var(--red);--s-gold:#8F6414;--kf-b-ink:var(--ks-ink);
+  --t-red:#A8402B;--t-green:#2A5C3A;--t-blue:#3E6B8C;--t-ink3:#3a3a3a;--t-ink4:#4a4a4a;--t-note:#7A6E5E;--t-warm:#FFFDF8;--t-warm-line:#E4DAC4;--t-pink:#FFF0EB;--t-purple:#7B5C8C;--t-gold:#BC8A2E;--t-olive:#5C7A4A}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--flow-hl-bg:#3E3B2B;--flow-res-bg:#27352D;--zebra:#262E2A;--tbl-not-bg:#302D28;--card:var(--paper);
+  --s-orange:#9A6A2A;--s-blue:#2F7290;--s-green:#3A7A4E;--s-purple:#7E62A0;--s-red:#A84A36;--s-gold:#8A5F1E;--kf-b-ink:#fff;
+  --t-red:#EE9A86;--t-green:#8FCB9F;--t-blue:#8DB4E8;--t-ink3:#D5DCD6;--t-ink4:#C2CBC5;--t-note:#B5A892;--t-warm:#262B27;--t-warm-line:#4A4A3E;--t-pink:#36211C;--t-purple:#B89CCC;--t-gold:#E2B85C;--t-olive:#9DBB88}}
+:root[data-theme="dark"]{--flow-hl-bg:#3E3B2B;--flow-res-bg:#27352D;--zebra:#262E2A;--tbl-not-bg:#302D28;--card:var(--paper);
+  --s-orange:#9A6A2A;--s-blue:#2F7290;--s-green:#3A7A4E;--s-purple:#7E62A0;--s-red:#A84A36;--s-gold:#8A5F1E;--kf-b-ink:#fff;
+  --t-red:#EE9A86;--t-green:#8FCB9F;--t-blue:#8DB4E8;--t-ink3:#D5DCD6;--t-ink4:#C2CBC5;--t-note:#B5A892;--t-warm:#262B27;--t-warm-line:#4A4A3E;--t-pink:#36211C;--t-purple:#B89CCC;--t-gold:#E2B85C;--t-olive:#9DBB88}
 </style>
 <style>
 
@@ -572,12 +586,12 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
 
   <div class="note note-green" style="margin-top:12px;">
     <span class="tag">🟢 口訣</span>
-    <p style="margin-bottom:6px;"><b style="font-size:16px;letter-spacing:2px;color:#2A5C3A">確 擬 蒐 確 整 運 決 製</b></p>
-    <p style="font-size:12.5px;color:#3a3a3a;line-height:1.9;">
+    <p style="margin-bottom:6px;"><b style="font-size:16px;letter-spacing:2px;color:var(--t-green)">確 擬 蒐 確 整 運 決 製</b></p>
+    <p style="font-size:12.5px;color:var(--t-ink3);line-height:1.9;">
       ①<b>確</b>定基本事項　②<b>擬</b>定估價計畫　③<b>蒐</b>集資料　④<b>確</b>認標的狀態<br>
       ⑤<b>整</b>理比較資料　⑥<b>運</b>用方法推算　⑦<b>決</b>定價格　⑧<b>製</b>作報告書
     </p>
-    <p style="font-size:12px;color:#A8402B;margin-top:4px;">⚠️ 8步順序不可顛倒，步驟①②③④⑤⑥⑦⑧皆有單獨選擇題出過</p>
+    <p style="font-size:12px;color:var(--t-red);margin-top:4px;">⚠️ 8步順序不可顛倒，步驟①②③④⑤⑥⑦⑧皆有單獨選擇題出過</p>
   </div>
 
   <div class="note note-red" style="margin-top:10px;">
@@ -592,14 +606,14 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <div class="note note-blue">
     <span class="tag">🔵 法條</span>
     <p>一、勘估標的內容　二、價格日期　三、價格種類及條件（估價條件）　四、估價目的</p>
-    <p style="color:#A8402B;font-size:12.5px;margin-top:6px;">⚠️ 不含「估價方法」（方法是步驟⑥的事）、不含「勘察日期」（≠價格日期）、不含「委託人」</p>
+    <p style="color:var(--t-red);font-size:12.5px;margin-top:6px;">⚠️ 不含「估價方法」（方法是步驟⑥的事）、不含「勘察日期」（≠價格日期）、不含「委託人」</p>
   </div>
 
   <h3>② 擬定估價計畫（§10）共5項</h3>
   <div class="note note-blue">
     <span class="tag">🔵 法條</span>
     <p>一、確定作業步驟　二、預估所需時間　三、預估所需人力　四、預估作業經費　五、擬定作業進度表</p>
-    <p style="color:#7A6E5E;font-size:12px;margin-top:6px;">口訣：<b>步時人費表</b>（步驟・時間・人力・經費・進度表）</p>
+    <p style="color:var(--t-note);font-size:12px;margin-top:6px;">口訣：<b>步時人費表</b>（步驟・時間・人力・經費・進度表）</p>
   </div>
 
   <h3>③ 蒐集資料（§11）共3類</h3>
@@ -614,7 +628,7 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <div class="note note-blue">
     <span class="tag">🔵 法條</span>
     <p>一、確認基本資料及<b>權利狀態</b>　二、調查使用現況　三、確認影響價格各項資料　四、<b>作成紀錄及攝製照片或影像檔</b><br>
-    <span style="color:#A8402B;font-size:12.5px;">⚠️ 委託人未領勘無法確認範圍或無法進入室內 → 應於<b>估價報告書敘明</b></span></p>
+    <span style="color:var(--t-red);font-size:12.5px;">⚠️ 委託人未領勘無法確認範圍或無法進入室內 → 應於<b>估價報告書敘明</b></span></p>
   </div>
 
   <h3>⑤⑥ 整理資料・運用估價方法（§14）兼採原則</h3>
@@ -671,7 +685,7 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
     <p>報告書15項中，<b>第3項同時含「價格日期」與「勘察日期」</b>——只有在報告書才一起出現；步驟①（確定基本事項）裡只有價格日期，沒有勘察日期。</p>
-    <p style="margin-top:8px;font-size:12.5px;background:#FFF0EB;border-radius:6px;padding:7px 10px;">
+    <p style="margin-top:8px;font-size:12.5px;background:var(--t-pink);border-radius:6px;padding:7px 10px;">
       ⚠️ <b>行政執行或強制執行委託估價案件</b>：<br>
       報告書格式及應附圖說資料，依其相關規定辦理，<b>不受前二項之限制</b><br>
       ＝ 同時豁免「應載明15項」<b>和</b>「應附必要圖說」兩條，不只是其中一條。
@@ -681,16 +695,16 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <div class="note note-green" style="margin-top:10px;">
     <span class="tag">🟢 口訣：15項記憶法</span>
     <p style="font-size:13px;line-height:2;margin-bottom:6px;">
-      <b style="color:#2A5C3A;letter-spacing:1px">委 基 日 種 條 目 金 他 況 管 因 程 情 項 師</b>
+      <b style="color:var(--t-green);letter-spacing:1px">委 基 日 種 條 目 金 他 況 管 因 程 情 項 師</b>
     </p>
-    <p style="font-size:11.5px;color:#4a4a4a;line-height:1.9;">
+    <p style="font-size:11.5px;color:var(--t-ink4);line-height:1.9;">
       ①委託人　②基本資料　③日期（價格日期＋勘察日期）　④種類（價格種類）<br>
       ⑤條件（估價條件）　⑥目的（估價目的）　⑦金額（估價金額）<br>
       ⑧他項（所有權他項權利及負擔）　⑨況（使用現況）　⑩管（法定使用管制）<br>
       ⑪因（價格形成主要因素分析）　⑫程（估價方法推算過程及決定理由）<br>
       ⑬情（須敘明之情況）　⑭項（其他必要事項）　⑮師（估價師姓名及證照字號）
     </p>
-    <p style="font-size:11.5px;color:#A8402B;margin-top:4px;">⚠️ 共同記憶：①～⑥ 與步驟①「確定估價基本事項」4項（勘估標的內容／價格日期／價格種類及條件／估價目的）大量重疊，多了：委託人、金額、他項權利、使用現況、管制、因素分析、推算過程等實質內容。</p>
+    <p style="font-size:11.5px;color:var(--t-red);margin-top:4px;">⚠️ 共同記憶：①～⑥ 與步驟①「確定估價基本事項」4項（勘估標的內容／價格日期／價格種類及條件／估價目的）大量重疊，多了：委託人、金額、他項權利、使用現況、管制、因素分析、推算過程等實質內容。</p>
   </div>
 
   <h3>價格日期 vs 勘察日期</h3>
@@ -738,40 +752,40 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
 
   <!-- 三大方法價格曲線折線圖 -->
   <h3>三大方法對建物屋齡之價格推算趨勢（概念圖）</h3>
-  <div style="background:#FFFDF8;border:1px solid #E4DAC4;border-radius:10px;padding:16px 12px 14px;margin-bottom:14px;">
-    <div style="font-size:11.5px;color:#7A6E5E;margin-bottom:10px;text-align:center;">橫軸：屋齡（新→舊）・縱軸：推算價格（高→低）・三條線各代表一種方法</div>
+  <div style="background:var(--t-warm);border:1px solid var(--t-warm-line);border-radius:10px;padding:16px 12px 14px;margin-bottom:14px;">
+    <div style="font-size:11.5px;color:var(--t-note);margin-bottom:10px;text-align:center;">橫軸：屋齡（新→舊）・縱軸：推算價格（高→低）・三條線各代表一種方法</div>
     <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;overflow:visible">
       <!-- grid -->
-      <line x1="40" y1="20" x2="40" y2="170" stroke="#E4DAC4" stroke-width="1"/>
-      <line x1="40" y1="170" x2="320" y2="170" stroke="#E4DAC4" stroke-width="1"/>
-      <line x1="40" y1="60" x2="320" y2="60" stroke="#E4DAC4" stroke-width="0.5" stroke-dasharray="4,3"/>
-      <line x1="40" y1="110" x2="320" y2="110" stroke="#E4DAC4" stroke-width="0.5" stroke-dasharray="4,3"/>
+      <line x1="40" y1="20" x2="40" y2="170" style="stroke:var(--t-warm-line)" stroke-width="1"/>
+      <line x1="40" y1="170" x2="320" y2="170" style="stroke:var(--t-warm-line)" stroke-width="1"/>
+      <line x1="40" y1="60" x2="320" y2="60" style="stroke:var(--t-warm-line)" stroke-width="0.5" stroke-dasharray="4,3"/>
+      <line x1="40" y1="110" x2="320" y2="110" style="stroke:var(--t-warm-line)" stroke-width="0.5" stroke-dasharray="4,3"/>
       <!-- axis labels -->
-      <text x="38" y="24" text-anchor="end" fill="#7A6E5E" font-size="10" font-family="sans-serif">高</text>
-      <text x="38" y="174" text-anchor="end" fill="#7A6E5E" font-size="10" font-family="sans-serif">低</text>
-      <text x="40" y="186" text-anchor="start" fill="#7A6E5E" font-size="10" font-family="sans-serif">新</text>
-      <text x="316" y="186" text-anchor="end" fill="#7A6E5E" font-size="10" font-family="sans-serif">舊</text>
-      <text x="180" y="196" text-anchor="middle" fill="#7A6E5E" font-size="10" font-family="sans-serif">→ 屋齡增加</text>
+      <text x="38" y="24" text-anchor="end" style="fill:var(--t-note)" font-size="10" font-family="sans-serif">高</text>
+      <text x="38" y="174" text-anchor="end" style="fill:var(--t-note)" font-size="10" font-family="sans-serif">低</text>
+      <text x="40" y="186" text-anchor="start" style="fill:var(--t-note)" font-size="10" font-family="sans-serif">新</text>
+      <text x="316" y="186" text-anchor="end" style="fill:var(--t-note)" font-size="10" font-family="sans-serif">舊</text>
+      <text x="180" y="196" text-anchor="middle" style="fill:var(--t-note)" font-size="10" font-family="sans-serif">→ 屋齡增加</text>
       <!-- 成本法：等速折舊直線下滑（紫） -->
-      <polyline points="40,30 320,160" fill="none" stroke="#7B5C8C" stroke-width="2.2" stroke-linecap="round"/>
+      <polyline points="40,30 320,160" fill="none" style="stroke:var(--t-purple)" stroke-width="2.2" stroke-linecap="round"/>
       <!-- 收益法：平緩下滑（紅橘，租金收益較穩定） -->
-      <polyline points="40,40 120,55 200,75 270,100 320,120" fill="none" stroke="#A8402B" stroke-width="2.2" stroke-linecap="round"/>
+      <polyline points="40,40 120,55 200,75 270,100 320,120" fill="none" style="stroke:var(--t-red)" stroke-width="2.2" stroke-linecap="round"/>
       <!-- 比較法：隨市場波動（金，非單調） -->
-      <polyline points="40,35 80,45 130,38 180,60 230,80 280,90 320,105" fill="none" stroke="#BC8A2E" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6,3"/>
+      <polyline points="40,35 80,45 130,38 180,60 230,80 280,90 320,105" fill="none" style="stroke:var(--t-gold)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6,3"/>
       <!-- 殘餘價格率基準線 -->
-      <line x1="40" y1="155" x2="320" y2="155" stroke="#5C7A4A" stroke-width="1" stroke-dasharray="3,3"/>
-      <text x="322" y="158" fill="#5C7A4A" font-size="9" font-family="sans-serif">殘餘≤10%</text>
+      <line x1="40" y1="155" x2="320" y2="155" style="stroke:var(--t-olive)" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="322" y="158" style="fill:var(--t-olive)" font-size="9" font-family="sans-serif">殘餘≤10%</text>
       <!-- labels -->
-      <text x="323" y="165" fill="#7B5C8C" font-size="11" font-weight="bold" font-family="sans-serif">成本法</text>
-      <text x="323" y="124" fill="#A8402B" font-size="11" font-weight="bold" font-family="sans-serif">收益法</text>
-      <text x="323" y="108" fill="#BC8A2E" font-size="11" font-weight="bold" font-family="sans-serif">比較法</text>
+      <text x="323" y="165" style="fill:var(--t-purple)" font-size="11" font-weight="bold" font-family="sans-serif">成本法</text>
+      <text x="323" y="124" style="fill:var(--t-red)" font-size="11" font-weight="bold" font-family="sans-serif">收益法</text>
+      <text x="323" y="108" style="fill:var(--t-gold)" font-size="11" font-weight="bold" font-family="sans-serif">比較法</text>
     </svg>
     <div style="font-size:12px;line-height:1.9;margin-top:10px;padding:0 4px;">
-      <span style="color:#7B5C8C;font-weight:700">成本法</span>：重建成本扣折舊 → <b>等速（或加速/減速）直線下滑</b>，耐用年數終止趨向殘餘值（≤10%）<br>
-      <span style="color:#A8402B;font-weight:700">收益法</span>：租金收益較穩定 → <b>緩坡下滑</b>，受租約、市場收益率影響，非單純看屋齡<br>
-      <span style="color:#BC8A2E;font-weight:700">比較法</span>：貼近市場交易 → <b>波動隨市場</b>（虛線），景氣好可能不跌反漲<br>
+      <span style="color:var(--t-purple);font-weight:700">成本法</span>：重建成本扣折舊 → <b>等速（或加速/減速）直線下滑</b>，耐用年數終止趨向殘餘值（≤10%）<br>
+      <span style="color:var(--t-red);font-weight:700">收益法</span>：租金收益較穩定 → <b>緩坡下滑</b>，受租約、市場收益率影響，非單純看屋齡<br>
+      <span style="color:var(--t-gold);font-weight:700">比較法</span>：貼近市場交易 → <b>波動隨市場</b>（虛線），景氣好可能不跌反漲<br>
     </div>
-    <div style="background:#FFF0EB;border-left:3px solid #A8402B;border-radius:0 6px 6px 0;padding:8px 10px;margin-top:8px;font-size:12px;">
+    <div style="background:var(--t-pink);border-left:3px solid var(--t-red);border-radius:0 6px 6px 0;padding:8px 10px;margin-top:8px;font-size:12px;">
       ⚠️ <b>考試重點</b>：新建物 → 三法差距小；舊建物 → 成本法最低（折舊大）、收益法居中、比較法最靠市場。兼採二法以上時，需合理說明差距來源。
     </div>
   </div>
@@ -837,16 +851,16 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <div class="note note-blue">
     <span class="tag">🔵 法條（§12）條文原始順序</span>
     <p style="line-height:2.1;font-size:13px;">
-      ①　實例<b style="color:#3E6B8C">價格屬正常價格</b>、可調整為正常價格，或<b style="color:#3E6B8C">與勘估標的價格種類相同</b><br>
-      ②　位於<b style="color:#3E6B8C">同一供需圈</b>之近鄰地區或類似地區<br>
-      ③　<b style="color:#3E6B8C">使用性質或使用管制</b>與勘估標的相同或相近<br>
-      ④　實例<b style="color:#3E6B8C">價格形成日期</b>與勘估標的價格日期<b style="color:#3E6B8C">接近</b>
+      ①　實例<b style="color:var(--t-blue)">價格屬正常價格</b>、可調整為正常價格，或<b style="color:var(--t-blue)">與勘估標的價格種類相同</b><br>
+      ②　位於<b style="color:var(--t-blue)">同一供需圈</b>之近鄰地區或類似地區<br>
+      ③　<b style="color:var(--t-blue)">使用性質或使用管制</b>與勘估標的相同或相近<br>
+      ④　實例<b style="color:var(--t-blue)">價格形成日期</b>與勘估標的價格日期<b style="color:var(--t-blue)">接近</b>
     </p>
   </div>
   <div class="note note-green" style="margin-top:8px;">
     <span class="tag">🟢 口訣：正圈管日</span>
-    <p style="font-size:14px;letter-spacing:3px;color:#2A5C3A;font-weight:700;margin-bottom:4px;">正　圈　管　日</p>
-    <p style="font-size:12px;color:#4a4a4a;">①正常價格 ②供需圈（近鄰/類似地區） ③使用管制 ④價格日期接近</p>
+    <p style="font-size:14px;letter-spacing:3px;color:var(--t-green);font-weight:700;margin-bottom:4px;">正　圈　管　日</p>
+    <p style="font-size:12px;color:var(--t-ink4);">①正常價格 ②供需圈（近鄰/類似地區） ③使用管制 ④價格日期接近</p>
   </div>
   <div class="note note-red" style="margin-top:8px;">
     <span class="tag">🔴 重要：不要和§16口訣混淆</span>
@@ -950,7 +964,7 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   <h3>營造或施工費求取方法（§54～§56）</h3>
   <style>
     .cw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
-    .cw-card{border:1px solid var(--rule);border-radius:10px;background:var(--card,#fff);overflow:hidden;min-width:0}
+    .cw-card{border:1px solid var(--rule);border-radius:10px;background:var(--card);overflow:hidden;min-width:0}
     .cw-hd{padding:8px 12px;color:#fff;font-weight:700;font-size:14px}
     .cw-hd small{display:block;font-weight:400;font-size:12px;opacity:.92;margin-top:2px}
     .cw-row{padding:9px 12px;border-top:1px solid var(--rule);font-size:13.5px;line-height:1.6}
@@ -959,12 +973,12 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
   </style>
   <div class="cw-grid">
     <div class="cw-card">
-      <div class="cw-hd" style="background:var(--blue)">直接法<small>自己從頭算・名稱沒有「比較」</small></div>
+      <div class="cw-hd" style="background:var(--s-blue)">直接法<small>自己從頭算・名稱沒有「比較」</small></div>
       <div class="cw-row"><b class="nm" style="color:var(--blue)">淨計法</b>逐一材料、人工的<b>數量×單價、工資</b>（最精細）</div>
       <div class="cw-row"><b class="nm" style="color:var(--blue)">單位工程法</b>細部工程各項目<b>單價×施工數量</b>後合計</div>
     </div>
     <div class="cw-card">
-      <div class="cw-hd" style="background:var(--green)">間接法<small>找別人比・名稱都有「比較」</small></div>
+      <div class="cw-hd" style="background:var(--s-green)">間接法<small>找別人比・名稱都有「比較」</small></div>
       <div class="cw-row"><b class="nm" style="color:var(--green)">工程造價比較法</b>找比較標的或標準建物，按<b>工程概算項目逐項</b>比較，依價格、數量比率調整</div>
       <div class="cw-row"><b class="nm" style="color:var(--green)">單位面積（體積）比較法</b>以標準建物<b>單位面積營造費</b>為基礎，調整後<b>乘勘估標的面積</b></div>
     </div>
@@ -1661,6 +1675,7 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
     .kf-op{font-size:20px;font-weight:700;color:var(--ink);padding:0 2px}
     .kf-a{background:var(--blue)} .kf-b{background:var(--orange)} .kf-r{background:var(--green)} .kf-p{background:var(--purple)}
     .kf-r.res,.kf-p.res{outline:2px solid var(--ink);outline-offset:1px}
+    .kf .kf-c.kf-a{background:var(--s-blue);color:#fff}.kf .kf-c.kf-r{background:var(--s-green);color:#fff}.kf .kf-c.kf-p{background:var(--s-purple);color:#fff}.kf .kf-c.kf-b{background:var(--s-orange);color:var(--kf-b-ink)}
     .kf-ex{font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.6}
   </style>
   <div class="kf">

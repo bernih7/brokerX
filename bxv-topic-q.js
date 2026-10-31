@@ -2,18 +2,20 @@
    用法：<div class="bxv-tq" data-chs="B,C1,C2" data-title="比較法・成本法"></div> ＋ <script src="bxv-topic-q.js"></script>
    題庫來自 bxv-quiz-data.js（由 tools/quiz_val/gen_data.py 自章節頁產生）。 */
 (function(){
-var css=".bxv-tq{margin:18px 0;border:1px solid var(--line,#ddd);border-radius:12px;background:var(--paper,#fff);color:var(--fg,#222);overflow:hidden;font-size:14px}"+
+var css=".bxv-tq{margin:18px 0;border:1px solid var(--line,#ddd);border-radius:12px;background:var(--paper,var(--card,#fff));color:var(--fg,var(--ink,#222));overflow:hidden;font-size:14px}"+
 ".bxv-tq *{box-sizing:border-box}.bxv-tq .th{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line,#ddd)}"+
-".bxv-tq .th b{font-size:15px}.bxv-tq .th a{color:var(--primary,#2F5D50);font-weight:700;text-decoration:none;font-size:13px}"+
-".bxv-tq .sm{padding:10px 14px;color:var(--muted,#777);font-size:13px;line-height:1.7}.bxv-tq .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}"+
+".bxv-tq .th b{font-size:15px}.bxv-tq .th a{color:var(--primary,var(--pri,#2F5D50));font-weight:700;text-decoration:none;font-size:13px}"+
+".bxv-tq .sm{padding:10px 14px;color:var(--muted,var(--sub,#777));font-size:13px;line-height:1.7}.bxv-tq .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}"+
 ".bxv-tq .chip{border:1px solid var(--line,#ccc);background:transparent;color:inherit;border-radius:999px;padding:4px 11px;font-size:12.5px;cursor:pointer;font-family:inherit}"+
-".bxv-tq .chip.on{background:var(--primary,#2F5D50);border-color:var(--primary,#2F5D50);color:#fff}"+
+".bxv-tq .chip.on{background:var(--primary,var(--pri,#2F5D50));border-color:var(--primary,var(--pri,#2F5D50));color:var(--onpri,#fff)}"+
 ".bxv-tq .ls{max-height:520px;overflow:auto;border-top:1px solid var(--line,#ddd)}.bxv-tq details{border-bottom:1px solid var(--line,#ddd)}"+
 ".bxv-tq summary{cursor:pointer;padding:9px 14px;display:flex;gap:8px;align-items:baseline;list-style:none}.bxv-tq summary::-webkit-details-marker{display:none}"+
-".bxv-tq .yr{flex:none;color:var(--muted,#777);font-size:12px;min-width:62px}.bxv-tq .st{flex:none;font-size:12px;font-weight:700;min-width:34px}"+
-".bxv-tq .st.x{color:#B33A2A}.bxv-tq .st.o{color:#2F7A4A}.bxv-tq .st.u{color:var(--muted,#999)}.bxv-tq .qt{min-width:0;line-height:1.55}"+
+".bxv-tq .yr{flex:none;color:var(--muted,var(--sub,#777));font-size:12px;min-width:62px}.bxv-tq .st{flex:none;font-size:12px;font-weight:700;min-width:34px}"+
+".bxv-tq .st.x{color:#B33A2A}.bxv-tq .st.o{color:#2F7A4A}.bxv-tq .st.u{color:var(--muted,var(--sub,#777))}.bxv-tq .qt{min-width:0;line-height:1.55}"+
 ".bxv-tq .bd{padding:2px 14px 12px 14px;line-height:1.7}.bxv-tq .op{padding:2px 0}.bxv-tq .op.ok{color:#2F7A4A;font-weight:700}"+
-".bxv-tq .nt{margin-top:6px;padding:7px 10px;border-radius:8px;background:var(--paper2,#f3f3f3);font-size:13px}.bxv-tq .em{padding:16px 14px;color:var(--muted,#777)}";
+"@media(prefers-color-scheme:dark){:root:not([data-theme=\"light\"]) .bxv-tq .st.x{color:#E58A78}:root:not([data-theme=\"light\"]) .bxv-tq .st.o,:root:not([data-theme=\"light\"]) .bxv-tq .op.ok{color:#8FCB93}}"+
+":root[data-theme=\"dark\"] .bxv-tq .st.x{color:#E58A78}:root[data-theme=\"dark\"] .bxv-tq .st.o,:root[data-theme=\"dark\"] .bxv-tq .op.ok{color:#8FCB93}"+
+".bxv-tq .nt{margin-top:6px;padding:7px 10px;border-radius:8px;background:var(--paper2,var(--card2,rgba(127,127,127,.12)));font-size:13px}.bxv-tq .em{padding:16px 14px;color:var(--muted,var(--sub,#777))}";
 var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}

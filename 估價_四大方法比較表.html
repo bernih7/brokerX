@@ -26,6 +26,12 @@
   --hi-red:#C85840;--hi-gold:#D49040;--hi-grn:#4A9060;--hi-blu:#3A9BBF;
   color-scheme:dark;
 }
+/* ── 對比修正（深色兩份式）：ans-warn 底、控制鈕字色、bxv-topic-q.js 注入的 .op.ok/.st 寫死色 ── */
+:root{--warn-bg:var(--hi-gold);--sub:#5F6B63;--q-ok:#2F7A4A;--q-x:#B33A2A}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--warn-bg:#9A6A2A;--sub:#A9B5AD;--q-ok:#6FC28C;--q-x:#EE8A74;}}
+:root[data-theme="dark"]{--warn-bg:#9A6A2A;--sub:#A9B5AD;--q-ok:#6FC28C;--q-x:#EE8A74;}
+html .bxv-tq .op.ok,html .bxv-tq .st.o{color:var(--q-ok)}
+html .bxv-tq .st.x{color:var(--q-x)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;font-size:14px;line-height:1.75;padding:0 16px 100px;max-width:960px;margin:0 auto}
 /* 跳色 */
@@ -161,7 +167,7 @@ body{background:var(--bg);color:var(--fg);font-family:"Noto Sans TC",sans-serif;
 .trap-a strong{color:var(--fg);font-weight:700}
 .ans-ok {display:inline-block;background:var(--hi-grn);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;margin-right:3px}
 .ans-no {display:inline-block;background:var(--hi-red);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;margin-right:3px}
-.ans-warn{display:inline-block;background:var(--hi-gold);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;margin-right:3px}
+.ans-warn{display:inline-block;background:var(--warn-bg);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:4px;margin-right:3px}
 /* 浮動鈕 */
 .fab-wrap{position:fixed;right:16px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:100;align-items:center}
 .fab{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);font-size:17px}
