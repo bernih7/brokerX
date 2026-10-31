@@ -182,15 +182,17 @@
           var L = 'ABCD'[i], cls = '';
           if (picked) cls = acc.indexOf(L) >= 0 ? ' ok' : (L === picked ? ' ng' : '');
           return '<button type="button" class="op' + cls + '" data-l="' + L + '"' + (picked ? ' disabled' : '') + '>'
-            + '<span class="L">' + L + '</span><span>' + (picked && window.bxvHL ? bxvHL(q._id, i, esc(o), 'opt') : esc(o)) + '</span>'
+            + '<span class="L">' + L + '</span><span>' + (picked && window.bxvHL ? bxvHL(q._id, i, esc(o), 'opt', 'ABCD'.indexOf(picked), 'ABCD'.indexOf(acc[0])) : esc(o)) + '</span>'
             + (L === picked ? '<span class="me">你選的</span>' : (picked && acc.indexOf(L) >= 0 ? '<span class="me ans">正確答案</span>' : '')) + '</button>';
         }).join('') + '</div>';
         if (picked) {
           h += '<div class="vd ' + (ok ? 'y' : 'n') + '">' + (isFree(q) ? '這題不計正確率' : (ok ? '答對了' : '答錯了　你選 ' + picked + '，正確答案 ' + acc.join(' 或 '))) + '</div>';
+          var _wr = !ok && !isFree(q) && window.bxvCard, _si = 'ABCD'.indexOf(picked), _ci = 'ABCD'.indexOf(acc[0]);
+          if (_wr) h += bxvCard(q._id, _si, _ci, true) + bxvMore(1);
           h += '<div class="ex">' + (q.exp || []).map(function (t, i) {
             var L = 'ABCD'[i];
-            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + (window.bxvHL ? bxvHL(q._id, i, rich(t), 'exp') : rich(t)) + '</span></div>';
-          }).join('') + '</div>';
+            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + (_wr && acc.indexOf(L) < 0 && L !== picked ? ' dim' : '') + '"><span class="L">' + L + '</span><span>' + (window.bxvHL ? bxvHL(q._id, i, rich(t), 'exp', ok ? null : 'ABCD'.indexOf(picked), 'ABCD'.indexOf(acc[0])) : rich(t)) + '</span></div>';
+          }).join('') + '</div>' + (_wr ? bxvMore(0) : '');
           var ls = (q.law || []).filter(function (k) { return LAW[k]; });
           if (ls.length) {
             h += '<details class="lw"><summary>本題相關法條（' + ls.length + ' 條）</summary><div class="lb">'

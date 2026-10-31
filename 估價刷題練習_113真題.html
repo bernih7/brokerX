@@ -432,7 +432,7 @@ function renderList(){
       optEl.appendChild(letterEl);
 
       const txt = document.createElement("span");
-      if(answered && window.bxvHL && (window.BXV_HL||{})[item.id]) txt.innerHTML = bxvHL(item.id, oi, String(opt).replace(/&/g,'&amp;').replace(/</g,'&lt;'), "opt"); else txt.textContent = opt;
+      if(answered && window.bxvHL && (window.BXV_HL||{})[item.id]) txt.innerHTML = bxvHL(item.id, oi, String(opt).replace(/&/g,'&amp;').replace(/</g,'&lt;'), "opt", answers[item.id], item.correct); else txt.textContent = opt;
       optEl.appendChild(txt);
 
       if(!answered){
@@ -461,22 +461,25 @@ function renderList(){
       const et = document.createElement("div");
       et.className = "explain-title";
       et.textContent = "▎逐選項解析";
-      if((window.BXV_HL||{})[item.id] && window.bxvHLlegend) et.insertAdjacentHTML("beforeend", bxvHLlegend);
       eb.appendChild(et);
       letters.forEach((l, li)=>{
         if(li >= item.explains.length) return;
         const ei = document.createElement("div");
-        ei.className = "explain-item" + (li === item.correct ? " right" : "");
+        ei.className = "explain-item" + (li === item.correct ? " right" : "") + (!isCorrect && li !== item.correct && li !== answers[item.id] ? " dim" : "");
         const el = document.createElement("span");
         el.className = "explain-letter";
         el.textContent = l;
         const etxt = document.createElement("span");
-        if(window.bxvHL && (window.BXV_HL||{})[item.id]) etxt.innerHTML = bxvHL(item.id, li, String(item.explains[li]).replace(/&/g,'&amp;').replace(/</g,'&lt;'), "exp"); else etxt.textContent = item.explains[li];
+        if(window.bxvHL && (window.BXV_HL||{})[item.id]) etxt.innerHTML = bxvHL(item.id, li, String(item.explains[li]).replace(/&/g,'&amp;').replace(/</g,'&lt;'), "exp", isCorrect ? null : answers[item.id], item.correct); else etxt.textContent = item.explains[li];
         ei.appendChild(el);
         ei.appendChild(etxt);
         eb.appendChild(ei);
       });
-      card.appendChild(eb);
+      if(!isCorrect && window.bxvCard){
+        card.insertAdjacentHTML("beforeend", bxvCard(item.id, answers[item.id], item.correct));
+        const dm = document.createElement("details"); dm.className = "exp-more";
+        dm.innerHTML = "<summary>四個選項的完整解析</summary>"; dm.appendChild(eb); card.appendChild(dm);
+      } else card.appendChild(eb);
 
       // Error tags (only if wrong)
       if(!isCorrect){

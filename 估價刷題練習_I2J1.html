@@ -372,15 +372,15 @@ function buildCard(it){
     </div>
     <div class="qtext">${it.q}</div>
     <div class="opt-list">
-      ${it.opts.map((o,i)=>`<button class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}"><b>${'ABCD'[i]}.</b>${ans&&window.bxvHL?bxvHL(it.id,i,o,'opt'):o}</button>`).join('')}
+      ${it.opts.map((o,i)=>`<button class="opt${ans?(i===it.correct?' correct-answer':(i===ans.selected&&!ans.correct?' wrong-selected':'')):''}" data-i="${i}"><b>${'ABCD'[i]}.</b>${ans&&window.bxvHL?bxvHL(it.id,i,o,'opt',ans.selected,it.correct):o}</button>`).join('')}
     </div>
     ${it.note?`<div class="note-box">${it.note}</div>`:''}
-    ${ans?`<div class="explain-box">
-      <div class="explain-title">▸ 逐選項解析${(window.BXV_HL||{})[it.id]?bxvHLlegend:''}</div>
-      ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}">
-        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${window.bxvHL?bxvHL(it.id,i,ex,'exp'):ex}</span>
+    ${ans?`${!ans.correct&&window.bxvCard?bxvCard(it.id,ans.selected,it.correct)+bxvMore(1):''}<div class="explain-box">
+      <div class="explain-title">▸ 逐選項解析</div>
+      ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}${!ans.correct&&i!==it.correct&&i!==ans.selected?' dim':''}">
+        <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${window.bxvHL?bxvHL(it.id,i,ex,'exp',ans.correct?null:ans.selected,it.correct):ex}</span>
       </div>`).join('')}
-    </div>`:''}
+    </div>${!ans.correct&&window.bxvCard?bxvMore(0):''}`:''}
     <div class="error-tag-row">
       <span class="error-tag${tag==='A'?' active-a':''}" data-type="A">A型 法條混淆</span>
       <span class="error-tag${tag==='B'?' active-b':''}" data-type="B">B型 粗心</span>

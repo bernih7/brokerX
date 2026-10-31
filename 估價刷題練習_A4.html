@@ -389,21 +389,21 @@ function renderList(){
         if(i===it.correct) cls += ' correct-answer';
         else if(i===a.selected) cls += ' wrong-selected';
       }
-      optsHtml += `<button class="${cls}" data-idx="${i}"><b>${letters[i]}.</b>${a&&window.bxvHL?bxvHL(it.id,i,opt,'opt'):opt}</button>`;
+      optsHtml += `<button class="${cls}" data-idx="${i}"><b>${letters[i]}.</b>${a&&window.bxvHL?bxvHL(it.id,i,opt,'opt',a.selected,it.correct):opt}</button>`;
     });
 
     let explainHtml = '';
     if(a && it.explains && it.explains.some(e=>e)){
-      explainHtml = (!a.correct ? `<div class="ans-verdict">✗ 答錯了：你選 <b>${letters[a.selected]}</b>，正確答案 <b>${letters[it.correct]}</b></div>` : '') + '<div class="explain-box"><div class="explain-title">📚 逐選項解析' + ((window.BXV_HL||{})[it.id]&&window.bxvHLlegend?bxvHLlegend:'') + '</div>';
+      explainHtml = (!a.correct ? (window.bxvCard ? bxvCard(it.id,a.selected,it.correct) + bxvMore(1) : `<div class="ans-verdict">✗ 答錯了：你選 <b>${letters[a.selected]}</b>，正確答案 <b>${letters[it.correct]}</b></div>`) : '') + '<div class="explain-box"><div class="explain-title">📚 逐選項解析</div>';
       it.opts.forEach((opt,i)=>{
         const isCorrect = i===it.correct;
         const mark = isCorrect ? '✓' : '✗';
-        const cls = isCorrect ? 'explain-item right' : 'explain-item';
-        const expText = (it.explains && it.explains[i]) ? (window.bxvHL?bxvHL(it.id,i,it.explains[i],'exp'):it.explains[i]) : '';
-        const meTag = (i===a.selected && !isCorrect) ? '<span class="exp-me">你選的</span>' : ((isCorrect && !a.correct) ? '<span class="exp-ans">正確答案</span>' : '');
+        const cls = (isCorrect ? 'explain-item right' : 'explain-item') + (!a.correct && !isCorrect && i!==a.selected ? ' dim' : '');
+        const expText = (it.explains && it.explains[i]) ? (window.bxvHL?bxvHL(it.id,i,it.explains[i],'exp',a.correct?null:a.selected,it.correct):it.explains[i]) : '';
+        const meTag = '';
         explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${meTag}${expText}</span></div>`;
       });
-      explainHtml += '</div>';
+      explainHtml += '</div>' + (!a.correct && window.bxvCard ? bxvMore(0) : '');
     }
 
     let noteHtml = '';
