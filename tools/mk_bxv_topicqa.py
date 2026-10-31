@@ -39,6 +39,21 @@ VARS = {
 ALIAS = {"--ink": "--fg", "--pri": "--primary", "--vermillion": "--hi-red",
          "--green": "--hi-grn", "--gold": "--hi-gold"}
 
+TQ_DARK_JS = '''  var TQ_DARK = '--paper2:#222926;--paper-dark:#1C2825;--paper:#1A1F1D;'
+    + '--muted:var(--sub,var(--ink-soft,var(--ink-2,#9AA79F)));'
+    + '--primary:var(--pri,#84C2AE);--onc:#10201B;'
+    + '--hi-red:var(--red,var(--stamp,var(--trap,#E07060)));'
+    + '--hi-grn:var(--green,var(--note,#8FCB93));'
+    + '--hi-gold:var(--gold,var(--warn,#E0B070));'
+    + '--hot:#E58A78;--hotbg:rgba(224,112,96,.16);--numfg:#F0D9A0;--numbg:rgba(240,185,60,.16)';
+'''
+TQ_DARK_CSS = '''    /* 深色：頁面多半沒定義 --paper2／--paper-dark／--muted／--hi-*，原 fallback 是淺色值 → 在面板上補深色 token（兩份式）；bxv-hl.js 的「完整解析」摺疊鈕 fallback #2F5D4E 在沒 --pri/--green 的頁（四大方法）會深底深字，面板內一併蓋掉 */
+    + '@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .bxv-tq{' + TQ_DARK + '}'
+    + ':root:not([data-theme="light"]) .bxv-tq .tg.on,:root:not([data-theme="light"]) .bxv-tq .sg.on{color:#10201B}:root:not([data-theme="light"]) .bxv-tq details.exp-more>summary{color:var(--pri,var(--green,#84C2AE))}}'
+    + ':root[data-theme="dark"] .bxv-tq{' + TQ_DARK + '}'
+    + ':root[data-theme="dark"] .bxv-tq .tg.on,:root[data-theme="dark"] .bxv-tq .sg.on{color:#10201B}:root[data-theme="dark"] .bxv-tq details.exp-more>summary{color:var(--pri,var(--green,#84C2AE))}'
+'''
+
 HEADER = '''/* 估價｜整理頁內嵌「可作答」考古題面板　bxv-topic-qa.js
    用法：<div class="bxv-tq" data-qs="104-27,111-8" data-title="全程序順序"></div>
          或 <div class="bxv-tq" data-chs="F1" data-title="租金估計"></div>
@@ -95,6 +110,16 @@ def main():
         fb = VARS.get(v, "inherit")
         return f"var({ALIAS[v]},var({v},{fb}))" if v in ALIAS else f"var({v},{fb})"
     s = re.sub(r"var\((--[a-z0-9-]+)\)", fx, s)
+
+    # 2b) 深色：估價頁多半沒定義 --paper2／--paper-dark／--muted／--hi-*，fallback 是淺色 → 面板上補深色 token（兩份式）
+    anchor = "  var CSS = ''\n"
+    if anchor not in s:
+        sys.exit("找不到 var CSS")
+    s = s.replace(anchor, TQ_DARK_JS + anchor, 1)
+    anchor = "    + '@media(max-width:420px){.bxv-tq"
+    if anchor not in s:
+        sys.exit("找不到 CSS 結尾的 max-width:420px")
+    s = s.replace(anchor, TQ_DARK_CSS + anchor, 1)
 
     # 3) 取代 qid／rec／tagIt／sureIt／「再作答一次」：改走估價的 BXREP ＋ 雙寫
     old_qid = "  function qid(q) { return q.ch + '-' + q.y + '-' + q.n; }"

@@ -386,7 +386,7 @@ body {
 .cell-c { color: var(--blue); font-weight: 700; }   /* choice */
 .cell-e { color: var(--stamp); font-weight: 700; }  /* essay */
 .cell-b { color: var(--purple); font-weight: 700; } /* both */
-.cell-n { color: var(--rule); }                     /* none */
+.cell-n { color: var(--ink-soft); }                     /* none */
 .matrix-legend {
   display: flex;
   gap: 16px;
@@ -525,6 +525,9 @@ body {
 .kf-step{border:1px solid var(--rule);border-radius:10px;background:var(--paper);padding:10px 12px;min-width:0}
 .kf-t{font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:8px}
 .kf-t b{display:inline-block;background:var(--green);color:#fff;border-radius:50%;min-width:20px;height:20px;line-height:20px;text-align:center;margin-right:6px;font-size:12px;padding:0 3px}
+/* 深色：控制膠囊無 --sub（fallback 淺色灰）、步驟圓章白字在亮綠底上 2.3 → 兩份式覆寫 */
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ctrl-pill{--sub:var(--ink-soft)}:root:not([data-theme="light"]) .kf-t b{color:var(--paper)}}
+:root[data-theme="dark"] .ctrl-pill{--sub:var(--ink-soft)}:root[data-theme="dark"] .kf-t b{color:var(--paper)}
 .kf-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
 .kf-c{border-radius:8px;padding:5px 10px;font-weight:700;font-size:14px;line-height:1.4;color:var(--ks-ink);border:1px solid}
 .kf-c small{display:block;font-weight:400;font-size:11px;opacity:.75}

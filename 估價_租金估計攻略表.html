@@ -191,7 +191,7 @@ header{position:relative}
 .rm-seg{padding:8px 4px;min-width:0}
 .rm-seg small{display:block;font-size:10px;font-weight:500;opacity:.85}
 .rm-seg.pay{flex:3.2;background:var(--pri);color:var(--onpri)}
-.rm-seg.dep{flex:1.6;background:color-mix(in srgb,var(--pri) 55%,var(--card));color:var(--onpri)}
+.rm-seg.dep{flex:1.6;background:color-mix(in srgb,var(--pri) 55%,var(--card));color:var(--ink)}
 .rm-seg.key{flex:1.2;background:color-mix(in srgb,var(--pri) 35%,var(--card));color:var(--ink)}
 .rm-seg.oth{flex:1;background:color-mix(in srgb,var(--pri) 18%,var(--card));color:var(--ink)}
 .rm-brace{margin-top:4px;height:16px;border:2px solid var(--key);border-top:0;border-radius:0 0 10px 10px;position:relative}
@@ -210,7 +210,10 @@ header{position:relative}
 .rm-line{width:2px;height:12px;background:var(--red);margin:0 auto 4px;opacity:.6}
 .rm-res{margin-top:5px;border-radius:9px;padding:7px 4px;background:var(--pri);color:var(--onpri);font-family:'Noto Serif TC',serif;font-size:14px;font-weight:700}
 .rm-res small{display:block;font-family:'Noto Sans TC',sans-serif;font-size:10px;font-weight:500;opacity:.85}
-.rm-seg.exp{background:color-mix(in srgb,var(--gold) 70%,var(--card));color:var(--onpri)}
+.rm-seg.exp{background:color-mix(in srgb,var(--gold) 70%,var(--card));color:var(--ink)}
+/* 押金／必要費用色塊：淺色白字在 55%／70% 混色底上只有 2.4–2.6 → 改深字；深色改實色底＋深字（兩份式） */
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .rm-seg.dep{background:#6C9C8C;color:var(--onpri)} :root:not([data-theme="light"]) .rm-seg.exp{background:#A7885A;color:var(--onpri)}}
+:root[data-theme="dark"] .rm-seg.dep{background:#6C9C8C;color:var(--onpri)} :root[data-theme="dark"] .rm-seg.exp{background:#A7885A;color:var(--onpri)}
 .rm-calc{margin-top:18px;font-size:12px;line-height:1.75;color:var(--ink)}
 .rm-two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .rm-in,.rm-out{border-radius:8px;padding:7px 9px;font-size:11.5px;line-height:1.65;color:var(--ink)}

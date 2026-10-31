@@ -17,6 +17,13 @@
   function stSet(k,v){try{localStorage.setItem("bxv-st:"+k,JSON.stringify(v))}catch(e){}}
   /* BXREP 要的物件：**不可以帶 num**，帶了 qid 會變成 章-年-num */
   function ad(q){return {chapter:q.ch, year:q._year, id:q._id};}
+  var TQ_DARK = '--paper2:#222926;--paper-dark:#1C2825;--paper:#1A1F1D;'
+    + '--muted:var(--sub,var(--ink-soft,var(--ink-2,#9AA79F)));'
+    + '--primary:var(--pri,#84C2AE);--onc:#10201B;'
+    + '--hi-red:var(--red,var(--stamp,var(--trap,#E07060)));'
+    + '--hi-grn:var(--green,var(--note,#8FCB93));'
+    + '--hi-gold:var(--gold,var(--warn,#E0B070));'
+    + '--hot:#E58A78;--hotbg:rgba(224,112,96,.16);--numfg:#F0D9A0;--numbg:rgba(240,185,60,.16)';
   var CSS = ''
     + '.bxv-tq{margin:16px 0;border:1px solid var(--line,#DDD6C3);border-radius:12px;background:var(--paper2,#F0EDE0);color:var(--fg,var(--ink,#25302C));font-size:14px;overflow:hidden}'
     + '.bxv-tq *{box-sizing:border-box}'
@@ -74,6 +81,11 @@
     + '.bxv-tq .dis{margin:7px 0 0;padding:8px 10px;border-radius:8px;background:var(--numbg,rgba(240,185,60,.30));'
     + 'color:var(--numfg,#25302C);font-size:12.6px;line-height:1.65}'
     + '.bxv-tq .em{padding:16px 13px;color:var(--muted,#7A8C84)}'
+    /* 深色：頁面多半沒定義 --paper2／--paper-dark／--muted／--hi-*，原 fallback 是淺色值 → 在面板上補深色 token（兩份式）；bxv-hl.js 的「完整解析」摺疊鈕 fallback #2F5D4E 在沒 --pri/--green 的頁（四大方法）會深底深字，面板內一併蓋掉 */
+    + '@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .bxv-tq{' + TQ_DARK + '}'
+    + ':root:not([data-theme="light"]) .bxv-tq .tg.on,:root:not([data-theme="light"]) .bxv-tq .sg.on{color:#10201B}:root:not([data-theme="light"]) .bxv-tq details.exp-more>summary{color:var(--pri,var(--green,#84C2AE))}}'
+    + ':root[data-theme="dark"] .bxv-tq{' + TQ_DARK + '}'
+    + ':root[data-theme="dark"] .bxv-tq .tg.on,:root[data-theme="dark"] .bxv-tq .sg.on{color:#10201B}:root[data-theme="dark"] .bxv-tq details.exp-more>summary{color:var(--pri,var(--green,#84C2AE))}'
     + '@media(max-width:420px){.bxv-tq .yr{min-width:50px}.bxv-tq .again{margin-left:0}}';
 
   var KN = { A: 'A 法條混淆', B: 'B 粗心', C: 'C 真的不熟', D: 'D 猜的' };
