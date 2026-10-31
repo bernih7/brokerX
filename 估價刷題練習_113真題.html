@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  --pri-tx:var(--pri);
   --bg:#F5F1E6;--card:#FFFEFA;--line:#DDD6C0;
   --ink:#25302C;--sub:#5F6B63;--pri:#2F5D50;
   --key:#8A5517;--red:#A8402B;--gold:#B8782E;--green:#35693F;
@@ -16,7 +17,7 @@
   color-scheme:light;
 }
 @media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
+  :root:not([data-theme="light"]){--pri-tx:#8FC4AE;
     --bg:#1d1b17;--card:#272420;--line:#3d3830;
     --ink:#ece6d8;--sub:#a79f8c;--pri:#2F5D50;
     --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
@@ -24,7 +25,7 @@
     color-scheme:dark;
   }
 }
-:root[data-theme="dark"]{
+:root[data-theme="dark"]{--pri-tx:#8FC4AE;
   --bg:#1d1b17;--card:#272420;--line:#3d3830;
   --ink:#ece6d8;--sub:#a79f8c;--pri:#2F5D50;
   --key:#B8782E;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;
@@ -47,7 +48,7 @@ header{text-align:center;margin-bottom:16px;}
   letter-spacing:.12em;color:var(--red);border:1px solid var(--red);
   border-radius:999px;padding:3px 12px;margin-bottom:10px;
 }
-h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;letter-spacing:.04em;color:var(--pri);}
+h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;letter-spacing:.04em;color:var(--pri-tx);}
 h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--sub);margin-top:4px;font-family:"Noto Sans TC",sans-serif;}
 .version-tag{font-size:11px;color:var(--sub);margin-top:8px;letter-spacing:.05em;font-family:"Noto Serif TC",serif;}
 
@@ -107,7 +108,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--sub);margin-top
 .note-box{margin-top:10px;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.7;border-left:4px solid var(--gold);background:var(--tipbg);color:var(--sub);}
 .note-box b{color:var(--gold);}
 .explain-box{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);}
-.explain-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;color:var(--pri);margin-bottom:8px;letter-spacing:.05em;}
+.explain-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:12px;color:var(--pri-tx);margin-bottom:8px;letter-spacing:.05em;}
 .explain-item{display:flex;gap:8px;padding:7px 8px;border-radius:7px;font-size:12.5px;line-height:1.7;background:var(--card);border:1.5px solid var(--line);margin-bottom:6px;color:var(--ink);}
 .explain-item:last-child{margin-bottom:0;}
 .explain-item.right{border-color:var(--green);background:var(--okbg);}
@@ -179,6 +180,11 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 .bxa{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
 .btn.rep{border-color:var(--gold);color:var(--gold);}
 .btn.rep:hover{background:var(--gold);color:#fff;}
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .btn.primary,:root:not([data-theme="light"]) .btn.green:hover,:root:not([data-theme="light"]) .btn.rep:hover,:root:not([data-theme="light"]) .error-tag.active-a,:root:not([data-theme="light"]) .error-tag.active-b,:root:not([data-theme="light"]) .error-tag.active-d{color:#1d1b17}
+}
+:root[data-theme="dark"] .btn.primary,:root[data-theme="dark"] .btn.green:hover,:root[data-theme="dark"] .btn.rep:hover,:root[data-theme="dark"] .error-tag.active-a,:root[data-theme="dark"] .error-tag.active-b,:root[data-theme="dark"] .error-tag.active-d{color:#1d1b17}
 </style>
 <script src="bxv-use.js"></script>
 <script src="bxv-quiz-data.js"></script><script src="bxv-hl.js"></script>

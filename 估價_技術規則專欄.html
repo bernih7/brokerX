@@ -59,9 +59,14 @@ a.qlk:hover{border-bottom-style:solid}
 .qlk-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;
   margin:14px 0 2px;padding-top:9px;border-top:1px dashed var(--line,#ddd);
   font-size:.8rem;color:var(--muted,#777)}
-.qlk-bar b{color:var(--ink,#25302C)}
+.qlk-bar b{color:var(--ink,var(--fg,#25302C))}
 .qlk-all{text-decoration:none;font-weight:800;font-size:.75rem;padding:2px 10px;
   border-radius:999px;background:var(--pri,#2F5D50);color:#fff;white-space:nowrap}
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) a.qlk{color:var(--tv,#8FD0A5)}
+}
+:root[data-theme="dark"] a.qlk{color:var(--tv,#8FD0A5)}
 </style>
 <script id="qlk-js">
 (function(){var G={"t1":["104-27","105-4","103-29","103-12","106-3"],"t2":["113-7","108-20","104-1","111-14","112-6","114-4","106-7","105-24","113-23","113-8","109-6","113-22","104-10"],"t3":["108-14","102-12","106-11","109-15"],"t4":["107-9","110-8","102-15","103-33","99-8","109-17","109-23","105-22","105-31","110-5","99-7","106-14","106-40","108-10","106-38"],"t5":["99-33","104-23"],"t6":["100-38","107-24","108-4","108-16","105-23","107-15","106-30","104-31"],"t8":["104-25"]};

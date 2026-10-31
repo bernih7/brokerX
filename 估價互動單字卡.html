@@ -296,6 +296,11 @@ footer .reset{
 
 
 
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .chip.active,:root:not([data-theme="light"]) .filter-row .chip.active,:root:not([data-theme="light"]) .status-row .chip.active,:root:not([data-theme="light"]) .ctrl-pill .bxv-mini .cnt{color:var(--bg)}
+}
+:root[data-theme="dark"] .chip.active,:root[data-theme="dark"] .filter-row .chip.active,:root[data-theme="dark"] .status-row .chip.active,:root[data-theme="dark"] .ctrl-pill .bxv-mini .cnt{color:var(--bg)}
 </style><script src="bxv-use.js"></script>
 </head>
 <body>
@@ -602,7 +607,7 @@ Object.keys(CAT_COLORS).forEach(cat=>{
   chip.className='chip active';
   chip.style.background=getCatColor(cat);
   chip.style.borderColor=getCatColor(cat);
-  chip.style.color='#fff';
+  chip.style.color='';/* 交給 .chip.active（深色時改深字） */
   const f = CAT_FREQ[cat];
   chip.textContent=`${cat} ${f?f.stars:''} (${count})`;
   chip.dataset.cat=cat;
@@ -615,7 +620,7 @@ Object.keys(CAT_COLORS).forEach(cat=>{
         const cc=c.dataset.cat;
         c.classList.add('active');
         c.style.background=getCatColor(cc);
-        c.style.color='#fff';
+        c.style.color='';
       });
     } else {
       // 單擊 = 只看這科
@@ -624,7 +629,7 @@ Object.keys(CAT_COLORS).forEach(cat=>{
         if(c.dataset.cat===cat){
           c.classList.add('active');
           c.style.background=getCatColor(cat);
-          c.style.color='#fff';
+          c.style.color='';
         } else {
           c.classList.remove('active');
           c.style.background='transparent';
@@ -644,7 +649,7 @@ resetBtn.addEventListener('click',()=>{
     const cat=chip.dataset.cat;
     chip.classList.add('active');
     chip.style.background=getCatColor(cat);
-    chip.style.color='#fff';
+    chip.style.color='';/* 交給 .chip.active（深色時改深字） */
   });
   rebuildDeck();
 });

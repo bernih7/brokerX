@@ -19,6 +19,7 @@
 }
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
+    --hd-blue:#1F2E38; --hd-green:#1F2B22;
     --bg:#1A1F1D; --paper:#222926; --paper-deep:#1E2420;
     --fg:#E8EDE6; --ink:#E8EDE6; --ink-soft:#7A9488;
     --primary:#5A9E88;
@@ -30,6 +31,7 @@
   }
 }
 :root[data-theme="dark"]{
+    --hd-blue:#1F2E38; --hd-green:#1F2B22;
   --bg:#1A1F1D; --paper:#222926; --paper-deep:#1E2420;
   --fg:#E8EDE6; --ink:#E8EDE6; --ink-soft:#7A9488;
   --primary:#5A9E88;
@@ -139,6 +141,12 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 .ctrl-pill .bxv-mini .sep{width:1px;height:14px;background:var(--line);flex-shrink:0}
 .ctrl-pill .bxv-mini button{all:unset;cursor:pointer;width:24px;height:26px;display:grid;place-items:center;font-size:.85rem;color:var(--sub,#5F6B63);transition:background .1s,color .1s}
 .ctrl-pill .bxv-mini button:hover{background:var(--line);color:var(--key,#8A5517)}
+.ts-tag.rn-gold{background:var(--gold);color:#fff;}
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .rn-gold{color:#1A1F1D}
+}
+:root[data-theme="dark"] .rn-gold{color:#1A1F1D}
 </style>
 <script src="bxv-use.js"></script>
 </head>
@@ -327,7 +335,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px">
   <!-- 新訂 -->
   <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden">
-    <div style="background:#EAF2FB;padding:10px 16px;text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;color:var(--blue)">新訂租約（§132）<br><span style="font-size:11px;font-weight:500;color:var(--ink-soft)">3 種方式</span></div>
+    <div style="background:var(--hd-blue,#EAF2FB);padding:10px 16px;text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;color:var(--blue)">新訂租約（§132）<br><span style="font-size:11px;font-weight:500;color:var(--ink-soft)">3 種方式</span></div>
     <div style="padding:12px 14px;font-size:12.5px;line-height:1.85">
       <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--rule)">
         <span style="background:#3E6B8C;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-right:6px">①</span>
@@ -345,7 +353,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
   </div>
   <!-- 續訂 -->
   <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden">
-    <div style="background:#EEF3EB;padding:10px 16px;text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;color:var(--green)">續訂租約（§133）<br><span style="font-size:11px;font-weight:500;color:var(--ink-soft)">4 種方式</span></div>
+    <div style="background:var(--hd-green,#EEF3EB);padding:10px 16px;text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;font-size:14px;color:var(--green)">續訂租約（§133）<br><span style="font-size:11px;font-weight:500;color:var(--ink-soft)">4 種方式</span></div>
     <div style="padding:12px 14px;font-size:12.5px;line-height:1.85">
       <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--rule)">
         <span style="background:#5C7A4A;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-right:6px">①</span>
@@ -727,7 +735,7 @@ h1 .sub{display:block;font-size:12px;font-weight:500;color:var(--ink-soft);lette
     <div class="ts-a">不是第二個日期，就是§2⑦定義裡的「基準日期」＝<span class="hi">價格日期的同義說法</span>。102-22 答案選「價格的<strong>基準日期</strong>」。</div>
   </div>
   <div class="ts-row">
-    <div class="ts-tag" style="background:var(--gold);color:#fff">委</div>
+    <div class="ts-tag rn-gold">委</div>
     <div class="ts-q">委託日期</div>
     <div class="ts-a">就是<strong>委託估價的簽約日</strong>，跟經紀人簽立委託銷售契約書上的「委託日」是同一種概念。<br><span class="hi">條文無此用語，不是價格日期</span>（101-10 選項A、來勝模擬一）。<br><span style="color:var(--ink-soft)">補充：實務上估價委託契約通常會訂明訂定日期、價格日期、履約期間——但「委託日」與「價格日期」是兩個欄位，沒有誰決定誰。</span></div>
   </div>

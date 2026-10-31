@@ -4,13 +4,13 @@
 <title>來勝115模擬試題(一)｜不動產估價概要</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--pri:#2F5D50;--key:#8A5517;--onpri:#FFFFFF;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--sub:#5F6B63;--opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}}
-:root[data-theme="dark"]{--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}
+:root{--pri-tx:var(--pri);--pri:#2F5D50;--key:#8A5517;--onpri:#FFFFFF;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--sub:#5F6B63;--opt:#fff;--okbg:#E0EFE0;--badbg:#F8E4DD;--tipbg:#FBF1D9}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri-tx:#8FC4AE;--key:#D9A25A;--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}}
+:root[data-theme="dark"]{--pri-tx:#8FC4AE;--key:#D9A25A;--bg:#1d1b17;--ink:#ece6d8;--red:#e0806a;--gold:#d9b058;--green:#8fb67c;--card:#272420;--line:#3d3830;--sub:#a79f8c;--opt:#2f2b26;--okbg:#26382a;--badbg:#42261f;--tipbg:#3a3220}
 *{box-sizing:border-box}html,body{overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;padding-bottom:90px}
 header{padding:20px 16px 8px;max-width:760px;margin:auto}
-h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri)}
+h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri-tx)}
 .sub{font-size:13px;color:var(--sub);margin-top:4px}
 .wrap{max-width:760px;margin:auto;padding:0 16px}
 .tabs{display:flex;gap:6px;margin:10px 0;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:6}
@@ -18,7 +18,7 @@ h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri)}
 .tabs button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
 .card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .card.done.ok{border-left:5px solid var(--green)}.card.done.ng{border-left:5px solid var(--red)}
-.qn{font-family:'Noto Serif TC',serif;color:var(--pri);font-weight:700;font-size:15px}
+.qn{font-family:'Noto Serif TC',serif;color:var(--pri-tx);font-weight:700;font-size:15px}
 .stem{margin:6px 0 12px;word-break:break-word;font-size:15px;line-height:1.8}
 .opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--opt);color:var(--ink);border-radius:10px;padding:9px 12px;margin:6px 0;font-family:inherit;font-size:14px;cursor:pointer;word-break:break-word;transition:border-color .15s,background .15s}
 .opt b{color:var(--key);margin-right:4px}
@@ -31,7 +31,7 @@ h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri)}
 .done .res.ok{background:var(--okbg);color:var(--green)}
 .explain{display:none;margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.8}
 .done .explain{display:block}
-.explain h4{margin:0 0 6px;font-size:13px;color:var(--pri);font-family:'Noto Serif TC',serif;font-weight:700}
+.explain h4{margin:0 0 6px;font-size:13px;color:var(--pri-tx);font-family:'Noto Serif TC',serif;font-weight:700}
 .explain .opt-ex{padding:5px 0;border-bottom:1px solid var(--line)}
 .explain .opt-ex:last-child{border:0}
 .explain .opt-ex.right{color:var(--green);font-weight:700}
@@ -47,29 +47,29 @@ h1{font-family:'Noto Serif TC',serif;font-size:20px;margin:0;color:var(--pri)}
 .bar{position:sticky;top:48px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;z-index:5;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
 .bar button{border:1px solid var(--line);background:var(--opt);color:var(--ink);border-radius:8px;padding:4px 10px;font-family:inherit;cursor:pointer;font-size:13px}
 .bar button.on{background:var(--green);color:#fff;border-color:var(--green)}
-.bar .sp{flex:1}#tm{font-weight:700;color:var(--pri);font-variant-numeric:tabular-nums}
+.bar .sp{flex:1}#tm{font-weight:700;color:var(--pri-tx);font-variant-numeric:tabular-nums}
 /* 申論頁 */
 .essay-card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:20px;margin:12px 0}
-.essay-q{font-family:'Noto Serif TC',serif;font-weight:700;font-size:16px;color:var(--pri);margin-bottom:12px;line-height:1.7}
+.essay-q{font-family:'Noto Serif TC',serif;font-weight:700;font-size:16px;color:var(--pri-tx);margin-bottom:12px;line-height:1.7}
 .essay-score{display:inline-block;background:var(--red);color:#fff;font-size:12px;padding:2px 10px;border-radius:99px;margin-left:8px;font-weight:700;vertical-align:middle}
 details{margin-top:10px}
-summary{cursor:pointer;color:var(--pri);font-weight:700;font-family:'Noto Serif TC',serif;font-size:15px;padding:6px 0;list-style:none}
+summary{cursor:pointer;color:var(--pri-tx);font-weight:700;font-family:'Noto Serif TC',serif;font-size:15px;padding:6px 0;list-style:none}
 summary::before{content:'▶ ';font-size:12px}
 details[open] summary::before{content:'▼ '}
 .ans-block{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:8px;font-size:14px;line-height:1.9}
-.ans-block h4{font-family:'Noto Serif TC',serif;color:var(--pri);margin:12px 0 4px;font-size:14px}
+.ans-block h4{font-family:'Noto Serif TC',serif;color:var(--pri-tx);margin:12px 0 4px;font-size:14px}
 .ans-block h4:first-child{margin-top:0}
 .ans-block p{margin:4px 0}
 .calc-box{background:var(--tipbg);border-left:4px solid var(--gold);border-radius:6px;padding:10px 12px;margin:8px 0;font-size:13.5px;font-family:monospace}
 /* 分析頁 */
 .ana-card{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
-.ana-card h3{font-family:'Noto Serif TC',serif;color:var(--pri);font-size:16px;margin:0 0 10px}
+.ana-card h3{font-family:'Noto Serif TC',serif;color:var(--pri-tx);font-size:16px;margin:0 0 10px}
 .dist{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:10px}
 .dist-item{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
-.dist-item b{display:block;font-size:18px;color:var(--pri);font-family:'Noto Serif TC',serif}
+.dist-item b{display:block;font-size:18px;color:var(--pri-tx);font-family:'Noto Serif TC',serif}
 /* 結果頁 */
 .result-box{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:20px;margin:12px 0;text-align:center}
-.big-score{font-family:'Noto Serif TC',serif;font-size:48px;font-weight:700;color:var(--pri)}
+.big-score{font-family:'Noto Serif TC',serif;font-size:48px;font-weight:700;color:var(--pri-tx)}
 .score-sub{font-size:14px;color:var(--sub);margin-top:4px}
 .copy-btn{margin-top:16px;background:var(--pri);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-family:inherit;font-size:14px;cursor:pointer;font-weight:700}
 /* FAB */
@@ -78,6 +78,11 @@ details[open] summary::before{content:'▼ '}
 #bxfab .bx-hub{width:44px;height:44px;border-radius:50%;background:var(--pri);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}
 #bxfab .bx-hub svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .theme-btn{position:fixed;top:14px;right:14px;z-index:99;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .err button.on-a,:root:not([data-theme="light"]) .err button.on-b,:root:not([data-theme="light"]) .err button.on-d,:root:not([data-theme="light"]) .bar button.on{color:#1d1b17}
+}
+:root[data-theme="dark"] .err button.on-a,:root[data-theme="dark"] .err button.on-b,:root[data-theme="dark"] .err button.on-d,:root[data-theme="dark"] .bar button.on{color:#1d1b17}
 </style><style id="kf-mock">
 :root{--ks-s:#EEE8DA;--ks-sb:#C9BC9B;--ks-o:#F9DFC6;--ks-ob:#D99A62;--ks-g:#E7EBD6;--ks-gb:#AEB985;--ks-n:#FFFFFF;--ks-nb:#C8C2B0;--ks-m:#DDF0E6;--ks-mb:#86C2A0;--ks-ink:#25302C;--ks-line:#DDD6C3;--ks-paper:#FFFEFA;--ks-fg:#25302C}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ks-s:#3A3629;--ks-sb:#7C7254;--ks-o:#55402B;--ks-ob:#A9794A;--ks-g:#33382A;--ks-gb:#6D7647;--ks-n:#232A27;--ks-nb:#4A554F;--ks-m:#24403A;--ks-mb:#4B8068;--ks-ink:#E8E2D4;--ks-line:#334039;--ks-paper:#22302C;--ks-fg:#E8E0CE}}
@@ -548,7 +553,7 @@ function updateResult(){
     <div class="dist">
       <div class="dist-item"><b style="color:var(--red)">${errA}</b>A 法條混淆</div>
       <div class="dist-item"><b style="color:var(--gold)">${errB}</b>B 粗心</div>
-      <div class="dist-item"><b style="color:var(--pri)">${errC}</b>C 不熟</div>
+      <div class="dist-item"><b style="color:var(--pri-tx)">${errC}</b>C 不熟</div>
       <div class="dist-item"><b style="color:var(--sub)">${errD}</b>D 猜的</div>
     </div>
   </div>

@@ -6,16 +6,19 @@
 <title>不動產估價概要｜自編補強卷・24題</title>
 <style>
 :root{
+  --pri-tx:var(--pri);
   --pri:#2F5D50;--pri2:#3E7566;--key:#8A5517;--onpri:#FFFFFF;
   --paper:#F5F1E6;--paper-deep:#ECE6D4;--ink:#25302C;--ink-soft:#66706A;
   --rule:#DDD6C0;--stamp:#A8402B;--gold:#B8782E;--green:#35693F;
   --rad:10px;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --pri-tx:#8FC4AE;--key:#D9A25A;
   --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
   --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
 }}
 :root[data-theme="dark"]{
+  --pri-tx:#8FC4AE;--key:#D9A25A;
   --paper:#1E2623;--paper-deep:#161D1A;--ink:#E8E2D4;--ink-soft:#8A9690;
   --rule:#2E3A35;--pri:#3E7566;--pri2:#4A8A7A;color-scheme:dark;
 }
@@ -28,13 +31,13 @@ header .sub{display:block;font-size:.8rem;opacity:.75;margin-top:4px;font-weight
 
 .score-bar{background:var(--paper-deep);border-bottom:1px solid var(--rule);padding:10px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
 .score-bar span{font-size:.85rem;color:var(--ink-soft);}
-.score-bar strong{color:var(--pri);font-weight:700;}
+.score-bar strong{color:var(--pri-tx);font-weight:700;}
 .btn-reset{margin-left:auto;background:transparent;border:1px solid var(--rule);color:var(--ink-soft);padding:4px 12px;border-radius:20px;cursor:pointer;font-size:.8rem;}
-.btn-reset:hover{border-color:var(--pri);color:var(--pri);}
+.btn-reset:hover{border-color:var(--pri);color:var(--pri-tx);}
 
 .section{max-width:760px;margin:0 auto;padding:24px 16px 8px;}
 .section-label{font-size:.7rem;letter-spacing:.15em;color:var(--key);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
-.section-title{font-size:1.1rem;font-weight:700;color:var(--pri);border-bottom:2px solid var(--pri);padding-bottom:6px;margin-bottom:16px;}
+.section-title{font-size:1.1rem;font-weight:700;color:var(--pri-tx);border-bottom:2px solid var(--pri);padding-bottom:6px;margin-bottom:16px;}
 
 .essay-card{background:var(--paper-deep);border:1px solid var(--rule);border-radius:var(--rad);padding:20px;margin-bottom:16px;}
 .essay-num{font-size:.75rem;color:var(--key);font-weight:700;letter-spacing:.1em;margin-bottom:6px;}
@@ -84,9 +87,10 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
 
 .bxfab{position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--paper-deep);border-top:1px solid var(--rule);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));}
 .fab-score{font-size:.85rem;color:var(--ink-soft);}
-.fab-score strong{color:var(--pri);font-size:1rem;}
+.fab-score strong{color:var(--pri-tx);font-size:1rem;}
 .fab-home{background:var(--pri);color:var(--onpri);border:none;border-radius:8px;padding:8px 18px;font-size:.85rem;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
 .fab-home:hover{background:var(--pri2);}
+/* theme-fix: dark contrast */
 </style>
 <script src="bxv-use.js"></script>
 <style id="kf-mock">

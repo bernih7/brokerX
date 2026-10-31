@@ -135,6 +135,13 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 .cbtn:hover{border-color:var(--blue)}
 .cbtn.sel{background:var(--blue);border-color:var(--blue);color:#fff}
 .conf-row .cfh{flex-basis:100%;font-size:.74rem;opacity:.8;margin-top:2px}
+/* theme-fix: dark contrast */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .mode-badge{color:var(--bg)}
+:root:not([data-theme="light"]) .g-head{color:color-mix(in srgb,var(--cc) 55%,#fff)}
+}
+:root[data-theme="dark"] .mode-badge{color:var(--bg)}
+:root[data-theme="dark"] .g-head{color:color-mix(in srgb,var(--cc) 55%,#fff)}
 </style>
 <script src="bxv-use.js"></script>
 </head>
