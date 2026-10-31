@@ -392,37 +392,153 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
     </table>
   </div>
 
-  <h3>同一供需圈・近鄰地區・類似地區</h3>
+  <h3 id="sec-area" style="scroll-margin-top:120px">同一供需圈・近鄰地區・類似地區</h3>
+<style id="sa-css">
+:root{--sa-b:#2B5082;--sa-bb:#EAF2FB;--sa-g:#8F6414;--sa-gl:#BC8A2E;--sa-gb:#FEF6E4;--sa-r:#A8402B;--sa-rb:#FDEDE8;--sa-x:#9A9286;--sa-xb:#F1EEE8;--sa-hl:#FFE45C;--sa-hlt:#2a2112}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--sa-b:#8DB4E8;--sa-bb:#1D2836;--sa-g:#E2B85C;--sa-gl:#C99A3E;--sa-gb:#2E2718;--sa-r:#EE9A86;--sa-rb:#36211C;--sa-x:#8C857A;--sa-xb:#2A2723}}
+:root[data-theme="dark"]{--sa-b:#8DB4E8;--sa-bb:#1D2836;--sa-g:#E2B85C;--sa-gl:#C99A3E;--sa-gb:#2E2718;--sa-r:#EE9A86;--sa-rb:#36211C;--sa-x:#8C857A;--sa-xb:#2A2723}
+.sa{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 12px;margin-bottom:12px;font-size:14px;line-height:1.75;color:var(--ink)}
+.sa h4{font-size:14.5px;font-weight:700;margin:0 0 8px;color:var(--ink)}
+.sa .cap{font-size:12.5px;color:var(--ink-soft);margin:-2px 0 8px}
+.sa mark{background:var(--sa-hl);color:var(--sa-hlt);border-radius:3px;padding:0 2px;font-weight:700}
+.sa .kb{color:var(--sa-b);font-weight:900}.sa .kg{color:var(--sa-g);font-weight:900}.sa .kr{color:var(--sa-r);font-weight:900}
+.sa svg{display:block;width:100%;max-width:440px;margin:0 auto}
+.sa svg text{font-family:"Noto Sans TC",sans-serif}
+.sa .sum{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13.5px}
+.sa .sum .t{font-weight:900;white-space:nowrap}
+.sa .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:10px}
+.sa .rule{border:1.5px solid var(--line);border-left-width:5px;border-radius:8px;padding:7px 10px;font-size:13px;background:var(--paper)}
+.sa .rule b{display:block}
+.sa .rule.r{border-left-color:var(--sa-r)}.sa .rule.g{border-left-color:var(--sa-gl)}.sa .rule.x{border-left-color:var(--sa-b)}
+.sa .defs{display:grid;gap:7px}
+.sa .def{border:1px solid var(--line);border-left:5px solid;border-radius:8px;padding:7px 11px;font-size:13.5px}
+.sa .def.b{border-left-color:var(--sa-b)}.sa .def.r{border-left-color:var(--sa-r)}.sa .def.g{border-left-color:var(--sa-gl)}
+.sa .def .n{margin-right:6px}.sa .law{color:var(--ink-soft);font-size:11.5px;margin-left:4px;font-weight:400}
+.sa .mn{border:1.5px solid var(--green);border-radius:10px;padding:8px 12px;text-align:center;margin-top:10px;font-size:14.5px}
+.sa .mn small{display:block;color:var(--ink-soft);font-size:11.5px}
+.sa .flow{display:grid;gap:6px;max-width:560px;margin:0 auto}
+.sa .q{border:2px solid var(--sa-b);background:var(--sa-bb);border-radius:10px;padding:8px 11px;font-weight:700;color:var(--sa-b)}
+.sa .br{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sa .br>div{border-radius:9px;padding:7px 10px;font-size:13px;border:1.5px dashed var(--line)}
+.sa .br .res{border-style:solid;border-width:2px}
+.sa .br .res.r{border-color:var(--sa-r);background:var(--sa-rb)}.sa .br .res.g{border-color:var(--sa-gl);background:var(--sa-gb)}
+.sa .br .no{color:var(--ink-soft)}
+.sa .ar{text-align:center;color:var(--ink-soft);line-height:1}
+.sa .kc{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.sa .kcard{border:2px solid;border-radius:12px;padding:10px 12px;min-width:0}
+.sa .kcard.b{border-color:var(--sa-b)}.sa .kcard.r{border-color:var(--sa-r)}.sa .kcard.g{border-color:var(--sa-gl)}
+.sa .big{font-family:"Noto Serif TC",serif;font-size:28px;font-weight:900;line-height:1.1}
+.sa .kcard.b .big{color:var(--sa-b)}.sa .kcard.r .big{color:var(--sa-r)}.sa .kcard.g .big{color:var(--sa-g)}
+.sa .kcard .nm{font-weight:900;margin:2px 0 4px}
+.sa .kcard .vb{font-size:13px}
+.sa .kcard .sw{font-size:12.5px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.sa .kcard .sw .lb{color:var(--sa-r);font-weight:700;margin-right:4px}
+.sa .kcard .sw s{color:var(--sa-r)}
+.sa .kcard .use{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+.sa .where{display:grid;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sa .wr{display:grid;grid-template-columns:3.6em 1fr;gap:10px;padding:8px 11px;font-size:13px;border-top:1px solid var(--line)}
+.sa .wr:first-child{border-top:0}
+.sa .wr .lw{font-weight:900;color:var(--sa-b)}
+.sa .two{border-left:5px solid var(--sa-gl);background:var(--sa-gb);border-radius:8px;padding:8px 12px;font-size:13.5px}
+@media(max-width:420px){.sa .br{grid-template-columns:1fr}}
+</style>
 
-  <!-- 同心圓圖 -->
-  <div style="background:#FFFDF8;border:1px solid #E4DAC4;border-radius:10px;padding:16px 12px 12px;margin-bottom:14px;">
-    <div style="font-size:12px;font-weight:700;color:#BC8A2E;margin-bottom:8px;text-align:center;">📍 同心圓記憶圖（由小到大）</div>
-    <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto">
-      <ellipse cx="160" cy="100" rx="148" ry="88" fill="#EAF2FB" stroke="#2B5082" stroke-width="1.8"/>
-      <text x="160" y="22" text-anchor="middle" fill="#2B5082" font-size="12" font-weight="bold" font-family="sans-serif">同一供需圈</text>
-      <text x="160" y="37" text-anchor="middle" fill="#2B5082" font-size="10" font-family="sans-serif">比較標的↔勘估標的能替代・互為影響</text>
-      <ellipse cx="160" cy="107" rx="104" ry="60" fill="#FEF9EE" stroke="#BC8A2E" stroke-width="1.8"/>
-      <text x="160" y="60" text-anchor="middle" fill="#BC8A2E" font-size="11" font-weight="bold" font-family="sans-serif">類似地區</text>
-      <text x="160" y="73" text-anchor="middle" fill="#BC8A2E" font-size="10" font-family="sans-serif">供需圈內・近鄰以外・使用性質相近</text>
-      <ellipse cx="160" cy="114" rx="63" ry="36" fill="#FEF0EB" stroke="#A8402B" stroke-width="2"/>
-      <text x="160" y="106" text-anchor="middle" fill="#A8402B" font-size="11" font-weight="bold" font-family="sans-serif">近鄰地區</text>
-      <text x="160" y="120" text-anchor="middle" fill="#A8402B" font-size="10" font-family="sans-serif">同質性最高</text>
-      <text x="160" y="132" text-anchor="middle" fill="#A8402B" font-size="9" font-family="sans-serif">勘估 / 比較標的周圍</text>
-      <text x="160" y="177" text-anchor="middle" fill="#5A5248" font-size="10" font-family="sans-serif">供需圈 ＝ 近鄰地區 ＋ 類似地區</text>
+  <div class="sa">
+    <h4>先講結論：是「包含」與「互斥」，不是一圈包一圈</h4>
+    <div class="sum">
+      <span class="t kb">供需圈 ⊃ 近鄰</span><span>近鄰地區在同一供需圈裡面（§12②「同一供需圈之近鄰地區或類似地區」）。</span>
+      <span class="t kg">類似 ⊂ 供需圈</span><span>條文寫「同一供需圈<b>內</b>」。</span>
+      <span class="t kr">近鄰 ∩ 類似＝無</span><span>條文寫「近鄰地區<b>以外</b>」——一塊地不會同時是勘估標的的近鄰地區又是類似地區。</span>
+    </div>
+    <p class="cap" style="margin-top:8px">類似地區不一定貼著近鄰地區，可以在供需圈另一頭、也可以有好幾塊（條文用「<b>其他</b>地區」）；而且要「與勘估標的使用性質相近」才算，供需圈裡近鄰以外的地方不會全都是類似地區。「供需圈＝近鄰＋類似」不是條文用語，考試不要寫成等號。</p>
+  </div>
+
+  <div class="sa">
+    <h4>① 地圖：真正的位置關係</h4>
+    <svg viewBox="0 0 340 340" role="img" aria-label="同一供需圈內有勘估標的的近鄰地區與兩塊類似地區；類似地區裡的比較標的有自己的近鄰地區；圈外不能比較">
+      <ellipse cx="170" cy="150" rx="164" ry="142" style="fill:var(--sa-bb);stroke:var(--sa-b)" stroke-width="2.4"/>
+      <text x="170" y="40" text-anchor="middle" font-size="17" font-weight="900" style="fill:var(--sa-b)">同一供需圈</text>
+      <text x="170" y="59" text-anchor="middle" font-size="13" style="fill:var(--sa-b)">能「替代」・價格互相影響</text>
+      <circle cx="98" cy="166" r="68" style="fill:var(--sa-rb);stroke:var(--sa-r)" stroke-width="2.4"/>
+      <text x="98" y="128" text-anchor="middle" font-size="16" font-weight="900" style="fill:var(--sa-r)">近鄰地區</text>
+      <text x="98" y="146" text-anchor="middle" font-size="12.5" style="fill:var(--sa-r)">周圍・同質高</text>
+      <text x="98" y="178" text-anchor="middle" font-size="24" style="fill:var(--sa-r)">★</text>
+      <text x="98" y="196" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)">勘估標的</text>
+      <circle cx="82" cy="214" r="6" style="fill:var(--ink)"/>
+      <text x="92" y="218" font-size="12" style="fill:var(--ink)">①</text>
+      <ellipse cx="250" cy="120" rx="68" ry="40" style="fill:var(--sa-gb);stroke:var(--sa-gl)" stroke-width="2.4"/>
+      <text x="250" y="108" text-anchor="middle" font-size="15" font-weight="900" style="fill:var(--sa-g)">類似地區</text>
+      <text x="250" y="125" text-anchor="middle" font-size="12" style="fill:var(--sa-g)">鄰外・性質相近</text>
+      <circle cx="250" cy="144" r="14" fill="none" style="stroke:var(--sa-r)" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+      <circle cx="250" cy="144" r="5.5" style="fill:var(--ink)"/>
+      <text x="268" y="149" font-size="12" style="fill:var(--ink)">②</text>
+      <ellipse cx="244" cy="222" rx="58" ry="34" style="fill:var(--sa-gb);stroke:var(--sa-gl)" stroke-width="2.4"/>
+      <text x="244" y="216" text-anchor="middle" font-size="15" font-weight="900" style="fill:var(--sa-g)">類似地區</text>
+      <circle cx="238" cy="236" r="6" style="fill:var(--ink)"/>
+      <text x="248" y="240" font-size="12" style="fill:var(--ink)">③</text>
+      <rect x="30" y="302" width="280" height="32" rx="8" style="fill:var(--sa-xb);stroke:var(--sa-x)" stroke-dasharray="4 3"/>
+      <text x="170" y="323" text-anchor="middle" font-size="13" style="fill:var(--ink-soft)">✗ 圈外：不能替代 → 不能拿來比</text>
     </svg>
-    <div style="display:flex;gap:10px;margin-top:10px;font-size:12px;justify-content:center;">
-      <span style="background:#FEF0EB;border:1px solid #A8402B;border-radius:6px;padding:3px 10px;color:#A8402B;font-weight:700">🔴 近鄰：最小・最同質</span>
-      <span style="background:#FEF9EE;border:1px solid #BC8A2E;border-radius:6px;padding:3px 10px;color:#BC8A2E;font-weight:700">🟡 類似：中層・性質相近</span>
-      <span style="background:#EAF2FB;border:1px solid #2B5082;border-radius:6px;padding:3px 10px;color:#2B5082;font-weight:700">🔵 供需圈：最大・能替代</span>
+    <p class="cap" style="text-align:center;margin-top:6px">● ①②③＝比較標的；② 外圍紅虛線＝② 自己的近鄰地區。圈外例：信義區 vs 香港上環（104-28）</p>
+    <div class="rules">
+      <div class="rule r"><b>比較標的① 在勘估標的的近鄰地區</b>同一近鄰 → 不用做區域因素調整（仍要做情況、價格日期、個別因素調整）。</div>
+      <div class="rule g"><b>比較標的②③ 在類似地區</b>不在同一近鄰地區 → <mark>要做區域因素調整</mark>（§19③）。</div>
+      <div class="rule x"><b>比較實例去哪找？</b>只能在「同一供需圈之<span class="kr">近鄰地區</span>或<span class="kg">類似地區</span>」（§12②）。</div>
+    </div>
+    <div class="two" style="margin-top:10px"><b>「近鄰地區」有兩種</b>：§2⑫ 寫「勘估標的<b>或比較標的</b>周圍」，所以比較標的也有自己的近鄰地區。例：勘估標的在大安區住宅區、比較標的在信義區住宅區 → 信義那塊是勘估標的的<span class="kg">類似地區</span>，同時是比較標的<span class="kr">自己的近鄰地區</span>。§19③ 的「以比較標的之區域價格水準為基礎」，轉成「勘估標的同一近鄰地區內之價格水準」，說的就是從 ② 的近鄰換到 ★ 的近鄰。</div>
+  </div>
+
+  <div class="sa">
+    <h4>逐字定義（§2⑪～⑬）</h4>
+    <div class="defs">
+      <div class="def b"><span class="n kb">同一供需圈</span>比較標的與勘估標的間能成立<mark>替代關係</mark>，且其價格<mark>互為影響</mark>之最適範圍。<span class="law">§2⑪</span></div>
+      <div class="def r"><span class="n kr">近鄰地區</span>勘估標的或比較標的<mark>周圍</mark>，供相同或類似用途之不動產，形成<mark>同質性較高</mark>之地區。<span class="law">§2⑫</span></div>
+      <div class="def g"><span class="n kg">類似地區</span>同一供需圈內，近鄰地區<mark>以外</mark>而與勘估標的<mark>使用性質相近</mark>之其他地區。<span class="law">§2⑬</span></div>
+    </div>
+    <div class="mn">「<span class="kb">替代</span>成圈，<span class="kr">周圍同質</span>是鄰，<span class="kg">鄰外相近</span>叫類似」<small>口訣（自編）</small></div>
+  </div>
+
+  <div class="sa">
+    <h4>② 三問判斷：拿一個比較標的來問</h4>
+    <p class="cap">考題給一個地點問「屬於哪一區、要不要做區域因素調整」時，照順序問。</p>
+    <div class="flow">
+      <div class="q">Q1　和勘估標的能「替代」、價格會互相影響嗎？</div>
+      <div class="br"><div class="no">否 → 同一供需圈外，不能當比較標的（104-28 香港上環 ✗）</div><div>是 → 在<span class="kb">同一供需圈</span>內，往下問</div></div>
+      <div class="ar">↓</div>
+      <div class="q">Q2　在勘估標的「周圍」、用途相同或類似、同質性高嗎？</div>
+      <div class="br"><div class="res r"><b class="kr">是 → 近鄰地區</b><br>同一近鄰 → 不用做區域因素調整</div><div>否 → 往下問</div></div>
+      <div class="ar">↓</div>
+      <div class="q">Q3　在近鄰地區「以外」，但使用性質相近嗎？</div>
+      <div class="br"><div class="res g"><b class="kg">是 → 類似地區</b><br>不在同一近鄰 → <mark>要做區域因素調整</mark>（§19③）</div><div class="no">否 → 性質不相近，不適合選來比較（§12③ 使用性質或使用管制相同或相近）</div></div>
     </div>
   </div>
 
-  <div class="note note-green">
-    <span class="tag">🟢 定義</span>
-    <p><b>近鄰地區</b>：勘估標的或比較標的周圍，供相同或類似用途之不動產，形成<b>同質性較高</b>之地區。</p>
-    <p><b>類似地區</b>：同一供需圈內，近鄰地區外，與勘估標的使用性質相近之地區。</p>
-    <p><b>同一供需圈</b>：比較標的與勘估標的間能成立<b>替代關係</b>，且其價格互為影響之最適範圍＝近鄰地區＋類似地區。</p>
+  <div class="sa">
+    <h4>③ 關鍵字卡＋考古題掉包</h4>
+    <p class="cap">每個名詞只記一個大字：「<span class="kb">替代</span>・<span class="kr">同質</span>・<span class="kg">鄰外</span>」。</p>
+    <div class="kc">
+      <div class="kcard b"><div class="big">替代</div><div class="nm kb">同一供需圈<span class="law">§2⑪</span></div>
+        <div class="vb">能成立<mark>替代關係</mark>，且價格<mark>互為影響</mark>之最適範圍。</div>
+        <div class="sw"><span class="lb">掉包</span><s>貢獻關係</s>（104-7）；這句被說成<s>近鄰地區</s>（105-36）</div>
+        <div class="use">例：信義區 ↔ 大安區 ✓；香港上環 ✗（104-28）</div></div>
+      <div class="kcard r"><div class="big">同質</div><div class="nm kr">近鄰地區<span class="law">§2⑫</span></div>
+        <div class="vb">勘估標的或比較標的<mark>周圍</mark>…形成<mark>同質性較高</mark>之地區。</div>
+        <div class="sw"><span class="lb">掉包</span><s>異質性較高</s>（104-7）；這句被說成<s>類似地區</s>（105-36）</div>
+        <div class="use">區域因素＝影響「近鄰地區」價格水準之因素（§2⑮）</div></div>
+      <div class="kcard g"><div class="big">鄰外</div><div class="nm kg">類似地區<span class="law">§2⑬</span></div>
+        <div class="vb">同一供需圈內，近鄰地區<mark>以外</mark>而與勘估標的<mark>使用性質相近</mark>之其他地區。</div>
+        <div class="sw"><span class="lb">掉包</span><s>近鄰地區內</s>（104-7）</div>
+        <div class="use">比較標的在這裡 → 要做區域因素調整（§19③）</div></div>
+    </div>
+    <h4 style="margin-top:12px">這三個名詞還會出現在哪</h4>
+    <div class="where">
+      <div class="wr"><span class="lw">§12②</span><span>蒐集比較實例：與勘估標的位於同一供需圈之<b>近鄰地區或類似地區</b>者。</span></div>
+      <div class="wr"><span class="lw">§19③</span><span>比較標的與勘估標的<b>不在同一近鄰地區</b>內時 → 區域因素調整（105-36 正解；選「個別因素調整」是錯）。</span></div>
+      <div class="wr"><span class="lw">§54②</span><span>營造施工費間接法：就同一供需圈內<b>近鄰地區或類似地區</b>中選擇類似之比較標的或標準建物（104-19、110-9 題幹）。</span></div>
+      <div class="wr"><span class="lw">§51</span><span>成本法應蒐集與勘估標的<b>同一供需圈</b>內之材料人工價格、各項費用、資本利率、利潤率資料。</span></div>
+    </div>
   </div>
+
 
   <div class="note note-red">
     <span class="tag">🔴 易錯</span>
@@ -430,10 +546,6 @@ table.tbl-def{min-width:0}table.tbl-def td:nth-child(1){white-space:nowrap}
       <span class="stamp">範圍<br>判斷</span>
       <span>「捷運設站」「道路寬度」「臨接道路」這類描述常在「一般因素」「區域因素」「個別因素」三者間出題混淆，判斷關鍵在於<b>影響範圍</b>：捷運站位置影響整個近鄰地區→區域因素；標的本身臨接道路之寬度→個別因素。</span>
     </p>
-  </div>
-  <div class="note note-orange">
-    <span class="tag">🟠 易混淆</span>
-    <p>同一供需圈定義常與「貢獻關係」混淆，正確用語是<b>替代關係</b>，非貢獻關係。</p>
   </div>
 
   <!-- ================= A4 估價作業程序 ================= -->
