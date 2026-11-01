@@ -144,13 +144,14 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 :root[data-theme="dark"] .g-head{color:color-mix(in srgb,var(--cc) 55%,#fff)}
 </style>
 <script src="bxv-use.js"></script>
-</head>
+<style id="resume-css">.resume{border:1.5px solid var(--green);border-radius:10px;padding:10px 12px;margin-bottom:14px}.resume p{margin:4px 0 8px;font-size:.85rem}#qEnd.arm{border-color:var(--red);color:var(--red)}</style></head>
 <body>
 <div class="app">
   <h1>不動產估價概要 <span class="mode-badge">解析版</span></h1>
   <div class="subtitle">跨章節練習｜99–114 年考古題（共 <span id="totN">540</span> 題）｜逐選項解析・錯誤類型 A/B/C/D・智慧配題・計時</div>
 
   <div id="setupScreen" class="panel">
+    <div class="resume" id="resumeBox" hidden><div class="sec" style="margin-top:0">⏯ 上次這輪還沒做完</div><p id="resumeTx"></p><div class="row" style="margin-top:0"><button class="primary" id="resumeGo">繼續上次</button><button class="secondary" id="resumeDrop">放棄這輪</button></div></div>
     <div class="sec">選擇章節範圍</div>
     <div id="chapterGrid"></div>
     <div class="row">
@@ -181,7 +182,7 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
   <div id="quizScreen" class="panel hidden">
     <div id="pzMask" hidden><div class="pz-in"><div class="pz-ic">⏸</div><div class="pz-t">已暫停</div><div class="pz-s">計時停住了，題目先蓋起來。回來再按「繼續」，這段時間不會算進本輪與本題。</div><div class="pz-el" id="pzEl"></div><button type="button" id="pzGo" class="pz-go">▶ 繼續作答</button></div></div>
     <div class="meta-row">
-      <span id="progressText">1 / 20</span><span id="qTimer" class="qtimer">⏱ 00:00</span><button type="button" id="qPause" class="pzbtn" title="暫停計時（被打斷時用）">⏸ 暫停</button>
+      <span id="progressText">1 / 20</span><span id="qTimer" class="qtimer">⏱ 00:00</span><button type="button" id="qPause" class="pzbtn" title="暫停計時（被打斷時用）">⏸ 暫停</button><button type="button" id="qEnd" class="pzbtn" title="不用做完，直接看已答題目的結果">⏹ 結束本輪</button>
       <span><span class="tag" id="kindTag"></span> <span class="tag" id="chapterTag">A1</span></span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
@@ -531,7 +532,55 @@ var HASHSET=null;
 
 /* #ch=B,C1 可預先選章節（供章節頁連過來用） */
 (function(){var m=(location.hash||"").match(/^#ch=([A-Za-z0-9,]+)/);if(m){var a=m[1].split(",").filter(function(c){return LAB[c]});if(a.length)sel=new Set(a)}})();
+/* ---------- 本輪進度存檔（中途離開可接續）＋結束本輪（比照民法 v645） ----------
+   換題、作答、暫停、離開頁面時把「這輪」存到 bxv-anal-cur；看結果或放棄時清掉。每題作答本來就即時寫 bxv-q2。 */
+var CURK="bxv-anal-cur",early=false;
+function curSave(){
+  if($("quizScreen").classList.contains("hidden")||!quizQueue.length)return;
+  sv(CURK,{v:1,ids:quizQueue.map(function(q){return q.id}),i:quizIndex,res:quizResults,m:MODE,el:Math.floor(tEl()),ov:TM.over?1:0,at:Math.floor(Date.now()/1000)});
+}
+function curClear(){try{localStorage.removeItem(CURK)}catch(e){}}
+function curGet(){var c=ld(CURK,null);return (c&&c.v===1&&c.ids&&c.ids.length)?c:null}
+var _sq=showQuestion;showQuestion=function(){_sq();curSave()};
+var _sa=selectAnswer;selectAnswer=function(i){_sa(i);curSave()};
+var _sr=showResults;showResults=function(){
+  curClear();var n=quizQueue.length-quizResults.length;_sr();
+  if(early&&n>0){var d=document.createElement("div");d.className="note";d.style.margin="0 0 8px";d.textContent="本輪提前結束：未作答 "+n+" 題不計入（不算錯）。";var B=$("chapterBreakdown");B.insertBefore(d,B.firstChild)}
+  early=false;
+};
+var _sl=startList;startList=function(l,m){early=false;$("resumeBox").hidden=true;_sl(l,m)};
+var _pz=pzOn;pzOn=function(){_pz();curSave()};
+addEventListener("pagehide",curSave);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")curSave()});
+var endBtn=$("qEnd"),endT=null;
+endBtn.onclick=function(){
+  if(!endBtn.classList.contains("arm")){endBtn.classList.add("arm");endBtn.textContent="再按一次確定結束";
+    endT=setTimeout(function(){endBtn.classList.remove("arm");endBtn.textContent="⏹ 結束本輪"},3000);return}
+  clearTimeout(endT);endBtn.classList.remove("arm");endBtn.textContent="⏹ 結束本輪";early=true;showResults();
+};
+function resumeShow(){
+  var c=curGet(),box=$("resumeBox");if(!c){box.hidden=true;return}
+  var d=new Date(c.at*1000);
+  $("resumeTx").textContent="做到第 "+(c.i+1)+" / "+c.ids.length+" 題，已答 "+(c.res||[]).length+" 題，計時 "+fmt(c.el)+"（"+(d.getMonth()+1)+"/"+d.getDate()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")+" 存檔）。已答的題目早就記進作答紀錄，這裡接回的是這一輪的題目組、位置和計時。";
+  box.hidden=false;
+}
+$("resumeDrop").onclick=function(){curClear();resumeShow()};
+$("resumeGo").onclick=function(){
+  var c=curGet();if(!c){resumeShow();return}
+  var list=c.ids.map(function(id){return byId[id]}).filter(Boolean);
+  if(!list.length){curClear();resumeShow();return}
+  var res=(c.res||[]).filter(function(r){return byId[r.id]}),i=Math.min(c.i||0,list.length-1);
+  /* 存檔時這題已作答（還沒按下一題）→ 接回下一題，避免同一題重答 */
+  if(list[i]&&res.some(function(r){return r.id===list[i].id}))i++;
+  MODE=c.m||"normal";tStart();quizQueue=list;quizResults=res;quizIndex=i;early=false;
+  $("resumeBox").hidden=true;$("setupScreen").classList.add("hidden");$("resultScreen").classList.add("hidden");$("quizScreen").classList.remove("hidden");
+  TM.st=Date.now()-(c.el||0)*1000;
+  if(c.ov){TM.over=true;clearInterval(TM.iv);var el=$("qTimer");el.classList.add("over");el.textContent="⏱ 已超過 40 分鐘・本輪不列入"}
+  if(quizIndex>=quizQueue.length){showResults();return}
+  showQuestion();window.scrollTo(0,0);
+};
 renderAll();
+resumeShow();
 if(HASHSET){startList(HASHSET.list,"set");
   if(HASHSET.miss.length){var mm=$("setupMsg");if(mm)mm.textContent="這幾題找不到："+HASHSET.miss.join("、")}}
 })();

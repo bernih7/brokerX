@@ -105,12 +105,13 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 .fab a,.fab button{width:44px;height:44px;border-radius:50%;background:var(--pri);color:var(--on);border:0;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;box-shadow:var(--sh)}
 @media(max-width:480px){.chs{grid-template-columns:1fr}}
 [hidden]{display:none!important}
- mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style></head><body>
+ mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style><style id="resume-css">.resume{border:1.5px solid var(--pri)}#qEnd.arm{border-color:var(--bad);color:var(--bad)}</style></head><body>
 <header><div class="wrap"><h1>經紀法規｜法條解析練習</h1>
 <div class="sub">99–114 年官方試題 518 題（另 2 題法源已廢止，不列入）・可選補習班模擬卷 25 題・逐選項解析・本題相關法條・錯誤類型 A/B/C/D・答對自評 👍🤔🎲</div></div></header>
 <div class="wrap">
 
 <section id="setup">
+  <div class="card resume" id="resumeBox" hidden><div class="h2">⏯ 上次這輪還沒做完</div><p class="hint" id="resumeTx"></p><div class="row"><button class="btn pri" id="resumeGo" style="flex:1;padding:10px">繼續上次</button><button class="btn" id="resumeDrop">放棄這輪</button></div></div>
   <div class="card">
     <div class="h2">選擇章節 <span class="nv" id="selCnt"></span></div>
     <div class="row" style="margin-bottom:9px">
@@ -172,7 +173,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 
 <section id="quiz" hidden>
   <div class="card">
-    <div class="qtop"><span id="prog"></span><span><span class="tm" id="tmDisp" hidden></span> <button type="button" class="pz" id="tmPz" hidden>⏸️ 暫停</button></span></div>
+    <div class="qtop"><span id="prog"></span><span><span class="tm" id="tmDisp" hidden></span> <button type="button" class="pz" id="tmPz" hidden>⏸️ 暫停</button><button type="button" class="pz" id="qEnd" title="不用做完，直接看已答題目的結果">⏹ 結束本輪</button></span></div>
     <div id="meta" class="qtop" style="margin-bottom:2px"></div>
     <div id="oosTop"></div><div class="stem" id="stem"></div>
     <div id="opts"></div>
@@ -664,7 +665,64 @@ document.getElementById('theme').onclick=function(){
   var nx=dark?'light':'dark';document.documentElement.setAttribute('data-theme',nx);
   try{localStorage.setItem('bx-theme',nx)}catch(e){}};
 try{var th=localStorage.getItem('bx-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+/* ---------- 本輪進度存檔（中途離開可接續）＋結束本輪（比照民法 v645） ----------
+   換題、作答、暫停、離開頁面時把「這輪」存到 bxj-anal-cur；看結果或放棄時清掉。每題作答本來就即時寫 bxj-q2。 */
+var CURK='bxj-anal-cur',early=false;
+function curSave(){
+  if(document.getElementById('quiz').hidden||!pool.length||mode==='deep')return;
+  sv(CURK,{v:1,ks:pool.map(function(q){return q.k}),idx:idx,ans:ansMap,rw:roundWrong.map(function(q){return q.k}),
+    m:mode,tm:useTm?1:0,el:useTm?elapsed():0,to:timedOut?1:0,at:Math.floor(Date.now()/1000)});
+}
+function curClear(){try{localStorage.removeItem(CURK)}catch(e){}}
+function curGet(){var c=ld(CURK,null);return (c&&c.v===1&&c.ks&&c.ks.length)?c:null}
+function fmtS2(x){x=Math.floor(x);return Math.floor(x/60)+':'+('0'+(x%60)).slice(-2)}
+var _render=render;render=function(){_render();curSave()};
+var _finish=finish;finish=function(){
+  curClear();_finish();
+  if(early){var n=pool.length-Object.keys(ansMap).length;
+    if(n>0)document.getElementById('tagStat').innerHTML='<p class="hint">本輪提前結束：未作答 '+n+' 題不計入（不算錯）。</p>'+document.getElementById('tagStat').innerHTML}
+  early=false;resumeShow();
+};
+var _start=start;start=function(l,m){early=false;document.getElementById('resumeBox').hidden=true;_start(l,m)};
+var _setPause=setPause;setPause=function(on){_setPause(on);if(on)curSave()};
+addEventListener('pagehide',curSave);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')curSave()});
+var endBtn=document.getElementById('qEnd'),endT=null;
+endBtn.onclick=function(){
+  if(!endBtn.classList.contains('arm')){endBtn.classList.add('arm');endBtn.textContent='再按一次確定結束';
+    endT=setTimeout(function(){endBtn.classList.remove('arm');endBtn.textContent='⏹ 結束本輪'},3000);return}
+  clearTimeout(endT);endBtn.classList.remove('arm');endBtn.textContent='⏹ 結束本輪';early=true;finish();
+};
+function resumeShow(){
+  var c=curGet(),box=document.getElementById('resumeBox');
+  if(!c){box.hidden=true;return}
+  var done=Object.keys(c.ans||{}).length,d=new Date(c.at*1000);
+  document.getElementById('resumeTx').textContent='做到第 '+(c.idx+1)+' / '+c.ks.length+' 題，已答 '+done+' 題'+
+    (c.tm?'，計時 '+fmtS2(c.el):'')+'（'+(d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+' 存檔）。已答的題目早就記進作答紀錄，這裡接回的是這一輪的題目組、位置和計時。';
+  box.hidden=false;
+}
+document.getElementById('resumeDrop').onclick=function(){curClear();resumeShow()};
+document.getElementById('resumeGo').onclick=function(){
+  var c=curGet();if(!c){resumeShow();return}
+  var by={};Q.forEach(function(q){by[q.k]=q});
+  var list=c.ks.map(function(k){return by[k]}).filter(Boolean);
+  if(!list.length){curClear();resumeShow();return}
+  pool=list;idx=Math.min(c.idx||0,list.length-1);ansMap={};
+  Object.keys(c.ans||{}).forEach(function(k){if(by[k])ansMap[k]=c.ans[k]});
+  roundWrong=(c.rw||[]).map(function(k){return by[k]}).filter(Boolean);
+  mode=c.m||'ch';timedOut=!!c.to;early=false;
+  if(tmr){clearInterval(tmr);tmr=null}
+  useTm=!!c.tm;var tb=document.getElementById('tmBtn');if(tb){tb.textContent='計時：'+(useTm?'開':'關');tb.classList.toggle('on',useTm)}
+  document.getElementById('resumeBox').hidden=true;document.getElementById('setup').hidden=true;document.getElementById('done').hidden=true;
+  document.getElementById('quiz').hidden=false;
+  paused=false;pAt=0;pTot=0;hidWas=[];document.getElementById('qmask').hidden=true;
+  if(useTm&&!timedOut){t0=Date.now()-(c.el||0)*1000;document.getElementById('tmDisp').hidden=false;document.getElementById('tmPz').hidden=false;
+    document.getElementById('tmPz').textContent='⏸️ 暫停';tick();tmr=setInterval(tick,1000)}
+  else{document.getElementById('tmDisp').hidden=true;document.getElementById('tmPz').hidden=true}
+  render();window.scrollTo(0,0);
+};
 renderMk();renderCats();renderOrd();renderNum();renderWrong();renderOv();renderLog();
+resumeShow();
 if(!deepLink())chLink();
 })();
 </script>
