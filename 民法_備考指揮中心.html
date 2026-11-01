@@ -799,6 +799,19 @@ function lagBuild(){
       +zero.slice(0,14).map(function(z){return '<a href="'+z.u+'" target="_blank" rel="noopener">'+z.n+'</a>'}).join('、')
       +(zero.length>14?'　…另 '+(zero.length-14)+' 項':'')+'</div>';
   }else h+='<div class="names"><span class="lab">每一項都已經開始</span>接下來看「每天要」那一欄，把量補上就好。</div>';
+  /* 考前補進度排程（11/2～11/14，平日 2h／假日 6h；時間為估算）。今天那列自動標色 */
+  var PL=[['11/2～11/6','平日 2h','刷題 40 分（B 債編總論→C 債編分則，每天約 30 題）＋整理頁 1 頁 30 分（先債之發生與移轉、抵押權總整理）＋申論 3 題只讀架構 20 分＋記憶工具 20 分＋錯題本 10 分','2026-11-02','2026-11-06'],
+    ['11/7（六）','假日 6h','歷屆整卷 2 份限時（各約 1 小時）＋逐題檢討 1.5 小時＋刷題 D、E 篇 1.5 小時＋申論 5 題','2026-11-07','2026-11-07'],
+    ['11/8（日）','假日 6h','自擬模擬卷①②限時＋檢討＋專區（繼承、共有、物權變動與登記）各 1 頁','2026-11-08','2026-11-08'],
+    ['11/9～11/13','平日 2h','同上，但刷題改成「錯題＋C 型（真的不熟）重做」，不再碰全新的題','2026-11-09','2026-11-13'],
+    ['11/14','考前一天','只看錯題本與口訣，不做新題，早睡','2026-11-14','2026-11-14']];
+  var td=new Date(),ts=td.getFullYear()+'-'+('0'+(td.getMonth()+1)).slice(-2)+'-'+('0'+td.getDate()).slice(-2);
+  h+='<details class="plan" style="margin-top:12px" open><summary style="cursor:pointer;font-weight:700">📅 考前補進度排程（取捨版）</summary>'
+    +'<div class="goal" style="margin-top:6px">13 天約 32 小時，做不完全部，所以取捨：<b>刷題 B、C 篇＞錯題本重做＞歷屆整卷限時</b>。模擬卷每天 1 份做不到，改假日做；申論只讀架構不寫；記憶工具不求每天 64 張。</div>'
+    +'<table><thead><tr><th>日期</th><th>時數</th><th>內容</th></tr></thead><tbody>'
+    +PL.map(function(r){var on=ts>=r[3]&&ts<=r[4];
+      return '<tr'+(on?' style="background:var(--cp-tint,rgba(184,120,46,.14));font-weight:700"':'')+'><td data-l="日期">'+r[0]+(on?' ◀今天':'')+'</td><td data-l="時數">'+r[1]+'</td><td data-l="內容">'+r[2]+'</td></tr>'}).join('')
+    +'</tbody></table></details>';
   box.innerHTML=h+'</div>';
 }
 lagBuild();
