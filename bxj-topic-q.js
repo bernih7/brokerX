@@ -169,7 +169,7 @@
           h += '<div class="vd ' + (ok ? 'y' : 'n') + '">' + (isFree(q) ? '這題不計正確率' : (ok ? '答對了' : '答錯了　正解：' + acc.join(' 或 '))) + '</div>';
           h += '<div class="ex">' + (q.exp || []).map(function (t, i) {
             var L = 'ABCD'[i];
-            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + rich(t) + '</span></div>';
+            return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + (window.bxjHL ? bxjHL(q.k, i, t) : rich(t)) + '</span></div>';
           }).join('') + '</div>';
           var ls = (q.law || []).filter(function (k) { return LAW[k]; });
           if (ls.length) {
