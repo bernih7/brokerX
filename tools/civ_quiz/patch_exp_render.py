@@ -19,7 +19,7 @@ for p in 'ABCDE':
       ("o.appendChild(mk('div','nt',NT[i]));",
        "{const nt=mk('div','nt');nt.innerHTML=window.bxmExp?bxmExp(NT[i],"+X.format(i='i')+"):NT[i];o.appendChild(nt);}"),
       ("d.textContent=ln;ex.appendChild(d);",
-       "if(ix<4&&NT[ix]&&window.bxmExp&&q.core){d.innerHTML=bxmExp(ln,"+X.format(i='ix')+",ln.slice(0,ln.length-NT[ix].length))}else d.textContent=ln;ex.appendChild(d);")])
+       "if(ix<4&&NT[ix]&&window.bxmExp&&q.core){d.classList.remove('cl','wl');d.innerHTML=bxmExp(ln,"+X.format(i='ix')+",ln.slice(0,ln.length-NT[ix].length))}else d.textContent=ln;ex.appendChild(d);")])
 # 法條解析練習（樣板）
 p=os.path.join(H,'tpl.html'); s=open(p,encoding='utf-8').read(); o=s
 if TAG not in s: s=s.replace('</style></head>','</style>'+TAG+'</head>',1)

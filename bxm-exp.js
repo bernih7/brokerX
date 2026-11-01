@@ -11,9 +11,9 @@
   +'mark.xk-ok{background:linear-gradient(transparent 40%,#FBE277 40%)}'
   +'mark.xk-ng{color:#C0392B}'
   +'.xlaw{color:#8A5517;font-weight:600}'
-  +'.xpre{font-weight:700;margin-right:.3em}'
-  +'@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .xp-ok{background:#6E5B10;color:#FFEDA6}:root:not([data-theme="light"]) .xp-ng{background:#5A2420;color:#FFB4A8}:root:not([data-theme="light"]) mark.xk-ok{background:linear-gradient(transparent 40%,#6E5B10 40%)}:root:not([data-theme="light"]) mark.xk-ng{color:#FF8E7E}:root:not([data-theme="light"]) .xlaw{color:#E0B070}}'
-  +':root[data-theme="dark"] .xp-ok{background:#6E5B10;color:#FFEDA6}:root[data-theme="dark"] .xp-ng{background:#5A2420;color:#FFB4A8}:root[data-theme="dark"] mark.xk-ok{background:linear-gradient(transparent 40%,#6E5B10 40%)}:root[data-theme="dark"] mark.xk-ng{color:#FF8E7E}:root[data-theme="dark"] .xlaw{color:#E0B070}';
+  +'.xpre{font-weight:700;margin-right:.45em}.xpre-ok{color:#2E7A45}.xpre-ng{color:#B3261E}'
+  +'@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .xp-ok{background:#6E5B10;color:#FFEDA6}:root:not([data-theme="light"]) .xp-ng{background:#5A2420;color:#FFB4A8}:root:not([data-theme="light"]) mark.xk-ok{background:linear-gradient(transparent 40%,#6E5B10 40%)}:root:not([data-theme="light"]) mark.xk-ng{color:#FF8E7E}:root:not([data-theme="light"]) .xlaw{color:#E0B070}:root:not([data-theme="light"]) .xpre-ok{color:#8ED3A0}:root:not([data-theme="light"]) .xpre-ng{color:#FF8E7E}}'
+  +':root[data-theme="dark"] .xp-ok{background:#6E5B10;color:#FFEDA6}:root[data-theme="dark"] .xp-ng{background:#5A2420;color:#FFB4A8}:root[data-theme="dark"] mark.xk-ok{background:linear-gradient(transparent 40%,#6E5B10 40%)}:root[data-theme="dark"] mark.xk-ng{color:#FF8E7E}:root[data-theme="dark"] .xlaw{color:#E0B070}:root[data-theme="dark"] .xpre-ok{color:#8ED3A0}:root[data-theme="dark"] .xpre-ng{color:#FF8E7E}';
   function addCss(){if(document.getElementById('bxm-exp-css'))return;var s=document.createElement('style');s.id='bxm-exp-css';s.textContent=CSS;(document.head||document.documentElement).appendChild(s)}
   addCss();
   function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -30,9 +30,10 @@
     sp.sort(function(a,b){return a[0]-b[0]});
     h='';i=0;sp.forEach(function(r){h+=law(esc(t.slice(i,r[0])))+'<mark class="xk xk-'+tk+'">'+esc(t.slice(r[0],r[1]))+'</mark>';i=r[1]});
     h+=law(esc(t.slice(i)));
-    var head=pre?'<span class="xpre">'+esc(pre.trim())+'</span>':'';
-    if(core)head+='<span class="xc"><span class="xp xp-'+tk+'">'+(tk==='ok'?'對在':'錯在')+'</span>'+esc(core)+'</span>';
-    else if(pre)head+=' ';
+    var pr=pre?'<span class="xpre xpre-'+tk+'">'+esc(pre.trim().replace(/[.．]$/,''))+'</span>':'';
+    var head;
+    if(core)head='<span class="xc">'+pr+'<span class="xp xp-'+tk+'">'+(tk==='ok'?'對在':'錯在')+'</span>'+esc(core)+'</span>';
+    else head=pr?pr+' ':'';
     return head+h;
   };
 })();

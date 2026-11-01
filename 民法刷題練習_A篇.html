@@ -221,7 +221,7 @@ function card(q){
     if(ln.startsWith('✓'))d.classList.add('cl');
     else if(ln.startsWith('✗'))d.classList.add('wl');
     else if(ln[0]==='★'||ln[0]==='※')d.classList.add('nl');
-    if(ix<4&&NT[ix]&&window.bxmExp&&q.core){d.innerHTML=bxmExp(ln,(q.core||[])[ix],(q.key||[])[ix],(q.tk||[])[ix],ln.slice(0,ln.length-NT[ix].length))}else d.textContent=ln;ex.appendChild(d);
+    if(ix<4&&NT[ix]&&window.bxmExp&&q.core){d.classList.remove('cl','wl');d.innerHTML=bxmExp(ln,(q.core||[])[ix],(q.key||[])[ix],(q.tk||[])[ix],ln.slice(0,ln.length-NT[ix].length))}else d.textContent=ln;ex.appendChild(d);
   });
   if(s){
     const tr=mk('div','err-tag');
