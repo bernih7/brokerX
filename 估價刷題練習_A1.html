@@ -219,7 +219,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -252,6 +252,25 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
       </div>
     </div>
   </div>
+<script src="bx-drill.js"></script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.addEventListener('click',async function(){
+ var w=ITEMS.filter(function(it){var a=answers[it.id];return a&&!a.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D={};try{D=JSON.parse(localStorage.getItem('bxv-q2')||'{}')||{}}catch(e){}
+ w.forEach(function(it){delete answers[it.id];delete errorTags[it.id];
+  try{var ch=BXREP.chOf(it.chapter||it.cat);delete D[ch+'-'+(it.year||'obs')+'-'+(it.num||it.id)]}catch(e){}});
+ try{localStorage.setItem('bxv-q2',JSON.stringify(D))}catch(e){}
+ try{await saveAnswers()}catch(e){}try{await saveErrorTags()}catch(e){}
+ try{updateStatbar()}catch(e){}renderList()});})();
+</script>
+
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a?!!a.correct:null},onChange:function(){renderList()}});
+</script>
 <script>
 const ITEMS = [
 {id:"VA1_99_2", cat:"A1", year:"99年第2題", q:"客觀上具有良好意識及通常之使用能力者，在合法、實質可能、正當合理、財務可行前提下，所作得以獲致最高利益之使用的估價原則是指那一種原則呢？", opts:["最有效使用原則", "均衡原則", "適合原則", "競爭原則"], explains:["技術規則第2條第17款明定：最有效使用，指客觀上具有良好意識及通常之使用能力者，在合法、實質可能、正當合理、財務可行四項前提下，得以獲致最高利益之使用，與題目敘述完全相符。", "均衡原則指生產要素間達最適配置，與題目所述「客觀上良好意識使用能力者」之四項前提定義無關。", "適合原則指不動產與其坐落環境協調一致，與題目定義無關。", "競爭原則（估價理論／教材）指超額利潤會吸引他人加入競爭，競爭使超額利潤逐漸減少以至消失；本題所述「合法、實質可能、正當合理、財務可行前提下獲致最高利益之使用」與超額利潤之競爭無關（屬最有效使用原則），故非本題答案。"], correct:0, note:null},
@@ -381,6 +400,7 @@ function renderList(){
   let pool = ITEMS.filter(it=>activeCats.has(it.cat));
   if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
   if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+  pool = BXD.run(ITEMS, pool, it=>it.id, String(viewFilter)+'|'+[...activeCats].join(','));
 
   pool.forEach(it=>{
     const a = answers[it.id];

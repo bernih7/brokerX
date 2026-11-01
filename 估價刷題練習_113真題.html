@@ -223,7 +223,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -258,6 +258,11 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
       </div>
     </div>
   </div>
+<script src="bx-drill.js"></script>
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a===undefined?null:a===it.correct},onChange:function(){renderList()}});
+</script>
 <script>
 /* ── 題目來源：bxv-quiz-data.js（由 16 支章節頁 ITEMS 產生的單一題庫）────────────
    本頁不再自存題目。113 年官方 25 題一律取用章節頁的考選部原題，
@@ -385,6 +390,7 @@ function renderList(){
   let items = ITEMS.filter(x=>activeCats.has(x.cat));
   if(filterMode==="unanswered") items = items.filter(x=>answers[x.id]===undefined);
   if(filterMode==="wrong") items = items.filter(x=>answers[x.id]!==undefined && answers[x.id]!==x.correct);
+  items = BXD.run(ITEMS, items, it=>it.id, String(filterMode)+'|'+[...activeCats].join(','));
 
   const list = document.getElementById("qlist");
   list.innerHTML = "";
@@ -613,5 +619,17 @@ renderList();
 
 /* 舊版本頁自存的 Q113_* 作答已不再使用（題幹為改寫版）；現在一律讀寫共用紀錄 */
 </script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.onclick=function(){
+ var w=ITEMS.filter(function(it){return answers[it.id]!==undefined&&answers[it.id]!==it.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D=_ld('bxv-q2',{})||{};
+ w.forEach(function(it){delete D[q2key(it)];var p=ANSP[it.cat];if(p){var A=stGet(p+'_answers');delete A[it.id];stSet(p+'_answers',A);var T=stGet(p+'_errortags');delete T[it.id];stSet(p+'_errortags',T)}
+  delete answers[it.id];delete errorTags[it.id]});
+ _sv('bxv-q2',D);renderList()};})();
+</script>
+
 </body>
 </html>

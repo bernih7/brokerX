@@ -219,7 +219,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -252,6 +252,25 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
       </div>
     </div>
   </div>
+<script src="bx-drill.js"></script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.addEventListener('click',async function(){
+ var w=ITEMS.filter(function(it){var a=answers[it.id];return a&&!a.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D={};try{D=JSON.parse(localStorage.getItem('bxv-q2')||'{}')||{}}catch(e){}
+ w.forEach(function(it){delete answers[it.id];delete errorTags[it.id];
+  try{var ch=BXREP.chOf(it.chapter||it.cat);delete D[ch+'-'+(it.year||'obs')+'-'+(it.num||it.id)]}catch(e){}});
+ try{localStorage.setItem('bxv-q2',JSON.stringify(D))}catch(e){}
+ try{await saveAnswers()}catch(e){}try{await saveErrorTags()}catch(e){}
+ try{updateStatbar()}catch(e){}renderList()});})();
+</script>
+
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a?!!a.correct:null},onChange:function(){renderList()}});
+</script>
 <script>
 const ITEMS = [
 {id:"VE1_99_10", cat:"E1", year:"99年第10題", q:"根據土地法定用途、使用強度進行開發與改良所導致土地效益之變化，估算開發或建築後總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得之土地價格，此估價方法是依據那一種方式呢？", opts:["比較法", "直接資本化法", "土地開發分析法", "現金流量分析法"], explains:["比較法是以比較標的之交易價格為基礎，與題目所述「依開發內容估算總銷售金額並扣除成本利潤」之操作邏輯不同。", "直接資本化法是以淨收益除以資本化率求取價格，與題目所述土地開發成本利潤計算邏輯不同。", "技術規則§70：「土地開發分析法，指根據土地法定用途、使用強度進行開發與改良所導致土地效益之變化，估算開發或建築後總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得開發前或建築前土地開發分析價格。」與題目敘述完全相符。", "現金流量分析法（DCF）是收益法之延伸應用，著重於多期現金流量折現，與題目所述土地開發成本利潤計算邏輯不同。"], correct:2, note:null},
@@ -362,6 +381,7 @@ function renderList(){
   let pool = ITEMS.filter(it=>activeCats.has(it.cat));
   if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
   if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+  pool = BXD.run(ITEMS, pool, it=>it.id, String(viewFilter)+'|'+[...activeCats].join(','));
 
   pool.forEach(it=>{
     const a = answers[it.id];

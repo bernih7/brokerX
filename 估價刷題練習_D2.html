@@ -219,7 +219,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -252,6 +252,25 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
       </div>
     </div>
   </div>
+<script src="bx-drill.js"></script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.addEventListener('click',async function(){
+ var w=ITEMS.filter(function(it){var a=answers[it.id];return a&&!a.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D={};try{D=JSON.parse(localStorage.getItem('bxv-q2')||'{}')||{}}catch(e){}
+ w.forEach(function(it){delete answers[it.id];delete errorTags[it.id];
+  try{var ch=BXREP.chOf(it.chapter||it.cat);delete D[ch+'-'+(it.year||'obs')+'-'+(it.num||it.id)]}catch(e){}});
+ try{localStorage.setItem('bxv-q2',JSON.stringify(D))}catch(e){}
+ try{await saveAnswers()}catch(e){}try{await saveErrorTags()}catch(e){}
+ try{updateStatbar()}catch(e){}renderList()});})();
+</script>
+
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a?!!a.correct:null},onChange:function(){renderList()}});
+</script>
 <script>
 const ITEMS = [
 {id:"VD2_99_9", cat:"D2", year:"99年第9題", q:"如果有一個不動產每年可以獲得的淨收益是10萬元，該不動產之建築物興建成本是100萬，根據調查，該不動產的土地部分之資本化率是5%，建物部分之資本化率是1%，請問該不動產的價格是多少呢？", opts:["100萬", "130萬", "160萬", "190萬"], explains:["本題一律給分；照收益分離法算：建物淨收益＝100×1%＝1萬，土地淨收益＝10－1＝9萬，土地價格＝9÷5%＝180萬，房地合計280萬元，四個選項都不是這個數，這可能就是一律給分的原因。", "考選部《測驗題標準答案更正》：99 年不動產估價概要第 9 題「一律給分」（答案欄標 #）。原公告答案為 B（130萬元），已被更正；本題每個選項都算對，不計入正確率判讀。", "本題一律給分（見選項A說明：依收益分離法算得280萬元，不在選項中）。", "本題一律給分（見選項A說明：依收益分離法算得280萬元，不在選項中）。"], correct:1, note:"考選部 99 年《測驗題標準答案更正》：第 9 題一律給分。"},
@@ -366,6 +385,7 @@ function renderList(){
   let pool = ITEMS.filter(it=>activeCats.has(it.cat));
   if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
   if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+  pool = BXD.run(ITEMS, pool, it=>it.id, String(viewFilter)+'|'+[...activeCats].join(','));
 
   pool.forEach(it=>{
     const a = answers[it.id];

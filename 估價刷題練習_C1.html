@@ -220,7 +220,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -254,6 +254,25 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
   </footer>
 </div>
 
+<script src="bx-drill.js"></script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.addEventListener('click',async function(){
+ var w=ITEMS.filter(function(it){var a=answers[it.id];return a&&!a.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D={};try{D=JSON.parse(localStorage.getItem('bxv-q2')||'{}')||{}}catch(e){}
+ w.forEach(function(it){delete answers[it.id];delete errorTags[it.id];
+  try{var ch=BXREP.chOf(it.chapter||it.cat);delete D[ch+'-'+(it.year||'obs')+'-'+(it.num||it.id)]}catch(e){}});
+ try{localStorage.setItem('bxv-q2',JSON.stringify(D))}catch(e){}
+ try{await saveAnswers()}catch(e){}try{await saveErrorTags()}catch(e){}
+ try{updateStatbar()}catch(e){}renderList()});})();
+</script>
+
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a?!!a.correct:null},onChange:function(){renderList()}});
+</script>
 <script>
 const ITEMS = [
 {id:"VC1_99_7", cat:"C1", year:"99年第7題", q:"按工程概算項目逐項比較勘估標的與比較標的或標準建物之差異，並依工程價格及工程數量比率進行調整，以求取勘估標的營造或施工費方法，稱之為：", opts:["淨計法", "工程造價比較法", "單位工程法", "單位面積比較法"], explains:["淨計法是逐一材料人工數量乘以單價工資之直接法，與題目所述「按工程概算項目逐項比較調整」之間接法性質不同。", "技術規則明定工程造價比較法：按工程概算項目逐項比較勘估標的與比較標的或標準建物之差異，並依工程價格及工程數量比率進行調整，與題目敘述完全相符。", "單位工程法是建築細部工程各項目單價乘以施工數量之直接法，與題目所述間接法性質不同。", "單位面積比較法是以單位面積營造費為基礎乘以勘估標的面積，與題目所述「逐項比較工程概算項目」之具體操作方式不同。"], correct:1, note:null},
@@ -397,6 +416,7 @@ function renderList(){
   let pool = ITEMS.filter(it=>activeCats.has(it.cat));
   if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
   if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+  pool = BXD.run(ITEMS, pool, it=>it.id, String(viewFilter)+'|'+[...activeCats].join(','));
 
   pool.forEach(it=>{
     const a = answers[it.id];

@@ -219,7 +219,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
     </div>
     <div class="ptxt" id="ptxt">尚未作答</div>
     <div class="pcat" id="pcat"></div>
-    <div class="ptools">
+    <div class="ptools" hidden style="display:none">
       <button class="btn rep" id="bRep">複製練習回報</button>
       <button class="btn" id="bImp">匯入紀錄</button>
     </div>
@@ -252,6 +252,25 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
       </div>
     </div>
   </div>
+<script src="bx-drill.js"></script>
+<script>/* bxd：只清除答錯的紀錄（答對的保留） */
+(function(){var b=document.getElementById('resetAllBtn');if(!b)return;var n=b.cloneNode(true);n.textContent='清除答錯紀錄';b.replaceWith(n);
+n.addEventListener('click',async function(){
+ var w=ITEMS.filter(function(it){var a=answers[it.id];return a&&!a.correct});
+ if(!w.length){alert('目前沒有答錯的紀錄。');return}
+ if(!confirm('清除 '+w.length+' 題「答錯」的作答紀錄？答對的會保留。'))return;
+ var D={};try{D=JSON.parse(localStorage.getItem('bxv-q2')||'{}')||{}}catch(e){}
+ w.forEach(function(it){delete answers[it.id];delete errorTags[it.id];
+  try{var ch=BXREP.chOf(it.chapter||it.cat);delete D[ch+'-'+(it.year||'obs')+'-'+(it.num||it.id)]}catch(e){}});
+ try{localStorage.setItem('bxv-q2',JSON.stringify(D))}catch(e){}
+ try{await saveAnswers()}catch(e){}try{await saveErrorTags()}catch(e){}
+ try{updateStatbar()}catch(e){}renderList()});})();
+</script>
+
+<script>/* bxd：隨機＋固定題數 */
+BXD.mount({before:document.getElementById('qlist'),list:document.getElementById('qlist'),order:true,
+ res:function(it){var a=answers[it.id];return a?!!a.correct:null},onChange:function(){renderList()}});
+</script>
 <script>
 const ITEMS = [
 {id:"VH3_100_29", cat:"H3", year:"100年第29題", q:"都市更新權利變換中，各權利人應分配之權利價值，係依其更新前權利價值占全部權利人更新前權利價值總和之比率，乘以下列何者計算？", opts:["更新前總成本", "更新後實施者實際分配之權利價值總和", "更新前公告地價總額", "更新後總銷售金額"], explains:["「更新前總成本」並非權利變換分配公式（都市更新條例及權利變換實施辦法）所乘之基準金額。", "各權利人應分配之權利價值＝(該權利人更新前權利價值÷全部權利人更新前權利價值總和)×更新後實施者實際分配之權利價值總和；此公式出自都市更新條例及其權利變換實施辦法，並非不動產估價技術規則條文。與本選項相符。", "「更新前公告地價總額」並非上述分配公式之基準金額。", "「更新後總銷售金額」是毛銷售額，未扣除實施者應得部分，並非上述分配公式之基準金額。"], correct:1, note:"分配公式出自都市更新條例及權利變換實施辦法（非技術規則條文）。"},
@@ -354,6 +373,7 @@ function renderList(){
   let pool = ITEMS.filter(it=>activeCats.has(it.cat));
   if(viewFilter==='unanswered') pool = pool.filter(it=>!answers[it.id]);
   if(viewFilter==='wrong') pool = pool.filter(it=>answers[it.id] && !answers[it.id].correct);
+  pool = BXD.run(ITEMS, pool, it=>it.id, String(viewFilter)+'|'+[...activeCats].join(','));
 
   pool.forEach(it=>{
     const a = answers[it.id];

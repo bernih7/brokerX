@@ -40,9 +40,10 @@ function bxBar(){var L=g("list");if(!L||g("ords"))return;
  g("shuf").onclick=function(){bxShuffle();renderList();window.scrollTo({top:0})};mark();window.__bxMark=mark}
 /* ---------- 清單與題卡 ---------- */
 function renderList(){bxBar();if(window.__bxMark)window.__bxMark();var list=g("list");list.innerHTML="";
- var vis=bxOrd(CARDS.filter(function(c){return sel[c.chName]&&stOk(c)})),last="";
+ if(window.BXD&&!window.__bxd){window.__bxd=1;BXD.mount({before:list,list:list,order:false,res:function(c){var a=ans[CARDS.indexOf(c)];return a?!!a.ok:null},onChange:function(){renderList()}})}
+ var vis=bxOrd(CARDS.filter(function(c){return sel[c.chName]&&stOk(c)})),last="";if(window.BXD)vis=BXD.run(CARDS,vis,function(c){return c.id},STF+"|"+CHS.filter(function(c){return sel[c]}).join(","));
  if(!vis.length)list.innerHTML='<div class="empty">這個條件下沒有題目。</div>';
- vis.forEach(function(card){var idx=CARDS.indexOf(card);var hk=BXO==="rand"?"":(BXO==="ch"?card.chName:card.year+" 年");
+ vis.forEach(function(card){var idx=CARDS.indexOf(card);var hk=(BXO==="rand"||(window.BXD&&BXD.on()))?"":(BXO==="ch"?card.chName:card.year+" 年");
   if(hk&&hk!==last){var h=document.createElement("div");h.className=BXO==="ch"?"ch-header":"yr-header";h.textContent=hk;list.appendChild(h);last=hk}
   list.appendChild(makeCard(card,idx))});
  updateProg()}
@@ -111,7 +112,7 @@ function bindTools(){g("bSelAll").onclick=selAll;g("bSelNone").onclick=selNone;g
  g("bRep").onclick=copyReport;
  g("bImp").onclick=function(){modal("匯入：把練習回報整段貼上","","匯入",function(v){g("bxmsg").textContent=importText(v)})};
  g("bTgt").onclick=function(){var p=prompt("及格線（%）",TGT.p);if(p===null)return;var q=prompt("目標（%，要比及格線高一點）",TGT.g);if(q===null)return;p=+p;q=+q;if(p>0&&p<=100&&q>0&&q<=100){TGT={p:p,g:q};sv("bx-tgt",TGT);updateProg()}};
- g("bClr").onclick=function(){if(confirm("要清除這台裝置上「全部」累積紀錄嗎？無法復原。（若要保留，請先按「複製練習回報」）")){DB={};save();ans={};renderList()}};
+ g("bClr").textContent="清除答錯紀錄";g("bClr").onclick=function(){var wk=Object.keys(DB).filter(function(i){return DB[i]&&!DB[i].ok}),wa=Object.keys(ans).filter(function(i){return ans[i]&&!ans[i].ok});if(!wk.length&&!wa.length){alert("目前沒有答錯的紀錄。");return}if(confirm("清除 "+Math.max(wk.length,wa.length)+" 題「答錯」的作答紀錄？答對的會保留。")){wk.forEach(function(i){delete DB[i]});wa.forEach(function(i){delete ans[i]});save();renderList()}};g("bRep").style.display="none";g("bImp").style.display="none";
  g("bxcl").onclick=function(){g("bxm").classList.remove("on")};
  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button[data-k]");if(!b)return;var q=b.closest(".qcard");if(!q)return;var card=CARDS[+q.id.slice(1)],r=DB[card.id];if(!r)return;r.k=r.k===b.dataset.k?"":b.dataset.k;r.g=r.k==="D"?1:0;save();[].forEach.call(q.querySelectorAll("button[data-k]"),function(x){x.classList.toggle("on",x.dataset.k===r.k)});updateProg()})}
 bindTools();renderPills();renderList();
