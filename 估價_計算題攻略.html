@@ -644,6 +644,23 @@ body.bx-quick .cc-qt{display:block}
 .ck-lg{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0}
 .ck-es{margin-top:6px}
 .grp-sec .section-title{color:var(--green)}
+
+/* ── 折舊對照表配色：三欄＝三種方法，各一色（定額沙・定率橄欖・償債基金杏） ── */
+:root{--m1-bg:#F6F2E9;--m1-tx:#5A4E36;--m2-bg:#EEF3E6;--m2-tx:#3F6130;--m3-bg:#FCEEE2;--m3-tx:#94501C;--d3-lab:#4A3F33}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--m1-bg:#2C2A23;--m1-tx:#E6DCC4;--m2-bg:#24301F;--m2-tx:#B8D79C;--m3-bg:#36281C;--m3-tx:#F2BE90;--d3-lab:#D9CFBD}}
+:root[data-theme="dark"]{--m1-bg:#2C2A23;--m1-tx:#E6DCC4;--m2-bg:#24301F;--m2-tx:#B8D79C;--m3-bg:#36281C;--m3-tx:#F2BE90;--d3-lab:#D9CFBD}
+.d3-t tr td.k,.d3-t thead th:first-child{background:var(--card);color:var(--d3-lab)}
+.d3-t tr th:nth-child(2),.d3-t tr td:nth-child(2):not([colspan]){background:var(--m1-bg)}
+.d3-t tr th:nth-child(3),.d3-t tr td:nth-child(3){background:var(--m2-bg)}
+.d3-t tr th:nth-child(4),.d3-t tr td:nth-child(4){background:var(--m3-bg)}
+.d3-t th:nth-child(2),.d3-t td.f:nth-child(2){color:var(--m1-tx)}
+.d3-t th:nth-child(3),.d3-t td.f:nth-child(3){color:var(--m2-tx)}
+.d3-t th:nth-child(4),.d3-t td.f:nth-child(4){color:var(--m3-tx)}
+.d3-t thead th{font-size:15px;text-align:center}
+.d3-t thead th .d3-sw{display:none}
+.d3-t td.na{color:var(--d3-lab);font-style:italic;text-align:center}
+.d3-t tr td[colspan]{background:var(--card)}
+.d3-t tbody tr.key td.k{background:var(--card)}
 /* 練習面板開關 */
 .tq-wrap{margin-top:10px}
 .tq-btn{font:inherit;font-size:12.5px;font-weight:700;width:100%;text-align:left;padding:7px 12px;border-radius:8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer}
@@ -758,8 +775,8 @@ body.bx-quick .cc-qt{display:block}
           <div class="d3-tw"><table class="d3-t">
             <thead><tr><th></th><th><i class="d3-sw sw1"></i>等速折舊型</th><th><i class="d3-sw sw2"></i>（定率）</th><th><i class="d3-sw sw3"></i>償債基金型</th></tr></thead>
             <tbody>
-            <tr class="key"><td class="k">折舊提存費<br><small>每年一筆金額（§40-1）</small></td><td class="f">C(1－s) × <span class="d3-fr"><span>1</span><span>N</span></span></td><td>條文沒有</td><td class="f">C(1－s) × <span class="d3-fr"><span>i</span><span>(1+i)<sup>N</sup>－1</span></span></td></tr>
-            <tr class="key"><td class="k">折舊提存率 d<br><small>比率（§41）</small></td><td class="f"><span class="d3-fr"><span>(1－s)÷N</span><span>1－(1－s)×n÷N</span></span></td><td>條文沒有</td><td class="f"><span class="d3-fr"><span>i</span><span>(1+i)<sup>n′</sup>－1</span></span></td></tr>
+            <tr class="key"><td class="k">折舊提存費<br><small>每年一筆金額（§40-1）</small></td><td class="f">C(1－s) × <span class="d3-fr"><span>1</span><span>N</span></span></td><td class="na">條文沒有</td><td class="f">C(1－s) × <span class="d3-fr"><span>i</span><span>(1+i)<sup>N</sup>－1</span></span></td></tr>
+            <tr class="key"><td class="k">折舊提存率 d<br><small>比率（§41）</small></td><td class="f"><span class="d3-fr"><span>(1－s)÷N</span><span>1－(1－s)×n÷N</span></span></td><td class="na">條文沒有</td><td class="f"><span class="d3-fr"><span>i</span><span>(1+i)<sup>n′</sup>－1</span></span></td></tr>
             <tr><td class="k">放在哪</td><td colspan="3">§40 二選一：提存費加進<b>總費用</b>，或提存率 d 加進<b>資本化率</b>，不能兩邊都加</td></tr>
             <tr><td class="k">例（104 申論二）</td><td>800×0.95÷50＝<b>15.2 萬／年</b></td><td>—</td><td>800×0.95×2%÷(1.02<sup>50</sup>－1)≈<b>8.99 萬／年</b></td></tr>
             </tbody>
