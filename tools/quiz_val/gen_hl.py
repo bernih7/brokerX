@@ -14,7 +14,7 @@ for k,v in hl.items():
     for i,a in enumerate(v):
         if not a or not a.get('e'): row.append(0);continue
         for e in a['e']:
-            if e not in x['opts'][i]: bad.append(f'{k}[{i}] e：{e}')
+            if e not in x['opts'][i] and e not in x['exps'][i]: bad.append(f'{k}[{i}] e：{e}')
         for f in a.get('f',[]):
             if f not in x['exps'][i]: bad.append(f'{k}[{i}] f：{f}')
         row.append([a['e'],a.get('f',[])]);any_=True
@@ -42,11 +42,12 @@ HELPER=r"""
     rs.forEach(function(r){o+=text.slice(c,r[0])+'<mark class="'+r[2]+'">'+text.slice(r[0],r[1])+'</mark>';c=r[1]});
     return o+text.slice(c);}
   function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-  /* kind:'opt' 標選項錯字；'exp' 標解析正確資訊。給 sel／cor 時只標「你選的」與「答案」兩個選項 */
+  /* kind:'opt' 標選項錯字（紅底線）；'exp' 標解析錯處（紅底線）＋正確資訊（粗體）。給 sel／cor 時只標「你選的」與「答案」兩個選項 */
   window.bxvHL=function(id,i,text,kind,sel,cor){
     if(sel!=null&&i!==sel&&i!==cor)return text;
     var r=(window.BXV_HL||{})[id];var a=r&&r[i];if(!a)return text;
-    return mk(text,(kind==='opt'?a[0]:a[1]).map(function(p){return[p,kind==='opt'?'hl-err':'hl-ok']}));};
+    if(kind==='opt')return mk(text,a[0].map(function(p){return[p,'hl-err']}));
+    return mk(text,a[0].map(function(p){return[p,'hl-err']}).concat(a[1].map(function(p){return[p,'hl-ok']})));};
   var STRIKE={'錯在':1,'答案錯在':1,'你算的':1},BOLD={'應該是':1,'因為':1,'正確算法':1};
   /* 更正卡：noHead=true 時不印「你選 X，答案是 Y」那行（頁面已有判定列） */
   window.bxvCard=function(id,sel,cor,noHead){
