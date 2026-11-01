@@ -26,6 +26,10 @@ header h1{font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700}
 .chip.active{background:var(--ink);color:#F8F3E9}
 .stat{margin-left:auto;font-size:12px;color:var(--gray);white-space:nowrap}
 main{padding:12px 16px;max-width:860px;margin:0 auto}
+/* v644：平板以上整頁放大 1.2 倍（本頁字級是 px，用 zoom 一次放大），不用再手動縮放 */
+@media(min-width:700px){body{zoom:1.25}}
+/* 「本次題數」列插在 main 外面，原本貼齊畫面左緣、字被切掉 */
+body>.bxd{max-width:860px;margin:10px auto 12px;padding:0 16px;box-sizing:border-box}
 .q-card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
 .q-head{padding:12px 14px 8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
 .q-year{font-size:11px;background:var(--gold);color:#fff;padding:2px 7px;border-radius:10px;font-weight:700;white-space:nowrap}
