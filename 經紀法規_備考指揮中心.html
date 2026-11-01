@@ -827,6 +827,7 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 [data-theme="dark"] #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}
 [data-theme="dark"] #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
 [data-theme="dark"] #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #hitPanel{--cp-card:#1F2723;--cp-milk:#263029;--cp-line:#33403A;--cp-ink:#E7ECE6;--cp-soft:#A5B1A8;--cp-track:#2C3832;--cp-accent:#8FA083;--cp-accent-t:#28331F}:root:not([data-theme="light"]) #hitPanel[data-pal="p2"]{--cp-accent:#F28C28;--cp-accent-t:#4A3028;--cp-card:#2A211C;--cp-milk:#352A22;--cp-line:#45372C;--cp-ink:#F2E4D0;--cp-soft:#B59B84;--cp-track:#3C2F26}:root:not([data-theme="light"]) #hitPanel[data-pal="p3"]{--cp-accent:#7F8FA6;--cp-accent-t:#1F2A33;--cp-card:#1F262C;--cp-milk:#273038;--cp-line:#333F49;--cp-ink:#E4ECF4;--cp-soft:#90A0B0;--cp-track:#2C353E}:root:not([data-theme="light"]) #hitPanel[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}:root:not([data-theme="light"]) #hitPanel[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}}
 #hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:18px 15px 13px;margin-bottom:11px;color:var(--cp-ink);position:relative;overflow:hidden}
 #hitPanel .score::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--cp-got) 0%,var(--cp-got) 33%,var(--cp-pick) 33%,var(--cp-pick) 66%,var(--cp-unk) 66%,var(--cp-unk) 100%)}
 #hitPanel .score h3 .subj{font-size:.78rem;font-weight:600;color:var(--cp-soft);letter-spacing:.02em}
@@ -926,9 +927,43 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
   #hitPanel .atb td:last-child::before{width:auto;margin-bottom:2px}
   #hitPanel .atb .mini{flex:1}
 }
+</style><style id="lag-css">
+#lagPanel{margin:14px 0 0}
+#lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:14px 15px;color:var(--cp-ink)}
+#lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+#lagPanel h3 .d{margin-left:auto;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
+#lagPanel .goal{font-size:.76rem;color:var(--cp-soft);margin-bottom:10px;line-height:1.6}
+#lagPanel table{border-collapse:collapse;width:100%;font-size:.81rem;font-variant-numeric:tabular-nums}
+#lagPanel th,#lagPanel td{padding:7px 8px;text-align:left;border-top:1px solid var(--cp-line)}
+#lagPanel thead th{border-top:0;background:var(--cp-milk);font-size:.72rem;color:var(--cp-soft);letter-spacing:.04em;font-weight:800;white-space:nowrap}
+#lagPanel td.n{text-align:right;white-space:nowrap}
+#lagPanel .pb{display:inline-flex;height:8px;width:100%;min-width:50px;max-width:110px;border-radius:5px;overflow:hidden;background:var(--cp-track);vertical-align:middle}
+#lagPanel .pb i{display:block;height:100%;background:var(--cp-got)}
+#lagPanel .need{font-weight:800;color:var(--cp-accent)}
+#lagPanel .zero{color:var(--cp-soft)}
+#lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);font-size:.79rem;line-height:1.85}
+#lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
+#lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
+@media(max-width:560px){
+  #lagPanel table,#lagPanel tbody,#lagPanel tr,#lagPanel td{display:block;width:100%}
+  #lagPanel thead{display:none}
+  #lagPanel tr{border-top:1px solid var(--cp-line);padding:6px 0}
+  #lagPanel td{border:0;padding:2px 2px;display:flex;gap:8px;align-items:center}
+  #lagPanel td.n{text-align:left}
+  #lagPanel td::before{content:attr(data-l);flex:none;width:60px;color:var(--cp-soft);font-size:.72rem}
+  #lagPanel td:first-child{font-weight:800}
+  #lagPanel td:first-child::before{display:none}
+  #lagPanel td:empty{display:none}
+}
+#lagPanel table{background:transparent;margin:0;border-radius:0;font-size:.81rem}
+#lagPanel th,#lagPanel td{background:transparent;color:inherit;border-bottom:0;font-family:inherit;vertical-align:middle;word-break:normal}
+#lagPanel thead th{color:var(--cp-soft)}
+#lagPanel td:first-child{color:var(--cp-ink);font-family:inherit}
+@media(max-width:560px){#lagPanel tr{background:transparent;border:0;border-top:1px solid var(--cp-line);border-radius:0;margin:0;padding:6px 0}#lagPanel td::before{font-weight:400;letter-spacing:0}}
 </style>
 <section id="hitPanel">
   <div id="hitBody"></div>
+  <div id="lagPanel"></div>
 </section>
 <script id="hit-js">
 (function(){
@@ -1099,78 +1134,61 @@ if(location.hash)setTimeout(hitHash,180);
 addEventListener('hashchange',hitHash);
 })();
 </script>
-<style id="lag-css">
-#lagPanel{background:var(--surface,#fff);border:1.5px solid var(--line,#ddd);border-radius:12px;padding:14px 14px 12px;margin:0 0 14px}
-#lagPanel h3{margin:0 0 2px;font-size:1.02rem;display:flex;align-items:center;gap:7px}
-#lagPanel .lgoal{font-size:.82rem;color:var(--sub,#666);margin-bottom:10px}
-#lagPanel .lgoal b{color:var(--ink,#222)}
-#lagPanel table{width:100%;border-collapse:collapse;font-size:.85rem}
-#lagPanel th,#lagPanel td{padding:7px 6px;border-bottom:1px solid var(--line,#eee);text-align:left;vertical-align:top}
-#lagPanel th{font-size:.76rem;color:var(--sub,#666);font-weight:600}
-#lagPanel td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-#lagPanel td.d b{font-size:1.02rem;color:var(--pri,#2F5D50)}
-#lagPanel .trk{height:6px;border-radius:3px;background:var(--line,#e6e6e6);margin-top:4px;overflow:hidden}
-#lagPanel .trk i{display:block;height:100%;background:var(--pri,#2F5D50)}
-#lagPanel .zero{margin-top:11px;padding-top:9px;border-top:1px dashed var(--line,#ddd);font-size:.82rem;color:var(--sub,#666)}
-#lagPanel .zero b{color:var(--bad,#A8402B)}
-#lagPanel .zero a{display:inline-block;border:1px solid var(--line,#ddd);border-radius:999px;padding:2px 9px;margin:4px 5px 0 0;
-  background:var(--surface,#fff);color:var(--pri,#2F5D50);text-decoration:none;font-size:.78rem}
-#lagPanel .zero a:hover{border-color:var(--pri,#2F5D50)}
-@media(max-width:480px){#lagPanel th:nth-child(3),#lagPanel td:nth-child(3){display:none}}
-</style>
-<div id="lagPanel" hidden></div>
 <script id="lag-js">
-/* ⑧ 進度落後清單：考前把每一樣至少做完 1 輪；每天要＝剩餘÷剩餘天數 */
+/* 進度落後清單：目標＝考前把每一樣至少做完 1 輪；每天要＝剩餘量÷剩餘天數。只讀，不寫任何鍵。（格式比照土地法／民法／估價） */
 (function(){
-var EXAM='2026-11-14';
-function days(){var d=new Date(EXAM+'T00:00:00'),n=new Date();n.setHours(0,0,0,0);
-  return Math.max(1,Math.ceil((d-n)/86400000))}
-function esDone(){try{var D=JSON.parse(localStorage.getItem('bxj-es-log')||'{}'),c=0;
-  Object.keys(D).forEach(function(k){if((D[k].n||0)>0)c++});return c}catch(e){return 0}}
-function esTotal(){return document.querySelectorAll('details.essay-detail').length||68}
-function draw(){
-  var el=document.getElementById('lagPanel');
-  if(!el||!window.BXREP||!BXREP.status){return}
-  var G={};BXREP.status().forEach(function(g){G[g.g.split('（')[0]]=g.rows});
-  var dr=G['刷題']||[],mk=G['模擬卷']||[],mm=G['記憶工具']||[],rd=G['閱讀頁']||[];
-  var drill=dr.filter(function(r){return r.p.indexOf('刷題練習_')>=0});
-  var sum=function(a,f){var t=0;a.forEach(function(x){t+=f(x)||0});return t};
-  var ROWS=[
-   {t:'選擇題（12 章題庫頁，含 2 題法源已廢止）',d:sum(drill,function(r){return r.done}),n:sum(drill,function(r){return r.total}),u:'題',
-    zero:drill.filter(function(r){return !r.done})},
-   {t:'申論卡（讀過 ≥1 輪）',d:esDone(),n:esTotal(),u:'題',zero:[]},
-   {t:'閱讀整理頁（按 ＋ 或捲到底）',d:rd.filter(function(r){return (r.read||0)>0}).length,n:rd.length,u:'頁',
-    zero:rd.filter(function(r){return !(r.read||0)})},
-   {t:'模擬卷（交卷）',d:mk.filter(function(r){return r.total&&r.done}).length,n:mk.filter(function(r){return r.total}).length,u:'卷',
-    zero:mk.filter(function(r){return r.total&&!r.done})},
-   {t:'記憶工具（單字卡＋定義填空）',d:sum(mm,function(r){return r.done}),n:sum(mm,function(r){return r.total}),u:'張',
-    zero:mm.filter(function(r){return !r.done})}
-  ];
-  var D=days(),h='<h3><span>📉</span>進度落後清單</h3>'
-   +'<div class="lgoal">目標：<b>考前把每一樣至少做完 1 輪</b>。距離 '+EXAM+' 還有 <b>'+D+' 天</b>，'
-   +'「每天要」＝還沒做的 ÷ '+D+' 天（無條件進位）。上面「日拱一築」算的是 518 題官方題，'
-   +'這裡的 520 是題庫頁實際題數（多 2 題法源已廢止、只讀不計分）。</div>'
-   +'<table><tr><th>項目</th><th>進度</th><th>還沒做</th><th>每天要</th></tr>';
-  var zeros=[];
-  ROWS.forEach(function(r){
-    var left=Math.max(0,r.n-r.d),per=Math.ceil(left/D),pct=r.n?Math.round(r.d/r.n*100):0;
-    h+='<tr><td>'+r.t+'<div class="trk"><i style="width:'+pct+'%"></i></div></td>'
-      +'<td class="n">'+r.d+' / '+r.n+'<br><span style="font-size:.76rem;color:var(--sub,#666)">'+pct+'%</span></td>'
-      +'<td class="n">'+left+' '+r.u+'</td>'
-      +'<td class="n d">'+(left?('<b>'+per+'</b> '+r.u):'✓ 已完成')+'</td></tr>';
-    (r.zero||[]).forEach(function(z){zeros.push(z)});
-  });
-  h+='</table>';
-  if(zeros.length){
-    h+='<div class="zero"><b>完全沒開始的有 '+zeros.length+' 項</b>——先從這裡挑一個：'
-      +zeros.map(function(z){return '<a href="'+z.url+'">'+z.name+'</a>'}).join('')+'</div>';
-  }else{
-    h+='<div class="zero">每一樣都至少動過了，接著把上面「還沒做」的數字清掉。</div>';
-  }
-  el.innerHTML=h;el.hidden=false;
+function lagBuild(){
+  var box=document.getElementById('lagPanel'); if(!box) return;
+  if(typeof BXREP==='undefined'||!BXREP.status){box.innerHTML='';return;}
+  var exam=new Date('2026-11-14T09:00:00+08:00');
+  var days=Math.max(1,Math.ceil((exam-new Date())/86400000));
+  var G=BXREP.status();
+  function grp(n){for(var i=0;i<G.length;i++)if(G[i].g.indexOf(n)===0)return G[i];return null}
+  function rows(g){return g?g.rows:[]}
+  var drill=grp('刷題'),mock=grp('模擬卷'),read=grp('閱讀頁'),mem=grp('記憶工具');
+  var dRows=rows(drill).filter(function(r){return r.total>0&&r.p.indexOf('刷題練習_')>=0});
+  var dDone=0,dTot=0;dRows.forEach(function(r){dDone+=Math.min(r.done,r.total);dTot+=r.total});
+  /* 申論：頁面上的申論卡；勾「我已讀懂」(bxj-es-read) 或讀過 ≥1 輪 (bxj-es-log) 都算 */
+  var ES=[].slice.call(document.querySelectorAll('.essay-detail[id^=es-]')),esTot=ES.length,esRead=0,RD={},LG={};
+  try{RD=JSON.parse(localStorage.getItem('bxj-es-read')||'{}')||{}}catch(e){}
+  try{LG=JSON.parse(localStorage.getItem('bxj-es-log')||'{}')||{}}catch(e){}
+  ES.forEach(function(d){if(RD[d.id]||(LG[d.id]&&(LG[d.id].n||0)>0))esRead++});
+  var rTot=rows(read).length,rDone=rows(read).filter(function(r){return (r.read||0)>0}).length;
+  var mRows=rows(mock).filter(function(r){return r.total>0}),mTot=0,mDone=0;
+  mRows.forEach(function(r){mTot++;if(r.done>=r.total)mDone++});
+  var kRows=rows(mem).filter(function(r){return r.total>0}),kDone=0,kTot=0;kRows.forEach(function(r){kDone+=Math.min(r.done,r.total);kTot+=r.total});
+  function per(rem){return rem<=0?'已完成':(Math.ceil(rem/days)+' / 天')}
+  function bar(d,t){var p=t?Math.min(100,Math.round(d/t*100)):0;return '<span class="pb"><i style="width:'+p+'%"></i></span>'}
+  function row(nm,d,t,u,note){var rem=Math.max(0,t-d);
+    return '<tr><td>'+nm+'</td><td class="n" data-l="目前">'+d+'／'+t+' '+u+'</td><td data-l="完成度">'+bar(d,t)+'</td>'
+      +'<td class="n '+(rem?'need':'zero')+'" data-l="每天要">'+per(rem)+'</td><td class="zero" data-l="備註">'+(note||'')+'</td></tr>'}
+  var h='<div class="lg"><h3><span>⏳</span>進度落後在哪<span class="d">剩 '+days+' 天</span></h3>'
+    +'<div class="goal">目標：<b>考前把每一樣至少做完 1 輪</b>。「每天要」＝剩下的量 ÷ 剩下的天數，沒有另外訂讀書表。</div>'
+    +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
+    +row('選擇題（題庫 '+dRows.length+' 頁）',dDone,dTot,'題','解析版練習的作答也算；含 2 題法源已廢止（只讀不計分）')
+    +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','在申論卡勾「我已讀懂這題的邏輯」'):'')
+    +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底')
+    +row('模擬卷',mDone,mTot,'份','自擬 5 卷＋來勝模擬(一)；答完整份才算')
+    +row('記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；填空按完成')
+    +'</tbody></table>';
+  var zero=[];
+  dRows.forEach(function(r){if(r.done===0)zero.push({n:r.name,u:r.url})});
+  rows(read).forEach(function(r){if(!r.read)zero.push({n:r.name,u:r.url})});
+  mRows.forEach(function(r){if(!r.done)zero.push({n:r.name,u:r.url})});
+  kRows.forEach(function(r){if(!r.done)zero.push({n:r.name,u:r.url})});
+  if(zero.length){
+    h+='<div class="names"><span class="lab">完全沒開始的 '+zero.length+' 項</span>'
+      +zero.slice(0,14).map(function(z){return '<a href="'+z.u+'" target="_blank" rel="noopener">'+z.n+'</a>'}).join('、')
+      +(zero.length>14?'　…另 '+(zero.length-14)+' 項':'')+'</div>';
+  }else h+='<div class="names"><span class="lab">每一項都已經開始</span>接下來看「每天要」那一欄，把量補上就好。</div>';
+  box.innerHTML=h+'</div>';
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',draw);else draw();
-addEventListener('pageshow',draw);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',lagBuild);else lagBuild();
+addEventListener('load',lagBuild);
+addEventListener('pageshow',lagBuild);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')lagBuild()});
+addEventListener('focus',lagBuild);
+document.addEventListener('change',function(e){if(e.target&&e.target.classList&&e.target.classList.contains('esrd'))setTimeout(lagBuild,0)});
 })();
 </script><!--/lag-->
   <div class="group-label">今日</div>
