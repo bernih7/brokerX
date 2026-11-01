@@ -13,19 +13,25 @@
   function fixEl(el){
     if(el.nodeType!==1||el.dataset.bxdk)return;var cs=getComputedStyle(el);
     var bg=parse(cs.backgroundColor),fg=parse(cs.color),bc=parse(cs.borderTopColor),o={};
-    if(bg){var L=lum(bg);if(L>0.8){o.b=el.style.backgroundColor;el.style.backgroundColor=rgb(el===D.body?BODY:(chroma(bg)>0.06?bg.map(function(x,i){return i<3?x*0.22+BASE[i]*0.78:x}):BASE))}
-      else if(L>0.55){o.b=el.style.backgroundColor;el.style.backgroundColor=rgb(bg.map(function(x,i){return i<3?x*0.35+BASE[i]*0.65:x}))}}
-    if(fg){var Lf=lum(fg);if(Lf<0.45){o.c=el.style.color;el.style.color=rgb(chroma(fg)>0.18?fg.map(function(x,i){return i<3?x*0.55+255*0.45:x}):INK)}}
-    if(bc&&lum(bc)>0.7&&parseFloat(cs.borderTopWidth)>0){o.d=el.style.borderColor;el.style.borderColor='#3A463F'}
+    if(bg){var L=lum(bg);if(L>0.8){o.b=el.style.backgroundColor;el.style.setProperty('background-color',rgb(el===D.body?BODY:(chroma(bg)>0.06?bg.map(function(x,i){return i<3?x*0.22+BASE[i]*0.78:x}):BASE)),'important')}
+      else if(L>0.55){o.b=el.style.backgroundColor;el.style.setProperty('background-color',rgb(bg.map(function(x,i){return i<3?x*0.35+BASE[i]*0.65:x})),'important')}}
+    if(fg){var Lf=lum(fg);if(Lf<0.45){o.c=el.style.color;el.style.setProperty('color',rgb(chroma(fg)>0.18?fg.map(function(x,i){return i<3?x*0.55+255*0.45:x}):INK),'important')}}
+    var bb=parse(cs.borderBottomColor);if((bc&&lum(bc)>0.7&&parseFloat(cs.borderTopWidth)>0)||(bb&&lum(bb)>0.7&&parseFloat(cs.borderBottomWidth)>0)){o.d=el.style.borderColor;el.style.setProperty('border-color','#3A463F','important')}
     if(o.b!==undefined||o.c!==undefined||o.d!==undefined){el.dataset.bxdk=JSON.stringify(o)}else el.dataset.bxdk='{}';
   }
   function walk(root){fixEl(root);var all=root.querySelectorAll?root.querySelectorAll('*'):[];for(var i=0;i<all.length;i++)fixEl(all[i])}
-  function undo(){[].forEach.call(D.querySelectorAll('[data-bxdk]'),function(el){try{var o=JSON.parse(el.dataset.bxdk);if('b'in o)el.style.backgroundColor=o.b;if('c'in o)el.style.color=o.c;if('d'in o)el.style.borderColor=o.d}catch(e){}delete el.dataset.bxdk})}
+  function undoEl(el){try{var o=JSON.parse(el.dataset.bxdk);if('b'in o){el.style.removeProperty('background-color');el.style.backgroundColor=o.b}if('c'in o){el.style.removeProperty('color');el.style.color=o.c}if('d'in o){el.style.removeProperty('border-color');el.style.borderColor=o.d}}catch(e){}delete el.dataset.bxdk}
+  function undo(){[].forEach.call(D.querySelectorAll('[data-bxdk]'),undoEl)}
+  /* class 改變（答對、選取等狀態）時，連同子元素先還原再重算 */
+  function refix(el){undoEl(el);[].forEach.call(el.querySelectorAll('[data-bxdk]'),undoEl);
+    /* 狀態色常帶 transition，讀色時要跳到終值，否則讀到半途的深色就不轉 */
+    if(!D.getElementById('bx-notr')){var st=D.createElement('style');st.id='bx-notr';st.textContent='[data-bxfix],[data-bxfix] *{transition:none!important}';D.head.appendChild(st)}
+    H.setAttribute('data-bxfix','');walk(el);H.removeAttribute('data-bxfix')}
   var mo=null;
   function apply(){
     var dark=H.getAttribute('data-theme')==='dark';H.style.colorScheme=dark?'dark':'light';
     if(!AUTO)return;
-    if(dark){walk(D.body);if(!mo){mo=new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)walk(n)});if(m.type==='attributes'&&m.target.nodeType===1&&m.target.dataset.bxdk){delete m.target.dataset.bxdk;fixEl(m.target)}})});mo.observe(D.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']})}}
+    if(dark){walk(D.body);if(!mo){mo=new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)walk(n)});if(m.type==='attributes'&&m.target.nodeType===1&&m.target.dataset.bxdk!==undefined){mo.disconnect();refix(m.target);mo.observe(D.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']})}})});mo.observe(D.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']})}}
     else{if(mo){mo.disconnect();mo=null}undo()}
   }
   function btnSync(b){b.textContent=H.getAttribute('data-theme')==='dark'?'🌙':'☀️'}

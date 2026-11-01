@@ -386,7 +386,7 @@ function selectOption(i){
     const div = document.createElement('div');
     div.className = 'exp-item' + (j===c.correct ? ' right' : '');
     const mark = j===c.correct ? '✓ 正解' : '✗';
-    div.innerHTML = `<div class="exp-head">${letters[j]}. ${mark}</div><div>${window.bxmExp?bxmExp(exp,(c.core||[])[j],(c.key||[])[j],(c.tk||[])[j]):exp}</div>`;
+    div.innerHTML = `${window.bxmExp?'<div>'+bxmExp(exp,(c.core||[])[j],(c.key||[])[j],(c.tk||[])[j],'',{L:letters[j],ans:j===c.correct})+'</div>':'<div class="exp-head">'+letters[j]+'. '+mark+'</div><div>'+exp+'</div>'}`;
     expList.appendChild(div);
   });
 

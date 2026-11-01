@@ -100,7 +100,7 @@ function mkQ(host){
   q.opts.forEach(function(t,i){
    var b=document.createElement("button");b.className="opt";
    b.innerHTML='<b>('+L[i]+')</b><span class="ob"><span class="tx"></span><span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div></span>';
-   b.querySelector(".tx").textContent=t;if(window.bxmExp)b.querySelector(".nt").innerHTML=bxmExp(cl2(q.notes[i]),(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i]);else b.querySelector(".nt").textContent=cl2(q.notes[i]);
+   b.querySelector(".tx").textContent=t;if(window.bxmExp){var t2=cl2(q.notes[i]),m2=t2.match(/^[✓✗]\s*/);b.querySelector(".nt").innerHTML=bxmExp(t2,(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i],m2?m2[0]:"",{ans:/^✓/.test(t2)})}else b.querySelector(".nt").textContent=cl2(q.notes[i]);
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){if(EX!=="B")this.classList.toggle("open");return}
      cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");

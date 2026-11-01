@@ -78,6 +78,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margi
 /* 測驗中畫面 */
 #examScreen{display:none;}
 .sticky-ctrl{position:sticky;bottom:0;background:linear-gradient(transparent,var(--paper) 30%);padding-top:20px;padding-bottom:8px;}
+/* v643：深色時 bx-theme 自動轉色不處理漸層，底部按鈕列的淡出改用深色底（與 bx-theme BODY 色相同） */
+:root[data-theme="dark"] .sticky-ctrl{background:linear-gradient(rgba(22,28,25,0),rgb(22,28,25) 30%)}
 
 .mode-row{margin:10px 0 4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
 .mode-row label{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--rule);border-radius:10px;cursor:pointer;background:#fff}
@@ -234,7 +236,7 @@ function renderAll(){
         ${q.opts.map((o,j)=>`<div class="opt" id="opt${i}_${j}" onclick="pick(${i},${j})"><span class="letter">${L[j]}</span><span>${o}</span></div>`).join('')}
       </div>
       <div class="exp-box" id="exp${i}">
-        ${q.exps.map((e,j)=>`<div class="exp-item${q.ok.includes(j)?' right':''}"><div class="eh">${L[j]}. ${q.ok.includes(j)?'✓ 正解':'✗'}</div>${window.bxmExp?bxmExp(e,(q.core||[])[j],(q.key||[])[j],(q.tk||[])[j]):e}</div>`).join('')}
+        ${q.exps.map((e,j)=>`<div class="exp-item${q.ok.includes(j)?' right':''}">${window.bxmExp?bxmExp(e,(q.core||[])[j],(q.key||[])[j],(q.tk||[])[j],'',{L:L[j],ans:q.ok.includes(j)}):`<div class="eh">${L[j]}. ${q.ok.includes(j)?'✓ 正解':'✗'}</div>`+e}</div>`).join('')}
         ${q.trap?`<div class="trap-row"><b>★ 重點</b>　${q.trap}</div>`:''}${q.ai?`<div class="ainote">AI解析・條號已核對現行條文，考前以紙本六法為準</div>`:''}
       </div>`;
     list.appendChild(div);

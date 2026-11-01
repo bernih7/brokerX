@@ -524,7 +524,7 @@ function showAfter(q,picked){
   var eh='';
   q.exp.forEach(function(t,i){
     var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
-    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+(window.bxmExp?bxmExp(t,(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i]):hl(t,1))+
+    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+(window.bxmExp?bxmExp(t,(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i],'',{ans:isOk}):hl(t,1))+
         (L===picked?'<span class="me">你選的</span>':'')+'</span></div>';
   });
   document.getElementById('exs').innerHTML=eh;
