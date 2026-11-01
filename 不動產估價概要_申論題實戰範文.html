@@ -406,20 +406,60 @@ header::after{pointer-events:none;}
 .ljg{font-size:.74rem;color:var(--muted);white-space:nowrap}
 .ljhot{display:inline-block;font-size:.7rem;font-weight:700;color:var(--stamp);background:color-mix(in srgb,var(--stamp) 12%,var(--paper2));border-radius:5px;padding:0 5px;margin-left:5px;white-space:nowrap}
 @media (max-width:560px){.ljrow,.ljch{grid-template-columns:1fr}.ljch{display:none}.ljrow{gap:3px;margin-bottom:10px}.ljs>span{display:none}.ljseg{display:flex;flex-wrap:nowrap;width:100%}.ljseg button{flex:1;padding:6px 2px;font-size:.76rem;white-space:nowrap}.ver-bar.vt3 .ver-label{display:none}.ver-bar.vt3 .seg-wrap{width:100%}.ver-bar.vt3 .ver-btn{flex:1;text-align:center;padding:5px 4px}}
+
+/* 補習班模擬卷卡、答題架構、模擬卷清單 */
+.essay-card.mock{border:1.5px dashed var(--gold)!important}
+.tier-m{background:var(--gold);color:#1A1F1D}
+.chip.pM[aria-pressed="true"]{background:var(--gold);color:#1A1F1D;border-color:var(--gold)}
+.mk-src{font-size:.8rem;color:var(--muted);margin-top:6px}
+.mk-src a{color:var(--primary)}
+.essay-card.mock .ans-block{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px;font-size:.92rem;line-height:1.9}
+.essay-card.mock .ans-block h4{color:var(--primary);margin:12px 0 4px;font-size:.95rem}
+.essay-card.mock .ans-block h4:first-child{margin-top:0}
+.essay-card.mock .ans-block p{margin:4px 0}
+.essay-card.mock .cbox{display:flex;flex-direction:column;gap:6px;border-left-width:1px}
+.essay-card.mock .cbox .kf-eq{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 8px;overflow-x:auto}
+.essay-card.mock .cbox .kf-eq>*{flex:0 0 auto}
+.essay-card.mock .cbox .kf-c{border-radius:8px;padding:3px 9px;font-weight:700;font-size:.85rem;line-height:1.4;color:var(--ks-ink);border:1px solid;white-space:nowrap}
+.essay-card.mock .cbox .kf-op{font-size:1.05rem;font-weight:700;padding:0 2px}
+.essay-card.mock .cbox .kf-note{font-size:.8rem;color:var(--muted)}
+.mk-add{margin-top:10px}
+.mk-add-t,.mk-teacher{font-weight:700;font-size:.88rem;color:var(--muted);margin-top:6px}
+.ans-guide{margin:10px 0 4px;border:1px solid var(--line);border-radius:12px;background:var(--paper2)}
+.ans-guide>summary{cursor:pointer;padding:10px 14px;font-weight:700}
+.ag-in{padding:0 14px 12px}
+.ag-t{font-weight:700;margin:8px 0 4px}
+.ag-l{padding-left:1.2em;font-size:.92rem}
+.ag-l li{margin:3px 0}
+.ag-tw{overflow-x:auto}
+.ag-tb{border-collapse:collapse;width:100%;font-size:.88rem;font-variant-numeric:tabular-nums}
+.ag-tb th,.ag-tb td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:left;white-space:nowrap}
+.ag-tb th{color:var(--muted);font-size:.8rem;background:transparent}
+.ag-n{font-size:.8rem;color:var(--muted);margin-top:4px}
+.sim-list{margin:22px 0 10px;border:1px solid var(--line);border-radius:12px;background:var(--paper2);padding:12px 14px}
+.sim-list h2{font-size:1.05rem;margin-bottom:4px}
+.sim-n{font-size:.85rem;color:var(--muted)}
+.sim-ul{list-style:none;margin-top:6px}
+.sim-ul li{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:baseline;border-top:1px dashed var(--line);padding:5px 0;font-size:.9rem}
+.sim-ul li:first-child{border-top:0}
+.sm-s{color:var(--muted);font-size:.82rem;white-space:nowrap}
+.sim-ul a{color:var(--primary);white-space:nowrap;font-size:.85rem}
+@media(max-width:560px){.sim-ul li{grid-template-columns:1fr auto}.sm-s{grid-column:1/-1}}
 </style></head>
 <body>
 <header>
   <h1>📝 不動產估價｜申論題實戰範文</h1>
-  <div class="sub">官方32題＋預測22題（A/B/C三級）· 預測題為四段式（定義→法條→涵攝→結論），官方題依題目小題分段 · 99–114年</div>
+  <div class="sub">官方32題＋補習班模擬2題＋預測22題（A/B/C三級）· 預測題為四段式（定義→法條→涵攝→結論），官方題依題目小題分段 · 99–114年</div>
   <div class="hdr-row"><span class="countdown-badge" id="cdBadge">—</span><button class="theme-btn" id="theme-btn" onclick="toggleTheme()">深色</button></div>
 </header>
 
 <main>
 
 <div class="stats-bar">
-  <span class="stat-chip">總題數 <strong>54</strong></span>
-  <span class="stat-chip">官方 <strong>32</strong></span>
-  <span class="stat-chip stat-pred">預測 <strong>22</strong></span>
+  <span class="stat-chip">總題數 <strong id="s-total">56</strong></span>
+  <span class="stat-chip">官方 <strong id="s-off">32</strong></span>
+  <span class="stat-chip">補習班 <strong id="s-mock">2</strong></span>
+  <span class="stat-chip stat-pred">預測 <strong id="s-pred">22</strong></span>
   <span class="stat-chip">已讀 <strong id="s-read">0</strong>／<strong id="s-pct">0%</strong></span>
 </div>
 
@@ -433,6 +473,7 @@ header::after{pointer-events:none;}
       <button class="chip pA" data-pri="A" aria-pressed="false" onclick="setChip(this,'pri')">🔴 A 必練（14）</button>
       <button class="chip pB" data-pri="B" aria-pressed="false" onclick="setChip(this,'pri')">🟡 B 了解（25）</button>
       <button class="chip pC" data-pri="C" aria-pressed="false" onclick="setChip(this,'pri')">🟢 C 略讀（15）</button>
+      <button class="chip pM" data-pri="M" aria-pressed="false" onclick="setChip(this,'pri')">📘 補習班（2）</button>
     </div>
   </div>
   <div class="filter-row">
@@ -451,6 +492,21 @@ header::after{pointer-events:none;}
   <div class="filter-hint">＊ 篩選為 AND 邏輯：優先度 × 類別同時生效</div>
 </div>
 </details>
+<details class="ans-guide" id="guide">
+<summary>📐 答題架構與各類出題頻率 <span class="filter-toggle-hint">（點此展開）</span></summary>
+<div class="ag-in">
+  <div class="ag-t">三種題目，三種寫法</div>
+  <ul class="ag-l">
+    <li><b>官方題</b>：照題目小題分段——題目問幾件事就分幾段，每段先寫結論再寫條號。</li>
+    <li><b>預測題</b>：定義 → 法條 → 涵攝分析 → 結論，四段式。</li>
+    <li><b>計算題</b>：① 定義（所用方法的定義與適用情境，寫技術規則條號）② 公式（完整列出，標示各變數意義）③ 代入計算（逐步代入，單位必須標註）④ 結論（寫出估價結論並說明合理性）。</li>
+  </ul>
+  <div class="ag-t">各類出題頻率（官方 32 題，依本頁分類自動計算）</div>
+  <div class="ag-tw"><table class="ag-tb" id="ag-freq"><thead><tr><th>類別</th><th>16 年</th><th>近 5 年（110～114）</th><th>115 預測期望題數</th></tr></thead><tbody></tbody></table></div>
+  <div class="ag-n">115 預測期望題數＝兩題申論的期望分配：（16 年占比×0.6＋近 5 年占比×0.4）正規化後乘 2；只是歷年比例，不是保證。</div>
+</div>
+</details>
+
 
 <div class="usage-box">
   <h3>📌 使用建議</h3>
@@ -1360,6 +1416,65 @@ header::after{pointer-events:none;}
     </div></div>
 </div>
 
+<!-- 補習班模擬卷：來勝115模擬試題（一）申論一 -->
+<div class="essay-card mock" data-v="lj" id="mk-ls1" data-pri="M" data-type="land">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-m">📘 補習班模擬卷｜來勝115（一）申論一</span></div>
+      <div class="card-title">土地開發分析法之意義、應用時機、公式及估價程序</div>
+      <div class="card-meta"><span class="tag">§70</span><span class="tag">§71</span><span class="tag">§79</span><span class="tag">§81</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-mk-ls1" onclick="event.stopPropagation();toggleRead('mk-ls1')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body"><div class="ver-bar vt3"><span class="ver-label">看法：</span><div class="seg-wrap"><button class="ver-btn active" data-ver="lj" title="本站依現行技術規則寫的完整答案，附條號" onclick="setVer(this.closest('.essay-card'),'lj')">本站擬答</button><button class="ver-btn" data-ver="full" title="來勝解答原文照抄" onclick="setVer(this.closest('.essay-card'),'full')">老師版擬答</button></div></div><div class="q-box">
+      <strong>【原題】</strong> 試述土地開發分析法之意義、應用時機、公式及估價程序？（25分）
+      <div class="mk-src">出題：許文昌（高點・永慶）｜補習班模擬題，非考選部官方試題｜<a href="估價_來勝模擬試題一.html">打開整份模擬卷</a></div>
+    </div><div class="lj-panel"><div class="ans-block"><p><b>先答結論：</b>土地開發分析法是「由開發完成後的總銷售金額，扣除成本、利息與利潤，倒推開發前土地價格」的方法，核心是房價推求地價；公式為 V＝S÷(1＋R)÷(1＋i)－(C＋M)。</p>
+        <h4>（一）意義（技術規則 §70）</h4>
+        <p>依土地法定用途與使用強度，估算開發或建築後之總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得開發前或建築前之土地開發分析價格。</p>
+        <h4>（二）應用時機</h4>
+        <p>1. 建地之估價：如住宅、商業、工業用地。</p>
+        <p>2. 須經開發改良之土地於開發前之地價：如山坡地、工業區土地、重劃區土地。</p>
+        <p>3. 共同條件：土地具開發或再開發可能，且開發後之使用類型、規模及市場需求可合理預測。</p>
+        <h4>（三）公式（§81、§79）</h4>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">V</span><span class="kf-op">＝</span><span class="kf-c k-m">S</span><span class="kf-op">÷</span><span class="kf-c k-m">（1＋R）</span><span class="kf-op">÷</span><span class="kf-c k-m">（1＋i）</span><span class="kf-op">－</span><span class="kf-c k-m">（C＋M）</span></div><div class="kf-note">V：土地開發分析價格　S：開發或建築後預期總銷售金額</div><div class="kf-note">R：適當利潤率　C：直接成本　M：間接成本</div><div class="kf-note">i：資本利息綜合利率</div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-m">資本利息年利率</span><span class="kf-op">×</span><span class="kf-c k-m">（土地價值比率 ＋ 建物價值比率 × ½）</span><span class="kf-op">×</span><span class="kf-c k-m">開發年數</span></div></div>
+        <p>說明：利潤率 R 與利息 i 以「除」處理，是因為利潤、利息皆按總成本比例計算，故先自總銷售金額還原。預售收入之資金不計息（§59），建物成本分批投入故乘 ½、土地於取得時即投入故乘 1。</p>
+        <h4>（四）估價程序（§71）</h4>
+        <p>1. 確定開發內容（面積、用途、使用強度）及預期開發時間。</p>
+        <p>2. 調查各項成本及相關費用，蒐集市場行情資料（§72）。</p>
+        <p>3. 現況勘察，並分析環境及周邊開發程度（§73）。</p>
+        <p>4. 在最有效使用下，估算可銷售之土地或建物面積（§74）。</p>
+        <p>5. 面積乘以可銷售單價，加總得總銷售金額（§75）。</p>
+        <p>6. 估算營造施工費、規劃設計費、廣告費及銷售費、管理費、稅捐及其他負擔等成本（§76、§77）。</p>
+        <p>7. 選定適當利潤率，並計算資本利息綜合利率（§78、§79）。</p>
+        <p>8. 代入公式，求得土地開發分析價格（§81）。</p>
+        <h4>結論</h4>
+        <p>土地開發分析法適用於有開發潛力之建地與待改良土地，先估銷售、再逐項扣除成本與利息利潤，倒推得開發前地價。</p></div><div class="mk-add"><div class="mk-add-t">🔧 本站補充（條號與計算；非老師解答）</div><div class="ans-block"><p>🎯 <b>條文：</b>定義 §70；程序 §71；可銷售面積 §74；總銷售金額 §75；成本 §76、§77；利潤率與資本利息 §78～§80；公式 §81。</p>
+        <p>🎯 <b>必背公式：</b>V＝S÷（1＋R）÷（1＋i）－（C＋M）（§81）——利潤、利息是「除」不是「減」。</p>
+        <p>🎯 <b>資本利息綜合利率（§79）：</b>i ＝ 年利率 ×（土地比率 ＋ 建物比率 × ½）× 開發年數。年利率先依借貸、自有資金比例加權，預售收入不計息（§59）。</p>
+        <p>🎯 <b>核心精神：</b>房價推求地價（由開發完成後的價值反推土地價值）。</p>
+        <p>🎯 <b>應用時機另一種寫法（實務歸納，非老師版）：</b>比較法、收益法、成本法不易適用，且土地有開發或再開發可能、開發後使用與市場需求可合理預測者。考試以老師版兩點為主，可附帶補這句。</p></div></div></div><div class="detail-content"><div class="mk-teacher">📘 老師版擬答（來勝解答，照抄）</div><div class="ans-block"><h4>（一）土地開發分析法之意義</h4>
+        <p>指根據土地法定用途、使用強度進行開發與改良所導致土地效益之變化，估算開發或建築後總銷售金額，扣除開發期間之直接成本、間接成本、資本利息及利潤後，求得開發前或建築前土地開發分析價格。</p>
+
+        <h4>（二）土地開發分析法之應用時機</h4>
+        <p>1. 評估建地價格：如住宅用地、商業用地、工業用地等之建地估價。</p>
+        <p>2. 評估需經開發改良土地之開發前地價：如山坡地、工業區土地、重劃區土地等之開發前地價評估。</p>
+
+        <h4>（三）土地開發分析法之公式</h4>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">V</span><span class="kf-op">＝</span><span class="kf-c k-m">S</span><span class="kf-op">÷</span><span class="kf-c k-m">（1＋R）</span><span class="kf-op">÷</span><span class="kf-c k-m">（1＋i）</span><span class="kf-op">－</span><span class="kf-c k-m">（C＋M）</span></div><div class="kf-note">V：土地開發分析價格</div><div class="kf-note">S：開發或建築後預期總銷售金額</div><div class="kf-note">R：適當之利潤率</div><div class="kf-note">C：開發或建築所需之直接成本</div><div class="kf-note">M：開發或建築所需之間接成本</div><div class="kf-note">i：開發或建築所需總成本之資本利息綜合利率</div></div>
+
+        <h4>（四）土地開發分析法之估價程序</h4>
+        <p>1. 確定土地開發內容及預期開發時間：先確定土地開發之面積、內容及開發時間。</p>
+        <p>2. 調查各項成本及相關費用並蒐集市場行情等資料：蒐集營造施工費、規劃設計費、廣告費與銷售費、管理費、稅捐、資本利率、建築利潤率等市場行情資料。</p>
+        <p>3. 現況勘察並進行環境發展程度之調查及分析：現況勘察勘估標的及其周遭環境之土地利用與開發程度。</p>
+        <p>4. 估算開發或建築後可銷售之土地或建物面積：按相關法令規定，在最有效使用下，估算勘估標的之可銷售面積。</p>
+        <p>5. 估算開發或建築後總銷售金額：按開發後或建築後可銷售面積，乘以可銷售單價，得到銷售金額。總計各部分之銷售金額，得到總銷售金額。</p>
+        <p>6. 估算各項成本及相關費用：估算營造施工費、規劃設計費、廣告費與銷售費、管理費、稅捐及其他負擔等成本及費用。</p>
+        <p>7. 選擇適當之利潤率及資本利息綜合利率：選擇適當利潤率，並計算資本利息綜合利率。</p>
+        <p>8. 計算土地開發分析價格：將上開計算結果，代入土地開發分析法之公式，即得出土地開發分析價格。</p></div></div></div>
+</div>
+
 <!-- 115預測③：土地開發分析法完整計算 -->
 <div class="essay-card" data-v="lj" id="pred-3" data-pri="B" data-type="land">
   <div class="card-header" onclick="toggleCard(this)">
@@ -2033,6 +2148,63 @@ header::after{pointer-events:none;}
     DCF是將分析期間各期淨收益與期末價值以折現率折回價格日期後加總（§31、§32）；直接資本化法則以未來平均一年客觀淨收益除以收益資本化率（§29、§30）。兩者差異在於淨收益取樣範圍（逐期 vs 平均一年）、換算工具（折現率 vs 資本化率）及是否估算期末價值。證券化以契約租金為基礎者，DCF價格於綜合比較時應賦予較大權重（§15Ⅱ）。<br><span class="zj">結尾卓見</span>證券化估價賦予收益法較大權重，貼近<span class="zjk">投資本質</span>。</div>
     </div></div>
 </div>
+<!-- 補習班模擬卷：來勝115模擬試題（一）申論二 -->
+<div class="essay-card mock" data-v="lj" id="mk-ls2" data-pri="M" data-type="income">
+  <div class="card-header" onclick="toggleCard(this)">
+    <div class="card-header-left">
+      <div><span class="card-year tier-m">📘 補習班模擬卷｜來勝115（一）申論二</span></div>
+      <div class="card-title">折現現金流量分析法之意義、應用時機、公式及估價程序</div>
+      <div class="card-meta"><span class="tag">§31</span><span class="tag">§32</span><span class="tag">§34</span></div>
+    </div>
+    <button class="read-btn" id="rbtn-mk-ls2" onclick="event.stopPropagation();toggleRead('mk-ls2')">☐ 已讀</button>
+    <span class="card-arrow">▼</span>
+  </div>
+  <div class="card-body"><div class="ver-bar vt3"><span class="ver-label">看法：</span><div class="seg-wrap"><button class="ver-btn active" data-ver="lj" title="本站依現行技術規則寫的完整答案，附條號" onclick="setVer(this.closest('.essay-card'),'lj')">本站擬答</button><button class="ver-btn" data-ver="full" title="來勝解答原文照抄" onclick="setVer(this.closest('.essay-card'),'full')">老師版擬答</button></div></div><div class="q-box">
+      <strong>【原題】</strong> 試述折現現金流量分析法之意義、應用時機、公式及估價程序？（25分）
+      <div class="mk-src">出題：許文昌（高點・永慶）｜補習班模擬題，非考選部官方試題｜<a href="估價_來勝模擬試題一.html">打開整份模擬卷</a></div>
+    </div><div class="lj-panel"><div class="ans-block"><p><b>先答結論：</b>折現現金流量分析法（DCF）是把分析期間內各期淨收益與期末價值，以適當折現率折現後加總，求得收益價格；公式為 P＝Σ CFₖ÷(1＋Y)ᵏ＋Pₙ′÷(1＋Y)ⁿ′。</p>
+        <h4>（一）意義（技術規則 §31）</h4>
+        <p>指勘估標的未來折現現金流量分析期間之各期淨收益及期末價值，以適當折現率折現後加總，推算勘估標的價格之方法。屬收益法之一。</p>
+        <h4>（二）應用時機</h4>
+        <p>1. 營運性不動產：如觀光飯店、百貨商場、出租辦公大樓，各期收益隨營運變動。</p>
+        <p>2. 投資決策評估：委託人擬投資收益性不動產，需逐期現金流量供決策參考。</p>
+        <p>3. 比較：各期淨收益穩定者可用直接資本化法；各期不穩定、有明確逐期變動，才以 DCF 較適合。</p>
+        <h4>（三）公式（§32）</h4>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">P</span><span class="kf-op">＝</span><span class="kf-c k-m">Σ［CFₖ ÷ (1＋Y)ᵏ］（k＝1～n′）</span><span class="kf-op">＋</span><span class="kf-c k-m">Pₙ′</span><span class="kf-op">÷</span><span class="kf-c k-m">(1＋Y)ⁿ′</span></div><div class="kf-note">P：收益價格　CFₖ：第 k 期淨收益　Y：折現率</div><div class="kf-note">n′：分析期間　Pₙ′：期末價值</div></div>
+        <p>說明：前項為各期淨收益現值之和，後項為期末價值之現值；折現率 Y 反映資金成本與風險，與直接資本化用之資本化率不同。</p>
+        <h4>（四）估價程序</h4>
+        <p>1. 蒐集總收入、總費用及折現率等資料。</p>
+        <p>2. 推算分析期間（一般 5 年或 10 年）各年總收入，扣除閒置及其他損失，得有效總收入。</p>
+        <p>3. 推算各年總費用。</p>
+        <p>4. 有效總收入減總費用，得各年淨收益。</p>
+        <p>5. 推估期末價值：處分標的所得價格，並扣除處分之相關費用。（老師版；§47 為「得」扣除）</p>
+        <p>6. 決定折現率：可採加權平均資金成本法。</p>
+        <p>7. 代入公式，求得收益價格。</p>
+        <h4>結論</h4>
+        <p>DCF 適用於收益逐期變動之營運性不動產與投資評估，重點在逐期淨收益、期末價值（得扣處分費用）與折現率三項。</p></div><div class="mk-add"><div class="mk-add-t">🔧 本站補充（條號與計算；非老師解答）</div><div class="ans-block"><p>🎯 <b>條文：</b>DCF 定義與程序見技術規則 §31、§32（分析期間、期末價值、折現率）。</p>
+        <p>🎯 <b>DCF vs 直接資本化：</b>直資法用「未來平均一年期間」之客觀淨收益÷資本化率（§29）；DCF 用「未來各期」淨收益折現累加。</p>
+        <p>🎯 <b>期末價值的一種算法（補充，老師版未指定）：</b>Pₙ′＝第 n′＋1 期淨收益÷末期資本化率，再扣處分費用；注意用的是下一期淨收益，不是第 n′ 期。</p>
+        <p>🎯 <b>折現率 vs 資本化率：</b>折現率用於 DCF 各期折現；資本化率用於直接資本化或求期末價值。</p>
+        <p>🎯 <b>老師版與站上舊稿差異：</b>應用時機改為營運性不動產與投資評估；程序多「蒐集資料」一步，分析期間一般 5 年或 10 年，期末價值要扣處分費用（§47 為「得」），折現率採 WACC。</p></div></div></div><div class="detail-content"><div class="mk-teacher">📘 老師版擬答（來勝解答，照抄）</div><div class="ans-block"><h4>（一）折現現金流量分析法之意義</h4>
+        <p>指勘估標的未來折現現金流量分析期間之各期淨收益及期末價值，以適當折現率折現後加總推算勘估標的價格之方法。</p>
+
+        <h4>（二）折現現金流量分析法之應用時機</h4>
+        <p>1. 營運性不動產之價格評估：如觀光飯店、百貨商場、出租辦公大樓等之估價。</p>
+        <p>2. 以投資為目的之不動產投資評估：委託者擬投資收益性不動產，採折現現金流量分析法評估不動產價格，供投資決策之參考。</p>
+
+        <h4>（三）折現現金流量分析法之公式</h4>
+        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">P</span><span class="kf-op">＝</span><span class="kf-c k-m">Σ［CFₖ ÷ (1＋Y)ᵏ］（k＝1～n′）</span><span class="kf-op">＋</span><span class="kf-c k-m">Pₙ′</span><span class="kf-op">÷</span><span class="kf-c k-m">(1＋Y)ⁿ′</span></div><div class="kf-note">P：收益價格</div><div class="kf-note">CFₖ：各期淨收益</div><div class="kf-note">Y：折現率</div><div class="kf-note">n′：折現現金流量分析期間</div><div class="kf-note">k：各年期</div><div class="kf-note">Pₙ′：期末價值</div></div>
+
+        <h4>（四）折現現金流量分析法之估價程序</h4>
+        <p>1. 蒐集資料：蒐集總收入、總費用及折現率等資料。</p>
+        <p>2. 推算有效總收入：推算分析期間（分析期間一般為5年或10年）勘估標的之各年總收入，再推算各年閒置及其他原因造成之收入損失，二者相減，就得到分析期間勘估標的之各年有效總收入。</p>
+        <p>3. 推算總費用：推算分析期間勘估標的之各年總費用。</p>
+        <p>4. 計算淨收益：由各年有效總收入扣除各年總費用，求得分析期間勘估標的之各年淨收益。</p>
+        <p>5. 推估期末價值：推估分析期間屆滿後，處分勘估標的所得到之價格。此稱為期末價值。期末價值應扣除處分勘估標的所需之相關費用。（老師版原文；§47 條文為「得」扣除）</p>
+        <p>6. 決定折現率：採加權平均資金成本法決定折現率。</p>
+        <p>7. 計算收益價格：將上開計算結果，代入折現現金流量分析法之公式，即得出收益價格。</p></div></div></div>
+</div>
+
 <!-- 模擬題② 收益法資本化率 -->
 <div class="essay-card" data-v="lj" id="pred-2" data-pri="A" data-type="income">
   <div class="card-header" onclick="toggleCard(this)">
@@ -3405,10 +3577,16 @@ header::after{pointer-events:none;}
   </div>
 </details>
 
+
+<section class="sim-list" id="sim">
+  <h2>📝 模擬卷裡的申論題</h2>
+  <p class="sim-n">補習班卷（來勝115（一））的 2 題已收進上面各類，標「📘 補習班模擬卷」。下面 10 題是本站自編綜合模擬卷的申論，擬答在各卷頁，不算進上面的題數。</p>
+  <ul class="sim-ul"><li><span class="sm-s">綜合模擬卷一・申論一</span><span class="sm-t">收益法（直接資本化）＋價格計算</span><a href="估價_綜合模擬卷一.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷一・申論二</span><span class="sm-t">比較法情況調整／區域・個別因素調整</span><a href="估價_綜合模擬卷一.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷二・申論一</span><span class="sm-t">成本法折舊（定率法）計算</span><a href="估價_綜合模擬卷二.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷二・申論二</span><span class="sm-t">營造施工費求取＋規劃設計費＋資本利息</span><a href="估價_綜合模擬卷二.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷三・申論一</span><span class="sm-t">租金估計＋實質租金計算</span><a href="估價_綜合模擬卷三.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷三・申論二</span><span class="sm-t">資本化率決定方法＋WACC 計算收益價格</span><a href="估價_綜合模擬卷三.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷四・申論一</span><span class="sm-t">估價程序／價格日期／報告書</span><a href="估價_綜合模擬卷四.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷四・申論二</span><span class="sm-t">折現現金流量分析法</span><a href="估價_綜合模擬卷四.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷五・申論一</span><span class="sm-t">土地開發分析法計算</span><a href="估價_綜合模擬卷五.html">試題 ↗</a></li><li><span class="sm-s">綜合模擬卷五・申論二</span><span class="sm-t">比較法：§23 質的排除＋§25/§26 量的管控</span><a href="估價_綜合模擬卷五.html">試題 ↗</a></li></ul>
+</section>
 </main>
 
 <footer>
-  不動產估價概要｜申論題實戰範文 官方32題＋預測22題（99–114年）· BrokerX 115年備考
+  不動產估價概要｜申論題實戰範文 官方32題＋補習班模擬2題＋預測22題（99–114年）· BrokerX 115年備考
 </footer>
 
 <script>
@@ -3857,5 +4035,63 @@ set(s);b.onclick=function(){set(!h.classList.contains('nav-hidden'))};})();
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".ljseg button");if(b)set(b.dataset.lj,true)});
 try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();
 function setVer(card,mode){card.setAttribute("data-v",mode);card.querySelectorAll(".ver-btn").forEach(function(b){b.classList.toggle("active",b.dataset.ver===mode)})}
-document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute("data-v"))setVer(c,"lj")});</script></body>
+document.querySelectorAll(".essay-card").forEach(function(c){if(!c.getAttribute("data-v"))setVer(c,"lj")});</script><script id="es-unify-js">
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.essay-card[id]'));
+  function kind(c){return /^e\d/.test(c.id)?'off':(c.id.indexOf('pred-')===0?'pred':(c.classList.contains('mock')?'mock':'other'));}
+  function yr(c){var m=c.id.match(/^e(\d+)-/);return m?+m[1]:0;}
+  var n={all:cards.length,off:0,pred:0,mock:0},pri={},typ={},grp={};
+  cards.forEach(function(c){var k=kind(c);n[k]=(n[k]||0)+1;var p=c.getAttribute('data-pri'),y=c.getAttribute('data-type');pri[p]=(pri[p]||0)+1;typ[y]=(typ[y]||0)+1;});
+  function set(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+  set('s-total',n.all);set('s-off',n.off);set('s-pred',n.pred);set('s-mock',n.mock);
+  document.querySelectorAll('#pri-chips .chip,#type-chips .chip').forEach(function(b){
+    var p=b.getAttribute('data-pri'),y=b.getAttribute('data-type'),v=p?pri[p]:typ[y];
+    if((p&&p!=='all')||(y&&y!=='all'))b.textContent=b.textContent.replace(/（\d+）$/,'')+'（'+(v||0)+'）';
+  });
+  document.querySelectorAll('details.tgroup').forEach(function(g){
+    var cs=g.querySelectorAll('.essay-card[id]'),pr=0,mk=0;cs.forEach(function(c){var k=kind(c);if(k==='pred')pr++;if(k==='mock')mk++;});
+    var s=g.querySelector('.g-vis');if(s){s.setAttribute('data-total',cs.length);
+      var x=[];if(pr)x.push('預測'+pr);if(mk)x.push('補習班'+mk);s.textContent=cs.length+'題'+(x.length?'（含'+x.join('、')+'）':'');}
+  });
+  // 各類出題頻率
+  var TN={};document.querySelectorAll('#type-chips .chip').forEach(function(b){var y=b.getAttribute('data-type');if(y&&y!=='all')TN[y]=b.textContent.replace(/（\d+）$/,'');});
+  var F={};cards.forEach(function(c){if(kind(c)!=='off')return;var y=c.getAttribute('data-type');F[y]=F[y]||{a:0,r:0};F[y].a++;if(yr(c)>=110)F[y].r++;});
+  var tot=0,tr=0;Object.keys(F).forEach(function(k){tot+=F[k].a;tr+=F[k].r;});
+  var W={},ws=0;Object.keys(F).forEach(function(k){W[k]=0.6*F[k].a/(tot||1)+0.4*F[k].r/(tr||1);ws+=W[k];});
+  var tb=document.querySelector('#ag-freq tbody');
+  if(tb){Object.keys(F).sort(function(a,b){return W[b]-W[a];}).forEach(function(k){
+    var r=document.createElement('tr');r.innerHTML='<td>'+(TN[k]||k)+'</td><td>'+F[k].a+'</td><td>'+F[k].r+'</td><td>'+(2*W[k]/(ws||1)).toFixed(2)+'</td>';tb.appendChild(r);});}
+  // 下一題未讀：A 官方 → 預測（A 再 B）→ 補習班 → B 官方 → C 官方；官方同級年份新到舊
+  function rank(c){var k=kind(c),p=c.getAttribute('data-pri');
+    if(k==='off')return p==='A'?0:(p==='B'?4:5);
+    if(k==='pred')return p==='A'?1:2;
+    if(k==='mock')return 3;return 6;}
+  var order=cards.map(function(c,i){return {c:c,i:i,r:rank(c),y:yr(c)};}).sort(function(a,b){return a.r-b.r||b.y-a.y||a.i-b.i;}).map(function(x){return x.c;});
+  function readList(){try{return JSON.parse(localStorage.getItem('bx-essay-read')||'[]')||[];}catch(e){return [];}}
+  function nextUnread(){var r=readList();for(var i=0;i<order.length;i++)if(r.indexOf(order[i].id)<0)return order[i];return null;}
+  function title(c){var y=c.querySelector('.card-year'),t=c.querySelector('.card-title');return (y?y.textContent.trim()+' ':'')+(t?t.textContent.trim():'');}
+  function writeMeta(){
+    try{var M={total:n.all,off:n.off,pred:n.pred,mock:n.mock,ids:{},order:order.map(function(c){return c.id;}),types:TN,t:Date.now()};
+      cards.forEach(function(c){M.ids[c.id]=[c.getAttribute('data-pri'),kind(c),c.getAttribute('data-type'),title(c)];});
+      localStorage.setItem('bx-essay-meta',JSON.stringify(M));}catch(e){}
+  }
+  writeMeta();
+  function openCard(c){
+    var g=c.closest('details.tgroup');if(g)g.open=true;
+    if(!c.classList.contains('open')){var h=c.querySelector('.card-header');if(h)h.click();}
+    setTimeout(function(){c.scrollIntoView({behavior:'smooth',block:'start'});},180);
+  }
+  function route(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    if(h==='next'){var c=nextUnread();if(c)openCard(c);else alertDone();return;}
+    var m=h.match(/^(type|pri)-(\w+)$/);
+    if(m){var b=document.querySelector('#'+m[1]+'-chips .chip[data-'+m[1]+'="'+m[2]+'"]');if(b){setChip(b,m[1]);var fp=document.querySelector('.filter-panel');if(fp)setTimeout(function(){fp.scrollIntoView({block:'start'});},60);}}
+  }
+  function alertDone(){var s=document.querySelector('.stats-bar');if(s){var d=document.createElement('div');d.className='g-laws';d.textContent='全部讀完了，可以從頭再讀一輪。';s.after(d);}}
+  window.addEventListener('hashchange',route);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',route);else route();
+  window.addEventListener('pagehide',writeMeta);
+})();
+</script>
+</body>
 </html>
