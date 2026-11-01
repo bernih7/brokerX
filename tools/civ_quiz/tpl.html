@@ -116,7 +116,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 .fab a,.fab button{width:44px;height:44px;border-radius:50%;background:var(--pri);color:var(--on);border:0;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.05rem;box-shadow:var(--sh)}
 @media(max-width:480px){.chs{grid-template-columns:1fr}}
 [hidden]{display:none!important}
- mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style></head><body>
+ mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style><script src="bxm-exp.js"></script></head><body>
 <header><div class="wrap"><h1>民法｜法條解析練習</h1>
 <div class="sub">99–114 年官方試題 520 題・28 小類・逐選項解析・本題相關法條・錯誤類型 A/B/C/D・答對自評 👍🤔🎲・與刷題 A～E 篇共用作答紀錄</div></div></header>
 <div class="wrap">
@@ -270,6 +270,7 @@ function hlLaw(t){
           .replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
 }
 function hl(t,keys){
+  if(window.bxmExp)return bxmExp(t);  /* v640：解析不再自動畫黃，條號改棕字；重點由 core/key 標 */
   var x=esc(t);
   x=x.replace(HL_N,function(m){return '\u0001'+m+'\u0002'});
   if(keys)x=x.replace(HL_K,function(m){return '\u0003'+m+'\u0004'});
@@ -523,7 +524,7 @@ function showAfter(q,picked){
   var eh='';
   q.exp.forEach(function(t,i){
     var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
-    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+hl(t,1)+
+    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+(window.bxmExp?bxmExp(t,(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i]):hl(t,1))+
         (L===picked?'<span class="me">你選的</span>':'')+'</span></div>';
   });
   document.getElementById('exs').innerHTML=eh;

@@ -58,6 +58,8 @@ for (y,n),(p,q) in sorted(QS.items(),key=lambda t:(-t[0][0],t[0][1])):
     law=sorted(arts(q['stem']+'｜'+'｜'.join(q['opts'])+'｜'+'｜'.join(q['exp'])),key=kk)[:6]
     o={'k':'%d-%d'%(y,n),'y':y,'n':n,'p':p,'ch':code,'stem':q['stem'],'opt':q['opts'],'acc':acc,'exp':exps,'law':law}
     if tip: o['tip']=tip
+    for f in ('core','key','tk'):
+        if q.get(f): o[f]=q[f]
     if q.get('note'): o['note']=q['note']
     if not q['ans'] and not q['acc']: o['free']=1
     if o['k'] in MEM: o['mem']=MEM[o['k']]

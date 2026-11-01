@@ -29,11 +29,13 @@ for p in 'ABCDE':
             if m: ex.append(e[m.end():])
             else: tip.append(re.sub(r'^★\s*','',e))
         assert len(ex)==len(q['opts']),(q['year'],q['num'])
-        QS[(q['year'],q['num'])]=(ex,tip)
+        QS[(q['year'],q['num'])]=(ex,tip,{f:q[f] for f in ('core','key','tk') if q.get(f)})
 n1=n2=0
 def upd(c,yn):
-    ex,tip=QS[yn];ch=0
+    ex,tip,ck=QS[yn];ch=0
     if c['exps']!=ex: c['exps']=ex;ch=1
+    for f,v in ck.items():
+        if c.get(f)!=v: c[f]=v;ch=1
     if tip and c.get('trap')!=tip[0]: c['trap']=tip[0];ch=1
     return ch
 for f in ['民法A_完整考題小卡','民法BC_完整考題小卡','民法D_完整考題小卡','民法E_完整考題小卡']:
