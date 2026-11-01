@@ -117,7 +117,7 @@ header .sub{font-size:.78rem;opacity:.92;margin-top:4px;position:relative;z-inde
 
 /* ── Sec title ── */
 /* ── 日拱一築（v520，取代 v500 舊版掌握度面板）──
-   全部 scope 在 #hitPanel 內；五組貓系色卡由 [data-pal] 切換，存 bxv-hit-pal ── */
+   全部 scope 在 :is(#hitPanel,#hitTbl) 內；五組貓系色卡由 [data-pal] 切換，存 bxv-hit-pal ── */
 body, body[data-pal="p1"]{   /* Forest Paws */
   --cp-got:#4E5F4A; --cp-got-t:#ECD9B9; --cp-pick:#8FA083; --cp-pick-t:#28331F;
   --cp-unk:#ECD9B9; --cp-unk-t:#4E5F4A; --cp-accent:#4E5F4A; --cp-accent-t:#ECD9B9;
@@ -154,74 +154,75 @@ body[data-pal="p5"]{   /* Muzzle Taupe */
 [data-theme="dark"] body[data-pal="p4"]{--cp-accent:#F58220;--cp-accent-t:#1A0C00;--cp-card:#171717;--cp-milk:#202020;--cp-line:#303030;--cp-ink:#F2F2F2;--cp-soft:#9A9A9A;--cp-track:#272727}
 [data-theme="dark"] body[data-pal="p5"]{--cp-accent:#A89B8A;--cp-accent-t:#2A251F;--cp-card:#232120;--cp-milk:#2C2926;--cp-line:#3A3531;--cp-ink:#EFE8DE;--cp-soft:#A3978A;--cp-track:#302C28}
 
-#hitPanel .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
+:is(#hitPanel,#hitTbl) .score{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
   padding:15px 15px 13px;margin-bottom:11px;color:var(--cp-ink)}
-#hitPanel .score h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:1.06rem;
+:is(#hitPanel,#hitTbl) .score h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:1.06rem;
   display:flex;align-items:center;gap:7px;position:relative;padding-right:34px;letter-spacing:.04em}
-#hitPanel .motto{font-size:.8rem;color:var(--cp-accent);font-weight:700;margin:1px 0 7px}
-#hitPanel .ssub{font-size:.76rem;color:var(--cp-soft);margin-bottom:12px;line-height:1.6}
-#hitPanel .palbtn{position:absolute;right:-2px;top:-3px;width:28px;height:28px;border-radius:50%;cursor:pointer;
+:is(#hitPanel,#hitTbl) .motto{font-size:.8rem;color:var(--cp-accent);font-weight:700;margin:1px 0 7px}
+:is(#hitPanel,#hitTbl) .ssub{font-size:.76rem;color:var(--cp-soft);margin-bottom:12px;line-height:1.6}
+:is(#hitPanel,#hitTbl) .palbtn{position:absolute;right:-2px;top:-3px;width:28px;height:28px;border-radius:50%;cursor:pointer;
   border:1.5px solid var(--cp-line);background:var(--cp-milk);font-size:.85rem;line-height:1;
   display:grid;place-items:center;padding:0;color:var(--cp-soft)}
-#hitPanel .palbtn.on{background:var(--cp-accent);border-color:var(--cp-accent);color:var(--cp-accent-t)}
-#hitPanel .palrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:11px;font-size:.76rem;
+:is(#hitPanel,#hitTbl) .palbtn.on{background:var(--cp-accent);border-color:var(--cp-accent);color:var(--cp-accent-t)}
+:is(#hitPanel,#hitTbl) .palrow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:11px;font-size:.76rem;
   color:var(--cp-soft);background:var(--cp-milk);border:1.5px solid var(--cp-line);border-radius:10px;padding:9px 11px}
-#hitPanel .palrow[hidden]{display:none!important}
-#hitPanel .palrow button{display:flex;align-items:center;padding:3px;border-radius:999px;cursor:pointer;
+:is(#hitPanel,#hitTbl) .palrow[hidden]{display:none!important}
+:is(#hitPanel,#hitTbl) .palrow button{display:flex;align-items:center;padding:3px;border-radius:999px;cursor:pointer;
   border:2px solid var(--cp-line);background:var(--cp-card)}
-#hitPanel .palrow button.on{border-color:var(--cp-ink)}
-#hitPanel .palrow button i{display:block;width:17px;height:17px;border-radius:50%;margin-left:-5px;border:1.5px solid var(--cp-card)}
-#hitPanel .palrow button i:first-child{margin-left:0}
-#hitPanel .sbar{display:flex;height:34px;border-radius:9px;overflow:hidden;background:var(--cp-track);margin-bottom:10px}
-#hitPanel .sbar div{display:grid;place-items:center;font-size:.82rem;font-weight:800;min-width:0;font-variant-numeric:tabular-nums}
-#hitPanel .sbar .got{background:var(--cp-got);color:var(--cp-got-t)}
-#hitPanel .sbar .pick{background:var(--cp-pick);color:var(--cp-pick-t)}
-#hitPanel .sbar .unk{background:var(--cp-unk);color:var(--cp-unk-t)}
-#hitPanel .skey{display:grid;gap:5px;font-size:.81rem;line-height:1.5}
-#hitPanel .skey span{display:flex;align-items:center;gap:8px}
-#hitPanel .skey i{width:11px;height:11px;border-radius:3px;flex:none}
-#hitPanel .skey b{font-variant-numeric:tabular-nums;font-size:.88rem}
-#hitPanel .skey small{color:var(--cp-soft);font-size:.75rem}
-#hitPanel .tblwrap{overflow-x:auto;background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:10px;margin-top:11px}
-#hitPanel table{border-collapse:collapse;width:100%;font-size:.8rem;font-variant-numeric:tabular-nums;min-width:430px}
-#hitPanel th,#hitPanel td{padding:8px 10px;text-align:left;border-top:1px solid var(--cp-line);color:var(--cp-ink)}
-#hitPanel thead th{border-top:0;background:var(--cp-milk);font-size:.73rem;color:var(--cp-soft);letter-spacing:.04em;white-space:nowrap;font-weight:800}
-#hitPanel tbody tr{cursor:pointer}
-#hitPanel tbody tr:hover{background:var(--cp-milk)}
-#hitPanel tbody tr.sel{background:var(--cp-milk);box-shadow:inset 3px 0 0 var(--cp-accent)}
-#hitPanel td.ch{white-space:nowrap}
-#hitPanel td.ch b{font-weight:900;letter-spacing:.03em}
-#hitPanel td.ch span{color:var(--cp-soft);margin-left:6px;font-weight:500}
-#hitPanel td.n{text-align:right;white-space:nowrap}
-#hitPanel td.n b{font-weight:800}
-#hitPanel .cdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle;background:var(--cp-got)}
-#hitPanel .cdot.hi{background:var(--cp-pick)}
-#hitPanel .cdot.un{background:var(--cp-unk)}
-#hitPanel .mini{display:inline-flex;height:9px;width:100%;min-width:76px;max-width:150px;border-radius:5px;overflow:hidden;background:var(--cp-track);vertical-align:middle}
-#hitPanel .mini i{display:block;height:100%}
-#hitPanel .mini .a{background:var(--cp-got)}
-#hitPanel .mini .b{background:var(--cp-pick)}
-#hitPanel .mini .c{background:var(--cp-unk)}
-#hitPanel .todaytag{display:inline-block;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.63rem;font-weight:800;
+:is(#hitPanel,#hitTbl) .palrow button.on{border-color:var(--cp-ink)}
+:is(#hitPanel,#hitTbl) .palrow button i{display:block;width:17px;height:17px;border-radius:50%;margin-left:-5px;border:1.5px solid var(--cp-card)}
+:is(#hitPanel,#hitTbl) .palrow button i:first-child{margin-left:0}
+:is(#hitPanel,#hitTbl) .sbar{display:flex;height:34px;border-radius:9px;overflow:hidden;background:var(--cp-track);margin-bottom:10px}
+:is(#hitPanel,#hitTbl) .sbar div{display:grid;place-items:center;font-size:.82rem;font-weight:800;min-width:0;font-variant-numeric:tabular-nums}
+:is(#hitPanel,#hitTbl) .sbar .got{background:var(--cp-got);color:var(--cp-got-t)}
+:is(#hitPanel,#hitTbl) .sbar .pick{background:var(--cp-pick);color:var(--cp-pick-t)}
+:is(#hitPanel,#hitTbl) .sbar .unk{background:var(--cp-unk);color:var(--cp-unk-t)}
+:is(#hitPanel,#hitTbl) .skey{display:grid;gap:5px;font-size:.81rem;line-height:1.5}
+:is(#hitPanel,#hitTbl) .skey span{display:flex;align-items:center;gap:8px}
+:is(#hitPanel,#hitTbl) .skey i{width:11px;height:11px;border-radius:3px;flex:none}
+:is(#hitPanel,#hitTbl) .skey b{font-variant-numeric:tabular-nums;font-size:.88rem}
+:is(#hitPanel,#hitTbl) .skey small{color:var(--cp-soft);font-size:.75rem}
+:is(#hitPanel,#hitTbl) .tblwrap{overflow-x:auto;background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:10px;margin-top:11px}
+:is(#hitPanel,#hitTbl) table{border-collapse:collapse;width:100%;font-size:.8rem;font-variant-numeric:tabular-nums;min-width:430px}
+:is(#hitPanel,#hitTbl) th,:is(#hitPanel,#hitTbl) td{padding:8px 10px;text-align:left;border-top:1px solid var(--cp-line);color:var(--cp-ink)}
+:is(#hitPanel,#hitTbl) thead th{border-top:0;background:var(--cp-milk);font-size:.73rem;color:var(--cp-soft);letter-spacing:.04em;white-space:nowrap;font-weight:800}
+:is(#hitPanel,#hitTbl) tbody tr{cursor:pointer}
+:is(#hitPanel,#hitTbl) tbody tr:hover{background:var(--cp-milk)}
+:is(#hitPanel,#hitTbl) tbody tr.sel{background:var(--cp-milk);box-shadow:inset 3px 0 0 var(--cp-accent)}
+:is(#hitPanel,#hitTbl) td.ch{white-space:nowrap}
+:is(#hitPanel,#hitTbl) td.ch b{font-weight:900;letter-spacing:.03em}
+:is(#hitPanel,#hitTbl) td.ch span{color:var(--cp-soft);margin-left:6px;font-weight:500}
+:is(#hitPanel,#hitTbl) td.n{text-align:right;white-space:nowrap}
+:is(#hitPanel,#hitTbl) td.n b{font-weight:800}
+:is(#hitPanel,#hitTbl) .cdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle;background:var(--cp-got)}
+:is(#hitPanel,#hitTbl) .cdot.hi{background:var(--cp-pick)}
+:is(#hitPanel,#hitTbl) .cdot.un{background:var(--cp-unk)}
+:is(#hitPanel,#hitTbl) .mini{display:inline-flex;height:9px;width:100%;min-width:76px;max-width:150px;border-radius:5px;overflow:hidden;background:var(--cp-track);vertical-align:middle}
+:is(#hitPanel,#hitTbl) .mini i{display:block;height:100%}
+:is(#hitPanel,#hitTbl) .mini .a{background:var(--cp-got)}
+:is(#hitPanel,#hitTbl) .mini .b{background:var(--cp-pick)}
+:is(#hitPanel,#hitTbl) .mini .c{background:var(--cp-unk)}
+:is(#hitPanel,#hitTbl) .todaytag{display:inline-block;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.63rem;font-weight:800;
   border-radius:999px;padding:1px 7px;margin-left:7px;vertical-align:middle;letter-spacing:.04em}
-#hitPanel td.todo{color:var(--cp-soft);font-size:.78rem}
-#hitPanel .detail{background:var(--cp-card);border:1.5px solid var(--cp-line);border-left:6px solid var(--cp-accent);
+:is(#hitPanel,#hitTbl) td.todo{color:var(--cp-soft);font-size:.78rem}
+:is(#hitPanel,#hitTbl) .detail{background:var(--cp-card);border:1.5px solid var(--cp-line);border-left:6px solid var(--cp-accent);
   border-radius:10px;padding:12px 14px;margin-top:10px;font-size:.83rem;line-height:1.7;color:var(--cp-ink)}
-#hitPanel .detail h4{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-#hitPanel .detail h4 small{font-weight:500;color:var(--cp-soft);font-size:.8rem}
-#hitPanel .detail .gain{background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;
+:is(#hitPanel,#hitTbl) .detail h4{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+:is(#hitPanel,#hitTbl) .detail h4 small{font-weight:500;color:var(--cp-soft);font-size:.8rem}
+:is(#hitPanel,#hitTbl) .detail .gain{background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;
   padding:2px 9px;border-radius:999px;margin-left:auto}
-#hitPanel .detail .f{color:var(--cp-soft);font-size:.77rem;margin:4px 0 7px}
-#hitPanel .detail p{margin:0 0 10px}
-#hitPanel .detail b{color:var(--cp-accent)}
-#hitPanel .acts{display:flex;gap:7px;flex-wrap:wrap}
-#hitPanel .acts a{font-size:.78rem;font-weight:700;text-decoration:none;padding:7px 13px;border-radius:999px;
+:is(#hitPanel,#hitTbl) .detail .f{color:var(--cp-soft);font-size:.77rem;margin:4px 0 7px}
+:is(#hitPanel,#hitTbl) .detail p{margin:0 0 10px}
+:is(#hitPanel,#hitTbl) .detail b{color:var(--cp-accent)}
+:is(#hitPanel,#hitTbl) .acts{display:flex;gap:7px;flex-wrap:wrap}
+:is(#hitPanel,#hitTbl) .acts a{font-size:.78rem;font-weight:700;text-decoration:none;padding:7px 13px;border-radius:999px;
   border:1.5px solid var(--cp-line);color:var(--cp-ink);background:var(--cp-milk)}
-#hitPanel .acts a.go{background:var(--cp-got);border-color:var(--cp-got);color:var(--cp-got-t)}
-#hitPanel .hint{font-size:.75rem;color:var(--cp-soft);margin:8px 0 0;padding:0 3px}
+:is(#hitPanel,#hitTbl) .acts a.go{background:var(--cp-got);border-color:var(--cp-got);color:var(--cp-got-t)}
+:is(#hitPanel,#hitTbl) .hint{font-size:.75rem;color:var(--cp-soft);margin:8px 0 0;padding:0 3px}
 
 /* ── 進度落後清單（v527） ── */
 #lagPanel{margin:0 0 18px}
+#hitTbl{margin:0 0 18px}
 #lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;
   padding:14px 15px;color:var(--cp-ink)}
 #lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
@@ -243,8 +244,8 @@ body[data-pal="p5"]{   /* Muzzle Taupe */
 #lagPanel .names b{color:var(--cp-ink)}
 #lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
 #lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
-#hitPanel .grouphd{font-size:.78rem;font-weight:700;color:var(--cp-soft);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
-#hitPanel .grouphd::after{content:"";flex:1;height:1px;background:var(--cp-line)}
+:is(#hitPanel,#hitTbl) .grouphd{font-size:.78rem;font-weight:700;color:var(--cp-soft);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
+:is(#hitPanel,#hitTbl) .grouphd::after{content:"";flex:1;height:1px;background:var(--cp-line)}
 
 /* ── Today card ── */
 .today-card{
@@ -1303,6 +1304,9 @@ try{document.body.setAttribute('data-pal',localStorage.getItem('bxv-hit-pal')||'
   <!-- 進度落後清單（v527） -->
   <div id="lagPanel"></div>
 
+  <!-- 日拱一築：章節細節＋章節表（v650 移到進度落後面板之下） -->
+  <div id="hitTbl"></div>
+
   <!-- 今日＋工具完成度與閱讀次數（取代原「閱讀進度匯報」，不需回報） -->
   <div class="sec-title">今日</div>
   <p class="ts-today" id="bxTodayLine"></p>
@@ -1871,6 +1875,7 @@ function hitBuild(){
       }).join('')+'<span id="hitPalName">'+((HIT_PALS.filter(function(x){return x[0]===hitPal()})[0]||HIT_PALS[0])[1])+'</span></div>'
     +'<div class="motto">藏分於日 —— 今天拿回來的分，考場上就是你的</div>';
 
+  var h2='';
   if(!anyAns){
     h+='<div class="ssub">還沒有作答紀錄。先去任一章刷題，這裡就會算出你的 50 分現在長什麼樣，並挑出今天從哪一章開始。</div></div>';
   } else {
@@ -1890,10 +1895,10 @@ function hitBuild(){
       var code=sp>0?full.slice(0,sp):ch, cn=sp>0?full.slice(sp+1):'';
       return '<b>'+code+'</b>'+(cn?'<span>'+cn+'</span>':'');
     }
-    h+='<div class="tblwrap"><table><thead><tr><th>章節 Chapter</th><th class="n">115 出題</th>'
+    h2+='<div id="hitDet"></div><div class="tblwrap"><table><thead><tr><th>章節 Chapter</th><th class="n">115 出題</th>'
       +'<th>測過多少</th><th class="n">還沒到手</th><th>先做什麼</th></tr></thead><tbody>';
     rows.forEach(function(r,i){
-      h+='<tr data-hi="'+i+'"'+(i===0?' class="sel"':'')+'>'
+      h2+='<tr data-hi="'+i+'"'+(i===0?' class="sel"':'')+'>'
         +'<td class="ch"><span class="cdot'+(r.cov<0.3?' un':(r.need>0.2?' hi':''))+'"></span>'+chcell(r.ch)
         +(i===0?'<span class="todaytag">今天</span>':'')+'</td>'
         +'<td class="n">'+r.est.toFixed(1)+' 題</td>'
@@ -1902,11 +1907,12 @@ function hitBuild(){
         +'<td class="n"><b>'+r.left.toFixed(1)+'</b> 分</td>'
         +'<td class="todo">'+todo(r)+'</td></tr>';
     });
-    h+='</tbody></table></div><div id="hitDet"></div>'
+    h2+='</tbody></table></div>'
       +'<p class="hint">依「還沒到手」由多到少排——出題多又還沒測的章自動排最前面。點任一列看那一章的細節與按鈕。</p>';
   }
 
   box.innerHTML=h;
+  var tbx=document.getElementById('hitTbl'); if(tbx) tbx.innerHTML=h2;
   HIT_ROWS=rows; HIT_NM=nm; HIT_WHY=why; HIT_TODO=todo;
   if(rows.length) hitDetail(0,0);
 }
@@ -1929,7 +1935,8 @@ function hitDetail(i){
     +acts+'</div>';
 }
 document.addEventListener('click',function(e){
-  var box=document.getElementById('hitPanel'); if(!box||!box.contains(e.target)) return;
+  var box=document.getElementById('hitPanel'), tbx=document.getElementById('hitTbl');
+  if(!box||!(box.contains(e.target)||(tbx&&tbx.contains(e.target)))) return;
   var pb=e.target.closest('.palrow [data-hpal]');
   if(pb){
     try{localStorage.setItem('bxv-hit-pal',pb.getAttribute('data-hpal'))}catch(err){}
@@ -1943,11 +1950,13 @@ document.addEventListener('click',function(e){
     var row=box.querySelector('.palrow'); row.hidden=!row.hidden;
     e.target.classList.toggle('on',!row.hidden); return;
   }
-  var tr=e.target.closest('#hitPanel tbody tr');
+  var tr=e.target.closest('#hitTbl tbody tr');
   if(tr){
-    box.querySelectorAll('#hitPanel tbody tr').forEach(function(x){x.classList.remove('sel')});
+    document.querySelectorAll('#hitTbl tbody tr').forEach(function(x){x.classList.remove('sel')});
     tr.classList.add('sel');
-    if(tr.hasAttribute('data-hi')) hitDetail(+tr.getAttribute('data-hi')); return;
+    if(tr.hasAttribute('data-hi')){ hitDetail(+tr.getAttribute('data-hi'));
+      var dt=document.getElementById('hitDet'); if(dt&&dt.getBoundingClientRect().top<0) dt.scrollIntoView({behavior:'smooth',block:'start'}); }
+    return;
   }
 });
 window.addEventListener('focus',hitBuild);
