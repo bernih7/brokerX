@@ -1,6 +1,6 @@
 /* 民法刷題解析：每個選項「一句結論＋重點句」標色（v640 起）。
    正確敘述＝黃底粗體「對在」；錯誤敘述＝紅字粗體「錯在」；條號只用棕色字，不再自動畫黃。
-   資料欄位：core[i]（一句結論）、key[i]（解析原文中的重點句，逐字子字串）、tk[i]（'ok'｜'ng'）。
+   資料欄位：core[i]（一句結論）、key[i]（v641 起為關鍵字陣列，每個都是解析原文的逐字子字串）、tk[i]（'ok'｜'ng'）。
    用法：el.innerHTML = bxmExp(解析文字, core, key, tk[, 前綴]) */
 (function(){
   var CSS=''
@@ -23,9 +23,13 @@
     var t=String(text==null?'':text),h,i;
     tk=tk==='ok'?'ok':'ng';
     if(pre&&t.indexOf(pre)===0)t=t.slice(pre.length);
-    if(key&&(i=t.indexOf(key))>=0){
-      h=law(esc(t.slice(0,i)))+'<mark class="xk xk-'+tk+'">'+esc(key)+'</mark>'+law(esc(t.slice(i+key.length)));
-    }else h=law(esc(t));
+    /* key：關鍵字陣列（v641 起，每選項 1～3 個、各標第一次出現）；舊資料為單一字串也相容 */
+    var ks=Array.isArray(key)?key:(key?[key]:[]),sp=[];
+    ks.forEach(function(k){if(!k)return;var j=t.indexOf(k);if(j<0)return;
+      for(var n=0;n<sp.length;n++){if(j<sp[n][1]&&j+k.length>sp[n][0])return}sp.push([j,j+k.length])});
+    sp.sort(function(a,b){return a[0]-b[0]});
+    h='';i=0;sp.forEach(function(r){h+=law(esc(t.slice(i,r[0])))+'<mark class="xk xk-'+tk+'">'+esc(t.slice(r[0],r[1]))+'</mark>';i=r[1]});
+    h+=law(esc(t.slice(i)));
     var head=pre?'<span class="xpre">'+esc(pre.trim())+'</span>':'';
     if(core)head+='<span class="xc"><span class="xp xp-'+tk+'">'+(tk==='ok'?'對在':'錯在')+'</span>'+esc(core)+'</span>';
     else if(pre)head+=' ';
