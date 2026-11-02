@@ -312,11 +312,12 @@ function chapterToGroup(chapter) {
 
 function renderSetup() {
   const total = ALL_CARDS.length;
-  const masteredCount = Object.values(mastery).filter(m => m === 'yes').length;
-  const weakCount = Object.values(mastery).filter(m => m === 'no').length;
+  /* 只算現存的卡（舊卡號不計），與指揮中心「進度」同一算法 */
+  const masteredCount = ALL_CARDS.filter(c => mastery[c.id] === 'yes').length;
+  const weakCount = ALL_CARDS.filter(c => mastery[c.id] === 'no').length;
   document.getElementById('overallStats').innerHTML = `
     <div class="stat-chip">總卡數 <b>${total}</b></div>
-    <div class="stat-chip">已掌握 <b>${masteredCount}</b></div>
+    <div class="stat-chip">已掌握 <b>${masteredCount}</b>（${Math.round(masteredCount/total*100)}%）</div>
     <div class="stat-chip">待加強 <b>${weakCount}</b></div>
   `;
 

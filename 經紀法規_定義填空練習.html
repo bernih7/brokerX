@@ -351,6 +351,23 @@ DATA.forEach((ch,ci)=>{
 
   main.appendChild(div);
 });
+(function(){
+  let f = {};
+  try{ f = JSON.parse(localStorage.getItem('bxj-fill')||'{}')||{}; }catch(e){}
+  const tt = document.createElement('div');
+  tt.id = 'fillTotal'; tt.className = 'prog-txt';
+  tt.style.cssText = 'margin:0 0 10px;font-weight:700';
+  main.insertBefore(tt, main.firstChild);
+  DATA.forEach(ch=>{
+    ch.cards.forEach((c,i)=>{
+      const k = ch.id+'-'+i;
+      if(f[k]){ cardDone[k] = true;
+        const btn = document.getElementById('rb-'+k);
+        if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); } }
+    });
+    updProg(ch.id);
+  });
+})();
 
 function toggleBlank(el) {
   el.classList.toggle('revealed');
@@ -377,13 +394,21 @@ function markDone(key, chId, total) {
   if(btn){ btn.textContent='✓ 完成'; btn.classList.add('done'); }
   const note = document.getElementById('ans-'+key);
   if(note) note.classList.add('show');
-  // 更新進度
-  const done = Object.keys(cardDone).filter(k=>k.startsWith(chId+'-')&&cardDone[k]).length;
-  const pct = Math.round(done/total*100);
+  updProg(chId);
+}
+/* 進度：各章與全部都由 cardDone 算；cardDone 開頁時從 bxj-fill 讀回（與指揮中心同一份紀錄） */
+function updProg(chId){
+  const ch = DATA.find(x=>x.id===chId); if(!ch) return;
+  const total = ch.cards.length;
+  const done = ch.cards.filter((_,i)=>cardDone[chId+'-'+i]).length;
   const pf = document.getElementById('pf-'+chId);
   const pt = document.getElementById('pt-'+chId);
-  if(pf) pf.style.width = pct+'%';
-  if(pt) pt.textContent = done+' / '+total;
+  if(pf) pf.style.width = Math.round(done/total*100)+'%';
+  if(pt) pt.textContent = done+' / '+total+'（'+Math.round(done/total*100)+'%）';
+  const all = DATA.reduce((n,c)=>n+c.cards.length,0);
+  const allDone = DATA.reduce((n,c)=>n+c.cards.filter((_,i)=>cardDone[c.id+'-'+i]).length,0);
+  const tt = document.getElementById('fillTotal');
+  if(tt) tt.textContent = '全部已完成 '+allDone+' / '+all+' 張（'+Math.round(allDone/all*100)+'%）';
 }
 
 function switchCh(id){
@@ -568,6 +593,9 @@ function revealAllQuizBlanks(qid) {
         if(_c && _c.key && !cardDone[_c.key]){
           cardDone[_c.key] = true;
           window.BXREP && BXREP.fillMark(_c.key);
+          var _b = document.getElementById('rb-'+_c.key);
+          if(_b){ _b.textContent='✓ 完成'; _b.classList.add('done'); }
+          updProg(_c.chId);
         }
       }catch(e){}
     }
