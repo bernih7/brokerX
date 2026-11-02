@@ -114,6 +114,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .act .hint{font-size:.8rem;color:var(--sub);flex:1;min-width:0}
 .done-box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
 @media (max-width:480px){.modes{grid-template-columns:1fr}.clk{font-size:1.4rem}}
+.pz{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;line-height:1;padding:0}
+body.paused .pz{background:var(--pri);border-color:var(--pri);color:var(--on)}
+.pzbox{display:none;margin-top:16px;border:1.5px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;color:var(--sub)}
+.pzbox b{display:block;font-size:1.15rem;color:var(--ink);margin-bottom:4px}
+body.paused .pzbox{display:block}
+body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:none}
+body.paused .clk{opacity:.5}
+body.paused #nextBtn{opacity:.45;pointer-events:none}
 </style>
 </head>
 <body>
@@ -140,7 +148,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="bar">
       <div class="row">
         <div class="stg" id="stg"></div>
-        <span class="modechip" id="mchip"></span>
+        <span class="modechip" id="mchip"></span><button type="button" class="pz" id="pauseBtn" aria-label="暫停">⏸</button>
         <div><div class="clk" id="clk">0:30</div><div class="tot" id="tot">總 0:00／5:00</div></div>
       </div>
       <div class="segs" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
@@ -149,7 +157,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="meta" id="meta"></div>
       <div class="ttl" id="ttl"></div>
       <div class="qbox" id="qbox"></div>
-      <div id="body"></div>
+      <div class="pzbox" id="pzbox"><b>已暫停</b>計時停止，題目與答案先蓋住。<br><button type="button" class="btn pri" id="resumeBtn" style="margin-top:12px">▶ 繼續</button></div>
+    <div id="body"></div>
     </div>
   </section>
 </div>
@@ -219,6 +228,7 @@ $('startBtn').onclick=function(){start(order()[0].c.id)};
 /* ---- 作答 ---- */
 var cur=null, st=0, stLeft=0, elapsed=0, iv=null, peek=false;
 function start(id){
+  setPause(false);
   cur=CARDS.filter(function(c){return c.id===id})[0]; if(!cur)return;
   st=0; stLeft=STG[0].s; elapsed=0; peek=false; cur.got={}; cur.rate=0;
   $('home').hidden=true; $('run').hidden=false; $('act').hidden=false;
@@ -284,7 +294,7 @@ function paintAct(){
   else{nb.textContent='存檔';nb.disabled=!cur.rate;$('hint').textContent=cur.rate?'':'勾完關鍵後，選一個自評才能存檔。'}
 }
 function tick(first){
-  if(!first){ if(document.visibilityState!=='visible')return; elapsed++; stLeft--; }
+  if(!first){ if(paused||document.visibilityState!=='visible')return; elapsed++; stLeft--; }
   var clk=$('clk'),seg=$('segs').children[st].querySelector('b');
   clk.textContent=mmss(stLeft); clk.classList.toggle('red',stLeft<=0);
   seg.style.width=Math.min(100,(STG[st].s-stLeft)/STG[st].s*100)+'%';
@@ -293,6 +303,7 @@ function tick(first){
   if(stLeft<=0&&mode==='h'&&st<4&&!first){next()}
 }
 function next(){
+  if(paused)return;
   if(st>4)return;
   if(st<4){st++;stLeft=STG[st].s;render();tick(true);scrollTo(0,0);return}
   save();
@@ -314,9 +325,14 @@ function save(){
   nb.onclick=function(){nb.onclick=next;$('quitBtn').textContent='放棄這題';start(nx.c.id)};
 }
 $('nextBtn').onclick=next;
-$('quitBtn').onclick=function(){$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;clearInterval(iv);iv=null;cur=null;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
+$('quitBtn').onclick=function(){setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;clearInterval(iv);iv=null;cur=null;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
 home();
+
+var paused=false;
+function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
+$('pauseBtn').onclick=function(){setPause(!paused)};
+$('resumeBtn').onclick=function(){setPause(false)};
 </script>
 </body>
 </html>

@@ -123,6 +123,14 @@ button{font:inherit;cursor:pointer}
 .act .hint{font-size:.8rem;color:var(--sub);flex:1;min-width:0}
 .done-box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
 @media (max-width:480px){.modes{grid-template-columns:1fr}.clk{font-size:1.4rem}.row2{grid-template-columns:1fr}.tag{justify-self:start;padding:1px 9px}}
+.pz{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;line-height:1;padding:0}
+body.paused .pz{background:var(--pri);border-color:var(--pri);color:var(--on)}
+.pzbox{display:none;margin-top:16px;border:1.5px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;color:var(--sub)}
+.pzbox b{display:block;font-size:1.15rem;color:var(--ink);margin-bottom:4px}
+body.paused .pzbox{display:block}
+body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:none}
+body.paused .clk{opacity:.5}
+body.paused #nextBtn{opacity:.45;pointer-events:none}
 </style>
 </head>
 <body>
@@ -149,13 +157,14 @@ button{font:inherit;cursor:pointer}
   </section>
   <section id="run" hidden>
     <div class="bar">
-      <div class="row"><div class="stg" id="stg"></div><span class="modechip" id="mchip"></span>
+      <div class="row"><div class="stg" id="stg"></div><span class="modechip" id="mchip"></span><button type="button" class="pz" id="pauseBtn" aria-label="暫停">⏸</button>
         <div><div class="clk" id="clk">0:20</div><div class="tot" id="tot">總 0:00／5:00</div></div></div>
       <div class="segs" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
     </div>
     <div class="meta" id="meta"></div>
     <div class="ttl" id="ttl"></div>
     <div class="qbox" id="qbox"></div>
+    <div class="pzbox" id="pzbox"><b>已暫停</b>計時停止，題目與答案先蓋住。<br><button type="button" class="btn pri" id="resumeBtn" style="margin-top:12px">▶ 繼續</button></div>
     <div id="body"></div>
   </section>
 </div>
@@ -198,6 +207,7 @@ function plan(c){
 }
 function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
 function start(i){
+  setPause(false);
   cur=CARDS[i]; st=0; left=STG[0].s; el=0; got={}; rate=0;
   steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
   plan(cur);
@@ -261,7 +271,7 @@ function act(){
   else {nb.textContent='下一段 →';$('hint').textContent=mode==='h'?'時間到會自動往下。':'時間到只變紅。'}
 }
 function tick(first){
-  if(!first){if(document.visibilityState!=='visible')return;el++;left--;
+  if(!first){if(paused||document.visibilityState!=='visible')return;el++;left--;
     if(st===1){stepLeft--;if(!shown)thinkLeft--}}
   if(first&&st===1){stepLeft=steps[si].t;thinkLeft=steps[si].think}
   var showLeft=st===1?stepLeft:left, clk=$('clk');
@@ -276,6 +286,7 @@ function tick(first){
   } else if(left<=0&&st<4)next();
 }
 function next(){
+  if(paused)return;
   if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);scrollTo(0,0);return}
   if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);scrollTo(0,0);return}
   if(st<4){st++;left=STG[st].s;render();tick(true);scrollTo(0,0);return}
@@ -288,7 +299,12 @@ function done(){
   st=5;$('stg').innerHTML='完成<small></small>';$('nextBtn').disabled=true;$('hint').textContent='';$('quitBtn').textContent='回清單';
 }
 $('nextBtn').onclick=next;
-$('quitBtn').onclick=function(){clearInterval(iv);$('quitBtn').textContent='放棄這題';$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;scrollTo(0,0)};
+$('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').textContent='放棄這題';$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;scrollTo(0,0)};
+
+var paused=false;
+function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
+$('pauseBtn').onclick=function(){setPause(!paused)};
+$('resumeBtn').onclick=function(){setPause(false)};
 </script>
 </body>
 </html>
