@@ -269,8 +269,11 @@ const HUBP='%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%
 function statOf(c, chStat){
   // 第一行：這張卡自己的數字（考古題幾題、申論哪幾年），不是整章的
   const a=[];
-  if(c.hot) a.push('<strong class="st-hot">16年鐵律考點</strong>');
   const qk=c.qk||[];
+  /* 標籤依實際考古題算：99～114 共 16 個年度，≥5 個年度考過才標高頻；115 年新修正的卡不可能有歷屆紀錄 */
+  const yrs=new Set(qk.map(function(x){return x.split('-')[0]})).size;
+  if(/115/.test(c.term)) a.push('<strong class="st-new">115 年新修正（歷屆還沒考過）</strong>');
+  else if(yrs>=5) a.push('<strong class="st-hot">高頻：16 年中 '+yrs+' 個年度考過</strong>');
   if(qk.length){
     const lab = c.qkind==='art' ? '本條考過' : '相關考古題';
     a.push('<span class="st-q">'+lab+' <strong>'+qk.length+'</strong> 題'+
@@ -568,16 +571,11 @@ function revealOneQuizBlank(qid) {
   const remaining = document.querySelectorAll(`#qblank-${qid} .blank:not(.revealed)`);
   if (remaining.length === 0) {
     revealAllQuizBlanks(qid);
-    const revBtn = document.getElementById('qbtn-reveal-' + qid);
-    if (revBtn) {
-      revBtn.textContent = '下一題 →';
-      revBtn.className = 'qc-btn qc-btn-next';
-      revBtn.onclick = () => nextQuiz();
-    }
   }
 }
 
 function revealAllQuizBlanks(qid) {
+  const _rv = document.getElementById('qbtn-reveal-' + qid); if (_rv) _rv.hidden = true;
   document.querySelectorAll(`#qblank-${qid} .blank`).forEach(b => {
     b.querySelector('.blank-mask').style.display = 'none';
     b.querySelector('.blank-val').style.display = '';
@@ -683,6 +681,8 @@ function toggleTheme() {
 .st1{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:center;font-size:12.5px;line-height:1.9;color:var(--ink)}
 .st2{margin-top:2px;font-size:11.5px;color:var(--muted)}
 .st-hot{color:var(--red)}
+.st-new{color:var(--blue)}
+.qc-btn[hidden]{display:none!important}
 .st-q strong,.st-e strong{color:var(--ink)}
 .st-go{margin-left:6px;border:1px solid var(--green);color:var(--green);border-radius:99px;
   padding:0 8px;font-size:11.5px;font-weight:700;text-decoration:none;white-space:nowrap}
