@@ -134,6 +134,7 @@ body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:n
 body.paused .clk{opacity:.5}
 body.paused #nextBtn{opacity:.45;pointer-events:none}
 .thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
+.howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 </style>
 </head>
 <body>
@@ -143,17 +144,17 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
     <h1>申論 5 分鐘・推理版</h1>
     <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
     <div class="demo" id="demoNote" hidden>這是樣板：只放 3 題，作答不會存紀錄。</div>
-    <div class="modes">
-      <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每一步：先想的時間到自動翻開，該步時間到自動跳下一步；跳過的不能回頭。</small></button>
-      <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到只變紅，自己按「翻開」「下一步」。</small></button>
-    </div>
-    <p class="lead" style="margin:0 0 6px">每段秒數依該題文字量與重點資訊（數字、條號、引號）計算「讀完所需」；讀題、速寫、失分點、檢核只給所需時間，其餘全部留給推理鏈的「先想」。合計 5:00。</p>
+    <details class="howto" id="howto"><summary>流程、時間怎麼分、兩種模式說明</summary><div class="hb"><p class="lead" style="margin:0 0 6px">每段秒數依該題文字量與重點資訊（數字、條號、引號）計算「讀完所需」；讀題、速寫、失分點、檢核只給所需時間，其餘全部留給推理鏈的「先想」。合計 5:00。</p>
     <div class="plan">
       <div><b>依題</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
       <div><b>依題</b><span>② 推理鏈自問自答<small>每一步先想（核對內容讀完所需以外的時間都給「先想」）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
       <div><b>依題</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
       <div><b>依題</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
       <div><b>依題</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
+    </div></div></details>
+    <div class="modes">
+      <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每一步：先想的時間到自動翻開，該步時間到自動跳下一步；跳過的不能回頭。</small></button>
+      <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到只變紅，自己按「翻開」「下一步」。</small></button>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn pri" id="startBtn">開始下一題</button><button type="button" class="btn" id="randBtn">🎲 隨機出題</button></div>
     <div class="sec-h" style="display:flex;justify-content:space-between;gap:8px"><span>接下來的順序</span><small id="qcount" style="color:var(--sub);font-weight:400"></small></div>
@@ -364,5 +365,6 @@ function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedi
 function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
 b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
 paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
+<script id="howto-js">(function(){var d=document.getElementById("howto");if(!d)return;try{if(localStorage.getItem("bx-sprint-howto")==="1")d.open=true}catch(e){}d.addEventListener("toggle",function(){try{localStorage.setItem("bx-sprint-howto",d.open?"1":"0")}catch(e){}})})();</script>
 </body>
 </html>

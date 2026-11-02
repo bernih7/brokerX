@@ -123,6 +123,7 @@ body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:n
 body.paused .clk{opacity:.5}
 body.paused #nextBtn{opacity:.45;pointer-events:none}
 .thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
+.howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 </style>
 </head>
 <body>
@@ -133,11 +134,11 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
   <section id="home">
     <h1>申論 5 分鐘衝刺</h1>
     <p class="lead">一題約 5 分鐘：讀題 → 先自己想 → 讀考場版 → 對結論 → 關鍵字檢核。紀錄與指揮中心申論卡同步（輪數、自評、分數）。</p>
+    <details class="howto" id="howto"><summary>流程、時間怎麼分、兩種模式說明</summary><div class="hb"><ul class="flow"><li><b>0:30</b>讀題</li><li><b>0:30</b>先自己想</li><li><b>2:30</b>意義・法條・涵攝</li><li><b>1:00</b>結論</li><li><b>0:30</b>關鍵檢核</li></ul></div></details>
     <div class="modes" id="modes">
       <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每段時間到就變紅並自動進下一段；讀過的段落會被蓋住，不能回頭看。</small></button>
       <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到一樣變紅，但可以繼續看，自己按「下一段」。</small></button>
     </div>
-    <ul class="flow"><li><b>0:30</b>讀題</li><li><b>0:30</b>先自己想</li><li><b>2:30</b>意義・法條・涵攝</li><li><b>1:00</b>結論</li><li><b>0:30</b>關鍵檢核</li></ul>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn pri" id="startBtn">開始下一題</button><button type="button" class="btn" id="randBtn">🎲 隨機出題</button></div>
     <div class="sec-h"><span>接下來的順序</span><small id="qcount"></small></div>
     <div class="qlist" id="qlist"></div>
@@ -344,5 +345,6 @@ function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedi
 function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
 b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
 paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
+<script id="howto-js">(function(){var d=document.getElementById("howto");if(!d)return;try{if(localStorage.getItem("bx-sprint-howto")==="1")d.open=true}catch(e){}d.addEventListener("toggle",function(){try{localStorage.setItem("bx-sprint-howto",d.open?"1":"0")}catch(e){}})})();</script>
 </body>
 </html>
