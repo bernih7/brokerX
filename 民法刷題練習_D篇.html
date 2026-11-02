@@ -120,7 +120,7 @@ header h1{color:var(--onpri)}
 .yr-header{border-left-color:var(--pri)}
 </style>
 <script src="bxm-use.js"></script>
-<script src="bxm-exp.js"></script></head>
+<script src="bxm-exp.js"></script><script src="bxm-links.js"></script></head>
 <body>
 <header>
   <h1>民法概要 D篇 物權｜99–114年 官方歷屆題｜刷題練習（134題）</h1>
@@ -227,6 +227,7 @@ function card(q){
     else if(ln[0]==='★'||ln[0]==='※')d.classList.add('nl','xstar');
     if(ix<4&&NT[ix]&&window.bxmExp&&q.core){const an=isOK(q,LET[ix]);d.classList.remove('cl','wl');d.classList.add('xrow');if(an)d.classList.add('xrow-ans');d.innerHTML=bxmExp(ln,(q.core||[])[ix],(q.key||[])[ix],(q.tk||[])[ix],ln.slice(0,ln.length-NT[ix].length),{L:LET[ix],ans:an})}else d.textContent=ln;ex.appendChild(d);
   });
+  if(window.BXM_LINKS_HTML){const lk=BXM_LINKS_HTML(q.year+'-'+q.num);if(lk){const w=mk('div');w.innerHTML=lk;ex.appendChild(w)}}/*bxm-links*/
   if(s){
     const tr=mk('div','err-tag');
     tr.appendChild(mk('span',null,'錯題分類：'));

@@ -120,7 +120,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 /* v644：平板以上字放大（rem 全部跟著放大），不用再手動縮放 */
 @media(min-width:700px){html{font-size:20px}body{font-size:18px}.wrap{max-width:1040px}}
 [hidden]{display:none!important}
- mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style><script src="bxm-exp.js"></script></head><body>
+ mark.hi{background:linear-gradient(transparent 54%,var(--hiy) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px} mark.hi2{background:linear-gradient(transparent 54%,var(--hiy2) 54%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style><script src="bxm-exp.js"></script><script src="bxm-links.js"></script></head><body>
 <header><div class="wrap"><h1>民法｜法條解析練習</h1>
 <div class="sub">99–114 年官方試題 520 題・28 小類・逐選項解析・本題相關法條・錯誤類型 A/B/C/D・答對自評 👍🤔🎲・與刷題 A～E 篇共用作答紀錄</div></div></header>
 <div class="wrap">
@@ -532,6 +532,7 @@ function showAfter(q,picked){
     eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+(window.bxmExp?bxmExp(t,(q.core||[])[i],(q.key||[])[i],(q.tk||[])[i],'',{ans:isOk}):hl(t,1))+
         (L===picked?'<span class="me">你選的</span>':'')+'</span></div>';
   });
+  if(window.BXM_LINKS_HTML)eh+=BXM_LINKS_HTML(q.k);/*bxm-links*/
   document.getElementById('exs').innerHTML=eh;
   var lb=document.getElementById('lawBox');
   if(q.law&&q.law.length){

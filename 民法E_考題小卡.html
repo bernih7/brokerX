@@ -147,7 +147,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--ink-soft);bac
 </style>
 <script src="bxm-use.js"></script>
 <script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
-<script src="bxm-exp.js"></script></head>
+<script src="bxm-exp.js"></script><script src="bxm-links.js"></script></head>
 <body>
 <div class="wrap">
   <header>
@@ -389,6 +389,7 @@ function selectOption(i){
     div.innerHTML = `${window.bxmExp?'<div>'+bxmExp(exp,(c.core||[])[j],(c.key||[])[j],(c.tk||[])[j],'',{L:letters[j],ans:j===c.correct})+'</div>':'<div class="exp-head">'+letters[j]+'. '+mark+'</div><div>'+exp+'</div>'}`;
     expList.appendChild(div);
   });
+  if(window.BXM_LINKS_HTML){const ym=String(c.year||'').match(/(\d+)年第(\d+)題/);const lk=ym?BXM_LINKS_HTML(ym[1]+'-'+ym[2]):'';if(lk){const w=document.createElement('div');w.innerHTML=lk;expList.appendChild(w)}}/*bxm-links*/
 
   // stats + mastery
   if(correct) quizStats.ok++; else quizStats.ng++;
