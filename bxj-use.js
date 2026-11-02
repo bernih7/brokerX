@@ -23,7 +23,7 @@ function tag(q,k){var DB=ld("bxj-q2",{}),r=DB[qid(q)];if(!r)return;r.k=k;r.g=k==
 var KN={A:"A 法條混淆",B:"B 粗心",C:"C 不熟",D:"D 猜的"};
 function build(){
  var DB=ld("bxj-q2",{}),TGT=ld("bxj-tgt",{p:60,g:70}),lastRep=ld("bxj-lastrep",0),ids=Object.keys(DB),by={},tot={sure:0,gok:0,wr:0},cat={A:0,B:0,C:0,D:0,n:0},fresh=0;
- ids.forEach(function(id){var r=DB[id],ch=id.split("-")[0];var o=by[ch]=by[ch]||{sure:0,gok:0,wr:0};if(r.ok){if(r.k==="D"){o.gok++;tot.gok++;cat.D++}else{o.sure++;tot.sure++}}else{o.wr++;tot.wr++;if(r.k)cat[r.k]++;else cat.n++}if(r.t>lastRep)fresh++});
+ ids=ids.filter(function(id){return realQ(id)});ids.forEach(function(id){var r=DB[id],ch=id.split("-")[0];var o=by[ch]=by[ch]||{sure:0,gok:0,wr:0};if(r.ok){if(r.k==="D"){o.gok++;tot.gok++;cat.D++}else{o.sure++;tot.sure++}}else{o.wr++;tot.wr++;if(r.k)cat[r.k]++;else cat.n++}if(r.t>lastRep)fresh++});
  var total=0,c;for(c in CH)total+=CH[c][2];var done=tot.sure+tot.gok+tot.wr,ok=tot.sure+tot.gok;
  var L=["【"+SUBJ+"學習回報】"+now(),"產生自："+(document.title||PAGE),"說明：同一瀏覽器所有頁面共用一份紀錄，任一頁產生的回報都涵蓋全部工具，不需每頁各貼；換裝置才另貼。","","══ 一、選擇題題庫（章節題庫十三頁＋法條解析練習 共用，共 "+total+" 題）══",
  "整體：已作答 "+done+"／"+total+"（達成 "+pc(done,total)+"%）｜答對 "+ok+"（確定 "+tot.sure+"、猜對 "+tot.gok+"）｜答錯 "+tot.wr+"｜正確率 "+(done?pc(ok,done)+"%":"-")+"｜及格線 "+TGT.p+"%・目標 "+TGT.g+"%","自上次回報新增：作答 "+fresh+" 題","","── 各頁（依題目章節歸入題庫頁；法條解析練習的作答也計入）──"];
@@ -99,13 +99,15 @@ function today(){var d=new Date();d.setHours(0,0,0,0);var t0=Math.floor(d.getTim
  Object.keys(R).forEach(function(k){if((R[k].t||0)>=t0)r++});return{q:q,c:c,r:r}}
 /* 各工具完成度：回傳分組資料，指揮中心畫成表 */
 var SPLIT={G1:[47,61],H3:[46,42]};/* G1、H3 依年度分兩頁：99–104 年為 _1，105–114 年為 _2 */
+var OOS={"G1-102-36":1,"G1-103-35":1};
+function realQ(id){var a=id.split("-");return a.length===3&&a[1]!=="0"&&!OOS[id]}
 function drillPage(id){var a=id.split("-"),c=a[0],y=parseInt(a[1],10);if(!CH[c])return"";var g=CH[c][0];if(SPLIT[c])g+=(y<=104?"_1":"_2");return g==="115說明書修正小考"?"經紀法規_115說明書修正小考":"經紀法規刷題練習_"+g}
 function status(){
  var DB=ld("bxj-q2",{}),UU=ld("bxj-use",{}),G=[];
  function row(p,name,done,total,txt){var u=UU[p]||{},rd=readGet(p);return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:READP[p]?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0)}}
  /* 刷題：bxj-q2 依題號章節（G1、H3 再依年度）歸頁 */
  var tot={},order=[],c;for(c in CH){var pg=drillPage(c+"-0-0");if(SPLIT[c]){var p1=drillPage(c+"-104-0"),p2=drillPage(c+"-105-0");tot[p1]=SPLIT[c][0];tot[p2]=SPLIT[c][1];if(order.indexOf(p1)<0)order.push(p1,p2)}else{tot[pg]=(tot[pg]||0)+CH[c][2];if(order.indexOf(pg)<0)order.push(pg)}}
- var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){var p=drillPage(id);if(!p)return;var o=by[p]=by[p]||{d:0,ok:0};o.d++;if(DB[id].ok)o.ok++;if(id.split("-")[0]!=="C5"){all.d++;if(DB[id].ok)all.ok++}});
+ var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){if(!realQ(id))return;var p=drillPage(id);if(!p)return;var o=by[p]=by[p]||{d:0,ok:0};o.d++;if(DB[id].ok)o.ok++;if(id.split("-")[0]!=="C5"){all.d++;if(DB[id].ok)all.ok++}});
  var NM={},R1=[];PAGES.forEach(function(x){NM[x[0]]=x[1]});
  var SO=["A1A2A3","A4","A5","E1","E3","G1_1","G1_2","G2","H1","H3_1","H3_2","其他小章節"].map(function(k){return"經紀法規刷題練習_"+k});SO.push("經紀法規_115說明書修正小考");
  SO.forEach(function(p){var o=by[p]||{d:0,ok:0},t=tot[p]||0;R1.push(row(p,(p.indexOf("115")>=0?"":"刷題 ")+(NM[p]||p).replace(/^題庫 /,""),o.d,t,"已作答 "+o.d+"／"+t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});

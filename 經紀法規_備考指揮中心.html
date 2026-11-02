@@ -941,6 +941,7 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 #lagPanel .pb i{display:block;height:100%;background:var(--cp-got)}
 #lagPanel .need{font-weight:800;color:var(--cp-accent)}
 #lagPanel .zero{color:var(--cp-soft)}
+#lagPanel a.nx{display:inline-block;margin-top:3px;font-size:.74rem;font-weight:700;color:var(--cp-ink);text-decoration:none;border-bottom:1.5px solid var(--cp-pick);line-height:1.5}
 #lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);font-size:.79rem;line-height:1.85}
 #lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
 #lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
@@ -953,6 +954,7 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
   #lagPanel td::before{content:attr(data-l);flex:none;width:60px;color:var(--cp-soft);font-size:.72rem}
   #lagPanel td:first-child{font-weight:800}
   #lagPanel td:first-child::before{display:none}
+  #lagPanel td:first-child{flex-direction:column;align-items:flex-start;gap:0}
   #lagPanel td:empty{display:none}
 }
 #lagPanel table{background:transparent;margin:0;border-radius:0;font-size:.81rem}
@@ -990,6 +992,8 @@ function draw(){
   var by={};
   Object.keys(raw).forEach(function(id){
     var r=raw[id]; if(!r||typeof r!=='object') return;
+    /* 只算官方題：補習班模擬卷（年份 0）與已刪除的多層次傳銷兩題不計 */
+    var pp=id.split('-'); if(pp[1]==='0'||id==='G1-102-36'||id==='G1-103-35') return;
     var c=id.split('-')[0];
     var o=by[c]=by[c]||{a:0,sure:0,w:0,soft:0,k:{A:0,B:0,C:0,D:0,'':0}};
     o.a++;
@@ -1159,17 +1163,32 @@ function lagBuild(){
   var kRows=rows(mem).filter(function(r){return r.total>0}),kDone=0,kTot=0;kRows.forEach(function(r){kDone+=Math.min(r.done,r.total);kTot+=r.total});
   function per(rem){return rem<=0?'已完成':(Math.ceil(rem/days)+' / 天')}
   function bar(d,t){var p=t?Math.min(100,Math.round(d/t*100)):0;return '<span class="pb"><i style="width:'+p+'%"></i></span>'}
-  function row(nm,d,t,u,note){var rem=Math.max(0,t-d);
+  function pick(list,f){var best=null,bv=2;list.forEach(function(r){var v=f(r);if(v<1&&v<bv){bv=v;best=r}});return best}
+  function go(t,label,ext){if(!t)return '';return '<a class="nx" href="'+t+'"'+(ext?' target="_blank" rel="noopener"':'')+'>下一個：'+label+' ▸</a>'}
+  var nD=pick(dRows,function(r){return Math.min(r.done,r.total)/r.total});
+  var nE=null;ES.some(function(d){if(!(RD[d.id]||(LG[d.id]&&(LG[d.id].n||0)>0))){nE=d;return true}return false});
+  var nR=null;rows(read).some(function(r){if(!r.read){nR=r;return true}return false});
+  var nM=null;mRows.some(function(r){if(r.done<r.total){nM=r;return true}return false});
+  var nK=pick(kRows,function(r){return Math.min(r.done,r.total)/r.total});
+  function esName(d){var t=d.querySelector('.es-t');return t?t.textContent.replace(/｜.*/,''):d.id}
+  var GO={
+    d:nD?go(nD.url,nD.name+'（還差 '+(nD.total-Math.min(nD.done,nD.total))+' 題）',1):'',
+    e:nE?go('#'+nE.id,esName(nE)):'',
+    r:nR?go(nR.url,nR.name,1):'',
+    m:nM?go(nM.url,nM.name,1):'',
+    k:nK?go(nK.url,nK.name+'（還差 '+(nK.total-Math.min(nK.done,nK.total))+' 張）',1):''};
+  function row(nm,d,t,u,note,nx){var rem=Math.max(0,t-d);
+    if(rem&&nx)nm+='<br>'+nx;
     return '<tr><td>'+nm+'</td><td class="n" data-l="目前">'+d+'／'+t+' '+u+'</td><td data-l="完成度">'+bar(d,t)+'</td>'
       +'<td class="n '+(rem?'need':'zero')+'" data-l="每天要">'+per(rem)+'</td><td class="zero" data-l="備註">'+(note||'')+'</td></tr>'}
   var h='<div class="lg"><h3><span>⏳</span>進度落後在哪<span class="d">剩 '+days+' 天</span></h3>'
     +'<div class="goal">目標：<b>考前把每一樣至少做完 1 輪</b>。「每天要」＝剩下的量 ÷ 剩下的天數，沒有另外訂讀書表。</div>'
     +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
-    +row('選擇題（題庫 '+dRows.length+' 頁）',dDone,dTot,'題','解析版練習的作答也算')
-    +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','在申論卡勾「我已讀懂這題的邏輯」'):'')
-    +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底')
-    +row('模擬卷',mDone,mTot,'份','自擬 5 卷＋來勝模擬(一)；答完整份才算')
-    +row('記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；填空按完成')
+    +row('選擇題（題庫 '+dRows.length+' 頁）',dDone,dTot,'題','解析版練習的作答也算；補習班模擬卷題不計',GO.d)
+    +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','在申論卡勾「我已讀懂這題的邏輯」',GO.e):'')
+    +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底',GO.r)
+    +row('模擬卷',mDone,mTot,'份','自擬 5 卷＋來勝模擬(一)；答完整份才算',GO.m)
+    +row('記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；填空按完成',GO.k)
     +'</tbody></table>';
   var zero=[];
   dRows.forEach(function(r){if(r.done===0)zero.push({n:r.name,u:r.url})});
