@@ -8,6 +8,7 @@ for f in sorted(glob.glob(f'{D}/out_*.json')): data.update(json.load(open(f,enco
 json.dump(data,open(f'{D}/exam_ver.json','w',encoding='utf-8'),ensure_ascii=False,indent=1,sort_keys=True)
 s=open(P,encoding='utf-8').read()
 CSS='''<style id="exam-ver-css">
+.essay-card[data-v="exam"] .detail-content,.essay-card[data-v="exam"] .quick-ans,.essay-card[data-v="exam"] .sk2,.essay-card[data-v="exam"] .lj-panel{display:none!important}
 .exam-ver{display:none;margin-top:10px}.essay-card[data-v="exam"] .exam-ver{display:flex;flex-direction:column;gap:8px}
 .exam-ver{--ev1:#2F6B4F;--ev2:#2F6690;--ev3:#9A6A14;--ev4:#A8432F;--evbg:#FFFFFF;--evink:#26302C}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .exam-ver{--ev1:#7CC4A0;--ev2:#82B4DA;--ev3:#DDB15E;--ev4:#E39482;--evbg:#1E2422;--evink:#E4E0D6}}
@@ -29,7 +30,7 @@ for cid,blocks in data.items():
     html='<div class="exam-ver">'+''.join(f'<div class="evb e{i+1}"><b class="evh">{h}</b><p>{t}</p></div>' for i,(h,t) in enumerate(blocks))+'</div>'
     c=re.sub(r'<div class="exam-ver">.*?</div></div>(?=<div class="detail-content)','',c,flags=re.S)  # 舊版移除
     if 'data-ver="exam"' not in c:
-        qb=re.search(r'<button class="ver-btn" data-ver="quick"[^>]*>考場速寫</button>',c)
+        qb=re.search(r'<button class="ver-btn" data-ver="quick"[^>]*>考場速寫</button>',c) or re.search(r'<button class="ver-btn active" data-ver="lj"[^>]*>[^<]*</button>',c)
         assert qb,cid
         btn='<button class="ver-btn" data-ver="exam" title="考場 25 分鐘寫得完的版本：意義→法條→涵攝→結論" onclick="setVer(this.closest(\'.essay-card\'),\'exam\')">考場版</button>'
         c=c[:qb.end()]+btn+c[qb.end():]
