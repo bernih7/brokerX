@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>經紀法規｜申論 5 分鐘・推理版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;
+--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.wrap{max-width:760px;margin:0 auto;padding-block:16px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font:900 1.45rem/1.3 "Noto Serif TC",serif;margin:6px 0 2px;text-wrap:balance}
+.lead{color:var(--sub);font-size:.92rem;margin:0 0 14px}
+a{color:var(--pri)}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 16px;font-weight:500}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.88rem}
+.demo{background:var(--acc-soft);color:var(--acc);border-radius:10px;padding:8px 12px;font-size:.86rem;margin:10px 0}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.mode{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;text-align:left;color:var(--ink)}
+.mode b{display:block;font-size:1.02rem}.mode small{display:block;color:var(--sub);line-height:1.55;margin-top:2px}
+.mode.on{border-color:var(--pri);background:var(--pri-soft)}
+.plan{margin:6px 0 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.plan div{display:grid;grid-template-columns:3.6em 1fr;gap:10px;padding:8px 14px;border-top:1px solid var(--line);font-size:.9rem;line-height:1.55}
+.plan div:first-child{border-top:0}
+.plan b{color:var(--pri);font-variant-numeric:tabular-nums}
+.plan small{display:block;color:var(--sub)}
+.sec-h{font-weight:700;margin:18px 0 6px}
+.qlist{display:flex;flex-direction:column;gap:6px}
+.qi{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 12px;text-align:left;color:var(--ink)}
+.qi .n{font-size:.78rem;color:var(--sub);min-width:4.2em}.qi .t{min-width:0;font-size:.93rem;line-height:1.5}.qi .go{font-size:.8rem;color:var(--pri);font-weight:700}
+.qi .r{grid-column:2/4;font-size:.76rem;color:var(--sub)}
+/* 計時列 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--line)}
+.bar .row{display:flex;align-items:center;gap:10px}
+.stg{font-weight:700;font-size:.98rem;flex:1;min-width:0}
+.stg small{display:block;font-weight:400;color:var(--sub);font-size:.8rem;line-height:1.4}
+.clk{font:700 1.6rem/1 "Noto Sans TC",monospace;font-variant-numeric:tabular-nums;color:var(--pri)}
+.clk.red{color:var(--bad)}
+.tot{font-size:.78rem;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.tot.red{color:var(--bad);font-weight:700}
+.segs{display:grid;grid-template-columns:20fr 180fr 50fr 30fr 20fr;gap:3px;margin-top:8px}
+.segs i{height:6px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.segs i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--pri)}
+.segs i.over b{background:var(--bad)}.segs i.done b{width:100%!important}
+.modechip{font-size:.74rem;border-radius:999px;padding:1px 9px;font-weight:700;white-space:nowrap}
+.modechip.h{background:var(--bad-soft);color:var(--bad)}.modechip.s{background:var(--pri-soft);color:var(--pri)}
+/* 題目 */
+.meta{font-size:.8rem;color:var(--sub);display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:14px}
+.ttl{font-weight:700;font-size:1.05rem;line-height:1.5;margin:4px 0 8px;text-wrap:balance}
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}
+.qbox.clamp .qt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qbox .qx{display:none;margin-left:8px;font-size:.8rem;color:var(--pri);background:none;border:0;padding:0;font-weight:700}
+.qbox.clamp .qx,.qbox.open .qx{display:inline}
+.nq{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:0 10px}
+.subs{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.subs li{font-size:.92rem;display:flex;gap:8px}.subs li b{flex:none;color:var(--pri)}
+/* 推理鏈 */
+.chain{display:flex;gap:5px;margin:14px 0 8px;flex-wrap:wrap;align-items:center}
+.chain i{width:26px;height:6px;border-radius:3px;background:var(--line)}
+.chain i.on{background:var(--acc)}.chain i.ok{background:var(--pri)}
+.chain small{margin-left:6px;color:var(--sub);font-size:.8rem}
+.subq{font-size:.82rem;font-weight:700;color:var(--sub);margin-top:4px}
+.subq span{background:var(--pri);color:var(--on);border-radius:6px;padding:0 7px;margin-right:6px}
+.ask{margin-top:8px;background:var(--surface);border:1.5px solid var(--acc);border-radius:14px;padding:14px 16px}
+.ask .l{font-size:.76rem;font-weight:700;color:var(--acc);letter-spacing:.06em}
+.ask .x{font-size:1.12rem;font-weight:700;line-height:1.6;margin-top:2px;text-wrap:pretty}
+.think{margin-top:10px;color:var(--sub);font-size:.88rem}
+.flip{margin-top:12px;width:100%;padding:11px;border-radius:12px;border:1.5px dashed var(--pri);background:transparent;color:var(--pri);font-weight:700}
+.ans{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.key{background:var(--hl);border-radius:12px;padding:10px 14px;font-weight:700;line-height:1.6}
+.key small{display:block;font-size:.74rem;font-weight:700;color:var(--sub);letter-spacing:.06em}
+.row2{display:grid;grid-template-columns:4.6em 1fr;gap:4px 10px;align-items:baseline;font-size:.94rem;line-height:1.7;padding:0 4px}
+.tag{font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 0;text-align:center}
+.tag.law{background:var(--b1s);color:var(--b1)}.tag.fact{background:var(--b4s);color:var(--acc)}.tag.res{background:var(--b3s);color:var(--b3)}
+.lawx{color:var(--sub);font-size:.86rem;margin-top:2px}
+.lawx summary{cursor:pointer;color:var(--b1);font-size:.8rem;list-style:none}
+.lawx summary::-webkit-details-marker{display:none}
+.next{font-size:.88rem;color:var(--sub);border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
+.next b{color:var(--ink)}
+.subans{background:var(--pri-soft);border-radius:12px;padding:10px 14px;font-size:.94rem;line-height:1.75}
+.subans small{display:block;font-size:.74rem;font-weight:700;color:var(--pri);letter-spacing:.06em}
+/* 速寫、失分點 */
+.blk{border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--cs)}
+.blk.b1{--c:var(--b1);--cs:var(--b1s)}.blk.b2{--c:var(--b2);--cs:var(--b2s)}.blk.b3{--c:var(--b3);--cs:var(--b3s)}.blk.b4{--c:var(--b4);--cs:var(--b4s)}
+.blk-l{display:inline-block;font-size:.74rem;font-weight:700;color:var(--c);letter-spacing:.06em}
+.blk p{margin:2px 0 0;line-height:1.8}
+.blk mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;font-weight:700}
+.evli{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}
+.kou{background:var(--hl);border-radius:10px;padding:9px 14px;margin-top:8px;font-size:.94rem}
+.kou b{margin-right:6px}
+.lose{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.lose div{display:flex;gap:10px;background:var(--bad-soft);border-radius:12px;padding:10px 14px;line-height:1.65}
+.lose div b{flex:none;color:var(--bad)}
+.cover{margin-top:12px;border:1.5px dashed var(--line);border-radius:12px;padding:18px 14px;text-align:center;color:var(--sub);font-size:.92rem}
+.kws{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.kw{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:500}
+.kw.on{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:700}
+.score{margin-top:12px;display:flex;align-items:baseline;gap:10px}
+.score .big{font:900 1.8rem/1 "Noto Serif TC",serif;color:var(--pri)}
+.score small{color:var(--sub)}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.rate button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 6px;font-weight:700}
+.rate button.on[data-v="1"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.rate button.on[data-v="2"]{border-color:var(--b1);background:var(--b1s);color:var(--b1)}
+.rate button.on[data-v="3"]{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.act{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.act .in{max-width:760px;margin:0 auto;display:flex;gap:8px;justify-content:space-between;align-items:center}
+.act .hint{font-size:.8rem;color:var(--sub);flex:1;min-width:0}
+.done-box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+@media (max-width:480px){.modes{grid-template-columns:1fr}.clk{font-size:1.4rem}.row2{grid-template-columns:1fr}.tag{justify-self:start;padding:1px 9px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="../經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)">推理版</span></div>
+  <section id="home">
+    <h1>申論 5 分鐘・推理版</h1>
+    <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
+    <div class="demo" id="demoNote" hidden>這是樣板：只放 3 題，作答不會存紀錄。確定後再做 68 題正式版，紀錄與指揮中心同步。</div>
+    <div class="modes">
+      <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每一步：先想的時間到自動翻開，該步時間到自動跳下一步；跳過的不能回頭。</small></button>
+      <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到只變紅，自己按「翻開」「下一步」。</small></button>
+    </div>
+    <div class="plan">
+      <div><b>0:20</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
+      <div><b>3:00</b><span>② 推理鏈自問自答<small>每一步先想（約 4 成時間）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
+      <div><b>0:50</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
+      <div><b>0:30</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
+      <div><b>0:20</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
+    </div>
+    <div class="sec-h">選一題</div>
+    <div class="qlist" id="qlist"></div>
+  </section>
+  <section id="run" hidden>
+    <div class="bar">
+      <div class="row"><div class="stg" id="stg"></div><span class="modechip" id="mchip"></span>
+        <div><div class="clk" id="clk">0:20</div><div class="tot" id="tot">總 0:00／5:00</div></div></div>
+      <div class="segs" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="meta" id="meta"></div>
+    <div class="ttl" id="ttl"></div>
+    <div class="qbox" id="qbox"></div>
+    <div id="body"></div>
+  </section>
+</div>
+<div class="act" id="act" hidden><div class="in"><span class="hint" id="hint"></span><button type="button" class="btn" id="quitBtn">放棄這題</button><button type="button" class="btn pri" id="nextBtn">下一段 →</button></div></div>
+<script>
+var CARDS=[{"id": "es-fw01", "no": "範文01★", "t": "103年申論二｜何謂不動產經紀業廣告、廣告不實案件查核權責分工原則", "g": "經紀業管理條例", "q": "按內政部為方便直轄市、縣（市）主管機關處理不動產經紀業受託居間或代理銷售（租賃）不動產廣告案件，維護消費者權益，並促進不動產交易安全，經訂頒「不動產經紀業廣告處理原則」，據以實施。試問何謂不動產經紀業廣告？又對於不動產廣告不實案件之查核，其權責分工原則為何？（25 分）", "subs": [{"q": "何謂不動產經紀業廣告？", "pre": "", "ans": "廣告係指經紀業以任何方法，使<b>不特定多數人</b>知悉其宣傳內容之傳播；<b>媒介不限</b>（含網際網路、模型、樣品屋）。", "st": [{"ask": "判斷是不是廣告，要看「用什麼媒介」還是「給誰看」？", "key": "廣告＝使不特定多數人知悉，媒介不限", "lawh": "廣告處理原則第二點（逐字）", "law": "本處理原則所稱廣告，指經紀業利用電視、廣播、影片、幻燈片、報紙、雜誌、傳單、海報、招牌、牌坊、廣告圖冊、模型、樣品屋、布條、電腦、電話傳真、電子視訊、電子語音、網際網路或其他方法，使不特定多數人知悉其宣傳內容之傳播。", "facth": "舉例", "fact": "在租屋網刊登物件、路口立招牌、發傳單、擺樣品屋都算；只交給某一位客戶的個別報價單，因未使不特定多數人知悉，不算。", "res": "判準在「使不特定多數人知悉」，媒介不限、也不以傳統平面媒體為限。", "link": ""}]}, {"q": "不動產廣告不實案件之查核，權責分工原則為何？", "pre": "分工不是看「廣告登在哪」，而是看「誰是廣告主、不實的是哪一種內容」。", "ans": "依廣告處理原則第三點分<b>五款</b>：（一）經紀業自身廣告、（三）加盟未標明 → <b>主管機關依管理條例</b>；（二）企業形象／服務品質等虛偽不實、（四）建商與經紀業俱為廣告主 → <b>公平會依公平交易法</b>；（五）無法劃分 → <b>內政部與公平會協調</b>。", "st": [{"ask": "這則廣告是不是經紀業自己刊登、或屬於執業規範的事？", "key": "（一）自身廣告、（三）加盟未標明 → 主管機關", "lawh": "第三點（一）（三）（逐字）", "law": "（一）經紀業所為不實廣告案件，由主管機關依不動產經紀業管理條例處理；非屬管理條例規範之範疇者，由公平交易委員會依公平交易法處理。（三）經紀業係加盟經營，而未於廣告、市招及名片等明顯處，標明加盟店或加盟經營字樣者，由主管機關依管理條例處理。", "facth": "舉例", "fact": "仲介在網路刊登售屋廣告；加盟店的廣告、市招、名片未標「加盟店」字樣。", "res": "回地政主管機關（內政部／直轄市、縣市政府）依管理條例處理。", "link": "若不實的內容不是執業規範，而是企業形象或服務品質呢？"}, {"ask": "不實內容是否已超出管理條例的規範範疇？", "key": "（二）形象、品質、行銷策略 → 公平會", "lawh": "第三點（二）（逐字）", "law": "經紀業所為之廣告內容，涉及事業服務品質、企業形象、行銷策略等虛偽不實或引人錯誤之表示或表徵，或其他足以嚴重影響市場交易秩序及公共利益之情形者，由公平會依公平法處理。", "facth": "舉例", "fact": "廣告誇稱「全國成交第一」「服務滿意度最高」這類企業形象或品質用語。", "res": "交公平會以競爭法視角審查。", "link": "那建商委託經紀業銷售、兩邊都具名的廣告歸誰？"}, {"ask": "建商與經紀業「俱為廣告主」時由誰查核？劃不開怎麼辦？", "key": "（四）俱為廣告主 → 公平會；（五）劃不開 → 兩機關協調", "lawh": "第三點（四）（五）（逐字）", "law": "（四）建商委託經紀業者從事銷售行為之不實廣告案件，依其個案具體情形，如建商與經紀業者俱為廣告主時，由公平會依公平法處理。（五）其他經紀業所為不實廣告案件，如無法依前四款原則劃分業務管轄時，由內政部與公平會協調處理。", "facth": "舉例", "fact": "預售屋建商委託代銷公司銷售，廣告上同時出現建商與代銷公司名稱。", "res": "由公平會處理；確實無法劃分時才由兩機關協調。", "link": ""}]}], "sx": [["b1", "定義", "<p>不動產廣告不實案件，由內政部與公平會訂<mark class=\"hl\">分工原則</mark>，避免互踢皮球。</p>"], ["b2", "法條", "<p>廣告處理原則 §2（廣告定義）、§3（分工）。</p>"], ["b3", "涵攝", "<p>廣告＝利用各類媒介使<mark class=\"hl\">不特定多數人</mark>知悉宣傳內容。分工：<span class=\"evli\">①經紀業廣告→<mark class=\"hl\">主管機關</mark></span><span class=\"evli\">②非管理條例範疇（形象、行銷策略）→<mark class=\"hl\">公平會</mark></span><span class=\"evli\">③加盟未標明→主管機關</span><span class=\"evli\">④建商與經紀業俱為廣告主→公平會</span><span class=\"evli\">⑤無法劃分→<mark class=\"hl\">協調</mark>。</span></p>"], ["b4", "結論", "<p>依廣告主體與內容分由內政部或公平會管轄，劃不清楚則協調。</p>"]], "kou": "經紀自身、加盟→主管機關；形象策略、共同具名→公平會；劃不開→協調", "kws": ["廣告處理原則 §2、§3", "不特定多數人", "主管機關", "公平交易委員會", "加盟標明", "共同廣告主→公平會", "協調處理"], "lose": ["只寫定義，漏了五種分工", "③加盟未標明是主管機關，不是公平會", "④是建商與經紀業「俱為」廣告主才歸公平會", "漏寫⑤協調處理"]}, {"id": "es-fw11", "no": "範文11", "t": "101年申論一｜經紀人員雙重執業是否符合不動產經紀業管理之意旨", "g": "經紀業管理條例", "q": "某經紀人員甲為增加業績以提高收入，分別於A、B兩家經紀業營業處所任職，此種情形是否符合不動產經紀業管理之意旨？（25分）", "subs": [{"q": "甲同時於 A、B 兩家經紀業任職，是否符合不動產經紀業管理之意旨？", "pre": "", "ans": "<b>並非當然違法</b>。適法性繫於甲是否已取得<b>原專任所屬 A 經紀業之同意</b>：已取得者屬 <b>§16 但書</b>之例外，合法且不違反管理意旨；未經同意者違反 §16 專任義務，依 <b>§31 應予申誡</b>。本條例採「<b>原則專任、例外經同意得兼任</b>」之彈性模式，並非全面禁止兼職。", "st": [{"ask": "經紀人員可以同時在兩家經紀業執行業務嗎？先找規範「專任」的條文。", "key": "§16 經紀人員應專任一經紀業", "lawh": "§16 經紀人員專任義務", "law": "經紀人員應專任一經紀業，並不得為自己或他經紀業執行仲介或代銷業務。", "facth": "甲", "fact": "甲分別於 A、B 兩家經紀業營業處所任職，形式上已為兩家經紀業執行業務。", "res": "判斷起點是 §16 專任義務，不是籠統評價「意旨」。", "link": "但 §16 有但書，兼職並非一律禁止——例外要件是什麼？"}, {"ask": "§16 但書放寬到什麼程度？同意要由誰給？", "key": "同意要由原所屬 A 給，不是 B", "lawh": "§16 但書（經所屬經紀業同意）", "law": "但經所屬經紀業同意為他經紀業執行業務者，不在此限。", "facth": "甲", "fact": "甲之原專任所屬經紀業為 A，同意須由 A 給予；取得 B 的同意不生效力。", "res": "適法與否的唯一分水嶺，是「有無取得 A 經紀業之同意」。", "link": "分水嶺定了，接著把本題事實分成兩種情形各自處理。"}, {"ask": "若甲已取得 A 之同意，結論為何？", "key": "已得 A 同意 → 合法，符合意旨", "lawh": "§16 但書（例外合法）", "law": "經所屬經紀業同意為他經紀業執行業務者，屬條例明文承認之例外。", "facth": "甲（情形一）", "fact": "甲已取得 A 經紀業書面或適當方式之同意後，才為 B 經紀業執行業務。", "res": "合法有效，不違反不動產經紀業管理之意旨。", "link": "反面情形：未經同意擅自為 B 執行業務，責任落在哪一條？"}, {"ask": "未經同意兼職，是罰鍰還是懲戒？", "key": "未經同意 → §31 申誡（不是停業）", "lawh": "§31Ⅰ① 經紀人員之懲戒", "law": "經紀人員違反第十六條、第二十二條第一項、第二十三條或第二十五條規定者，應予申誡。（交付懲戒之程序另依§33Ⅰ）", "facth": "甲（情形二）", "fact": "甲未經 A 同意即為 B 執行業務，構成違反 §16 專任義務。", "res": "由直轄市、縣（市）主管機關交付懲戒，應予申誡；申誡屬較輕微之懲戒類型，非收取差價等重大違規所適用之停止執行業務處分。", "link": ""}]}], "sx": [["b1", "定義", "<p>經紀人員原則<mark class=\"hl\">專任一經紀業</mark>。</p>"], ["b2", "法條", "<p>管理條例 §16、§31。</p>"], ["b3", "涵攝", "<p>已取得所屬經紀業（A）同意→合法；未經同意→違反專任→<mark class=\"hl\">申誡</mark>。</p>"], ["b4", "結論", "<p>並非當然違法，繫於是否經原所屬 A 同意；原則專任、例外同意得兼任。</p>"]], "kou": "兼簽解密＝申誡", "kws": ["§16", "專任", "所屬經紀業同意", "§31", "申誡"], "lose": ["直接答「違法」", "同意要由原所屬經紀業（A）給，不是 B", "處分寫成停止執行業務（兼業是申誡）"]}, {"id": "es-a1", "no": "A1", "t": "經紀人員的分類、資格與證書", "g": "經紀業管理條例", "q": "何謂經紀人員？經紀營業員與經紀人在資格取得、訓練時數與有效期間上有何不同？期滿後各應如何繼續執業？", "subs": [{"q": "何謂經紀人員？", "pre": "", "ans": "經紀人員係<b>經紀人與經紀營業員之合稱</b>：<b>經紀人</b>之職務為<b>執行</b>仲介或代銷業務，<b>經紀營業員</b>之職務為<b>協助經紀人執行</b>仲介或代銷業務（§4⑦）。", "st": [{"ask": "「經紀人員」是一種身分，還是兩種身分的合稱？", "key": "經紀人員＝經紀人＋經紀營業員", "lawh": "§4⑦ 經紀人員之定義與職務", "law": "經紀人員指經紀人或經紀營業員；經紀人之職務為執行仲介或代銷業務，經紀營業員之職務為協助經紀人執行仲介或代銷業務。", "facth": "舉例", "fact": "同一家仲介店裡，在不動產說明書上簽章、負責執行仲介業務的是經紀人；受訓登錄後帶看、回報、協助成交的是經紀營業員。", "res": "經紀人員是上位概念，包含經紀人與經紀營業員兩種；經紀人之職務為執行仲介或代銷業務，經紀營業員之職務為協助經紀人執行。", "link": ""}]}, {"q": "經紀營業員與經紀人在資格取得、訓練時數與有效期間上有何不同？", "pre": "三個比較面向要分開講：怎麼取得資格、要上幾小時、證件有效多久。", "ans": "<b>資格取得</b>：營業員為<b>訓練合格（或經紀人考試及格）＋登錄領證</b>；經紀人為<b>考試及格＋1 年以上營業員經驗</b>，並向<b>直轄市或縣（市）政府</b>請領證書。<b>訓練時數</b>：營業員訓練<b>不得少於 30 小時</b>；經紀人則以考試與經驗為門檻。<b>有效期間</b>：<b>兩者均為 4 年</b>，不是 3 年或 5 年。", "st": [{"ask": "要當經紀營業員，必須具備什麼？", "key": "營業員：訓練 30 小時＋登錄，效期 4 年", "lawh": "§13Ⅱ、Ⅲ 營業員之資格、訓練與效期", "law": "經中央主管機關或其認可之機構、團體舉辦之經紀營業員訓練合格或經紀人考試及格，並向中央主管機關指定之機構、團體登錄及領有證明者，得充任；前項經紀營業員訓練不得少於三十個小時，其證明有效期限為四年。", "facth": "舉例", "fact": "剛畢業的新人上完 30 小時營業員訓練課並辦妥登錄，即領到效期 4 年的營業員證明，不必先考試。", "res": "營業員＝訓練 30 小時以上合格（或經紀人考試及格）＋向中央主管機關指定之機構、團體登錄領證，證明有效期限 4 年。", "link": "營業員靠訓練就能上路，那經紀人考上試是不是就能領證？"}, {"ask": "經紀人考試及格就可以馬上請領證書嗎？", "key": "經紀人：考試＋1 年經驗 → 向縣市政府請領", "lawh": "§14Ⅰ 經紀人之資格", "law": "經不動產經紀人考試及格者，應具備一年以上經紀營業員經驗，始得向直轄市或縣（市）政府請領經紀人證書。", "facth": "舉例", "fact": "考上經紀人但只做了半年營業員，仍不能請領證書，須補足 1 年以上營業員經驗（以仲介或代銷業務所得扣繳資料證明認定）。", "res": "經紀人＝考試及格＋1 年以上經紀營業員經驗，向直轄市或縣（市）政府請領證書。", "link": "資格門檻清楚了，再比效期：經紀人證書也是 4 年嗎？"}, {"ask": "經紀人證書的有效期限是多久？跟營業員一樣嗎？", "key": "兩者效期同為 4 年，差別不在年限", "lawh": "§15Ⅰ 經紀人證書之效期", "law": "前條第一項經紀人證書有效期限為四年。", "facth": "舉例", "fact": "112 年請領的經紀人證書，116 年屆期；同年取得的營業員證明也是 116 年屆期。", "res": "兩者有效期間相同，都是 4 年；真正的差別在取得途徑與期滿續辦的訓練時數、受理機關。", "link": ""}]}, {"q": "期滿後各應如何繼續執業？", "pre": "兩邊都是 4 年到期，但一個叫「重新登錄」、一個叫「換證」，時數與受理機關都不同。", "ans": "<b>經紀營業員</b>：期滿應檢附完成訓練<b>20 小時以上</b>之證明，向<b>中央主管機關指定之機構、團體重新辦理登錄</b>（§13Ⅲ）。<b>經紀人</b>：期滿應檢附 4 年內完成專業訓練<b>30 小時以上</b>之證明，向<b>直轄市或縣（市）政府辦理換證</b>（§15Ⅰ）。<b>時數與受理機關都不可互換</b>。", "st": [{"ask": "營業員證明到期，是重新登錄還是換證？要上幾小時？", "key": "營業員期滿：20 小時 → 重新登錄", "lawh": "§13Ⅲ 營業員期滿重新登錄", "law": "經紀營業員證明有效期限為四年，期滿時，經紀營業員應檢附完成訓練二十個小時以上之證明文件，向中央主管機關指定之機構、團體重新辦理登錄。", "facth": "舉例", "fact": "營業員證明屆期，上滿 20 小時訓練課並檢附證明，向中央主管機關指定之機構、團體重新登錄即可續做。", "res": "營業員期滿＝檢附 20 小時以上訓練證明，向中央主管機關指定之機構、團體重新辦理登錄。", "link": "同樣 4 年到期，經紀人是不是也 20 小時、也找同一個機構？"}, {"ask": "經紀人證書期滿要上幾小時、向誰辦？", "key": "經紀人期滿：30 小時 → 向縣市政府換證", "lawh": "§15Ⅰ 經紀人期滿換證", "law": "期滿時，經紀人應檢附其於四年內在中央主管機關認可之機構、團體完成專業訓練三十個小時以上之證明文件，向直轄市或縣（市）政府辦理換證。", "facth": "舉例", "fact": "經紀人證書屆期，備齊 4 年內在認可機構完成 30 小時以上專業訓練之證明，向直轄市或縣（市）政府辦理換證。", "res": "經紀人期滿＝檢附 4 年內 30 小時以上專業訓練證明，向直轄市或縣（市）政府辦理換證。", "link": ""}]}], "sx": [["b1", "定義", "<p>經紀人員＝經紀人＋經紀營業員。</p>"], ["b2", "法條", "<p>§13、§14、§15。</p>"], ["b3", "涵攝", "<p>營業員：訓練 <mark class=\"hl\">30小時</mark>合格或經紀人考試及格，登錄領證、效期 4年，期滿 <mark class=\"hl\">20小時</mark>重新登錄；經紀人：考試及格＋<mark class=\"hl\">1年</mark>經驗領證、效期 4年，期滿 <mark class=\"hl\">30小時</mark>換證。</p>"], ["b4", "結論", "<p>營業員 30→20，經紀人 30（換證）。</p>"]], "kou": "人30、員20", "kws": ["§13", "§14", "§15", "30小時", "20小時", "1年經驗", "4年"], "lose": ["換證 30小時與重新登錄 20小時互換", "效期寫成 3年或 5年"]}], DEMO=true;
+var STG=[{n:'① 讀題',d:'問幾問？各問在問什麼？',s:20},{n:'② 推理鏈',d:'先想，再翻開核對',s:180},{n:'③ 速寫骨架',d:'考場就寫這四行',s:50},{n:'④ 失分點',d:'別這樣寫',s:30},{n:'⑤ 關鍵詞檢核',d:'不看答案，點出你記得的',s:20}];
+var CN='一二三四五六七八九十';
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function mmss(s){var a=Math.abs(s);return (s<0?'+':'')+Math.floor(a/60)+':'+('0'+(a%60)).slice(-2)}
+var mode='h';try{mode=localStorage.getItem('bxj-sprint-mode')||'h'}catch(e){}
+function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxj-sprint-mode',mode)}catch(e){}pm()}});pm();
+if(DEMO)$('demoNote').hidden=false;
+$('qlist').innerHTML=CARDS.map(function(c,i){var n=c.subs.reduce(function(a,s){return a+s.st.length},0);
+  return '<button type="button" class="qi" data-i="'+i+'"><span class="n">'+esc(c.no)+'</span><span class="t">'+esc(c.t)+'</span><span class="go">開始 ▸</span><span class="r">'+esc(c.g)+'・'+c.subs.length+' 問・推理 '+n+' 步・關鍵詞 '+c.kws.length+' 個</span></button>'}).join('');
+[].forEach.call(document.querySelectorAll('.qi'),function(b){b.onclick=function(){start(+b.getAttribute('data-i'))}});
+
+var cur,st,left,el,iv,steps,si,stepLeft,thinkLeft,shown,got,rate;
+function start(i){
+  cur=CARDS[i]; st=0; left=STG[0].s; el=0; got={}; rate=0;
+  steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
+  var per=Math.max(15,Math.floor(180/steps.length)); steps.forEach(function(p){p.t=per;p.think=Math.round(per*0.4)});
+  si=0; shown=false;
+  $('home').hidden=true;$('run').hidden=false;$('act').hidden=false;
+  $('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>推理 '+steps.length+' 步・每步約 '+per+' 秒</span>';
+  $('ttl').textContent=cur.t;
+  $('qbox').className='qbox';
+  $('qbox').innerHTML='<div class="qt">'+esc(cur.q)+'</div><span class="nq">本題 '+cur.subs.length+' 問</span><button type="button" class="qx" id="qx">展開題目</button>'
+    +'<ul class="subs" id="subs">'+cur.subs.map(function(s,a){return '<li><b>問題'+CN[a]+'</b><span>'+esc(s.q)+'</span></li>'}).join('')+'</ul>';
+  $('qx').onclick=function(){var q=$('qbox'),o=q.classList.contains('clamp');q.classList.toggle('clamp',!o);q.classList.toggle('open',o);this.textContent=o?'收起題目':'展開題目'};
+  $('mchip').className='modechip '+mode;$('mchip').textContent=mode==='h'?'⚡ 衝刺':'🪑 停留';
+  render();tick(true);if(iv)clearInterval(iv);iv=setInterval(function(){tick(false)},1000);scrollTo(0,0);
+}
+function stepHTML(){
+  var p=steps[si],x=p.x,s=cur.subs[p.s];
+  var dots=steps.map(function(q,k){return '<i class="'+(k<si?'ok':(k===si?'on':''))+'"></i>'}).join('');
+  var h='<div class="chain">'+dots+'<small>第 '+(si+1)+'／'+steps.length+' 步</small></div>'
+   +'<div class="subq"><span>問題'+CN[p.s]+'</span>'+esc(s.q)+'</div>'
+   +(p.b===0&&s.pre?'<div class="think">'+esc(s.pre)+'</div>':'')
+   +'<div class="ask"><div class="l">先想 ❓</div><div class="x">'+esc(x.ask)+'</div></div>';
+  if(!shown){h+='<button type="button" class="flip" id="flip">想好了，翻開 ▾</button><div class="think" id="thk"></div>';return h}
+  h+='<div class="ans"><div class="key"><small>關鍵一句</small>'+esc(x.key)+'</div>'
+   +'<div class="row2"><span class="tag law">條文</span><div><b>'+esc(x.lawh)+'</b><details class="lawx"><summary>看條文原文 ▸</summary>'+esc(x.law)+'</details></div></div>'
+   +(x.fact?'<div class="row2"><span class="tag fact">'+esc(x.facth||'套事實')+'</span><div>'+esc(x.fact)+'</div></div>':'')
+   +'<div class="row2"><span class="tag res">小結</span><div>'+esc(x.res)+'</div></div>'
+   +(p.last?'<div class="subans"><small>問題'+CN[p.s]+' 這樣答</small>'+s.ans+'</div>':(x.link?'<div class="next">下一步要問 → <b>'+esc(x.link)+'</b></div>':''))
+   +'</div>';
+  return h;
+}
+function render(){
+  var b=$('body'),h='';
+  $('qbox').classList.toggle('clamp',st>=1&&!$('qbox').classList.contains('open'));
+  $('subs').hidden=st>=1;
+  if(st===0)h='<div class="cover">先讀題，看下面列的幾問。<br>推理鏈會一問一問帶你想。</div>';
+  else if(st===1)h=stepHTML();
+  else if(st===2)h=cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'');
+  else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>';
+  else if(st===4){
+    h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k)+'</button>'}).join('')+'</div>'
+     +'<div class="score"><span class="big" id="sc"></span><small>得分關鍵詞</small></div>'
+     +'<div class="rate">'+['','✅ 熟','📖 還沒背起來','😵 太難'].map(function(t,v){return v?'<button type="button" data-v="'+v+'"'+(rate===v?' class="on"':'')+'>'+t+'</button>':''}).join('')+'</div>';
+  }
+  b.innerHTML=h;
+  var f=$('flip');if(f)f.onclick=function(){shown=true;render()};
+  if(st===4){
+    [].forEach.call(b.querySelectorAll('.kw'),function(k){k.onclick=function(){var i=+k.getAttribute('data-i');got[i]=!got[i];k.classList.toggle('on',got[i]);sc()}});
+    [].forEach.call(b.querySelectorAll('.rate button'),function(x){x.onclick=function(){rate=+x.getAttribute('data-v');[].forEach.call(b.querySelectorAll('.rate button'),function(y){y.classList.toggle('on',y===x)});act()}});
+    sc();
+  }
+  $('stg').innerHTML=STG[st].n+'<small>'+STG[st].d+'</small>';
+  [].forEach.call($('segs').children,function(g,i){g.classList.toggle('done',i<st)});
+  act();
+}
+function sc(){var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});$('sc').textContent=n+'／'+cur.kws.length}
+function act(){
+  var nb=$('nextBtn');nb.disabled=false;
+  if(st===1){nb.textContent=si<steps.length-1?'下一步 →':'去看速寫 →';
+    $('hint').textContent=mode==='h'?'先想的時間到自動翻開；這步時間到自動下一步。':'時間到只變紅，自己控制。'}
+  else if(st===4){nb.textContent='存檔';nb.disabled=!rate;$('hint').textContent=rate?'':'點完關鍵詞，選一個自評。'}
+  else {nb.textContent='下一段 →';$('hint').textContent=mode==='h'?'時間到會自動往下。':'時間到只變紅。'}
+}
+function tick(first){
+  if(!first){if(document.visibilityState!=='visible')return;el++;left--;
+    if(st===1){stepLeft--;if(!shown)thinkLeft--}}
+  if(first&&st===1){stepLeft=steps[si].t;thinkLeft=steps[si].think}
+  var showLeft=st===1?stepLeft:left, clk=$('clk');
+  clk.textContent=mmss(showLeft);clk.classList.toggle('red',showLeft<=0||(st===1&&left<=0));
+  var seg=$('segs').children[st];seg.querySelector('b').style.width=Math.min(100,(STG[st].s-left)/STG[st].s*100)+'%';seg.classList.toggle('over',left<0);
+  var t=$('tot');t.textContent='總 '+mmss(el).replace('+','')+'／5:00';t.classList.toggle('red',el>300);
+  if(st===1&&!shown){var k=$('thk');if(k)k.textContent=thinkLeft>0?'先想 '+thinkLeft+' 秒'+(mode==='h'?'，時間到自動翻開':''):'先想時間到了'}
+  if(first||mode!=='h')return;
+  if(st===1){
+    if(!shown&&thinkLeft<=0){shown=true;render()}
+    else if(stepLeft<=0||left<=0)next();
+  } else if(left<=0&&st<4)next();
+}
+function next(){
+  if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);scrollTo(0,0);return}
+  if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);scrollTo(0,0);return}
+  if(st<4){st++;left=STG[st].s;render();tick(true);scrollTo(0,0);return}
+  if(st===4&&rate)done();
+}
+function done(){
+  clearInterval(iv);
+  var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});
+  $('body').innerHTML='<div class="done-box"><b>完成</b>：關鍵詞 '+n+'／'+cur.kws.length+'・用時 '+mmss(el).replace('+','')+(DEMO?'<br><span style="color:var(--sub);font-size:.88rem">樣板不存紀錄。正式版會寫進指揮中心（與 5 分鐘衝刺同一份紀錄）。</span>':'')+'</div>';
+  st=5;$('stg').innerHTML='完成<small></small>';$('nextBtn').disabled=true;$('hint').textContent='';$('quitBtn').textContent='回清單';
+}
+$('nextBtn').onclick=next;
+$('quitBtn').onclick=function(){clearInterval(iv);$('quitBtn').textContent='放棄這題';$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;scrollTo(0,0)};
+</script>
+</body>
+</html>
