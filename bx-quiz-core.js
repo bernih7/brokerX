@@ -126,7 +126,7 @@ function dec(div){if(div.dataset.dec||!/answered-(ok|ng)/.test(div.className))re
  [].forEach.call(os,function(o,i){var tx=o.children[1];if(!tx)return;tx.className="ob";tx.insertAdjacentHTML("beforeend",'<span class="bg a">正解</span><span class="bg p">你選的</span><span class="arr">▾</span><div class="nt"></div>');tx.querySelector(".nt").innerHTML=(c.exps&&c.exps[i])||"";
   o.addEventListener("click",function(){if(div.classList.contains("done")&&(EX==="C"||EX==="D"))o.classList.toggle("open")})});
  var ob=div.querySelector(".opts");ob.insertAdjacentHTML("beforebegin",'<div class="res'+(ok?" ok":"")+'">'+(ok?"答對了":"答錯了")+"　正解 "+L[c.ans]+(ok||chosen<0?"":"（你選 "+L[chosen]+"）")+'</div><div class="hn">點每個選項可展開／收合說明；上方「全部展開」一次看完</div>');
- var so=(c.q||"")+(c.opts||[]).join("");var tl=typeof bxTax==="function"?bxTax(String(c.ch||"").slice(0,2),so,so+(c.exps||[]).join("")):"";if(tl)div.insertAdjacentHTML("beforeend",'<div class="tl">'+tl+"</div>");
+ var so=(c.q||"")+(c.opts||[]).join("");var tl=typeof window.BXL_LINKS_HTML==="function"?window.BXL_LINKS_HTML(String(c.ch||""),so,so+(c.exps||[]).join("")):bxTax(String(c.ch||"").slice(0,2),so,so+(c.exps||[]).join(""));if(tl)div.insertAdjacentHTML("beforeend",'<div class="tl">'+tl+"</div>");
  applyOpen(div)}
 function scan(){[].forEach.call(document.querySelectorAll(".qcard"),dec)}
 function init(){var L=document.getElementById("list")||document.getElementById("questionList");if(!L)return;

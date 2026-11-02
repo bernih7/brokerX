@@ -173,6 +173,7 @@
             var L = 'ABCD'[i];
             return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + '"><span class="L">' + L + '</span><span>' + rich(t) + '</span></div>';
           }).join('') + '</div>';
+          if (window.BXL_LINKS_HTML) h += BXL_LINKS_HTML(q.ch, q.stem + q.opt.join(''), q.stem + q.opt.join('') + (q.exp || []).join(''));
           var ls = (q.law || []).filter(function (k) { return LAW[k]; });
           if (ls.length) {
             h += '<details class="lw"><summary>本題相關法條（' + ls.length + ' 條）</summary><div class="lb">'
@@ -260,7 +261,9 @@
   function boot() {
     if (!document.querySelector('.bxl-tq')) return;
     if (window.BXL_QUIZ) { init(); return; }
-    var s = document.createElement('script'); s.src = 'bxl-quiz-data.js'; s.onload = init; document.head.appendChild(s);
+    function data() { var s = document.createElement('script'); s.src = 'bxl-quiz-data.js'; s.onload = init; document.head.appendChild(s); }
+    if (window.BXL_LINKS_HTML) { data(); return; }
+    var s0 = document.createElement('script'); s0.src = 'bxl-links.js'; s0.onload = s0.onerror = data; document.head.appendChild(s0);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
