@@ -19,8 +19,8 @@ PT = re.compile(r'^（[一二三四五六七八九十]+）')
 def point(t):
     """涵攝一點：小標粗體；「例：」「理由在於」各自換行並加小標籤"""
     t = t.strip()
-    m = re.search(r'(?:。|；)\s*例：', t); ex = why = ''
-    r = re.search(r'(?:。|；)\s*理由在於', t)
+    m = re.search(r'(?:。|；|」)\s*例：', t); ex = why = ''
+    r = re.search(r'(?:。|；|」)\s*理由在於', t)
     cut = [x for x in (m, r) if x]
     main = t[:min(x.start() for x in cut) + 1] if cut else t
     if m: ex = t[m.end():(r.start() + 1 if r and r.start() > m.start() else len(t))]

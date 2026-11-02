@@ -5,6 +5,7 @@ full=json.load(open(os.path.join(D,'src/todo_full.json')))
 law=json.load(open(os.path.join(D,'../law/lawfull.json')))
 lawtxt=json.dumps(law,ensure_ascii=False)
 def norm(x): return re.sub(r'\s|<br>','',x)
+for _k in list(full): full[_k]={k:re.sub(r'第\s+(\d+)\s+條',r'第\1條',v) for k,v in full[_k].items()}
 ev=json.load(open(sys.argv[1])); bad=0
 for cid,blocks in ev.items():
   if cid not in full: print(cid,'不在待做清單'); bad+=1; continue
