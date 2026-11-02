@@ -108,6 +108,7 @@ button{font:inherit;cursor:pointer}
 .cover{margin-top:12px;border:1.5px dashed var(--line);border-radius:12px;padding:18px 14px;text-align:center;color:var(--sub);font-size:.92rem}
 .kws{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .kw{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:500}
+.kw .ka{margin-left:6px;font-size:.72em;color:var(--sub);font-weight:400}
 .kw.on{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:700}
 .score{margin-top:12px;display:flex;align-items:baseline;gap:10px}
 .score .big{font:900 1.8rem/1 "Noto Serif TC",serif;color:var(--pri)}
@@ -135,12 +136,13 @@ button{font:inherit;cursor:pointer}
       <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每一步：先想的時間到自動翻開，該步時間到自動跳下一步；跳過的不能回頭。</small></button>
       <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到只變紅，自己按「翻開」「下一步」。</small></button>
     </div>
+    <p class="lead" style="margin:0 0 6px">每段秒數依該題文字量與重點資訊（數字、條號、引號）計算「讀完所需」；讀題、速寫、失分點、檢核只給所需時間，其餘全部留給推理鏈的「先想」。合計 5:00。</p>
     <div class="plan">
-      <div><b>0:20</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
-      <div><b>3:00</b><span>② 推理鏈自問自答<small>每一步先想（約 4 成時間）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
-      <div><b>0:50</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
-      <div><b>0:30</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
-      <div><b>0:20</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
+      <div><b>依題</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
+      <div><b>依題</b><span>② 推理鏈自問自答<small>每一步先想（核對內容讀完所需以外的時間都給「先想」）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
+      <div><b>依題</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
+      <div><b>依題</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
+      <div><b>依題</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
     </div>
     <div class="sec-h">選一題</div>
     <div class="qlist" id="qlist"></div>
@@ -159,7 +161,7 @@ button{font:inherit;cursor:pointer}
 </div>
 <div class="act" id="act" hidden><div class="in"><span class="hint" id="hint"></span><button type="button" class="btn" id="quitBtn">放棄這題</button><button type="button" class="btn pri" id="nextBtn">下一段 →</button></div></div>
 <script>
-var CARDS=/*__DATA__*/[], DEMO=/*__DEMO__*/false;
+var CARDS=/*__DATA__*/[], DEMO=/*__DEMO__*/false, RS=6;
 var STG=[{n:'① 讀題',d:'問幾問？各問在問什麼？',s:20},{n:'② 推理鏈',d:'先想，再翻開核對',s:180},{n:'③ 速寫骨架',d:'考場就寫這四行',s:50},{n:'④ 失分點',d:'別這樣寫',s:30},{n:'⑤ 關鍵詞檢核',d:'不看答案，點出你記得的',s:20}];
 var CN='一二三四五六七八九十';
 function $(i){return document.getElementById(i)}
@@ -170,17 +172,38 @@ function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.c
 [].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxj-sprint-mode',mode)}catch(e){}pm()}});pm();
 if(DEMO)$('demoNote').hidden=false;
 $('qlist').innerHTML=CARDS.map(function(c,i){var n=c.subs.reduce(function(a,s){return a+s.st.length},0);
-  return '<button type="button" class="qi" data-i="'+i+'"><span class="n">'+esc(c.no)+'</span><span class="t">'+esc(c.t)+'</span><span class="go">開始 ▸</span><span class="r">'+esc(c.g)+'・'+c.subs.length+' 問・推理 '+n+' 步・關鍵詞 '+c.kws.length+' 個</span></button>'}).join('');
+  steps=[];c.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});plan(c);
+  return '<button type="button" class="qi" data-i="'+i+'"><span class="n">'+esc(c.no)+'</span><span class="t">'+esc(c.t)+'</span><span class="go">開始 ▸</span><span class="r">'+esc(c.g)+'・'+c.subs.length+' 問・推理 '+n+' 步・關鍵詞 '+c.kws.length+' 個<br>'+planTxt()+'</span></button>'}).join('');
 [].forEach.call(document.querySelectorAll('.qi'),function(b){b.onclick=function(){start(+b.getAttribute('data-i'))}});
 
 var cur,st,left,el,iv,steps,si,stepLeft,thinkLeft,shown,got,rate;
+/* 依文字量與重點資訊分配 5 分鐘：閱讀 6 字／秒；數字、條號、引號、標黃各加秒數；總和縮放成 300 秒 */
+function L(x){return String(x||'').replace(/<[^>]+>/g,'').replace(/\s/g,'').length}
+function KI(x){return (String(x||'').replace(/<[^>]+>/g,'').match(/\d+|§|「|第[一二三四五六七八九十]+[條點款項]/g)||[]).length}
+function plan(c){
+  var q=L(c.q)/RS+2*c.subs.length;
+  var sw=steps.map(function(p){var x=p.x,th=5+L(x.ask)/RS,rv=(L(x.key)+L(x.lawh)+L(x.fact)+L(x.res))/RS+1.5*KI(x.key+x.res+x.fact)+(p.last?L(c.subs[p.s].ans)/RS:0);p.wth=th;p.wrv=rv;return th+rv});
+  var sx=c.sx.reduce(function(a,b){return a+L(b[2])/8+0.8*KI(b[2])},0)+L(c.kou)/8;
+  var lo=c.lose.reduce(function(a,t){return a+L(t)/8+0.5},0);
+  var ck=5+2*c.kws.length;
+  var stepSum=sw.reduce(function(a,b){return a+b},0), F=1.25;
+  /* 讀題、速寫、失分點、檢核：給「讀完所需」×1.25；剩下的全部給推理鏈（先想＋核對）。內容太多時整體等比縮 */
+  var need=[q*F,0,sx,lo,ck], fix=need[0]+need[2]+need[3]+need[4], k=Math.min(1,(300-stepSum*0.8)/fix);
+  var r=[Math.max(8,Math.round(need[0]*k)),0,Math.max(8,Math.round(need[2]*k)),Math.max(4,Math.round(need[3]*k)),Math.max(10,Math.round(need[4]*k))];
+  r[1]=300-r[0]-r[2]-r[3]-r[4];
+  var acc=0;steps.forEach(function(p,i){p.t=Math.max(10,Math.round(sw[i]/stepSum*r[1]));var rv=Math.min(p.t-6,Math.round(p.wrv*F));p.think=Math.max(6,Math.round(p.t*0.25),p.t-rv);acc+=p.t});
+  steps[steps.length-1].t+=r[1]-acc;
+  STG.forEach(function(g,i){g.s=r[i]});
+  $('segs').style.gridTemplateColumns=r.map(function(x){return x+'fr'}).join(' ');
+}
+function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
 function start(i){
   cur=CARDS[i]; st=0; left=STG[0].s; el=0; got={}; rate=0;
   steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
-  var per=Math.max(15,Math.floor(180/steps.length)); steps.forEach(function(p){p.t=per;p.think=Math.round(per*0.4)});
+  plan(cur);
   si=0; shown=false;
   $('home').hidden=true;$('run').hidden=false;$('act').hidden=false;
-  $('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>推理 '+steps.length+' 步・每步約 '+per+' 秒</span>';
+  $('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>'+planTxt()+'</span>';
   $('ttl').textContent=cur.t;
   $('qbox').className='qbox';
   $('qbox').innerHTML='<div class="qt">'+esc(cur.q)+'</div><span class="nq">本題 '+cur.subs.length+' 問</span><button type="button" class="qx" id="qx">展開題目</button>'
@@ -214,7 +237,7 @@ function render(){
   else if(st===2)h=cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'');
   else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>';
   else if(st===4){
-    h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k)+'</button>'}).join('')+'</div>'
+    h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</button>'}).join('')+'</div>'
      +'<div class="score"><span class="big" id="sc"></span><small>得分關鍵詞</small></div>'
      +'<div class="rate">'+['','✅ 熟','📖 還沒背起來','😵 太難'].map(function(t,v){return v?'<button type="button" data-v="'+v+'"'+(rate===v?' class="on"':'')+'>'+t+'</button>':''}).join('')+'</div>';
   }

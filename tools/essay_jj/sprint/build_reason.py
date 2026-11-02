@@ -30,8 +30,25 @@ def card(cid):
             'subs': subs, 'sx': [[bc, lab, body] for bc, lab, body in blks], 'kou': clean(kou.group(1)) if kou else '',
             'kws': kws, 'lose': lose}
 
+KWCN = json.load(open(os.path.join(H, 'kw_cn.json'), encoding='utf-8'))
+ART = re.compile(r'§|第\s*\d+\s*條')
+def kwfix(cid, kws):
+    m = KWCN.get(cid, {}); out = []
+    for k in kws:
+        if k in m:
+            if m[k] is None: continue
+            out.append({'c': m[k], 'a': k})
+        else:
+            out.append({'c': k, 'a': ''})
+    bad = [x['c'] for x in out if ART.search(x['c'])]
+    return out, bad
 ids = ['es-fw01', 'es-fw11', 'es-a1'] if 'demo' in sys.argv else [m for m in re.findall(r'<details id="(es-[^"]+)" class="essay-detail', hub)]
 data = [card(x) for x in ids]
+miss = {}
+for d in data:
+    d['kws'], bad = kwfix(d['id'], d['kws'])
+    if bad: miss[d['id']] = bad
+if miss: print('⚠ 關鍵詞仍是條號、尚無中文代表：', miss)
 tpl = open(os.path.join(H, 'tpl_reason.html'), encoding='utf-8').read()
 demo = 'demo' in sys.argv
 out = tpl.replace('/*__DATA__*/[]', json.dumps(data, ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false')
