@@ -308,6 +308,7 @@ function selectOption(i){
   const c=deck[idx];
   selectedOpt=i;
   const correct=(i===c.correct);
+  try{var _m=/L(\d+)-(\d+)/.exec(c.id);if(window.BXREP&&BXREP.rec&&_m)BXREP.rec({chapter:c.group,year:_m[1],num:+_m[2]},i,correct)}catch(e){}
   document.querySelectorAll('.opt')[i].classList.add('selected');
   answerBanner.className='answer-banner '+(correct?'correct':'wrong');
   const letters=['A','B','C','D'];

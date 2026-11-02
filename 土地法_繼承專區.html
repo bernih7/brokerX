@@ -151,7 +151,7 @@ QD.forEach(function(d,qi){var w=document.createElement('div');w.className='qz';
  d.o.forEach(function(o,i){h+='<button class="op" data-i="'+i+'"><b>'+L[i]+'</b><span>'+o+'</span></button>'});
  h+='<div class="ex">';d.e.forEach(function(e,i){h+='<div><span class="'+(i===d.c?'y':'x')+'">'+L[i]+(i===d.c?' ✓ 正解':' ✗')+'</span> '+e+'</div>'});h+=(window.BXL_LINKS_HTML?BXL_LINKS_HTML(d.gr||String(d.g).slice(0,2),d.q+d.o.join(''),d.q+d.o.join('')+d.e.join('')):'')+'</div>';
  w.innerHTML=h;box.appendChild(w);
- w.querySelectorAll('.op').forEach(function(b){b.onclick=function(){if(w.classList.contains('done'))return;var i=+b.dataset.i;w.classList.add('done');done++;if(i===d.c)ok++;
+ w.querySelectorAll('.op').forEach(function(b){b.onclick=function(){if(w.classList.contains('done'))return;var i=+b.dataset.i;w.classList.add('done');done++;if(i===d.c)ok++;try{var _y=/(\d+)年第(\d+)題/.exec(d.y);if(window.BXREP&&BXREP.rec&&_y)BXREP.rec({chapter:d.gr||String(d.g).slice(0,2),year:_y[1],num:+_y[2]},i,i===d.c)}catch(e){}
   w.querySelectorAll('.op')[d.c].classList.add('ok');if(i!==d.c)b.classList.add('ng');sc()}})});
 document.getElementById('ea').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=true})};
 document.getElementById('ca').onclick=function(){document.querySelectorAll('details.sec').forEach(function(x){x.open=false})};

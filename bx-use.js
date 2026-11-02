@@ -57,7 +57,7 @@ function fillMark(key){var f=ld("bx-fill",{});f[key]=1;sv("bx-fill",f)}
 var BASE="https://bernih7.github.io/brokerX/";
 function U8(p){return BASE+encodeURIComponent(p)+".html"}
 /* 各工具總數（2026-10-22 依頁面實際內容核對：考題小卡 518、單字卡 108、填空 183、申論總覽 72、六型模板 6 型） */
-var TOT={card:518,flash:108,fill:183,essay:77,tpl:6};
+var TOT={card:518,flash:108,fill:183,essay:78,tpl:6};
 function readInc(id,d){var R=ld("bx-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bx-read",R);return x.n}
 function readGet(id){return ld("bx-read",{})[id]||{n:0,t:0}}
 /* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷、申論總覽的完成度是自動算，不放計數鈕） */
@@ -105,7 +105,7 @@ function status(){
  var DB=ld("bx-q2",{}),UU=ld("bx-use",{}),G=[];
  function row(p,name,done,total,txt){var u=UU[p]||{},rd=readGet(p);return{p:p,url:U8(p),name:name,done:done,total:total,pct:total?Math.min(100,Math.round(done/total*100)):null,txt:txt,read:READP[p]?(rd.n||0):null,open:u.n||0,last:Math.max(u.t||0,rd.t||0)}}
  /* 刷題：題庫七頁＋互動練習＋解析版練習共用 bx-q2 */
- var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0};o.d++;all.d++;if(DB[id].ok){o.ok++;all.ok++}});
+ var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){if(!(DB[id]&&DB[id].n>0))return;var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0};o.d++;all.d++;if(DB[id].ok){o.ok++;all.ok++}});
  var pg={},order=[],c,total=0;for(c in CH){var p=CH[c][0];if(!pg[p]){pg[p]={t:0,d:0,ok:0,ch:[]};order.push(p)}pg[p].t+=CH[c][2];pg[p].ch.push(c);total+=CH[c][2];var x=by[c];if(x){pg[p].d+=x.d;pg[p].ok+=x.ok}}
  var R1=[];order.forEach(function(p){var o=pg[p],dn=Math.min(o.d,o.t);R1.push(row("LandLaw_"+p+"_quiz","題庫 "+p+"（"+o.ch.join("・")+"）",dn,o.t,"已作答 "+dn+"／"+o.t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});
  var ad=Math.min(all.d,total),at="全科已作答 "+ad+"／"+total+(all.d?"・正確率 "+pc(all.ok,all.d)+"%":"")+"（與題庫共用紀錄）";
@@ -122,8 +122,8 @@ function status(){
  var fk=Object.keys(ld("bx-fill",{})).length;R3.push(row("土地法_定義填空練習","定義填空練習",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
- var R4=[],es=ld("bx-es-read",{}),eo=0,ep=0;Object.keys(es).forEach(function(k){if(!es[k])return;if(/^q-/.test(k))eo++;else ep++});var en=eo+ep;
- R4.push(row("土地法_申論題分類總覽","申論總覽（官方 32＋預測／模擬 45）",Math.min(en,TOT.essay),TOT.essay,"已讀 "+en+"／"+TOT.essay+"（官方 "+eo+"／32・預測／模擬 "+ep+"／45）"));
+ var R4=[],es=ld("bx-es-read",{}),eo=0,ep=0,EM=window.BXL_ESSAY||null,no=32,np=TOT.essay-32;if(EM){no=EM.filter(function(x){return x.k==="off"}).length;np=EM.length-no;EM.forEach(function(x){if(es[x.i]){if(x.k==="off")eo++;else ep++}})}else Object.keys(es).forEach(function(k){if(!es[k])return;if(/^q-/.test(k))eo++;else ep++});var en=eo+ep,ET=no+np;
+ R4.push(row("土地法_申論題分類總覽","申論總覽（官方 "+no+"＋預測／模擬 "+np+"）",Math.min(en,ET),ET,"已讀 "+en+"／"+ET+"（官方 "+eo+"／"+no+"・預測／模擬 "+ep+"／"+np+"）"));
  var tp=ld("bx-land-tpl",{}),tn=Object.keys(tp).filter(function(k){return tp[k]}).length;
  R4.push(row("土地法申論題_六型答題模板","申論六型答題模板",Math.min(tn,TOT.tpl),TOT.tpl,"已掌握題型 "+tn+"／"+TOT.tpl));
  R4.push(row("土地法_申論115出題預測","申論 115 出題預測",0,0,""));
