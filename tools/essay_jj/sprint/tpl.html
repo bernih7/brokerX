@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>經紀法規｜申論 5 分鐘衝刺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;
+--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding-block:16px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font:900 1.45rem/1.3 "Noto Serif TC",serif;margin:6px 0 2px;text-wrap:balance}
+.lead{color:var(--sub);font-size:.92rem;margin:0 0 14px}
+a{color:var(--pri)}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 16px;font-weight:500}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.88rem}
+/* 模式選擇 */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.mode{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;text-align:left;color:var(--ink)}
+.mode b{display:block;font-size:1.02rem}
+.mode small{display:block;color:var(--sub);line-height:1.55;margin-top:2px}
+.mode.on{border-color:var(--pri);background:var(--pri-soft)}
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 16px;padding:0;list-style:none;font-size:.82rem;color:var(--sub)}
+.flow li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.flow li b{color:var(--ink);font-weight:700;margin-right:4px}
+/* 佇列 */
+.sec-h{font-weight:700;margin:18px 0 6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec-h small{color:var(--sub);font-weight:400}
+.qlist{display:flex;flex-direction:column;gap:6px}
+.qi{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 12px;text-align:left;color:var(--ink)}
+.qi .n{font-size:.78rem;color:var(--sub);min-width:4.2em}
+.qi .t{min-width:0;font-size:.93rem;line-height:1.5}
+.qi .r{grid-column:2/4;display:flex;flex-wrap:wrap;gap:6px;font-size:.76rem;color:var(--sub)}
+.chip{border-radius:999px;padding:0 8px;background:color-mix(in srgb,var(--ink) 7%,transparent);white-space:nowrap}
+.chip.new{background:var(--acc-soft);color:var(--acc);font-weight:700}
+.chip.hard{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.chip.mid{background:var(--b1s);color:var(--b1);font-weight:700}
+.chip.ok{background:var(--ok-soft);color:var(--ok);font-weight:700}
+.qi .go{font-size:.8rem;color:var(--pri);font-weight:700}
+.more{margin-top:8px}
+/* 計時列 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.bar .row{display:flex;align-items:center;gap:10px}
+.stg{font-weight:700;font-size:.98rem;flex:1;min-width:0}
+.stg small{display:block;font-weight:400;color:var(--sub);font-size:.8rem;line-height:1.4}
+.clk{font:700 1.6rem/1 "Noto Sans TC",monospace;font-variant-numeric:tabular-nums;color:var(--pri)}
+.clk.red{color:var(--bad)}
+.tot{font-size:.78rem;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.tot.red{color:var(--bad);font-weight:700}
+.segs{display:grid;grid-template-columns:30fr 30fr 150fr 60fr 30fr;gap:3px;margin-top:8px}
+.segs i{height:6px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.segs i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--pri)}
+.segs i.over b{background:var(--bad)}
+.segs i.done b{width:100%!important}
+.modechip{font-size:.74rem;border-radius:999px;padding:1px 9px;font-weight:700;white-space:nowrap}
+.modechip.h{background:var(--bad-soft);color:var(--bad)}
+.modechip.s{background:var(--pri-soft);color:var(--pri)}
+/* 題卡 */
+.card{margin-top:14px}
+.meta{font-size:.8rem;color:var(--sub);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.ttl{font-weight:700;font-size:1.05rem;line-height:1.5;margin:4px 0 8px;text-wrap:balance}
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}
+.qbox.clamp .qt{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.qbox .qx{display:none;margin-left:8px;font-size:.8rem;color:var(--pri);background:none;border:0;padding:0;font-weight:700}.qbox.clamp .qx,.qbox.open .qx{display:inline}
+.qbox .nq{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:0 10px}
+.recall{margin-top:12px;background:var(--acc-soft);border-radius:12px;padding:12px 14px}
+.recall b{display:block;margin-bottom:2px}
+.recall ol{margin:4px 0 0;padding-left:1.4em}
+.mn{margin-top:10px;font-size:.88rem;color:var(--sub)}
+.mn b{color:var(--ink)}
+.ev{margin-top:12px}
+.blk{border-radius:10px;padding:12px 15px;margin:8px 0;background:var(--cs);transition:opacity .25s}
+.blk.b1{--c:var(--b1);--cs:var(--b1s)}.blk.b2{--c:var(--b2);--cs:var(--b2s)}.blk.b3{--c:var(--b3);--cs:var(--b3s)}.blk.b4{--c:var(--b4);--cs:var(--b4s)}
+.blk-l{display:inline-block;font-size:.74rem;font-weight:700;color:var(--c);letter-spacing:.06em}
+.blk p{margin:4px 0 0;line-height:1.85}
+.blk .art{color:var(--sub);font-weight:400}
+.blk .evp{margin-top:12px}.blk .evh{font-weight:700;margin-top:0}
+.blk .evx{display:flex;gap:8px;align-items:baseline}
+.blk .evt{flex:none;font-size:.74em;line-height:1.6;padding:0 7px;border-radius:999px;background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--sub);font-weight:600}
+.blk.dim{opacity:.38}
+.blk.focus{outline:2px solid var(--c);outline-offset:-2px}
+.cover{margin-top:12px;border:1.5px dashed var(--line);border-radius:12px;padding:22px 14px;text-align:center;color:var(--sub);font-size:.92rem}
+/* 檢核 */
+.ck{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.ck label{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;line-height:1.6;cursor:pointer}
+.ck input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--pri)}
+.ck label.on{border-color:var(--ok);background:var(--ok-soft)}
+.must{flex:none;font-size:.72rem;font-weight:700;color:var(--bad);background:var(--bad-soft);border-radius:999px;padding:0 7px;margin-top:3px}
+.score{margin-top:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.score .big{font:900 1.8rem/1 "Noto Serif TC",serif;color:var(--pri)}
+.score small{color:var(--sub)}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.rate button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 6px;font-weight:700}
+.rate button.on[data-v="1"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.rate button.on[data-v="2"]{border-color:var(--b1);background:var(--b1s);color:var(--b1)}
+.rate button.on[data-v="3"]{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.hist{margin-top:10px;font-size:.84rem;color:var(--sub)}
+/* 底部操作列 */
+.act{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.act .in{max-width:760px;margin:0 auto;display:flex;gap:8px;justify-content:space-between;align-items:center}
+.act .hint{font-size:.8rem;color:var(--sub);flex:1;min-width:0}
+.done-box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+@media (max-width:480px){.modes{grid-template-columns:1fr}.clk{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="經紀法規_備考指揮中心.html">← 指揮中心</a><span id="sum" style="color:var(--sub)"></span></div>
+
+  <!-- 開始畫面 -->
+  <section id="home">
+    <h1>申論 5 分鐘衝刺</h1>
+    <p class="lead">一題約 5 分鐘：讀題 → 先自己想 → 讀考場版 → 對結論 → 關鍵字檢核。紀錄與指揮中心申論卡同步（輪數、自評、分數）。</p>
+    <div class="modes" id="modes">
+      <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每段時間到就變紅並自動進下一段；讀過的段落會被蓋住，不能回頭看。</small></button>
+      <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到一樣變紅，但可以繼續看，自己按「下一段」。</small></button>
+    </div>
+    <ul class="flow"><li><b>0:30</b>讀題</li><li><b>0:30</b>先自己想</li><li><b>2:30</b>意義・法條・涵攝</li><li><b>1:00</b>結論</li><li><b>0:30</b>關鍵檢核</li></ul>
+    <button type="button" class="btn pri" id="startBtn">開始下一題</button>
+    <div class="sec-h"><span>接下來的順序</span><small id="qcount"></small></div>
+    <div class="qlist" id="qlist"></div>
+    <button type="button" class="btn more" id="moreBtn">顯示全部</button>
+  </section>
+
+  <!-- 作答畫面 -->
+  <section id="run" hidden>
+    <div class="bar">
+      <div class="row">
+        <div class="stg" id="stg"></div>
+        <span class="modechip" id="mchip"></span>
+        <div><div class="clk" id="clk">0:30</div><div class="tot" id="tot">總 0:00／5:00</div></div>
+      </div>
+      <div class="segs" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="card">
+      <div class="meta" id="meta"></div>
+      <div class="ttl" id="ttl"></div>
+      <div class="qbox" id="qbox"></div>
+      <div id="body"></div>
+    </div>
+  </section>
+</div>
+
+<div class="act" id="act" hidden><div class="in"><span class="hint" id="hint"></span><button type="button" class="btn" id="quitBtn">放棄這題</button><button type="button" class="btn pri" id="nextBtn">下一段 →</button></div></div>
+
+<script>
+var CARDS=/*__DATA__*/[];
+var STG=[{n:'① 讀題',d:'看清楚問什麼、問幾問',s:30},{n:'② 先自己想',d:'不看答案，先列出條號與分點',s:30},{n:'③ 意義・法條・涵攝',d:'先看（一）（二）小標，再看例、理由',s:150},{n:'④ 結論',d:'對照題目每一問有沒有回答到',s:60},{n:'⑤ 關鍵檢核',d:'不看答案，勾出你剛剛有想到的',s:30}];
+var TOTAL=300, LOG='bxj-es-log', SP='bxj-es-sprint', MK='bxj-sprint-mode';
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
+function sv(k,o){try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function mmss(s){var a=Math.abs(s);return (s<0?'+':'')+Math.floor(a/60)+':'+('0'+(a%60)).slice(-2)}
+var RL={1:'✅ 熟',2:'📖 還沒背起來',3:'😵 太難'};
+
+/* ---- 模式 ---- */
+var mode='h';try{mode=localStorage.getItem(MK)||'h'}catch(e){}
+function paintMode(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem(MK,mode)}catch(e){}paintMode()}});
+paintMode();
+
+/* ---- 狀態與排序：沒做過的優先，再來不熟的 ---- */
+function stat(id){
+  var L=ld(LOG)[id]||{}, S=ld(SP)[id]||[], R=ld('bxj-es-read')[id];
+  var last=S[0]||null;
+  return {n:(L.n||0), sp:S.length, v:L.v||0, last:last, read:!!R, t:Math.max(L.t||0,last?last.t:0)};
+}
+function order(){
+  var arr=CARDS.map(function(c,i){var s=stat(c.id);return {c:c,s:s,i:i}});
+  function kindRank(c){return c.k==='off'?0:(c.k==='pred'?1:2)}
+  var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read});
+  var seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
+  fresh.sort(function(a,b){return kindRank(a.c)-kindRank(b.c)||a.c.tier-b.c.tier||a.i-b.i});
+  function vr(v){return v===3?0:(v===2?1:(v===0?2:3))}
+  function pct(x){return x.s.last?x.s.last.sc/Math.max(1,x.s.last.mx):-1}
+  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||pct(a)-pct(b)||a.s.t-b.s.t});
+  return fresh.concat(seen);
+}
+function reason(x){
+  var s=x.s,o=[];
+  if(!s.n&&!s.sp&&!s.read)o.push('<span class="chip new">沒做過</span>');
+  if(s.v===3)o.push('<span class="chip hard">😵 太難</span>');
+  else if(s.v===2)o.push('<span class="chip mid">📖 還沒背起來</span>');
+  else if(s.v===1)o.push('<span class="chip ok">✅ 熟</span>');
+  if(s.sp)o.push('<span class="chip">衝刺 '+s.sp+' 次</span>');
+  if(s.last)o.push('<span class="chip">上次 '+s.last.sc+'／'+s.last.mx+'</span>');
+  if(s.n)o.push('<span class="chip">讀過 '+s.n+' 輪</span>');
+  o.push('<span class="chip">'+esc(x.c.g)+'</span>');
+  return o.join('');
+}
+var showAll=false;
+function home(){
+  var Q=order(), f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
+  $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
+  var tot=0,done=0;CARDS.forEach(function(c){var S=ld(SP)[c.id]||[];tot+=S.length;if(S.length)done++});
+  $('sum').textContent='衝刺過 '+done+'／'+CARDS.length+' 題・共 '+tot+' 次';
+  var list=showAll?Q:Q.slice(0,8);
+  $('qlist').innerHTML=list.map(function(x){return '<button type="button" class="qi" data-id="'+x.c.id+'"><span class="n">'+esc(x.c.no)+'</span><span class="t">'+esc(x.c.t)+'</span><span class="go">開始 ▸</span><span class="r">'+reason(x)+'</span></button>'}).join('');
+  [].forEach.call($('qlist').querySelectorAll('.qi'),function(b){b.onclick=function(){start(b.getAttribute('data-id'))}});
+  $('moreBtn').textContent=showAll?'只看前 8 題':'顯示全部 '+Q.length+' 題';
+}
+$('moreBtn').onclick=function(){showAll=!showAll;home()};
+$('startBtn').onclick=function(){start(order()[0].c.id)};
+
+/* ---- 作答 ---- */
+var cur=null, st=0, stLeft=0, elapsed=0, iv=null, peek=false;
+function start(id){
+  cur=CARDS.filter(function(c){return c.id===id})[0]; if(!cur)return;
+  st=0; stLeft=STG[0].s; elapsed=0; peek=false; cur.got={}; cur.rate=0;
+  $('home').hidden=true; $('run').hidden=false; $('act').hidden=false;
+  var s=stat(id);
+  $('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span>'+(cur.lv?'<span>'+esc(cur.lv)+'</span>':'')+'<span>第 '+(s.sp+1)+' 次衝刺'+(s.last?'・上次 '+s.last.sc+'／'+s.last.mx:'')+'</span>';
+  $('ttl').textContent=cur.t;
+  $('qbox').innerHTML='<div class="qt">'+esc(cur.q)+'</div><span class="nq">本題 '+cur.nq+' 問</span><button type="button" class="qx" id="qx">展開題目</button>';$('qbox').className='qbox';
+  $('qx').onclick=function(){var q=$('qbox'),o=q.classList.contains('clamp');q.classList.toggle('clamp',!o);q.classList.toggle('open',o);this.textContent=o?'收起題目':'展開題目'};
+  $('mchip').className='modechip '+mode; $('mchip').textContent=mode==='h'?'⚡ 衝刺':'🪑 停留';
+  render(); tick(true);
+  if(iv)clearInterval(iv); iv=setInterval(function(){tick(false)},1000);
+  scrollTo(0,0);
+}
+function evHTML(show,focus,dim){
+  return '<div class="ev">'+cur.b.map(function(h,i){
+    if(show.indexOf(i)<0)return '';
+    return '<div class="blk b'+(i+1)+(focus.indexOf(i)>=0?' focus':'')+(dim.indexOf(i)>=0?' dim':'')+'">'+h+'</div>'}).join('')+'</div>';
+}
+function render(){
+  var b=$('body'), h='';
+  if(st===0){h='<div class="cover">讀完題目，數清楚問幾問。<br>答案在後面，現在先不看。</div>'}
+  else if(st===1){h='<div class="recall"><b>先不看答案，在心裡或紙上列出：</b><ol><li>會用哪幾條（條號）</li><li>要分幾點（照題目幾問）</li><li>結論一句話怎麼答</li></ol></div>'+(cur.mn?'<div class="mn">提示口訣（想不出來再看）：<b>'+esc(cur.mn)+'</b></div>':'')}
+  else if(st===2){h=evHTML([0,1,2],[2],[])}
+  else if(st===3){h=evHTML([0,1,2,3],[3],[0,1,2])}
+  else if(st===4){
+    var hide=(mode==='h'||!peek);
+    h=(hide?'<div class="cover">答案已蓋住。憑記憶勾出你剛剛有想到、考試會寫到的關鍵。'+(mode==='s'?'<br><button type="button" class="btn" id="peekBtn" style="margin-top:8px">偷看一下答案</button>':'')+'</div>':evHTML([0,1,2,3],[],[]))
+      +'<div class="ck" id="ck">'+cur.ck.map(function(c,i){return '<label data-i="'+i+'"'+(cur.got[i]?' class="on"':'')+'><input type="checkbox"'+(cur.got[i]?' checked':'')+'>'+(c.h?'<span class="must">必寫</span>':'')+'<span>'+esc(c.x)+'</span></label>'}).join('')+'</div>'
+      +'<div class="score"><span class="big" id="sc"></span><small id="scs"></small></div>'
+      +'<div class="rate" id="rate">'+[1,2,3].map(function(v){return '<button type="button" data-v="'+v+'"'+(cur.rate===v?' class="on"':'')+'>'+RL[v]+'</button>'}).join('')+'</div>'
+      +'<div class="hist" id="hist"></div>';
+  }
+  b.innerHTML=h;
+  if(st===4){
+    var pb=$('peekBtn'); if(pb)pb.onclick=function(){peek=true;render()};
+    [].forEach.call(b.querySelectorAll('.ck label'),function(l){var i=+l.getAttribute('data-i'),cb=l.querySelector('input');
+      cb.onchange=function(){cur.got[i]=cb.checked;l.classList.toggle('on',cb.checked);score()}});
+    [].forEach.call(b.querySelectorAll('#rate button'),function(x){x.onclick=function(){cur.rate=+x.getAttribute('data-v');
+      [].forEach.call(b.querySelectorAll('#rate button'),function(y){y.classList.toggle('on',y===x)});paintAct()}});
+    score(); hist();
+  }
+  var qb=$('qbox'); if(!qb.classList.contains('open'))qb.classList.toggle('clamp',st>=2&&st<=4);
+  paintStage(); paintAct();
+}
+function score(){
+  var sc=0,mx=cur.ck.length,hm=0,hx=0;cur.ck.forEach(function(c,i){if(cur.got[i])sc++;if(c.h){hx++;if(cur.got[i])hm++}});
+  cur.sc=sc;cur.mx=mx;cur.hm=hm;cur.hx=hx;
+  $('sc').textContent=sc+'／'+mx;
+  $('scs').textContent='關鍵字樣'+(hx?'・必寫 '+hm+'／'+hx:'');
+}
+function hist(){
+  var S=ld(SP)[cur.id]||[];
+  $('hist').innerHTML=S.length?'過去衝刺：'+S.slice(0,5).map(function(r){var d=new Date(r.t*1000);return (d.getMonth()+1)+'/'+d.getDate()+' '+r.sc+'／'+r.mx+(r.m==='h'?'⚡':'🪑')}).join('　'):'這題第一次衝刺。';
+}
+function paintStage(){
+  $('stg').innerHTML=STG[st].n+'<small>'+STG[st].d+'</small>';
+  [].forEach.call($('segs').children,function(seg,i){seg.classList.toggle('done',i<st);seg.classList.remove('over')});
+}
+function paintAct(){
+  var nb=$('nextBtn');
+  if(st<4){nb.textContent=st===3?'去檢核 →':'下一段 →';nb.disabled=false;
+    $('hint').textContent=mode==='h'?'時間到會自動往下；讀過的段落會蓋住。':'時間到只會變紅，看完再按下一段。'}
+  else{nb.textContent='存檔';nb.disabled=!cur.rate;$('hint').textContent=cur.rate?'':'勾完關鍵後，選一個自評才能存檔。'}
+}
+function tick(first){
+  if(!first){ if(document.visibilityState!=='visible')return; elapsed++; stLeft--; }
+  var clk=$('clk'),seg=$('segs').children[st].querySelector('b');
+  clk.textContent=mmss(stLeft); clk.classList.toggle('red',stLeft<=0);
+  seg.style.width=Math.min(100,(STG[st].s-stLeft)/STG[st].s*100)+'%';
+  $('segs').children[st].classList.toggle('over',stLeft<0);
+  var t=$('tot'); t.textContent='總 '+mmss(elapsed).replace('+','')+'／5:00'; t.classList.toggle('red',elapsed>TOTAL);
+  if(stLeft<=0&&mode==='h'&&st<4&&!first){next()}
+}
+function next(){
+  if(st>4)return;
+  if(st<4){st++;stLeft=STG[st].s;render();tick(true);scrollTo(0,0);return}
+  save();
+}
+function save(){
+  if(!cur.rate)return;
+  var now=Math.floor(Date.now()/1000);
+  var S=ld(SP); S[cur.id]=[{t:now,sc:cur.sc,mx:cur.mx,hm:cur.hm,hx:cur.hx,m:mode,sec:elapsed,v:cur.rate}].concat(S[cur.id]||[]).slice(0,30); sv(SP,S);
+  var L=ld(LOG), r=L[cur.id]=L[cur.id]||{n:0,s:[],tot:0};
+  r.n=(r.n||0)+1; r.tot=(r.tot||0)+elapsed; r.s=[elapsed].concat(r.s||[]).slice(0,5); r.v=cur.rate; r.t=now; sv(LOG,L);
+  clearInterval(iv); iv=null;
+  var nx=order().filter(function(x){return x.c.id!==cur.id})[0];
+  $('body').innerHTML='<div class="done-box"><b>已存檔</b>：'+cur.sc+'／'+cur.mx+'・'+RL[cur.rate]+'・用時 '+mmss(elapsed).replace('+','')+'<br><span style="color:var(--sub);font-size:.88rem">指揮中心這張申論卡的輪數、自評會一起更新。</span>'
+    +(nx?'<div style="margin-top:10px;font-size:.9rem">下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+  $('stg').innerHTML='完成<small>這題的紀錄已同步</small>';
+  [].forEach.call($('segs').children,function(seg){seg.classList.add('done')});
+  st=5; $('hint').textContent=''; $('quitBtn').textContent='回清單';
+  var nb=$('nextBtn'); nb.disabled=!nx; nb.textContent='下一題 ▸';
+  nb.onclick=function(){nb.onclick=next;$('quitBtn').textContent='放棄這題';start(nx.c.id)};
+}
+$('nextBtn').onclick=next;
+$('quitBtn').onclick=function(){$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;clearInterval(iv);iv=null;cur=null;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
+home();
+</script>
+</body>
+</html>

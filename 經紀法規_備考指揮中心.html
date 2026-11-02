@@ -308,7 +308,8 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
     <div class="note">目前階段：已進入考前限時動筆。每週挑 1 題，先看<b>作答架構</b>（定義→法條→涵攝分析→結論），再<b>限時動筆</b>寫一遍，寫完對照範文。<br>
       用法：<b>① 先挑篇</b>（下方 6 個按鈕）→ <b>② 照順序讀</b>：高頻考點 → 官方範文 → 預測題 → <b>③ 限時動筆</b>，寫完對照範文。</div>
 
-    <div class="group-label"> 訓練工具</div><a class="tool-link" href="https://bernih7.github.io/brokerX/%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E7%94%B3%E8%AB%96115%E5%87%BA%E9%A1%8C%E9%A0%90%E6%B8%AC.html" target="_blank" rel="noopener"><div><div class="name">申論 115 出題預測</div><div class="tag">17 主題・考過幾次／多久沒考／到不到期・高中低排序</div></div><span class="badge gold">先看這個</span></a>
+    <div class="group-label"> 訓練工具</div><a class="tool-link" href="https://bernih7.github.io/brokerX/%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E7%94%B3%E8%AB%96115%E5%87%BA%E9%A1%8C%E9%A0%90%E6%B8%AC.html" target="_blank" rel="noopener"><div><div class="name">申論 115 出題預測</div><div class="tag">16 主題・考過幾次／多久沒考／到不到期・高中低排序</div></div><span class="badge gold">先看這個</span></a>
+    <a class="tool-link" id="spLink" href="經紀法規_申論5分鐘衝刺.html" target="_blank" rel="noopener"><div><div class="name">⏱ 申論 5 分鐘衝刺</div><div class="tag">一題 5 分鐘：讀題→先自己想→考場版→結論→關鍵檢核打分；沒做過的優先，再來不熟的</div></div><span class="badge gold">練習</span></a>
     <a class="tool-link" href="https://bernih7.github.io/brokerX/%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F%E7%94%B3%E8%AB%96%E9%A1%8C_%E7%AF%87%E7%AB%A0%E4%B8%BB%E9%A1%8C%E7%AD%94%E9%A1%8C%E6%A8%A1%E6%9D%BF.html" target="_blank">
       <div><div class="name"> 申論題篇章主題答題模板</div><div class="tag">看到題目先判篇章・四段式骨架・考場60秒SOP</div></div>
       <span class="badge ">開啟</span>
@@ -1614,7 +1615,32 @@ document.querySelectorAll('details.essay-detail').forEach(function(d){
     if(document.visibilityState==='hidden'&&d.open&&sec>0)stop()});
 });
 })();
-</script><!--/eslog-->
+</script>
+<script id="sprint-sync">
+/* 5 分鐘衝刺紀錄（bxj-es-sprint）顯示在每張申論卡的紀錄列；回到此頁時重讀，與衝刺頁同步 */
+(function(){
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
+function mins(s){return s<60?s+' 秒':Math.round(s/60)+' 分'}
+function txt(r){if(!r||!r.n)return '還沒讀過一輪';var avg=Math.round((r.tot||0)/r.n);return '讀過 <b>'+r.n+'</b> 輪・共 '+mins(r.tot||0)+(r.n>1?'・平均 '+mins(avg):'')+(r.s&&r.s.length>1?'（最近：'+r.s.slice(0,3).map(mins).join('、')+'）':'')}
+function paint(){
+  var S=ld('bxj-es-sprint'),L=ld('bxj-es-log');
+  document.querySelectorAll('details.essay-detail').forEach(function(d){
+    var bar=d.querySelector('.eslog'); if(!bar)return;
+    var sp=bar.querySelector('.elsp'); if(!sp){sp=document.createElement('span');sp.className='elsp';bar.insertBefore(sp,bar.querySelector('.elv'))}
+    var a=S[d.id]||[], r=L[d.id]||{};
+    sp.innerHTML=a.length?'⏱ 衝刺 <b>'+a.length+'</b> 次・最近 '+a[0].sc+'／'+a[0].mx:'';
+    var st=bar.querySelector('.elst'); if(st&&!d.open)st.innerHTML=txt(r);
+    bar.querySelectorAll('.elb').forEach(function(b){b.classList.toggle('on',!!r.v&&r.v===+b.getAttribute('data-v'))});
+  });
+}
+paint();
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')paint()});
+addEventListener('storage',function(e){if(e.key==='bxj-es-sprint'||e.key==='bxj-es-log')paint()});
+addEventListener('pageshow',paint);
+})();
+</script>
+<style id="sprint-css">.eslog .elsp{font-size:.8rem;color:var(--sub)}.eslog .elsp:empty{display:none}.eslog .elsp b{color:var(--pri)}</style>
+<!--/eslog-->
 
 
 <script id="lj-js">(function(){var K="bxj-ljv";function set(v,save){document.querySelectorAll(".ljseg button").forEach(function(b){b.classList.toggle("on",b.dataset.lj===v)});document.querySelectorAll(".ljp").forEach(function(p){p.hidden=p.dataset.lj!==v});if(save){try{localStorage.setItem(K,v)}catch(e){}}}
