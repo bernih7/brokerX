@@ -122,11 +122,12 @@ body.paused .pzbox{display:block}
 body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:none}
 body.paused .clk{opacity:.5}
 body.paused #nextBtn{opacity:.45;pointer-events:none}
+.thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="民法_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<a href="民法_申論5分鐘_推理版.html">切到推理版 ▸</a></span></div>
+  <div class="top"><a href="民法_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a href="民法_申論5分鐘_推理版.html">切到推理版 ▸</a></span></div>
 
   <!-- 開始畫面 -->
   <section id="home">
@@ -337,5 +338,11 @@ function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$
 $('pauseBtn').onclick=function(){setPause(!paused)};
 $('resumeBtn').onclick=function(){setPause(false)};
 </script>
+<script id="th-js">/* 深淺色切換：有存過看 bx-theme，沒存過跟系統；按了才寫入（全站共用鍵） */
+(function(){var H=document.documentElement,b=document.getElementById('thBtn');
+function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedia('(prefers-color-scheme:dark)').matches}
+function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
+b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
+paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
 </body>
 </html>

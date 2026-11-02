@@ -133,11 +133,12 @@ body.paused .pzbox{display:block}
 body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:none}
 body.paused .clk{opacity:.5}
 body.paused #nextBtn{opacity:.45;pointer-events:none}
+.thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="__ROOT__民法_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<a href="__ROOT__民法_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
+  <div class="top"><a href="__ROOT__民法_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a href="__ROOT__民法_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
   <section id="home">
     <h1>申論 5 分鐘・推理版</h1>
     <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
@@ -357,5 +358,11 @@ $('pauseBtn').onclick=function(){setPause(!paused)};
 $('resumeBtn').onclick=function(){setPause(false)};
 home();
 </script>
+<script id="th-js">/* 深淺色切換：有存過看 bx-theme，沒存過跟系統；按了才寫入（全站共用鍵） */
+(function(){var H=document.documentElement,b=document.getElementById('thBtn');
+function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedia('(prefers-color-scheme:dark)').matches}
+function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
+b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
+paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
 </body>
 </html>
