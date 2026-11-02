@@ -295,7 +295,7 @@ def card(r):
     if key in EV:
         _n = len(re.sub(r'<[^>]+>|\s', '', ''.join(h + p for h, p in EV[key])))
         evb = '<button type="button" data-v="4">考場版</button>'
-        evp = (f'<div class="vp" data-v="4" hidden><p class="note">考場版約 {_n} 字（約 25 分鐘寫得完的長度），由完整版濃縮，沒有新增法條或事實。考場照這個長度寫；想補理由再看完整版。</p>'
+        evp = (f'<div class="vp" data-v="4" hidden>'
                + ''.join(f'<details class="blk b{min(i, 3) + 1}" open><summary><h5>{h}</h5></summary><div class="fdb">{p}</div></details>' for i, (h, p) in enumerate(EV[key])) + '</div>')
     return (f'<details class="es{" pred" if kind != "off" else ""}" id="{r["id"]}" data-k="{"off" if kind == "off" else "pred"}"{" data-mk=\"1\"" if kind == "mock" else ""} data-pr="{pr}" data-lv="{r["lv"]}" data-tx="{html.escape(tx)}">'
             f'<summary><span class="eh"><span class="rk" aria-hidden="true">✓</span><b class="et">{d["nm"]}</b></span>'

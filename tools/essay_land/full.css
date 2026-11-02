@@ -75,7 +75,7 @@ details>summary{list-style:none;cursor:pointer}details>summary::-webkit-details-
 .vtab button{font:600 12.5px "Noto Sans TC",sans-serif;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;white-space:nowrap}
 .vtab button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
 /* four blocks: thin rounded frame, no side bars */
-.blk{border-radius:10px;margin:8px 0;border:1px solid var(--cl);background:var(--cs)}.blk>summary{padding:7px 12px;display:flex;align-items:center;gap:6px}
+.blk{border-radius:10px;margin:8px 0;border:0;background:var(--cs)}.blk>summary{padding:7px 12px;display:flex;align-items:center;gap:6px}
 .blk>summary::after{content:"▾";margin-left:auto;color:var(--c);font-size:12px;transition:transform .15s}.blk:not([open])>summary::after{transform:rotate(-90deg)}
 .blk h5{margin:0;font:700 14.5px "Noto Serif TC",serif;color:var(--c)}
 .blk.b1{--c:var(--b1);--cs:var(--b1s);--cl:var(--b1l)}.blk.b2{--c:var(--b2);--cs:var(--b2s);--cl:var(--b2l)}.blk.b3{--c:var(--b3);--cs:var(--b3s);--cl:var(--b3l)}.blk.b4{--c:var(--b4);--cs:var(--b4s);--cl:var(--b4l)}
@@ -163,3 +163,6 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 .zj{display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 7px;margin-right:6px;border-radius:999px;background:var(--hl);color:var(--ink);vertical-align:1px}
 
 .cmp{display:flex;flex-direction:column;gap:8px;margin:8px 0}.cmph{display:none}.cmpr{border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--card)}.cmpk{display:block;color:var(--key);font-size:13.5px;margin-bottom:6px}.cmpr>div{display:block;font-size:13.5px;line-height:1.65;padding:6px 8px;border-radius:8px;margin-top:4px}.cmpa{background:var(--b2s);border:1px solid var(--b2l)}.cmpb{background:var(--b3s);border:1px solid var(--b3l)}.cmpr i{display:block;font-style:normal;font-weight:700;font-size:12px;color:var(--muted)}@media(min-width:720px){.cmpr{display:grid;grid-template-columns:7em 1fr 1fr;gap:8px;align-items:start}.cmpr>div{margin-top:0}.cmpk{margin:6px 0 0}}
+
+/* 2026-11-02 使用者「線條太多」：群組展開後拿掉外框（只留題卡一層框），色塊不加框 */
+.grp[open]{border-color:transparent;background:transparent}.grp[open]>summary{border-bottom:0;padding-left:4px;padding-right:4px}.grp[open]>.gbody{padding:4px 0 12px}
