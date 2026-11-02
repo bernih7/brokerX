@@ -46,6 +46,7 @@ function init(){
     var ops=q.opts.map(function(o,j){return '<div class="op'+(j===q.correct?' ok':'')+'">'+"ABCD"[j]+'. '+esc(o)+(j===q.correct?' ✔':'')+'</div>'}).join("");
     var ex=q.exps&&q.exps[q.correct]?'<div class="nt">解析：'+esc(q.exps[q.correct])+'</div>':'';
     var nt=q.note?'<div class="nt">⚠️ '+esc(q.note)+'</div>':'';
+    if(window.BXV_LINKS_HTML)nt+=BXV_LINKS_HTML(q.ch,q.q+q.opts.join(''),q.q+q.opts.join('')+(q.exps||[]).join(''));
     return '<details><summary><span class="yr">'+esc(q.year)+'</span><span class="st '+cls+'">'+sl+'</span><span class="qt">'+esc(q.q)+'</span></summary><div class="bd">'+ops+ex+nt+'</div></details>'}).join("");
   }
   box.querySelector(".chips").addEventListener("click",function(e){var b=e.target.closest(".chip");if(!b)return;F=b.getAttribute("data-f");
@@ -53,5 +54,6 @@ function init(){
   draw();
  });
 }
-if(window.BXV_QUIZ)init();else{var s=document.createElement("script");s.src="bxv-quiz-data.js";s.onload=init;document.head.appendChild(s)}
+function data(){if(window.BXV_QUIZ)init();else{var s=document.createElement("script");s.src="bxv-quiz-data.js";s.onload=init;document.head.appendChild(s)}}
+if(window.BXV_LINKS_HTML)data();else{var s0=document.createElement("script");s0.src="bxv-links.js";s0.onload=s0.onerror=data;document.head.appendChild(s0)}
 })();

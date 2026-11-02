@@ -186,7 +186,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 }
 :root[data-theme="dark"] .btn.primary,:root[data-theme="dark"] .btn.green:hover,:root[data-theme="dark"] .btn.rep:hover,:root[data-theme="dark"] .error-tag.active-a,:root[data-theme="dark"] .error-tag.active-b,:root[data-theme="dark"] .error-tag.active-d{color:#1d1b17}
 </style>
-<script src="bxv-use.js"></script>
+<script src="bxv-use.js"></script><script src="bxv-links.js"></script>
 <style id="ans-tag-css">.exp-me,.exp-ans{display:inline-block;font-size:11px;font-weight:700;padding:0 5px;margin-right:5px;border-radius:4px;border:1px solid currentColor}.exp-me{color:var(--red,#A84030)}.exp-ans{color:var(--green,#2F6B45)}.ans-verdict{margin:10px 0 4px;padding:8px 12px;border-radius:8px;border:1px solid var(--red,#A84030);color:var(--red,#A84030);font-weight:600}.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bxv-hl.js"></script>
 </head>
 <body>
@@ -451,6 +451,7 @@ function renderList(){
         explainHtml += `<div class="${cls}"><span class="explain-letter">${letters[i]}${mark}</span><span>${meTag}${expText}</span></div>`;
       });
       explainHtml += '</div>' + (!a.correct && window.bxvCard ? bxvMore(0) : '');
+      if(window.BXV_LINKS_HTML){const _so=it.q+(it.opts||[]).join('');explainHtml+=BXV_LINKS_HTML(it.cat,_so,_so+(it.explains||[]).join(''));}
     }
 
     let noteHtml = '';

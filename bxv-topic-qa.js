@@ -205,6 +205,7 @@
             var L = 'ABCD'[i];
             return '<div class="' + (acc.indexOf(L) >= 0 ? 'y' : '') + (_wr && acc.indexOf(L) < 0 && L !== picked ? ' dim' : '') + '"><span class="L">' + L + '</span><span>' + (window.bxvHL ? bxvHL(q._id, i, rich(t), 'exp', ok ? null : 'ABCD'.indexOf(picked), 'ABCD'.indexOf(acc[0])) : rich(t)) + '</span></div>';
           }).join('') + '</div>' + (_wr ? bxvMore(0) : '');
+          if (window.BXV_LINKS_HTML) h += BXV_LINKS_HTML(q.ch, q.stem + q.opt.join(''), q.stem + q.opt.join('') + (q.exp || []).join(''));
           var ls = (q.law || []).filter(function (k) { return LAW[k]; });
           if (ls.length) {
             h += '<details class="lw"><summary>本題相關法條（' + ls.length + ' 條）</summary><div class="lb">'
@@ -293,8 +294,12 @@
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
   function boot() {
     if (!document.querySelector('.bxv-tq')) return;
-    if (window.BXV_QUIZ) { init(); return; }
-    var s = document.createElement('script'); s.src = 'bxv-quiz-data.js'; s.onload = init; document.head.appendChild(s);
+    function data() {
+      if (window.BXV_QUIZ) { init(); return; }
+      var s = document.createElement('script'); s.src = 'bxv-quiz-data.js'; s.onload = init; document.head.appendChild(s);
+    }
+    if (window.BXV_LINKS_HTML) { data(); return; }
+    var s0 = document.createElement('script'); s0.src = 'bxv-links.js'; s0.onload = s0.onerror = data; document.head.appendChild(s0);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

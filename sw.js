@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v684';
+const CACHE = 'brokerx-v685';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -137,6 +137,7 @@ const FILES = [
   '/估價_地價調查估計規則專欄.html',
   '/估價_特殊標的總整理.html',
   '/bxv-topic-q.js',
+  '/bxv-links.js',
   '/bxv-topic-qa.js',
   '/bxv-hl.js',
   '/bxv-essay-meta.js',

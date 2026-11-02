@@ -186,7 +186,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 }
 :root[data-theme="dark"] .btn.primary,:root[data-theme="dark"] .btn.green:hover,:root[data-theme="dark"] .btn.rep:hover,:root[data-theme="dark"] .error-tag.active-a,:root[data-theme="dark"] .error-tag.active-b,:root[data-theme="dark"] .error-tag.active-d{color:#1d1b17}
 </style>
-<script src="bxv-use.js"></script>
+<script src="bxv-use.js"></script><script src="bxv-links.js"></script>
 <script src="bxv-quiz-data.js"></script><script src="bxv-hl.js"></script>
 <style id="ans-tag-css">.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
 <body>
@@ -492,6 +492,7 @@ function renderList(){
         const dm = document.createElement("details"); dm.className = "exp-more";
         dm.innerHTML = "<summary>四個選項的完整解析</summary>"; dm.appendChild(eb); card.appendChild(dm);
       } else card.appendChild(eb);
+      if(window.BXV_LINKS_HTML){ const _so = item.q + (item.opts||[]).join(''); const _lk = BXV_LINKS_HTML(item.cat, _so, _so + (item.explains||[]).join('')); if(_lk) card.insertAdjacentHTML("beforeend", _lk); }
 
       // Error tags (only if wrong)
       if(!isCorrect){

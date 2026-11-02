@@ -186,7 +186,7 @@ footer .reset{text-decoration:underline;cursor:pointer;color:var(--sub);backgrou
 }
 :root[data-theme="dark"] .btn.primary,:root[data-theme="dark"] .btn.green:hover,:root[data-theme="dark"] .btn.rep:hover,:root[data-theme="dark"] .error-tag.active-a,:root[data-theme="dark"] .error-tag.active-b,:root[data-theme="dark"] .error-tag.active-d{color:#1d1b17}
 </style>
-<script src="bxv-use.js"></script>
+<script src="bxv-use.js"></script><script src="bxv-links.js"></script>
 <style id="ans-tag-css">.opt.correct-answer::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-answer::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-selected::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-selected::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bxv-hl.js"></script>
 </head>
 <body>
@@ -406,7 +406,7 @@ function buildCard(it){
       ${it.explains.map((ex,i)=>`<div class="explain-item${i===it.correct?' right':''}${!ans.correct&&i!==it.correct&&i!==ans.selected?' dim':''}">
         <span class="explain-letter">${'ABCD'[i]}${i===it.correct?' ✓':''}</span><span>${window.bxvHL?bxvHL(it.id,i,ex,'exp',ans.correct?null:ans.selected,it.correct):ex}</span>
       </div>`).join('')}
-    </div>${!ans.correct&&window.bxvCard?bxvMore(0):''}`:''}
+    </div>${!ans.correct&&window.bxvCard?bxvMore(0):''}${window.BXV_LINKS_HTML?BXV_LINKS_HTML(it.cat,it.q+(it.opts||[]).join(''),it.q+(it.opts||[]).join('')+(it.explains||[]).join('')):''}`:''}
     <div class="error-tag-row">
       <span class="error-tag${tag==='A'?' active-a':''}" data-type="A">A型 法條混淆</span>
       <span class="error-tag${tag==='B'?' active-b':''}" data-type="B">B型 粗心</span>
