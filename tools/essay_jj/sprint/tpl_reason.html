@@ -154,7 +154,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
       <div><b>依題</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
       <div><b>依題</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
     </div>
-    <button type="button" class="btn pri" id="startBtn">開始下一題</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn pri" id="startBtn">開始下一題</button><button type="button" class="btn" id="randBtn">🎲 隨機出題</button></div>
     <div class="sec-h" style="display:flex;justify-content:space-between;gap:8px"><span>接下來的順序</span><small id="qcount" style="color:var(--sub);font-weight:400"></small></div>
     <div class="qlist" id="qlist"></div>
     <button type="button" class="btn" id="moreBtn" style="margin-top:8px">顯示全部</button>
@@ -222,7 +222,10 @@ function home(){
   $('moreBtn').hidden=Q.length<=8;$('moreBtn').textContent=showAll?'只看前 8 題':'顯示全部 '+Q.length+' 題';
 }
 $('moreBtn').onclick=function(){showAll=!showAll;home()};
-$('startBtn').onclick=function(){start(order()[0].c.id)};
+var pick='order';
+function randPick(ex){var a=CARDS.filter(function(c){return c.id!==ex});return a[Math.floor(Math.random()*a.length)]}
+$('startBtn').onclick=function(){pick='order';start(order()[0].c.id)};
+$('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
 var cur,st,left,el,iv,steps,si,stepLeft,thinkLeft,shown,got,rate;
 /* 依文字量與重點資訊分配 5 分鐘：閱讀 6 字／秒；數字、條號、引號、標黃各加秒數；總和縮放成 300 秒 */
 function L(x){return String(x||'').replace(/<[^>]+>/g,'').replace(/\s/g,'').length}
@@ -336,10 +339,10 @@ function done(){
   var now=Math.floor(Date.now()/1000);
   var S=ld(SP);S[cur.id]=[{t:now,sc:n,mx:cur.kws.length,m:mode,sec:el,v:rate,f:'r'}].concat(S[cur.id]||[]).slice(0,30);sv(SP,S);
   var Lg=ld(LOG),r=Lg[cur.id]=Lg[cur.id]||{n:0,s:[],tot:0};r.n=(r.n||0)+1;r.tot=(r.tot||0)+el;r.s=[el].concat(r.s||[]).slice(0,5);r.v=rate;r.t=now;sv(LOG,Lg);
-  var nx=order().filter(function(x){return x.c.id!==cur.id})[0];
+  var nx=pick==='rand'?{c:randPick(cur.id)}:order().filter(function(x){return x.c.id!==cur.id})[0];
   $('body').innerHTML='<div class="done-box"><b>'+(DEMO?'完成':'已存檔')+'</b>：關鍵詞 '+n+'／'+cur.kws.length+'・'+RL[rate]+'・用時 '+mmss(el).replace('+','')
     +'<br><span style="color:var(--sub);font-size:.88rem">'+(DEMO?'樣板不存紀錄。':'指揮中心這張申論卡的輪數、自評會一起更新。')+'</span>'
-    +(nx?'<div style="margin-top:10px;font-size:.9rem">下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+    +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
   st=5;$('stg').innerHTML='完成<small>紀錄已同步</small>';[].forEach.call($('segs').children,function(g){g.classList.add('done')});
   $('hint').textContent='';$('quitBtn').textContent='回清單';
   var nb=$('nextBtn');nb.disabled=!nx;nb.textContent='下一題 ▸';nb.onclick=function(){start(nx.c.id)};

@@ -137,7 +137,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
       <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到一樣變紅，但可以繼續看，自己按「下一段」。</small></button>
     </div>
     <ul class="flow"><li><b>0:30</b>讀題</li><li><b>0:30</b>先自己想</li><li><b>2:30</b>意義・法條・涵攝</li><li><b>1:00</b>結論</li><li><b>0:30</b>關鍵檢核</li></ul>
-    <button type="button" class="btn pri" id="startBtn">開始下一題</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn pri" id="startBtn">開始下一題</button><button type="button" class="btn" id="randBtn">🎲 隨機出題</button></div>
     <div class="sec-h"><span>接下來的順序</span><small id="qcount"></small></div>
     <div class="qlist" id="qlist"></div>
     <button type="button" class="btn more" id="moreBtn">顯示全部</button>
@@ -223,7 +223,10 @@ function home(){
   $('moreBtn').textContent=showAll?'只看前 8 題':'顯示全部 '+Q.length+' 題';
 }
 $('moreBtn').onclick=function(){showAll=!showAll;home()};
-$('startBtn').onclick=function(){start(order()[0].c.id)};
+var pick='order';
+function randPick(ex){var a=CARDS.filter(function(c){return c.id!==ex});return a[Math.floor(Math.random()*a.length)]}
+$('startBtn').onclick=function(){pick='order';start(order()[0].c.id)};
+$('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
 
 /* ---- 作答 ---- */
 var cur=null, st=0, stLeft=0, elapsed=0, iv=null, peek=false;
@@ -315,9 +318,9 @@ function save(){
   var L=ld(LOG), r=L[cur.id]=L[cur.id]||{n:0,s:[],tot:0};
   r.n=(r.n||0)+1; r.tot=(r.tot||0)+elapsed; r.s=[elapsed].concat(r.s||[]).slice(0,5); r.v=cur.rate; r.t=now; sv(LOG,L);
   clearInterval(iv); iv=null;
-  var nx=order().filter(function(x){return x.c.id!==cur.id})[0];
+  var nx=pick==='rand'?{c:randPick(cur.id)}:order().filter(function(x){return x.c.id!==cur.id})[0];
   $('body').innerHTML='<div class="done-box"><b>已存檔</b>：'+cur.sc+'／'+cur.mx+'・'+RL[cur.rate]+'・用時 '+mmss(elapsed).replace('+','')+'<br><span style="color:var(--sub);font-size:.88rem">指揮中心這張申論卡的輪數、自評會一起更新。</span>'
-    +(nx?'<div style="margin-top:10px;font-size:.9rem">下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+    +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
   $('stg').innerHTML='完成<small>這題的紀錄已同步</small>';
   [].forEach.call($('segs').children,function(seg){seg.classList.add('done')});
   st=5; $('hint').textContent=''; $('quitBtn').textContent='回清單';
