@@ -14,6 +14,10 @@ def card(cid):
     i = hub.find('<details id="%s"' % cid); j = hub.find('<details id="es-', i + 10); c = hub[i:j if j > 0 else len(hub)]
     a = c.find('<div class="vp" data-v="1"'); b = c.find('<div class="vp" data-v="0"', a); sx = c[a:b]
     blks = re.findall(r'<div class="blk (b\d)"><span class="blk-l">([^<]+)</span>(.*?)</div>(?=<div class="blk|<div class="kou|<div class="sk2)', sx, re.S)
+    if not blks and '<div class="sk">' in sx:  # 模擬卷卡的速寫是 <h4>標題</h4><p>…</p>
+        skh = sx[sx.find('<div class="sk">'):sx.find('<div class="sk2">') if '<div class="sk2">' in sx else len(sx)]
+        hs = re.findall(r'<h4>(.*?)</h4>(.*?)(?=<h4>|</div>)', skh, re.S)
+        blks = [('b%d' % (min(i, 3) + 1), re.sub(r'^[一二三四五六七八九十]+、', '', clean(h)), body) for i, (h, body) in enumerate(hs)]
     kou = re.search(r'<div class="kou"><b>口訣</b>(.*?)<small', sx, re.S)
     kws = [clean(x) for x in re.findall(r'<span class="kw">(.*?)</span>', sx)]
     lose = [clean(x) for x in re.findall(r'<li>(.*?)</li>', sx[sx.find('losebox'):]) ] if 'losebox' in sx else []

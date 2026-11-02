@@ -27,7 +27,7 @@ details.tch h4{margin:10px 0 2px}details.tch p{margin:2px 0;line-height:1.8}.tch
 for f, ids in PAGES.items():
     p = os.path.join(R, f); s = open(p, encoding='utf-8').read()
     s = re.sub(r'<script id="bxj-cardframe">.*?</style>', '', s, flags=re.S)
-    s = s.replace('</body>', HELP + '\n</body>', 1)
+    s = s.replace('</head>', HELP + '\n</head>', 1)
     s = re.sub(r'var BXJ_EIDS=\[[^\]]*\];', '', s)
     s = s.replace('<script>', '<script>var BXJ_EIDS=%s;' % ('[' + ','.join('"%s"' % i for i in ids) + ']'), 1) if 'var BXJ_EIDS=' not in s else s
     n0 = s.count('renderVers(a,x);')

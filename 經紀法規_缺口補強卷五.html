@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>經紀法規缺口補強卷⑤（限時 90 分鐘）</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><script>var BXJ_EIDS=["es-mk5","es-mk6"];(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>經紀法規缺口補強卷⑤（限時 90 分鐘）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
@@ -70,6 +70,25 @@ details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:
 #tm{font-weight:700;color:var(--bad)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 </style><script src="bxj-use.js"></script>
+<script id="bxj-cardframe">
+/* 申論擬答＝指揮中心同一張卡（iframe 自動調高） */
+function bxjCardFrame(eid){var w=document.createElement('div');w.className='cfw';
+ w.innerHTML='<div class="cfh">四種看法與指揮中心同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="經紀法規_備考指揮中心.html#'+eid+'" target="_blank" rel="noopener">在指揮中心開啟 ▸</a></div>'
+  +'<iframe class="cf" title="申論擬答" loading="lazy" src="經紀法規_申論卡.html#'+eid+'"></iframe>';return w}
+function bxjTeacher(x){var t=(x.v||[]).filter(function(v){return v.n==='老師版'})[0];if(!t)return null;
+ var d=document.createElement('details');d.className='tch';var e=function(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')};
+ d.innerHTML='<summary>老師版擬答（補習班解答原文）</summary>'+(t.src?'<p class="tsrc">'+e(t.src)+'</p>':'')+t.parts.map(function(p){return '<h4>'+e(p[0])+'</h4>'+String(p[1]).split('\n').map(function(l){return '<p>'+e(l)+'</p>'}).join('')}).join('');return d}
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxjCard)return;document.querySelectorAll('iframe.cf').forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+</script>
+<style id="bxj-cardframe-css">
+.cfw{margin-top:10px}
+.cfh{font-size:.8rem;color:var(--sub,#5F6B63);margin-bottom:6px;line-height:1.6}
+.cfh a{color:var(--pri,#2F5D50);font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent}
+details.tch{margin-top:12px;border-top:1px dashed var(--line,#DAD6C3);padding-top:8px}
+details.tch summary{cursor:pointer;font-weight:700}
+details.tch h4{margin:10px 0 2px}details.tch p{margin:2px 0;line-height:1.8}.tch .tsrc{font-size:.8rem;color:var(--sub,#5F6B63)}
+</style>
 </head><body>
 <header><div class="hrow"><h1>經紀法規缺口補強卷⑤（限時 90 分鐘）</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">照真題格式：單選 25 題（每題 2 分）＋加練 6 題（第 26～31 題：預售屋履約擔保五種方式，11-02 補）＋申論 2 題（每題 25 分）。按「開始計時」後 90 分鐘內作答；先做單選，再寫申論，最後對照參考解答。25 題單選｜依 99–114 年真題缺口加權：E公寓大廈11（修繕維護保險／公共基金／起造人／管委會職務）／G公平法7（薦證／斡旋金／結合）／H消保法3／A管理條例3／D定型化契約1｜自擬題，答案依真題官方答案邏輯與官網條文摘要，標「待核」者考前請核全文｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟</div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
@@ -151,13 +170,13 @@ function renderVers(a,x){
  var kf=document.createElement("div");kf.className="kouf";kf.innerHTML="<b>口訣〔自編〕</b>　"+hl(x.m,x.kw);
  a.appendChild(tb);a.appendChild(body);a.appendChild(kf);a.appendChild(n);a.appendChild(lg);show(0)}
 function mkE(host){
- host.innerHTML='<div class="note">申論兩題共 50 分。建議先自己寫在紙上，再展開擬答（3 個版本）對照。</div>';
- D.E.forEach(function(x){
+ host.innerHTML='<div class="note">申論兩題共 50 分。建議先自己寫在紙上，再展開擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）對照。</div>';
+ D.E.forEach(function(x,xi){
   var c=document.createElement("div");c.className="card";
-  c.innerHTML='<div class="qn"></div><div class="stem"></div><details><summary>展開擬答（3 個版本）</summary><div class="ans"></div></details><div class="warn"></div>';
+  c.innerHTML='<div class="qn"></div><div class="stem"></div><details><summary>展開擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</summary><div class="ans"></div></details><div class="warn"></div>';
   c.querySelector(".qn").textContent=x.t;c.querySelector(".stem").textContent=x.q;
   var a=c.querySelector(".ans");
-  renderVers(a,x);
+  a.appendChild(bxjCardFrame(BXJ_EIDS[xi]));var _t=bxjTeacher(x);if(_t)a.appendChild(_t);
   var wn=c.querySelector(".warn");wn.className="tipf";wn.textContent="💡 提示｜"+x.warn;host.appendChild(c)})}
 function mkR(host){
  host.innerHTML="";var N=D.Q.length;
@@ -210,4 +229,5 @@ mkQ(qHost);go(0);
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab-->
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+
 </body></html>

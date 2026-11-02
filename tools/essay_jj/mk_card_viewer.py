@@ -24,6 +24,8 @@ body{background:var(--bg)}
 .cv details.essay-detail.show{display:block}
 .cv .cvmsg{color:var(--sub);font-size:.9rem;padding:16px 0}
 html.embed .cv{padding:0}
+html.embed body{background:transparent}
+html.embed .cvmsg{display:none}
 html.embed .cv details.essay-detail>summary{display:none}
 html.embed .cv details.essay-detail{border:0;background:transparent;padding:0;margin:0}
 html.embed .cv .essay-question,html.embed .cv .mksrc{display:none}
