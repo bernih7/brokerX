@@ -137,6 +137,9 @@ if __name__ == '__main__':
     # 官方 32 張另存於 exam_ver_off.json（同樣只由完整版濃縮），一併合入
     _off = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exam_ver_off.json')
     if os.path.exists(_off): out.update(json.load(open(_off, encoding='utf-8')))
+    # 2026-11-02 補齊其餘 34 張（預測、專題、補習班模擬），同樣只由完整版濃縮
+    _more = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exam_ver_more.json')
+    if os.path.exists(_more): out.update(json.load(open(_more, encoding='utf-8')))
     json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exam_ver.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     import re
     for k, v in EV.items():
