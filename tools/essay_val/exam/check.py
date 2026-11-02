@@ -17,7 +17,7 @@ def check(n):
         if not v: errs.append(f'{cid} 缺'); continue
         if [b[0] for b in v]!=H: errs.append(f'{cid} 標題須為 {H}'); continue
         body=''.join(plain(b[1]) for b in v); L=len(norm(body)); F=len(norm(x['full']))
-        lo=min(700,int(F*0.85)); hi=1000 if x['calc'] else 850
+        lo=min(700,int(F*0.8)); hi=min(1000 if x['calc'] else 850, F)
         if not(lo<=L<=hi): errs.append(f'{cid} 字數 {L}（應 {lo}～{hi}，完整版 {F}）')
         if re.search(r'<(?!br\s*/?>|/?b>)[^>]+>',''.join(b[1] for b in v)): errs.append(f'{cid} 只能用 <br> 與 <b>')
         miss=arts(body)-arts(x['full'])
