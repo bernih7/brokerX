@@ -64,10 +64,15 @@ button{font:inherit;cursor:pointer}
 .ex:first-child{border-top:0}
 .ex .L{flex:none;font-weight:700;width:1.6em}
 .ex.ok{background:var(--ok-soft)}.ex.ok .L{color:var(--ok)}
-.ex.ng .L{color:var(--bad)}
+.ex.ng .L{color:var(--sub)}
+.ex.mine{background:var(--bad-soft)}
+.ex .xt{min-width:0}
+.ex .ans{display:inline-block;font-size:.7rem;font-weight:700;background:var(--ok);color:var(--on);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:1px;white-space:nowrap}
+.ex .art{color:var(--sub);font-weight:400}
+.ex mark.bxj-hl{background:var(--hiy);color:inherit}
 .srcmk{font-size:.7rem;font-weight:700;background:var(--acc-soft);color:var(--acc-ink);border:1px dashed var(--acc);border-radius:5px;padding:0 6px}
 .btn.on{background:var(--pri);color:var(--on);border-color:var(--pri)}
-.ex .me{font-size:.7rem;background:var(--acc-soft);color:var(--acc-ink);border-radius:4px;padding:0 5px;margin-left:5px;white-space:nowrap}
+.ex .me{display:inline-block;font-size:.7rem;font-weight:700;background:var(--acc-soft);color:var(--acc-ink);border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:1px;white-space:nowrap}
 details.law,details.mem{margin-top:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 details.law>summary,details.mem>summary{padding:7px 11px;font-size:.84rem;font-weight:700;cursor:pointer;color:var(--pri)}
 .lawb{padding:0 11px 9px;font-size:.86rem;line-height:1.7}
@@ -15350,6 +15355,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
 }</script>
 <script id="CHS" type="application/json">{"A1":"A1 總則：名詞定義與主管機關","A2":"A2 經紀業設立、保證金與營業處所","A3":"A3 經紀人員：資格、證書與義務","A4":"A4 業務及責任（核心高頻）","A5":"A5 獎懲：行政罰與刑罰","C1":"C1 說明書：土地應記載事項","C2":"C2 說明書：成屋應記載事項","C3":"C3 說明書：預售屋應記載事項","C4":"C4 說明書：不得記載事項","D2":"D2 預售屋買賣定型化契約","D3":"D3 委託銷售定型化契約","E1":"E1 公寓大廈：總則與定義","E2":"E2 公寓大廈：住戶權利義務","E3":"E3 公寓大廈：管理組織與決議","E4":"E4 公寓大廈：規約","E5":"E5 公寓大廈：罰則","F2":"F2 規約範本之法律性質","G1":"G1 公平交易法重要條文","G2":"G2 廣告查核分工原則","H1":"H1 定型化契約規範","H2":"H2 特種交易","H3":"H3 損害賠償與罰則"}</script>
 <script src="bxj-use.js"></script>
+<script src="bxj-hl.js"></script>
 <script>
 (function(){
 var D=JSON.parse(document.getElementById('DATA').textContent);
@@ -15380,6 +15386,10 @@ function sureIt(q,sh){
   sv('bxj-q2',DB);
 }
 function esc(t){return String(t==null?'':t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+/* 解析標色（v664）：只標 tools/jj_hl/hl_data.json 挑的關鍵字（這個選項錯在哪／對在哪），不再用 regex 標條號與數字；條號一律灰色一般字 */
+var ART_RE=/(?:§\s*\d+(?:\s*(?:之|-)\s*\d+)?(?:[ⅠⅡⅢⅣⅤⅥ]+)?(?:第[一二三四五六七八九十]+[項款])*)|(?:第\s*[0-9一二三四五六七八九十百零]+\s*條(?:之[0-9一二三四五六七八九十]+)?(?:第[0-9一二三四五六七八九十]+[項款])*)/g;
+function exHL(k,i,t){var h=window.bxjHL?bxjHL(k,i,t):esc(t);
+  return h.replace(ART_RE,function(m){return '<span class="art">'+m+'</span>'}).replace(/\*\*(.+?)\*\*/g,'$1')}
 function rich(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}
 /* 重點標示：數字量詞／分數／條號 → 黃底粗體；決定性法律效果詞 → 深黃 */
 var HL_N=/(?:§\s*\d+(?:\s*(?:之|-)\s*\d+)?(?:[ⅠⅡⅢⅣⅤⅥ]|第[一二三四五六七八九十]+項)?)|(?:第\s*[0-9一二三四五六七八九十百零]+\s*條(?:之[0-9一二三四五六七八九十]+)?(?:第[0-9一二三四五六七八九十]+項)?(?:第[0-9一二三四五六七八九十]+款)?)|(?:[一二三四五六七八九十]+分之[一二三四五六七八九十]+)|(?:\d+\s*\/\s*\d+)|(?:過半數|半數以上)|(?:[0-9一二三四五六七八九十]+\s*至\s*[0-9一二三四五六七八九十]+\s*(?:個月|小時|年|月|日|天|次|人|名|倍))|(?:(?:\d[\d,]*(?:\.\d+)?|[一二三四五六七八九十百千兩]+)\s*(?:個月|小時|年|月|日|天|次|人|名|倍|％|%|‰|萬元|億元|萬|億|元))/g;
@@ -15677,8 +15687,8 @@ function showAfter(q,picked){
   var eh='';
   q.exp.forEach(function(t,i){
     var L='ABCD'[i],isOk=acc.indexOf(L)>=0;
-    eh+='<div class="ex '+(isOk?'ok':'ng')+'"><span class="L">'+L+'</span><span>'+hl(t,1)+
-        (L===picked?'<span class="me">你選的</span>':'')+'</span></div>';
+    eh+='<div class="ex '+(isOk?'ok':'ng')+(L===picked&&!isOk?' mine':'')+'"><span class="L">'+L+'</span><span class="xt">'+
+        (isOk?'<span class="ans">本題答案</span>':'')+(L===picked?'<span class="me">你選的</span>':'')+exHL(q.k,i,t)+'</span></div>';
   });
   document.getElementById('exs').innerHTML=eh;
   var lb=document.getElementById('lawBox');
@@ -15686,7 +15696,7 @@ function showAfter(q,picked){
     var lh='';
     q.law.forEach(function(k){var L=LAW[k];if(!L)return;
       lh+='<h5>'+esc(k)+(L.t?'　'+esc(L.t):'')+(L.v?'':' <span class="nv">（要點整理，非逐字）</span>')+'</h5>'+
-          L.x.split('\n').map(function(p){return '<p>'+hlLaw(p)+'</p>'}).join('')});
+          L.x.split('\n').map(function(p){return '<p>'+rich(p)+'</p>'}).join('')});
     lb.innerHTML='<details class="law"><summary>本題相關法條（'+q.law.length+' 條）</summary><div class="lawb">'+lh+
       (q.ref?'<p class="nv" style="margin-top:7px">出處：'+esc(q.ref)+'</p>':'')+'</div></details>';
   } else lb.innerHTML=q.ref?'<details class="law"><summary>本題出處</summary><div class="lawb"><p class="nv">'+esc(q.ref)+'</p></div></details>':'';
