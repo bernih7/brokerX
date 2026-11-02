@@ -712,5 +712,13 @@ function draw(){var d=BXREP.today();if(l)l.textContent="今天作答 "+d.q+" 題
   h+='<details class="ts-g" open><summary>'+esc(g.g)+'</summary>'+rows+'</details>'});
  box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h}
 draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw)})()</script>
-</body>
+<script id="bxNavFix">/* iOS Safari：網址列收合／展開後，底部固定導覽列偶爾停在半空中。捲動停止與視窗尺寸變動時，依可視區域校正位置並強制重排。 */
+(function(){var nav=document.getElementById("nav"),vv=window.visualViewport,t=0;if(!nav)return;
+function fix(){var els=[nav,document.getElementById("bxfab")];
+ if(vv&&vv.scale<=1.02){var d=Math.round(vv.offsetTop+vv.height-document.documentElement.clientHeight);nav.style.transform=Math.abs(d)>1?"translateY("+d+"px)":""}
+ els.forEach(function(e){if(!e)return;var o=e.style.display;e.style.display="none";void e.offsetHeight;e.style.display=o})}
+function later(){clearTimeout(t);t=setTimeout(fix,120)}
+addEventListener("scroll",later,{passive:true});addEventListener("resize",later);addEventListener("orientationchange",later);addEventListener("pageshow",later);
+if(vv){vv.addEventListener("resize",later);vv.addEventListener("scroll",later)}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")later()});})();</script></body>
 </html>

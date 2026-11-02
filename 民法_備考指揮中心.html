@@ -1229,5 +1229,13 @@ sum();
 })();
 </script><script id="lj-js">(function(){var K="bxm-ljv";function set(v,save){document.querySelectorAll(".ljseg button").forEach(function(b){b.classList.toggle("on",b.dataset.lj===v)});document.querySelectorAll(".ljp").forEach(function(p){p.hidden=p.dataset.lj!==v});if(save){try{localStorage.setItem(K,v)}catch(e){}}}
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".ljseg button");if(b)set(b.dataset.lj,true)});
-try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script></body>
+try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script><script id="bxNavFix">/* iOS Safari：網址列收合／展開後，底部固定導覽列偶爾停在半空中。捲動停止與視窗尺寸變動時，依可視區域校正位置並強制重排。 */
+(function(){var nav=document.getElementById("nav"),vv=window.visualViewport,t=0;if(!nav)return;
+function fix(){var els=[nav,document.getElementById("bxfab")];
+ if(vv&&vv.scale<=1.02){var d=Math.round(vv.offsetTop+vv.height-document.documentElement.clientHeight);nav.style.transform=Math.abs(d)>1?"translateY("+d+"px)":""}
+ els.forEach(function(e){if(!e)return;var o=e.style.display;e.style.display="none";void e.offsetHeight;e.style.display=o})}
+function later(){clearTimeout(t);t=setTimeout(fix,120)}
+addEventListener("scroll",later,{passive:true});addEventListener("resize",later);addEventListener("orientationchange",later);addEventListener("pageshow",later);
+if(vv){vv.addEventListener("resize",later);vv.addEventListener("scroll",later)}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")later()});})();</script></body>
 </html>
