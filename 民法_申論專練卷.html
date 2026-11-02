@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>民法申論專練卷</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><script>var BXM_EIDS=["專練-一","專練-二","專練-三"];(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>民法申論專練卷</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--pri2:#3E7566;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--warn:#FBF1D9;--shadow:0 2px 8px rgba(37,48,44,.07)}
@@ -115,7 +115,28 @@ details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:
 .ljg{font-size:.74rem;color:var(--sub);white-space:nowrap}
 .ljhot{display:inline-block;font-size:.7rem;font-weight:700;color:var(--bad);background:var(--bad-soft);border-radius:5px;padding:0 5px;margin-left:5px;white-space:nowrap}
 @media (max-width:560px){.ljrow,.ljch{grid-template-columns:1fr}.ljch{display:none}.ljrow{gap:3px;margin-bottom:10px}.ljs>span{display:none}.ljs{padding:0;background:none}.ljseg{display:flex;flex-wrap:nowrap;width:100%}.ljseg button{flex:1;padding:6px 2px;font-size:.78rem;white-space:nowrap}}
-</style></head><body>
+</style>
+<script id="bxm-cardframe">
+/* 申論擬答＝指揮中心同一張卡（iframe 自動調高） */
+function bxmCardFrame(eid){var w=document.createElement('div');w.className='cfw';
+ w.innerHTML='<div class="cfh">四種看法與指揮中心同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="民法_備考指揮中心.html#'+eid+'" target="_blank" rel="noopener">在指揮中心開啟 ▸</a></div>'
+  +'<iframe class="cf" title="申論擬答" loading="lazy" src="民法_申論卡.html#'+eid+'"></iframe>';return w}
+function bxmTeacher(x){var ts=(x.v||[]).filter(function(v){return v.n.indexOf('老師')>=0});if(!ts.length)return null;
+ var w=document.createElement('div');var e=function(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')};
+ ts.forEach(function(t){var d=document.createElement('details');d.className='tch';
+ d.innerHTML='<summary>'+e(t.n)+'</summary>'+(t.src?'<p class="tsrc">'+e(t.src)+'</p>':'')+t.parts.map(function(p){return '<h4>'+e(p[0])+'</h4>'+String(p[1]).split('\n').map(function(l){return '<p>'+e(l)+'</p>'}).join('')}).join('');w.appendChild(d)});return w}
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxmCard)return;document.querySelectorAll('iframe.cf').forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+</script>
+<style id="bxm-cardframe-css">
+.cfw{margin-top:10px}
+.cfh{font-size:.8rem;color:var(--sub,#5F6B63);margin-bottom:6px;line-height:1.6}
+.cfh a{color:var(--pri,#2F5D50);font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent}
+details.tch{margin-top:12px;border-top:1px dashed var(--line,#DAD6C3);padding-top:8px}
+details.tch summary{cursor:pointer;font-weight:700}
+details.tch h4{margin:10px 0 2px}details.tch p{margin:2px 0;line-height:1.8}.tch .tsrc{font-size:.8rem;color:var(--sub,#5F6B63)}
+</style>
+</head><body>
 <header><div class="hrow"><h1>民法申論專練卷①（自擬・限時 75 分鐘）</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">自擬專練卷（非官方考題）：申論 3 題、每題 25 分，限時 75 分鐘。補本站限時模擬卷沒練到的三個主題——共有（預測「高」）、行為能力＋詐欺＋瑕疵擔保（預測「高」，107 年後 7 屆沒考）、贈與＋歸扣與限定責任（選擇題 21 題的「其他各種之債」章原本沒有範文）。建議先寫在紙上，再展開擬答對照；依據見 <a href="民法_申論115出題預測.html">115 出題預測</a>。</div></div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
 
@@ -197,19 +218,19 @@ function renderVers(a,x){
  var kf=document.createElement("div");kf.className="kouf";kf.innerHTML="<b>口訣〔自編〕</b>　"+hl(x.m,x.kw);
  a.appendChild(tb);a.appendChild(body);a.appendChild(kf);a.appendChild(n);a.appendChild(lg);show(0)}
 function mkE(host){
- host.innerHTML='<div class="score"><span>申論 3 題・共 75 分</span><span id="tm2">'+mm(left)+'</span><button id="tb2">開始計時</button><button id="rs2">重設</button></div><div class="note">每題約 25 分鐘。先寫在紙上，時間到再展開擬答（4 個版本）逐項對照採分點。</div>';
+ host.innerHTML='<div class="score"><span>申論 3 題・共 75 分</span><span id="tm2">'+mm(left)+'</span><button id="tb2">開始計時</button><button id="rs2">重設</button></div><div class="note">每題約 25 分鐘。先寫在紙上，時間到再展開擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）逐項對照採分點。</div>';
  var b=host.querySelector("#tb2"),t=host.querySelector("#tm2");
  if(tmr){b.textContent="暫停"}
  b.onclick=function(){if(tmr){clearInterval(tmr);tmr=null;b.textContent="繼續計時";return}
   b.textContent="暫停";tmr=setInterval(function(){left--;var e=document.getElementById("tm2");if(e)e.textContent=mm(Math.max(left,0));
    if(left<=0){clearInterval(tmr);tmr=null;if(e)e.textContent="時間到";var bb=document.getElementById("tb2");if(bb)bb.textContent="已結束"}},1000)};
  host.querySelector("#rs2").onclick=function(){if(tmr){clearInterval(tmr);tmr=null}left=4500;t.textContent=mm(left);b.textContent="開始計時"};
- D.E.forEach(function(x){
+ D.E.forEach(function(x,xi){
   var c=document.createElement("div");c.className="card";
-  c.innerHTML='<div class="qn"></div><div class="stem"></div><details><summary>展開擬答（4 個版本）</summary><div class="ans"></div></details><div class="warn"></div>';
+  c.innerHTML='<div class="qn"></div><div class="stem"></div><details><summary>展開擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</summary><div class="ans"></div></details><div class="warn"></div>';
   c.querySelector(".qn").textContent=x.t;c.querySelector(".stem").textContent=x.q;
   var a=c.querySelector(".ans");
-  renderVers(a,x);
+  a.appendChild(bxmCardFrame(BXM_EIDS[xi]));var _t=bxmTeacher(x);if(_t)a.appendChild(_t);
   var wn=c.querySelector(".warn");wn.className="tipf";wn.textContent="💡 提示｜"+x.warn;host.appendChild(c)})}
 function mkR(host){
  host.innerHTML="";var N=D.Q.length;

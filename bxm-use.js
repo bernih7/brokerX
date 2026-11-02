@@ -143,8 +143,8 @@ function status(){
  var fk=Object.keys(ld("bxm-fill",{})).length;R3.push(row("民法_定義填空練習","定義填空練習",fk,TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
- var R4=[],rs=ld("minfa_read",{}),rn=Object.keys(rs).filter(function(k){return rs[k]}).length;
- R4.push({p:"",url:"#essay",name:"申論 83 題（官方32＋補習班2＋預測49）",done:rn,total:83,pct:Math.round(rn/83*100),txt:"已讀 "+rn+"／83",read:null,open:null,last:0});
+ var R4=[],rs=ld("minfa_read",{}),lg4=ld("bxm-es-log",{}),sp4=ld("bxm-es-sprint",{}),u4={};Object.keys(rs).forEach(function(k){if(rs[k])u4[k]=1});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)u4[k]=1});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)u4[k]=1});var rn=Object.keys(u4).length;
+ R4.push({p:"",url:"#essay",name:"申論 86 題（官方32＋模擬卷5＋預測49）",done:rn,total:86,pct:Math.round(rn/86*100),txt:"已讀 "+rn+"／86",read:null,open:null,last:0});
  var es=ld("bxm-st:civlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
  R4.push(row("民法申論題_五型答題模板","申論五型答題模板",er+em,32,"已讀 "+(er+em)+"／32（已熟 "+em+"）"));
  R4.push(row("民法_申論115出題預測","申論 115 出題預測",0,0,""));

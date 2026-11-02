@@ -70,7 +70,9 @@ VT = '<div class="vt"><button class="on" data-v="3">邏輯拆解</button><button
 done = 0; out = []; pos = 0
 for m in re.finditer(r'<details class="essay[^"]*"[^>]*data-key="([^"]+)"', s):
     k = m.group(1); i = m.start(); e = s.index('<label class="done">', i)
-    if k not in D: sys.exit('缺資料 ' + k)
+    if k not in D:
+        if 'data-lv="M"' in s[i:i + 300]: done += 1; continue  # 模擬卷卡的邏輯拆解來自卷頁
+        sys.exit('缺資料 ' + k)
     blk = s[i:e]
     blk = re.sub(r'<div class="vt">.*?</div>', VT, blk, count=1, flags=re.S)
     def seg(v):
@@ -94,7 +96,7 @@ for m in re.finditer(r'<details class="essay[^"]*"[^>]*data-key="([^"]+)"', s):
     blk = blk.replace('<div class="vp lj" data-v="3" hidden>', '<div class="vp lj" data-v="3">')
     out.append(s[pos:i]); out.append(blk); pos = e; done += 1
 out.append(s[pos:]); s = ''.join(out)
-assert done == 83, done  # 官方 32＋預測 49＋補習班 2  # 官方 32＋預測 49＋補習班 2
+assert done == 86, done  # 含模擬卷卡
 # 舊版標記 class="vp" data-v="3" 也要能被 seg 找到 → 統一屬性順序
 s = s.replace('<div class="vp lj" data-v="3">', '<div class="vp" data-v="3" data-lj-root="1">')
 
