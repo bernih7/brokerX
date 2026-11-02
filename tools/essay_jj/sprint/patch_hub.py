@@ -4,8 +4,13 @@ R=os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..',
 f=os.path.join(R,'經紀法規_備考指揮中心.html'); s=open(f,encoding='utf-8').read()
 s=s.replace('17 主題・考過幾次','16 主題・考過幾次')
 LINK='''<a class="tool-link" id="spLink" href="經紀法規_申論5分鐘衝刺.html" target="_blank" rel="noopener"><div><div class="name">⏱ 申論 5 分鐘衝刺</div><div class="tag">一題 5 分鐘：讀題→先自己想→考場版→結論→關鍵檢核打分；沒做過的優先，再來不熟的</div></div><span class="badge gold">練習</span></a>
+    <a class="tool-link" id="spLink2" href="經紀法規_申論5分鐘_推理版.html" target="_blank" rel="noopener"><div><div class="name">🧩 申論 5 分鐘・推理版</div><div class="tag">跟著推理鏈一步步自問自答→速寫骨架→失分點→關鍵詞檢核；秒數依題目內容分配</div></div><span class="badge gold">練習</span></a>
     '''
-if 'id="spLink"' not in s:
+if 'id="spLink2"' not in s:
+    if 'id="spLink"' in s:
+        a=s.find('<a class="tool-link" id="spLink"'); b=s.find('</a>',a)+4; s=s[:a]+s[b:].lstrip()
+    k0=None
+if 'id="spLink2"' not in s:
     k=s.find('<a class="tool-link" href="https://bernih7.github.io/brokerX/%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F%E7%94%B3%E8%AB%96%E9%A1%8C_%E7%AF%87%E7%AB%A0')
     assert k>0; s=s[:k]+LINK+s[k:]
 JS='''<script id="sprint-sync">

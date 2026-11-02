@@ -20,6 +20,9 @@ def card(cid):
     q = re.search(r'class="essay-question">(.*?)</p>', c, re.S)
     lj = LJ[cid]
     pk = re.search(r'pk-([a-z])', c[:300]).group(1)
+    cls = re.search(r'class="essay-detail ([^"]+)"', c[:300]).group(1).split()
+    tier = 0 if 'tierA' in cls else 1 if 'tierB' in cls else 2 if 'tierC' in cls else 3
+    kind = 'off' if cid.startswith('es-fw') else ('mock' if cid.startswith('es-mk') else 'pred')
     subs = [{'q': s['q'], 'pre': s.get('pre', ''), 'ans': md(s.get('ans', '')),
              'st': [{'ask': st.get('ask', ''), 'key': st.get('key', ''), 'lawh': st.get('lawh', ''), 'law': st.get('law', ''),
                      'facth': st.get('facth', ''), 'fact': st.get('fact', ''), 'res': st.get('res', ''), 'link': st.get('link', '')} for st in s['steps']]}
@@ -28,7 +31,7 @@ def card(cid):
             't': clean(re.search(r'class="es-t">(.*?)</span>', c).group(1)), 'g': GRP.get(pk, ''),
             'q': re.sub(r'^【[^】]+】\s*', '', clean(q.group(1))) if q else '',
             'subs': subs, 'sx': [[bc, lab, body] for bc, lab, body in blks], 'kou': clean(kou.group(1)) if kou else '',
-            'kws': kws, 'lose': lose}
+            'kws': kws, 'lose': lose, 'k': kind, 'tier': tier}
 
 KWCN = json.load(open(os.path.join(H, 'kw_cn.json'), encoding='utf-8'))
 ART = re.compile(r'§|第\s*\d+\s*條')
@@ -48,10 +51,12 @@ miss = {}
 for d in data:
     d['kws'], bad = kwfix(d['id'], d['kws'])
     if bad: miss[d['id']] = bad
-if miss: print('⚠ 關鍵詞仍是條號、尚無中文代表：', miss)
+if miss:
+    print('⚠ 關鍵詞仍是條號、尚無中文代表：', miss)
+    if not ('demo' in sys.argv): sys.exit(1)
 tpl = open(os.path.join(H, 'tpl_reason.html'), encoding='utf-8').read()
 demo = 'demo' in sys.argv
-out = tpl.replace('/*__DATA__*/[]', json.dumps(data, ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false')
+out = tpl.replace('/*__DATA__*/[]', json.dumps(data, ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false').replace('__ROOT__', '../' if demo else '')
 dst = os.path.join(ROOT, 'demo', '經紀法規_申論5分鐘_推理版_demo.html') if demo else os.path.join(ROOT, '經紀法規_申論5分鐘_推理版.html')
 open(dst, 'w', encoding='utf-8').write(out)
 print(dst, len(data), [(d['id'], sum(len(s['st']) for s in d['subs']), len(d['kws']), len(d['lose'])) for d in data])
