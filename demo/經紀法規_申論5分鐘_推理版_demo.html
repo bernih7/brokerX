@@ -27,7 +27,7 @@ button{font:inherit;cursor:pointer}
 .btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 16px;font-weight:500}
 .btn.pri{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
 .btn:disabled{opacity:.45;cursor:default}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.88rem}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:.88rem}.top a{white-space:nowrap}.top>span{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:flex-end}
 .demo{background:var(--acc-soft);color:var(--acc);border-radius:10px;padding:8px 12px;font-size:.86rem;margin:10px 0}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
 .mode{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;text-align:left;color:var(--ink)}
@@ -212,8 +212,8 @@ var showAll=false;
 function home(){
   var Q=order(),f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
   $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
-  var tot=0,done=0;CARDS.forEach(function(c){var r=(ld(SP)[c.id]||[]).filter(function(x){return x.f==='r'});tot+=r.length;if(r.length)done++});
-  $('sum').textContent=DEMO?'樣板':'推理版做過 '+done+'／'+CARDS.length+' 題・共 '+tot+' 次';
+  var tot=0,dn=0;CARDS.forEach(function(c){var r=(ld(SP)[c.id]||[]).filter(function(x){return x.f==='r'});tot+=r.length;if(r.length)dn++});
+  $('sum').textContent=DEMO?'樣板':'推理版做過 '+dn+'／'+CARDS.length+' 題・共 '+tot+' 次';
   var list=showAll?Q:Q.slice(0,8);
   $('qlist').innerHTML=list.map(function(x){var c=x.c,n=c.subs.reduce(function(a,s){return a+s.st.length},0);
     steps=[];c.subs.forEach(function(s,a){s.st.forEach(function(y,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:y})})});plan(c);
@@ -343,97 +343,6 @@ function done(){
   st=5;$('stg').innerHTML='完成<small>紀錄已同步</small>';[].forEach.call($('segs').children,function(g){g.classList.add('done')});
   $('hint').textContent='';$('quitBtn').textContent='回清單';
   var nb=$('nextBtn');nb.disabled=!nx;nb.textContent='下一題 ▸';nb.onclick=function(){start(nx.c.id)};
-}
-$('nextBtn').onclick=next;
-  cur=CARDS.filter(function(c){return c.id===id})[0];if(!cur)return; st=0; left=STG[0].s; el=0; got={}; rate=0;
-  steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
-  plan(cur);
-  si=0; shown=false;
-  $('home').hidden=true;$('run').hidden=false;$('act').hidden=false;
-  var S0=stat(cur.id);$('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>推理第 '+(S0.rn+1)+' 次'+(S0.last?'・上次 '+S0.last.sc+'／'+S0.last.mx:'')+'</span><span>'+planTxt()+'</span>';
-  $('ttl').textContent=cur.t;
-  $('qbox').className='qbox';
-  $('qbox').innerHTML='<div class="qt">'+esc(cur.q)+'</div><span class="nq">本題 '+cur.subs.length+' 問</span><button type="button" class="qx" id="qx">展開題目</button>'
-    +'<ul class="subs" id="subs">'+cur.subs.map(function(s,a){return '<li><b>問題'+CN[a]+'</b><span>'+esc(s.q)+'</span></li>'}).join('')+'</ul>';
-  $('qx').onclick=function(){var q=$('qbox'),o=q.classList.contains('clamp');q.classList.toggle('clamp',!o);q.classList.toggle('open',o);this.textContent=o?'收起題目':'展開題目'};
-  $('mchip').className='modechip '+mode;$('mchip').textContent=mode==='h'?'⚡ 衝刺':'🪑 停留';
-  render();tick(true);if(iv)clearInterval(iv);iv=setInterval(function(){tick(false)},1000);scrollTo(0,0);
-}
-function stepHTML(){
-  var p=steps[si],x=p.x,s=cur.subs[p.s];
-  var dots=steps.map(function(q,k){return '<i class="'+(k<si?'ok':(k===si?'on':''))+'"></i>'}).join('');
-  var h='<div class="chain">'+dots+'<small>第 '+(si+1)+'／'+steps.length+' 步</small></div>'
-   +'<div class="subq"><span>問題'+CN[p.s]+'</span>'+esc(s.q)+'</div>'
-   +(p.b===0&&s.pre?'<div class="think">'+esc(s.pre)+'</div>':'')
-   +'<div class="ask"><div class="l">先想 ❓</div><div class="x">'+esc(x.ask)+'</div></div>';
-  if(!shown){h+='<button type="button" class="flip" id="flip">想好了，翻開 ▾</button><div class="think" id="thk"></div>';return h}
-  h+='<div class="ans"><div class="key"><small>關鍵一句</small>'+esc(x.key)+'</div>'
-   +'<div class="row2"><span class="tag law">條文</span><div><b>'+esc(x.lawh)+'</b><details class="lawx"><summary>看條文原文 ▸</summary>'+esc(x.law)+'</details></div></div>'
-   +(x.fact?'<div class="row2"><span class="tag fact">'+esc(x.facth||'套事實')+'</span><div>'+esc(x.fact)+'</div></div>':'')
-   +'<div class="row2"><span class="tag res">小結</span><div>'+esc(x.res)+'</div></div>'
-   +(p.last?'<div class="subans"><small>問題'+CN[p.s]+' 這樣答</small>'+s.ans+'</div>':(x.link?'<div class="next">下一步要問 → <b>'+esc(x.link)+'</b></div>':''))
-   +'</div>';
-  return h;
-}
-function render(){
-  var b=$('body'),h='';
-  $('qbox').classList.toggle('clamp',st>=1&&!$('qbox').classList.contains('open'));
-  $('subs').hidden=st>=1;
-  if(st===0)h='<div class="cover">先讀題，看下面列的幾問。<br>推理鏈會一問一問帶你想。</div>';
-  else if(st===1)h=stepHTML();
-  else if(st===2)h=cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'');
-  else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>';
-  else if(st===4){
-    h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</button>'}).join('')+'</div>'
-     +'<div class="score"><span class="big" id="sc"></span><small>得分關鍵詞</small></div>'
-     +'<div class="rate">'+['','✅ 熟','📖 還沒背起來','😵 太難'].map(function(t,v){return v?'<button type="button" data-v="'+v+'"'+(rate===v?' class="on"':'')+'>'+t+'</button>':''}).join('')+'</div>';
-  }
-  b.innerHTML=h;
-  var f=$('flip');if(f)f.onclick=function(){shown=true;render()};
-  if(st===4){
-    [].forEach.call(b.querySelectorAll('.kw'),function(k){k.onclick=function(){var i=+k.getAttribute('data-i');got[i]=!got[i];k.classList.toggle('on',got[i]);sc()}});
-    [].forEach.call(b.querySelectorAll('.rate button'),function(x){x.onclick=function(){rate=+x.getAttribute('data-v');[].forEach.call(b.querySelectorAll('.rate button'),function(y){y.classList.toggle('on',y===x)});act()}});
-    sc();
-  }
-  $('stg').innerHTML=STG[st].n+'<small>'+STG[st].d+'</small>';
-  [].forEach.call($('segs').children,function(g,i){g.classList.toggle('done',i<st)});
-  act();
-}
-function sc(){var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});$('sc').textContent=n+'／'+cur.kws.length}
-function act(){
-  var nb=$('nextBtn');nb.disabled=false;
-  if(st===1){nb.textContent=si<steps.length-1?'下一步 →':'去看速寫 →';
-    $('hint').textContent=mode==='h'?'先想的時間到自動翻開；這步時間到自動下一步。':'時間到只變紅，自己控制。'}
-  else if(st===4){nb.textContent='存檔';nb.disabled=!rate;$('hint').textContent=rate?'':'點完關鍵詞，選一個自評。'}
-  else {nb.textContent='下一段 →';$('hint').textContent=mode==='h'?'時間到會自動往下。':'時間到只變紅。'}
-}
-function tick(first){
-  if(!first){if(paused||document.visibilityState!=='visible')return;el++;left--;
-    if(st===1){stepLeft--;if(!shown)thinkLeft--}}
-  if(first&&st===1){stepLeft=steps[si].t;thinkLeft=steps[si].think}
-  var showLeft=st===1?stepLeft:left, clk=$('clk');
-  clk.textContent=mmss(showLeft);clk.classList.toggle('red',showLeft<=0||(st===1&&left<=0));
-  var seg=$('segs').children[st];seg.querySelector('b').style.width=Math.min(100,(STG[st].s-left)/STG[st].s*100)+'%';seg.classList.toggle('over',left<0);
-  var t=$('tot');t.textContent='總 '+mmss(el).replace('+','')+'／5:00';t.classList.toggle('red',el>300);
-  if(st===1&&!shown){var k=$('thk');if(k)k.textContent=thinkLeft>0?'先想 '+thinkLeft+' 秒'+(mode==='h'?'，時間到自動翻開':''):'先想時間到了'}
-  if(first||mode!=='h')return;
-  if(st===1){
-    if(!shown&&thinkLeft<=0){shown=true;render()}
-    else if(stepLeft<=0||left<=0)next();
-  } else if(left<=0&&st<4)next();
-}
-function next(){
-  if(paused)return;
-  if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);scrollTo(0,0);return}
-  if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);scrollTo(0,0);return}
-  if(st<4){st++;left=STG[st].s;render();tick(true);scrollTo(0,0);return}
-  if(st===4&&rate)done();
-}
-function done(){
-  clearInterval(iv);
-  var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});
-  $('body').innerHTML='<div class="done-box"><b>完成</b>：關鍵詞 '+n+'／'+cur.kws.length+'・用時 '+mmss(el).replace('+','')+(DEMO?'<br><span style="color:var(--sub);font-size:.88rem">樣板不存紀錄。正式版會寫進指揮中心（與 5 分鐘衝刺同一份紀錄）。</span>':'')+'</div>';
-  st=5;$('stg').innerHTML='完成<small></small>';$('nextBtn').disabled=true;$('hint').textContent='';$('quitBtn').textContent='回清單';
 }
 $('nextBtn').onclick=next;
 $('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
