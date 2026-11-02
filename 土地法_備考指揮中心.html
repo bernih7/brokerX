@@ -357,6 +357,7 @@ body[data-pal="p5"]{--cp-got:#3A3A3A;--cp-got-t:#EFE8DE;--cp-pick:#A89B8A;--cp-p
 }
 </style><style id="lag-css">
 #lagPanel{margin:14px 0 0}
+#hitTbl{margin:14px 0 0}
 #lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:14px 15px;color:var(--cp-ink)}
 #lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 #lagPanel h3 .d{margin-left:auto;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
@@ -387,6 +388,8 @@ body[data-pal="p5"]{--cp-got:#3A3A3A;--cp-got-t:#EFE8DE;--cp-pick:#A89B8A;--cp-p
 <section id="hitPanel">
   <div id="hitBody"></div>
   <div id="lagPanel"></div>
+  <!-- 今天從這章開始＋看全部章節（移到進度落後之下，比照估價 v650） -->
+  <div id="hitTbl"></div>
 </section>
 <script id="hit-js">
 (function(){
@@ -408,7 +411,7 @@ function draw(){
   var box=document.getElementById('hitBody'); if(!box) return;
   var panel=document.getElementById('hitPanel'); panel.setAttribute('data-pal',pal()); document.body.setAttribute('data-pal',pal());
   var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
-  var openAll=!!(box.querySelector('#hitAll')&&!box.querySelector('#hitAll').hidden);
+  var openAll=!!(document.getElementById('hitAll')&&!document.getElementById('hitAll').hidden);
   var raw={}; try{raw=JSON.parse(localStorage.getItem('bx-q2')||'{}')}catch(e){}
   var by={};
   Object.keys(raw).forEach(function(id){
@@ -474,6 +477,7 @@ function draw(){
     +'再用兩個比率把它切三段：<b>覆蓋率</b>＝這章題庫你測過幾成、<b>真會率</b>＝測過的裡面答對且沒標「不熟／猜的」占幾成。'
     +'<br>🌟 ＝ 預估題數 × 覆蓋率 × 真會率；🌱 ＝ 預估題數 × 覆蓋率 ×（1－真會率）；🌰 ＝ 預估題數 ×（1－覆蓋率）。每題 2 分，三段相加恆為 50 分。'
     +'<br>目前全科測過 <b>'+doneT+'／'+bankT+'</b> 題（'+pc(bankT?doneT/bankT:0)+'%）。這是依你自己的作答推估，不是命中率預測。</div></div>';
+  var hcut=h.length;
   if(anyAns||rows.length){
     var t=rows[0],td=todo(t);
     h+='<div class="today"><div class="tag">今天從這章開始</div>'
@@ -506,7 +510,8 @@ function draw(){
       +'</tr>';
   });
   h+='</tbody></table></div>';
-  box.innerHTML=h;
+  box.innerHTML=h.slice(0,hcut);
+  var tbx=document.getElementById('hitTbl'); if(tbx) tbx.innerHTML=h.slice(hcut);
 }
 draw();
 document.addEventListener('click',function(e){

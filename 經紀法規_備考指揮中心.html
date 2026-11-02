@@ -918,6 +918,7 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 }
 </style><style id="lag-css">
 #lagPanel{margin:14px 0 0}
+#hitTbl{margin:14px 0 0}
 #lagPanel .lg{background:var(--cp-card);border:1.5px solid var(--cp-line);border-radius:12px;padding:14px 15px;color:var(--cp-ink)}
 #lagPanel h3{margin:0 0 3px;font-size:1.04rem;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 #lagPanel h3 .d{margin-left:auto;background:var(--cp-accent);color:var(--cp-accent-t);font-size:.76rem;font-weight:800;border-radius:999px;padding:2px 10px;font-variant-numeric:tabular-nums}
@@ -957,6 +958,8 @@ mark.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;
 <section id="hitPanel">
   <div id="hitBody"></div>
   <div id="lagPanel"></div>
+  <!-- 今天從這章開始＋看全部章節（移到進度落後之下，比照估價 v650） -->
+  <div id="hitTbl"></div>
 </section>
 <script id="hit-js">
 (function(){
@@ -978,7 +981,7 @@ function draw(){
   var box=document.getElementById('hitBody'); if(!box) return;
   var panel=document.getElementById('hitPanel'); panel.setAttribute('data-pal',pal());
   var openPal=!!(box.querySelector('.palrow')&&!box.querySelector('.palrow').hidden);
-  var openAll=!!(box.querySelector('#hitAll')&&!box.querySelector('#hitAll').hidden);
+  var openAll=!!(document.getElementById('hitAll')&&!document.getElementById('hitAll').hidden);
   var raw={}; try{raw=JSON.parse(localStorage.getItem('bxj-q2')||'{}')}catch(e){}
   var by={};
   Object.keys(raw).forEach(function(id){
@@ -1052,6 +1055,7 @@ function draw(){
     +'<br>🌟 ＝ 預估題數 × 覆蓋率 × 真會率；🌱 ＝ 預估題數 × 覆蓋率 ×（1－真會率）；🌰 ＝ 預估題數 ×（1－覆蓋率）。每題 2 分，三段相加恆為 50 分。'
     +'<br>目前全科測過 <b>'+doneT+'／'+bankT+'</b> 題（'+pc(bankT?doneT/bankT:0)+'%）。這是依你自己的作答推估，不是命中率預測。'
     +'<br>⚠️ 預估題數是<b>歷史占比</b>，不會知道有修法。<b>115 年有修法的章不灌水預估題數</b>（灌了三段就加不到 50 分），改成在表格<b>最上方獨立一區</b>，理由寫在該列。</div></div>';
+  var hcut=h.length;
   if(anyAns||rows.length){
     var t=rows[0],td=todo(t);
     h+='<div class="today"><div class="tag">今天從這章開始</div>'
@@ -1101,7 +1105,8 @@ function draw(){
   h+='<tbody>'+(nwRows.length?'<tr class="grp"><td colspan="5">其餘章節　<span>依「還沒到手」由多到少</span></td></tr>':'')
     +orRows.map(rowHtml).join('')+'</tbody>';
   h+='</table></div>';
-  box.innerHTML=h;
+  box.innerHTML=h.slice(0,hcut);
+  var tbx=document.getElementById('hitTbl'); if(tbx) tbx.innerHTML=h.slice(hcut);
 }
 draw();
 document.addEventListener('click',function(e){
