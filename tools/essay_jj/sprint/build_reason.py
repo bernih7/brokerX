@@ -2,6 +2,28 @@
 """經紀法規「申論 5 分鐘・推理版」：用邏輯拆解（推理鏈）＋考場速寫（得分關鍵詞／失分點／口訣）。內容一字不改。
 用法：python3 build_reason.py demo   → demo/經紀法規_申論5分鐘_推理版_demo.html（3 張、不存紀錄）"""
 import os, re, json, html, sys
+sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')))
+from sprint_sx_law import annotate  # 速寫法條塊：條號＋本題名稱（11-03）
+_f = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sx_law_names.json'); SXN = json.load(open(_f, encoding='utf-8')) if os.path.exists(_f) else {}
+
+# 法條塊後備名稱：依本卡條文原文判斷是哪部法，取 law.json 的條文標題（｜後面）
+_LAW = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'law.json'), encoding='utf-8'))
+def jj_names(lj):
+    from collections import Counter
+    cnt = Counter()
+    for s_ in lj['subs']:
+        for st in s_['steps']:
+            t = re.sub(r'\s+', '', st.get('law', ''))[:24]
+            if len(t) < 10: continue
+            for k, v in _LAW.items():
+                if t in re.sub(r'\s+', '', v.get('text', '')): cnt[k.split(' ')[0]] += 1
+    if not cnt: return {}
+    law = cnt.most_common(1)[0][0]; out = {}
+    for k, v in _LAW.items():
+        if k.split(' ')[0] != law: continue
+        art = k.split(' ', 1)[1].replace('之', '-'); nm = v.get('title', '').split('｜')[-1].strip()
+        if nm and art.startswith('§'): out[art] = nm
+    return out
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(H, '..', '..', '..'))
 hub = open(os.path.join(ROOT, '經紀法規_備考指揮中心.html'), encoding='utf-8').read()
 LJ = {x['k']: x for x in json.load(open(os.path.join(ROOT, 'tools/essay_jj/lj_data.json'), encoding='utf-8'))}
@@ -34,7 +56,7 @@ def card(cid):
     return {'id': cid, 'no': clean(re.search(r'class="essay-num">(.*?)</span>', c).group(1)),
             't': clean(re.search(r'class="es-t">(.*?)</span>', c).group(1)), 'g': GRP.get(pk, ''),
             'q': re.sub(r'^【[^】]+】\s*', '', clean(q.group(1))) if q else '',
-            'subs': subs, 'sx': [[bc, lab, body] for bc, lab, body in blks], 'kou': clean(kou.group(1)) if kou else '',
+            'subs': subs, 'sx': [[bc, lab, annotate(body, [st for s_ in lj['subs'] for st in s_['steps']], jj_names(lj))[0] if lab.strip() == '法條' else body] for bc, lab, body in blks], 'kou': clean(kou.group(1)) if kou else '',
             'kws': kws, 'lose': lose, 'k': kind, 'tier': tier}
 
 KWCN = json.load(open(os.path.join(H, 'kw_cn.json'), encoding='utf-8'))

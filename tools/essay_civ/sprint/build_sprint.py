@@ -5,6 +5,9 @@
 - 推理版：邏輯拆解推理鏈＋考場速寫（四段、口訣、得分關鍵詞、失分點）；得分關鍵詞是條號者用 kw_cn.json 的中文代表（程式發現仍有條號就中止）。
 紀錄與指揮中心同步：bxm-es-log（輪數／秒數／自評，與申論卡共用）＋ bxm-es-sprint（每次衝刺；推理版加 f:'r'）。"""
 import os, re, json, html, sys
+sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')))
+from sprint_sx_law import annotate  # 速寫法條塊：條號＋本題名稱（11-03）
+_f = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sx_law_names.json'); SXN = json.load(open(_f, encoding='utf-8')) if os.path.exists(_f) else {}
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(H, '..', '..', '..'))
 hub = open(os.path.join(ROOT, '民法_備考指揮中心.html'), encoding='utf-8').read()
 LJ = {x['k']: x for x in json.load(open(os.path.join(ROOT, 'tools/essay_civ/lj_data.json'), encoding='utf-8'))}
@@ -73,7 +76,7 @@ for n, m in enumerate(ms):
                      'st': [{f: st.get(f, '') for f in ('ask', 'key', 'lawh', 'law', 'facth', 'fact', 'res', 'link')} for st in s_['steps']]})
     cards.append({'id': k, 'no': no, 't': clean(re.search(r'<b class="et">(.*?)</b>', c).group(1)), 'lv': '', 'k': kind, 'tier': tier, 'g': GN.get(g, ''),
                   'q': q, 'nq': len(subs) or 1, 'b': blk, 'ck': [{'x': x['txt'], 'h': bool(x.get('hot'))} for x in lj.get('checks', [])],
-                  'mn': lj.get('mnem', ''), 'subs': subs, 'sx': [list(x) for x in sxb], 'kou': clean(kou.group(1)) if kou else '', 'kws': kws, 'lose': lose,
+                  'mn': lj.get('mnem', ''), 'subs': subs, 'sx': [[x[0], x[1], annotate(x[2], [st for s_ in subs for st in s_['st']], SXN)[0] if x[1].strip() == '法條' else x[2]] for x in sxb], 'kou': clean(kou.group(1)) if kou else '', 'kws': kws, 'lose': lose,
                   'href': '民法_備考指揮中心.html#essay=' + k})
 miss = [c['id'] for c in cards if not c['ck'] or not c['subs'] or not c['sx'] or not c['kws']]
 assert not miss, ('資料不全', miss)
