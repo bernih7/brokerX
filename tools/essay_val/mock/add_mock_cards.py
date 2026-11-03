@@ -97,7 +97,7 @@ def main():
     json.dump(ev, open(EXV, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, sort_keys=True)
     u = open(USE, encoding='utf-8').read()
     u = re.sub(r'essay:\d+', 'essay:%d' % tot, u, count=1)
-    u = re.sub(r'（官方 \d+＋預測 \d+）|（官方 \d+＋[^）]*預測 \d+）', '（%s）' % txt.replace('題', ' ').replace('＋', '＋').strip(), u, count=1)
+    u = re.sub(r'（官方 ?\d+ ?＋[^）]*預測 ?\d+）', '（官方 %d＋本站模擬 %d＋補習班模擬 %d＋預測 %d）' % (off, sm, mk, pred), u, count=1)
     open(USE, 'w', encoding='utf-8').write(u)
     print('插入', len(srcs), '張；總數', tot, txt)
 if __name__ == '__main__': main()

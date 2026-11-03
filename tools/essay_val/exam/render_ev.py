@@ -23,8 +23,8 @@ def lst(t):
     for m in re.finditer(r'<[^>]+>|.', t, re.S):
         tok = m.group(0)
         if tok.startswith('<') and len(tok) > 1:
-            if re.match(r'<(b|sup|mark|strong)\b', tok): depth += 1
-            elif re.match(r'</(b|sup|mark|strong)>', tok): depth -= 1
+            if re.match(r'<(b|sup|sub|mark|strong|span|code|a|em|i)\b', tok): depth += 1
+            elif re.match(r'</(b|sup|sub|mark|strong|span|code|a|em|i)>', tok): depth -= 1
             continue
         if re.match('[①-⑳]', tok) and depth == 0 and (prev == '' or prev in PUN) and not re.search(r'§\s*\d+[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]*$', re.sub(r'<[^>]+>', '', t[:m.start()])):
             cuts.append(m.start())
@@ -60,10 +60,11 @@ def subsume(text):
             # 小標：（一）＋到第一個「：」為止（≤22 字），否則（一）＋整個短句
             body = plain[len(hm.group(0)):] if plain.startswith(hm.group(0)) else plain
             c = body.find('：')
-            if 0 < c <= 22 and '<' not in body[:c]: h, rest = hm.group(0) + body[:c], body[c + 1:]
-            elif len(re.sub(r'<[^>]+>', '', body)) <= 26: h, rest = hm.group(0) + body, ''
-            else: h, rest = hm.group(0), body
-            cur = '<div class="evp"><p class="evh">%s</p>%s' % (art(h), _line(rest) if rest.strip() else '')
+            pb = re.sub(r'<[^>]+>', '', body)
+            if 0 < c <= 22 and '<' not in body[:c] and '＝' not in body[:c]: h, rest = hm.group(0) + body[:c], body[c + 1:]
+            elif len(pb) <= 26 and '＝' not in pb and '≈' not in pb: h, rest = hm.group(0) + body, ''
+            else: h, rest = '', s   # 算式或長句：（一）與本文同一行
+            cur = '<div class="evp">' + ('<p class="evh">%s</p>' % art(h) if h else '') + (_line(rest) if rest.strip() else '')
         else:
             if cur is None: out.append(_line(s))
             else: cur += _line(s)
