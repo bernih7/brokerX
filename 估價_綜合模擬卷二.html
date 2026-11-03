@@ -113,7 +113,23 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
 .cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
 .cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
 </style>
-<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script id="bxv-cardframe">
+/* 申論擬答＝申論頁同一張卡（iframe 展開才載入、自動調高） */
+function bxvCfLoad(root){if(!root)return;root.querySelectorAll('iframe.cf[data-src]').forEach(function(f){if(!f.getAttribute('src'))f.setAttribute('src',f.dataset.src)})}
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxvCard)return;document.querySelectorAll('iframe.cf').forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.open&&t.classList&&t.classList.contains('cfd'))bxvCfLoad(t)},true);
+</script>
+<style id="bxv-cardframe-css">
+.cfw{margin-top:4px}
+.cfh{font-size:.8rem;color:var(--ink-soft,var(--muted,#66706A));margin-bottom:6px;line-height:1.6}
+.cfh a{color:var(--pri-tx,var(--pri,#2F5D50));font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent;color-scheme:normal}
+details.cfd{margin:0 0 8px}
+details.cfd>summary,details.oldans>summary{cursor:pointer;font-weight:700}
+details.oldans{margin-top:14px;border-top:1px dashed var(--rule,var(--line,#DDD6C0));padding-top:8px}
+details.oldans>summary{font-size:.85rem;color:var(--ink-soft,var(--muted,#66706A))}
+</style>
+</head>
 <body>
 <header>
   <div class="case-tag">不動產估價概要・綜合模擬卷二</div>
@@ -136,8 +152,9 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
   <div class="essay-card">
     <div class="essay-num">申論一（25分）</div>
     <div class="essay-q">一、試說明成本法估價之意義、應用時機及估價程序。並依「不動產估價技術規則」，說明折舊之定義，以及定率遞減法（定率法）之計算公式，試以一棟建物為例：建物重建成本為 800 萬元，耐用年數 50 年，殘值率 10%，已使用 20 年，請以定率遞減法求算折舊後之建物現值。（25分）</div>
-    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button>
-    <div class="essay-ans">
+    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</button>
+    <div class="essay-ans"><!--bxv-cf--><div class="cfw" data-eid="mk-c2-1"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#mk-c2-1" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#mk-c2-1"></iframe></div><!--/bxv-cf-->
+<details class="oldans"><summary>本卷原附擬答架構（備查）</summary>
       <div class="ans-block">
         <h4>一、成本法之意義</h4>
         <p>成本法係求取勘估標的於價格日期之重建成本或重置成本，扣減其累積折舊額或其他應扣除部分，以推算勘估標的價格之估價方法。（技術規則§48）</p>
@@ -178,9 +195,11 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
         <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">建物現值</span><span class="kf-op">＝</span><span class="kf-c k-g">800</span><span class="kf-op">×</span><span class="kf-c k-g">0.3981</span><span class="kf-op">≈</span><span class="kf-c k-m"><strong>318.5 萬元</strong></span></div></div>
         <p style="font-size:.82rem;color:var(--ink-soft);margin-top:6px;">（若考試給定 r=4.5%，則 0.955²⁰≈0.39817，建物現值≈318.5萬，依題目給定值為準）</p>
       </div>
-    </div>
+    </details>
+</div>
   </div>
-<div class="essay-card"><div class="essay-num">申論二（25分）</div><div class="essay-q">二、依不動產估價技術規則，(一)成本法總成本包括哪些項目？(二)營造或施工費之求取方法有哪些？(三)某標準建物營造施工費單價每坪8萬元，勘估標的施工條件較佳，調整率1.05，總面積300坪，試以單位面積比較法求營造施工費，並依規定估計規劃設計費之範圍；(四)資本利息應如何計息？（25分）</div><button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button><div class="essay-ans">
+<div class="essay-card"><div class="essay-num">申論二（25分）</div><div class="essay-q">二、依不動產估價技術規則，(一)成本法總成本包括哪些項目？(二)營造或施工費之求取方法有哪些？(三)某標準建物營造施工費單價每坪8萬元，勘估標的施工條件較佳，調整率1.05，總面積300坪，試以單位面積比較法求營造施工費，並依規定估計規劃設計費之範圍；(四)資本利息應如何計息？（25分）</div><button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</button><div class="essay-ans"><!--bxv-cf--><div class="cfw" data-eid="pred-10"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#pred-10" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#pred-10"></iframe></div><!--/bxv-cf-->
+<details class="oldans"><summary>本卷原附擬答架構（備查）</summary>
     
     
 
@@ -207,7 +226,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
     <div class="conclusion"><strong>五、結論</strong><br>
     總成本含營造施工費等七項（土地另加）；營造施工費可採直接法（淨計法、單位工程法）或間接法（工程造價比較法、單位面積比較法）。本題單位面積比較法求得營造施工費2,520萬元，規劃設計費約50.4萬至75.6萬元；資本利息分自有、借貸資金計息，預售收入不計息。</div>
 
-    </div></div>
+    </details>
+</div></div>
 
 </div>
 
@@ -285,8 +305,8 @@ function updateScore(){
 
 function toggleEssay(btn){
   const ans=btn.nextElementSibling;
-  const open=ans.classList.toggle('open');
-  btn.textContent=open?'▲ 收起擬答架構':'▼ 顯示擬答架構';
+  const open=ans.classList.toggle('open');if(open)bxvCfLoad(ans);
+  btn.textContent=open?'▲ 收起擬答':'▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）';
 }
 
 function resetAll(){

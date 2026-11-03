@@ -113,7 +113,23 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
 .cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
 .cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
 </style>
-<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script id="bxv-cardframe">
+/* 申論擬答＝申論頁同一張卡（iframe 展開才載入、自動調高） */
+function bxvCfLoad(root){if(!root)return;root.querySelectorAll('iframe.cf[data-src]').forEach(function(f){if(!f.getAttribute('src'))f.setAttribute('src',f.dataset.src)})}
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxvCard)return;document.querySelectorAll('iframe.cf').forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.open&&t.classList&&t.classList.contains('cfd'))bxvCfLoad(t)},true);
+</script>
+<style id="bxv-cardframe-css">
+.cfw{margin-top:4px}
+.cfh{font-size:.8rem;color:var(--ink-soft,var(--muted,#66706A));margin-bottom:6px;line-height:1.6}
+.cfh a{color:var(--pri-tx,var(--pri,#2F5D50));font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent;color-scheme:normal}
+details.cfd{margin:0 0 8px}
+details.cfd>summary,details.oldans>summary{cursor:pointer;font-weight:700}
+details.oldans{margin-top:14px;border-top:1px dashed var(--rule,var(--line,#DDD6C0));padding-top:8px}
+details.oldans>summary{font-size:.85rem;color:var(--ink-soft,var(--muted,#66706A))}
+</style>
+</head>
 <body>
 <header>
   <div class="case-tag">不動產估價概要・綜合模擬卷五</div>
@@ -136,8 +152,9 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
   <div class="essay-card">
     <div class="essay-num">申論一（25分）</div>
     <div class="essay-q">一、試依「不動產估價技術規則」說明土地開發分析法之意義、估價程序及價格公式。某開發案資料：預期總銷售金額100,000萬元，直接成本（營造施工費）36,000萬元，間接成本9,000萬元，適當利潤率15%，資本利息年利率4%，土地價值比率60%、建物價值比率40%，開發年數2年。試求資本利息綜合利率及土地開發分析價格。（25分）</div>
-    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button>
-    <div class="essay-ans">
+    <button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</button>
+    <div class="essay-ans"><!--bxv-cf--><div class="cfw" data-eid="mk-c5-1"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#mk-c5-1" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#mk-c5-1"></iframe></div><!--/bxv-cf-->
+<details class="oldans"><summary>本卷原附擬答架構（備查）</summary>
       <div class="ans-block">
         <h4>一、意義（§70）</h4>
         <p>土地開發分析法，指根據土地法定用途及使用強度，進行開發或建築所需之成本推算，估算開發或建築後之總銷售金額，扣除直接成本、間接成本、資本利息及利潤後，求得開發前或建築前之土地價格。所求得之價格為<strong>土地開發分析價格</strong>。</p>
@@ -167,9 +184,11 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
         <h4>五、代入計算</h4>
         <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">S</span><span class="kf-op">÷</span><span class="kf-c k-s">(1＋R)</span><span class="kf-op">÷</span><span class="kf-c k-s">(1＋i)</span><span class="kf-op">＝</span><span class="kf-c k-g">100,000</span><span class="kf-op">÷</span><span class="kf-c k-g">1.15</span><span class="kf-op">÷</span><span class="kf-c k-g">1.064</span></div><div class="kf-eq"><span class="kf-op">＝</span><span class="kf-c k-m"><strong>81,726 萬元</strong></span></div></div>        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">C</span><span class="kf-op">＋</span><span class="kf-c k-s">M</span><span class="kf-op">＝</span><span class="kf-c k-g">36,000</span><span class="kf-op">＋</span><span class="kf-c k-g">9,000</span><span class="kf-op">＝</span><span class="kf-c k-m">45,000 萬元</span></div></div>        <div class="cbox"><div class="kf-eq"><span class="kf-c k-s">V</span><span class="kf-op">＝</span><span class="kf-c k-g">81,726</span><span class="kf-op">－</span><span class="kf-c k-g">45,000</span><span class="kf-op">＝</span><span class="kf-c k-m"><strong>36,726 萬元</strong></span></div></div>        <p>結論：該開發案之土地開發分析價格約為 36,726 萬元。（考試時依題目所給數字與取位為準。）</p>
       </div>
-    </div>
+    </details>
+</div>
   </div>
-<div class="essay-card"><div class="essay-num">申論二（25分）</div><div class="essay-q">二、採用比較法估價時，何種情況之比較標的應不予採用？又比較標的經調整後，其調整幅度有何限制？請分別說明並舉例。（25分）</div><button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答架構</button><div class="essay-ans">
+<div class="essay-card"><div class="essay-num">申論二（25分）</div><div class="essay-q">二、採用比較法估價時，何種情況之比較標的應不予採用？又比較標的經調整後，其調整幅度有何限制？請分別說明並舉例。（25分）</div><button class="essay-toggle" onclick="toggleEssay(this)">▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）</button><div class="essay-ans"><!--bxv-cf--><div class="cfw" data-eid="pred-4"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#pred-4" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#pred-4"></iframe></div><!--/bxv-cf-->
+<details class="oldans"><summary>本卷原附擬答架構（備查）</summary>
 
     
     <div class="section-h">一、質的排除：應不予採用之情況（§23）</div>
@@ -191,7 +210,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
     <div class="note">⚠️ 質 vs 量：§23是「無法量化」才不採；§25、§26是「可量化但幅度過大」而排除。兩者不要混答。</div>
     <div class="conclusion"><strong>四、結論</strong><br>
     比較法有兩道防線：先依§23排除無法有效掌握及量化之非正常交易，再依§25（單項大於15%、總調整率大於30%）及§26（試算價格差距達20%以上）管控調整幅度，使試算價格趨近正常價格。</div>
-      </div></div>
+      </details>
+</div></div>
 
 </div>
 
@@ -269,8 +289,8 @@ function updateScore(){
 
 function toggleEssay(btn){
   const ans=btn.nextElementSibling;
-  const open=ans.classList.toggle('open');
-  btn.textContent=open?'▲ 收起擬答架構':'▼ 顯示擬答架構';
+  const open=ans.classList.toggle('open');if(open)bxvCfLoad(ans);
+  btn.textContent=open?'▲ 收起擬答':'▼ 顯示擬答（邏輯拆解｜考場速寫｜考場版｜完整四段式）';
 }
 
 function resetAll(){

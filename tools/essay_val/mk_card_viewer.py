@@ -3,7 +3,7 @@
 網址 #卡號（例 #pred-10、#mk-ls1，可逗號列多張）只顯示那幾張；?v=0 直接開「完整四段式」
 （v 值比照經紀法規／民法：0＝完整四段式 1＝考場速寫 3＝邏輯拆解 4＝考場版；也接受 full／quick／lj／exam）。
 模擬卷頁用 iframe 嵌入，讓卷內擬答與申論頁同一張卡，讀懂（bx-essay-read）、輪數與自評（bxv-es-log）同一份紀錄。
-被嵌入時隱藏標題與題幹（保留「已讀」鈕）、用 postMessage {bxvCard, h} 回報高度。
+被嵌入時隱藏標題與題幹（保留「已讀」鈕）、用 postMessage {bxvCard, h} 回報內容高度（量 main，不量 scrollHeight，免得 iframe 只增不減）。
 bx-essay-meta 只由申論頁寫（需要篩選列的類別名），本頁不寫。
 卡片清單每次從申論頁動態讀取；申論卡新增或修改後重跑：python3 tools/essay_val/mk_card_viewer.py"""
 import os, re, sys
@@ -68,7 +68,7 @@ body{background:var(--paper)}
 html.embed body{background:transparent;padding:0}
 html.embed .cv{padding:0;max-width:none}
 html.embed .cvmsg,html.embed #bxfab,html.embed #bxv-theme{display:none!important}
-html.embed .cv .essay-card{border:0;background:transparent;margin:0;border-radius:0;overflow:visible}
+html.embed .cv .essay-card{border:0!important;background:transparent;margin:0;border-radius:0;overflow:visible}
 html.embed .cv .card-header{cursor:default;padding:0 0 8px;border-bottom:0;justify-content:flex-end;gap:8px;background:transparent}
 html.embed .cv .card-header:hover{background:transparent}
 html.embed .cv .card-header-left,html.embed .cv .card-arrow,html.embed .cv .q-box{display:none}
@@ -105,7 +105,7 @@ if(emb){
  /* 輪數：卡片底部是否進入父頁視窗；父頁捲動／點擊也算「有在看」 */
  window.bxvEsBot=function(b){try{if(!fe)return true;var r=fe.getBoundingClientRect();if(!r.width)return false;return r.top+b.bottom<=parent.innerHeight+80}catch(e){return true}};
  try{['scroll','pointerdown','keydown','touchstart'].forEach(function(ev){parent.addEventListener(ev,function(){if(fe&&fe.getClientRects().length)window.dispatchEvent(new Event('pointerdown'))},{passive:true})})}catch(e){}
- var post=function(){try{parent.postMessage({bxvCard:location.hash,h:document.documentElement.scrollHeight},'*')}catch(e){}};
+ var post=function(){try{var m=document.getElementById('cv');parent.postMessage({bxvCard:location.hash,h:Math.ceil(m.getBoundingClientRect().bottom+scrollY)},'*')}catch(e){}};
  new ResizeObserver(post).observe(document.body);addEventListener('load',post);
  document.addEventListener('click',function(){setTimeout(post,30)});document.addEventListener('toggle',function(){setTimeout(post,30)},true);
 }

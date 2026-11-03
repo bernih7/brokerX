@@ -95,7 +95,23 @@ details[open] summary::before{content:'▼ '}
 .cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
 .cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
 </style>
-<style id="ans-tag-css">.opt.ok::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.ok::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.bad::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.bad::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head><body>
+<style id="ans-tag-css">.opt.ok::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.ok::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.bad::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.bad::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script id="bxv-cardframe">
+/* 申論擬答＝申論頁同一張卡（iframe 展開才載入、自動調高） */
+function bxvCfLoad(root){if(!root)return;root.querySelectorAll('iframe.cf[data-src]').forEach(function(f){if(!f.getAttribute('src'))f.setAttribute('src',f.dataset.src)})}
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxvCard)return;document.querySelectorAll('iframe.cf').forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.open&&t.classList&&t.classList.contains('cfd'))bxvCfLoad(t)},true);
+</script>
+<style id="bxv-cardframe-css">
+.cfw{margin-top:4px}
+.cfh{font-size:.8rem;color:var(--ink-soft,var(--muted,#66706A));margin-bottom:6px;line-height:1.6}
+.cfh a{color:var(--pri-tx,var(--pri,#2F5D50));font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent;color-scheme:normal}
+details.cfd{margin:0 0 8px}
+details.cfd>summary,details.oldans>summary{cursor:pointer;font-weight:700}
+details.oldans{margin-top:14px;border-top:1px dashed var(--rule,var(--line,#DDD6C0));padding-top:8px}
+details.oldans>summary{font-size:.85rem;color:var(--ink-soft,var(--muted,#66706A))}
+</style>
+</head><body>
 <button class="theme-btn" onclick="toggleTheme()" title="切換深淺色">🌗</button>
 <header>
   <h1>來勝115年模擬試題（一）｜不動產估價概要</h1>
@@ -361,6 +377,7 @@ function renderEssay(){
   document.getElementById('p2').innerHTML = `
   <div class="essay-card">
     <div class="essay-q">一、試述土地開發分析法之意義、應用時機、公式及估價程序？<span class="essay-score">25分</span></div>
+    <!--bxv-cf--><details class="cfd"><summary>✍️ 本站擬答（與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式）</summary><div class="cfw" data-eid="mk-ls1"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#mk-ls1" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#mk-ls1"></iframe></div></details><!--/bxv-cf-->
     <details>
       <summary>📘 老師版擬答（來勝解答，照抄）</summary>
       <div class="ans-block">
@@ -385,7 +402,7 @@ function renderEssay(){
         <p>8. 計算土地開發分析價格：將上開計算結果，代入土地開發分析法之公式，即得出土地開發分析價格。</p>
       </div>
     </details>
-    <details style="margin-top:8px">
+    <details class="oldans"><summary>本卷原附本站擬答與補充（備查；現行版本見上方申論卡）</summary><details style="margin-top:8px">
       <summary>✍️ 本站擬答（自擬完整答案；非老師版，考場可用）</summary>
       <div class="ans-block">
         <p><b>先答結論：</b>土地開發分析法是「由開發完成後的總銷售金額，扣除成本、利息與利潤，倒推開發前土地價格」的方法，核心是房價推求地價；公式為 V＝S÷(1＋R)÷(1＋i)－(C＋M)。</p>
@@ -420,11 +437,12 @@ function renderEssay(){
         <p>🎯 <b>核心精神：</b>房價推求地價（由開發完成後的價值反推土地價值）。</p>
         <p>🎯 <b>應用時機另一種寫法（實務歸納，非老師版）：</b>比較法、收益法、成本法不易適用，且土地有開發或再開發可能、開發後使用與市場需求可合理預測者。考試以老師版兩點為主，可附帶補這句。</p>
       </div>
-    </details>
+    </details></details>
   </div>
 
   <div class="essay-card">
     <div class="essay-q">二、試述折現現金流量分析法之意義、應用時機、公式及估價程序？<span class="essay-score">25分</span></div>
+    <!--bxv-cf--><details class="cfd"><summary>✍️ 本站擬答（與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式）</summary><div class="cfw" data-eid="mk-ls2"><div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="不動產估價概要_申論題實戰範文.html#mk-ls2" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div><iframe class="cf" title="申論擬答" loading="lazy" data-src="估價_申論卡.html#mk-ls2"></iframe></div></details><!--/bxv-cf-->
     <details>
       <summary>📘 老師版擬答（來勝解答，照抄）</summary>
       <div class="ans-block">
@@ -448,7 +466,7 @@ function renderEssay(){
         <p>7. 計算收益價格：將上開計算結果，代入折現現金流量分析法之公式，即得出收益價格。</p>
       </div>
     </details>
-    <details style="margin-top:8px">
+    <details class="oldans"><summary>本卷原附本站擬答與補充（備查；現行版本見上方申論卡）</summary><details style="margin-top:8px">
       <summary>✍️ 本站擬答（自擬完整答案；非老師版，考場可用）</summary>
       <div class="ans-block">
         <p><b>先答結論：</b>折現現金流量分析法（DCF）是把分析期間內各期淨收益與期末價值，以適當折現率折現後加總，求得收益價格；公式為 P＝Σ CFₖ÷(1＋Y)ᵏ＋Pₙ′÷(1＋Y)ⁿ′。</p>
@@ -482,7 +500,7 @@ function renderEssay(){
         <p>🎯 <b>折現率 vs 資本化率：</b>折現率用於 DCF 各期折現；資本化率用於直接資本化或求期末價值。</p>
         <p>🎯 <b>老師版與站上舊稿差異：</b>應用時機改為營運性不動產與投資評估；程序多「蒐集資料」一步，分析期間一般 5 年或 10 年，期末價值要扣處分費用（§47 為「得」），折現率採 WACC。</p>
       </div>
-    </details>
+    </details></details>
   </div>`;
 }
 

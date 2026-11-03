@@ -37,7 +37,7 @@ def match_end(t, a, tag):
     for m in re.finditer(r'<(/?)%s\b' % tag, t[a:]):
         d += -1 if m.group(1) else 1
         if d == 0:
-            return a + t.find('>', a + m.end()) + 1
+            return t.find('>', a + m.end()) + 1
     raise SystemExit('找不到配對的 </%s>' % tag)
 
 
@@ -49,7 +49,7 @@ def frame(eid):
 
 def strip(s):
     s = re.sub(r'<script id="bxv-cardframe">.*?</style>\n?', '', s, flags=re.S)
-    return re.sub(r'<!--bxv-cf-->.*?<!--/bxv-cf-->', '', s, flags=re.S)
+    return re.sub(r'\n?[ ]*<!--bxv-cf-->.*?<!--/bxv-cf-->', '', s, flags=re.S)
 
 
 def cards(s):
