@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>經紀法規｜申論 5 分鐘・推理版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;
+--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;
+--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18;color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.wrap{max-width:760px;margin:0 auto;padding-block:16px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font:900 1.45rem/1.3 "Noto Serif TC",serif;margin:6px 0 2px;text-wrap:balance}
+.lead{color:var(--sub);font-size:.92rem;margin:0 0 14px}
+a{color:var(--pri)}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 16px;font-weight:500}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:.88rem}.top a{white-space:nowrap}.top>span{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:flex-end}
+.demo{background:var(--acc-soft);color:var(--acc);border-radius:10px;padding:8px 12px;font-size:.86rem;margin:10px 0}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.mode{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;text-align:left;color:var(--ink)}
+.mode b{display:block;font-size:1.02rem}.mode small{display:block;color:var(--sub);line-height:1.55;margin-top:2px}
+.mode.on{border-color:var(--pri);background:var(--pri-soft)}
+.plan{margin:6px 0 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.plan div{display:grid;grid-template-columns:3.6em 1fr;gap:10px;padding:8px 14px;border-top:1px solid var(--line);font-size:.9rem;line-height:1.55}
+.plan div:first-child{border-top:0}
+.plan b{color:var(--pri);font-variant-numeric:tabular-nums}
+.plan small{display:block;color:var(--sub)}
+.sec-h{font-weight:700;margin:18px 0 6px}
+.qlist{display:flex;flex-direction:column;gap:6px}
+.qi{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 12px;text-align:left;color:var(--ink)}
+.qi .n{font-size:.78rem;color:var(--sub);min-width:4.2em}.qi .t{min-width:0;font-size:.93rem;line-height:1.5}.qi .go{font-size:.8rem;color:var(--pri);font-weight:700}
+.qi .r{grid-column:2/4;font-size:.76rem;color:var(--sub)}
+.chip{border-radius:999px;padding:0 8px;background:color-mix(in srgb,var(--ink) 7%,transparent);white-space:nowrap;margin-right:4px;display:inline-block}
+.chip.new{background:var(--acc-soft);color:var(--acc);font-weight:700}.chip.hard{background:var(--bad-soft);color:var(--bad);font-weight:700}.chip.mid{background:var(--b1s);color:var(--b1);font-weight:700}.chip.ok{background:var(--ok-soft);color:var(--ok);font-weight:700}
+/* 計時列 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--line)}
+.bar .row{display:flex;align-items:center;gap:10px}
+.stg{font-weight:700;font-size:.98rem;flex:1;min-width:0}
+.stg small{display:block;font-weight:400;color:var(--sub);font-size:.8rem;line-height:1.4}
+.clk{font:700 1.6rem/1 "Noto Sans TC",monospace;font-variant-numeric:tabular-nums;color:var(--pri)}
+.clk.red{color:var(--bad)}
+.tot{font-size:.78rem;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums}
+.tot.red{color:var(--bad);font-weight:700}
+.segs{display:grid;grid-template-columns:20fr 180fr 50fr 30fr 20fr;gap:3px;margin-top:8px}
+.segs i{height:6px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.segs i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--pri)}
+.segs i.over b{background:var(--bad)}.segs i.done b{width:100%!important}
+.modechip{font-size:.74rem;border-radius:999px;padding:1px 9px;font-weight:700;white-space:nowrap}
+.modechip.h{background:var(--bad-soft);color:var(--bad)}.modechip.s{background:var(--pri-soft);color:var(--pri)}
+/* 題目 */
+.meta{font-size:.8rem;color:var(--sub);display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:14px}
+.ttl{font-weight:700;font-size:1.05rem;line-height:1.5;margin:4px 0 8px;text-wrap:balance}
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}
+.qbox.clamp .qt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qbox .qx{display:none;margin-left:8px;font-size:.8rem;color:var(--pri);background:none;border:0;padding:0;font-weight:700}
+.qbox.clamp .qx,.qbox.open .qx{display:inline}
+.nq{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:0 10px}
+.subs{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.subs li{font-size:.92rem;display:flex;gap:8px}.subs li b{flex:none;color:var(--pri)}
+/* 推理鏈 */
+.chain{display:flex;gap:5px;margin:14px 0 8px;flex-wrap:wrap;align-items:center}
+.chain i{width:26px;height:6px;border-radius:3px;background:var(--line)}
+.chain i.on{background:var(--acc)}.chain i.ok{background:var(--pri)}
+.chain small{margin-left:6px;color:var(--sub);font-size:.8rem}
+.subq{font-size:.82rem;font-weight:700;color:var(--sub);margin-top:4px}
+.subq span{background:var(--pri);color:var(--on);border-radius:6px;padding:0 7px;margin-right:6px}
+.ask{margin-top:8px;background:var(--surface);border:1.5px solid var(--acc);border-radius:14px;padding:14px 16px}
+.ask .l{font-size:.76rem;font-weight:700;color:var(--acc);letter-spacing:.06em}
+.ask .x{font-size:1.12rem;font-weight:700;line-height:1.6;margin-top:2px;text-wrap:pretty}
+.think{margin-top:10px;color:var(--sub);font-size:.88rem}
+.flip{margin-top:12px;width:100%;padding:11px;border-radius:12px;border:1.5px dashed var(--pri);background:transparent;color:var(--pri);font-weight:700}
+.ans{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.key{background:var(--hl);border-radius:12px;padding:10px 14px;font-weight:700;line-height:1.6}
+.key small{display:block;font-size:.74rem;font-weight:700;color:var(--sub);letter-spacing:.06em}
+.row2{display:grid;grid-template-columns:4.6em 1fr;gap:4px 10px;align-items:baseline;font-size:.94rem;line-height:1.7;padding:0 4px}
+.tag{font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 0;text-align:center}
+.tag.law{background:var(--b1s);color:var(--b1)}.tag.fact{background:var(--b4s);color:var(--acc)}.tag.res{background:var(--b3s);color:var(--b3)}
+.lawx{color:var(--sub);font-size:.86rem;margin-top:2px}
+.lawx summary{cursor:pointer;color:var(--b1);font-size:.8rem;list-style:none}
+.lawx summary::-webkit-details-marker{display:none}
+.next{font-size:.88rem;color:var(--sub);border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
+.next b{color:var(--ink)}
+.subans{background:var(--pri-soft);border-radius:12px;padding:10px 14px;font-size:.94rem;line-height:1.75}
+.subans small{display:block;font-size:.74rem;font-weight:700;color:var(--pri);letter-spacing:.06em}
+/* 速寫、失分點 */
+.blk{border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--cs)}
+.blk.b1{--c:var(--b1);--cs:var(--b1s)}.blk.b2{--c:var(--b2);--cs:var(--b2s)}.blk.b3{--c:var(--b3);--cs:var(--b3s)}.blk.b4{--c:var(--b4);--cs:var(--b4s)}
+.blk-l{display:inline-block;font-size:.74rem;font-weight:700;color:var(--c);letter-spacing:.06em}
+.blk p{margin:2px 0 0;line-height:1.8}
+.blk mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;font-weight:700}
+.evli{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}
+.kou{background:var(--hl);border-radius:10px;padding:9px 14px;margin-top:8px;font-size:.94rem}
+.kou b{margin-right:6px}
+.lose{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.lose div{display:flex;gap:10px;background:var(--bad-soft);border-radius:12px;padding:10px 14px;line-height:1.65}
+.lose div b{flex:none;color:var(--bad)}
+.cover{margin-top:12px;border:1.5px dashed var(--line);border-radius:12px;padding:18px 14px;text-align:center;color:var(--sub);font-size:.92rem}
+.kws{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.kw{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:500}
+.kw .ka{margin-left:6px;font-size:.72em;color:var(--sub);font-weight:400}
+.kw.on{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:700}
+.score{margin-top:12px;display:flex;align-items:baseline;gap:10px}
+.score .big{font:900 1.8rem/1 "Noto Serif TC",serif;color:var(--pri)}
+.score small{color:var(--sub)}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.rate button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 6px;font-weight:700}
+.rate button.on[data-v="1"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.rate button.on[data-v="2"]{border-color:var(--b1);background:var(--b1s);color:var(--b1)}
+.rate button.on[data-v="3"]{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.act{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.act .in{max-width:760px;margin:0 auto;display:flex;gap:8px;justify-content:space-between;align-items:center}
+.act .hint{font-size:.78rem;color:var(--sub);opacity:.6;flex:1;min-width:0;transition:opacity .8s}
+.done-box{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+@media (max-width:480px){.modes{grid-template-columns:1fr}.clk{font-size:1.4rem}.row2{grid-template-columns:1fr}.tag{justify-self:start;padding:1px 9px}}
+.pz{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;line-height:1;padding:0}
+body.paused .pz{background:var(--pri);border-color:var(--pri);color:var(--on)}
+.pzbox{display:none;margin-top:16px;border:1.5px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;color:var(--sub)}
+.pzbox b{display:block;font-size:1.15rem;color:var(--ink);margin-bottom:4px}
+body.paused .pzbox{display:block}
+body.paused #body,body.paused .qbox,body.paused .ttl,body.paused .meta{display:none}
+body.paused .clk{opacity:.5}
+body.paused #nextBtn{opacity:.45;pointer-events:none}
+.thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
+.howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
+.ans .li{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}.blk .sxli{display:block;margin-top:3px}.blk .lawn{color:var(--sub);font-weight:400}
+.swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
+.dnb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dnb .btn{text-decoration:none;display:inline-flex;align-items:center}.rv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.rvh{font-weight:700;margin-bottom:8px}.rvnav{display:flex;gap:8px;align-items:center}.rvnav select{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:.88rem}.rvnav .btn{white-space:nowrap;padding:7px 12px}.rvnav .btn:disabled{opacity:.4}#rvB{margin-top:12px}.rvq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}.ck label.miss{opacity:.75}.ck label .mk{font-weight:700;min-width:1.2em}.ck label.on .mk{color:var(--ok)}.kw.miss{opacity:.6}@media(max-width:480px){.rvnav .btn{padding:7px 10px}}
+</style><style id="sprint-bardim-css">.act{transition:opacity .8s}.act.dim{opacity:.22}.act.dim:hover,.act.dim:focus-within{opacity:1}.act .hint{font-size:.78rem;color:var(--sub);flex:1;min-width:0}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="__ROOT__經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a id="swTop" href="__ROOT__經紀法規_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
+  <section id="home">
+    <h1>申論 5 分鐘・推理版</h1>
+    <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
+    <div class="demo" id="demoNote" hidden>這是樣板：只放 3 題，作答不會存紀錄。</div>
+    <details class="howto" id="howto"><summary>流程、時間怎麼分、兩種模式說明</summary><div class="hb"><p class="lead" style="margin:0 0 6px">每段秒數依該題文字量與重點資訊（數字、條號、引號）計算「讀完所需」；讀題、速寫、失分點、檢核只給所需時間，其餘全部留給推理鏈的「先想」。合計 5:00。</p>
+    <div class="plan">
+      <div><b>依題</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
+      <div><b>依題</b><span>② 推理鏈自問自答<small>每一步先想（核對內容讀完所需以外的時間都給「先想」）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
+      <div><b>依題</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
+      <div><b>依題</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
+      <div><b>依題</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
+    </div></div></details>
+    <div class="modes">
+      <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每一步：先想的時間到自動翻開，該步時間到自動跳下一步；跳過的不能回頭。</small></button>
+      <button type="button" class="mode" data-m="s"><b>🪑 停留</b><small>時間到只變紅，自己按「翻開」「下一步」。</small></button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn pri" id="startBtn">開始下一題</button><button type="button" class="btn" id="randBtn">🎲 隨機出題</button></div>
+    <div class="sec-h" style="display:flex;justify-content:space-between;gap:8px"><span>接下來的順序</span><small id="qcount" style="color:var(--sub);font-weight:400"></small></div>
+    <div class="qlist" id="qlist"></div>
+    <button type="button" class="btn" id="moreBtn" style="margin-top:8px">顯示全部</button>
+  </section>
+  <section id="run" hidden>
+    <div class="bar">
+      <div class="row"><div class="stg" id="stg"></div><span class="modechip" id="mchip"></span><button type="button" class="pz" id="pauseBtn" aria-label="暫停">⏸</button>
+        <div><div class="clk" id="clk">0:20</div><div class="tot" id="tot">總 0:00／5:00</div></div></div>
+      <div class="segs" id="segs"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="meta" id="meta"></div>
+    <div class="ttl" id="ttl"></div>
+    <div class="qbox" id="qbox"></div><div class="swq" id="swq"></div>
+    <div class="pzbox" id="pzbox"><b>已暫停</b>計時停止，題目與答案先蓋住。<br><button type="button" class="btn pri" id="resumeBtn" style="margin-top:12px">▶ 繼續</button></div>
+    <div id="body"></div>
+  </section>
+</div>
+<div class="act" id="act" hidden><div class="in"><span class="hint" id="hint"></span><button type="button" class="btn" id="quitBtn">放棄這題</button><button type="button" class="btn pri" id="nextBtn">下一段 →</button></div></div>
+<script>
+var CARDS=/*__DATA__*/[], DEMO=/*__DEMO__*/false, RS=6;
+var STG=[{n:'① 讀題',d:'問幾問？各問在問什麼？',s:20},{n:'② 推理鏈',d:'先想，再翻開核對',s:180},{n:'③ 速寫骨架',d:'考場就寫這四行',s:50},{n:'④ 失分點',d:'別這樣寫',s:30},{n:'⑤ 關鍵詞檢核',d:'不看答案，點出你記得的',s:20}];
+var CN='一二三四五六七八九十';
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function rt(s){var h=esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');var c=[],d=0,re=/<\/?b>|[\u2460-\u2473]/g,m;while((m=re.exec(h))){if(m[0]==='<b>')d++;else if(m[0]==='</b>')d--;else if(!d&&(m.index===0||'　 ，；：、。（→'.indexOf(h[m.index-1])>=0))c.push(m.index)}if(c.length<2)return h;var o=h.slice(0,c[0]);for(var i=0;i<c.length;i++)o+='<span class="li">'+h.slice(c[i],c[i+1]||h.length)+'</span>';return o}
+function mmss(s){var a=Math.abs(s);return (s<0?'+':'')+Math.floor(a/60)+':'+('0'+(a%60)).slice(-2)}
+var mode='h';try{mode=localStorage.getItem('bxj-sprint-mode')||'h'}catch(e){}
+function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxj-sprint-mode',mode)}catch(e){}pm()}});pm();
+if(DEMO)$('demoNote').hidden=false;
+
+/* ---- 紀錄與排序（與考場版衝刺、指揮中心共用 bxj-es-log／bxj-es-sprint）：沒做過的優先，再來不熟的 ---- */
+var LOG='bxj-es-log', SP='bxj-es-sprint', RL={1:'✅ 熟',2:'📖 還沒背起來',3:'😵 太難'};
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
+function sv(k,o){if(DEMO)return;try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+function stat(id){var L=ld(LOG)[id]||{},S=ld(SP)[id]||[],R=ld('bxj-es-read')[id],rs=S.filter(function(x){return x.f==='r'}),last=rs[0]||null;
+  return {n:L.n||0,sp:S.length,rn:rs.length,v:L.v||0,last:last,read:!!R,t:Math.max(L.t||0,S[0]?S[0].t:0)}}
+function order(){
+  var arr=CARDS.map(function(c,i){return {c:c,s:stat(c.id),i:i}});
+  function kr(c){return c.k==='off'?0:(c.k==='pred'?1:2)}
+  var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}),seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
+  fresh.sort(function(a,b){return kr(a.c)-kr(b.c)||a.c.tier-b.c.tier||a.i-b.i});
+  function vr(v){return v===3?0:(v===2?1:(v===0?2:3))}
+  function pct(x){return x.s.last?x.s.last.sc/Math.max(1,x.s.last.mx):-1}
+  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||pct(a)-pct(b)||a.s.t-b.s.t});
+  return fresh.concat(seen);
+}
+function reason(x){var s=x.s,o=[];
+  if(!s.n&&!s.sp&&!s.read)o.push('<span class="chip new">沒做過</span>');
+  if(s.v)o.push('<span class="chip '+(s.v===3?'hard':(s.v===2?'mid':'ok'))+'">'+RL[s.v]+'</span>');
+  if(s.rn)o.push('<span class="chip">推理 '+s.rn+' 次</span>');
+  if(s.sp-s.rn>0)o.push('<span class="chip">考場版 '+(s.sp-s.rn)+' 次</span>');
+  if(s.last)o.push('<span class="chip">上次 '+s.last.sc+'／'+s.last.mx+'</span>');
+  return o.join('');}
+var showAll=false;
+function home(){
+  swGo('');
+  var Q=order(),f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
+  $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
+  var tot=0,dn=0;CARDS.forEach(function(c){var r=(ld(SP)[c.id]||[]).filter(function(x){return x.f==='r'});tot+=r.length;if(r.length)dn++});
+  $('sum').textContent=DEMO?'樣板':'推理版做過 '+dn+'／'+CARDS.length+' 題・共 '+tot+' 次';
+  var list=showAll?Q:Q.slice(0,8);
+  $('qlist').innerHTML=list.map(function(x){var c=x.c,n=c.subs.reduce(function(a,s){return a+s.st.length},0);
+    steps=[];c.subs.forEach(function(s,a){s.st.forEach(function(y,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:y})})});plan(c);
+    return '<button type="button" class="qi" data-id="'+c.id+'"><span class="n">'+esc(c.no)+'</span><span class="t">'+esc(c.t)+'</span><span class="go">開始 ▸</span><span class="r">'+reason(x)+'<span class="chip">'+esc(c.g)+'</span><br>'+c.subs.length+' 問・推理 '+n+' 步｜'+planTxt()+'</span></button>'}).join('');
+  [].forEach.call($('qlist').querySelectorAll('.qi'),function(b){b.onclick=function(){start(b.getAttribute('data-id'))}});
+  $('moreBtn').hidden=Q.length<=8;$('moreBtn').textContent=showAll?'只看前 8 題':'顯示全部 '+Q.length+' 題';
+}
+$('moreBtn').onclick=function(){showAll=!showAll;home()};
+var pick='order';
+function randPick(ex){var a=CARDS.filter(function(c){return c.id!==ex});return a[Math.floor(Math.random()*a.length)]}
+$('startBtn').onclick=function(){pick='order';start(order()[0].c.id)};
+$('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
+var cur,st,left,el,iv,steps,si,stepLeft,thinkLeft,shown,got,rate;
+/* 依文字量與重點資訊分配 5 分鐘：閱讀 6 字／秒；數字、條號、引號、標黃各加秒數；總和縮放成 300 秒 */
+function L(x){return String(x||'').replace(/<[^>]+>/g,'').replace(/\s/g,'').length}
+function KI(x){return (String(x||'').replace(/<[^>]+>/g,'').match(/\d+|§|「|第[一二三四五六七八九十]+[條點款項]/g)||[]).length}
+function plan(c){
+  var q=L(c.q)/RS+2*c.subs.length;
+  var sw=steps.map(function(p){var x=p.x,th=5+L(x.ask)/RS,rv=(L(x.key)+L(x.lawh)+L(x.fact)+L(x.res))/RS+1.5*KI(x.key+x.res+x.fact)+(p.last?L(c.subs[p.s].ans)/RS:0);p.wth=th;p.wrv=rv;return th+rv});
+  var sx=c.sx.reduce(function(a,b){return a+L(b[2])/8+0.8*KI(b[2])},0)+L(c.kou)/8;
+  var lo=c.lose.reduce(function(a,t){return a+L(t)/8+0.5},0);
+  var ck=5+2*c.kws.length;
+  var stepSum=sw.reduce(function(a,b){return a+b},0), F=1.25;
+  /* 讀題、速寫、失分點、檢核：給「讀完所需」×1.25；剩下的全部給推理鏈（先想＋核對）。內容太多時整體等比縮 */
+  var need=[q*F,0,sx,lo,ck], fix=need[0]+need[2]+need[3]+need[4], k=Math.min(1,(300-stepSum*0.8)/fix);
+  var r=[Math.max(8,Math.round(need[0]*k)),0,Math.max(8,Math.round(need[2]*k)),Math.max(4,Math.round(need[3]*k)),Math.max(10,Math.round(need[4]*k))];
+  r[1]=300-r[0]-r[2]-r[3]-r[4];
+  var acc=0;steps.forEach(function(p,i){p.t=Math.max(10,Math.round(sw[i]/stepSum*r[1]));var rv=Math.min(p.t-6,Math.round(p.wrv*F));p.think=Math.max(6,Math.round(p.t*0.25),p.t-rv);acc+=p.t});
+  steps[steps.length-1].t+=r[1]-acc;
+  STG.forEach(function(g,i){g.s=r[i]});
+  $('segs').style.gridTemplateColumns=r.map(function(x){return x+'fr'}).join(' ');
+}
+function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
+var SWU='__ROOT__經紀法規_申論5分鐘衝刺.html';
+function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用考場版 ▸</a>':''}
+var CARDU='__ROOT__經紀法規_申論卡.html';
+
+/* ---- 存檔後：再練一次／看完整解說／回看本題（11-03） ---- */
+function doneExtra(revPages){
+  var id=cur.id,b=$('body');
+  b.insertAdjacentHTML('beforeend','<div class="dnb"><button type="button" class="btn" id="againBtn">🔁 再練一次</button><a class="btn" href="'+CARDU+'?v=0#'+encodeURIComponent(id)+'" target="_blank" rel="noopener">📖 看完整解說（另開）</a></div>'
+    +'<div class="rv"><div class="rvh">回看本題（不計時）</div><div class="rvnav"><button type="button" class="btn" id="rvP">◀ 上一頁</button><select id="rvS" aria-label="跳到哪一頁"></select><button type="button" class="btn" id="rvN">下一頁 ▶</button></div><div id="rvB"></div></div>');
+  $('againBtn').onclick=function(){$('nextBtn').onclick=next;$('quitBtn').textContent='放棄這題';start(id)};
+  var P=revPages(),i=0;
+  $('rvS').innerHTML=P.map(function(p,k){return '<option value="'+k+'">'+(k+1)+'／'+P.length+'　'+esc(p[0])+'</option>'}).join('');
+  function go(k){i=Math.max(0,Math.min(P.length-1,k));$('rvS').value=String(i);$('rvB').innerHTML=P[i][1];$('rvP').disabled=i===0;$('rvN').disabled=i===P.length-1}
+  $('rvP').onclick=function(){go(i-1)};$('rvN').onclick=function(){go(i+1)};$('rvS').onchange=function(){go(+this.value)};
+  go(0);
+}
+function reasonPages(){
+  var P=[[STG[0].n,'<div class="rvq">'+esc(cur.q)+'<ul class="subs">'+cur.subs.map(function(s,a){return '<li><b>問題'+CN[a]+'</b><span>'+esc(s.q)+'</span></li>'}).join('')+'</ul></div>']];
+  var si0=si,sh0=shown;
+  steps.forEach(function(p,k){si=k;shown=true;var a=p.x.ask||'';P.push([STG[1].n+' '+(k+1)+'／'+steps.length+'：'+(a.length>16?a.slice(0,16)+'…':a),stepHTML()])});
+  si=si0;shown=sh0;
+  P.push([STG[2].n,cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'')]);
+  P.push([STG[3].n,'<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>']);
+  P.push([STG[4].n+'（綠＝有點到）','<div class="kws">'+cur.kws.map(function(k,i){return '<span class="kw'+(got[i]?' on':' miss')+'">'+(got[i]?'✓ ':'')+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</span>'}).join('')+'</div>']);
+  return P;
+}
+function start(id){
+  swGo(id);
+  setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;
+  cur=CARDS.filter(function(c){return c.id===id})[0];if(!cur)return; st=0; left=STG[0].s; el=0; got={}; rate=0;
+  steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
+  plan(cur);
+  si=0; shown=false;
+  $('home').hidden=true;$('run').hidden=false;$('act').hidden=false;
+  var S0=stat(cur.id);$('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>推理第 '+(S0.rn+1)+' 次'+(S0.last?'・上次 '+S0.last.sc+'／'+S0.last.mx:'')+'</span><span>'+planTxt()+'</span>';
+  $('ttl').textContent=cur.t;
+  $('qbox').className='qbox';
+  $('qbox').innerHTML='<div class="qt">'+esc(cur.q)+'</div><span class="nq">本題 '+cur.subs.length+' 問</span><button type="button" class="qx" id="qx">展開題目</button>'
+    +'<ul class="subs" id="subs">'+cur.subs.map(function(s,a){return '<li><b>問題'+CN[a]+'</b><span>'+esc(s.q)+'</span></li>'}).join('')+'</ul>';
+  $('qx').onclick=function(){var q=$('qbox'),o=q.classList.contains('clamp');q.classList.toggle('clamp',!o);q.classList.toggle('open',o);this.textContent=o?'收起題目':'展開題目'};
+  $('mchip').className='modechip '+mode;$('mchip').textContent=mode==='h'?'⚡ 衝刺':'🪑 停留';
+  render();tick(true);if(iv)clearInterval(iv);iv=setInterval(function(){tick(false)},1000);scrollTo(0,0);
+}
+function stepHTML(){
+  var p=steps[si],x=p.x,s=cur.subs[p.s];
+  var dots=steps.map(function(q,k){return '<i class="'+(k<si?'ok':(k===si?'on':''))+'"></i>'}).join('');
+  var h='<div class="chain">'+dots+'<small>第 '+(si+1)+'／'+steps.length+' 步</small></div>'
+   +'<div class="subq"><span>問題'+CN[p.s]+'</span>'+esc(s.q)+'</div>'
+   +(p.b===0&&s.pre?'<div class="think">'+esc(s.pre)+'</div>':'')
+   +'<div class="ask"><div class="l">先想 ❓</div><div class="x">'+esc(x.ask)+'</div></div>';
+  if(!shown){h+='<button type="button" class="flip" id="flip">想好了，翻開 ▾</button><div class="think" id="thk"></div>';return h}
+  h+='<div class="ans"><div class="key"><small>關鍵一句</small>'+rt(x.key)+'</div>'
+   +'<div class="row2"><span class="tag law">條文</span><div><b>'+rt(x.lawh)+'</b><details class="lawx"><summary>看條文原文 ▸</summary>'+rt(x.law)+'</details></div></div>'
+   +(x.fact?'<div class="row2"><span class="tag fact">'+esc(x.facth||'套事實')+'</span><div>'+rt(x.fact)+'</div></div>':'')
+   +'<div class="row2"><span class="tag res">小結</span><div>'+rt(x.res)+'</div></div>'
+   +(p.last?'<div class="subans"><small>問題'+CN[p.s]+' 這樣答</small>'+s.ans+'</div>':(x.link?'<div class="next">下一步要問 → <b>'+esc(x.link)+'</b></div>':''))
+   +'</div>';
+  return h;
+}
+function render(){
+  var b=$('body'),h='';
+  $('qbox').classList.toggle('clamp',st>=1&&!$('qbox').classList.contains('open'));
+  $('subs').hidden=st>=1;
+  if(st===0)h='<div class="cover">先讀題，看下面列的幾問。<br>推理鏈會一問一問帶你想。</div>';
+  else if(st===1)h=stepHTML();
+  else if(st===2)h=cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'');
+  else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>';
+  else if(st===4){
+    h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</button>'}).join('')+'</div>'
+     +'<div class="score"><span class="big" id="sc"></span><small>得分關鍵詞</small></div>'
+     +'<div class="rate">'+['','✅ 熟','📖 還沒背起來','😵 太難'].map(function(t,v){return v?'<button type="button" data-v="'+v+'"'+(rate===v?' class="on"':'')+'>'+t+'</button>':''}).join('')+'</div>';
+  }
+  b.innerHTML=h;
+  var f=$('flip');if(f)f.onclick=function(){shown=true;render()};
+  if(st===4){
+    [].forEach.call(b.querySelectorAll('.kw'),function(k){k.onclick=function(){var i=+k.getAttribute('data-i');got[i]=!got[i];k.classList.toggle('on',got[i]);sc()}});
+    [].forEach.call(b.querySelectorAll('.rate button'),function(x){x.onclick=function(){rate=+x.getAttribute('data-v');[].forEach.call(b.querySelectorAll('.rate button'),function(y){y.classList.toggle('on',y===x)});act()}});
+    sc();
+  }
+  $('stg').innerHTML=STG[st].n+'<small>'+STG[st].d+'</small>';
+  [].forEach.call($('segs').children,function(g,i){g.classList.toggle('done',i<st)});
+  act();
+}
+function sc(){var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});$('sc').textContent=n+'／'+cur.kws.length}
+function act(){
+  var nb=$('nextBtn');nb.disabled=false;
+  if(st===1){nb.textContent=si<steps.length-1?'下一步 →':'去看速寫 →';
+    $('hint').textContent=mode==='h'?'先想的時間到自動翻開；這步時間到自動下一步。':'時間到只變紅，自己控制。'}
+  else if(st===4){nb.textContent='存檔';nb.disabled=!rate;$('hint').textContent=rate?'':'點完關鍵詞，選一個自評。'}
+  else {nb.textContent='下一段 →';$('hint').textContent=mode==='h'?'時間到會自動往下。':'時間到只變紅。'}
+
+  if(window.barWake)barWake();
+}
+function tick(first){
+  if(!first){if(paused||document.visibilityState!=='visible')return;el++;left--;
+    if(st===1){stepLeft--;if(!shown)thinkLeft--}}
+  if(first&&st===1){stepLeft=steps[si].t;thinkLeft=steps[si].think}
+  var showLeft=st===1?stepLeft:left, clk=$('clk');
+  clk.textContent=mmss(showLeft);clk.classList.toggle('red',showLeft<=0||(st===1&&left<=0));
+  var seg=$('segs').children[st];seg.querySelector('b').style.width=Math.min(100,(STG[st].s-left)/STG[st].s*100)+'%';seg.classList.toggle('over',left<0);
+  var t=$('tot');t.textContent='總 '+mmss(el).replace('+','')+'／5:00';t.classList.toggle('red',el>300);
+  if(st===1&&!shown){var k=$('thk');if(k)k.textContent=thinkLeft>0?'先想 '+thinkLeft+' 秒'+(mode==='h'?'，時間到自動翻開':''):'先想時間到了'}
+  if(first||mode!=='h')return;
+  if(st===1){
+    if(!shown&&thinkLeft<=0){shown=true;render()}
+    else if(stepLeft<=0||left<=0)next();
+  } else if(left<=0&&st<4)next();
+}
+function next(){
+  if(paused)return;
+  if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);scrollTo(0,0);return}
+  if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);scrollTo(0,0);return}
+  if(st<4){st++;left=STG[st].s;render();tick(true);scrollTo(0,0);return}
+  if(st===4&&rate)done();
+}
+function done(){
+  clearInterval(iv);
+  var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});
+  var now=Math.floor(Date.now()/1000);
+  var S=ld(SP);S[cur.id]=[{t:now,sc:n,mx:cur.kws.length,m:mode,sec:el,v:rate,f:'r'}].concat(S[cur.id]||[]).slice(0,30);sv(SP,S);
+  var Lg=ld(LOG),r=Lg[cur.id]=Lg[cur.id]||{n:0,s:[],tot:0};r.n=(r.n||0)+1;r.tot=(r.tot||0)+el;r.s=[el].concat(r.s||[]).slice(0,5);r.v=rate;r.t=now;sv(LOG,Lg);
+  var nx=pick==='rand'?{c:randPick(cur.id)}:order().filter(function(x){return x.c.id!==cur.id})[0];
+  $('body').innerHTML='<div class="done-box"><b>'+(DEMO?'完成':'已存檔')+'</b>：關鍵詞 '+n+'／'+cur.kws.length+'・'+RL[rate]+'・用時 '+mmss(el).replace('+','')
+    +'<br><span style="color:var(--sub);font-size:.88rem">'+(DEMO?'樣板不存紀錄。':'指揮中心這張申論卡的輪數、自評會一起更新。')+'</span>'
+    +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+  if(!DEMO)doneExtra(reasonPages);
+  st=5;$('stg').innerHTML='完成<small>紀錄已同步</small>';[].forEach.call($('segs').children,function(g){g.classList.add('done')});
+  $('hint').textContent='';$('quitBtn').textContent='回清單';
+  var nb=$('nextBtn');nb.disabled=!nx;nb.textContent='下一題 ▸';nb.onclick=function(){start(nx.c.id)};
+}
+$('nextBtn').onclick=next;
+$('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;swGo('');home();scrollTo(0,0)};
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
+
+var paused=false;
+function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
+$('pauseBtn').onclick=function(){setPause(!paused)};
+$('resumeBtn').onclick=function(){setPause(false)};
+(function(){var m=/^#q=(.+)$/.exec(location.hash||''),id=m?decodeURIComponent(m[1]):'';
+  if(id&&CARDS.some(function(c){return c.id===id})){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}start(id)}else home()})();
+</script>
+<script id="th-js">/* 深淺色切換：有存過看 bx-theme，沒存過跟系統；按了才寫入（全站共用鍵） */
+(function(){var H=document.documentElement,b=document.getElementById('thBtn');
+function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedia('(prefers-color-scheme:dark)').matches}
+function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
+b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
+paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
+<script id="howto-js">(function(){var d=document.getElementById("howto");if(!d)return;try{if(localStorage.getItem("bx-sprint-howto")==="1")d.open=true}catch(e){}d.addEventListener("toggle",function(){try{localStorage.setItem("bx-sprint-howto",d.open?"1":"0")}catch(e){}})})();</script>
+<script id="sprint-keys">
+/* 鍵盤：練習中 →／空白鍵＝下一段（推理版未翻開先翻開）；回看本題 ←／→ 翻頁；空白鍵＝下一題 */
+document.addEventListener('keydown',function(e){
+ if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+ var t=e.target,tag=(t&&t.tagName)||'';if(/^(INPUT|SELECT|TEXTAREA)$/.test(tag)||(t&&t.isContentEditable))return;
+ var k=e.key;if(k!=='ArrowRight'&&k!=='ArrowLeft'&&k!==' '&&k!=='Spacebar')return;
+ var run=document.getElementById('run');if(!run||run.hidden)return;
+ if(document.body.classList.contains('paused'))return;
+ var rvP=document.getElementById('rvP'),rvN=document.getElementById('rvN'),nb=document.getElementById('nextBtn');
+ function hit(b){if(b&&!b.disabled&&b.offsetParent!==null){e.preventDefault();b.click();return true}return false}
+ if(rvP&&rvP.offsetParent!==null){            /* 存檔後：回看本題 */
+  if(k==='ArrowLeft')return void hit(rvP);
+  if(k==='ArrowRight')return void hit(rvN);
+  return void hit(nb);                       /* 空白鍵＝下一題 */
+ }
+ if(k==='ArrowLeft')return;
+ if(hit(document.getElementById('flip')))return;
+ hit(nb);
+});
+</script>
+<script id="sprint-bardim">
+/* 底部操作列整列淡出：閱讀階段每段 4 秒後變淡；碰到就恢復 */
+(function(){var a=document.getElementById('act'),t=null;if(!a)return;
+ function reading(){return typeof st==='number'&&st<4}
+ window.barWake=function(){a.classList.remove('dim');clearTimeout(t);if(reading())t=setTimeout(function(){if(reading())a.classList.add('dim')},4000)};
+ a.addEventListener('pointerdown',function(){if(a.classList.contains('dim'))barWake()},true);
+ setInterval(function(){if(!reading()&&a.classList.contains('dim'))a.classList.remove('dim')},500);
+})();
+</script>
+</body>
+</html>
