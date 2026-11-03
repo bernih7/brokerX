@@ -291,7 +291,7 @@ function start(id){
   setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;
   cur=CARDS.filter(function(c){return c.id===id})[0];if(!cur)return; st=0; left=STG[0].s; el=0; got={}; rate=0;
   steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
-  plan(cur);
+  plan(cur);left=STG[0].s;  /* 11-04：plan 依本題重算秒數後才取第①段秒數（原本取到上一題的） */
   si=0; shown=false;
   $('home').hidden=true;$('run').hidden=false;$('act').hidden=false;
   var S0=stat(cur.id);$('meta').innerHTML='<span>'+esc(cur.no)+'</span><span>'+esc(cur.g)+'</span><span>推理第 '+(S0.rn+1)+' 次'+(S0.last?'・上次 '+S0.last.sc+'／'+S0.last.mx:'')+'</span><span>'+planTxt()+'</span>';
@@ -353,7 +353,7 @@ function act(){
 
   if(window.barWake)barWake();
 }
-function tick(first){
+function tick(first){if(first)segFix();
   if(!first){if(paused||document.visibilityState!=='visible')return;el++;left--;
     if(st===1){stepLeft--;if(!shown)thinkLeft--}}
   if(first&&st===1){stepLeft=steps[si].t;thinkLeft=steps[si].think}
@@ -368,11 +368,13 @@ function tick(first){
     else if(stepLeft<=0||left<=0)next();
   } else if(left<=0&&st<4)next();
 }
+function toBody(){var b=$('body');if(!b||st<1||st>4)return;var bar=document.querySelector('.bar');var y=Math.max(0,b.getBoundingClientRect().top+scrollY-(bar?bar.offsetHeight:0)-8);scrollTo({top:y,behavior:'smooth'})}
+function segFix(){[].forEach.call($('segs').children,function(g,i){if(i===st)return;var b=g.querySelector('b');if(b)b.style.width=i<st?'100%':'0%';if(i>st)g.classList.remove('over')})}
 function next(){
   if(paused)return;
-  if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);scrollTo(0,0);return}
-  if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);scrollTo(0,0);return}
-  if(st<4){st++;left=STG[st].s;render();tick(true);scrollTo(0,0);return}
+  if(st===1&&si<steps.length-1&&left>0){si++;shown=false;render();tick(true);toBody();return}
+  if(st===1&&si<steps.length-1&&mode==='s'){si++;shown=false;render();tick(true);toBody();return}
+  if(st<4){st++;left=STG[st].s;render();tick(true);toBody();return}
   if(st===4&&rate)done();
 }
 function done(){
@@ -395,7 +397,7 @@ $('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').t
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
 
 var paused=false;
-function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
+function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v){if(cur&&st>=1&&st<=4)toBody();else scrollTo(0,0)}}
 $('pauseBtn').onclick=function(){setPause(!paused)};
 $('resumeBtn').onclick=function(){setPause(false)};
 (function(){var m=/^#q=(.+)$/.exec(location.hash||''),id=m?decodeURIComponent(m[1]):'';
