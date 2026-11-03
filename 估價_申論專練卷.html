@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><script>(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>估價申論專練卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- 由 tools/essay_val/drill/build_drill.py 產生；請改模板 tools/essay_val/drill/tpl.html 後重跑，不要直接改本頁 -->
+<style>
+:root{--bg:#F5F1E6;--surface:#FFFEFA;--ink:#25302C;--sub:#5F6B63;--line:#DAD6C3;--pri:#2F5D50;--on:#FFFFFF;--pri-soft:#DDEBE5;--acc:#B8782E;--acc-ink:#8A5517;--acc-soft:#F7E6CC;--ok:#35693F;--ok-soft:#E0EFE0;--bad:#A8402B;--bad-soft:#F8E1DC;--b1:#2F6B8C;--b1s:#E3EFF6;--shadow:0 2px 8px rgba(37,48,44,.07)}
+:root[data-theme="dark"]{--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--b1:#7DB6D8;--b1s:#1D2F3A;--shadow:none;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161C19;--surface:#1F2723;--ink:#E7ECE6;--sub:#A5B1A8;--line:#33403A;--pri:#84C2AE;--on:#161C19;--pri-soft:#24362F;--acc:#E0B070;--acc-ink:#E6C06E;--acc-soft:#3A3220;--ok:#8FCB93;--ok-soft:#22351F;--bad:#F08A7E;--bad-soft:#42261F;--b1:#7DB6D8;--b1s:#1D2F3A;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 "Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding-block:12px 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--pri)}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;font-size:.86rem}
+.top span{display:flex;flex-wrap:wrap;gap:4px 12px}.top a{white-space:nowrap}
+.th{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 11px;font-size:.8rem}
+h1{font:900 1.4rem/1.3 "Noto Serif TC",serif;margin:10px 0 2px;color:var(--pri);text-wrap:balance}
+.lead{color:var(--sub);font-size:.9rem;margin:0 0 10px}
+details.how{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px;margin:10px 0;font-size:.9rem}
+details.how>summary{cursor:pointer;font-weight:700;color:var(--pri)}
+details.how h3{font-size:.95rem;margin:12px 0 4px}
+details.how ol,details.how ul{margin:4px 0;padding-left:1.3em}
+details.how li{margin:2px 0}
+.note{color:var(--sub);font-size:.84rem}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 16px;font-weight:500}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.btn.sm{padding:3px 12px;font-size:.84rem}
+.btn:disabled{opacity:.45;cursor:default}
+/* 模式 */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mode{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 12px;text-align:left;min-width:0}
+.mode b{display:block;font-size:1rem}
+.mode small{display:block;color:var(--sub);line-height:1.5;margin-top:2px;font-size:.78rem}
+.mode.on{border-color:var(--pri);background:var(--pri-soft)}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.88rem;margin:10px 0}
+.resume{background:var(--acc-soft);border:1px solid var(--acc);border-radius:12px;padding:8px 12px;margin:10px 0;font-size:.9rem;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.resume b{color:var(--acc-ink)}
+/* 卷列表 */
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:10px 0;box-shadow:var(--shadow)}
+.paper.done{border-left:4px solid var(--ok)}
+.paper.next{border-color:var(--pri);border-width:1.5px}
+.ph{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ph .pn{font:700 1.05rem/1.4 "Noto Serif TC",serif;color:var(--pri)}
+.ph .st{font-size:.8rem;color:var(--sub);flex:1;min-width:0}
+.ph .st b{color:var(--ok)}
+.qrow{display:grid;grid-template-columns:auto 1fr;gap:0 8px;margin:6px 0;font-size:.9rem;line-height:1.55}
+.qrow .qt{min-width:0;overflow-wrap:anywhere}
+.qrow .qm{grid-column:2;display:flex;flex-wrap:wrap;gap:4px 6px;font-size:.74rem;color:var(--sub)}
+.chip{border-radius:999px;padding:0 8px;background:color-mix(in srgb,var(--ink) 7%,transparent);white-space:nowrap;font-size:.74rem}
+.chip.calc{background:var(--b1s);color:var(--b1);font-weight:700}
+.chip.expl{background:var(--acc-soft);color:var(--acc-ink);font-weight:700}
+.chip.A{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.chip.ok{background:var(--ok-soft);color:var(--ok);font-weight:700}
+.chip.mem{background:var(--acc-soft);color:var(--acc-ink);font-weight:700}
+.chip.hard{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.pact{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+/* 作答 */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+.bar .row{display:flex;align-items:center;gap:8px}
+.bar .lbl{flex:1;min-width:0;font-weight:700;font-size:.92rem;line-height:1.35}
+.bar .lbl small{display:block;font-weight:400;color:var(--sub);font-size:.76rem}
+.clk{font:700 1.55rem/1 "Noto Sans TC",monospace;font-variant-numeric:tabular-nums;color:var(--pri)}
+.clk.red{color:var(--bad)}
+.seg{display:flex;gap:6px;margin-top:6px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--sub)}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 10px;font-size:.8rem;font-variant-numeric:tabular-nums}
+.seg button.on{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.seg button.over{border-color:var(--bad)}
+.qc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0;box-shadow:var(--shadow)}
+.qc.act{border-color:var(--pri)}
+.qh{font:700 1rem/1.5 "Noto Serif TC",serif;color:var(--pri);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.qh .chip{font-family:"Noto Sans TC",sans-serif}
+.qtx{white-space:pre-wrap;font-family:"Noto Serif TC",serif;font-weight:700;font-size:.98rem;line-height:1.8;margin:6px 0 8px;overflow-wrap:anywhere}
+textarea.ans{display:block;width:100%;min-height:220px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans TC",sans-serif;padding:10px;resize:vertical}
+.cnt{font-size:.74rem;color:var(--sub);text-align:right}
+.hand{border:1.5px dashed var(--line);border-radius:10px;padding:10px;color:var(--sub);font-size:.88rem;text-align:center}
+.foot{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin:14px 0}
+body.paused #run .qc{filter:blur(6px);pointer-events:none;user-select:none}
+.pz{display:none;text-align:center;margin:10px 0;font-weight:700;color:var(--acc-ink)}
+body.paused .pz{display:block}
+/* 對答案 */
+.done-box{background:var(--ok-soft);border:1px solid var(--ok);border-radius:12px;padding:10px 12px;margin:12px 0;font-size:.9rem}
+.done-box b{color:var(--ok)}
+.rtabs{display:flex;gap:8px;margin:10px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:4}
+.rtabs button{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 6px;font-size:.9rem;line-height:1.35}
+.rtabs button small{display:block;font-size:.72rem;color:var(--sub)}
+.rtabs button.on{background:var(--pri);border-color:var(--pri);color:var(--on)}
+.rtabs button.on small{color:var(--on);opacity:.85}
+details.qd,details.my{margin:6px 0}
+details.qd>summary,details.my>summary{cursor:pointer;font-weight:700;color:var(--pri);font-size:.9rem}
+.mytx{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.9rem;overflow-wrap:anywhere}
+.rate{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0;font-size:.86rem}
+.rate>span{font-weight:700}
+.rate button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.86rem}
+.rate button[data-v="ok"].on{background:var(--ok);border-color:var(--ok);color:var(--on)}
+.rate button[data-v="mem"].on{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.rate button[data-v="hard"].on{background:var(--bad);border-color:var(--bad);color:var(--on)}
+.cfh{font-size:.8rem;color:var(--sub);margin:6px 0;line-height:1.6}
+.cfh a{font-weight:700;white-space:nowrap}
+iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent;color-scheme:normal}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><span><a href="估價備考指揮中心.html">← 估價指揮中心</a><a href="不動產估價概要_申論題實戰範文.html">申論範文頁</a></span><button type="button" class="th" id="thBtn">深色</button></div>
+
+<div id="home">
+<h1>估價申論專練卷</h1>
+<p class="lead">7 卷，每卷 2 題（一題偏計算、一題偏說明，各 25 分），限時 50 分鐘。題目全取自申論範文頁現有的卡片，不另出新題；交卷後對答案就是範文頁同一張卡。</p>
+<details class="how" id="howto"><summary>怎麼用・怎麼組卷・紀錄存在哪</summary>
+<h3>怎麼用</h3>
+<ol>
+<li>先選作答方式：<b>打字作答</b>（在頁面上打字，草稿自動存在這台裝置）或<b>手寫・只計時</b>（寫在紙上，頁面只負責計時）。</li>
+<li>按「開始」就開始計時，限時 50 分鐘，建議每題 25 分鐘（比照民法、經紀法規申論專練卷：每題 25 分鐘）。時間到不會強制交卷，會改成紅字往上加，提醒你已經超時。</li>
+<li>作答列的「第一題／第二題」是「現在在寫哪一題」，用來分開記兩題各花幾分鐘；打字時點進哪一題的作答區就自動切過去。手寫時請自己按。</li>
+<li>交卷後，每題下面就是範文頁同一張卡（邏輯拆解｜考場速寫｜考場版｜完整四段式），逐項對照採分點，再按「熟／還沒背起來／太難」自評。</li>
+</ol>
+<h3>怎麼組卷（腳本依卡片資料自動組，不是手挑）</h3>
+<p class="note">範文頁現有 63 張卡（官方 32、115預測 22、本站模擬卷 7、補習班卷 2）；偏計算 24 張、偏說明 39 張；篇別 7 個（成本法、土地開發、比較法、收益法、租金估計、A篇概念、估價原則）。</p>
+<ol>
+<li><b>偏計算／偏說明</b>：卡片的邏輯拆解是「一步一步算」的，算偏計算；其餘算偏說明。</li>
+<li><b>預測價值排序</b>：A級＞B級＞C級＞補習班卷；同級時官方題＞115預測＞本站模擬卷＞補習班卷；官方題年份越新越前面。</li>
+<li><b>計算題</b>：照價值排序挑 7 題；同級時，篇別用得越少的越先挑（避免全是同一篇）。</li>
+<li><b>說明題</b>：計算題沒蓋到的篇別，各挑該篇價值最高的一題；剩下的名額照價值排序補滿。</li>
+<li><b>配卷</b>：每卷配一題價值最高、而且和計算題<b>不同篇別</b>的說明題；卷①價值最高，建議依序做。所有篇別都至少出現一次。</li>
+</ol>
+<p class="note">範文頁的卡片改了等級或新增卡片後，重跑 tools/essay_val/drill/build_drill.py 就會重新組卷。</p>
+<h3>紀錄存在哪</h3>
+<ul>
+<li>交卷時，每題寫入範文頁同一份「申論輪數紀錄」：輪數 +1、這次幾秒；自評也寫進同一張卡。範文頁標題列與指揮中心看到的就是同一份。</li>
+<li>本頁另記每卷做了幾次、日期與兩題自評。紀錄只存在這台裝置的瀏覽器。</li>
+<li>對答案時，卡片本身也會照範文頁的規則計時（展開停留 20 秒且捲到底再記一輪），和綜合模擬卷的嵌入卡相同。</li>
+</ul>
+</details>
+<div class="modes"><button type="button" class="mode" data-m="type"><b>⌨️ 打字作答</b><small>在頁面上打字，草稿自動存在這台裝置</small></button><button type="button" class="mode" data-m="hand"><b>✍️ 手寫・只計時</b><small>寫在紙上，頁面只計時並分開記兩題用時</small></button></div>
+<div id="resume"></div>
+<div class="sum" id="sum"></div>
+<div id="list"></div>
+</div>
+
+<div id="run" hidden></div>
+<div id="rev" hidden></div>
+</div>
+
+<script>
+var CARDS={"e105-1": {"pri": "A", "ty": "cost", "tn": "成本法", "k": "off", "kl": "官方", "no": "105年第一題", "t": "成本法折舊路徑種類＋定額法計算並繪製示意圖", "q": "建物累積折舊額之計算，應視建物特性及市場動態，選擇適合的折舊方法。依不動產估價技術規則的規定，有那些路徑的折舊方法？請詳述說明之。假設有一價值200萬元的建物，耐用年數50年，殘價率5%，試繪製示意圖說明之。（25分）", "calc": true}, "e107-1": {"pri": "A", "ty": "cost", "tn": "成本法", "k": "off", "kl": "官方", "no": "107年第一題", "t": "定率法折舊公式＋計算第5年建物現值", "q": "請列式說明定率法的折舊公式。如果一個1000萬元的建築物，以每年減損2%的速度折舊，請問第5年年末，該建築物的現值為多少？（25分）", "calc": true}, "e111-1": {"pri": "A", "ty": "cost", "tn": "成本法", "k": "off", "kl": "官方", "no": "111年第一題", "t": "建物折舊額與累積折舊額之計算", "q": "建物折舊額如何計算？建物累積折舊額又如何計算？請依不動產估價技術規則述說之。（25分）", "calc": false}, "e112-2": {"pri": "A", "ty": "cost", "tn": "成本法", "k": "off", "kl": "官方", "no": "112年第二題", "t": "屋齡10年建物等速折舊計算＋合理性分析", "q": "有一屋齡10年的中古住宅，於建物重新建造成本800萬元、耐用年數50年、殘餘價格率5%的條件下，依不動產估價技術規則的等速折舊路徑計算，建物的現在價值是多少？另請以專業人士的觀點，分析這個價格的合理性。（25分）", "calc": true}, "e104-2": {"pri": "A", "ty": "cost", "tn": "成本法", "k": "off", "kl": "官方", "no": "104年第二題", "t": "收益法建物折舊提存費之計算＋成本法營造或施工費之估計", "q": "不論是收益法或是成本法在房地產收益價格估計時都扮演著重要的角色，當估價時，勘估標的如果包含建物應加計建物之折舊提存費，請問要如何計算建物的折舊提存費？又勘估標的在估價時，對於其營造或施工費要如何估計？請分別論述之。（25分）", "calc": false}, "pred-6": {"pri": "A", "ty": "land", "tn": "土地開發", "k": "pred", "kl": "115預測", "no": "115預測⑥", "t": "區分所有建物樓層別效用比與基地單價推估", "q": "區分所有建物之估價為何須考量樓層別效用比？依技術規則，如何由房地價格推估區分所有建物之基地單價？假設某大樓第5層住宅房地價格2,000萬元，土地價值比率40%，基地持分面積8坪，該戶樓層別效用比120，平均樓層別效用比100，試求其基地單價。（25分）", "calc": true}, "pred-13": {"pri": "A", "ty": "land", "tn": "土地開發", "k": "pred", "kl": "115預測", "no": "115預測⑬", "t": "都市更新基地價值比率與「由房地價格拆出土地、建物價格」（§125、§99、§101-1）", "q": "某都市更新權利變換案，基地總面積400坪，素地單價每坪50萬元；建物營造施工費單價每坪10萬元，累積折舊率20%，全棟建物面積1,000坪。(一)依技術規則求基地價值比率；(二)某戶房地價格3,000萬元，基地持分面積8坪，試依價值比率求其土地價格、建物價格及基地權利單價；(三)說明本題做法與「房地價格－建物成本價格」直接相減有何不同。（25分）", "calc": true}, "e110-1": {"pri": "B", "ty": "comp", "tn": "比較法", "k": "off", "kl": "官方", "no": "110年第一題", "t": "疫情後特殊交易案例：比較標的應不予採用之情況", "q": "不動產市場因為世界各國疫情趨緩開始活絡，不動產買賣不論是新屋、中古屋都出現很特殊的交易案例現象，根據不動產估價技術規則規定，不動產估價時對於比較標的如果無法有效掌握，應不予採用的情況有那些？試說明之。（25分）", "calc": false}, "e99-1": {"pri": "A", "ty": "income", "tn": "收益法", "k": "off", "kl": "官方", "no": "99年第一題", "t": "收益資本化率之風險因素與比較基準＋加權平均資金成本法計算", "q": "收益法又稱收益資本化法，除了精準計算房地客觀淨收益外，收益資本化率或折現率的有效掌握對於價格決定具有關鍵影響。請說明收益資本化率或折現率一般考慮的風險因素與選擇比較基準？同時，請試舉例說明依加權平均資金成本方式決定收益資本化率或折現率的計算過程與結果？（25分）", "calc": false}, "pred-2": {"pri": "A", "ty": "income", "tn": "收益法", "k": "pred", "kl": "115預測", "no": "115預測②", "t": "收益法資本化率決定方法（WACC加權平均資金成本法）", "q": "試說明不動產估價技術規則中，收益法之資本化率決定方法有哪些？並以下列條件計算某辦公室之資本化率：自有資金佔30%、年報酬率7%；借款資金佔70%、年利率2.5%；估計之年淨收益為60萬元。以加權平均資金成本法（WACC）求出資本化率，並計算該不動產之收益價格。（25分）", "calc": true}, "pred-22": {"pri": "A", "ty": "income", "tn": "收益法", "k": "pred", "kl": "115預測", "no": "115預測㉒", "t": "殘餘法：土地收益價格與建物收益價格（§44、§45）＋一定期間收益價格（§47）", "q": "依不動產估價技術規則：(一)土地收益價格與建物收益價格各應如何求取？請列式說明，並說明「折舊前淨收益」與「已扣除折舊提存費之淨收益」在算式上的差別。(二)某房地之年淨收益（已扣折舊提存費）為100萬元，建物成本價格2,000萬元、建物收益資本化率3%、土地收益資本化率2%，試求土地收益價格。(三)某不動產可收益年數10年，每年折舊前淨收益10萬元，收益資本化率3%，試求其收益價格。（25分）", "calc": true}, "e114-1": {"pri": "B", "ty": "rent", "tn": "租金估計", "k": "off", "kl": "官方", "no": "114年第一題", "t": "實質租金之意義＋租金估計應考慮之因素", "q": "何謂實質租金？不動產租金之估計應考慮那些因素？（25分）", "calc": false}, "pred-8": {"pri": "B", "ty": "foundation", "tn": "A篇概念", "k": "pred", "kl": "115預測", "no": "115預測⑧", "t": "估價報告書應載明事項與估價條件、價格種類（§6、§16）", "q": "甲受託評估一筆都市邊緣農地，委託人要求以「將來變更為建地」為前提評估價格。請依不動產估價技術規則說明：(一)此估價屬何種價格種類？報告書對估價條件及正常價格應如何處理？(二)估價報告書應載明哪些事項？(三)估價報告書交付前應有哪些程序及附件？", "calc": false}, "e104-1": {"pri": "C", "ty": "principle", "tn": "估價原則", "k": "off", "kl": "官方", "no": "104年第一題", "t": "不景氣屬何種估價原則＋應掌握之估價原則", "q": "最近國內房地產市場呈現不景氣狀況，此一現象在不動產估價原則來說是屬於那一種原則？對於不動產估價工作來說，需要掌握那些不動產估價原則？請詳述說明之。（25分）", "calc": false}};
+var PAPERS=[{"id": "e112-2+e99-1", "q": ["e112-2", "e99-1"]}, {"id": "pred-6+e111-1", "q": ["pred-6", "e111-1"]}, {"id": "pred-2+e104-2", "q": ["pred-2", "e104-2"]}, {"id": "e107-1+e114-1", "q": ["e107-1", "e114-1"]}, {"id": "pred-13+e110-1", "q": ["pred-13", "e110-1"]}, {"id": "pred-22+pred-8", "q": ["pred-22", "pred-8"]}, {"id": "e105-1+e104-1", "q": ["e105-1", "e104-1"]}];
+var LIMIT=3000;
+var LOG='bxv-es-log', DRK='bxv-es-drill', RUNK='bxv-es-drill-run', DFT='bxv-es-drill-draft', MK='bxv-es-drill-mode';
+var ESSAY='不動產估價概要_申論題實戰範文.html', VIEW='估價_申論卡.html';
+var CN=['一','二'], NUM='①②③④⑤⑥⑦⑧⑨⑩';
+var VL={ok:'✅ 熟',mem:'📖 還沒背起來',hard:'😵 太難'};
+function ld(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v}catch(e){return d}}
+function sv(k,o){try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
+function rm(k){try{localStorage.removeItem(k)}catch(e){}}
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function mmss(s){s=Math.max(0,Math.round(s));return ('0'+Math.floor(s/60)).slice(-2)+':'+('0'+s%60).slice(-2)}
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function pnum(i){return '卷'+NUM.charAt(i)}
+function pidx(pid){for(var i=0;i<PAPERS.length;i++)if(PAPERS[i].id===pid)return i;return -1}
+function chips(c){return '<span class="chip '+(c.calc?'calc':'expl')+'">'+(c.calc?'偏計算':'偏說明')+'</span><span class="chip">'+esc(c.tn)+'</span><span class="chip'+(c.pri==='A'?' A':'')+'">'+esc(c.kl)+(/^[ABC]$/.test(c.pri)?'・'+c.pri+'級':'')+'</span>'}
+
+/* ---- 模式 ---- */
+var mode=ld(MK,'type');if(mode!=='type'&&mode!=='hand')mode='type';
+function paintMode(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');sv(MK,mode);paintMode()}});
+paintMode();
+
+/* ---- 首頁：卷列表 ---- */
+function home(){
+ var DR=ld(DRK,{}),L=ld(LOG,{}),done=0,times=0,nx=-1;
+ PAPERS.forEach(function(p,i){var r=DR[p.id];if(r&&r.n){done++;times+=r.n}else if(nx<0)nx=i});
+ $('sum').innerHTML=done?'已做 <b>'+done+'／'+PAPERS.length+'</b> 卷，共交卷 <b>'+times+'</b> 次。'+(nx>=0?'下一卷建議：<b>'+pnum(nx)+'</b>。':'全部做過一輪了，挑自評「太難／還沒背起來」的卷再做一次。')
+  :'還沒交過卷。建議從<b>卷①</b>開始依序做（卷序＝預測價值高到低）。';
+ var run=ld(RUNK,null),rs=$('resume');rs.innerHTML='';
+ if(run&&pidx(run.pid)>=0){rs.innerHTML='<div class="resume"><span><b>'+pnum(pidx(run.pid))+' 還沒交卷</b>・已用 '+mmss(run.el[0]+run.el[1])+'</span><button type="button" class="btn sm pri" id="rsGo">繼續作答 ▸</button><button type="button" class="btn sm" id="rsDrop">放棄這次</button></div>';
+  $('rsGo').onclick=function(){start(run.pid,run)};$('rsDrop').onclick=function(){if(confirm('放棄這次作答？（計時與草稿都會清掉，不寫紀錄）')){rm(RUNK);var d=ld(DFT,{});delete d[run.pid];sv(DFT,d);home()}}}
+ var h='';
+ PAPERS.forEach(function(p,i){var r=DR[p.id],last=r&&r.h&&r.h[0];
+  h+='<div class="paper'+(r&&r.n?' done':'')+(i===nx?' next':'')+'"><div class="ph"><span class="pn">'+pnum(i)+'</span><span class="st">'+(r&&r.n?'<b>✓ 已做 '+r.n+' 次</b>・最近 '+esc(last?last.d:'')+(last?'・用時 '+mmss(last.tot):''):'未做')+'</span></div>';
+  p.q.forEach(function(id,k){var c=CARDS[id],v=(L[id]||{}).v,n=(L[id]||{}).n||0;
+   h+='<div class="qrow"><b>'+CN[k]+'</b><span class="qt">'+esc(c.t)+'</span><span class="qm">'+chips(c)+'<span class="chip">'+esc(c.no)+'</span>'+(n?'<span class="chip">範文 '+n+' 輪</span>':'')+(v&&VL[v]?'<span class="chip '+v+'">'+VL[v]+'</span>':'')+'</span></div>'});
+  h+='<div class="pact"><button type="button" class="btn pri" data-go="'+i+'">'+(r&&r.n?'再做一次 ▸':'開始 ▸')+'</button>'+(last?'<button type="button" class="btn" data-rv="'+i+'">看上次對答案</button>':'')+'</div></div>'});
+ $('list').innerHTML=h;
+ [].forEach.call($('list').querySelectorAll('[data-go]'),function(b){b.onclick=function(){var p=PAPERS[+b.getAttribute('data-go')],run=ld(RUNK,null);
+  if(run&&run.pid!==p.id&&!confirm(pnum(pidx(run.pid))+' 還沒交卷，開始新的一卷會放棄它，確定？'))return;start(p.id,run&&run.pid===p.id?run:null)}});
+ [].forEach.call($('list').querySelectorAll('[data-rv]'),function(b){b.onclick=function(){review(PAPERS[+b.getAttribute('data-rv')].id)}});
+}
+
+/* ---- 作答 ---- */
+var R=null,iv=null,lastT=0,warned=false;
+function show(v){$('home').hidden=v!=='home';$('run').hidden=v!=='run';$('rev').hidden=v!=='rev';if(v!=='rev')dropFrames();scrollTo(0,0)}
+function start(pid,resume){
+ var i=pidx(pid),p=PAPERS[i];
+ R=resume||{pid:pid,m:mode,el:[0,0],act:0,t0:Math.floor(Date.now()/1000)};
+ if(resume)R.m=resume.m||mode;
+ var dft=ld(DFT,{})[pid]||['',''];
+ var h='<div class="bar"><div class="row"><span class="lbl">'+pnum(i)+'・限時 '+mmss(LIMIT)+'<small>'+(R.m==='type'?'⌨️ 打字作答':'✍️ 手寫・只計時')+'・每題建議 '+mmss(LIMIT/2)+'</small></span><span class="clk" id="clk">'+mmss(LIMIT)+'</span><button type="button" class="btn sm" id="pzBtn">暫停</button></div>'
+  +'<div class="seg" id="seg">現在寫：<button type="button" data-q="0">第一題 <span>00:00</span></button><button type="button" data-q="1">第二題 <span>00:00</span></button></div></div>'
+  +'<div class="pz">⏸ 已暫停（題目先遮起來）<br><button type="button" class="btn pri" id="pzGo" style="margin-top:6px">繼續 ▸</button></div>';
+ p.q.forEach(function(id,k){var c=CARDS[id];
+  h+='<div class="qc" id="qc'+k+'"><div class="qh">第'+CN[k]+'題（25分）'+chips(c)+'<span class="chip">'+esc(c.no)+'</span></div><div class="qtx">'+esc(c.q)+'</div>'
+   +(R.m==='type'?'<textarea class="ans" id="ta'+k+'" placeholder="照四段式作答：定義→法條→涵攝（計算題列式＋單位）→結論" aria-label="第'+CN[k]+'題作答">'+esc(dft[k]||'')+'</textarea><div class="cnt" id="cn'+k+'"></div>'
+    :'<div class="hand">寫在紙上。要換題時，按上方「第'+(k?'二':'一')+'題」，用時才會分開記。</div>')+'</div>'});
+ h+='<div class="foot"><button type="button" class="btn" id="quitBtn">先離開（保留進度）</button><button type="button" class="btn pri" id="subBtn">交卷・對答案 ▸</button></div>';
+ $('run').innerHTML=h;show('run');document.body.classList.remove('paused');
+ [].forEach.call($('seg').querySelectorAll('button'),function(b){b.onclick=function(){setAct(+b.getAttribute('data-q'))}});
+ if(R.m==='type')[0,1].forEach(function(k){var t=$('ta'+k);
+  t.addEventListener('focus',function(){setAct(k)});
+  t.addEventListener('input',function(){var d=ld(DFT,{});d[R.pid]=[$('ta0').value,$('ta1').value];sv(DFT,d);cnt(k)});cnt(k)});
+ $('pzBtn').onclick=function(){setPause(!R.paused)};$('pzGo').onclick=function(){setPause(false)};
+ $('quitBtn').onclick=function(){stop();saveRun();home();show('home')};
+ $('subBtn').onclick=submit;
+ warned=(R.el[0]+R.el[1])>=LIMIT;
+ R.paused=!!resume;   /* 回來接續時先暫停，按「繼續」才算時間 */
+ setAct(R.act);setPause(R.paused);
+ lastT=Date.now();clearInterval(iv);iv=setInterval(tick,500);paint();
+}
+function cnt(k){var t=$('ta'+k),c=$('cn'+k);if(t&&c)c.textContent=t.value.replace(/\s/g,'').length+' 字'}
+function setAct(k){R.act=k;[].forEach.call($('seg').querySelectorAll('button'),function(b){b.classList.toggle('on',+b.getAttribute('data-q')===k)});
+ [0,1].forEach(function(j){var q=$('qc'+j);if(q)q.classList.toggle('act',j===k)});saveRun()}
+function setPause(v){R.paused=v;document.body.classList.toggle('paused',v);$('pzBtn').textContent=v?'繼續':'暫停';lastT=Date.now();saveRun()}
+function saveRun(){if(R&&!R.sub)sv(RUNK,{pid:R.pid,m:R.m,el:R.el,act:R.act,t0:R.t0})}
+function stop(){clearInterval(iv);iv=null;document.body.classList.remove('paused')}
+function tick(){var n=Date.now(),dt=(n-lastT)/1000;lastT=n;if(!R||R.paused)return;
+ R.el[R.act]+=dt;paint();if(Math.floor(n/1000)%5===0)saveRun()}
+function paint(){var used=R.el[0]+R.el[1],left=LIMIT-used,c=$('clk');if(!c)return;
+ c.textContent=left>=0?mmss(left):'+'+mmss(-left);c.classList.toggle('red',left<0||left<300);
+ [].forEach.call($('seg').querySelectorAll('button'),function(b){var k=+b.getAttribute('data-q');b.querySelector('span').textContent=mmss(R.el[k]);b.classList.toggle('over',R.el[k]>LIMIT/2)});
+ if(left<0&&!warned){warned=true;c.title='時間到';try{navigator.vibrate&&navigator.vibrate(300)}catch(e){}}}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')saveRun()});
+
+function submit(){
+ var used=R.el[0]+R.el[1];
+ if(used<LIMIT&&!confirm('還剩 '+mmss(LIMIT-used)+'，確定交卷？'))return;
+ stop();R.sub=true;
+ var p=PAPERS[pidx(R.pid)],now=Math.floor(Date.now()/1000),sec=R.el.map(function(x){return Math.round(x)});
+ /* 申論輪數紀錄（與範文頁同一份）：每題輪數 +1、秒數 */
+ var L=ld(LOG,{});
+ p.q.forEach(function(id,k){var r=L[id]=L[id]||{n:0,s:[],tot:0};r.n=(r.n||0)+1;r.tot=(r.tot||0)+sec[k];r.s=[sec[k]].concat(r.s||[]).slice(0,5);r.t=now});
+ sv(LOG,L);
+ /* 本頁紀錄 */
+ var DR=ld(DRK,{}),rec=DR[R.pid]=DR[R.pid]||{n:0,h:[]},ans=R.m==='type'?[$('ta0').value,$('ta1').value]:null;
+ rec.n=(rec.n||0)+1;(rec.h||[]).forEach(function(x){delete x.a});
+ var e={t:now,d:today(),m:R.m,sec:sec,tot:sec[0]+sec[1],q:p.q.slice(),v:['','']};if(ans&&(ans[0]||ans[1]))e.a=ans;
+ rec.h=[e].concat(rec.h||[]).slice(0,20);sv(DRK,DR);
+ rm(RUNK);var d=ld(DFT,{});delete d[R.pid];sv(DFT,d);
+ R=null;review(p.id,true);
+}
+
+/* ---- 對答案（一次只嵌一張卡：換題時先卸下前一張，讓卡頁把紀錄寫回，再載下一張，避免兩個 iframe 互相覆蓋紀錄） ---- */
+var RV=null;
+function dropFrames(){[].forEach.call(document.querySelectorAll('#rev iframe.cf'),function(f){f.remove()})}
+function review(pid,fresh){
+ var i=pidx(pid),p=PAPERS[i],rec=(ld(DRK,{})[pid]||{}),e=(rec.h||[])[0];if(!e)return;
+ RV={pid:pid,k:0};
+ var h='<h1 style="font-size:1.15rem">'+pnum(i)+'・對答案</h1><div class="done-box">'+(fresh?'<b>已交卷</b>，兩題的申論輪數已 +1。':'上次交卷：'+esc(e.d)+'。')+' 用時 <b>'+mmss(e.tot)+'</b>（第一題 '+mmss(e.sec[0])+'・第二題 '+mmss(e.sec[1])+'）'
+  +(e.tot>LIMIT?'，超時 '+mmss(e.tot-LIMIT):'')+'。<br><span class="note">逐項對照下面的卡，再按自評；自評寫進範文頁同一張卡。</span></div>'
+  +'<div class="rtabs" id="rtabs">'+p.q.map(function(id,k){return '<button type="button" data-k="'+k+'">第'+CN[k]+'題<small id="rtv'+k+'"></small></button>'}).join('')+'</div><div id="rbody"></div>'
+  +'<div class="foot"><button type="button" class="btn" id="rvHome">回卷列表</button><button type="button" class="btn pri" id="rvNext">看第二題 ▸</button></div>';
+ $('rev').innerHTML=h;show('rev');
+ [].forEach.call($('rtabs').querySelectorAll('button'),function(b){b.onclick=function(){rvShow(+b.getAttribute('data-k'))}});
+ $('rvHome').onclick=function(){dropFrames();home();show('home')};
+ rvShow(0);
+}
+function rvShow(k){
+ var p=PAPERS[pidx(RV.pid)],id=p.q[k],c=CARDS[id],e=(ld(DRK,{})[RV.pid]||{}).h[0];
+ RV.k=k;dropFrames();
+ [].forEach.call($('rtabs').querySelectorAll('button'),function(b){b.classList.toggle('on',+b.getAttribute('data-k')===k)});
+ var my=e.a&&e.a[k]?'<details class="my" open><summary>我的作答（'+e.a[k].replace(/\s/g,'').length+' 字）</summary><div class="mytx">'+esc(e.a[k])+'</div></details>':'';
+ $('rbody').innerHTML='<div class="qc"><div class="qh">第'+CN[k]+'題'+chips(c)+'<span class="chip">'+esc(c.no)+'</span></div>'
+  +'<details class="qd"><summary>題目：'+esc(c.t)+'</summary><div class="qtx">'+esc(c.q)+'</div></details>'+my
+  +'<div class="rate" data-id="'+id+'"><span>自評：</span><button type="button" data-v="ok">'+VL.ok+'</button><button type="button" data-v="mem">'+VL.mem+'</button><button type="button" data-v="hard">'+VL.hard+'</button></div>'
+  +'<div class="cfh">四種看法與申論範文頁同一張卡：邏輯拆解｜考場速寫｜考場版｜完整四段式（讀懂、輪數、自評同步）。<a href="'+ESSAY+'#'+encodeURIComponent(id)+'" target="_blank" rel="noopener">在申論範文頁開啟 ▸</a></div>'
+  +'<iframe class="cf" title="申論擬答：'+esc(c.t)+'" src="'+VIEW+'#'+encodeURIComponent(id)+'"></iframe></div>';
+ [].forEach.call($('rbody').querySelectorAll('.rate button'),function(b){b.onclick=function(){rate(k,id,b.getAttribute('data-v'))}});
+ var nb=$('rvNext');nb.textContent=k?'◂ 回第一題':'看第二題 ▸';nb.onclick=function(){rvShow(k?0:1);scrollTo(0,0)};
+ paintRate();
+}
+function rate(k,id,v){
+ var L=ld(LOG,{}),cur=(L[id]||{}).v||'';
+ if(cur!==v){
+  var f=document.querySelector('#rbody iframe.cf'),w=null;try{w=f&&f.contentWindow}catch(x){}
+  if(w&&typeof w.esRate==='function'){w.esRate(id,v)}   /* 卡頁已載入：交給卡頁寫（它記憶體裡的紀錄才會同步） */
+  else{var r=L[id]=L[id]||{n:0,s:[],tot:0};r.v=v;r.t=Math.floor(Date.now()/1000);sv(LOG,L)}
+ }
+ syncDrill();paintRate();
+}
+function syncDrill(){if(!RV)return;var L=ld(LOG,{}),DR=ld(DRK,{}),rec=DR[RV.pid],e=rec&&rec.h&&rec.h[0];if(!e)return;
+ var ch=false;e.q.forEach(function(id,k){var v=(L[id]||{}).v||'';if(v&&e.v[k]!==v){e.v[k]=v;ch=true}});if(ch)sv(DRK,DR)}
+function paintRate(){if(!RV||$('rev').hidden)return;var L=ld(LOG,{}),p=PAPERS[pidx(RV.pid)],e=(ld(DRK,{})[RV.pid]||{}).h[0];
+ [].forEach.call(document.querySelectorAll('#rbody .rate'),function(bar){var v=(L[bar.getAttribute('data-id')]||{}).v||'';
+  [].forEach.call(bar.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-v')===v)})});
+ p.q.forEach(function(id,k){var s=$('rtv'+k);if(s)s.textContent=e.v[k]?VL[e.v[k]]:'未自評'})}
+/* 卡頁（iframe）自己按自評或記輪數時，同步本頁 */
+addEventListener('storage',function(ev){if(ev.key===LOG){syncDrill();paintRate()}});
+/* 嵌入卡回報高度（比照綜合模擬卷：postMessage {bxvCard,h}） */
+addEventListener('message',function(ev){var d=ev.data;if(!d||!d.bxvCard)return;[].forEach.call(document.querySelectorAll('iframe.cf'),function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+'px'})});
+
+/* ---- 說明收合狀態（每台裝置自己記） ---- */
+(function(){var d=$('howto');try{if(localStorage.getItem('bxv-es-drill-howto')==='1')d.open=true}catch(e){}d.addEventListener('toggle',function(){try{localStorage.setItem('bxv-es-drill-howto',d.open?'1':'0')}catch(e){}})})();
+home();
+</script>
+<script id="th-js">/* 深淺色切換：有存過看 bx-theme，沒存過跟系統；按了才寫入（全站共用鍵） */
+(function(){var H=document.documentElement,b=document.getElementById('thBtn');
+function dark(){var a=H.getAttribute('data-theme');return a?a==='dark':matchMedia('(prefers-color-scheme:dark)').matches}
+function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
+b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
+paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"}).catch(function(){});</script>
+</body>
+</html>

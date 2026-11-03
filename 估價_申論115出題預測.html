@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-Hant"><head>
+<script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s.replace(/"/g,""))})();</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>估價申論115預測</title>
+<!-- 由 tools/essay_val/predict/build.py 產生；不要手改，改資料後重跑。產生日：2026-11-03 -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2F5D50;--key:#8A5517;--onpri:#FFFFFF;--bg:#F5F1E6;--ink:#25302C;--red:#A8402B;--gold:#B8782E;--green:#35693F;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--tint:rgba(47,93,80,.08);--warn:#FFF1D6;--blue:#3E6B8C;--goldbg:#F8EBD3;--greenbg:#E1F1E8;--redbg:#FBEDE9;--bluebg:#E6EFF5;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--key:#E0B070;--onpri:#10201B;--bg:#161C19;--ink:#E7ECE6;--red:#E8857A;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--tint:rgba(132,194,174,.10);--warn:#3A2E14;--blue:#7DB4D8;--goldbg:#3A3220;--greenbg:#1E2B22;--redbg:#2E1D1A;--bluebg:#1B2630;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--key:#E0B070;--onpri:#10201B;--bg:#161C19;--ink:#E7ECE6;--red:#E8857A;--gold:#E0B070;--green:#8FCB93;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--tint:rgba(132,194,174,.10);--warn:#3A2E14;--blue:#7DB4D8;--goldbg:#3A3220;--greenbg:#1E2B22;--redbg:#2E1D1A;--bluebg:#1B2630;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:18px 96px;overflow-x:hidden}
+main{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px;min-width:0}
+h1{font:700 22px/1.35 "Noto Serif TC",serif;margin:0;color:var(--pri);text-wrap:balance;padding-right:46px}
+.sub{color:var(--muted);font-size:13px;margin:6px 0 0}
+[hidden]{display:none!important}
+details>summary{list-style:none;cursor:pointer}details>summary::-webkit-details-marker{display:none}
+#thb{position:fixed;top:10px;right:10px;z-index:50;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.now{background:var(--pri);color:var(--onpri);border-radius:14px;padding:13px 15px}
+.now b{display:block;font:700 16px/1.5 "Noto Serif TC",serif;margin:2px 0 8px}
+.now small{opacity:.9;font-size:12.5px;display:block;margin-top:8px}
+.nchip{display:inline-flex;gap:5px;align-items:center;background:var(--onpri);color:var(--pri);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:700;text-decoration:none;margin:3px 5px 0 0}
+section.blk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px;min-width:0}
+section.blk>h2{font:700 16px/1.45 "Noto Serif TC",serif;margin:0 0 4px;color:var(--pri)}
+section.blk>.lead{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+.note{margin:0 0 10px;font-size:13px;color:var(--muted)}
+.note>summary{color:var(--pri);font-weight:700;font-size:12.5px;display:inline-block}
+.note>summary::before{content:"▸ ";}.note[open]>summary::before{content:"▾ "}
+.note>div{margin-top:6px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 11px}
+.note ol,.note ul{margin:4px 0 0;padding-left:20px}.note li{margin-bottom:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.tbtn{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:4px 12px;cursor:pointer}
+.tbtn.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.lw{color:var(--muted);font-weight:400}
+/* 網格：主題 × 年 */
+.gwrap{overflow-x:auto;margin:0 -2px;padding:0 2px}
+.gm{display:grid;grid-template-columns:minmax(64px,1.7fr) repeat(16,minmax(13px,1fr));gap:2px 1px;font-size:11px;min-width:0}
+.gm .yh{writing-mode:vertical-rl;font-size:10px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;justify-self:center;line-height:1;padding-bottom:3px}
+.gm .yh.r5{color:var(--key);font-weight:700}
+.gm .tl{font-size:11.5px;line-height:1.25;display:flex;align-items:center;gap:4px;min-width:0;padding-right:3px;color:var(--ink);text-decoration:none}
+.gm .tl i{flex:none;width:7px;height:7px;border-radius:50%}
+.gm .tl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gm .c{height:22px;border-radius:4px;background:var(--bg);display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;font-size:10px;font-weight:700;min-width:0;overflow:hidden}
+.gm .c.r5{background:var(--tint)}
+.gm .c.two{font-size:8px;letter-spacing:-1px}
+.gm a.c.p{background:var(--pri);color:var(--onpri)}
+.gm a.c.s{background:transparent;border:1.5px dashed var(--pri);color:var(--pri)}
+.dH{background:var(--red)}.dM{background:var(--gold)}.dL{background:var(--line)}
+.lg{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--muted);align-items:center}
+.lg .sw{display:inline-block;width:14px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:3px}
+.find{background:var(--warn);border-left:4px solid var(--gold);border-radius:8px;padding:9px 12px;font-size:13.5px;margin-top:12px}
+.tp{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:var(--bg)}
+.tp>summary{padding:10px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+.tp[open]>summary{border-bottom:1px solid var(--line)}
+.tn{font:700 14px/1.4 "Noto Serif TC",serif;min-width:0}
+.tn small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);font-family:"Noto Sans TC",sans-serif}
+.tier{font-size:11.5px;font-weight:700;border-radius:99px;padding:2px 10px;white-space:nowrap}
+.t高{background:var(--red);color:var(--onpri)}.t中{background:var(--gold);color:var(--onpri)}.t低{background:var(--line);color:var(--muted)}
+.arw{color:var(--muted);font-size:12px}
+.tbody{padding:10px 12px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.mrow{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.m{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:3px 9px}
+.m b{color:var(--key);font-variant-numeric:tabular-nums}
+.m.hot b{color:var(--red)}
+.num{background:var(--goldbg);color:var(--key);font-weight:700;border-radius:4px;padding:0 4px;font-variant-numeric:tabular-nums}
+.why{font-size:13px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:8px;padding:8px 11px}
+.why ul{margin:3px 0 0;padding-left:18px}.why li{margin:1px 0}
+.pt{font-weight:700;font-variant-numeric:tabular-nums;color:var(--key)}.pt.neg{color:var(--red)}.pt.z{color:var(--muted)}
+.lb{font-size:11.5px;color:var(--muted);font-weight:700;letter-spacing:.04em;margin-bottom:3px}
+.lnk{display:inline-block;max-width:100%;font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:3px 10px;margin:0 5px 5px 0;color:var(--pri);text-decoration:none;overflow-wrap:anywhere}
+.lnk:hover{border-color:var(--pri)}
+.lnk.rd{border-color:var(--green);background:var(--greenbg)}
+.lnk.none{color:var(--muted);border-style:dashed;cursor:default}
+.lnk .k{font-size:11px;font-weight:700;color:var(--muted);margin-right:4px}
+.bas{font-size:12.5px;color:var(--muted);margin:-1px 0 6px}
+.bas>summary{font-size:12px;color:var(--pri);display:inline-block}.bas>summary::before{content:"▸ 預測依據";}.bas[open]>summary::before{content:"▾ 預測依據"}
+.bas>div{background:var(--card);border:1px dashed var(--line);border-radius:7px;padding:6px 9px;margin-top:3px}
+.rs{font-size:12.5px;color:var(--muted)}
+.prg{margin-top:10px}
+.prgb{height:7px;background:var(--line);border-radius:9px;overflow:hidden}
+.prgb i{display:block;height:100%;background:var(--gold);width:0;transition:width .25s}
+.prg small{color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.ord{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--bg);overflow:hidden}
+.ord>summary{padding:9px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px}
+.ord>summary .rs{margin-left:auto}
+.ord[open]>summary{border-bottom:1px solid var(--line)}
+.ordb{padding:6px 12px 10px}
+.oh{font:700 13px/1.4 "Noto Serif TC",serif;color:var(--pri);margin:8px 0 3px}
+ol.ol{margin:0;padding:0;list-style:none;counter-reset:none}
+ol.ol li{display:grid;grid-template-columns:26px 18px 1fr;gap:4px;align-items:baseline;font-size:13px;padding:3px 0;border-bottom:1px dashed var(--line)}
+ol.ol li:last-child{border-bottom:0}
+ol.ol .no{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px;text-align:right}
+ol.ol .st{color:var(--muted)}ol.ol li.done .st{color:var(--green);font-weight:700}
+ol.ol a{color:var(--ink);text-decoration:none;min-width:0;overflow-wrap:anywhere}
+ol.ol a:hover{color:var(--pri)}
+ol.ol li.done a{color:var(--muted)}
+.bd{display:inline-block;font-size:10.5px;font-weight:700;border-radius:4px;padding:0 5px;margin-right:4px;border:1px solid}
+.bd.off{color:var(--red);border-color:var(--red)}.bd.pred{color:var(--blue);border-color:var(--blue)}.bd.site{color:var(--green);border-color:var(--green)}.bd.ls{color:var(--key);border-color:var(--gold)}
+ol.steps{margin:6px 0 0;padding-left:20px;font-size:13.5px}ol.steps li{margin-bottom:5px}
+.gap{background:var(--redbg);border-left:4px solid var(--red);border-radius:8px;padding:9px 12px;font-size:13.5px}
+</style>
+<script src="bxv-use.js"></script>
+</head><body>
+<main>
+<h1>估價申論 115 出題預測</h1>
+<p class="sub">依 99–114 年官方申論 32 題（逐題歸成 14 個主題）與選擇題官方 520 題的章別推估。<b>這是依歷屆紀錄推估，不是命中率</b>，用途是決定申論 63 張卡先讀哪些。<span id="dleft"></span></p>
+
+<div class="now"><small>一句話</small><b>依下方規則算出 3 個「高」主題，共 15 張卡。分數最高的三個先讀：</b>
+<a class="nchip" href="#t-T04">① 比較法</a><a class="nchip" href="#t-T11">② 估價原則</a><a class="nchip" href="#t-T08">③ 程序報告</a>
+<small>「中」5 個主題 29 張、「低」6 個主題 19 張。完整讀卡順序在第三段，已讀狀態直接沿用範文頁的「已讀」勾選。</small></div>
+
+<section class="blk"><h2>一、歷年出題網格：14 個主題 × 16 年</h2>
+<p class="lead">由範文頁 32 張官方卡自動產生。格子點下去就是那一題的範文（另開分頁）。</p>
+<details class="note"><summary>怎麼看這張圖</summary><div>每一列是一個主題，每一欄是一年。實心格＝這題主要考這個主題；虛線格＝這題順帶考到（兼考）。格子裡的「一／二」是第幾題。年份標成金色、底色較深的是近 5 年（110–114）。主題左邊圓點是預測等級（紅＝高、金＝中、灰＝低）。</div></details>
+<div class="gwrap"><div class="gm" id="grid"></div></div>
+<div class="lg"><span><i class="sw" style="background:var(--pri)"></i>主考</span><span><i class="sw" style="border:1.5px dashed var(--pri)"></i>兼考</span><span><i class="sw dH"></i>高</span><span><i class="sw dM"></i>中</span><span><i class="sw dL"></i>低</span></div>
+<div class="find"><b>看出來的規律：</b>官方 32 題依範文頁篇別：基礎・程序 <span class="num">8</span>、成本法 <span class="num">6</span>、比較法 <span class="num">6</span>、土地開發 <span class="num">5</span>、租金 <span class="num">3</span>、收益法 <span class="num">2</span>、估價原則 <span class="num">2</span>。<br>近 5 年（110–114）：基礎・程序 <span class="num">2</span>、成本法 <span class="num">3</span>、比較法 <span class="num">1</span>、土地開發 <span class="num">1</span>、租金 <span class="num">2</span>、收益法 <span class="num">1</span>、估價原則 <span class="num">0</span>。<br>16 年從沒出過申論的主題：房地估價（共 1 個）。</div>
+</section>
+
+<section class="blk"><h2>二、14 個主題：考過幾次、多久沒考、等級怎麼來</h2>
+<p class="lead">每個主題都列出算分過程，點開看得到對應的全部卡片。</p>
+<div class="tools" id="tf"><span style="font-size:12.5px;color:var(--muted)">篩選</span>
+<button class="tbtn on" data-t="">全部 14</button><button class="tbtn" data-t="高">高 3</button><button class="tbtn" data-t="中">中 5</button><button class="tbtn" data-t="低">低 6</button>
+<button class="tbtn" id="expAll" style="margin-left:auto">全部展開</button></div>
+<div id="topics"></div>
+<div class="prg"><div class="prgb"><i id="pbar"></i></div><small id="ptxt"></small></div>
+</section>
+
+<section class="blk"><h2>三、63 張卡先讀哪些</h2>
+<p class="lead">照等級 → 主題分數 → 卡片種類排好，從 1 號往下讀就對了。</p>
+<details class="note"><summary>排序規則</summary><div><ol>
+<li>每張卡只算一次，歸在它的「主考」主題底下。</li>
+<li>主題依等級（高 → 中 → 低）、再依總分、歷屆次數排。</li>
+<li>同一主題內：官方歷屆（新 → 舊）→ 本站預測題 → 本站模擬卷 → 補習班模擬卷。先讀官方題是為了先看懂真實出題方式，預測題用來補官方沒問過的角度。</li>
+<li>✓ 讀取範文頁的「已讀」按鈕（同一台裝置、同一瀏覽器），在範文頁勾完回到這頁會自動更新。</li></ol></div></details>
+<div id="order"></div>
+</section>
+
+<section class="blk"><h2>四、等級規則（可重現）</h2>
+<p class="lead">每個主題按下面四項加總，數字全部由卡片與選擇題資料算出。</p>
+<details class="note" open><summary>算分規則</summary><div><ol>
+<li><b>歷屆頻次</b>：99–114 年官方申論考過（主考或兼考，每題算一次）≥ 4 次 <span class="pt">+2</span>；2–3 次 <span class="pt">+1</span>；0–1 次 <span class="pt z">0</span>。</li>
+<li><b>到期</b>：考過 2 個不同年份以上，且「已隔屆數 ≥ 歷史平均間隔」<span class="pt">+1</span>。平均間隔＝（最後一年 − 第一年）÷（年份數 − 1）。</li>
+<li><b>久未考</b>：已隔 ≥ 5 屆 <span class="pt">+1</span>；114 年剛考過 <span class="pt neg">−1</span>；從未考過申論的主題這項不加分。</li>
+<li><b>近 5 年選擇題熱度</b>：主題對應章別在 110–114 年官方選擇題（共 125 題）的題數 ≥ 全部主題的中位數（10.5 題）<span class="pt">+1</span>。</li>
+<li><b>等級</b>：總分 ≥ 3 ＝高；2 ＝中；其餘＝低。</li></ol>
+本站預測題、模擬卷<b>不計分</b>（避免用自己的預測證明自己）。重跑：<code>python3 tools/essay_val/predict/build.py</code>。</div></details>
+</section>
+
+<section class="blk"><h2>五、這份預測可能錯在哪</h2>
+<details class="note"><summary>先看這幾點，才知道哪裡不能全信</summary><div><ol>
+<li><b>主題怎麼切是人工決定的</b>（tools/essay_val/predict/topic_map.json）。例如 104 年二「折舊提存費＋營造施工費」主考算收益法、兼考算成本法；切法一換，次數就會變。</li>
+<li><b>樣本很小。</b>每個主題 16 年最多只出現個位數次，「平均間隔」只是粗估，不是週期定律。</li>
+<li><b>「久未考」加分可能是反指標。</b>空窗很久也可能代表命題重心已經移走，資料分不出這兩種情況。</li>
+<li><b>選擇題熱度是用章別對應的。</b>A4 估價程序同時算給「程序・報告書」與「方法選取」；H3I1 含都更與 CAMA，歸在權利估價。題庫沒有逐題條號欄，所以沒辦法更細。</li>
+<li><b>從沒考過申論的主題</b>（房地估價）最多只能拿選擇題那 1 分，所以一定排在低；它們今年變成冷門題的機率不是零。</li>
+<li>這頁只回答「先讀哪些」，<b>不是押題</b>。低等級的卡仍要看過題目、想得起骨架。</li></ol></div></details>
+</section>
+
+<section class="blk"><h2>六、怎麼用這頁（剩 <span id="dleft2">—</span> 天）</h2>
+<ol class="steps">
+<li><b>平日 2 小時</b>：照第三段順序，一天讀 2–3 張「高」的卡，用範文頁的「邏輯拆解」看法，讀完按「已讀」。</li>
+<li><b>假日 6 小時</b>：把當週讀過的主題挑 1–2 題，用「考場版」限時 25 分鐘寫一次，再對照「完整四段式」。</li>
+<li>高的讀完再往中走。<b>低的只要確認看到題目能想起骨架</b>，不必寫。</li>
+<li id="pace"></li>
+</ol>
+</section>
+
+<p class="sub">資料來源：《不動產估價概要_申論題實戰範文》63 張卡（官方 32／本站預測 22／本站模擬卷 7／補習班 2）、bxv-quiz-data.js 選擇題（官方 520 題）、不動產估價技術規則逐字（law_估價_技術規則_全文逐字_§1-§133_20261022.md）。本頁預測為推估，非官方資訊。產生日：2026-11-03</p>
+</main>
+<button id="thb" aria-label="切換深淺色">☾</button>
+<script>
+var D={"years": [99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114], "last": 114, "r5": 110, "med": 10.5, "topics": [{"code": "T04", "name": "比較法：比較標的取捨、供需圈與調整", "short": "比較法", "rng": "§18–§27", "chs": ["第三章 估價方法 第一節 比較法"], "qch": ["B"], "n": 7, "years": [99, 102, 103, 106, 107, 108, 110], "last": 110, "since": 4, "avg": 1.8, "m_all": 65, "m5": 13, "cards": ["e110-1", "e108-1", "e107-2", "e102-1", "e99-2", "pred-4", "pred-7", "mk-c1-2"], "sec": ["e106-2", "e103-1"], "pts": [["歷屆考過 7 次", 2], ["已隔 4 屆 ≥ 平均間隔 1.8 年（到期）", 1], ["近 5 年選擇題 13 題 ≥ 中位數 10.5", 1]], "score": 4, "tier": "高"}, {"code": "T11", "name": "估價原則（替代・變動・最有效使用等）", "short": "估價原則", "rng": "技術規則多未明文（學理）", "chs": [], "qch": ["A1"], "n": 2, "years": [100, 104], "last": 104, "since": 10, "avg": 4.0, "m_all": 44, "m5": 11, "cards": ["e104-1", "e100-2"], "sec": [], "pts": [["歷屆考過 2 次", 1], ["已隔 10 屆 ≥ 平均間隔 4.0 年（到期）", 1], ["已隔 10 屆（≥5，久未考）", 1], ["近 5 年選擇題 11 題 ≥ 中位數 10.5", 1]], "score": 4, "tier": "高"}, {"code": "T08", "name": "估價作業程序、資料蒐集、勘察與報告書", "short": "程序報告", "rng": "§8–§13、§16–§17", "chs": ["第二章 估價作業程序"], "qch": ["A4"], "n": 2, "years": [106, 109], "last": 109, "since": 5, "avg": 3.0, "m_all": 44, "m5": 11, "cards": ["e109-1", "e106-2", "pred-8", "pred-17", "mk-c4-1"], "sec": [], "pts": [["歷屆考過 2 次", 1], ["已隔 5 屆 ≥ 平均間隔 3.0 年（到期）", 1], ["已隔 5 屆（≥5，久未考）", 1], ["近 5 年選擇題 11 題 ≥ 中位數 10.5", 1]], "score": 4, "tier": "高"}, {"code": "T03", "name": "土地開發分析法", "short": "土開法", "rng": "§70–§82", "chs": ["第三章 估價方法 第四節 土地開發分析法"], "qch": ["E1"], "n": 6, "years": [100, 102, 105, 106, 109, 113], "last": 113, "since": 1, "avg": 2.6, "m_all": 25, "m5": 5, "cards": ["e113-2", "e109-2", "e105-2", "e102-2", "e100-1", "pred-3", "mk-c5-1", "mk-ls1"], "sec": ["e106-1"], "pts": [["歷屆考過 6 次", 2], ["近 5 年選擇題 5 題 < 中位數 10.5", 0]], "score": 2, "tier": "中"}, {"code": "T01", "name": "建物折舊（定額・定率・償債基金）", "short": "折舊", "rng": "§65–§69", "chs": ["第三章 估價方法 第三節 成本法"], "qch": ["C2"], "n": 4, "years": [105, 107, 111, 112], "last": 112, "since": 2, "avg": 2.3, "m_all": 40, "m5": 9, "cards": ["e112-2", "e111-1", "e107-1", "e105-1", "pred-1", "pred-14", "mk-c2-1"], "sec": ["pred-9"], "pts": [["歷屆考過 4 次", 2], ["近 5 年選擇題 9 題 < 中位數 10.5", 0]], "score": 2, "tier": "中"}, {"code": "T10", "name": "價格種類與影響價格因素", "short": "價格因素", "rng": "§2、§6", "chs": ["第一章 總則"], "qch": ["A2", "A3"], "n": 3, "years": [103, 112], "last": 112, "since": 2, "avg": 9.0, "m_all": 75, "m5": 19, "cards": ["e112-1", "e103-1", "e103-2"], "sec": ["pred-8"], "pts": [["歷屆考過 3 次", 1], ["近 5 年選擇題 19 題 ≥ 中位數 10.5", 1]], "score": 2, "tier": "中"}, {"code": "T06", "name": "收益法：直接資本化、DCF、淨收益與殘餘法", "short": "收益DCF", "rng": "§28–§42、§44–§47", "chs": ["第三章 估價方法 第二節 收益法"], "qch": ["D1", "D3"], "n": 2, "years": [104, 113], "last": 113, "since": 1, "avg": 9.0, "m_all": 55, "m5": 12, "cards": ["e113-1", "e104-2", "pred-11", "pred-15", "pred-22", "mk-c4-2", "mk-ls2"], "sec": ["mk-c1-1"], "pts": [["歷屆考過 2 次", 1], ["近 5 年選擇題 12 題 ≥ 中位數 10.5", 1]], "score": 2, "tier": "中"}, {"code": "T05", "name": "收益法：資本化率之決定", "short": "資本化率", "rng": "§43", "chs": ["第三章 估價方法 第二節 收益法"], "qch": ["D2"], "n": 1, "years": [99], "last": 99, "since": 15, "avg": null, "m_all": 29, "m5": 12, "cards": ["e99-1", "pred-2", "pred-16", "mk-c1-1"], "sec": [], "pts": [["歷屆考過 1 次", 0], ["已隔 15 屆（≥5，久未考）", 1], ["近 5 年選擇題 12 題 ≥ 中位數 10.5", 1]], "score": 2, "tier": "中"}, {"code": "T09", "name": "估價方法之選取與三大方法基礎", "short": "方法選取", "rng": "§14–§15、§18、§28、§48", "chs": ["第二章 估價作業程序", "第三章 估價方法 第一節 比較法", "第三章 估價方法 第二節 收益法", "第三章 估價方法 第三節 成本法"], "qch": ["A4"], "n": 3, "years": [101, 106, 114], "last": 114, "since": 0, "avg": 6.5, "m_all": 44, "m5": 11, "cards": ["e114-2", "e106-1", "e101-1"], "sec": [], "pts": [["歷屆考過 3 次", 1], ["114 年剛考過", -1], ["近 5 年選擇題 11 題 ≥ 中位數 10.5", 1]], "score": 1, "tier": "低"}, {"code": "T02", "name": "成本法：重建／重置成本、總成本與營造施工費", "short": "總成本", "rng": "§48–§64", "chs": ["第三章 估價方法 第三節 成本法"], "qch": ["C1"], "n": 2, "years": [104, 111], "last": 111, "since": 3, "avg": 7.0, "m_all": 57, "m5": 10, "cards": ["e111-2", "pred-9", "pred-10", "pred-21"], "sec": ["e104-2", "mk-c2-1"], "pts": [["歷屆考過 2 次", 1], ["近 5 年選擇題 10 題 < 中位數 10.5", 0]], "score": 1, "tier": "低"}, {"code": "T14", "name": "權利估價與都更權利變換", "short": "權利估價", "rng": "§114–§128", "chs": ["第七章 權利估價"], "qch": ["H3I1"], "n": 1, "years": [103], "last": 103, "since": 11, "avg": null, "m_all": 17, "m5": 4, "cards": ["pred-12", "pred-19"], "sec": ["e103-2", "pred-13"], "pts": [["歷屆考過 1 次", 0], ["已隔 11 屆（≥5，久未考）", 1], ["近 5 年選擇題 4 題 < 中位數 10.5", 0]], "score": 1, "tier": "低"}, {"code": "T12", "name": "宗地估價：合併分割、特殊宗地與土地改良物", "short": "宗地改良", "rng": "§83–§97、§107–§113", "chs": ["第四章 宗地估價 第一節 通則", "第四章 宗地估價 第二節 特殊宗地估價", "第六章 土地改良物估價"], "qch": ["H1H2", "I2J1"], "n": 1, "years": [108], "last": 108, "since": 6, "avg": null, "m_all": 21, "m5": 6, "cards": ["e108-2", "pred-20"], "sec": [], "pts": [["歷屆考過 1 次", 0], ["已隔 6 屆（≥5，久未考）", 1], ["近 5 年選擇題 6 題 < 中位數 10.5", 0]], "score": 1, "tier": "低"}, {"code": "T07", "name": "租金估計", "short": "租金", "rng": "§129–§133", "chs": ["第八章 租金估計"], "qch": ["F1"], "n": 3, "years": [101, 110, 114], "last": 114, "since": 0, "avg": 6.5, "m_all": 33, "m5": 9, "cards": ["e114-1", "e110-2", "e101-2", "pred-5", "mk-c3-1"], "sec": [], "pts": [["歷屆考過 3 次", 1], ["114 年剛考過", -1], ["近 5 年選擇題 9 題 < 中位數 10.5", 0]], "score": 0, "tier": "低"}, {"code": "T13", "name": "房地估價：區分所有、樓層效用與房地拆算", "short": "房地估價", "rng": "§98–§106", "chs": ["第五章 房地估價"], "qch": ["G1"], "n": 0, "years": [], "last": null, "since": null, "avg": null, "m_all": 15, "m5": 4, "cards": ["pred-6", "pred-13", "pred-18"], "sec": [], "pts": [["歷屆考過 0 次", 0], ["近 5 年選擇題 4 題 < 中位數 10.5", 0]], "score": 0, "tier": "低"}], "grid": [{"99": [["e99-2", "二", 0, "比較法情況、價格日期、區域因素與個別因素之調整重點"]], "102": [["e102-1", "一", 0, "比較標的無法有效掌握及量化調整者應不予採用之情況"]], "106": [["e106-2", "二", 1, "不動產估價應蒐集之資料＋蒐集比較實例之原則"]], "107": [["e107-2", "二", 0, "同一供需圈、近鄰地區與類似地區之意義與關係"]], "108": [["e108-1", "一", 0, "房仲以甲社區2戶成交每坪18萬推論委託人房屋價格是否恰當"]], "110": [["e110-1", "一", 0, "疫情後特殊交易案例：比較標的應不予採用之情況"]], "103": [["e103-1", "一", 1, "影響不動產價格之因素＋比較法估價程序＋兩者之關聯"]]}, {"100": [["e100-2", "二", 0, "替代原則於三大估價法之考量與替代性之觀察"]], "104": [["e104-1", "一", 0, "不景氣屬何種估價原則＋應掌握之估價原則"]]}, {"106": [["e106-2", "二", 0, "不動產估價應蒐集之資料＋蒐集比較實例之原則"]], "109": [["e109-1", "一", 0, "估價工作法則＋現場勘查事項＋委託人未領勘之處理"]]}, {"100": [["e100-1", "一", 0, "土地開發分析法之利潤率與資本利息綜合利率"]], "102": [["e102-2", "二", 0, "土地開發分析法試算價格計算（1600坪住宅區建地）"]], "105": [["e105-2", "二", 0, "土地開發分析法資本利息綜合利率之公式與計算"]], "109": [["e109-2", "二", 0, "土地開發分析法應蒐集之資料"]], "113": [["e113-2", "二", 0, "土地開發分析法之計算公式與成本項目"]], "106": [["e106-1", "一", 1, "都市計畫住宅區可立即開發建地之估價方法與程序"]]}, {"105": [["e105-1", "一", 0, "成本法折舊路徑種類＋定額法計算並繪製示意圖"]], "107": [["e107-1", "一", 0, "定率法折舊公式＋計算第5年建物現值"]], "111": [["e111-1", "一", 0, "建物折舊額與累積折舊額之計算"]], "112": [["e112-2", "二", 0, "屋齡10年建物等速折舊計算＋合理性分析"]]}, {"103": [["e103-1", "一", 0, "影響不動產價格之因素＋比較法估價程序＋兩者之關聯"], ["e103-2", "二", 0, "不動產價格種類＋已設定地上權土地之價格與估價方式"]], "112": [["e112-1", "一", 0, "凶殺事件屬影響價格因素之那一類＋是否影響價格"]]}, {"104": [["e104-2", "二", 0, "收益法建物折舊提存費之計算＋成本法營造或施工費之估計"]], "113": [["e113-1", "一", 0, "DCF法與直接資本化法之差異比較"]]}, {"99": [["e99-1", "一", 0, "收益資本化率之風險因素與比較基準＋加權平均資金成本法計算"]]}, {"101": [["e101-1", "一", 0, "三種主要估價方法之意義與估價程序"]], "106": [["e106-1", "一", 0, "都市計畫住宅區可立即開發建地之估價方法與程序"]], "114": [["e114-2", "二", 0, "估價方法選取原則＋三法適用時機"]]}, {"111": [["e111-2", "二", 0, "重建成本vs重置成本＋成本法估價程序"]], "104": [["e104-2", "二", 1, "收益法建物折舊提存費之計算＋成本法營造或施工費之估計"]]}, {"103": [["e103-2", "二", 1, "不動產價格種類＋已設定地上權土地之價格與估價方式"]]}, {"108": [["e108-2", "二", 0, "數筆土地合併開發利用之估價方式與方法"]]}, {"101": [["e101-2", "二", 0, "經濟租金、實質租金、支付租金之意義與計算"]], "110": [["e110-2", "二", 0, "經紀人如何提供租戶租金估計建議（社會住宅包租代管）"]], "114": [["e114-1", "一", 0, "實質租金之意義＋租金估計應考慮之因素"]]}, {}], "exam": "2026-11-14", "cards": {"e105-1": {"k": "off", "l": "105-一", "t": "成本法折舊路徑種類＋定額法計算並繪製示意圖", "y": 105, "no": "一", "ty": "cost", "b": "", "tp": ["T01"], "tags": ["公式：Dn = C×(1-s)/N×n"], "auto": false}, "e107-1": {"k": "off", "l": "107-一", "t": "定率法折舊公式＋計算第5年建物現值", "y": 107, "no": "一", "ty": "cost", "b": "", "tp": ["T01"], "tags": ["公式：C×(1-r)ⁿ"], "auto": false}, "e111-1": {"k": "off", "l": "111-一", "t": "建物折舊額與累積折舊額之計算", "y": 111, "no": "一", "ty": "cost", "b": "", "tp": ["T01"], "tags": ["折舊額＋累積折舊額＋三法"], "auto": false}, "e111-2": {"k": "off", "l": "111-二", "t": "重建成本vs重置成本＋成本法估價程序", "y": 111, "no": "二", "ty": "cost", "b": "", "tp": ["T02"], "tags": ["成本法基礎概念"], "auto": false}, "e112-2": {"k": "off", "l": "112-二", "t": "屋齡10年建物等速折舊計算＋合理性分析", "y": 112, "no": "二", "ty": "cost", "b": "", "tp": ["T01"], "tags": ["計算＋分析題"], "auto": false}, "e104-2": {"k": "off", "l": "104-二", "t": "收益法建物折舊提存費之計算＋成本法營造或施工費之估計", "y": 104, "no": "二", "ty": "cost", "b": "", "tp": ["T06", "T02"], "tags": ["§40", "§40-1", "§53–§56"], "auto": false}, "mk-c2-1": {"k": "site", "l": "綜合模擬卷二申論一", "t": "成本法意義、程序＋定率遞減法折舊計算", "y": null, "no": null, "ty": "cost", "b": "", "tp": ["T01", "T02"], "tags": ["§48", "§65", "§67", "§68", "計算"], "auto": false}, "pred-1": {"k": "pred", "l": "預測①", "t": "成本法折舊三路徑計算（定額、定率、償債基金法）", "y": null, "no": null, "ty": "cost", "b": "折舊為16年申論高頻主題之一（105、107、111、112年共4題，另104年收益法折舊提存1題；土開法同為5題），但「三法並排計算比較」從未在同一題完整出現；112年僅考等速折舊單法計算，113、114年未再出現（至115年已隔2屆），為典型補缺命題點。", "tp": ["T01"], "tags": ["成本法", "折舊計算", "模擬題"], "auto": false}, "pred-9": {"k": "pred", "l": "預測⑨", "t": "成本法完整計算：由總成本到房地成本價格（§48、§49、§52、§69）", "y": null, "no": null, "ty": "cost", "b": "成本法是16年申論常出現的方法之一（折舊5題、重建重置與程序1題，共6題，與比較法並列），但歷屆都是「折舊單項」或「定義＋程序」，從未要求把土地成本、建物總成本、折舊串成一個房地成本價格；折舊題連考後，補「完整串接計算」的機率高。", "tp": ["T02", "T01"], "tags": ["§48", "§52", "§69", "計算", "模擬題"], "auto": false}, "pred-10": {"k": "pred", "l": "預測⑩", "t": "營造或施工費之求取方法與總成本各項費用（§52～§62）", "y": null, "no": null, "ty": "cost", "b": "成本法申論中，營造施工費只在104年與「折舊提存費」併考一次，且是方法列舉；總成本各項費用（設計、利息、利潤）從未單獨成題。方法名稱（直接法兩種、間接法兩種）與費用基礎容易混淆，適合考「列舉＋小計算」。", "tp": ["T02"], "tags": ["§52", "§54～§56", "§57", "§58", "模擬題"], "auto": false}, "pred-14": {"k": "pred", "l": "預測⑭", "t": "建物折舊參數之判斷（耐用年數、殘餘價格率）與定額法計算（§65～§68）", "y": null, "no": null, "ty": "cost", "b": "折舊是16年申論高頻主題之一（105、107、111、112共4題，另104收益法折舊提存；土開法同為5題），但歷屆都問「路徑／公式／單題計算」，沒有考「參數怎麼決定」：以哪種耐用年數為主、經歷年數超過耐用年數怎麼辦、殘餘價格率上限與無殘餘價格時怎麼算。這些是條文明定、容易出成「說明＋小計算」的組合題。", "tp": ["T01"], "tags": ["§65～§68", "§67", "折舊", "模擬題"], "auto": false}, "pred-21": {"k": "pred", "l": "預測㉑", "t": "成本法資料蒐集、未完工建物之估價與特殊狀況成本之處理（§50、§51、§63、§64）", "y": null, "no": null, "ty": "cost", "b": "成本法在歷屆申論占最大宗（折舊、重建重置、營造費、房地成本價格），但「資料蒐集」（§50、§51）與「未完工建物」（§63）、「特殊狀況成本」（§64）從未成題；pred-9、pred-10 已覆蓋 §48～§62、§69，本題補其餘條文，使成本法 §48～§69 全部有申論卡。", "tp": ["T02"], "tags": ["§50", "§51", "§63", "§64", "模擬題"], "auto": false}, "e100-1": {"k": "off", "l": "100-一", "t": "土地開發分析法之利潤率與資本利息綜合利率", "y": 100, "no": "一", "ty": "land", "b": "", "tp": ["T03"], "tags": ["§60", "§78–§81"], "auto": false}, "e102-2": {"k": "off", "l": "102-二", "t": "土地開發分析法試算價格計算（1600坪住宅區建地）", "y": 102, "no": "二", "ty": "land", "b": "", "tp": ["T03"], "tags": ["§81", "計算"], "auto": false}, "e105-2": {"k": "off", "l": "105-二", "t": "土地開發分析法資本利息綜合利率之公式與計算", "y": 105, "no": "二", "ty": "land", "b": "", "tp": ["T03"], "tags": ["§79", "§58–§59", "§80", "計算"], "auto": false}, "e109-2": {"k": "off", "l": "109-二", "t": "土地開發分析法應蒐集之資料", "y": 109, "no": "二", "ty": "land", "b": "", "tp": ["T03"], "tags": ["§11", "§71–§73", "§74–§81"], "auto": false}, "e113-2": {"k": "off", "l": "113-二", "t": "土地開發分析法之計算公式與成本項目", "y": 113, "no": "二", "ty": "land", "b": "", "tp": ["T03"], "tags": ["§76", "§77", "§81"], "auto": false}, "mk-c5-1": {"k": "site", "l": "綜合模擬卷五申論一", "t": "土地開發分析法之意義、程序、公式與計算（資本利息綜合利率6.4%）", "y": null, "no": null, "ty": "land", "b": "", "tp": ["T03"], "tags": ["§70", "§71", "§79", "§81", "計算"], "auto": false}, "mk-ls1": {"k": "ls", "l": "來勝115（一）申論一", "t": "土地開發分析法之意義、應用時機、公式及估價程序", "y": null, "no": null, "ty": "land", "b": "", "tp": ["T03"], "tags": ["§70", "§71", "§79", "§81"], "auto": false}, "pred-3": {"k": "pred", "l": "預測③", "t": "土地開發分析法完整計算（含資本利息綜合利率）", "y": null, "no": null, "ty": "land", "b": "土開法於100、102、105、109、113年五度入題，為申論最高密度主題之一；113年考「公式說明型」，完整列式計算型（含資本利息綜合利率）自105年後未再出現，若115年要拉高鑑別度，完整列式計算是最可能的出法。", "tp": ["T03"], "tags": ["土地開發", "模擬變題計算"], "auto": false}, "pred-6": {"k": "pred", "l": "預測⑥", "t": "區分所有建物樓層別效用比與基地單價推估", "y": null, "no": null, "ty": "land", "b": "樓層別效用比在選擇題 G1 題群反覆出現，但16年申論從未出現；區分所有建物（公寓大廈）是不動產經紀實務最常見標的，條文§98–§101公式齊全、可考「說明＋計算」。選擇題已有G1題群，申論尚屬空缺。", "tp": ["T13"], "tags": ["§98", "§99", "§100", "§101", "模擬題"], "auto": false}, "pred-13": {"k": "pred", "l": "預測⑬", "t": "都市更新基地價值比率與「由房地價格拆出土地、建物價格」（§125、§99、§101-1）", "y": null, "no": null, "ty": "land", "b": "「房地價格怎麼拆成土地與建物」是計算題常見核心（選擇題99-32考過區分所有建物拆價；103-36、109-8考過權利變換基地價值比率之規定），§125基地價值比率公式可直接出計算；申論16年沒有直接考，112年二只考建物現值。預測⑥已涵蓋樓層別效用比，這題補「價值比率本身怎麼算、怎麼用」。", "tp": ["T13", "T14"], "tags": ["§125", "§99", "§101-1", "計算", "模擬題"], "auto": false}, "e99-2": {"k": "off", "l": "99-二", "t": "比較法情況、價格日期、區域因素與個別因素之調整重點", "y": 99, "no": "二", "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§19", "§21–§27"], "auto": false}, "e102-1": {"k": "off", "l": "102-一", "t": "比較標的無法有效掌握及量化調整者應不予採用之情況", "y": 102, "no": "一", "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§23", "§22"], "auto": false}, "e106-2": {"k": "off", "l": "106-二", "t": "不動產估價應蒐集之資料＋蒐集比較實例之原則", "y": 106, "no": "二", "ty": "comp", "b": "", "tp": ["T08", "T04"], "tags": ["§3–§4", "§11–§12", "§22"], "auto": false}, "e107-2": {"k": "off", "l": "107-二", "t": "同一供需圈、近鄰地區與類似地區之意義與關係", "y": 107, "no": "二", "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§2", "§12", "§19"], "auto": false}, "e108-1": {"k": "off", "l": "108-一", "t": "房仲以甲社區2戶成交每坪18萬推論委託人房屋價格是否恰當", "y": 108, "no": "一", "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§12", "§19", "§21–§27"], "auto": false}, "e110-1": {"k": "off", "l": "110-一", "t": "疫情後特殊交易案例：比較標的應不予採用之情況", "y": 110, "no": "一", "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§23", "§22"], "auto": false}, "mk-c1-2": {"k": "site", "l": "綜合模擬卷一申論二", "t": "比較法意義、程序＋情況調整與區域／個別因素調整", "y": null, "no": null, "ty": "comp", "b": "", "tp": ["T04"], "tags": ["§23", "§25", "§26", "§24", "比較法"], "auto": false}, "pred-4": {"k": "pred", "l": "預測④", "t": "比較法：質的排除（§23）＋量的三關卡（§25、§26）", "y": null, "no": null, "ty": "comp", "b": "「應排除/不予採用」主題於102-一與110-一隔8年重考，加上99、108年共四度入題；113、114連續兩年比較法申論空缺，依重考週期，排除規則＋調整三關卡是最穩的回歸點，且兩者合併出題（質＋量雙面向）尚未出現過。", "tp": ["T04"], "tags": ["比較法", "§23", "§25–§26"], "auto": false}, "pred-7": {"k": "pred", "l": "預測⑦", "t": "計量模型分析法（CAMA）之意義、適用條件與限制", "y": null, "no": null, "ty": "comp", "b": "§20三個數字門檻（5倍、0.7、5%）是選擇題常客，申論16年未直接考；113、114連兩年比較法申論空缺，CAMA為比較法調整的現代化方法，列為補缺題。", "tp": ["T04"], "tags": ["§19⑦", "§20", "§24", "模擬題"], "auto": false}, "e99-1": {"k": "off", "l": "99-一", "t": "收益資本化率之風險因素與比較基準＋加權平均資金成本法計算", "y": 99, "no": "一", "ty": "income", "b": "", "tp": ["T05"], "tags": ["§43", "WACC"], "auto": false}, "e113-1": {"k": "off", "l": "113-一", "t": "DCF法與直接資本化法之差異比較", "y": 113, "no": "一", "ty": "income", "b": "", "tp": ["T06"], "tags": ["§28–§34", "§15Ⅱ", "§33Ⅱ"], "auto": false}, "mk-c1-1": {"k": "site", "l": "綜合模擬卷一申論一", "t": "收益法意義、程序＋綜合資本化率計算", "y": null, "no": null, "ty": "income", "b": "", "tp": ["T05", "T06"], "tags": ["§30", "§43", "§46", "收益法", "計算"], "auto": false}, "mk-c4-2": {"k": "site", "l": "綜合模擬卷四申論二", "t": "折現現金流量分析法之意義、應用時機、公式及估價程序（綜合卷四版）", "y": null, "no": null, "ty": "income", "b": "", "tp": ["T06"], "tags": ["§31", "§32", "§34", "§15", "DCF"], "auto": false}, "mk-ls2": {"k": "ls", "l": "來勝115（一）申論二", "t": "折現現金流量分析法之意義、應用時機、公式及估價程序", "y": null, "no": null, "ty": "income", "b": "", "tp": ["T06"], "tags": ["§31", "§32", "§34"], "auto": false}, "pred-2": {"k": "pred", "l": "預測②", "t": "收益法資本化率決定方法（WACC加權平均資金成本法）", "y": null, "no": null, "ty": "income", "b": "99年首考收益法時僅要求WACC一種方法；113年剛考DCF與直接資本化之概念辨析，依命題輪動規律，下一輪回到「資本化率計算型」機率高，且資本化率決定方法從未要求完整列舉＋計算。", "tp": ["T05"], "tags": ["收益法", "資本化率", "模擬題"], "auto": false}, "pred-22": {"k": "pred", "l": "預測㉒", "t": "殘餘法：土地收益價格與建物收益價格（§44、§45）＋一定期間收益價格（§47）", "y": null, "no": null, "ty": "income", "b": "§44、§45 在選擇題考過 5 題（101-33、101-37、102-13、110-20、113-14；另 100-24 考 §46 綜合率、106-25 考年金現值），但 六張收益法申論卡一條都沒碰到 ；算式短、數字好給，是典型的小計算題材。§47 與 §30 的「有期限 vs 無限期」是易混對比點。", "tp": ["T06"], "tags": ["§44", "§45", "§47", "殘餘法", "計算", "模擬題"], "auto": false}, "pred-11": {"k": "pred", "l": "預測⑪", "t": "折現現金流量分析法（DCF）之計算（§31、§32）", "y": null, "no": null, "ty": "income", "b": "收益法申論僅99年（資本化率WACC）與113年（DCF與直接資本化概念差異）兩題；113年考的是概念，DCF「逐年折現＋期末價值」的計算從未入題，選擇題已有DCF計算題組，申論為空缺，列為補缺計算題。", "tp": ["T06"], "tags": ["§31", "§32", "§33", "計算", "模擬題"], "auto": false}, "pred-15": {"k": "pred", "l": "預測⑮", "t": "收益法淨收益之求取：有效總收入、總費用與直接資本化計算（§36、§38～§42、§46）", "y": null, "no": null, "ty": "income", "b": "收益法16年申論只出現資本化率（99年一WACC）與DCF比較（113年一），「淨收益怎麼來」從未單獨考；§36～§42 把有效總收入、總費用、淨收益一條一條定義清楚，§46 又給房地綜合資本化率的算式，適合出成「說明＋直接資本化小計算」。", "tp": ["T06"], "tags": ["§36", "§38～§42", "§46", "計算", "模擬題"], "auto": false}, "pred-16": {"k": "pred", "l": "預測⑯", "t": "資本化率之決定方法：債務保障比率法與有效總收入乘數法計算（§43）", "y": null, "no": null, "ty": "income", "b": "§43 共五款；歷屆申論只考過 WACC（99年一）與風險因素，債務保障比率法與有效總收入乘數法兩款從未成題，但算式只有一行、極適合出小計算；本站「計算題攻略」已把 DCR 列為高危未出現考點，補這題讓公式有題可練。", "tp": ["T05"], "tags": ["§43", "§46", "債務保障比率法", "計算", "模擬題"], "auto": false}, "e101-2": {"k": "off", "l": "101-二", "t": "經濟租金、實質租金、支付租金之意義與計算", "y": 101, "no": "二", "ty": "rent", "b": "", "tp": ["T07"], "tags": ["租金三定義", "計算"], "auto": false}, "e110-2": {"k": "off", "l": "110-二", "t": "經紀人如何提供租戶租金估計建議（社會住宅包租代管）", "y": 110, "no": "二", "ty": "rent", "b": "", "tp": ["T07"], "tags": ["§129–§133", "實質租金"], "auto": false}, "e114-1": {"k": "off", "l": "114-一", "t": "實質租金之意義＋租金估計應考慮之因素", "y": 114, "no": "一", "ty": "rent", "b": "", "tp": ["T07"], "tags": ["§129", "§130", "§131"], "auto": false}, "mk-c3-1": {"k": "site", "l": "綜合模擬卷三申論一", "t": "實質租金原則＋新訂／續訂租金估計＋實質租金計算", "y": null, "no": null, "ty": "rent", "b": "", "tp": ["T07"], "tags": ["§130", "§132", "§133", "租金", "計算"], "auto": false}, "pred-5": {"k": "pred", "l": "預測⑤", "t": "支付／實質／經濟租金計算＋租金估計方式", "y": null, "no": null, "ty": "rent", "b": "租金估計於101、110、114年三度入題（間隔9年、4年）；114年剛考「實質租金定義＋考慮因素」，下一輪最可能轉回 計算型 （101年題型：給月租金、押金、利率求三種租金）。另§133續訂租約之差額分配法從未以申論完整呈現，宜一併準備。", "tp": ["T07"], "tags": ["模擬變題", "計算"], "auto": false}, "e101-1": {"k": "off", "l": "101-一", "t": "三種主要估價方法之意義與估價程序", "y": 101, "no": "一", "ty": "foundation", "b": "", "tp": ["T09"], "tags": ["§18–§21", "§28–§34", "§48–§49"], "auto": false}, "e103-1": {"k": "off", "l": "103-一", "t": "影響不動產價格之因素＋比較法估價程序＋兩者之關聯", "y": 103, "no": "一", "ty": "foundation", "b": "", "tp": ["T10", "T04"], "tags": ["§2", "§21"], "auto": false}, "e103-2": {"k": "off", "l": "103-二", "t": "不動產價格種類＋已設定地上權土地之價格與估價方式", "y": 103, "no": "二", "ty": "foundation", "b": "", "tp": ["T10", "T14"], "tags": ["§2", "§6", "§115", "§116"], "auto": false}, "e106-1": {"k": "off", "l": "106-一", "t": "都市計畫住宅區可立即開發建地之估價方法與程序", "y": 106, "no": "一", "ty": "foundation", "b": "", "tp": ["T09", "T03"], "tags": ["§71", "§81", "§87"], "auto": false}, "e108-2": {"k": "off", "l": "108-二", "t": "數筆土地合併開發利用之估價方式與方法", "y": 108, "no": "二", "ty": "foundation", "b": "", "tp": ["T12"], "tags": ["§83–§84", "§87", "限定價格"], "auto": false}, "e109-1": {"k": "off", "l": "109-一", "t": "估價工作法則＋現場勘查事項＋委託人未領勘之處理", "y": 109, "no": "一", "ty": "foundation", "b": "", "tp": ["T08"], "tags": ["§3–§7", "§13", "§17"], "auto": false}, "e112-1": {"k": "off", "l": "112-一", "t": "凶殺事件屬影響價格因素之那一類＋是否影響價格", "y": 112, "no": "一", "ty": "foundation", "b": "", "tp": ["T10"], "tags": ["§2", "§19", "§24", "§30", "價格因素分類"], "auto": false}, "e114-2": {"k": "off", "l": "114-二", "t": "估價方法選取原則＋三法適用時機", "y": 114, "no": "二", "ty": "foundation", "b": "", "tp": ["T09"], "tags": ["§14", "§15", "§31Ⅱ", "§108", "§112"], "auto": false}, "mk-c4-1": {"k": "site", "l": "綜合模擬卷四申論一", "t": "估價程序八步驟、估價基準日（價格日期）與估價報告書應載明事項", "y": null, "no": null, "ty": "foundation", "b": "", "tp": ["T08"], "tags": ["§8", "§6", "§9", "§16", "程序"], "auto": false}, "pred-8": {"k": "pred", "l": "預測⑧", "t": "估價報告書應載明事項與估價條件、價格種類（§6、§16）", "y": null, "no": null, "ty": "foundation", "b": "估價報告書是估價作業的書面成果，§16 列十五款，是技術規則裡少數「整條可背成清單」的條文；§6 後段 又規定特定價格須敘明估價條件並同時估正常價格。官方申論 16 年 32 題從未以報告書或估價條件為題，選擇題直接考 §6 後段 的有 111-13、105-7（ 兩題官方答案均與現行條文一致 ；105-7 正解為「特定價格」，本站舊版曾誤標，已依考選部答案表更正）。這題屬「條文清單型＋情境判斷」，與已有的計算、方法題互補。依缺口與條文結構推估，不是機率。", "tp": ["T08", "T10"], "tags": ["§6", "§16", "估價報告書", "估價條件", "模擬題"], "auto": false}, "pred-12": {"k": "pred", "l": "預測⑫", "t": "權利估價：地上權價格計算與抵押權估價（§114、§116、§121）", "y": null, "no": null, "ty": "foundation", "b": "權利估價（§114 列舉 十一項 ：地上權、典權、 永佃權 、農育權、不動產役權、 耕作權 、抵押權、租賃權、市地重劃、容積移轉及都市更新權利變換；99-17 考過，「質權」不在其中）16年申論只有103年二考過「地上權」一次，其餘權利從未入題；公有土地設定地上權釋出是近年實務熱點，且與經紀人實務（地上權房地）相關，列為補缺題。", "tp": ["T14"], "tags": ["§114", "§116", "§121", "計算", "模擬題"], "auto": false}, "pred-17": {"k": "pred", "l": "預測⑰", "t": "估價作業程序八步驟與估價基本事項、估價計畫、資料蒐集、現場勘察（§8～§11、§13）", "y": null, "no": null, "ty": "foundation", "b": "歷屆只考過 109年一（工作法則＋現場勘查）與 106年二（蒐集資料）的片段，從未完整考「八步驟」本身；§8 是估價程序的骨架、條文短、款次固定，最容易整題出成默寫＋說明。本站另有《估價程序總整理》可對照。", "tp": ["T08"], "tags": ["§8", "§9", "§10", "§11", "§13", "模擬題"], "auto": false}, "pred-18": {"k": "pred", "l": "預測⑱", "t": "房地估價特殊情形：超容積、違建、未達最有效使用、用途不符與無使用價值（§102～§106）", "y": null, "no": null, "ty": "foundation", "b": "§102～§106 五條各自獨立、一條一個處理方式，是典型「情境→處理」配對題；歷屆申論從未考過房地特殊情形，但選擇題常以違建、超容積為陷阱。本站《特殊標的總整理》已有表格，補成申論可同時練答題結構。", "tp": ["T13"], "tags": ["§102～§106", "特殊情形", "模擬題"], "auto": false}, "pred-19": {"k": "pred", "l": "預測⑲", "t": "權利估價：共同考慮因素、典權、租賃權、容積移轉與都更權利變換（§114、§115、§117、§122～§124、§127、§128）", "y": null, "no": null, "ty": "foundation", "b": "本站已有 pred-12（地上權、抵押權）；§114～§128 其餘權利類型、容積移轉與權利變換條文簡短，常成為選擇題題幹，申論尚未覆蓋。選「典權、租賃權、容積移轉、權利變換」四個與不動產經紀實務最近的類型，其餘農育權、不動產役權、耕作權、永佃權見《特殊標的總整理》權利×因素表。", "tp": ["T14"], "tags": ["§114", "§115", "§117", "§122～§124", "§127", "§128", "模擬題"], "auto": false}, "pred-20": {"k": "pred", "l": "預測⑳", "t": "特殊宗地與土地改良物估價：多用途、設施通過、污染、溫泉、高爾夫與農作改良物（§85、§88～§91、§109～§111）", "y": null, "no": null, "ty": "foundation", "b": "歷屆申論 108年二考過「數筆土地合併開發」（§83～§84、§87），但特殊宗地其餘（§85、§88～§91）與農作改良物（§109～§111）從未成題；§88、§89 的「正常價格－地價減損額」算式簡單，最適合出成說明＋小計算。", "tp": ["T12"], "tags": ["§85", "§88～§91", "§109～§111", "模擬題"], "auto": false}, "e100-2": {"k": "off", "l": "100-二", "t": "替代原則於三大估價法之考量與替代性之觀察", "y": 100, "no": "二", "ty": "principle", "b": "", "tp": ["T11"], "tags": ["估價原則", "§2 同一供需圈"], "auto": false}, "e104-1": {"k": "off", "l": "104-一", "t": "不景氣屬何種估價原則＋應掌握之估價原則", "y": 104, "no": "一", "ty": "principle", "b": "", "tp": ["T11"], "tags": ["變動原則", "估價原則"], "auto": false}}, "nq": 520, "nq5": 125, "nyears": 16};
+var ESS="不動產估價概要_申論題實戰範文.html";
+var READ_KEY='bx-essay-read';
+function getRead(){try{return JSON.parse(localStorage.getItem(READ_KEY)||'[]')||[]}catch(e){return []}}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function lw(s){return esc(s).replace(/§\s?\d+(?:[-之]\d+)?(?:[ⅠⅡⅢⅣ]|[①-⑳])*(?:\s?[–～~]\s?§?\d+(?:[-之]\d+)?)?/g,function(m){return '<span class="lw">'+m+'</span>'})}
+function href(id){return ESS+'#'+encodeURIComponent(id)}
+function A(id,cls,html){var a=document.createElement('a');a.className=cls;a.href=href(id);a.target='_blank';a.rel='noopener';a.innerHTML=html;return a}
+var KN={off:'官方',pred:'預測',site:'本站卷',ls:'補習班'};
+var TC={'高':'dH','中':'dM','低':'dL'};
+/* ---- 一、網格 ---- */
+(function(){var g=document.getElementById('grid');
+ g.appendChild(el('div','yh',''));
+ D.years.forEach(function(y){g.appendChild(el('div','yh'+(y>=D.r5?' r5':''),y))});
+ D.topics.forEach(function(t,i){
+  var tl=document.createElement('a');tl.className='tl';tl.href='#t-'+t.code;tl.title=t.name+'（'+t.tier+'）';
+  tl.innerHTML='<i class="'+TC[t.tier]+'"></i><span>'+esc(t.short)+'</span>';g.appendChild(tl);
+  var row=D.grid[i];
+  D.years.forEach(function(y){var q=row[y];
+   if(!q){g.appendChild(el('div','c'+(y>=D.r5?' r5':''),''));return}
+   q.sort(function(a,b){return a[2]-b[2]});
+   var a=A(q[0][0],'c '+(q[0][2]?'s':'p')+(q.length>1?' two':''),q.map(function(x){return x[1]}).join(''));
+   a.title=y+' 年'+q.map(function(x){return x[1]+'｜'+x[3]+(x[2]?'（兼考）':'')}).join('；');
+   a.setAttribute('aria-label',a.title);g.appendChild(a)})})})();
+/* ---- 二、主題卡 ---- */
+function linkList(ids,lab,sec){var o=el('div');o.appendChild(el('div','lb',lab));
+ var r=getRead();
+ ids.forEach(function(id){var c=D.cards[id];
+  var a=A(id,'lnk'+(r.indexOf(id)>=0?' rd':''),'<span class="k">'+(r.indexOf(id)>=0?'✓ ':'')+esc(c.l)+(sec?'・兼考':'')+'</span>'+lw(c.t));o.appendChild(a);
+  if(c.k==='pred'&&c.b&&!sec){var d=el('details','bas');d.appendChild(el('summary',''));d.appendChild(el('div','',lw(c.b)));o.appendChild(d)}});
+ return o}
+function renderTopics(filter){
+ var h=document.getElementById('topics');h.innerHTML='';var r=getRead();
+ D.topics.forEach(function(t){
+  if(filter&&t.tier!==filter)return;
+  var d=el('details','tp');d.id='t-'+t.code;
+  var all=t.cards.length,done=t.cards.filter(function(id){return r.indexOf(id)>=0}).length;
+  d.innerHTML='<summary><span class="tier t'+t.tier+'">'+t.tier+'</span><span class="tn">'+esc(t.name)+
+   '<small><span class="lw">'+esc(t.rng)+'</span>　'+D.nyears+' 年考 '+t.n+' 次・'+all+' 張卡・已讀 '+done+'</small></span><span class="arw">▾</span></summary>';
+  var b=el('div','tbody');var mr=el('div','mrow');
+  [[D.nyears+' 年考',t.n+' 次',''],['最後一次',t.last?t.last+' 年':'從未考',''],['已隔',t.since==null?'—':t.since+' 屆',(t.since!=null&&t.since>=5)?' hot':''],
+   ['平均間隔',t.avg==null?'—':t.avg+' 年',''],['近 5 年選擇題',t.m5+' 題（'+D.nyears+' 年 '+t.m_all+'）','']].forEach(function(x){
+   mr.appendChild(el('span','m'+x[2],x[0]+' <b>'+x[1]+'</b>'))});
+  b.appendChild(mr);
+  var w='<b>等級怎麼算出來：</b><ul>'+t.pts.map(function(p){var c=p[1]>0?'pt':(p[1]<0?'pt neg':'pt z');return '<li>'+esc(p[0])+' <span class="'+c+'">'+(p[1]>0?'+':'')+p[1]+'</span></li>'}).join('')+
+   '</ul>合計 <span class="pt">'+t.score+'</span> 分 → <b>'+t.tier+'</b>';
+  b.appendChild(el('div','why',w));
+  b.appendChild(el('div','rs','技術規則：<span class="lw">'+esc(t.rng)+'</span>'+(t.chs.length?'（'+esc(t.chs.join('、'))+'）':'')+'　選擇題章別：'+esc(t.qch.join('、'))));
+  var groups=[['off','官方考過（點開範文）'],['pred','本站預測題（自擬，不計分）'],['site','本站模擬卷'],['ls','補習班模擬卷']];
+  groups.forEach(function(g){var ids=t.cards.filter(function(id){return D.cards[id].k===g[0]});
+   var sec=t.sec.filter(function(id){return D.cards[id].k===g[0]});
+   if(g[0]==='off'&&!ids.length&&!sec.length){var o=el('div');o.appendChild(el('div','lb',g[1]));o.appendChild(el('span','lnk none',D.nyears+' 年沒出過申論'));b.appendChild(o);return}
+   if(ids.length)b.appendChild(linkList(ids,g[1]));
+   if(sec.length)b.appendChild(linkList(sec,g[1].replace('（點開範文）','').replace('（自擬，不計分）','')+'・兼考（主歸其他主題）',true))});
+  d.appendChild(b);h.appendChild(d)})}
+function prog(){var r=getRead();var parts=[],tot=0,done=0;
+ ['高','中'].forEach(function(k){var ids=[];D.topics.forEach(function(t){if(t.tier===k)ids=ids.concat(t.cards)});
+  var n=ids.filter(function(id){return r.indexOf(id)>=0}).length;parts.push(k+' '+n+'/'+ids.length);tot+=ids.length;done+=n});
+ document.getElementById('pbar').style.width=(tot?done/tot*100:0)+'%';
+ document.getElementById('ptxt').textContent=parts.join('　')+'　高＋中合計 '+done+'/'+tot+' 張已讀（讀取範文頁的已讀）'}
+/* ---- 三、讀卡順序 ---- */
+var OPEN={'高':true};
+function renderOrder(){var h=document.getElementById('order');
+ h.querySelectorAll('details.ord').forEach(function(d){OPEN[d.dataset.k]=d.open});h.innerHTML='';
+ var r=getRead(),no=0;
+ ['高','中','低'].forEach(function(k){var ts=D.topics.filter(function(t){return t.tier===k});if(!ts.length)return;
+  var ids=[];ts.forEach(function(t){ids=ids.concat(t.cards)});
+  var dn=ids.filter(function(id){return r.indexOf(id)>=0}).length;
+  var d=el('details','ord');d.dataset.k=k;d.open=!!OPEN[k];
+  d.innerHTML='<summary><span class="tier t'+k+'">'+k+'</span><b>'+ts.length+' 個主題・'+ids.length+' 張卡</b><span class="rs">已讀 '+dn+'/'+ids.length+' ▾</span></summary>';
+  var b=el('div','ordb');
+  ts.forEach(function(t){b.appendChild(el('div','oh',esc(t.name)+' <span class="lw">'+esc(t.rng)+'</span>'));
+   var ol=el('ol','ol');
+   t.cards.forEach(function(id){no++;var c=D.cards[id],on=r.indexOf(id)>=0;
+    var li=el('li',on?'done':'');li.appendChild(el('span','no',no));li.appendChild(el('span','st',on?'✓':'☐'));
+    li.appendChild(A(id,'','<span class="bd '+c.k+'">'+esc(c.l)+'</span>'+lw(c.t)));ol.appendChild(li)});
+   b.appendChild(ol)});
+  d.appendChild(b);h.appendChild(d)})}
+/* 篩選與展開 */
+var cur='';
+document.querySelectorAll('#tf .tbtn[data-t]').forEach(function(btn){btn.onclick=function(){
+ cur=btn.dataset.t||'';document.querySelectorAll('#tf .tbtn[data-t]').forEach(function(x){x.classList.toggle('on',x===btn)});renderTopics(cur)}});
+document.getElementById('expAll').onclick=function(){var ds=document.querySelectorAll('#topics details.tp');var any=[].some.call(ds,function(d){return !d.open});
+ ds.forEach(function(d){d.open=any});this.textContent=any?'全部收合':'全部展開'};
+function paint(){var op={};document.querySelectorAll('#topics details.tp').forEach(function(d){op[d.id]=d.open});
+ renderTopics(cur);Object.keys(op).forEach(function(id){var d=document.getElementById(id);if(d)d.open=op[id]});renderOrder();prog()}
+paint();
+window.addEventListener('storage',function(e){if(e.key===READ_KEY)paint()});
+document.addEventListener('visibilitychange',function(){if(!document.hidden)paint()});
+/* 主題錨點：自動展開 */
+function openHash(){var h=location.hash.slice(1);if(!h)return;var d=document.getElementById(h);if(d&&d.tagName==='DETAILS'){d.open=true;d.scrollIntoView({block:'start'})}}
+window.addEventListener('hashchange',openHash);openHash();
+/* 倒數 */
+(function(){var p=D.exam.split('-'),ex=new Date(+p[0],+p[1]-1,+p[2]),n=new Date();n=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+ var d=Math.round((ex-n)/864e5);if(d<0)return;
+ document.getElementById('dleft').textContent=' 距 115/11/14 考試剩 '+d+' 天。';document.getElementById('dleft2').textContent=d;
+ var hm=0;D.topics.forEach(function(t){if(t.tier!=='低')hm+=t.cards.length});
+ var r=getRead(),left=0;D.topics.forEach(function(t){if(t.tier!=='低')t.cards.forEach(function(id){if(r.indexOf(id)<0)left++})});
+ if(d>0)document.getElementById('pace').innerHTML='高＋中共 <span class="num">'+hm+'</span> 張，還沒讀 <span class="num">'+left+'</span> 張；剩 '+d+' 天，平均一天約 <span class="num">'+Math.ceil(left/d)+'</span> 張。考前最後 2 天留給複習已讀的高等級卡。'})();
+/* 深色 */
+var tb=document.getElementById('thb');
+function dark(){var t=document.documentElement.dataset.theme;return t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches)}
+function setT(m){if(m)document.documentElement.dataset.theme=m;tb.textContent=dark()?'☀':'☾'}
+var sv=null;try{sv=localStorage.getItem('bx-theme')}catch(e){}
+setT(sv?sv.replace(/"/g,''):null);
+tb.onclick=function(){var n=dark()?'light':'dark';try{localStorage.setItem('bx-theme',n)}catch(e){}setT(n)};
+</script>
+<!--bxfab-->
+<style>
+#bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}}
+:root[data-theme="dark"] #bxfab{--fp:#84C2AE;--fs:#1F2723;--fo:#10201B;--fl:#34403A}
+#bxfab>*{pointer-events:auto}
+#bxfab .bx-up{position:relative;width:40px;height:40px;border-radius:50%;border:0;background:var(--fs);color:var(--fp);padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;opacity:.4;transition:opacity .25s}
+#bxfab .bx-up.act{opacity:1}
+#bxfab .bx-up .rg{position:absolute;inset:0;width:100%;height:100%}
+#bxfab .bx-up .rg circle{fill:none;stroke-width:3}
+#bxfab .bx-up .rg .t{stroke:var(--fl)}#bxfab .bx-up .rg .p{stroke:var(--fp);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .1s}
+#bxfab svg.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;position:relative}
+#bxfab .bx-hub{width:40px;height:40px;border-radius:50%;background:var(--fp);color:var(--fo);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25);text-decoration:none}
+#bxfab .bx-hub svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E4%BC%B0%E5%83%B9%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
+<script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
+<!--/bxfab-->
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body></html>
