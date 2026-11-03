@@ -194,7 +194,7 @@ function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.c
 [].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxv-sprint-mode',mode)}catch(e){}pm()}});pm();
 if(DEMO)$('demoNote').hidden=false;
 
-/* ---- 紀錄與排序（與考場版衝刺、範文頁、指揮中心共用 bxv-es-log／bxv-es-sprint）：沒做過的優先，再來不熟的 ---- */
+/* ---- 紀錄與排序（與考場版衝刺、範文頁、指揮中心共用 bxv-es-log／bxv-es-sprint）：115 高機率且沒做過的優先 → 中機率沒做過 → 其他沒做過 → 做過但不熟的（11-03） ---- */
 var LOG='bxv-es-log', SP='bxv-es-sprint', RL={1:'✅ 熟',2:'📖 還沒背起來',3:'😵 太難'}, VN={ok:1,mem:2,hard:3};
 function rdList(){try{var a=JSON.parse(localStorage.getItem('bx-essay-read')||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
 function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
@@ -205,13 +205,15 @@ function order(){
   var arr=CARDS.map(function(c,i){return {c:c,s:stat(c.id),i:i}});
   function kr(c){var r=({off:0,pred:1,mkc:2,mkls:3})[c.k];return r!=null?r:4}
   var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}),seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
-  fresh.sort(function(a,b){return kr(a.c)-kr(b.c)||a.c.tier-b.c.tier||a.i-b.i});
+  function hpR(c){return c.hp==null?9999:c.hp}
+  fresh.sort(function(a,b){return hpR(a.c)-hpR(b.c)||kr(a.c)-kr(b.c)||a.c.tier-b.c.tier||a.i-b.i});
   function vr(v){return v===3?0:(v===2?1:(v===0?2:3))}
   function pct(x){return x.s.last?x.s.last.sc/Math.max(1,x.s.last.mx):-1}
-  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||pct(a)-pct(b)||a.s.t-b.s.t});
+  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||hpR(a.c)-hpR(b.c)||pct(a)-pct(b)||a.s.t-b.s.t});
   return fresh.concat(seen);
 }
 function reason(x){var s=x.s,o=[];
+  if(x.c.hpl)o.push('<span class="chip '+(x.c.hpl==='高'?'hard':'mid')+'">🔥 115 '+x.c.hpl+'機率</span>');
   if(!s.n&&!s.sp&&!s.read)o.push('<span class="chip new">沒做過</span>');
   if(s.v)o.push('<span class="chip '+(s.v===3?'hard':(s.v===2?'mid':'ok'))+'">'+RL[s.v]+'</span>');
   if(s.rn)o.push('<span class="chip">推理 '+s.rn+' 次</span>');

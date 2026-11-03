@@ -3,6 +3,7 @@
 內容一字不改，只換呈現方式。可重跑：python3 tools/essay_jj/sprint/build_sprint.py
 紀錄與指揮中心同步：bxj-es-log（輪數／秒數／自評，與申論卡共用）＋ bxj-es-sprint（每次衝刺分數）。"""
 import os, re, json, html
+import sys as _s, os as _o; _s.path.insert(0, _o.path.normpath(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..'))); import sprint_hp as _hp  # 115 高／中機率排序（11-03）
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(H, '..', '..', '..'))
 hub = open(os.path.join(ROOT, '經紀法規_備考指揮中心.html'), encoding='utf-8').read()
 LJ = {x['k']: x for x in json.load(open(os.path.join(ROOT, 'tools/essay_jj/lj_data.json'), encoding='utf-8'))}
@@ -46,6 +47,6 @@ miss = [c['id'] for c in cards if not c['ck']]
 assert not miss, ('缺檢核', miss)
 
 tpl = open(os.path.join(H, 'tpl.html'), encoding='utf-8').read()
-out = tpl.replace('/*__DATA__*/[]', json.dumps(cards, ensure_ascii=False))
+out = tpl.replace('/*__DATA__*/[]', json.dumps(_hp.tag(cards, 'jj'), ensure_ascii=False))
 open(os.path.join(ROOT, '經紀法規_申論5分鐘衝刺.html'), 'w', encoding='utf-8').write(out)
 print('申論 5 分鐘衝刺：', len(cards), '張；檢核項', sum(len(c['ck']) for c in cards))

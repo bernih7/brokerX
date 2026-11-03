@@ -189,7 +189,7 @@ function paintMode(){[].forEach.call(document.querySelectorAll('.mode'),function
 [].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem(MK,mode)}catch(e){}paintMode()}});
 paintMode();
 
-/* ---- 狀態與排序：沒做過的優先，再來不熟的 ---- */
+/* ---- 狀態與排序：115 高機率且沒做過的優先 → 中機率沒做過 → 其他沒做過 → 做過但不熟的（11-03） ---- */
 function stat(id){
   var L=ld(LOG)[id]||{}, S=ld(SP)[id]||[], R=rdList().indexOf(id)>=0;
   var last=S[0]||null;
@@ -200,14 +200,16 @@ function order(){
   function kindRank(c){return ({off:0,pred:1,mkc:2,mkls:3})[c.k]!=null?({off:0,pred:1,mkc:2,mkls:3})[c.k]:4}
   var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read});
   var seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
-  fresh.sort(function(a,b){return kindRank(a.c)-kindRank(b.c)||a.c.tier-b.c.tier||a.i-b.i});
+  function hpR(c){return c.hp==null?9999:c.hp}
+  fresh.sort(function(a,b){return hpR(a.c)-hpR(b.c)||kindRank(a.c)-kindRank(b.c)||a.c.tier-b.c.tier||a.i-b.i});
   function vr(v){return v===3?0:(v===2?1:(v===0?2:3))}
   function pct(x){return x.s.last?x.s.last.sc/Math.max(1,x.s.last.mx):-1}
-  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||pct(a)-pct(b)||a.s.t-b.s.t});
+  seen.sort(function(a,b){return vr(a.s.v)-vr(b.s.v)||hpR(a.c)-hpR(b.c)||pct(a)-pct(b)||a.s.t-b.s.t});
   return fresh.concat(seen);
 }
 function reason(x){
   var s=x.s,o=[];
+  if(x.c.hpl)o.push('<span class="chip '+(x.c.hpl==='高'?'hard':'mid')+'">🔥 115 '+x.c.hpl+'機率</span>');
   if(!s.n&&!s.sp&&!s.read)o.push('<span class="chip new">沒做過</span>');
   if(s.v===3)o.push('<span class="chip hard">😵 太難</span>');
   else if(s.v===2)o.push('<span class="chip mid">📖 還沒背起來</span>');

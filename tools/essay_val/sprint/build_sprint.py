@@ -9,6 +9,7 @@
 紀錄（估價自己的鍵）：bxv-es-log（輪數／秒數／自評 ok・mem・hard，與範文頁共用）＋ bxv-es-sprint（每次練習；推理版加 f:'r'）；
 已讀 bx-essay-read（陣列）。缺邏輯拆解資料的卡（目前補習班卷 mk-ls1、mk-ls2）不列入，執行時會列出。"""
 import os, re, json, html, sys
+import sys as _s, os as _o; _s.path.insert(0, _o.path.normpath(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..'))); import sprint_hp as _hp  # 115 高／中機率排序（11-03）
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(H, '..', '..', '..'))
 PAGE = os.path.join(ROOT, '不動產估價概要_申論題實戰範文.html')
 KINDS = (('mk-c', 'mkc', '本站模擬卷'), ('mk-ls', 'mkls', '補習班模擬卷'), ('pred', 'pred', '預測'))
@@ -88,7 +89,7 @@ if __name__ == '__main__':
     SP = [{f: c[f] for f in ('id', 'no', 't', 'lv', 'k', 'tier', 'g', 'q', 'nq', 'b', 'ck', 'mn')} for c in cards]
     tpl = open(os.path.join(H, 'tpl.html'), encoding='utf-8').read()
     assert '/*__DATA__*/[]' in tpl
-    open(os.path.join(ROOT, '估價_申論5分鐘衝刺.html'), 'w', encoding='utf-8').write(tpl.replace('/*__DATA__*/[]', json.dumps(SP, ensure_ascii=False)))
+    open(os.path.join(ROOT, '估價_申論5分鐘衝刺.html'), 'w', encoding='utf-8').write(tpl.replace('/*__DATA__*/[]', json.dumps(_hp.tag(SP, 'val'), ensure_ascii=False)))
     from collections import Counter
     print('衝刺', len(SP), '張；檢核項', sum(len(c['ck']) for c in SP), dict(Counter(c['k'] for c in SP)))
     if skip: print('⚠ 未列入：', skip)

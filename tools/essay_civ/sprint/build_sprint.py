@@ -5,6 +5,7 @@
 - 推理版：邏輯拆解推理鏈＋考場速寫（四段、口訣、得分關鍵詞、失分點）；得分關鍵詞是條號者用 kw_cn.json 的中文代表（程式發現仍有條號就中止）。
 紀錄與指揮中心同步：bxm-es-log（輪數／秒數／自評，與申論卡共用）＋ bxm-es-sprint（每次衝刺；推理版加 f:'r'）。"""
 import os, re, json, html, sys
+import sys as _s, os as _o; _s.path.insert(0, _o.path.normpath(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..'))); import sprint_hp as _hp  # 115 高／中機率排序（11-03）
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')))
 from sprint_sx_law import annotate  # 速寫法條塊：條號＋本題名稱（11-03）
 _f = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sx_law_names.json'); SXN = json.load(open(_f, encoding='utf-8')) if os.path.exists(_f) else {}
@@ -98,11 +99,11 @@ json.dump(todo, open(os.path.join(H, 'kw_todo.json'), 'w', encoding='utf-8'), en
 
 SP = [{f: c[f] for f in ('id', 'no', 't', 'lv', 'k', 'tier', 'g', 'q', 'nq', 'b', 'ck', 'mn')} for c in cards]
 tpl = open(os.path.join(H, 'tpl.html'), encoding='utf-8').read()
-open(os.path.join(ROOT, '民法_申論5分鐘衝刺.html'), 'w', encoding='utf-8').write(tpl.replace('/*__DATA__*/[]', json.dumps(SP, ensure_ascii=False)))
+open(os.path.join(ROOT, '民法_申論5分鐘衝刺.html'), 'w', encoding='utf-8').write(tpl.replace('/*__DATA__*/[]', json.dumps(_hp.tag(SP, 'civ'), ensure_ascii=False)))
 print('衝刺', len(SP), '張；檢核項', sum(len(c['ck']) for c in SP))
 if todo:
     print('⚠ 關鍵詞仍是條號、尚無中文代表（寫入 kw_todo.json）：', sum(len(v) for v in todo.values()), '項／', len(todo), '張；推理版未產生'); sys.exit(1)
 RS = [{'id': c['id'], 'no': c['no'], 't': c['t'], 'g': c['g'], 'q': c['q'], 'subs': c['subs'], 'sx': c['sx'], 'kou': c['kou'], 'kws': c['kwr'], 'lose': c['lose'], 'k': c['k'], 'tier': c['tier']} for c in cards]
 tr = open(os.path.join(H, 'tpl_reason.html'), encoding='utf-8').read()
-open(os.path.join(ROOT, '民法_申論5分鐘_推理版.html'), 'w', encoding='utf-8').write(tr.replace('/*__DATA__*/[]', json.dumps(RS, ensure_ascii=False)).replace('/*__DEMO__*/false', 'false').replace('__ROOT__', ''))
+open(os.path.join(ROOT, '民法_申論5分鐘_推理版.html'), 'w', encoding='utf-8').write(tr.replace('/*__DATA__*/[]', json.dumps(_hp.tag(RS, 'civ'), ensure_ascii=False)).replace('/*__DEMO__*/false', 'false').replace('__ROOT__', ''))
 print('推理版', len(RS), '張')

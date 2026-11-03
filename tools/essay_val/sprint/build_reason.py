@@ -8,6 +8,7 @@
 - ⑤ 得分關鍵詞：lj_data.json 的 kw；條號型關鍵詞用 kw_cn.json 的中文代表（2～8 字，條號小字附在後面），程式發現仍有條號就中止
 秒數依文字量分配（模板 plan()），題數、步數都從資料算。卡片清單與 build_sprint.py 共用（load()）。"""
 import os, re, json, sys
+import sys as _s, os as _o; _s.path.insert(0, _o.path.normpath(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..'))); import sprint_hp as _hp  # 115 高／中機率排序（11-03）
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(H, '..', '..', '..'))
 sys.path.insert(0, H); sys.path.insert(0, os.path.normpath(os.path.join(H, '..', '..')))
 from build_sprint import load, md, clean, div_body
@@ -91,7 +92,7 @@ if __name__ == '__main__':
         print('⚠ 得分關鍵詞仍是條號、尚無中文代表（已寫入 kw_todo.json，請在 kw_cn.json 補 2～8 字中文代表）：', todo)
         if not demo: sys.exit(1)
     tpl = open(os.path.join(H, 'tpl_reason.html'), encoding='utf-8').read()
-    out = tpl.replace('/*__DATA__*/[]', json.dumps(data, ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false').replace('__ROOT__', '../' if demo else '')
+    out = tpl.replace('/*__DATA__*/[]', json.dumps(_hp.tag(data, 'val'), ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false').replace('__ROOT__', '../' if demo else '')
     dst = os.path.join(ROOT, 'demo', '估價_申論5分鐘_推理版_demo.html') if demo else os.path.join(ROOT, '估價_申論5分鐘_推理版.html')
     open(dst, 'w', encoding='utf-8').write(out)
     print('推理版', len(data), '張；推理', sum(len(s['st']) for d in data for s in d['subs']), '步；關鍵詞', sum(len(d['kws']) for d in data), '個；失分點', sum(len(d['lose']) for d in data), '條')

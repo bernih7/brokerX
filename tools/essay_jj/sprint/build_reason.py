@@ -2,6 +2,7 @@
 """經紀法規「申論 5 分鐘・推理版」：用邏輯拆解（推理鏈）＋考場速寫（得分關鍵詞／失分點／口訣）。內容一字不改。
 用法：python3 build_reason.py demo   → demo/經紀法規_申論5分鐘_推理版_demo.html（3 張、不存紀錄）"""
 import os, re, json, html, sys
+import sys as _s, os as _o; _s.path.insert(0, _o.path.normpath(_o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..'))); import sprint_hp as _hp  # 115 高／中機率排序（11-03）
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')))
 from sprint_sx_law import annotate  # 速寫法條塊：條號＋本題名稱（11-03）
 _f = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sx_law_names.json'); SXN = json.load(open(_f, encoding='utf-8')) if os.path.exists(_f) else {}
@@ -82,7 +83,7 @@ if miss:
     if not ('demo' in sys.argv): sys.exit(1)
 tpl = open(os.path.join(H, 'tpl_reason.html'), encoding='utf-8').read()
 demo = 'demo' in sys.argv
-out = tpl.replace('/*__DATA__*/[]', json.dumps(data, ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false').replace('__ROOT__', '../' if demo else '')
+out = tpl.replace('/*__DATA__*/[]', json.dumps(_hp.tag(data, 'jj'), ensure_ascii=False)).replace('/*__DEMO__*/false', 'true' if demo else 'false').replace('__ROOT__', '../' if demo else '')
 dst = os.path.join(ROOT, 'demo', '經紀法規_申論5分鐘_推理版_demo.html') if demo else os.path.join(ROOT, '經紀法規_申論5分鐘_推理版.html')
 open(dst, 'w', encoding='utf-8').write(out)
 print(dst, len(data), [(d['id'], sum(len(s['st']) for s in d['subs']), len(d['kws']), len(d['lose'])) for d in data])
