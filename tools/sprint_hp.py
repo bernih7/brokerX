@@ -10,6 +10,11 @@ def _civ():
     for m in re.finditer(r'<div class="pc p(\S+?)">.*?讀這幾題：(.*?)</p>', s, re.S):
         out.append((m.group(1), re.findall(r'essay=([^"]+)"', m.group(2))))
     return out
+def _land():
+    s = open(os.path.join(R, '土地法_申論115出題預測.html'), encoding='utf-8').read(); out = []
+    for m in re.finditer(r'<div class="pc p(\S+?)">.*?讀這幾題：(.*?)</p>', s, re.S):
+        out.append((m.group(1), re.findall(r'總覽\.html#([^"]+)"', m.group(2))))
+    return out
 def _D(fn):
     s = open(os.path.join(R, fn), encoding='utf-8').read(); i = s.find('var D=') + 6
     return json.JSONDecoder().raw_decode(s[i:])[0]
@@ -18,7 +23,7 @@ def _jj():
 def _val():
     return [(t['tier'], list(t.get('cards', [])) + list(t.get('sec', []))) for t in _D('估價_申論115出題預測.html')['topics']]
 def ranks(subj):
-    src = {'civ': _civ, 'jj': _jj, 'val': _val}[subj](); out = {}; n = 0
+    src = {'civ': _civ, 'jj': _jj, 'val': _val, 'land': _land}[subj](); out = {}; n = 0
     for tier, ids in src:
         if tier not in TIER: continue
         for i in ids:
@@ -35,7 +40,7 @@ def tag(cards, subj):
     return cards
 
 def patch_templates():
-    for sub in ('essay_civ', 'essay_jj', 'essay_val'):
+    for sub in ('essay_civ', 'essay_jj', 'essay_val', 'essay_land'):
         for fn in ('tpl.html', 'tpl_reason.html'):
             p = os.path.join(R, 'tools', sub, 'sprint', fn)
             if not os.path.exists(p): continue
