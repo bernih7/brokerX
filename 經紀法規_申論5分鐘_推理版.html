@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)
-  hintFade();
-})();</script>
+<head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>經紀法規｜申論 5 分鐘・推理版</title>
@@ -340,12 +338,15 @@ function render(){
   act();
 }
 function sc(){var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});$('sc').textContent=n+'／'+cur.kws.length}
+var _ht=null;function hintFade(){var h=$('hint');h.classList.remove('gone');clearTimeout(_ht);_ht=setTimeout(function(){h.classList.add('gone')},4000)}
 function act(){
   var nb=$('nextBtn');nb.disabled=false;
   if(st===1){nb.textContent=si<steps.length-1?'下一步 →':'去看速寫 →';
     $('hint').textContent=mode==='h'?'先想的時間到自動翻開；這步時間到自動下一步。':'時間到只變紅，自己控制。'}
   else if(st===4){nb.textContent='存檔';nb.disabled=!rate;$('hint').textContent=rate?'':'點完關鍵詞，選一個自評。'}
   else {nb.textContent='下一段 →';$('hint').textContent=mode==='h'?'時間到會自動往下。':'時間到只變紅。'}
+
+  hintFade();
 }
 function tick(first){
   if(!first){if(paused||document.visibilityState!=='visible')return;el++;left--;
@@ -402,5 +403,25 @@ function paint(){b.textContent=dark()?'☀️ 淺色':'🌙 深色'}
 b.onclick=function(){var n=dark()?'light':'dark';H.setAttribute('data-theme',n);try{localStorage.setItem('bx-theme',n)}catch(e){}paint()};
 paint();try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',paint)}catch(e){}})();</script>
 <script id="howto-js">(function(){var d=document.getElementById("howto");if(!d)return;try{if(localStorage.getItem("bx-sprint-howto")==="1")d.open=true}catch(e){}d.addEventListener("toggle",function(){try{localStorage.setItem("bx-sprint-howto",d.open?"1":"0")}catch(e){}})})();</script>
+<script id="sprint-keys">
+/* 鍵盤：練習中 →／空白鍵＝下一段（推理版未翻開先翻開）；回看本題 ←／→ 翻頁；空白鍵＝下一題 */
+document.addEventListener('keydown',function(e){
+ if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+ var t=e.target,tag=(t&&t.tagName)||'';if(/^(INPUT|SELECT|TEXTAREA)$/.test(tag)||(t&&t.isContentEditable))return;
+ var k=e.key;if(k!=='ArrowRight'&&k!=='ArrowLeft'&&k!==' '&&k!=='Spacebar')return;
+ var run=document.getElementById('run');if(!run||run.hidden)return;
+ if(document.body.classList.contains('paused'))return;
+ var rvP=document.getElementById('rvP'),rvN=document.getElementById('rvN'),nb=document.getElementById('nextBtn');
+ function hit(b){if(b&&!b.disabled&&b.offsetParent!==null){e.preventDefault();b.click();return true}return false}
+ if(rvP&&rvP.offsetParent!==null){            /* 存檔後：回看本題 */
+  if(k==='ArrowLeft')return void hit(rvP);
+  if(k==='ArrowRight')return void hit(rvN);
+  return void hit(nb);                       /* 空白鍵＝下一題 */
+ }
+ if(k==='ArrowLeft')return;
+ if(hit(document.getElementById('flip')))return;
+ hit(nb);
+});
+</script>
 </body>
 </html>
