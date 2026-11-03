@@ -124,11 +124,12 @@ body.paused .clk{opacity:.5}
 body.paused #nextBtn{opacity:.45;pointer-events:none}
 .thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
+.swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a href="經紀法規_申論5分鐘_推理版.html">切到推理版 ▸</a></span></div>
+  <div class="top"><a href="經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a id="swTop" href="經紀法規_申論5分鐘_推理版.html">切到推理版 ▸</a></span></div>
 
   <!-- 開始畫面 -->
   <section id="home">
@@ -158,7 +159,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
     <div class="card">
       <div class="meta" id="meta"></div>
       <div class="ttl" id="ttl"></div>
-      <div class="qbox" id="qbox"></div>
+      <div class="qbox" id="qbox"></div><div class="swq" id="swq"></div>
       <div class="pzbox" id="pzbox"><b>已暫停</b>計時停止，題目與答案先蓋住。<br><button type="button" class="btn pri" id="resumeBtn" style="margin-top:12px">▶ 繼續</button></div>
     <div id="body"></div>
     </div>
@@ -215,6 +216,7 @@ function reason(x){
 }
 var showAll=false;
 function home(){
+  swGo('');
   var Q=order(), f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
   $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
   var tot=0,done=0;CARDS.forEach(function(c){var S=ld(SP)[c.id]||[];tot+=S.length;if(S.length)done++});
@@ -232,7 +234,10 @@ $('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
 
 /* ---- 作答 ---- */
 var cur=null, st=0, stLeft=0, elapsed=0, iv=null, peek=false;
+var SWU='經紀法規_申論5分鐘_推理版.html';
+function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用推理版 ▸</a>':''}
 function start(id){
+  swGo(id);
   setPause(false);
   cur=CARDS.filter(function(c){return c.id===id})[0]; if(!cur)return;
   st=0; stLeft=STG[0].s; elapsed=0; peek=false; cur.got={}; cur.rate=0;
@@ -330,9 +335,10 @@ function save(){
   nb.onclick=function(){nb.onclick=next;$('quitBtn').textContent='放棄這題';start(nx.c.id)};
 }
 $('nextBtn').onclick=next;
-$('quitBtn').onclick=function(){setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;clearInterval(iv);iv=null;cur=null;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
+$('quitBtn').onclick=function(){setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;clearInterval(iv);iv=null;cur=null;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;swGo('');home();scrollTo(0,0)};
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
-home();
+(function(){var m=/^#q=(.+)$/.exec(location.hash||''),id=m?decodeURIComponent(m[1]):'';
+  if(id&&CARDS.some(function(c){return c.id===id})){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}start(id)}else home()})();
 
 var paused=false;
 function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}

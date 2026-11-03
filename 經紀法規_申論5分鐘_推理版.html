@@ -136,11 +136,12 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 .thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 .ans .li{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}.blk .sxli{display:block;margin-top:3px}.blk .lawn{color:var(--sub);font-weight:400}
+.swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a href="經紀法規_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
+  <div class="top"><a href="經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a id="swTop" href="經紀法規_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
   <section id="home">
     <h1>申論 5 分鐘・推理版</h1>
     <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
@@ -170,7 +171,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
     </div>
     <div class="meta" id="meta"></div>
     <div class="ttl" id="ttl"></div>
-    <div class="qbox" id="qbox"></div>
+    <div class="qbox" id="qbox"></div><div class="swq" id="swq"></div>
     <div class="pzbox" id="pzbox"><b>已暫停</b>計時停止，題目與答案先蓋住。<br><button type="button" class="btn pri" id="resumeBtn" style="margin-top:12px">▶ 繼續</button></div>
     <div id="body"></div>
   </section>
@@ -214,6 +215,7 @@ function reason(x){var s=x.s,o=[];
   return o.join('');}
 var showAll=false;
 function home(){
+  swGo('');
   var Q=order(),f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
   $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
   var tot=0,dn=0;CARDS.forEach(function(c){var r=(ld(SP)[c.id]||[]).filter(function(x){return x.f==='r'});tot+=r.length;if(r.length)dn++});
@@ -251,7 +253,10 @@ function plan(c){
   $('segs').style.gridTemplateColumns=r.map(function(x){return x+'fr'}).join(' ');
 }
 function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
+var SWU='經紀法規_申論5分鐘衝刺.html';
+function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用考場版 ▸</a>':''}
 function start(id){
+  swGo(id);
   setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;
   cur=CARDS.filter(function(c){return c.id===id})[0];if(!cur)return; st=0; left=STG[0].s; el=0; got={}; rate=0;
   steps=[]; cur.subs.forEach(function(s,a){s.st.forEach(function(x,b){steps.push({s:a,b:b,last:b===s.st.length-1,x:x})})});
@@ -352,14 +357,15 @@ function done(){
   var nb=$('nextBtn');nb.disabled=!nx;nb.textContent='下一題 ▸';nb.onclick=function(){start(nx.c.id)};
 }
 $('nextBtn').onclick=next;
-$('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;home();scrollTo(0,0)};
+$('quitBtn').onclick=function(){setPause(false);clearInterval(iv);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;$('run').hidden=true;$('act').hidden=true;$('home').hidden=false;swGo('');home();scrollTo(0,0)};
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&!$('home').hidden)home()});
 
 var paused=false;
 function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
 $('pauseBtn').onclick=function(){setPause(!paused)};
 $('resumeBtn').onclick=function(){setPause(false)};
-home();
+(function(){var m=/^#q=(.+)$/.exec(location.hash||''),id=m?decodeURIComponent(m[1]):'';
+  if(id&&CARDS.some(function(c){return c.id===id})){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}start(id)}else home()})();
 </script>
 <script id="th-js">/* 深淺色切換：有存過看 bx-theme，沒存過跟系統；按了才寫入（全站共用鍵） */
 (function(){var H=document.documentElement,b=document.getElementById('thBtn');
