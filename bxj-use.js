@@ -124,7 +124,8 @@ function status(){
  var fk=fillKeys().length,FT2=fillTotal();R3.push(row("經紀法規_定義填空練習","定義填空練習",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
- var R4=[],es=ld("brokerlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
+ var R4=[],rs4=ld("bxj-es-read",{}),lg4=ld("bxj-es-log",{}),sp4=ld("bxj-es-sprint",{}),ES4=[].slice.call(document.querySelectorAll(".essay-detail[id^=es-]")),ids4=ES4.length?ES4.map(function(d){return d.id}):null,u4={};function cnt4(k){if(ids4&&ids4.indexOf(k)<0)return;u4[k]=1}Object.keys(rs4).forEach(function(k){if(rs4[k])cnt4(k)});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)cnt4(k)});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)cnt4(k)});var T4=ids4?ids4.length:75,rn4=Math.min(Object.keys(u4).length,T4),nx4=ids4?ids4.filter(function(k){return !u4[k]})[0]:"";R4.push({p:"",url:nx4?"#"+nx4:"#es-fw01",name:"申論 "+T4+" 題（指揮中心申論卡）",done:rn4,total:T4,pct:Math.round(rn4/T4*100),txt:"已讀 "+rn4+"／"+T4+"（勾讀懂、讀過一輪、做過 5 分鐘練習都算）",read:null,open:null,last:0});
+ var es=ld("brokerlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
  R4.push(row("經紀法規申論題_篇章主題答題模板","申論篇章主題答題模板",er+em,29,"已讀 "+(er+em)+"／29 題範例（已掌握 "+em+"）"));
  var pst=ld("bx-jj-pred",{}),pr=PRED_HM.filter(function(c){return pst[c]}).length;R4.push(row("經紀法規_申論115出題預測","申論 115 出題預測",pr,9,"高、中頻主題已讀完範文 "+pr+"／9"));
  G.push({g:"申論",rows:R4});

@@ -137,6 +137,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 .ans .li{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}.blk .sxli{display:block;margin-top:3px}.blk .lawn{color:var(--sub);font-weight:400}
 .swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
+.dnb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dnb .btn{text-decoration:none;display:inline-flex;align-items:center}.rv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.rvh{font-weight:700;margin-bottom:8px}.rvnav{display:flex;gap:8px;align-items:center}.rvnav select{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:.88rem}.rvnav .btn{white-space:nowrap;padding:7px 12px}.rvnav .btn:disabled{opacity:.4}#rvB{margin-top:12px}.rvq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}.ck label.miss{opacity:.75}.ck label .mk{font-weight:700;min-width:1.2em}.ck label.on .mk{color:var(--ok)}.kw.miss{opacity:.6}@media(max-width:480px){.rvnav .btn{padding:7px 10px}}
 </style>
 </head>
 <body>
@@ -255,6 +256,30 @@ function plan(c){
 function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
 var SWU='__ROOT__民法_申論5分鐘衝刺.html';
 function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用考場版 ▸</a>':''}
+var CARDU='__ROOT__民法_申論卡.html';
+
+/* ---- 存檔後：再練一次／看完整解說／回看本題（11-03） ---- */
+function doneExtra(revPages){
+  var id=cur.id,b=$('body');
+  b.insertAdjacentHTML('beforeend','<div class="dnb"><button type="button" class="btn" id="againBtn">🔁 再練一次</button><a class="btn" href="'+CARDU+'?v=0#'+encodeURIComponent(id)+'" target="_blank" rel="noopener">📖 看完整解說（另開）</a></div>'
+    +'<div class="rv"><div class="rvh">回看本題（不計時）</div><div class="rvnav"><button type="button" class="btn" id="rvP">◀ 上一頁</button><select id="rvS" aria-label="跳到哪一頁"></select><button type="button" class="btn" id="rvN">下一頁 ▶</button></div><div id="rvB"></div></div>');
+  $('againBtn').onclick=function(){$('nextBtn').onclick=next;$('quitBtn').textContent='放棄這題';start(id)};
+  var P=revPages(),i=0;
+  $('rvS').innerHTML=P.map(function(p,k){return '<option value="'+k+'">'+(k+1)+'／'+P.length+'　'+esc(p[0])+'</option>'}).join('');
+  function go(k){i=Math.max(0,Math.min(P.length-1,k));$('rvS').value=String(i);$('rvB').innerHTML=P[i][1];$('rvP').disabled=i===0;$('rvN').disabled=i===P.length-1}
+  $('rvP').onclick=function(){go(i-1)};$('rvN').onclick=function(){go(i+1)};$('rvS').onchange=function(){go(+this.value)};
+  go(0);
+}
+function reasonPages(){
+  var P=[[STG[0].n,'<div class="rvq">'+esc(cur.q)+'<ul class="subs">'+cur.subs.map(function(s,a){return '<li><b>問題'+CN[a]+'</b><span>'+esc(s.q)+'</span></li>'}).join('')+'</ul></div>']];
+  var si0=si,sh0=shown;
+  steps.forEach(function(p,k){si=k;shown=true;var a=p.x.ask||'';P.push([STG[1].n+' '+(k+1)+'／'+steps.length+'：'+(a.length>16?a.slice(0,16)+'…':a),stepHTML()])});
+  si=si0;shown=sh0;
+  P.push([STG[2].n,cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'')]);
+  P.push([STG[3].n,'<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>']);
+  P.push([STG[4].n+'（綠＝有點到）','<div class="kws">'+cur.kws.map(function(k,i){return '<span class="kw'+(got[i]?' on':' miss')+'">'+(got[i]?'✓ ':'')+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</span>'}).join('')+'</div>']);
+  return P;
+}
 function start(id){
   swGo(id);
   setPause(false);$('quitBtn').textContent='放棄這題';$('nextBtn').onclick=next;
@@ -352,6 +377,7 @@ function done(){
   $('body').innerHTML='<div class="done-box"><b>'+(DEMO?'完成':'已存檔')+'</b>：關鍵詞 '+n+'／'+cur.kws.length+'・'+RL[rate]+'・用時 '+mmss(el).replace('+','')
     +'<br><span style="color:var(--sub);font-size:.88rem">'+(DEMO?'樣板不存紀錄。':'指揮中心這張申論卡的輪數、自評會一起更新。')+'</span>'
     +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+  if(!DEMO)doneExtra(reasonPages);
   st=5;$('stg').innerHTML='完成<small>紀錄已同步</small>';[].forEach.call($('segs').children,function(g){g.classList.add('done')});
   $('hint').textContent='';$('quitBtn').textContent='回清單';
   var nb=$('nextBtn');nb.disabled=!nx;nb.textContent='下一題 ▸';nb.onclick=function(){start(nx.c.id)};

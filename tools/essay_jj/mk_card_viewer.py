@@ -44,6 +44,8 @@ function show(){var ids=(location.hash||'').replace('#','').split(',').filter(Bo
  document.querySelectorAll('.cv details.essay-detail').forEach(function(d){var on=ids.indexOf(d.id)>=0;d.classList.toggle('show',on);if(on){d.open=true;n++}});
  if(!n)document.getElementById('cvmsg').insertAdjacentHTML('beforeend','　找不到這張申論卡。')}
 show();addEventListener('hashchange',show);
+function tabv(){var m=/[?&]v=([0-9])/.exec(location.search);if(!m)return;document.querySelectorAll('.cv details.show').forEach(function(d){var b=d.querySelector('.vt[data-v="'+m[1]+'"],.vt button[data-v="'+m[1]+'"]');if(b)b.click()})}
+tabv();addEventListener('hashchange',tabv);
 if(emb){var post=function(){try{parent.postMessage({bxjCard:location.hash,h:document.documentElement.scrollHeight},'*')}catch(e){}};
  new ResizeObserver(post).observe(document.body);addEventListener('load',post);document.addEventListener('click',function(){setTimeout(post,30)})}
 })();

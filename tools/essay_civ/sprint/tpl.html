@@ -125,6 +125,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 .thb{font:inherit;font-size:.8rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer;white-space:nowrap}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 .swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
+.dnb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dnb .btn{text-decoration:none;display:inline-flex;align-items:center}.rv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.rvh{font-weight:700;margin-bottom:8px}.rvnav{display:flex;gap:8px;align-items:center}.rvnav select{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:.88rem}.rvnav .btn{white-space:nowrap;padding:7px 12px}.rvnav .btn:disabled{opacity:.4}#rvB{margin-top:12px}.rvq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}.ck label.miss{opacity:.75}.ck label .mk{font-weight:700;min-width:1.2em}.ck label.on .mk{color:var(--ok)}.kw.miss{opacity:.6}@media(max-width:480px){.rvnav .btn{padding:7px 10px}}
 </style>
 </head>
 <body>
@@ -236,6 +237,25 @@ $('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
 var cur=null, st=0, stLeft=0, elapsed=0, iv=null, peek=false;
 var SWU='民法_申論5分鐘_推理版.html';
 function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用推理版 ▸</a>':''}
+var CARDU='民法_申論卡.html';
+
+/* ---- 存檔後：再練一次／看完整解說／回看本題（11-03） ---- */
+function doneExtra(revPages){
+  var id=cur.id,b=$('body');
+  b.insertAdjacentHTML('beforeend','<div class="dnb"><button type="button" class="btn" id="againBtn">🔁 再練一次</button><a class="btn" href="'+CARDU+'?v=0#'+encodeURIComponent(id)+'" target="_blank" rel="noopener">📖 看完整解說（另開）</a></div>'
+    +'<div class="rv"><div class="rvh">回看本題（不計時）</div><div class="rvnav"><button type="button" class="btn" id="rvP">◀ 上一頁</button><select id="rvS" aria-label="跳到哪一頁"></select><button type="button" class="btn" id="rvN">下一頁 ▶</button></div><div id="rvB"></div></div>');
+  $('againBtn').onclick=function(){$('nextBtn').onclick=next;$('quitBtn').textContent='放棄這題';start(id)};
+  var P=revPages(),i=0;
+  $('rvS').innerHTML=P.map(function(p,k){return '<option value="'+k+'">'+(k+1)+'／'+P.length+'　'+esc(p[0])+'</option>'}).join('');
+  function go(k){i=Math.max(0,Math.min(P.length-1,k));$('rvS').value=String(i);$('rvB').innerHTML=P[i][1];$('rvP').disabled=i===0;$('rvN').disabled=i===P.length-1}
+  $('rvP').onclick=function(){go(i-1)};$('rvN').onclick=function(){go(i+1)};$('rvS').onchange=function(){go(+this.value)};
+  go(0);
+}
+function sprintPages(){
+  var rc='<div class="recall"><b>先不看答案，在心裡或紙上列出：</b><ol><li>會用哪幾條（條號）</li><li>要分幾點（照題目幾問）</li><li>結論一句話怎麼答</li></ol></div>'+(cur.mn?'<div class="mn">口訣：<b>'+esc(cur.mn)+'</b></div>':'');
+  var ck='<div class="ck">'+cur.ck.map(function(c,i){var g=!!cur.got[i];return '<label class="'+(g?'on':'miss')+'"><span class="mk">'+(g?'✓':'✗')+'</span>'+(c.h?'<span class="must">必寫</span>':'')+'<span>'+esc(c.x)+'</span></label>'}).join('')+'</div>';
+  return [[STG[0].n,'<div class="rvq">'+esc(cur.q)+'</div>'],[STG[1].n,rc],[STG[2].n,evHTML([0,1,2],[],[])],[STG[3].n,evHTML([3],[],[])],[STG[4].n+'（✓ 有勾／✗ 漏掉）',ck],['考場版全文',evHTML([0,1,2,3],[],[])]];
+}
 function start(id){
   swGo(id);
   setPause(false);
@@ -328,6 +348,7 @@ function save(){
   var nx=pick==='rand'?{c:randPick(cur.id)}:order().filter(function(x){return x.c.id!==cur.id})[0];
   $('body').innerHTML='<div class="done-box"><b>已存檔</b>：'+cur.sc+'／'+cur.mx+'・'+RL[cur.rate]+'・用時 '+mmss(elapsed).replace('+','')+'<br><span style="color:var(--sub);font-size:.88rem">指揮中心這張申論卡的輪數、自評會一起更新。</span>'
     +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
+  doneExtra(sprintPages);
   $('stg').innerHTML='完成<small>這題的紀錄已同步</small>';
   [].forEach.call($('segs').children,function(seg){seg.classList.add('done')});
   st=5; $('hint').textContent=''; $('quitBtn').textContent='回清單';

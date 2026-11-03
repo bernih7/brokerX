@@ -1156,7 +1156,7 @@ function lagBuild(){
   var ES=[].slice.call(document.querySelectorAll('.essay-detail[id^=es-]')),esTot=ES.length,esRead=0,RD={},LG={};
   try{RD=JSON.parse(localStorage.getItem('bxj-es-read')||'{}')||{}}catch(e){}
   try{LG=JSON.parse(localStorage.getItem('bxj-es-log')||'{}')||{}}catch(e){}
-  ES.forEach(function(d){if(RD[d.id]||(LG[d.id]&&(LG[d.id].n||0)>0))esRead++});
+  var SPX={};try{SPX=JSON.parse(localStorage.getItem('bxj-es-sprint')||'{}')||{}}catch(e){}   ES.forEach(function(d){if(RD[d.id]||(LG[d.id]&&(LG[d.id].n||0)>0)||(SPX[d.id]&&SPX[d.id].length))esRead++});
   var rTot=rows(read).length,rDone=rows(read).filter(function(r){return (r.read||0)>0}).length;
   var mRows=rows(mock).filter(function(r){return r.total>0}),mTot=0,mDone=0;
   mRows.forEach(function(r){mTot++;if(r.done>=r.total)mDone++});
@@ -1185,7 +1185,7 @@ function lagBuild(){
     +'<div class="goal">目標：<b>考前把每一樣至少做完 1 輪</b>。「每天要」＝剩下的量 ÷ 剩下的天數，沒有另外訂讀書表。</div>'
     +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
     +row('選擇題（題庫 '+dRows.length+' 頁）',dDone,dTot,'題','解析版練習的作答也算；補習班模擬卷題不計',GO.d)
-    +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','在申論卡勾「我已讀懂這題的邏輯」',GO.e):'')
+    +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','勾讀懂、看完一輪或做過 5 分鐘練習都算',GO.e):'')
     +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底',GO.r)
     +row('模擬卷',mDone,mTot,'份','自擬 5 卷＋來勝模擬(一)；答完整份才算',GO.m)
     +row('記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；填空按完成',GO.k)
@@ -1431,7 +1431,7 @@ function draw(){var d=BXREP.today();if(l)l.textContent="今天作答 "+d.q+" 次
   rows+='<div class="ts-r">'+name+rd+'<div class="ts-l">'+bar+'<span class="ts-t">'+meta.join("・")+'</span></div></div>'});
   h+='<details class="ts-g" open><summary>'+esc(g.g)+'</summary>'+rows+'</details>'});
  box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h}
-draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw)})()</script>
+draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw);addEventListener("pageshow",draw)})()</script>
 <script>
 (function(){function openEs(){var h=location.hash;if(!h||h.indexOf('#es-')!==0)return;
  var el=document.getElementById(h.slice(1));if(!el)return;
@@ -1467,7 +1467,7 @@ function upd(){
    var n=list.filter(function(d){return R[d.id]}).length,sm=b.querySelector("small");
    if(!sm)return;
    if(!sm.dataset.base)sm.dataset.base=sm.textContent;
-   sm.innerHTML=sm.dataset.base+(list.length?'　<span class="esn">已讀 '+n+'／'+list.length+'</span>':"");
+   sm.innerHTML=sm.dataset.base+(list.length?'　<span class="esn">讀懂 '+n+'／'+list.length+'</span>':"");
  });
 }
 ES.forEach(function(d){
@@ -1665,5 +1665,19 @@ addEventListener("scroll",later,{passive:true});addEventListener("resize",later)
 if(vv){vv.addEventListener("resize",later);vv.addEventListener("scroll",later)}
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")later()});})();</script><script id="lj-js">(function(){var K="bxj-ljv";function set(v,save){document.querySelectorAll(".ljseg button").forEach(function(b){b.classList.toggle("on",b.dataset.lj===v)});document.querySelectorAll(".ljp").forEach(function(p){p.hidden=p.dataset.lj!==v});if(save){try{localStorage.setItem(K,v)}catch(e){}}}
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".ljseg button");if(b)set(b.dataset.lj,true)});
-try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script></body>
+try{var v=localStorage.getItem(K);if(v&&/^[ABC]$/.test(v))set(v,false)}catch(e){}})();</script><script id="es-any">/* 申論進度：讀懂（勾）／練過（讀過一輪或 5 分鐘練習）／任一（＝進度表已讀） */
+(function(){
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
+var ES=[].slice.call(document.querySelectorAll('.essay-detail[id^=es-]'));if(!ES.length)return;
+function key(d){return d.dataset.key||d.id}
+function paint(){var R=ld('bxj-es-read'),L=ld('bxj-es-log'),S=ld('bxj-es-sprint'),p=0,a=0;
+ ES.forEach(function(d){var k=key(d),pr=(L[k]&&L[k].n>0)||(S[k]&&S[k].length>0);if(pr)p++;if(pr||R[k])a++});
+ var el=document.getElementById('esAny');if(!el){var an=(document.getElementById('esPrgI')||{}).parentNode;if(!an)return;el=document.createElement('p');el.id='esAny';an.parentNode.insertBefore(el,an.nextSibling)}
+ el.innerHTML='看過一輪或做過 5 分鐘練習 <b>'+p+'</b>／'+ES.length+'｜進度表的「已讀」（勾讀懂、看過一輪、5 分鐘練習任一）<b>'+a+'</b>／'+ES.length}
+paint();document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')paint()});
+addEventListener('pageshow',paint);addEventListener('storage',function(e){if(e.key==='bxj-es-read'||e.key==='bxj-es-log'||e.key==='bxj-es-sprint')paint()});
+document.addEventListener('change',function(e){if(e.target&&e.target.closest&&e.target.closest('.essay-detail[id^=es-]'))setTimeout(paint,0)});
+})();</script>
+<style id="es-any-css">#esAny{font-size:.82rem;color:var(--sub);margin:4px 0 8px;line-height:1.7}#esAny b{color:var(--ink)}</style>
+</body>
 </html>

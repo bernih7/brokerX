@@ -826,6 +826,7 @@ function lagBuild(){
   box.innerHTML=h+'</div>';
 }
 lagBuild();
+addEventListener('pageshow',lagBuild);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')lagBuild()});
 addEventListener('focus',lagBuild);
 })();
@@ -1016,7 +1017,7 @@ seg.addEventListener('click',function(e){var b=e.target.closest('button');if(b)s
 // 申論
 var eg=document.createElement('div');eg.appendChild(card(essT));$('essaytool').appendChild(eg);
 var curF='all';function saveR(){lsS('minfa_read',JSON.stringify(readSet))}
-function apply(){var q=$('sq').value.trim().toLowerCase();var n=0,gv={};essays.forEach(function(e){var ok=true;if(curF==='A'||curF==='B'||curF==='C'||curF==='P'||curF==='M')ok=e.dataset.lv===curF;else if(curF==='unread')ok=!readSet[e.dataset.key];if(ok&&q)ok=e.textContent.toLowerCase().indexOf(q)>-1;e.style.display=ok?'':'none';if(ok){n++;gv[e.dataset.g]=1}});var filt=(q||curF!=='all');document.querySelectorAll('#elist .gdet').forEach(function(g){g.style.display=gv[g.dataset.g]?'':'none';if(filt&&gv[g.dataset.g])g.open=true;var es=essays.filter(function(e){return e.dataset.g===g.dataset.g}),rr=es.filter(function(e){return readSet[e.dataset.key]}).length,sb=g.querySelector('.grp .sub');if(sb){var eo=es.filter(function(e){return !e.classList.contains('pred')}),ep=es.filter(function(e){return e.classList.contains('pred')&&!e.classList.contains('mock')}),em=es.filter(function(e){return e.classList.contains('mock')}),ro=eo.filter(function(e){return readSet[e.dataset.key]}).length,rp=ep.filter(function(e){return readSet[e.dataset.key]}).length;sb.textContent='已讀　官方 '+ro+'／'+eo.length+(em.length?'　模擬卷 '+em.filter(function(e){return readSet[e.dataset.key]}).length+'／'+em.length:'')+'　預測 '+rp+'／'+ep.length}});var N=essays.length,r=essays.filter(function(e){return readSet[e.dataset.key]}).length;$('rcount').textContent='顯示 '+n+' 題｜已讀 '+r+'／'+N;$('essum').textContent='已讀懂 '+r+'／'+N+' 題作答架構（官方 '+essays.filter(function(e){return !e.classList.contains('pred')}).length+'＋模擬卷 '+essays.filter(function(e){return e.classList.contains('mock')}).length+'＋預測 '+essays.filter(function(e){return e.classList.contains('pred')&&!e.classList.contains('mock')}).length+'）'}
+function apply(){var q=$('sq').value.trim().toLowerCase();var n=0,gv={};essays.forEach(function(e){var ok=true;if(curF==='A'||curF==='B'||curF==='C'||curF==='P'||curF==='M')ok=e.dataset.lv===curF;else if(curF==='unread')ok=!readSet[e.dataset.key];if(ok&&q)ok=e.textContent.toLowerCase().indexOf(q)>-1;e.style.display=ok?'':'none';if(ok){n++;gv[e.dataset.g]=1}});var filt=(q||curF!=='all');document.querySelectorAll('#elist .gdet').forEach(function(g){g.style.display=gv[g.dataset.g]?'':'none';if(filt&&gv[g.dataset.g])g.open=true;var es=essays.filter(function(e){return e.dataset.g===g.dataset.g}),rr=es.filter(function(e){return readSet[e.dataset.key]}).length,sb=g.querySelector('.grp .sub');if(sb){var eo=es.filter(function(e){return !e.classList.contains('pred')}),ep=es.filter(function(e){return e.classList.contains('pred')&&!e.classList.contains('mock')}),em=es.filter(function(e){return e.classList.contains('mock')}),ro=eo.filter(function(e){return readSet[e.dataset.key]}).length,rp=ep.filter(function(e){return readSet[e.dataset.key]}).length;sb.textContent='讀懂　官方 '+ro+'／'+eo.length+(em.length?'　模擬卷 '+em.filter(function(e){return readSet[e.dataset.key]}).length+'／'+em.length:'')+'　預測 '+rp+'／'+ep.length}});var N=essays.length,r=essays.filter(function(e){return readSet[e.dataset.key]}).length;$('rcount').textContent='顯示 '+n+' 題｜讀懂 '+r+'／'+N;$('essum').textContent='已讀懂 '+r+'／'+N+' 題作答架構（官方 '+essays.filter(function(e){return !e.classList.contains('pred')}).length+'＋模擬卷 '+essays.filter(function(e){return e.classList.contains('mock')}).length+'＋預測 '+essays.filter(function(e){return e.classList.contains('pred')&&!e.classList.contains('mock')}).length+'）'}
 essays.forEach(function(e){var cb=e.querySelector('.rd');var k=e.dataset.key;if(readSet[k]){cb.checked=true;e.classList.add('read')}cb.addEventListener('change',function(){readSet[k]=cb.checked;e.classList.toggle('read',cb.checked);saveR();apply()})});
 document.querySelectorAll('#fl button[data-f]').forEach(function(b){b.addEventListener('click',function(){curF=b.dataset.f;document.querySelectorAll('#fl button[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});apply()})});
 $('sq').addEventListener('input',apply);$('elist').addEventListener('click',function(ev){var b=ev.target.closest('.vt button');if(!b)return;var box=b.closest('.ebody');box.querySelectorAll('.vt button').forEach(function(x){x.classList.toggle('on',x===b)});box.querySelectorAll('.vp').forEach(function(p){p.hidden=p.dataset.v!==b.dataset.v})});
@@ -1125,7 +1126,7 @@ function draw(){var d=BXREP.today();if(l)l.textContent="今天刷了 "+d.q+" 題
   rows+='<div class="ts-r">'+name+rd+'<div class="ts-l">'+bar+'<span class="ts-t">'+meta.join("・")+'</span></div></div>'});
   h+='<details class="fold ts-g"'+" open"+'><summary>'+esc(g.g)+'</summary>'+rows+'</details>'});
  box.innerHTML='<p class="ts-sum">共 '+all+' 項工具，已開始使用 '+nOpen+' 項。</p>'+h}
-draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw)})()</script>
+draw();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")draw()});addEventListener("focus",draw);addEventListener("pageshow",draw)})()</script>
 <script>(function(){var y=window.pageYOffset,t=false;function f(){var n=window.pageYOffset,d=n-y;if(n<60)document.body.classList.remove('nav-hide');else if(d>10){document.body.classList.add('nav-hide');y=n}else if(d<-6){document.body.classList.remove('nav-hide');y=n}if(Math.abs(d)>10)y=n;t=false}window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(f)}},{passive:true});document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('nav.bot'))document.body.classList.remove('nav-hide')})})();</script>
 <script>(function(){var L='https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=B0000001&flno=';var re=/§(\d+(?:-\d+)?)|第(\d+)條(?:之(\d+))?/g;
 document.querySelectorAll('#pEss .ebody').forEach(function(root){var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),a=[],n;while(n=w.nextNode())a.push(n);
@@ -1225,6 +1226,7 @@ setInterval(function(){
 addEventListener('pagehide',function(){essays.forEach(function(e){if(e.open)flush(e)})});
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')essays.forEach(function(e){if(e.open)flush(e)})});
 sum();
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')sum()});addEventListener('pageshow',sum);
 })();
 </script>
 <script id="sprint-sync">
@@ -1279,5 +1281,19 @@ function fix(){var els=[nav,document.getElementById("bxfab")];
 function later(){clearTimeout(t);t=setTimeout(fix,120)}
 addEventListener("scroll",later,{passive:true});addEventListener("resize",later);addEventListener("orientationchange",later);addEventListener("pageshow",later);
 if(vv){vv.addEventListener("resize",later);vv.addEventListener("scroll",later)}
-document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")later()});})();</script></body>
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")later()});})();</script><script id="es-any">/* 申論進度：讀懂（勾）／練過（讀過一輪或 5 分鐘練習）／任一（＝進度表已讀） */
+(function(){
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
+var ES=[].slice.call(document.querySelectorAll('details.essay'));if(!ES.length)return;
+function key(d){return d.dataset.key||d.id}
+function paint(){var R=ld('minfa_read'),L=ld('bxm-es-log'),S=ld('bxm-es-sprint'),p=0,a=0;
+ ES.forEach(function(d){var k=key(d),pr=(L[k]&&L[k].n>0)||(S[k]&&S[k].length>0);if(pr)p++;if(pr||R[k])a++});
+ var el=document.getElementById('esAny');if(!el){var an=document.getElementById('eslSum')||document.getElementById('rcount');if(!an)return;el=document.createElement('p');el.id='esAny';an.parentNode.insertBefore(el,an.nextSibling)}
+ el.innerHTML='看過一輪或做過 5 分鐘練習 <b>'+p+'</b>／'+ES.length+'｜進度表的「已讀」（勾讀懂、看過一輪、5 分鐘練習任一）<b>'+a+'</b>／'+ES.length}
+paint();document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')paint()});
+addEventListener('pageshow',paint);addEventListener('storage',function(e){if(e.key==='minfa_read'||e.key==='bxm-es-log'||e.key==='bxm-es-sprint')paint()});
+document.addEventListener('change',function(e){if(e.target&&e.target.closest&&e.target.closest('details.essay'))setTimeout(paint,0)});
+})();</script>
+<style id="es-any-css">#esAny{font-size:.82rem;color:var(--sub);margin:4px 0 8px;line-height:1.7}#esAny b{color:var(--ink)}</style>
+</body>
 </html>
