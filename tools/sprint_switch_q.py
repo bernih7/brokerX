@@ -5,7 +5,7 @@ import os, re
 R = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 CSS = ('.swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}'
        '.swq a{font-weight:600;white-space:nowrap}')
-for sub in ('essay_jj', 'essay_civ'):
+for sub in ('essay_jj', 'essay_civ', 'essay_val'):
     for fn in ('tpl.html', 'tpl_reason.html'):
         p = os.path.join(R, 'tools', sub, 'sprint', fn); s = open(p, encoding='utf-8').read()
         if 'id="swq"' in s: print('skip', p); continue

@@ -757,7 +757,21 @@ nav.botnav .nav-label{font-size:.67rem; white-space:nowrap;}
 @media(max-width:700px){
   .essay-table,.law-table,.stat-table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
   .essay-table thead,.law-table thead,.stat-table thead{display:table-header-group}
-}</style></head>
+}</style><style id="sprint-css">
+.sp-a{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px;text-decoration:none;color:var(--ink);background:var(--paper2,var(--paper))}
+.sp-a:hover{border-color:var(--primary)}
+.sp-n{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.sp-n b{font-size:.92rem}.sp-n small{font-size:.74rem;color:var(--muted);line-height:1.5}
+.sp-g{flex:none;font-size:.76rem;font-weight:700;color:var(--primary);white-space:nowrap}
+.sp-any{font-size:.8rem;color:var(--muted);margin:8px 0 2px;line-height:1.7}.sp-any b{color:var(--ink)}
+.sp-log{margin-top:6px}.sp-log>summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--primary);padding:4px 0}
+.sp-rows{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.sp-r{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;border-top:1px dashed var(--line);padding:6px 2px;font-size:.8rem}
+.sp-r .t{min-width:0;color:var(--ink);line-height:1.5}.sp-r .t small{color:var(--muted);margin-right:4px}
+.sp-r a{font-size:.76rem;font-weight:700;color:var(--primary);text-decoration:none;white-space:nowrap}
+.sp-r .l{grid-column:1/3;color:var(--muted);font-size:.76rem;display:flex;flex-wrap:wrap;gap:2px 10px}.sp-r .l b{color:var(--primary)}
+.sp-r .l:empty{display:none}.sp-r.none .t{opacity:.7}
+</style>
+</head>
 <body>
 <script>/* 色卡要在第一次繪製就生效，頁首才不會先閃綠色 */
 try{document.body.setAttribute('data-pal',localStorage.getItem('bxv-hit-pal')||'p1')}catch(e){document.body.setAttribute('data-pal','p1')}</script>
@@ -1278,6 +1292,16 @@ try{document.body.setAttribute('data-pal',localStorage.getItem('bxv-hit-pal')||'
   </div>
   <div class="esh-lv" id="esh-lv"></div>
 
+  <!--sp-box--><div class="esh-box sp-box" id="spBox">
+    <div class="esh-bt">5 分鐘申論練習（紀錄與範文頁同步）</div>
+    <a class="sp-a" id="spLink" href="%E4%BC%B0%E5%83%B9_%E7%94%B3%E8%AB%965%E5%88%86%E9%90%98%E8%A1%9D%E5%88%BA.html"><span class="sp-n"><b>⏱ 申論 5 分鐘衝刺</b><small>一題 5 分鐘：讀題→先自己想→考場版→結論→關鍵檢核打分；沒做過的優先，再來不熟的；可 🎲 隨機出題</small></span><span class="sp-g">練習 ▸</span></a>
+    <a class="sp-a" id="spLink2" href="%E4%BC%B0%E5%83%B9_%E7%94%B3%E8%AB%965%E5%88%86%E9%90%98_%E6%8E%A8%E7%90%86%E7%89%88.html"><span class="sp-n"><b>🧩 申論 5 分鐘・推理版</b><small>跟著推理鏈一步步自問自答→速寫骨架→失分點→關鍵詞檢核；秒數依題目內容分配</small></span><span class="sp-g">練習 ▸</span></a>
+    <p class="sp-any" id="esAny"></p>
+    <details class="sp-log" id="spLog"><summary>各題紀錄 <span id="spLogN"></span></summary><div class="sp-rows" id="spRows"></div></details>
+  </div><!--/sp-box-->
+
+  
+  
   <div class="esh-box">
     <div class="esh-bt">直接跳類別（打開範文頁並套好篩選）</div>
     <div class="esh-chips" id="esh-types"></div>
@@ -1757,11 +1781,16 @@ function lagBuild(){
 
   /* 申論：優先用本機的輪數紀錄，沒有就用已讀勾選 */
   var esCards=0,esRounds=0,esSec=0,esTotal=(function(){try{var M=JSON.parse(localStorage.getItem('bx-essay-meta')||'null');if(M&&M.total)return M.total;}catch(e){}return (window.BXV_ESSAY_META||{total:0}).total;})(),esV={ok:0,mem:0,hard:0};
-  try{var L=JSON.parse(localStorage.getItem('bxv-es-log')||'{}');
-    Object.keys(L).forEach(function(k){var r=L[k];if(!r)return;
-      if(r.n){esCards++;esRounds+=r.n;esSec+=r.tot||0;}
-      if(r.v&&esV[r.v]!=null)esV[r.v]++;});}catch(e){}
-  if(!esCards){try{esCards=(JSON.parse(localStorage.getItem('bx-es-read')||'[]')||[]).length;}catch(e){}}
+  /*es-any*/var esSp=0;
+  try{var L=JSON.parse(localStorage.getItem('bxv-es-log')||'{}')||{},SPX=JSON.parse(localStorage.getItem('bxv-es-sprint')||'{}')||{},RDX=JSON.parse(localStorage.getItem('bx-essay-read')||'[]')||[],MX=null,seen={};
+    try{MX=JSON.parse(localStorage.getItem('bx-essay-meta')||'null')}catch(e){} if(!(MX&&MX.ids))MX=window.BXV_ESSAY_META||null;
+    function inPage(k){return !(MX&&MX.ids)||!!MX.ids[k]}
+    Object.keys(L).forEach(function(k){var r=L[k];if(!r||!inPage(k))return;
+      if(r.n){seen[k]=1;esRounds+=r.n;esSec+=r.tot||0;}
+      if(r.v&&esV[r.v]!=null)esV[r.v]++;});
+    Object.keys(SPX).forEach(function(k){if(inPage(k)&&SPX[k]&&SPX[k].length){seen[k]=1;esSp+=SPX[k].length;}});
+    (Array.isArray(RDX)?RDX:[]).forEach(function(k){if(inPage(k))seen[k]=1});
+    esCards=Object.keys(seen).length;}catch(e){}
 
   var rPages=(read?read.rows.length:0), rDone=sum(read,function(r){return (r.read||0)>0?1:0});
   var mDone=sum(mock,function(r){return r.done>=r.total&&r.total?1:0}), mTot=mock?mock.rows.length:0;
@@ -1781,7 +1810,7 @@ function lagBuild(){
     +'<table><thead><tr><th>項目</th><th class="n">目前</th><th>完成度</th><th class="n">每天要</th><th>備註</th></tr></thead><tbody>'
     +row('選擇題（16 章）',dDone,dTot,'題','')
     +row('申論範文',esCards,esTotal,'張',
-       (esRounds?('累計 '+esRounds+' 輪・共 '+Math.round(esSec/60)+' 分鐘'):'還沒有計時紀錄')
+       (esRounds?('累計 '+esRounds+' 輪・共 '+Math.round(esSec/60)+' 分鐘'):'還沒有計時紀錄')+(esSp?('・5 分鐘練習 '+esSp+' 次'):'')
        +((esV.mem||esV.hard)?('　｜ 📖 還沒背 '+esV.mem+'・😵 太難 '+esV.hard):''))
     +row('閱讀／整理頁',rDone,rPages,'頁','讀完一輪＝捲到該頁最底')
     +row('模擬卷',mDone,mTot,'份','')
@@ -2273,6 +2302,42 @@ function bxEssayMeta(){var M=null;try{M=JSON.parse(localStorage.getItem('bx-essa
   }
   paint();paintEssay();
   window.addEventListener('focus',function(){paint();paintEssay();});document.addEventListener('visibilitychange',function(){if(!document.hidden){paint();paintEssay();}});
+})();
+</script>
+<script id="sprint-sync">
+/* 5 分鐘練習紀錄（bxv-es-sprint；推理版 f:'r'）＋範文頁輪數／自評（bxv-es-log）顯示在申論分頁「各題紀錄」；回到此頁時重讀 */
+(function(){
+var SU='%E4%BC%B0%E5%83%B9_%E7%94%B3%E8%AB%965%E5%88%86%E9%90%98%E8%A1%9D%E5%88%BA.html';
+function ld(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v}catch(e){return d}}
+function meta(){var M=ld('bx-essay-meta',null);return (M&&M.ids)?M:(window.BXV_ESSAY_META||null)}
+function fmt(x){x=Math.round(x||0);return Math.floor(x/60)+':'+('0'+(x%60)).slice(-2)}
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+var VI={ok:'✅ 熟',mem:'📖 還沒背起來',hard:'😵 太難'};
+function paint(){
+  var M=meta(),S=ld('bxv-es-sprint',{})||{},L=ld('bxv-es-log',{})||{},RD=ld('bx-essay-read',[]);if(!Array.isArray(RD))RD=[];
+  var box=document.getElementById('spRows');if(!M||!box)return;
+  var ids=(M.order&&M.order.length?M.order:Object.keys(M.ids)).filter(function(k){return M.ids[k]}),p=0,a=0,h='';
+  ids.forEach(function(k){
+    var x=L[k]||{},sp=S[k]||[],ar=sp.filter(function(r){return r.f!=='r'}),rr=sp.filter(function(r){return r.f==='r'});
+    var pr=(x.n>0)||sp.length>0;if(pr)p++;if(pr||RD.indexOf(k)>=0)a++;
+    var lg=(ar.length?'<span>⏱ 衝刺 <b>'+ar.length+'</b> 次・最近 '+ar[0].sc+'／'+ar[0].mx+'</span>':'')
+      +(rr.length?'<span>🧩 推理 <b>'+rr.length+'</b> 次・最近 '+rr[0].sc+'／'+rr[0].mx+'</span>':'')
+      +(x.n?'<span>讀過 <b>'+x.n+'</b> 輪・累計 '+fmt(x.tot)+'</span>':'')+(x.v&&VI[x.v]?'<span>'+VI[x.v]+'</span>':'');
+    var m=M.ids[k]||[];
+    h+='<div class="sp-r'+(lg?'':' none')+'" data-id="'+esc(k)+'"><span class="t">'+esc(m[3]||k)+'</span><a href="'+SU+'#q='+encodeURIComponent(k)+'">練這題 ▸</a><span class="l">'+lg+'</span></div>';
+  });
+  box.innerHTML=h;
+  var n=document.getElementById('spLogN');if(n)n.textContent='（練過 '+p+'／'+ids.length+'）';
+  var el=document.getElementById('esAny');if(el)el.innerHTML='看過一輪或做過 5 分鐘練習 <b>'+p+'</b>／'+ids.length+'｜「進度落後在哪」的已讀（勾已讀、看過一輪、5 分鐘練習任一）<b>'+a+'</b>／'+ids.length;
+}
+function all(){paint();if(typeof lagBuild==='function')lagBuild()}
+var d=document.getElementById('spLog');
+if(d){try{if(localStorage.getItem('bxv-sp-log-open')==='1')d.open=true}catch(e){}d.addEventListener('toggle',function(){try{localStorage.setItem('bxv-sp-log-open',d.open?'1':'0')}catch(e){}})}
+paint();
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')paint()});
+addEventListener('focus',paint);
+addEventListener('storage',function(e){if(e.key==='bxv-es-sprint'||e.key==='bxv-es-log'||e.key==='bx-essay-read'||e.key==='bx-essay-meta')all()});
+addEventListener('pageshow',function(e){if(e.persisted)all();else paint()});
 })();
 </script>
 </body>

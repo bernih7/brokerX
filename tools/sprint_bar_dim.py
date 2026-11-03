@@ -15,7 +15,7 @@ JS = r'''<script id="sprint-bardim">
  setInterval(function(){if(!reading()&&a.classList.contains('dim'))a.classList.remove('dim')},500);
 })();
 </script>'''
-for sub in ('essay_jj', 'essay_civ'):
+for sub in ('essay_jj', 'essay_civ', 'essay_val'):
     for fn in ('tpl.html', 'tpl_reason.html'):
         p = os.path.join(R, 'tools', sub, 'sprint', fn); s = open(p, encoding='utf-8').read()
         s = re.sub(r'<style id="sprint-bardim-css">.*?</style>', '', s, flags=re.S)

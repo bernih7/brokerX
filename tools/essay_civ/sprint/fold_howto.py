@@ -12,7 +12,7 @@ JS = ('<script id="howto-js">(function(){var d=document.getElementById("howto");
       'try{if(localStorage.getItem("bx-sprint-howto")==="1")d.open=true}catch(e){}'
       'd.addEventListener("toggle",function(){try{localStorage.setItem("bx-sprint-howto",d.open?"1":"0")}catch(e){}})})();</script>')
 SUM = '<details class="howto" id="howto"><summary>流程、時間怎麼分、兩種模式說明</summary><div class="hb">%s</div></details>\n    '
-for sub in ('essay_civ', 'essay_jj'):
+for sub in ('essay_civ', 'essay_jj', 'essay_val'):
     for t in ('tpl.html', 'tpl_reason.html'):
         p = os.path.join(R, 'tools', sub, 'sprint', t); s = open(p, encoding='utf-8').read()
         if 'id="howto"' not in s:

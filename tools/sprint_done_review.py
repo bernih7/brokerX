@@ -42,7 +42,7 @@ REASON_REV = r'''function reasonPages(){
   return P;
 }
 '''
-for sub, card in (('essay_jj', '經紀法規_申論卡.html'), ('essay_civ', '民法_申論卡.html')):
+for sub, card in (('essay_jj', '經紀法規_申論卡.html'), ('essay_civ', '民法_申論卡.html'), ('essay_val', '估價_申論卡.html')):
     for fn in ('tpl.html', 'tpl_reason.html'):
         p = os.path.join(R, 'tools', sub, 'sprint', fn); s = open(p, encoding='utf-8').read()
         if 'function doneExtra(' in s: print('skip', p); continue

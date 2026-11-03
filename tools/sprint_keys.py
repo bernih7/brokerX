@@ -24,7 +24,7 @@ document.addEventListener('keydown',function(e){
  hit(nb);
 });
 </script>'''
-for sub in ('essay_jj', 'essay_civ'):
+for sub in ('essay_jj', 'essay_civ', 'essay_val'):
     for fn in ('tpl.html', 'tpl_reason.html'):
         p = os.path.join(R, 'tools', sub, 'sprint', fn)
         if not os.path.exists(p): continue
