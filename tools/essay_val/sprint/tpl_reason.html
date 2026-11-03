@@ -3,7 +3,7 @@
 <head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>經紀法規｜申論 5 分鐘・推理版</title>
+<title>估價｜申論 5 分鐘・推理版</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -65,6 +65,7 @@ button{font:inherit;cursor:pointer}
 .ttl{font-weight:700;font-size:1.05rem;line-height:1.5;margin:4px 0 8px;text-wrap:balance}
 .qbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}
 .qbox.clamp .qt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qbox .qt{white-space:pre-line}
 .qbox .qx{display:none;margin-left:8px;font-size:.8rem;color:var(--pri);background:none;border:0;padding:0;font-weight:700}
 .qbox.clamp .qx,.qbox.open .qx{display:inline}
 .nq{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:0 10px}
@@ -100,6 +101,8 @@ button{font:inherit;cursor:pointer}
 .blk.b1{--c:var(--b1);--cs:var(--b1s)}.blk.b2{--c:var(--b2);--cs:var(--b2s)}.blk.b3{--c:var(--b3);--cs:var(--b3s)}.blk.b4{--c:var(--b4);--cs:var(--b4s)}
 .blk-l{display:inline-block;font-size:.74rem;font-weight:700;color:var(--c);letter-spacing:.06em}
 .blk p{margin:2px 0 0;line-height:1.8}
+.blk code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:color-mix(in srgb,var(--ink) 7%,transparent);border-radius:6px;padding:1px 6px;overflow-wrap:anywhere}
+.lose mark,.blk mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;font-weight:700}
 .blk mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;font-weight:700}
 .evli{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}
 .kou{background:var(--hl);border-radius:10px;padding:9px 14px;margin-top:8px;font-size:.94rem}
@@ -142,7 +145,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="__ROOT__經紀法規_備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a id="swTop" href="__ROOT__經紀法規_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
+  <div class="top"><a href="__ROOT__估價備考指揮中心.html">← 指揮中心</a><span style="color:var(--sub)"><span id="sum"></span>　<button type="button" id="thBtn" class="thb" aria-label="切換深淺色"></button>　<a id="swTop" href="__ROOT__估價_申論5分鐘衝刺.html">切到考場版 ▸</a></span></div>
   <section id="home">
     <h1>申論 5 分鐘・推理版</h1>
     <p class="lead">不是讀整篇答案，而是跟著「推理鏈」一步一步自問自答：先想、再翻開核對，最後用速寫骨架和失分點收尾。</p>
@@ -151,7 +154,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
     <div class="plan">
       <div><b>依題</b><span>① 讀題<small>看清楚問幾問，下方列出各問</small></span></div>
       <div><b>依題</b><span>② 推理鏈自問自答<small>每一步先想（核對內容讀完所需以外的時間都給「先想」）→ 翻開：關鍵一句、條文、套事實、小結；每一問最後一步附「這一問這樣答」</small></span></div>
-      <div><b>依題</b><span>③ 考場速寫骨架<small>定義・法條・涵攝・結論 四行＋口訣，就是考場要寫的樣子</small></span></div>
+      <div><b>依題</b><span>③ 考場速寫骨架<small>範文頁「考場速寫」的定義・公式・代入幾塊＋口訣，就是考場來不及時的最小得分版</small></span></div>
       <div><b>依題</b><span>④ 常見失分點<small>逐條看「別這樣寫」</small></span></div>
       <div><b>依題</b><span>⑤ 得分關鍵詞檢核<small>答案蓋住，點出你記得的關鍵詞，記分數</small></span></div>
     </div></div></details>
@@ -186,20 +189,21 @@ function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function rt(s){var h=esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');var c=[],d=0,re=/<\/?b>|[\u2460-\u2473]/g,m;while((m=re.exec(h))){if(m[0]==='<b>')d++;else if(m[0]==='</b>')d--;else if(!d&&(m.index===0||'　 ，；：、。（→'.indexOf(h[m.index-1])>=0))c.push(m.index)}if(c.length<2)return h;var o=h.slice(0,c[0]);for(var i=0;i<c.length;i++)o+='<span class="li">'+h.slice(c[i],c[i+1]||h.length)+'</span>';return o}
 function mmss(s){var a=Math.abs(s);return (s<0?'+':'')+Math.floor(a/60)+':'+('0'+(a%60)).slice(-2)}
-var mode='h';try{mode=localStorage.getItem('bxj-sprint-mode')||'h'}catch(e){}
+var mode='h';try{mode=localStorage.getItem('bxv-sprint-mode')||'h'}catch(e){}
 function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}
-[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxj-sprint-mode',mode)}catch(e){}pm()}});pm();
+[].forEach.call(document.querySelectorAll('.mode'),function(b){b.onclick=function(){mode=b.getAttribute('data-m');try{localStorage.setItem('bxv-sprint-mode',mode)}catch(e){}pm()}});pm();
 if(DEMO)$('demoNote').hidden=false;
 
-/* ---- 紀錄與排序（與考場版衝刺、指揮中心共用 bxj-es-log／bxj-es-sprint）：沒做過的優先，再來不熟的 ---- */
-var LOG='bxj-es-log', SP='bxj-es-sprint', RL={1:'✅ 熟',2:'📖 還沒背起來',3:'😵 太難'};
+/* ---- 紀錄與排序（與考場版衝刺、範文頁、指揮中心共用 bxv-es-log／bxv-es-sprint）：沒做過的優先，再來不熟的 ---- */
+var LOG='bxv-es-log', SP='bxv-es-sprint', RL={1:'✅ 熟',2:'📖 還沒背起來',3:'😵 太難'}, VN={ok:1,mem:2,hard:3};
+function rdList(){try{var a=JSON.parse(localStorage.getItem('bx-essay-read')||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
 function ld(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return{}}}
 function sv(k,o){if(DEMO)return;try{localStorage.setItem(k,JSON.stringify(o))}catch(e){}}
-function stat(id){var L=ld(LOG)[id]||{},S=ld(SP)[id]||[],R=ld('bxj-es-read')[id],rs=S.filter(function(x){return x.f==='r'}),last=rs[0]||null;
-  return {n:L.n||0,sp:S.length,rn:rs.length,v:L.v||0,last:last,read:!!R,t:Math.max(L.t||0,S[0]?S[0].t:0)}}
+function stat(id){var L=ld(LOG)[id]||{},S=ld(SP)[id]||[],R=rdList().indexOf(id)>=0,rs=S.filter(function(x){return x.f==='r'}),last=rs[0]||null;
+  return {n:L.n||0,sp:S.length,rn:rs.length,v:VN[L.v]||0,last:last,read:!!R,t:Math.max(L.t||0,S[0]?S[0].t:0)}}
 function order(){
   var arr=CARDS.map(function(c,i){return {c:c,s:stat(c.id),i:i}});
-  function kr(c){return c.k==='off'?0:(c.k==='pred'?1:2)}
+  function kr(c){var r=({off:0,pred:1,mkc:2,mkls:3})[c.k];return r!=null?r:4}
   var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}),seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
   fresh.sort(function(a,b){return kr(a.c)-kr(b.c)||a.c.tier-b.c.tier||a.i-b.i});
   function vr(v){return v===3?0:(v===2?1:(v===0?2:3))}
@@ -254,9 +258,9 @@ function plan(c){
   $('segs').style.gridTemplateColumns=r.map(function(x){return x+'fr'}).join(' ');
 }
 function planTxt(){return STG.map(function(g){return g.n.slice(2)+' '+mmss(g.s)}).join('・')}
-var SWU='__ROOT__經紀法規_申論5分鐘衝刺.html';
+var SWU='__ROOT__估價_申論5分鐘衝刺.html';
 function swGo(id){var u=SWU+(id?'#q='+encodeURIComponent(id):'');$('swTop').href=u;var w=$('swq');if(w)w.innerHTML=id?'<span>同一題換個練法</span><a href="'+u+'">這題改用考場版 ▸</a>':''}
-var CARDU='__ROOT__經紀法規_申論卡.html';
+var CARDU='__ROOT__估價_申論卡.html';
 
 /* ---- 存檔後：再練一次／看完整解說／回看本題（11-03） ---- */
 function doneExtra(revPages){
@@ -276,7 +280,7 @@ function reasonPages(){
   steps.forEach(function(p,k){si=k;shown=true;var a=p.x.ask||'';P.push([STG[1].n+' '+(k+1)+'／'+steps.length+'：'+(a.length>16?a.slice(0,16)+'…':a),stepHTML()])});
   si=si0;shown=sh0;
   P.push([STG[2].n,cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'')]);
-  P.push([STG[3].n,'<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>']);
+  P.push([STG[3].n,'<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+t+'</span></div>'}).join('')+'</div>']);
   P.push([STG[4].n+'（綠＝有點到）','<div class="kws">'+cur.kws.map(function(k,i){return '<span class="kw'+(got[i]?' on':' miss')+'">'+(got[i]?'✓ ':'')+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</span>'}).join('')+'</div>']);
   return P;
 }
@@ -306,9 +310,9 @@ function stepHTML(){
    +'<div class="ask"><div class="l">先想 ❓</div><div class="x">'+esc(x.ask)+'</div></div>';
   if(!shown){h+='<button type="button" class="flip" id="flip">想好了，翻開 ▾</button><div class="think" id="thk"></div>';return h}
   h+='<div class="ans"><div class="key"><small>關鍵一句</small>'+rt(x.key)+'</div>'
-   +'<div class="row2"><span class="tag law">條文</span><div><b>'+rt(x.lawh)+'</b><details class="lawx"><summary>看條文原文 ▸</summary>'+rt(x.law)+'</details></div></div>'
-   +(x.fact?'<div class="row2"><span class="tag fact">'+esc(x.facth||'套事實')+'</span><div>'+rt(x.fact)+'</div></div>':'')
-   +'<div class="row2"><span class="tag res">小結</span><div>'+rt(x.res)+'</div></div>'
+   +(x.lawh?'<div class="row2"><span class="tag law">'+esc(x.lt||'條文')+'</span><div><b>'+rt(x.lawh)+'</b>'+(x.law?'<details class="lawx"><summary>'+(x.lt==='公式'?'看公式內容 ▸':(x.lt==='條文'?'看條文原文 ▸':'看內容 ▸'))+'</summary>'+rt(x.law)+'</details>':'')+'</div></div>':'')
+   +(x.fact?'<div class="row2"><span class="tag fact">'+esc(x.ft||x.facth||'套事實')+'</span><div>'+rt(x.fact)+'</div></div>':'')
+   +(x.res?'<div class="row2"><span class="tag res">小結</span><div>'+rt(x.res)+'</div></div>':'')
    +(p.last?'<div class="subans"><small>問題'+CN[p.s]+' 這樣答</small>'+s.ans+'</div>':(x.link?'<div class="next">下一步要問 → <b>'+esc(x.link)+'</b></div>':''))
    +'</div>';
   return h;
@@ -320,7 +324,7 @@ function render(){
   if(st===0)h='<div class="cover">先讀題，看下面列的幾問。<br>推理鏈會一問一問帶你想。</div>';
   else if(st===1)h=stepHTML();
   else if(st===2)h=cur.sx.map(function(x){return '<div class="blk '+x[0]+'"><span class="blk-l">'+esc(x[1])+'</span>'+x[2]+'</div>'}).join('')+(cur.kou?'<div class="kou"><b>口訣</b>'+esc(cur.kou)+'</div>':'');
-  else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+esc(t)+'</span></div>'}).join('')+'</div>';
+  else if(st===3)h='<div class="lose">'+cur.lose.map(function(t){return '<div><b>⚠</b><span>'+t+'</span></div>'}).join('')+'</div>';
   else if(st===4){
     h='<div class="cover">答案已蓋住。點出你記得、考場會寫出來的關鍵詞。</div><div class="kws">'+cur.kws.map(function(k,i){return '<button type="button" class="kw'+(got[i]?' on':'')+'" data-i="'+i+'">'+esc(k.c)+(k.a?'<small class="ka">'+esc(k.a)+'</small>':'')+'</button>'}).join('')+'</div>'
      +'<div class="score"><span class="big" id="sc"></span><small>得分關鍵詞</small></div>'
@@ -374,10 +378,10 @@ function done(){
   var n=0;cur.kws.forEach(function(k,i){if(got[i])n++});
   var now=Math.floor(Date.now()/1000);
   var S=ld(SP);S[cur.id]=[{t:now,sc:n,mx:cur.kws.length,m:mode,sec:el,v:rate,f:'r'}].concat(S[cur.id]||[]).slice(0,30);sv(SP,S);
-  var Lg=ld(LOG),r=Lg[cur.id]=Lg[cur.id]||{n:0,s:[],tot:0};r.n=(r.n||0)+1;r.tot=(r.tot||0)+el;r.s=[el].concat(r.s||[]).slice(0,5);r.v=rate;r.t=now;sv(LOG,Lg);
+  var Lg=ld(LOG),r=Lg[cur.id]=Lg[cur.id]||{n:0,s:[],tot:0};r.n=(r.n||0)+1;r.tot=(r.tot||0)+el;r.s=[el].concat(r.s||[]).slice(0,5);r.v=['','ok','mem','hard'][rate];r.t=now;sv(LOG,Lg);
   var nx=pick==='rand'?{c:randPick(cur.id)}:order().filter(function(x){return x.c.id!==cur.id})[0];
   $('body').innerHTML='<div class="done-box"><b>'+(DEMO?'完成':'已存檔')+'</b>：關鍵詞 '+n+'／'+cur.kws.length+'・'+RL[rate]+'・用時 '+mmss(el).replace('+','')
-    +'<br><span style="color:var(--sub);font-size:.88rem">'+(DEMO?'樣板不存紀錄。':'指揮中心這張申論卡的輪數、自評會一起更新。')+'</span>'
+    +'<br><span style="color:var(--sub);font-size:.88rem">'+(DEMO?'樣板不存紀錄。':'範文頁這張卡的輪數、自評與指揮中心紀錄會一起更新。')+'</span>'
     +(nx?'<div style="margin-top:10px;font-size:.9rem">'+(pick==='rand'?'🎲 隨機':'')+'下一題：'+esc(nx.c.no)+'｜'+esc(nx.c.t)+'</div>':'')+'</div>';
   if(!DEMO)doneExtra(reasonPages);
   st=5;$('stg').innerHTML='完成<small>紀錄已同步</small>';[].forEach.call($('segs').children,function(g){g.classList.add('done')});
