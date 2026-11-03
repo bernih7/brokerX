@@ -126,7 +126,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 .swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
 .dnb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dnb .btn{text-decoration:none;display:inline-flex;align-items:center}.rv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.rvh{font-weight:700;margin-bottom:8px}.rvnav{display:flex;gap:8px;align-items:center}.rvnav select{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:.88rem}.rvnav .btn{white-space:nowrap;padding:7px 12px}.rvnav .btn:disabled{opacity:.4}#rvB{margin-top:12px}.rvq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}.ck label.miss{opacity:.75}.ck label .mk{font-weight:700;min-width:1.2em}.ck label.on .mk{color:var(--ok)}.kw.miss{opacity:.6}@media(max-width:480px){.rvnav .btn{padding:7px 10px}}
-</style>
+</style><style id="sprint-bardim-css">.act{transition:opacity .8s}.act.dim{opacity:.22}.act.dim:hover,.act.dim:focus-within{opacity:1}.act .hint{font-size:.78rem;color:var(--sub);flex:1;min-width:0}</style>
 </head>
 <body>
 <div class="wrap">
@@ -322,6 +322,8 @@ function paintAct(){
   if(st<4){nb.textContent=st===3?'去檢核 →':'下一段 →';nb.disabled=false;
     $('hint').textContent=mode==='h'?'時間到會自動往下；讀過的段落會蓋住。':'時間到只會變紅，看完再按下一段。'}
   else{nb.textContent='存檔';nb.disabled=!cur.rate;$('hint').textContent=cur.rate?'':'勾完關鍵後，選一個自評才能存檔。'}
+
+  if(window.barWake)barWake();
 }
 function tick(first){
   if(!first){ if(paused||document.visibilityState!=='visible')return; elapsed++; stLeft--; }
@@ -392,6 +394,15 @@ document.addEventListener('keydown',function(e){
  if(hit(document.getElementById('flip')))return;
  hit(nb);
 });
+</script>
+<script id="sprint-bardim">
+/* 底部操作列整列淡出：閱讀階段每段 4 秒後變淡；碰到就恢復 */
+(function(){var a=document.getElementById('act'),t=null;if(!a)return;
+ function reading(){return typeof st==='number'&&st<4}
+ window.barWake=function(){a.classList.remove('dim');clearTimeout(t);if(reading())t=setTimeout(function(){if(reading())a.classList.add('dim')},4000)};
+ a.addEventListener('pointerdown',function(){if(a.classList.contains('dim'))barWake()},true);
+ setInterval(function(){if(!reading()&&a.classList.contains('dim'))a.classList.remove('dim')},500);
+})();
 </script>
 </body>
 </html>
