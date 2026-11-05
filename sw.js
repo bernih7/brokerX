@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v732';
+const CACHE = 'brokerx-v733';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',

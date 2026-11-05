@@ -58,6 +58,9 @@ RULES = [
  ('物權', 'ch', '', '物權變動與登記'),
  ('所有權', 'D', 'sec-d1', 'D 速記・物權通則與所有權'),
 ]
+# 共有題依子題指到更具體的節（使用者 11-05：分割判斷圖、租金）
+CO_ANCHOR = {'110-一': ('s5', '共有專區 ⑤ 分割判斷圖'), '103-二': ('s5', '共有專區 ⑤ 分割判斷圖'), '預02': ('s5', '共有專區 ⑤ 分割判斷圖'),
+             '106-一': ('s2', '共有專區 ② 管理與租金'), '102-一': ('s2', '共有專區 ② 管理與租金')}
 MANUAL = {'101-一': [('inh', 's4', '繼承專區 ④ 拋棄繼承'), ('mg', 's9', '抵押權總整理 ⑨ 消滅（拋棄）')]}
 
 s = io.open(HUB, encoding='utf-8').read()
@@ -72,6 +75,8 @@ for k, ec in E:
             if kw in ec and pg not in pages:
                 hit.append((pg, an, nm)); pages.add(pg)
         hit = hit[:3]
+        if k in CO_ANCHOR:
+            hit = [(pg, CO_ANCHOR[k][0], CO_ANCHOR[k][1]) if pg == 'co' else (pg, an, nm) for pg, an, nm in hit]
     assert hit, (k, ec)
     MAP[k] = [[urllib.parse.quote(P[pg] + '.html') + ('#' + an if an else ''), nm] for pg, an, nm in hit]
 # 檢查連結
