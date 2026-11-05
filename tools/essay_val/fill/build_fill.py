@@ -109,8 +109,8 @@ const LAWPC={'技術規則':'D0060077','地價調查估計規則':'D0060005','�
 const LAWKEYS=Object.keys(LAWPC).sort(function(a,b){return b.length-a.length});
 // 出處條號連全國法規資料庫：本頁條號除另寫法名者外都是不動產估價技術規則（只處理 HTML 標籤以外的文字）
 function srcHtml(t){var cur='D0060077',inA=false;return String(t).split(/(<[^>]+>)/).map(function(seg){if(seg.charAt(0)==='<'){if(/^<a\b/i.test(seg))inA=true;else if(/^<\/a>/i.test(seg))inA=false;return seg;}if(inA)return seg;
- return seg.replace(/([一-龥]*)§(\d+)(?:-(\d+))?/g,function(m,nm,no,sub){if(nm){for(var i=0;i<LAWKEYS.length;i++){if(nm.slice(-LAWKEYS[i].length)===LAWKEYS[i]){cur=LAWPC[LAWKEYS[i]];break}}}
- var rg=sub&&(+sub>+no);if(rg){var z=sub;sub=null}return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+(sub?'-'+sub:'')+'">§'+no+(sub?'-'+sub:'')+'</a>'+(rg?'-'+z:'')})}).join('')}
+ return seg.replace(/([一-龥]*)§(\d+)(?:-(\d+))?/g,function(m,nm,no,sub){if(nm){var hit=null;for(var i=0;i<LAWKEYS.length;i++){if(nm.slice(-LAWKEYS[i].length)===LAWKEYS[i]){hit=LAWPC[LAWKEYS[i]];break}}if(hit)cur=hit;else if(/辦法|條例|土地法|細則/.test(nm))cur=null;}
+ if(!cur)return m;var rg=sub&&(+sub>+no);if(rg){var z=sub;sub=null}return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+(sub?'-'+sub:'')+'">§'+no+(sub?'-'+sub:'')+'</a>'+(rg?'-'+z:'')})}).join('')}
 function isEs(c){return String(c.answer).indexOf('class="esb')>=0}
 function es5Html(c){if(!c.es5||!c.es5.length)return'';return'<div class="es5"><b>⏱ 同型題・申論五分鐘練習</b>'+c.es5.map(function(e){var r=e[1]?'<a class="r" target="_blank" rel="noopener" href="估價_申論5分鐘_推理版.html#q='+encodeURIComponent(e[1])+'">'+e[0]+' 推理 ▸</a>':'<span>'+e[0]+'</span>';var s=e[2]?'<a class="s" target="_blank" rel="noopener" href="估價_申論5分鐘衝刺.html#q='+encodeURIComponent(e[2])+'">衝刺</a>':'';return'<span class="ch5">'+r+s+'</span>'}).join('')+'</div>'}
 function esStat(c){var EP='不動產估價概要_申論題實戰範文.html#',r=[];

@@ -33,6 +33,9 @@ rep('G.push({g:"申論",rows:[row("不動產估價概要_申論題實戰範文",
 # 申論「已讀」原本只認 e／pred 卡號，漏算本站模擬卷與補習班卷（mk-）
 rep('if(/^(e\\d+-[12]|pred-\\d+)$/.test(id))en++', 'if(/^(e\\d+-[12]|pred-\\d+|mk-[a-z0-9-]+)$/.test(id))en++')
 rep('fillDone:fillDone,countQ', 'fillDone:fillDone,fillEsDone:fillEsDone,countQ')
+# FILL_RE 依頁面定義章代碼重寫（新增章節時自動涵蓋）
+chs = re.findall(r"id:'([A-Z][A-Z0-9]*)', label:", s[i:j])
+u = re.sub(r'var FILL_RE=/\^\([^)]*\)-\\d\{2\}\$/;', lambda m: 'var FILL_RE=/^(%s)-\\d{2}$/;' % '|'.join(chs), u, count=1)
 open(U, 'w', encoding='utf-8').write(u)
 
 h = open(HUB, encoding='utf-8').read()

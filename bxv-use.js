@@ -186,7 +186,7 @@ function sync(ch,QS,S,gk){
 function fillMark(key){var f=ld("bxv-fill",{});if(!f[key]){f[key]=1;sv("bxv-fill",f);day("c",1)}}
 function fillUnmark(keys){var f=ld("bxv-fill",{});(keys||[]).forEach(function(k){delete f[k]});sv("bxv-fill",f)}
 /* 定義填空每張卡 id＝章節代碼-兩位序號（例 A1-01）；"fill" 是舊版「跑完一輪」標記，不算張數 */
-var FILL_RE=/^(A1|A2|A3|A4|B|C|D|E|G|H|I2|J|K|I)-\d{2}$/;
+var FILL_RE=/^(A1|A2|A3|A4|B|C|D|E|G|H|I2|J|K|I|L)-\d{2}$/;
 function fillDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&FILL_RE.test(k))n++});return n}
 /* 申論四段填空（S1～Sn 章，卡號 S章-兩位序號）另計，不算進定義填空 */
 function fillEsDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&/^S\d+-\d{2}$/.test(k))n++});return n}
@@ -296,7 +296,7 @@ var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_�
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
 var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1"};
-var TOT={fill:116,fillEs:35,card:95,kcard:533,essay:63,v_hs1:25,e1dev:8,dcf:8,split:6};
+var TOT={fill:140,fillEs:35,card:95,kcard:533,essay:63,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
  var UU=ld("bxv-use",{}),G=[];
