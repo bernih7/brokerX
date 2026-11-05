@@ -3,7 +3,7 @@
 var SUBJ="民法";
 var CH={"A":["A","A 民法總則",107],"B":["B","B 債編總論",85],"C":["C","C 債編分則",77],"D":["D","D 物權",134],"E":["E","E 親屬與繼承",117]};
 var PAGES=[["民法_數字期間速查","數字期間速查"],["民法_用詞分類與申論必背","用詞分類・申論必背"],["民法刷題練習_A篇","刷題 A 篇"],["民法刷題練習_B篇","刷題 B 篇"],["民法刷題練習_C篇","刷題 C 篇"],["民法刷題練習_D篇","刷題 D 篇"],["民法刷題練習_E篇","刷題 E 篇"],["民法概要_25題模擬測驗","25題模擬測驗"],["民法A_考題小卡","A 精選小卡"],["民法BC_考題小卡","BC 精選小卡"],["民法D_考題小卡","D 精選小卡"],["民法E_考題小卡","E 精選小卡"],["民法A_完整考題小卡","A 完整小卡"],["民法BC_完整考題小卡","BC 完整小卡"],["民法D_完整考題小卡","D 完整小卡"],["民法E_完整考題小卡","E 完整小卡"],["民法A_互動單字卡","A 單字卡"],["民法BC_互動單字卡","BC 單字卡"],["民法D_互動單字卡","D 單字卡"],["民法E_互動單字卡","E 單字卡"],["民法A_彩色重點速記","A 彩色速記"],["民法BC_彩色重點速記","BC 彩色速記"],["民法D_彩色重點速記","D 彩色速記"],["民法E_彩色重點速記","E 彩色速記"],["民法_定義填空練習","定義填空練習"],["民法_模擬試題一","自擬模擬卷①"],["民法_模擬試題二","自擬模擬卷②"],["民法_申論115出題預測","申論115預測"],["民法_申論專練卷","申論專練卷①"],["民法_來勝模擬試題一","來勝模擬(一)"],["民法_法律效果總整理","法律效果總整理"],["民法申論題_五型答題模板","申論五型模板"],["民法_法條解析練習","法條解析練習"],["民法_繼承專區","繼承專區"],["民法_共有專區","共有專區"],["民法_物權變動與登記","物權變動與登記"],["民法_抵押權總整理","抵押權總整理"],["民法_債之發生與移轉","債之發生與移轉"],["民法_備考指揮中心","備考指揮中心"]];
-var TOT={fill:147,sel:74,full:520,word:172};
+var TOT={fill:155,fillEs:41,sel:74,full:520,word:172};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function pad(n){return n<10?"0"+n:""+n}
@@ -70,7 +70,9 @@ function build(){
  L.push("完整考題小卡（520 張，與題庫同題）："+cnt(["exam_mastery_a_full_v1","exam_mastery_bc_full_v1","exam_mastery_d_full_v1","exam_mastery_e_full_v1"],TOT.full));
  L.push("互動單字卡："+cnt(["mastery_data","mastery_data_a","mastery_data_d","mastery_data_e"],TOT.word));
  var ff=ld("bxm-fill",{}),fc={},fk=Object.keys(ff).length;Object.keys(ff).forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
- L.push("定義填空練習：已確認 "+fk+"／"+TOT.fill+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
+ var fe0=Object.keys(ff).filter(function(k){return k.charAt(0)==="S"}).length;fk-=fe0;Object.keys(fc).forEach(function(c2){if(c2.charAt(0)==="S")delete fc[c2]});
+ L.push("申論四段填空（申論題攻略）：已確認 "+fe0+"／"+TOT.fillEs+" 張");
+ L.push("定義填空（選擇題攻略）：已確認 "+fk+"／"+TOT.fill+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
  var es=ld("civlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});L.push("申論五型模板：已讀 "+er+"｜已熟 "+em);
  var U=ld("bxm-use",{}),hr=[],nv=[];
  PAGES.forEach(function(p){var x=U[p[0]];if(!x||!x.n){nv.push(p[1]);return}hr.push(p[1]+"｜開 "+x.n+" 次｜約 "+Math.round((x.s||0)/60)+" 分｜最近 "+new Date(x.t*1000).toLocaleDateString("zh-TW"))});
@@ -140,12 +142,13 @@ function status(){
  var WORD={A:["mastery_data_a",42],BC:["mastery_data",38],D:["mastery_data_d",50],E:["mastery_data_e",42]};
  function deck(set,suffix,label){DK.forEach(function(d){var k=set[d[0]],x=mcount(k[0],k[1]);R3.push(row("民法"+d[0]+suffix,label+" "+d[1],x.m,x.t,"已掌握 "+x.m+"／"+x.t+(x.r?"・待複習 "+x.r:"")))})}
  deck(SEL,"_考題小卡","精選小卡");deck(FULL,"_完整考題小卡","完整小卡");deck(WORD,"_互動單字卡","單字卡");
- var fk=Object.keys(ld("bxm-fill",{})).length;R3.push(row("民法_定義填空練習","定義填空練習",fk,TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
+ var fkk=Object.keys(ld("bxm-fill",{})),fk=fkk.filter(function(k){return k.charAt(0)!=="S"}).length,fe=fkk.length-fk;R3.push(row("民法_定義填空練習","定義填空（選擇題攻略）",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],rs=ld("minfa_read",{}),lg4=ld("bxm-es-log",{}),sp4=ld("bxm-es-sprint",{}),u4={};Object.keys(rs).forEach(function(k){if(rs[k])u4[k]=1});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)u4[k]=1});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)u4[k]=1});var rn=Object.keys(u4).length;
  R4.push({p:"",url:"#essay",name:"申論 86 題（官方32＋模擬卷5＋預測49）",done:rn,total:86,pct:Math.round(rn/86*100),txt:"已讀 "+rn+"／86",read:null,open:null,last:0});
  var es=ld("bxm-st:civlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
+ var rfe=row("民法_定義填空練習","申論四段填空（申論題攻略）",Math.min(fe,TOT.fillEs),TOT.fillEs,"已完成 "+fe+"／"+TOT.fillEs+" 張");rfe.url+="#essay";R4.push(rfe);
  R4.push(row("民法申論題_五型答題模板","申論五型答題模板",er+em,32,"已讀 "+(er+em)+"／32（已熟 "+em+"）"));
  R4.push(row("民法_申論115出題預測","申論 115 出題預測",0,0,""));
  G.push({g:"申論",rows:R4});

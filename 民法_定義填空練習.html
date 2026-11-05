@@ -233,6 +233,34 @@ details.chd[open]>summary::after{transform:rotate(90deg)}
  #main{max-width:1500px}
  .chb{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+/*civfill-v2*/
+/* 申論四段卡（配色同申論五分鐘推理版） */
+:root{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}}
+:root[data-theme="dark"]{--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}
+:root[data-theme="light"]{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+.esb{display:grid;gap:4px;margin-top:12px;text-align:left;line-height:1.85}
+.esb:first-child{margin-top:2px}
+.esl{justify-self:start;font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 10px;letter-spacing:.04em}
+.esb.e1 .esl{background:var(--b2s);color:var(--b2)}
+.esb.e2 .esl{background:var(--b1s);color:var(--b1)}
+.esb.e3{border:1.5px solid var(--b4);border-radius:14px;padding:10px 14px;background:var(--card)}
+.esb.e3 .esl{background:none;padding:0;color:var(--b4)}
+.esb.e4 .esl{background:var(--b3s);color:var(--b3)}
+.esb.e5{background:var(--hl);border-radius:12px;padding:10px 14px}
+.esb.e5 .esl{background:none;padding:0;color:var(--muted)}
+.esb.e5 .esc{font-weight:700}
+.es5{margin-top:10px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;font-size:13px;line-height:1.9}
+.es5 b{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+.es5 .ch5{display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;white-space:nowrap}
+.es5 a.r{font-weight:700;color:var(--red);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--card)}
+.es5 a.s{font-size:12px;color:var(--muted)}
+.cp-sep{flex-basis:100%;font-size:12px;font-weight:700;color:var(--b4);margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--line)}
+.qc-kb{font-size:12px;color:var(--muted);text-align:center;margin:6px 0}
+.qc-kb a{margin-left:6px;color:var(--muted)}
+a.lawlk{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
+.st-pred{color:var(--muted)}
+
 </style>
 <script src="bxm-use.js"></script>
 <style id="es-flash-css">details.es-row.es-flash .es-links a{animation:esf 1.8s ease}@keyframes esf{0%,60%{box-shadow:0 0 0 3px var(--gold,#C9A227);background:rgba(201,162,39,.18)}100%{box-shadow:none}}details.es-row.es-flash summary::after{content:"　↓ 點下面任一題開啟";color:var(--gold,#A0781E);font-weight:700}</style></head>
@@ -241,12 +269,13 @@ details.chd[open]>summary::after{transform:rotate(90deg)}
 <button id="theme-btn" onclick="toggleTheme()" title="切換深淺色">☀️</button>
 <header>
   <h1>民法概要｜定義填空練習</h1>
-  <div class="sub">章節練習 + 隨機測驗模式｜全科 147 題</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜定義 155 題＋申論四段 41 題（另一分類）</div>
 </header>
 
 <div class="mode-tabs">
   <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
-  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+  <button class="mode-tab" id="tab-quiz" onclick="goDefQuiz()">🎲 隨機測驗</button>
+  <button class="mode-tab" id="tab-essay" onclick="goEssay()">📝 申論隨機</button>
 </div>
 
 <nav id="nav"></nav>
@@ -448,6 +477,19 @@ const DATA = [
     "m": "內容無效，程序可撤（三月）",
     "t": "撤銷須先有「出席社員當場表示異議」（未當場異議者不得撤銷，§56Ⅰ但書）；期間是決議後三個月，不是一個月。",
     "es": []
+   },
+   {
+    "term": "時效中斷：請求、承認、起訴★陷阱",
+    "blank": "消滅時效因___、___、___而中斷（§129Ⅰ）。<br>時效因請求而中斷者，若於請求後___內不起訴，視為___（§130）。<br>時效中斷者，自中斷之事由終止時，___（§137Ⅰ）。",
+    "answer": "消滅時效因<span class=\"key\">請求</span>、<span class=\"key\">承認</span>、<span class=\"key\">起訴</span>而中斷（§129Ⅰ）。<br>時效因請求而中斷者，若於請求後<span class=\"key\">六個月</span>內不起訴，視為<span class=\"key\">不中斷</span>（§130）。<br>時效中斷者，自中斷之事由終止時，<span class=\"key\">重行起算</span>（§137Ⅰ）。",
+    "src": "民法§129、§130、§137",
+    "mc": 0,
+    "p": "催討（請求）只能暫時中斷，半年內一定要起訴；中斷後時效從頭算。",
+    "m": "請・認・訴；請求後半年要起訴〔自編〕",
+    "t": "起訴是「中斷」不是「不完成」；請求後六個月內不起訴是「視為不中斷」，不是「時效完成」。",
+    "es": [
+     "預09"
+    ]
    }
   ]
  },
@@ -660,6 +702,19 @@ const DATA = [
     "m": "知二年，行為十年",
     "t": "兩個期間「先到者先消滅」；但義務人因侵權受利益致被害人受損，時效完成後仍應依不當得利返還（§197Ⅱ）；與買賣瑕疵6個月／5年別混。",
     "es": []
+   },
+   {
+    "term": "無因管理（§172、§175、§176）",
+    "blank": "未受___，並無___，而為他人管理事務者，其管理應依本人明示或可得推知之意思，以有利於本人之方法為之（§172）。<br>適法管理：管理人為本人支出必要或有益之費用，得請求償還其費用及自___起之利息（§176Ⅰ）。<br>為免除本人之生命、身體或財產上之___而為管理者，除有惡意或___外，不負賠償之責（§175）。",
+    "answer": "未受<span class=\"key\">委任</span>，並無<span class=\"key\">義務</span>，而為他人管理事務者，其管理應依本人明示或可得推知之意思，以有利於本人之方法為之（§172）。<br>適法管理：管理人為本人支出必要或有益之費用，得請求償還其費用及自<span class=\"key\">支出時</span>起之利息（§176Ⅰ）。<br>為免除本人之生命、身體或財產上之<span class=\"key\">急迫危險</span>而為管理者，除有惡意或<span class=\"key\">重大過失</span>外，不負賠償之責（§175）。",
+    "src": "民法§172、§175、§176",
+    "mc": 0,
+    "p": "好心幫鄰居處理事情，合本人意思就能請求費用加利息；為了救急，只有惡意或重大過失才要賠。",
+    "m": "無委任、無義務；急迫只負重過失〔自編〕",
+    "t": "違反本人明示意思之管理，本人償還以「所得利益」為限（§177Ⅰ），不是全額費用。",
+    "es": [
+     "預46"
+    ]
    }
   ]
  },
@@ -1015,6 +1070,20 @@ const DATA = [
     "m": "先訴抗辯、清償承受",
     "t": "先訴抗辯要「強制執行而無效果」，不是起訴就夠；§746情形（拋棄、破產、財產不足）不得主張；承受債權「不得有害於債權人之利益」。",
     "es": []
+   },
+   {
+    "term": "一物二賣★陷阱（要旨）",
+    "blank": "出賣人就同一標的物先後與數人訂立買賣，各買賣契約___（債權行為）。<br>不動產由先完成___者取得所有權（§758Ⅰ）。<br>未取得者對出賣人依§226Ⅰ請求___或依§256解除；對取得者原則___，僅於故意以背於善良風俗之方法加損害時依§184Ⅰ後段請求。",
+    "answer": "出賣人就同一標的物先後與數人訂立買賣，各買賣契約<span class=\"key\">均有效</span>（債權行為）。<br>不動產由先完成<span class=\"key\">登記</span>者取得所有權（§758Ⅰ）。<br>未取得者對出賣人依§226Ⅰ請求<span class=\"key\">損害賠償</span>或依§256解除；對取得者原則<span class=\"key\">無請求權</span>，僅於故意以背於善良風俗之方法加損害時依§184Ⅰ後段請求。",
+    "src": "民法§758、§226、§256、§184（要旨，依申論預18、來勝-一）",
+    "mc": 0,
+    "p": "同一間房賣兩次，兩份契約都有效，誰先過戶誰拿到房子。",
+    "m": "契約都有效、登記定輸贏〔自編〕",
+    "t": "後買受人「明知」前買賣，不影響其取得所有權；也不能用撤銷權（特定物債權不得依§244撤銷）。",
+    "es": [
+     "預18",
+     "來勝-一"
+    ]
    }
   ]
  },
@@ -1265,6 +1334,33 @@ const DATA = [
     "t": "與分別共有對照：分別共有按應有部分、可自由處分、可隨時請求分割；公同共有處分、設定負擔須全體同意；100-二常考比較。",
     "es": [
      "100-二"
+    ]
+   },
+   {
+    "term": "區分所有：共有部分專用與不得分離（要旨）",
+    "blank": "區分所有建築物之共有部分，得經___之約定供特定所有人使用（§799Ⅲ）。<br>專有部分與其所屬之共有部分及其基地之權利，___而為移轉或設定負擔（§799Ⅴ）。<br>規約等約定對區分所有人之___有拘束力（§799-1Ⅳ）。",
+    "answer": "區分所有建築物之共有部分，得經<span class=\"key\">規約</span>之約定供特定所有人使用（§799Ⅲ）。<br>專有部分與其所屬之共有部分及其基地之權利，<span class=\"key\">不得分離</span>而為移轉或設定負擔（§799Ⅴ）。<br>規約等約定對區分所有人之<span class=\"key\">繼受人</span>有拘束力（§799-1Ⅳ）。",
+    "src": "民法§799、§799-1（要旨）",
+    "mc": 0,
+    "p": "頂樓平台要有規約才能給某戶專用；賣房時專有部分、公設、土地持分要一起賣。",
+    "m": "規約可專用；三者不分離〔自編〕",
+    "t": "長期不反對只是「單純沉默」，不等於默示分管；只賣專有部分的約定無效，移轉仍連同共有部分及基地應有部分。",
+    "es": [
+     "105-二",
+     "預12"
+    ]
+   },
+   {
+    "term": "遺失物拾得與動產附合",
+    "blank": "拾得人得請求報酬，但不得超過其物財產上價值___（§805Ⅱ）。<br>遺失物自通知或最後招領之日起逾___，未經有受領權之人認領者，由___取得其所有權（§807Ⅰ）。<br>動產附合，有可視為主物者，該___所有人取得合成物之所有權（§812Ⅱ）；喪失權利而受損害者得依不當得利請求___（§816）。",
+    "answer": "拾得人得請求報酬，但不得超過其物財產上價值<span class=\"key\">十分之一</span>（§805Ⅱ）。<br>遺失物自通知或最後招領之日起逾<span class=\"key\">六個月</span>，未經有受領權之人認領者，由<span class=\"key\">拾得人</span>取得其所有權（§807Ⅰ）。<br>動產附合，有可視為主物者，該<span class=\"key\">主物</span>所有人取得合成物之所有權（§812Ⅱ）；喪失權利而受損害者得依不當得利請求<span class=\"key\">償還價額</span>（§816）。",
+    "src": "民法§805、§807、§812、§816",
+    "mc": 0,
+    "p": "撿到東西最多拿一成報酬；半年沒人領就歸你。兩個動產黏在一起分不開，主物主人拿走全部、補錢給對方。",
+    "m": "一成報酬、六個月歸你〔自編〕",
+    "t": "執行職務的站務員等（§805-1）不得請求報酬；附合後無可視為主物者，各動產所有人按附合時之價值「共有」合成物（§812Ⅰ）；有可視為主物者，才由主物所有人單獨取得（§812Ⅱ）。",
+    "es": [
+     "預48"
     ]
    }
   ]
@@ -2180,6 +2276,1048 @@ const DATA = [
     ]
    }
   ]
+ },
+ {
+  "id": "S1",
+  "label": "S1 申論・共有・分管・區分所有",
+  "cards": [
+   {
+    "term": "共有物分割：抵押權移存與補償金抵押權",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">應有部分上之抵押權，原則___，按原應有部分轉載於分割後各部分；<br>例外___於抵押人分得之部分。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§824-1Ⅱ 本文不受影響、但書___移存（如權利人經告知訴訟而___）；<br>§824-1Ⅳ 受補償之共有人就補償金，對補償義務人分得之不動產有___；<br>§824-1Ⅴ 與分割登記___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">補償金抵押權次序：___於但書移存之抵押權；<br>與依本文轉載者依___（§865）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷有無但書情形 → 決定抵押權在哪一筆 → 再排補償金抵押權次序。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分割不讓擔保落空，也讓受補償人有___保障。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">應有部分上之抵押權，原則<span class=\"key\">不因分割而受影響</span>，按原應有部分轉載於分割後各部分；<br>例外<span class=\"key\">移存</span>於抵押人分得之部分。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§824-1Ⅱ 本文不受影響、但書<span class=\"key\">三款</span>移存（如權利人經告知訴訟而<span class=\"key\">未參加</span>）；<br>§824-1Ⅳ 受補償之共有人就補償金，對補償義務人分得之不動產有<span class=\"key\">法定抵押權</span>；<br>§824-1Ⅴ 與分割登記<span class=\"key\">一併登記</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">補償金抵押權次序：<span class=\"key\">優先</span>於但書移存之抵押權；<br>與依本文轉載者依<span class=\"key\">登記先後</span>（§865）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷有無但書情形 → 決定抵押權在哪一筆 → 再排補償金抵押權次序。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分割不讓擔保落空，也讓受補償人有<span class=\"key\">優先受償</span>保障。</div></div>",
+    "src": "民法§824、§824-1、§865",
+    "mc": 0,
+    "es": [
+     "110-一",
+     "103-二",
+     "來勝-二",
+     "預02"
+    ],
+    "es5": [
+     [
+      "110-一",
+      "110-一",
+      "110-一"
+     ],
+     [
+      "103-二",
+      "103-二",
+      "103-二"
+     ],
+     [
+      "來勝-二",
+      "來勝-二",
+      "來勝-二"
+     ],
+     [
+      "預02",
+      "預02",
+      "預02"
+     ]
+    ],
+    "m": "原則轉載、但書移存；補償金法定抵押〔自編〕"
+   },
+   {
+    "term": "分管契約：默示分管與對受讓人之效力",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">分管契約得以明示或___成立，性質僅具___，原則只拘束締約共有人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§826-1Ⅰ 不動產分管約定經___後，對應有部分之受讓人生效；<br>未登記者，釋字349 以受讓人___為拘束要件；<br>區分所有共有部分另依§799-1Ⅳ。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">分兩層：分管是否___（單純沉默難認默示）→ 是否___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不拘束受讓人時，受讓人得依§767Ⅰ及§821但書請求返還予___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分管要登記，受讓人才看得見，交易才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">分管契約得以明示或<span class=\"key\">默示</span>成立，性質僅具<span class=\"key\">債之效力</span>，原則只拘束締約共有人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§826-1Ⅰ 不動產分管約定經<span class=\"key\">登記</span>後，對應有部分之受讓人生效；<br>未登記者，釋字349 以受讓人<span class=\"key\">明知或可得而知</span>為拘束要件；<br>區分所有共有部分另依§799-1Ⅳ。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">分兩層：分管是否<span class=\"key\">成立</span>（單純沉默難認默示）→ 是否<span class=\"key\">拘束後手</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不拘束受讓人時，受讓人得依§767Ⅰ及§821但書請求返還予<span class=\"key\">全體共有人</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分管要登記，受讓人才看得見，交易才<span class=\"key\">安全</span>。</div></div>",
+    "src": "民法§820、§826-1、§799-1Ⅳ；釋字349",
+    "mc": 0,
+    "es": [
+     "114-一",
+     "預03",
+     "專練-一"
+    ],
+    "es5": [
+     [
+      "114-一",
+      "114-一",
+      "114-一"
+     ],
+     [
+      "預03",
+      "預03",
+      "預03"
+     ],
+     [
+      "專練-一",
+      "專練-一",
+      "專練-一"
+     ]
+    ],
+    "m": "成立看默示、拘束看登記〔自編〕"
+   },
+   {
+    "term": "共有物管理：出租、修繕與多數決",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租屬___，須多數決；<br>單純修繕屬___，各共有人得單獨為之。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§820Ⅰ 共有人___且應有部分合計過半數，或應有部分合計逾___；<br>§820Ⅴ 保存行為得單獨為之；<br>§822Ⅱ 逾應分擔部分得___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">未經多數決之租約對未同意共有人___；<br>逾應有部分之租金依§818、§179 返還；<br>共同借款原則為___，連帶須明示或法律規定（§272）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性（管理／保存）→ 看門檻 → 再處理返還與求償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多數決兼顧效率與少數共有人___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租屬<span class=\"key\">管理行為</span>，須多數決；<br>單純修繕屬<span class=\"key\">保存行為</span>，各共有人得單獨為之。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§820Ⅰ 共有人<span class=\"key\">過半數</span>且應有部分合計過半數，或應有部分合計逾<span class=\"key\">三分之二</span>；<br>§820Ⅴ 保存行為得單獨為之；<br>§822Ⅱ 逾應分擔部分得<span class=\"key\">求償</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">未經多數決之租約對未同意共有人<span class=\"key\">不生效力</span>；<br>逾應有部分之租金依§818、§179 返還；<br>共同借款原則為<span class=\"key\">可分之債</span>，連帶須明示或法律規定（§272）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性（管理／保存）→ 看門檻 → 再處理返還與求償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多數決兼顧效率與少數共有人<span class=\"key\">權益</span>。</div></div>",
+    "src": "民法§818、§820、§821、§822、§179、§271、§272",
+    "mc": 0,
+    "es": [
+     "102-一",
+     "106-一",
+     "專練-一"
+    ],
+    "es5": [
+     [
+      "102-一",
+      "102-一",
+      "102-一"
+     ],
+     [
+      "106-一",
+      "106-一",
+      "106-一"
+     ],
+     [
+      "專練-一",
+      "專練-一",
+      "專練-一"
+     ]
+    ],
+    "m": "出租看多數、修繕單獨做〔自編〕"
+   },
+   {
+    "term": "分別共有 vs 公同共有；處分應有部分 vs 處分共有物",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">分別共有各共有人得自由處分其___；<br>公同共有基於公同關係，無可獨自處分之應有部分（僅___應有部分）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§819Ⅰ 自由處分應有部分；<br>§819Ⅱ 處分共有物須___；<br>§828Ⅲ 公同共有物處分原則須全體同意；<br>§118 ___須經承認。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">逾越應有部分之移轉為無權處分，權利人拒絕承認即___；<br>不動產善意取得以原登記___為前提，此處不適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">應有部分＝具體比例、可自由處分；<br>應繼分＝遺產分配之___基準。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分清兩種共有，處分效力才判斷得準，交易不會___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">分別共有各共有人得自由處分其<span class=\"key\">應有部分</span>；<br>公同共有基於公同關係，無可獨自處分之應有部分（僅<span class=\"key\">潛在</span>應有部分）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§819Ⅰ 自由處分應有部分；<br>§819Ⅱ 處分共有物須<span class=\"key\">全體同意</span>；<br>§828Ⅲ 公同共有物處分原則須全體同意；<br>§118 <span class=\"key\">無權處分</span>須經承認。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">逾越應有部分之移轉為無權處分，權利人拒絕承認即<span class=\"key\">確定無效</span>；<br>不動產善意取得以原登記<span class=\"key\">不實</span>為前提，此處不適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">應有部分＝具體比例、可自由處分；<br>應繼分＝遺產分配之<span class=\"key\">抽象</span>基準。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分清兩種共有，處分效力才判斷得準，交易不會<span class=\"key\">踩雷</span>。</div></div>",
+    "src": "民法§817、§819、§827、§828、§118、§759-1Ⅱ、§1151",
+    "mc": 0,
+    "es": [
+     "100-二",
+     "預21"
+    ],
+    "es5": [
+     [
+      "100-二",
+      "100-二",
+      "100-二"
+     ],
+     [
+      "預21",
+      "預21",
+      "預21"
+     ]
+    ]
+   },
+   {
+    "term": "共有人優先承購：出賣應有部分 vs 分割變賣",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">優先承購權使他共有人得以___或條件優先取得，目的在使共有關係___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">出賣應有部分：土地法§34-1___；<br>分割變賣共有物：民法§824___（數人願承買，以___定之）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">未通知即移轉登記，請求塗銷依實務原則___（債權效力）；<br>得依§184Ⅱ請求___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩種情境要件、效果不同，分開寫。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序通知做足，才不會讓共有人___受損。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">優先承購權使他共有人得以<span class=\"key\">相同價格</span>或條件優先取得，目的在使共有關係<span class=\"key\">單純化</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">出賣應有部分：土地法§34-1<span class=\"key\">Ⅳ</span>；<br>分割變賣共有物：民法§824<span class=\"key\">Ⅶ</span>（數人願承買，以<span class=\"key\">抽籤</span>定之）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">未通知即移轉登記，請求塗銷依實務原則<span class=\"key\">無理由</span>（債權效力）；<br>得依§184Ⅱ請求<span class=\"key\">損害賠償</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩種情境要件、效果不同，分開寫。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序通知做足，才不會讓共有人<span class=\"key\">權益</span>受損。</div></div>",
+    "src": "土地法§34-1；民法§824Ⅶ、§184Ⅱ、§216",
+    "mc": 0,
+    "es": [
+     "預20"
+    ],
+    "es5": [
+     [
+      "預20",
+      "預20",
+      "預20"
+     ]
+    ]
+   },
+   {
+    "term": "區分所有：專用約定、頂樓加蓋與不得分離",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區分所有建物共有部分原則由___區分所有權人共同使用；<br>得以___供特定所有人使用。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§799Ⅲ 規約專用約定；<br>§799-1Ⅳ 對___有拘束力；<br>§799-1Ⅲ 顯失公平者得於___內請求撤銷；<br>§799Ⅴ 專有部分與共有部分___移轉。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">長期未反對屬___，難認默示分管；<br>違章建築買賣契約___，買受人取得事實上處分權。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">無使用權源者，得依§767Ⅰ、§821但書請求___返還。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">專用要有規約依據，社區秩序與___才能兼顧。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區分所有建物共有部分原則由<span class=\"key\">全體</span>區分所有權人共同使用；<br>得以<span class=\"key\">規約</span>供特定所有人使用。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§799Ⅲ 規約專用約定；<br>§799-1Ⅳ 對<span class=\"key\">繼受人</span>有拘束力；<br>§799-1Ⅲ 顯失公平者得於<span class=\"key\">三個月</span>內請求撤銷；<br>§799Ⅴ 專有部分與共有部分<span class=\"key\">不得分離</span>移轉。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">長期未反對屬<span class=\"key\">單純沉默</span>，難認默示分管；<br>違章建築買賣契約<span class=\"key\">有效</span>，買受人取得事實上處分權。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">無使用權源者，得依§767Ⅰ、§821但書請求<span class=\"key\">拆除</span>返還。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">專用要有規約依據，社區秩序與<span class=\"key\">公平</span>才能兼顧。</div></div>",
+    "src": "民法§799、§799-1、§767、§821、§111",
+    "mc": 0,
+    "es": [
+     "105-二",
+     "預12"
+    ],
+    "es5": [
+     [
+      "105-二",
+      "105-二",
+      "105-二"
+     ],
+     [
+      "預12",
+      "預12",
+      "預12"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S2",
+  "label": "S2 申論・抵押權・地上權・物權順序",
+  "cards": [
+   {
+    "term": "抵押權＋地上權＋所有權讓與：物權優先順序",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">物權具___效力及___效力；<br>不動產物權次序依___定之。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§867 抵押權不因抵押物___而受影響；<br>§866Ⅰ 設定後仍得設定用益物權，Ⅱ 影響抵押權時法院得___後拍賣；<br>§877Ⅱ 準用Ⅰ 建築物___，但價金無優先受償權。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地上權未約定地租仍___（§832）；<br>抵押權與地上權性質不同得___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">後手承受先存在之物權負擔；<br>用益權妨礙抵押權實行時才除去。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">登記先後定次序，擔保與利用才能___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">物權具<span class=\"key\">優先</span>效力及<span class=\"key\">追及</span>效力；<br>不動產物權次序依<span class=\"key\">登記先後</span>定之。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§867 抵押權不因抵押物<span class=\"key\">讓與</span>而受影響；<br>§866Ⅰ 設定後仍得設定用益物權，Ⅱ 影響抵押權時法院得<span class=\"key\">除去</span>後拍賣；<br>§877Ⅱ 準用Ⅰ 建築物<span class=\"key\">併付拍賣</span>，但價金無優先受償權。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地上權未約定地租仍<span class=\"key\">合法成立</span>（§832）；<br>抵押權與地上權性質不同得<span class=\"key\">併存</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">後手承受先存在之物權負擔；<br>用益權妨礙抵押權實行時才除去。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">登記先後定次序，擔保與利用才能<span class=\"key\">各得其所</span>。</div></div>",
+    "src": "民法§758、§832、§860、§866、§867、§877",
+    "mc": 0,
+    "es": [
+     "114-二",
+     "104-二",
+     "預24"
+    ],
+    "es5": [
+     [
+      "114-二",
+      "114-二",
+      "114-二"
+     ],
+     [
+      "104-二",
+      "104-二",
+      "104-二"
+     ],
+     [
+      "預24",
+      "預24",
+      "預24"
+     ]
+    ],
+    "m": "先登記先保護；後設定的讓路〔自編〕"
+   },
+   {
+    "term": "最高限額抵押權：擔保範圍、確定與物上代位",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">擔保一定範圍內現在及將來之___債權，於___內設定之抵押權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§881-6Ⅰ 原債權確定前讓與之債權，抵押權___；<br>§881-5 未約定確定期日得隨時請求確定，經___確定；<br>§881Ⅱ 抵押物毀損滅失之保險金等，抵押權人有___（物上代位）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">擔保範圍不以借款額為限，及於確定前陸續發生、在___內之債權。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">確定後於最高限額內行使；<br>代位物次序與原抵押權___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">確定與代位規則清楚，融資與擔保才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">擔保一定範圍內現在及將來之<span class=\"key\">不特定</span>債權，於<span class=\"key\">最高限額</span>內設定之抵押權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§881-6Ⅰ 原債權確定前讓與之債權，抵押權<span class=\"key\">不隨同移轉</span>；<br>§881-5 未約定確定期日得隨時請求確定，經<span class=\"key\">十五日</span>確定；<br>§881Ⅱ 抵押物毀損滅失之保險金等，抵押權人有<span class=\"key\">權利質權</span>（物上代位）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">擔保範圍不以借款額為限，及於確定前陸續發生、在<span class=\"key\">限額</span>內之債權。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">確定後於最高限額內行使；<br>代位物次序與原抵押權<span class=\"key\">相同</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">確定與代位規則清楚，融資與擔保才<span class=\"key\">穩定</span>。</div></div>",
+    "src": "民法§881-1、§881-2、§881-5、§881-6、§881-12、§881-17、§881",
+    "mc": 0,
+    "es": [
+     "108-二",
+     "預07"
+    ],
+    "es5": [
+     [
+      "108-二",
+      "108-二",
+      "108-二"
+     ],
+     [
+      "預07",
+      "預07",
+      "預07"
+     ]
+    ]
+   },
+   {
+    "term": "法定地上權與併付拍賣",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土地及建物原屬___，因抵押權實行分屬不同人時，視為已有地上權設定。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§876Ⅰ 設定抵押時___之建物有法定地上權；<br>§877Ⅰ 設定後___之建物，抵押權人得聲請併付拍賣，但建物價金___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">設定時已有房屋 → 法定地上權、不得拆；<br>設定後才蓋 → 可併付拍賣，未併付者拍定人得請求___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先看建物是設定前或設定後存在。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護建物利用，避免拆屋造成___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土地及建物原屬<span class=\"key\">同一人</span>，因抵押權實行分屬不同人時，視為已有地上權設定。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§876Ⅰ 設定抵押時<span class=\"key\">已存在</span>之建物有法定地上權；<br>§877Ⅰ 設定後<span class=\"key\">營造</span>之建物，抵押權人得聲請併付拍賣，但建物價金<span class=\"key\">無優先受償權</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">設定時已有房屋 → 法定地上權、不得拆；<br>設定後才蓋 → 可併付拍賣，未併付者拍定人得請求<span class=\"key\">拆除</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先看建物是設定前或設定後存在。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護建物利用，避免拆屋造成<span class=\"key\">資源浪費</span>。</div></div>",
+    "src": "民法§876、§877、§767",
+    "mc": 0,
+    "es": [
+     "預01"
+    ],
+    "es5": [
+     [
+      "預01",
+      "預01",
+      "預01"
+     ]
+    ],
+    "m": "設定前有屋→法定地上權；設定後蓋屋→併付拍賣〔自編〕"
+   },
+   {
+    "term": "時效取得地上權",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">以___，和平、公然、繼續占有他人土地，得請求登記為地上權人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§772 準用§769 ___、§770 善意無過失___；<br>已登記不動產亦準用。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">基於買賣或合建占有，原則係以___占有，欠缺行使地上權之意思；<br>起訴使進行中之時效___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">須已___並經受理，始得對抗所有人或拍定人。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">長期和平使用值得保護，但要件嚴格，免得侵蝕___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">以<span class=\"key\">行使地上權之意思</span>，和平、公然、繼續占有他人土地，得請求登記為地上權人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§772 準用§769 <span class=\"key\">二十年</span>、§770 善意無過失<span class=\"key\">十年</span>；<br>已登記不動產亦準用。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">基於買賣或合建占有，原則係以<span class=\"key\">所有之意思</span>占有，欠缺行使地上權之意思；<br>起訴使進行中之時效<span class=\"key\">中斷</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">須已<span class=\"key\">申請登記</span>並經受理，始得對抗所有人或拍定人。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">長期和平使用值得保護，但要件嚴格，免得侵蝕<span class=\"key\">所有權</span>。</div></div>",
+    "src": "民法§772、§769、§770、§832、§945",
+    "mc": 0,
+    "es": [
+     "109-二",
+     "預37"
+    ],
+    "es5": [
+     [
+      "109-二",
+      "109-二",
+      "109-二"
+     ],
+     [
+      "預37",
+      "預37",
+      "預37"
+     ]
+    ],
+    "m": "意思、和平、公然、繼續；10善20惡〔自編〕"
+   },
+   {
+    "term": "地上權終止與拋棄",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">終止使地上權向___消滅；<br>拋棄為地上權人___意思表示。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§836Ⅰ 積欠地租達___總額，定相當期限催告仍不付者得終止；<br>§836Ⅲ 並應通知___；<br>§835Ⅱ 未定期限有地租者拋棄須___通知或支付一年分地租；<br>§764Ⅱ 拋棄須得___（抵押權人）同意。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">存續逾___，當事人得請求法院定存續期間或終止（§833-1）；<br>工作物滅失地上權___（§841）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">終止看催告與通知；<br>拋棄看期間與第三人同意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序保障讓抵押權人與地主都不被___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">終止使地上權向<span class=\"key\">將來</span>消滅；<br>拋棄為地上權人<span class=\"key\">單方</span>意思表示。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§836Ⅰ 積欠地租達<span class=\"key\">二年</span>總額，定相當期限催告仍不付者得終止；<br>§836Ⅲ 並應通知<span class=\"key\">抵押權人</span>；<br>§835Ⅱ 未定期限有地租者拋棄須<span class=\"key\">一年前</span>通知或支付一年分地租；<br>§764Ⅱ 拋棄須得<span class=\"key\">第三人</span>（抵押權人）同意。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">存續逾<span class=\"key\">二十年</span>，當事人得請求法院定存續期間或終止（§833-1）；<br>工作物滅失地上權<span class=\"key\">不消滅</span>（§841）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">終止看催告與通知；<br>拋棄看期間與第三人同意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序保障讓抵押權人與地主都不被<span class=\"key\">突襲</span>。</div></div>",
+    "src": "民法§836、§835、§764、§833-1、§841",
+    "mc": 0,
+    "es": [
+     "預40"
+    ],
+    "es5": [
+     [
+      "預40",
+      "預40",
+      "預40"
+     ]
+    ]
+   },
+   {
+    "term": "未辦繼承登記能否實行抵押權（§759）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">繼承等非因法律行為取得不動產物權，___即生效力；<br>處分前始須登記（___）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§759 非經登記___；<br>§1148Ⅰ 繼承人承受被繼承人財產上一切權利義務；<br>§873 抵押權人得聲請___抵押物。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">實行抵押權屬權利之___，非處分，不受§759限制（肯定說）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未辦繼承登記仍得聲請拍賣；<br>實務上先補辦登記較穩妥。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧繼承即時效力與登記___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">繼承等非因法律行為取得不動產物權，<span class=\"key\">不待登記</span>即生效力；<br>處分前始須登記（<span class=\"key\">宣示登記</span>）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§759 非經登記<span class=\"key\">不得處分</span>；<br>§1148Ⅰ 繼承人承受被繼承人財產上一切權利義務；<br>§873 抵押權人得聲請<span class=\"key\">拍賣</span>抵押物。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">實行抵押權屬權利之<span class=\"key\">行使</span>，非處分，不受§759限制（肯定說）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未辦繼承登記仍得聲請拍賣；<br>實務上先補辦登記較穩妥。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧繼承即時效力與登記<span class=\"key\">公示</span>。</div></div>",
+    "src": "民法§759、§1147、§1148、§870、§873",
+    "mc": 0,
+    "es": [
+     "102-二"
+    ],
+    "es5": [
+     [
+      "102-二",
+      "102-二",
+      "102-二"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S3",
+  "label": "S3 申論・無權處分・善意取得・代理",
+  "cards": [
+   {
+    "term": "通謀虛偽與善意第三人",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">通謀虛偽意思表示___，但不得對抗___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§87Ⅰ 但書保護善意第三人；<br>§759-1Ⅱ 信賴登記之善意第三人受保護；<br>繼承人為___，非第三人。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">善意第三人（如買受人）取得所有權 → 原所有人只能向通謀相對人求償；<br>繼承非___，不適用§759-1Ⅱ。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">判斷第三人是否「善意」且為「第三人」。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">假買賣不能害到___的人。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">通謀虛偽意思表示<span class=\"key\">無效</span>，但不得對抗<span class=\"key\">善意第三人</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§87Ⅰ 但書保護善意第三人；<br>§759-1Ⅱ 信賴登記之善意第三人受保護；<br>繼承人為<span class=\"key\">概括繼受人</span>，非第三人。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">善意第三人（如買受人）取得所有權 → 原所有人只能向通謀相對人求償；<br>繼承非<span class=\"key\">法律行為</span>，不適用§759-1Ⅱ。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">判斷第三人是否「善意」且為「第三人」。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">假買賣不能害到<span class=\"key\">信賴登記</span>的人。</div></div>",
+    "src": "民法§87、§759-1Ⅱ、§1148、§767、§184、§179",
+    "mc": 0,
+    "es": [
+     "110-二",
+     "預05"
+    ],
+    "es5": [
+     [
+      "110-二",
+      "110-二",
+      "110-二"
+     ],
+     [
+      "預05",
+      "預05",
+      "預05"
+     ]
+    ],
+    "m": "假賣無效，善意第三人不受影響〔自編〕"
+   },
+   {
+    "term": "借名登記、登記推定與無權處分",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">無權處分＝無處分權人以___處分他人權利標的物；<br>借名登記為僅於內部發生___之契約。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§118 經有權利人___始生效力；<br>§759-1Ⅰ 登記名義人___適法有此權利；<br>§1017Ⅰ 婚後財產各自所有。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">借名登記之出名人出售屬___；<br>以他人名義訂約為___，以自己名義出賣他人之物則債權契約有效。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">借名人只能依借名契約（類推___）向出名人請求價金或賠償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">登記名義決定外部效力，內部約定只能內部___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">無權處分＝無處分權人以<span class=\"key\">自己名義</span>處分他人權利標的物；<br>借名登記為僅於內部發生<span class=\"key\">債之關係</span>之契約。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§118 經有權利人<span class=\"key\">承認</span>始生效力；<br>§759-1Ⅰ 登記名義人<span class=\"key\">推定</span>適法有此權利；<br>§1017Ⅰ 婚後財產各自所有。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">借名登記之出名人出售屬<span class=\"key\">有權處分</span>；<br>以他人名義訂約為<span class=\"key\">無權代理</span>，以自己名義出賣他人之物則債權契約有效。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">借名人只能依借名契約（類推<span class=\"key\">委任</span>）向出名人請求價金或賠償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">登記名義決定外部效力，內部約定只能內部<span class=\"key\">求償</span>。</div></div>",
+    "src": "民法§118、§759-1、§758、§1017、§170、§110",
+    "mc": 0,
+    "es": [
+     "108-一",
+     "109-一"
+    ],
+    "es5": [
+     [
+      "108-一",
+      "108-一",
+      "108-一"
+     ],
+     [
+      "109-一",
+      "109-一",
+      "109-一"
+     ]
+    ]
+   },
+   {
+    "term": "詐欺撤銷：第三人詐欺、債權／物權行為與善意第三人",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">受詐欺而為意思表示者得___；<br>第三人詐欺須相對人___始得撤銷。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§92Ⅱ 詐欺之撤銷不得對抗___；<br>§93 發見詐欺後___內撤銷；<br>§114Ⅰ 撤銷視為___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">只撤銷債權行為 → 依§179請求返還；<br>一併撤銷物權行為 → 依§767請求塗銷；<br>___撤銷原則得對抗第三人。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">信賴登記之善意第三人仍受§759-1Ⅱ保護。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">意思自主與交易安全，靠「善意第三人」劃出___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">受詐欺而為意思表示者得<span class=\"key\">撤銷</span>；<br>第三人詐欺須相對人<span class=\"key\">明知或可得而知</span>始得撤銷。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§92Ⅱ 詐欺之撤銷不得對抗<span class=\"key\">善意第三人</span>；<br>§93 發見詐欺後<span class=\"key\">一年</span>內撤銷；<br>§114Ⅰ 撤銷視為<span class=\"key\">自始無效</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">只撤銷債權行為 → 依§179請求返還；<br>一併撤銷物權行為 → 依§767請求塗銷；<br><span class=\"key\">脅迫</span>撤銷原則得對抗第三人。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">信賴登記之善意第三人仍受§759-1Ⅱ保護。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">意思自主與交易安全，靠「善意第三人」劃出<span class=\"key\">界線</span>。</div></div>",
+    "src": "民法§92、§93、§114、§179、§767、§759-1Ⅱ",
+    "mc": 0,
+    "es": [
+     "99-一",
+     "103-一",
+     "預26"
+    ],
+    "es5": [
+     [
+      "99-一",
+      "99-一",
+      "99-一"
+     ],
+     [
+      "103-一",
+      "103-一",
+      "103-一"
+     ],
+     [
+      "預26",
+      "預26",
+      "預26"
+     ]
+    ],
+    "m": "詐欺不對抗善意、脅迫可以〔自編〕"
+   },
+   {
+    "term": "動產善意取得：借用物擅賣、占有改定、盜贓物",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">讓與人無權利，受讓人信賴其___而善意受讓者，___所有權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§948Ⅱ 以___受讓者，須現實交付才受保護；<br>§949 盜贓、遺失物，原占有人得於___內請求回復；<br>§950 向商人或公開交易場所買得者須___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">借用物（占有委託物）擅賣 → 受讓人取得；<br>盜贓物（占有脫離物）→ 可___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">原所有人只能向擅賣者依侵權、債務不履行或不當得利求償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">動產靠占有公示，善意取得保護___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">讓與人無權利，受讓人信賴其<span class=\"key\">占有</span>而善意受讓者，<span class=\"key\">原始取得</span>所有權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§948Ⅱ 以<span class=\"key\">占有改定</span>受讓者，須現實交付才受保護；<br>§949 盜贓、遺失物，原占有人得於<span class=\"key\">二年</span>內請求回復；<br>§950 向商人或公開交易場所買得者須<span class=\"key\">償還價金</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">借用物（占有委託物）擅賣 → 受讓人取得；<br>盜贓物（占有脫離物）→ 可<span class=\"key\">回復</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">原所有人只能向擅賣者依侵權、債務不履行或不當得利求償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">動產靠占有公示，善意取得保護<span class=\"key\">交易流通</span>。</div></div>",
+    "src": "民法§801、§948、§761、§949、§950",
+    "mc": 0,
+    "es": [
+     "預22"
+    ],
+    "es5": [
+     [
+      "預22",
+      "預22",
+      "預22"
+     ]
+    ],
+    "m": "委託物取得、脫離物二年回復〔自編〕"
+   },
+   {
+    "term": "表見代理、無權代理與雙方代理",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">無權代理＝無代理權人以___為法律行為，經本人承認始生效力（___）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§169 本人製造代理權外觀，對善意第三人負___責任；<br>§110 無權代理人對善意相對人負___責任；<br>§106 自己代理、雙方代理原則___（未經許諾＝效力未定）；<br>§534 出賣不動產須___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">相對人明知或___者，不得主張表見代理，也不得依§110請求。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先問有無代理權 → 有無外觀可歸責本人 → 相對人是否善意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">代理權要查證，仲介兼雙方代理更要___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">無權代理＝無代理權人以<span class=\"key\">代理人名義</span>為法律行為，經本人承認始生效力（<span class=\"key\">效力未定</span>）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§169 本人製造代理權外觀，對善意第三人負<span class=\"key\">授權人</span>責任；<br>§110 無權代理人對善意相對人負<span class=\"key\">損害賠償</span>責任；<br>§106 自己代理、雙方代理原則<span class=\"key\">禁止</span>（未經許諾＝效力未定）；<br>§534 出賣不動產須<span class=\"key\">特別授權</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">相對人明知或<span class=\"key\">可得而知</span>者，不得主張表見代理，也不得依§110請求。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先問有無代理權 → 有無外觀可歸責本人 → 相對人是否善意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">代理權要查證，仲介兼雙方代理更要<span class=\"key\">許諾</span>。</div></div>",
+    "src": "民法§103、§106、§107、§110、§169、§170、§171、§534",
+    "mc": 0,
+    "es": [
+     "預23",
+     "預27",
+     "預39",
+     "預31"
+    ],
+    "es5": [
+     [
+      "預23",
+      "預23",
+      "預23"
+     ],
+     [
+      "預27",
+      "預27",
+      "預27"
+     ],
+     [
+      "預39",
+      "預39",
+      "預39"
+     ],
+     [
+      "預31",
+      "預31",
+      "預31"
+     ]
+    ]
+   },
+   {
+    "term": "二重買賣（一物二賣）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出賣人就同一標的物先後與數人訂立買賣，___均有效。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§758Ⅰ 不動產所有權依___取得；<br>§226Ⅰ 可歸責之給付不能得請求___；<br>§256 得解除契約；<br>§249③ 受定金者可歸責時___定金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先登記者取得所有權；<br>後買受人明知不影響，僅於___加損害時負§184Ⅰ後段責任。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未取得者只能對出賣人主張債務不履行。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">債權只對人、物權看登記，買房務必___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出賣人就同一標的物先後與數人訂立買賣，<span class=\"key\">債權行為</span>均有效。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§758Ⅰ 不動產所有權依<span class=\"key\">登記</span>取得；<br>§226Ⅰ 可歸責之給付不能得請求<span class=\"key\">損害賠償</span>；<br>§256 得解除契約；<br>§249③ 受定金者可歸責時<span class=\"key\">加倍返還</span>定金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先登記者取得所有權；<br>後買受人明知不影響，僅於<span class=\"key\">故意背俗</span>加損害時負§184Ⅰ後段責任。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未取得者只能對出賣人主張債務不履行。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">債權只對人、物權看登記，買房務必<span class=\"key\">儘速登記</span>。</div></div>",
+    "src": "民法§348、§758、§226、§256、§259、§260、§184、§249",
+    "mc": 0,
+    "es": [
+     "來勝-一",
+     "預18"
+    ],
+    "es5": [
+     [
+      "來勝-一",
+      "來勝-一",
+      "來勝-一"
+     ],
+     [
+      "預18",
+      "預18",
+      "預18"
+     ]
+    ]
+   },
+   {
+    "term": "善意占有人：使用收益、費用償還與毀損賠償",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">善意占有人＝不知無占有___而占有之人；<br>本權訴訟敗訴時，自___之日起視為惡意。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§952 善意占有人得___；<br>§954 必要費用、§955 有益費用（以___為限）得請求償還；<br>§953 善意毀損以___為限負賠償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">以自己名義出租他人之物非代理，本人不受拘束；<br>善意期間之使用利益___返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分善意期間與視為惡意後兩段計算。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護善意信賴，同時劃定___範圍。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">善意占有人＝不知無占有<span class=\"key\">本權</span>而占有之人；<br>本權訴訟敗訴時，自<span class=\"key\">訴狀送達</span>之日起視為惡意。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§952 善意占有人得<span class=\"key\">使用收益</span>；<br>§954 必要費用、§955 有益費用（以<span class=\"key\">現存增加價值</span>為限）得請求償還；<br>§953 善意毀損以<span class=\"key\">所受利益</span>為限負賠償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">以自己名義出租他人之物非代理，本人不受拘束；<br>善意期間之使用利益<span class=\"key\">不負</span>返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分善意期間與視為惡意後兩段計算。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護善意信賴，同時劃定<span class=\"key\">返還</span>範圍。</div></div>",
+    "src": "民法§952、§953～§956、§958、§959、§767、§179",
+    "mc": 0,
+    "es": [
+     "111-一",
+     "預35"
+    ],
+    "es5": [
+     [
+      "111-一",
+      "111-一",
+      "111-一"
+     ],
+     [
+      "預35",
+      "預35",
+      "預35"
+     ]
+    ]
+   },
+   {
+    "term": "物、遺失物與動產附合",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產之出產物尚未分離者為該不動產之___；<br>從物常助主物效用而同屬一人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§68 主物處分及於___；<br>§70Ⅱ 法定孳息按___取得；<br>§805Ⅱ 拾得人報酬不超過價值___；<br>§807 逾___無人認領歸拾得人；<br>§812 附合由主物所有人取得，§816 得請求___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">房地分屬時，依§425-1推定有___關係。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依物之性質判斷歸屬，再處理孳息與補償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">物權歸屬清楚，交易與返還才有___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產之出產物尚未分離者為該不動產之<span class=\"key\">部分</span>；<br>從物常助主物效用而同屬一人。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§68 主物處分及於<span class=\"key\">從物</span>；<br>§70Ⅱ 法定孳息按<span class=\"key\">日數</span>取得；<br>§805Ⅱ 拾得人報酬不超過價值<span class=\"key\">十分之一</span>；<br>§807 逾<span class=\"key\">六個月</span>無人認領歸拾得人；<br>§812 附合由主物所有人取得，§816 得請求<span class=\"key\">償還價額</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">房地分屬時，依§425-1推定有<span class=\"key\">租賃</span>關係。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依物之性質判斷歸屬，再處理孳息與補償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">物權歸屬清楚，交易與返還才有<span class=\"key\">依據</span>。</div></div>",
+    "src": "民法§66、§68、§70、§805、§805-1、§807、§812、§816、§425-1",
+    "mc": 0,
+    "es": [
+     "預45",
+     "預48"
+    ],
+    "es5": [
+     [
+      "預45",
+      "預45",
+      "預45"
+     ],
+     [
+      "預48",
+      "預48",
+      "預48"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S4",
+  "label": "S4 申論・居間・委任・買賣・租賃",
+  "cards": [
+   {
+    "term": "居間報酬：成立時點、停止條件與數額",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">居間報酬於契約因其報告或媒介而___時發生，不受事後___影響。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§568Ⅰ 因媒介成立始得請求；<br>§568Ⅱ 附___者條件成就前不得請求；<br>§566Ⅱ 未定報酬額依___，無者依習慣；<br>§570 媒介報酬由雙方___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">委託人拖延致未於期限簽約，類推§101Ⅰ視為條件___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三層：有無請求權 → 數額 → 由誰負擔。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">報酬看成交時點，仲介權益與消費者保護___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">居間報酬於契約因其報告或媒介而<span class=\"key\">成立</span>時發生，不受事後<span class=\"key\">解除</span>影響。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§568Ⅰ 因媒介成立始得請求；<br>§568Ⅱ 附<span class=\"key\">停止條件</span>者條件成就前不得請求；<br>§566Ⅱ 未定報酬額依<span class=\"key\">價目表</span>，無者依習慣；<br>§570 媒介報酬由雙方<span class=\"key\">平均負擔</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">委託人拖延致未於期限簽約，類推§101Ⅰ視為條件<span class=\"key\">已成就</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三層：有無請求權 → 數額 → 由誰負擔。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">報酬看成交時點，仲介權益與消費者保護<span class=\"key\">並重</span>。</div></div>",
+    "src": "民法§565、§566、§567、§568、§570、§571、§101",
+    "mc": 0,
+    "es": [
+     "112-二",
+     "104-一",
+     "預08",
+     "預13"
+    ],
+    "es5": [
+     [
+      "112-二",
+      "112-二",
+      "112-二"
+     ],
+     [
+      "104-一",
+      "104-一",
+      "104-一"
+     ],
+     [
+      "預08",
+      "預08",
+      "預08"
+     ],
+     [
+      "預13",
+      "預13",
+      "預13"
+     ]
+    ],
+    "m": "成立即生、事後解除不影響〔自編〕"
+   },
+   {
+    "term": "居間人義務與報酬喪失（§571）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">居間人負___義務；<br>以居間為營業者並負___履行能力之義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§567Ⅰ 不得為顯無履行能力之人媒介；<br>§571 違反義務而為___之利益行為者，不得請求報酬及償還費用；<br>§569Ⅰ 費用除約定外___請求。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">分報酬、費用、損害賠償___判斷；<br>擅自退還定金屬利於相對人之行為。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">違反調查義務不當然喪失報酬，但應依§227負___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">忠實報告是仲介的___根本。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">居間人負<span class=\"key\">據實報告</span>義務；<br>以居間為營業者並負<span class=\"key\">調查</span>履行能力之義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§567Ⅰ 不得為顯無履行能力之人媒介；<br>§571 違反義務而為<span class=\"key\">相對人</span>之利益行為者，不得請求報酬及償還費用；<br>§569Ⅰ 費用除約定外<span class=\"key\">不得</span>請求。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">分報酬、費用、損害賠償<span class=\"key\">三條線</span>判斷；<br>擅自退還定金屬利於相對人之行為。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">違反調查義務不當然喪失報酬，但應依§227負<span class=\"key\">賠償</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">忠實報告是仲介的<span class=\"key\">信用</span>根本。</div></div>",
+    "src": "民法§567、§571、§569、§227、§544",
+    "mc": 0,
+    "es": [
+     "113-二",
+     "預14"
+    ],
+    "es5": [
+     [
+      "113-二",
+      "113-二",
+      "113-二"
+     ],
+     [
+      "預14",
+      "預14",
+      "預14"
+     ]
+    ]
+   },
+   {
+    "term": "買賣瑕疵擔保：保證品質、故意不告知與免責特約",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出賣人擔保標的物危險移轉時無___並具___，性質為法定無過失責任。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§359 解除契約或___；<br>§360 缺少保證品質或___者得請求不履行之損害賠償；<br>§366 故意不告知時免責特約___；<br>§365 行使期間。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">瑕疵可歸責時得併主張§227___；<br>純財產損害不得請求精神慰撫金。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先問有無瑕疵 → 有無保證或故意 → 選擇救濟並注意期間。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">據實揭露屋況，才能避免___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出賣人擔保標的物危險移轉時無<span class=\"key\">瑕疵</span>並具<span class=\"key\">保證品質</span>，性質為法定無過失責任。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§359 解除契約或<span class=\"key\">減少價金</span>；<br>§360 缺少保證品質或<span class=\"key\">故意不告知</span>者得請求不履行之損害賠償；<br>§366 故意不告知時免責特約<span class=\"key\">無效</span>；<br>§365 行使期間。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">瑕疵可歸責時得併主張§227<span class=\"key\">不完全給付</span>；<br>純財產損害不得請求精神慰撫金。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先問有無瑕疵 → 有無保證或故意 → 選擇救濟並注意期間。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">據實揭露屋況，才能避免<span class=\"key\">交易糾紛</span>。</div></div>",
+    "src": "民法§354、§356、§359、§360、§365、§366、§227、§227-1",
+    "mc": 0,
+    "es": [
+     "113-一",
+     "106-二",
+     "預10"
+    ],
+    "es5": [
+     [
+      "113-一",
+      "113-一",
+      "113-一"
+     ],
+     [
+      "106-二",
+      "106-二",
+      "106-二"
+     ],
+     [
+      "預10",
+      "預10",
+      "預10"
+     ]
+    ],
+    "m": "解除減價§359、賠償§360〔自編〕"
+   },
+   {
+    "term": "違約金、定金與要約斡旋",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">違約金分___與___；<br>定金為確保契約履行而交付之金錢。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§252 違約金過高得___；<br>§249① 履行時作為給付之一部；<br>§160Ⅱ 變更承諾視為___；<br>斡旋金多為___，不同於定金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不得一面___一面請求違約金；<br>契約未成立，斡旋金應返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性款項，再判斷能否沒收或請求。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">款項定性清楚，買賣雙方才不會___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">違約金分<span class=\"key\">賠償總額預定性</span>與<span class=\"key\">懲罰性</span>；<br>定金為確保契約履行而交付之金錢。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§252 違約金過高得<span class=\"key\">酌減</span>；<br>§249① 履行時作為給付之一部；<br>§160Ⅱ 變更承諾視為<span class=\"key\">新要約</span>；<br>斡旋金多為<span class=\"key\">信賴保證金</span>，不同於定金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不得一面<span class=\"key\">沒收定金</span>一面請求違約金；<br>契約未成立，斡旋金應返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性款項，再判斷能否沒收或請求。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">款項定性清楚，買賣雙方才不會<span class=\"key\">誤會</span>。</div></div>",
+    "src": "民法§249、§250、§251、§252、§153、§154、§160、§254",
+    "mc": 0,
+    "es": [
+     "預16",
+     "預32"
+    ],
+    "es5": [
+     [
+      "預16",
+      "預16",
+      "預16"
+     ],
+     [
+      "預32",
+      "預32",
+      "預32"
+     ]
+    ]
+   },
+   {
+    "term": "買賣不破租賃、危險負擔與出典後收租",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租人於租賃物交付後讓與所有權，租約對受讓人___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§425Ⅱ 未經公證且期限逾___或不定期者不適用；<br>§373 危險自___時移轉（看交付不看登記）；<br>§426 設定物權（如典權）準用§425。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">押租金契約為___契約，不隨租約當然移轉；<br>未交付者由原出租人返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分別判斷：租約能否對抗、危險由誰負擔、押租金誰返還。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">承租人居住安定與受讓人權益要___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租人於租賃物交付後讓與所有權，租約對受讓人<span class=\"key\">繼續存在</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§425Ⅱ 未經公證且期限逾<span class=\"key\">五年</span>或不定期者不適用；<br>§373 危險自<span class=\"key\">交付</span>時移轉（看交付不看登記）；<br>§426 設定物權（如典權）準用§425。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">押租金契約為<span class=\"key\">要物</span>契約，不隨租約當然移轉；<br>未交付者由原出租人返還。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分別判斷：租約能否對抗、危險由誰負擔、押租金誰返還。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">承租人居住安定與受讓人權益要<span class=\"key\">平衡</span>。</div></div>",
+    "src": "民法§425、§426、§373、§266、§267、§918",
+    "mc": 0,
+    "es": [
+     "預11",
+     "預17",
+     "101-二"
+    ],
+    "es5": [
+     [
+      "預11",
+      "預11",
+      "預11"
+     ],
+     [
+      "預17",
+      "預17",
+      "預17"
+     ],
+     [
+      "101-二",
+      "101-二",
+      "101-二"
+     ]
+    ],
+    "m": "公證或五年內；危險看交付〔自編〕"
+   },
+   {
+    "term": "房屋租賃：修繕、有益費用與押租金",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租人負保持租賃物合於___狀態之義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§429Ⅰ 修繕原則由___負擔；<br>§430 催告後未修繕，承租人得自行修繕請求償還或於___；<br>§431Ⅰ 有益費用以___為限。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">押租金擔保承租人租賃債務，可___欠租。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分修繕費、有益費用、押租金三筆計算。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">權利義務算清楚，租屋才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">出租人負保持租賃物合於<span class=\"key\">約定使用收益</span>狀態之義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§429Ⅰ 修繕原則由<span class=\"key\">出租人</span>負擔；<br>§430 催告後未修繕，承租人得自行修繕請求償還或於<span class=\"key\">租金中扣除</span>；<br>§431Ⅰ 有益費用以<span class=\"key\">現存增價額</span>為限。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">押租金擔保承租人租賃債務，可<span class=\"key\">抵充</span>欠租。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">分修繕費、有益費用、押租金三筆計算。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">權利義務算清楚，租屋才<span class=\"key\">安心</span>。</div></div>",
+    "src": "民法§423、§429、§430、§431；租賃住宅條例§7",
+    "mc": 0,
+    "es": [
+     "預19"
+    ],
+    "es5": [
+     [
+      "預19",
+      "預19",
+      "預19"
+     ]
+    ]
+   },
+   {
+    "term": "委任：終止、報酬與特別授權",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">委任＝一方委託他方處理事務，他方允為處理之契約；<br>報酬以成交為條件者性質屬___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§549Ⅰ 當事人得___；<br>§549Ⅱ 於不利時期終止應___；<br>§548Ⅱ 已處理部分得請求報酬；<br>§534① 出賣不動產須___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">中途解任仍可能因§568或類推§101Ⅰ請求___報酬。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性（居間或委任）→ 終止效果 → 報酬與賠償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">授權範圍清楚，受任人才不會___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">委任＝一方委託他方處理事務，他方允為處理之契約；<br>報酬以成交為條件者性質屬<span class=\"key\">居間</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§549Ⅰ 當事人得<span class=\"key\">隨時終止</span>；<br>§549Ⅱ 於不利時期終止應<span class=\"key\">賠償</span>；<br>§548Ⅱ 已處理部分得請求報酬；<br>§534① 出賣不動產須<span class=\"key\">特別授權</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">中途解任仍可能因§568或類推§101Ⅰ請求<span class=\"key\">全額</span>報酬。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定性（居間或委任）→ 終止效果 → 報酬與賠償。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">授權範圍清楚，受任人才不會<span class=\"key\">越權</span>。</div></div>",
+    "src": "民法§528、§534、§548、§549、§568、§101",
+    "mc": 0,
+    "es": [
+     "預30",
+     "預31"
+    ],
+    "es5": [
+     [
+      "預30",
+      "預30",
+      "預30"
+     ],
+     [
+      "預31",
+      "預31",
+      "預31"
+     ]
+    ]
+   },
+   {
+    "term": "贈與：任意撤銷、附負擔與忘恩撤銷",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">贈與為___契約，民法賦予贈與人撤銷權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§408Ⅰ 權利未移轉前得___（經公證或履行道德義務者除外）；<br>§412Ⅰ 不履行負擔得請求履行或撤銷；<br>§416Ⅱ 忘恩撤銷須於知悉後___內。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">撤銷後依§419Ⅱ請求返還；<br>結婚、分居或營業之贈與才須___（§1173）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先看權利是否已移轉，再看撤銷事由與期間。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">無償給予可撤回，但要守___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">贈與為<span class=\"key\">無償</span>契約，民法賦予贈與人撤銷權。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§408Ⅰ 權利未移轉前得<span class=\"key\">任意撤銷</span>（經公證或履行道德義務者除外）；<br>§412Ⅰ 不履行負擔得請求履行或撤銷；<br>§416Ⅱ 忘恩撤銷須於知悉後<span class=\"key\">一年</span>內。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">撤銷後依§419Ⅱ請求返還；<br>結婚、分居或營業之贈與才須<span class=\"key\">歸扣</span>（§1173）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先看權利是否已移轉，再看撤銷事由與期間。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">無償給予可撤回，但要守<span class=\"key\">期間</span>。</div></div>",
+    "src": "民法§406、§408、§412、§416、§419、§1173、§1148",
+    "mc": 0,
+    "es": [
+     "預47",
+     "專練-三"
+    ],
+    "es5": [
+     [
+      "預47",
+      "預47",
+      "預47"
+     ],
+     [
+      "專練-三",
+      "專練-三",
+      "專練-三"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S5",
+  "label": "S5 申論・意思表示・行為能力・債總",
+  "cards": [
+   {
+    "term": "行為能力：未成年人、詐術與受監護宣告",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">現行法滿___成年；<br>滿七歲以上之未成年人為___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§79 未得允許之契約須經法定代理人___；<br>§80 相對人得___；<br>§82 相對人得撤回，但訂約時___未得允許者不得撤回；<br>§83 使用___者其法律行為有效。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">單純口頭謊稱成年___詐術；<br>受監護宣告人為無行為能力，契約___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依年齡與宣告判斷能力 → 效力 → 相對人救濟。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護未成年人，也兼顧交易相對人的___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">現行法滿<span class=\"key\">十八歲</span>成年；<br>滿七歲以上之未成年人為<span class=\"key\">限制行為能力人</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§79 未得允許之契約須經法定代理人<span class=\"key\">承認</span>；<br>§80 相對人得<span class=\"key\">催告</span>；<br>§82 相對人得撤回，但訂約時<span class=\"key\">明知</span>未得允許者不得撤回；<br>§83 使用<span class=\"key\">詐術</span>者其法律行為有效。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">單純口頭謊稱成年<span class=\"key\">不構成</span>詐術；<br>受監護宣告人為無行為能力，契約<span class=\"key\">無效</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依年齡與宣告判斷能力 → 效力 → 相對人救濟。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護未成年人，也兼顧交易相對人的<span class=\"key\">信賴</span>。</div></div>",
+    "src": "民法§12、§13、§15、§77、§79、§80、§82、§83",
+    "mc": 0,
+    "es": [
+     "106-二",
+     "預38",
+     "專練-二"
+    ],
+    "es5": [
+     [
+      "106-二",
+      "106-二",
+      "106-二"
+     ],
+     [
+      "預38",
+      "預38",
+      "預38"
+     ],
+     [
+      "專練-二",
+      "專練-二",
+      "專練-二"
+     ]
+    ],
+    "m": "十八成年、七歲分界；詐術則有效〔自編〕"
+   },
+   {
+    "term": "債權人代位權（§242）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">債務人___其權利，債權人為保全債權得以___代位行使。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§243 債務人負___時始得行使（保存行為除外）；<br>效果歸屬___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">連續買賣未登記：後買受人代位前手請求移轉登記於___，再請求前手移轉；<br>債務人資力充足者無___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩步驟取得所有權。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">代位權讓債權不因債務人___而落空。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">債務人<span class=\"key\">怠於行使</span>其權利，債權人為保全債權得以<span class=\"key\">自己名義</span>代位行使。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§243 債務人負<span class=\"key\">遲延責任</span>時始得行使（保存行為除外）；<br>效果歸屬<span class=\"key\">債務人</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">連續買賣未登記：後買受人代位前手請求移轉登記於<span class=\"key\">前手名下</span>，再請求前手移轉；<br>債務人資力充足者無<span class=\"key\">保全必要</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩步驟取得所有權。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">代位權讓債權不因債務人<span class=\"key\">消極</span>而落空。</div></div>",
+    "src": "民法§242、§243、§758",
+    "mc": 0,
+    "es": [
+     "107-一",
+     "預28"
+    ],
+    "es5": [
+     [
+      "107-一",
+      "107-一",
+      "107-一"
+     ],
+     [
+      "預28",
+      "預28",
+      "預28"
+     ]
+    ]
+   },
+   {
+    "term": "債權人撤銷權（§244）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">債務人所為有害及債權之行為，債權人得___撤銷，以回復責任財產。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§244Ⅰ ___行為只須有害及債權；<br>§244Ⅱ 有償行為須債務人與受益人___其情事；<br>§244Ⅳ 善意轉得人不受回復原狀；<br>§245 知有撤銷原因起___、行為起___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">特定物債權（如二重買賣）___以撤銷權保全（§244Ⅲ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">區分無償或有償，再看轉得人是否善意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">防止脫產，維護債權人___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">債務人所為有害及債權之行為，債權人得<span class=\"key\">聲請法院</span>撤銷，以回復責任財產。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§244Ⅰ <span class=\"key\">無償</span>行為只須有害及債權；<br>§244Ⅱ 有償行為須債務人與受益人<span class=\"key\">均知</span>其情事；<br>§244Ⅳ 善意轉得人不受回復原狀；<br>§245 知有撤銷原因起<span class=\"key\">一年</span>、行為起<span class=\"key\">十年</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">特定物債權（如二重買賣）<span class=\"key\">不得</span>以撤銷權保全（§244Ⅲ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">區分無償或有償，再看轉得人是否善意。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">防止脫產，維護債權人<span class=\"key\">共同擔保</span>。</div></div>",
+    "src": "民法§244、§245",
+    "mc": 0,
+    "es": [
+     "預43"
+    ],
+    "es5": [
+     [
+      "預43",
+      "預43",
+      "預43"
+     ]
+    ],
+    "m": "無償看有害、有償看雙方知情〔自編〕"
+   },
+   {
+    "term": "給付遲延與不完全給付",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">契約解除使契約___消滅，雙方負回復原狀義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§254 遲延經___仍不履行得解除；<br>§255 定期行為得___解除；<br>§259② 返還金錢應附加___；<br>§227Ⅱ 加害給付得請求___損害。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不完全給付分___與___；<br>人格權受侵害得依§227-1請求慰撫金。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定違約型態 → 解除程序 → 回復原狀與損害賠償（§260）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">違約救濟有程序，才能兼顧雙方___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">契約解除使契約<span class=\"key\">溯及</span>消滅，雙方負回復原狀義務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§254 遲延經<span class=\"key\">催告</span>仍不履行得解除；<br>§255 定期行為得<span class=\"key\">免催告</span>解除；<br>§259② 返還金錢應附加<span class=\"key\">利息</span>；<br>§227Ⅱ 加害給付得請求<span class=\"key\">固有利益</span>損害。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不完全給付分<span class=\"key\">瑕疵給付</span>與<span class=\"key\">加害給付</span>；<br>人格權受侵害得依§227-1請求慰撫金。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定違約型態 → 解除程序 → 回復原狀與損害賠償（§260）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">違約救濟有程序，才能兼顧雙方<span class=\"key\">公平</span>。</div></div>",
+    "src": "民法§229、§231、§254、§255、§258、§259、§260、§227、§227-1",
+    "mc": 0,
+    "es": [
+     "預25",
+     "預15"
+    ],
+    "es5": [
+     [
+      "預25",
+      "預25",
+      "預25"
+     ],
+     [
+      "預15",
+      "預15",
+      "預15"
+     ]
+    ]
+   },
+   {
+    "term": "連帶債務與拋棄權利之效力",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">連帶債務須___或法律規定（§272）；<br>否則數人負同一債務原則為___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§273 債權人得向任一人請求___；<br>§280 內部平均分擔；<br>§281 清償者得___並承受債權；<br>§751 拋棄擔保物權，保證人於限度內___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">拋棄主債權，從權利隨同___；<br>拋棄繼承須書面向___為之。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先確認債之型態，再處理對外與內部關係。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">對外負責、內部分擔，責任才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">連帶債務須<span class=\"key\">明示</span>或法律規定（§272）；<br>否則數人負同一債務原則為<span class=\"key\">可分之債</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§273 債權人得向任一人請求<span class=\"key\">全部</span>；<br>§280 內部平均分擔；<br>§281 清償者得<span class=\"key\">求償</span>並承受債權；<br>§751 拋棄擔保物權，保證人於限度內<span class=\"key\">免責</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">拋棄主債權，從權利隨同<span class=\"key\">消滅</span>；<br>拋棄繼承須書面向<span class=\"key\">法院</span>為之。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先確認債之型態，再處理對外與內部關係。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">對外負責、內部分擔，責任才<span class=\"key\">清楚</span>。</div></div>",
+    "src": "民法§271、§272、§273、§280、§281、§751、§764、§1174",
+    "mc": 0,
+    "es": [
+     "預36",
+     "106-一",
+     "101-一"
+    ],
+    "es5": [
+     [
+      "預36",
+      "預36",
+      "預36"
+     ],
+     [
+      "106-一",
+      "106-一",
+      "106-一"
+     ],
+     [
+      "101-一",
+      "101-一",
+      "101-一"
+     ]
+    ]
+   },
+   {
+    "term": "侵權：僱用人責任、法人責任與無因管理",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">僱用人責任為___責任；<br>無因管理＝未受委任、並無義務而為他人管理事務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§188Ⅰ 僱用人與受僱人___賠償；<br>§188Ⅱ 法院得令負___責任；<br>§28 法人對董事執行職務侵權連帶負責；<br>§176Ⅰ 適法無因管理得請求必要或有益費用及___；<br>§175 為免除急迫危險，除惡意或___外不負賠償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">違反本人明示意思之管理，償還以___為限（§177Ⅰ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定責任主體，再看免責與求償（§188Ⅲ）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">責任分配合理，被害人才能獲得___賠償。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">僱用人責任為<span class=\"key\">推定過失</span>責任；<br>無因管理＝未受委任、並無義務而為他人管理事務。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§188Ⅰ 僱用人與受僱人<span class=\"key\">連帶</span>賠償；<br>§188Ⅱ 法院得令負<span class=\"key\">衡平</span>責任；<br>§28 法人對董事執行職務侵權連帶負責；<br>§176Ⅰ 適法無因管理得請求必要或有益費用及<span class=\"key\">利息</span>；<br>§175 為免除急迫危險，除惡意或<span class=\"key\">重大過失</span>外不負賠償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">違反本人明示意思之管理，償還以<span class=\"key\">所得利益</span>為限（§177Ⅰ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先定責任主體，再看免責與求償（§188Ⅲ）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">責任分配合理，被害人才能獲得<span class=\"key\">實際</span>賠償。</div></div>",
+    "src": "民法§184、§188、§28、§27、§56、§172、§175、§176、§177",
+    "mc": 0,
+    "es": [
+     "預42",
+     "預44",
+     "預46"
+    ],
+    "es5": [
+     [
+      "預42",
+      "預42",
+      "預42"
+     ],
+     [
+      "預44",
+      "預44",
+      "預44"
+     ],
+     [
+      "預46",
+      "預46",
+      "預46"
+     ]
+    ]
+   },
+   {
+    "term": "信賴利益與履行利益",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">信賴利益＝信賴法律行為有效而受之損害，屬___利益；<br>履行利益屬___利益。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§91（錯誤撤銷之賠償）、§110（無權代理人責任）、§245-1（___）、§247（給付不能致契約無效）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">信賴利益賠償範圍原則___履行利益。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">以回復至未信賴前之狀態為目的。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護信賴落空的一方，又不讓其___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">信賴利益＝信賴法律行為有效而受之損害，屬<span class=\"key\">消極</span>利益；<br>履行利益屬<span class=\"key\">積極</span>利益。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§91（錯誤撤銷之賠償）、§110（無權代理人責任）、§245-1（<span class=\"key\">締約過失</span>）、§247（給付不能致契約無效）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">信賴利益賠償範圍原則<span class=\"key\">不得逾越</span>履行利益。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">以回復至未信賴前之狀態為目的。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保護信賴落空的一方，又不讓其<span class=\"key\">多得</span>。</div></div>",
+    "src": "民法§91、§110、§113、§245-1、§247",
+    "mc": 0,
+    "es": [
+     "100-一"
+    ],
+    "es5": [
+     [
+      "100-一",
+      "100-一",
+      "100-一"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S6",
+  "label": "S6 申論・時效・相鄰・親屬繼承",
+  "cards": [
+   {
+    "term": "消滅時效、除斥期間與抵押權消滅（§880）",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">消滅時效適用___，完成後債務人取得拒絕給付之___；<br>除斥期間適用___，屆滿權利消滅。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§125 一般時效___；<br>§130 請求後___內不起訴視為不中斷；<br>§145Ⅰ 時效完成仍得就抵押物取償；<br>§880 時效完成後___間不實行抵押權者消滅。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">釋字107：___不動產之回復請求權不適用消滅時效；<br>未辦保存登記者仍適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先算時效完成日 → 再算§880五年 → 判斷可否塗銷。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">時效制度讓權利狀態早日___，促進物之流通。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">消滅時效適用<span class=\"key\">請求權</span>，完成後債務人取得拒絕給付之<span class=\"key\">抗辯權</span>；<br>除斥期間適用<span class=\"key\">形成權</span>，屆滿權利消滅。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§125 一般時效<span class=\"key\">十五年</span>；<br>§130 請求後<span class=\"key\">六個月</span>內不起訴視為不中斷；<br>§145Ⅰ 時效完成仍得就抵押物取償；<br>§880 時效完成後<span class=\"key\">五年</span>間不實行抵押權者消滅。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">釋字107：<span class=\"key\">已登記</span>不動產之回復請求權不適用消滅時效；<br>未辦保存登記者仍適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先算時效完成日 → 再算§880五年 → 判斷可否塗銷。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">時效制度讓權利狀態早日<span class=\"key\">確定</span>，促進物之流通。</div></div>",
+    "src": "民法§125、§128、§129、§130、§144、§145、§880；釋字107",
+    "mc": 0,
+    "es": [
+     "105-一",
+     "107-二",
+     "預09"
+    ],
+    "es5": [
+     [
+      "105-一",
+      "105-一",
+      "105-一"
+     ],
+     [
+      "107-二",
+      "107-二",
+      "107-二"
+     ],
+     [
+      "預09",
+      "預09",
+      "預09"
+     ]
+    ],
+    "m": "十五年時效、五年抵押〔自編〕"
+   },
+   {
+    "term": "相鄰關係：鄰地使用、袋地通行與越界建築",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">相鄰關係為調和相鄰不動產利用，對所有權所設之___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§792 因建築得使用鄰地，受損害得請求___；<br>§787Ⅰ 袋地通行，但因___所生者不得主張；<br>§789 分割或一部讓與所生之袋地，只能通行他分割人之地且___；<br>§796 非故意或重大過失越界且鄰地所有人知而___者，不得請求移去。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不該當§796時，法院得依§796-1___，改以償金或購買土地處理。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依類型套條文：使用、通行、越界各有要件。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">鄰里相處講容忍與補償，避免___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">相鄰關係為調和相鄰不動產利用，對所有權所設之<span class=\"key\">限制與擴張</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§792 因建築得使用鄰地，受損害得請求<span class=\"key\">償金</span>；<br>§787Ⅰ 袋地通行，但因<span class=\"key\">任意行為</span>所生者不得主張；<br>§789 分割或一部讓與所生之袋地，只能通行他分割人之地且<span class=\"key\">無須償金</span>；<br>§796 非故意或重大過失越界且鄰地所有人知而<span class=\"key\">不即異議</span>者，不得請求移去。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不該當§796時，法院得依§796-1<span class=\"key\">免為移去</span>，改以償金或購買土地處理。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依類型套條文：使用、通行、越界各有要件。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">鄰里相處講容忍與補償，避免<span class=\"key\">資源浪費</span>。</div></div>",
+    "src": "民法§787、§788、§789、§792、§793、§794、§796、§796-1",
+    "mc": 0,
+    "es": [
+     "111-二",
+     "預33",
+     "預34"
+    ],
+    "es5": [
+     [
+      "111-二",
+      "111-二",
+      "111-二"
+     ],
+     [
+      "預33",
+      "預33",
+      "預33"
+     ],
+     [
+      "預34",
+      "預34",
+      "預34"
+     ]
+    ]
+   },
+   {
+    "term": "繼承：同時死亡、代位繼承與拋棄繼承",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">數人同時遇難不能證明先後者，推定___，相互間不繼承。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1140 第一順序繼承人於繼承開始前死亡，由其直系血親卑親屬___；<br>§1174 拋棄繼承須於知悉時起___內以書面向法院為之；<br>§1175 溯及繼承開始時生效；<br>§1148Ⅱ 繼承人以所得遺產為限負___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">拋棄繼承屬___，債權人不得依§244撤銷。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先確認繼承人與順序 → 代位 → 拋棄後應繼分歸屬。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">繼承規則明確，家族財產才能___移轉。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">數人同時遇難不能證明先後者，推定<span class=\"key\">同時死亡</span>，相互間不繼承。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1140 第一順序繼承人於繼承開始前死亡，由其直系血親卑親屬<span class=\"key\">代位繼承</span>；<br>§1174 拋棄繼承須於知悉時起<span class=\"key\">三個月</span>內以書面向法院為之；<br>§1175 溯及繼承開始時生效；<br>§1148Ⅱ 繼承人以所得遺產為限負<span class=\"key\">有限責任</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">拋棄繼承屬<span class=\"key\">身分行為</span>，債權人不得依§244撤銷。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先確認繼承人與順序 → 代位 → 拋棄後應繼分歸屬。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">繼承規則明確，家族財產才能<span class=\"key\">和平</span>移轉。</div></div>",
+    "src": "民法§11、§1138、§1140、§1141、§1148、§1174、§1175、§1176、§244",
+    "mc": 0,
+    "es": [
+     "99-二",
+     "專練-三"
+    ],
+    "es5": [
+     [
+      "99-二",
+      "99-二",
+      "99-二"
+     ],
+     [
+      "專練-三",
+      "專練-三",
+      "專練-三"
+     ]
+    ]
+   },
+   {
+    "term": "特留分與扣減",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">特留分＝被繼承人不得以遺囑處分，須為特定繼承人___之部分。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1187 遺囑自由以不違反特留分為限；<br>§1223 直系血親卑親屬、配偶之特留分為應繼分___；<br>§1225 特留分不足者得按不足之數由遺贈財產___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算應繼分 → 特留分 → 不足數額向受遺贈人扣減。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">受遺贈人只得取得扣減後之餘額。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">尊重遺囑自由，也保障至親___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">特留分＝被繼承人不得以遺囑處分，須為特定繼承人<span class=\"key\">保留</span>之部分。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1187 遺囑自由以不違反特留分為限；<br>§1223 直系血親卑親屬、配偶之特留分為應繼分<span class=\"key\">二分之一</span>；<br>§1225 特留分不足者得按不足之數由遺贈財產<span class=\"key\">扣減</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算應繼分 → 特留分 → 不足數額向受遺贈人扣減。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">受遺贈人只得取得扣減後之餘額。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">尊重遺囑自由，也保障至親<span class=\"key\">生活</span>。</div></div>",
+    "src": "民法§1138、§1144、§1187、§1223、§1224、§1225",
+    "mc": 0,
+    "es": [
+     "預04"
+    ],
+    "es5": [
+     [
+      "預04",
+      "預04",
+      "預04"
+     ]
+    ]
+   },
+   {
+    "term": "夫妻財產制：剩餘財產分配與追加計算",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">法定財產制下，婚後財產由夫妻___、各自處分；<br>消滅時就婚後財產差額___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1030-1Ⅰ 差額平均分配（___或無償取得者除外）；<br>§1030-3Ⅰ 法定財產制消滅前___內為減少他方分配而處分之財產，追加計算；<br>§1030-3Ⅱ 得對受領之第三人於___內請求返還。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">有償行為有害剩餘財產分配者，得依§1020-1Ⅱ聲請___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">計算婚後財產 → 追加計算 → 不足時向第三人請求。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">婚姻財產分配兼顧___與個人處分自由。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">法定財產制下，婚後財產由夫妻<span class=\"key\">各自所有</span>、各自處分；<br>消滅時就婚後財產差額<span class=\"key\">平均分配</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§1030-1Ⅰ 差額平均分配（<span class=\"key\">繼承</span>或無償取得者除外）；<br>§1030-3Ⅰ 法定財產制消滅前<span class=\"key\">五年</span>內為減少他方分配而處分之財產，追加計算；<br>§1030-3Ⅱ 得對受領之第三人於<span class=\"key\">所受利益</span>內請求返還。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">有償行為有害剩餘財產分配者，得依§1020-1Ⅱ聲請<span class=\"key\">撤銷</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">計算婚後財產 → 追加計算 → 不足時向第三人請求。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">婚姻財產分配兼顧<span class=\"key\">家務貢獻</span>與個人處分自由。</div></div>",
+    "src": "民法§1017、§1018、§1020-1、§1030-1、§1030-3、§1030-4",
+    "mc": 0,
+    "es": [
+     "109-一",
+     "預06",
+     "預41"
+    ],
+    "es5": [
+     [
+      "109-一",
+      "109-一",
+      "109-一"
+     ],
+     [
+      "預06",
+      "預06",
+      "預06"
+     ],
+     [
+      "預41",
+      "預41",
+      "預41"
+     ]
+    ]
+   },
+   {
+    "term": "婚約與結婚之效力",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">婚約不得請求___；<br>結婚須___、二人以上證人簽名及結婚登記。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§979-1 因訂婚約而為之贈與，婚約解除時得請求___；<br>§988① 不具§982方式者結婚___；<br>§989 未達結婚年齡者，法定代理人得請求撤銷，但已達該年齡者___請求。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">婚約違約得依§978請求___，不得訴請履行。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依婚約、方式、年齡三層判斷效力。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">尊重婚姻自主，同時保障___安定。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">婚約不得請求<span class=\"key\">強迫履行</span>；<br>結婚須<span class=\"key\">書面</span>、二人以上證人簽名及結婚登記。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§979-1 因訂婚約而為之贈與，婚約解除時得請求<span class=\"key\">返還</span>；<br>§988① 不具§982方式者結婚<span class=\"key\">無效</span>；<br>§989 未達結婚年齡者，法定代理人得請求撤銷，但已達該年齡者<span class=\"key\">不得</span>請求。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">婚約違約得依§978請求<span class=\"key\">賠償</span>，不得訴請履行。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依婚約、方式、年齡三層判斷效力。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">尊重婚姻自主，同時保障<span class=\"key\">程序</span>安定。</div></div>",
+    "src": "民法§975、§978、§979-1、§982、§988、§989",
+    "mc": 0,
+    "es": [
+     "預49"
+    ],
+    "es5": [
+     [
+      "預49",
+      "預49",
+      "預49"
+     ]
+    ]
+   }
+  ]
  }
 ];
 
@@ -2209,13 +3347,17 @@ function buildBlankLine(blankText, answerHtml, cardKey) {
 
 
 // ── 解析面板（全部顯示）：完整條文＋白話＋口訣＋陷阱＋對照表 ──
+function isEs(c){return String(c.answer).indexOf('class="esb')>=0}
+function es5Html(c){if(!c.es5||!c.es5.length)return'';return'<div class="es5"><b>⏱ 同型題・申論五分鐘練習</b>'+c.es5.map(function(e){var r=e[1]?'<a class="r" target="_blank" rel="noopener" href="民法_申論5分鐘_推理版.html#q='+encodeURIComponent(e[1])+'">'+e[0]+' 推理 ▸</a>':'<span>'+e[0]+'</span>';var s=e[2]?'<a class="s" target="_blank" rel="noopener" href="民法_申論5分鐘衝刺.html#q='+encodeURIComponent(e[2])+'">衝刺</a>':'';return'<span class="ch5">'+r+s+'</span>'}).join('')+'</div>'}
+const LAWPC={'民法':'B0000001','土地法':'D0060001','租賃住宅條例':'D0060125'};
+function srcHtml(t){var cur='B0000001';return String(t).replace(/([一-龥]*)§(\d+)(?:-(\d+))?/g,function(m,nm,no,sub){if(nm){var k=Object.keys(LAWPC).find(function(x){return nm.slice(-x.length)===x});cur=k?LAWPC[k]:null}if(!cur)return m;return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+(sub?'-'+sub:'')+'">§'+no+(sub?'-'+sub:'')+'</a>'})}
 function ansHtml(c){
-  let h='<div class="an-full">'+c.answer+'</div>';
+  let h=isEs(c)?'':'<div class="an-full">'+c.answer+'</div>';
   if(c.p) h+='<div class="an-sec an-plain"><b class="l">💬 白話</b>'+c.p+'</div>';
   if(c.m) h+='<div class="an-sec an-mn"><b class="l">🎵 口訣</b>'+c.m+'</div>';
   if(c.t) h+='<div class="an-sec an-trap"><b class="l">⚠️ 考試陷阱</b>'+c.t+'</div>';
   if(c.cmp) h+=c.cmp;
-  h+='<div class="src">📌 '+c.src+'</div>';
+  h+='<div class="src">📌 '+srcHtml(c.src)+'</div>'+es5Html(c);
   return h;
 }
 // ── 相關申論（可連到備考指揮中心的申論題）──
@@ -2254,12 +3396,13 @@ randAllBtn.className = 'nav-btn';
 randAllBtn.textContent = '🔀 全部隨機';
 randAllBtn.style.borderColor = 'var(--blue)';
 randAllBtn.style.color = 'var(--blue)';
-randAllBtn.onclick = () => setMode('quiz');
+randAllBtn.onclick = () => goDefQuiz();
 nav.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
+  if(ch.id==='S1'){const sp=document.createElement('div');sp.className='cp-sep';sp.textContent='📝 申論四段填空（另一分類：定義→法條→核心→結論＋卓見）';nav.appendChild(sp)}
   const btn = document.createElement('button');
-  btn.className = 'nav-btn' + (ci===0?' on':'');
+  btn.className = 'nav-btn' + (ci===0?' on':''); btn.dataset.id = ch.id;
   btn.textContent = ch.label;
   btn.onclick = ()=> switchCh(ch.id);
   nav.appendChild(btn);
@@ -2303,6 +3446,11 @@ DATA.forEach((ch,ci)=>{
   main.appendChild(div);
 });
 
+(function(){
+  var fl={};try{fl=JSON.parse(localStorage.getItem('bxm-fill')||'{}')||{}}catch(e){}
+  Object.keys(fl).forEach(function(k){if(!(k in cardDone))return;cardDone[k]=true;var b=document.getElementById('rb-'+k);if(b){b.textContent='✓ 完成';b.classList.add('done')}});
+  DATA.forEach(function(ch){var n=ch.cards.filter(function(_,i){return cardDone[ch.id+'-'+i]}).length,t=ch.cards.length;var pf=document.getElementById('pf-'+ch.id),pt=document.getElementById('pt-'+ch.id);if(pf)pf.style.width=Math.round(n/t*100)+'%';if(pt)pt.textContent=n+' / '+t});
+})();
 function toggleBlank(el) {
   el.classList.toggle('revealed');
 }
@@ -2341,7 +3489,7 @@ function switchCh(id){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('ch-'+id).classList.add('active');
-  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.startsWith(id)).classList.add('on');
+  const nb=document.querySelector('.nav-btn[data-id="'+id+'"]'); if(nb) nb.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -2360,11 +3508,11 @@ function setMode(mode) {
   if (mode === 'browse') {
     browse.style.display = ''; nav.style.display = '';
     quizEl.classList.remove('active');
-    tabB.classList.add('on'); tabQ.classList.remove('on');
+    tabB.classList.add('on'); tabQ.classList.remove('on'); document.getElementById('tab-essay').classList.remove('on');
   } else {
     browse.style.display = 'none'; nav.style.display = 'none';
     quizEl.classList.add('active');
-    tabB.classList.remove('on'); tabQ.classList.add('on');
+    tabB.classList.remove('on'); tabQ.classList.add('on'); document.getElementById('tab-essay').classList.remove('on');
     initQuiz();
   }
   window.scrollTo({top:0,behavior:'smooth'});
@@ -2374,8 +3522,8 @@ function initQuiz() {
   // 建 pool（只跑一次）
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
-      ch.cards.forEach(c => {
-        quizPool.push(Object.assign({ chId: ch.id, chLabel: ch.label }, c));
+      ch.cards.forEach((c, ci) => {
+        quizPool.push(Object.assign({ key: ch.id + '-' + ci, chId: ch.id, chLabel: ch.label }, c));
       });
     });
   }
@@ -2384,12 +3532,14 @@ function initQuiz() {
   if (!filterEl.hasChildNodes()) {
     const allBtn = document.createElement('button');
     allBtn.className = 'qf-btn qf-all on';
-    allBtn.textContent = '全部章節';
+    allBtn.textContent = '全部章節（不含申論四段）';
     allBtn.onclick = () => setQuizFilter('ALL', allBtn);
     filterEl.appendChild(allBtn);
     DATA.forEach(ch => {
+      if(ch.id==='S1'){const sp=document.createElement('div');sp.className='cp-sep';sp.textContent='📝 申論四段填空（「全部章節」不含，需另選或按「申論隨機」）';filterEl.appendChild(sp);
+        const eb=document.createElement('button');eb.className='qf-btn qf-es';eb.dataset.id='ES';eb.textContent='申論四段全部';eb.onclick=()=>setQuizFilter('ES',eb);filterEl.appendChild(eb)}
       const btn = document.createElement('button');
-      btn.className = 'qf-btn';
+      btn.className = 'qf-btn'; btn.dataset.id = ch.id;
       btn.textContent = ch.label;
       btn.onclick = () => setQuizFilter(ch.id, btn);
       filterEl.appendChild(btn);
@@ -2407,8 +3557,13 @@ function setQuizFilter(id, btn) {
   startQuizRound();
 }
 
+function goEssay(){setMode('quiz');const eb=document.querySelector('.qf-btn[data-id="ES"]');if(eb)setQuizFilter('ES',eb);document.getElementById('tab-quiz').classList.remove('on');document.getElementById('tab-essay').classList.add('on')}
+function goDefQuiz(){const wasEs=document.getElementById('tab-essay').classList.contains('on');setMode('quiz');if(wasEs||quizFilter==='ES'||(quizFilter[0]==='S'&&quizFilter!=='ALL')){const ab=document.querySelector('.qf-btn.qf-all');if(ab)setQuizFilter('ALL',ab)}}
+try{if(location.hash==='#essay')setTimeout(goEssay,0);addEventListener('hashchange',()=>{if(location.hash==='#essay')goEssay()})}catch(e){}
+let kbHint = true; try { kbHint = localStorage.getItem('bxm-fill-kb') !== '1'; } catch (e) {}
+function hideKb() { kbHint = false; try { localStorage.setItem('bxm-fill-kb', '1'); } catch (e) {} document.querySelectorAll('.qc-kb').forEach(e => e.remove()); }
 function startQuizRound() {
-  const pool = quizFilter === 'ALL' ? quizPool : quizPool.filter(c => c.chId === quizFilter);
+  const pool = quizFilter === 'ALL' ? quizPool.filter(c => c.chId[0] !== 'S') : quizFilter === 'ES' ? quizPool.filter(c => c.chId[0] === 'S') : quizPool.filter(c => c.chId === quizFilter);
   // Fisher-Yates shuffle
   quizQueue = [...pool];
   for (let i = quizQueue.length - 1; i > 0; i--) {
@@ -2425,7 +3580,7 @@ function renderQuizCard() {
   if (quizIdx >= quizQueue.length) {
     prog.textContent = '';
     let note = '';
-    if (quizQueue.length === quizPool.length) {
+    if (quizFilter === 'ALL') {
       if (!quizQueue._counted && window.BXREP && BXREP.readInc) {
         quizQueue._counted = true;
         const cnt = BXREP.readInc(BXREP.PAGE, 1);
@@ -2433,7 +3588,7 @@ function renderQuizCard() {
       }
       note = '<div style="font-size:13px;color:var(--sub,#666);margin-top:8px">已自動記錄「讀過 1 輪」，右下角不用再按＋。</div>';
     } else {
-      note = '<div style="font-size:13px;color:var(--sub,#666);margin-top:8px">這輪只練部分章節，不自動記入「讀過 N 輪」；全部 ' + quizPool.length + ' 題做完才會自動記一輪。</div>';
+      note = '<div style="font-size:13px;color:var(--sub,#666);margin-top:8px">這輪只練部分章節，不自動記入「讀過 N 輪」；全部 ' + quizPool.filter(c => c.chId[0] !== 'S').length + ' 題定義填空做完才會自動記一輪。</div>';
     }
     area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！${note}<br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
     return;
@@ -2467,6 +3622,7 @@ function renderQuizCard() {
       </div>
       <div class="qc-term">${c.term}</div>
       <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      ${kbHint ? '<div class="qc-kb">⌨ 空白／Enter 顯示｜← → 換題<a href="#" onclick="hideKb();return false">知道了</a></div>' : ''}
       ${esRow(c)}
       <div class="qc-btns">
         <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
@@ -2488,6 +3644,7 @@ function toggleQBlank(el) {
   } else {
     val.style.display = ''; mask.style.display = 'none';
     el.classList.add('revealed');
+    if (!document.querySelector('#quiz-card-area .blank:not(.revealed)')) revealAllQuizBlanks('q' + quizIdx);
   }
 }
 
@@ -2524,21 +3681,60 @@ function revealAllQuizBlanks(qid) {
   if (ans) ans.classList.add('show');
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
+  quizMarkDone();
+}
+/* 隨機測驗：這題空格全部顯示＝記為「已確認」（key＝章節id-序號，與章節瀏覽共用 bxm-fill） */
+function quizMarkDone() {
+  const c = quizQueue[quizIdx];
+  if (!c || !c.key) return;
+  try { window.BXREP && BXREP.fillMark(c.key); } catch (e) {}
+  if (!cardDone[c.key]) {
+    cardDone[c.key] = true;
+    const b = document.getElementById('rb-' + c.key);
+    if (b) { b.textContent = '✓ 完成'; b.classList.add('done'); }
+    const ch = DATA.find(x => x.id === c.chId), t = ch.cards.length, n = ch.cards.filter((_, i) => cardDone[c.chId + '-' + i]).length;
+    const pf = document.getElementById('pf-' + c.chId), pt = document.getElementById('pt-' + c.chId);
+    if (pf) pf.style.width = Math.round(n / t * 100) + '%'; if (pt) pt.textContent = n + ' / ' + t;
+  }
 }
 
+function quizScrollTop(){const el=document.getElementById('quiz-progress');if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,y),behavior:'auto'})}
 function nextQuiz() {
   quizIdx++;
   renderQuizCard();
-  window.scrollTo({top:0,behavior:'smooth'});
+  quizScrollTop();
 }
 
 function prevQuiz() {
   if (quizIdx > 0) {
     quizIdx--;
     renderQuizCard();
-    window.scrollTo({top:0,behavior:'smooth'});
+    quizScrollTop();
   }
 }
+
+// ===隨機測驗鍵盤：空白鍵／Enter＝顯示一個（全部顯示後＝下一題；整輪做完＝再來一輪）、← 上一題、→ 下一題===
+(function(){
+  function active(){var q=document.getElementById('quiz-mode');return q&&q.classList.contains('active')}
+  function onKey(e,up){
+    if(!active()||e.ctrlKey||e.metaKey||e.altKey)return;
+    var k=e.key,t=e.target,tag=t&&t.tagName;
+    if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable))return;
+    if(k!==' '&&k!=='Enter'&&k!=='ArrowLeft'&&k!=='ArrowRight')return;
+    if(t&&t.closest&&t.closest('summary'))return;
+    e.preventDefault();
+    if(up||e.repeat)return;
+    if(document.activeElement&&document.activeElement!==document.body&&document.activeElement.blur)document.activeElement.blur();
+    if(k==='ArrowLeft'){prevQuiz();return}
+    if(k==='ArrowRight'){if(quizIdx<quizQueue.length)nextQuiz();return}
+    if(quizIdx>=quizQueue.length){startQuizRound();return}
+    var qid='q'+quizIdx;
+    if(document.querySelectorAll('#qblank-'+qid+' .blank:not(.revealed)').length===0)nextQuiz();
+    else revealOneQuizBlank(qid);
+  }
+  document.addEventListener('keydown',function(e){onKey(e,false)});
+  document.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')onKey(e,true)});
+})();
 
 // ===主題切換===
 function updateThemeBtn(theme) {
