@@ -34,8 +34,10 @@ def point(t):
     if hm:
         rest = main[hm.end():]; c = rest.find('：')
         if 0 < c <= 22: h = hm.group(0) + rest[:c]; main = rest[c + 1:]
-        else: h = hm.group(0); main = rest
-    o = '<div class="evp">' + ('<p class="evh">%s</p>' % fmt(h) if h else '') + '<p>%s</p>' % fmt(main)
+        elif len(rest.rstrip('。')) <= 24: h = hm.group(0) + rest.rstrip('。'); main = ''   # 短項（如「（二）法定建蔽率。」）整句當小標
+        else: main = '\x00' + hm.group(0) + '\x01' + rest   # 長項無冒號：編號留在句首、不另起空小標（11-05）
+    mh = fmt(main).replace('\x00', '<b>').replace('\x01', '</b>')
+    o = '<div class="evp">' + ('<p class="evh">%s</p>' % fmt(h) if h else '') + ('<p>%s</p>' % mh if main.strip() else '')
     if ex: o += '<p class="evx"><span class="evt">例</span><span>%s</span></p>' % fmt(ex)
     if why: o += '<p class="evx"><span class="evt">理由</span><span>%s</span></p>' % fmt(why)
     return o + '</div>'
@@ -65,7 +67,7 @@ def _cn(x):
 def law_block(cid, text):
     steps = [st for sb in LJD.get(cid, {}).get('subs', []) for st in sb['steps']]
     M = _lj_titles(steps)
-    segs = [x.strip().rstrip('、；。') for x in re.split(r'(?<=[；、。])', text.strip()) if x.strip().rstrip('、；。')]
+    segs = [x.strip().rstrip('、；。') for x in re.split(r'(?<=[；。])|(?<=(?<![壹貳參肆伍陸柒捌玖拾一二三四五六七八九十])、)', text.strip()) if x and x.strip().rstrip('、；。')]   # 「壹、」「一、」等編號的頓號不切（11-05）
     law = None; rows = []   # [文字, 名稱]
     for sg in segs:
         for full, key in LAWN:
