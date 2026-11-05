@@ -43,6 +43,7 @@ if 'id="navbar"' not in s and "bar.id='navbar'" not in s:
     rep("    browse.style.display = 'none'; nav.style.display = 'none';",
         "    browse.style.display = 'none'; nav.style.display = 'none'; {const nb=document.getElementById('navbar'); if(nb) nb.style.display='none';}")
     rep("</body>", """<script>/*jj-navfold*/(function(){var nav=document.getElementById('nav');if(!nav)return;var bar=document.createElement('div');bar.id='navbar';var t=document.createElement('button');t.id='navtog';t.type='button';bar.appendChild(t);nav.parentNode.insertBefore(bar,nav);
+var qm=document.getElementById('quiz-mode');if(qm&&qm.classList.contains('active'))bar.style.display='none';
 function lab(){var on=nav.querySelector('.nav-btn.on');t.innerHTML='📑 章節：<b>'+(on?on.textContent:'選擇章節')+'</b> '+(nav.classList.contains('open')?'▴':'▾');}
 t.onclick=function(){nav.classList.toggle('open');lab();};
 nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn')){nav.classList.remove('open');setTimeout(lab,30);}});

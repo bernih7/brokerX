@@ -3115,6 +3115,7 @@ try{ if(location.hash==='#essay') setTimeout(goEssay,0); addEventListener('hashc
 })();
 </script>
 <script>(function(){var nav=document.getElementById('nav');if(!nav)return;var bar=document.createElement('div');bar.id='navbar';var t=document.createElement('button');t.id='navtog';bar.appendChild(t);nav.parentNode.insertBefore(bar,nav);
+var qm=document.getElementById('quiz-mode');if(qm&&qm.classList.contains('active'))bar.style.display='none';
 function lab(){var on=nav.querySelector('.nav-btn.on');t.innerHTML='📑 章節：<b>'+(on?on.textContent.replace(/[★☆\s]+$/,''):'')+'</b> '+(nav.classList.contains('open')?'▴':'▾');}
 t.onclick=function(){nav.classList.toggle('open');lab();};
 nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(lab,30);});
