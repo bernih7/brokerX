@@ -3318,6 +3318,20 @@ function markDone(key, chId, total) {
   if(pt) pt.textContent = done+' / '+total;
 }
 
+// 載入時還原已確認的題目（bx-fill：章節瀏覽與隨機測驗共用）
+(function(){
+  var f={};try{f=JSON.parse(localStorage.getItem('bx-fill')||'{}')||{}}catch(e){}
+  Object.keys(f).forEach(function(k){
+    if(!(k in cardDone))return; cardDone[k]=true;
+    var b=document.getElementById('rb-'+k);if(b){b.textContent='✓ 完成';b.classList.add('done')}
+  });
+  DATA.forEach(function(ch){
+    var n=Object.keys(cardDone).filter(function(k){return k.indexOf(ch.id+'-')===0&&cardDone[k]}).length,t=ch.cards.length;
+    var pf=document.getElementById('pf-'+ch.id),pt=document.getElementById('pt-'+ch.id);
+    if(pf)pf.style.width=Math.round(n/t*100)+'%';if(pt)pt.textContent=n+' / '+t;
+  });
+})();
+
 function applyCh(){
   document.querySelectorAll('.chapter').forEach(c=>c.classList.toggle('active',selCh.has(c.id.slice(3))));
   document.querySelectorAll('.nav-btn[data-id]').forEach(b=>b.classList.toggle('on',selCh.has(b.dataset.id)));
@@ -3360,8 +3374,8 @@ function initQuiz() {
   // 建 pool（只跑一次）
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
-      ch.cards.forEach(c => {
-        quizPool.push({ chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', plain: c.plain||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0, mcx: c.mcx||[], esx: c.esx||[], prl: c.prl||[] });
+      ch.cards.forEach((c, ci) => {
+        quizPool.push({ key: ch.id + '-' + ci, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', plain: c.plain||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0, mcx: c.mcx||[], esx: c.esx||[], prl: c.prl||[] });
       });
     });
   }
@@ -3470,6 +3484,7 @@ function toggleQBlank(el) {
   } else {
     val.style.display = ''; mask.style.display = 'none';
     el.classList.add('revealed');
+    if (!document.querySelector('#quiz-card-area .blank:not(.revealed)')) quizMarkDone();
   }
 }
 
@@ -3502,10 +3517,28 @@ function revealAllQuizBlanks(qid) {
     b.querySelector('.blank-val').style.display = '';
     b.classList.add('revealed');
   });
+  quizMarkDone();
   const ans = document.getElementById('qans-' + qid);
   if (ans) ans.classList.add('show');
   const stat = document.getElementById('qstat-' + qid);
   if (stat) stat.classList.add('show');
+}
+
+// 隨機測驗：這題的空格全部顯示過＝記為「已確認」（與章節瀏覽共用 bx-fill 紀錄，進度頁的 x/183 會一起更新）
+function quizMarkDone() {
+  const c = quizQueue[quizIdx];
+  if (!c || !c.key) return;
+  try { BXREP.fillMark(c.key); } catch (e) {}
+  if (!cardDone[c.key]) {
+    cardDone[c.key] = true;
+    const total = DATA.find(x => x.id === c.chId).cards.length;
+    const done = Object.keys(cardDone).filter(k => k.startsWith(c.chId + '-') && cardDone[k]).length;
+    const pf = document.getElementById('pf-' + c.chId), pt = document.getElementById('pt-' + c.chId);
+    if (pf) pf.style.width = Math.round(done / total * 100) + '%';
+    if (pt) pt.textContent = done + ' / ' + total;
+    const btn = document.getElementById('rb-' + c.key);
+    if (btn) { btn.textContent = '✓ 完成'; btn.classList.add('done'); }
+  }
 }
 
 function nextQuiz() {
