@@ -23,10 +23,29 @@
 [data-g="I"]{--gc:#7A8B3A}
 [data-g="N"]{--gc:#4F6B45}
 [data-g="S"]{--gc:#8A5A2B}
-.esl{display:inline-block;font-size:12px;font-weight:700;color:var(--gc,#8A5A2B);background:color-mix(in srgb,var(--gc,#8A5A2B) 12%,transparent);border-radius:6px;padding:1px 7px;margin:6px 6px 2px 0}
-.esl.ezj{color:#9a6b12;background:rgba(232,190,90,.22)}
+/* 申論四段卡（配色同申論五分鐘推理版） */
+:root{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}}
+:root[data-theme="dark"]{--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}
+:root[data-theme="light"]{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+.esb{display:grid;gap:4px;margin-top:12px;text-align:left;line-height:1.85}
+.esb:first-child{margin-top:2px}
+.esl{justify-self:start;font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 10px;letter-spacing:.04em}
+.esb.e1 .esl{background:var(--b2s);color:var(--b2)}
+.esb.e2 .esl{background:var(--b1s);color:var(--b1)}
+.esb.e3{border:1.5px solid var(--b4);border-radius:14px;padding:10px 14px;background:var(--card)}
+.esb.e3 .esl{background:none;padding:0;color:var(--b4)}
+.esb.e4 .esl{background:var(--b3s);color:var(--b3)}
+.esb.e5{background:var(--hl);border-radius:12px;padding:10px 14px}
+.esb.e5 .esl{background:none;padding:0;color:var(--muted)}
+.esb.e5 .esc{font-weight:700}
+.es5{margin-top:10px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;font-size:13px;line-height:1.9}
+.es5 b{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+.es5 .ch5{display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;white-space:nowrap}
+.es5 a.r{font-weight:700;color:var(--pri2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--card)}
+.es5 a.s{font-size:12px;color:var(--muted)}
+
 .cp-sep{flex-basis:100%;font-size:12px;font-weight:700;color:#8A5A2B;margin:10px 0 2px;padding-top:8px;border-top:1px dashed currentColor}
-.blank-line .esl:first-child{margin-top:0}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) [data-g="A"]{--gc:#74B1A0} :root:not([data-theme="light"]) [data-g="B"]{--gc:#5BC2CC} :root:not([data-theme="light"]) [data-g="C"]{--gc:#8DC583} :root:not([data-theme="light"]) [data-g="D"]{--gc:#BCCD64} :root:not([data-theme="light"]) [data-g="E"]{--gc:#65CD9A} :root:not([data-theme="light"]) [data-g="F"]{--gc:#A9CD84} :root:not([data-theme="light"]) [data-g="G"]{--gc:#8AB9A7} :root:not([data-theme="light"]) [data-g="H"]{--gc:#37CFA9} :root:not([data-theme="light"]) [data-g="I"]{--gc:#BFCB93} :root:not([data-theme="light"]) [data-g="N"]{--gc:#9DB594}}
 :root[data-theme="dark"] [data-g="A"]{--gc:#74B1A0}
 :root[data-theme="dark"] [data-g="B"]{--gc:#5BC2CC}
@@ -3295,8 +3314,8 @@ const DATA = [
   "cards": [
    {
     "term": "公設保留地：使用限制與說明書解說",
-    "blank": "<b class=\"esl\">①問題定義</b>保留地＝都市計畫劃定供___使用、尚未由政府___之私有土地；所有權仍在、使用受限之___狀態。<br><b class=\"esl\">②法條定義</b>都計§___（臨時建築）、§___（使用限制）、§48（取得方式）；土稅§19 建築使用地價稅___；§39Ⅱ 徵收前移轉___土增稅。<br><b class=\"esl\">③問題核心</b>地用：不得妨礙___，但可___；臨時建築經通知開闢須自行___；稅：免徵只是延後課稅（變更後再移轉用免徵前原地價）。<br><b class=\"esl\">④結論</b>地用、地權、稅負、取得方式___載入說明書。<br><b class=\"esl ezj\">結尾卓見</b>讓買方看清___，經紀人才算盡到___。",
-    "answer": "<b class=\"esl\">①問題定義</b>保留地＝都市計畫劃定供<span class=\"key\">公共設施</span>使用、尚未由政府<span class=\"key\">取得</span>之私有土地；所有權仍在、使用受限之<span class=\"key\">過渡</span>狀態。<br><b class=\"esl\">②法條定義</b>都計§<span class=\"key\">50</span>（臨時建築）、§<span class=\"key\">51</span>（使用限制）、§48（取得方式）；土稅§19 建築使用地價稅<span class=\"key\">6‰</span>；§39Ⅱ 徵收前移轉<span class=\"key\">免徵</span>土增稅。<br><b class=\"esl\">③問題核心</b>地用：不得妨礙<span class=\"key\">指定目的</span>，但可<span class=\"key\">繼續原使用</span>；臨時建築經通知開闢須自行<span class=\"key\">無條件拆除</span>；稅：免徵只是延後課稅（變更後再移轉用免徵前原地價）。<br><b class=\"esl\">④結論</b>地用、地權、稅負、取得方式<span class=\"key\">分項</span>載入說明書。<br><b class=\"esl ezj\">結尾卓見</b>讓買方看清<span class=\"key\">被取得風險</span>，經紀人才算盡到<span class=\"key\">說明義務</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">保留地＝都市計畫劃定供___使用、尚未由政府___之私有土地；所有權仍在、使用受限之___狀態。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§___（臨時建築）、§___（使用限制）、§48（取得方式）；土稅§19 建築使用地價稅___；§39Ⅱ 徵收前移轉___土增稅。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地用：不得妨礙___，但可___；臨時建築經通知開闢須自行___；稅：免徵只是延後課稅（變更後再移轉用免徵前原地價）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">地用、地權、稅負、取得方式___載入說明書。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓買方看清___，經紀人才算盡到___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">保留地＝都市計畫劃定供<span class=\"key\">公共設施</span>使用、尚未由政府<span class=\"key\">取得</span>之私有土地；所有權仍在、使用受限之<span class=\"key\">過渡</span>狀態。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§<span class=\"key\">50</span>（臨時建築）、§<span class=\"key\">51</span>（使用限制）、§48（取得方式）；土稅§19 建築使用地價稅<span class=\"key\">6‰</span>；§39Ⅱ 徵收前移轉<span class=\"key\">免徵</span>土增稅。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地用：不得妨礙<span class=\"key\">指定目的</span>，但可<span class=\"key\">繼續原使用</span>；臨時建築經通知開闢須自行<span class=\"key\">無條件拆除</span>；稅：免徵只是延後課稅（變更後再移轉用免徵前原地價）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">地用、地權、稅負、取得方式<span class=\"key\">分項</span>載入說明書。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓買方看清<span class=\"key\">被取得風險</span>，經紀人才算盡到<span class=\"key\">說明義務</span>。</div></div>",
     "src": "都計§48、§50、§51；土稅§19、§39Ⅱ",
     "mc": 0,
     "essay": 2,
@@ -3305,12 +3324,28 @@ const DATA = [
      "112-一"
     ],
     "mcx": [],
-    "plain": "同型題：99-二、112-一、P01。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "99-二",
+      "q-99-二",
+      "q-99-二"
+     ],
+     [
+      "112-一",
+      "q-112-一",
+      "q-112-一"
+     ],
+     [
+      "P01",
+      "pr-01",
+      "pr-01"
+     ]
+    ]
    },
    {
     "term": "公設用地 vs 公設保留地；公設用地之設置",
-    "blank": "<b class=\"esl\">①問題定義</b>公設保留地是公設用地中「已規劃但___」的過渡狀態（___）。<br><b class=\"esl\">②法條定義</b>都計§___ 公設用地範疇；§45 公園、體育場所、綠地、廣場、兒童遊樂場合計不得少於全部計畫面積___；§47 屠宰場、垃圾場等鄰避設施於___設置。<br><b class=\"esl\">③問題核心</b>判別四基準：___／使用限制程度／___（隔離免徵、建築使用6‰）／取得方式。<br><b class=\"esl\">④結論</b>過渡性質是保留地享有___之根本原因。<br><b class=\"esl ezj\">結尾卓見</b>先分清「已取得」與「待取得」，才知道買到的是___還是___。",
-    "answer": "<b class=\"esl\">①問題定義</b>公設保留地是公設用地中「已規劃但<span class=\"key\">尚未取得</span>」的過渡狀態（<span class=\"key\">子集合</span>）。<br><b class=\"esl\">②法條定義</b>都計§<span class=\"key\">42</span> 公設用地範疇；§45 公園、體育場所、綠地、廣場、兒童遊樂場合計不得少於全部計畫面積<span class=\"key\">百分之十</span>；§47 屠宰場、垃圾場等鄰避設施於<span class=\"key\">邊緣</span>設置。<br><b class=\"esl\">③問題核心</b>判別四基準：<span class=\"key\">法律地位</span>／使用限制程度／<span class=\"key\">稅捐待遇</span>（隔離免徵、建築使用6‰）／取得方式。<br><b class=\"esl\">④結論</b>過渡性質是保留地享有<span class=\"key\">限制與優惠</span>之根本原因。<br><b class=\"esl ezj\">結尾卓見</b>先分清「已取得」與「待取得」，才知道買到的是<span class=\"key\">權利</span>還是<span class=\"key\">風險</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">公設保留地是公設用地中「已規劃但___」的過渡狀態（___）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§___ 公設用地範疇；§45 公園、體育場所、綠地、廣場、兒童遊樂場合計不得少於全部計畫面積___；§47 屠宰場、垃圾場等鄰避設施於___設置。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">判別四基準：___／使用限制程度／___（隔離免徵、建築使用6‰）／取得方式。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">過渡性質是保留地享有___之根本原因。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先分清「已取得」與「待取得」，才知道買到的是___還是___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">公設保留地是公設用地中「已規劃但<span class=\"key\">尚未取得</span>」的過渡狀態（<span class=\"key\">子集合</span>）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§<span class=\"key\">42</span> 公設用地範疇；§45 公園、體育場所、綠地、廣場、兒童遊樂場合計不得少於全部計畫面積<span class=\"key\">百分之十</span>；§47 屠宰場、垃圾場等鄰避設施於<span class=\"key\">邊緣</span>設置。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">判別四基準：<span class=\"key\">法律地位</span>／使用限制程度／<span class=\"key\">稅捐待遇</span>（隔離免徵、建築使用6‰）／取得方式。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">過渡性質是保留地享有<span class=\"key\">限制與優惠</span>之根本原因。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先分清「已取得」與「待取得」，才知道買到的是<span class=\"key\">權利</span>還是<span class=\"key\">風險</span>。</div></div>",
     "src": "都計§42～§48",
     "mc": 0,
     "essay": 1,
@@ -3318,37 +3353,65 @@ const DATA = [
      "114-一"
     ],
     "mcx": [],
-    "plain": "同型題：114-一、P42。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "114-一",
+      "q-114-一",
+      "q-114-一"
+     ],
+     [
+      "P42",
+      "pr-42",
+      "pr-42"
+     ]
+    ],
     "mnemonic": "四基準：位・限・稅・取〔自編〕"
    },
    {
     "term": "保留地取得方式與容積移轉",
-    "blank": "<b class=\"esl\">①問題定義</b>容積移轉＝將土地可建築___移出、移入他地使用。<br><b class=\"esl\">②法條定義</b>都計§___：公用事業→徵收或購買；其餘→___、___、___；§50-2 私有保留地得與公有非公用土地___（逾___年優先）。<br><b class=\"esl\">③問題核心</b>§83-1 容積移轉三情形：___、紀念性藝術價值建築與歷史建築保存、___提供。<br><b class=\"esl\">④結論</b>說明書：各種___都要講。<br><b class=\"esl ezj\">結尾卓見</b>取得管道多元，地主不必只等徵收，權益與都市發展___。",
-    "answer": "<b class=\"esl\">①問題定義</b>容積移轉＝將土地可建築<span class=\"key\">容積</span>移出、移入他地使用。<br><b class=\"esl\">②法條定義</b>都計§<span class=\"key\">48</span>：公用事業→徵收或購買；其餘→<span class=\"key\">徵收</span>、<span class=\"key\">區段徵收</span>、<span class=\"key\">市地重劃</span>；§50-2 私有保留地得與公有非公用土地<span class=\"key\">交換</span>（逾<span class=\"key\">25</span>年優先）。<br><b class=\"esl\">③問題核心</b>§83-1 容積移轉三情形：<span class=\"key\">保留地取得</span>、紀念性藝術價值建築與歷史建築保存、<span class=\"key\">公共開放空間</span>提供。<br><b class=\"esl\">④結論</b>說明書：各種<span class=\"key\">取得途徑</span>都要講。<br><b class=\"esl ezj\">結尾卓見</b>取得管道多元，地主不必只等徵收，權益與都市發展<span class=\"key\">兩全</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">容積移轉＝將土地可建築___移出、移入他地使用。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§___：公用事業→徵收或購買；其餘→___、___、___；§50-2 私有保留地得與公有非公用土地___（逾___年優先）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§83-1 容積移轉三情形：___、紀念性藝術價值建築與歷史建築保存、___提供。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">說明書：各種___都要講。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">取得管道多元，地主不必只等徵收，權益與都市發展___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">容積移轉＝將土地可建築<span class=\"key\">容積</span>移出、移入他地使用。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§<span class=\"key\">48</span>：公用事業→徵收或購買；其餘→<span class=\"key\">徵收</span>、<span class=\"key\">區段徵收</span>、<span class=\"key\">市地重劃</span>；§50-2 私有保留地得與公有非公用土地<span class=\"key\">交換</span>（逾<span class=\"key\">25</span>年優先）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§83-1 容積移轉三情形：<span class=\"key\">保留地取得</span>、紀念性藝術價值建築與歷史建築保存、<span class=\"key\">公共開放空間</span>提供。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">說明書：各種<span class=\"key\">取得途徑</span>都要講。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">取得管道多元，地主不必只等徵收，權益與都市發展<span class=\"key\">兩全</span>。</div></div>",
     "src": "都計§48、§50-2、§83-1",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P38。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P38",
+      "pr-38",
+      "pr-38"
+     ]
+    ],
     "mnemonic": "§48 三方式＋§50-2 交換＋§83-1 容積移轉"
    },
    {
     "term": "主要計畫：種類、擬定、公展、核定、發布",
-    "blank": "<b class=\"esl\">①問題定義</b>主要計畫＝市鎮計畫___；程序設計在保障人民___。<br><b class=\"esl\">②法條定義</b>都計§19 送審前公開展覽___天＋說明會；都委會___天審完、得延長60天；§20 主要計畫一律___核定；§21 接到核定公文___日內發布。<br><b class=\"esl\">③問題核心</b>種類（§9）：市（鎮）計畫、___計畫、___計畫；地方擬定、內政部核定。<br><b class=\"esl\">④結論</b>公展30、審議60、發布30，依序寫出。<br><b class=\"esl ezj\">結尾卓見</b>程序公開透明，計畫才有___，也減少日後___。",
-    "answer": "<b class=\"esl\">①問題定義</b>主要計畫＝市鎮計畫<span class=\"key\">綱要</span>；程序設計在保障人民<span class=\"key\">參與</span>。<br><b class=\"esl\">②法條定義</b>都計§19 送審前公開展覽<span class=\"key\">30</span>天＋說明會；都委會<span class=\"key\">60</span>天審完、得延長60天；§20 主要計畫一律<span class=\"key\">內政部</span>核定；§21 接到核定公文<span class=\"key\">30</span>日內發布。<br><b class=\"esl\">③問題核心</b>種類（§9）：市（鎮）計畫、<span class=\"key\">鄉街</span>計畫、<span class=\"key\">特定區</span>計畫；地方擬定、內政部核定。<br><b class=\"esl\">④結論</b>公展30、審議60、發布30，依序寫出。<br><b class=\"esl ezj\">結尾卓見</b>程序公開透明，計畫才有<span class=\"key\">正當性</span>，也減少日後<span class=\"key\">爭議</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">主要計畫＝市鎮計畫___；程序設計在保障人民___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§19 送審前公開展覽___天＋說明會；都委會___天審完、得延長60天；§20 主要計畫一律___核定；§21 接到核定公文___日內發布。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">種類（§9）：市（鎮）計畫、___計畫、___計畫；地方擬定、內政部核定。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">公展30、審議60、發布30，依序寫出。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序公開透明，計畫才有___，也減少日後___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">主要計畫＝市鎮計畫<span class=\"key\">綱要</span>；程序設計在保障人民<span class=\"key\">參與</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§19 送審前公開展覽<span class=\"key\">30</span>天＋說明會；都委會<span class=\"key\">60</span>天審完、得延長60天；§20 主要計畫一律<span class=\"key\">內政部</span>核定；§21 接到核定公文<span class=\"key\">30</span>日內發布。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">種類（§9）：市（鎮）計畫、<span class=\"key\">鄉街</span>計畫、<span class=\"key\">特定區</span>計畫；地方擬定、內政部核定。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">公展30、審議60、發布30，依序寫出。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序公開透明，計畫才有<span class=\"key\">正當性</span>，也減少日後<span class=\"key\">爭議</span>。</div></div>",
     "src": "都計§9～§13、§18～§21",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P37、P47。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P37",
+      "pr-37",
+      "pr-37"
+     ],
+     [
+      "P47",
+      "pr-47",
+      "pr-47"
+     ]
+    ],
     "mnemonic": "公展30、審議60、發布30；核定一律內政部"
    },
    {
     "term": "細部計畫與未發布前之限建",
-    "blank": "<b class=\"esl\">①問題定義</b>細部計畫＝依主要計畫原則，就分區管制、道路、地區性公設等具體規定，為核發___依據。<br><b class=\"esl\">②法條定義</b>都計§17Ⅰ 主要計畫發布後___完成細部、細部發布後___完成公設；§17Ⅱ 細部未發布→___；主要計畫發布逾二年且能確定___→得指定建築線核發建照。<br><b class=\"esl\">③問題核心</b>99-一：X地＝___；Y地（區段徵收）＝未來有徵收風險、得選___。<br><b class=\"esl\">④結論</b>使用管制差異要___於說明書。<br><b class=\"esl ezj\">結尾卓見</b>「能不能蓋」是買方最在意的事，講清楚才能避免___。",
-    "answer": "<b class=\"esl\">①問題定義</b>細部計畫＝依主要計畫原則，就分區管制、道路、地區性公設等具體規定，為核發<span class=\"key\">建照</span>依據。<br><b class=\"esl\">②法條定義</b>都計§17Ⅰ 主要計畫發布後<span class=\"key\">二年</span>完成細部、細部發布後<span class=\"key\">五年</span>完成公設；§17Ⅱ 細部未發布→<span class=\"key\">限制建築</span>；主要計畫發布逾二年且能確定<span class=\"key\">建築線</span>→得指定建築線核發建照。<br><b class=\"esl\">③問題核心</b>99-一：X地＝<span class=\"key\">有條件可建</span>；Y地（區段徵收）＝未來有徵收風險、得選<span class=\"key\">抵價地</span>。<br><b class=\"esl\">④結論</b>使用管制差異要<span class=\"key\">分項載明</span>於說明書。<br><b class=\"esl ezj\">結尾卓見</b>「能不能蓋」是買方最在意的事，講清楚才能避免<span class=\"key\">交易糾紛</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">細部計畫＝依主要計畫原則，就分區管制、道路、地區性公設等具體規定，為核發___依據。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§17Ⅰ 主要計畫發布後___完成細部、細部發布後___完成公設；§17Ⅱ 細部未發布→___；主要計畫發布逾二年且能確定___→得指定建築線核發建照。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">99-一：X地＝___；Y地（區段徵收）＝未來有徵收風險、得選___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">使用管制差異要___於說明書。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">「能不能蓋」是買方最在意的事，講清楚才能避免___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">細部計畫＝依主要計畫原則，就分區管制、道路、地區性公設等具體規定，為核發<span class=\"key\">建照</span>依據。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§17Ⅰ 主要計畫發布後<span class=\"key\">二年</span>完成細部、細部發布後<span class=\"key\">五年</span>完成公設；§17Ⅱ 細部未發布→<span class=\"key\">限制建築</span>；主要計畫發布逾二年且能確定<span class=\"key\">建築線</span>→得指定建築線核發建照。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">99-一：X地＝<span class=\"key\">有條件可建</span>；Y地（區段徵收）＝未來有徵收風險、得選<span class=\"key\">抵價地</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">使用管制差異要<span class=\"key\">分項載明</span>於說明書。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">「能不能蓋」是買方最在意的事，講清楚才能避免<span class=\"key\">交易糾紛</span>。</div></div>",
     "src": "都計§17、§22、§23",
     "mc": 0,
     "essay": 1,
@@ -3356,25 +3419,42 @@ const DATA = [
      "99-一"
     ],
     "mcx": [],
-    "plain": "同型題：99-一、P41。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "99-一",
+      "q-99-一",
+      "q-99-一"
+     ],
+     [
+      "P41",
+      "pr-41",
+      "pr-41"
+     ]
+    ],
     "mnemonic": "二年細部、五年公設"
    },
    {
     "term": "都市計畫變更：通盤檢討・迅行變更・人民申請",
-    "blank": "<b class=\"esl\">①問題定義</b>都市計畫原則___隨時任意變更。<br><b class=\"esl\">②法條定義</b>都計§26 ___年或___年定期通盤檢討；§27 迅行變更四款：重大事變、___、國防經濟、重大設施；§24 人民附___申請擬定或變更細部計畫。<br><b class=\"esl\">③問題核心</b>三條路徑：___、迅行變更、人民申請，各寫要件。<br><b class=\"esl\">④結論</b>變更須有法定事由，循法定程序。<br><b class=\"esl ezj\">結尾卓見</b>兼顧計畫___與因應情勢的___。",
-    "answer": "<b class=\"esl\">①問題定義</b>都市計畫原則<span class=\"key\">不得</span>隨時任意變更。<br><b class=\"esl\">②法條定義</b>都計§26 <span class=\"key\">3</span>年或<span class=\"key\">5</span>年定期通盤檢討；§27 迅行變更四款：重大事變、<span class=\"key\">避災</span>、國防經濟、重大設施；§24 人民附<span class=\"key\">事業及財務計畫</span>申請擬定或變更細部計畫。<br><b class=\"esl\">③問題核心</b>三條路徑：<span class=\"key\">定期通盤檢討</span>、迅行變更、人民申請，各寫要件。<br><b class=\"esl\">④結論</b>變更須有法定事由，循法定程序。<br><b class=\"esl ezj\">結尾卓見</b>兼顧計畫<span class=\"key\">安定性</span>與因應情勢的<span class=\"key\">彈性</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">都市計畫原則___隨時任意變更。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§26 ___年或___年定期通盤檢討；§27 迅行變更四款：重大事變、___、國防經濟、重大設施；§24 人民附___申請擬定或變更細部計畫。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三條路徑：___、迅行變更、人民申請，各寫要件。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">變更須有法定事由，循法定程序。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧計畫___與因應情勢的___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">都市計畫原則<span class=\"key\">不得</span>隨時任意變更。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">都計§26 <span class=\"key\">3</span>年或<span class=\"key\">5</span>年定期通盤檢討；§27 迅行變更四款：重大事變、<span class=\"key\">避災</span>、國防經濟、重大設施；§24 人民附<span class=\"key\">事業及財務計畫</span>申請擬定或變更細部計畫。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三條路徑：<span class=\"key\">定期通盤檢討</span>、迅行變更、人民申請，各寫要件。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">變更須有法定事由，循法定程序。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧計畫<span class=\"key\">安定性</span>與因應情勢的<span class=\"key\">彈性</span>。</div></div>",
     "src": "都計§24、§26、§27",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P31。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P31",
+      "pr-31",
+      "pr-31"
+     ]
+    ],
     "mnemonic": "通檢三五；迅變：災、避、國經、重大設施〔自編〕"
    },
    {
     "term": "禁止移轉三規定＋保留地使用限制",
-    "blank": "<b class=\"esl\">①問題定義</b>禁止移轉＝基於政策或公益對___之例外限制。<br><b class=\"esl\">②法條定義</b>土地法§17（外國人）、土徵§___（徵收公告後）、平均§53、§59（區段徵收／重劃公告，期間不逾___）。<br><b class=\"esl\">③問題核心</b>保留地：不得妨礙指定目的，但可繼續原使用或改為___之使用；臨時建築經通知開闢須___。<br><b class=\"esl\">④結論</b>兩者皆為公益與___之衡平。<br><b class=\"esl ezj\">結尾卓見</b>限制有期限、有範圍，才不致___財產權。",
-    "answer": "<b class=\"esl\">①問題定義</b>禁止移轉＝基於政策或公益對<span class=\"key\">移轉自由</span>之例外限制。<br><b class=\"esl\">②法條定義</b>土地法§17（外國人）、土徵§<span class=\"key\">23</span>（徵收公告後）、平均§53、§59（區段徵收／重劃公告，期間不逾<span class=\"key\">一年六個月</span>）。<br><b class=\"esl\">③問題核心</b>保留地：不得妨礙指定目的，但可繼續原使用或改為<span class=\"key\">妨礙較輕</span>之使用；臨時建築經通知開闢須<span class=\"key\">無條件拆除</span>。<br><b class=\"esl\">④結論</b>兩者皆為公益與<span class=\"key\">土地利用自由</span>之衡平。<br><b class=\"esl ezj\">結尾卓見</b>限制有期限、有範圍，才不致<span class=\"key\">過度侵害</span>財產權。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">禁止移轉＝基於政策或公益對___之例外限制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§17（外國人）、土徵§___（徵收公告後）、平均§53、§59（區段徵收／重劃公告，期間不逾___）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">保留地：不得妨礙指定目的，但可繼續原使用或改為___之使用；臨時建築經通知開闢須___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩者皆為公益與___之衡平。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">限制有期限、有範圍，才不致___財產權。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">禁止移轉＝基於政策或公益對<span class=\"key\">移轉自由</span>之例外限制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§17（外國人）、土徵§<span class=\"key\">23</span>（徵收公告後）、平均§53、§59（區段徵收／重劃公告，期間不逾<span class=\"key\">一年六個月</span>）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">保留地：不得妨礙指定目的，但可繼續原使用或改為<span class=\"key\">妨礙較輕</span>之使用；臨時建築經通知開闢須<span class=\"key\">無條件拆除</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩者皆為公益與<span class=\"key\">土地利用自由</span>之衡平。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">限制有期限、有範圍，才不致<span class=\"key\">過度侵害</span>財產權。</div></div>",
     "src": "土地法§17；土徵§23；平均§53、§59；都計§50、§51",
     "mc": 0,
     "essay": 1,
@@ -3382,7 +3462,13 @@ const DATA = [
      "102-一"
     ],
     "mcx": [],
-    "plain": "同型題：102-一。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "102-一",
+      "q-102-一",
+      "q-102-一"
+     ]
+    ]
    }
   ]
  },
@@ -3392,8 +3478,8 @@ const DATA = [
   "cards": [
    {
     "term": "土地徵收之要件與程序",
-    "blank": "<b class=\"esl\">①問題定義</b>徵收是對財產權之重大限制，須符合憲法財產權保障與___。<br><b class=\"esl\">②法條定義</b>土徵§10 報許可前舉行___；§11 先___；§18 核准後公告___日＋書面通知；§20 公告期滿___日內發給補償。<br><b class=\"esl\">③問題核心</b>五要件：___、___（最後手段）、程序合法、合理補償、先協議價購。<br><b class=\"esl\">④結論</b>核心＝公益性、必要性、___三原則。<br><b class=\"esl ezj\">結尾卓見</b>正當程序加上合理補償，國家取得才有___，人民___也受保障。",
-    "answer": "<b class=\"esl\">①問題定義</b>徵收是對財產權之重大限制，須符合憲法財產權保障與<span class=\"key\">比例原則</span>。<br><b class=\"esl\">②法條定義</b>土徵§10 報許可前舉行<span class=\"key\">公聽會</span>；§11 先<span class=\"key\">協議價購</span>；§18 核准後公告<span class=\"key\">30</span>日＋書面通知；§20 公告期滿<span class=\"key\">15</span>日內發給補償。<br><b class=\"esl\">③問題核心</b>五要件：<span class=\"key\">公益性</span>、<span class=\"key\">必要性</span>（最後手段）、程序合法、合理補償、先協議價購。<br><b class=\"esl\">④結論</b>核心＝公益性、必要性、<span class=\"key\">最後手段性</span>三原則。<br><b class=\"esl ezj\">結尾卓見</b>正當程序加上合理補償，國家取得才有<span class=\"key\">正當性</span>，人民<span class=\"key\">財產權</span>也受保障。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收是對財產權之重大限制，須符合憲法財產權保障與___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§10 報許可前舉行___；§11 先___；§18 核准後公告___日＋書面通知；§20 公告期滿___日內發給補償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">五要件：___、___（最後手段）、程序合法、合理補償、先協議價購。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心＝公益性、必要性、___三原則。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">正當程序加上合理補償，國家取得才有___，人民___也受保障。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收是對財產權之重大限制，須符合憲法財產權保障與<span class=\"key\">比例原則</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§10 報許可前舉行<span class=\"key\">公聽會</span>；§11 先<span class=\"key\">協議價購</span>；§18 核准後公告<span class=\"key\">30</span>日＋書面通知；§20 公告期滿<span class=\"key\">15</span>日內發給補償。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">五要件：<span class=\"key\">公益性</span>、<span class=\"key\">必要性</span>（最後手段）、程序合法、合理補償、先協議價購。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心＝公益性、必要性、<span class=\"key\">最後手段性</span>三原則。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">正當程序加上合理補償，國家取得才有<span class=\"key\">正當性</span>，人民<span class=\"key\">財產權</span>也受保障。</div></div>",
     "src": "土徵§3、§10、§11、§18、§20",
     "mc": 0,
     "essay": 1,
@@ -3401,24 +3487,41 @@ const DATA = [
      "108-一"
     ],
     "mcx": [],
-    "plain": "同型題：108-一、P36。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "108-一",
+      "q-108-一",
+      "q-108-一"
+     ],
+     [
+      "P36",
+      "pr-36",
+      "pr-36"
+     ]
+    ],
     "mnemonic": "公・必・程・補・協〔自編〕"
    },
    {
     "term": "徵收之異議、復議與行政救濟",
-    "blank": "<b class=\"esl\">①問題定義</b>徵收救濟分「___」與「___」兩條路。<br><b class=\"esl\">②法條定義</b>土徵§22Ⅰ 公告事項：公告期間內書面異議；§22Ⅱ 補償價額：公告期滿次日起___日內書面異議；§22Ⅲ 不服查處→___復議→行政救濟。<br><b class=\"esl\">③問題核心</b>補償發給完竣後___；價額變動之差額於確定之日起___內發給。<br><b class=\"esl\">④結論</b>異議→復議→救濟，兩條路期限不同。<br><b class=\"esl ezj\">結尾卓見</b>救濟不停止執行，兼顧人民___與___進度。",
-    "answer": "<b class=\"esl\">①問題定義</b>徵收救濟分「<span class=\"key\">公告事項</span>」與「<span class=\"key\">補償價額</span>」兩條路。<br><b class=\"esl\">②法條定義</b>土徵§22Ⅰ 公告事項：公告期間內書面異議；§22Ⅱ 補償價額：公告期滿次日起<span class=\"key\">30</span>日內書面異議；§22Ⅲ 不服查處→<span class=\"key\">地價評議委員會</span>復議→行政救濟。<br><b class=\"esl\">③問題核心</b>補償發給完竣後<span class=\"key\">不停止執行</span>；價額變動之差額於確定之日起<span class=\"key\">三個月</span>內發給。<br><b class=\"esl\">④結論</b>異議→復議→救濟，兩條路期限不同。<br><b class=\"esl ezj\">結尾卓見</b>救濟不停止執行，兼顧人民<span class=\"key\">救濟權</span>與<span class=\"key\">公共建設</span>進度。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收救濟分「___」與「___」兩條路。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§22Ⅰ 公告事項：公告期間內書面異議；§22Ⅱ 補償價額：公告期滿次日起___日內書面異議；§22Ⅲ 不服查處→___復議→行政救濟。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">補償發給完竣後___；價額變動之差額於確定之日起___內發給。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">異議→復議→救濟，兩條路期限不同。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">救濟不停止執行，兼顧人民___與___進度。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收救濟分「<span class=\"key\">公告事項</span>」與「<span class=\"key\">補償價額</span>」兩條路。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§22Ⅰ 公告事項：公告期間內書面異議；§22Ⅱ 補償價額：公告期滿次日起<span class=\"key\">30</span>日內書面異議；§22Ⅲ 不服查處→<span class=\"key\">地價評議委員會</span>復議→行政救濟。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">補償發給完竣後<span class=\"key\">不停止執行</span>；價額變動之差額於確定之日起<span class=\"key\">三個月</span>內發給。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">異議→復議→救濟，兩條路期限不同。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">救濟不停止執行，兼顧人民<span class=\"key\">救濟權</span>與<span class=\"key\">公共建設</span>進度。</div></div>",
     "src": "土徵§18、§20、§22",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P49。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "P49",
+      "pr-49",
+      "pr-49"
+     ]
+    ]
    },
    {
     "term": "徵收失效・撤銷・廢止・收回權",
-    "blank": "<b class=\"esl\">①問題定義</b>三條路：___（§20）、撤銷廢止（§49～52）、___（§9）；目的防止___。<br><b class=\"esl\">②法條定義</b>§20 公告期滿15日未發補償→失效；§49Ⅰ 撤銷＝___、都計已規定其他方式開發；§49Ⅱ 廢止＝___等事後情變；§9 收回權___年內。<br><b class=\"esl\">③問題核心</b>撤銷廢止：核准後公告30日、繳還期間不少於___個月；他項權利與耕地租約___。<br><b class=\"esl\">④結論</b>三態樣要區分發動人、期限、效果。<br><b class=\"esl ezj\">結尾卓見</b>徵而不用即應返還，落實___保障與___之拘束。",
-    "answer": "<b class=\"esl\">①問題定義</b>三條路：<span class=\"key\">失效</span>（§20）、撤銷廢止（§49～52）、<span class=\"key\">收回</span>（§9）；目的防止<span class=\"key\">徵而不用</span>。<br><b class=\"esl\">②法條定義</b>§20 公告期滿15日未發補償→失效；§49Ⅰ 撤銷＝<span class=\"key\">作業錯誤</span>、都計已規定其他方式開發；§49Ⅱ 廢止＝<span class=\"key\">工程變更設計</span>等事後情變；§9 收回權<span class=\"key\">20</span>年內。<br><b class=\"esl\">③問題核心</b>撤銷廢止：核准後公告30日、繳還期間不少於<span class=\"key\">6</span>個月；他項權利與耕地租約<span class=\"key\">不予回復</span>。<br><b class=\"esl\">④結論</b>三態樣要區分發動人、期限、效果。<br><b class=\"esl ezj\">結尾卓見</b>徵而不用即應返還，落實<span class=\"key\">財產權</span>保障與<span class=\"key\">公益目的</span>之拘束。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三條路：___（§20）、撤銷廢止（§49～52）、___（§9）；目的防止___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§20 公告期滿15日未發補償→失效；§49Ⅰ 撤銷＝___、都計已規定其他方式開發；§49Ⅱ 廢止＝___等事後情變；§9 收回權___年內。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">撤銷廢止：核准後公告30日、繳還期間不少於___個月；他項權利與耕地租約___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三態樣要區分發動人、期限、效果。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">徵而不用即應返還，落實___保障與___之拘束。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三條路：<span class=\"key\">失效</span>（§20）、撤銷廢止（§49～52）、<span class=\"key\">收回</span>（§9）；目的防止<span class=\"key\">徵而不用</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§20 公告期滿15日未發補償→失效；§49Ⅰ 撤銷＝<span class=\"key\">作業錯誤</span>、都計已規定其他方式開發；§49Ⅱ 廢止＝<span class=\"key\">工程變更設計</span>等事後情變；§9 收回權<span class=\"key\">20</span>年內。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">撤銷廢止：核准後公告30日、繳還期間不少於<span class=\"key\">6</span>個月；他項權利與耕地租約<span class=\"key\">不予回復</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三態樣要區分發動人、期限、效果。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">徵而不用即應返還，落實<span class=\"key\">財產權</span>保障與<span class=\"key\">公益目的</span>之拘束。</div></div>",
     "src": "土徵§9、§20、§49～§52",
     "mc": 0,
     "essay": 1,
@@ -3426,37 +3529,85 @@ const DATA = [
      "104-一"
     ],
     "mcx": [],
-    "plain": "同型題：104-一、P05、X1～X3、K2。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "104-一",
+      "q-104-一",
+      "q-104-一"
+     ],
+     [
+      "P05",
+      "",
+      ""
+     ],
+     [
+      "X1",
+      "x-1",
+      "x-1"
+     ],
+     [
+      "X2",
+      "x-2",
+      "x-2"
+     ],
+     [
+      "X3",
+      "x-3",
+      "x-3"
+     ],
+     [
+      "K2",
+      "mk-2",
+      "mk-2"
+     ]
+    ],
     "mnemonic": "錯誤撤、變更廢〔自編〕"
    },
    {
     "term": "補償標準與一併徵收",
-    "blank": "<b class=\"esl\">①問題定義</b>補償屬___；一併徵收兩種：改良物隨土地徵收（§5）、___申請（§8）。<br><b class=\"esl\">②法條定義</b>土徵§5Ⅰ 改良物應___；§8 殘餘部分不能為相當使用→公告之日起___內書面申請，___補償；建築改良物按徵收當時___。<br><b class=\"esl\">③問題核心</b>§5 例外：取回並於公告期滿十五日內遷移、墳墓及紀念物、依法不得建造、搶種不相當部分；違建、搶種：限期拆遷、___。<br><b class=\"esl\">④結論</b>改良物隨地徵、五例外；殘餘一年內申請。<br><b class=\"esl ezj\">結尾卓見</b>殘地可請求一併徵收，避免被徵收人承擔___。",
-    "answer": "<b class=\"esl\">①問題定義</b>補償屬<span class=\"key\">損失補償</span>；一併徵收兩種：改良物隨土地徵收（§5）、<span class=\"key\">殘餘部分</span>申請（§8）。<br><b class=\"esl\">②法條定義</b>土徵§5Ⅰ 改良物應<span class=\"key\">一併徵收</span>；§8 殘餘部分不能為相當使用→公告之日起<span class=\"key\">一年</span>內書面申請，<span class=\"key\">現金</span>補償；建築改良物按徵收當時<span class=\"key\">重建價格</span>。<br><b class=\"esl\">③問題核心</b>§5 例外：取回並於公告期滿十五日內遷移、墳墓及紀念物、依法不得建造、搶種不相當部分；違建、搶種：限期拆遷、<span class=\"key\">不予補償</span>。<br><b class=\"esl\">④結論</b>改良物隨地徵、五例外；殘餘一年內申請。<br><b class=\"esl ezj\">結尾卓見</b>殘地可請求一併徵收，避免被徵收人承擔<span class=\"key\">特別犧牲</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">補償屬___；一併徵收兩種：改良物隨土地徵收（§5）、___申請（§8）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§5Ⅰ 改良物應___；§8 殘餘部分不能為相當使用→公告之日起___內書面申請，___補償；建築改良物按徵收當時___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§5 例外：取回並於公告期滿十五日內遷移、墳墓及紀念物、依法不得建造、搶種不相當部分；違建、搶種：限期拆遷、___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">改良物隨地徵、五例外；殘餘一年內申請。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">殘地可請求一併徵收，避免被徵收人承擔___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">補償屬<span class=\"key\">損失補償</span>；一併徵收兩種：改良物隨土地徵收（§5）、<span class=\"key\">殘餘部分</span>申請（§8）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§5Ⅰ 改良物應<span class=\"key\">一併徵收</span>；§8 殘餘部分不能為相當使用→公告之日起<span class=\"key\">一年</span>內書面申請，<span class=\"key\">現金</span>補償；建築改良物按徵收當時<span class=\"key\">重建價格</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§5 例外：取回並於公告期滿十五日內遷移、墳墓及紀念物、依法不得建造、搶種不相當部分；違建、搶種：限期拆遷、<span class=\"key\">不予補償</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">改良物隨地徵、五例外；殘餘一年內申請。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">殘地可請求一併徵收，避免被徵收人承擔<span class=\"key\">特別犧牲</span>。</div></div>",
     "src": "土徵§5、§6、§8",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P12、P50。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P12",
+      "pr-12",
+      "pr-12"
+     ],
+     [
+      "P50",
+      "pr-50",
+      "pr-50"
+     ]
+    ],
     "mnemonic": "改良物隨地徵、五例外；殘餘一年內申請、現金補償"
    },
    {
     "term": "徵用 vs 徵收：臨時性公共建設",
-    "blank": "<b class=\"esl\">①問題定義</b>徵收＝取得___；徵用＝臨時性公共建設___，所有權不移轉。<br><b class=\"esl\">②法條定義</b>土徵§58Ⅱ 徵用期間逾___，或二次以上合計逾三年→需用土地人應於申請徵用前書面通知；所有權人收到通知書之日起___內得請求徵收所有權，需用土地人___。<br><b class=\"esl\">③問題核心</b>§58Ⅲ 依前項請求徵收者，不得再依§9申請___；§58Ⅴ 每年補償費，土地依公告土地現值___計算。<br><b class=\"esl\">④結論</b>徵收買斷、徵用借用；逾3年可轉徵收。<br><b class=\"esl ezj\">結尾卓見</b>暫用有期限，久用即應買斷，避免以徵用之名行___之實。",
-    "answer": "<b class=\"esl\">①問題定義</b>徵收＝取得<span class=\"key\">所有權</span>；徵用＝臨時性公共建設<span class=\"key\">暫時使用</span>，所有權不移轉。<br><b class=\"esl\">②法條定義</b>土徵§58Ⅱ 徵用期間逾<span class=\"key\">三年</span>，或二次以上合計逾三年→需用土地人應於申請徵用前書面通知；所有權人收到通知書之日起<span class=\"key\">三十日</span>內得請求徵收所有權，需用土地人<span class=\"key\">不得拒絕</span>。<br><b class=\"esl\">③問題核心</b>§58Ⅲ 依前項請求徵收者，不得再依§9申請<span class=\"key\">收回</span>；§58Ⅴ 每年補償費，土地依公告土地現值<span class=\"key\">百分之十</span>計算。<br><b class=\"esl\">④結論</b>徵收買斷、徵用借用；逾3年可轉徵收。<br><b class=\"esl ezj\">結尾卓見</b>暫用有期限，久用即應買斷，避免以徵用之名行<span class=\"key\">徵收</span>之實。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收＝取得___；徵用＝臨時性公共建設___，所有權不移轉。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§58Ⅱ 徵用期間逾___，或二次以上合計逾三年→需用土地人應於申請徵用前書面通知；所有權人收到通知書之日起___內得請求徵收所有權，需用土地人___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§58Ⅲ 依前項請求徵收者，不得再依§9申請___；§58Ⅴ 每年補償費，土地依公告土地現值___計算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">徵收買斷、徵用借用；逾3年可轉徵收。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">暫用有期限，久用即應買斷，避免以徵用之名行___之實。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">徵收＝取得<span class=\"key\">所有權</span>；徵用＝臨時性公共建設<span class=\"key\">暫時使用</span>，所有權不移轉。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§58Ⅱ 徵用期間逾<span class=\"key\">三年</span>，或二次以上合計逾三年→需用土地人應於申請徵用前書面通知；所有權人收到通知書之日起<span class=\"key\">三十日</span>內得請求徵收所有權，需用土地人<span class=\"key\">不得拒絕</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§58Ⅲ 依前項請求徵收者，不得再依§9申請<span class=\"key\">收回</span>；§58Ⅴ 每年補償費，土地依公告土地現值<span class=\"key\">百分之十</span>計算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">徵收買斷、徵用借用；逾3年可轉徵收。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">暫用有期限，久用即應買斷，避免以徵用之名行<span class=\"key\">徵收</span>之實。</div></div>",
     "src": "土徵§58",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P11。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P11",
+      "pr-11",
+      "pr-11"
+     ]
+    ],
     "mnemonic": "逾三年、三十日、不得拒絕"
    },
    {
     "term": "抵價地：意義與分配比例",
-    "blank": "<b class=\"esl\">①問題定義</b>抵價地＝區段徵收後以___折算分配之土地，作為___之替代。<br><b class=\"esl\">②法條定義</b>土徵§39 抵價地總面積原則___；情況特殊經核准不得少於___；曾辦農地重劃不得少於___。<br><b class=\"esl\">③問題核心</b>原所有權人可領現金或申請抵價地；面積過小→改領現金或___。<br><b class=\"esl\">④結論</b>核心特色＝可分享___，非僅一次性現金。<br><b class=\"esl ezj\">結尾卓見</b>讓地主參與開發成果，降低抗爭、促進___。",
-    "answer": "<b class=\"esl\">①問題定義</b>抵價地＝區段徵收後以<span class=\"key\">地價比例</span>折算分配之土地，作為<span class=\"key\">現金補償</span>之替代。<br><b class=\"esl\">②法條定義</b>土徵§39 抵價地總面積原則<span class=\"key\">50%</span>；情況特殊經核准不得少於<span class=\"key\">40%</span>；曾辦農地重劃不得少於<span class=\"key\">45%</span>。<br><b class=\"esl\">③問題核心</b>原所有權人可領現金或申請抵價地；面積過小→改領現金或<span class=\"key\">合併分配</span>。<br><b class=\"esl\">④結論</b>核心特色＝可分享<span class=\"key\">開發增值</span>，非僅一次性現金。<br><b class=\"esl ezj\">結尾卓見</b>讓地主參與開發成果，降低抗爭、促進<span class=\"key\">整體開發</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">抵價地＝區段徵收後以___折算分配之土地，作為___之替代。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§39 抵價地總面積原則___；情況特殊經核准不得少於___；曾辦農地重劃不得少於___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">原所有權人可領現金或申請抵價地；面積過小→改領現金或___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心特色＝可分享___，非僅一次性現金。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓地主參與開發成果，降低抗爭、促進___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">抵價地＝區段徵收後以<span class=\"key\">地價比例</span>折算分配之土地，作為<span class=\"key\">現金補償</span>之替代。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§39 抵價地總面積原則<span class=\"key\">50%</span>；情況特殊經核准不得少於<span class=\"key\">40%</span>；曾辦農地重劃不得少於<span class=\"key\">45%</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">原所有權人可領現金或申請抵價地；面積過小→改領現金或<span class=\"key\">合併分配</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心特色＝可分享<span class=\"key\">開發增值</span>，非僅一次性現金。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓地主參與開發成果，降低抗爭、促進<span class=\"key\">整體開發</span>。</div></div>",
     "src": "土徵§39、§40",
     "mc": 0,
     "essay": 1,
@@ -3464,7 +3615,18 @@ const DATA = [
      "109-一"
     ],
     "mcx": [],
-    "plain": "同型題：109-一、P06。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "109-一",
+      "q-109-一",
+      "q-109-一"
+     ],
+     [
+      "P06",
+      "pr-06",
+      "pr-06"
+     ]
+    ],
     "mnemonic": "五〇原則、四〇核准、四五農重〔自編〕"
    }
   ]
@@ -3475,8 +3637,8 @@ const DATA = [
   "cards": [
    {
     "term": "市地重劃程序：公辦 vs 自辦",
-    "blank": "<b class=\"esl\">①問題定義</b>重劃攸關重大財產權，設___公告異議程序。<br><b class=\"esl\">②法條定義</b>平均§56 計畫書核定後公告___日；私有土地所有權人___且面積超過半數反對→調處並修訂；§60-2 分配結果公告30日、異議→調處→不成報請___裁決；§58 自辦：雙過半___＋主管機關核准。<br><b class=\"esl\">③問題核心</b>公辦看___、自辦看同意；§59 禁限建期間不逾一年六個月。<br><b class=\"esl\">④結論</b>兩階段各有公告、異議與救濟，缺一不可（不是___）。<br><b class=\"esl ezj\">結尾卓見</b>保障所有權人___與___，也是經紀人說明重劃風險的程序知識。",
-    "answer": "<b class=\"esl\">①問題定義</b>重劃攸關重大財產權，設<span class=\"key\">兩階段</span>公告異議程序。<br><b class=\"esl\">②法條定義</b>平均§56 計畫書核定後公告<span class=\"key\">30</span>日；私有土地所有權人<span class=\"key\">半數以上</span>且面積超過半數反對→調處並修訂；§60-2 分配結果公告30日、異議→調處→不成報請<span class=\"key\">上級</span>裁決；§58 自辦：雙過半<span class=\"key\">同意</span>＋主管機關核准。<br><b class=\"esl\">③問題核心</b>公辦看<span class=\"key\">反對</span>、自辦看同意；§59 禁限建期間不逾一年六個月。<br><b class=\"esl\">④結論</b>兩階段各有公告、異議與救濟，缺一不可（不是<span class=\"key\">行政訴訟</span>）。<br><b class=\"esl ezj\">結尾卓見</b>保障所有權人<span class=\"key\">知情權</span>與<span class=\"key\">救濟權</span>，也是經紀人說明重劃風險的程序知識。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">重劃攸關重大財產權，設___公告異議程序。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§56 計畫書核定後公告___日；私有土地所有權人___且面積超過半數反對→調處並修訂；§60-2 分配結果公告30日、異議→調處→不成報請___裁決；§58 自辦：雙過半___＋主管機關核准。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">公辦看___、自辦看同意；§59 禁限建期間不逾一年六個月。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩階段各有公告、異議與救濟，缺一不可（不是___）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保障所有權人___與___，也是經紀人說明重劃風險的程序知識。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">重劃攸關重大財產權，設<span class=\"key\">兩階段</span>公告異議程序。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§56 計畫書核定後公告<span class=\"key\">30</span>日；私有土地所有權人<span class=\"key\">半數以上</span>且面積超過半數反對→調處並修訂；§60-2 分配結果公告30日、異議→調處→不成報請<span class=\"key\">上級</span>裁決；§58 自辦：雙過半<span class=\"key\">同意</span>＋主管機關核准。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">公辦看<span class=\"key\">反對</span>、自辦看同意；§59 禁限建期間不逾一年六個月。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩階段各有公告、異議與救濟，缺一不可（不是<span class=\"key\">行政訴訟</span>）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保障所有權人<span class=\"key\">知情權</span>與<span class=\"key\">救濟權</span>，也是經紀人說明重劃風險的程序知識。</div></div>",
     "src": "平均§56、§58、§59、§60-2",
     "mc": 0,
     "essay": 2,
@@ -3485,24 +3647,46 @@ const DATA = [
      "107-一"
     ],
     "mcx": [],
-    "plain": "同型題：113-一、107-一、P51。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "113-一",
+      "q-113-一",
+      "q-113-一"
+     ],
+     [
+      "107-一",
+      "q-107-一",
+      "q-107-一"
+     ],
+     [
+      "P51",
+      "pr-51",
+      "pr-51"
+     ]
+    ],
     "mnemonic": "一計畫、二分配，各三十日〔自編〕"
    },
    {
     "term": "區段徵收 vs 市地重劃",
-    "blank": "<b class=\"esl\">①問題定義</b>區段徵收＝先___再發還；市地重劃＝___重新分配、不經徵收。<br><b class=\"esl\">②法條定義</b>土徵§39 抵價地原則50%；平均§60Ⅲ 折價抵付共同負擔土地合計面積以不超過重劃區總面積___為限；§56 公告30日、雙過半反對→調處。<br><b class=\"esl\">③問題核心</b>領回：現金或抵價地 vs 按___分配、差額地價。<br><b class=\"esl\">④結論</b>經紀人說明三差異：負擔比例、可領回面積、___。<br><b class=\"esl ezj\">結尾卓見</b>兩者都是整體開發工具，選對方式才能兼顧___取得與地主權益。",
-    "answer": "<b class=\"esl\">①問題定義</b>區段徵收＝先<span class=\"key\">徵收</span>再發還；市地重劃＝<span class=\"key\">共同負擔</span>重新分配、不經徵收。<br><b class=\"esl\">②法條定義</b>土徵§39 抵價地原則50%；平均§60Ⅲ 折價抵付共同負擔土地合計面積以不超過重劃區總面積<span class=\"key\">百分之四十五</span>為限；§56 公告30日、雙過半反對→調處。<br><b class=\"esl\">③問題核心</b>領回：現金或抵價地 vs 按<span class=\"key\">地價比例</span>分配、差額地價。<br><b class=\"esl\">④結論</b>經紀人說明三差異：負擔比例、可領回面積、<span class=\"key\">稅負優惠</span>。<br><b class=\"esl ezj\">結尾卓見</b>兩者都是整體開發工具，選對方式才能兼顧<span class=\"key\">公共設施</span>取得與地主權益。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區段徵收＝先___再發還；市地重劃＝___重新分配、不經徵收。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§39 抵價地原則50%；平均§60Ⅲ 折價抵付共同負擔土地合計面積以不超過重劃區總面積___為限；§56 公告30日、雙過半反對→調處。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">領回：現金或抵價地 vs 按___分配、差額地價。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">經紀人說明三差異：負擔比例、可領回面積、___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兩者都是整體開發工具，選對方式才能兼顧___取得與地主權益。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區段徵收＝先<span class=\"key\">徵收</span>再發還；市地重劃＝<span class=\"key\">共同負擔</span>重新分配、不經徵收。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土徵§39 抵價地原則50%；平均§60Ⅲ 折價抵付共同負擔土地合計面積以不超過重劃區總面積<span class=\"key\">百分之四十五</span>為限；§56 公告30日、雙過半反對→調處。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">領回：現金或抵價地 vs 按<span class=\"key\">地價比例</span>分配、差額地價。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">經紀人說明三差異：負擔比例、可領回面積、<span class=\"key\">稅負優惠</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兩者都是整體開發工具，選對方式才能兼顧<span class=\"key\">公共設施</span>取得與地主權益。</div></div>",
     "src": "土徵§39；平均§56、§60",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P06。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "P06",
+      "pr-06",
+      "pr-06"
+     ]
+    ]
    },
    {
     "term": "空地・荒地・超額建地與照價收買",
-    "blank": "<b class=\"esl\">①問題定義</b>空地＝編為建築用地___；荒地＝編為農業或直接生產用地未依法使用；平均地權條例未規定才適用土地法。<br><b class=\"esl\">②法條定義</b>平均§26 空地限期建築逾期→加徵地價稅基本稅額___倍或照價收買；§71 尚未建築私有建地最高額___；§72 超額→___內出售或建築；§74 已出租者先___，不成得終止租約。<br><b class=\"esl\">③問題核心</b>照價收買時機：低報地價、低報現值、空地、荒地、___建地、收回不建；空地、超額建地收買地價＝收買當期___（§31③）。<br><b class=\"esl\">④結論</b>平均地權條例___適用；比較表四欄：定義、機關、稅負、收買。<br><b class=\"esl ezj\">結尾卓見</b>以稅促用、以買防囤，落實___。",
-    "answer": "<b class=\"esl\">①問題定義</b>空地＝編為建築用地<span class=\"key\">未依法使用</span>；荒地＝編為農業或直接生產用地未依法使用；平均地權條例未規定才適用土地法。<br><b class=\"esl\">②法條定義</b>平均§26 空地限期建築逾期→加徵地價稅基本稅額<span class=\"key\">2～5</span>倍或照價收買；§71 尚未建築私有建地最高額<span class=\"key\">十公畝</span>；§72 超額→<span class=\"key\">二年</span>內出售或建築；§74 已出租者先<span class=\"key\">協議</span>，不成得終止租約。<br><b class=\"esl\">③問題核心</b>照價收買時機：低報地價、低報現值、空地、荒地、<span class=\"key\">超額</span>建地、收回不建；空地、超額建地收買地價＝收買當期<span class=\"key\">公告土地現值</span>（§31③）。<br><b class=\"esl\">④結論</b>平均地權條例<span class=\"key\">優先</span>適用；比較表四欄：定義、機關、稅負、收買。<br><b class=\"esl ezj\">結尾卓見</b>以稅促用、以買防囤，落實<span class=\"key\">地盡其利</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">空地＝編為建築用地___；荒地＝編為農業或直接生產用地未依法使用；平均地權條例未規定才適用土地法。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§26 空地限期建築逾期→加徵地價稅基本稅額___倍或照價收買；§71 尚未建築私有建地最高額___；§72 超額→___內出售或建築；§74 已出租者先___，不成得終止租約。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">照價收買時機：低報地價、低報現值、空地、荒地、___建地、收回不建；空地、超額建地收買地價＝收買當期___（§31③）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">平均地權條例___適用；比較表四欄：定義、機關、稅負、收買。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">以稅促用、以買防囤，落實___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">空地＝編為建築用地<span class=\"key\">未依法使用</span>；荒地＝編為農業或直接生產用地未依法使用；平均地權條例未規定才適用土地法。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§26 空地限期建築逾期→加徵地價稅基本稅額<span class=\"key\">2～5</span>倍或照價收買；§71 尚未建築私有建地最高額<span class=\"key\">十公畝</span>；§72 超額→<span class=\"key\">二年</span>內出售或建築；§74 已出租者先<span class=\"key\">協議</span>，不成得終止租約。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">照價收買時機：低報地價、低報現值、空地、荒地、<span class=\"key\">超額</span>建地、收回不建；空地、超額建地收買地價＝收買當期<span class=\"key\">公告土地現值</span>（§31③）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">平均地權條例<span class=\"key\">優先</span>適用；比較表四欄：定義、機關、稅負、收買。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">以稅促用、以買防囤，落實<span class=\"key\">地盡其利</span>。</div></div>",
     "src": "平均§26、§71、§72、§74、§31",
     "mc": 0,
     "essay": 1,
@@ -3510,29 +3694,67 @@ const DATA = [
      "113-二"
     ],
     "mcx": [],
-    "plain": "同型題：113-二、P40、P53、P22。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "113-二",
+      "q-113-二",
+      "q-113-二"
+     ],
+     [
+      "P40",
+      "pr-40",
+      "pr-40"
+     ],
+     [
+      "P53",
+      "pr-53",
+      "pr-53"
+     ],
+     [
+      "P22",
+      "pr-22",
+      "pr-22"
+     ]
+    ]
    },
    {
     "term": "規定地價與申報地價",
-    "blank": "<b class=\"esl\">①問題定義</b>規定地價＝查定地價作___基礎；照價收買＝防___、防閒置。<br><b class=\"esl\">②法條定義</b>平均§15 程序五步，公告及申報地價期限___；§16 未申報→以公告地價___為申報地價；超過120%→以___為準；未滿80%→得___或以80%為申報地價。<br><b class=\"esl\">③問題核心</b>低報什麼，就按什麼收買（申報地價／申報移轉現值）。<br><b class=\"esl\">④結論</b>申報自由但設上下限，防止低報。<br><b class=\"esl ezj\">結尾卓見</b>申報自由加照價收買把關，地價才能___。",
-    "answer": "<b class=\"esl\">①問題定義</b>規定地價＝查定地價作<span class=\"key\">地價稅</span>基礎；照價收買＝防<span class=\"key\">低報</span>、防閒置。<br><b class=\"esl\">②法條定義</b>平均§15 程序五步，公告及申報地價期限<span class=\"key\">三十日</span>；§16 未申報→以公告地價<span class=\"key\">百分之八十</span>為申報地價；超過120%→以<span class=\"key\">百分之一百二十</span>為準；未滿80%→得<span class=\"key\">照價收買</span>或以80%為申報地價。<br><b class=\"esl\">③問題核心</b>低報什麼，就按什麼收買（申報地價／申報移轉現值）。<br><b class=\"esl\">④結論</b>申報自由但設上下限，防止低報。<br><b class=\"esl ezj\">結尾卓見</b>申報自由加照價收買把關，地價才能<span class=\"key\">真實</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">規定地價＝查定地價作___基礎；照價收買＝防___、防閒置。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§15 程序五步，公告及申報地價期限___；§16 未申報→以公告地價___為申報地價；超過120%→以___為準；未滿80%→得___或以80%為申報地價。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">低報什麼，就按什麼收買（申報地價／申報移轉現值）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">申報自由但設上下限，防止低報。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">申報自由加照價收買把關，地價才能___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">規定地價＝查定地價作<span class=\"key\">地價稅</span>基礎；照價收買＝防<span class=\"key\">低報</span>、防閒置。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§15 程序五步，公告及申報地價期限<span class=\"key\">三十日</span>；§16 未申報→以公告地價<span class=\"key\">百分之八十</span>為申報地價；超過120%→以<span class=\"key\">百分之一百二十</span>為準；未滿80%→得<span class=\"key\">照價收買</span>或以80%為申報地價。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">低報什麼，就按什麼收買（申報地價／申報移轉現值）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">申報自由但設上下限，防止低報。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">申報自由加照價收買把關，地價才能<span class=\"key\">真實</span>。</div></div>",
     "src": "平均§15、§16",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P25。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "P25",
+      "pr-25",
+      "pr-25"
+     ]
+    ]
    },
    {
     "term": "耕地租用與三七五終止補償",
-    "blank": "<b class=\"esl\">①問題定義</b>三七五租約非有___不得終止；終止、註銷都要補償。<br><b class=\"esl\">②法條定義</b>土地法§110 地租≦地價___；§112 不得預收、擔保金≦一年租額___；平均§77 收回建築之補償＝改良費＋農作＋公告土地現值減除預計土增稅後餘額___。<br><b class=\"esl\">③問題核心</b>爭議：三七五先經公所___、縣市調處，非經調解調處___。<br><b class=\"esl\">④結論</b>都是1/3，扣不扣___要分清。<br><b class=\"esl ezj\">結尾卓見</b>兼顧出租人收回土地之需與___生計保障。",
-    "answer": "<b class=\"esl\">①問題定義</b>三七五租約非有<span class=\"key\">法定事由</span>不得終止；終止、註銷都要補償。<br><b class=\"esl\">②法條定義</b>土地法§110 地租≦地價<span class=\"key\">8%</span>；§112 不得預收、擔保金≦一年租額<span class=\"key\">1/4</span>；平均§77 收回建築之補償＝改良費＋農作＋公告土地現值減除預計土增稅後餘額<span class=\"key\">1/3</span>。<br><b class=\"esl\">③問題核心</b>爭議：三七五先經公所<span class=\"key\">調解</span>、縣市調處，非經調解調處<span class=\"key\">不得起訴</span>。<br><b class=\"esl\">④結論</b>都是1/3，扣不扣<span class=\"key\">土增稅</span>要分清。<br><b class=\"esl ezj\">結尾卓見</b>兼顧出租人收回土地之需與<span class=\"key\">承租人</span>生計保障。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三七五租約非有___不得終止；終止、註銷都要補償。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§110 地租≦地價___；§112 不得預收、擔保金≦一年租額___；平均§77 收回建築之補償＝改良費＋農作＋公告土地現值減除預計土增稅後餘額___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">爭議：三七五先經公所___、縣市調處，非經調解調處___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">都是1/3，扣不扣___要分清。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧出租人收回土地之需與___生計保障。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三七五租約非有<span class=\"key\">法定事由</span>不得終止；終止、註銷都要補償。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§110 地租≦地價<span class=\"key\">8%</span>；§112 不得預收、擔保金≦一年租額<span class=\"key\">1/4</span>；平均§77 收回建築之補償＝改良費＋農作＋公告土地現值減除預計土增稅後餘額<span class=\"key\">1/3</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">爭議：三七五先經公所<span class=\"key\">調解</span>、縣市調處，非經調解調處<span class=\"key\">不得起訴</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">都是1/3，扣不扣<span class=\"key\">土增稅</span>要分清。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">兼顧出租人收回土地之需與<span class=\"key\">承租人</span>生計保障。</div></div>",
     "src": "土地法§110、§112；平均§77；三七五§17、§26",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P24、P46。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P24",
+      "pr-24",
+      "pr-24"
+     ],
+     [
+      "P46",
+      "pr-46",
+      "pr-46"
+     ]
+    ],
     "mnemonic": "收回建築扣稅三一、重劃註銷直接三一〔自編〕"
    }
   ]
@@ -3543,8 +3765,8 @@ const DATA = [
   "cards": [
    {
     "term": "優先購買權比較：§34-1・§104・三七五§15",
-    "blank": "<b class=\"esl\">①問題定義</b>優購權＝特定權利人於___下優先承購；目的、效力各不同。<br><b class=\"esl\">②法條定義</b>土地法§34-1Ⅳ 共有人出賣應有部分（未定期間）；§104 基地房屋優購，接到通知___日不表示視為放棄；三七五§15 承租人___日內書面表示。<br><b class=\"esl\">③問題核心</b>效力：§34-1 ___效力（不得對抗第三人）；§104、三七五§15 契約___優購權人（物權效力）。<br><b class=\"esl\">④結論</b>目的依序：簡化共有、___、保障佃農；效力強弱不同。<br><b class=\"esl ezj\">結尾卓見</b>先查有無優購權人並踐行通知，交易才不會___。",
-    "answer": "<b class=\"esl\">①問題定義</b>優購權＝特定權利人於<span class=\"key\">同一條件</span>下優先承購；目的、效力各不同。<br><b class=\"esl\">②法條定義</b>土地法§34-1Ⅳ 共有人出賣應有部分（未定期間）；§104 基地房屋優購，接到通知<span class=\"key\">10</span>日不表示視為放棄；三七五§15 承租人<span class=\"key\">15</span>日內書面表示。<br><b class=\"esl\">③問題核心</b>效力：§34-1 <span class=\"key\">債權</span>效力（不得對抗第三人）；§104、三七五§15 契約<span class=\"key\">不得對抗</span>優購權人（物權效力）。<br><b class=\"esl\">④結論</b>目的依序：簡化共有、<span class=\"key\">房地合一</span>、保障佃農；效力強弱不同。<br><b class=\"esl ezj\">結尾卓見</b>先查有無優購權人並踐行通知，交易才不會<span class=\"key\">事後翻案</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">優購權＝特定權利人於___下優先承購；目的、效力各不同。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§34-1Ⅳ 共有人出賣應有部分（未定期間）；§104 基地房屋優購，接到通知___日不表示視為放棄；三七五§15 承租人___日內書面表示。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">效力：§34-1 ___效力（不得對抗第三人）；§104、三七五§15 契約___優購權人（物權效力）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">目的依序：簡化共有、___、保障佃農；效力強弱不同。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先查有無優購權人並踐行通知，交易才不會___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">優購權＝特定權利人於<span class=\"key\">同一條件</span>下優先承購；目的、效力各不同。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§34-1Ⅳ 共有人出賣應有部分（未定期間）；§104 基地房屋優購，接到通知<span class=\"key\">10</span>日不表示視為放棄；三七五§15 承租人<span class=\"key\">15</span>日內書面表示。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">效力：§34-1 <span class=\"key\">債權</span>效力（不得對抗第三人）；§104、三七五§15 契約<span class=\"key\">不得對抗</span>優購權人（物權效力）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">目的依序：簡化共有、<span class=\"key\">房地合一</span>、保障佃農；效力強弱不同。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先查有無優購權人並踐行通知，交易才不會<span class=\"key\">事後翻案</span>。</div></div>",
     "src": "土地法§34-1、§104；三七五§15",
     "mc": 0,
     "essay": 2,
@@ -3553,24 +3775,46 @@ const DATA = [
      "111-一"
     ],
     "mcx": [],
-    "plain": "同型題：101-一、111-一、P09。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "101-一",
+      "q-101-一",
+      "q-101-一"
+     ],
+     [
+      "111-一",
+      "q-111-一",
+      "q-111-一"
+     ],
+     [
+      "P09",
+      "pr-09",
+      "pr-09"
+     ]
+    ]
    },
    {
     "term": "共有土地多數決處分（§34-1）情境題",
-    "blank": "<b class=\"esl\">①問題定義</b>共有物處分原須___；§34-1 例外採多數決，並保護___。<br><b class=\"esl\">②法條定義</b>§34-1Ⅰ 共有人過半數及應有部分合計過半數，或應有部分合計逾___；Ⅱ 事先以___他共有人，不能通知者公告；Ⅲ 對價由同意人___清償；Ⅳ 他共有人___。<br><b class=\"esl\">③問題核心</b>先算人數與應有部分是否達門檻，再檢查通知、對價、優購。<br><b class=\"esl\">④結論</b>門檻兩種擇一；通知、對價、優購___。<br><b class=\"esl ezj\">結尾卓見</b>多數決促進土地利用，程序保護則避免___被犧牲。",
-    "answer": "<b class=\"esl\">①問題定義</b>共有物處分原須<span class=\"key\">全體同意</span>；§34-1 例外採多數決，並保護<span class=\"key\">少數</span>。<br><b class=\"esl\">②法條定義</b>§34-1Ⅰ 共有人過半數及應有部分合計過半數，或應有部分合計逾<span class=\"key\">三分之二</span>；Ⅱ 事先以<span class=\"key\">書面通知</span>他共有人，不能通知者公告；Ⅲ 對價由同意人<span class=\"key\">連帶</span>清償；Ⅳ 他共有人<span class=\"key\">優先承購</span>。<br><b class=\"esl\">③問題核心</b>先算人數與應有部分是否達門檻，再檢查通知、對價、優購。<br><b class=\"esl\">④結論</b>門檻兩種擇一；通知、對價、優購<span class=\"key\">三道保護</span>。<br><b class=\"esl ezj\">結尾卓見</b>多數決促進土地利用，程序保護則避免<span class=\"key\">少數共有人</span>被犧牲。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">共有物處分原須___；§34-1 例外採多數決，並保護___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§34-1Ⅰ 共有人過半數及應有部分合計過半數，或應有部分合計逾___；Ⅱ 事先以___他共有人，不能通知者公告；Ⅲ 對價由同意人___清償；Ⅳ 他共有人___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算人數與應有部分是否達門檻，再檢查通知、對價、優購。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">門檻兩種擇一；通知、對價、優購___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多數決促進土地利用，程序保護則避免___被犧牲。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">共有物處分原須<span class=\"key\">全體同意</span>；§34-1 例外採多數決，並保護<span class=\"key\">少數</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§34-1Ⅰ 共有人過半數及應有部分合計過半數，或應有部分合計逾<span class=\"key\">三分之二</span>；Ⅱ 事先以<span class=\"key\">書面通知</span>他共有人，不能通知者公告；Ⅲ 對價由同意人<span class=\"key\">連帶</span>清償；Ⅳ 他共有人<span class=\"key\">優先承購</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算人數與應有部分是否達門檻，再檢查通知、對價、優購。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">門檻兩種擇一；通知、對價、優購<span class=\"key\">三道保護</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多數決促進土地利用，程序保護則避免<span class=\"key\">少數共有人</span>被犧牲。</div></div>",
     "src": "土地法§34-1",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P23。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P23",
+      "pr-23",
+      "pr-23"
+     ]
+    ],
     "mnemonic": "人過半、分過半，或分逾三分二；通知、連帶、優先買〔自編〕"
    },
    {
     "term": "預告登記 vs 禁止處分登記",
-    "blank": "<b class=\"esl\">①問題定義</b>預告登記＝___保全登記；禁止處分＝___限制登記。<br><b class=\"esl\">②法條定義</b>土地法§79-1 保全移轉消滅・內容次序變更・附條件期限三類請求權，請求權人檢附___申請；禁止處分由機關___登記。<br><b class=\"esl\">③問題核心</b>效力：預告未塗銷前，處分妨礙請求權者___（相對）；對___、法院判決、___無排除效力；禁止處分___禁止。<br><b class=\"esl\">④結論</b>預告源於契約保全、效力有限；禁止處分源於公權力、效力全面。<br><b class=\"esl ezj\">結尾卓見</b>簽約前必查___，先處理限制登記再移轉。",
-    "answer": "<b class=\"esl\">①問題定義</b>預告登記＝<span class=\"key\">私法</span>保全登記；禁止處分＝<span class=\"key\">公法</span>限制登記。<br><b class=\"esl\">②法條定義</b>土地法§79-1 保全移轉消滅・內容次序變更・附條件期限三類請求權，請求權人檢附<span class=\"key\">同意書</span>申請；禁止處分由機關<span class=\"key\">囑託</span>登記。<br><b class=\"esl\">③問題核心</b>效力：預告未塗銷前，處分妨礙請求權者<span class=\"key\">無效</span>（相對）；對<span class=\"key\">徵收</span>、法院判決、<span class=\"key\">強制執行</span>無排除效力；禁止處分<span class=\"key\">絕對</span>禁止。<br><b class=\"esl\">④結論</b>預告源於契約保全、效力有限；禁止處分源於公權力、效力全面。<br><b class=\"esl ezj\">結尾卓見</b>簽約前必查<span class=\"key\">登記簿</span>，先處理限制登記再移轉。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">預告登記＝___保全登記；禁止處分＝___限制登記。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§79-1 保全移轉消滅・內容次序變更・附條件期限三類請求權，請求權人檢附___申請；禁止處分由機關___登記。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">效力：預告未塗銷前，處分妨礙請求權者___（相對）；對___、法院判決、___無排除效力；禁止處分___禁止。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">預告源於契約保全、效力有限；禁止處分源於公權力、效力全面。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">簽約前必查___，先處理限制登記再移轉。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">預告登記＝<span class=\"key\">私法</span>保全登記；禁止處分＝<span class=\"key\">公法</span>限制登記。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§79-1 保全移轉消滅・內容次序變更・附條件期限三類請求權，請求權人檢附<span class=\"key\">同意書</span>申請；禁止處分由機關<span class=\"key\">囑託</span>登記。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">效力：預告未塗銷前，處分妨礙請求權者<span class=\"key\">無效</span>（相對）；對<span class=\"key\">徵收</span>、法院判決、<span class=\"key\">強制執行</span>無排除效力；禁止處分<span class=\"key\">絕對</span>禁止。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">預告源於契約保全、效力有限；禁止處分源於公權力、效力全面。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">簽約前必查<span class=\"key\">登記簿</span>，先處理限制登記再移轉。</div></div>",
     "src": "土地法§79-1、§78⑧；土登§136",
     "mc": 0,
     "essay": 1,
@@ -3578,13 +3822,34 @@ const DATA = [
      "103-一"
     ],
     "mcx": [],
-    "plain": "同型題：103-一、P04、P18、P19。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "103-一",
+      "q-103-一",
+      "q-103-一"
+     ],
+     [
+      "P04",
+      "pr-04",
+      "pr-04"
+     ],
+     [
+      "P18",
+      "pr-18",
+      "pr-18"
+     ],
+     [
+      "P19",
+      "pr-19",
+      "pr-19"
+     ]
+    ],
     "mnemonic": "移・變・附；排除三：徵・判・執〔自編〕"
    },
    {
     "term": "實價登錄・預售屋・私法人購屋",
-    "blank": "<b class=\"esl\">①問題定義</b>實價登錄為___化，抑制炒作與哄抬。<br><b class=\"esl\">②法條定義</b>平均§47 訂約日起___日申請移轉登記並共同申報；§47-3 預售屋簽訂或解除30日內申報，代銷由___辦；§47-4 預售屋___原則禁止；§79-1 私法人購買住宅須___，登記後___年不得移轉。<br><b class=\"esl\">③問題核心</b>罰則§81-2：___，經限期改正二次未改正30～100萬；公開時___。<br><b class=\"esl\">④結論</b>兼顧交易透明與___。<br><b class=\"esl ezj\">結尾卓見</b>據實申報、不協助違規轉售，是經紀人守住___的第一線。",
-    "answer": "<b class=\"esl\">①問題定義</b>實價登錄為<span class=\"key\">資訊透明</span>化，抑制炒作與哄抬。<br><b class=\"esl\">②法條定義</b>平均§47 訂約日起<span class=\"key\">30</span>日申請移轉登記並共同申報；§47-3 預售屋簽訂或解除30日內申報，代銷由<span class=\"key\">經紀業</span>辦；§47-4 預售屋<span class=\"key\">轉售</span>原則禁止；§79-1 私法人購買住宅須<span class=\"key\">許可</span>，登記後<span class=\"key\">5</span>年不得移轉。<br><b class=\"esl\">③問題核心</b>罰則§81-2：<span class=\"key\">3～15萬</span>，經限期改正二次未改正30～100萬；公開時<span class=\"key\">去識別化</span>。<br><b class=\"esl\">④結論</b>兼顧交易透明與<span class=\"key\">個資保護</span>。<br><b class=\"esl ezj\">結尾卓見</b>據實申報、不協助違規轉售，是經紀人守住<span class=\"key\">市場秩序</span>的第一線。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">實價登錄為___化，抑制炒作與哄抬。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§47 訂約日起___日申請移轉登記並共同申報；§47-3 預售屋簽訂或解除30日內申報，代銷由___辦；§47-4 預售屋___原則禁止；§79-1 私法人購買住宅須___，登記後___年不得移轉。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">罰則§81-2：___，經限期改正二次未改正30～100萬；公開時___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兼顧交易透明與___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">據實申報、不協助違規轉售，是經紀人守住___的第一線。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">實價登錄為<span class=\"key\">資訊透明</span>化，抑制炒作與哄抬。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">平均§47 訂約日起<span class=\"key\">30</span>日申請移轉登記並共同申報；§47-3 預售屋簽訂或解除30日內申報，代銷由<span class=\"key\">經紀業</span>辦；§47-4 預售屋<span class=\"key\">轉售</span>原則禁止；§79-1 私法人購買住宅須<span class=\"key\">許可</span>，登記後<span class=\"key\">5</span>年不得移轉。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">罰則§81-2：<span class=\"key\">3～15萬</span>，經限期改正二次未改正30～100萬；公開時<span class=\"key\">去識別化</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兼顧交易透明與<span class=\"key\">個資保護</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">據實申報、不協助違規轉售，是經紀人守住<span class=\"key\">市場秩序</span>的第一線。</div></div>",
     "src": "平均§47、§47-3、§47-4、§79-1、§81-2",
     "mc": 0,
     "essay": 1,
@@ -3592,42 +3857,81 @@ const DATA = [
      "101-二"
     ],
     "mcx": [],
-    "plain": "同型題：101-二、P03、K1。卓見為自編收尾句，非法條。"
+    "es5": [
+     [
+      "101-二",
+      "q-101-二",
+      "q-101-二"
+     ],
+     [
+      "P03",
+      "pr-03",
+      "pr-03"
+     ],
+     [
+      "K1",
+      "mk-1",
+      "mk-1"
+     ]
+    ]
    },
    {
     "term": "登記之效力與損害賠償",
-    "blank": "<b class=\"esl\">①問題定義</b>登記有___；因登記錯誤遺漏或虛偽致受損害者，由___負賠償責任。<br><b class=\"esl\">②法條定義</b>土地法§68Ⅰ 但地政機關證明其原因應歸責於___時，不在此限；§68Ⅱ 賠償不得超過受損害時之___；§70 登記費提存___作為登記儲金；登記人員___所致者，由該人員償還。<br><b class=\"esl\">③問題核心</b>先判斷損害原因：可否歸責受害人 → 機關賠償或免責 → 人員求償。<br><b class=\"esl\">④結論</b>機關賠償、歸責受害人免責。<br><b class=\"esl ezj\">結尾卓見</b>國家擔保登記，交易安全才有___。",
-    "answer": "<b class=\"esl\">①問題定義</b>登記有<span class=\"key\">絕對效力</span>；因登記錯誤遺漏或虛偽致受損害者，由<span class=\"key\">地政機關</span>負賠償責任。<br><b class=\"esl\">②法條定義</b>土地法§68Ⅰ 但地政機關證明其原因應歸責於<span class=\"key\">受害人</span>時，不在此限；§68Ⅱ 賠償不得超過受損害時之<span class=\"key\">價值</span>；§70 登記費提存<span class=\"key\">百分之十</span>作為登記儲金；登記人員<span class=\"key\">重大過失</span>所致者，由該人員償還。<br><b class=\"esl\">③問題核心</b>先判斷損害原因：可否歸責受害人 → 機關賠償或免責 → 人員求償。<br><b class=\"esl\">④結論</b>機關賠償、歸責受害人免責。<br><b class=\"esl ezj\">結尾卓見</b>國家擔保登記，交易安全才有<span class=\"key\">信賴基礎</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">登記有___；因登記錯誤遺漏或虛偽致受損害者，由___負賠償責任。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§68Ⅰ 但地政機關證明其原因應歸責於___時，不在此限；§68Ⅱ 賠償不得超過受損害時之___；§70 登記費提存___作為登記儲金；登記人員___所致者，由該人員償還。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先判斷損害原因：可否歸責受害人 → 機關賠償或免責 → 人員求償。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">機關賠償、歸責受害人免責。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">國家擔保登記，交易安全才有___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">登記有<span class=\"key\">絕對效力</span>；因登記錯誤遺漏或虛偽致受損害者，由<span class=\"key\">地政機關</span>負賠償責任。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§68Ⅰ 但地政機關證明其原因應歸責於<span class=\"key\">受害人</span>時，不在此限；§68Ⅱ 賠償不得超過受損害時之<span class=\"key\">價值</span>；§70 登記費提存<span class=\"key\">百分之十</span>作為登記儲金；登記人員<span class=\"key\">重大過失</span>所致者，由該人員償還。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先判斷損害原因：可否歸責受害人 → 機關賠償或免責 → 人員求償。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">機關賠償、歸責受害人免責。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">國家擔保登記，交易安全才有<span class=\"key\">信賴基礎</span>。</div></div>",
     "src": "土地法§43、§68、§70",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P20。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P20",
+      "pr-20",
+      "pr-20"
+     ]
+    ],
     "mnemonic": "錯漏偽，機關賠；受害人自己錯，免〔自編〕"
    },
    {
     "term": "繼承登記逾期：列冊管理與標售",
-    "blank": "<b class=\"esl\">①問題定義</b>不辦繼承登記造成___，故建立公告催辦→列冊→標售機制。<br><b class=\"esl\">②法條定義</b>土地法§73-1 逾___年未辦→公告___個月聲請；列冊管理___年；移請國產署公開標售；價款依應繼分領取，逾___年歸國庫。<br><b class=\"esl\">③問題核心</b>優購順序：繼承人→___→其他共有人；再標售得酌減，五次不成登記___。<br><b class=\"esl\">④結論</b>逾一年催辦、三個月聲請、列冊十五年、再標售。<br><b class=\"esl ezj\">結尾卓見</b>讓沉睡土地回到市場，兼顧繼承人權益與___。",
-    "answer": "<b class=\"esl\">①問題定義</b>不辦繼承登記造成<span class=\"key\">所有權人不明</span>，故建立公告催辦→列冊→標售機制。<br><b class=\"esl\">②法條定義</b>土地法§73-1 逾<span class=\"key\">一</span>年未辦→公告<span class=\"key\">三</span>個月聲請；列冊管理<span class=\"key\">十五</span>年；移請國產署公開標售；價款依應繼分領取，逾<span class=\"key\">十</span>年歸國庫。<br><b class=\"esl\">③問題核心</b>優購順序：繼承人→<span class=\"key\">合法使用人</span>→其他共有人；再標售得酌減，五次不成登記<span class=\"key\">國有</span>。<br><b class=\"esl\">④結論</b>逾一年催辦、三個月聲請、列冊十五年、再標售。<br><b class=\"esl ezj\">結尾卓見</b>讓沉睡土地回到市場，兼顧繼承人權益與<span class=\"key\">地盡其利</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不辦繼承登記造成___，故建立公告催辦→列冊→標售機制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§73-1 逾___年未辦→公告___個月聲請；列冊管理___年；移請國產署公開標售；價款依應繼分領取，逾___年歸國庫。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">優購順序：繼承人→___→其他共有人；再標售得酌減，五次不成登記___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">逾一年催辦、三個月聲請、列冊十五年、再標售。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓沉睡土地回到市場，兼顧繼承人權益與___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不辦繼承登記造成<span class=\"key\">所有權人不明</span>，故建立公告催辦→列冊→標售機制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§73-1 逾<span class=\"key\">一</span>年未辦→公告<span class=\"key\">三</span>個月聲請；列冊管理<span class=\"key\">十五</span>年；移請國產署公開標售；價款依應繼分領取，逾<span class=\"key\">十</span>年歸國庫。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">優購順序：繼承人→<span class=\"key\">合法使用人</span>→其他共有人；再標售得酌減，五次不成登記<span class=\"key\">國有</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">逾一年催辦、三個月聲請、列冊十五年、再標售。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">讓沉睡土地回到市場，兼顧繼承人權益與<span class=\"key\">地盡其利</span>。</div></div>",
     "src": "土地法§73-1",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P08。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P08",
+      "pr-08",
+      "pr-08"
+     ]
+    ],
     "mnemonic": "一年→三月→十五年→十年"
    },
    {
     "term": "土地總登記與地籍重測",
-    "blank": "<b class=\"esl\">①問題定義</b>總登記＝一定期間內就轄區土地___為登記；重測＝原圖不堪用而重新測量。<br><b class=\"esl\">②法條定義</b>土地法§49 登記期限不得少於___；§57 逾期未聲請→___，公告期滿無人異議登記國有；§46-1 重測原因：破損、滅失、___或其他重大原因。<br><b class=\"esl\">③問題核心</b>異議或界址爭議→地政機關___→不服於接到調處通知後___內向司法機關訴請處理。<br><b class=\"esl\">④結論</b>二個月、十五日、三十日；無主歸國有。<br><b class=\"esl ezj\">結尾卓見</b>地籍正確是一切交易的___。",
-    "answer": "<b class=\"esl\">①問題定義</b>總登記＝一定期間內就轄區土地<span class=\"key\">全部</span>為登記；重測＝原圖不堪用而重新測量。<br><b class=\"esl\">②法條定義</b>土地法§49 登記期限不得少於<span class=\"key\">二個月</span>；§57 逾期未聲請→<span class=\"key\">無主土地</span>，公告期滿無人異議登記國有；§46-1 重測原因：破損、滅失、<span class=\"key\">比例尺變更</span>或其他重大原因。<br><b class=\"esl\">③問題核心</b>異議或界址爭議→地政機關<span class=\"key\">調處</span>→不服於接到調處通知後<span class=\"key\">十五日</span>內向司法機關訴請處理。<br><b class=\"esl\">④結論</b>二個月、十五日、三十日；無主歸國有。<br><b class=\"esl ezj\">結尾卓見</b>地籍正確是一切交易的<span class=\"key\">基礎</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">總登記＝一定期間內就轄區土地___為登記；重測＝原圖不堪用而重新測量。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§49 登記期限不得少於___；§57 逾期未聲請→___，公告期滿無人異議登記國有；§46-1 重測原因：破損、滅失、___或其他重大原因。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">異議或界址爭議→地政機關___→不服於接到調處通知後___內向司法機關訴請處理。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">二個月、十五日、三十日；無主歸國有。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">地籍正確是一切交易的___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">總登記＝一定期間內就轄區土地<span class=\"key\">全部</span>為登記；重測＝原圖不堪用而重新測量。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§49 登記期限不得少於<span class=\"key\">二個月</span>；§57 逾期未聲請→<span class=\"key\">無主土地</span>，公告期滿無人異議登記國有；§46-1 重測原因：破損、滅失、<span class=\"key\">比例尺變更</span>或其他重大原因。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">異議或界址爭議→地政機關<span class=\"key\">調處</span>→不服於接到調處通知後<span class=\"key\">十五日</span>內向司法機關訴請處理。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">二個月、十五日、三十日；無主歸國有。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">地籍正確是一切交易的<span class=\"key\">基礎</span>。</div></div>",
     "src": "土地法§46-1、§48、§49、§57、§59",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P48、P26。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P48",
+      "pr-48",
+      "pr-48"
+     ],
+     [
+      "P26",
+      "pr-26",
+      "pr-26"
+     ]
+    ],
     "mnemonic": "破滅比例；二個月、十五日、三十日"
    }
   ]
@@ -3638,8 +3942,8 @@ const DATA = [
   "cards": [
    {
     "term": "地價稅納稅義務人與代繳",
-    "blank": "<b class=\"esl\">①問題定義</b>地價稅課___，因特殊權利狀態與徵收困難設例外及___。<br><b class=\"esl\">②法條定義</b>土稅§3 典權→___、承領→承領人、承墾→___；§3-1 信託存續中→___；§4 代繳四款：行蹤不明、權屬不明、無人管理、所有權人申請由___代繳。<br><b class=\"esl\">③問題核心</b>前三款代繳後可___或向納稅義務人求償，第四款不得求償（§4Ⅲ）。<br><b class=\"esl\">④結論</b>核心判準＝對土地有實質___權能者；代繳為補充機制。<br><b class=\"esl ezj\">結尾卓見</b>誰享受土地利益誰繳稅，確保稅收不___。",
-    "answer": "<b class=\"esl\">①問題定義</b>地價稅課<span class=\"key\">所有權人</span>，因特殊權利狀態與徵收困難設例外及<span class=\"key\">代繳</span>。<br><b class=\"esl\">②法條定義</b>土稅§3 典權→<span class=\"key\">典權人</span>、承領→承領人、承墾→<span class=\"key\">耕作權人</span>；§3-1 信託存續中→<span class=\"key\">受託人</span>；§4 代繳四款：行蹤不明、權屬不明、無人管理、所有權人申請由<span class=\"key\">占有人</span>代繳。<br><b class=\"esl\">③問題核心</b>前三款代繳後可<span class=\"key\">抵付地租</span>或向納稅義務人求償，第四款不得求償（§4Ⅲ）。<br><b class=\"esl\">④結論</b>核心判準＝對土地有實質<span class=\"key\">使用收益</span>權能者；代繳為補充機制。<br><b class=\"esl ezj\">結尾卓見</b>誰享受土地利益誰繳稅，確保稅收不<span class=\"key\">落空</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">地價稅課___，因特殊權利狀態與徵收困難設例外及___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§3 典權→___、承領→承領人、承墾→___；§3-1 信託存續中→___；§4 代繳四款：行蹤不明、權屬不明、無人管理、所有權人申請由___代繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">前三款代繳後可___或向納稅義務人求償，第四款不得求償（§4Ⅲ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心判準＝對土地有實質___權能者；代繳為補充機制。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">誰享受土地利益誰繳稅，確保稅收不___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">地價稅課<span class=\"key\">所有權人</span>，因特殊權利狀態與徵收困難設例外及<span class=\"key\">代繳</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§3 典權→<span class=\"key\">典權人</span>、承領→承領人、承墾→<span class=\"key\">耕作權人</span>；§3-1 信託存續中→<span class=\"key\">受託人</span>；§4 代繳四款：行蹤不明、權屬不明、無人管理、所有權人申請由<span class=\"key\">占有人</span>代繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">前三款代繳後可<span class=\"key\">抵付地租</span>或向納稅義務人求償，第四款不得求償（§4Ⅲ）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">核心判準＝對土地有實質<span class=\"key\">使用收益</span>權能者；代繳為補充機制。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">誰享受土地利益誰繳稅，確保稅收不<span class=\"key\">落空</span>。</div></div>",
     "src": "土稅§3、§3-1、§4",
     "mc": 0,
     "essay": 2,
@@ -3648,13 +3952,29 @@ const DATA = [
      "102-二"
     ],
     "mcx": [],
-    "plain": "同型題：109-二、102-二、P02。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "109-二",
+      "q-109-二",
+      "q-109-二"
+     ],
+     [
+      "102-二",
+      "q-102-二",
+      "q-102-二"
+     ],
+     [
+      "P02",
+      "pr-02",
+      "pr-02"
+     ]
+    ],
     "mnemonic": "所・典・承・耕・託；前三款可求償〔自編〕"
    },
    {
     "term": "累進起點地價與地價稅稅率",
-    "blank": "<b class=\"esl\">①問題定義</b>累進起點地價＝計算地價稅累進稅率之___，落實___。<br><b class=\"esl\">②法條定義</b>土稅§16 扣除工業、礦業、農業及免稅土地後，以___之平均地價為準。<br><b class=\"esl\">③問題核心</b>稅率：未超過→___；未達5倍15‰；5～10倍___；10～15倍35‰；15～20倍45‰；20倍以上___。<br><b class=\"esl\">④結論</b>「持有愈多、稅負愈重」，抑制土地___閒置。<br><b class=\"esl ezj\">結尾卓見</b>累進課稅讓大地主多負擔，促進___。",
-    "answer": "<b class=\"esl\">①問題定義</b>累進起點地價＝計算地價稅累進稅率之<span class=\"key\">基準點</span>，落實<span class=\"key\">量能課稅</span>。<br><b class=\"esl\">②法條定義</b>土稅§16 扣除工業、礦業、農業及免稅土地後，以<span class=\"key\">七公畝</span>之平均地價為準。<br><b class=\"esl\">③問題核心</b>稅率：未超過→<span class=\"key\">10‰</span>；未達5倍15‰；5～10倍<span class=\"key\">25‰</span>；10～15倍35‰；15～20倍45‰；20倍以上<span class=\"key\">55‰</span>。<br><b class=\"esl\">④結論</b>「持有愈多、稅負愈重」，抑制土地<span class=\"key\">兼併</span>閒置。<br><b class=\"esl ezj\">結尾卓見</b>累進課稅讓大地主多負擔，促進<span class=\"key\">地盡其利</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">累進起點地價＝計算地價稅累進稅率之___，落實___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§16 扣除工業、礦業、農業及免稅土地後，以___之平均地價為準。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">稅率：未超過→___；未達5倍15‰；5～10倍___；10～15倍35‰；15～20倍45‰；20倍以上___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">「持有愈多、稅負愈重」，抑制土地___閒置。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">累進課稅讓大地主多負擔，促進___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">累進起點地價＝計算地價稅累進稅率之<span class=\"key\">基準點</span>，落實<span class=\"key\">量能課稅</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§16 扣除工業、礦業、農業及免稅土地後，以<span class=\"key\">七公畝</span>之平均地價為準。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">稅率：未超過→<span class=\"key\">10‰</span>；未達5倍15‰；5～10倍<span class=\"key\">25‰</span>；10～15倍35‰；15～20倍45‰；20倍以上<span class=\"key\">55‰</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">「持有愈多、稅負愈重」，抑制土地<span class=\"key\">兼併</span>閒置。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">累進課稅讓大地主多負擔，促進<span class=\"key\">地盡其利</span>。</div></div>",
     "src": "土稅§16",
     "mc": 0,
     "essay": 2,
@@ -3663,25 +3983,42 @@ const DATA = [
      "108-二"
     ],
     "mcx": [],
-    "plain": "同型題：105-二、108-二。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "105-二",
+      "q-105-二",
+      "q-105-二"
+     ],
+     [
+      "108-二",
+      "q-108-二",
+      "q-108-二"
+     ]
+    ],
     "mnemonic": "15→25→35→45→55"
    },
    {
     "term": "自用住宅：地價稅 2‰ vs 土增稅 10%",
-    "blank": "<b class=\"esl\">①問題定義</b>地價稅原則10‰起累進；自用住宅用地___。<br><b class=\"esl\">②法條定義</b>土稅§9 所有權人或配偶、直系親屬___＋無出租營業；§17 都市___、非都市___，本人、配偶、未成年受扶養親屬以___為限；§41 開徵前___日申請。<br><b class=\"esl\">③問題核心</b>土增稅自用：出售時___、一生一次（§34），出售前1年無營業出租。<br><b class=\"esl\">④結論</b>地價稅看「___」、土增稅看「___」。<br><b class=\"esl ezj\">結尾卓見</b>優惠只給真自住，避免成為___工具。",
-    "answer": "<b class=\"esl\">①問題定義</b>地價稅原則10‰起累進；自用住宅用地<span class=\"key\">2‰</span>。<br><b class=\"esl\">②法條定義</b>土稅§9 所有權人或配偶、直系親屬<span class=\"key\">設籍</span>＋無出租營業；§17 都市<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>，本人、配偶、未成年受扶養親屬以<span class=\"key\">一處</span>為限；§41 開徵前<span class=\"key\">40</span>日申請。<br><b class=\"esl\">③問題核心</b>土增稅自用：出售時<span class=\"key\">10%</span>、一生一次（§34），出售前1年無營業出租。<br><b class=\"esl\">④結論</b>地價稅看「<span class=\"key\">處</span>」、土增稅看「<span class=\"key\">次</span>」。<br><b class=\"esl ezj\">結尾卓見</b>優惠只給真自住，避免成為<span class=\"key\">囤地</span>工具。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">地價稅原則10‰起累進；自用住宅用地___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§9 所有權人或配偶、直系親屬___＋無出租營業；§17 都市___、非都市___，本人、配偶、未成年受扶養親屬以___為限；§41 開徵前___日申請。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">土增稅自用：出售時___、一生一次（§34），出售前1年無營業出租。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">地價稅看「___」、土增稅看「___」。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">優惠只給真自住，避免成為___工具。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">地價稅原則10‰起累進；自用住宅用地<span class=\"key\">2‰</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§9 所有權人或配偶、直系親屬<span class=\"key\">設籍</span>＋無出租營業；§17 都市<span class=\"key\">3公畝</span>、非都市<span class=\"key\">7公畝</span>，本人、配偶、未成年受扶養親屬以<span class=\"key\">一處</span>為限；§41 開徵前<span class=\"key\">40</span>日申請。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">土增稅自用：出售時<span class=\"key\">10%</span>、一生一次（§34），出售前1年無營業出租。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">地價稅看「<span class=\"key\">處</span>」、土增稅看「<span class=\"key\">次</span>」。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">優惠只給真自住，避免成為<span class=\"key\">囤地</span>工具。</div></div>",
     "src": "土稅§9、§17、§34、§41",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P35。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P35",
+      "pr-35",
+      "pr-35"
+     ]
+    ],
     "mnemonic": "地價稅看處、土增稅看次"
    },
    {
     "term": "土地增值稅：目的與減免",
-    "blank": "<b class=\"esl\">①問題定義</b>土增稅＝對自然漲價於___時課徵，實現___。<br><b class=\"esl\">②法條定義</b>土稅§34 自用住宅___；§33 長期持有20／30／40年減徵；§39 被徵收土地___，§39Ⅲ 非都市土地徵收前移轉準用；§28-2 配偶贈與___；繼承免徵。<br><b class=\"esl\">③問題核心</b>「免徵」永久不課；「不課徵」多為___並承續原地價。<br><b class=\"esl\">④結論</b>目的與減免例外要___說明。<br><b class=\"esl ezj\">結尾卓見</b>漲價歸公兼顧自住與公益，稅負才___。",
-    "answer": "<b class=\"esl\">①問題定義</b>土增稅＝對自然漲價於<span class=\"key\">移轉</span>時課徵，實現<span class=\"key\">漲價歸公</span>。<br><b class=\"esl\">②法條定義</b>土稅§34 自用住宅<span class=\"key\">10%</span>；§33 長期持有20／30／40年減徵；§39 被徵收土地<span class=\"key\">免徵</span>，§39Ⅲ 非都市土地徵收前移轉準用；§28-2 配偶贈與<span class=\"key\">不課徵</span>；繼承免徵。<br><b class=\"esl\">③問題核心</b>「免徵」永久不課；「不課徵」多為<span class=\"key\">延後課稅</span>並承續原地價。<br><b class=\"esl\">④結論</b>目的與減免例外要<span class=\"key\">對應</span>說明。<br><b class=\"esl ezj\">結尾卓見</b>漲價歸公兼顧自住與公益，稅負才<span class=\"key\">公平</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土增稅＝對自然漲價於___時課徵，實現___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§34 自用住宅___；§33 長期持有20／30／40年減徵；§39 被徵收土地___，§39Ⅲ 非都市土地徵收前移轉準用；§28-2 配偶贈與___；繼承免徵。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「免徵」永久不課；「不課徵」多為___並承續原地價。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">目的與減免例外要___說明。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">漲價歸公兼顧自住與公益，稅負才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土增稅＝對自然漲價於<span class=\"key\">移轉</span>時課徵，實現<span class=\"key\">漲價歸公</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§34 自用住宅<span class=\"key\">10%</span>；§33 長期持有20／30／40年減徵；§39 被徵收土地<span class=\"key\">免徵</span>，§39Ⅲ 非都市土地徵收前移轉準用；§28-2 配偶贈與<span class=\"key\">不課徵</span>；繼承免徵。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「免徵」永久不課；「不課徵」多為<span class=\"key\">延後課稅</span>並承續原地價。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">目的與減免例外要<span class=\"key\">對應</span>說明。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">漲價歸公兼顧自住與公益，稅負才<span class=\"key\">公平</span>。</div></div>",
     "src": "土稅§28-2、§33、§34、§39",
     "mc": 0,
     "essay": 2,
@@ -3690,13 +4027,29 @@ const DATA = [
      "114-二"
     ],
     "mcx": [],
-    "plain": "同型題：103-二、114-二、P07。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "103-二",
+      "q-103-二",
+      "q-103-二"
+     ],
+     [
+      "114-二",
+      "q-114-二",
+      "q-114-二"
+     ],
+     [
+      "P07",
+      "pr-07",
+      "pr-07"
+     ]
+    ],
     "mnemonic": "免徵：繼・徵・公・保・捐；不課徵：農・配・信〔自編〕"
    },
    {
     "term": "移轉現值審核、重購退稅與原地價",
-    "blank": "<b class=\"esl\">①問題定義</b>移轉現值決定漲價總數額之___；原地價＝計算漲價總數額之___。<br><b class=\"esl\">②法條定義</b>土稅§30 30日內申報→___；逾期→收件日；遺贈→___；拍賣→___；§35 出售後___年內重購得退稅；§37 重購後___年內再移轉或變更→追繳。<br><b class=\"esl\">③問題核心</b>配偶贈與不課徵，再移轉第三人時以___之原地價計算。<br><b class=\"esl\">④結論</b>配偶贈與是延後課稅、原地價承續，非___。<br><b class=\"esl ezj\">結尾卓見</b>重購退稅照顧___需求，追繳防止套利。",
-    "answer": "<b class=\"esl\">①問題定義</b>移轉現值決定漲價總數額之<span class=\"key\">起點</span>；原地價＝計算漲價總數額之<span class=\"key\">基準</span>。<br><b class=\"esl\">②法條定義</b>土稅§30 30日內申報→<span class=\"key\">訂約日</span>；逾期→收件日；遺贈→<span class=\"key\">死亡日</span>；拍賣→<span class=\"key\">拍定日</span>；§35 出售後<span class=\"key\">2</span>年內重購得退稅；§37 重購後<span class=\"key\">5</span>年內再移轉或變更→追繳。<br><b class=\"esl\">③問題核心</b>配偶贈與不課徵，再移轉第三人時以<span class=\"key\">贈與前</span>之原地價計算。<br><b class=\"esl\">④結論</b>配偶贈與是延後課稅、原地價承續，非<span class=\"key\">免稅</span>。<br><b class=\"esl ezj\">結尾卓見</b>重購退稅照顧<span class=\"key\">換屋</span>需求，追繳防止套利。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">移轉現值決定漲價總數額之___；原地價＝計算漲價總數額之___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§30 30日內申報→___；逾期→收件日；遺贈→___；拍賣→___；§35 出售後___年內重購得退稅；§37 重購後___年內再移轉或變更→追繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">配偶贈與不課徵，再移轉第三人時以___之原地價計算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">配偶贈與是延後課稅、原地價承續，非___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">重購退稅照顧___需求，追繳防止套利。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">移轉現值決定漲價總數額之<span class=\"key\">起點</span>；原地價＝計算漲價總數額之<span class=\"key\">基準</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土稅§30 30日內申報→<span class=\"key\">訂約日</span>；逾期→收件日；遺贈→<span class=\"key\">死亡日</span>；拍賣→<span class=\"key\">拍定日</span>；§35 出售後<span class=\"key\">2</span>年內重購得退稅；§37 重購後<span class=\"key\">5</span>年內再移轉或變更→追繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">配偶贈與不課徵，再移轉第三人時以<span class=\"key\">贈與前</span>之原地價計算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">配偶贈與是延後課稅、原地價承續，非<span class=\"key\">免稅</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">重購退稅照顧<span class=\"key\">換屋</span>需求，追繳防止套利。</div></div>",
     "src": "平均§47-1；土稅§28-2、§30、§31、§35、§37",
     "mc": 0,
     "essay": 2,
@@ -3705,7 +4058,23 @@ const DATA = [
      "110-一"
     ],
     "mcx": [],
-    "plain": "同型題：106-一、110-一、K3。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "106-一",
+      "q-106-一",
+      "q-106-一"
+     ],
+     [
+      "110-一",
+      "q-110-一",
+      "q-110-一"
+     ],
+     [
+      "K3",
+      "mk-3",
+      "mk-3"
+     ]
+    ],
     "mnemonic": "訂件亡訴拍買買"
    }
   ]
@@ -3716,8 +4085,8 @@ const DATA = [
   "cards": [
    {
     "term": "房屋稅2.0：稅基、稅率與標準價格",
-    "blank": "<b class=\"esl\">①問題定義</b>房屋標準價格是評定房屋現值之依據，作為房屋稅___；房屋稅2.0 依使用情形＋___差別課稅。<br><b class=\"esl\">②法條定義</b>房屋稅§11 因素：建造材料、耐用年數與折舊、___調整率（並比較___價格）；每___年重評；§5 自住___，全國僅持有一戶且現值在一定金額以下1%；其他住家用___。<br><b class=\"esl\">③問題核心</b>地價水準___法定評定因素（官方答案口徑）。<br><b class=\"esl\">④結論</b>自住輕、多屋重，地方按戶數訂差別稅率。<br><b class=\"esl ezj\">結尾卓見</b>差別稅率抑制___，促進閒置住宅釋出。",
-    "answer": "<b class=\"esl\">①問題定義</b>房屋標準價格是評定房屋現值之依據，作為房屋稅<span class=\"key\">稅基</span>；房屋稅2.0 依使用情形＋<span class=\"key\">全國戶數</span>差別課稅。<br><b class=\"esl\">②法條定義</b>房屋稅§11 因素：建造材料、耐用年數與折舊、<span class=\"key\">地段</span>調整率（並比較<span class=\"key\">實價登錄</span>價格）；每<span class=\"key\">三</span>年重評；§5 自住<span class=\"key\">1.2%</span>，全國僅持有一戶且現值在一定金額以下1%；其他住家用<span class=\"key\">2%～4.8%</span>。<br><b class=\"esl\">③問題核心</b>地價水準<span class=\"key\">非</span>法定評定因素（官方答案口徑）。<br><b class=\"esl\">④結論</b>自住輕、多屋重，地方按戶數訂差別稅率。<br><b class=\"esl ezj\">結尾卓見</b>差別稅率抑制<span class=\"key\">囤房</span>，促進閒置住宅釋出。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">房屋標準價格是評定房屋現值之依據，作為房屋稅___；房屋稅2.0 依使用情形＋___差別課稅。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">房屋稅§11 因素：建造材料、耐用年數與折舊、___調整率（並比較___價格）；每___年重評；§5 自住___，全國僅持有一戶且現值在一定金額以下1%；其他住家用___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地價水準___法定評定因素（官方答案口徑）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">自住輕、多屋重，地方按戶數訂差別稅率。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">差別稅率抑制___，促進閒置住宅釋出。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">房屋標準價格是評定房屋現值之依據，作為房屋稅<span class=\"key\">稅基</span>；房屋稅2.0 依使用情形＋<span class=\"key\">全國戶數</span>差別課稅。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">房屋稅§11 因素：建造材料、耐用年數與折舊、<span class=\"key\">地段</span>調整率（並比較<span class=\"key\">實價登錄</span>價格）；每<span class=\"key\">三</span>年重評；§5 自住<span class=\"key\">1.2%</span>，全國僅持有一戶且現值在一定金額以下1%；其他住家用<span class=\"key\">2%～4.8%</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">地價水準<span class=\"key\">非</span>法定評定因素（官方答案口徑）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">自住輕、多屋重，地方按戶數訂差別稅率。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">差別稅率抑制<span class=\"key\">囤房</span>，促進閒置住宅釋出。</div></div>",
     "src": "房屋稅§5、§11",
     "mc": 0,
     "essay": 1,
@@ -3725,13 +4094,34 @@ const DATA = [
      "112-二"
     ],
     "mcx": [],
-    "plain": "同型題：112-二、P27、P22、K4。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "112-二",
+      "q-112-二",
+      "q-112-二"
+     ],
+     [
+      "P27",
+      "pr-27",
+      "pr-27"
+     ],
+     [
+      "P22",
+      "pr-22",
+      "pr-22"
+     ],
+     [
+      "K4",
+      "mk-4",
+      "mk-4"
+     ]
+    ],
     "mnemonic": "自一二、非自二四八"
    },
    {
     "term": "房屋稅減半 vs 免徵",
-    "blank": "<b class=\"esl\">①問題定義</b>減半徵收因特殊原因無法正常使用收益，反映___。<br><b class=\"esl\">②法條定義</b>房屋稅§15Ⅱ 減半四款：___、合法登記工廠直接生產自有房屋、農會___倉庫、受災毀損___以上不及五成；毀損五成以上須修復始能使用→___。<br><b class=\"esl\">③問題核心</b>每期開徵___日前申報，逾期自申報之___起適用；核定後原因未變免再申報；§7 的30日是___申報。<br><b class=\"esl\">④結論</b>須主動申報並經查定才適用。<br><b class=\"esl ezj\">結尾卓見</b>稅負依實際使用能力調整，才符合租稅___。",
-    "answer": "<b class=\"esl\">①問題定義</b>減半徵收因特殊原因無法正常使用收益，反映<span class=\"key\">量能課稅</span>。<br><b class=\"esl\">②法條定義</b>房屋稅§15Ⅱ 減半四款：<span class=\"key\">平民住宅</span>、合法登記工廠直接生產自有房屋、農會<span class=\"key\">自用</span>倉庫、受災毀損<span class=\"key\">三成</span>以上不及五成；毀損五成以上須修復始能使用→<span class=\"key\">免徵</span>。<br><b class=\"esl\">③問題核心</b>每期開徵<span class=\"key\">40</span>日前申報，逾期自申報之<span class=\"key\">次期</span>起適用；核定後原因未變免再申報；§7 的30日是<span class=\"key\">稅籍</span>申報。<br><b class=\"esl\">④結論</b>須主動申報並經查定才適用。<br><b class=\"esl ezj\">結尾卓見</b>稅負依實際使用能力調整，才符合租稅<span class=\"key\">公平</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">減半徵收因特殊原因無法正常使用收益，反映___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">房屋稅§15Ⅱ 減半四款：___、合法登記工廠直接生產自有房屋、農會___倉庫、受災毀損___以上不及五成；毀損五成以上須修復始能使用→___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">每期開徵___日前申報，逾期自申報之___起適用；核定後原因未變免再申報；§7 的30日是___申報。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">須主動申報並經查定才適用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">稅負依實際使用能力調整，才符合租稅___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">減半徵收因特殊原因無法正常使用收益，反映<span class=\"key\">量能課稅</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">房屋稅§15Ⅱ 減半四款：<span class=\"key\">平民住宅</span>、合法登記工廠直接生產自有房屋、農會<span class=\"key\">自用</span>倉庫、受災毀損<span class=\"key\">三成</span>以上不及五成；毀損五成以上須修復始能使用→<span class=\"key\">免徵</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">每期開徵<span class=\"key\">40</span>日前申報，逾期自申報之<span class=\"key\">次期</span>起適用；核定後原因未變免再申報；§7 的30日是<span class=\"key\">稅籍</span>申報。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">須主動申報並經查定才適用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">稅負依實際使用能力調整，才符合租稅<span class=\"key\">公平</span>。</div></div>",
     "src": "房屋稅§7、§15",
     "mc": 0,
     "essay": 1,
@@ -3739,13 +4129,24 @@ const DATA = [
      "104-二"
     ],
     "mcx": [],
-    "plain": "同型題：104-二、P39。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "104-二",
+      "q-104-二",
+      "q-104-二"
+     ],
+     [
+      "P39",
+      "pr-39",
+      "pr-39"
+     ]
+    ],
     "mnemonic": "平工農災"
    },
    {
     "term": "交易稅比較：房地合一・土增稅・契稅",
-    "blank": "<b class=\"esl\">①問題定義</b>交易行為稅（所得稅、土增稅、契稅）vs ___（房屋稅、地價稅），標的須分別釐清。<br><b class=\"esl\">②法條定義</b>所得稅§14-4 所得額＝成交價額－原始取得成本－相關費用－___；個人稅率：2年內___、2～5年35%、5～10年___、逾10年15%；契稅§3 買賣___、典權4%、交換分割2%。<br><b class=\"esl\">③問題核心</b>扣除漲價總數額避免與土增稅___；自住滿6年___內免稅。<br><b class=\"esl\">④結論</b>前三者交易時課徵並設扣抵／免徵配套；持有稅按年課。<br><b class=\"esl ezj\">結尾卓見</b>稅目分工、互相扣抵，稅負才___。",
-    "answer": "<b class=\"esl\">①問題定義</b>交易行為稅（所得稅、土增稅、契稅）vs <span class=\"key\">持有稅</span>（房屋稅、地價稅），標的須分別釐清。<br><b class=\"esl\">②法條定義</b>所得稅§14-4 所得額＝成交價額－原始取得成本－相關費用－<span class=\"key\">土地漲價總數額</span>；個人稅率：2年內<span class=\"key\">45%</span>、2～5年35%、5～10年<span class=\"key\">20%</span>、逾10年15%；契稅§3 買賣<span class=\"key\">6%</span>、典權4%、交換分割2%。<br><b class=\"esl\">③問題核心</b>扣除漲價總數額避免與土增稅<span class=\"key\">重複課稅</span>；自住滿6年<span class=\"key\">400萬</span>內免稅。<br><b class=\"esl\">④結論</b>前三者交易時課徵並設扣抵／免徵配套；持有稅按年課。<br><b class=\"esl ezj\">結尾卓見</b>稅目分工、互相扣抵，稅負才<span class=\"key\">合理</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">交易行為稅（所得稅、土增稅、契稅）vs ___（房屋稅、地價稅），標的須分別釐清。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">所得稅§14-4 所得額＝成交價額－原始取得成本－相關費用－___；個人稅率：2年內___、2～5年35%、5～10年___、逾10年15%；契稅§3 買賣___、典權4%、交換分割2%。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">扣除漲價總數額避免與土增稅___；自住滿6年___內免稅。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">前三者交易時課徵並設扣抵／免徵配套；持有稅按年課。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">稅目分工、互相扣抵，稅負才___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">交易行為稅（所得稅、土增稅、契稅）vs <span class=\"key\">持有稅</span>（房屋稅、地價稅），標的須分別釐清。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">所得稅§14-4 所得額＝成交價額－原始取得成本－相關費用－<span class=\"key\">土地漲價總數額</span>；個人稅率：2年內<span class=\"key\">45%</span>、2～5年35%、5～10年<span class=\"key\">20%</span>、逾10年15%；契稅§3 買賣<span class=\"key\">6%</span>、典權4%、交換分割2%。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">扣除漲價總數額避免與土增稅<span class=\"key\">重複課稅</span>；自住滿6年<span class=\"key\">400萬</span>內免稅。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">前三者交易時課徵並設扣抵／免徵配套；持有稅按年課。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">稅目分工、互相扣抵，稅負才<span class=\"key\">合理</span>。</div></div>",
     "src": "所得稅§4-5、§14-4、§14-5；契稅§3",
     "mc": 0,
     "essay": 3,
@@ -3755,7 +4156,33 @@ const DATA = [
      "100-一"
     ],
     "mcx": [],
-    "plain": "同型題：107-二、111-二、100-一、P30、P32。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "107-二",
+      "q-107-二",
+      "q-107-二"
+     ],
+     [
+      "111-二",
+      "q-111-二",
+      "q-111-二"
+     ],
+     [
+      "100-一",
+      "q-100-一",
+      "q-100-一"
+     ],
+     [
+      "P30",
+      "pr-30",
+      "pr-30"
+     ],
+     [
+      "P32",
+      "pr-32",
+      "pr-32"
+     ]
+    ],
     "mnemonic": "二四五、五三五、十二十、過十一五；買贈占六、典四、換分二"
    }
   ]
@@ -3766,8 +4193,8 @@ const DATA = [
   "cards": [
    {
     "term": "不得私有之土地與公有土地處分",
-    "blank": "<b class=\"esl\">①問題定義</b>憲§143Ⅰ 土地屬國民___；依法取得之私有權受保障。<br><b class=\"esl\">②法條定義</b>土地法§14 不得私有十款（海岸、湖澤、水道、___、礦泉地、瀑布地、水源地、___等），已成私有者得依法___；§25 處分、設定負擔、超過___租賃→民意機關同意＋___核准；§26 撥用→層請行政院核准。<br><b class=\"esl\">③問題核心</b>共通＝強烈___或保育價值；國營事業公司名下土地＝___。<br><b class=\"esl\">④結論</b>禁止私有靠徵收，處分把關靠民意加行政院。<br><b class=\"esl ezj\">結尾卓見</b>公共資源由全民共享，處分須___。",
-    "answer": "<b class=\"esl\">①問題定義</b>憲§143Ⅰ 土地屬國民<span class=\"key\">全體</span>；依法取得之私有權受保障。<br><b class=\"esl\">②法條定義</b>土地法§14 不得私有十款（海岸、湖澤、水道、<span class=\"key\">公共交通道路</span>、礦泉地、瀑布地、水源地、<span class=\"key\">名勝古蹟</span>等），已成私有者得依法<span class=\"key\">徵收</span>；§25 處分、設定負擔、超過<span class=\"key\">十年</span>租賃→民意機關同意＋<span class=\"key\">行政院</span>核准；§26 撥用→層請行政院核准。<br><b class=\"esl\">③問題核心</b>共通＝強烈<span class=\"key\">公共使用</span>或保育價值；國營事業公司名下土地＝<span class=\"key\">私有</span>。<br><b class=\"esl\">④結論</b>禁止私有靠徵收，處分把關靠民意加行政院。<br><b class=\"esl ezj\">結尾卓見</b>公共資源由全民共享，處分須<span class=\"key\">雙重把關</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">憲§143Ⅰ 土地屬國民___；依法取得之私有權受保障。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§14 不得私有十款（海岸、湖澤、水道、___、礦泉地、瀑布地、水源地、___等），已成私有者得依法___；§25 處分、設定負擔、超過___租賃→民意機關同意＋___核准；§26 撥用→層請行政院核准。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">共通＝強烈___或保育價值；國營事業公司名下土地＝___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">禁止私有靠徵收，處分把關靠民意加行政院。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">公共資源由全民共享，處分須___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">憲§143Ⅰ 土地屬國民<span class=\"key\">全體</span>；依法取得之私有權受保障。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§14 不得私有十款（海岸、湖澤、水道、<span class=\"key\">公共交通道路</span>、礦泉地、瀑布地、水源地、<span class=\"key\">名勝古蹟</span>等），已成私有者得依法<span class=\"key\">徵收</span>；§25 處分、設定負擔、超過<span class=\"key\">十年</span>租賃→民意機關同意＋<span class=\"key\">行政院</span>核准；§26 撥用→層請行政院核准。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">共通＝強烈<span class=\"key\">公共使用</span>或保育價值；國營事業公司名下土地＝<span class=\"key\">私有</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">禁止私有靠徵收，處分把關靠民意加行政院。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">公共資源由全民共享，處分須<span class=\"key\">雙重把關</span>。</div></div>",
     "src": "土地法§14、§25、§26",
     "mc": 0,
     "essay": 1,
@@ -3775,13 +4202,29 @@ const DATA = [
      "105-一"
     ],
     "mcx": [],
-    "plain": "同型題：105-一、P13、P44。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "105-一",
+      "q-105-一",
+      "q-105-一"
+     ],
+     [
+      "P13",
+      "pr-13",
+      "pr-13"
+     ],
+     [
+      "P44",
+      "pr-44",
+      "pr-44"
+     ]
+    ],
     "mnemonic": "海・湖・水・城・道・礦・瀑・源・勝・他"
    },
    {
     "term": "外國人取得地權",
-    "blank": "<b class=\"esl\">①問題定義</b>外國人取得地權基於___與國安，與本國人自由原則有別。<br><b class=\"esl\">②法條定義</b>土地法§17 林地、漁地、狩獵地、鹽地、礦地、水源地、要塞軍備區域及領域邊境土地不得移轉設定負擔或租賃；§19 用途限定；§20 一般→___核准，重大投資→先經___同意。<br><b class=\"esl\">③問題核心</b>繼承取得§17土地→登記後___年內出售本國人，逾期___。<br><b class=\"esl\">④結論</b>三道防線：平等互惠、特定土地禁止、用途限制與事前核准。<br><b class=\"esl ezj\">結尾卓見</b>開放外資也守住___。",
-    "answer": "<b class=\"esl\">①問題定義</b>外國人取得地權基於<span class=\"key\">平等互惠</span>與國安，與本國人自由原則有別。<br><b class=\"esl\">②法條定義</b>土地法§17 林地、漁地、狩獵地、鹽地、礦地、水源地、要塞軍備區域及領域邊境土地不得移轉設定負擔或租賃；§19 用途限定；§20 一般→<span class=\"key\">縣市政府</span>核准，重大投資→先經<span class=\"key\">中央目的事業主管機關</span>同意。<br><b class=\"esl\">③問題核心</b>繼承取得§17土地→登記後<span class=\"key\">3</span>年內出售本國人，逾期<span class=\"key\">公開標售</span>。<br><b class=\"esl\">④結論</b>三道防線：平等互惠、特定土地禁止、用途限制與事前核准。<br><b class=\"esl ezj\">結尾卓見</b>開放外資也守住<span class=\"key\">國土安全</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">外國人取得地權基於___與國安，與本國人自由原則有別。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§17 林地、漁地、狩獵地、鹽地、礦地、水源地、要塞軍備區域及領域邊境土地不得移轉設定負擔或租賃；§19 用途限定；§20 一般→___核准，重大投資→先經___同意。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">繼承取得§17土地→登記後___年內出售本國人，逾期___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三道防線：平等互惠、特定土地禁止、用途限制與事前核准。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">開放外資也守住___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">外國人取得地權基於<span class=\"key\">平等互惠</span>與國安，與本國人自由原則有別。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§17 林地、漁地、狩獵地、鹽地、礦地、水源地、要塞軍備區域及領域邊境土地不得移轉設定負擔或租賃；§19 用途限定；§20 一般→<span class=\"key\">縣市政府</span>核准，重大投資→先經<span class=\"key\">中央目的事業主管機關</span>同意。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">繼承取得§17土地→登記後<span class=\"key\">3</span>年內出售本國人，逾期<span class=\"key\">公開標售</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">三道防線：平等互惠、特定土地禁止、用途限制與事前核准。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">開放外資也守住<span class=\"key\">國土安全</span>。</div></div>",
     "src": "土地法§17～§20",
     "mc": 0,
     "essay": 1,
@@ -3789,13 +4232,39 @@ const DATA = [
      "110-二"
     ],
     "mcx": [],
-    "plain": "同型題：110-二、P14～P17。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "110-二",
+      "q-110-二",
+      "q-110-二"
+     ],
+     [
+      "P14",
+      "pr-14",
+      "pr-14"
+     ],
+     [
+      "P15",
+      "pr-15",
+      "pr-15"
+     ],
+     [
+      "P16",
+      "pr-16",
+      "pr-16"
+     ],
+     [
+      "P17",
+      "pr-17",
+      "pr-17"
+     ]
+    ],
     "mnemonic": "林漁狩鹽礦要水；繼承三年賣、逾期標〔自編〕"
    },
    {
     "term": "農地農用：耕地分割、私法人承受、農舍",
-    "blank": "<b class=\"esl\">①問題定義</b>目的：___、農舍農有。<br><b class=\"esl\">②法條定義</b>農發§16 分割後每人未達___公頃不得分割（七款例外）；§33 私法人___耕地（例外經許可）；§37 移轉自然人得申請___土增稅；§38 贈與繼承人免遺贈稅，___年內未農用追繳。<br><b class=\"esl\">③問題核心</b>農舍須與坐落農地___移轉，不得單獨移轉或抵押。<br><b class=\"esl\">④結論</b>不課徵≠免徵；違規未農用要___。<br><b class=\"esl ezj\">結尾卓見</b>優惠與用途管制並行，才能守住___。",
-    "answer": "<b class=\"esl\">①問題定義</b>目的：<span class=\"key\">農地農用</span>、農舍農有。<br><b class=\"esl\">②法條定義</b>農發§16 分割後每人未達<span class=\"key\">0.25</span>公頃不得分割（七款例外）；§33 私法人<span class=\"key\">不得承受</span>耕地（例外經許可）；§37 移轉自然人得申請<span class=\"key\">不課徵</span>土增稅；§38 贈與繼承人免遺贈稅，<span class=\"key\">5</span>年內未農用追繳。<br><b class=\"esl\">③問題核心</b>農舍須與坐落農地<span class=\"key\">併同</span>移轉，不得單獨移轉或抵押。<br><b class=\"esl\">④結論</b>不課徵≠免徵；違規未農用要<span class=\"key\">追繳</span>。<br><b class=\"esl ezj\">結尾卓見</b>優惠與用途管制並行，才能守住<span class=\"key\">農地完整</span>。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">目的：___、農舍農有。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">農發§16 分割後每人未達___公頃不得分割（七款例外）；§33 私法人___耕地（例外經許可）；§37 移轉自然人得申請___土增稅；§38 贈與繼承人免遺贈稅，___年內未農用追繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">農舍須與坐落農地___移轉，不得單獨移轉或抵押。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不課徵≠免徵；違規未農用要___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">優惠與用途管制並行，才能守住___。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">目的：<span class=\"key\">農地農用</span>、農舍農有。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">農發§16 分割後每人未達<span class=\"key\">0.25</span>公頃不得分割（七款例外）；§33 私法人<span class=\"key\">不得承受</span>耕地（例外經許可）；§37 移轉自然人得申請<span class=\"key\">不課徵</span>土增稅；§38 贈與繼承人免遺贈稅，<span class=\"key\">5</span>年內未農用追繳。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">農舍須與坐落農地<span class=\"key\">併同</span>移轉，不得單獨移轉或抵押。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不課徵≠免徵；違規未農用要<span class=\"key\">追繳</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">優惠與用途管制並行，才能守住<span class=\"key\">農地完整</span>。</div></div>",
     "src": "農發§16、§33、§37、§38；土稅§39-2",
     "mc": 0,
     "essay": 1,
@@ -3803,13 +4272,29 @@ const DATA = [
      "100-二"
     ],
     "mcx": [],
-    "plain": "同型題：100-二、P28、P52。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "100-二",
+      "q-100-二",
+      "q-100-二"
+     ],
+     [
+      "P28",
+      "pr-28",
+      "pr-28"
+     ],
+     [
+      "P52",
+      "pr-52",
+      "pr-52"
+     ]
+    ],
     "mnemonic": "0.25公頃；私法人不得承受；不課徵≠免徵"
    },
    {
     "term": "非都市土地管制與國土計畫",
-    "blank": "<b class=\"esl\">①問題定義</b>非都市土地以使用___＋使用地___雙軌管制。<br><b class=\"esl\">②法條定義</b>分區11種、使用地___種；區計§15-1 分區變更兩途：保育→逕為變更、開發利用→申請___；§15-3 許可後繳___；國土法四大功能分區：國保、海洋、___、城鄉發展。<br><b class=\"esl\">③問題核心</b>國土功能分區圖公告之日起，___不再適用。<br><b class=\"esl\">④結論</b>說明書載明分區、編定、容許使用與建蔽容積。<br><b class=\"esl ezj\">結尾卓見</b>從分區編定走向功能分區，管制更貼近___與發展需求。",
-    "answer": "<b class=\"esl\">①問題定義</b>非都市土地以使用<span class=\"key\">分區</span>＋使用地<span class=\"key\">編定</span>雙軌管制。<br><b class=\"esl\">②法條定義</b>分區11種、使用地<span class=\"key\">19</span>種；區計§15-1 分區變更兩途：保育→逕為變更、開發利用→申請<span class=\"key\">開發許可</span>；§15-3 許可後繳<span class=\"key\">開發影響費</span>；國土法四大功能分區：國保、海洋、<span class=\"key\">農業發展</span>、城鄉發展。<br><b class=\"esl\">③問題核心</b>國土功能分區圖公告之日起，<span class=\"key\">區域計畫法</span>不再適用。<br><b class=\"esl\">④結論</b>說明書載明分區、編定、容許使用與建蔽容積。<br><b class=\"esl ezj\">結尾卓見</b>從分區編定走向功能分區，管制更貼近<span class=\"key\">國土保育</span>與發展需求。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">非都市土地以使用___＋使用地___雙軌管制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">分區11種、使用地___種；區計§15-1 分區變更兩途：保育→逕為變更、開發利用→申請___；§15-3 許可後繳___；國土法四大功能分區：國保、海洋、___、城鄉發展。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">國土功能分區圖公告之日起，___不再適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">說明書載明分區、編定、容許使用與建蔽容積。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">從分區編定走向功能分區，管制更貼近___與發展需求。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">非都市土地以使用<span class=\"key\">分區</span>＋使用地<span class=\"key\">編定</span>雙軌管制。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">分區11種、使用地<span class=\"key\">19</span>種；區計§15-1 分區變更兩途：保育→逕為變更、開發利用→申請<span class=\"key\">開發許可</span>；§15-3 許可後繳<span class=\"key\">開發影響費</span>；國土法四大功能分區：國保、海洋、<span class=\"key\">農業發展</span>、城鄉發展。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">國土功能分區圖公告之日起，<span class=\"key\">區域計畫法</span>不再適用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">說明書載明分區、編定、容許使用與建蔽容積。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">從分區編定走向功能分區，管制更貼近<span class=\"key\">國土保育</span>與發展需求。</div></div>",
     "src": "區計§15-1～§15-3；國土法§20、§45",
     "mc": 0,
     "essay": 1,
@@ -3817,26 +4302,54 @@ const DATA = [
      "106-二"
     ],
     "mcx": [],
-    "plain": "同型題：106-二、P10、P33、P45。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "106-二",
+      "q-106-二",
+      "q-106-二"
+     ],
+     [
+      "P10",
+      "pr-10",
+      "pr-10"
+     ],
+     [
+      "P33",
+      "pr-33",
+      "pr-33"
+     ],
+     [
+      "P45",
+      "pr-45",
+      "pr-45"
+     ]
+    ],
     "mnemonic": "十一分區、十九編定；保、海、農、城"
    },
    {
     "term": "房屋租金管制與收回",
-    "blank": "<b class=\"esl\">①問題定義</b>城市房屋租金≦土地及其建築物申報總價___；超過得強制減定。<br><b class=\"esl\">②法條定義</b>土地法§99Ⅰ 擔保金不得超過___房屋租金總額；§99Ⅱ 超過部分承租人得___；§100 出租人非有法定事由___房屋。<br><b class=\"esl\">③問題核心</b>先算租金、押金是否逾上限，再看___。<br><b class=\"esl\">④結論</b>租金超過強制減定、押金超過抵房租、無事由不得收回。<br><b class=\"esl ezj\">結尾卓見</b>保障承租人居住安定，平衡___權益。",
-    "answer": "<b class=\"esl\">①問題定義</b>城市房屋租金≦土地及其建築物申報總價<span class=\"key\">年息10%</span>；超過得強制減定。<br><b class=\"esl\">②法條定義</b>土地法§99Ⅰ 擔保金不得超過<span class=\"key\">二個月</span>房屋租金總額；§99Ⅱ 超過部分承租人得<span class=\"key\">抵付房租</span>；§100 出租人非有法定事由<span class=\"key\">不得收回</span>房屋。<br><b class=\"esl\">③問題核心</b>先算租金、押金是否逾上限，再看<span class=\"key\">收回事由</span>。<br><b class=\"esl\">④結論</b>租金超過強制減定、押金超過抵房租、無事由不得收回。<br><b class=\"esl ezj\">結尾卓見</b>保障承租人居住安定，平衡<span class=\"key\">租賃雙方</span>權益。",
+    "blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">城市房屋租金≦土地及其建築物申報總價___；超過得強制減定。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§99Ⅰ 擔保金不得超過___房屋租金總額；§99Ⅱ 超過部分承租人得___；§100 出租人非有法定事由___房屋。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算租金、押金是否逾上限，再看___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">租金超過強制減定、押金超過抵房租、無事由不得收回。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保障承租人居住安定，平衡___權益。</div></div>",
+    "answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">城市房屋租金≦土地及其建築物申報總價<span class=\"key\">年息10%</span>；超過得強制減定。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">土地法§99Ⅰ 擔保金不得超過<span class=\"key\">二個月</span>房屋租金總額；§99Ⅱ 超過部分承租人得<span class=\"key\">抵付房租</span>；§100 出租人非有法定事由<span class=\"key\">不得收回</span>房屋。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">先算租金、押金是否逾上限，再看<span class=\"key\">收回事由</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">租金超過強制減定、押金超過抵房租、無事由不得收回。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">保障承租人居住安定，平衡<span class=\"key\">租賃雙方</span>權益。</div></div>",
     "src": "土地法§97、§99、§100",
     "mc": 0,
     "essay": 0,
     "esx": [],
     "mcx": [],
-    "plain": "同型題：P21。卓見為自編收尾句，非法條。",
+    "es5": [
+     [
+      "P21",
+      "pr-21",
+      "pr-21"
+     ]
+    ],
     "mnemonic": "年息十、押金二，收回要有因〔自編〕"
    }
   ]
  }
 ];
-function ansExtra(c){var a=String(c.answer).replace(/<[^>]+>/g,''),pos=0,ps=String(c.blank).split('___');for(var i=0;i<ps.length;i++){var k=a.indexOf(ps[i],pos);if(k<0)return true;pos=k+ps[i].length}return false}
-const LAWPC={'土地法':'D0060001','平均地權條例':'D0060009','土地徵收條例':'D0060058','三七五減租條例':'D0060008','三七五':'D0060008','都市計畫法':'D0070001','都計法':'D0070001','區域計畫法':'D0070030','區計':'D0070030','土地稅法':'G0340096','土稅':'G0340096','房屋稅條例':'G0340102','契稅條例':'G0340105','所得稅法':'G0340003','民法':'B0000001'};
+function es5Html(c){if(!c.es5||!c.es5.length)return'';return'<div class="es5"><b>⏱ 同型題・申論五分鐘練習</b>'+c.es5.map(function(e){var r=e[1]?'<a class="r" target="_blank" rel="noopener" href="土地法_申論5分鐘_推理版.html#q='+encodeURIComponent(e[1])+'">'+e[0]+' 推理 ▸</a>':'<span>'+e[0]+'</span>';var s=e[2]?'<a class="s" target="_blank" rel="noopener" href="土地法_申論5分鐘衝刺.html#q='+encodeURIComponent(e[2])+'">衝刺</a>':'';return'<span class="ch5">'+r+s+'</span>'}).join('')+'</div>'}
+function ansExtra(c){if(String(c.answer).indexOf('class="esb')>=0)return false;var a=String(c.answer).replace(/<[^>]+>/g,''),pos=0,ps=String(c.blank).split('___');for(var i=0;i<ps.length;i++){var k=a.indexOf(ps[i],pos);if(k<0)return true;pos=k+ps[i].length}return false}
+const LAWPC={'土地法':'D0060001','平均地權條例':'D0060009','土地徵收條例':'D0060058','三七五減租條例':'D0060008','三七五':'D0060008','平均':'D0060009','土徵':'D0060058','房屋稅':'G0340102','都計':'D0070001','契稅':'G0340105','所得稅':'G0340003','國土法':'D0070062','農發':'M0020001','都市計畫法':'D0070001','都計法':'D0070001','區域計畫法':'D0070030','區計':'D0070030','土地稅法':'G0340096','土稅':'G0340096','房屋稅條例':'G0340102','契稅條例':'G0340105','所得稅法':'G0340003','民法':'B0000001'};
 const LAWKEYS=Object.keys(LAWPC).sort(function(a,b){return b.length-a.length});
 function srcHtml(t){var cur=null;return String(t).replace(/([一-龥]*)§(\d+(?:-\d+)?)/g,function(m,nm,no){if(nm){cur=null;for(var i=0;i<LAWKEYS.length;i++){if(nm.slice(-LAWKEYS[i].length)===LAWKEYS[i]){cur=LAWPC[LAWKEYS[i]];break}}}
 if(!cur)return m;return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+'">§'+no+'</a>'})}
@@ -3954,6 +4467,7 @@ DATA.forEach((ch,ci)=>{
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${srcHtml(c.src)}</div>
+        ${es5Html(c)}
       </div>`;
     div.appendChild(card);
   });
@@ -4057,7 +4571,7 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach((c, ci) => {
-        quizPool.push({ key: ch.id + '-' + ci, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', plain: c.plain||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0, mcx: c.mcx||[], esx: c.esx||[], prl: c.prl||[] });
+        quizPool.push({ key: ch.id + '-' + ci, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mnemonic: c.mnemonic||'', table: c.table||'', plain: c.plain||'', rate: c.rate||'', mc: c.mc||0, essay: c.essay||0, mcx: c.mcx||[], esx: c.esx||[], prl: c.prl||[], es5: c.es5||[] });
       });
     });
   }
@@ -4156,6 +4670,7 @@ function renderQuizCard() {
         ${c.table||''}
         ${c.rate?`<a class="rtl" target="_blank" rel="noopener" href="土地法_稅率總表.html#${c.rate}">💰 看稅務總表（${RATE_LBL[c.rate]}）→</a>`:''}
         <div class="src">📌 ${srcHtml(c.src)}</div>
+        ${es5Html(c)}
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
     </div>`;
@@ -4227,17 +4742,18 @@ function quizMarkDone() {
   }
 }
 
+function quizScrollTop(){const el=document.getElementById('quiz-progress');if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,y),behavior:'auto'})}
 function nextQuiz() {
   quizIdx++;
   renderQuizCard();
-  window.scrollTo({top:0,behavior:'smooth'});
+  quizScrollTop();
 }
 
 function prevQuiz() {
   if (quizIdx > 0) {
     quizIdx--;
     renderQuizCard();
-    window.scrollTo({top:0,behavior:'smooth'});
+    quizScrollTop();
   }
 }
 
