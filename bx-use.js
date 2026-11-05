@@ -56,8 +56,8 @@ function fillMark(key){var f=ld("bx-fill",{});f[key]=1;sv("bx-fill",f)}
 /* ---- ⑤ 讀過輪數（手動 －／＋，做法同民法）＋ 各工具完成度（指揮中心「進度」頁顯示） ---- */
 var BASE="https://bernih7.github.io/brokerX/";
 function U8(p){return BASE+encodeURIComponent(p)+".html"}
-/* 各工具總數（2026-10-22 依頁面實際內容核對：考題小卡 518、單字卡 108、填空 183、申論總覽 72、六型模板 6 型） */
-var TOT={card:518,flash:108,fill:183,essay:92,tpl:6};
+/* 各工具總數（2026-10-22 依頁面實際內容核對：考題小卡 518、單字卡 108、填空 188、申論總覽 72、六型模板 6 型） */
+var TOT={card:518,flash:108,fill:188,essay:92,tpl:6};
 function readInc(id,d){var R=ld("bx-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bx-read",R);return x.n}
 function readGet(id){return ld("bx-read",{})[id]||{n:0,t:0}}
 /* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷、申論總覽的完成度是自動算，不放計數鈕） */
