@@ -61,6 +61,7 @@ M = {}
 for f in sorted(glob.glob(W + 'M*_out.json')):
     for r in json.load(open(f)): M[r['key']] = r
 LJ = {}
+import ev_fmt as _evfmt
 _evf = os.path.join(W, 'exam_ver.json')
 EV = json.load(open(_evf, encoding='utf-8')) if os.path.exists(_evf) else {}
 _ljf = os.path.join(W, 'lj_data.json')
@@ -296,7 +297,7 @@ def card(r):
         _n = len(re.sub(r'<[^>]+>|\s', '', ''.join(h + p for h, p in EV[key])))
         evb = '<button type="button" data-v="4">考場版</button>'
         evp = (f'<div class="vp" data-v="4" hidden>'
-               + ''.join(f'<details class="blk b{min(i, 3) + 1}" open><summary><h5>{h}</h5></summary><div class="fdb">{p}</div></details>' for i, (h, p) in enumerate(EV[key])) + '</div>')
+               + ''.join(f'<details class="blk b{min(i, 3) + 1}" open><summary><h5>{h}</h5></summary><div class="fdb">{_evfmt.block(h, p)}</div></details>' for i, (h, p) in enumerate(EV[key])) + '</div>')
     return (f'<details class="es{" pred" if kind != "off" else ""}" id="{r["id"]}" data-k="{"off" if kind == "off" else "pred"}"{" data-mk=\"1\"" if kind == "mock" else ""} data-pr="{pr}" data-lv="{r["lv"]}" data-tx="{html.escape(tx)}">'
             f'<summary><span class="eh"><span class="rk" aria-hidden="true">✓</span><b class="et">{d["nm"]}</b></span>'
             f'<span class="em"><span class="lvp {lc}">{lab}</span><span class="ek">{ek}</span></span>'

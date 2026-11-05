@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); sys.path.insert(
 from common import *
 import sprint_hp as _hp
 def blk(h, body):
+    if 'class="evp"' in body: return '<span class="blk-l">%s</span>%s' % (h, body)
     ps = [p for p in re.split(r'<br\s*/?>', body) if p.strip()]
     return '<span class="blk-l">%s</span>%s' % (h, ''.join('<p>%s</p>' % p for p in ps))
 out = []
