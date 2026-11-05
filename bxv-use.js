@@ -188,6 +188,8 @@ function fillUnmark(keys){var f=ld("bxv-fill",{});(keys||[]).forEach(function(k)
 /* 定義填空每張卡 id＝章節代碼-兩位序號（例 A1-01）；"fill" 是舊版「跑完一輪」標記，不算張數 */
 var FILL_RE=/^(A1|A2|A3|A4|B|C|D|E|G|H|I2|J|K|I)-\d{2}$/;
 function fillDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&FILL_RE.test(k))n++});return n}
+/* 申論四段填空（S1～Sn 章，卡號 S章-兩位序號）另計，不算進定義填空 */
+function fillEsDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&/^S\d+-\d{2}$/.test(k))n++});return n}
 /* 模擬卷題目不屬題庫：只計入今日作答數，不寫 bxv-q2 */
 function countQ(n){day("q",n||1)}
 
@@ -244,8 +246,9 @@ function build(){
  else Object.keys(H).forEach(function(id){var r=H[id];L.push("診斷卷 "+id+"｜得分 "+r.score+"｜"+new Date(r.t*1000).toLocaleDateString("zh-TW"))});
 
  L.push("","══ 三、記憶工具 ══");
- var fk=fillDone();
- L.push("定義填空練習：已確認 "+fk+" 張"+(fk?"":"（尚無紀錄；此功能 2026-10-13 起才開始記錄）"));
+ var fk=fillDone(),fe=fillEsDone();
+ L.push("定義填空（選擇題攻略）：已確認 "+fk+"／"+TOT.fill+" 張"+(fk?"":"（尚無紀錄；此功能 2026-10-13 起才開始記錄）"));
+ L.push("申論四段填空（申論題攻略）：已確認 "+fe+"／"+TOT.fillEs+" 張");
 
  var R=ld("bxv-read",{});
  var readItems=[
@@ -293,7 +296,7 @@ var RIDS={"估價互動單字卡":"card","估價_考題小卡":"kcard","估價_�
 var READ_INJ={"估價_技術規則專欄":1,"估價_定義填空練習":1};
 /* 各刷題頁自己的作答存檔（window.storage → localStorage "bxv-st:"+key） */
 var ANS={"A1":"valuation_practice_a1_v2","A2":"valuation_practice_a2_v2","A3":"valuation_practice_a3_v2","A4":"valuation_practice_a4_v2","B":"valuation_practice_b_v2","C1":"valuation_practice_c1_v2","C2":"valuation_practice_c2_v2","D1":"valuation_practice_d1_v2","D2":"valuation_practice_d2_v2","D3":"valuation_practice_d3_v2","E1":"valuation_practice_e1_v2","F1":"valuation_practice_f1_v2","G1":"valuation_practice_g1_v2","H1H2":"valuation_practice_h1h2_v2","H3I1":"valuation_practice_h3i1_v2","I2J1":"val_prac_i2j1_v1"};
-var TOT={fill:116,card:95,kcard:533,essay:63,v_hs1:25,e1dev:8,dcf:8,split:6};
+var TOT={fill:116,fillEs:35,card:95,kcard:533,essay:63,v_hs1:25,e1dev:8,dcf:8,split:6};
 function md(t){if(!t)return"";var d=new Date(t*1000);return(d.getMonth()+1)+"/"+d.getDate()}
 function status(){
  var UU=ld("bxv-use",{}),G=[];
@@ -330,17 +333,18 @@ function status(){
  var kc=ld("bxe-card-v2",{})||{},kcm=0,kcr=0;Object.keys(kc).forEach(function(k){var s=kc[k]&&typeof kc[k]==="object"?kc[k].status:kc[k];if(s==="mastered")kcm++;else if(s==="review")kcr++});
  kcm=Math.min(kcm,TOT.kcard);R4.push(row("估價_考題小卡","考題小卡",kcm,TOT.kcard,"已掌握 "+kcm+"／"+TOT.kcard+" 張"+(kcr?"・待複習 "+kcr:"")));
  var fr=parseInt(ld("bxe-fill",0),10)||0,ft=parseInt(ld("bxv-fill-total",TOT.fill),10)||TOT.fill,fd=Math.min(fillDone(),ft);
- R4.push(row("估價_定義填空練習","定義填空練習",fd,ft,"已完成 "+fd+"／"+ft+" 張"+(fr?"・隨機測驗跑完 "+fr+" 輪":"")));
+ R4.push(row("估價_定義填空練習","定義填空（選擇題攻略）",fd,ft,"已完成 "+fd+"／"+ft+" 張"+(fr?"・隨機測驗跑完 "+fr+" 輪":"")));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R4});
  /* 申論 */
- var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+)$/.test(id))en++});en=Math.min(en,TOT.essay);
- G.push({g:"申論",rows:[row("不動產估價概要_申論題實戰範文","申論題實戰範文",en,TOT.essay,"已讀 "+en+"／"+TOT.essay+" 題（官方 32＋本站模擬 7＋補習班模擬 2＋預測 22）")]});
+ var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+|mk-[a-z0-9-]+)$/.test(id))en++});en=Math.min(en,TOT.essay);
+ var fe2=Math.min(fillEsDone(),TOT.fillEs),rfe=row("估價_定義填空練習","申論四段填空（申論題攻略）",fe2,TOT.fillEs,"已完成 "+fe2+"／"+TOT.fillEs+" 張");rfe.url+="#essay";rfe.read=null;rfe.open=null;
+ G.push({g:"申論",rows:[row("不動產估價概要_申論題實戰範文","申論題實戰範文",en,TOT.essay,"已讀 "+en+"／"+TOT.essay+" 題（官方 32＋本站模擬 7＋補習班模擬 2＋預測 22）"),rfe]});
  /* 閱讀頁 */
  var R6=[];[["估價彩色重點速記","彩色重點速記"],["估價四大方法系統攻略","四大方法系統攻略"],["估價_四大方法比較表","四大方法比較表"],["估價_估價程序總整理","估價程序總整理"],["估價_租金估計攻略表","租金估計攻略表"],["估價_營造施工費四法","營造施工費四法"],["估價_地價調查估計規則專欄","地價調查估計規則專欄"],["估價_特殊標的總整理","特殊標的總整理"],["估價_計算題攻略","計算題攻略"],["估價_易混淆概念並排","易混淆概念並排"],["估價_技術規則專欄","技術規則專欄"]].forEach(function(a){R6.push(row(a[0],a[1],0,0,""))});
  G.push({g:"閱讀頁（讀完一輪在該頁按＋）",rows:R6});
  return G}
 
-window.BXREP={build:build,rec:rec,tag:tag,conf:conf,drop:drop,sync:sync,fillMark:fillMark,fillUnmark:fillUnmark,fillDone:fillDone,countQ:countQ,chOf:chOf,CH:CH,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
+window.BXREP={build:build,rec:rec,tag:tag,conf:conf,drop:drop,sync:sync,fillMark:fillMark,fillUnmark:fillUnmark,fillDone:fillDone,fillEsDone:fillEsDone,countQ:countQ,chOf:chOf,CH:CH,readInc:readInc,readGet:readGet,status:status,READ_INJ:READ_INJ,RIDS:RIDS,PAGE:PAGE,today:function(){return ld("bxv-day",{})[ymd()]||{q:0,c:0}}};
 })();
 
 /* ── 浮動鈕（全站標準 #bxfab）：左下回頂端（進度環）＋右下回備考指揮中心；沒有深淺色切換鈕的頁面補 🌙 ── */

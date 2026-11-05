@@ -227,6 +227,34 @@ header .fill-done{display:inline-block;margin-top:8px;font-size:13px;font-weight
 .theme-toggle:hover{background:var(--fg);color:var(--bg);}
 
 /* theme-fix: dark contrast */
+/*fill-kit*/
+:root{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}}
+:root[data-theme="dark"]{--b1:#7DB6D8;--b1s:#1D2F3A;--b2:#B79BE0;--b2s:#2B2438;--b3:#7FCBA0;--b3s:#1D3226;--b4:#E0B070;--b4s:#3A3220;--hl:#5A4A18}
+:root[data-theme="light"]{--b1:#2F6B8C;--b1s:#E3EFF6;--b2:#7A5BA6;--b2s:#EEE8F6;--b3:#2F7A55;--b3s:#E1F1E8;--b4:#B8782E;--b4s:#F8EBD3;--hl:#FFE9A8}
+.esb{display:grid;gap:4px;margin-top:12px;text-align:left;line-height:1.85;word-break:normal;overflow-wrap:anywhere}
+.esb:first-child{margin-top:2px}
+.esl{justify-self:start;font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 10px;letter-spacing:.04em;line-height:1.7}
+.esb.e1 .esl{background:var(--b2s);color:var(--b2)}
+.esb.e2 .esl{background:var(--b1s);color:var(--b1)}
+.esb.e3{border:1.5px solid var(--b4);border-radius:14px;padding:10px 14px;background:var(--paper)}
+.esb.e3 .esl{background:none;padding:0;color:var(--b4)}
+.esb.e4 .esl{background:var(--b3s);color:var(--b3)}
+.esb.e5{background:var(--hl);border-radius:12px;padding:10px 14px}
+.esb.e5 .esl{background:none;padding:0;color:var(--muted)}
+.esb.e5 .esc{font-weight:700}
+.esb .blank{line-height:1.6}
+.es5{margin-top:10px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;font-size:13px;line-height:1.9}
+.es5 b{display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+.es5 .ch5{display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;white-space:nowrap}
+.es5 a.r{font-weight:700;color:var(--primary);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--paper)}
+.es5 a.s{font-size:12px;color:var(--muted)}
+.es-mn{margin-top:8px;font-size:13px}.es-mn b{color:var(--mn);margin-right:6px}
+.es-row{text-align:left;margin:2px 0}.es-row a{color:var(--blue)}
+a.lawlk{color:inherit;text-decoration:underline dotted;text-underline-offset:3px}
+.cp-sep{flex-basis:100%;font-size:12px;font-weight:700;color:var(--gold);margin:10px 0 2px;padding-top:8px;border-top:1px dashed currentColor;text-align:center}
+.qc-kb{font-size:12px;color:var(--muted);text-align:center;margin:-4px 0 10px}
+.qc-kb a{color:var(--blue);margin-left:6px}
 </style>
 <script src="bxv-use.js"></script>
 </head>
@@ -235,13 +263,14 @@ header .fill-done{display:inline-block;margin-top:8px;font-size:13px;font-weight
 
 <header>
   <h1>估價概要｜定義填空練習</h1>
-  <div class="sub">章節練習 + 隨機測驗模式｜全科 <span id="fillTotal">116</span> 題</div>
-  <div class="fill-done" id="fillDone">已完成 0／116</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜定義 <span id="fillTotal">116</span> 題＋申論四段 <span id="fillEsTotal">35</span> 題（另一分類）</div>
+  <div class="fill-done" id="fillDone">已完成 0／116</div> <div class="fill-done" id="fillEsDone">申論四段 0／35</div>
 </header>
 
 <div class="mode-tabs">
   <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
-  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
+  <button class="mode-tab" id="tab-quiz" onclick="goDefQuiz()">🎲 隨機測驗</button>
+  <button class="mode-tab" id="tab-essay" onclick="goEssay()">📝 申論隨機</button>
 </div>
 
 <nav id="nav"></nav>
@@ -1178,6 +1207,1219 @@ const DATA = [
     ]
   },
 ];
+/*ES_DATA*/const ES_DATA = [
+{
+"id": "S1",
+"label": "S1 申論・估價原則・價格種類・價格因素",
+"cards": [
+{
+"term": "替代原則：三大方法之共同基礎與替代性之觀察",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">替代原則：效用相近之不動產，價格___；<br>審慎的買方不會以高於___之價格購買（教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">估價原則屬___，技術規則無專章；<br>條文落點：§12（比較實例）、§48（重建成本）、§43（資本化率比較其他投資報酬）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三法觀點：比較法＝___；<br>成本法＝___之替代；<br>收益法＝___；<br>觀察替代性：同一供需圈、使用性質與分區、區域與個別因素；<br>量化檢驗：§25 單項大於___或總調整率大於百分之三十排除；<br>§26 試算價格差距達___以上排除。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">替代原則是三大方法的共同___，替代性要能觀察、也要能___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">找得到替代品，價格才有___；<br>找不到時，就靠另外兩法交叉驗證。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">替代原則：效用相近之不動產，價格<span class=\"key\">互相牽制</span>；<br>審慎的買方不會以高於<span class=\"key\">替代品</span>之價格購買（教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">估價原則屬<span class=\"key\">學理</span>，技術規則無專章；<br>條文落點：§12（比較實例）、§48（重建成本）、§43（資本化率比較其他投資報酬）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三法觀點：比較法＝<span class=\"key\">市場替代</span>；<br>成本法＝<span class=\"key\">重新取得</span>之替代；<br>收益法＝<span class=\"key\">投資替代</span>；<br>觀察替代性：同一供需圈、使用性質與分區、區域與個別因素；<br>量化檢驗：§25 單項大於<span class=\"key\">百分之十五</span>或總調整率大於百分之三十排除；<br>§26 試算價格差距達<span class=\"key\">百分之二十</span>以上排除。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">替代原則是三大方法的共同<span class=\"key\">基礎</span>，替代性要能觀察、也要能<span class=\"key\">量化</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">找得到替代品，價格才有<span class=\"key\">參照</span>；<br>找不到時，就靠另外兩法交叉驗證。</div></div>",
+"src": "技術規則§12、§25、§26、§43、§48",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"100-二",
+"e100-2"
+]
+],
+"prl": [],
+"es5": [
+[
+"100-二",
+"e100-2",
+"e100-2"
+]
+],
+"cid": "S1-01"
+},
+{
+"term": "不景氣屬何種估價原則；估價應掌握之原則",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不景氣屬___：價格隨價格形成因素之變動而變動；<br>並涉及___原則（需求下降）、___原則（預期轉悲觀）（教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§6 不動產估價，應切合___當時之價值；<br>§2第14款 一般因素＝對於不動產市場及其價格水準發生全面影響之自然、政治、社會、___等共同因素；<br>§2第17款 最有效使用、§2第11款 同一供需圈為條文明文，可逕引條號。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">應掌握：供需、替代、預測、變動、均衡、貢獻、收益遞增遞減、適合、外部性、___；<br>工作上：§3 經常蒐集___；<br>比較標的留意 §23 急買急賣、拍賣等特殊交易。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">估價原則以學理名稱與定義作答，條文明文者___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">市場在變，估價就要___，才不會用昨天的行情估今天的價。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不景氣屬<span class=\"key\">變動原則</span>：價格隨價格形成因素之變動而變動；<br>並涉及<span class=\"key\">供需</span>原則（需求下降）、<span class=\"key\">預測</span>原則（預期轉悲觀）（教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§6 不動產估價，應切合<span class=\"key\">價格日期</span>當時之價值；<br>§2第14款 一般因素＝對於不動產市場及其價格水準發生全面影響之自然、政治、社會、<span class=\"key\">經濟</span>等共同因素；<br>§2第17款 最有效使用、§2第11款 同一供需圈為條文明文，可逕引條號。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">應掌握：供需、替代、預測、變動、均衡、貢獻、收益遞增遞減、適合、外部性、<span class=\"key\">最有效使用</span>；<br>工作上：§3 經常蒐集<span class=\"key\">市場資訊</span>；<br>比較標的留意 §23 急買急賣、拍賣等特殊交易。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">估價原則以學理名稱與定義作答，條文明文者<span class=\"key\">逕引條號</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">市場在變，估價就要<span class=\"key\">釘住價格日期</span>，才不會用昨天的行情估今天的價。</div></div>",
+"src": "技術規則§2第11款、§2第14款、§2第17款、§3、§6、§23",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"104-一",
+"e104-1"
+]
+],
+"prl": [],
+"es5": [
+[
+"104-一",
+"e104-1",
+"e104-1"
+]
+],
+"cid": "S1-02"
+},
+{
+"term": "價格種類：正常・限定・特定・特殊",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">估計價格種類四種：正常價格、___、特定價格及特殊價格；<br>估計租金種類：正常租金及___（§6）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第1款 正常價格：具有___之不動產，於有意願之買賣雙方，依專業知識、謹慎行動，不受任何脅迫，經適當市場行銷及正常交易條件形成之合理價值；<br>§2第2款 限定價格三條件：以所有權以外其他權利與所有權___為目的、以不動產合併為目的、以違反經濟合理性之不動產___為前提；<br>§2第3款 特定價格＝基於___下形成之價值；<br>§2第4款 特殊價格＝對___之不動產所估計之價值。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§6：不動產估價，應註明其___；<br>以特定價格估價者，應敘明其___，並同時估計其___（限定價格無此要求）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷有無市場性，再看是否有___或特定條件。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">價格種類一寫錯，後面方法再對也___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">估計價格種類四種：正常價格、<span class=\"key\">限定價格</span>、特定價格及特殊價格；<br>估計租金種類：正常租金及<span class=\"key\">限定租金</span>（§6）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第1款 正常價格：具有<span class=\"key\">市場性</span>之不動產，於有意願之買賣雙方，依專業知識、謹慎行動，不受任何脅迫，經適當市場行銷及正常交易條件形成之合理價值；<br>§2第2款 限定價格三條件：以所有權以外其他權利與所有權<span class=\"key\">合併</span>為目的、以不動產合併為目的、以違反經濟合理性之不動產<span class=\"key\">分割</span>為前提；<br>§2第3款 特定價格＝基於<span class=\"key\">特定條件</span>下形成之價值；<br>§2第4款 特殊價格＝對<span class=\"key\">不具市場性</span>之不動產所估計之價值。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§6：不動產估價，應註明其<span class=\"key\">價格種類</span>；<br>以特定價格估價者，應敘明其<span class=\"key\">估價條件</span>，並同時估計其<span class=\"key\">正常價格</span>（限定價格無此要求）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷有無市場性，再看是否有<span class=\"key\">限定條件</span>或特定條件。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">價格種類一寫錯，後面方法再對也<span class=\"key\">答非所問</span>。</div></div>",
+"src": "技術規則§2第1～6款、§6",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"103-二",
+"e103-2"
+]
+],
+"prl": [
+[
+"預8",
+"pred-8"
+]
+],
+"es5": [
+[
+"103-二",
+"e103-2",
+"e103-2"
+],
+[
+"預8",
+"pred-8",
+"pred-8"
+]
+],
+"cid": "S1-03"
+},
+{
+"term": "影響價格因素三類；與比較法調整之關聯（含凶宅情境）",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">影響不動產價格之因素三類：___、區域因素、___；<br>技術規則沒有「特殊因素」。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第14款 一般因素：對於不動產市場及其價格水準發生___影響；<br>§2第15款 區域因素：影響___不動產價格水準；<br>§2第16款 個別因素：不動產因受___之影響，而產生價格差異。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">關聯：區域因素→§19 區域因素調整（不在同一___內時）；<br>個別因素→§19 個別因素調整；<br>§24 以___為原則；<br>112-一 梯廳凶殺只影響該樓層→屬___，比較法向下調整、收益法客觀淨收益下降（§30）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷影響範圍（全面／近鄰地區／標的本身），再對應到___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分得清因素的層級，才知道調整要放在___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">影響不動產價格之因素三類：<span class=\"key\">一般因素</span>、區域因素、<span class=\"key\">個別因素</span>；<br>技術規則沒有「特殊因素」。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第14款 一般因素：對於不動產市場及其價格水準發生<span class=\"key\">全面</span>影響；<br>§2第15款 區域因素：影響<span class=\"key\">近鄰地區</span>不動產價格水準；<br>§2第16款 個別因素：不動產因受<span class=\"key\">本身條件</span>之影響，而產生價格差異。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">關聯：區域因素→§19 區域因素調整（不在同一<span class=\"key\">近鄰地區</span>內時）；<br>個別因素→§19 個別因素調整；<br>§24 以<span class=\"key\">百分率法</span>為原則；<br>112-一 梯廳凶殺只影響該樓層→屬<span class=\"key\">個別因素</span>，比較法向下調整、收益法客觀淨收益下降（§30）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷影響範圍（全面／近鄰地區／標的本身），再對應到<span class=\"key\">調整項目</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">分得清因素的層級，才知道調整要放在<span class=\"key\">哪一步</span>。</div></div>",
+"src": "技術規則§2第14～16款、§19、§21、§24、§30",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"103-一",
+"e103-1"
+],
+[
+"112-一",
+"e112-1"
+]
+],
+"prl": [],
+"es5": [
+[
+"103-一",
+"e103-1",
+"e103-1"
+],
+[
+"112-一",
+"e112-1",
+"e112-1"
+]
+],
+"cid": "S1-04"
+}
+]
+},
+{
+"id": "S2",
+"label": "S2 申論・估價程序・方法選取・報告書",
+"cards": [
+{
+"term": "估價作業程序八步驟；估價基本事項與估價計畫",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產估價作業程序＝§8 ___步，順序不可顛倒。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§8：確定估價基本事項→擬定估價計畫→___→確認勘估標的狀態→整理、比較、分析資料→運用估價方法推算勘估標的價格→___勘估標的價格→製作估價報告書；<br>§9 基本事項：勘估標的內容、___、價格種類及條件、估價目的；<br>§10 估價計畫：確定作業步驟、預估所需時間、人力、經費、擬定___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「確認勘估標的狀態」（現場勘察）在___之後；<br>基本事項是___項；<br>第六步依 §14 應兼採___估價方法。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">八步依序寫出，再分寫 §9、§10 細項。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序是估價品質的___，步驟清楚，報告才經得起檢驗。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產估價作業程序＝§8 <span class=\"key\">八</span>步，順序不可顛倒。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§8：確定估價基本事項→擬定估價計畫→<span class=\"key\">蒐集資料</span>→確認勘估標的狀態→整理、比較、分析資料→運用估價方法推算勘估標的價格→<span class=\"key\">決定</span>勘估標的價格→製作估價報告書；<br>§9 基本事項：勘估標的內容、<span class=\"key\">價格日期</span>、價格種類及條件、估價目的；<br>§10 估價計畫：確定作業步驟、預估所需時間、人力、經費、擬定<span class=\"key\">作業進度表</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「確認勘估標的狀態」（現場勘察）在<span class=\"key\">蒐集資料</span>之後；<br>基本事項是<span class=\"key\">四</span>項；<br>第六步依 §14 應兼採<span class=\"key\">二種以上</span>估價方法。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">八步依序寫出，再分寫 §9、§10 細項。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">程序是估價品質的<span class=\"key\">骨架</span>，步驟清楚，報告才經得起檢驗。</div></div>",
+"src": "技術規則§8、§9、§10、§14",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預17",
+"pred-17"
+],
+[
+"模擬卷四-1",
+"mk-c4-1"
+]
+],
+"es5": [
+[
+"預17",
+"pred-17",
+"pred-17"
+],
+[
+"模擬卷四-1",
+"mk-c4-1",
+"mk-c4-1"
+]
+],
+"mn": "基本事項四：標・日・種條・目〔自編〕",
+"cid": "S2-01"
+},
+{
+"term": "現場勘察事項與委託人未領勘之處理",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">確認勘估標的狀態時，應至___（§13）；<br>估價師執行估價應遵守 §3～§7 之工作規範。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§13：確認勘估標的之基本資料及___；<br>調查勘估標的及___之使用現況；<br>確認影響價格之各項資料；<br>作成紀錄及攝製必要之照片或影像檔；<br>委託人未領勘，無法確認勘估標的範圍或無法進入室內勘察時，應於___敘明。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§3 經常蒐集市場資料；<br>§4 詳予求證其___；<br>§5 力求___；<br>§6 切合價格日期當時之價值；<br>§7 面積已辦理登記者以___之面積為準。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未領勘不是拒絕估價：盡力查證並於報告書敘明，難以確定之事項說明其___（§17）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">看不到的地方誠實寫出來，報告的___才站得住。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">確認勘估標的狀態時，應至<span class=\"key\">現場勘察</span>（§13）；<br>估價師執行估價應遵守 §3～§7 之工作規範。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§13：確認勘估標的之基本資料及<span class=\"key\">權利狀態</span>；<br>調查勘估標的及<span class=\"key\">比較標的</span>之使用現況；<br>確認影響價格之各項資料；<br>作成紀錄及攝製必要之照片或影像檔；<br>委託人未領勘，無法確認勘估標的範圍或無法進入室內勘察時，應於<span class=\"key\">估價報告書</span>敘明。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§3 經常蒐集市場資料；<br>§4 詳予求證其<span class=\"key\">可靠性</span>；<br>§5 力求<span class=\"key\">客觀公正</span>；<br>§6 切合價格日期當時之價值；<br>§7 面積已辦理登記者以<span class=\"key\">登記</span>之面積為準。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">未領勘不是拒絕估價：盡力查證並於報告書敘明，難以確定之事項說明其<span class=\"key\">可能影響</span>（§17）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">看不到的地方誠實寫出來，報告的<span class=\"key\">可信度</span>才站得住。</div></div>",
+"src": "技術規則§3～§7、§13、§17",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"109-一",
+"e109-1"
+]
+],
+"prl": [
+[
+"預17",
+"pred-17"
+]
+],
+"es5": [
+[
+"109-一",
+"e109-1",
+"e109-1"
+],
+[
+"預17",
+"pred-17",
+"pred-17"
+]
+],
+"cid": "S2-02"
+},
+{
+"term": "估價報告書應載明事項；價格日期與特定價格",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">估價報告書：估價師應製作，於___後，交付委託人（§16）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§16 應載明___款：委託人、勘估標的之基本資料、___、價格種類、估價條件、估價目的、估價金額、所有權他項權利及其他負擔、使用現況、法定使用管制、價格形成之主要因素分析、估價方法與估算過程及價格決定之理由、依本規則須敘明之情況、其他必要事項、估價師___；<br>並應檢附必要之___資料。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">估價基準日＝___：表示不動產價格之基準日期（§2第7款）；<br>以特定價格估價者，應敘明___，並同時估計其正常價格（§6）；<br>行政執行或強制執行案件依其相關規定，不受前二項之限制。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">十五款依「人事時地額→權利狀態→分析簽署」分組寫，價格日期與勘察日期是___日期。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">報告書是估價師對外唯一的___，漏一款就少一分保障。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">估價報告書：估價師應製作，於<span class=\"key\">簽名或蓋章</span>後，交付委託人（§16）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§16 應載明<span class=\"key\">十五</span>款：委託人、勘估標的之基本資料、<span class=\"key\">價格日期及勘察日期</span>、價格種類、估價條件、估價目的、估價金額、所有權他項權利及其他負擔、使用現況、法定使用管制、價格形成之主要因素分析、估價方法與估算過程及價格決定之理由、依本規則須敘明之情況、其他必要事項、估價師<span class=\"key\">姓名及其證照字號</span>；<br>並應檢附必要之<span class=\"key\">圖說</span>資料。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">估價基準日＝<span class=\"key\">價格日期</span>：表示不動產價格之基準日期（§2第7款）；<br>以特定價格估價者，應敘明<span class=\"key\">估價條件</span>，並同時估計其正常價格（§6）；<br>行政執行或強制執行案件依其相關規定，不受前二項之限制。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">十五款依「人事時地額→權利狀態→分析簽署」分組寫，價格日期與勘察日期是<span class=\"key\">兩個</span>日期。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">報告書是估價師對外唯一的<span class=\"key\">成果</span>，漏一款就少一分保障。</div></div>",
+"src": "技術規則§2第7款、§6、§16",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預8",
+"pred-8"
+],
+[
+"模擬卷四-1",
+"mk-c4-1"
+]
+],
+"es5": [
+[
+"預8",
+"pred-8",
+"pred-8"
+],
+[
+"模擬卷四-1",
+"mk-c4-1",
+"mk-c4-1"
+]
+],
+"mn": "7＋3＋5",
+"cid": "S2-03"
+},
+{
+"term": "估價方法之選取原則與三大方法適用時機",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三大方法：比較法→___（§18）；<br>收益法→收益價格（§28）；<br>成本法→___（§48）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§14 應兼採___估價方法；<br>但因情況特殊不能採取並於估價報告書中敘明者，不在此限；<br>§15 綜合比較，金額___者重新檢討，決定價格並將決定理由詳予敘明；<br>以契約約定租金作為證券化信託利益分配基礎者，___之收益價格賦予相對較大之權重。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">程序步數：比較法___步（§21）、收益法六步（§34）、成本法___步（§49）；<br>建物估價以___為原則（§108），工事及水利土壤改良亦同（§112）；<br>農場牧場、鹽田、池沼墓地、公設用地以___為原則（§93～§97）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先寫選取原則（§14、§15），再寫各法適用時機並___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多法並用、互相驗證，價格才不會被___的盲點綁住。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三大方法：比較法→<span class=\"key\">比較價格</span>（§18）；<br>收益法→收益價格（§28）；<br>成本法→<span class=\"key\">成本價格</span>（§48）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§14 應兼採<span class=\"key\">二種以上</span>估價方法；<br>但因情況特殊不能採取並於估價報告書中敘明者，不在此限；<br>§15 綜合比較，金額<span class=\"key\">顯著差異</span>者重新檢討，決定價格並將決定理由詳予敘明；<br>以契約約定租金作為證券化信託利益分配基礎者，<span class=\"key\">折現現金流量分析法</span>之收益價格賦予相對較大之權重。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">程序步數：比較法<span class=\"key\">六</span>步（§21）、收益法六步（§34）、成本法<span class=\"key\">八</span>步（§49）；<br>建物估價以<span class=\"key\">成本法</span>為原則（§108），工事及水利土壤改良亦同（§112）；<br>農場牧場、鹽田、池沼墓地、公設用地以<span class=\"key\">比較法</span>為原則（§93～§97）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先寫選取原則（§14、§15），再寫各法適用時機並<span class=\"key\">舉標的</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">多法並用、互相驗證，價格才不會被<span class=\"key\">單一方法</span>的盲點綁住。</div></div>",
+"src": "技術規則§14、§15、§18、§21、§28、§34、§48、§49、§93～§97、§108、§112",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"114-二",
+"e114-2"
+],
+[
+"101-一",
+"e101-1"
+]
+],
+"prl": [],
+"es5": [
+[
+"114-二",
+"e114-2",
+"e114-2"
+],
+[
+"101-一",
+"e101-1",
+"e101-1"
+]
+],
+"cid": "S2-04"
+},
+{
+"term": "應蒐集之資料與蒐集比較實例之原則",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產估價應蒐集之資料分___類（§11）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§11：勘估標的之標示、權利、法定用途及使用管制等___；<br>影響價格之一般因素、區域因素及個別因素；<br>相關交易、收益及___資料；<br>§4 蒐集比較標的資料並詳予求證其___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§12 蒐集比較實例四原則：實例價格屬___、可調整為正常價格或與勘估標的價格種類相同；<br>位於同一供需圈之___；<br>使用性質或使用管制相同或相近；<br>價格形成日期與價格日期___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">資料求可靠、實例求可比，後續至少採用___以上比較標的（§27）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資料源頭乾淨，後面的調整才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產估價應蒐集之資料分<span class=\"key\">三</span>類（§11）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§11：勘估標的之標示、權利、法定用途及使用管制等<span class=\"key\">基本資料</span>；<br>影響價格之一般因素、區域因素及個別因素；<br>相關交易、收益及<span class=\"key\">成本</span>資料；<br>§4 蒐集比較標的資料並詳予求證其<span class=\"key\">可靠性</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§12 蒐集比較實例四原則：實例價格屬<span class=\"key\">正常價格</span>、可調整為正常價格或與勘估標的價格種類相同；<br>位於同一供需圈之<span class=\"key\">近鄰地區或類似地區</span>；<br>使用性質或使用管制相同或相近；<br>價格形成日期與價格日期<span class=\"key\">接近</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">資料求可靠、實例求可比，後續至少採用<span class=\"key\">三件</span>以上比較標的（§27）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資料源頭乾淨，後面的調整才<span class=\"key\">有意義</span>。</div></div>",
+"src": "技術規則§3、§4、§11、§12、§22、§27",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"106-二",
+"e106-2"
+]
+],
+"prl": [],
+"es5": [
+[
+"106-二",
+"e106-2",
+"e106-2"
+]
+],
+"cid": "S2-05"
+}
+]
+},
+{
+"id": "S3",
+"label": "S3 申論・比較法",
+"cards": [
+{
+"term": "比較法之意義、程序與四項調整",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">比較法：以比較標的價格為基礎，經比較、分析及___等，以推算勘估標的價格之方法；<br>所求得之價格為___（§18）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§21 六步：蒐集並查證比較標的相關資料→選擇條件相同或相似之比較標的→___及價格日期調整→區域因素及個別因素差異求調整率或調整額→計算___→決定比較價格；<br>§19 價格日期調整：以適當之___調整；<br>區域因素調整：比較標的與勘估標的不在同一___內時才做。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">調整順序：情況→價格日期→區域因素→___；<br>§24 以___為原則，亦得以差額法調整；<br>情況調整前依 §22 ___交易價格、交易條件、標的狀況、交易日期。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">四項依序調整、逐項說明，再進入___檢核。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">調整有依據、有順序，比較價格才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">比較法：以比較標的價格為基礎，經比較、分析及<span class=\"key\">調整</span>等，以推算勘估標的價格之方法；<br>所求得之價格為<span class=\"key\">比較價格</span>（§18）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§21 六步：蒐集並查證比較標的相關資料→選擇條件相同或相似之比較標的→<span class=\"key\">情況調整</span>及價格日期調整→區域因素及個別因素差異求調整率或調整額→計算<span class=\"key\">試算價格</span>→決定比較價格；<br>§19 價格日期調整：以適當之<span class=\"key\">變動率或變動金額</span>調整；<br>區域因素調整：比較標的與勘估標的不在同一<span class=\"key\">近鄰地區</span>內時才做。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">調整順序：情況→價格日期→區域因素→<span class=\"key\">個別因素</span>；<br>§24 以<span class=\"key\">百分率法</span>為原則，亦得以差額法調整；<br>情況調整前依 §22 <span class=\"key\">查證</span>交易價格、交易條件、標的狀況、交易日期。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">四項依序調整、逐項說明，再進入<span class=\"key\">門檻</span>檢核。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">調整有依據、有順序，比較價格才<span class=\"key\">說得清楚</span>。</div></div>",
+"src": "技術規則§18、§19、§21、§22、§24",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"99-二",
+"e99-2"
+]
+],
+"prl": [
+[
+"模擬卷一-2",
+"mk-c1-2"
+]
+],
+"es5": [
+[
+"99-二",
+"e99-2",
+"e99-2"
+],
+[
+"模擬卷一-2",
+"mk-c1-2",
+"mk-c1-2"
+]
+],
+"cid": "S3-01"
+},
+{
+"term": "比較標的不予採用（§23）與排除門檻（§25、§26）",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">兩道防線：質的排除（§___）＋量的門檻（§25、§26）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§23 十三款：應先作適當之調整；<br>該影響交易價格之情況無法有效掌握及量化調整時，應___；<br>§25 區域因素、個別因素調整或其內任一單獨項目大於___，或總調整率大於___→排除該比較標的；<br>§26 檢討後試算價格之間差距仍達___以上→排除該試算價格。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">十三款不是「一律不得採用」，能量化就___；<br>15%、30% 用「大於」（剛好不排除），20% 用「___」（剛好要排除）；<br>差距＝高低價格之差÷高低價格___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§25 排除的是___，§26 排除的是試算價格。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">寧缺勿濫，排除失真的案例，比較法才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">兩道防線：質的排除（§<span class=\"key\">23</span>）＋量的門檻（§25、§26）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§23 十三款：應先作適當之調整；<br>該影響交易價格之情況無法有效掌握及量化調整時，應<span class=\"key\">不予採用</span>；<br>§25 區域因素、個別因素調整或其內任一單獨項目大於<span class=\"key\">百分之十五</span>，或總調整率大於<span class=\"key\">百分之三十</span>→排除該比較標的；<br>§26 檢討後試算價格之間差距仍達<span class=\"key\">百分之二十</span>以上→排除該試算價格。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">十三款不是「一律不得採用」，能量化就<span class=\"key\">先調整</span>；<br>15%、30% 用「大於」（剛好不排除），20% 用「<span class=\"key\">達</span>」（剛好要排除）；<br>差距＝高低價格之差÷高低價格<span class=\"key\">平均值</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§25 排除的是<span class=\"key\">比較標的</span>，§26 排除的是試算價格。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">寧缺勿濫，排除失真的案例，比較法才<span class=\"key\">可信</span>。</div></div>",
+"src": "技術規則§22、§23、§25、§26",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"102-一",
+"e102-1"
+],
+[
+"110-一",
+"e110-1"
+]
+],
+"prl": [
+[
+"預4",
+"pred-4"
+]
+],
+"es5": [
+[
+"102-一",
+"e102-1",
+"e102-1"
+],
+[
+"110-一",
+"e110-1",
+"e110-1"
+],
+[
+"預4",
+"pred-4",
+"pred-4"
+]
+],
+"mn": "急期債親，畸糾拍公，迷設哄符他",
+"cid": "S3-02"
+},
+{
+"term": "同一供需圈・近鄰地區・類似地區",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三者都是選取___之範圍概念。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第11款 同一供需圈：比較標的與勘估標的間能成立___，且其價格互為影響之最適範圍；<br>§2第12款 近鄰地區：周圍供相同或類似用途之不動產，形成___較高之地區；<br>§2第13款 類似地區：同一供需圈內，___而與勘估標的使用性質相近之其他地區。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">關係：同一供需圈 ⊃ 近鄰地區＋___；<br>比較標的與勘估標的不在同一近鄰地區內→須作___（§19）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先劃供需圈，再分近鄰與類似，並___說明。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">範圍劃對，替代關係才成立，比較才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">三者都是選取<span class=\"key\">比較標的</span>之範圍概念。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§2第11款 同一供需圈：比較標的與勘估標的間能成立<span class=\"key\">替代關係</span>，且其價格互為影響之最適範圍；<br>§2第12款 近鄰地區：周圍供相同或類似用途之不動產，形成<span class=\"key\">同質性</span>較高之地區；<br>§2第13款 類似地區：同一供需圈內，<span class=\"key\">近鄰地區以外</span>而與勘估標的使用性質相近之其他地區。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">關係：同一供需圈 ⊃ 近鄰地區＋<span class=\"key\">類似地區</span>；<br>比較標的與勘估標的不在同一近鄰地區內→須作<span class=\"key\">區域因素調整</span>（§19）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先劃供需圈，再分近鄰與類似，並<span class=\"key\">舉例</span>說明。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">範圍劃對，替代關係才成立，比較才<span class=\"key\">有意義</span>。</div></div>",
+"src": "技術規則§2第11～13款、§12、§19",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"107-二",
+"e107-2"
+]
+],
+"prl": [],
+"es5": [
+[
+"107-二",
+"e107-2",
+"e107-2"
+]
+],
+"cid": "S3-03"
+},
+{
+"term": "情境題：房仲以 2 戶成交單價推論委託人房價",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">判斷房仲是否依___選取、調整及檢核比較標的。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§12 實例須使用性質或___相同或相近；<br>§21 須作情況、價格日期、區域、個別四項調整；<br>§22、§23 查證並排除特殊交易；<br>§27 應採用___以上比較標的。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不符之處：土地使用分區不同（住宅區 vs ___）；<br>500 公尺是否同一近鄰地區、要否___調整；<br>未作四項調整；<br>區分所有建物未考量___（§98）；<br>未查證交易情況；<br>僅 2 件。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">只以 2 件成交單價推論，___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">「附近賣多少」只是起點，經過選取、調整、檢核才是___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">判斷房仲是否依<span class=\"key\">比較法</span>選取、調整及檢核比較標的。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§12 實例須使用性質或<span class=\"key\">使用管制</span>相同或相近；<br>§21 須作情況、價格日期、區域、個別四項調整；<br>§22、§23 查證並排除特殊交易；<br>§27 應採用<span class=\"key\">三件</span>以上比較標的。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">不符之處：土地使用分區不同（住宅區 vs <span class=\"key\">工商綜合區</span>）；<br>500 公尺是否同一近鄰地區、要否<span class=\"key\">區域因素</span>調整；<br>未作四項調整；<br>區分所有建物未考量<span class=\"key\">樓層別效用比</span>（§98）；<br>未查證交易情況；<br>僅 2 件。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">只以 2 件成交單價推論，<span class=\"key\">不恰當</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">「附近賣多少」只是起點，經過選取、調整、檢核才是<span class=\"key\">估價</span>。</div></div>",
+"src": "技術規則§2、§12、§19、§21、§22、§23、§25～§27、§98",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"108-一",
+"e108-1"
+]
+],
+"prl": [],
+"es5": [
+[
+"108-一",
+"e108-1",
+"e108-1"
+]
+],
+"cid": "S3-04"
+},
+{
+"term": "計量模型分析法（CAMA）之意義與三門檻",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">計量模型分析法：蒐集相當數量具代表性之比較標的，透過計量模型分析，求出各主要影響價格因素與比較標的價格二者之___，以推算調整率及調整額（§19第7款）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§20：須蒐集自變數個數___以上之比較標的；<br>採迴歸分析者，調整後判定係數不得低於___；<br>截距項以外各係數估計值同時為零之顯著機率不得大於___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三門檻任一不符→模型___；<br>剛好 0.7、剛好 5% 仍___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">補足樣本修正模型，或改用___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">統計模型也要先過門檻，數字漂亮不等於___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">計量模型分析法：蒐集相當數量具代表性之比較標的，透過計量模型分析，求出各主要影響價格因素與比較標的價格二者之<span class=\"key\">關係式</span>，以推算調整率及調整額（§19第7款）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§20：須蒐集自變數個數<span class=\"key\">五倍</span>以上之比較標的；<br>採迴歸分析者，調整後判定係數不得低於<span class=\"key\">零點七</span>；<br>截距項以外各係數估計值同時為零之顯著機率不得大於<span class=\"key\">百分之五</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">三門檻任一不符→模型<span class=\"key\">不得採用</span>；<br>剛好 0.7、剛好 5% 仍<span class=\"key\">符合</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">補足樣本修正模型，或改用<span class=\"key\">百分率法</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">統計模型也要先過門檻，數字漂亮不等於<span class=\"key\">可靠</span>。</div></div>",
+"src": "技術規則§19第7款、§20",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預7",
+"pred-7"
+]
+],
+"es5": [
+[
+"預7",
+"pred-7",
+"pred-7"
+]
+],
+"cid": "S3-05"
+}
+]
+},
+{
+"id": "S4",
+"label": "S4 申論・成本法與折舊",
+"cards": [
+{
+"term": "重建成本 vs 重置成本；成本法估價程序",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本法：求取勘估標的於價格日期之重建成本或___，扣減其___或其他應扣除部分，以推算價格；<br>所求得之價格為成本價格（§48）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§48 建物估價以求取___為原則；<br>材料目前已無生產或施工方法已改變者，得採重置成本替代；<br>重建成本：使用相同或極類似之建材標準、設計、配置及施工品質，___建築所需之成本；<br>重置成本：與勘估標的相同___之建物，以現代建材標準、設計及配置建築所需之成本。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§49 八步：蒐集資料→現況勘察→調查整理比較分析成本及費用資料→選擇適當方法推算___→推算其他各項費用及利潤→計算總成本→計算建物___→計算成本價格。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先分清重建、重置，再依 §49 八步作答、___步驟；<br>所需資料寫 §11、§50、§51。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">重建求「一模一樣」，重置求「一樣好用」，判準在___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本法：求取勘估標的於價格日期之重建成本或<span class=\"key\">重置成本</span>，扣減其<span class=\"key\">累積折舊額</span>或其他應扣除部分，以推算價格；<br>所求得之價格為成本價格（§48）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§48 建物估價以求取<span class=\"key\">重建成本</span>為原則；<br>材料目前已無生產或施工方法已改變者，得採重置成本替代；<br>重建成本：使用相同或極類似之建材標準、設計、配置及施工品質，<span class=\"key\">重新複製</span>建築所需之成本；<br>重置成本：與勘估標的相同<span class=\"key\">效用</span>之建物，以現代建材標準、設計及配置建築所需之成本。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§49 八步：蒐集資料→現況勘察→調查整理比較分析成本及費用資料→選擇適當方法推算<span class=\"key\">營造或施工費</span>→推算其他各項費用及利潤→計算總成本→計算建物<span class=\"key\">累積折舊額</span>→計算成本價格。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先分清重建、重置，再依 §49 八步作答、<span class=\"key\">不合併</span>步驟；<br>所需資料寫 §11、§50、§51。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">重建求「一模一樣」，重置求「一樣好用」，判準在<span class=\"key\">效用</span>。</div></div>",
+"src": "技術規則§48、§49、§50、§51、§69",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"111-二",
+"e111-2"
+]
+],
+"prl": [
+[
+"模擬卷二-1",
+"mk-c2-1"
+]
+],
+"es5": [
+[
+"111-二",
+"e111-2",
+"e111-2"
+],
+[
+"模擬卷二-1",
+"mk-c2-1",
+"mk-c2-1"
+]
+],
+"mn": "蒐勘整選推總折價",
+"cid": "S4-01"
+},
+{
+"term": "總成本七項；營造或施工費四種求取方法",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">總成本：勘估標的應包括之各項成本及相關費用；<br>勘估標的為土地或包含土地者，應加計價格日期當時之___（§52）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§52 七項：營造或施工費、___、廣告費銷售費、管理費、稅捐及其他負擔、___、開發或建築利潤；<br>§54 營造或施工費擇一求取：___（§55 淨計法、單位工程法）、間接法（§56 ___、單位面積或體積比較法）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§57 規劃設計費按酬金標準表及造價表計算，或按實際營造施工費之___推估；<br>§59 預售收入之資金應___；<br>§61 廣告費、銷售費、管理費及稅捐費率由___定期公告。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">七項列全、四法分___兩組。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">成本算得完整，成本價格才不會___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">總成本：勘估標的應包括之各項成本及相關費用；<br>勘估標的為土地或包含土地者，應加計價格日期當時之<span class=\"key\">土地價格</span>（§52）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§52 七項：營造或施工費、<span class=\"key\">規劃設計費</span>、廣告費銷售費、管理費、稅捐及其他負擔、<span class=\"key\">資本利息</span>、開發或建築利潤；<br>§54 營造或施工費擇一求取：<span class=\"key\">直接法</span>（§55 淨計法、單位工程法）、間接法（§56 <span class=\"key\">工程造價比較法</span>、單位面積或體積比較法）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§57 規劃設計費按酬金標準表及造價表計算，或按實際營造施工費之<span class=\"key\">百分之二至百分之三</span>推估；<br>§59 預售收入之資金應<span class=\"key\">不計息</span>；<br>§61 廣告費、銷售費、管理費及稅捐費率由<span class=\"key\">全聯會</span>定期公告。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">七項列全、四法分<span class=\"key\">直接間接</span>兩組。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">成本算得完整，成本價格才不會<span class=\"key\">低估</span>。</div></div>",
+"src": "技術規則§52、§54～§57、§59、§61",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"104-二",
+"e104-2"
+]
+],
+"prl": [
+[
+"預10",
+"pred-10"
+]
+],
+"es5": [
+[
+"104-二",
+"e104-2",
+"e104-2"
+],
+[
+"預10",
+"pred-10",
+"pred-10"
+]
+],
+"cid": "S4-02"
+},
+{
+"term": "成本價格之計算（由總成本到房地成本價格）",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本價格：重建（重置）成本扣減累積折舊額；<br>___不折舊。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§69：土地價格＝___；<br>建物成本價格＝建物總成本—___；<br>房地成本價格＝土地價格＋建物成本價格；<br>§58 資本利息依自有資金與借貸資金___；<br>§60 利潤按各項費用合計額乘以適當___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">計算順序：營造施工費→規劃設計費及其他費用→資本利息→利潤→___→扣累積折舊額→加土地價格。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">折舊以___為基礎、只扣建物。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">每一步的計算基礎寫清楚，計算題才拿得到___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本價格：重建（重置）成本扣減累積折舊額；<br><span class=\"key\">土地</span>不折舊。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§69：土地價格＝<span class=\"key\">土地總成本</span>；<br>建物成本價格＝建物總成本—<span class=\"key\">建物累積折舊額</span>；<br>房地成本價格＝土地價格＋建物成本價格；<br>§58 資本利息依自有資金與借貸資金<span class=\"key\">分別計息</span>；<br>§60 利潤按各項費用合計額乘以適當<span class=\"key\">利潤率</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">計算順序：營造施工費→規劃設計費及其他費用→資本利息→利潤→<span class=\"key\">建物總成本</span>→扣累積折舊額→加土地價格。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">折舊以<span class=\"key\">建物總成本</span>為基礎、只扣建物。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">每一步的計算基礎寫清楚，計算題才拿得到<span class=\"key\">過程分</span>。</div></div>",
+"src": "技術規則§58、§60、§69",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預9",
+"pred-9"
+]
+],
+"es5": [
+[
+"預9",
+"pred-9",
+"pred-9"
+]
+],
+"cid": "S4-03"
+},
+{
+"term": "折舊三路徑與計算（定額・定率・償債基金）",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">累積折舊路徑三種：等速＝___；<br>初期加速＝___；<br>初期減速＝___（路徑見 §68，方法名稱為教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§68：應視建物特性及___，選擇屬於等速折舊、初期加速折舊或初期減速折舊路徑之折舊方法；<br>（教材）定額法 Dn＝C×(1－s)÷N×n；<br>定率法 第 n 年末現值＝C×(1－r)ⁿ。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">定率法以___為基礎，不能直接 C×r×n；<br>償債基金法要乘年金終值係數；<br>示意圖三線同起點、同終點，定率法在直線___、償債基金法在___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">只有三種路徑，沒有「___」；<br>算出現值後要依 §14、§15 分析合理性。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">路徑選對，折舊才反映建物價值真實的___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">累積折舊路徑三種：等速＝<span class=\"key\">定額法</span>；<br>初期加速＝<span class=\"key\">定率法</span>；<br>初期減速＝<span class=\"key\">償債基金法</span>（路徑見 §68，方法名稱為教材）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§68：應視建物特性及<span class=\"key\">市場動態</span>，選擇屬於等速折舊、初期加速折舊或初期減速折舊路徑之折舊方法；<br>（教材）定額法 Dn＝C×(1－s)÷N×n；<br>定率法 第 n 年末現值＝C×(1－r)ⁿ。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">定率法以<span class=\"key\">前一年餘值</span>為基礎，不能直接 C×r×n；<br>償債基金法要乘年金終值係數；<br>示意圖三線同起點、同終點，定率法在直線<span class=\"key\">下方</span>、償債基金法在<span class=\"key\">上方</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">只有三種路徑，沒有「<span class=\"key\">後期加速</span>」；<br>算出現值後要依 §14、§15 分析合理性。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">路徑選對，折舊才反映建物價值真實的<span class=\"key\">消耗速度</span>。</div></div>",
+"src": "技術規則§14、§15、§65、§67、§68",
+"mc": 0,
+"essay": 3,
+"esx": [
+[
+"105-一",
+"e105-1"
+],
+[
+"107-一",
+"e107-1"
+],
+[
+"112-二",
+"e112-2"
+]
+],
+"prl": [
+[
+"預1",
+"pred-1"
+],
+[
+"模擬卷二-1",
+"mk-c2-1"
+]
+],
+"es5": [
+[
+"105-一",
+"e105-1",
+"e105-1"
+],
+[
+"107-一",
+"e107-1",
+"e107-1"
+],
+[
+"112-二",
+"e112-2",
+"e112-2"
+],
+[
+"預1",
+"pred-1",
+"pred-1"
+],
+[
+"模擬卷二-1",
+"mk-c2-1",
+"mk-c2-1"
+]
+],
+"cid": "S4-04"
+},
+{
+"term": "依技術規則：耐用年數、殘餘價格率與折舊額",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">題目問「依技術規則」→要引___與 §40-1，不能只寫教材公式。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§65 折舊額以___為主，必要時得以物理耐用年數；<br>經歷年數大於經濟耐用年數時，應___經濟耐用年數；<br>§66 經濟耐用年數表由全聯會公告；<br>§67 殘餘價格率由全聯會公告，以不超過___為原則；<br>確實無殘餘價格者，計算折舊時___；<br>§40-1 等速折舊型：C×(1－s)×(1/N)。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§68 累積折舊額除物理與功能因素外，得考量經濟因素，觀察___情形，推估賸餘經濟耐用年數，加計已經歷年數求算耐用年數，並於估價報告書中敘明；<br>§69 建物成本價格＝建物總成本—___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不是以物理耐用年數為主；<br>10% 是上限___，不是固定值。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">依規則作答才是「依技術規則」，只背教材公式會___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">題目問「依技術規則」→要引<span class=\"key\">§65～§68</span>與 §40-1，不能只寫教材公式。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§65 折舊額以<span class=\"key\">經濟耐用年數</span>為主，必要時得以物理耐用年數；<br>經歷年數大於經濟耐用年數時，應<span class=\"key\">重新調整</span>經濟耐用年數；<br>§66 經濟耐用年數表由全聯會公告；<br>§67 殘餘價格率由全聯會公告，以不超過<span class=\"key\">百分之十</span>為原則；<br>確實無殘餘價格者，計算折舊時<span class=\"key\">不予提列</span>；<br>§40-1 等速折舊型：C×(1－s)×(1/N)。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§68 累積折舊額除物理與功能因素外，得考量經濟因素，觀察<span class=\"key\">維修及整建</span>情形，推估賸餘經濟耐用年數，加計已經歷年數求算耐用年數，並於估價報告書中敘明；<br>§69 建物成本價格＝建物總成本—<span class=\"key\">建物累積折舊額</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">不是以物理耐用年數為主；<br>10% 是上限<span class=\"key\">原則</span>，不是固定值。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">依規則作答才是「依技術規則」，只背教材公式會<span class=\"key\">失分</span>。</div></div>",
+"src": "技術規則§40-1、§65～§69",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"111-一",
+"e111-1"
+]
+],
+"prl": [
+[
+"預14",
+"pred-14"
+]
+],
+"es5": [
+[
+"111-一",
+"e111-1",
+"e111-1"
+],
+[
+"預14",
+"pred-14",
+"pred-14"
+]
+],
+"cid": "S4-05"
+},
+{
+"term": "成本法資料蒐集、未完工建物與特殊狀況成本",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本法資料＝§11 基本資料＋§50 ___蒐集＋§51 ___蒐集同一供需圈內資料。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§51：各項施工材料、人工之價格水準；<br>各項費用資料；<br>___；<br>開發或建築利潤率；<br>§63 未完工之建物應依___估價，或以標準建物之營造或施工費標準表為基礎，參考建物工程進度營造費用比例表估算；<br>比例表由___公告。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§64 因特殊狀況致投資無法產生相對正常報酬之成本，於成本估價時___或於折舊中扣除，並應於估價報告書中敘明。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§50 是「得」、§51 是「應」；<br>§64 是「得」不是一律___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">條文的「得」「應」分清楚，答案才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">成本法資料＝§11 基本資料＋§50 <span class=\"key\">得視需要</span>蒐集＋§51 <span class=\"key\">應</span>蒐集同一供需圈內資料。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§51：各項施工材料、人工之價格水準；<br>各項費用資料；<br><span class=\"key\">資本利率</span>；<br>開發或建築利潤率；<br>§63 未完工之建物應依<span class=\"key\">實際完成部分</span>估價，或以標準建物之營造或施工費標準表為基礎，參考建物工程進度營造費用比例表估算；<br>比例表由<span class=\"key\">全聯會</span>公告。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§64 因特殊狀況致投資無法產生相對正常報酬之成本，於成本估價時<span class=\"key\">得不予計入</span>或於折舊中扣除，並應於估價報告書中敘明。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§50 是「得」、§51 是「應」；<br>§64 是「得」不是一律<span class=\"key\">不計入</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">條文的「得」「應」分清楚，答案才<span class=\"key\">精準</span>。</div></div>",
+"src": "技術規則§11、§50、§51、§63、§64",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預21",
+"pred-21"
+]
+],
+"es5": [
+[
+"預21",
+"pred-21",
+"pred-21"
+]
+],
+"cid": "S4-06"
+}
+]
+},
+{
+"id": "S5",
+"label": "S5 申論・收益法",
+"cards": [
+{
+"term": "直接資本化法 vs 折現現金流量分析法（DCF）",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">收益法得採___、折現現金流量分析法等方法；<br>所求得之價格為收益價格（§28）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§29 直接資本化法：勘估標的未來___期間之客觀淨收益，應用收益資本化率推算價格（§30 收益價格＝客觀淨收益÷收益資本化率）；<br>§31 DCF：未來折現現金流量分析期間之各期淨收益及___，以適當___折現後加總；<br>得適用於以___為目的之不動產投資評估；<br>§32 P＝ΣCFk÷(1＋Y)^k＋Pn′÷(1＋Y)^n′。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">差異：平均一年 vs 各期＋期末價值；<br>收益資本化率 vs ___；<br>證券化：§33 各期淨收益以___計算為原則、§38 總費用依信託計畫資料推算、§15 DCF 收益價格權重較大；<br>期末價值也要以 Y ___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩者都屬收益法，換算工具不同、___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">收益平穩看平均、收益變動看各期，工具選對，價格才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">收益法得採<span class=\"key\">直接資本化法</span>、折現現金流量分析法等方法；<br>所求得之價格為收益價格（§28）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§29 直接資本化法：勘估標的未來<span class=\"key\">平均一年</span>期間之客觀淨收益，應用收益資本化率推算價格（§30 收益價格＝客觀淨收益÷收益資本化率）；<br>§31 DCF：未來折現現金流量分析期間之各期淨收益及<span class=\"key\">期末價值</span>，以適當<span class=\"key\">折現率</span>折現後加總；<br>得適用於以<span class=\"key\">投資</span>為目的之不動產投資評估；<br>§32 P＝ΣCFk÷(1＋Y)^k＋Pn′÷(1＋Y)^n′。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">差異：平均一年 vs 各期＋期末價值；<br>收益資本化率 vs <span class=\"key\">折現率</span>；<br>證券化：§33 各期淨收益以<span class=\"key\">契約租金</span>計算為原則、§38 總費用依信託計畫資料推算、§15 DCF 收益價格權重較大；<br>期末價值也要以 Y <span class=\"key\">折現</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">兩者都屬收益法，換算工具不同、<span class=\"key\">不可混用</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">收益平穩看平均、收益變動看各期，工具選對，價格才<span class=\"key\">準</span>。</div></div>",
+"src": "技術規則§15、§28～§33、§38",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"113-一",
+"e113-1"
+]
+],
+"prl": [
+[
+"模擬卷四-2",
+"mk-c4-2"
+],
+[
+"來勝-2",
+"mk-ls2"
+],
+[
+"預11",
+"pred-11"
+]
+],
+"es5": [
+[
+"113-一",
+"e113-1",
+"e113-1"
+],
+[
+"模擬卷四-2",
+"mk-c4-2",
+"mk-c4-2"
+],
+[
+"來勝-2",
+"mk-ls2",
+"mk-ls2"
+],
+[
+"預11",
+"pred-11",
+"pred-11"
+]
+],
+"cid": "S5-01"
+},
+{
+"term": "收益法程序與淨收益之求取；綜合資本化率",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">淨收益：有效總收入減___（§42）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§34 六步：蒐集資料→推算有效總收入→推算總費用→計算淨收益→決定收益資本化率或折現率→計算收益價格；<br>§35 蒐集最近___間資料；<br>§36 有效總收入＝總收入扣除___所造成之收入損失；<br>§38 總費用：地價稅或地租、房屋稅、保險費、管理費及維修費，營運性不動產並應加計___；<br>§40 包含建物者應加計___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§46 淨收益已扣除折舊提存費者：房地綜合收益資本化率＝土地收益資本化率×___＋建物收益資本化率×建物價值比率；<br>計算順序：先扣___，再扣費用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">綜合率要先各乘___再相加，不是直接相加。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">收入、費用一步一步扣，淨收益才是___的淨收益。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">淨收益：有效總收入減<span class=\"key\">總費用</span>（§42）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§34 六步：蒐集資料→推算有效總收入→推算總費用→計算淨收益→決定收益資本化率或折現率→計算收益價格；<br>§35 蒐集最近<span class=\"key\">三年</span>間資料；<br>§36 有效總收入＝總收入扣除<span class=\"key\">閒置及其他原因</span>所造成之收入損失；<br>§38 總費用：地價稅或地租、房屋稅、保險費、管理費及維修費，營運性不動產並應加計<span class=\"key\">營運費用</span>；<br>§40 包含建物者應加計<span class=\"key\">折舊提存費</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§46 淨收益已扣除折舊提存費者：房地綜合收益資本化率＝土地收益資本化率×<span class=\"key\">土地價值比率</span>＋建物收益資本化率×建物價值比率；<br>計算順序：先扣<span class=\"key\">空租損失</span>，再扣費用。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">綜合率要先各乘<span class=\"key\">價值比率</span>再相加，不是直接相加。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">收入、費用一步一步扣，淨收益才是<span class=\"key\">客觀</span>的淨收益。</div></div>",
+"src": "技術規則§34～§36、§38、§40、§42、§46",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"模擬卷一-1",
+"mk-c1-1"
+],
+[
+"預15",
+"pred-15"
+]
+],
+"es5": [
+[
+"模擬卷一-1",
+"mk-c1-1",
+"mk-c1-1"
+],
+[
+"預15",
+"pred-15",
+"pred-15"
+]
+],
+"cid": "S5-02"
+},
+{
+"term": "收益資本化率（折現率）之決定方法",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">收益資本化率或折現率應於五種方法中，___最適宜之方法決定（§43）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§43：風險溢酬法、___、加權平均資金成本法、___、有效總收入乘數法；<br>有採取其他方法計算之必要時，應於估價報告書中___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">風險溢酬法：以最具一般性財貨之投資報酬率為基準，比較___、風險性、增值性及管理上之難易程度；<br>加權平均資金成本法＝ΣWiKi（ΣWi＝1）；<br>債務保障比率法＝債務保障比率×貸款常數×___；<br>有效總收入乘數法＝淨收益率÷___。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">各資金比重要___後加總；<br>收益價格＝淨收益÷資本化率。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資本化率差一點，價格差很多，決定方法要___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">收益資本化率或折現率應於五種方法中，<span class=\"key\">綜合評估</span>最適宜之方法決定（§43）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§43：風險溢酬法、<span class=\"key\">市場萃取法</span>、加權平均資金成本法、<span class=\"key\">債務保障比率法</span>、有效總收入乘數法；<br>有採取其他方法計算之必要時，應於估價報告書中<span class=\"key\">敘明</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">風險溢酬法：以最具一般性財貨之投資報酬率為基準，比較<span class=\"key\">流通性</span>、風險性、增值性及管理上之難易程度；<br>加權平均資金成本法＝ΣWiKi（ΣWi＝1）；<br>債務保障比率法＝債務保障比率×貸款常數×<span class=\"key\">貸款資金占不動產價格比率</span>；<br>有效總收入乘數法＝淨收益率÷<span class=\"key\">有效總收入乘數</span>。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">各資金比重要<span class=\"key\">相乘</span>後加總；<br>收益價格＝淨收益÷資本化率。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資本化率差一點，價格差很多，決定方法要<span class=\"key\">說得出理由</span>。</div></div>",
+"src": "技術規則§43",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"99-一",
+"e99-1"
+]
+],
+"prl": [
+[
+"預2",
+"pred-2"
+],
+[
+"預16",
+"pred-16"
+]
+],
+"es5": [
+[
+"99-一",
+"e99-1",
+"e99-1"
+],
+[
+"預2",
+"pred-2",
+"pred-2"
+],
+[
+"預16",
+"pred-16",
+"pred-16"
+]
+],
+"cid": "S5-03"
+},
+{
+"term": "土地與建物收益價格（§44、§45）、一定期間收益價格（§47）、折舊提存費",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">房地淨收益可拆成___與建物淨收益，分別求土地或建物收益價格（§44、§45）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§44 地上有建物者：土地收益價格＝（房地淨收益－建物淨收益）／___；<br>淨收益已扣除折舊提存費者：建物淨收益＝建物成本價格×建物收益資本化率；<br>§47 一定期間：P＝a×[1－1／(1＋r)^n′]／r，a＝平均一年期間___；<br>§40-1 折舊提存費：等速折舊型、___。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">淨收益「未扣除」折舊提存費→要加___：§44 加在建物成本價格的乘數上、§45 加在___上；<br>有年限用 §47、無限期用 §30。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷淨收益有無扣除折舊提存費，再___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">土地不折舊、建物會折舊，拆開算才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">房地淨收益可拆成<span class=\"key\">土地淨收益</span>與建物淨收益，分別求土地或建物收益價格（§44、§45）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§44 地上有建物者：土地收益價格＝（房地淨收益－建物淨收益）／<span class=\"key\">土地收益資本化率</span>；<br>淨收益已扣除折舊提存費者：建物淨收益＝建物成本價格×建物收益資本化率；<br>§47 一定期間：P＝a×[1－1／(1＋r)^n′]／r，a＝平均一年期間<span class=\"key\">折舊前淨收益</span>；<br>§40-1 折舊提存費：等速折舊型、<span class=\"key\">償債基金型</span>。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">淨收益「未扣除」折舊提存費→要加<span class=\"key\">折舊提存率</span>：§44 加在建物成本價格的乘數上、§45 加在<span class=\"key\">分母</span>上；<br>有年限用 §47、無限期用 §30。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先判斷淨收益有無扣除折舊提存費，再<span class=\"key\">選公式</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">土地不折舊、建物會折舊，拆開算才<span class=\"key\">公平</span>。</div></div>",
+"src": "技術規則§40、§40-1、§44、§45、§47",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"104-二",
+"e104-2"
+]
+],
+"prl": [
+[
+"預22",
+"pred-22"
+]
+],
+"es5": [
+[
+"104-二",
+"e104-2",
+"e104-2"
+],
+[
+"預22",
+"pred-22",
+"pred-22"
+]
+],
+"cid": "S5-04"
+}
+]
+},
+{
+"id": "S6",
+"label": "S6 申論・土地開發分析法",
+"cards": [
+{
+"term": "土地開發分析法之意義、公式、成本項目與程序",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土地開發分析法：估算開發或建築後___，扣除開發期間之直接成本、間接成本、___及利潤後，求得開發前或建築前土地開發分析價格（§70）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§81 V＝S÷（1＋R）÷（1＋i）－（C＋M）；<br>§76 直接成本＝___；<br>間接成本＝規劃設計費、廣告費銷售費、管理費、___；<br>§71 八步：確定土地開發內容及___→調查成本費用、蒐集市場行情→現況勘察→可銷售面積→總銷售金額→各項成本及相關費用→利潤率及資本利息綜合利率→計算土地開發分析價格。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">S 先連除 (1＋R)、(1＋i) 再減 (C＋M)；<br>資本利息與利潤___ C 或 M；<br>§87 以進行開發為前提之宗地，得採土地開發分析法，並參酌___（沒有成本法）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">公式、成本項目、八步依序寫，符號要___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">從房價推地價，土地值多少，就看開發完扣掉一切之後的___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">土地開發分析法：估算開發或建築後<span class=\"key\">總銷售金額</span>，扣除開發期間之直接成本、間接成本、<span class=\"key\">資本利息</span>及利潤後，求得開發前或建築前土地開發分析價格（§70）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§81 V＝S÷（1＋R）÷（1＋i）－（C＋M）；<br>§76 直接成本＝<span class=\"key\">營造或施工費</span>；<br>間接成本＝規劃設計費、廣告費銷售費、管理費、<span class=\"key\">稅捐及其他負擔</span>；<br>§71 八步：確定土地開發內容及<span class=\"key\">預期開發時間</span>→調查成本費用、蒐集市場行情→現況勘察→可銷售面積→總銷售金額→各項成本及相關費用→利潤率及資本利息綜合利率→計算土地開發分析價格。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">S 先連除 (1＋R)、(1＋i) 再減 (C＋M)；<br>資本利息與利潤<span class=\"key\">不列入</span> C 或 M；<br>§87 以進行開發為前提之宗地，得採土地開發分析法，並參酌<span class=\"key\">比較法或收益法</span>（沒有成本法）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">公式、成本項目、八步依序寫，符號要<span class=\"key\">逐一說明</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">從房價推地價，土地值多少，就看開發完扣掉一切之後的<span class=\"key\">剩餘</span>。</div></div>",
+"src": "技術規則§70、§71、§76、§81、§87",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"113-二",
+"e113-2"
+],
+[
+"106-一",
+"e106-1"
+]
+],
+"prl": [
+[
+"模擬卷五-1",
+"mk-c5-1"
+],
+[
+"來勝-1",
+"mk-ls1"
+]
+],
+"es5": [
+[
+"113-二",
+"e113-2",
+"e113-2"
+],
+[
+"106-一",
+"e106-1",
+"e106-1"
+],
+[
+"模擬卷五-1",
+"mk-c5-1",
+"mk-c5-1"
+],
+[
+"來勝-1",
+"mk-ls1",
+"mk-ls1"
+]
+],
+"cid": "S6-01"
+},
+{
+"term": "利潤率與資本利息綜合利率",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">利潤率＝開發之___；<br>資本利息綜合利率＝開發期間之___（§78、§79）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§79 資本利息綜合利率＝資本利息年利率×（土地價值比率＋建物價值比率×___）×___；<br>§59 自有資金不高於一年期定存利率且不低於活存利率、借款以銀行___計息、預售收入之資金應___；<br>§60 利潤視工程規模、開發年數與經濟景氣，利潤率由___定期公告；<br>§80 開發年數自___起至開發完成為止。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「土地建物價值比率」放括號內，「資金比例」用來算年利率，___不可混用；<br>土地乘 1、建物才乘 ½。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">一定要乘___；<br>利潤（報酬）不等於資本利息（資金成本）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">利潤與利息分清楚，開發風險與資金成本才各自___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">利潤率＝開發之<span class=\"key\">報酬</span>；<br>資本利息綜合利率＝開發期間之<span class=\"key\">資金成本</span>（§78、§79）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§79 資本利息綜合利率＝資本利息年利率×（土地價值比率＋建物價值比率×<span class=\"key\">1／2</span>）×<span class=\"key\">開發年數</span>；<br>§59 自有資金不高於一年期定存利率且不低於活存利率、借款以銀行<span class=\"key\">短期放款利率</span>計息、預售收入之資金應<span class=\"key\">不計息</span>；<br>§60 利潤視工程規模、開發年數與經濟景氣，利潤率由<span class=\"key\">全聯會</span>定期公告；<br>§80 開發年數自<span class=\"key\">價格日期</span>起至開發完成為止。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">「土地建物價值比率」放括號內，「資金比例」用來算年利率，<span class=\"key\">兩組比例</span>不可混用；<br>土地乘 1、建物才乘 ½。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">一定要乘<span class=\"key\">開發年數</span>；<br>利潤（報酬）不等於資本利息（資金成本）。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">利潤與利息分清楚，開發風險與資金成本才各自<span class=\"key\">算得到位</span>。</div></div>",
+"src": "技術規則§59、§60、§78～§80",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"100-一",
+"e100-1"
+],
+[
+"105-二",
+"e105-2"
+]
+],
+"prl": [
+[
+"預3",
+"pred-3"
+],
+[
+"模擬卷五-1",
+"mk-c5-1"
+]
+],
+"es5": [
+[
+"100-一",
+"e100-1",
+"e100-1"
+],
+[
+"105-二",
+"e105-2",
+"e105-2"
+],
+[
+"預3",
+"pred-3",
+"pred-3"
+],
+[
+"模擬卷五-1",
+"mk-c5-1",
+"mk-c5-1"
+]
+],
+"cid": "S6-02"
+},
+{
+"term": "土地開發分析法應蒐集之資料與現況勘察",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">蒐集之資料要能對應 ___ 五個變數。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§72 除依 §11 外，得視需要蒐集：開發構想計畫書、建築設計圖說或土地規劃配置圖說、建照申請書或建造執照、營造或施工費資料、規劃設計廣告銷售管理及稅捐等費用資料、___、開發或建築___；<br>§73 現況勘察：影響總銷售金額成本及費用等因素、勘估標的之___施工及環境狀況、市場交易資料、週遭環境開發程度。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">只列成本面會漏分；<br>估總銷售金額用的___也要列；<br>§73 確認的是___的工程進度。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依 §11、§72、§73 三層列出，最後對應公式___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資料到位，公式裡每一個符號才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">蒐集之資料要能對應 <span class=\"key\">S、C、M、R、i</span> 五個變數。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§72 除依 §11 外，得視需要蒐集：開發構想計畫書、建築設計圖說或土地規劃配置圖說、建照申請書或建造執照、營造或施工費資料、規劃設計廣告銷售管理及稅捐等費用資料、<span class=\"key\">資本利率</span>、開發或建築<span class=\"key\">利潤率</span>；<br>§73 現況勘察：影響總銷售金額成本及費用等因素、勘估標的之<span class=\"key\">工程進度</span>施工及環境狀況、市場交易資料、週遭環境開發程度。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">只列成本面會漏分；<br>估總銷售金額用的<span class=\"key\">市場交易資料</span>也要列；<br>§73 確認的是<span class=\"key\">勘估標的</span>的工程進度。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">依 §11、§72、§73 三層列出，最後對應公式<span class=\"key\">五變數</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">資料到位，公式裡每一個符號才<span class=\"key\">有數字可填</span>。</div></div>",
+"src": "技術規則§11、§71、§72、§73",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"109-二",
+"e109-2"
+]
+],
+"prl": [],
+"es5": [
+[
+"109-二",
+"e109-2",
+"e109-2"
+]
+],
+"cid": "S6-03"
+},
+{
+"term": "土地開發分析法計算題：費用之計算基礎",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">計算題就是把題目資料逐一歸入 S、C、M、R、i，再代入 ___。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§77 廣告費、銷售費、管理費及稅捐，應按___乘以相關費率計算；<br>§78 規劃設計費依 §57：按實際營造施工費之___推估（或酬金標準表及造價表）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">設計費按___、其餘費用按總銷售金額；<br>土地面積、建蔽率、容積率可能只是___資料。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">費用以哪個金額為基礎要___，取位依題目。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">計算基礎交代清楚，數字差一點也拿得到___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">計算題就是把題目資料逐一歸入 S、C、M、R、i，再代入 <span class=\"key\">§81</span>。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§77 廣告費、銷售費、管理費及稅捐，應按<span class=\"key\">總銷售金額</span>乘以相關費率計算；<br>§78 規劃設計費依 §57：按實際營造施工費之<span class=\"key\">百分之二至百分之三</span>推估（或酬金標準表及造價表）。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">設計費按<span class=\"key\">營造施工費</span>、其餘費用按總銷售金額；<br>土地面積、建蔽率、容積率可能只是<span class=\"key\">干擾</span>資料。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">費用以哪個金額為基礎要<span class=\"key\">寫明</span>，取位依題目。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">計算基礎交代清楚，數字差一點也拿得到<span class=\"key\">過程分</span>。</div></div>",
+"src": "技術規則§57、§77、§78、§81",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"102-二",
+"e102-2"
+]
+],
+"prl": [
+[
+"預3",
+"pred-3"
+],
+[
+"模擬卷五-1",
+"mk-c5-1"
+]
+],
+"es5": [
+[
+"102-二",
+"e102-2",
+"e102-2"
+],
+[
+"預3",
+"pred-3",
+"pred-3"
+],
+[
+"模擬卷五-1",
+"mk-c5-1",
+"mk-c5-1"
+]
+],
+"cid": "S6-04"
+}
+]
+},
+{
+"id": "S7",
+"label": "S7 申論・租金・宗地・房地・權利",
+"cards": [
+{
+"term": "實質租金・支付租金・經濟租金；租金估計考慮因素",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">實質租金：承租人每期支付予出租人之租金，加計押金或保證金、___及其他相關___之總數（§130）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§130 不動產租金估計，以估計勘估標的之___為原則；<br>§129 應考慮契約內容、租期長短、使用目的、___、租金水準、變遷狀態、租約更新、變更條件及其他相關因素。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">支付租金＝每期支付之租金；<br>押金只計___，不是整筆加入；<br>經濟租金（學理）以支付租金___；<br>「租金支付方式」「使用情形」是 §122 ___估價因素，不是 §129。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先寫定義，再代入：押金×利率＝運用收益，同口徑相加。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">租金看的是承租人實際付出的___，不只是每月那張收據。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">實質租金：承租人每期支付予出租人之租金，加計押金或保證金、<span class=\"key\">權利金</span>及其他相關<span class=\"key\">運用收益</span>之總數（§130）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§130 不動產租金估計，以估計勘估標的之<span class=\"key\">實質租金</span>為原則；<br>§129 應考慮契約內容、租期長短、使用目的、<span class=\"key\">稅費負擔</span>、租金水準、變遷狀態、租約更新、變更條件及其他相關因素。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">支付租金＝每期支付之租金；<br>押金只計<span class=\"key\">運用收益</span>，不是整筆加入；<br>經濟租金（學理）以支付租金<span class=\"key\">還原</span>；<br>「租金支付方式」「使用情形」是 §122 <span class=\"key\">租賃權</span>估價因素，不是 §129。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先寫定義，再代入：押金×利率＝運用收益，同口徑相加。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">租金看的是承租人實際付出的<span class=\"key\">全部代價</span>，不只是每月那張收據。</div></div>",
+"src": "技術規則§129、§130",
+"mc": 0,
+"essay": 2,
+"esx": [
+[
+"101-二",
+"e101-2"
+],
+[
+"114-一",
+"e114-1"
+]
+],
+"prl": [
+[
+"預5",
+"pred-5"
+],
+[
+"模擬卷三-1",
+"mk-c3-1"
+]
+],
+"es5": [
+[
+"101-二",
+"e101-2",
+"e101-2"
+],
+[
+"114-一",
+"e114-1",
+"e114-1"
+],
+[
+"預5",
+"pred-5",
+"pred-5"
+],
+[
+"模擬卷三-1",
+"mk-c3-1",
+"mk-c3-1"
+]
+],
+"cid": "S7-01"
+},
+{
+"term": "新訂租約與續訂租約之租金估計方式",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產租金估計，應視___與續訂租約分別為之（§131）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§132 新訂三種：新訂租約之租賃實例比較法；<br>以勘估標的價格乘以___估計淨收益，再加計必要費用；<br>分析___之總收入估計淨收益，再加計必要費用；<br>§133 續訂四種：續訂租約之租賃實例比較法；<br>以價格日期當時之___為基礎乘以續租之租金收益率，再加計必要費用；<br>以原契約租金之淨收益依租金變動趨勢調整後，再加計必要費用；<br>分析原契約租金與市場經濟租金之差額中，應歸屬於___之適當部分，加計契約租金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">差額分配法只屬___；<br>企業經營總收入只屬___；<br>新訂→正常租金、續訂→___（§2第5、6款）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">新訂 3、續訂 4，分開列、不混用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先問是新租還是續租，方法才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">不動產租金估計，應視<span class=\"key\">新訂租約</span>與續訂租約分別為之（§131）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§132 新訂三種：新訂租約之租賃實例比較法；<br>以勘估標的價格乘以<span class=\"key\">租金收益率</span>估計淨收益，再加計必要費用；<br>分析<span class=\"key\">企業經營</span>之總收入估計淨收益，再加計必要費用；<br>§133 續訂四種：續訂租約之租賃實例比較法；<br>以價格日期當時之<span class=\"key\">正常價格</span>為基礎乘以續租之租金收益率，再加計必要費用；<br>以原契約租金之淨收益依租金變動趨勢調整後，再加計必要費用；<br>分析原契約租金與市場經濟租金之差額中，應歸屬於<span class=\"key\">出租人</span>之適當部分，加計契約租金。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">差額分配法只屬<span class=\"key\">續訂</span>；<br>企業經營總收入只屬<span class=\"key\">新訂</span>；<br>新訂→正常租金、續訂→<span class=\"key\">限定租金</span>（§2第5、6款）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">新訂 3、續訂 4，分開列、不混用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先問是新租還是續租，方法才<span class=\"key\">選得對</span>。</div></div>",
+"src": "技術規則§2第5、6款、§131～§133",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"110-二",
+"e110-2"
+]
+],
+"prl": [
+[
+"模擬卷三-1",
+"mk-c3-1"
+],
+[
+"預5",
+"pred-5"
+]
+],
+"es5": [
+[
+"110-二",
+"e110-2",
+"e110-2"
+],
+[
+"模擬卷三-1",
+"mk-c3-1",
+"mk-c3-1"
+],
+[
+"預5",
+"pred-5",
+"pred-5"
+]
+],
+"mn": "新三續四；差額分配只屬續訂",
+"cid": "S7-02"
+},
+{
+"term": "數筆土地合併開發；以合併或分割為前提之宗地",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">合併開發估價：以合併後土地估價，並以合併前各筆土地___分算其土地價格（§84）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§83 以合併或分割為前提之宗地估價，應考慮合併或分割前後之___情形而酌量增減；<br>§84 非以合併利用為目的之數筆相連土地，屬___所有者，比照計算；<br>§87 以進行開發為前提之宗地，得採___，並參酌比較法或收益法。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">比較標的屬「畸零地或有合併使用之交易」應先作適當之調整（§23第5款）；<br>以不動產合併為目的所形成之價值屬___（§2第2款）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先整體估、再按比例分；<br>價格種類要___。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">合併的增值要分得公平，才不會有人___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">合併開發估價：以合併後土地估價，並以合併前各筆土地<span class=\"key\">價值比例</span>分算其土地價格（§84）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§83 以合併或分割為前提之宗地估價，應考慮合併或分割前後之<span class=\"key\">價格變動</span>情形而酌量增減；<br>§84 非以合併利用為目的之數筆相連土地，屬<span class=\"key\">同一土地所有權人</span>所有者，比照計算；<br>§87 以進行開發為前提之宗地，得採<span class=\"key\">土地開發分析法</span>，並參酌比較法或收益法。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">比較標的屬「畸零地或有合併使用之交易」應先作適當之調整（§23第5款）；<br>以不動產合併為目的所形成之價值屬<span class=\"key\">限定價格</span>（§2第2款）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">先整體估、再按比例分；<br>價格種類要<span class=\"key\">載明</span>。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">合併的增值要分得公平，才不會有人<span class=\"key\">吃虧</span>。</div></div>",
+"src": "技術規則§2第2款、§23第5款、§83、§84、§87",
+"mc": 0,
+"essay": 1,
+"esx": [
+[
+"108-二",
+"e108-2"
+]
+],
+"prl": [],
+"es5": [
+[
+"108-二",
+"e108-2",
+"e108-2"
+]
+],
+"cid": "S7-03"
+},
+{
+"term": "特殊宗地與農作改良物之估價",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">特殊宗地：因用途、設施通過、污染或特殊資源而須___之土地。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§85 一宗土地內有數種不同法定用途→考量最有效使用及各用途之相關性、分割之難易度，決定___或依主要用途估價；<br>§88 設施通過致使用受限制→先估___，再計算地價減損額後從正常價格中扣除；<br>§89 受土壤或地下水污染→依委託人提供之___計算地價減損額扣除；<br>§90 溫泉地考慮水權內容、開發成本、水量、水質、水溫等；<br>§91 高爾夫球場考慮___、球場設施、開發成本、收益及營運費用。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§111 農作改良物三方式依成熟遠近：幼小且距孳息成熟期尚長→___；<br>接近孳息成熟期→收穫量及市場價格；<br>距成熟期一年以上且有期待收穫價值→以___為基礎推估後折算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§88、§89 都是從正常價格中___減損額。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先估正常、再扣減損，特殊宗地的價格才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">特殊宗地：因用途、設施通過、污染或特殊資源而須<span class=\"key\">特別考量</span>之土地。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§85 一宗土地內有數種不同法定用途→考量最有效使用及各用途之相關性、分割之難易度，決定<span class=\"key\">分別估價</span>或依主要用途估價；<br>§88 設施通過致使用受限制→先估<span class=\"key\">正常價格</span>，再計算地價減損額後從正常價格中扣除；<br>§89 受土壤或地下水污染→依委託人提供之<span class=\"key\">土壤污染檢測資料</span>計算地價減損額扣除；<br>§90 溫泉地考慮水權內容、開發成本、水量、水質、水溫等；<br>§91 高爾夫球場考慮<span class=\"key\">會員制度</span>、球場設施、開發成本、收益及營運費用。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§111 農作改良物三方式依成熟遠近：幼小且距孳息成熟期尚長→<span class=\"key\">種植及培育費用</span>；<br>接近孳息成熟期→收穫量及市場價格；<br>距成熟期一年以上且有期待收穫價值→以<span class=\"key\">產地價格</span>為基礎推估後折算。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">§88、§89 都是從正常價格中<span class=\"key\">扣除</span>減損額。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">先估正常、再扣減損，特殊宗地的價格才<span class=\"key\">有基準</span>。</div></div>",
+"src": "技術規則§85、§88～§91、§111",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預20",
+"pred-20"
+]
+],
+"es5": [
+[
+"預20",
+"pred-20",
+"pred-20"
+]
+],
+"cid": "S7-04"
+},
+{
+"term": "區分所有建物：樓層別效用比、基地單價與基地價值比率",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區分所有建物之估價：就專有部分、共用部分之比例及___合併估價，並考量___及位置差異（§98）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§101 基地權利價格＝房地價格×___；<br>基地權利單價＝基地權利價格／___；<br>基地單價＝基地權利單價×___／該區分所有建物之樓層別效用比；<br>§125 基地價值比率＝素地單價×基地總面積÷〔素地單價×基地總面積＋營造或施工費單價×（1－___）×全棟建物面積〕。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">乘平均、除該戶，___；<br>已知建物成本價格→房地價格－建物成本價格（§99、§100）；<br>已知價值比率→×土地價值比率（§99、§101），建物價格＝房地價格×___（§101-1）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">題目給哪種條件，就用___公式，兩種結果不同、不可混用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">樓層有高低，地價分配也要按___公平分。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">區分所有建物之估價：就專有部分、共用部分之比例及<span class=\"key\">基地權利</span>合併估價，並考量<span class=\"key\">樓層別效用比</span>及位置差異（§98）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§101 基地權利價格＝房地價格×<span class=\"key\">土地價值比率</span>；<br>基地權利單價＝基地權利價格／<span class=\"key\">基地持分面積</span>；<br>基地單價＝基地權利單價×<span class=\"key\">平均樓層別效用比</span>／該區分所有建物之樓層別效用比；<br>§125 基地價值比率＝素地單價×基地總面積÷〔素地單價×基地總面積＋營造或施工費單價×（1－<span class=\"key\">累積折舊率</span>）×全棟建物面積〕。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">乘平均、除該戶，<span class=\"key\">不可顛倒</span>；<br>已知建物成本價格→房地價格－建物成本價格（§99、§100）；<br>已知價值比率→×土地價值比率（§99、§101），建物價格＝房地價格×<span class=\"key\">建物價值比率</span>（§101-1）。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">題目給哪種條件，就用<span class=\"key\">哪一條</span>公式，兩種結果不同、不可混用。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">樓層有高低，地價分配也要按<span class=\"key\">效用</span>公平分。</div></div>",
+"src": "技術規則§98～§101-1、§125",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預6",
+"pred-6"
+],
+[
+"預13",
+"pred-13"
+]
+],
+"es5": [
+[
+"預6",
+"pred-6",
+"pred-6"
+],
+[
+"預13",
+"pred-13",
+"pred-13"
+]
+],
+"cid": "S7-05"
+},
+{
+"term": "房地估價特殊情形：超容積、違建、低度使用、用途不符、無使用價值",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">五種特殊房地，技術規則逐條規定___（§102～§106）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§102 容積率超過法定→以實際建築使用___之現況估價，並敘明法定容積對估值之影響；<br>§103 違章建築→違建部分___，但委託人要求並分別標示各部分價格者不在此限；<br>§104 未達最有效使用→先求___狀態之正常價格，再視低度使用情況調整。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§105 用途與現行管制不符之合法建物→以現行土地使用分區管制___之建物用途估價，差額於報告書敘明；<br>§106 已不具使用價值→基地視為___估價，但應考量建物___調整。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">五種情形各一句、條號對應寫清楚。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">照現況、合法、可用三個角度估，價格才___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">五種特殊房地，技術規則逐條規定<span class=\"key\">處理方式</span>（§102～§106）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§102 容積率超過法定→以實際建築使用<span class=\"key\">合法部分</span>之現況估價，並敘明法定容積對估值之影響；<br>§103 違章建築→違建部分<span class=\"key\">不予以評估</span>，但委託人要求並分別標示各部分價格者不在此限；<br>§104 未達最有效使用→先求<span class=\"key\">最有效使用</span>狀態之正常價格，再視低度使用情況調整。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§105 用途與現行管制不符之合法建物→以現行土地使用分區管制<span class=\"key\">允許</span>之建物用途估價，差額於報告書敘明；<br>§106 已不具使用價值→基地視為<span class=\"key\">素地</span>估價，但應考量建物<span class=\"key\">拆除成本</span>調整。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">五種情形各一句、條號對應寫清楚。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">照現況、合法、可用三個角度估，價格才<span class=\"key\">經得起檢驗</span>。</div></div>",
+"src": "技術規則§102～§106",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預18",
+"pred-18"
+]
+],
+"es5": [
+[
+"預18",
+"pred-18",
+"pred-18"
+]
+],
+"cid": "S7-06"
+},
+{
+"term": "權利估價：範圍、共同因素、地上權・典權・抵押權・權利變換",
+"blank": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">權利估價包括地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、___及都市更新權利變換（§114）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§115 共同考慮：契約內容、權利存續期間、權利登記狀況、相關法令規定、___及正常市場權利狀態；<br>§116 地上權：用途、存續期間、___之有無、權利讓與之限制、設定之空間位置；<br>§117 典權以___為基礎；<br>§121 抵押權：估計正常價格，以___為基礎，考慮其他順位抵押權、流通性、風險性、增值性、執行難易。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§127 權利變換前基地未建築使用→以___推估；<br>§128 權利變換後→考量建築計畫、建材標準、設備等級、工程造價及樓層別效用比關聯性，以評價基準日當時之___查估。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">典權以典價、抵押權以實際債權額為基礎，___；<br>共同因素與各權利個別因素分開寫。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">權利有長短、有負擔，估的是權利本身的___。</div></div>",
+"answer": "<div class=\"esb e1\"><span class=\"esl\">問題定義</span><div class=\"esc\">權利估價包括地上權、典權、永佃權、農育權、不動產役權、耕作權、抵押權、租賃權、市地重劃、<span class=\"key\">容積移轉</span>及都市更新權利變換（§114）。</div></div><div class=\"esb e2\"><span class=\"esl\">法條定義</span><div class=\"esc\">§115 共同考慮：契約內容、權利存續期間、權利登記狀況、相關法令規定、<span class=\"key\">民間習俗</span>及正常市場權利狀態；<br>§116 地上權：用途、存續期間、<span class=\"key\">支付地租</span>之有無、權利讓與之限制、設定之空間位置；<br>§117 典權以<span class=\"key\">典價</span>為基礎；<br>§121 抵押權：估計正常價格，以<span class=\"key\">實際債權額</span>為基礎，考慮其他順位抵押權、流通性、風險性、增值性、執行難易。</div></div><div class=\"esb e3\"><span class=\"esl\">問題核心</span><div class=\"esc\">§127 權利變換前基地未建築使用→以<span class=\"key\">素地價值</span>推估；<br>§128 權利變換後→考量建築計畫、建材標準、設備等級、工程造價及樓層別效用比關聯性，以評價基準日當時之<span class=\"key\">新成屋價格</span>查估。</div></div><div class=\"esb e4\"><span class=\"esl\">結論</span><div class=\"esc\">典權以典價、抵押權以實際債權額為基礎，<span class=\"key\">不可混</span>；<br>共同因素與各權利個別因素分開寫。</div></div><div class=\"esb e5\"><span class=\"esl\" title=\"卓見為自編收尾句，非法條\">結尾卓見</span><div class=\"esc\">權利有長短、有負擔，估的是權利本身的<span class=\"key\">經濟價值</span>。</div></div>",
+"src": "技術規則§114～§117、§121、§122、§123、§127、§128",
+"mc": 0,
+"essay": 0,
+"esx": [],
+"prl": [
+[
+"預12",
+"pred-12"
+],
+[
+"預19",
+"pred-19"
+]
+],
+"es5": [
+[
+"預12",
+"pred-12",
+"pred-12"
+],
+[
+"預19",
+"pred-19",
+"pred-19"
+]
+],
+"cid": "S7-07"
+}
+]
+}
+];/*/ES_DATA*/
+
 
 // ── 工具函式：把 blank 文字 與 answer HTML 配對，產生可點擊空格 ──
 // blank 中的 ___ 為空格佔位，answer 中的 <span class="key">…</span> 為對應答案
@@ -1211,7 +2453,21 @@ DATA.forEach(ch=>{
   ch._s=ch._mc+2*ch._es;ch._t=ch._s>=60?1:(ch._s>=35?2:(ch._s>=20?3:4));
 });
 DATA.sort((a,b)=>b._s-a._s);
+ES_DATA.forEach(ch=>{ch.cards.forEach(c=>{c._s=0;c._t=0;});ch._mc=0;ch._es=ch.cards.reduce((x,c)=>x+(c.essay||0),0);ch._s=0;ch._t=4;ch.es=1;DATA.push(ch);});
 const HEAT_CH={1:'★★★',2:'★★',3:'★',4:''},HEAT_CARD={1:'高頻',2:'常考',3:'一般'};
+const LAWPC={'技術規則':'D0060077','地價調查估計規則':'D0060005','地價調查':'D0060005'};
+const LAWKEYS=Object.keys(LAWPC).sort(function(a,b){return b.length-a.length});
+// 出處條號連全國法規資料庫：本頁條號除另寫法名者外都是不動產估價技術規則（只處理 HTML 標籤以外的文字）
+function srcHtml(t){var cur='D0060077',inA=false;return String(t).split(/(<[^>]+>)/).map(function(seg){if(seg.charAt(0)==='<'){if(/^<a\b/i.test(seg))inA=true;else if(/^<\/a>/i.test(seg))inA=false;return seg;}if(inA)return seg;
+ return seg.replace(/([一-龥]*)§(\d+)(?:-(\d+))?/g,function(m,nm,no,sub){if(nm){for(var i=0;i<LAWKEYS.length;i++){if(nm.slice(-LAWKEYS[i].length)===LAWKEYS[i]){cur=LAWPC[LAWKEYS[i]];break}}}
+ var rg=sub&&(+sub>+no);if(rg){var z=sub;sub=null}return nm+'<a class="lawlk" target="_blank" rel="noopener" href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode='+cur+'&flno='+no+(sub?'-'+sub:'')+'">§'+no+(sub?'-'+sub:'')+'</a>'+(rg?'-'+z:'')})}).join('')}
+function isEs(c){return String(c.answer).indexOf('class="esb')>=0}
+function es5Html(c){if(!c.es5||!c.es5.length)return'';return'<div class="es5"><b>⏱ 同型題・申論五分鐘練習</b>'+c.es5.map(function(e){var r=e[1]?'<a class="r" target="_blank" rel="noopener" href="估價_申論5分鐘_推理版.html#q='+encodeURIComponent(e[1])+'">'+e[0]+' 推理 ▸</a>':'<span>'+e[0]+'</span>';var s=e[2]?'<a class="s" target="_blank" rel="noopener" href="估價_申論5分鐘衝刺.html#q='+encodeURIComponent(e[2])+'">衝刺</a>':'';return'<span class="ch5">'+r+s+'</span>'}).join('')+'</div>'}
+function esStat(c){var EP='不動產估價概要_申論題實戰範文.html#',r=[];
+ if((c.esx||[]).length)r.push('<div class="es-row">官方申論考過 <strong>'+c.esx.length+'</strong> 次：'+c.esx.map(function(x){return '<a target="_blank" rel="noopener" href="'+EP+x[1]+'">'+x[0]+' ↗</a>'}).join('、')+'</div>');
+ if((c.prl||[]).length)r.push('<div class="es-row">同型預測／模擬：'+c.prl.map(function(x){return '<a target="_blank" rel="noopener" href="'+EP+x[1]+'">'+x[0]+' ↗</a>'}).join('、')+'</div>');
+ return r.length?r.join(''):'尚無官方申論紀錄'}
+function esExtra(c){return (c.mn?'<div class="es-mn"><b>口訣</b>'+c.mn+'</div>':'')+es5Html(c)}
 // build nav
 const nav = document.getElementById('nav');
 const main = document.getElementById('main');
@@ -1223,10 +2479,11 @@ randAllBtn.className = 'nav-btn';
 randAllBtn.textContent = '🔀 全部隨機';
 randAllBtn.style.borderColor = 'var(--blue)';
 randAllBtn.style.color = 'var(--blue)';
-randAllBtn.onclick = () => setMode('quiz');
+randAllBtn.onclick = () => goDefQuiz();
 nav.appendChild(randAllBtn);
 
 DATA.forEach((ch,ci)=>{
+  if(ch.id==='S1'){const sp=document.createElement('div');sp.className='cp-sep';sp.textContent='📝 申論四段填空（另一分類：定義→法條→核心→結論＋卓見）';nav.appendChild(sp);}
   const btn = document.createElement('button');
   btn.className = 'nav-btn h'+ch._t + (ci===0?' on':'');
   btn.dataset.ch = ch.id;
@@ -1240,7 +2497,7 @@ DATA.forEach((ch,ci)=>{
 
   const total = ch.cards.length;
   div.innerHTML = `<div class="ch-title">${ch.label}</div>
-    <div class="ch-heat">歷屆：選擇 ${ch._mc} 題・申論 ${ch._es} 題（本頁已依考頻由高到低排列）</div>
+    <div class="ch-heat">${ch.es?'申論四段填空：①問題定義 ②法條定義 ③問題核心 ④結論＋結尾卓見；相似題型合併成一張卡，卡內列官方題與同型預測／模擬題（本章官方申論 '+ch._es+' 題）':'歷屆：選擇 '+ch._mc+' 題・申論 '+ch._es+' 題（本頁已依考頻由高到低排列）'}</div>
     <div class="prog">
       <div class="prog-bar"><div class="prog-fill" id="pf-${ch.id}" style="width:0%"></div></div>
       <div class="prog-txt" id="pt-${ch.id}">0 / ${total}</div>
@@ -1253,7 +2510,7 @@ DATA.forEach((ch,ci)=>{
     const key = c.cid; // 穩定 id（章節＋原始序號），不受考頻排序影響
     cardDone[key] = false;
     const blankCount = (c.blank.match(/___/g)||[]).length;
-    const builtBlank = buildBlankLine(fmtAns(c.blank,true), c.answer, key);
+    const builtBlank = buildBlankLine(isEs(c)?c.blank:fmtAns(c.blank,true), c.answer, key);
 
     const card = document.createElement('div');
     card.className = 'card h'+c._t;
@@ -1261,9 +2518,9 @@ DATA.forEach((ch,ci)=>{
     const statParts = [];
     if((c.mc||0)>0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
     if((c.essay||0)>0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
-    const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+    const statHtml = isEs(c) ? esStat(c) : (statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄');
     card.innerHTML = `
-      <div class="term">${c.term}<span class="heat h${c._t}">${HEAT_CARD[c._t]}</span></div>
+      <div class="term">${c.term}${HEAT_CARD[c._t]?`<span class="heat h${c._t}">${HEAT_CARD[c._t]}</span>`:''}</div>
       <div class="blank-line" id="bl-${key}">${builtBlank}</div>
       <div class="card-btns">
         <button class="reveal-btn" onclick="revealOne('${key}','${ch.id}',${total})">顯示一個</button>
@@ -1271,8 +2528,9 @@ DATA.forEach((ch,ci)=>{
       </div>
       <div class="qc-exam-stat" id="bstat-${key}">${statHtml}</div>
       <div class="answer-note" id="ans-${key}">
-        <div class="key-note">${fmtAns(c.answer)}</div>
-        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
+        ${isEs(c)?'':`<div class="key-note">${fmtAns(c.answer)}</div>`}
+        <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${srcHtml(c.src)}</div>
+        ${isEs(c)?esExtra(c):''}
       </div>`;
     div.appendChild(card);
   });
@@ -1346,11 +2604,13 @@ function updChProg(chId,total){
   if(pf) pf.style.width = pct+'%';
   if(pt) pt.textContent = done+' / '+total;
 }
-const FILL_TOTAL = DATA.reduce((n,ch)=>n+ch.cards.length,0);
+const FILL_TOTAL = DATA.filter(ch=>!ch.es).reduce((n,ch)=>n+ch.cards.length,0), FILL_ES_TOTAL = DATA.filter(ch=>ch.es).reduce((n,ch)=>n+ch.cards.length,0);
 function updFillHead(){
-  const n = Object.keys(cardDone).filter(k=>cardDone[k]).length;
+  const ks = Object.keys(cardDone).filter(k=>cardDone[k]), ne = ks.filter(k=>k.charAt(0)==='S').length, n = ks.length-ne;
   const el = document.getElementById('fillDone'); if(el) el.textContent = '已完成 '+n+'／'+FILL_TOTAL;
   const t = document.getElementById('fillTotal'); if(t) t.textContent = FILL_TOTAL;
+  const e2 = document.getElementById('fillEsDone'); if(e2) e2.textContent = '申論四段 '+ne+'／'+FILL_ES_TOTAL;
+  const t2 = document.getElementById('fillEsTotal'); if(t2) t2.textContent = FILL_ES_TOTAL;
 }
 function resetChDone(chId){
   const ch = DATA.find(c=>c.id===chId); if(!ch) return;
@@ -1368,7 +2628,7 @@ function resetChDone(chId){
 // 載入既有完成紀錄（bxv-fill；只認本頁實際存在的卡片 id）
 (function(){
   let F={}; try{ F=JSON.parse(localStorage.getItem('bxv-fill')||'{}')||{}; }catch(e){}
-  try{ localStorage.setItem('bxv-fill-total', String(FILL_TOTAL)); }catch(e){}
+  try{ localStorage.setItem('bxv-fill-total', String(FILL_TOTAL)); localStorage.setItem('bxv-fill-es-total', String(FILL_ES_TOTAL)); }catch(e){}
   DATA.forEach(ch=>ch.cards.forEach(c=>{ if(F[c.cid]) markDone(c.cid, ch.id, ch.cards.length, true); }));
   updFillHead();
 })();
@@ -1397,12 +2657,12 @@ function setMode(mode) {
     browse.style.display = ''; nav.style.display = '';
     const nb=document.getElementById('navbar');if(nb)nb.style.display='';
     quizEl.classList.remove('active');
-    tabB.classList.add('on'); tabQ.classList.remove('on');
+    tabB.classList.add('on'); tabQ.classList.remove('on'); document.getElementById('tab-essay').classList.remove('on');
   } else {
     browse.style.display = 'none'; nav.style.display = 'none';
     const nb=document.getElementById('navbar');if(nb)nb.style.display='none';
     quizEl.classList.add('active');
-    tabB.classList.remove('on'); tabQ.classList.add('on');
+    tabB.classList.remove('on'); tabQ.classList.add('on'); document.getElementById('tab-essay').classList.remove('on');
     initQuiz();
   }
   window.scrollTo({top:0,behavior:'smooth'});
@@ -1413,7 +2673,7 @@ function initQuiz() {
   if (quizPool.length === 0) {
     DATA.forEach(ch => {
       ch.cards.forEach(c => {
-        quizPool.push({ cid: c.cid, chN: ch.cards.length, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0 });
+        quizPool.push({ cid: c.cid, chN: ch.cards.length, chId: ch.id, chLabel: ch.label, term: c.term, blank: c.blank, answer: c.answer, src: c.src, mc: c.mc||0, essay: c.essay||0, esx: c.esx||[], prl: c.prl||[], es5: c.es5||[], mn: c.mn||'' });
       });
     });
   }
@@ -1427,6 +2687,7 @@ function initQuiz() {
     allBtn.dataset.q='ALL';
     filterEl.appendChild(allBtn);
     DATA.forEach(ch => {
+      if(ch.id==='S1'){const sp=document.createElement('div');sp.className='cp-sep';sp.textContent='📝 申論四段填空（「全部章節」不含，需另選）';filterEl.appendChild(sp);}
       const btn = document.createElement('button');
       btn.className = 'qf-btn';
       btn.textContent = ch.label;
@@ -1446,6 +2707,7 @@ function initQuiz() {
 
 function quizFilterLabel(){
   if(!quizFilter.size)return '全部章節';
+  const es=DATA.filter(c=>c.es).map(c=>c.id);if(es.length&&quizFilter.size===es.length&&es.every(id=>quizFilter.has(id)))return '申論四段（全部）';
   const n=[...quizFilter].map(id=>{const c=DATA.find(x=>x.id===id);return c?c.label.split(' ')[0]:id;});
   return n.length<=3?n.join('、'):n.slice(0,3).join('、')+' 等'+n.length+'章';
 }
@@ -1459,7 +2721,7 @@ function setQuizFilter(id, btn) {
   startQuizRound();
 }
 function startQuizRound() {
-  const pool = quizFilter.size === 0 ? quizPool : quizPool.filter(c => quizFilter.has(c.chId));
+  const pool = quizFilter.size === 0 ? quizPool.filter(c => c.chId.charAt(0) !== 'S') : quizPool.filter(c => quizFilter.has(c.chId));
   // Fisher-Yates shuffle
   quizQueue = [...pool];
   for (let i = quizQueue.length - 1; i > 0; i--) {
@@ -1478,8 +2740,8 @@ function renderQuizCard() {
     area.innerHTML = `<div class="quiz-done-banner"><div class="big">🎉</div>本輪 ${quizQueue.length} 題全部完成！<br><br><button class="qc-btn qc-btn-next" onclick="startQuizRound()" style="font-size:14px">再來一輪</button></div>`;
     // 存完成輪數
     try{
-      var fc=parseInt(localStorage.getItem('bxe-fill')||'0')+1;
-      localStorage.setItem('bxe-fill',fc);
+      if(![...quizFilter].some(id=>id.charAt(0)==='S')){var fc=parseInt(localStorage.getItem('bxe-fill')||'0')+1;
+      localStorage.setItem('bxe-fill',fc);}
       if(typeof BXREP!=='undefined') BXREP.fillMark('fill');
     }catch(e){}
     return;
@@ -1495,7 +2757,7 @@ function renderQuizCard() {
 
   let ki = 0;
   const qid = 'q' + quizIdx;
-  const builtBlank = fmtAns(c.blank,true).replace(/___/g, () => {
+  const builtBlank = (isEs(c)?c.blank:fmtAns(c.blank,true)).replace(/___/g, () => {
     const ans = keyMatches[ki] || '？';
     const plainAns = ans.replace(/<[^>]+>/g, '');
     const underlines = '＿'.repeat(Math.max(plainAns.length, 2));
@@ -1506,7 +2768,7 @@ function renderQuizCard() {
   const statParts = [];
   if (c.mc > 0) statParts.push(`選擇 <strong>${c.mc}</strong> 次`);
   if (c.essay > 0) statParts.push(`申論 <strong>${c.essay}</strong> 次`);
-  const statHtml = statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄';
+  const statHtml = isEs(c) ? esStat(c) : (statParts.length ? statParts.join('　｜　') : '尚無歷屆出題紀錄');
 
   area.innerHTML = `
     <div class="quiz-card">
@@ -1516,6 +2778,7 @@ function renderQuizCard() {
       </div>
       <div class="qc-term">${c.term}</div>
       <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      ${kbHint ? '<div class="qc-kb">⌨ 空白／Enter 顯示｜← → 換題<a href="#" onclick="hideKb();return false">知道了</a></div>' : ''}
       <div class="qc-btns">
         <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
         <button class="qc-btn qc-btn-all" id="qbtn-all-${qid}" onclick="revealAllQuizBlanks('${qid}')">全部顯示</button>
@@ -1524,8 +2787,9 @@ function renderQuizCard() {
         <span class="qc-nav" id="qnav-${qid}"><button class="qc-ic" id="qbtn-prev-${qid}" onclick="prevQuiz()" aria-label="上一題" ${quizIdx === 0 ? 'disabled' : ''}>‹</button><button class="qc-ic" onclick="nextQuiz()" aria-label="下一題">›</button></span>
       </div>
       <div class="qc-answer" id="qans-${qid}">
-        <div class="key-note">${fmtAns(c.answer)}</div>
-        <div class="src">📌 ${c.src}</div>
+        ${isEs(c)?'':`<div class="key-note">${fmtAns(c.answer)}</div>`}
+        <div class="src">📌 ${srcHtml(c.src)}</div>
+        ${isEs(c)?esExtra(c):''}
       </div>
       <div class="qc-exam-stat" id="qstat-${qid}">${statHtml}</div>
     </div>`;
@@ -1581,21 +2845,63 @@ function revealAllQuizBlanks(qid) {
   if (qc && qc.cid) markDone(qc.cid, qc.chId, qc.chN, 'quiz');
 }
 
+function quizScrollTop(){const el=document.getElementById('quiz-progress');if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,y),behavior:'auto'})}
 function nextQuiz() {
   quizIdx++;
   renderQuizCard();
-  window.scrollTo({top:0,behavior:'smooth'});
+  quizScrollTop();
 }
 
 function prevQuiz() {
   if (quizIdx > 0) {
     quizIdx--;
     renderQuizCard();
-    window.scrollTo({top:0,behavior:'smooth'});
+    quizScrollTop();
   }
 }
 
 // theme handled by themeToggle block below
+
+// ===鍵盤提示（可關，bxv-fill-kb）===
+let kbHint = true; try { kbHint = localStorage.getItem('bxv-fill-kb') !== '1'; } catch (e) {}
+function hideKb() { kbHint = false; try { localStorage.setItem('bxv-fill-kb', '1'); } catch (e) {} document.querySelectorAll('.qc-kb').forEach(e => e.remove()); }
+
+// ===申論隨機（只出 S 章）與定義隨機（不含 S 章）===
+function qfSync(){
+  document.querySelectorAll('.qf-btn').forEach(b=>{const q=b.dataset.q;b.classList.toggle('on',q==='ALL'?quizFilter.size===0:quizFilter.has(q));});
+  const t=document.getElementById('qftog');if(t)t.innerHTML='📑 章節：<b>'+quizFilterLabel()+'</b> '+(document.getElementById('quiz-filter').classList.contains('open')?'▴':'▾');
+}
+function goEssay(){
+  setMode('quiz'); quizFilter.clear(); DATA.forEach(c=>{if(c.es)quizFilter.add(c.id)}); qfSync(); startQuizRound();
+  document.getElementById('tab-quiz').classList.remove('on'); document.getElementById('tab-essay').classList.add('on');
+}
+function goDefQuiz(){
+  const wasEs=document.getElementById('tab-essay').classList.contains('on')||[...quizFilter].some(id=>id.charAt(0)==='S');
+  setMode('quiz'); if(wasEs){quizFilter.clear();qfSync();startQuizRound();}
+}
+try{ if(location.hash==='#essay') setTimeout(goEssay,0); addEventListener('hashchange',()=>{if(location.hash==='#essay')goEssay()}); }catch(e){}
+
+// ===隨機測驗鍵盤：空白鍵／Enter＝顯示一格（全部顯示後＝下一題；整輪做完＝再來一輪）、← 上一題、→ 下一題 ===
+(function(){
+  function active(){var q=document.getElementById('quiz-mode');return q&&q.classList.contains('active')}
+  function onKey(e,up){
+    if(!active()||e.ctrlKey||e.metaKey||e.altKey)return;
+    var k=e.key,t=e.target,tag=t&&t.tagName;
+    if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable))return;
+    if(k!==' '&&k!=='Enter'&&k!=='ArrowLeft'&&k!=='ArrowRight')return;
+    e.preventDefault();
+    if(up||e.repeat)return;
+    if(document.activeElement&&document.activeElement!==document.body&&document.activeElement.blur)document.activeElement.blur();
+    if(k==='ArrowLeft'){prevQuiz();return}
+    if(k==='ArrowRight'){if(quizIdx<quizQueue.length)nextQuiz();return}
+    if(quizIdx>=quizQueue.length){startQuizRound();quizScrollTop();return}
+    var qid='q'+quizIdx;
+    if(document.querySelectorAll('#qblank-'+qid+' .blank:not(.revealed)').length===0)nextQuiz();
+    else revealOneQuizBlank(qid);
+  }
+  document.addEventListener('keydown',function(e){onKey(e,false)});
+  document.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')onKey(e,true)});
+})();
 </script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script>
