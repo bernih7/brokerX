@@ -117,6 +117,11 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 
 /* 章節過濾 */
 .quiz-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+details.qf-wrap{margin-bottom:12px;text-align:center}
+details.qf-wrap>summary{display:inline-block;cursor:pointer;list-style:none;font-size:13.5px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--green);color:var(--green);max-width:100%}
+details.qf-wrap>summary::-webkit-details-marker{display:none}
+details.qf-wrap>summary b{color:var(--ink,inherit)}
+details.qf-wrap .quiz-filter{margin-top:10px;text-align:left}
 .qf-btn{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;
   border-radius:99px;border:1.5px solid var(--line);background:transparent;
   color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -238,7 +243,7 @@ a.lawlk{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor
 <main id="main"></main>
 
 <div id="quiz-mode">
-  <div class="quiz-filter" id="quiz-filter"></div>
+  <details class="qf-wrap" id="qf-wrap"><summary id="qf-sum">📑 章節：<b>全部章節（不含申論四段）</b> ▾</summary><div class="quiz-filter" id="quiz-filter"></div></details>
   <div class="quiz-progress" id="quiz-progress"></div>
   <div id="quiz-card-area"></div>
 </div>
@@ -523,6 +528,8 @@ function setQuizFilter(id, btn) {
   quizFilter = id;
   document.querySelectorAll('.qf-btn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
+  const sm=document.getElementById('qf-sum'); if(sm) sm.innerHTML='📑 章節：<b>'+btn.textContent+'</b> ▾';
+  const fw=document.getElementById('qf-wrap'); if(fw) fw.open=false;
   startQuizRound();
 }
 
