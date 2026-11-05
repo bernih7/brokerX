@@ -126,6 +126,13 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
 .howto{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.howto>summary{cursor:pointer;list-style:none;padding:9px 14px;font-size:.9rem;color:var(--sub);display:flex;justify-content:space-between;gap:8px}.howto>summary::-webkit-details-marker{display:none}.howto>summary::after{content:"點開 ▾";font-size:.8rem}.howto[open]>summary::after{content:"收起 ▴"}.howto>summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px}.howto .hb{padding:0 14px 12px}.howto .hb>*:first-child{margin-top:0}.modes .mode small{display:none}.howto[open]~.modes .mode small{display:block}
 .swq{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:.86rem;color:var(--sub)}.swq a{font-weight:600;white-space:nowrap}
 .dnb{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dnb .btn{text-decoration:none;display:inline-flex;align-items:center}.rv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.rvh{font-weight:700;margin-bottom:8px}.rvnav{display:flex;gap:8px;align-items:center}.rvnav select{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 8px;font:inherit;font-size:.88rem}.rvnav .btn{white-space:nowrap;padding:7px 12px}.rvnav .btn:disabled{opacity:.4}#rvB{margin-top:12px}.rvq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.85}.ck label.miss{opacity:.75}.ck label .mk{font-weight:700;min-width:1.2em}.ck label.on .mk{color:var(--ok)}.kw.miss{opacity:.6}@media(max-width:480px){.rvnav .btn{padding:7px 10px}}
+/*flt*/.flt{margin:8px 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 12px;display:grid;gap:6px}
+.flt .fr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.flt .fl{font-size:.76rem;font-weight:700;color:var(--sub);min-width:2.6em}
+.flt button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:2px 11px;font-size:.84rem;line-height:1.6}
+.flt button.on{background:var(--pri);border-color:var(--pri);color:var(--on);font-weight:700}
+.flt .fs{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--sub)}
+.flt .fs a{cursor:pointer}
 </style><style id="sprint-bardim-css">.act{transition:opacity .8s}.act.dim{opacity:.22}.act.dim:hover,.act.dim:focus-within{opacity:1}.act .hint{font-size:.78rem;color:var(--sub);flex:1;min-width:0}</style>
 </head>
 <body>
@@ -136,6 +143,7 @@ body.paused #nextBtn{opacity:.45;pointer-events:none}
   <section id="home">
     <h1>申論 5 分鐘衝刺</h1>
     <p class="lead">一題約 5 分鐘：讀題 → 先自己想 → 讀考場版 → 對結論 → 關鍵字檢核。紀錄與指揮中心申論卡同步（輪數、自評、分數）。</p>
+    <div class="flt" id="flt"></div>
     <details class="howto" id="howto"><summary>流程、時間怎麼分、兩種模式說明</summary><div class="hb"><ul class="flow"><li><b>0:30</b>讀題</li><li><b>0:30</b>先自己想</li><li><b>2:30</b>意義・法條・涵攝</li><li><b>1:00</b>結論</li><li><b>0:30</b>關鍵檢核</li></ul></div></details>
     <div class="modes" id="modes">
       <button type="button" class="mode" data-m="h"><b>⚡ 衝刺</b><small>每段時間到就變紅並自動進下一段；讀過的段落會被蓋住，不能回頭看。</small></button>
@@ -193,7 +201,7 @@ function stat(id){
   return {n:(L.n||0), sp:S.length, v:({ok:1,mem:2,hard:3})[L.v]||0, last:last, read:!!R, t:Math.max(L.t||0,last?last.t:0)};
 }
 function order(){
-  var arr=CARDS.map(function(c,i){var s=stat(c.id);return {c:c,s:s,i:i}});
+  var arr=CARDS.map(function(c,i){var s=stat(c.id);return {c:c,s:s,i:i}}).filter(function(x){return fpass(x.c,x.s)});
   function kindRank(c){return c.k==='off'?0:(c.k==='pred'?1:2)}
   var fresh=arr.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read});
   var seen=arr.filter(function(x){return x.s.n||x.s.sp||x.s.read});
@@ -218,8 +226,23 @@ function reason(x){
   return o.join('');
 }
 var showAll=false;
+/*flt*/
+var FK='bxm-sprint-flt',FLT={g:'',k:'',p:'',s:''};try{var _f=JSON.parse(localStorage.getItem(FK)||'{}');for(var _k in FLT)if(_f[_k])FLT[_k]=_f[_k]}catch(e){}
+var GS={};
+function fpass(c,s){if(FLT.g&&c.g!==FLT.g)return false;if(FLT.k&&(FLT.k==='mock'?(c.k==='off'||c.k==='pred'):c.k!==FLT.k))return false;
+ if(FLT.p==='h'&&c.hpl!=='高')return false;if(FLT.p==='hm'&&!c.hpl)return false;
+ if(FLT.s){s=s||stat(c.id);var nw=!s.n&&!s.sp&&!s.read;if(FLT.s==='new'&&!nw)return false;if(FLT.s==='weak'&&!(s.v===2||s.v===3))return false}
+ return true}
+function fpool(){return CARDS.filter(function(c){return fpass(c)})}
+function fdraw(){var GR=[];CARDS.forEach(function(c){if(GR.indexOf(c.g)<0)GR.push(c.g)});
+ function row(lab,key,opts){return '<div class="fr"><span class="fl">'+lab+'</span>'+opts.map(function(o){return '<button type="button" data-k="'+key+'" data-v="'+esc(o[0])+'"'+(FLT[key]===o[0]?' class="on"':'')+'>'+esc(o[1])+'</button>'}).join('')+'</div>'}
+ var n=fpool().length,act=FLT.g||FLT.k||FLT.p||FLT.s;
+ $('flt').innerHTML=row('類別','g',[['','全部']].concat(GR.map(function(g){return [g,GS[g]||g]})))+row('來源','k',[['','全部'],['off','官方'],['pred','預測'],['mock','模擬']])+row('115','p',[['','全部'],['h','🔥 高機率'],['hm','🔥 高＋中']])+row('狀態','s',[['','全部'],['new','沒做過'],['weak','做過不熟']])+'<div class="fs"><span>符合 '+n+'／'+CARDS.length+' 題；「開始下一題」「隨機出題」只從這裡出</span>'+(act?'<a id="fclr">清除篩選</a>':'')+'</div>';
+ [].forEach.call($('flt').querySelectorAll('button'),function(b){b.onclick=function(){var k=b.getAttribute('data-k'),v=b.getAttribute('data-v');FLT[k]=(FLT[k]===v?'':v);try{localStorage.setItem(FK,JSON.stringify(FLT))}catch(e){}home()}});
+ var cl=$('fclr');if(cl)cl.onclick=function(){FLT={g:'',k:'',p:'',s:''};try{localStorage.removeItem(FK)}catch(e){}home()}}
+
 function home(){
-  swGo('');
+  swGo('');fdraw();
   var Q=order(), f=Q.filter(function(x){return !x.s.n&&!x.s.sp&&!x.s.read}).length;
   $('qcount').textContent='沒做過 '+f+'・做過 '+(Q.length-f)+'・共 '+Q.length+' 題';
   var tot=0,done=0;CARDS.forEach(function(c){var S=ld(SP)[c.id]||[];tot+=S.length;if(S.length)done++});
@@ -231,8 +254,9 @@ function home(){
 }
 $('moreBtn').onclick=function(){showAll=!showAll;home()};
 var pick='order';
-function randPick(ex){var a=CARDS.filter(function(c){return c.id!==ex});return a[Math.floor(Math.random()*a.length)]}
-$('startBtn').onclick=function(){pick='order';start(order()[0].c.id)};
+function randPick(ex){var a=fpool().filter(function(c){return c.id!==ex});if(!a.length)a=CARDS.filter(function(c){return c.id!==ex});return a[Math.floor(Math.random()*a.length)]}
+$('startBtn').onclick=function(){pick='order';var o=order();if(!o.length){alert0();return}start(o[0].c.id)};
+function alert0(){var f=$('flt');if(f){f.scrollIntoView({block:'start'});f.style.outline='2px solid var(--bad)';setTimeout(function(){f.style.outline=''},1200)}}
 $('randBtn').onclick=function(){pick='rand';start(randPick('').id)};
 
 /* ---- 作答 ---- */
