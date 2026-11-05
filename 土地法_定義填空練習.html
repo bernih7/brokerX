@@ -3442,6 +3442,7 @@ function renderQuizCard() {
       </div>
       <div class="qc-term">${c.term}</div>
       <div class="qc-blank" id="qblank-${qid}">${builtBlank}</div>
+      <div class="qc-kb" style="font-size:12px;color:var(--muted,#888);text-align:center;margin:6px 0">鍵盤：空白鍵／Enter＝顯示一個（全部顯示後＝下一題）｜←＝上一題｜→＝下一題</div>
       <div class="qc-btns">
         <button class="qc-btn qc-btn-prev" id="qbtn-prev-${qid}" onclick="prevQuiz()" ${quizIdx === 0 ? 'disabled' : ''}>← 上一題</button>
         <button class="qc-btn qc-btn-reveal" id="qbtn-reveal-${qid}" onclick="revealOneQuizBlank('${qid}')">顯示一個 ▶</button>
@@ -3520,6 +3521,29 @@ function prevQuiz() {
     window.scrollTo({top:0,behavior:'smooth'});
   }
 }
+
+
+// ===隨機測驗鍵盤操作：空白鍵／Enter＝顯示一個（全部顯示後＝下一題）、← 上一題、→ 下一題 ===
+(function(){
+  function active(){var q=document.getElementById('quiz-mode');return q&&q.classList.contains('active')}
+  function onKey(e,up){
+    if(!active()||e.ctrlKey||e.metaKey||e.altKey)return;
+    var k=e.key,t=e.target,tag=t&&t.tagName;
+    if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable))return;
+    if(k!==' '&&k!=='Enter'&&k!=='ArrowLeft'&&k!=='ArrowRight')return;
+    e.preventDefault();
+    if(up||e.repeat)return;
+    if(document.activeElement&&document.activeElement!==document.body&&document.activeElement.blur)document.activeElement.blur();
+    if(k==='ArrowLeft'){prevQuiz();return}
+    if(k==='ArrowRight'){if(quizIdx<quizQueue.length)nextQuiz();return}
+    if(quizIdx>=quizQueue.length){startQuizRound();return}
+    var qid='q'+quizIdx;
+    if(document.querySelectorAll('#qblank-'+qid+' .blank:not(.revealed)').length===0)nextQuiz();
+    else revealOneQuizBlank(qid);
+  }
+  document.addEventListener('keydown',function(e){onKey(e,false)});
+  document.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')onKey(e,true)});
+})();
 
 // ===主題切換===
 function updateThemeBtn(theme) {
