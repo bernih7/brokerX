@@ -239,8 +239,8 @@ nav{padding:8px 16px;display:block}
 
 <div class="mode-tabs">
   <button class="mode-tab on" id="tab-browse" onclick="setMode('browse')">📖 章節瀏覽</button>
-  <button class="mode-tab" id="tab-quiz" onclick="setMode('quiz')">🎲 隨機測驗</button>
-  <button class="mode-tab" id="tab-essay" onclick="goEssay()">📝 申論四段</button>
+  <button class="mode-tab" id="tab-quiz" onclick="goDefQuiz()">🎲 隨機測驗</button>
+  <button class="mode-tab" id="tab-essay" onclick="goEssay()">📝 申論隨機</button>
 </div>
 
 <nav id="nav"></nav>
@@ -4021,7 +4021,9 @@ function toggleCh(id){
   if(selCh.has(id)){if(selCh.size>1)selCh.delete(id)}else selCh.add(id);
   applyCh();
 }
-function goEssay(){setMode('browse');selCh.clear();DATA.forEach(c=>{if(c.id[0]==='S')selCh.add(c.id)});applyCh();document.getElementById('tab-browse').classList.remove('on');document.getElementById('tab-essay').classList.add('on')}
+function goEssay(){setMode('quiz');selQ.clear();DATA.forEach(c=>{if(c.id[0]==='S')selQ.add(c.id)});qfLabelUpdate();startQuizRound();document.getElementById('tab-quiz').classList.remove('on');document.getElementById('tab-essay').classList.add('on')}
+function goDefQuiz(){const wasEs=document.getElementById('tab-essay').classList.contains('on');setMode('quiz');if(wasEs){selQ.clear();qfLabelUpdate();startQuizRound()}}
+try{if(location.hash==='#essay')setTimeout(goEssay,0);addEventListener('hashchange',()=>{if(location.hash==='#essay')goEssay()})}catch(e){}
 function selAllCh(){DATA.forEach(c=>selCh.add(c.id));applyCh()}
 function selOnlyFirst(){const f=[...selCh][0];selCh.clear();selCh.add(f);applyCh()}
 

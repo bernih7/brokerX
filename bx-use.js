@@ -45,7 +45,9 @@ function build(){
  var cnt=function(key,tt){var m=ld(key,{}),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return"已掌握 "+n+"｜待複習 "+r+"｜未標記 "+Math.max(0,tt-n-r)};
  L.push("考題小卡（共 "+TOT.card+" 張）："+cnt("exam_mastery_land_v1",TOT.card));L.push("互動單字卡（共 "+TOT.flash+" 張）："+cnt("land_flashcard_mastery_v1",TOT.flash));
  var ff=ld("bx-fill",{}),fc={},fk=Object.keys(ff).length;Object.keys(ff).forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
- L.push("定義填空練習：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
+ var fe0=Object.keys(ff).filter(function(k){return k.charAt(0)==="S"}).length;fk-=fe0;delete fc.S1;delete fc.S2;delete fc.S3;delete fc.S4;delete fc.S5;delete fc.S6;delete fc.S7;
+ L.push("申論四段填空（申論題攻略）：已確認 "+fe0+"／"+TOT.fillEs+" 張");
+ L.push("定義填空（選擇題攻略）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
  var U=ld("bx-use",{}),hr=[],nv=[];
  PAGES.forEach(function(p){var x=U[p[0]];if(!x||!x.n){nv.push(p[1]);return}hr.push(p[1]+"｜開 "+x.n+" 次｜約 "+Math.round((x.s||0)/60)+" 分｜最近 "+new Date(x.t*1000).toLocaleDateString("zh-TW"))});
  L.push("","══ 四、頁面使用（自 2026-10-12 起記錄；開啟次數與約略停留分鐘）══");hr.forEach(function(s){L.push(s)});if(nv.length)L.push("尚未開過："+nv.join("、"));
@@ -57,7 +59,7 @@ function fillMark(key){var f=ld("bx-fill",{});f[key]=1;sv("bx-fill",f)}
 var BASE="https://bernih7.github.io/brokerX/";
 function U8(p){return BASE+encodeURIComponent(p)+".html"}
 /* 各工具總數（2026-10-22 依頁面實際內容核對：考題小卡 518、單字卡 108、填空 188、申論總覽 72、六型模板 6 型） */
-var TOT={card:518,flash:108,fill:232,essay:92,tpl:6};
+var TOT={card:518,flash:108,fill:194,fillEs:38,essay:92,tpl:6};
 function readInc(id,d){var R=ld("bx-read",{}),x=R[id]=R[id]||{n:0,t:0};x.n=Math.max(0,(x.n||0)+(d||1));if((d||1)>0)x.t=Math.floor(Date.now()/1000);sv("bx-read",R);return x.n}
 function readGet(id){return ld("bx-read",{})[id]||{n:0,t:0}}
 /* 有「讀過 N 輪」計數鈕的頁面（刷題、模擬卷、申論總覽的完成度是自動算，不放計數鈕） */
@@ -119,12 +121,13 @@ function status(){
  var R3=[],x1=mcount("exam_mastery_land_v1",TOT.card),x2=mcount("land_flashcard_mastery_v1",TOT.flash);
  R3.push(row("土地法_考題小卡","考題小卡",Math.min(x1.m,x1.t),x1.t,"已掌握 "+x1.m+"／"+x1.t+(x1.r?"・待複習 "+x1.r:"")));
  R3.push(row("土地法_互動單字卡","互動單字卡",Math.min(x2.m,x2.t),x2.t,"已掌握 "+x2.m+"／"+x2.t+(x2.r?"・待複習 "+x2.r:"")));
- var fk=Object.keys(ld("bx-fill",{})).length;R3.push(row("土地法_定義填空練習","定義填空練習",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
+ var fkk=Object.keys(ld("bx-fill",{})),fk=fkk.filter(function(k){return k.charAt(0)!=="S"}).length,fe=fkk.length-fk;R3.push(row("土地法_定義填空練習","定義填空（選擇題攻略）",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],es=ld("bx-es-read",{}),eo=0,ep=0,EM=window.BXL_ESSAY||null,no=32,np=TOT.essay-32;if(EM){no=EM.filter(function(x){return x.k==="off"}).length;np=EM.length-no;EM.forEach(function(x){if(es[x.i]){if(x.k==="off")eo++;else ep++}})}else Object.keys(es).forEach(function(k){if(!es[k])return;if(/^q-/.test(k))eo++;else ep++});var en=eo+ep,ET=no+np;
  R4.push(row("土地法_申論題分類總覽","申論總覽（官方 "+no+"＋預測／模擬 "+np+"）",Math.min(en,ET),ET,"已讀 "+en+"／"+ET+"（官方 "+eo+"／"+no+"・預測／模擬 "+ep+"／"+np+"）"));
  var tp=ld("bx-land-tpl",{}),tn=Object.keys(tp).filter(function(k){return tp[k]}).length;
+ var rfe=row("土地法_定義填空練習","申論四段填空（申論題攻略）",Math.min(fe,TOT.fillEs),TOT.fillEs,"已完成 "+fe+"／"+TOT.fillEs+" 張");rfe.url+="#essay";R4.push(rfe);
  R4.push(row("土地法申論題_六型答題模板","申論六型答題模板",Math.min(tn,TOT.tpl),TOT.tpl,"已掌握題型 "+tn+"／"+TOT.tpl));
  R4.push(row("土地法_申論115出題預測","申論 115 出題預測",0,0,""));
  G.push({g:"申論",rows:R4});
