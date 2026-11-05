@@ -25,3 +25,27 @@ if 'id="qf-wrap"' not in s:
 }""")
     open(P, 'w', encoding='utf-8').write(s); print('ok')
 else: print('已有')
+
+# ── 第二部分（11-05 使用者：「章節瀏覽」的章節列也要能收）：比照估價 #navbar＋#navtog
+s = open(P, encoding='utf-8').read()
+if 'id="navbar"' not in s and "bar.id='navbar'" not in s:
+    def rep(a, b):
+        global s
+        assert s.count(a) == 1, a[:50]; s = s.replace(a, b)
+    rep('nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10}',
+        'nav{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:none;gap:8px;flex-wrap:wrap}\n'
+        'nav.open{display:flex}\n'
+        '#navbar{background:var(--card);border-bottom:1px solid var(--line);padding:8px 16px;display:flex;justify-content:center;position:sticky;top:0;z-index:10}\n'
+        '#navtog{font:inherit;font-size:13.5px;font-weight:700;padding:6px 18px;border-radius:99px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;max-width:100%}\n'
+        '#navtog b{color:var(--ink)}')
+    rep("    browse.style.display = ''; nav.style.display = '';",
+        "    browse.style.display = ''; nav.style.display = ''; {const nb=document.getElementById('navbar'); if(nb) nb.style.display='';}")
+    rep("    browse.style.display = 'none'; nav.style.display = 'none';",
+        "    browse.style.display = 'none'; nav.style.display = 'none'; {const nb=document.getElementById('navbar'); if(nb) nb.style.display='none';}")
+    rep("</body>", """<script>/*jj-navfold*/(function(){var nav=document.getElementById('nav');if(!nav)return;var bar=document.createElement('div');bar.id='navbar';var t=document.createElement('button');t.id='navtog';t.type='button';bar.appendChild(t);nav.parentNode.insertBefore(bar,nav);
+function lab(){var on=nav.querySelector('.nav-btn.on');t.innerHTML='📑 章節：<b>'+(on?on.textContent:'選擇章節')+'</b> '+(nav.classList.contains('open')?'▴':'▾');}
+t.onclick=function(){nav.classList.toggle('open');lab();};
+nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn')){nav.classList.remove('open');setTimeout(lab,30);}});
+lab();})();</script>
+</body>""")
+    open(P, 'w', encoding='utf-8').write(s); print('章節瀏覽列已改可收合')
