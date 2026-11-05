@@ -86,7 +86,7 @@ if '/*fill-kit*/' not in s:
 .es5 .ch5{display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;white-space:nowrap}
 .es5 a.r{font-weight:700;color:var(--primary);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:1px 10px;background:var(--paper)}
 .es5 a.s{font-size:12px;color:var(--muted)}
-.es-mn{margin-top:8px;font-size:13px}.es-mn b{color:var(--mn);margin-right:6px}
+.es-mn{margin-top:8px;padding:7px 12px;border-radius:8px;background:color-mix(in srgb,var(--green) 12%,var(--paper));color:var(--green);font-size:14px;font-weight:700}.es-mn b{margin-right:8px;font-size:12px}
 .es-row{text-align:left;margin:2px 0}.es-row a{color:var(--blue)}
 a.lawlk{color:inherit;text-decoration:underline dotted;text-underline-offset:3px}
 .cp-sep{flex-basis:100%;font-size:12px;font-weight:700;color:var(--gold);margin:10px 0 2px;padding-top:8px;border-top:1px dashed currentColor;text-align:center}
@@ -134,8 +134,9 @@ function esExtra(c){return (c.mn?'<div class="es-mn"><b>口訣</b>'+c.mn+'</div>
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${c.src}</div>
       </div>`;""",
         """        ${isEs(c)?'':`<div class="key-note">${fmtAns(c.answer)}</div>`}
+        ${isEs(c)&&c.mn?'<div class="es-mn"><b>口訣</b>'+c.mn+'</div>':''}
         <div class="src" style="margin-top:6px;font-size:12px;color:var(--muted)">📌 ${srcHtml(c.src)}</div>
-        ${isEs(c)?esExtra(c):''}
+        ${isEs(c)?es5Html(c):''}
       </div>`;""")
     # 題數：定義與申論四段分開
     rep("const FILL_TOTAL = DATA.reduce((n,ch)=>n+ch.cards.length,0);",
@@ -187,8 +188,9 @@ function esExtra(c){return (c.mn?'<div class="es-mn"><b>口訣</b>'+c.mn+'</div>
     rep("""        <div class="key-note">${fmtAns(c.answer)}</div>
         <div class="src">📌 ${c.src}</div>
       </div>""", """        ${isEs(c)?'':`<div class="key-note">${fmtAns(c.answer)}</div>`}
+        ${isEs(c)&&c.mn?'<div class="es-mn"><b>口訣</b>'+c.mn+'</div>':''}
         <div class="src">📌 ${srcHtml(c.src)}</div>
-        ${isEs(c)?esExtra(c):''}
+        ${isEs(c)?es5Html(c):''}
       </div>""")
     # 換題不回頁首：捲到題目開頭
     rep("""function nextQuiz() {
