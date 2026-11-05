@@ -42,7 +42,7 @@ function build(){
  var cnt=function(key,tt,yes,no){var m=ld(key,{}),n=0,r=0,t=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);t++;if(s===yes)n++;else if(s===no)r++});return"已掌握 "+n+"｜待加強 "+r+"｜其他已標記 "+(t-n-r)+"｜未標記 "+Math.max(0,tt-t)};
  var fo=fcCount();L.push("互動單字卡（共 "+FC_IDS.length+" 張）：已掌握 "+fo.yes+"｜普通 "+fo.soso+"｜不熟 "+fo.no+"｜未標記 "+(FC_IDS.length-fo.yes-fo.soso-fo.no));var em=ld("brokerlaw_essay_template_mastery_v2",{}),e1=0,e2=0;Object.keys(em).forEach(function(k){if(em[k]==="mastered")e1++;else e2++});L.push("申論答題模板：已掌握 "+e1+" 題範例｜僅讀過 "+e2+" 題範例");
  var fkk=fillKeys(),fc={},fk=fkk.length;fkk.forEach(function(k){var c2=k.split("-")[0];fc[c2]=(fc[c2]||0)+1});
- L.push("定義填空練習（共 "+fillTotal()+" 張）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));
+ L.push("定義填空（選擇題攻略）（共 "+fillTotal()+" 張）：已確認 "+fk+" 張"+(fk?"（"+Object.keys(fc).sort().map(function(c2){return c2+" "+fc[c2]}).join("・")+"）":"（尚無紀錄；此功能 2026-10-12 起才開始記錄）"));var fe0=fillEsKeys().length;L.push("申論四段填空（申論題攻略）（共 "+fillEsTotal()+" 張）：已確認 "+fe0+" 張");
  var U=ld("bxj-use",{}),hr=[],nv=[];
  PAGES.forEach(function(p){var x=U[p[0]];if(!x||!x.n){nv.push(p[1]);return}hr.push(p[1]+"｜開 "+x.n+" 次｜約 "+Math.round((x.s||0)/60)+" 分｜最近 "+new Date(x.t*1000).toLocaleDateString("zh-TW"))});
  L.push("","══ 四、頁面使用（自 2026-10-12 起記錄；開啟次數與約略停留分鐘）══");hr.forEach(function(s){L.push(s)});if(nv.length)L.push("尚未開過："+nv.join("、"));
@@ -50,9 +50,11 @@ function build(){
  var data={};ids.forEach(function(i){var r=DB[i];data[i]=[r.c,r.ok,r.k==="D"?1:0,r.k||"",r.t,r.n||1,r.w||0]});
  L.push("","BXDATA1:"+b64e(data));return L.join("\n")}
 /* 記憶工具計數只算「現存的卡」：舊版卡號、改版後已不存在的鍵不計，避免「已完成」與百分比對不上 */
-var FC_IDS="A101,A102,A103,A104,A105,A106,A201,A202,A203,A204,A205,A206,A207,A301,A302,A303,A304,A305,A306,A401,A402,A403,A404,A405,A406,A407,A408,A409,A501,A502,A503,A504,B101,B102,B103,B104,B105,B106,B107,B108,B109,B110,B111,C101,C201,C202,C301,C302,C401,C501,C502,D101,D102,D103,D104,D201,D202,D203,D204,D301,D302,D303,D304,D401,D402,E101,E102,E103,E104,E201,E202,E203,E204,E301,E302,E303,E304,E401,E402,E501,E502,E601,E602,F101,F102,F201,F202,G101,G102,G103,G201,G202,G203,G301,G302,G303,G304,G401,G402,G403,G501,G502,G503,G504,H101,H102,H103,H104,H201,H202,H301,H302,H303".split(","),FILLN={A:21,B:6,C:7,D:16,E:20,F:5,G:11,H:20},PRED_HM=["T01","T03","T16","T06","T07","T11","T12","T04","T02"];
+var FC_IDS="A101,A102,A103,A104,A105,A106,A201,A202,A203,A204,A205,A206,A207,A301,A302,A303,A304,A305,A306,A401,A402,A403,A404,A405,A406,A407,A408,A409,A501,A502,A503,A504,B101,B102,B103,B104,B105,B106,B107,B108,B109,B110,B111,C101,C201,C202,C301,C302,C401,C501,C502,D101,D102,D103,D104,D201,D202,D203,D204,D301,D302,D303,D304,D401,D402,E101,E102,E103,E104,E201,E202,E203,E204,E301,E302,E303,E304,E401,E402,E501,E502,E601,E602,F101,F102,F201,F202,G101,G102,G103,G201,G202,G203,G301,G302,G303,G304,G401,G402,G403,G501,G502,G503,G504,H101,H102,H103,H104,H201,H202,H301,H302,H303".split(","),FILLN={A:23,B:9,C:9,D:16,E:26,F:5,G:15,H:24},FILLES={S1:8,S2:9,S3:6,S4:10,S5:6,S6:5},PRED_HM=["T01","T03","T16","T06","T07","T11","T12","T04","T02"];
 function fcCount(){var m=ld("jingji_flashcard_mastery",{}),o={yes:0,soso:0,no:0};FC_IDS.forEach(function(id){var v=m[id];v=typeof v==="string"?v:(v&&v.status);if(o[v]!=null)o[v]++});return o}
 function fillKeys(){var f=ld("bxj-fill",{});return Object.keys(f).filter(function(k){var a=/^([A-H])-(\d+)$/.exec(k);return f[k]&&a&&+a[2]<FILLN[a[1]]})}
+function fillEsKeys(){var f=ld("bxj-fill",{});return Object.keys(f).filter(function(k){var a=/^(S\d+)-(\d+)$/.exec(k);return f[k]&&a&&FILLES[a[1]]!=null&&+a[2]<FILLES[a[1]]})}
+function fillEsTotal(){var t=0,c;for(c in FILLES)t+=FILLES[c];return t}
 function fillTotal(){var t=0,c;for(c in FILLN)t+=FILLN[c];return t}
 function fillMark(key){var f=ld("bxj-fill",{});f[key]=1;sv("bxj-fill",f)}
 /* ---- ⑤ 讀過輪數（手動 －／＋，做法同民法）＋ 各工具完成度（指揮中心「進度」頁顯示） ---- */
@@ -121,13 +123,14 @@ function status(){
  /* 記憶工具 */
  var R3=[],fo2=fcCount(),fy=fo2.yes,fs=fo2.soso,fn=fo2.no,FT=FC_IDS.length;
  R3.push(row("經紀法規概要_互動單字卡","互動單字卡",fy,FT,"已掌握 "+fy+"／"+FT+"（"+pc(fy,FT)+"%）"+(fs||fn?"・普通 "+fs+"・不熟 "+fn+"（不算已掌握）":"")));
- var fk=fillKeys().length,FT2=fillTotal();R3.push(row("經紀法規_定義填空練習","定義填空練習",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
+ var fk=fillKeys().length,FT2=fillTotal();R3.push(row("經紀法規_定義填空練習","定義填空（選擇題攻略）",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],rs4=ld("bxj-es-read",{}),lg4=ld("bxj-es-log",{}),sp4=ld("bxj-es-sprint",{}),ES4=[].slice.call(document.querySelectorAll(".essay-detail[id^=es-]")),ids4=ES4.length?ES4.map(function(d){return d.id}):null,u4={};function cnt4(k){if(ids4&&ids4.indexOf(k)<0)return;u4[k]=1}Object.keys(rs4).forEach(function(k){if(rs4[k])cnt4(k)});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)cnt4(k)});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)cnt4(k)});var T4=ids4?ids4.length:75,rn4=Math.min(Object.keys(u4).length,T4),nx4=ids4?ids4.filter(function(k){return !u4[k]})[0]:"";R4.push({p:"",url:nx4?"#"+nx4:"#es-fw01",name:"申論 "+T4+" 題（指揮中心申論卡）",done:rn4,total:T4,pct:Math.round(rn4/T4*100),txt:"已讀 "+rn4+"／"+T4+"（勾讀懂、讀過一輪、做過 5 分鐘練習都算）",read:null,open:null,last:0});
  var es=ld("brokerlaw_essay_template_mastery_v2",{}),er=0,em=0;Object.keys(es).forEach(function(k){if(es[k]==="mastered")em++;else if(es[k]==="read")er++});
  R4.push(row("經紀法規申論題_篇章主題答題模板","申論篇章主題答題模板",er+em,29,"已讀 "+(er+em)+"／29 題範例（已掌握 "+em+"）"));
  var pst=ld("bx-jj-pred",{}),pr=PRED_HM.filter(function(c){return pst[c]}).length;R4.push(row("經紀法規_申論115出題預測","申論 115 出題預測",pr,9,"高、中頻主題已讀完範文 "+pr+"／9"));
+ var fe=fillEsKeys().length,FE=fillEsTotal(),rfe=row("經紀法規_定義填空練習","申論四段填空（申論題攻略）",fe,FE,"已完成 "+fe+"／"+FE+" 張（"+pc(fe,FE)+"%）");rfe.url+="#essay";R4.push(rfe);
  G.push({g:"申論",rows:R4});
  /* 閱讀頁 */
  var R5=[];[["經紀法規_罰則總整理","罰則總整理"],["經紀法規_罰鍰與處分一覽表","罰鍰與處分一覽表"],["經紀法規_四法罰則總比較","四法罰則總比較"],["經紀法規_公平法消保法罰則整理","公平法＋消保法罰則"],["經紀法規_公寓大廈條例罰則整理","公寓大廈條例罰則"],["經紀法規_應記載不得記載總整理","應記載不得記載總整理"],["經紀法規_公平法獨占聯合結合整理","公平法獨占・聯合・結合"],["經紀法規_定型化契約_無效vs不構成","定型化契約 無效vs不構成"],["經紀法規概要_彩色重點速記","彩色重點速記"],["經紀法規_易混淆概念並排","易混淆概念並排"],["經紀法規_讀書攻略與備考指南","讀書攻略與備考指南"]].forEach(function(a){R5.push(row(a[0],a[1],0,0,""))});
