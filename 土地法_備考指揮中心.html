@@ -372,7 +372,7 @@ body[data-pal="p5"]{--cp-got:#3A3A3A;--cp-got-t:#EFE8DE;--cp-pick:#A89B8A;--cp-p
 #lagPanel .pb i{display:block;height:100%;background:var(--cp-got)}
 #lagPanel .need{font-weight:800;color:var(--cp-accent)}
 #lagPanel .zero{color:var(--cp-soft)}
-#lagPanel tr[hidden]{display:none!important}#lagPanel tr.lgr{cursor:pointer}#lagPanel tr.lgr:hover td,#lagPanel tr.lgr.on td{background:var(--cp-milk)}#lagPanel .tw{display:inline-block;width:1.1em;color:var(--cp-accent);font-weight:800}#lagPanel tr.lgx td{display:block;padding:0 4px 10px;border-top:0}#lagPanel .lgd{background:var(--cp-milk);border-radius:9px;padding:9px 12px;font-size:.8rem;line-height:1.7}#lagPanel .lgd ul{margin:4px 0;padding-left:1.1em}#lagPanel .lgd ul.sc{max-height:320px;overflow:auto}#lagPanel .lgd li{margin:3px 0}#lagPanel .lgd a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}#lagPanel .lgd small{display:block;color:var(--cp-soft);font-size:.72rem}#lagPanel .lh{margin:2px 0 4px;color:var(--cp-soft);font-size:.74rem}#lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);font-size:.79rem;line-height:1.85}
+#lagPanel tr[hidden]{display:none!important}#lagPanel tr.lgr{cursor:pointer}#lagPanel tr.lgr:hover td,#lagPanel tr.lgr.on td{background:var(--cp-milk)}#lagPanel .tw{display:inline-block;width:1.1em;color:var(--cp-accent);font-weight:800}#lagPanel tr.lgx td{padding:0 4px 10px;border-top:0}#lagPanel .lgd{background:var(--cp-milk);border-radius:9px;padding:9px 12px;font-size:.8rem;line-height:1.7}#lagPanel .lgd ul{margin:4px 0;padding-left:1.1em}#lagPanel .lgd ul.sc{max-height:320px;overflow:auto}#lagPanel .lgd li{margin:3px 0}#lagPanel .lgd a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}#lagPanel .lgd small{display:block;color:var(--cp-soft);font-size:.72rem}#lagPanel .lh{margin:2px 0 4px;color:var(--cp-soft);font-size:.74rem}#lagPanel .names{margin:11px 0 0;padding:10px 12px;border-radius:9px;background:var(--cp-milk);font-size:.79rem;line-height:1.85}
 #lagPanel .names a{color:var(--cp-ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--cp-pick)}
 #lagPanel .names .lab{font-weight:800;color:var(--cp-accent);display:block;font-size:.73rem;letter-spacing:.05em;margin-bottom:3px}
 @media(max-width:560px){
@@ -564,7 +564,7 @@ function lagBuild(){
   var rRows=rows(read),rTot=rRows.length,rDone=rRows.filter(function(r){return (r.read||0)>0}).length;
   var mRows=rows(mock).filter(function(r){return r.total>0}),mTot=0,mDone=0;
   mRows.forEach(function(r){mTot++;if(r.done>=r.total)mDone++});
-  var kRows=rows(mem).filter(function(r){return r.total>0}),kDone=0,kTot=0;kRows.forEach(function(r){kDone+=Math.min(r.done,r.total);kTot+=r.total});
+  var kRows=rows(mem).filter(function(r){return r.total>0&&r.p.indexOf('考題小卡')<0}),kDone=0,kTot=0;kRows.forEach(function(r){kDone+=Math.min(r.done,r.total);kTot+=r.total});
   function per(rem){return rem<=0?'已完成':(Math.ceil(rem/days)+' / 天')}
   function bar(d,t){var p=t?Math.min(100,Math.round(d/t*100)):0;return '<span class="pb"><i style="width:'+p+'%"></i></span>'}
   function row(k,nm,d,t,u,note,det){var rem=Math.max(0,t-d),op=!!OPEN[k];
@@ -594,7 +594,7 @@ function lagBuild(){
     +row('e','申論 '+eTot+' 題',esRead,eTot,'題','在申論卡勾「我已讀懂這題的邏輯」',eDet)
     +row('r','閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底',rDet)
     +row('m','模擬卷',mDone,mTot,'份','診斷卷一＋來勝模擬(一) 兩份；答完整份才算',mDet)
-    +row('k','記憶工具（已掌握）',kDone,kTot,'張','小卡、單字卡自己標「已掌握」；填空按完成',kDet)
+    +row('k','記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；定義填空按完成（考題小卡＝518 題，已算在選擇題列，不重複計）',kDet)
     +'</tbody></table>';
   var zero=[];
   dRows.forEach(function(r){if(r.done===0)zero.push({n:r.name,u:r.url})});
