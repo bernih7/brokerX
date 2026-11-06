@@ -104,7 +104,21 @@ details.gd td.num{color:var(--a)}
 .nt td{padding:11px 12px;line-height:1.85}
 .nt td.num,details.gd td.num{font-weight:500;color:var(--ink)}
 .nt td.num .tn,.cell .tn{font-weight:800;white-space:nowrap}
-.cell .cb{line-height:1.85}
+.cell .cb{line-height:1.75}
+/*cell1107*/
+.cg{align-items:start}
+.cell{border:1px solid var(--line)!important;border-top:4px solid var(--a)!important;background:var(--card)!important;padding:10px 12px 12px}
+.cell .ch{font-size:14.5px;padding-bottom:6px;margin-bottom:6px;border-bottom:1px dashed var(--line)}
+.il{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.il li{position:relative;padding-left:14px}
+.il li::before{content:"";position:absolute;left:2px;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--a)}
+.ik{color:var(--ink);font-weight:800}
+.cell b{color:var(--a)}
+.lr{color:var(--muted);font-size:12px;font-weight:400}
+.lr b{color:var(--muted)}
+.cell .cb.none{color:var(--muted)}
+.scw{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.sc{font-size:12.5px;line-height:1.5;background:color-mix(in srgb,var(--a) 10%,var(--card));border:1px solid color-mix(in srgb,var(--a) 25%,var(--line));border-radius:6px;padding:1px 7px}
 .nt tbody td:first-child{font-weight:700}
 .nt tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--surface2) 45%,var(--card))}
 @media(max-width:760px){.nt thead{display:none}.nt,.nt tbody,.nt tr,.nt td,.nt td.num,.nt td.law{display:block;width:100%!important}
@@ -216,7 +230,15 @@ if(q)q.addEventListener("input",function(){if(q.value.trim())set(true);else set(
 var re=/(\d+月\d+日|\d+年\d+個月|\d+年|\d+個月|(?<![月\d])\d+日|\d+天|\d+(?:\.\d+)?[%‰]|\d+倍)/g;
 document.querySelectorAll("td.num,.cell .cb").forEach(function(td){td.innerHTML=td.innerHTML.replace(re,'<span class="tn">$1</span>')});
 function brk(h){var d=0,o='';for(var i=0;i<h.length;i++){var c=h[i];if(c==='（'||c==='(')d++;else if(c==='）'||c===')')d=Math.max(0,d-1);o+=c;if(c==='；'&&d===0&&!/^\s*$/.test(h.slice(i+1)))o+='<br>'}return o}
-document.querySelectorAll("td.num,.cell .cb").forEach(function(td){td.innerHTML=brk(td.innerHTML).replace(/ ?→ ?/g,'<br>→ ')});
+document.querySelectorAll("td.num").forEach(function(td){td.innerHTML=brk(td.innerHTML).replace(/ ?→ ?/g,'<br>→ ')});
+function splitTop(h){var d=0,a=[],cur='';for(var i=0;i<h.length;i++){var c=h[i];if(c==='（'||c==='(')d++;else if(c==='）'||c===')')d=Math.max(0,d-1);if(c==='；'&&d===0){a.push(cur);cur='';continue}cur+=c}if(cur.trim())a.push(cur);return a}
+function lawGray(h){var o='',d=0,st=-1;for(var i=0;i<h.length;i++){var c=h[i];if(c==='（'){if(d===0)st=o.length;d++;o+=c}else if(c==='）'&&d>0){d--;o+=c;if(d===0&&st>=0){var seg=o.slice(st);if(/§|條例|第\d+條/.test(seg))o=o.slice(0,st)+'<span class="lr">'+seg+'</span>';st=-1}}else o+=c}return o}
+function chips(h){var d=0,ci=-1;for(var i=0;i<h.length;i++){var c=h[i];if(c==='（'||c==='<')d++;else if(c==='）'||c==='>')d=Math.max(0,d-1);else if(c==='：'&&d===0){ci=i;break}}if(ci<0)return h;var tail=h.slice(ci+1),end=tail.search(/。/),rest='';if(end>=0){rest=tail.slice(end);tail=tail.slice(0,end)}var ps=[],cur='';d=0;for(var j=0;j<tail.length;j++){var c2=tail[j];if(c2==='（'||c2==='<')d++;else if(c2==='）'||c2==='>')d=Math.max(0,d-1);if(c2==='、'&&d===0){ps.push(cur);cur='';continue}cur+=c2}ps.push(cur);if(ps.length<4)return h;return h.slice(0,ci+1)+'<span class="scw">'+ps.map(function(x){return '<span class="sc">'+x.trim()+'</span>'}).join('')+'</span>'+rest}
+function keyB(h){if(/^\s*<b/.test(h))return h;var m=h.match(/^([^（：<]{2,16})([（：])/);if(m)return '<b class="ik">'+m[1]+'</b>'+h.slice(m[1].length);return h}
+document.querySelectorAll(".cell .cb").forEach(function(cb){var h=cb.innerHTML.trim();if(h==='—'||/^—/.test(h)){cb.classList.add('none');cb.innerHTML=lawGray(h);return}
+ if(h.indexOf('<br>')>=0){cb.innerHTML=lawGray(h);return}
+ var it=splitTop(h);if(it.length<2){cb.innerHTML=keyB(chips(lawGray(h)));return}
+ cb.innerHTML='<ul class="il">'+it.map(function(x){return '<li>'+keyB(chips(lawGray(x.trim())))+'</li>'}).join('')+'</ul>'});
 document.querySelectorAll(".trap-grid").forEach(function(g){[].forEach.call(g.children,function(t,i){t.style.setProperty("--a","var(--c"+(i%5)+")")})});
 })();</script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
