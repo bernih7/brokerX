@@ -109,7 +109,7 @@ function status(){
  /* 刷題：題庫七頁＋互動練習＋解析版練習共用 bx-q2 */
  var by={},all={d:0,ok:0};Object.keys(DB).forEach(function(id){if(!(DB[id]&&DB[id].n>0))return;var c=id.split("-")[0],o=by[c]=by[c]||{d:0,ok:0};o.d++;all.d++;if(DB[id].ok){o.ok++;all.ok++}});
  var pg={},order=[],c,total=0;for(c in CH){var p=CH[c][0];if(!pg[p]){pg[p]={t:0,d:0,ok:0,ch:[]};order.push(p)}pg[p].t+=CH[c][2];pg[p].ch.push(c);total+=CH[c][2];var x=by[c];if(x){pg[p].d+=x.d;pg[p].ok+=x.ok}}
- var R1=[];order.forEach(function(p){var o=pg[p],dn=Math.min(o.d,o.t);R1.push(row("LandLaw_"+p+"_quiz","題庫 "+p+"（"+o.ch.join("・")+"）",dn,o.t,"已作答 "+dn+"／"+o.t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});
+ var R1=[];order.forEach(function(p){var o=pg[p],dn=Math.min(o.d,o.t);R1.push(row("LandLaw_"+p+"_quiz","題庫 "+p+"："+o.ch.map(function(c){return CH[c]?CH[c][1].replace(/／非都市土地管制/,""):c}).join("、"),dn,o.t,"已作答 "+dn+"／"+o.t+(o.d?"・正確率 "+pc(o.ok,o.d)+"%・錯 "+(o.d-o.ok):"")))});
  var ad=Math.min(all.d,total),at="全科已作答 "+ad+"／"+total+(all.d?"・正確率 "+pc(all.ok,all.d)+"%":"")+"（與題庫共用紀錄）";
  R1.push(row("土地法解析版練習","解析版練習（全 "+total+" 題）",ad,total,at));
  G.push({g:"刷題（作答後自動記錄）",rows:R1});
