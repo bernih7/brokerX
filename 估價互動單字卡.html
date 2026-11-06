@@ -302,7 +302,7 @@ footer .reset{
 }
 :root[data-theme="dark"] .chip.active,:root[data-theme="dark"] .filter-row .chip.active,:root[data-theme="dark"] .status-row .chip.active,:root[data-theme="dark"] .ctrl-pill .bxv-mini .cnt{color:var(--bg)}
 </style><script src="bxv-use.js"></script>
-</head>
+<script src="bx-fcfmt.js"></script></head>
 <body>
 <div class="wrap">
   <div class="page-header">
@@ -741,7 +741,7 @@ function render(){
   if(mode!=='quiz') flipped = false;   // 測驗模式：翻面由使用者自己控制，可來回翻
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
-  answerText.innerHTML = c.back;
+  answerText.classList.add('fcx');answerText.innerHTML = (window.BXFC?BXFC.fmt(c.back):c.back);
   badgeFront.textContent = c.cat;
   badgeFront.style.background = color;
   badgeBack.textContent = c.cat;

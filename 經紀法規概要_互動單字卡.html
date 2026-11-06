@@ -208,7 +208,7 @@ button:active { transform: scale(.97); }
 .footer-note { text-align: center; font-size: .68rem; color: #9a917a; margin-top: 22px; }
 </style>
 <script src="bxj-use.js"></script>
-</head>
+<script src="bx-fcfmt.js"></script></head>
 <body>
 <button id="theme-btn" aria-label="切換深淺色">深色</button>
 <div class="app">
@@ -386,7 +386,7 @@ function renderCard() {
   document.getElementById('frontCatTag').textContent = CAT_LABELS[c.category];
   document.getElementById('backCatTag').textContent = CAT_LABELS[c.category];
   document.getElementById('cardFrontText').innerHTML = fmt(c.front);
-  document.getElementById('cardBackText').innerHTML = fmt(c.back);
+  var _bk=document.getElementById('cardBackText');_bk.classList.add('fcx');_bk.innerHTML = (window.BXFC?BXFC.fmt(fmt(c.back)):fmt(c.back));
 
   const TL={必:'考古題常見',該:'考古題有出',選:'偶爾考',無:'題庫未考・補充',廣:'主題廣・僅參考'};
   const bd='<span class="exam-badge t-'+c.t+'">'+TL[c.t]+(c.t==='無'?'':'｜選擇約'+c.mc+'題・申論約'+c.es+'題')+'</span>';

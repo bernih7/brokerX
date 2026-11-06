@@ -190,7 +190,7 @@ footer .reset{
 </style>
 <script src="bxm-use.js"></script>
 <script>(function(){var s=null;try{s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})();</script>
-</head>
+<script src="bx-fcfmt.js"></script></head>
 <body>
 <div class="wrap">
   <header>
@@ -493,7 +493,7 @@ function render(){
   flipped = (mode==='quiz') ? revealed : false;
   cardEl.classList.toggle('flipped', flipped);
   termText.textContent = c.front;
-  answerText.innerHTML = c.back;
+  answerText.classList.add('fcx');answerText.innerHTML = (window.BXFC?BXFC.fmt(c.back):c.back);
   document.getElementById('examFront').innerHTML = examBadge(c,false);
   document.getElementById('examBack').innerHTML = examBadge(c,true);
   badgeFront.textContent = c.cat;

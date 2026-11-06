@@ -203,7 +203,7 @@ footer .reset{
   height:26px;padding:0 12px;font-size:11px;font-weight:700;font-family:inherit;letter-spacing:.03em;white-space:nowrap;}
 .theme-pill:hover{background:var(--rule);color:var(--ink);}
 </style>
-</head>
+<script src="bx-fcfmt.js"></script></head>
 <body>
 <div class="wrap">
   <header>
@@ -315,11 +315,7 @@ const freqBadgeFront = document.getElementById('freqBadgeFront');
 const freqBadgeBack = document.getElementById('freqBadgeBack');
 const mcBadgeFront = document.getElementById('mcBadgeFront');
 const mcBadgeBack = document.getElementById('mcBadgeBack');
-function fmtBack(s){
-  let h=(function(t){var o='',d=0;for(var i=0;i<t.length;i++){var c=t[i];if(c==='（'||c==='(')d++;else if(c==='）'||c===')')d=Math.max(0,d-1);if(d===0&&i>0&&/[①②③④⑤⑥⑦⑧⑨⑩]/.test(c)&&/[　 ：；。]/.test(t[i-1]))o+='<br>';o+=c}return o})(s).replace(/(<br>)?(陷阱：|⚠️)/g,'<br>$2');
-  if(!/[①②③④⑤⑥⑦⑧⑨⑩]/.test(s) && s.length>60) h=h.replace(/；(?!<br>)/g,'；<br>');
-  return h.replace(/(<br>\s*){2,}/g,'<br>');
-}
+function fmtBack(s){return window.BXFC?BXFC.fmt(s):s}
 function mcInfo(c){
   const n=c.mc||0;
   return n? ('歷屆約 '+n+' 題') : '題庫無直接對應';
@@ -445,7 +441,7 @@ function render(){
   let ah = fmtBack(c.back);
   if(c.kou){ ah += '<div class="kou"><i>口訣</i>'+c.kou.replace(/〔自編[^〕]*〕/,function(m){return '<span style="font-weight:500;font-size:12px;color:var(--ink-soft)">'+m+'</span>';})+'</div>'; }
   ah += '<div class="exm"><b>歷屆題庫：</b>'+(c.mc? ('約 '+c.mc+' 題相關'+(c.ex&&c.ex.length?'（例：'+c.ex.join('、')+'）':'')) : '查無直接對應題（不代表不考）')+'<br>以關鍵詞比對 99–114 年題庫估計，非逐題人工分類。</div>';
-  answerText.innerHTML = ah;
+  answerText.classList.add('fcx');answerText.innerHTML = ah;
   mcBadgeFront.textContent = mcInfo(c); mcBadgeBack.textContent = mcInfo(c);
   badgeFront.textContent = c.cat;
   badgeFront.style.background = color;
