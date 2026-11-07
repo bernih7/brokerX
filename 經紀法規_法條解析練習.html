@@ -15444,7 +15444,7 @@ table.ov th{color:var(--sub);font-weight:400;font-size:.74rem}
  }
 }</script>
 <script id="CHS" type="application/json">{"A1":"A1 總則：名詞定義與主管機關","A2":"A2 經紀業設立、保證金與營業處所","A3":"A3 經紀人員：資格、證書與義務","A4":"A4 業務及責任（核心高頻）","A5":"A5 獎懲：行政罰與刑罰","C1":"C1 說明書：土地應記載事項","C2":"C2 說明書：成屋應記載事項","C3":"C3 說明書：預售屋應記載事項","C4":"C4 說明書：不得記載事項","D2":"D2 預售屋買賣定型化契約","D3":"D3 委託銷售定型化契約","E1":"E1 公寓大廈：總則與定義","E2":"E2 公寓大廈：住戶權利義務","E3":"E3 公寓大廈：管理組織與決議","E4":"E4 公寓大廈：規約","E5":"E5 公寓大廈：罰則","F2":"F2 規約範本之法律性質","G1":"G1 公平交易法重要條文","G2":"G2 廣告查核分工原則","H1":"H1 定型化契約規範","H2":"H2 特種交易","H3":"H3 損害賠償與罰則"}</script>
-<script src="bxj-use.js"></script>
+<script src="bx-smart.js"></script><script src="bxj-use.js"></script>
 <script src="bxj-hl.js"></script>
 <script>
 (function(){
@@ -15575,7 +15575,7 @@ document.getElementById('selWeak').onclick=function(){
   sel=new Set(a.map(function(x){return x[0]}));renderCats();
 };
 var ORDH={new:'依年份由新到舊，近年題先練。',rand:'整池隨機打散。',ch:'依章節順序，同章集中練。',
-  smart:'依所選章節的歷屆題數比例分配題數；章內四層優先序＝①錯題（C→A→D→B→未標）→②沒作答過→③答對但不熟／用猜的→④答對且很確定（最久沒練）。'};
+  smart:BXSMART.hint.replace('每輪 30 題','每輪（依題數設定）')};
 function renderOrd(){
   [].forEach.call(document.querySelectorAll('#ordRow .btn'),function(b){b.classList.toggle('on',b.dataset.ord===ord)});
   document.getElementById('ordHint').textContent=ORDH[ord];
@@ -15662,28 +15662,11 @@ document.getElementById('clrLog').onclick=function(){
 /* ---------- 智慧配題 ---------- */
 var PRI={C:0,A:1,D:2,B:3,'':4};
 function smartPick(list,want){
-  var DB=db(),byCh={};
-  list.forEach(function(q){(byCh[q.ch]=byCh[q.ch]||[]).push(q)});
-  /* 權重只用官方題數：補習班題可被抽到，但不改變各章配額 */
-  var wCh={},wTot=0;
-  list.forEach(function(q){if(isMock(q))return;wCh[q.ch]=(wCh[q.ch]||0)+1;wTot++});
-  var chs=Object.keys(byCh),tot=list.length,out=[];
-  chs.forEach(function(c){
-    var base=wTot?(wCh[c]||0)/wTot:byCh[c].length/tot;
-    var quota=Math.max(1,Math.round(want*base));
-    /* 四層優先序：①錯題（C→A→D→B→未標）②沒作答過 ③答對但不熟／用猜的 ④答對且很確定（最久沒練） */
-    var arr=byCh[c].slice().map(function(q){
-      var r=DB[qid(q)]||{},rank;
-      if(!r.n) rank=5;                                   /* ② 沒作答過 */
-      else if(!r.ok) rank=PRI[r.k||''];                  /* ① 錯題 0–4 */
-      else if(r.k==='D'||r.g===1||r.sh===1) rank=6;      /* ③ 對了但不熟／猜的 */
-      else rank=7;                                       /* ④ 很確定 */
-      return {q:q,rank:rank,t:r.t||0}});
-    arr.forEach(function(x){x.r=Math.random()});
-    arr.sort(function(a,b){return a.rank-b.rank || a.t-b.t || a.r-b.r});
-    out=out.concat(arr.slice(0,quota).map(function(x){return x.q}));
-  });
-  return out.slice(0,want);
+  var DB=db();
+  return BXSMART.run(list,{want:want,all:Q.filter(function(q){return !isOos(q)&&!isMock(q)}),ch:function(q){return q.ch},y:function(q){return +q.y},
+   con:function(q){var l=q.law;return l&&l.length?String(l[0]).replace(/\s+/g,''):''},
+   st:function(q){var r=DB[qid(q)]||{};if(!r.n)return {c:1};if(!r.ok)return {c:0,k:PRI[r.k||'']!=null?PRI[r.k||'']:4,t:r.t||0};
+    return {c:(r.k==='D'||r.g===1||r.sh===1)?2:3,t:r.t||0}}});
 }
 function order(list){
   var a=list.slice();

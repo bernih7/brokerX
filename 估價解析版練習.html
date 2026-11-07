@@ -143,7 +143,7 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 :root[data-theme="dark"] .mode-badge{color:var(--bg)}
 :root[data-theme="dark"] .g-head{color:color-mix(in srgb,var(--cc) 55%,#fff)}
 </style>
-<script src="bxv-use.js"></script>
+<script src="bx-smart.js"></script><script src="bxv-use.js"></script>
 <style id="resume-css">.resume{border:1.5px solid var(--green);border-radius:10px;padding:10px 12px;margin-bottom:14px}.resume p{margin:4px 0 8px;font-size:.85rem}#qEnd.arm{border-color:var(--red);color:var(--red)}</style></head>
 <body>
 <div class="app">
@@ -314,24 +314,11 @@ function seenGet(){return ld(KEY.SEEN,{})}
 function seenAdd(id){var s=seenGet();s[id]=1;sv(KEY.SEEN,s)}
 /* 智慧配題：依所選章節歷屆題數比例分配 30 題 →
    章內優先序：錯題（C>A>D>B>未標）→ 未練 → 答對但不熟／猜的 → 答對且很確定（最久沒練優先） */
-function smartQueue(pool){
-  var N=Math.min(30,pool.length),Dd=q2(),c=wClr(),KO={C:0,A:1,D:2,B:3,"":4};
-  /* 0 最近答錯 → 1 沒作答過 → 2 答對但不熟／猜的 → 3 答對且很確定（最久沒練優先） */
-  function sc(q){var r=Dd[qk(q)];
-    if(r&&r.ok===0&&(r.t||0)>c)return [0,KO[r.k||""]!=null?KO[r.k||""]:4,Math.random()];
-    if(!r)return [1,0,Math.random()];
-    if(r.sh===1||r.g===1||r.k==="D")return [2,r.t||0,Math.random()];
-    return [3,r.t||0,Math.random()]}
-  function cmp(a,b){for(var i=0;i<3;i++){if(a.s[i]!==b.s[i])return a.s[i]-b.s[i]}return 0}
-  var by={};pool.forEach(function(q){(by[q.ch]=by[q.ch]||[]).push({q:q,s:sc(q)})});
-  var chs=Object.keys(by),quota={},rem=[],used=0;
-  chs.forEach(function(ch){by[ch].sort(cmp);var e=N*by[ch].length/pool.length,f=Math.min(Math.floor(e),by[ch].length);quota[ch]=f;used+=f;rem.push([e-f,ch])});
-  rem.sort(function(a,b){return b[0]-a[0]});
-  for(var i=0;used<N&&i<rem.length*3;i++){var ch=rem[i%rem.length][1];if(quota[ch]<by[ch].length){quota[ch]++;used++}}
-  var out=[];chs.forEach(function(ch){out=out.concat(by[ch].slice(0,quota[ch]))});
-  out.sort(cmp);
-  var w=out.filter(function(x){return x.s[0]===0}),o=shuffle(out.filter(function(x){return x.s[0]!==0}));
-  return w.map(function(x){return x.q}).concat(o.map(function(x){return x.q}));
+function smartQueue(pool){var Dd=q2(),c=wClr(),KO={C:0,A:1,D:2,B:3,"":4};
+  return BXSMART.run(pool,{want:30,all:ITEMS.filter(function(q){return q.y}),ch:function(q){return q.ch},y:function(q){return q.y},
+   con:function(q){return BXSMART.art((q.exps||[])[q.correct])},
+   st:function(q){var r=Dd[qk(q)];if(!r)return {c:1};if(r.ok===0&&(r.t||0)>c)return {c:0,k:KO[r.k||""]!=null?KO[r.k||""]:4,t:r.t||0};
+    return {c:(r.sh===1||r.g===1||r.k==="D")?2:3,t:r.t||0}}});
 }
 function buildQueue(pool){
   if(BXO==="smart")return smartQueue(pool);
@@ -384,7 +371,7 @@ function renderOrd(){
   rs.onclick=function(){try{localStorage.removeItem(KEY.SEEN)}catch(e){}renderOrd()};R.appendChild(rs);
   var n=Object.keys(seenGet()).length;
   $("bxnote").textContent=BXO==="new"?"從最新年份依序出題，已練過的題目會略過（目前已練 "+n+" 題）；每輪最多 30 題。觀念題、綜合題沒有考試年份，排在最後。":
-    BXO==="smart"?"智慧配題：依所選章節的歷屆題數比例分配 30 題；各章先出錯題（C 真的不熟→A→D→B→未標），再出沒練過的，最後出最久沒練的答對題。錯題排在本輪前面。":"隨機抽 30 題。";
+    BXO==="smart"?""+BXSMART.hint:"隨機抽 30 題。";
 }
 function renderTlim(){
   var R=$("tlimRow");R.innerHTML="";
