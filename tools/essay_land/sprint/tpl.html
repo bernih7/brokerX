@@ -353,7 +353,7 @@ function paintAct(){
 
   if(window.barWake)barWake();
 }
-function tick(first){
+function tick(first){if(first)segFix();
   if(!first){ if(paused||document.visibilityState!=='visible')return; elapsed++; stLeft--; }
   var clk=$('clk'),seg=$('segs').children[st].querySelector('b');
   clk.textContent=mmss(stLeft); clk.classList.toggle('red',stLeft<=0);
@@ -363,10 +363,12 @@ function tick(first){
   if(stLeft<=0&&mode==='h'&&st<4&&!first){next()}
 }
 function toConc(){var b=document.querySelector('#body .blk.b4');if(!b)return;var bar=document.querySelector('.bar');var y=b.getBoundingClientRect().top+scrollY-(bar?bar.offsetHeight:0)-8;setTimeout(function(){scrollTo({top:y,behavior:'smooth'})},60)}
+function toBody(){var b=$('body');if(!b||st<1||st>4)return;var bar=document.querySelector('.bar');var y=Math.max(0,b.getBoundingClientRect().top+scrollY-(bar?bar.offsetHeight:0)-8);scrollTo({top:y,behavior:'smooth'})}
+function segFix(){[].forEach.call($('segs').children,function(g,i){if(i===st)return;var b=g.querySelector('b');if(b)b.style.width=i<st?'100%':'0%';if(i>st)g.classList.remove('over')})}
 function next(){
   if(paused)return;
   if(st>4)return;
-  if(st<4){st++;stLeft=STG[st].s;render();tick(true);scrollTo(0,0);if(st===3)toConc();return}
+  if(st<4){st++;stLeft=STG[st].s;render();tick(true);toBody();if(st===3)toConc();return}
   save();
 }
 function save(){
@@ -393,7 +395,7 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
   if(id&&CARDS.some(function(c){return c.id===id})){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}start(id)}else home()})();
 
 var paused=false;
-function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v)scrollTo(0,0)}
+function setPause(v){paused=v;document.body.classList.toggle('paused',v);var b=$('pauseBtn');b.textContent=v?'▶':'⏸';b.setAttribute('aria-label',v?'繼續':'暫停');if(!v){if(cur&&st>=1&&st<=4)toBody();else scrollTo(0,0)}}
 $('pauseBtn').onclick=function(){setPause(!paused)};
 $('resumeBtn').onclick=function(){setPause(false)};
 </script>
@@ -433,5 +435,6 @@ document.addEventListener('keydown',function(e){
  setInterval(function(){if(!reading()&&a.classList.contains('dim'))a.classList.remove('dim')},500);
 })();
 </script>
+<script src="bx-tap.js"></script>
 </body>
 </html>
