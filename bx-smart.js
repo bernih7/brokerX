@@ -59,8 +59,9 @@ window.BXSMART=(function(){
     try{var d=document.getElementById('bxSmartToast');
       if(!d){d=document.createElement('div');d.id='bxSmartToast';d.setAttribute('role','status');
         d.style.cssText='position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:80;max-width:calc(100vw - 32px);box-sizing:border-box;padding:10px 16px;border-radius:12px;background:#2F5D50;color:#FFFEFA;font:13px/1.55 system-ui,-apple-system,"Noto Sans TC",sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.25);text-align:center;transition:opacity .4s;cursor:pointer';
-        d.onclick=function(){d.style.opacity=0};document.body.appendChild(d)}
-      d.textContent='🧭 '+m;d.style.opacity=1;clearTimeout(d._t);d._t=setTimeout(function(){d.style.opacity=0},5000)}catch(e){}
+        d.onclick=function(){d.style.opacity=0;d.style.pointerEvents='none';setTimeout(function(){d.hidden=true},450)};document.body.appendChild(d)}
+      d.textContent='🧭 '+m;d.hidden=false;d.style.pointerEvents='auto';d.style.opacity=1;clearTimeout(d._t);clearTimeout(d._h);d._t=setTimeout(hide,5000)}catch(e){}
+    function hide(){d.style.opacity=0;d.style.pointerEvents='none';d._h=setTimeout(function(){d.hidden=true},450)}
   }
   var HINT='智慧配題：每輪 30 題＝錯題最多 4 題（C 真的不熟→A→D→B→未標）＋不熟／用猜的最多 2 題，其餘全出「沒做過」的題。沒做過的依「這章還剩幾題 × 近 5 年考頻」分到各章，章內同一條文被考過越多年的先出；沒做過的不夠才用其他錯題、答對題補滿。開始時下方會顯示本輪組成。';
   return {run:run,art:art,hint:HINT,last:''};
