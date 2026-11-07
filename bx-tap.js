@@ -7,11 +7,16 @@
   var SEL='#nextBtn,#next,[data-bxtap]';
   try{var st=document.createElement('style');st.textContent='button,a,.opt,.wtag{touch-action:manipulation}';document.head.appendChild(st)}catch(e){}
   /* 換題後回到題目開頭；題目很短時頁面仍可往上拉（iPad 瀏覽器工具列收起後，頁面不能捲就拉不回頂端） */
+  /* iPad 不小心兩指放大或畫面被推到右下角時，換題順便還原成 1 倍（暫時加 maximum-scale=1 再拿掉） */
+  function resetZoom(){try{var v=window.visualViewport,m=document.querySelector('meta[name=viewport]');
+    if(!v||!m||(v.scale<1.02&&v.offsetLeft<2&&v.offsetTop<2))return;
+    var c=m.getAttribute('content');m.setAttribute('content',c.replace(/,\s*maximum-scale=[^,]*/,'')+',maximum-scale=1');
+    setTimeout(function(){m.setAttribute('content',c)},400)}catch(e){}}
   function quizBox(){var q=document.querySelector('#quizScreen,#quiz');return q&&!q.hidden&&!q.classList.contains('hidden')?q:null}
   try{if(document.querySelector('#quizScreen,#quiz')&&!document.getElementById('segs')){var st2=document.createElement('style');st2.textContent='body{min-height:calc(100vh + 60px)}';document.head.appendChild(st2)}}catch(e){}
   document.addEventListener('click',function(e){
     var b=e.target&&e.target.closest?e.target.closest('#nextBtn,#next'):null;if(!b||document.getElementById('segs'))return;
-    setTimeout(function(){var q=quizBox();if(!q)return;var t=q.getBoundingClientRect().top;if(t<0)window.scrollTo(0,Math.max(0,t+window.scrollY-8))},30);
+    setTimeout(function(){resetZoom();var q=quizBox();if(!q)return;var t=q.getBoundingClientRect().top;if(t<0||window.scrollX)window.scrollTo(0,Math.max(0,t+window.scrollY-8))},30);
   },true);
   var t0=null;
   function hit(el){return el&&el.closest?el.closest(SEL):null}
