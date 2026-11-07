@@ -6,6 +6,13 @@
 (function(){
   var SEL='#nextBtn,#next,[data-bxtap]';
   try{var st=document.createElement('style');st.textContent='button,a,.opt,.wtag{touch-action:manipulation}';document.head.appendChild(st)}catch(e){}
+  /* 換題後回到題目開頭；題目很短時頁面仍可往上拉（iPad 瀏覽器工具列收起後，頁面不能捲就拉不回頂端） */
+  function quizBox(){var q=document.querySelector('#quizScreen,#quiz');return q&&!q.hidden&&!q.classList.contains('hidden')?q:null}
+  try{if(document.querySelector('#quizScreen,#quiz')&&!document.getElementById('segs')){var st2=document.createElement('style');st2.textContent='body{min-height:calc(100vh + 60px)}';document.head.appendChild(st2)}}catch(e){}
+  document.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest?e.target.closest('#nextBtn,#next'):null;if(!b||document.getElementById('segs'))return;
+    setTimeout(function(){var q=quizBox();if(!q)return;var t=q.getBoundingClientRect().top;if(t<0)window.scrollTo(0,Math.max(0,t+window.scrollY-8))},30);
+  },true);
   var t0=null;
   function hit(el){return el&&el.closest?el.closest(SEL):null}
   document.addEventListener('touchstart',function(e){
