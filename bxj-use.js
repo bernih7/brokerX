@@ -122,7 +122,8 @@ function status(){
  G.push({g:"模擬卷（交卷後自動記錄）",rows:R2});
  /* 記憶工具 */
  var R3=[],fo2=fcCount(),fy=fo2.yes,fs=fo2.soso,fn=fo2.no,FT=FC_IDS.length;
- R3.push(row("經紀法規概要_互動單字卡","互動單字卡",fy,FT,"已掌握 "+fy+"／"+FT+"（"+pc(fy,FT)+"%）"+(fs||fn?"・普通 "+fs+"・不熟 "+fn+"（不算已掌握）":"")));
+ var fsn=ld("jingji_flashcard_seen",{})||{},fmj=ld("jingji_flashcard_mastery",{})||{},fu={};Object.keys(fsn).forEach(function(k){if(FC_IDS.indexOf(k)>=0)fu[k]=1});Object.keys(fmj).forEach(function(k){if(fmj[k]&&FC_IDS.indexOf(k)>=0)fu[k]=1});var fsc=Math.min(Object.keys(fu).length,FT),frd=readGet("經紀法規概要_互動單字卡").n||0;
+ R3.push(row("經紀法規概要_互動單字卡","互動單字卡",frd>0?FT:fsc,FT,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+FT+"・已掌握 "+fy+(fs||fn?"・普通 "+fs+"・不熟 "+fn:"")));
  var fk=fillKeys().length,FT2=fillTotal();R3.push(row("經紀法規_定義填空練習","定義填空（選擇題攻略）",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */

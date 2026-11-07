@@ -777,13 +777,15 @@ function render(){
   fitCard();
 }
 
+function markSeen(){try{const c=deck[idx];if(!c)return;const S=JSON.parse(localStorage.getItem('bxv-st:valuation_flashcard_seen')||'{}')||{};if(S[c.id])return;S[c.id]=Math.floor(Date.now()/1000);localStorage.setItem('bxv-st:valuation_flashcard_seen',JSON.stringify(S))}catch(e){}}
 cardEl.addEventListener('click',()=>{
   if(mode==='study'){
     flipped=!flipped;
     cardEl.classList.toggle('flipped',flipped);
+    if(flipped)markSeen();
   } else {
     flipped = !flipped;
-    if(flipped) revealed = true;
+    if(flipped){ revealed = true; markSeen(); }
     render();
   }
 });
@@ -820,7 +822,7 @@ document.getElementById('markMastered').addEventListener('click',()=>{
 document.getElementById('markReview').addEventListener('click',()=>{
   setMastery('review');
 });
-function setMastery(status){
+function setMastery(status){markSeen();
   const c = deck[idx];
   mastery[c.id] = status;
   saveMastery();
@@ -843,7 +845,7 @@ function setMastery(status){
 
 quizRight.addEventListener('click',()=>recordAnswer(true));
 quizWrong.addEventListener('click',()=>recordAnswer(false));
-revealBtn.addEventListener('click',()=>{ flipped = !flipped; if(flipped) revealed = true; render(); });
+revealBtn.addEventListener('click',()=>{ flipped = !flipped; if(flipped){ revealed = true; markSeen(); } render(); });
 
 function recordAnswer(correct){
   const c = deck[idx];

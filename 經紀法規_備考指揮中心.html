@@ -1188,7 +1188,7 @@ function lagBuild(){
     +(esTot?row('申論 '+esTot+' 題',Math.min(esRead,esTot),esTot,'題','勾讀懂、看完一輪或做過 5 分鐘練習都算',GO.e):'')
     +row('閱讀／整理頁',rDone,rTot,'頁','讀完一輪＝按＋，或捲到該頁最底',GO.r)
     +row('模擬卷',mDone,mTot,'份','自擬 5 卷＋來勝模擬(一)；答完整份才算',GO.m)
-    +row('記憶工具（已掌握）',kDone,kTot,'張','單字卡標「已掌握」；填空按完成',GO.k)
+    +row('記憶工具',kDone,kTot,'張','單字卡翻過背面就算看過（或在單字卡頁按右下「讀過＋」＝整輪看完）；填空按完成',GO.k)
     +'</tbody></table>';
   var zero=[];
   dRows.forEach(function(r){if(r.done===0)zero.push({n:r.name,u:r.url})});
@@ -1213,7 +1213,7 @@ document.addEventListener('change',function(e){if(e.target&&e.target.classList&&
   <div class="group-label">今日</div>
   <p style="font-size:.9rem;margin:4px 0 8px" id="bxTodayLine"></p>
   <div class="group-label">工具完成度與閱讀次數</div>
-  <p class="hint">完成度自動計算（刷題作答、模擬卷交卷、單字卡標「掌握」、填空按完成、申論模板翻開或標已掌握、出題預測勾讀完）。速記、總整理、單字卡、填空、申論頁讀完一輪，在該頁右下按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
+  <p class="hint">完成度自動計算（刷題作答、模擬卷交卷、單字卡翻過背面、填空按完成、申論模板翻開或標已掌握、出題預測勾讀完）。速記、總整理、單字卡、填空、申論頁讀完一輪，在該頁右下按「＋」記一輪。紀錄只存在這台裝置的瀏覽器。</p>
   <div id="toolStat"></div>
   <div class="group-label">完成清單（勾選會存在本機瀏覽器）</div>
   <div id="checks"></div>

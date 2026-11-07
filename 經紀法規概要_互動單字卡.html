@@ -398,15 +398,18 @@ function renderCard() {
   document.getElementById('prevBtn').disabled = current === 0;
 }
 
+function markSeen(){try{const c=pool[current];if(!c)return;const S=JSON.parse(localStorage.getItem('jingji_flashcard_seen')||'{}')||{};if(S[c.id])return;S[c.id]=Math.floor(Date.now()/1000);localStorage.setItem('jingji_flashcard_seen',JSON.stringify(S))}catch(e){}}
 document.getElementById('flashcard').onclick = () => {
   flipped = !flipped;
   document.getElementById('flashcard').classList.toggle('flipped', flipped);
+  if(flipped)markSeen();
 };
 
 document.querySelectorAll('.mastery-btn').forEach(btn => {
   btn.onclick = async (e) => {
     e.stopPropagation();
     const c = pool[current];
+    markSeen();
     mastery[c.id] = btn.dataset.level;
     await saveMastery();
     if (current < pool.length - 1) {

@@ -329,7 +329,7 @@ function status(){
  G.push({g:"計算題組（核對答對自動記錄）",rows:R3});
  /* 記憶工具 */
  var R4=[],fm=ld("bxv-st:valuation_flashcard_mastery",{})||{},fmm=0,fmr=0;Object.keys(fm).forEach(function(k){if(fm[k]==="mastered")fmm++;else if(fm[k])fmr++});
- fmm=Math.min(fmm,TOT.card);R4.push(row("估價互動單字卡","互動單字卡",fmm,TOT.card,"已掌握 "+fmm+"／"+TOT.card+" 張"+(fmr?"・待複習 "+fmr:"")));
+ fmm=Math.min(fmm,TOT.card);var fsn=ld("bxv-st:valuation_flashcard_seen",{})||{},fu={};Object.keys(fsn).forEach(function(k){fu[k]=1});Object.keys(fm).forEach(function(k){if(fm[k])fu[k]=1});var fsc=Math.min(Object.keys(fu).length,TOT.card),frd=readGet("card").n||0;R4.push(row("估價互動單字卡","互動單字卡",frd>0?TOT.card:fsc,TOT.card,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+TOT.card+"・已掌握 "+fmm+(fmr?"・待複習 "+fmr:"")));
  var kc=ld("bxe-card-v2",{})||{},kcm=0,kcr=0;Object.keys(kc).forEach(function(k){var s=kc[k]&&typeof kc[k]==="object"?kc[k].status:kc[k];if(s==="mastered")kcm++;else if(s==="review")kcr++});
  kcm=Math.min(kcm,TOT.kcard);R4.push(row("估價_考題小卡","考題小卡",kcm,TOT.kcard,"已掌握 "+kcm+"／"+TOT.kcard+" 張"+(kcr?"・待複習 "+kcr:"")));
  var fr=parseInt(ld("bxe-fill",0),10)||0,ft=parseInt(ld("bxv-fill-total",TOT.fill),10)||TOT.fill,fd=Math.min(fillDone(),ft);
