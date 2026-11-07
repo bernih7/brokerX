@@ -11,7 +11,9 @@
   function reapply(){try{var old=meta();if(!old)return;var n=document.createElement('meta');n.name='viewport';n.content=base;
     old.parentNode.replaceChild(n,old);
     if(window.scrollX)window.scrollTo(0,window.scrollY)}catch(e){}}
-  function stale(){var ow=window.outerWidth||0,cw=document.documentElement.clientWidth;return ow>0&&Math.abs(ow-cw)>24&&Math.abs(ow-window.innerWidth)>24}
+  /* 窗寬和螢幕（依方向）差很多，也重套一次（分割畫面時重套無害） */
+  function scr(){var a=screen.width||0,b=screen.height||0,land=window.matchMedia&&matchMedia('(orientation: landscape)').matches;return land?Math.max(a,b):Math.min(a,b)}
+  function stale(){var ow=window.outerWidth||0,cw=document.documentElement.clientWidth,sw=scr();return (ow>0&&Math.abs(ow-cw)>24&&Math.abs(ow-window.innerWidth)>24)||(sw>0&&sw-window.innerWidth>24&&!stale.done&&(stale.done=1))}
   function check(force){clearTimeout(tm);tm=setTimeout(function(){var s=sig();if(force||s!==last||stale()){last=s;reapply();setTimeout(function(){last=sig()},400)}},250)}
   addEventListener('resize',function(){check(false)});
   addEventListener('orientationchange',function(){check(true)});

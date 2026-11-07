@@ -34,7 +34,7 @@
       var t=document.createElement('span');d.appendChild(x);d.appendChild(t);document.body.appendChild(d);
       function r(n){return Math.round(n*100)/100}
       function up(){var v=window.visualViewport,h=document.documentElement,q=quizBox();
-        t.textContent=['視窗 '+innerWidth+'×'+innerHeight+'  螢幕 '+screen.width+'×'+screen.height+'  dpr '+devicePixelRatio,
+        t.textContent=['視窗 '+innerWidth+'×'+innerHeight+'  外框 '+outerWidth+'×'+outerHeight+'  螢幕 '+screen.width+'×'+screen.height+'  dpr '+devicePixelRatio,
           '捲動 y '+r(scrollY)+' / '+(h.scrollHeight-innerHeight)+'  x '+r(scrollX),
           '頁寬 '+h.scrollWidth+'  body '+document.body.scrollWidth+'  頁高 '+h.scrollHeight,
           v?('縮放 '+r(v.scale)+'  偏移 '+r(v.offsetLeft)+','+r(v.offsetTop)+'  可見 '+r(v.width)+'×'+r(v.height)):'無 visualViewport',
