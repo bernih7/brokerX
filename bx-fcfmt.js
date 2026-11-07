@@ -7,18 +7,19 @@ function plainRest(h,i){return h.slice(i).replace(/<[^>]*>/g,'').replace(/\s+/g,
 function lb(h){return h.replace(/<b>([\s\S]*?)<\/b>/g,function(m,x){var t=x.replace(/<[^>]*>/g,'');if(t.length<=14)return m;return '<b class="lb">'+x.replace(/(^|>)([^<]*)/g,function(a,p,y){return p+y.replace(/(\d+(?:\.\d+)?\s*(?:日|個月|年|%|％|倍|分之[一二三四五六七八九十\d]+))/g,'<span class="nm">$1</span>')})+'</b>'})}
 function fmt(h){return lb(fmt0(h))}
 function fmt0(h){
-  h=String(h==null?'':h);if(/\n/.test(h))return h;/* 已自行分行的卡（經紀法規）不再加斷行 */var o='',d=0,prev='',prev2='',ll=0,tagLast=false,stk=[];
+  h=String(h==null?'':h);if(/\n/.test(h))return h;/* 已自行分行的卡（經紀法規）不再加斷行 */var lp=0,o='',d=0,prev='',prev2='',ll=0,tagLast=false,stk=[];
   for(var i=0;i<h.length;i++){
     var c=h[i];
     if(c==='<'){var j=h.indexOf('>',i);if(j<0)j=h.length-1;var tag=h.slice(i,j+1);o+=tag;i=j;tagLast=true;if(/^<br/i.test(tag)){prev='\n';ll=0}continue}
-    if(c==='（'||c==='('){d++;stk.push(i)}else if(c==='）'||c===')'){d=Math.max(0,d-1);stk.pop()}
-    if(d===0&&prev&&prev!=='\n'&&!tagLast&&ll>3){
-      if(CIR.test(c)&&(/[　：；。]/.test(prev)||(prev===' '&&!/[→⚠\uFE0F、，]/.test(prev2)))){o+='<br>';ll=0}
-      else if((h.substr(i,2)==='例：'||h.substr(i,3)==='陷阱：'||c==='⚠')&&!/[（(]/.test(prev)){o+='<br>';ll=0}
+    if(c==='（'||c==='('){d++;stk.push(i)}else if(c==='）'||c===')'){d=Math.max(0,d-1);var st0=stk.pop();lp=(st0!=null)?i-st0:0}
+    if(d===0&&prev&&prev!=='\n'&&ll>3){
+      if(!tagLast&&CIR.test(c)&&(/[　：；。]/.test(prev)||(prev===' '&&!/[→⚠\uFE0F、，]/.test(prev2)))){o+='<br>';ll=0}
+      else if((h.substr(i,2)==='例：'||h.substr(i,3)==='陷阱：'||h.substr(i,3)==='口訣：'||h.substr(i,3)==='記法：'||c==='⚠')&&!/[（(]/.test(prev)){o+='<br>';ll=0}
     }
     o+=c;prev2=prev;prev=c;tagLast=false;ll=(c==='\n')?0:ll+1;
     if(d>0&&c==='；'&&stk.length){var k=i,dd=0;for(;k<h.length;k++){var q=h[k];if(q==='（'||q==='(')dd++;else if(q==='）'||q===')'){if(dd===0)break;dd--}}
       if(k-stk[stk.length-1]>40&&plainRest(h,i+1).length>8){o+='<br>';prev='\n';ll=0}}
+    if(d===0&&c==='、'&&prev2==='）'&&lp>12&&plainRest(h,i+1).length>4){o+='<br>';prev='\n';ll=0;continue}
     if(d===0&&(c==='。'||c==='；')){
       var nx=h.slice(i+1,i+6);
       if(plainRest(h,i+1)&&!/^\s*(<br|\n|<\/span><span class=.trap)/i.test(nx)&&!/^\s*[）)」』]/.test(nx)){o+='<br>';prev='\n';ll=0}
