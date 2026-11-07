@@ -11,9 +11,18 @@
   /* 頁面不可左右平移（iPad 有元素略超出時，整頁會被推到左邊、右側空白）；開頁若已偏移就拉回 */
   try{var st3=document.createElement('style');st3.textContent='html,body{overflow-x:clip;max-width:100%}';document.head.appendChild(st3);if(window.scrollX)window.scrollTo(0,window.scrollY)}catch(e){}
   try{if(document.querySelector('#quizScreen,#quiz')&&!document.getElementById('segs')){var st2=document.createElement('style');st2.textContent='body{min-height:calc(100vh + 60px)}';document.head.appendChild(st2)}}catch(e){}
+  /* iPad：捲在長解析底部時換題，頁面瞬間變短，WebKit 可能卡在「畫面被往下推、拉不回頂端」的狀態
+     （右上固定鈕下移、底部固定鈕看不到）。改成：換題／開始前先捲好位置（頁面變短之前），換完再檢查一次並解卡。 */
+  var GO='#nextBtn,#next,#startBtn,#start,#resumeGo,#restartBtn,#again';
+  function unstick(y){try{var v=window.visualViewport,h=document.documentElement,max=Math.max(0,h.scrollHeight-window.innerHeight);
+    if(window.scrollX||window.scrollY>max+1||(v&&(v.offsetTop>1||v.offsetLeft>1))){window.scrollTo(0,Math.min(max,y+1));window.scrollTo(0,Math.min(max,y))}}catch(e){}}
+  function target(){var q=quizBox();if(!q)return window.scrollY;var t=q.getBoundingClientRect().top;return t<0?Math.max(0,t+window.scrollY-8):window.scrollY}
   document.addEventListener('click',function(e){
-    var b=e.target&&e.target.closest?e.target.closest('#nextBtn,#next'):null;if(!b||document.getElementById('segs'))return;
-    setTimeout(function(){var q=quizBox();if(!q)return;var t=q.getBoundingClientRect().top;if(t<0||window.scrollX)window.scrollTo(0,Math.max(0,t+window.scrollY-8))},30);
+    var b=e.target&&e.target.closest?e.target.closest(GO):null;if(!b||document.getElementById('segs')||!document.querySelector('#quizScreen,#quiz'))return;
+    var isNext=b.matches('#nextBtn,#next'),y=isNext?target():0;
+    if(window.scrollX||y!==window.scrollY)window.scrollTo(0,y);
+    setTimeout(function(){var y2=target();if(window.scrollX||y2!==window.scrollY)window.scrollTo(0,y2);unstick(window.scrollY)},30);
+    setTimeout(function(){unstick(window.scrollY)},350);
   },true);
   var t0=null;
   function hit(el){return el&&el.closest?el.closest(SEL):null}
