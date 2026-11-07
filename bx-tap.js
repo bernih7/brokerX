@@ -24,6 +24,24 @@
     setTimeout(function(){var y2=target();if(window.scrollX||y2!==window.scrollY)window.scrollTo(0,y2);unstick(window.scrollY)},30);
     setTimeout(function(){unstick(window.scrollY)},350);
   },true);
+
+  /* 診斷：網址加 #bxdebug 開啟（記住，按 × 關閉）。左下角即時顯示畫面尺寸、捲動、縮放，給截圖用。 */
+  (function(){var on=false;try{if(/bxdebug/.test(location.hash))localStorage.setItem('bx-debug','1');on=localStorage.getItem('bx-debug')==='1'}catch(e){}
+    if(!on)return;
+    function mk(){var d=document.createElement('div');d.id='bxDbg';d.style.cssText='position:fixed;left:8px;top:50%;z-index:99;background:rgba(0,0,0,.78);color:#fff;font:11px/1.45 ui-monospace,Menlo,monospace;padding:6px 8px;border-radius:8px;pointer-events:auto;max-width:60vw;white-space:pre';
+      var x=document.createElement('button');x.textContent='×';x.style.cssText='float:right;margin-left:8px;background:none;border:0;color:#fff;font-size:16px;line-height:1;padding:0 2px';
+      x.onclick=function(){try{localStorage.removeItem('bx-debug')}catch(e){}d.remove()};
+      var t=document.createElement('span');d.appendChild(x);d.appendChild(t);document.body.appendChild(d);
+      function r(n){return Math.round(n*100)/100}
+      function up(){var v=window.visualViewport,h=document.documentElement,q=quizBox();
+        t.textContent=['視窗 '+innerWidth+'×'+innerHeight+'  螢幕 '+screen.width+'×'+screen.height+'  dpr '+devicePixelRatio,
+          '捲動 y '+r(scrollY)+' / '+(h.scrollHeight-innerHeight)+'  x '+r(scrollX),
+          '頁寬 '+h.scrollWidth+'  body '+document.body.scrollWidth+'  頁高 '+h.scrollHeight,
+          v?('縮放 '+r(v.scale)+'  偏移 '+r(v.offsetLeft)+','+r(v.offsetTop)+'  可見 '+r(v.width)+'×'+r(v.height)):'無 visualViewport',
+          q?('題目卡上緣 '+r(q.getBoundingClientRect().top)):'',
+          (/CriOS/.test(navigator.userAgent)?'Chrome':/Safari/.test(navigator.userAgent)?'Safari':'?')+(/Macintosh/.test(navigator.userAgent)?'（桌面版網站）':'（行動版）')].join('\n')}
+      up();addEventListener('scroll',up,{passive:true});addEventListener('resize',up);if(window.visualViewport){visualViewport.addEventListener('scroll',up);visualViewport.addEventListener('resize',up)}setInterval(up,1000)}
+    if(document.body)mk();else addEventListener('DOMContentLoaded',mk)})();
   var t0=null;
   function hit(el){return el&&el.closest?el.closest(SEL):null}
   document.addEventListener('touchstart',function(e){
