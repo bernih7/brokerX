@@ -340,7 +340,7 @@ NAV = ('<nav><a href="#t0">⓪ 總比較表</a>' +
        ''.join('<a href="#p%d">%s</a>' % (i + 1, PNAME['P%d' % (i + 1)]) for i in range(10)) +
        '<a href="#tq">⑪ 考古題</a></nav>')
 
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>經紀法規程序總整理</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s</style></head><body>
+HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>經紀法規程序總整理</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s</style></head><body>
 <header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規概要｜程序總整理</h1><div class="sub">經紀業・經紀人員・區權會・住戶違規・基金點交・消費爭議・公平會・結合・聯合・說明書｜10 大程序＋考古 %d 題</div></header>
 %s
 <main>

@@ -383,7 +383,7 @@ BANNER = ('<div style="position:sticky;top:0;z-index:99;background:#8A5517;color
           'padding:7px 12px;font-size:13px;line-height:1.6">〔<b>demo</b>〕正式頁未動。</div>'
           ) if DEMO else ''
 
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>%s公寓大廈條例罰則</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s%s</style></head><body>
+HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>%s公寓大廈條例罰則</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s%s</style></head><body>
 %s<header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜公寓大廈條例罰則</h1><div class="sub">罰誰・誰罰・罰多少・程序　§22、§47～§52、§49-1、§59、§59-1</div></header>
 %s
 <main>

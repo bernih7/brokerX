@@ -244,7 +244,7 @@ sec('n3', '③ 比例與門檻', '%d 組' % len(RATIO),
 BODY = '\n\n'.join(S)
 NAV = '<nav><a href="#n1">① 罰鍰金額</a><a href="#n2">② 期間</a><a href="#n3">③ 比例門檻</a></nav>'
 
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>經紀法規｜數字速查</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
+HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>經紀法規｜數字速查</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
 <header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜數字速查</h1><div class="sub">先看數字，再看它屬於誰</div></header>
 %s
 <main>

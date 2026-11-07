@@ -225,7 +225,7 @@ BODY = '\n\n'.join(S)
 NAV = ('<nav><a href="#p0">⓪ 三個問題分開</a><a href="#p1">① 罰多少</a><a href="#p2">② 罰誰</a>'
        '<a href="#p3">③ 四個唯一</a><a href="#p4">④ 自我檢查</a></nav>')
 
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>公寓大廈罰則</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
+HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>公寓大廈罰則</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
 <div style="position:sticky;top:0;z-index:99;background:#8A5517;color:#fff;padding:7px 12px;font-size:13px;line-height:1.6">〔<b>重做 demo</b>〕正式頁未動。只走一條軸線：<b>罰誰 → 誰罰 → 罰多少 → 程序</b>；色彩只用站內四色（金額金底、關鍵詞紅、口訣綠底、陷阱紅框）。</div>
 <header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜公寓大廈條例罰則</h1><div class="sub">罰誰・誰罰・罰多少・要不要先限期　§47～§52、§49-1、§59</div></header>
 %s

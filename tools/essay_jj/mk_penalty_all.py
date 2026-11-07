@@ -331,7 +331,7 @@ PURPOSE = """<div class="purpose"><b class="ph">這頁拿來做什麼</b>
 公寓大廈是「未投保 4–20萬」、消保法是「定型化契約應記載事項」，三件完全不同的事。</li>
 </ul></div>""" % (PENU, TOTU, FCU, CMPU)
 
-HTML = """<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>經紀法規｜罰鍰與處分一覽表</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
+HTML = """<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>經紀法規｜罰鍰與處分一覽表</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s%s</style></head><body>
 <header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規｜罰鍰與處分一覽表</h1><div class="sub">以金額反查：四法共 %d 筆、%d 個金額級距</div></header>
 <main>
 %s

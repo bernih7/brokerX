@@ -153,7 +153,7 @@ NAV = ('<nav><a href="#d0">⓪ 四層結構</a><a href="#d1">① 三個定義</a
 SCRIPT = re.search(r'<script>\nvar QUIZ=[\s\S]*?\n</script>', SRC).group(0)
 SCRIPT = re.sub(r'var QD=\[[\s\S]*?\];\n', 'var QD=' + json.dumps(QD, ensure_ascii=False, separators=(',', ':')) + ';\n', SCRIPT, count=1)
 
-HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>定型化契約專區</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s</style></head><body>
+HTML = '''<!DOCTYPE html><html lang="zh-Hant"><head><script>/*bxdef*/(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}document.documentElement.setAttribute('data-theme',s||'light')})();</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="bx-vp.js"></script><title>定型化契約專區</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>%s</style></head><body>
 <header><button class="theme" id="themeBtn" aria-label="切換深淺色">☀️</button><h1>經紀法規概要｜定型化契約專區</h1><div class="sub">消保法這一層：四層結構・三個定義・審閱期・無效 vs 不構成・應記載不得記載效果・特種交易｜考古 %d 題</div></header>
 %s
 <main>
