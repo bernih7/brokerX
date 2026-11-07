@@ -224,6 +224,7 @@ button:active { transform: scale(.97); }
         <button class="btn-mini" id="selectAllBtn">全選</button>
         <button class="btn-mini" id="selectNoneBtn">全不選</button>
         <button class="btn-mini" id="selectWeakBtn">只練不熟的卡</button>
+        <button class="btn-mini" id="selectUnseenBtn">只練沒看過的卡</button>
       </div>
     </div>
     <div class="panel">
@@ -311,6 +312,7 @@ function chapterToGroup(chapter) {
 }
 
 function renderSetup() {
+  try{paintUnseen()}catch(e){}
   const total = ALL_CARDS.length;
   /* 只算現存的卡（舊卡號不計），與指揮中心「進度」同一算法 */
   const masteredCount = ALL_CARDS.filter(c => mastery[c.id] === 'yes').length;
@@ -346,6 +348,14 @@ document.getElementById('selectWeakBtn').onclick = () => {
   startStudy(pool);
 };
 
+function unseenCards(){let S={};try{S=JSON.parse(localStorage.getItem('jingji_flashcard_seen')||'{}')||{}}catch(e){}return ALL_CARDS.filter(c=>!S[c.id]&&!mastery[c.id])}
+function paintUnseen(){const b=document.getElementById('selectUnseenBtn');if(b)b.textContent='只練沒看過的卡（'+unseenCards().length+'）'}
+document.getElementById('selectUnseenBtn').onclick = () => {
+  const list = unseenCards();
+  if (list.length === 0) { const b=document.getElementById('selectUnseenBtn');b.textContent='全部都看過了 ✓';return; }
+  startStudy(list);
+};
+setTimeout(paintUnseen,0);
 document.querySelectorAll('.mode-chip').forEach(chip => {
   chip.onclick = () => {
     document.querySelectorAll('.mode-chip').forEach(c => c.classList.remove('active'));
@@ -474,5 +484,6 @@ b,strong{color:var(--acc-ink)!important}
 <div id="bxfab"><button class="bx-up" id="navUp" aria-label="回到最上方" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="rg" viewBox="0 0 44 44"><circle class="t" cx="22" cy="22" r="19"/><circle class="p" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><a class="bx-hub" href="%E7%B6%93%E7%B4%80%E6%B3%95%E8%A6%8F_%E5%82%99%E8%80%83%E6%8C%87%E6%8F%AE%E4%B8%AD%E5%BF%83.html" aria-label="回備考指揮中心" title="回備考指揮中心"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a></div>
 <script>(function(){var b=document.querySelector("#bxfab .bx-up"),p=b.querySelector(".p");function f(){var h=document.documentElement,m=h.scrollHeight-window.innerHeight,y=window.scrollY||0,r=m>0?Math.min(1,y/m):0;p.setAttribute("stroke-dashoffset",(119.4*(1-r)).toFixed(1));b.classList.toggle("act",y>160)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f();var bar=document.getElementById("bxfab"),vv=window.visualViewport;function z(){if(!vv||!bar)return;var s=vv.scale;if(s<=1.02){bar.style.transform="";bar.style.transformOrigin="";return}var lh=document.documentElement.clientHeight;bar.style.transformOrigin="left bottom";bar.style.transform="translate("+vv.offsetLeft+"px,"+(vv.offsetTop+vv.height-lh)+"px) scale("+(1/s)+")"}if(vv){vv.addEventListener("resize",z);vv.addEventListener("scroll",z);z()}})();</script>
 <!--/bxfab--><script>(function(){var b=document.getElementById("theme-btn");if(!b)return;function d(){var x=document.documentElement.dataset.theme;return x==="dark"||(!x&&window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)}function u(){b.textContent=d()?"淺色":"深色"}u();b.onclick=function(){var n=d()?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("bx-theme",n)}catch(e){}u()}})()</script>
+<script>try{if(location.hash==='#unseen')setTimeout(function(){paintUnseen();var l=unseenCards();if(l.length)startStudy(l)},50)}catch(e){}</script>
 </body>
 </html>

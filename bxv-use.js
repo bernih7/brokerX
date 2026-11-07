@@ -329,11 +329,11 @@ function status(){
  G.push({g:"計算題組（核對答對自動記錄）",rows:R3});
  /* 記憶工具 */
  var R4=[],fm=ld("bxv-st:valuation_flashcard_mastery",{})||{},fmm=0,fmr=0;Object.keys(fm).forEach(function(k){if(fm[k]==="mastered")fmm++;else if(fm[k])fmr++});
- fmm=Math.min(fmm,TOT.card);var fsn=ld("bxv-st:valuation_flashcard_seen",{})||{},fu={};Object.keys(fsn).forEach(function(k){fu[k]=1});Object.keys(fm).forEach(function(k){if(fm[k])fu[k]=1});var fsc=Math.min(Object.keys(fu).length,TOT.card),frd=readGet("card").n||0;R4.push(row("估價互動單字卡","互動單字卡",frd>0?TOT.card:fsc,TOT.card,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+TOT.card+"・已掌握 "+fmm+(fmr?"・待複習 "+fmr:"")));
+ fmm=Math.min(fmm,TOT.card);var fsn=ld("bxv-st:valuation_flashcard_seen",{})||{},fu={};Object.keys(fsn).forEach(function(k){fu[k]=1});Object.keys(fm).forEach(function(k){if(fm[k])fu[k]=1});var fsc=Math.min(Object.keys(fu).length,TOT.card),frd=readGet("card").n||0;(function(r){r.url+="#unseen";R4.push(r)})(row("估價互動單字卡","互動單字卡",frd>0?TOT.card:fsc,TOT.card,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+TOT.card+"・已掌握 "+fmm+(fmr?"・待複習 "+fmr:"")));
  var kc=ld("bxe-card-v2",{})||{},kcm=0,kcr=0;Object.keys(kc).forEach(function(k){var s=kc[k]&&typeof kc[k]==="object"?kc[k].status:kc[k];if(s==="mastered")kcm++;else if(s==="review")kcr++});
  kcm=Math.min(kcm,TOT.kcard);R4.push(row("估價_考題小卡","考題小卡",kcm,TOT.kcard,"已掌握 "+kcm+"／"+TOT.kcard+" 張"+(kcr?"・待複習 "+kcr:"")));
  var fr=parseInt(ld("bxe-fill",0),10)||0,ft=parseInt(ld("bxv-fill-total",TOT.fill),10)||TOT.fill,fd=Math.min(fillDone(),ft);
- R4.push(row("估價_定義填空練習","定義填空（選擇題攻略）",fd,ft,"已完成 "+fd+"／"+ft+" 張"+(fr?"・隨機測驗跑完 "+fr+" 輪":"")));
+ (function(r){r.url+="#todo";R4.push(r)})(row("估價_定義填空練習","定義填空（選擇題攻略）",fd,ft,"已完成 "+fd+"／"+ft+" 張"+(fr?"・隨機測驗跑完 "+fr+" 輪":"")));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R4});
  /* 申論 */
  var er=ld("bx-essay-read",[]),en=0;if(Array.isArray(er))er.forEach(function(id){if(/^(e\d+-[12]|pred-\d+|mk-[a-z0-9-]+)$/.test(id))en++});en=Math.min(en,TOT.essay);

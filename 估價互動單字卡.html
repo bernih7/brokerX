@@ -103,6 +103,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .status-row .chip.review.active{background:var(--stamp);color:#fff;}
 .status-row .chip.mastered{border-color:var(--green);color:var(--green);}
 .status-row .chip.mastered.active{background:var(--green);color:#fff;}
+.status-row .chip.unseen{border-color:var(--ink);color:var(--ink);}
+.status-row .chip.unseen.active{background:var(--ink);color:var(--bg);}
 
 .progress{
   text-align:center;font-family:"Noto Serif TC",serif;font-weight:700;
@@ -664,6 +666,7 @@ function renderStatusRow(){
     {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
     {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
   ];
+  defs.push({key:'unseen', label:`👀 沒看過 (${inCat.filter(c=>!bxvSeen(c)).length})`, cls:'unseen'});
   defs.forEach(d=>{
     const chip=document.createElement('div');
     chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
@@ -681,6 +684,7 @@ function rebuildDeck(){
   let pool = CARDS.filter(c=>activeCats.has(c.cat));
   if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
   if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  if(statusFilter==='unseen') pool = pool.filter(c=>!bxvSeen(c));
   deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
   idx = 0;
   render();
@@ -777,7 +781,9 @@ function render(){
   fitCard();
 }
 
-function markSeen(){try{const c=deck[idx];if(!c)return;const S=JSON.parse(localStorage.getItem('bxv-st:valuation_flashcard_seen')||'{}')||{};if(S[c.id])return;S[c.id]=Math.floor(Date.now()/1000);localStorage.setItem('bxv-st:valuation_flashcard_seen',JSON.stringify(S))}catch(e){}}
+let BXVS={};try{BXVS=JSON.parse(localStorage.getItem('bxv-st:valuation_flashcard_seen')||'{}')||{}}catch(e){}
+function bxvSeen(c){return !!BXVS[c.id]||!!mastery[c.id]}
+function markSeen(){try{const c=deck[idx];if(!c)return;const S=JSON.parse(localStorage.getItem('bxv-st:valuation_flashcard_seen')||'{}')||{};if(S[c.id])return;S[c.id]=Math.floor(Date.now()/1000);localStorage.setItem('bxv-st:valuation_flashcard_seen',JSON.stringify(S));BXVS=S;renderStatusRow()}catch(e){}}
 cardEl.addEventListener('click',()=>{
   if(mode==='study'){
     flipped=!flipped;
@@ -829,7 +835,7 @@ function setMastery(status){markSeen();
   renderStatusRow();
   if(statusFilter!=='all'){
     const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
-                          (statusFilter==='review' && status!=='mastered');
+                          (statusFilter==='review' && status!=='mastered') || statusFilter==='unseen';
     if(!stillMatches){
       let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
       if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
@@ -908,6 +914,7 @@ document.getElementById('resetMastery').addEventListener('click',async ()=>{
 
 (async function init(){
   await loadMastery();
+  if(location.hash==='#unseen')statusFilter='unseen';
   renderStatusRow();
   rebuildDeck();
 })();

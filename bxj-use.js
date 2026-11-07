@@ -123,8 +123,8 @@ function status(){
  /* 記憶工具 */
  var R3=[],fo2=fcCount(),fy=fo2.yes,fs=fo2.soso,fn=fo2.no,FT=FC_IDS.length;
  var fsn=ld("jingji_flashcard_seen",{})||{},fmj=ld("jingji_flashcard_mastery",{})||{},fu={};Object.keys(fsn).forEach(function(k){if(FC_IDS.indexOf(k)>=0)fu[k]=1});Object.keys(fmj).forEach(function(k){if(fmj[k]&&FC_IDS.indexOf(k)>=0)fu[k]=1});var fsc=Math.min(Object.keys(fu).length,FT),frd=readGet("經紀法規概要_互動單字卡").n||0;
- R3.push(row("經紀法規概要_互動單字卡","互動單字卡",frd>0?FT:fsc,FT,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+FT+"・已掌握 "+fy+(fs||fn?"・普通 "+fs+"・不熟 "+fn:"")));
- var fk=fillKeys().length,FT2=fillTotal();R3.push(row("經紀法規_定義填空練習","定義填空（選擇題攻略）",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
+ (function(r){r.url+="#unseen";R3.push(r)})(row("經紀法規概要_互動單字卡","互動單字卡",frd>0?FT:fsc,FT,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+FT+"・已掌握 "+fy+(fs||fn?"・普通 "+fs+"・不熟 "+fn:"")));
+ var fk=fillKeys().length,FT2=fillTotal();(function(r){r.url+="#todo";R3.push(r)})(row("經紀法規_定義填空練習","定義填空（選擇題攻略）",fk,FT2,"已完成 "+fk+"／"+FT2+" 張（"+pc(fk,FT2)+"%）"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],rs4=ld("bxj-es-read",{}),lg4=ld("bxj-es-log",{}),sp4=ld("bxj-es-sprint",{}),ES4=[].slice.call(document.querySelectorAll(".essay-detail[id^=es-]")),ids4=ES4.length?ES4.map(function(d){return d.id}):null,u4={};function cnt4(k){if(ids4&&ids4.indexOf(k)<0)return;u4[k]=1}Object.keys(rs4).forEach(function(k){if(rs4[k])cnt4(k)});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)cnt4(k)});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)cnt4(k)});var T4=ids4?ids4.length:75,rn4=Math.min(Object.keys(u4).length,T4),nx4=ids4?ids4.filter(function(k){return !u4[k]})[0]:"";R4.push({p:"",url:nx4?"#"+nx4:"#es-fw01",name:"申論 "+T4+" 題（指揮中心申論卡）",done:rn4,total:T4,pct:Math.round(rn4/T4*100),txt:"已讀 "+rn4+"／"+T4+"（勾讀懂、讀過一輪、做過 5 分鐘練習都算）",read:null,open:null,last:0});

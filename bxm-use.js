@@ -142,8 +142,8 @@ function status(){
  var WORD={A:["mastery_data_a",42],BC:["mastery_data",38],D:["mastery_data_d",50],E:["mastery_data_e",42]};
  function deck(set,suffix,label){DK.forEach(function(d){var k=set[d[0]],x=mcount(k[0],k[1]);R3.push(row("民法"+d[0]+suffix,label+" "+d[1],x.m,x.t,"已掌握 "+x.m+"／"+x.t+(x.r?"・待複習 "+x.r:"")))})}
  deck(SEL,"_考題小卡","精選小卡");deck(FULL,"_完整考題小卡","完整小卡");
- DK.forEach(function(d){var k=WORD[d[0]],x=mcount(k[0],k[1]),mm=st(k[0]),sn=st(k[0]+"_seen"),u={};Object.keys(sn).forEach(function(i){if(sn[i])u[i]=1});Object.keys(mm).forEach(function(i){if(mm[i])u[i]=1});var sc=Math.min(Object.keys(u).length,x.t),p="民法"+d[0]+"_互動單字卡",rd=readGet(p).n||0;R3.push(row(p,"單字卡 "+d[1],rd>0?x.t:sc,x.t,(rd>0?"已讀完 "+rd+" 輪・":"")+"看過 "+sc+"／"+x.t+"・已掌握 "+x.m+(x.r?"・待複習 "+x.r:"")))});
- var fkk=Object.keys(ld("bxm-fill",{})),fk=fkk.filter(function(k){return k.charAt(0)!=="S"}).length,fe=fkk.length-fk;R3.push(row("民法_定義填空練習","定義填空（選擇題攻略）",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
+ DK.forEach(function(d){var k=WORD[d[0]],x=mcount(k[0],k[1]),mm=st(k[0]),sn=st(k[0]+"_seen"),u={};Object.keys(sn).forEach(function(i){if(sn[i])u[i]=1});Object.keys(mm).forEach(function(i){if(mm[i])u[i]=1});var sc=Math.min(Object.keys(u).length,x.t),p="民法"+d[0]+"_互動單字卡",rd=readGet(p).n||0;(function(r){r.url+="#unseen";R3.push(r)})(row(p,"單字卡 "+d[1],rd>0?x.t:sc,x.t,(rd>0?"已讀完 "+rd+" 輪・":"")+"看過 "+sc+"／"+x.t+"・已掌握 "+x.m+(x.r?"・待複習 "+x.r:"")))});
+ var fkk=Object.keys(ld("bxm-fill",{})),fk=fkk.filter(function(k){return k.charAt(0)!=="S"}).length,fe=fkk.length-fk;(function(r){r.url+="#todo";R3.push(r)})(row("民法_定義填空練習","定義填空（選擇題攻略）",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
  G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
  /* 申論 */
  var R4=[],rs=ld("minfa_read",{}),lg4=ld("bxm-es-log",{}),sp4=ld("bxm-es-sprint",{}),u4={};Object.keys(rs).forEach(function(k){if(rs[k])u4[k]=1});Object.keys(lg4).forEach(function(k){if(lg4[k]&&lg4[k].n)u4[k]=1});Object.keys(sp4).forEach(function(k){if(sp4[k]&&sp4[k].length)u4[k]=1});var rn=Object.keys(u4).length;

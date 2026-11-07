@@ -84,6 +84,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .status-row .chip.review.active{background:var(--stamp);color:var(--onc);}
 .status-row .chip.mastered{border-color:var(--green);color:var(--green);}
 .status-row .chip.mastered.active{background:var(--green);color:var(--onc);}
+.status-row .chip.unseen{border-color:var(--ink);color:var(--ink);}
+.status-row .chip.unseen.active{background:var(--ink);color:var(--onc);}
 
 /* progress */
 .progress{
@@ -366,7 +368,7 @@ async function loadSeen(){
 }
 async function saveSeen(){ try{ await window.storage.set('mastery_data_seen', JSON.stringify(seen)); }catch(e){} }
 function isDone(c){ return !!seen[c.id] || !!mastery[c.id]; }
-function markSeen(c){ if(!seen[c.id]){ seen[c.id]=true; saveSeen(); } }
+function markSeen(c){ if(!seen[c.id]){ seen[c.id]=true; saveSeen(); try{renderStatusRow()}catch(e){} } }
 async function loadMastery(){
   try{
     const res = await window.storage.get('mastery_data');
@@ -429,6 +431,7 @@ function renderStatusRow(){
     {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
     {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
   ];
+  defs.push({key:'unseen', label:`👀 沒看過 (${inCat.filter(c=>!isDone(c)).length})`, cls:'unseen'});
   defs.forEach(d=>{
     const chip=document.createElement('div');
     chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
@@ -446,6 +449,7 @@ function rebuildDeck(){
   let pool = CARDS.filter(c=>activeCats.has(c.cat));
   if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
   if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  if(statusFilter==='unseen') pool = pool.filter(c=>!isDone(c));
   deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
   idx = 0;
   render();
@@ -568,7 +572,7 @@ function setMastery(status){
   // if current status filter excludes this card now, rebuild (keeps list moving)
   if(statusFilter!=='all'){
     const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
-                          (statusFilter==='review' && status!=='mastered');
+                          (statusFilter==='review' && status!=='mastered') || statusFilter==='unseen';
     if(!stillMatches){
       let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
       if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
@@ -650,6 +654,7 @@ document.getElementById('resetMastery').addEventListener('click',async ()=>{
 (async function init(){
   await loadMastery();
   await loadSeen();
+  if(location.hash==='#unseen')statusFilter='unseen';
   renderStatusRow();
   rebuildDeck();
 })();

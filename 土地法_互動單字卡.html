@@ -84,6 +84,8 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);
 .status-row .chip.review.active{background:var(--pri);color:var(--onpri);}
 .status-row .chip.mastered{border-color:var(--green);color:var(--green);}
 .status-row .chip.mastered.active{background:var(--green);color:var(--onacc);}
+.status-row .chip.unseen{border-color:var(--ink);color:var(--ink);}
+.status-row .chip.unseen.active{background:var(--ink);color:var(--card);}
 
 .progress{
   text-align:center;font-family:'Noto Serif TC',serif;font-weight:700;
@@ -398,6 +400,7 @@ function renderStatusRow(){
     {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
   ];
   const seenCount = inCat.filter(c=>seen[c.id]||mastery[c.id]).length;
+  defs.push({key:'unseen', label:`👀 沒看過 (${inCat.length-seenCount})`, cls:'unseen'});
   defs.forEach(d=>{
     const chip=document.createElement('div');
     chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
@@ -416,6 +419,7 @@ function rebuildDeck(){
   let pool = CARDS.filter(c=>activeCats.has(c.cat));
   if(statusFilter==='review') pool = pool.filter(c=>mastery[c.id]!=='mastered');
   if(statusFilter==='mastered') pool = pool.filter(c=>mastery[c.id]==='mastered');
+  if(statusFilter==='unseen') pool = pool.filter(c=>!seen[c.id]&&!mastery[c.id]);
   deck = pool.length ? pool : CARDS.filter(c=>activeCats.has(c.cat));
   idx = 0;
   render();
@@ -528,7 +532,7 @@ function setMastery(status){
   renderStatusRow();
   if(statusFilter!=='all'){
     const stillMatches = (statusFilter==='mastered' && status==='mastered') ||
-                          (statusFilter==='review' && status!=='mastered');
+                          (statusFilter==='review' && status!=='mastered') || statusFilter==='unseen';
     if(!stillMatches){
       let pool = CARDS.filter(cc=>activeCats.has(cc.cat));
       if(statusFilter==='review') pool = pool.filter(cc=>mastery[cc.id]!=='mastered');
@@ -645,5 +649,6 @@ function applyTheme(dark){document.documentElement.setAttribute('data-theme',dar
 function toggleTheme(){var next=!isDark();applyTheme(next);try{localStorage.setItem('bx-theme',next?'dark':'light');}catch(e){}}
 (function(){try{var s=localStorage.getItem('bx-theme');if(s)applyTheme(s==='dark');else applyTheme(isDark());}catch(e){applyTheme(isDark());}})();
 </script>
+<script>try{if(location.hash==='#unseen'){statusFilter='unseen';rebuildDeck()}}catch(e){}</script>
 </body>
 </html>
