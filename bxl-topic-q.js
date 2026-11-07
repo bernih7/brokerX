@@ -73,7 +73,7 @@
   function ld(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
   function sv(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
-  function rich(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); }
+  function rich(t) { return esc(t).replace(/&lt;(\/?(?:b|br|sup|sub))&gt;/g, '<$1>').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); }
   function qid(q) { return q.ch + '-' + q.y + '-' + q.n; }
   function db() { return ld('bx-q2', {}); }
 

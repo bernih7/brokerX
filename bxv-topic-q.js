@@ -19,6 +19,7 @@ var css=".bxv-tq{margin:18px 0;border:1px solid var(--line,#ddd);border-radius:1
 var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function safe(s){return esc(s).replace(/&lt;(\/?(?:b|br|sup|sub))&gt;/g,"<$1>")}
 function init(){
  var Q=window.BXV_QUIZ;if(!Q)return;
  var wclr=+(function(){try{return localStorage.getItem("bxv-wclr")||0}catch(e){return 0}})()||0;
@@ -44,8 +45,8 @@ function init(){
     var sl=q._s==="u"?"未練":(q._wrong?"✗"+(q._k&&q._k!=="D"?q._k:""):(q._k==="D"?"猜對":"✓"));
     var cls=q._s==="u"?"u":(q._wrong?"x":"o");
     var ops=q.opts.map(function(o,j){return '<div class="op'+(j===q.correct?' ok':'')+'">'+"ABCD"[j]+'. '+esc(o)+(j===q.correct?' ✔':'')+'</div>'}).join("");
-    var ex=q.exps&&q.exps[q.correct]?'<div class="nt">解析：'+esc(q.exps[q.correct])+'</div>':'';
-    var nt=q.note?'<div class="nt">⚠️ '+esc(q.note)+'</div>':'';
+    var ex=q.exps&&q.exps[q.correct]?'<div class="nt">解析：'+safe(q.exps[q.correct])+'</div>':'';
+    var nt=q.note?'<div class="nt">⚠️ '+safe(q.note)+'</div>':'';
     if(window.BXV_LINKS_HTML)nt+=BXV_LINKS_HTML(q.ch,q.q+q.opts.join(''),q.q+q.opts.join('')+(q.exps||[]).join(''));
     return '<details><summary><span class="yr">'+esc(q.year)+'</span><span class="st '+cls+'">'+sl+'</span><span class="qt">'+esc(q.q)+'</span></summary><div class="bd">'+ops+ex+nt+'</div></details>'}).join("");
   }
