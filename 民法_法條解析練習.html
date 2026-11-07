@@ -293,7 +293,7 @@ function isOos(q){return !!q.oos}
 var OFF=Q.filter(function(q){return !isMock(q)&&!isOos(q)}), MK=Q.filter(isMock);
 
 /* ---------- 狀態 ---------- */
-var sel=new Set(Object.keys(CT)), ord=ld('bxm-anal-ord','new'), num=30, useTm=false;
+var sel=new Set(Object.keys(CT)), ord=ld('bxm-anal-ord','new'), num=30, useTm=(function(){try{return localStorage.getItem('bxm-anal-tm')!=='0'}catch(e){return true}})();
 var useMock=0;
 var pool=[],idx=0,ansMap={},roundWrong=[],t0=0,tmr=null,timedOut=false,mode='ch',PZ=false,pzAcc=0,pzAt=0;
 var WCLR=ld('bxm-wclr',0);
@@ -357,7 +357,7 @@ function renderOrd(){
 document.getElementById('ordRow').onclick=function(e){var b=e.target.closest('[data-ord]');if(!b)return;ord=b.dataset.ord;sv('bxm-anal-ord',ord);renderOrd()};
 function renderNum(){[].forEach.call(document.querySelectorAll('#numRow .btn'),function(b){b.classList.toggle('on',+b.dataset.num===num)})}
 document.getElementById('numRow').onclick=function(e){var b=e.target.closest('[data-num]');if(!b)return;num=+b.dataset.num;renderNum()};
-document.getElementById('tmBtn').onclick=function(){useTm=!useTm;this.textContent='計時：'+(useTm?'開':'關');this.classList.toggle('on',useTm)};
+(function(){var tb=document.getElementById('tmBtn');tb.textContent='計時：'+(useTm?'開':'關');tb.classList.toggle('on',useTm)})();document.getElementById('tmBtn').onclick=function(){useTm=!useTm;try{localStorage.setItem('bxm-anal-tm',useTm?'1':'0')}catch(e){}this.textContent='計時：'+(useTm?'開':'關');this.classList.toggle('on',useTm)};
 
 /* 錯題本：共用紀錄的「最近一次答錯」 */
 function wrongList(tag){var DB=db();
