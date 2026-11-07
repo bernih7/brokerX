@@ -346,6 +346,8 @@ const quizNg = document.getElementById('quizNg');
 const breakdownPanel = document.getElementById('breakdownPanel');
 
 const SKEY='land_flashcard_mastery_v1';
+const SEENK='land_flashcard_seen_v1';let seen={};try{seen=JSON.parse(localStorage.getItem(SEENK)||'{}')||{}}catch(e){}
+function markSeen(){try{const c=deck[idx];if(!c||seen[c.id])return;seen[c.id]=Math.floor(Date.now()/1000);localStorage.setItem(SEENK,JSON.stringify(seen));if(typeof renderStatusRow==='function')renderStatusRow()}catch(e){}}
 async function loadMastery(){
   try{const v=localStorage.getItem(SKEY);if(v)mastery=JSON.parse(v);}catch(e){mastery={};}
 }
@@ -395,6 +397,7 @@ function renderStatusRow(){
     {key:'review', label:`🔄 待複習 (${reviewCount})`, cls:'review'},
     {key:'mastered', label:`✅ 已掌握 (${masteredCount})`, cls:'mastered'}
   ];
+  const seenCount = inCat.filter(c=>seen[c.id]||mastery[c.id]).length;
   defs.forEach(d=>{
     const chip=document.createElement('div');
     chip.className='chip '+d.cls+(statusFilter===d.key?' active':'');
@@ -405,6 +408,7 @@ function renderStatusRow(){
     });
     statusRow.appendChild(chip);
   });
+  const sp=document.createElement('span');sp.style.cssText='align-self:center;font-size:13px;color:var(--muted,#888);margin-left:4px;white-space:nowrap';sp.textContent='👀 看過 '+seenCount+'／'+inCat.length;statusRow.appendChild(sp);
 }
 
 function rebuildDeck(){
@@ -479,8 +483,9 @@ cardEl.addEventListener('click',()=>{
   if(mode==='study'){
     flipped=!flipped;
     cardEl.classList.toggle('flipped',flipped);
+    if(flipped)markSeen();
   } else {
-    if(!revealed){ revealed=true; render(); }
+    if(!revealed){ revealed=true; render(); markSeen(); }
   }
 });
 
@@ -518,7 +523,7 @@ document.getElementById('markReview').addEventListener('click',()=>{
 });
 function setMastery(status){
   const c = deck[idx];
-  mastery[c.id] = status;
+  mastery[c.id] = status;markSeen();
   saveMastery();
   renderStatusRow();
   if(statusFilter!=='all'){

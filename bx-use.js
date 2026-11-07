@@ -120,9 +120,10 @@ function status(){
  /* 記憶工具 */
  var R3=[],x1=mcount("exam_mastery_land_v1",TOT.card),x2=mcount("land_flashcard_mastery_v1",TOT.flash);
  R3.push(row("土地法_考題小卡","考題小卡",Math.min(x1.m,x1.t),x1.t,"已掌握 "+x1.m+"／"+x1.t+(x1.r?"・待複習 "+x1.r:"")));
- R3.push(row("土地法_互動單字卡","互動單字卡",Math.min(x2.m,x2.t),x2.t,"已掌握 "+x2.m+"／"+x2.t+(x2.r?"・待複習 "+x2.r:"")));
+ var fsn=ld("land_flashcard_seen_v1",{}),fmm=ld("land_flashcard_mastery_v1",{}),fsu={};Object.keys(fsn).forEach(function(k){fsu[k]=1});Object.keys(fmm).forEach(function(k){if(fmm[k])fsu[k]=1});var fsc=Math.min(Object.keys(fsu).length,x2.t),frd=readGet("土地法_互動單字卡").n||0,fdn=frd>0?x2.t:fsc;
+ R3.push(row("土地法_互動單字卡","互動單字卡",fdn,x2.t,(frd>0?"已讀完 "+frd+" 輪・":"")+"看過 "+fsc+"／"+x2.t+"・已掌握 "+x2.m+(x2.r?"・待複習 "+x2.r:"")));
  var fkk=Object.keys(ld("bx-fill",{})),fk=fkk.filter(function(k){return k.charAt(0)!=="S"}).length,fe=fkk.length-fk;R3.push(row("土地法_定義填空練習","定義填空（選擇題攻略）",Math.min(fk,TOT.fill),TOT.fill,"已完成 "+fk+"／"+TOT.fill+" 張"));
- G.push({g:"記憶工具（已掌握＝自己標記）",rows:R3});
+ G.push({g:"記憶工具（單字卡看過即算；填空按完成）",rows:R3});
  /* 申論 */
  var R4=[],es=ld("bx-es-read",{}),eo=0,ep=0,EM=window.BXL_ESSAY||null,no=32,np=TOT.essay-32;if(EM){no=EM.filter(function(x){return x.k==="off"}).length;np=EM.length-no;EM.forEach(function(x){if(es[x.i]){if(x.k==="off")eo++;else ep++}})}else Object.keys(es).forEach(function(k){if(!es[k])return;if(/^q-/.test(k))eo++;else ep++});var en=eo+ep,ET=no+np;
  R4.push(row("土地法_申論題分類總覽","申論總覽（官方 "+no+"＋預測／模擬 "+np+"）",Math.min(en,ET),ET,"已讀 "+en+"／"+ET+"（官方 "+eo+"／"+no+"・預測／模擬 "+ep+"／"+np+"）"));
