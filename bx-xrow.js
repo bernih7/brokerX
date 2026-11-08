@@ -3,8 +3,8 @@
    對在／錯在＝這個選項的敘述對不對：題幹問「錯誤／非／不得／不屬…」時，答案那項是「錯在」、其餘「對在」；其他題型相反。
    依賴 bxm-exp.js（bxmExp）。 */
 (function(){
-  var NEG=/錯誤|不正確|有誤|非|不得|不屬|不包括|不包含|不是|不適用|無(?!理由)|不在(?!此限)/;
-  function tail(st){st=String(st||'');var r=/何者|何種|何項|何|哪|那/g,m,last=-1;while((m=r.exec(st)))last=m.index;return last>=0?st.slice(last):st.slice(-14)}
+  var NEG=/錯誤|不正確|有誤|非|不得|不屬|不包括|不包含|不是|不適用(?!.{0,14}之規定)|無(?!理由)|不在(?!此限)/;
+  function tail(st){st=String(st||'');var r=/何者|何種|何項|何|哪|那|多少|幾/g,m,last=-1;while((m=r.exec(st)))last=m.index;var t=last>=0?st.slice(last):st.slice(-14),q=t.search(/[？?]/);return q>=0?t.slice(0,q):t}
   window.bxNegStem=function(stem){return NEG.test(tail(stem))};
   if(!document.getElementById('bx-xrow-css')){var s=document.createElement('style');s.id='bx-xrow-css';s.textContent=
     '.xrs{border:1px solid rgba(120,110,95,.28);border-radius:10px;overflow:hidden;background:var(--card,#FFFEFA)}'+
