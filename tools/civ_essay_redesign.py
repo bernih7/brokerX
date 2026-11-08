@@ -133,6 +133,8 @@ def put(s, tag, block, where):
         b = s.index('</style>' if 'css' in tag else '</script>', a) + (8 if 'css' in tag else 9)
         return s[:a] + block + s[b:]
     i = s.rindex(where); return s[:i] + block + '\n' + s[i:]
+s = s.replace('排序規則（考機率高→低）：先依組別（16 年考頻加權：共有＞抵押權＞無權處分＞契約＞意思表示＝時效繼承），組內 A→B→C，同級新題在前；預測題排在各組官方題之後。',
+              '排序規則：組別依 115 預估題數由高到低（契約＞共有＞無權處分＞抵押權＞意思表示＝時效繼承）；組內官方題在前、預測與模擬卷在後。')
 s = put(s, 'esx-css', CSS, '</head>')
 s = put(s, 'esx-js', JS, '</body>')
 open(P, 'w', encoding='utf-8').write(s)
