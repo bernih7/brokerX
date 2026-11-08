@@ -19,7 +19,7 @@ def lst(x):
     p = [x[:c[0]]] + [x[a:b] for a, b in zip(c, c[1:] + [len(x)])]
     return p[0] + ''.join('<span class="evli">%s</span>' % i for i in p[1:] if i)
 def fmt(t):
-    return '<br>'.join(lst(ART.sub(lambda m: '<span class="art">' + m.group(1) + '</span>', html.escape(p, quote=False))) for p in t.split('<br>'))
+    return '<br>'.join(lst(ART.sub(lambda m: '<span class="art">' + m.group(1) + '</span>', html.escape(p, quote=False))) for p in t.split('<br>')).replace('&lt;mark&gt;', '<mark>').replace('&lt;/mark&gt;', '</mark>')
 PT = re.compile(r'^（[一二三四五六七八九十]+）')
 def point(t):
     """涵攝一點：小標粗體一行；「例：」「理由在於」各自一行並加灰色小標籤（內容不改）"""
@@ -55,12 +55,13 @@ for key, blocks in EV.items():
 CSS = ('<style id="ev-css">.ebody .vp.ev{display:grid;gap:8px;margin-top:4px}.ebody .vp.ev[hidden]{display:none}'
        '.ebody .evb{background:color-mix(in srgb,var(--c) 11%,var(--surface));border-radius:10px;padding:9px 13px}'
        '.ebody .evb .evh{display:block;color:var(--c);font-size:.86rem;margin-bottom:2px}'
-       '.ebody .evb p{margin:0;font-size:.95rem;line-height:1.85;max-width:44em}'
+       '.ebody .evb p{margin:0;font-size:.95rem;line-height:1.85}'
        '.ebody .evb .evp{margin-top:10px}.ebody .evb .evp:first-of-type{margin-top:2px}.ebody .evb .evph{font-weight:700}'
        '.ebody .evb .evx{display:flex;gap:8px;align-items:baseline;margin-top:2px}.ebody .evb .evli,.ebody .vp .evli{display:block;padding-left:1.15em;text-indent:-1.15em;margin-top:3px}'
        '.ebody .evb .evt{flex:none;font-size:.74em;line-height:1.6;padding:0 7px;border-radius:999px;background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--sub);font-weight:600}'
        '.ebody .evb.e1{--c:var(--b3)}.ebody .evb.e2{--c:var(--b1)}.ebody .evb.e3{--c:var(--b4)}.ebody .evb.e4{--c:var(--bad)}'
-       '.ebody .evb .art,#pEss .ebody .evb a.lw{color:var(--sub);font-weight:400;text-decoration:underline dotted;text-underline-offset:3px;border-bottom:0;background:none}</style>')
+       '.ebody .evb .art,#pEss .ebody .evb a.lw{color:var(--sub);font-weight:400;text-decoration:underline dotted;text-underline-offset:3px;border-bottom:0;background:none}'
+       '.ebody .evb mark{background:linear-gradient(transparent 50%,rgba(242,201,76,.55) 50%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}</style>')
 s = re.sub(r'<style id="ev-css">.*?</style>', '', s, flags=re.S)
 s = s.replace('</head>', CSS + '</head>', 1)
 io.open(F, 'w', encoding='utf-8').write(s)

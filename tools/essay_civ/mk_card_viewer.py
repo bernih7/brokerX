@@ -7,6 +7,7 @@ import os, re
 R = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 s = open(os.path.join(R, '民法_備考指揮中心.html'), encoding='utf-8').read()
 head = s[:s.find('</head>')]
+head = re.sub(r'<style id="esx-css">.*?</style>', '', head, flags=re.S)  # 指揮中心申論分頁外層改版樣式，單卡頁不用
 head = re.sub(r'<title>.*?</title>', '<title>民法｜申論卡</title>', head)
 cards = []
 for m in re.finditer(r'<details class="essay[^"]*" data-lv="\w" data-key="([^"]+)"', s):
