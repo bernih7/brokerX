@@ -443,7 +443,7 @@ function selectAnswer(idx) {
  lawBlock.insertBefore(resultNote, lawBlock.querySelector('.law-block-title').nextSibling);
 
   var _e=EXPS[q.year+'-'+q.num]||[],_L=['A','B','C','D'],_h='';
-  var _k=q.year+'-'+q.num;_h=bxXRows({stem:q.text,exps:q.options.map(function(o,i){return _e[i]||''}),ans:q.answer,pick:idx,core:(window.BXL_CORE||{})[_k],keys:(window.BXL_HL||{})[_k]});
+  var _k=q.year+'-'+q.num;_h=bxXRows({stem:q.text,opts:q.options,exps:q.options.map(function(o,i){return _e[i]||''}),ans:q.answer,pick:idx,core:(window.BXL_CORE||{})[_k],keys:(window.BXL_HL||{})[_k]});
   var _segs=bxRel(hint,q.text+q.options.join('')+_e.join(''));if(_segs.length)_h+='<details class="lawsum" open><summary>本題相關法條</summary><div></div></details>';
   lawText.innerHTML=_h;var _ld=lawText.querySelector('details.lawsum div');if(_ld)_ld.innerHTML=_segs.map(bxBrk).join('<div style="height:6px"></div>');
   var _o=lawBlock.querySelector('.bxtl,.bxl-links');if(_o)_o.remove();var _so=q.text+q.options.join('');var _t=window.BXL_LINKS_HTML?BXL_LINKS_HTML(q.chapter,_so,_so):bxTax(q.chapter,_so,_so);if(_t)lawBlock.insertAdjacentHTML('beforeend',_t);

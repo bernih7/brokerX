@@ -3,9 +3,14 @@
    對在／錯在＝這個選項的敘述對不對：題幹問「錯誤／非／不得／不屬…」時，答案那項是「錯在」、其餘「對在」；其他題型相反。
    依賴 bxm-exp.js（bxmExp）。 */
 (function(){
-  var NEG=/錯誤|不正確|有誤|非|不得|不屬|不包括|不包含|不是|不適用(?!.{0,14}之規定)|無(?!理由)|不在(?!此限)/;
+  var NEG=/錯誤|不正確|有誤|非|不得(?!超過|少於|小於|多於|低於|逾)|不屬|不包括|不包含|不是|不適用(?!.{0,14}之規定)|無(?!理由)|沒有|不在(?!此限)|不需|不必|不宜|不符|不應|不可|不能|最不/;
   function tail(st){st=String(st||'');var r=/何者|何種|何項|何|哪|那|多少|幾/g,m,last=-1;while((m=r.exec(st)))last=m.index;var t=last>=0?st.slice(last):st.slice(-14),q=t.search(/[？?]/);return q>=0?t.slice(0,q):t}
-  window.bxNegStem=function(stem){return NEG.test(tail(stem))};
+  window.bxNegStem=function(stem){
+    stem=String(stem||'');try{stem=stem.normalize('NFKC')}catch(e){}  /* PDF 來的相容字（如 U+F967 不）先正規化 */
+    var t=tail(stem),pre=stem.slice(0,stem.length-t.length);
+    var n=NEG.test(t.replace(/（[^）]*）|\([^)]*\)/g,''));
+    if(/非因(?:下列)?$/.test(pre))n=!n;   /* 「非因下列何種情形，不得…」雙重否定 */
+    return n};
   if(!document.getElementById('bx-xrow-css')){var s=document.createElement('style');s.id='bx-xrow-css';s.textContent=
     '.xrs{border:1px solid rgba(120,110,95,.28);border-radius:10px;overflow:hidden;background:var(--card,#FFFEFA)}'+
     '.xrw{display:flex;gap:10px;padding:9px 12px;border-top:1px dashed rgba(120,110,95,.3);line-height:1.7;font-size:.9rem}'+
@@ -18,6 +23,8 @@
   /* o={stem,exps:[4],ans:0-3,pick:0-3,core:[4]|null,keys:[[...]x4]|null} */
   window.bxXRows=function(o){
     var neg=bxNegStem(o.stem),h='<div class="xrs">';
+    /* 組合題（選項都是 ①②③…）：答案組合就是「對在」 */
+    if(o.opts&&o.opts.length&&o.opts.every(function(x){return /^[\s①-⑳、，,與及和]+$/.test(String(x))}))neg=false;
     (o.exps||[]).forEach(function(t,i){
       var ok=i===o.ans,tk=(ok!==neg)?'ok':'ng',core=o.core&&o.core[i],keys=o.keys&&o.keys[i]||[];
       var raw=String(t||'（本選項解析待補）').replace(/^[✓✔✗✘❌✅]\s*/,''),tags=[];

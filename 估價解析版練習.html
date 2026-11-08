@@ -450,7 +450,7 @@ function selectAnswer(idx){
       +"</div>";
   }
   if(!ok&&window.bxvCard)h+=bxvCard(q.id,idx,q.correct,true)+bxvMore(1);
-  h+=bxXRows({stem:q.q,exps:q.exps,ans:q.correct,pick:idx,core:(window.BXV_CORE||{})[q.id],keys:(function(r){return r?r.map(function(a){return a?(a[0]||[]).concat(a[1]||[]):[]}):null})((window.BXV_HL||{})[q.id])});
+  h+=bxXRows({stem:q.q,opts:q.opts,exps:q.exps,ans:q.correct,pick:idx,core:(window.BXV_CORE||{})[q.id],keys:(function(r){return r?r.map(function(a){return a?(a[0]||[]).concat(a[1]||[]):[]}):null})((window.BXV_HL||{})[q.id])});
   if(!ok&&window.bxvCard)h+=bxvMore(0);
   if(q.note)h+='<div class="notebox"><b>📌 補充說明：</b>'+q.note+"</div>";
   h+='<div class="qsec">⏱ 本題 '+sec+" 秒"+(prev.length?"（前幾次："+prev.join("、")+" 秒）":"")+(q.calc?"・計算題":"")+"</div>";
