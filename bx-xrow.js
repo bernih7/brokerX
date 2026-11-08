@@ -3,12 +3,13 @@
    對在／錯在＝這個選項的敘述對不對：題幹問「錯誤／非／不得／不屬…」時，答案那項是「錯在」、其餘「對在」；其他題型相反。
    依賴 bxm-exp.js（bxmExp）。 */
 (function(){
-  var NEG=/錯誤|不正確|有誤|非|不得(?!超過|少於|小於|多於|低於|逾)|不屬|不包括|不包含|不是|不適用(?!.{0,14}之規定)|無(?!理由)|沒有|不在(?!此限)|不需|不必|不宜|不符|不應|不可|不能|最不/;
-  function tail(st){st=String(st||'');var r=/何者|何種|何項|何|哪|那|多少|幾/g,m,last=-1;while((m=r.exec(st)))last=m.index;var t=last>=0?st.slice(last):st.slice(-14),q=t.search(/[？?]/);return q>=0?t.slice(0,q):t}
+  var NEG=/錯誤|不正確|有誤|非(?!公共設施|都市)|不得(?!超過|少於|小於|多於|低於|逾)|不屬|不包括|不包含|不是|不適用(?!.{0,14}之規定)|無(?!理由|間斷)|沒有|不在(?!此限)|不需|不必|不宜|不符|不應|不可|不能|最不/;
+  function tail(st){st=String(st||'');var r=/何者|何種|何項|何|哪|那|多少|幾/g,m,last=-1;while((m=r.exec(st)))last=m.index;if(last<0)last=Math.max(0,st.length-14);var t=st.slice(last),q=t.search(/[？?]/);return {t:q>=0?t.slice(0,q):t,i:last}}
   window.bxNegStem=function(stem){
     stem=String(stem||'');try{stem=stem.normalize('NFKC')}catch(e){}  /* PDF 來的相容字（如 U+F967 不）先正規化 */
-    var t=tail(stem),pre=stem.slice(0,stem.length-t.length);
+    var tt=tail(stem),t=tt.t,pre=stem.slice(0,tt.i);
     var n=NEG.test(t.replace(/（[^）]*）|\([^)]*\)/g,''));
+    if(/(?:不包含|不包括|不屬於?|不是|非屬)(?:下列)?$/.test(pre))n=true;
     if(/非因(?:下列)?$/.test(pre))n=!n;   /* 「非因下列何種情形，不得…」雙重否定 */
     return n};
   if(!document.getElementById('bx-xrow-css')){var s=document.createElement('style');s.id='bx-xrow-css';s.textContent=
