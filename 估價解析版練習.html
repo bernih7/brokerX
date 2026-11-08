@@ -85,7 +85,7 @@ button.secondary:disabled{opacity:.45;cursor:default}
 .xr.ok .xl{background:var(--green);color:#fff}
 .xr.pick .xl{background:var(--red);color:#fff}
 .xm{font-weight:700;margin-right:4px}.xr.ok .xm{color:var(--green)}.xr:not(.ok) .xm{color:var(--red)}
-.xp{display:inline-block;font-size:.72rem;font-weight:700;color:var(--red);border:1px solid var(--red);border-radius:4px;padding:0 5px;margin-right:4px}
+
 .xt{flex:1;min-width:0;color:var(--exptx);overflow-wrap:anywhere}
 .notebox{margin-top:10px;background:var(--tipbg);border-radius:8px;padding:10px 12px;font-size:.84rem;color:var(--ink);overflow-wrap:anywhere}
 .wtag-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
@@ -143,7 +143,7 @@ table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px;text-align
 :root[data-theme="dark"] .mode-badge{color:var(--bg)}
 :root[data-theme="dark"] .g-head{color:color-mix(in srgb,var(--cc) 55%,#fff)}
 </style>
-<script src="bx-smart.js"></script><script src="bxv-use.js"></script>
+<script src="bx-smart.js"></script><script src="bxm-exp.js"></script><script src="bx-xrow.js"></script><script src="bxv-core.js"></script><script src="bxv-use.js"></script>
 <style id="resume-css">.resume{border:1.5px solid var(--green);border-radius:10px;padding:10px 12px;margin-bottom:14px}.resume p{margin:4px 0 8px;font-size:.85rem}#qEnd.arm{border-color:var(--red);color:var(--red)}</style></head>
 <body>
 <div class="app">
@@ -450,8 +450,7 @@ function selectAnswer(idx){
       +"</div>";
   }
   if(!ok&&window.bxvCard)h+=bxvCard(q.id,idx,q.correct,true)+bxvMore(1);
-  q.opts.forEach(function(o,i){var isOk=i===q.correct,pk=i===idx;
-    h+='<div class="xr'+(isOk?" ok":"")+(pk&&!isOk?" pick":"")+(!ok&&!isOk&&!pk?" dim":"")+'"><span class="xl">'+"ABCD"[i]+'</span><div class="xt"><span class="xm">'+(isOk?"✓":"✗")+"</span>"+(pk&&!isOk?'<span class="xp">你選的</span>':"")+(q.exps[i]?(window.bxvHL?bxvHL(q.id,i,q.exps[i],"exp",ok?null:idx,q.correct):q.exps[i]):"（本選項解析待補）")+"</div></div>"});
+  h+=bxXRows({stem:q.q,exps:q.exps,ans:q.correct,pick:idx,core:(window.BXV_CORE||{})[q.id],keys:(function(r){return r?r.map(function(a){return a?(a[0]||[]).concat(a[1]||[]):[]}):null})((window.BXV_HL||{})[q.id])});
   if(!ok&&window.bxvCard)h+=bxvMore(0);
   if(q.note)h+='<div class="notebox"><b>📌 補充說明：</b>'+q.note+"</div>";
   h+='<div class="qsec">⏱ 本題 '+sec+" 秒"+(prev.length?"（前幾次："+prev.join("、")+" 秒）":"")+(q.calc?"・計算題":"")+"</div>";

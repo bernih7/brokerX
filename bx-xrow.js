@@ -20,7 +20,11 @@
     var neg=bxNegStem(o.stem),h='<div class="xrs">';
     (o.exps||[]).forEach(function(t,i){
       var ok=i===o.ans,tk=(ok!==neg)?'ok':'ng',core=o.core&&o.core[i],keys=o.keys&&o.keys[i]||[];
-      var body=window.bxmExp?bxmExp(String(t||'（本選項解析待補）').replace(/^[✓✔✗✘❌✅]\s*/,''),null,keys,tk):esc(t);
+      var raw=String(t||'（本選項解析待補）').replace(/^[✓✔✗✘❌✅]\s*/,''),tags=[];
+      /* 解析內少數 <b>／<br>／<sup>／<sub> 保留（先換成記號，標色後還原） */
+      raw=raw.replace(/<\/?(?:b|strong|br|sup|sub|i|em)\s*\/?>/gi,function(m){tags.push(m);return '\u0001'+(tags.length-1)+'\u0002'});
+      var body=window.bxmExp?bxmExp(raw,null,keys,tk):esc(raw);
+      body=body.replace(/\u0001(\d+)\u0002/g,function(_,n){return tags[+n]});
       var head='<span class="xc">'+(ok?'<span class="xans">本題答案</span>':'')+'<span class="xp xp-'+tk+'">'+(tk==='ok'?'對在':'錯在')+'</span>'+(core?esc(core):'')+'</span>';
       h+='<div class="xrw'+(ok?' ok':'')+'"><span class="xL">'+'ABCD'[i]+'</span><div class="xB">'+head+body+(i===o.pick&&!ok?'<span class="xme">你選的</span>':'')+'</div></div>';
     });
