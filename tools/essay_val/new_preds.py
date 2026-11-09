@@ -473,7 +473,7 @@ def main():
         if ('id="%s"' % c['id']) in s: print('skip', c['id']); continue
         byg.setdefault(c['grp'], []).append(c)
     for g, cs in byg.items():
-        gi = s.index('<details class="tgroup" open data-g="%s"' % g)
+        gi = s.index('<details class="tgroup" data-g="%s"' % g)
         ge = s.index('</details>', gi)
         close = s.rindex('  </div>\n', gi, ge)
         ins = '\n'.join(card_html(c) for c in cs) + '\n'

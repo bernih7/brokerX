@@ -59,7 +59,7 @@ def main():
         if a >= 0: s = s[:a] + s[div_end(s, a):].lstrip('\n')
     # 插入
     for cid, src in srcs.items():
-        g = s.find('<details class="tgroup" open data-g="%s"' % src['group']); assert g >= 0, src['group']
+        g = s.find('<details class="tgroup" data-g="%s"' % src['group']); assert g >= 0, src['group']
         ge = s.find('</details>', g)
         cands = [x for x in (s.find('<div class="essay-card" data-v="lj" id="pred-', g), s.find('<div class="essay-card mock"', g)) if 0 <= x < ge]
         # 同篇已插入的本站模擬卷排在一起（依卷號）
