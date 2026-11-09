@@ -95,7 +95,7 @@ def body(h, t, cid):
     if h.startswith('二'): return law_block(cid, t)
     if h.startswith('三'): return subsume(t)
     return ''.join('<p>%s</p>' % fmt(x) for x in re.split(r'<br\s*/?>', t) if x.strip())
-CSS = ('.exam-ver .evb p{margin:4px 0 0;line-height:1.85;max-width:44em}.exam-ver .evb>p:first-of-type{margin-top:0}'
+CSS = ('.exam-ver .evb p{margin:4px 0 0;line-height:1.85;max-width:none}.exam-ver .evb>p:first-of-type{margin-top:0}'
        '.exam-ver .art{color:var(--evsub);font-weight:400}.exam-ver .evp{margin-top:12px}.exam-ver .evp:first-of-type{margin-top:4px}'
        '.exam-ver .evp .evh{font-weight:700;margin-top:0}.exam-ver .evx{display:flex;gap:8px;align-items:baseline}'
        '.exam-ver .lawn{color:var(--evink);font-weight:500;margin-left:2px}'

@@ -20,6 +20,7 @@ CSS='''<style id="exam-ver-css">
 .exam-ver b.evh{display:block;color:var(--c);font-size:.86rem;margin-bottom:2px}
 '''+RV.CSS+'''
 .exam-ver .evb p{font-size:.95rem}
+.exam-ver .evb mark{background:linear-gradient(transparent 50%,rgba(242,201,76,.55) 50%);color:inherit;font-weight:700;padding:0 1px;border-radius:2px}
 .vt4 .ver-label{display:none}.vt4 .seg-wrap{width:100%;max-width:100%}.vt4 .ver-btn{flex:1;text-align:center;padding:5px 2px}
 </style>'''
 if 'id="exam-ver-css"' in s: s=re.sub(r'<style id="exam-ver-css">.*?</style>',CSS,s,flags=re.S)

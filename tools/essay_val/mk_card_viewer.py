@@ -12,6 +12,7 @@ SRC, OUT = '不動產估價概要_申論題實戰範文.html', '估價_申論卡
 s = open(os.path.join(R, SRC), encoding='utf-8').read()
 HE = s.find('</head>')
 head = re.sub(r'<title>.*?</title>', '<title>估價｜申論卡</title>', s[:HE], count=1, flags=re.S)
+head = re.sub(r'<style id="vsx-css">.*?</style>', '', head, flags=re.S)  # 範文頁清單改版樣式，單卡頁不用
 
 
 def block(a, tag='div'):
