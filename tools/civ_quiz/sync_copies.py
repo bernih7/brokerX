@@ -1,5 +1,5 @@
 # 刷題 A～E 篇（const QS）是民法 520 題解析的唯一來源。本檔把解析同步到兩份副本：
-#   ① 四支《完整考題小卡》的 exps（＋★ 總結 → trap）
+#   ① 四支《完整考題小卡》＋四支精選《考題小卡》的 exps（＋★ 總結 → trap）
 #   ② 《民法概要_25題模擬測驗》PAPERS（107～114 整卷）的 exps（＋★ → trap）
 # 之後請再跑 mkdata.py → build.py 更新《法條解析練習》。可重複執行。
 import re,json,os,sys
@@ -38,7 +38,7 @@ def upd(c,yn):
         if c.get(f)!=v: c[f]=v;ch=1
     if tip and c.get('trap')!=tip[0]: c['trap']=tip[0];ch=1
     return ch
-for f in ['民法A_完整考題小卡','民法BC_完整考題小卡','民法D_完整考題小卡','民法E_完整考題小卡']:
+for f in ['民法A_完整考題小卡','民法BC_完整考題小卡','民法D_完整考題小卡','民法E_完整考題小卡','民法A_考題小卡','民法BC_考題小卡','民法D_考題小卡','民法E_考題小卡']:  # 11-09 加入精選考題小卡（原為各自舊寫法，有 3 題與刷題矛盾）
     fn=os.path.join(R,f+'.html');s=open(fn,encoding='utf-8').read();a,b=span(s,s.index('[{"id"'))
     C=json.loads(s[a:b]);assert json.dumps(C,ensure_ascii=False)==s[a:b]
     for c in C:
