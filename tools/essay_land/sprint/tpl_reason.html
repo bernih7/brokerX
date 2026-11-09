@@ -192,7 +192,7 @@ var STG=[{n:'① 讀題',d:'問幾問？各問在問什麼？',s:20},{n:'② 推
 var CN='一二三四五六七八九十';
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-function rt(s){var h=esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');var c=[],d=0,re=/<\/?b>|[\u2460-\u2473]/g,m;while((m=re.exec(h))){if(m[0]==='<b>')d++;else if(m[0]==='</b>')d--;else if(!d&&(m.index===0||'　 ，；：、。（→'.indexOf(h[m.index-1])>=0))c.push(m.index)}if(c.length<2)return h;var o=h.slice(0,c[0]);for(var i=0;i<c.length;i++)o+='<span class="li">'+h.slice(c[i],c[i+1]||h.length)+'</span>';return o}
+function rt(s){var h=esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');var c=[],d=0,re=/<\/?b>|[\u2460-\u2473]/g,m;while((m=re.exec(h))){if(m[0]==='<b>')d++;else if(m[0]==='</b>')d--;else if(!d&&(m.index===0||'　 ，；：、。（→'.indexOf(h[m.index-1])>=0)&&!/[\u2460-\u2473）)]/.test(h.charAt(m.index+1)||'）'))c.push(m.index)}if(c.length<2)return h;var o=h.slice(0,c[0]);for(var i=0;i<c.length;i++)o+='<span class="li">'+h.slice(c[i],c[i+1]||h.length)+'</span>';return o}
 function mmss(s){var a=Math.abs(s);return (s<0?'+':'')+Math.floor(a/60)+':'+('0'+(a%60)).slice(-2)}
 var mode='h';try{mode=localStorage.getItem('bx-land-sprint-mode')||'h'}catch(e){}
 function pm(){[].forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===mode)})}

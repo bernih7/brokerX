@@ -26,7 +26,7 @@ def lst(t):
             if re.match(r'<(b|sup|sub|mark|strong|span|code|a|em|i)\b', tok): depth += 1
             elif re.match(r'</(b|sup|sub|mark|strong|span|code|a|em|i)>', tok): depth -= 1
             continue
-        if re.match('[①-⑳]', tok) and depth == 0 and (prev == '' or prev in PUN) and not re.search(r'§\s*\d+[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]*$', re.sub(r'<[^>]+>', '', t[:m.start()])):
+        if re.match('[①-⑳]', tok) and depth == 0 and (prev == '' or prev in PUN) and not re.match(r'[①-⑳）)]', t[m.end():m.end() + 1] or '）') and not re.search(r'§\s*\d+[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]*$', re.sub(r'<[^>]+>', '', t[:m.start()])):
             cuts.append(m.start())
         prev = tok
     if len(cuts) < 2: return t
