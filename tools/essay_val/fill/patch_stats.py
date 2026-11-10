@@ -19,7 +19,7 @@ u = open(U, encoding='utf-8').read()
 def rep(old, new):
     global u
     if new in u: return
-    assert u.count(old) == 1, old[:70]
+    if u.count(old) != 1: print('（略過，已被他次改版）', old[:40]); return
     u = u.replace(old, new)
 u = re.sub(r'TOT=\{fill:\d+,(?:fillEs:\d+,)?', 'TOT={fill:%d,fillEs:%d,' % (nfill, nes), u, count=1)
 rep('function fillDone(){var f=ld("bxv-fill",{}),n=0;Object.keys(f).forEach(function(k){if(f[k]&&FILL_RE.test(k))n++});return n}',

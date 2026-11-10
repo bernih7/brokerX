@@ -263,8 +263,8 @@ a.lawlk{color:inherit;text-decoration:underline dotted;text-underline-offset:3px
 
 <header>
   <h1>估價概要｜定義填空練習</h1>
-  <div class="sub">章節練習 + 隨機測驗模式｜定義 <span id="fillTotal">140</span> 題＋申論四段 <span id="fillEsTotal">35</span> 題（另一分類）</div>
-  <div class="fill-done" id="fillDone">已完成 0／140</div> <div class="fill-done" id="fillEsDone">申論四段 0／35</div>
+  <div class="sub">章節練習 + 隨機測驗模式｜定義 <span id="fillTotal">141</span> 題＋申論四段 <span id="fillEsTotal">35</span> 題（另一分類）</div>
+  <div class="fill-done" id="fillDone">已完成 0／141</div> <div class="fill-done" id="fillEsDone">申論四段 0／35</div>
 </header>
 
 <div class="mode-tabs">
@@ -943,6 +943,13 @@ const DATA = [
         blank:'選擇數個與勘估標的相同或相似之___，以其淨收益除以___後，以所得之商數加以比較決定之；明顯離群的___先剔除再比較。',
         answer:'選擇數個與勘估標的相同或相似之<span class="key">比較標的</span>，以其淨收益除以<span class="key">價格</span>後，以所得之商數加以比較決定之；明顯離群的<span class="key">異常值</span>先剔除再比較。',
         src:'技術規則§43第2款；考古：106-32（去掉 10%、19% 後平均＝4.8%）、104-37（問勘估標的就用 40÷800＝5%）', mc:8, essay:0, gap:1
+      },
+      {
+        cid:'D-18',
+        term:'收益每年成長時的資本化率（教材）★陷阱',
+        blank:'收益每年會成長時：直接資本化率＝獲利率___；例：獲利率 5%、收益年增率 2% → ___；選 7%（兩者___）是陷阱——收益會成長，價格應較高，資本化率要___。',
+        answer:'收益每年會成長時：直接資本化率＝獲利率<span class="key">－收益年增率</span>；例：獲利率 5%、收益年增率 2% → <span class="key">3%</span>；選 7%（兩者<span class="key">相加</span>）是陷阱——收益會成長，價格應較高，資本化率要<span class="key">變小</span>。',
+        src:'教材（技術規則未列；本站《估價_計算題攻略》直接資本化法計算陷阱②）；考古：100-36', mc:1, essay:0, gap:1
       },
     ]
   },
@@ -3121,5 +3128,7 @@ t.onclick=function(){nav.classList.toggle('open');lab();};
 nav.addEventListener('click',function(e){if(e.target.closest('.nav-btn'))setTimeout(lab,30);});
 setTimeout(lab,200);})();</script>
 <script src="bx-filltodo.js"></script>
+<script>/*fill-cardhash*/(function(){function go(){var m=/^#card-(([A-Z][A-Z0-9]*)-\d+)$/.exec(location.hash);if(!m)return;var ch=m[2];try{if(typeof setMode==='function')setMode('browse');if(typeof switchCh==='function')switchCh(ch);}catch(e){}setTimeout(function(){var el=document.getElementById('card-'+m[1]);if(el){el.scrollIntoView({block:'start'});window.scrollBy(0,-70);el.style.outline='2px solid var(--gold)';setTimeout(function(){el.style.outline=''},2500);}},120);}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,50)});else setTimeout(go,50);addEventListener('hashchange',go);})();</script>
 </body>
 </html>
