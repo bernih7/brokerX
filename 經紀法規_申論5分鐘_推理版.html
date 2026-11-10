@@ -447,6 +447,8 @@ document.addEventListener('keydown',function(e){
  }
  if(k==='ArrowLeft')return;
  if(hit(document.getElementById('flip')))return;
+ var lx=Array.prototype.find.call(run.querySelectorAll('details.lawx'),function(d){return !d.open&&d.offsetParent!==null});
+ if(lx){e.preventDefault();lx.open=true;return;}   /* 有收著的條文原文：先打開 */
  hit(nb);
 });
 </script>
