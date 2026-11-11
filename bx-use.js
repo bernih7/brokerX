@@ -39,7 +39,7 @@ function build(){
  L.push("","── 答錯題（錯得多的在前，最多 40 題）──");wr.forEach(function(i){var r=DB[i];L.push(i+"　錯 "+(r.w||1)+" 次"+(r.k?"・"+KN[r.k]:"・未分類"))});
  var gu=ids.filter(function(i){return DB[i].ok&&DB[i].k==="D"}).slice(0,40);if(gu.length)L.push("","── 猜對（待加強）──",gu.join("、"));
  L.push("","══ 二、模擬卷／診斷卷 ══");
- [["landdiag1","診斷卷一"],["ll_a1","來勝模擬(一)土地法規"],["ll_b1","來勝模擬(一)土地稅法"]].forEach(function(m){var r=ld("bx_mock_"+m[0],null),er=ld("bx_mockerr_"+m[0],{});if(!r){L.push(m[1]+"：尚未作答");return}var ec={};Object.keys(er).forEach(function(k){ec[er[k]]=(ec[er[k]]||0)+1});var es=Object.keys(ec).sort().map(function(k){return k+" "+ec[k]}).join("・");
+ [["landdiag1","診斷卷一"],["landdiag2","診斷卷二"],["ll_a1","來勝模擬(一)土地法規"],["ll_b1","來勝模擬(一)土地稅法"]].forEach(function(m){var r=ld("bx_mock_"+m[0],null),er=ld("bx_mockerr_"+m[0],{});if(!r){L.push(m[1]+"：尚未作答");return}var ec={};Object.keys(er).forEach(function(k){ec[er[k]]=(ec[er[k]]||0)+1});var es=Object.keys(ec).sort().map(function(k){return k+" "+ec[k]}).join("・");
   L.push(m[1]+"：已答 "+r.a+"／"+r.n+"｜答對 "+r.c+"｜"+pc(r.c,r.a)+"%｜"+new Date(r.t).toLocaleString("zh-TW",{hour12:false})+(es?"｜錯題原因 "+es:""))});
  L.push("","══ 三、記憶工具 ══");
  var cnt=function(key,tt){var m=ld(key,{}),n=0,r=0;Object.keys(m).forEach(function(k){var s=typeof m[k]==="string"?m[k]:(m[k]&&m[k].status);if(s==="mastered")n++;else if(s==="review")r++});return"已掌握 "+n+"｜待複習 "+r+"｜未標記 "+Math.max(0,tt-n-r)};
@@ -114,7 +114,7 @@ function status(){
  R1.push(row("土地法解析版練習","解析版練習（全 "+total+" 題）",ad,total,at));
  G.push({g:"刷題（作答後自動記錄）",rows:R1});
  /* 模擬卷／診斷卷 */
- var R2=[];[["土地法_診斷卷一","診斷卷一（自擬）","landdiag1"],["土地法_來勝模擬試題一_土地法規","來勝模擬(一) 土地法規","ll_a1"],["土地法_來勝模擬試題一_土地稅法","來勝模擬(一) 土地稅法","ll_b1"]].forEach(function(a){var r=ld("bx_mock_"+a[2],null),N=(r&&r.n)||25,dn=r?(r.a||0):0;
+ var R2=[];[["土地法_診斷卷一","診斷卷一（自擬）","landdiag1"],["土地法_診斷卷二","診斷卷二（全真模擬）","landdiag2"],["土地法_來勝模擬試題一_土地法規","來勝模擬(一) 土地法規","ll_a1"],["土地法_來勝模擬試題一_土地稅法","來勝模擬(一) 土地稅法","ll_b1"]].forEach(function(a){var r=ld("bx_mock_"+a[2],null),N=(r&&r.n)||25,dn=r?(r.a||0):0;
   var o=row(a[0],a[1],Math.min(dn,N),N,dn?"已答 "+dn+"／"+N+"・答對 "+(r.c||0)+"（選擇 "+((r.c||0)*2)+"／"+(N*2)+"）":"尚未作答");if(r&&r.t)o.last=Math.max(o.last,Math.floor(r.t/1000));R2.push(o)});
  G.push({g:"模擬卷（作答後自動記錄）",rows:R2});
  /* 記憶工具 */
