@@ -446,7 +446,9 @@ document.addEventListener('keydown',function(e){
  function hit(b){if(b&&!b.disabled&&b.offsetParent!==null){e.preventDefault();b.click();return true}return false}
  if(rvP&&rvP.offsetParent!==null){            /* 存檔後：回看本題 */
   if(k==='ArrowLeft')return void hit(rvP);
-  if(k==='ArrowRight')return void hit(rvN);
+  if(k==='ArrowRight'){var lr=Array.prototype.find.call(run.querySelectorAll('details.lawx'),function(d){return !d.open&&d.offsetParent!==null});
+   if(lr){e.preventDefault();lr.open=true;return;}   /* 回看：本頁條文原文先打開 */
+   return void hit(rvN);}
   return void hit(nb);                       /* 空白鍵＝下一題 */
  }
  if(k==='ArrowLeft')return;
