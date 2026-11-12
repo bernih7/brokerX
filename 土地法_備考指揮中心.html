@@ -583,7 +583,7 @@ function lagBuild(){
       return rem>0?lk(r.url,r.name,'還沒做 '+rem+' 題（'+r.done+'／'+r.total+'）'):''}).join('');
   dDet=dDet?'<p class="lh">依「還沒做的題數」排序；題庫頁可用「未作答」篩選只出沒做過的。</p><ul>'+dDet+'</ul><p class="lh">也可以到 <a href="土地法解析版練習.html" target="_blank" rel="noopener">解析版練習 ▸</a> 混合練。</p>':'<p class="lh">七頁都做完一輪了。</p>';
   var eDet;
-  if(!EM.length)eDet='<p class="lh">申論清單沒有載入，請到 <a href="土地法_申論題分類總覽.html" target="_blank" rel="noopener">申論題分類總覽 ▸</a> 看未讀。</p>';
+  if(!EM.length)eDet='<p class="lh">申論清單沒有載入，請到 <a href="土地法_申論題分類總覽.html" target="_blank" rel="noopener">申論題分類總覽 ▸</a> <a href="土地法_反向申論練習.html" target="_blank" rel="noopener">反向題練習（114-二 型）▸</a> 看未讀。</p>';
   else if(!eUn.length)eDet='<p class="lh">'+eTot+' 題都已勾「讀懂」。</p>';
   else{var eo=eUn.filter(function(x){return x.k==='off'}).sort(function(a,b){return a.p-b.p}),ep=eUn.filter(function(x){return x.k!=='off'}).sort(function(a,b){return a.p-b.p});
     eDet='<p class="lh">還沒勾「我已讀懂這題的邏輯」的 '+eUn.length+' 題（官方 '+eo.length+'、預測／模擬 '+ep.length+'）；官方題排前面。</p><ul class="sc">'
