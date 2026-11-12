@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""審稿後人工處理（apply.py 不處理的項目）。可重跑。"""
+import os
+R = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'))
+P = os.path.join(R, '經紀法規_備考指揮中心.html'); h = open(P, encoding='utf-8').read()
+FIX = [
+ ('視為同意重建，不得再事後爭執或拒絕配合重建程序，此為避免重建程序因個別異議者反覆爭執而遲滯不前之強制擬制規定。', '視為同意重建（第14條第2項）。'),
+]
+for a, b in FIX:
+    if a in h: h = h.replace(a, b); print('改', a[:20])
+open(P, 'w', encoding='utf-8').write(h)
+
+# 考場版「二、法條」條名標錯（名稱由 build_ev law_block 自動帶入；原文寫明括號即不再自動帶）
+import json, glob
+EVFIX = {
+ 'es-mk8': [('公平交易法第21條、第29條至第31條。', '公平交易法第21條、第29條（除去及防止侵害請求權）、第30條（損害賠償責任）、第31條（故意行為之加重賠償）、第42條（限期停止、改正及罰鍰）；不動產經紀業管理條例施行細則第22條（加盟經營者之標明）。')],
+ 'es-a8': [('第27條，第29條第1項第3款、第4款、第2項、第3項。', '第27條（主管機關檢查權），第29條第1項第3款、第4款、第2項、第3項（罰則）。')],
+ 'es-mk9': [('第24條第2項；', '第24條第2項（說明書視為契約書之一部分）；')],
+ 'es-g3': [('公平交易法第7條、第8條。', '公平交易法第7條、第8條（不列入獨占認定範圍之市占率門檻）。')],
+ 'es-d3': [('第16條，第12條。', '第16條，第12條（定型化契約條款顯失公平者無效）。')],
+ 'es-e11': [('第49條、第58條第2項。', '第49條、第58條第1項、第2項（領得建造執照始得銷售、共用部分不得讓售）。')],
+}
+for f in glob.glob(os.path.join(R, 'tools/essay_jj/exam_ver/ev_*.json')):
+    d = json.load(open(f, encoding='utf-8')); ch = False
+    for cid, pairs in EVFIX.items():
+        if cid not in d: continue
+        for row in d[cid]:
+            for a, b in pairs:
+                if a in row[1]: row[1] = row[1].replace(a, b); ch = True; print('考場版', cid)
+    if ch:
+        out = '{\n' + ',\n'.join(json.dumps(k, ensure_ascii=False) + ': [\n' + ',\n'.join(json.dumps(r, ensure_ascii=False) for r in v) + '\n]' for k, v in d.items()) + '\n}\n'
+        open(f, 'w', encoding='utf-8').write(out)
