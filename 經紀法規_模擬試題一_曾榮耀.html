@@ -93,6 +93,7 @@ details.tch{margin-top:12px;border-top:1px dashed var(--line,#DAD6C3);padding-to
 details.tch summary{cursor:pointer;font-weight:700}
 details.tch h4{margin:10px 0 2px}details.tch p{margin:2px 0;line-height:1.8}.tch .tsrc{font-size:.8rem;color:var(--sub,#5F6B63)}
 </style>
+<script src="bx-mockrec.js"></script>
 </head><body>
 <header><div class="hrow"><h1>來勝115年模擬試題（一）</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">不動產經紀相關法規概要｜出題：曾榮耀｜90分鐘：申論2×25＋單選25×2<br>※補習班模擬題，非考選部官方試題；選擇題解答已依老師解答（解答卷標示類科【永慶】，使用者提供照片）核對；申論擬答為我依老師解答擴充。</div></header>
 <div class="wrap"><div class="tabs"><button id="t1" class="on">單選25題</button><button id="t2">申論2題</button><button id="t3">答案總表</button></div>
@@ -109,7 +110,7 @@ function $(i){return document.getElementById(i)}
 function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  $("sc").textContent="已答 "+a+"/25｜答對 "+c+"｜得分 "+(c*2)+"/50";
  try{localStorage.setItem("bx_mock_tch1",JSON.stringify({a:a,c:c,n:25,t:Date.now()}))}catch(e){}}
-function build(){
+var _bxm=0;function build(){if(!_bxm){_bxm=1;try{BXMR.boot("tch1",25)}catch(e){}}
  var p=$("p1"),h='<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">全部展開</button></div><div class="score"><span id="sc"></span><button id="rs">重做</button></div>';p.innerHTML=h;
  D.Q.forEach(function(q){
   var c=document.createElement("div");c.className="card";
@@ -122,7 +123,7 @@ function build(){
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=cl2(q.notes[i]);
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){if(EX!=="B")this.classList.toggle("open");return}
-     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");
+     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;try{BXMR.ans("jj","tch1",qq.n,ok)}catch(e){}if(!ok)cc.classList.add("wrong");
      var bs=cc.querySelectorAll(".opt");bs.forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
      cc.querySelector(".res").className="res"+(ok?" ok":"");cc.querySelector(".res").textContent=(ok?"答對了":"答錯了")+"　正解 "+qq.ans+(ok?"":"（你選 "+L[ii]+"）");applyOpen(cc);
      upd();}})(q,i,c);
@@ -132,7 +133,8 @@ function build(){
   p.appendChild(c)});
  [].forEach.call(p.querySelectorAll(".exs button[data-m]"),function(bb){bb.onclick=function(){setEx(bb.dataset.m)}});
  $("ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX);
- $("rs").onclick=function(){st={};build();window.scrollTo(0,0)};upd();
+ try{var hh=$("p1").appendChild(document.createElement("div"));BXMR.mount("jj","tch1",hh,25,null)}catch(e){}
+ $("rs").onclick=function(){try{BXMR.reset("tch1",25)}catch(e){}st={};build();window.scrollTo(0,0)};upd();
  var e=$("p2");e.innerHTML="";
  D.E.forEach(function(x,xi){
   var c=document.createElement("div");c.className="card";

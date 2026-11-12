@@ -1,4 +1,4 @@
-const CACHE = 'brokerx-v798';
+const CACHE = 'brokerx-v799';
 const FILES = [
   '/',
   '/BrokerX_12週讀書計畫總表.html',
@@ -100,6 +100,15 @@ const FILES = [
   '/土地法_優先購買權_物權債權.html',
   '/土地法_診斷卷一.html',
   '/土地法_診斷卷二.html',
+  '/bx-mockrec.js',
+  '/bx-pool-land.js',
+  '/bx-pool-civ.js',
+  '/bx-pool-jj.js',
+  '/bx-pool-val.js',
+  '/土地法_錯題複習卷.html',
+  '/民法_錯題複習卷.html',
+  '/經紀法規_錯題複習卷.html',
+  '/估價_錯題複習卷.html',
   '/土地法_罰則總整理.html',
   '/土地法_考題小卡.html',
   '/土地法_讀書攻略與備考指南.html',

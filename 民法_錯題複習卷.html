@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><script src="bx-vp.js"></script>
+<title>民法錯題複習卷</title>
+<script>(function(){try{var s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})()</script>
+<style>
+:root{--bg:#F8F3E9;--card:#FFFEFA;--fg:#2B2A27;--mut:#6B665C;--line:#E2DACA;--ac:#2F5D50;--ok:#3D7A4A;--okbg:#E7F1E4;--ng:#A8402B;--ngbg:#F7E5DF;--gold:#BC8A2E;--goldbg:#FBF1D9;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 system-ui,-apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 80px}
+h1{font-size:1.5rem;margin:4px 0 2px;text-wrap:balance}
+.sub{color:var(--mut);font-size:.92rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+.stats{display:flex;flex-wrap:wrap;gap:8px 18px;font-variant-numeric:tabular-nums}
+.stats b{font-size:1.15rem}
+.k-ok{color:var(--ok)}.k-ng{color:var(--ng)}.k-mut{color:var(--mut)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+button{font:inherit;cursor:pointer}
+.btn{padding:7px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:var(--bg);font-weight:700}
+.btn.on{border-color:var(--ac);color:var(--ac);font-weight:700}
+details summary{cursor:pointer;font-weight:700}
+.stuck div{padding:4px 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.stuck a{color:inherit}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.qh{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.85rem;color:var(--mut)}
+.qh .no{font-weight:700;color:var(--fg);font-size:1rem}
+.tag{padding:1px 8px;border-radius:999px;border:1px solid var(--line)}
+.tag.todo{border-color:var(--ng);color:var(--ng)}.tag.new{border-color:var(--gold);color:var(--gold)}.tag.done{border-color:var(--ok);color:var(--ok)}
+.stem{margin:8px 0 10px;white-space:pre-wrap}
+.opt{display:block;width:100%;text-align:left;padding:9px 12px;margin:6px 0;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--fg)}
+.opt b{margin-right:6px}
+.card.done .opt{cursor:default}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--ngbg);border-color:var(--ng)}
+.opt .ex{display:none;margin-top:6px;font-size:.9rem;color:var(--mut);white-space:pre-wrap}
+.card.done .opt .ex{display:block}
+.res{font-weight:700;margin:4px 0}.res.ok{color:var(--ok)}.res.ng{color:var(--ng)}
+.tr{display:none;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--goldbg);font-size:.92rem;white-space:pre-wrap}
+.card.done .tr.has{display:block}
+.score{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;font-weight:700;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line)}
+.hist div{font-size:.92rem;padding:2px 0}
+a.src{color:var(--ac)}
+#hub{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;background:var(--ac);color:var(--bg);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px}
+</style>
+<script src="bx-mockrec.js"></script>
+<script src="bx-pool-civ.js"></script>
+</head><body><div class="wrap">
+<h1>民法錯題複習卷</h1>
+<div class="sub">從民法所有模擬卷和歷屆真題抽題。答錯過、還沒放過的題先出，再補沒做過的新題，兩種混在一起考。<br>放過規則：第一次就答對的題直接放過；答錯過的題要<b>連續答對 3 次</b>才放過，中間錯一次就從 0 重算。</div>
+<div class="box"><div class="stats" id="st"></div>
+<div class="row"><span class="k-mut">一份幾題：</span><span id="nsel"></span></div>
+<div class="row"><label><input type="checkbox" id="useh" checked> 新題不夠時，補歷屆真題</label></div>
+<div class="row"><button class="btn pri" id="go">產生新的一份</button><span class="k-mut" id="hint"></span></div></div>
+<details class="box" id="stk"><summary>一直錯的題</summary><div class="stuck" id="stuck"></div></details>
+<div id="paper"></div>
+<details class="box"><summary>本複習卷歷次紀錄</summary><div class="hist" id="hist"></div></details>
+</div>
+<a id="hub" href="民法_備考指揮中心.html" title="回備考中心">🏠</a>
+<script>
+(function(){
+var S=BXPOOL.S,P=BXPOOL.papers,Q=BXPOOL.q,BY={},L="ABCD";Q.forEach(function(q){BY[q.id]=q});
+var CK="bx_drillcur_"+S,HK="bx_drillh_"+S,NK="bx_drilln_"+S;
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function srcHtml(q){var p=P[q.p];return p?'<a class="src" href="'+encodeURI(p[1])+'" target="_blank" rel="noopener">'+esc(q.src)+'</a>':esc(q.src)}
+function badge(r){var s=BXMR.state(r);return s==="new"?'<span class="tag new">新題</span>':s==="done"?'<span class="tag done">已放過</span>':'<span class="tag todo">錯過・連對 '+r.s+'/3</span>'}
+var N=ld(NK,25);
+function stats(){var A=BXMR.all(S),c={done:0,todo:0,nm:0,nh:0};
+ Q.forEach(function(q){var s=BXMR.state(A[q.id]);if(s==="done")c.done++;else if(s==="todo")c.todo++;else if(q.p==="h")c.nh++;else c.nm++});
+ $("st").innerHTML='<span>已放過 <b class="k-ok">'+c.done+'</b></span><span>還要練 <b class="k-ng">'+c.todo+'</b></span><span>模擬卷沒做過 <b>'+c.nm+'</b></span><span class="k-mut">歷屆沒做過 '+c.nh+'</span>';
+ var st=Q.filter(function(q){var r=A[q.id];return r&&r.w&&!BXMR.done(r)}).sort(function(a,b){var x=A[a.id],y=A[b.id];return y.w-x.w||x.s-y.s||y.t-x.t});
+ $("stuck").innerHTML=st.length?st.slice(0,30).map(function(q){var r=A[q.id];return '<div>'+srcHtml(q)+(q.sec?'｜'+esc(q.sec):'')+'｜錯 '+r.w+' 次｜連對 '+r.s+'/3｜最近：'+r.h.split("").map(function(x){return x==="1"?"✓":"✗"}).join("")+'</div>'}).join(""):'<div class="k-mut">目前沒有答錯還沒放過的題。</div>';
+ $("stk").querySelector("summary").textContent="一直錯的題（"+st.length+"）";
+ $("hint").textContent=c.todo?"這份會先放 "+Math.min(c.todo,Math.ceil(N*0.7))+" 題還要練的":"";
+ return c}
+function pick(){var A=BXMR.all(S),todo=[],nm=[],nh=[];
+ Q.forEach(function(q){var s=BXMR.state(A[q.id]);if(s==="todo")todo.push(q.id);else if(s==="new")(q.p==="h"?nh:nm).push(q.id)});
+ todo.sort(function(a,b){var x=A[a],y=A[b];return x.s-y.s||y.w-x.w||y.t-x.t});
+ var nT=Math.min(todo.length,Math.ceil(N*0.7)),out=todo.slice(0,nT),fresh=shuf(nm);
+ if($("useh").checked)fresh=fresh.concat(shuf(nh));
+ out=out.concat(fresh.slice(0,N-out.length));
+ if(out.length<N)out=out.concat(todo.slice(nT,nT+N-out.length));
+ return shuf(out)}
+function nsel(){$("nsel").innerHTML=[10,25,40].map(function(n){return '<button class="btn'+(n===N?' on':'')+'" data-n="'+n+'">'+n+' 題</button>'}).join(" ");
+ [].forEach.call($("nsel").querySelectorAll("button"),function(b){b.onclick=function(){N=+b.dataset.n;sv(NK,N);nsel();stats()}})}
+function archive(){var c=ld(CK,null);if(!c)return;var a=0,k=0,w=[];c.ids.forEach(function(id){var p=c.pk[id];if(p===undefined)return;a++;if(BY[id]&&BY[id].ok.indexOf(p)>=0)k++;else w.push(id)});
+ if(a){var h=ld(HK,[]);h.push({t:c.t,a:a,c:k,n:c.ids.length,w:w});sv(HK,h.slice(-30))}try{localStorage.removeItem(CK)}catch(e){}}
+function hist(){var h=ld(HK,[]);$("hist").innerHTML=h.length?h.slice().reverse().map(function(r,i){var t=new Date(r.t);return '<div>第'+(h.length-i)+'次｜'+(t.getMonth()+1)+'/'+t.getDate()+'｜答對 '+r.c+'/'+r.a+(r.a<r.n?'（共 '+r.n+' 題）':'')+(r.w.length?'｜錯：'+r.w.map(function(id){return BY[id]?esc(BY[id].src):id}).join("、"):'')+'</div>'}).join(""):'<div class="k-mut">還沒有完成的紀錄（按「產生新的一份」時，上一份會存成一筆）。</div>'}
+function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
+ var sc=document.createElement("div");sc.className="score";host.appendChild(sc);
+ function upd(){var a=0,k=0;c.ids.forEach(function(id){var p=c.pk[id];if(p===undefined)return;a++;if(BY[id].ok.indexOf(p)>=0)k++});sc.textContent="已答 "+a+"/"+c.ids.length+"｜答對 "+k}
+ var A=BXMR.all(S);
+ c.ids.forEach(function(id,ix){var q=BY[id];if(!q)return;var d=document.createElement("div");d.className="card";
+  var r0=c.st&&c.st[id]?c.st[id]:A[id];
+  d.innerHTML='<div class="qh"><span class="no">第'+(ix+1)+'題</span>'+badge(r0)+'<span>'+srcHtml(q)+'</span>'+(q.sec?'<span>'+esc(q.sec)+'</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="os"></div><div class="tr'+(q.tr?' has':'')+'"></div>';
+  d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").textContent=q.tr?"🎯 "+q.tr:"";
+  var os=d.querySelector(".os");
+  q.opts.forEach(function(t,i){var b=document.createElement("button");b.className="opt";b.type="button";b.innerHTML='<b>('+L[i]+')</b><span></span><div class="ex"></div>';
+   b.querySelector("span").textContent=t;b.querySelector(".ex").textContent=q.ex[i]||"";
+   b.onclick=function(){if(d.classList.contains("done"))return;show(i,false)};os.appendChild(b)});
+  function show(i,old){d.classList.add("done");var ok=q.ok.indexOf(i)>=0;
+   [].forEach.call(os.children,function(b,j){if(q.ok.indexOf(j)>=0)b.classList.add("ok");else if(j===i)b.classList.add("bad")});
+   var r=old?BXMR.get(S,id):BXMR.rec(S,id,ok);
+   if(!old){c.pk[id]=i;sv(CK,c)}
+   var res=d.querySelector(".res");res.className="res "+(ok?"ok":"ng");
+   res.textContent=(ok?"答對":"答錯，正解 "+q.ok.map(function(k){return L[k]}).join("／"))+"｜"+(BXMR.done(r)?"這題放過了 ✓":r.w?"連對 "+r.s+"/3（錯過的題要連對 3 次）":"");
+   upd();if(!old)stats()}
+  if(c.pk[id]!==undefined)show(c.pk[id],true);
+  host.appendChild(d)});
+ upd()}
+$("go").onclick=function(){archive();var ids=pick();if(!ids.length){$("paper").innerHTML='<div class="box">全部題目都放過了。</div>';return}
+ var A=BXMR.all(S),st={};ids.forEach(function(id){if(A[id])st[id]=A[id]});
+ var c={t:Date.now(),ids:ids,pk:{},st:st};sv(CK,c);paper(c);hist();stats();window.scrollTo(0,$("paper").offsetTop-10)};
+nsel();stats();hist();paper(ld(CK,null));
+})();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body></html>

@@ -104,6 +104,7 @@ h1 .sub{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margi
 <script src="bxm-use.js"></script>
 <script src="bxm-exp.js"></script><style id="bxm-cardframe-css">.cfw{margin-top:10px}.cfh{font-size:.8rem;color:var(--sub,#5F6B63);margin-bottom:6px;line-height:1.6}.cfh a{color:var(--pri,#2F5D50);font-weight:700;white-space:nowrap}iframe.cf{display:block;width:100%;height:600px;border:0;background:transparent}</style>
 <script id="bxm-cardframe">addEventListener("message",function(ev){var d=ev.data;if(!d||!d.bxmCard)return;document.querySelectorAll("iframe.cf").forEach(function(f){if(f.contentWindow===ev.source)f.style.height=(d.h+4)+"px"})});</script>
+<script src="bx-mockrec.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -282,6 +283,7 @@ function pick(qi,optIdx){
   answers[qi]=optIdx;
   const L=['A','B','C','D'];
   const isOk=isOK(q,optIdx);
+  try{var _m=String(q.year).match(/(\d+)年第(\d+)題/);if(_m)BXMR.rec("civ","h:"+_m[1]+"-"+_m[2],isOk)}catch(e){}
   // 標記選項
   for(let j=0;j<4;j++){
     const el=document.getElementById(`opt${qi}_${j}`);

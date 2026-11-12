@@ -89,7 +89,8 @@ body[data-ex="C"] .done .opt,body[data-ex="D"] .done .opt{cursor:pointer}
 .pbox .pl{margin:3px 0}
 .pbox .pl.sb2{background:color-mix(in srgb,var(--card) 80%,transparent);border-radius:7px;padding:5px 9px;margin:6px 0}
 .pbox .pl.note{background:var(--tipbg);border-radius:7px;padding:5px 9px;margin:6px 0;font-size:13.5px}
-</style></head><body>
+</style><script src="bx-mockrec.js"></script>
+</head><body>
 <header><h1>來勝115年模擬試題（一）｜土地法規概要</h1><div class="sub">出題：曾榮耀（永慶班）｜90分鐘：申論2×25＋單選25×2<br>※補習班模擬題，非考選部官方試題。解答為 Claude 依現行法推導，並已於10-15對照曾老師公布之解答（差異題逐題註明），標⚠️者信心較低。</div></header>
 <div class="wrap"><div class="tabs"><button id="t1" class="on">單選25題</button><button id="t2">申論2題</button><button id="t3">配題分析</button><button id="t4">結果</button></div>
 <div id="p1"></div><div id="p2" style="display:none"></div><div id="p3" style="display:none"></div><div id="p4" style="display:none"></div></div>
@@ -134,10 +135,10 @@ function bar(){var s=stats();var t=(mode==="exam"&&!finished)?'<span id="tm">'+f
  $("bar").insertAdjacentHTML("beforeend",'<div class="exs">解析樣式<button data-m="B">分離式</button><button data-m="C">摺疊式</button><button data-m="D">結論優先</button><button class="ea" id="ea">'+(document.body.classList.contains("allopen")?"全部收合":"全部展開")+'</button></div>');
  [].forEach.call($("bar").querySelectorAll(".exs button[data-m]"),function(b){b.onclick=function(){setEx(b.dataset.m)}});$("ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX)}
 function setMode(m){if(mode===m)return;mode=m;reset()}
-function reset(){ans={};revealed={};finished=false;left=5400;if(tmr){clearInterval(tmr);tmr=null}
+function reset(){try{BXMR.reset(ID,25)}catch(e){}ans={};revealed={};finished=false;left=5400;if(tmr){clearInterval(tmr);tmr=null}
  if(mode==="exam"){tmr=setInterval(function(){left--;var e=$("tm");if(e)e.textContent=fmt(left);if(left<=0)finish()},1000)}
  build();window.scrollTo(0,0)}
-function finish(){if(tmr){clearInterval(tmr);tmr=null}finished=true;save();build();tab(3)}
+function finish(){if(tmr){clearInterval(tmr);tmr=null}if(mode==="exam")try{D.Q.forEach(function(q){if(ans[q.n]!==undefined)BXMR.ans("land",ID,q.n,okq(q,ans[q.n]))})}catch(e){}finished=true;save();build();tab(3)}
 function build(){
  var p=$("p1");p.innerHTML='<div class="bar" id="bar"></div>';
  D.Q.forEach(function(q){
@@ -157,7 +158,7 @@ function build(){
     if(show&&this.classList.contains("opt")&&(EX==="C"||EX==="D")){this.classList.toggle("open");return}
     if(finished||(mode==="practice"&&revealed[q.n]))return;
     ans[q.n]=L[i];
-    if(mode==="practice"){revealed[q.n]=true;save();build();var e=$("q"+q.n);if(e)e.scrollIntoView({block:"nearest"})}
+    if(mode==="practice"){revealed[q.n]=true;try{BXMR.ans("land",ID,q.n,okq(q,L[i]))}catch(e){}save();build();var e=$("q"+q.n);if(e)e.scrollIntoView({block:"nearest"})}
     else{os.querySelectorAll(".opt").forEach(function(x,j){x.classList.toggle("sel",j===i)});bar()}};
    os.appendChild(b)});
   if(show){var pk=ans[q.n],okk=pk!==undefined&&okq(q,pk);if(!okk)c.classList.add("wrong");
@@ -174,7 +175,7 @@ function build(){
    var cur=errs[q.n]||"";
    h+='<div class="err">錯題歸類：<button data-t="A" class="'+(cur==="A"?"on":"")+'">A 法條混淆</button><button data-t="B" class="'+(cur==="B"?"on":"")+'">B 粗心</button><button data-t="C" class="'+(cur==="C"?"on":"")+'">C 真的不熟</button></div>'}
   ex.innerHTML=h;
-  ex.querySelectorAll(".err button").forEach(function(bt){bt.onclick=function(){errs[q.n]=bt.dataset.t;lsSet("bx_mockerr_"+ID,JSON.stringify(errs));ex.querySelectorAll(".err button").forEach(function(x){x.classList.toggle("on",x===bt)})}});
+  ex.querySelectorAll(".err button").forEach(function(bt){bt.onclick=function(){errs[q.n]=bt.dataset.t;try{BXMR.cls(ID,q.n,bt.dataset.t)}catch(e){}lsSet("bx_mockerr_"+ID,JSON.stringify(errs));ex.querySelectorAll(".err button").forEach(function(x){x.classList.toggle("on",x===bt)})}});
   p.appendChild(c)});
  bar();
  var e=$("p2");e.innerHTML="";
@@ -218,6 +219,7 @@ function result(){
  $("p4").innerHTML=h}
 function tab(i){["p1","p2","p3","p4"].forEach(function(p,j){$(p).style.display=(j===i)?"":"none";$("t"+(j+1)).className=(j===i)?"on":""});if(i===3)result()}
 [0,1,2,3].forEach(function(i){$("t"+(i+1)).onclick=function(){tab(i)}});
+try{BXMR.boot(ID,25)}catch(e){}(function(){var f0=result;result=function(){f0();try{BXMR.mount("land",ID,$("p4"),25,function(n){var q=D.Q.filter(function(x){return x.n==n})[0];return q&&q.sec})}catch(e){}}})();
 build();
 </script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <!--bxtheme-->

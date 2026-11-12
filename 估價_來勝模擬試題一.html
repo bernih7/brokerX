@@ -111,6 +111,7 @@ details.cfd>summary,details.oldans>summary{cursor:pointer;font-weight:700}
 details.oldans{margin-top:14px;border-top:1px dashed var(--rule,var(--line,#DDD6C0));padding-top:8px}
 details.oldans>summary{font-size:.85rem;color:var(--ink-soft,var(--muted,#66706A))}
 </style>
+<script src="bx-mockrec.js"></script>
 </head><body>
 <button class="theme-btn" onclick="toggleTheme()" title="切換深淺色">🌗</button>
 <header>
@@ -345,6 +346,7 @@ function pick(id, idx){
   if(answers[id]!==undefined) return;
   answers[id] = idx;
   saveAnswers();
+  try{var _i=ITEMS.findIndex(function(x){return x.id===id});BXMR.ans("val","hs1",_i+1,idx===ITEMS[_i].correct)}catch(e){}
   // 模擬卷題目不屬題庫：不寫 bxv-q2，只存本卷成績（bx_mock_hs1）並計入今日作答數
   saveMockScore();
   try{ if(typeof BXREP!=='undefined' && BXREP.countQ) BXREP.countQ(1); }catch(e){}
@@ -638,6 +640,8 @@ updateResult();
 try{ if(answeredCount() && !localStorage.getItem('bx_mock_hs1')) saveMockScore(); }catch(e){} // 舊作答補存成績
 
 // 頁面開啟次數由 bxv-use.js 自動記錄（不需另外呼叫）
+
+try{var _p1=document.getElementById('p1'),hh=document.createElement('div');_p1.parentNode.insertBefore(hh,_p1.nextSibling);BXMR.mount('val','hs1',hh,ITEMS.length,null,function(){answers={};saveAnswers();saveMockScore();renderMC();window.scrollTo(0,0)})}catch(e){}
 </script>
 <script src="kf-fit.js"></script>
 </body></html>

@@ -129,6 +129,7 @@ details.cfd>summary,details.oldans>summary{cursor:pointer;font-weight:700}
 details.oldans{margin-top:14px;border-top:1px dashed var(--rule,var(--line,#DDD6C0));padding-top:8px}
 details.oldans>summary{font-size:.85rem;color:var(--ink-soft,var(--muted,#66706A))}
 </style>
+<script src="bx-mockrec.js"></script>
 </head>
 <body>
 <header>
@@ -281,7 +282,7 @@ function selectOpt(el,qid,oi){
   opts.forEach(o=>{o.classList.add('disabled');});
   opts[q.ans].classList.add('correct-ans');
   if(oi!==q.ans){opts[oi].classList.add('wrong-ans');}
-  const isRight=(oi===q.ans);
+  const isRight=(oi===q.ans);try{BXMR.ans("val","mockc4",QUESTIONS.indexOf(q)+1,isRight)}catch(e){}
   card.classList.add(isRight?'correct':'wrong');
   const qText=card.querySelector('.q-text');
   const badge=document.createElement('span');
@@ -311,7 +312,7 @@ function toggleEssay(btn){
 }
 
 function resetAll(){
-  if(!confirm('確定要重置所有作答紀錄？'))return;
+  if(!confirm('確定要重置所有作答紀錄？'))return;try{BXMR.reset('mockc4',QUESTIONS.length)}catch(e){}
   Object.keys(state).forEach(k=>delete state[k]);
   answered=0;correct=0;wrong=0;
   updateScore();
@@ -319,7 +320,9 @@ function resetAll(){
   init();
 }
 
+try{BXMR.boot('mockc4',QUESTIONS.length)}catch(e){}
 init();
+try{var qc=document.getElementById('quizContainer'),hh=document.createElement('div');qc.parentNode.insertBefore(hh,qc.nextSibling);BXMR.mount('val','mockc4',hh,QUESTIONS.length,null)}catch(e){}
 </script>
 <script src="kf-fit.js"></script>
 </body>

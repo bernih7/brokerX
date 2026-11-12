@@ -118,7 +118,8 @@ footer{text-align:center;font-size:.75rem;color:#8A7B66;padding:18px;border-top:
 
 </style>
 <script src="bxv-use.js"></script>
-<style id="ans-tag-css">.opt.rv::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.rv::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.ng::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.ng::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.ok::after{content:"✓ 你選的・正確";color:var(--green,#2F6B45)}.opt.ok::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.opt.rv::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.rv::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.ng::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.ng::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.ok::after{content:"✓ 你選的・正確";color:var(--green,#2F6B45)}.opt.ok::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bx-mockrec.js"></script>
+</head>
 <body>
 <button class="theme-toggle" id="themeToggle" title="切換亮/暗模式">🌙</button>
 
@@ -645,7 +646,7 @@ function sub(n){
   if(!ch){alert('請先選擇答案！');return;}
   var ans=card.dataset.a, cat=card.dataset.cat;
   var letters=['A','B','C','D'];
-  var right=(ch===ans);
+  var right=(ch===ans);try{BXMR.ans("val","vdiag1",n,right)}catch(e){}
   card.querySelectorAll('.opt').forEach(function(b,i){
     b.disabled=true;b.style.cursor='default';
     var l=letters[i];
@@ -739,6 +740,8 @@ function flt(type,btn){
     updateIcon();
   });
 })();
+
+try{BXMR.boot('vdiag1',25);var _ft=document.querySelector('footer'),hh=document.createElement('div');hh.style.cssText='max-width:900px;margin:0 auto;padding:0 16px';_ft.parentNode.insertBefore(hh,_ft);BXMR.mount('val','vdiag1',hh,25,null,function(){location.reload()})}catch(e){}
 </script>
 </body>
 </html>

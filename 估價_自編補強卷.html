@@ -105,7 +105,8 @@ tr:nth-child(even) td{background:color-mix(in srgb,var(--pri) 5%,var(--paper));}
 .cbox .kf-note{font-size:12px;opacity:.8;color:var(--ks-fg)}
 .cbox .k-s{background:var(--ks-s);border-color:var(--ks-sb)}.cbox .k-o{background:var(--ks-o);border-color:var(--ks-ob)}.cbox .k-g{background:var(--ks-g);border-color:var(--ks-gb)}.cbox .k-n{background:var(--ks-n);border-color:var(--ks-nb);border-style:dashed}.cbox .k-m{background:var(--ks-m);border-color:var(--ks-mb);border-width:2px}
 </style>
-<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style></head>
+<style id="ans-tag-css">.opt.correct-ans::after{content:"✓ 正確答案";color:var(--green,#2F6B45)}.opt.correct-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}.opt.wrong-ans::after{content:"✗ 你選的";color:var(--red,var(--stamp,#A84030))}.opt.wrong-ans::after{margin-left:8px;display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:4px;white-space:nowrap;vertical-align:middle;border:1px solid currentColor}</style><script src="bx-mockrec.js"></script>
+</head>
 <body>
 <header>
   <div class="case-tag">不動產估價概要・自編補強卷</div>
@@ -172,7 +173,7 @@ function selectOpt(el,qid,oi){
   opts.forEach(o=>{o.classList.add('disabled');});
   opts[q.ans].classList.add('correct-ans');
   if(oi!==q.ans){opts[oi].classList.add('wrong-ans');}
-  const isRight=(oi===q.ans);
+  const isRight=(oi===q.ans);try{BXMR.ans("val","mockx1",QUESTIONS.indexOf(q)+1,isRight)}catch(e){}
   card.classList.add(isRight?'correct':'wrong');
   const qText=card.querySelector('.q-text');
   const badge=document.createElement('span');
@@ -202,7 +203,7 @@ function toggleEssay(btn){
 }
 
 function resetAll(){
-  if(!confirm('確定要重置所有作答紀錄？'))return;
+  if(!confirm('確定要重置所有作答紀錄？'))return;try{BXMR.reset('mockx1',QUESTIONS.length)}catch(e){}
   Object.keys(state).forEach(k=>delete state[k]);
   answered=0;correct=0;wrong=0;
   updateScore();
@@ -210,7 +211,9 @@ function resetAll(){
   init();
 }
 
+try{BXMR.boot('mockx1',QUESTIONS.length)}catch(e){}
 init();
+try{var qc=document.getElementById('quizContainer'),hh=document.createElement('div');qc.parentNode.insertBefore(hh,qc.nextSibling);BXMR.mount('val','mockx1',hh,QUESTIONS.length,null)}catch(e){}
 </script>
 <script src="kf-fit.js"></script>
 </body>

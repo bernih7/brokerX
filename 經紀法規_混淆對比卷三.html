@@ -57,6 +57,7 @@ details summary{cursor:pointer;color:var(--pri);font-weight:700}.warn{font-size:
 #tm{font-weight:700;color:var(--bad)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 </style><script src="bxj-use.js"></script>
+<script src="bx-mockrec.js"></script>
 </head><body>
 <header><div class="hrow"><h1>經紀法規混淆對比卷③</h1><button class="th" id="th" aria-label="切換深淺色">深色</button></div><div class="sub">把最容易互換的數字與法條成對比較，專攻 A 型錯題（法條混淆）。25 題單選｜配題依 107–114 年占比：A管理條例7／E公寓大廈6／G公平法6／H消保法5／D定型化契約1｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟</div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
@@ -90,7 +91,7 @@ function mkQ(host){
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=cl2(q.notes[i]);
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){if(EX!=="B")this.classList.toggle("open");return}
-     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");
+     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;try{BXMR.ans("jj",ID,qq.n,ok)}catch(e){}if(!ok)cc.classList.add("wrong");
      cc.querySelectorAll(".opt").forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
      cc.querySelector(".res").className="res"+(ok?" ok":"");cc.querySelector(".res").textContent=(ok?"答對了":"答錯了")+"　正解 "+qq.ans+(ok?"":"（你選 "+L[ii]+"）");applyOpen(cc);
      upd();}})(q,i,c);
@@ -100,12 +101,12 @@ function mkQ(host){
   var bs=c.querySelector(".bs");
   [["A","A 法條混淆"],["B","B 粗心"],["C","C 真的不熟"]].forEach(function(t){
    var b=document.createElement("button");b.textContent=t[1];
-   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;try{save()}catch(e){}cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
+   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;try{BXMR.cls(ID,qq.n,k)}catch(e){}try{save()}catch(e){}cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
    bs.appendChild(b)});
   host.appendChild(c)});
  [].forEach.call(host.querySelectorAll(".exs button[data-m]"),function(bb){bb.onclick=function(){setEx(bb.dataset.m)}});
  host.querySelector("#ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX);
- qHost.querySelector("#rs").onclick=function(){st={};cl={};if(tmr){clearInterval(tmr);tmr=null}left=5400;mkQ(qHost);go(0)};
+ qHost.querySelector("#rs").onclick=function(){try{BXMR.reset(ID,D.Q.length)}catch(e){}st={};cl={};if(tmr){clearInterval(tmr);tmr=null}left=5400;mkQ(qHost);go(0)};
  if(D.timer){qHost.querySelector("#tb").onclick=function(){
    if(tmr){clearInterval(tmr);tmr=null;qHost.querySelector("#tb").textContent="繼續計時";return}
    qHost.querySelector("#tb").textContent="暫停";tmr=setInterval(function(){left--;qHost.querySelector("#tm").textContent=mm(Math.max(left,0));
@@ -151,7 +152,7 @@ TABS.forEach(function(t,i){var b=document.createElement("button");b.textContent=
 var th=document.getElementById("th");function isDark(){var x=document.documentElement.dataset.theme;return x==="dark"||(!x&&window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches)}
 function setTh(m){if(m)document.documentElement.dataset.theme=m;th.textContent=isDark()?"淺色":"深色"}
 var sv0=null;try{sv0=localStorage.getItem("bx-theme")}catch(e){}setTh(sv0);th.onclick=function(){var n=isDark()?"light":"dark";try{localStorage.setItem("bx-theme",n)}catch(e){}setTh(n)};
-mkQ(qHost);go(0);
+try{BXMR.boot(ID,D.Q.length)}catch(e){}(function(){var f0=mkR;mkR=function(h){f0(h);try{BXMR.mount("jj",ID,h,D.Q.length,function(n){var q=D.Q.filter(function(x){return x.n==n})[0];return q&&q.sec})}catch(e){}}})();mkQ(qHost);go(0);
 </script><!--bxfab-->
 <style>
 #bxfab{--fp:#2F5D50;--fs:#FFFEFA;--fo:#FFFFFF;--fl:#DDD6C0;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:0 12px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:60}

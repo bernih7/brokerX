@@ -54,7 +54,8 @@ body.allopen .done .vd{display:none!important}
 .hn{display:none;font-size:12px;color:#5F6B63;margin:2px 0 6px}
 body[data-ex="C"] .done .hn,body[data-ex="D"] .done .hn{display:block}
 .exs .ea{margin-left:auto;display:none}body[data-ex="C"] .exs .ea,body[data-ex="D"] .exs .ea{display:inline-block}
-</style></head><body>
+</style><script src="bx-mockrec.js"></script>
+</head><body>
 <header><h1>土地法診斷卷②</h1><div class="sub">全真模擬：單選 25 題（每題 2 分）＋申論 2 題（各 25 分），可計時 90 分鐘｜配題依 107–114 年占比：A8／B3／C3／D4／E3／F1／G2／H1｜題幹仿考選部寫法：10 題問「錯誤／非屬」、長敘述選項、中文數字，題目上不另標示｜考點與診斷卷①不重複｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟｜答案已對照現行條文（2026-11-11）</div></header>
 <div class="wrap"><div class="tabs" id="tabs"></div><div id="pg"></div></div>
 <!--bxfab-->
@@ -110,7 +111,7 @@ function mkQ(host){
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=q.notes[i];
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){this.classList.toggle("open");return}
-     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;pk[qq.n]=ii;if(!ok)cc.classList.add("wrong");
+     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;pk[qq.n]=ii;if(!window._bxRestoring)try{BXMR.rec("land",ID+"-"+qq.n,ok)}catch(e){}if(!ok)cc.classList.add("wrong");
      cc.querySelectorAll(".opt").forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
      qq.opts.forEach(function(t,j){var vd=cc.querySelectorAll(".opt")[j].querySelector(".vd"),ch=qq.notes[j].charAt(0);vd.textContent=(ch==="❌"||ch==="✅")?ch:""});
      applyOpen(cc);
@@ -164,7 +165,7 @@ function mkR(host){
  wr.forEach(function(q){var p=document.createElement("div");p.className="row";p.style.margin="6px 0";
   p.textContent="第"+q.n+"題｜"+q.sec+"｜"+(cl[q.n]?cl[q.n]+"型":"未歸類")+(lw[q.n]?"｜⚠️ 上次也錯":"");ls.appendChild(p)});
  host.appendChild(d);
- if(H.length){var hc=document.createElement("div");hc.className="card";hc.innerHTML='<div class="qn">歷次紀錄（按「重做」時自動保存）</div><div class="ls"></div>';var hl=hc.querySelector(".ls"),SEC={};D.Q.forEach(function(q){SEC[q.n]=q.sec});
+ if(H.length){var hc=document.createElement("div");hc.className="card";hc.innerHTML='<div class="qn">歷次紀錄（按「重做」時自動保存）</div><div class="note"><a href="土地法_錯題複習卷.html">▶ 去土地法錯題複習卷（錯題＋新題混合；答錯過的要連續答對 3 次才放過）</a></div><div class="ls"></div>';var hl=hc.querySelector(".ls"),SEC={};D.Q.forEach(function(q){SEC[q.n]=q.sec});
   H.slice().reverse().forEach(function(r,i){var t=new Date(r.t),dd=document.createElement("div");dd.style.margin="10px 0";
    var hd=document.createElement("div");hd.style.fontWeight="700";hd.textContent="第"+(H.length-i)+"次｜"+(t.getMonth()+1)+"/"+t.getDate()+"｜答對 "+r.c+"/"+r.n+(r.a<r.n?"（只答 "+r.a+" 題）":"")+"｜選擇題 "+(r.c*2)+" 分"+(r.note?"｜"+r.note:"");dd.appendChild(hd);
    r.w.slice().sort(function(a,b){return a[0]-b[0]}).forEach(function(x){var p=document.createElement("div");p.className="note";p.style.margin="2px 0";p.textContent="第"+x[0]+"題｜"+(SEC[x[0]]||"")+"｜"+(x[1]?x[1]+"型":"未歸類")+(st[x[0]]===true?"｜✅ 這次答對":st[x[0]]===false?"｜❌ 這次又錯":"");dd.appendChild(p)});
@@ -178,7 +179,7 @@ function go(i){cur=i;[].forEach.call($("tabs").children,function(b,j){b.classNam
  if(TABS[i]==="作答"){p.appendChild(qHost)}
  else{var h=document.createElement("div");p.appendChild(h);if(TABS[i]==="申論")mkE(h);else mkR(h)}}
 TABS.forEach(function(t,i){var b=document.createElement("button");b.textContent=t;b.onclick=(function(ii){return function(){go(ii)}})(i);$("tabs").appendChild(b)});
-var _cur=null;try{_cur=JSON.parse(localStorage.getItem("bx_mockcur_"+ID)||"null")}catch(e){}mkQ(qHost);(function(){try{var s=_cur;if(!s||!s.pk)return;D.Q.forEach(function(q){var i=s.pk[q.n];if(i===undefined||!CARDS[q.n])return;var b=CARDS[q.n].querySelectorAll(".opt")[i];if(b)b.onclick.call(b);var k=(s.cl||{})[q.n];if(k){var x=CARDS[q.n].querySelector('.cls button[data-k="'+k+'"]');if(x)x.onclick()}})}catch(e){}})();go(0);
+var _cur=null;try{_cur=JSON.parse(localStorage.getItem("bx_mockcur_"+ID)||"null")}catch(e){}mkQ(qHost);(function(){try{var s=_cur;if(!s||!s.pk)return;window._bxRestoring=1;D.Q.forEach(function(q){var i=s.pk[q.n];if(i===undefined||!CARDS[q.n])return;var b=CARDS[q.n].querySelectorAll(".opt")[i];if(b)b.onclick.call(b);var k=(s.cl||{})[q.n];if(k){var x=CARDS[q.n].querySelector('.cls button[data-k="'+k+'"]');if(x)x.onclick()}});window._bxRestoring=0}catch(e){window._bxRestoring=0}})();go(0);
 </script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script src="bx-use.js"></script>
 </body></html>
