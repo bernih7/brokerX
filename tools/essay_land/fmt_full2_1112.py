@@ -6,7 +6,7 @@ R = os.path.join(os.path.dirname(__file__), '..', '..')
 F = os.path.join(R, '土地法_申論題分類總覽.html')
 HL = json.load(open(os.path.join(R, 'tools/essay_land/hl_full2_1112.json'), encoding='utf-8'))
 s = open(F, encoding='utf-8').read()
-CSS = '.full2 p{line-height:1.85}.full2 b.ld{display:block;margin-bottom:4px}'
+CSS = '.full2 p{line-height:1.85}.full2 b.ld{display:block;margin-bottom:6px;padding-bottom:6px;border-bottom:1px dashed var(--line);color:var(--ink);font-size:15.5px}'
 if CSS not in s: s = s.replace('.full2 p{margin:4px 0}', '.full2 p{margin:4px 0}' + CSS, 1)
 BRK = r'(?=(?:依|另依|又依|同條|同法|同項|同辦法|同款|第[0-9]+項|舉例而言|本題|至於|惟|但|故|例如|再依|復依))'
 PAT = re.compile(r'<details class="sub2"><summary><b>(.*?)</b>(.*?)<div class="full2">(.*?)</div></details>', re.S)
