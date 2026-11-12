@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><script src="bx-vp.js"></script><title>土增稅速算公式</title>
+<script>(function(){var s=null;try{s=localStorage.getItem('bx-theme')}catch(e){}if(s)document.documentElement.setAttribute('data-theme',s)})();</script>
+<style>
+:root{--pri:#2F5D50;--onpri:#FFFFFF;--bg:#F5F1E6;--ink:#25302C;--card:#FFFEFA;--line:#DDD6C0;--muted:#66706A;--hl:#FFE58F;--warn:#FFF1D6;
+--cx:#23744C;--cxb:#E3F1E8;--ca:#A24E17;--cab:#FBEADC;--cd:#2B5A97;--cdb:#E4ECF8;--ct:#8A2F2F;--ctb:#F8E6E3}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pri:#84C2AE;--onpri:#10201B;--bg:#161C19;--ink:#E7ECE6;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--hl:#6E5716;--warn:#2E2717;
+--cx:#82D3A8;--cxb:#1B3227;--ca:#F2AE7E;--cab:#3A2619;--cd:#93B9F0;--cdb:#1B283D;--ct:#F0A3A0;--ctb:#3A1F1F;color-scheme:dark}}
+:root[data-theme="dark"]{--pri:#84C2AE;--onpri:#10201B;--bg:#161C19;--ink:#E7ECE6;--card:#1F2723;--line:#34403A;--muted:#9AA79F;--hl:#6E5716;--warn:#2E2717;
+--cx:#82D3A8;--cxb:#1B3227;--ca:#F2AE7E;--cab:#3A2619;--cd:#93B9F0;--cdb:#1B283D;--ct:#F0A3A0;--ctb:#3A1F1F;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.8 "Noto Sans TC",system-ui,sans-serif;padding-inline:16px;padding-block:18px 96px}
+main{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1{font-size:22px;margin:0;text-wrap:balance}
+h2{font-size:17px;margin:0 0 10px}
+.sub{color:var(--muted);font-size:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.x,.a,.d,.t{font-weight:700;border-radius:5px;padding:0 4px;white-space:nowrap}
+.x{color:var(--cx);background:var(--cxb)}.a{color:var(--ca);background:var(--cab)}.d{color:var(--cd);background:var(--cdb)}.t{color:var(--ct);background:var(--ctb)}
+.lg{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;color:var(--muted);margin-top:6px}
+.eq{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 12px}
+.tm{display:flex;flex-direction:column;align-items:stretch;min-width:0}
+.tm>.big{font-size:22px;font-weight:700;line-height:1.35;white-space:nowrap;text-align:center}
+.fl{font-size:19px;font-weight:700;line-height:1.7;margin:0 0 14px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+@media(max-width:640px){.tm.bx,.tm.bt{max-width:none}.eq{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px 6px}.tm>.big{text-align:left}.br{margin-right:0}.fl{font-size:17px}}
+.op{font-size:22px;color:var(--muted);line-height:1.35}
+.br{height:9px;border:2px solid var(--line);border-top:none;border-radius:0 0 7px 7px;margin:6px 0 8px}
+.tm.bx{max-width:250px}.tm.bt{max-width:130px}.eq{gap:14px 10px}
+@media(min-width:641px){.eq{flex-wrap:nowrap}.tm{flex:0 1 auto}}
+.tm.bx .br{border-color:var(--cx)}.tm.bu .br{border-color:var(--ca)}.tm.bd .br{border-color:var(--cd)}.tm.bt .br{border-color:var(--ct)}
+.nm{font-size:13px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:2px}
+.dt{font-size:14px;line-height:1.75}
+.dt .lw,.lw{color:var(--muted);font-size:12.5px}
+.gr{display:grid;grid-template-columns:auto auto;column-gap:12px;row-gap:3px;align-items:baseline}
+.gr .k{color:var(--muted);font-size:13px;white-space:nowrap}
+.gr .v{font-weight:700;white-space:nowrap}
+.mn{margin-top:6px;font-size:14px;font-weight:700;background:var(--hl);border-radius:6px;padding:1px 8px;display:inline-block}
+.mn small{font-weight:400;color:var(--ink);opacity:.8}
+.ex{background:var(--warn);border-radius:10px;padding:10px 14px;font-size:14.5px}
+.ex b{display:block}
+.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 12px}
+.fm label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);gap:2px}
+.fm input,.fm select{font:inherit;font-size:16px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.ck{flex-direction:row!important;align-items:center;gap:8px!important;font-size:14px!important;color:var(--ink)!important}
+.ck input{width:auto}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{font:inherit;font-size:14px;padding:5px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.out{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.st{display:grid;grid-template-columns:auto 1fr;column-gap:10px;row-gap:6px;font-size:15px;align-items:baseline}
+.st .k{color:var(--muted);font-size:13px;white-space:nowrap;text-align:right}
+.st .v{min-width:0;overflow-wrap:anywhere}
+.res{margin-top:12px;font-size:20px;font-weight:700}
+.res .t{font-size:22px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tw{overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+th{color:var(--muted);font-weight:400;font-size:13px}
+details>summary{cursor:pointer;font-weight:700}
+ul{margin:4px 0;padding-left:1.3em}
+li{margin:3px 0}
+.lawref{color:var(--muted);font-size:12.5px;font-weight:400}
+#hub{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;background:var(--pri);color:var(--onpri);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px}
+</style></head><body><main>
+<h1>土增稅速算公式</h1>
+<div class="sub">只背一行主公式，括號底下是每一項怎麼算。下方計算機可以代自己的數字。</div>
+<div class="lg"><span><span class="x">X</span> 漲價總數額</span><span><span class="a">A</span> 調整後原地價</span><span><span class="d">折數</span> 長期持有</span><span><span class="t">稅</span> 稅額</span></div>
+
+<section class="box">
+<h2>一行主公式</h2>
+<div class="fl"><span class="t">稅</span> ＝ <span class="x">X</span>×20% ＋（<span class="x">X</span>×□ − <span class="a">A</span>×□）× <span class="d">折數</span> − 抵繳</div>
+<div class="eq">
+ <div class="op"></div>
+ <div class="tm bx"><div class="big"><span class="x">X</span> × 20%</div><div class="br"></div>
+  <div class="nm">底層・永遠不打折</div>
+  <div class="dt"><span class="x">X</span> ＝ 申報移轉現值 − <span class="a">A</span> − 改良費用<br>
+  <span class="a">A</span> ＝ 原規定地價（或前次移轉現值）× 物價指數<br>
+  <span class="lw">改良費用：工程受益費、土地重劃費用、捐贈土地公告現值</span><br>
+  <span class="lawref">土稅§31Ⅰ、§32</span></div></div>
+ <div class="op">＋</div>
+ <div class="tm bu"><div class="big">（<span class="x">X</span>×□ − <span class="a">A</span>×□）</div><div class="br"></div>
+  <div class="nm">上層・看倍數 <span class="x">X</span> ÷ <span class="a">A</span></div>
+  <div class="dt"><div class="gr">
+   <span class="k">未達 1 倍</span><span class="v">沒有上層</span>
+   <span class="k">1～未達 2 倍</span><span class="v"><span class="x">X</span>×10% − <span class="a">A</span>×10%</span>
+   <span class="k">2 倍以上</span><span class="v"><span class="x">X</span>×20% − <span class="a">A</span>×30%</span>
+  </div>
+  <span class="mn">一一、二三 <small>×10%，X 加 A 減</small></span><br>
+  <span class="lawref">土稅§33Ⅰ</span></div></div>
+ <div class="op">×</div>
+ <div class="tm bd"><div class="big"><span class="d">折數</span></div><div class="br"></div>
+  <div class="nm">只乘上層</div>
+  <div class="dt"><div class="gr">
+   <span class="k">20 年以下</span><span class="v"><span class="d">1</span></span>
+   <span class="k">逾 20 年</span><span class="v"><span class="d">0.8</span></span>
+   <span class="k">逾 30 年</span><span class="v"><span class="d">0.7</span></span>
+   <span class="k">逾 40 年</span><span class="v"><span class="d">0.6</span></span>
+  </div>
+  <span class="mn">年數＋折數＝10</span><br>
+  <span class="lawref">土稅§33Ⅵ～Ⅷ</span></div></div>
+ <div class="op">−</div>
+ <div class="tm bt"><div class="big">抵繳</div><div class="br"></div>
+  <div class="nm">增繳的地價稅</div>
+  <div class="dt">持有期間因重新規定地價而增繳的地價稅<br>上限＝<span class="t">稅</span> × 5%<br>
+  <span class="lawref">土稅§31Ⅲ</span></div></div>
+</div>
+</section>
+
+<div class="ex"><b>⚠️ 自用住宅用地不套主公式</b><span class="t">稅</span> ＝ <span class="x">X</span> × 10%，不分級、不打折。都市超過 3 公畝、非都市超過 7 公畝的部分，仍回到主公式。<span class="lawref">土稅§34Ⅰ</span></div>
+
+<section class="box">
+<h2>計算機（代自己的數字）</h2>
+<div class="fm">
+ <label>原規定地價／前次移轉現值<input id="i0" type="number" inputmode="decimal" value="1000"></label>
+ <label>物價指數（%）<input id="i1" type="number" inputmode="decimal" value="130"></label>
+ <label>申報移轉現值<input id="i2" type="number" inputmode="decimal" value="3200"></label>
+ <label>改良費用<input id="i3" type="number" inputmode="decimal" value="100"></label>
+ <label>持有年數<select id="i4"><option value="1">20 年以下</option><option value="0.8">逾 20 年</option><option value="0.7">逾 30 年</option><option value="0.6">逾 40 年</option></select></label>
+ <label>增繳地價稅（沒有填 0）<input id="i5" type="number" inputmode="decimal" value="0"></label>
+ <label class="ck"><input id="i6" type="checkbox">自用住宅用地（10%）</label>
+</div>
+<div class="btns"><button class="btn" id="ex1" type="button">載入例題 pr-29</button><span class="lw">單位一致即可（萬元或元）</span></div>
+<div class="out" id="out"></div>
+</section>
+
+<section class="box">
+<details><summary>對照：合併後的速算表（＝底層＋上層×折數）</summary>
+<div class="tw" style="margin-top:8px"><table>
+<tr><th>持有</th><th>1～未達 2 倍</th><th>2 倍以上</th></tr>
+<tr><td>20 年以下</td><td><span class="x">X</span>×30% − <span class="a">A</span>×10%</td><td><span class="x">X</span>×40% − <span class="a">A</span>×30%</td></tr>
+<tr><td>逾 20 年</td><td><span class="x">X</span>×28% − <span class="a">A</span>×8%</td><td><span class="x">X</span>×36% − <span class="a">A</span>×24%</td></tr>
+<tr><td>逾 30 年</td><td><span class="x">X</span>×27% − <span class="a">A</span>×7%</td><td><span class="x">X</span>×34% − <span class="a">A</span>×21%</td></tr>
+<tr><td>逾 40 年</td><td><span class="x">X</span>×26% − <span class="a">A</span>×6%</td><td><span class="x">X</span>×32% − <span class="a">A</span>×18%</td></tr>
+</table></div>
+<p class="lw">未達 1 倍一律 <span class="x">X</span>×20%。這張不用背：例如逾 30 年的 2 倍以上＝<span class="x">X</span>×20% ＋（<span class="x">X</span>×20% − <span class="a">A</span>×30%）×0.7 ＝ <span class="x">X</span>×34% − <span class="a">A</span>×21%。</p>
+</details>
+</section>
+
+<section class="box">
+<h2>考試陷阱</h2>
+<ul>
+<li>倍數是 <span class="x">X</span> ÷ <span class="a">A</span>，不是「申報現值 ÷ 原地價」。</li>
+<li><span class="a">A</span> 要先乘物價指數，再拿去扣、拿去算倍數。</li>
+<li><span class="d">折數</span>只乘上層：整筆稅 × 0.8 是錯的。</li>
+<li>改良費用要扣進 <span class="x">X</span>，但不影響 <span class="a">A</span>。</li>
+<li>抵繳的增繳地價稅，最多只能抵到<span class="t">稅</span>額的 5%。</li>
+</ul>
+</section>
+</main><a id="hub" href="土地法_備考指揮中心.html" aria-label="回備考指揮中心">🏠</a>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function f(n){if(!isFinite(n))return'—';var r=Math.round(n*100)/100;return r.toLocaleString('zh-TW',{maximumFractionDigits:2})}
+function sp(c,t){return'<span class="'+c+'">'+t+'</span>'}
+function calc(){
+ var o=+$('i0').value||0,p=+$('i1').value||0,v=+$('i2').value||0,im=+$('i3').value||0,d=+$('i4').value,ex=+$('i5').value||0,self=$('i6').checked;
+ var A=o*p/100,X=v-A-im,h='';
+ h+='<div class="st">';
+ h+='<span class="k">'+sp('a','A')+'</span><span class="v">'+f(o)+' × '+f(p)+'% ＝ '+sp('a',f(A))+'</span>';
+ h+='<span class="k">'+sp('x','X')+'</span><span class="v">'+f(v)+' − '+f(A)+' − '+f(im)+' ＝ '+sp('x',f(X))+'</span>';
+ if(X<=0){h+='</div><div class="res">沒有漲價：'+sp('t','稅')+' ＝ 0</div>';$('out').innerHTML=h;return}
+ var base,up=0,upd=0,tax,lv,r=A>0?X/A:Infinity;
+ if(self){
+  base=X*0.10;tax=base;
+  h+='<span class="k">自用住宅</span><span class="v">'+sp('x',f(X))+' × 10% ＝ '+f(base)+'</span>';
+ }else{
+  lv=r<1?1:(r<2?2:3);
+  h+='<span class="k">倍數</span><span class="v">'+f(X)+' ÷ '+f(A)+' ＝ '+(isFinite(r)?f(r*100)+'%':'—')+' → '+(lv===1?'未達 1 倍':lv===2?'1～未達 2 倍':'2 倍以上')+'</span>';
+  base=X*0.2;
+  h+='<span class="k">底層</span><span class="v">'+sp('x',f(X))+' × 20% ＝ '+f(base)+'</span>';
+  if(lv===1){h+='<span class="k">上層</span><span class="v">沒有上層</span>'}
+  else{
+   var a=lv===2?0.1:0.2,b=lv===2?0.1:0.3;up=X*a-A*b;
+   h+='<span class="k">上層</span><span class="v">'+sp('x',f(X))+'×'+(a*100)+'% − '+sp('a',f(A))+'×'+(b*100)+'% ＝ '+f(up)+'</span>';
+   upd=up*d;
+   h+='<span class="k">× 折數</span><span class="v">'+f(up)+' × '+sp('d',d)+' ＝ '+f(upd)+'</span>';
+  }
+  tax=base+upd;
+ }
+ var cap=tax*0.05,off=Math.min(ex,cap);
+ if(ex>0)h+='<span class="k">抵繳</span><span class="v">增繳 '+f(ex)+'，上限 '+f(tax)+' × 5% ＝ '+f(cap)+' → 抵 '+f(off)+'</span>';
+ h+='</div>';
+ h+='<div class="res">'+sp('t','稅')+' ＝ '+(self?f(base):f(base)+' ＋ '+f(upd))+(off>0?' − '+f(off):'')+' ＝ '+sp('t',f(tax-off))+'</div>';
+ $('out').innerHTML=h;
+}
+['i0','i1','i2','i3','i4','i5','i6'].forEach(function(i){$(i).addEventListener('input',calc);$(i).addEventListener('change',calc)});
+$('ex1').onclick=function(){$('i0').value=1000;$('i1').value=130;$('i2').value=3200;$('i3').value=100;$('i4').value='1';$('i5').value=0;$('i6').checked=false;calc()};
+calc();
+})();
+</script>
+<script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
+</body></html>
