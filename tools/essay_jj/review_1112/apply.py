@@ -20,7 +20,8 @@ def ev_ok(x):
     for seg in re.split(r'；(?=[^「]*?§)', ev):
         m = re.match(r'\s*(.+? §[^：:「]+?)\s*[：:]\s*「(.+?)」', seg)
         if not m: continue
-        key, q = re.sub(r'(第[0-9一二三四五六七八九十]+[項款])+$', '', m.group(1).strip()).strip(), m.group(2)
+        key, q = re.sub(r'(第[0-9一二三四五六七八九十]+[項款]|[①-⑳]|[一二三四五六七八九十]+$|（[一二三四五六七八九十]+）)+$', '', m.group(1).strip()).strip(), m.group(2)
+        key = re.split(r'、', key)[0]
         txt = re.sub(r'\s', '', (LAW.get(key) or {}).get('text', ''))
         if not txt: return 'nokey:' + key
         for part in re.split(r'…|\.\.\.', q):
@@ -46,7 +47,7 @@ for f in glob.glob(os.path.join(R, 'tools/essay_jj/exam_ver/ev_*.json')):
     d = json.load(open(f, encoding='utf-8'))
     for k in d: EVF[k] = f
 EVD = {f: json.load(open(f, encoding='utf-8')) for f in set(EVF.values())}
-side = {p: open(os.path.join(R, p), encoding='utf-8').read() for p in ['tools/essay_jj/essays.json', 'tools/essay_jj/mock2/mock2.json']}
+side = {p: open(os.path.join(R, p), encoding='utf-8').read() for p in ['tools/essay_jj/essays.json', 'tools/essay_jj/mock2/mock2.json', 'tools/essay_jj/lj_data.json']}
 
 def div_end(s, a):
     d = 0
@@ -55,11 +56,24 @@ def div_end(s, a):
         if d == 0: return a + m.end()
     return len(s)
 
+def keep_tags(matched):
+    st, orphan = [], []
+    for t in re.findall(r'<[^>]+>', matched):
+        if t.startswith('</'):
+            nm = t[2:-1].split()[0]
+            if st and st[-1][0] == nm: st.pop()
+            else: orphan.append(t)
+        elif not t.endswith('/>') and not t.lower().startswith('<br'):
+            st.append((re.match(r'<(\w+)', t).group(1), t))
+    return ''.join(orphan), ''.join(o for _, o in st)
+
 def seg(cid):
     i = hub.find('<details id="%s"' % cid); j = hub.find('<details id="es-', i + 10); return i, (j if j > 0 else len(hub))
 
 done, fail, bad_ev, skipped = [], [], [], []
+ONLY = set(sys.argv[2].split(',')) if len(sys.argv) > 2 else None
 for x in items:
+    if ONLY is not None and x['_k'] not in ONLY: continue
     if x['_k'] in SKIP or x.get('severity') == '未核實': skipped.append(x['_k']); continue
     fix = x.get('fix', '').strip() or '（刪除）'
     m_alt = re.match(r'^（刪除，或改為：(.+)）$', fix)
@@ -89,7 +103,8 @@ for x in items:
         a = s.find('<div class="vp" data-v="0"'); b2 = div_end(s, a)
         m = rx.search(s, a, b2)
         if m:
-            s = s[:m.start()] + new + s[m.end():]; hub = hub[:i] + s + hub[j:]; ok = True
+            pre, post = keep_tags(m.group(0))
+            s = s[:m.start()] + pre + new + post + s[m.end():]; hub = hub[:i] + s + hub[j:]; ok = True
     if ok:
         done.append((x['_k'], x['id'], where))
         # 速寫與資料源同句
