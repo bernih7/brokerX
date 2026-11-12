@@ -48,14 +48,26 @@ def vdiag(f):
         out.append(item('vdiag1-%s' % n, 'vdiag1', '估價診斷卷① 第%s題' % n, cat, stem, opts, [L.index(a)], ['', '', '', ''], tr))
     return out
 
+def lj(f, m):
+    s = rd(f); i = s.index(m) + len(m); return json.JSONDecoder().raw_decode(s[i:])[0]
+def flat(x):
+    if isinstance(x, str): return [x]
+    if isinstance(x, list): return [y for z in x for y in flat(z)]
+    return []
+def extra(d, core, hl):  # 刷題頁既有的「一句重點」與黃底關鍵詞，複習卷沿用
+    if core and len(core) == 4: d['core'] = [strip(c) for c in core]
+    if hl and len(hl) == 4: d['hl'] = [[p for p in flat(h) if len(p) > 1] for h in hl]
+    return d
 def hist(S):
     out = []
+    CORE = lj('bxl-core.js', 'window.BXL_CORE=') if S == 'land' else lj('bxv-core.js', 'window.BXV_CORE=') if S == 'val' else {}
+    HL = lj('bxl-hl.js', 'window.BXL_HL=') if S == 'land' else lj('bxj-hl.js', 'window.BXJ_HL=') if S == 'jj' else lj('bxv-hl.js', 'window.BXV_HL=') if S == 'val' else {}
     if S in ('land', 'jj'):
         js = rd('bxl-quiz-data.js' if S == 'land' else 'bxj-quiz-data.js')
         Q = json.loads(js[js.index('{"q":'):js.rindex('}') + 1])['q']
         for q in Q:
             a = q['ans']; ok = [L.index(a)] if isinstance(a, str) else [a]
-            out.append(item('h:' + q['k'], 'h', '%s年第%s題' % (q['y'], q['n']), q['ch'], q['stem'], q['opt'], ok, q['exp']))
+            out.append(extra(item('h:' + q['k'], 'h', '%s年第%s題' % (q['y'], q['n']), q['ch'], q['stem'], q['opt'], ok, q['exp']), CORE.get(q['k']), HL.get(q['k'])))
     elif S == 'civ':
         for q in [q for q in json.load(open(os.path.join(R, 'tools/civ_quiz/quiz_data.json'), encoding='utf-8'))['q'] if q['acc'] and len(q['acc']) < 4]:  # 一律給分題不出
             out.append(item('h:' + q['k'], 'h', '%s年第%s題' % (q['y'], q['n']), q['ch'], q['stem'], q['opt'], sorted(L.index(a) for a in q['acc']), q['exp']))
@@ -64,7 +76,7 @@ def hist(S):
         Q = json.loads(subprocess.check_output(['node', '-e', 'global.window=global;require("./bxv-quiz-data.js");process.stdout.write(JSON.stringify(BXV_QUIZ.items))'], cwd=R))
         for q in Q:
             hid, src = ('h:%s-%s' % (q['y'], q['n']), '%s年第%s題' % (q['y'], q['n'])) if q['y'] else ('h:' + q['id'], '刷題補充題 ' + q['id'])
-            out.append(item(hid, 'h', src, q['ch'], q['q'], q['opts'], [q['correct']], q['exps']))
+            out.append(extra(item(hid, 'h', src, q['ch'], q['q'], q['opts'], [q['correct']], q['exps']), CORE.get(q['id']), HL.get(q['id'])))
     return out
 
 P = {

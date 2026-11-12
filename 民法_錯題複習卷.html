@@ -3,9 +3,9 @@
 <title>民法錯題複習卷</title>
 <script>(function(){try{var s=localStorage.getItem("bx-theme")}catch(e){}if(s)document.documentElement.setAttribute("data-theme",s)})()</script>
 <style>
-:root{--bg:#F8F3E9;--card:#FFFEFA;--fg:#2B2A27;--mut:#6B665C;--line:#E2DACA;--ac:#2F5D50;--ok:#3D7A4A;--okbg:#E7F1E4;--ng:#A8402B;--ngbg:#F7E5DF;--gold:#BC8A2E;--goldbg:#FBF1D9;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}
+:root{--hl:#FFE58F;--bg:#F8F3E9;--card:#FFFEFA;--fg:#2B2A27;--mut:#6B665C;--line:#E2DACA;--ac:#2F5D50;--ok:#3D7A4A;--okbg:#E7F1E4;--ng:#A8402B;--ngbg:#F7E5DF;--gold:#BC8A2E;--goldbg:#FBF1D9;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hl:#6E5716;--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}}
+:root[data-theme="dark"]{--hl:#6E5716;--bg:#1C1B19;--card:#262421;--fg:#ECE7DD;--mut:#A9A294;--line:#3B3833;--ac:#8FC1AE;--ok:#8FCF9B;--okbg:#1F3324;--ng:#F0957F;--ngbg:#3A2420;--gold:#E2B862;--goldbg:#3A3020;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 system-ui,-apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
 .wrap{max-width:860px;margin:0 auto;padding:20px 16px 80px}
@@ -33,7 +33,14 @@ details summary{cursor:pointer;font-weight:700}
 .opt b{margin-right:6px}
 .card.done .opt{cursor:default}
 .opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--ngbg);border-color:var(--ng)}
-.opt .ex{display:none;margin-top:6px;font-size:.9rem;color:var(--mut);white-space:pre-wrap}
+.opt .ex{display:none;margin-top:8px;font-size:.95rem;color:var(--fg);white-space:pre-wrap;line-height:1.7}
+.ex .pill{display:inline-block;padding:0 9px;margin-right:8px;border-radius:999px;font-weight:700;font-size:.85rem;border:1px solid}
+.ex .p-ok{color:var(--ok);border-color:var(--ok);background:var(--okbg)}.ex .p-ng{color:var(--ng);border-color:var(--ng);background:var(--ngbg)}
+.ex .core{font-weight:700}.ex .exb{margin-top:4px}.ex .core+.exb{color:var(--mut)}
+.ex mark,.an mark,.tr mark{background:var(--hl);color:var(--fg);font-weight:700;border-radius:3px;padding:0 2px}
+.opt .who{display:none;margin-left:6px;font-size:.8rem;font-weight:700;padding:0 8px;border-radius:999px;vertical-align:2px}
+.opt.ok .who.c{display:inline-block;background:var(--ok);color:var(--card)}.opt.bad .who.y{display:inline-block;background:var(--ng);color:var(--card)}
+.card.done .opt:not(.ok):not(.bad){opacity:.78}
 .card.done .opt .ex{display:block}
 .res{font-weight:700;margin:4px 0}.res.ok{color:var(--ok)}.res.ng{color:var(--ng)}
 .tr{display:none;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--goldbg);font-size:.92rem;white-space:pre-wrap}
@@ -112,10 +119,10 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
  c.ids.forEach(function(id,ix){var q=BY[id];if(!q)return;var d=document.createElement("div");d.className="card";d.id="q"+(ix+1);
   var r0=c.st&&c.st[id]?c.st[id]:A[id];
   d.innerHTML='<div class="qh"><span class="no">第'+(ix+1)+'題</span>'+badge(r0)+'<span>'+srcHtml(q)+'</span>'+(q.sec?'<span>'+esc(q.sec)+'</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="os"></div><div class="an'+(q.an?' has':'')+'"></div><div class="tr'+(q.tr?' has':'')+'"></div>';
-  d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").textContent=q.tr?"🎯 "+q.tr:"";if(q.an){var an=d.querySelector(".an");an.innerHTML="<b>逐項判斷</b>";an.appendChild(document.createTextNode(q.an.join("\n")))}
+  d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").innerHTML=q.tr?"<b>🎯 陷阱：</b>"+qm(esc(q.tr),[]):"";if(q.an){var an=d.querySelector(".an");an.innerHTML="<b>逐項判斷</b>";an.insertAdjacentHTML("beforeend",qm(esc(q.an.join("\n")),[]))}
   var os=d.querySelector(".os");
-  q.opts.forEach(function(t,i){var b=document.createElement("button");b.className="opt";b.type="button";b.innerHTML='<b>('+L[i]+')</b><span></span><div class="ex"></div>';
-   b.querySelector("span").textContent=t;b.querySelector(".ex").textContent=q.ex[i]||"";
+  q.opts.forEach(function(t,i){var b=document.createElement("button");b.className="opt";b.type="button";b.innerHTML='<b>('+L[i]+')</b><span class="ot"></span><span class="who c">正解</span><span class="who y">你選的</span><div class="ex"></div>';
+   b.querySelector(".ot").textContent=t;b.querySelector(".ex").innerHTML=fx(q,i);
    b.onclick=function(){if(d.classList.contains("done"))return;show(i,false)};os.appendChild(b)});
   function show(i,old){d.classList.add("done");var ok=q.ok.indexOf(i)>=0;
    [].forEach.call(os.children,function(b,j){if(q.ok.indexOf(j)>=0)b.classList.add("ok");else if(j===i)b.classList.add("bad")});
@@ -127,6 +134,15 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
   if(c.pk[id]!==undefined)show(c.pk[id],true);
   host.appendChild(d)});
  host.appendChild(fin);upd()}
+function qm(h,ph){ph.forEach(function(p){p=esc(p);if(p.length>1&&h.indexOf(p)>=0&&h.indexOf("<mark>"+p)<0)h=h.split(p).join("<mark>"+p+"</mark>")});
+ return h.replace(/([「『])([^「」『』<>\n]{1,40})([」』])/g,function(m,a,b,c){return a+"<mark>"+b+"</mark>"+c})}
+function fx(q,i){var t=q.ex[i]||"",ok=q.ok.indexOf(i)>=0,m=t.match(/^\s*(✓|✔|✅|⭕|○|✗|✘|×|❌|╳)\s*(?:(?:正確|錯誤|對|錯)\s*[。：:，,、]|[。：:，,、])?\s*/),v;
+ if(m){v=/✓|✔|✅|⭕|○/.test(m[1]);t=t.slice(m[0].length)}else if(/^\s*(正確|錯誤)[。：:，,]/.test(t)){v=/^\s*正確/.test(t);t=t.replace(/^\s*(正確|錯誤)[。：:，,]\s*/,"")}else v=null;
+ var pl=v===null?(ok?'<span class="pill p-ok">正解</span>':'<span class="pill p-ng">不是答案</span>'):(v?'<span class="pill p-ok">✓ 對</span>':'<span class="pill p-ng">✗ 錯</span>');
+ var core=q.core&&q.core[i]?'<span class="core">'+esc(q.core[i])+'</span>':"";
+ if(v===null&&core)pl="";
+ if(!t&&!core)return pl;
+ return pl+core+(t?'<div class="exb">'+qm(esc(t),(q.hl&&q.hl[i])||[])+'</div>':"")}
 function newPaper(only){archive();var ids=pick(only);if(!ids.length){$("paper").innerHTML='<div class="box">全部題目都放過了。</div>';return}
  var A=BXMR.all(S),st={};ids.forEach(function(id){if(A[id])st[id]=A[id]});
  var c={t:Date.now(),ids:ids,pk:{},st:st};sv(CK,c);paper(c);hist();stats();window.scrollTo(0,$("paper").offsetTop-10)}
