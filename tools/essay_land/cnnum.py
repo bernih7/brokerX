@@ -30,7 +30,7 @@ def parse(t):
 def fmt(v,dec=''):
     return f'{v:,}'+dec
 NUM='[零〇一二兩三四五六七八九十百千]'
-P_MONEY=re.compile(r'(?<![第之零〇一二兩三四五六七八九十百千萬．.])((?:%s|點)+萬|%s(?:%s|點|萬|億)*)(萬元|億元|元)'%(NUM,NUM,NUM))
+P_MONEY=re.compile(r'(?<![第零〇一二兩三四五六七八九十百千萬．.])((?:%s|點)+萬|%s(?:%s|點|萬|億)*)(萬元|億元|元)'%(NUM,NUM,NUM))
 P_PCT=re.compile(r'(?<![．.])(百分之|千分之)((?:%s|點)+)'%NUM)
 P_UNIT=re.compile(r'(?<![第之生同統唯單任每逐零〇一二兩三四五六七八九十百千．.])(%s+)(個月|年|日|天|戶|倍|公畝|公頃|成)(?![立功效為份分本度份])'%NUM)
 def conv_plain(s):
