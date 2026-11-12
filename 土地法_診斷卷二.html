@@ -179,6 +179,7 @@ function go(i){cur=i;[].forEach.call($("tabs").children,function(b,j){b.classNam
  if(TABS[i]==="作答"){p.appendChild(qHost)}
  else{var h=document.createElement("div");p.appendChild(h);if(TABS[i]==="申論")mkE(h);else mkR(h)}}
 TABS.forEach(function(t,i){var b=document.createElement("button");b.textContent=t;b.onclick=(function(ii){return function(){go(ii)}})(i);$("tabs").appendChild(b)});
+(function(){try{if(localStorage.getItem("bx_mockseed3_"+ID))return;localStorage.setItem("bx_mockseed3_"+ID,"1");var a=JSON.parse(localStorage.getItem("bx_drill_land")||"{}"),W=[3,5,9,12,15,17],t=new Date(2026,10,12,12,50).getTime();for(var n=1;n<=25;n++){var k=ID+"-"+n;if(a[k])continue;var w=W.indexOf(n)>=0;a[k]={c:w?0:1,w:w?1:0,s:w?0:1,h:w?"0":"1",t:t}}localStorage.setItem("bx_drill_land",JSON.stringify(a))}catch(e){}})();
 var _cur=null;try{_cur=JSON.parse(localStorage.getItem("bx_mockcur_"+ID)||"null")}catch(e){}mkQ(qHost);(function(){try{var s=_cur;if(!s||!s.pk)return;window._bxRestoring=1;D.Q.forEach(function(q){var i=s.pk[q.n];if(i===undefined||!CARDS[q.n])return;var b=CARDS[q.n].querySelectorAll(".opt")[i];if(b)b.onclick.call(b);var k=(s.cl||{})[q.n];if(k){var x=CARDS[q.n].querySelector('.cls button[data-k="'+k+'"]');if(x)x.onclick()}});window._bxRestoring=0}catch(e){window._bxRestoring=0}})();go(0);
 </script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script src="bx-use.js"></script>

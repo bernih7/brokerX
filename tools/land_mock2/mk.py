@@ -45,6 +45,14 @@ i0 = out.find('(function(){try{if(localStorage.getItem("bx_mockseed2_"')
 if i0 >= 0:
     out = out[:i0] + out[out.index('})();\n', i0) + 6:]
 assert 'bx_mockseed1_' not in out and 'bx_mockseed2_' not in out and 'bx_mockcur_' in out
+# 卷②：使用者 11/12 12:50 截圖那次（錯 3、5、9、12、15、17），只補熟練度裡還沒有的題
+SEED3 = ('(function(){try{if(localStorage.getItem("bx_mockseed3_"+ID))return;localStorage.setItem("bx_mockseed3_"+ID,"1");'
+         'var a=JSON.parse(localStorage.getItem("bx_drill_land")||"{}"),W=[3,5,9,12,15,17],t=new Date(2026,10,12,12,50).getTime();'
+         'for(var n=1;n<=25;n++){var k=ID+"-"+n;if(a[k])continue;var w=W.indexOf(n)>=0;a[k]={c:w?0:1,w:w?1:0,s:w?0:1,h:w?"0":"1",t:t}}'
+         'localStorage.setItem("bx_drill_land",JSON.stringify(a))}catch(e){}})();\n')
+anc = 'var _cur=null;try{_cur=JSON.parse(localStorage.getItem("bx_mockcur_"+ID)'
+assert out.count(anc) == 1
+out = out.replace(anc, SEED3 + anc, 1)
 assert out.count('landdiag1') == 0, out.count('landdiag1')
 open(os.path.join(ROOT, '土地法_診斷卷二.html'), 'w', encoding='utf-8').write(out)
 print('ok', len(out))
