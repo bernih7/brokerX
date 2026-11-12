@@ -10,16 +10,19 @@ def jd(s, mark):
     i = s.index(mark) + len(mark); return json.JSONDecoder().raw_decode(s[i:])[0]
 def strip(t):  # 題庫文字裡少數 HTML 標記
     t = re.sub(r'<br\s*/?>', '\n', t or ''); t = re.sub(r'<[^>]+>', '', t); return H.unescape(t).strip()
-def item(id, p, src, sec, stem, opts, ok, ex, tr=''):
+def item(id, p, src, sec, stem, opts, ok, ex, tr='', an=None):
+    assert len(ex or []) in (0, 4), (id, '解析數≠4：逐項判斷要放 st，不能塞進選項解析')
     ex = [strip(x) for x in (ex or [])] + [''] * (4 - len(ex or []))
-    return dict(id=id, p=p, src=src, sec=sec or '', stem=strip(stem), opts=[strip(o) for o in opts], ok=ok, ex=ex[:4], tr=strip(tr))
+    d = dict(id=id, p=p, src=src, sec=sec or '', stem=strip(stem), opts=[strip(o) for o in opts], ok=ok, ex=ex[:4], tr=strip(tr))
+    if an: d['an'] = [strip(x) for x in an]
+    return d
 
 def varD(f, pid, name, S):
     s = rd(f); D = jd(s, 'var D=') if 'var D=' in s else None
     out = []
     for q in D['Q']:
         ok = [L.index(q['ans'])] + [L.index(a) for a in q.get('alt') or [] if a in L]
-        out.append(item('%s-%s' % (pid, q['n']), pid, '%s 第%s題' % (name, q['n']), q.get('sec') or q.get('ch', ''), q['stem'], q['opts'], sorted(set(ok)), q.get('notes'), q.get('trap', '')))
+        out.append(item('%s-%s' % (pid, q['n']), pid, '%s 第%s題' % (name, q['n']), q.get('sec') or q.get('ch', ''), q['stem'], q['opts'], sorted(set(ok)), q.get('notes'), q.get('trap', ''), q.get('st')))
     return out
 
 def vq(f, pid, name):

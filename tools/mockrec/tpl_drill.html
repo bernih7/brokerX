@@ -38,6 +38,8 @@ details summary{cursor:pointer;font-weight:700}
 .res{font-weight:700;margin:4px 0}.res.ok{color:var(--ok)}.res.ng{color:var(--ng)}
 .tr{display:none;margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--goldbg);font-size:.92rem;white-space:pre-wrap}
 .card.done .tr.has{display:block}
+.an{display:none;margin-top:8px;font-size:.92rem;white-space:pre-wrap;line-height:1.7}.an b{display:block;margin-bottom:2px}
+.card.done .an.has{display:block}
 .score{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;font-weight:700;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line)}
 .hist div{font-size:.92rem;padding:2px 0}
 .fin{border-color:var(--ac)}.fin a,.score a{color:var(--ac)}
@@ -109,15 +111,15 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
  var A=BXMR.all(S);
  c.ids.forEach(function(id,ix){var q=BY[id];if(!q)return;var d=document.createElement("div");d.className="card";d.id="q"+(ix+1);
   var r0=c.st&&c.st[id]?c.st[id]:A[id];
-  d.innerHTML='<div class="qh"><span class="no">第'+(ix+1)+'題</span>'+badge(r0)+'<span>'+srcHtml(q)+'</span>'+(q.sec?'<span>'+esc(q.sec)+'</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="os"></div><div class="tr'+(q.tr?' has':'')+'"></div>';
-  d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").textContent=q.tr?"🎯 "+q.tr:"";
+  d.innerHTML='<div class="qh"><span class="no">第'+(ix+1)+'題</span>'+badge(r0)+'<span>'+srcHtml(q)+'</span>'+(q.sec?'<span>'+esc(q.sec)+'</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="os"></div><div class="an'+(q.an?' has':'')+'"></div><div class="tr'+(q.tr?' has':'')+'"></div>';
+  d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").textContent=q.tr?"🎯 "+q.tr:"";if(q.an){var an=d.querySelector(".an");an.innerHTML="<b>逐項判斷</b>";an.appendChild(document.createTextNode(q.an.join("\n")))}
   var os=d.querySelector(".os");
   q.opts.forEach(function(t,i){var b=document.createElement("button");b.className="opt";b.type="button";b.innerHTML='<b>('+L[i]+')</b><span></span><div class="ex"></div>';
    b.querySelector("span").textContent=t;b.querySelector(".ex").textContent=q.ex[i]||"";
    b.onclick=function(){if(d.classList.contains("done"))return;show(i,false)};os.appendChild(b)});
   function show(i,old){d.classList.add("done");var ok=q.ok.indexOf(i)>=0;
    [].forEach.call(os.children,function(b,j){if(q.ok.indexOf(j)>=0)b.classList.add("ok");else if(j===i)b.classList.add("bad")});
-   var r=old?BXMR.get(S,id):BXMR.rec(S,id,ok);
+   var r=(old?BXMR.get(S,id):BXMR.rec(S,id,ok))||{};
    if(!old){c.pk[id]=i;sv(CK,c)}
    var res=d.querySelector(".res");res.className="res "+(ok?"ok":"ng");
    res.textContent=(ok?"答對":"答錯，正解 "+q.ok.map(function(k){return L[k]}).join("／"))+"｜"+(BXMR.done(r)?"這題放過了 ✓":r.w?"連對 "+r.s+"/3（錯過的題要連對 3 次）":"");
