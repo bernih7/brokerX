@@ -38,6 +38,10 @@ new_h = ('<header><h1>土地法診斷卷②</h1><div class="sub">全真模擬：
          '｜配題依 107–114 年占比：A8／B3／C3／D4／E3／F1／G2／H1｜題幹仿考選部寫法：10 題問「錯誤／非屬」、長敘述選項、中文數字，題目上不另標示'
          '｜考點與診斷卷①不重複｜答錯可歸類 A 法條混淆／B 粗心／C 真的不熟｜答案已對照現行條文（2026-11-11）</div></header>')
 out = out.replace(old_h, new_h, 1)
+i0 = out.find('(function(){try{if(localStorage.getItem("bx_mockseed1_"')   # 卷①才有的截圖補登，卷②不要
+if i0 >= 0:
+    out = out[:i0] + out[out.index('})();\n', i0) + 6:]
+assert 'bx_mockseed1_' not in out and 'bx_mockcur_' in out
 assert out.count('landdiag1') == 0, out.count('landdiag1')
 open(os.path.join(ROOT, '土地法_診斷卷二.html'), 'w', encoding='utf-8').write(out)
 print('ok', len(out))

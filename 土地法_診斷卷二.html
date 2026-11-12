@@ -82,14 +82,16 @@ function taxLinks(q){var l=[],t=q.stem+q.opts.join("")+q.notes.join(""),k=(q.sec
  if(SECT[k])l.push([SECT[k][1],SECT[k][0]]);
  if(tx)KWT.forEach(function(a){if(new RegExp(a[0]).test(t)&&!l.some(function(x){return x[1]===a[1]}))l.push([a[2],a[1]])});
  return l.slice(0,3)}
-var L="ABCD",st={},cl={},cur=0,tmr=null,left=5400,qHost=document.createElement("div");
+var L="ABCD",st={},cl={},pk={},CARDS={},cur=0,tmr=null,left=5400,qHost=document.createElement("div");
 var NAMES={"A": "A 總則・登記・共有優購・租賃", "B": "B 計畫三法", "C": "C 重劃・空地稅・預售屋", "D": "D 土地徵收", "E": "E 地價稅・土增稅", "F": "F 房屋稅", "G": "G 契稅", "H": "H 房地合一"};
 var EX="D";try{EX=localStorage.getItem("bx-ex2")||"D"}catch(e){}
 function applyOpen(cc){[].forEach.call(cc.querySelectorAll(".opt"),function(o){o.classList.toggle("open",EX==="C"&&(o.classList.contains("ok")||o.classList.contains("bad")))})}
 function setEx(m){EX=m;document.body.dataset.ex=m;[].forEach.call(document.querySelectorAll(".card.done"),applyOpen);try{localStorage.setItem("bx-ex2",m)}catch(e){}[].forEach.call(document.querySelectorAll(".exs button[data-m]"),function(b){b.className=b.dataset.m===m?"on":""})}
 function $(i){return document.getElementById(i)}
 function save(){try{var a=0,c=0;for(var k in st){a++;if(st[k])c++}
- localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}))}catch(e){}}
+ localStorage.setItem("bx_mock_"+ID,JSON.stringify({a:a,c:c,n:D.Q.length,t:Date.now()}));localStorage.setItem("bx_mockcur_"+ID,JSON.stringify({st:st,cl:cl,pk:pk,t:Date.now()}));var er={};for(var k2 in st){if(st[k2]===false)er[k2]=cl[k2]||"未歸類"}localStorage.setItem("bx_mockerr_"+ID,JSON.stringify(er))}catch(e){}}
+function hist(){try{return JSON.parse(localStorage.getItem("bx_mockhist_"+ID)||"[]")}catch(e){return []}}
+function archive(){var a=0,c=0,w=[];for(var k in st){a++;if(st[k])c++;else w.push([+k,cl[k]||""])}if(!a)return;var h=hist();h.push({t:Date.now(),a:a,c:c,n:D.Q.length,w:w});try{localStorage.setItem("bx_mockhist_"+ID,JSON.stringify(h.slice(-20)));localStorage.removeItem("bx_mockcur_"+ID)}catch(e){}}
 function upd(){var a=0,c=0;for(var k in st){a++;if(st[k])c++}
  qHost.querySelector("#sc").textContent="已答 "+a+"/"+D.Q.length+"｜答對 "+c+"｜選擇題 "+(c*2)+"/"+(D.Q.length*2);save()}
 function mm(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
@@ -98,7 +100,7 @@ function mkQ(host){
  host.innerHTML=top;
  [].forEach.call(host.querySelectorAll(".exs button[data-m]"),function(b){b.onclick=function(){setEx(b.dataset.m)}});host.querySelector("#ea").onclick=function(){var on=document.body.classList.toggle("allopen");this.textContent=on?"全部收合":"全部展開"};setEx(EX);
  D.Q.forEach(function(q){
-  var c=document.createElement("div");c.className="card";
+  var c=document.createElement("div");c.className="card";CARDS[q.n]=c;
   c.innerHTML='<div class="qn">第'+q.n+'題<span class="tag">'+q.sec+'</span>'+(q.neg?'<span class="tag" style="background:var(--red)">問錯誤</span>':'')+'</div><div class="stem"></div><div class="res"></div><div class="trap top"></div><div class="hn">點每個選項可展開／收合說明；右上「全部展開」一次看完</div><div class="os"></div><div class="exa"></div><div class="trap"></div><div class="tl"></div><div class="src"></div><div class="cls">這題為何答錯？<span class="bs"></span></div>';
   c.querySelector(".stem").textContent=q.stem;
   var os=c.querySelector(".os");
@@ -108,7 +110,7 @@ function mkQ(host){
    b.querySelector(".tx").textContent=t;b.querySelector(".nt").textContent=q.notes[i];
    b.onclick=(function(qq,ii,cc){return function(){
      if(cc.classList.contains("done")){this.classList.toggle("open");return}
-     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;if(!ok)cc.classList.add("wrong");
+     cc.classList.add("done");var ok=(L[ii]===qq.ans);st[qq.n]=ok;pk[qq.n]=ii;if(!ok)cc.classList.add("wrong");
      cc.querySelectorAll(".opt").forEach(function(x,j){if(L[j]===qq.ans)x.classList.add("ok");else if(j===ii)x.classList.add("bad")});
      qq.opts.forEach(function(t,j){var vd=cc.querySelectorAll(".opt")[j].querySelector(".vd"),ch=qq.notes[j].charAt(0);vd.textContent=(ch==="❌"||ch==="✅")?ch:""});
      applyOpen(cc);
@@ -124,10 +126,10 @@ function mkQ(host){
   var bs=c.querySelector(".bs");
   [["A","A 法條混淆"],["B","B 粗心"],["C","C 真的不熟"]].forEach(function(t){
    var b=document.createElement("button");b.textContent=t[1];
-   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel"}})(q,t[0],b,c);
+   b.onclick=(function(qq,k,bb,cc){return function(){cl[qq.n]=k;cc.querySelectorAll(".cls button").forEach(function(x){x.className=""});bb.className="sel";save()}})(q,t[0],b,c);b.dataset.k=t[0];
    bs.appendChild(b)});
   host.appendChild(c)});
- qHost.querySelector("#rs").onclick=function(){st={};cl={};if(tmr){clearInterval(tmr);tmr=null}left=5400;mkQ(qHost);go(0)};
+ qHost.querySelector("#rs").onclick=function(){archive();st={};cl={};pk={};if(tmr){clearInterval(tmr);tmr=null}left=5400;mkQ(qHost);go(0)};
  if(D.timer){qHost.querySelector("#tb").onclick=function(){
    if(tmr){clearInterval(tmr);tmr=null;qHost.querySelector("#tb").textContent="繼續計時";return}
    qHost.querySelector("#tb").textContent="暫停";tmr=setInterval(function(){left--;qHost.querySelector("#tm").textContent=mm(Math.max(left,0));
@@ -158,9 +160,15 @@ function mkR(host){
  d.innerHTML='<div class="qn">錯題歸類</div><div class="note">A 法條混淆 '+cnt.A+'｜B 粗心 '+cnt.B+'｜C 真的不熟 '+cnt.C+'｜未歸類 '+cnt.N+'</div><div class="ls"></div>';
  var ls=d.querySelector(".ls");
  if(!wr.length){ls.textContent=n?"目前沒有答錯的題目。":"尚未作答。"}
+ var H=hist(),last=H.length?H[H.length-1]:null,lw={};if(last)last.w.forEach(function(x){lw[x[0]]=1});
  wr.forEach(function(q){var p=document.createElement("div");p.className="row";p.style.margin="6px 0";
-  p.textContent="第"+q.n+"題｜"+q.sec+"｜"+(cl[q.n]?cl[q.n]+"型":"未歸類");ls.appendChild(p)});
+  p.textContent="第"+q.n+"題｜"+q.sec+"｜"+(cl[q.n]?cl[q.n]+"型":"未歸類")+(lw[q.n]?"｜⚠️ 上次也錯":"");ls.appendChild(p)});
  host.appendChild(d);
+ if(H.length){var hc=document.createElement("div");hc.className="card";hc.innerHTML='<div class="qn">歷次紀錄（按「重做」時自動保存）</div><div class="ls"></div>';var hl=hc.querySelector(".ls"),SEC={};D.Q.forEach(function(q){SEC[q.n]=q.sec});
+  H.slice().reverse().forEach(function(r,i){var t=new Date(r.t),dd=document.createElement("div");dd.style.margin="10px 0";
+   var hd=document.createElement("div");hd.style.fontWeight="700";hd.textContent="第"+(H.length-i)+"次｜"+(t.getMonth()+1)+"/"+t.getDate()+"｜答對 "+r.c+"/"+r.n+(r.a<r.n?"（只答 "+r.a+" 題）":"")+"｜選擇題 "+(r.c*2)+" 分"+(r.note?"｜"+r.note:"");dd.appendChild(hd);
+   r.w.slice().sort(function(a,b){return a[0]-b[0]}).forEach(function(x){var p=document.createElement("div");p.className="note";p.style.margin="2px 0";p.textContent="第"+x[0]+"題｜"+(SEC[x[0]]||"")+"｜"+(x[1]?x[1]+"型":"未歸類")+(st[x[0]]===true?"｜✅ 這次答對":st[x[0]]===false?"｜❌ 這次又錯":"");dd.appendChild(p)});
+   hl.appendChild(dd)});host.appendChild(hc)}
  var e=document.createElement("div");e.className="card";
  e.innerHTML='<div class="qn">怎麼讀這份結果</div><div class="note">單一篇低於 70%（紅條）＝優先補強；A 型多＝做混淆對比表；C 型多＝回重點筆記重讀；B 型多＝放慢題幹審題。把結果貼回專案對話，我據此調整後續卷。</div>';
  host.appendChild(e)}
@@ -170,7 +178,7 @@ function go(i){cur=i;[].forEach.call($("tabs").children,function(b,j){b.classNam
  if(TABS[i]==="作答"){p.appendChild(qHost)}
  else{var h=document.createElement("div");p.appendChild(h);if(TABS[i]==="申論")mkE(h);else mkR(h)}}
 TABS.forEach(function(t,i){var b=document.createElement("button");b.textContent=t;b.onclick=(function(ii){return function(){go(ii)}})(i);$("tabs").appendChild(b)});
-mkQ(qHost);go(0);
+var _cur=null;try{_cur=JSON.parse(localStorage.getItem("bx_mockcur_"+ID)||"null")}catch(e){}mkQ(qHost);(function(){try{var s=_cur;if(!s||!s.pk)return;D.Q.forEach(function(q){var i=s.pk[q.n];if(i===undefined||!CARDS[q.n])return;var b=CARDS[q.n].querySelectorAll(".opt")[i];if(b)b.onclick.call(b);var k=(s.cl||{})[q.n];if(k){var x=CARDS[q.n].querySelector('.cls button[data-k="'+k+'"]');if(x)x.onclick()}})}catch(e){}})();go(0);
 </script><script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 <script src="bx-use.js"></script>
 </body></html>
