@@ -2053,6 +2053,8 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 (function(){
   /* key 以各頁實際存檔為準：bx_mock_hs1＝來勝模擬試題一（逐題存）、bx_mockx_1＝自編補強卷（原模擬試題二～四的獨有題）、bx_mockc_1～5＝綜合模擬卷一～五、bx_mock_1＝估價_診斷卷一 */
   var mocks=[{k:'bx_mock_hs1',name:'來勝模擬試題一',part:1},{k:'bx_mockx_1',name:'自編補強卷'},{k:'bx_mockc_1',name:'綜合模擬卷一'},{k:'bx_mockc_2',name:'綜合模擬卷二'},{k:'bx_mockc_3',name:'綜合模擬卷三'},{k:'bx_mockc_4',name:'綜合模擬卷四'},{k:'bx_mockc_5',name:'綜合模擬卷五'},{k:'bx_mock_1',name:'診斷卷①'}];
+function bxDrillLine(S,pid,N){var a={};try{a=JSON.parse(localStorage.getItem("bx_drill_"+S)||"{}")}catch(e){}var d=0,t=0;for(var i=1;i<=N;i++){var r=a[pid+"-"+i];if(!r)continue;if(r.w?r.s>=3:r.c>=1)d++;else t++}return (d+t)?("各題（含錯題複習卷）：放過 "+d+"・還要練 "+t+"・沒做過 "+(N-d-t)):""}
+function bxDrillAdd(el,txt){if(!el||!txt||el.querySelector(".bxdl"))return;var s=document.createElement("span");s.className="bxdl";s.style.cssText="display:block;margin-top:2px;font-weight:400;font-size:.88em;color:var(--muted,#888)";s.textContent=txt;el.appendChild(s)}
   function renderMocks(cid){
     var c=document.getElementById(cid);if(!c)return;
     mocks.forEach(function(m){
@@ -2063,6 +2065,8 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
       var score=stored&&stored.score!==undefined?'<div class="mk-score">'+stored.score+' / '+tt+(m.part&&stored.answered<tt?'<small style="font-weight:500;color:var(--muted)">（已答 '+stored.answered+'）</small>':'')+'</div>':'<div class="mk-none">尚未作答</div>';
       row.innerHTML='<div class="mock-name">'+m.name+'</div>'+score;
       c.appendChild(row);
+      var P={bx_mock_hs1:['hs1',25],bx_mockx_1:['mockx1',24],bx_mock_1:['vdiag1',25]},pp=P[key]||(/^bx_mockc_(\d)$/.test(key)?['mockc'+key.slice(-1),25]:null);
+      if(pp)bxDrillAdd(row.querySelector('.mock-name'),bxDrillLine('val',pp[0],pp[1]));
     });
   }
   renderMocks('mock-table');

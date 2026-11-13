@@ -1270,7 +1270,9 @@ th.addEventListener('click',function(){var n=isDark()?'light':'dark';lsS('bx-the
 var MOCKS=[['diag1','① 診斷卷','經紀法規_診斷卷一.html','先找基準線'],['hi2','② 高頻考點卷','經紀法規_高頻考點卷二.html','鐵律考點'],['cf3','③ 混淆對比卷','經紀法規_混淆對比卷三.html','專攻 A 型錯題'],['full4','④ 全真模擬卷','經紀法規_全真模擬卷四.html','限時 90 分鐘'],['full5','⑤ 缺口補強卷','經紀法規_缺口補強卷五.html','補弱主題・限時 90 分鐘'],['tch1','來勝115模擬(一)','經紀法規_模擬試題一_曾榮耀.html','已對照老師解答']];
 var BASE='https://bernih7.github.io/brokerX/';
 function mockState(id){var raw=lsG('bx_mock_'+id);if(!raw)return null;try{var d=JSON.parse(raw);return {a:d.a,n:d.n,c:d.c,pct:Math.round(d.c*100/d.n),done:d.a>=d.n}}catch(e){return null}}
-document.querySelectorAll('.mk').forEach(function(el){var s=mockState(el.dataset.mock);if(!s)return;el.textContent='答 '+s.a+'/'+s.n+'・對 '+s.c+'（'+s.pct+'%）'});
+function bxDrillLine(S,pid,N){var a={};try{a=JSON.parse(localStorage.getItem("bx_drill_"+S)||"{}")}catch(e){}var d=0,t=0;for(var i=1;i<=N;i++){var r=a[pid+"-"+i];if(!r)continue;if(r.w?r.s>=3:r.c>=1)d++;else t++}return (d+t)?("各題（含錯題複習卷）：放過 "+d+"・還要練 "+t+"・沒做過 "+(N-d-t)):""}
+function bxDrillAdd(el,txt){if(!el||!txt||el.querySelector(".bxdl"))return;var s=document.createElement("span");s.className="bxdl";s.style.cssText="display:block;margin-top:2px;font-weight:400;font-size:.88em;color:var(--muted,#888)";s.textContent=txt;el.appendChild(s)}
+document.querySelectorAll('.mk').forEach(function(el){var s=mockState(el.dataset.mock);if(s)el.textContent='整卷：答 '+s.a+'/'+s.n+'・對 '+s.c+'（'+s.pct+'%）';bxDrillAdd(el,bxDrillLine('jj',el.dataset.mock,el.dataset.mock==='full5'?31:25))});
 document.querySelectorAll('.badge[data-mock]').forEach(function(el){var s=mockState(el.dataset.mock);if(!s)return;el.textContent=(s.done?'':'進行中 ')+s.pct+'%';el.className='badge '+(s.done?(s.pct>=70?'ok':'red'):'gold')});
 (function(){
 var exam=new Date('2026-11-14T00:00:00+08:00');var d=Math.max(0,Math.ceil((exam-new Date())/86400000));document.getElementById('days').textContent=d;
