@@ -80,9 +80,15 @@ function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i
 function srcHtml(q){var p=P[q.p];return p?'<a class="src" href="'+encodeURI(p[1])+'" target="_blank" rel="noopener">'+esc(q.src)+'</a>':esc(q.src)}
 function badge(r){var s=BXMR.state(r);return s==="new"?'<span class="tag new">新題</span>':s==="done"?'<span class="tag done">已放過</span>':'<span class="tag todo">錯過・連對 '+r.s+'/3</span>'}
 var N=ld(NK,25);
+/* 歷屆題同步寫入各科刷題作答紀錄（指揮中心「選擇題」進度與錯題本讀這裡）：id＝章-年-題，民法章＝篇字母 */
+var Q2={civ:"bxm-q2",land:"bx-q2",jj:"bxj-q2",val:"bxv-q2"};
+function q2rec(q,i,ok){try{if(q.p!=="h"||!q.sec||!Q2[S])return;var m=/^h:(\d+)-(\d+)$/.exec(q.id);if(!m)return;
+ var ch=S==="civ"?q.sec.charAt(0):q.sec,key=Q2[S],DB=ld(key,{}),id=ch+"-"+m[1]+"-"+m[2],r=DB[id]||{n:0,w:0,h:[]};
+ r.c=i;r.ok=ok?1:0;r.g=0;r.k="";delete r.sh;r.t=Math.floor(Date.now()/1000);r.n=(r.n||0)+1;if(!ok)r.w=(r.w||0)+1;
+ (r.h=r.h||[]).push([r.t,r.ok,0]);if(r.h.length>10)r.h.shift();DB[id]=r;sv(key,DB)}catch(e){}}
 function stats(){var A=BXMR.all(S),c={done:0,todo:0,nm:0,nh:0};
  Q.forEach(function(q){var s=BXMR.state(A[q.id]);if(s==="done")c.done++;else if(s==="todo")c.todo++;else if(q.p==="h")c.nh++;else c.nm++});
- $("st").innerHTML='<span>已放過 <b class="k-ok">'+c.done+'</b></span><span>還要練 <b class="k-ng">'+c.todo+'</b></span><span>模擬卷沒做過 <b>'+c.nm+'</b></span><span class="k-mut">歷屆沒做過 '+c.nh+'</span>';
+ $("st").innerHTML='<span>題庫共 <b>'+Q.length+'</b></span><span>已放過 <b class="k-ok">'+c.done+'</b></span><span>還要練 <b class="k-ng">'+c.todo+'</b></span><span>模擬卷沒做過 <b>'+c.nm+'</b></span><span class="k-mut">歷屆沒做過 '+c.nh+'</span>';
  var st=Q.filter(function(q){var r=A[q.id];return r&&r.w&&!BXMR.done(r)}).sort(function(a,b){var x=A[a.id],y=A[b.id];return y.w-x.w||x.s-y.s||y.t-x.t});
  $("stuck").innerHTML=st.length?st.slice(0,30).map(function(q){var r=A[q.id];return '<div>'+srcHtml(q)+(q.sec?'｜'+esc(q.sec):'')+'｜錯 '+r.w+' 次｜連對 '+r.s+'/3｜最近：'+r.h.split("").map(function(x){return x==="1"?"✓":"✗"}).join("")+'</div>'}).join(""):'<div class="k-mut">目前沒有答錯還沒放過的題。</div>';
  $("stk").querySelector("summary").textContent="一直錯的題（"+st.length+"）";
@@ -108,9 +114,10 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
  function upd(){var a=0,k=0;c.ids.forEach(function(id){var p=c.pk[id];if(p===undefined)return;a++;if(BY[id].ok.indexOf(p)>=0)k++});
   var all=a===c.ids.length;sc.innerHTML="已答 "+a+"/"+c.ids.length+"｜答對 "+k+(all?'｜<a href="#fin" class="k-ok">✓ 做完了，看下一步 ↓</a>':"");
   fin.hidden=!all;if(!all)return;var A=BXMR.all(S),d=0,t=0,wr=[];c.ids.forEach(function(id){var r=A[id];if(BXMR.done(r))d++;else{t++;}if(BY[id].ok.indexOf(c.pk[id])<0)wr.push(id)});
-  var tot=0;Q.forEach(function(q){if(BXMR.state(A[q.id])==="todo")tot++});
+  var tot=0,dn=0,nm=0,nh=0;Q.forEach(function(q){var s2=BXMR.state(A[q.id]);if(s2==="todo")tot++;else if(s2==="done")dn++;else if(q.p==="h")nh++;else nm++});
   fin.innerHTML='<div id="fin" style="font-weight:700;font-size:1.1rem">這份做完了：答對 '+k+"/"+c.ids.length+'</div>'+
    '<div class="k-mut" style="margin:4px 0 8px">這份 '+c.ids.length+' 題裡：已放過 '+d+'、還要練 '+t+'。整個題庫目前還要練 <b class="k-ng">'+tot+'</b> 題。</div>'+
+   '<div class="k-mut" style="margin:0 0 8px">整個題庫共 '+Q.length+' 題：已放過 <b class="k-ok">'+dn+'</b>、還要練 '+tot+'、沒做過 '+(nm+nh)+'（模擬卷 '+nm+'、歷屆 '+nh+'）。全部放過才算結束；照每份 '+N+' 題，沒做過的題至少還要約 '+Math.ceil((nm+nh)/N)+' 份。歷屆題作答也會記進指揮中心的選擇題進度。</div>'+
    (wr.length?'<div style="font-size:.92rem">這次錯的：'+wr.map(function(id){var j=c.ids.indexOf(id)+1;return '<a href="#q'+j+'">第'+j+'題</a>'}).join("、")+'（先點回去看解析，再做下一份）</div>':"")+
    '<div class="row"><button class="btn pri" type="button" data-m="mix">再來一份（錯題＋新題）</button>'+(tot?'<button class="btn" type="button" data-m="only">只練還要練的（'+Math.min(tot,N)+' 題）</button>':"")+'</div>'+
    '<div class="k-mut" style="font-size:.88rem;margin-top:6px">按下去，這份會存進下方「本複習卷歷次紀錄」。</div>';
@@ -127,7 +134,7 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
   function show(i,old){d.classList.add("done");var ok=q.ok.indexOf(i)>=0;
    [].forEach.call(os.children,function(b,j){if(q.ok.indexOf(j)>=0)b.classList.add("ok");else if(j===i)b.classList.add("bad")});
    var r=(old?BXMR.get(S,id):BXMR.rec(S,id,ok))||{};
-   if(!old){c.pk[id]=i;sv(CK,c)}
+   if(!old){c.pk[id]=i;sv(CK,c);q2rec(q,i,ok)}
    var res=d.querySelector(".res");res.className="res "+(ok?"ok":"ng");
    res.textContent=(ok?"答對":"答錯，正解 "+q.ok.map(function(k){return L[k]}).join("／"))+"｜"+(BXMR.done(r)?"這題放過了 ✓":r.w?"連對 "+r.s+"/3（錯過的題要連對 3 次）":"");
    upd();if(!old)stats()}
