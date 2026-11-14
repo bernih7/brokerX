@@ -37,6 +37,7 @@ def point(t):
         elif len(rest.rstrip('。')) <= 24: h = hm.group(0) + rest.rstrip('。'); main = ''   # 短項（如「（二）法定建蔽率。」）整句當小標
         else: main = '\x00' + hm.group(0) + '\x01' + rest   # 長項無冒號：編號留在句首、不另起空小標（11-05）
     mh = fmt(main).replace('\x00', '<b>').replace('\x01', '</b>')
+    mh = re.sub(r'。(?=(?:本題|故|惟|但|又|另|依同)[^。]{4,})', '。<br>', mh)   # 11-14 規則→本題→結論各一行，一眼看到
     o = '<div class="evp">' + ('<p class="evh">%s</p>' % fmt(h) if h else '') + ('<p>%s</p>' % mh if main.strip() else '')
     if ex: o += '<p class="evx"><span class="evt">例</span><span>%s</span></p>' % fmt(ex)
     if why: o += '<p class="evx"><span class="evt">理由</span><span>%s</span></p>' % fmt(why)
@@ -97,6 +98,7 @@ def law_block(cid, text):
     return '<p>' + ''.join('<span class="evli">%s</span>' % l for l in lines) + '</p>'
 def body(h, p, cid=''):
     if h.startswith('二') and cid: return law_block(cid, p)
+    if h.startswith('四'): return '<p>%s</p>' % re.sub(r'([。；])(?=\S)', r'\1<br>', fmt(p))   # 11-14 結論每句一行
     if not h.startswith('三'): return '<p>%s</p>' % fmt(p)
     return ''.join(point(x) if PT.match(x.strip()) else '<p>%s</p>' % fmt(x) for x in p.split('<br>') if x.strip())
 n = 0

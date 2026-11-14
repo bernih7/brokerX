@@ -11,7 +11,9 @@ PAT = [
     ('per', re.compile(r'(?:於|自)?[^，。；：、（）]{0,8}?' + r'[\d一二三四五六七八九十]+\s*(?:個月|日|年|小時|名)(?:內|以上|以下|後|為限)?(?:[^，。；：（）]{0,40})')),
     ('frac', re.compile(r'[^，。；：、（）]{0,10}[一二三四五六七八九十]分之[一二三四五六七八九十](?:以上)?[^，。；：（）]{0,40}')),
     ('must', re.compile(r'(?:應經|須經|應由|不得|始得|應先)[^，。；：（）]{2,40}')),
+    ('ext', re.compile(r'受償順序與第一順位抵押權同|得聲請法院拍賣|得訴請法院[^，。；：（）]{2,24}|得請求[^，。；：（）]{2,20}|應負[^，。；：（）]{0,10}責任|應即回收[^，。；：（）]{0,10}|[一二三五]倍以下|契約無效|得隨時以書面終止|連選得連任一次|至少應置[^，。；：（）]{2,14}|不列入[^，。；：（）]{0,12}|仍得認定[^，。；：（）]{0,12}|不適用|準用[^，。；：（）]{2,20}|與民事確定判決有同一之效力|免繳裁判費|週年利率百分之五|不含[^，。；：（）]{2,14}|不包括[^，。；：（）]{2,10}|屬第25條之顯失公平行為|違反第\d+條|應以書面[^，。；：（）]{2,20}|為公寓大廈之管理負責人|應予改善或回復原狀|應受該規約或決議之限制|應即[^，。；：（）]{2,16}|得報請[^，。；：（）]{2,16}|應置[^，。；：（）]{2,12}')),
 ]
+FALL = re.compile(r'指([^，。；：（）]{4,28})')
 def mark(text, k):
     if '<mark>' in text: return text
     # 只處理正文：切掉 例：／理由在於 之後
@@ -25,12 +27,15 @@ def mark(text, k):
                 s = max(body.rfind(c, 0, s) for c in '，。；：、（「') + 1
             seg = body[s:e].strip('，、 ')
             seg = re.sub(r'^(?:並|且|而|即|故|則)', '', seg)
-            if len(seg) < 3 or len(seg) > 30 or re.search(r'第\s*\d+\s*條|<|[①-⑳]', seg): continue
+            if len(seg) < 3 or len(seg) > 30 or (kind != 'ext' and re.search(r'第\s*\d+\s*條', seg)) or re.search(r'<|[①-⑳]', seg): continue
             s = body.find(seg, s)
             if any(not (e2 <= s or s + len(seg) <= s2) for s2, e2 in spans): continue
             spans.append((s, s + len(seg)))
             break
         if len(spans) >= k: break
+    if not spans:   # 定義句：標「指」後的定義內容
+        fm = FALL.search(body)
+        if fm and not re.search(r'第\s*\d+\s*條|[①-⑳]', fm.group(1)): spans.append(fm.span(1))
     for s, e in sorted(spans, reverse=True):
         body = body[:s] + '<mark>' + body[s:e] + '</mark>' + body[e:]
     return body + tail
