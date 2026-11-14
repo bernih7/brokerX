@@ -58,7 +58,7 @@ a.src{color:var(--ac)}
 <script src="bx-pool-jj.js"></script>
 </head><body><div class="wrap">
 <h1>經紀法規錯題複習卷</h1>
-<div class="sub">從經紀法規所有模擬卷和歷屆真題抽題。答錯過、還沒放過的題先出，再補沒做過的新題，兩種混在一起考。新題名額依 107–114 年歷屆各章出題比例分配（錯題已占的章會少分一些），模擬卷沒涵蓋的章用歷屆題補。<br>放過規則：第一次就答對的題直接放過；答錯過的題要<b>連續答對 3 次</b>才放過，中間錯一次就從 0 重算。</div>
+<div class="sub">從經紀法規所有模擬卷和歷屆真題抽題。答錯過、還沒放過的題先出，再補沒做過的新題，兩種混在一起考。新題先把模擬卷全部做完（依 107–114 年歷屆各章比例挑），模擬卷做完後，歷屆題同樣依各章比例出題。<br>放過規則：第一次就答對的題直接放過；答錯過的題要<b>連續答對 3 次</b>才放過，中間錯一次就從 0 重算。</div>
 <div class="box"><div class="stats" id="st"></div>
 <div class="row"><span class="k-mut">一份幾題：</span><span id="nsel"></span></div>
 <div class="row"><label><input type="checkbox" id="useh" checked> 新題不夠時，補歷屆真題</label></div>
@@ -119,7 +119,10 @@ function pick(only){var A=BXMR.all(S),todo=[],nm=[],nh=[];
  if(only)return shuf(todo.slice(0,N));
  var nT=Math.min(todo.length,Math.ceil(N*0.7)),out=todo.slice(0,nT),fresh=shuf(nm);
  if($("useh").checked)fresh=fresh.concat(shuf(nh));
- if(RATIO)fresh=byRatio(out,fresh,N-out.length).concat(fresh);
+ // 11-14 使用者選 A：模擬卷新題先全部做完（模擬卷內仍依各章比例挑），模擬卷沒新題了才依比例出歷屆題
+ if(RATIO){var K=N-out.length,m=shuf(nm),pm=byRatio(out,m,K);pm=pm.concat(m.filter(function(x){return pm.indexOf(x)<0})).slice(0,K);
+  var ph=[];if(pm.length<K&&$("useh").checked){var hh=shuf(nh);ph=byRatio(out.concat(pm),hh,K-pm.length);ph=ph.concat(hh.filter(function(x){return ph.indexOf(x)<0}))}
+  fresh=pm.concat(ph)}
  out=out.concat(fresh.filter(function(x,i,a){return a.indexOf(x)===i&&out.indexOf(x)<0}).slice(0,N-out.length));
  if(out.length<N)out=out.concat(todo.slice(nT,nT+N-out.length));
  return shuf(out)}

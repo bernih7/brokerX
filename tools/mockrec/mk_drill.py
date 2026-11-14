@@ -8,6 +8,6 @@ RATIO = ('land', 'jj')  # 11-14 使用者：只改土地法、經紀法規（民
 NAME = {'land': '土地法', 'civ': '民法', 'jj': '經紀法規', 'val': '估價'}
 for S in NAME:
     assert os.path.exists(os.path.join(R, HUB[S])), HUB[S]
-    s = T.replace('@@NAME@@', NAME[S]).replace('@@POOL@@', 'bx-pool-%s.js' % S).replace('@@HUB@@', HUB[S]).replace('@@RATIO@@', '1' if S in RATIO else '0').replace('@@RATIO_TXT@@', '新題名額依 107–114 年歷屆各章出題比例分配（錯題已占的章會少分一些），模擬卷沒涵蓋的章用歷屆題補。' if S in RATIO else '')
+    s = T.replace('@@NAME@@', NAME[S]).replace('@@POOL@@', 'bx-pool-%s.js' % S).replace('@@HUB@@', HUB[S]).replace('@@RATIO@@', '1' if S in RATIO else '0').replace('@@RATIO_TXT@@', '新題先把模擬卷全部做完（依 107–114 年歷屆各章比例挑），模擬卷做完後，歷屆題同樣依各章比例出題。' if S in RATIO else '')
     open(os.path.join(R, '%s_錯題複習卷.html' % NAME[S]), 'w', encoding='utf-8').write(s)
     print('ok', NAME[S])
