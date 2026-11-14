@@ -29,6 +29,13 @@
     (document.head||document.documentElement).appendChild(s)}
   function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   /* o={stem,exps:[4],ans:0-3,pick:0-3,core:[4]|null,keys:[[...]x4]|null} */
+  /* 11-14：作答後在題目選項上把「錯的字」標紅（依 bx-wrong.js）。btns＝四個選項元素，o 同 bxXRows */
+  window.bxMarkOpts=function(btns,o){if(!window.bxWrong)return;var neg=bxNegStem(o.stem);
+    [].forEach.call(btns,function(el,i){if((i===o.ans)!==neg||el.querySelector('mark.bxw'))return;
+      var ph=bxWrong(o.opts[i],(o.exps||[])[i]);if(!ph.length)return;
+      var tw=document.createTreeWalker(el,4),n,ns=[];while((n=tw.nextNode()))ns.push(n);
+      ph.forEach(function(p){for(var k=0;k<ns.length;k++){var t=ns[k],j=t.nodeValue.indexOf(p);if(j<0)continue;
+        var r=t.splitText(j);r.splitText(p.length);var m=document.createElement('mark');m.className='bxw';r.parentNode.replaceChild(m,r);m.appendChild(r);ns.splice(k+1,0,m.nextSibling);break}})})};
   window.bxXRows=function(o){
     var neg=bxNegStem(o.stem),h='<div class="xrs">';
     /* 組合題（選項都是 ①②③…）：答案組合就是「對在」 */
@@ -40,6 +47,7 @@
       raw=raw.replace(/<\/?(?:b|strong|br|sup|sub|i|em)\s*\/?>/gi,function(m){tags.push(m);return '\u0001'+(tags.length-1)+'\u0002'});
       var body=window.bxmExp?bxmExp(raw,null,keys,tk):esc(raw);
       body=body.replace(/\u0001(\d+)\u0002/g,function(_,n){return tags[+n]});
+      if(tk==='ng'&&window.bxWrongExp)body=bxWrongExp(body);
       var head='<span class="xc">'+(ok?'<span class="xans">本題答案</span>':'')+'<span class="xp xp-'+tk+'">'+(tk==='ok'?'對在':'錯在')+'</span>'+(core?esc(core):'')+'</span>';
       h+='<div class="xrw'+(ok?' ok':'')+'"><span class="xL">'+'ABCD'[i]+'</span><div class="xB">'+head+body+(i===o.pick&&!ok?'<span class="xme">你選的</span>':'')+'</div></div>';
     });

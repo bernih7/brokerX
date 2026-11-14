@@ -38,6 +38,9 @@ details summary{cursor:pointer;font-weight:700}
 .ex .p-ok{color:var(--ok);border-color:var(--ok);background:var(--okbg)}.ex .p-ng{color:var(--ng);border-color:var(--ng);background:var(--ngbg)}
 .ex .core{font-weight:700}.ex .exb{margin-top:4px}.ex .core+.exb{color:var(--mut)}
 .ex mark,.an mark,.tr mark{background:var(--hl);color:var(--fg);font-weight:700;border-radius:3px;padding:0 2px}
+.ex mark.bxw{background:none;color:var(--ng);padding:0}
+.card:not(.done) mark.bxw{color:inherit!important;font-weight:inherit!important;text-decoration:none!important;-webkit-text-decoration:none!important}
+#bx-tg{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;z-index:50;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:18px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .opt .who{display:none;margin-left:6px;font-size:.8rem;font-weight:700;padding:0 8px;border-radius:999px;vertical-align:2px}
 .opt.ok .who.c{display:inline-block;background:var(--ok);color:var(--card)}.opt.bad .who.y{display:inline-block;background:var(--ng);color:var(--card)}
 .card.done .opt:not(.ok):not(.bad){opacity:.78}
@@ -54,6 +57,7 @@ details summary{cursor:pointer;font-weight:700}
 a.src{color:var(--ac)}
 #hub{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;background:var(--ac);color:var(--bg);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px}
 </style>
+<script src="bx-wrong.js"></script>
 <script src="bx-mockrec.js"></script>
 <script src="@@POOL@@"></script>
 </head><body><div class="wrap">
@@ -152,7 +156,7 @@ function paper(c,restoring){var host=$("paper");host.innerHTML="";if(!c)return;
   d.querySelector(".stem").textContent=q.stem;d.querySelector(".tr").innerHTML=q.tr?"<b>🎯 陷阱：</b>"+qm(esc(q.tr),[]):"";if(q.an){var an=d.querySelector(".an");an.innerHTML="<b>逐項判斷</b>";an.insertAdjacentHTML("beforeend",qm(esc(q.an.join("\n")),[]))}
   var os=d.querySelector(".os");
   q.opts.forEach(function(t,i){var b=document.createElement("button");b.className="opt";b.type="button";b.innerHTML='<b>('+L[i]+')</b><span class="ot"></span><span class="who c">正解</span><span class="who y">你選的</span><div class="ex"></div>';
-   b.querySelector(".ot").textContent=t;b.querySelector(".ex").innerHTML=fx(q,i);
+   var ws=(window.bxWrong&&(q.ok.indexOf(i)>=0)===bxWrongNeg(q.stem))?bxWrong(t,q.ex[i]):[];b.querySelector(".ot").innerHTML=ws.length?bxWrongHtml(esc(t),ws):esc(t);b.querySelector(".ex").innerHTML=fx(q,i);
    b.onclick=function(){if(d.classList.contains("done"))return;show(i,false)};os.appendChild(b)});
   function show(i,old){d.classList.add("done");var ok=q.ok.indexOf(i)>=0;
    [].forEach.call(os.children,function(b,j){if(q.ok.indexOf(j)>=0)b.classList.add("ok");else if(j===i)b.classList.add("bad")});
@@ -172,7 +176,8 @@ function fx(q,i){var t=q.ex[i]||"",ok=q.ok.indexOf(i)>=0,m=t.match(/^\s*(✓|✔
  var core=q.core&&q.core[i]?'<span class="core">'+esc(q.core[i])+'</span>':"";
  if(v===null&&core)pl="";
  if(!t&&!core)return pl;
- return pl+core+(t?'<div class="exb">'+qm(esc(t),(q.hl&&q.hl[i])||[])+'</div>':"")}
+ var eb=qm(esc(t),(q.hl&&q.hl[i])||[]);if(window.bxWrongExp&&(q.ok.indexOf(i)>=0)===bxWrongNeg(q.stem))eb=bxWrongExp(eb);
+ return pl+core+(t?'<div class="exb">'+eb+'</div>':"")}
 function newPaper(only){archive();var ids=pick(only);if(!ids.length){$("paper").innerHTML='<div class="box">全部題目都放過了。</div>';return}
  var A=BXMR.all(S),st={};ids.forEach(function(id){if(A[id])st[id]=A[id]});
  var c={t:Date.now(),ids:ids,pk:{},st:st};sv(CK,c);paper(c);hist();stats();window.scrollTo(0,$("paper").offsetTop-10)}
@@ -180,5 +185,11 @@ $("go").onclick=function(){newPaper(false)};
 nsel();stats();hist();paper(ld(CK,null));
 })();
 </script>
+<button id="bx-tg" type="button" aria-label="切換深淺色" title="切換深淺色"></button>
+<script>(function(){var H=document.documentElement,b=document.getElementById("bx-tg");
+function cur(){return H.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+function lab(){b.textContent=cur()==="dark"?"☀️":"🌙"}
+b.onclick=function(){var t=cur()==="dark"?"light":"dark";H.setAttribute("data-theme",t);try{localStorage.setItem("bx-theme",t)}catch(e){}lab()};
+lab();try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",lab)}catch(e){}})();</script>
 <script>if("serviceWorker"in navigator)navigator.serviceWorker.register("/brokerX/sw.js",{scope:"/brokerX/"});</script>
 </body></html>
