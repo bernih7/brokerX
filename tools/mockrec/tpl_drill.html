@@ -58,7 +58,7 @@ a.src{color:var(--ac)}
 <script src="@@POOL@@"></script>
 </head><body><div class="wrap">
 <h1>@@NAME@@錯題複習卷</h1>
-<div class="sub">從@@NAME@@所有模擬卷和歷屆真題抽題。答錯過、還沒放過的題先出，再補沒做過的新題，兩種混在一起考。<br>放過規則：第一次就答對的題直接放過；答錯過的題要<b>連續答對 3 次</b>才放過，中間錯一次就從 0 重算。</div>
+<div class="sub">從@@NAME@@所有模擬卷和歷屆真題抽題。答錯過、還沒放過的題先出，再補沒做過的新題，兩種混在一起考。@@RATIO_TXT@@<br>放過規則：第一次就答對的題直接放過；答錯過的題要<b>連續答對 3 次</b>才放過，中間錯一次就從 0 重算。</div>
 <div class="box"><div class="stats" id="st"></div>
 <div class="row"><span class="k-mut">一份幾題：</span><span id="nsel"></span></div>
 <div class="row"><label><input type="checkbox" id="useh" checked> 新題不夠時，補歷屆真題</label></div>
@@ -94,13 +94,33 @@ function stats(){var A=BXMR.all(S),c={done:0,todo:0,nm:0,nh:0};
  $("stk").querySelector("summary").textContent="一直錯的題（"+st.length+"）";
  $("hint").textContent=c.todo?"這份會先放 "+Math.min(c.todo,Math.ceil(N*0.7))+" 題還要練的":"";
  return c}
+var RATIO=@@RATIO@@;
+// 章節代碼：sec 開頭「A2」→A2；只有「E」→E（之後依同字母的章分配）
+function ck(q){var m=/^([A-I])(\d)?/.exec(q.sec||"");return m?m[1]+(m[2]||""):""}
+// 歷屆 107–114 年各章題數＝出題比例
+var W={},WT=0;Q.forEach(function(q){var m=/^h:(\d+)-/.exec(q.id);if(m&&+m[1]>=107){var c=ck(q);if(/\d$/.test(c)){W[c]=(W[c]||0)+1;WT++}}});
+function inCh(q,c){var k=ck(q);return k===c||k===c.charAt(0)}
+// 新題名額依「整份應有題數－已排錯題數」的缺口分配，讓整份接近歷屆比例
+function byRatio(out,fresh,K){if(K<=0||!WT)return[];
+ var t={};out.forEach(function(id){var c=ck(BY[id]);if(!W[c]&&c)for(var w in W)if(w.charAt(0)===c){c=w;break}t[c]=(t[c]||0)+1});
+ var D={},DT=0;for(var c in W){var d=Math.max(0,W[c]/WT*(K+out.length)-(t[c]||0));D[c]=d;DT+=d}
+ if(DT<=0){D=W;DT=WT}
+ // 系統抽樣：每章拿到 floor 或 ceil，期望值剛好等於比例（小章也有機會出現）
+ var q={},u=Math.random(),cum=0,ks=shuf(Object.keys(D));ks.forEach(function(c){var a=Math.floor(cum+u);cum+=D[c]/DT*K;q[c]=Math.floor(cum+u)-a});
+ var got=[],seen={};
+ Object.keys(q).forEach(function(c){var n=q[c];if(!n)return;
+  // 先模擬卷新題（同章優先，再同篇未細分），再歷屆新題
+  var a=fresh.filter(function(id){var z=BY[id];return z.p!=="h"&&ck(z)===c}),b=fresh.filter(function(id){var z=BY[id];return z.p!=="h"&&ck(z)===c.charAt(0)}),h=fresh.filter(function(id){var z=BY[id];return z.p==="h"&&ck(z)===c});
+  a.concat(b,h).forEach(function(id){if(n>0&&!seen[id]){seen[id]=1;got.push(id);n--}})});
+ return got}
 function pick(only){var A=BXMR.all(S),todo=[],nm=[],nh=[];
  Q.forEach(function(q){var s=BXMR.state(A[q.id]);if(s==="todo")todo.push(q.id);else if(s==="new")(q.p==="h"?nh:nm).push(q.id)});
  todo.sort(function(a,b){var x=A[a],y=A[b];return x.s-y.s||y.w-x.w||y.t-x.t});
  if(only)return shuf(todo.slice(0,N));
  var nT=Math.min(todo.length,Math.ceil(N*0.7)),out=todo.slice(0,nT),fresh=shuf(nm);
  if($("useh").checked)fresh=fresh.concat(shuf(nh));
- out=out.concat(fresh.slice(0,N-out.length));
+ if(RATIO)fresh=byRatio(out,fresh,N-out.length).concat(fresh);
+ out=out.concat(fresh.filter(function(x,i,a){return a.indexOf(x)===i&&out.indexOf(x)<0}).slice(0,N-out.length));
  if(out.length<N)out=out.concat(todo.slice(nT,nT+N-out.length));
  return shuf(out)}
 function nsel(){$("nsel").innerHTML=[10,25,40].map(function(n){return '<button class="btn'+(n===N?' on':'')+'" data-n="'+n+'">'+n+' 題</button>'}).join(" ");

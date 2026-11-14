@@ -10,7 +10,12 @@ def jd(s, mark):
     i = s.index(mark) + len(mark); return json.JSONDecoder().raw_decode(s[i:])[0]
 def strip(t):  # 題庫文字裡少數 HTML 標記
     t = re.sub(r'<br\s*/?>', '\n', t or ''); t = re.sub(r'<[^>]+>', '', t); return H.unescape(t).strip()
+# 11-14：曾榮耀模擬試題一原檔沒有章節，依題目內容補（錯題複習卷依章節比例出題用）
+SECFIX = {'tch1-%d' % i: c for i, c in enumerate(['', 'A2', 'A2', 'A4', 'A2', 'A3', 'A4', 'A4', 'D2', 'D3', 'G1', 'G1', 'G1', 'G1', 'H3', 'H1', 'H3', 'H3', 'H2',
+          'E2', 'E2', 'E3', 'E3', 'E3', 'E3', 'E5']) if i}
+
 def item(id, p, src, sec, stem, opts, ok, ex, tr='', an=None):
+    sec = sec or SECFIX.get(id, '')
     assert len(ex or []) in (0, 4), (id, '解析數≠4：逐項判斷要放 st，不能塞進選項解析')
     ex = [strip(x) for x in (ex or [])] + [''] * (4 - len(ex or []))
     d = dict(id=id, p=p, src=src, sec=sec or '', stem=strip(stem), opts=[strip(o) for o in opts], ok=ok, ex=ex[:4], tr=strip(tr))
